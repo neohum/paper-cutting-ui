@@ -1,0 +1,2000 @@
+/**
+ * PaperCut UI - Authentic Layered Paper-Cut Design System
+ * Faithfully recreating the aesthetic of the AI-Generated Paper-Cut Art:
+ * - NO dark cartoon borders (border: none, seamless cut edges)
+ * - Deep, soft, multi-tier diffuse shadows between physical layers
+ * - Soft pastel cardstock sheets (Mint, Peach, Lavender, Buttercup, Sky, Rose, Sage)
+ * - Layered paper shadowbox / diorama tunnels
+ * - Matte warm cream background (#F8F4EC) with tactile paper grain
+ */
+
+:root {
+  /* Matte Cream Canvas & Papers (Exact tones from AI Paper-cut Artwork) */
+  --pc-bg-cream: #F8F4EC;
+  --pc-bg-canvas: #F4EFE6;
+  --pc-paper-white: #FFFDF9;
+  --pc-paper-cream: #FAF6ED;
+  --pc-paper-card: #FFFFFF;
+  
+  /* Natural Ink Typography (Warm Charcoal) */
+  --pc-ink: #3D352E;
+  --pc-ink-muted: #7D7368;
+  --pc-ink-light: #ABA195;
+  
+  /* Soft Pastel Palette - Handcrafted Construction Paper Sheets */
+  --pc-mint: #A3D8C3;
+  --pc-mint-light: #EAF7F1;
+  --pc-mint-dark: #275C46;
+  --pc-mint-layer: #82C2A8;
+
+  --pc-peach: #F7BA9E;
+  --pc-peach-light: #FDF1EA;
+  --pc-peach-dark: #6E3B21;
+  --pc-peach-layer: #E69D7B;
+
+  --pc-lavender: #D7CBEB;
+  --pc-lavender-light: #F4F0FA;
+  --pc-lavender-dark: #473B6B;
+  --pc-lavender-layer: #B8A6D9;
+
+  --pc-buttercup: #FEE396;
+  --pc-buttercup-light: #FFF9E8;
+  --pc-buttercup-dark: #6E530F;
+  --pc-buttercup-layer: #EDC96C;
+
+  --pc-sky: #BDE0EA;
+  --pc-sky-light: #EDF7FA;
+  --pc-sky-dark: #204C5A;
+  --pc-sky-layer: #98C8D6;
+
+  --pc-rose: #F5B8BE;
+  --pc-rose-light: #FDF0F1;
+  --pc-rose-dark: #702830;
+  --pc-rose-layer: #DE939B;
+
+  --pc-sage: #BBD5B8;
+  --pc-sage-light: #F0F6EE;
+  --pc-sage-dark: #324D2E;
+  --pc-sage-layer: #9EC09A;
+
+  /* Authentic Layered Paper Shadows (Warm diffuse umber tone, NO harsh black) */
+  --pc-shadow-tint: 55, 40, 30;
+  
+  /* Shadow 1: Surface contact (very close cut paper) */
+  --pc-paper-shadow-xs: 0 1px 3px rgba(var(--pc-shadow-tint), 0.08), 0 2px 6px rgba(var(--pc-shadow-tint), 0.06);
+  
+  /* Shadow 2: Raised single cardstock sheet */
+  --pc-paper-shadow-sm: 0 3px 6px rgba(var(--pc-shadow-tint), 0.09), 0 6px 14px rgba(var(--pc-shadow-tint), 0.07);
+  
+  /* Shadow 3: Medium elevation (Buttons, Badges) */
+  --pc-paper-shadow-md: 0 4px 8px rgba(var(--pc-shadow-tint), 0.08), 0 10px 20px rgba(var(--pc-shadow-tint), 0.09), 0 16px 32px rgba(var(--pc-shadow-tint), 0.05);
+  
+  /* Shadow 4: High floating paper layer (Cards, Modals) */
+  --pc-paper-shadow-lg: 0 6px 12px rgba(var(--pc-shadow-tint), 0.08), 0 14px 28px rgba(var(--pc-shadow-tint), 0.1), 0 28px 50px rgba(var(--pc-shadow-tint), 0.06);
+
+  /* Deep Cutout Well (Shadow Box hole carved into paper) */
+  --pc-shadow-cutout: inset 0 3px 6px rgba(var(--pc-shadow-tint), 0.14), inset 0 8px 16px rgba(var(--pc-shadow-tint), 0.08), 0 1px 2px rgba(255, 255, 255, 0.8);
+
+  /* Geometry & Fonts */
+  --pc-radius-sm: 10px;
+  --pc-radius-md: 16px;
+  --pc-radius-lg: 24px;
+  --pc-radius-pill: 999px;
+  --pc-font: 'Nanum Square Round', -apple-system, sans-serif;
+  --pc-font-hand: 'Gaegu', cursive, sans-serif;
+}
+
+/* Subtle fibrous paper texture overlay across canvas */
+.pc-paper-grain {
+  position: relative;
+}
+.pc-paper-grain::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Texture modes */
+body.texture-cotton.pc-paper-grain::before {
+  opacity: 0.085;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.045' numOctaves='5' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23F8F4EC' surfaceScale='2.2' result='light'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cFilter)' fill='%236B5945'/%3E%3C/svg%3E");
+}
+
+/* Base reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   1. BUTTON PRIMITIVES & VARIATIONS
+   Clean vector knife-cut paper sheets with realistic soft drop shadow
+   NO dark cartoon border!
+   ========================================================================== */
+
+/* ==========================================================================
+   1. 3-SHEET LAYERED PAPER BUTTON (최소 3장의 종이가 겹쳐진 3D 페이퍼 버튼)
+   Base: Layer 1 (Bottom Sheet) | ::before: Layer 2 (Middle Sheet) | Button Face: Layer 3 (Top Sheet)
+   ========================================================================== */
+
+.pc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  font-family: var(--pc-font);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--pc-ink);
+  background-color: var(--pc-paper-white);
+  border: none;
+  border-radius: var(--pc-radius-md);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  z-index: 3;
+  margin: 3px 8px 8px 3px;
+  text-decoration: none;
+  outline: none;
+  white-space: nowrap;
+  
+  /* Layer 3 (Top Face Sheet): 1px clean knife-cut highlight */
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 2px 4px rgba(var(--pc-shadow-tint), 0.12);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease;
+}
+
+/* Layer 2 (Middle Paper Sheet - Asymmetric Organic Wave/Petal Cut) */
+.pc-btn::before {
+  content: "";
+  position: absolute;
+  top: 3.5px;
+  left: 3.5px;
+  right: -4px;
+  bottom: -4px;
+  background-color: var(--pc-buttercup);
+  border-radius: 20px 8px 18px 10px; /* Non-identical organic shape! */
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2px 5px rgba(var(--pc-shadow-tint), 0.1);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+}
+
+/* Layer 1 (Bottom Foundation Paper Sheet - Distinct Deckle Curve & Grounding Shadow) */
+.pc-btn::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 6.5px;
+  right: -7.5px;
+  bottom: -7.5px;
+  background-color: var(--pc-peach);
+  border-radius: 8px 24px 10px 22px; /* Distinct non-identical shape! */
+  z-index: -2;
+  pointer-events: none;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 5px 12px rgba(var(--pc-shadow-tint), 0.14),
+    0 12px 24px rgba(var(--pc-shadow-tint), 0.08);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background-color 0.2s ease;
+}
+
+/* Specialized Non-Identical Layered Button Styles */
+.pc-btn-organic-scallop::before {
+  clip-path: polygon(0% 15%, 15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%);
+  border-radius: 24px;
+}
+.pc-btn-organic-scallop::after {
+  border-radius: 28px 10px 28px 10px;
+}
+
+.pc-btn-organic-ribbon::before {
+  right: -10px;
+  clip-path: polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%);
+  border-radius: 12px 0 0 12px;
+}
+
+.pc-btn-organic-leaf::before {
+  border-radius: 26px 4px 26px 4px;
+}
+.pc-btn-organic-leaf::after {
+  border-radius: 4px 26px 4px 26px;
+}
+
+/* Hover: The top sheet lifts slightly off the stack */
+.pc-btn:hover {
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 4px 8px rgba(var(--pc-shadow-tint), 0.14);
+}
+.pc-btn:hover::before {
+  transform: translate(-0.5px, -0.5px);
+}
+.pc-btn:hover::after {
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.7) inset,
+    0 7px 16px rgba(var(--pc-shadow-tint), 0.16),
+    0 16px 32px rgba(var(--pc-shadow-tint), 0.1);
+}
+
+/* Active / Pressed: Physical compression of all 3 paper sheets together */
+.pc-btn:active,
+.pc-btn.is-pressed {
+  transform: translate(4px, 4px);
+  box-shadow: 0 1px 2px rgba(var(--pc-shadow-tint), 0.15);
+}
+.pc-btn:active::before,
+.pc-btn.is-pressed::before {
+  transform: translate(-2px, -2px);
+}
+.pc-btn:active::after,
+.pc-btn.is-pressed::after {
+  transform: translate(-3.5px, -3.5px);
+  box-shadow: 0 2px 6px rgba(var(--pc-shadow-tint), 0.12);
+}
+
+/* ==========================================================================
+   3-LAYER COLOR HARMONIES (Top, Middle, Bottom Pastel Papers)
+   ========================================================================== */
+
+/* 1. Mint 3-Layer: Top Mint (#A3D8C3) -> Middle Buttercup (#FEE396) -> Bottom Peach (#F7BA9E) */
+.pc-btn-mint {
+  background-color: var(--pc-mint);
+  color: var(--pc-mint-dark);
+}
+.pc-btn-mint::before {
+  background-color: var(--pc-buttercup);
+}
+.pc-btn-mint::after {
+  background-color: var(--pc-peach);
+}
+
+/* 2. Peach 3-Layer: Top Peach (#F7BA9E) -> Middle Mint (#A3D8C3) -> Bottom Buttercup (#FEE396) */
+.pc-btn-peach {
+  background-color: var(--pc-peach);
+  color: var(--pc-peach-dark);
+}
+.pc-btn-peach::before {
+  background-color: var(--pc-mint);
+}
+.pc-btn-peach::after {
+  background-color: var(--pc-buttercup);
+}
+
+/* 3. Lavender 3-Layer: Top Lavender (#D7CBEB) -> Middle Sky (#BDE0EA) -> Bottom Rose (#F5B8BE) */
+.pc-btn-lavender {
+  background-color: var(--pc-lavender);
+  color: var(--pc-lavender-dark);
+}
+.pc-btn-lavender::before {
+  background-color: var(--pc-sky);
+}
+.pc-btn-lavender::after {
+  background-color: var(--pc-rose);
+}
+
+/* 4. Buttercup 3-Layer: Top Buttercup (#FEE396) -> Middle Mint (#A3D8C3) -> Bottom Lavender (#D7CBEB) */
+.pc-btn-buttercup {
+  background-color: var(--pc-buttercup);
+  color: var(--pc-buttercup-dark);
+}
+.pc-btn-buttercup::before {
+  background-color: var(--pc-mint);
+}
+.pc-btn-buttercup::after {
+  background-color: var(--pc-lavender);
+}
+
+/* 5. Sky 3-Layer: Top Sky (#BDE0EA) -> Middle Lavender (#D7CBEB) -> Bottom Mint (#A3D8C3) */
+.pc-btn-sky {
+  background-color: var(--pc-sky);
+  color: var(--pc-sky-dark);
+}
+.pc-btn-sky::before {
+  background-color: var(--pc-lavender);
+}
+.pc-btn-sky::after {
+  background-color: var(--pc-mint);
+}
+
+/* 6. Rose 3-Layer: Top Rose (#F5B8BE) -> Middle Peach (#F7BA9E) -> Bottom Buttercup (#FEE396) */
+.pc-btn-rose {
+  background-color: var(--pc-rose);
+  color: var(--pc-rose-dark);
+}
+.pc-btn-rose::before {
+  background-color: var(--pc-peach);
+}
+.pc-btn-rose::after {
+  background-color: var(--pc-buttercup);
+}
+
+/* 7. Sage 3-Layer: Top Sage (#BBD5B8) -> Middle Buttercup (#FEE396) -> Bottom Mint (#A3D8C3) */
+.pc-btn-sage {
+  background-color: var(--pc-sage);
+  color: var(--pc-sage-dark);
+}
+.pc-btn-sage::before {
+  background-color: var(--pc-buttercup);
+}
+.pc-btn-sage::after {
+  background-color: var(--pc-mint);
+}
+
+/* Button Shape Adaptations for 3-Layer Construction */
+.pc-btn-pill,
+.pc-btn-scallop {
+  border-radius: var(--pc-radius-pill);
+}
+.pc-btn-pill::before,
+.pc-btn-pill::after,
+.pc-btn-scallop::before,
+.pc-btn-scallop::after {
+  border-radius: var(--pc-radius-pill);
+}
+
+/* Sizes for 3-Layer Buttons */
+.pc-btn-sm {
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: var(--pc-radius-sm);
+  margin: 1px 4px 4px 1px;
+}
+.pc-btn-sm::before {
+  top: 2px; left: 2px; right: -2px; bottom: -2px;
+  border-radius: var(--pc-radius-sm);
+}
+.pc-btn-sm::after {
+  top: 4px; left: 4px; right: -4px; bottom: -4px;
+  border-radius: var(--pc-radius-sm);
+}
+
+.pc-btn-lg {
+  padding: 13px 28px;
+  font-size: 16px;
+  border-radius: var(--pc-radius-lg);
+  margin: 3px 9px 9px 3px;
+}
+.pc-btn-lg::before {
+  top: 4.5px; left: 4.5px; right: -4.5px; bottom: -4.5px;
+  border-radius: var(--pc-radius-lg);
+}
+.pc-btn-lg::after {
+  top: 9px; left: 9px; right: -9px; bottom: -9px;
+  border-radius: var(--pc-radius-lg);
+}
+
+/* Paper Tag Button with Eyelet Punch Hole */
+.pc-btn-tag {
+  padding-left: 36px;
+}
+.pc-btn-tag::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pc-bg-cream);
+  box-shadow: inset 0 2px 4px rgba(var(--pc-shadow-tint), 0.3);
+}
+
+/* 4. Origami Folded Corner Ribbon Button */
+.pc-btn-origami {
+  position: relative;
+  overflow: hidden;
+}
+.pc-btn-origami::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 16px 16px 0;
+  border-color: transparent var(--pc-bg-cream) transparent transparent;
+  box-shadow: -2px 2px 4px rgba(var(--pc-shadow-tint), 0.18);
+}
+
+/* Sizes */
+.pc-btn-sm { padding: 6px 14px; font-size: 13px; border-radius: var(--pc-radius-sm); }
+.pc-btn-lg { padding: 14px 28px; font-size: 16px; border-radius: var(--pc-radius-lg); }
+.pc-btn-pill { border-radius: var(--pc-radius-pill); }
+
+
+/* ==========================================================================
+   2. INPUT PRIMITIVES & VARIATIONS
+   True Carved Shadowbox Well (Hole cut into the paper sheet)
+   NO harsh black stroke!
+   ========================================================================== */
+
+.pc-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.pc-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ink);
+}
+
+.pc-label-tag {
+  display: inline-block;
+  background-color: var(--pc-buttercup);
+  color: var(--pc-buttercup-dark);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  box-shadow: var(--pc-paper-shadow-xs);
+}
+
+.pc-input {
+  width: 100%;
+  font-family: var(--pc-font);
+  font-size: 15px;
+  color: var(--pc-ink);
+  background-color: #EDE8DE; /* Recessed paper layer tone */
+  border: none; /* NO dark border */
+  border-radius: var(--pc-radius-md);
+  padding: 11px 18px;
+  box-shadow: var(--pc-shadow-cutout); /* Carved hole depth */
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.pc-input::placeholder {
+  color: var(--pc-ink-light);
+  font-weight: 400;
+}
+
+.pc-input:focus {
+  background-color: #E8E2D6;
+  box-shadow: 
+    inset 0 3px 8px rgba(var(--pc-shadow-tint), 0.2),
+    0 0 0 3px var(--pc-mint);
+}
+
+/* Input Variations */
+.pc-input-stamp {
+  background-color: #F1ECE2;
+  box-shadow: var(--pc-shadow-cutout);
+}
+
+.pc-input-lined {
+  background: transparent;
+  border-radius: 0;
+  border-bottom: 2px solid var(--pc-peach-layer);
+  box-shadow: none;
+  padding: 8px 4px;
+}
+
+.pc-input-pill {
+  border-radius: var(--pc-radius-pill);
+  padding: 11px 22px;
+}
+
+
+/* ==========================================================================
+   3. CHECKBOX PRIMITIVES & VARIATIONS
+   Origami paper folds & soft pastel raised tags
+   ========================================================================== */
+
+.pc-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pc-ink);
+  position: relative;
+}
+
+.pc-checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+  margin: 0;
+}
+
+/* Default Paper Square Checkbox */
+.pc-checkbox-box {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  background-color: var(--pc-paper-white);
+  border: none;
+  border-radius: 7px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    var(--pc-paper-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-checkbox-box::after {
+  content: "";
+  width: 6px;
+  height: 10px;
+  border: solid var(--pc-mint-dark);
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg) scale(0);
+  opacity: 0;
+  transition: all 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  margin-top: -2px;
+}
+
+.pc-checkbox-input:checked + .pc-checkbox-box {
+  background-color: var(--pc-mint);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    var(--pc-paper-shadow-xs);
+  transform: translateY(1px);
+}
+
+.pc-checkbox-input:checked + .pc-checkbox-box::after {
+  transform: rotate(45deg) scale(1);
+  opacity: 1;
+}
+
+/* Origami Dog-Ear Corner Fold Checkbox */
+.pc-checkbox-origami .pc-checkbox-box {
+  border-radius: 6px;
+}
+.pc-checkbox-origami .pc-checkbox-input:checked + .pc-checkbox-box {
+  background-color: var(--pc-peach);
+}
+.pc-checkbox-origami .pc-checkbox-input:checked + .pc-checkbox-box::before {
+  content: "";
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 0 8px 8px;
+  border-color: transparent transparent var(--pc-bg-cream) transparent;
+  box-shadow: -1px -1px 3px rgba(var(--pc-shadow-tint), 0.2);
+}
+.pc-checkbox-origami .pc-checkbox-input:checked + .pc-checkbox-box::after {
+  border-color: var(--pc-peach-dark);
+}
+
+/* Paper Tag Badge Toggle */
+.pc-checkbox-tag-btn {
+  padding: 7px 16px;
+  background-color: var(--pc-paper-white);
+  border: none;
+  border-radius: var(--pc-radius-pill);
+  box-shadow: var(--pc-paper-shadow-sm);
+  transition: all 0.18s ease;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.pc-checkbox-input:checked ~ .pc-checkbox-tag-btn {
+  background-color: var(--pc-lavender);
+  color: var(--pc-lavender-dark);
+  box-shadow: 0 4px 10px rgba(var(--pc-shadow-tint), 0.12);
+  transform: translateY(-1px);
+}
+
+
+/* ==========================================================================
+   4. DROPDOWN PRIMITIVES & VARIATIONS
+   Bookmark Swatches & Layered Paper Sheets
+   ========================================================================== */
+
+.pc-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+.pc-select {
+  width: 100%;
+  font-family: var(--pc-font);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--pc-ink);
+  background-color: var(--pc-paper-white);
+  border: none;
+  border-radius: var(--pc-radius-md);
+  padding: 11px 40px 11px 18px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    var(--pc-paper-shadow-sm);
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.18s ease;
+}
+.pc-select:hover {
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    var(--pc-paper-shadow-md);
+}
+.pc-select:focus {
+  box-shadow: 
+    0 0 0 3px var(--pc-lavender),
+    var(--pc-paper-shadow-md);
+}
+.pc-select-wrapper::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--pc-ink-muted);
+  pointer-events: none;
+}
+
+/* Custom Paper Bookmark Cascade Dropdown */
+.pc-dropdown-custom {
+  position: relative;
+  width: 100%;
+}
+.pc-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 18px;
+  background-color: var(--pc-paper-white);
+  border: none;
+  border-radius: var(--pc-radius-md);
+  font-family: var(--pc-font);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--pc-ink);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    var(--pc-paper-shadow-sm);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.pc-dropdown-trigger:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--pc-paper-shadow-md);
+}
+/* Layered Paper Dropdown Menu (Stacked Bookmark Swatches) */
+.pc-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0; right: 0;
+  background: var(--pc-paper-white);
+  border: none;
+  border-radius: var(--pc-radius-md);
+  /* 3-layer paper stack backing created via shadow to prevent any scrollbar overflow */
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    3.5px 3.5px 0 var(--pc-peach-light),
+    7px 7px 0 var(--pc-buttercup-light),
+    0 8px 18px rgba(var(--pc-shadow-tint), 0.14),
+    0 20px 40px rgba(var(--pc-shadow-tint), 0.12);
+  padding: 8px;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px) scale(0.97);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 290px;
+  overflow-x: hidden !important; /* Zero horizontal scrollbar */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pc-mint-layer) transparent;
+}
+
+/* Custom Slim Paper Scrollbar */
+.pc-dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+}
+.pc-dropdown-menu::-webkit-scrollbar-track {
+  background: transparent;
+}
+.pc-dropdown-menu::-webkit-scrollbar-thumb {
+  background: var(--pc-mint-layer);
+  border-radius: 999px;
+}
+
+.pc-dropdown-custom.is-open .pc-dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Individual Paper Bookmark Swatch Items */
+.pc-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 9px;
+  font-family: var(--pc-font);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pc-ink);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #FFFDF9;
+  border: none;
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 1px 2px rgba(var(--pc-shadow-tint), 0.04);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pc-dropdown-item:hover {
+  background-color: var(--pc-lavender-light);
+  color: var(--pc-lavender-dark);
+  transform: translateX(4px);
+  box-shadow: var(--pc-paper-shadow-xs);
+}
+
+.pc-dropdown-item.is-selected {
+  background-color: var(--pc-mint-light);
+  color: var(--pc-mint-dark);
+  font-weight: 700;
+  transform: translateX(4px);
+}
+.pc-dropdown-item.is-selected::after {
+  content: "✓";
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pc-mint-dark);
+}
+
+
+/* ==========================================================================
+   5. SHADOW BOX DIORAMA CONTAINERS & OVERLAPPING PAPER SCENERY
+   ========================================================================== */
+
+/* Authentic Layered Paper Card (Like a sheet of thick handmade paper on cream mat) */
+.pc-card {
+  position: relative;
+  background: var(--pc-paper-card);
+  border: none; /* NO dark border */
+  border-radius: var(--pc-radius-lg);
+  padding: 24px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg);
+}
+
+/* Multi-Layer Stacked Paper Construction Card (Sheets visibly peeking out) */
+.pc-card-stacked {
+  position: relative;
+  z-index: 1;
+}
+.pc-card-stacked::before {
+  content: "";
+  position: absolute;
+  top: 6px; left: 6px; right: -6px; bottom: -6px;
+  background: var(--pc-peach-light);
+  border-radius: var(--pc-radius-lg);
+  z-index: -1;
+  box-shadow: var(--pc-paper-shadow-xs);
+}
+.pc-card-stacked::after {
+  content: "";
+  position: absolute;
+  top: 12px; left: 12px; right: -12px; bottom: -12px;
+  background: var(--pc-mint-light);
+  border-radius: var(--pc-radius-lg);
+  z-index: -2;
+  box-shadow: var(--pc-paper-shadow-xs);
+}
+
+/* Washi Tape Strip (Translucent paper tape with deckle edge) */
+.pc-washi-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 90px;
+  height: 24px;
+  background-color: rgba(254, 227, 150, 0.75);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 5px rgba(var(--pc-shadow-tint), 0.1);
+  pointer-events: none;
+  z-index: 10;
+  clip-path: polygon(4% 0%, 96% 0%, 100% 50%, 96% 100%, 4% 100%, 0% 50%);
+}
+.pc-washi-tape-mint {
+  background-color: rgba(163, 216, 195, 0.75);
+}
+.pc-washi-tape-rose {
+  background-color: rgba(245, 184, 190, 0.75);
+}
+
+/* Paper Badge */
+.pc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: var(--pc-radius-pill);
+  box-shadow: var(--pc-paper-shadow-xs);
+  border: none;
+}
+.pc-badge-mint { background: var(--pc-mint); color: var(--pc-mint-dark); }
+.pc-badge-peach { background: var(--pc-peach); color: var(--pc-peach-dark); }
+.pc-badge-lavender { background: var(--pc-lavender); color: var(--pc-lavender-dark); }
+.pc-badge-buttercup { background: var(--pc-buttercup); color: var(--pc-buttercup-dark); }
+.pc-badge-sky { background: var(--pc-sky); color: var(--pc-sky-dark); }
+.pc-badge-rose { background: var(--pc-rose); color: var(--pc-rose-dark); }
+.pc-badge-sage { background: var(--pc-sage); color: var(--pc-sage-dark); }
+
+/* Paper Cutout Stage/Well inside cards */
+.pc-cutout-well {
+  background-color: #EDE8DE;
+  border: none;
+  border-radius: var(--pc-radius-md);
+  padding: 18px;
+  box-shadow: var(--pc-shadow-cutout);
+}
+
+/* Paper Ribbon Banner */
+.pc-ribbon-banner {
+  background: var(--pc-buttercup);
+  color: var(--pc-buttercup-dark);
+  font-weight: 800;
+  padding: 6px 18px;
+  border-radius: 8px;
+  box-shadow: var(--pc-paper-shadow-sm);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+/* ==========================================================================
+   6. 14 PLAYGROUND PASTEL THEME PRESETS (14가지 파스텔 테마 색지 프리셋)
+   ========================================================================== */
+
+#playground-preview-box.theme-cream {
+  background-color: #FFFFFF !important;
+}
+#playground-preview-box.theme-cream::before { background-color: var(--pc-mint) !important; }
+#playground-preview-box.theme-cream::after { background-color: var(--pc-buttercup) !important; }
+
+#playground-preview-box.theme-peach {
+  background-color: #FFFDF9 !important;
+}
+#playground-preview-box.theme-peach::before { background-color: var(--pc-peach) !important; }
+#playground-preview-box.theme-peach::after { background-color: var(--pc-buttercup) !important; }
+
+#playground-preview-box.theme-lavender {
+  background-color: #FAF8FE !important;
+}
+#playground-preview-box.theme-lavender::before { background-color: var(--pc-lavender) !important; }
+#playground-preview-box.theme-lavender::after { background-color: var(--pc-sky) !important; }
+
+#playground-preview-box.theme-buttercup {
+  background-color: #FFFDF5 !important;
+}
+#playground-preview-box.theme-buttercup::before { background-color: var(--pc-buttercup) !important; }
+#playground-preview-box.theme-buttercup::after { background-color: var(--pc-mint) !important; }
+
+#playground-preview-box.theme-sky {
+  background-color: #F6FBFE !important;
+}
+#playground-preview-box.theme-sky::before { background-color: var(--pc-sky) !important; }
+#playground-preview-box.theme-sky::after { background-color: var(--pc-mint) !important; }
+
+#playground-preview-box.theme-cherry {
+  background-color: #FEF7F8 !important;
+}
+#playground-preview-box.theme-cherry::before { background-color: var(--pc-rose) !important; }
+#playground-preview-box.theme-cherry::after { background-color: var(--pc-peach) !important; }
+
+#playground-preview-box.theme-matcha {
+  background-color: #F8FAF6 !important;
+}
+#playground-preview-box.theme-matcha::before { background-color: var(--pc-sage) !important; }
+#playground-preview-box.theme-matcha::after { background-color: var(--pc-buttercup) !important; }
+
+#playground-preview-box.theme-cotton-candy {
+  background-color: #FDF9FD !important;
+}
+#playground-preview-box.theme-cotton-candy::before { background-color: #F5B8BE !important; }
+#playground-preview-box.theme-cotton-candy::after { background-color: #BDE0EA !important; }
+
+#playground-preview-box.theme-lemon {
+  background-color: #FFFEF7 !important;
+}
+#playground-preview-box.theme-lemon::before { background-color: #FFF099 !important; }
+#playground-preview-box.theme-lemon::after { background-color: #C8E8D5 !important; }
+
+#playground-preview-box.theme-twilight {
+  background-color: #F6F4FA !important;
+}
+#playground-preview-box.theme-twilight::before { background-color: #C8B8E8 !important; }
+#playground-preview-box.theme-twilight::after { background-color: #FEE396 !important; }
+
+#playground-preview-box.theme-apricot {
+  background-color: #FFF9F5 !important;
+}
+#playground-preview-box.theme-apricot::before { background-color: #F8C39E !important; }
+#playground-preview-box.theme-apricot::after { background-color: #F5A8B2 !important; }
+
+#playground-preview-box.theme-eucalyptus {
+  background-color: #F5F9F6 !important;
+}
+#playground-preview-box.theme-eucalyptus::before { background-color: #A3CCA0 !important; }
+#playground-preview-box.theme-eucalyptus::after { background-color: #C8B8E8 !important; }
+
+#playground-preview-box.theme-berry {
+  background-color: #FAF5F8 !important;
+}
+#playground-preview-box.theme-berry::before { background-color: #E8A8C2 !important; }
+#playground-preview-box.theme-berry::after { background-color: #BDE0EA !important; }
+
+#playground-preview-box.theme-teddy {
+  background-color: #FAF6F0 !important;
+}
+#playground-preview-box.theme-teddy::before { background-color: #E2CCA8 !important; }
+#playground-preview-box.theme-teddy::after { background-color: #F7BA9E !important; }
+
+
+/* ==========================================================================
+   7. 3D PAPER-CUT ICON GALLERY STYLES
+   Generous 64px detailed paper-cut icons with 3-layer paper craft backing
+   ========================================================================== */
+
+.pc-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.pc-icon-card {
+  background: var(--pc-paper-white);
+  border-radius: 22px;
+  padding: 22px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-sm);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-icon-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg);
+}
+
+/* Open Stage for the Paper-Cut Icon: ZERO BACKGROUND BOX, ZERO TILES */
+.pc-icon-stage {
+  width: 78px;
+  height: 78px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-icon-stage::before,
+.pc-icon-stage::after {
+  display: none !important; /* Absolutely NO background sheets behind the icon */
+}
+
+.pc-icon-card:hover .pc-icon-stage {
+  transform: translateY(-3px) scale(1.1);
+}
+
+/* The Standalone Layered Paper-Cut SVG */
+.pc-layered-paper-icon {
+  width: 68px;
+  height: 68px;
+  display: block;
+  overflow: visible;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  image-rendering: -webkit-optimize-contrast;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-icon-name-ko {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--pc-ink);
+  margin-top: 2px;
+}
+
+.pc-icon-name-en {
+  font-size: 11.5px;
+  color: var(--pc-ink-muted);
+  font-weight: 600;
+}
+
+/* Icon Explorer Toolbar & Category Filter Pills */
+.pc-icon-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+  margin-bottom: 24px;
+}
+
+.pc-icon-search-bar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  position: relative;
+}
+
+.pc-icon-category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pc-icon-cat-btn {
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: none;
+  font-family: var(--pc-font);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--pc-bg-cream);
+  color: var(--pc-ink-muted);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(55,40,30,0.06);
+  transition: all 0.15s ease;
+}
+
+.pc-icon-cat-btn:hover {
+  background: var(--pc-buttercup-light);
+  color: var(--pc-ink);
+  transform: translateY(-1px);
+}
+
+.pc-icon-cat-btn.is-active {
+  background: var(--pc-mint);
+  color: var(--pc-mint-dark);
+  box-shadow: var(--pc-paper-shadow-sm);
+  transform: translateY(-1px);
+}
+
+.pc-icon-empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--pc-ink-muted);
+  font-size: 15px;
+  background: var(--pc-bg-cream);
+  border-radius: 18px;
+  border: 2px dashed rgba(74, 58, 42, 0.15);
+}
+
+/* ==========================================================================
+   8. MATTE CREAM 3D ART SURFACE TEXTURE SHOWCASE
+   Pure CSS + Inline SVG Pulp Shader (No external image files)
+   ========================================================================== */
+.pc-matte-showcase {
+  background: var(--pc-paper-white);
+  border-radius: var(--pc-radius-lg);
+  padding: 36px 32px;
+  position: relative;
+  box-shadow: var(--pc-paper-shadow-lg);
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.pc-matte-stage {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 28px;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .pc-matte-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pc-matte-paper-canvas {
+  min-height: 330px;
+  border-radius: 22px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  overflow: hidden;
+  background-color: #FAF6ED;
+  box-shadow: 
+    0 1.5px 0 rgba(255, 255, 255, 0.95) inset,
+    0 -1px 0 rgba(74, 58, 42, 0.05) inset,
+    var(--pc-paper-shadow-lg);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-pulp-shader {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  transition: opacity 0.3s ease;
+}
+
+.pc-matte-ambient {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.7) 0%, rgba(250, 246, 237, 0.2) 55%, rgba(215, 200, 180, 0.25) 100%);
+  transition: opacity 0.3s ease;
+}
+
+.pc-knife-bevel-active {
+  box-shadow: 
+    0 2px 0 rgba(255, 255, 255, 0.98) inset,
+    0 -1.5px 0 rgba(74, 58, 42, 0.08) inset,
+    var(--pc-paper-shadow-lg) !important;
+}
+
+.pc-matte-art-preview {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ==========================================================================
+   9. 3D PAPER-CUT ICON BACKGROUND SHAPES & PLATES (30 UNIQUE DESIGNS)
+   ========================================================================== */
+
+.pc-bg-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 14px;
+  margin-bottom: 24px;
+}
+
+.pc-bg-controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pc-bg-preview-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pc-bg-preview-select {
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(74, 58, 42, 0.15);
+  background: #FFFDF9;
+  font-family: var(--pc-font);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ink);
+  outline: none;
+  cursor: pointer;
+  box-shadow: var(--pc-paper-shadow-xs);
+  transition: all 0.2s ease;
+}
+
+.pc-bg-preview-select:focus {
+  border-color: var(--pc-mint-layer);
+  box-shadow: 0 0 0 3px rgba(163, 216, 195, 0.3);
+}
+
+.pc-bg-category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pc-bg-cat-btn {
+  padding: 7px 15px;
+  border-radius: 999px;
+  border: none;
+  font-family: var(--pc-font);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--pc-bg-cream);
+  color: var(--pc-ink-muted);
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(55, 40, 30, 0.06);
+  transition: all 0.15s ease;
+}
+
+.pc-bg-cat-btn:hover {
+  background: var(--pc-peach-light);
+  color: var(--pc-ink);
+  transform: translateY(-1px);
+}
+
+.pc-bg-cat-btn.is-active {
+  background: var(--pc-peach);
+  color: var(--pc-peach-dark);
+  box-shadow: var(--pc-paper-shadow-sm);
+  transform: translateY(-1px);
+}
+
+/* Background Plate Grid & Cards */
+.pc-bg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+  margin-top: 10px;
+}
+
+.pc-bg-card {
+  background: #FFFFFF;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-sm);
+  border: 1px solid rgba(74, 58, 42, 0.07);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.pc-bg-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--pc-paper-shadow-lg);
+  border-color: rgba(74, 58, 42, 0.14);
+}
+
+.pc-bg-plate-stage {
+  min-height: 124px;
+  background: var(--pc-bg-cream);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  padding: 14px 10px;
+  box-shadow: 0 1.5px 3px rgba(74, 58, 42, 0.05) inset;
+}
+
+.pc-bg-plate-svg {
+  width: 96px;
+  height: 96px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 2px 5px rgba(74, 58, 42, 0.06));
+}
+
+.pc-bg-card:hover .pc-bg-plate-svg {
+  transform: translateY(-2px) scale(1.05);
+}
+
+.pc-bg-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pc-bg-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pc-bg-num {
+  font-family: 'Gaegu', monospace, cursive;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pc-ink-muted);
+}
+
+.pc-bg-name-ko {
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--pc-ink);
+  letter-spacing: -0.3px;
+}
+
+.pc-bg-name-en {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pc-ink-muted);
+}
+
+.pc-bg-palette-desc {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--pc-ink-muted);
+  background: var(--pc-bg-cream);
+  padding: 5px 8px;
+  border-radius: 7px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pc-bg-rec-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pc-mint-dark);
+  margin-top: 1px;
+}
+
+.pc-bg-action-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pc-bg-action-row .pc-btn {
+  flex: 1;
+  padding: 7px 10px;
+  font-size: 12px;
+  justify-content: center;
+}
+
+/* Standalone CSS Icon Badge Container Utilities */
+.pc-icon-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: var(--pc-paper-white);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, var(--pc-paper-shadow-sm);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: visible;
+}
+
+.pc-icon-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1.5px 0 rgba(255, 255, 255, 0.98) inset, var(--pc-paper-shadow-md);
+}
+
+/* Common Shape Variants in Pure CSS */
+.pc-badge-shape-squircle {
+  border-radius: 24px;
+}
+
+.pc-badge-shape-pebble {
+  border-radius: 42% 58% 62% 38% / 54% 46% 54% 46%;
+}
+
+.pc-badge-shape-wax {
+  border-radius: 54% 46% 48% 52% / 48% 54% 46% 52%;
+  border: 4px solid var(--pc-peach-layer);
+  box-shadow: 0 0 0 2px var(--pc-rose-layer), var(--pc-paper-shadow-sm);
+}
+
+.pc-badge-shape-arch {
+  border-radius: 999px 999px 14px 14px;
+  height: 88px;
+}
+
+.pc-badge-shape-shield {
+  border-radius: 14px 14px 50% 50% / 14px 14px 75% 75%;
+  height: 88px;
+}
+
+.pc-badge-shape-tag {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 100%, 0% 100%, 0% 25%);
+  border-radius: 4px;
+}
+
+.pc-badge-shape-pennant {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 50% 100%, 0% 85%);
+  height: 92px;
+}
+
+.pc-badge-shape-hex {
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  border-radius: 6px;
+}
+
+.pc-badge-shape-polaroid {
+  border-radius: 6px;
+  height: 92px;
+  padding-bottom: 12px;
+  border-bottom: 10px solid #FAF6ED;
+}
+
+/* ==========================================================================
+   10. EXTENDED 3D PAPER TEXTURE SYSTEM
+   16 Authentic Procedural Handcrafted Paper Stocks (Pure CSS + Inline SVG Data-URI)
+   Supports containers, cards, buttons, inputs, dropdowns, badges, and icons!
+   ========================================================================== */
+
+/* Universal Base for all Paper Textures */
+[class*="pc-texture-"],
+.pc-surface-cotton {
+  position: relative !important;
+  isolation: isolate;
+}
+
+[class*="pc-texture-"]::before,
+.pc-surface-cotton::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  mix-blend-mode: multiply;
+  z-index: 1;
+  transition: opacity 0.25s ease, background-image 0.25s ease;
+}
+
+[class*="pc-texture-"]::after,
+.pc-surface-cotton::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: 
+    0 1.5px 0 rgba(255, 255, 255, 0.92) inset,
+    0 -1px 0 rgba(74, 58, 42, 0.08) inset;
+  z-index: 2;
+}
+
+[class*="pc-texture-none"]::before {
+  display: none !important;
+}
+[class*="pc-texture-none"]::after {
+  box-shadow: none !important;
+}
+
+/* Ensure contents stay above base background texture layer */
+[class*="pc-texture-"] > *:not(.pc-texture-underlay),
+.pc-surface-cotton > *:not(.pc-texture-underlay) {
+  position: relative;
+  z-index: 3;
+}
+
+/* Standalone & Inline Icons Textured Overlay (multiplies texture over icon paths) */
+.pc-icon-texture-wrap,
+.pc-icon-badge[class*="pc-texture-"] {
+  position: relative;
+  isolation: isolate;
+}
+
+.pc-icon-texture-wrap::after,
+.pc-icon-badge[class*="pc-texture-"]::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  mix-blend-mode: multiply;
+  z-index: 10;
+  box-shadow: 
+    0 1.5px 0 rgba(255, 255, 255, 0.85) inset,
+    0 -1px 0 rgba(74, 58, 42, 0.08) inset;
+  transition: opacity 0.25s ease;
+}
+
+/* Backward compatibility aliases */
+.pc-texture-paper::before {
+  opacity: 0.35;
+}
+.pc-texture-kraft::before {
+  opacity: 0.38;
+}
+
+/* 300g 수제 코튼지 (300g Heavyweight Cotton) */
+.pc-texture-cotton::before,
+.pc-icon-texture-wrap.pc-texture-cotton::after,
+.pc-icon-badge.pc-texture-cotton::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_cotton'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.65'%20numOctaves%3D'4'%20result%3D'noise'%2F%3E%3CfeDiffuseLighting%20in%3D'noise'%20lighting-color%3D'%23FFFDF9'%20surfaceScale%3D'1.4'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'55'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FAF6ED'%20filter%3D'url(%23f_cotton)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-cotton::before {
+  opacity: 0.35;
+}
+.pc-icon-texture-wrap.pc-texture-cotton::after {
+  opacity: 0.32;
+}
+.pc-icon-badge.pc-texture-cotton::after {
+  opacity: 0.26;
+}
+.pc-texture-paper::before,
+.pc-icon-texture-wrap.pc-texture-paper::after,
+.pc-icon-badge.pc-texture-paper::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_cotton'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.65'%20numOctaves%3D'4'%20result%3D'noise'%2F%3E%3CfeDiffuseLighting%20in%3D'noise'%20lighting-color%3D'%23FFFDF9'%20surfaceScale%3D'1.4'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'55'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FAF6ED'%20filter%3D'url(%23f_cotton)'%2F%3E%3C%2Fsvg%3E");
+}
+/* 350g 매트 크림보드 (350g Matte Cream Board) */
+.pc-texture-cream::before,
+.pc-icon-texture-wrap.pc-texture-cream::after,
+.pc-icon-badge.pc-texture-cream::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_cream'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.45'%20numOctaves%3D'4'%20result%3D'noise'%2F%3E%3CfeDiffuseLighting%20in%3D'noise'%20lighting-color%3D'%23FFFBF2'%20surfaceScale%3D'1.7'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'50'%20elevation%3D'50'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23F5EEDB'%20filter%3D'url(%23f_cream)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-cream::before {
+  opacity: 0.38;
+}
+.pc-icon-texture-wrap.pc-texture-cream::after {
+  opacity: 0.34;
+}
+.pc-icon-badge.pc-texture-cream::after {
+  opacity: 0.29;
+}
+.pc-texture-kraft::before,
+.pc-icon-texture-wrap.pc-texture-kraft::after,
+.pc-icon-badge.pc-texture-kraft::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_cream'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.45'%20numOctaves%3D'4'%20result%3D'noise'%2F%3E%3CfeDiffuseLighting%20in%3D'noise'%20lighting-color%3D'%23FFFBF2'%20surfaceScale%3D'1.7'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'50'%20elevation%3D'50'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23F5EEDB'%20filter%3D'url(%23f_cream)'%2F%3E%3C%2Fsvg%3E");
+}
+/* 닥나무 한지결 (Mulberry Fiber Hanji) */
+.pc-texture-hanji::before,
+.pc-icon-texture-wrap.pc-texture-hanji::after,
+.pc-icon-badge.pc-texture-hanji::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20240%20240'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_hanji'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.035%200.7'%20numOctaves%3D'3'%20result%3D'fiber'%2F%3E%3CfeDiffuseLighting%20in%3D'fiber'%20lighting-color%3D'%23FAF7F0'%20surfaceScale%3D'2.2'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'60'%20elevation%3D'40'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23F7F2E7'%20filter%3D'url(%23f_hanji)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-hanji::before {
+  opacity: 0.44;
+}
+.pc-icon-texture-wrap.pc-texture-hanji::after {
+  opacity: 0.40;
+}
+.pc-icon-badge.pc-texture-hanji::after {
+  opacity: 0.33;
+}
+/* 실크벨러지 (Smooth Silk Vellum) */
+.pc-texture-vellum::before,
+.pc-icon-texture-wrap.pc-texture-vellum::after,
+.pc-icon-badge.pc-texture-vellum::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_vellum'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.85'%20numOctaves%3D'2'%20result%3D'noise'%2F%3E%3CfeDiffuseLighting%20in%3D'noise'%20lighting-color%3D'%23FFFFFF'%20surfaceScale%3D'0.7'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'70'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FFFDF8'%20filter%3D'url(%23f_vellum)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-vellum::before {
+  opacity: 0.22;
+}
+.pc-icon-texture-wrap.pc-texture-vellum::after {
+  opacity: 0.20;
+}
+.pc-icon-badge.pc-texture-vellum::after {
+  opacity: 0.17;
+}
+/* 300g 아르쉬 수채화지 (Rough Watercolor Paper) */
+.pc-texture-watercolor::before,
+.pc-icon-texture-wrap.pc-texture-watercolor::after,
+.pc-icon-badge.pc-texture-watercolor::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_wc'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.09'%20numOctaves%3D'4'%20result%3D'noise'%2F%3E%3CfeDiffuseLighting%20in%3D'noise'%20lighting-color%3D'%23FFFDF9'%20surfaceScale%3D'2.8'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'40'%20elevation%3D'45'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FAF7F2'%20filter%3D'url(%23f_wc)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-watercolor::before {
+  opacity: 0.48;
+}
+.pc-icon-texture-wrap.pc-texture-watercolor::after {
+  opacity: 0.43;
+}
+.pc-icon-badge.pc-texture-watercolor::after {
+  opacity: 0.36;
+}
+/* 프렌치 린넨 패브릭지 (French Woven Linen) */
+.pc-texture-linen::before,
+.pc-icon-texture-wrap.pc-texture-linen::after,
+.pc-icon-badge.pc-texture-linen::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20160%20160'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_linen'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.28%200.04'%20numOctaves%3D'2'%20result%3D'h'%2F%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.04%200.28'%20numOctaves%3D'2'%20result%3D'v'%2F%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'h'%20in2%3D'v'%20result%3D'grid'%2F%3E%3CfeDiffuseLighting%20in%3D'grid'%20lighting-color%3D'%23FFFDF8'%20surfaceScale%3D'1.9'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'55'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23F5EFE6'%20filter%3D'url(%23f_linen)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-linen::before {
+  opacity: 0.42;
+}
+.pc-icon-texture-wrap.pc-texture-linen::after {
+  opacity: 0.38;
+}
+.pc-icon-badge.pc-texture-linen::after {
+  opacity: 0.32;
+}
+/* 펄 메탈릭 쉬머지 (Pearlescent Stardream) */
+.pc-texture-shimmer::before,
+.pc-icon-texture-wrap.pc-texture-shimmer::after,
+.pc-icon-badge.pc-texture-shimmer::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_shim'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.75'%20numOctaves%3D'3'%20result%3D'grain'%2F%3E%3CfeDiffuseLighting%20in%3D'grain'%20lighting-color%3D'%23FFFDF9'%20surfaceScale%3D'1.2'%20result%3D'diff'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'55'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeSpecularLighting%20in%3D'grain'%20surfaceScale%3D'1.8'%20specularConstant%3D'0.8'%20specularExponent%3D'15'%20lighting-color%3D'%23FFFFFF'%20result%3D'spec'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'60'%2F%3E%3C%2FfeSpecularLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'diff'%20result%3D'base'%2F%3E%3CfeComposite%20in%3D'spec'%20in2%3D'base'%20operator%3D'arithmetic'%20k1%3D'0'%20k2%3D'1'%20k3%3D'1'%20k4%3D'0'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FAF6F2'%20filter%3D'url(%23f_shim)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-shimmer::before {
+  opacity: 0.38;
+}
+.pc-icon-texture-wrap.pc-texture-shimmer::after {
+  opacity: 0.34;
+}
+.pc-icon-badge.pc-texture-shimmer::after {
+  opacity: 0.29;
+}
+/* 빈티지 앤틱 양피지 (Antique Parchment) */
+.pc-texture-parchment::before,
+.pc-icon-texture-wrap.pc-texture-parchment::after,
+.pc-icon-badge.pc-texture-parchment::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20240%20240'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_parch'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.025'%20numOctaves%3D'4'%20result%3D'cloud'%2F%3E%3CfeDiffuseLighting%20in%3D'cloud'%20lighting-color%3D'%23FAF0DE'%20surfaceScale%3D'2.2'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'45'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23F3E7D3'%20filter%3D'url(%23f_parch)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-parchment::before {
+  opacity: 0.45;
+}
+.pc-icon-texture-wrap.pc-texture-parchment::after {
+  opacity: 0.41;
+}
+.pc-icon-badge.pc-texture-parchment::after {
+  opacity: 0.34;
+}
+/* 포근한 펠트 모직지 (Soft Pressed Wool Felt) */
+.pc-texture-felt::before,
+.pc-icon-texture-wrap.pc-texture-felt::after,
+.pc-icon-badge.pc-texture-felt::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_felt'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.32'%20numOctaves%3D'4'%20result%3D'wool'%2F%3E%3CfeDiffuseLighting%20in%3D'wool'%20lighting-color%3D'%23FFFFFF'%20surfaceScale%3D'1.6'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'60'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FAF8F5'%20filter%3D'url(%23f_felt)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-felt::before {
+  opacity: 0.38;
+}
+.pc-icon-texture-wrap.pc-texture-felt::after {
+  opacity: 0.34;
+}
+.pc-icon-badge.pc-texture-felt::after {
+  opacity: 0.29;
+}
+/* 친환경 에코 플록지 (Eco Flecked Recycled) */
+.pc-texture-eco::before,
+.pc-icon-texture-wrap.pc-texture-eco::after,
+.pc-icon-badge.pc-texture-eco::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_eco'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.55'%20numOctaves%3D'3'%20result%3D'flecks'%2F%3E%3CfeDiffuseLighting%20in%3D'flecks'%20lighting-color%3D'%23F8F3EA'%20surfaceScale%3D'2.0'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'40'%20elevation%3D'50'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23EFE7DA'%20filter%3D'url(%23f_eco)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-eco::before {
+  opacity: 0.44;
+}
+.pc-icon-texture-wrap.pc-texture-eco::after {
+  opacity: 0.40;
+}
+.pc-icon-badge.pc-texture-eco::after {
+  opacity: 0.33;
+}
+/* 오리가미 운용 화지 (Origami Cloud Washi) */
+.pc-texture-washi::before,
+.pc-icon-texture-wrap.pc-texture-washi::after,
+.pc-icon-badge.pc-texture-washi::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20240%20240'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_washi'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.04%200.2'%20numOctaves%3D'3'%20result%3D'unryu'%2F%3E%3CfeDiffuseLighting%20in%3D'unryu'%20lighting-color%3D'%23FFFDF8'%20surfaceScale%3D'1.8'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'55'%20elevation%3D'45'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FAF7F2'%20filter%3D'url(%23f_washi)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-washi::before {
+  opacity: 0.4;
+}
+.pc-icon-texture-wrap.pc-texture-washi::after {
+  opacity: 0.36;
+}
+.pc-icon-badge.pc-texture-washi::after {
+  opacity: 0.30;
+}
+/* 캔버스 북클로스지 (Bookcloth Canvas Board) */
+.pc-texture-bookcloth::before,
+.pc-icon-texture-wrap.pc-texture-bookcloth::after,
+.pc-icon-badge.pc-texture-bookcloth::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20160%20160'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_bc'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.2%200.2'%20numOctaves%3D'3'%20result%3D'weave'%2F%3E%3CfeDiffuseLighting%20in%3D'weave'%20lighting-color%3D'%23F7F2E8'%20surfaceScale%3D'2.4'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'50'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23ECE4D6'%20filter%3D'url(%23f_bc)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-bookcloth::before {
+  opacity: 0.46;
+}
+.pc-icon-texture-wrap.pc-texture-bookcloth::after {
+  opacity: 0.41;
+}
+.pc-icon-badge.pc-texture-bookcloth::after {
+  opacity: 0.35;
+}
+/* 프로스티드 트레이싱지 (Frosted Tracing Vellum) */
+.pc-texture-tracing::before,
+.pc-icon-texture-wrap.pc-texture-tracing::after,
+.pc-icon-badge.pc-texture-tracing::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20200%20200'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_trace'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.9'%20numOctaves%3D'2'%20result%3D'mist'%2F%3E%3CfeDiffuseLighting%20in%3D'mist'%20lighting-color%3D'%23FFFFFF'%20surfaceScale%3D'0.5'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'70'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23FAFAF9'%20filter%3D'url(%23f_trace)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-tracing::before {
+  opacity: 0.25;
+}
+.pc-icon-texture-wrap.pc-texture-tracing::after {
+  opacity: 0.23;
+}
+.pc-icon-badge.pc-texture-tracing::after {
+  opacity: 0.19;
+}
+/* 엠보스 레더렛지 (Saffiano Leatherette) */
+.pc-texture-leatherette::before,
+.pc-icon-texture-wrap.pc-texture-leatherette::after,
+.pc-icon-badge.pc-texture-leatherette::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20180%20180'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_leath'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.16%200.16'%20numOctaves%3D'3'%20result%3D'saffiano'%2F%3E%3CfeDiffuseLighting%20in%3D'saffiano'%20lighting-color%3D'%23FAF5ED'%20surfaceScale%3D'2.1'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'45'%20elevation%3D'55'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23EEE6DA'%20filter%3D'url(%23f_leath)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-leatherette::before {
+  opacity: 0.42;
+}
+.pc-icon-texture-wrap.pc-texture-leatherette::after {
+  opacity: 0.38;
+}
+.pc-icon-badge.pc-texture-leatherette::after {
+  opacity: 0.32;
+}
+/* 바크 내추럴 우드지 (Pressed Wood Bark) */
+.pc-texture-woodbark::before,
+.pc-icon-texture-wrap.pc-texture-woodbark::after,
+.pc-icon-badge.pc-texture-woodbark::after {
+  background-image: url("data:image/svg+xml,%3Csvg%20viewBox%3D'0%200%20240%20240'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Cfilter%20id%3D'f_bark'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.018%200.45'%20numOctaves%3D'4'%20result%3D'rings'%2F%3E%3CfeDiffuseLighting%20in%3D'rings'%20lighting-color%3D'%23F6EEE0'%20surfaceScale%3D'2.3'%20result%3D'light'%3E%3CfeDistantLight%20azimuth%3D'50'%20elevation%3D'45'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeBlend%20mode%3D'multiply'%20in%3D'SourceGraphic'%20in2%3D'light'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20fill%3D'%23EDE3D2'%20filter%3D'url(%23f_bark)'%2F%3E%3C%2Fsvg%3E");
+}
+.pc-texture-woodbark::before {
+  opacity: 0.45;
+}
+.pc-icon-texture-wrap.pc-texture-woodbark::after {
+  opacity: 0.41;
+}
+.pc-icon-badge.pc-texture-woodbark::after {
+  opacity: 0.34;
+}
+
+/* Live Design Lab Interactive Playground UI */
+.pg-texture-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.pg-texture-chip {
+  padding: 5px 11px;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  border: 1.5px solid rgba(74, 58, 42, 0.16);
+  background: #FFFDF9;
+  color: var(--pc-ink);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+}
+.pg-texture-chip:hover {
+  background: #F5EEDB;
+  transform: translateY(-1px);
+}
+.pg-texture-chip.is-active {
+  background: var(--pc-mint-layer);
+  border-color: rgba(74, 58, 42, 0.35);
+  color: var(--pc-ink);
+  box-shadow: 0 2px 0 rgba(74, 58, 42, 0.14);
+}
+
+.pg-dual-icon-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 10px;
+}
+@media (max-width: 600px) {
+  .pg-dual-icon-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pg-icon-display-box {
+  background: #FAF7F0;
+  border: 2px dashed rgba(74, 58, 42, 0.18);
+  border-radius: 16px;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  position: relative;
+  min-height: 140px;
+  transition: all 0.25s ease;
+}
+.pg-icon-display-box .pc-layered-paper-icon {
+  width: 68px;
+  height: 68px;
+}
+
+.pg-spec-card {
+  background: #FFFDF9;
+  border: 1.5px solid rgba(74, 58, 42, 0.15);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-top: 14px;
+  box-shadow: 0 2px 0 rgba(74, 58, 42, 0.08);
+}
+.pg-spec-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.pg-spec-item {
+  background: var(--pc-bg-cream);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-size: 11.5px;
+}
+.pg-spec-item-label {
+  color: var(--pc-ink-muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.pg-spec-item-value {
+  font-weight: 800;
+  color: var(--pc-ink);
+}
+
+/* ==========================================================================
+   11. INLINE STANDALONE PAPER-CUT ICON SYSTEM (.pc-inline-icon)
+   ========================================================================== */
+
+.pc-inline-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55em;
+  height: 1.55em;
+  line-height: 1;
+  flex-shrink: 0;
+  vertical-align: -0.26em;
+  position: relative;
+  overflow: visible;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-inline-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+  /* CRITICAL: Remove compounding blur rasterization. Rely purely on internal SVG paper shadows */
+  filter: none !important;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+.pc-btn:hover .pc-inline-icon {
+  transform: scale(1.12) translateY(-1px);
+}
+
+/* Sizing Modifiers */
+.pc-inline-icon.is-xs {
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.15em;
+}
+
+.pc-inline-icon.is-sm {
+  width: 1.35em;
+  height: 1.35em;
+  vertical-align: -0.2em;
+}
+
+.pc-inline-icon.is-md {
+  width: 1.85em;
+  height: 1.85em;
+  vertical-align: -0.3em;
+}
+
+.pc-inline-icon.is-lg {
+  width: 2.4em;
+  height: 2.4em;
+  vertical-align: -0.38em;
+}
+
+.pc-inline-icon.is-xl {
+  width: 3.2em;
+  height: 3.2em;
+  vertical-align: -0.48em;
+}
+
+/* Badge Icon Context (Generous 76% fill for prominent, crisp silhouettes) */
+.pc-inline-icon.is-badge-icon {
+  width: 76%;
+  height: 76%;
+  max-width: 58px;
+  max-height: 58px;
+  vertical-align: middle;
+}
+
+/* Form Input & Label Contexts */
+.pc-inline-icon.is-input-icon {
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+}
+
+/* Button Context Sizing & Spacing */
+.pc-btn .pc-inline-icon {
+  width: 1.55em;
+  height: 1.55em;
+  flex-shrink: 0;
+}
+
+.pc-btn.pc-btn-sm .pc-inline-icon {
+  width: 1.35em;
+  height: 1.35em;
+}
+
+.pc-btn.pc-btn-lg .pc-inline-icon {
+  width: 1.95em;
+  height: 1.95em;
+}
+
+/* Dropdown Context Sizing */
+.pc-dropdown-trigger .pc-inline-icon {
+  width: 1.55em;
+  height: 1.55em;
+  flex-shrink: 0;
+  margin-right: 6px;
+}
+
+.pc-dropdown-item .pc-inline-icon {
+  width: 1.5em;
+  height: 1.5em;
+  flex-shrink: 0;
+}
+
+/* Badge Context Sizing */
+.pc-badge .pc-inline-icon {
+  width: 1.35em;
+  height: 1.35em;
+  margin-right: 4px;
+}
+
