@@ -459,12 +459,223 @@ function initInteractiveDemos() {
 /**
  * Live Customization Playground
  */
+/**
+ * Global Paper Texture Catalog (16 Procedural Handcrafted Stocks)
+ */
+window.PAPERCUT_TEXTURES = {
+  cotton: {
+    id: 'cotton',
+    name: '300g 수제 코튼지',
+    badge: '300g Heavyweight Cotton',
+    desc: '은은한 펄프 섬유 요철과 부드러운 코튼 볼륨감 (콜드프레스 질감)',
+    category: 'Core Stock',
+    weight: '300g/m²',
+    fiber: '순수 면 100% 코튼 펄프 요철',
+    lighting: '45° 앰비언트 확산광 + 1.5px 칼선 베벨',
+    bestFor: '버튼, 메인 카드, 스탠드얼론 키리가미 아이콘',
+    toast: '300g 수제 코튼지 질감이 컴포넌트와 아이콘에 적용되었습니다!'
+  },
+  cream: {
+    id: 'cream',
+    name: '350g 매트 크림보드',
+    badge: '350g Matte Cream Board',
+    desc: '도톰하고 매트한 크림지 고유의 고급스러운 차분함과 정교한 칼선 베벨',
+    category: 'Core Stock',
+    weight: '350g/m²',
+    fiber: '고밀도 압착 매트 보드지 섬유',
+    lighting: '50° 디퓨즈 광원 + 선명한 음각 인셋',
+    bestFor: '인풋 필드, 견고한 패널 카드, 프레임 배지',
+    toast: '350g 매트 크림보드 질감이 적용되었습니다! 도톰한 보드지의 깊이감이 살아납니다.'
+  },
+  hanji: {
+    id: 'hanji',
+    name: '닥나무 한지결',
+    badge: 'Mulberry Fiber Hanji',
+    desc: '닥나무 섬유가 자연스럽게 얽힌 전통 수제 한지의 은은한 결',
+    category: 'Core Stock',
+    weight: '120g/m²',
+    fiber: '천연 닥나무 장섬유 수제 결',
+    lighting: '60° 장섬유 사광 + 자연스러운 엣지 하이라이트',
+    bestFor: '동양적 키리가미 아이콘, 오리가미 체크박스, 감성 배지',
+    toast: '닥나무 한지결이 적용되었습니다! 부드러운 수제 한지 장섬유의 운치가 펼쳐집니다.'
+  },
+  vellum: {
+    id: 'vellum',
+    name: '실크벨러지',
+    badge: 'Smooth Silk Vellum',
+    desc: '빛을 은은하게 투과시키는 매끄럽고 실키한 고급 벨럼 트레이싱 감촉',
+    category: 'Core Stock',
+    weight: '110g/m²',
+    fiber: '실크 벨럼 스무스 글래신 페이퍼',
+    lighting: '70° 하이앵글 투과광 + 미세 글래스 엣지',
+    bestFor: '드롭다운 메뉴, 반투명 오버레이 칩, 모던 아이콘',
+    toast: '실크벨러지가 적용되었습니다! 반투명하고 매끄러운 실크 벨럼의 촉감을 느껴보세요.'
+  },
+  watercolor: {
+    id: 'watercolor',
+    name: '300g 아르쉬 수채화지',
+    badge: 'Rough Watercolor Paper',
+    desc: '깊은 딤플과 거친 엠보싱이 돋보이는 최고급 수채화 전용 콜드프레스지',
+    category: 'Fine Art',
+    weight: '300g/m²',
+    fiber: '깊은 요철의 콜드프레스 딤플 코튼',
+    lighting: '40° 측광 딤플 셰도우 + 깊은 양각 반사',
+    bestFor: '대형 일러스트 카드, 스탬프 배지, 수채화 파스텔 버튼',
+    toast: '300g 아르쉬 거친 수채화지 질감이 적용되었습니다! 깊은 딤플 엠보싱이 돋보입니다.'
+  },
+  linen: {
+    id: 'linen',
+    name: '프렌치 린넨 패브릭지',
+    badge: 'French Woven Linen',
+    desc: '가로세로 직조 격자 섬유가 손끝에 만져질 듯한 린넨 캔버스 텍스처',
+    category: 'Fine Art',
+    weight: '250g/m²',
+    fiber: '이중 직조 린넨 패브릭 섬유 격자',
+    lighting: '크로스 그리드 마이크로 셰도우',
+    bestFor: '태그 버튼, 패브릭 스타일 카드, 북마크 컴포넌트',
+    toast: '프렌치 린넨 패브릭지 질감이 적용되었습니다! 정교한 격자 직조 조직감이 렌더링됩니다.'
+  },
+  shimmer: {
+    id: 'shimmer',
+    name: '펄 메탈릭 쉬머지',
+    badge: 'Pearlescent Stardream',
+    desc: '미세 진주빛 파우더 광채와 각도에 따라 반짝이는 은은한 하이라이트',
+    category: 'Fine Art',
+    weight: '280g/m²',
+    fiber: '진주 광물 미세 크리스탈 펄 코팅',
+    lighting: '스페큘러 반사광 + 새틴 쉬머 하이라이트',
+    bestFor: '선물/이벤트 버튼, 스타더스트 아이콘, 럭셔리 배지',
+    toast: '펄 메탈릭 쉬머지 질감이 적용되었습니다! 은은한 진주빛 광택이 피어납니다.'
+  },
+  parchment: {
+    id: 'parchment',
+    name: '빈티지 앤틱 양피지',
+    badge: 'Antique Parchment',
+    desc: '홍차로 물들인 듯한 따스한 얼룩과 중세 필사본 양피지의 깊은 세월감',
+    category: 'Vintage',
+    weight: '200g/m²',
+    fiber: '에이징 홍차 착색 클라우드 파티나',
+    lighting: '소프트 엄버 앰비언트 + 앤틱 에지',
+    bestFor: '고서적 테마 카드, 클래식 지도 아이콘, 빈티지 태그',
+    toast: '빈티지 앤틱 양피지 질감이 적용되었습니다! 고서적의 아늑한 세월감이 더해집니다.'
+  },
+  felt: {
+    id: 'felt',
+    name: '포근한 펠트 모직지',
+    badge: 'Soft Pressed Wool Felt',
+    desc: '따뜻한 모직 섬유를 압착해 만든 도톰하고 부드러운 포근함',
+    category: 'Specialty',
+    weight: '320g/m²',
+    fiber: '무방향 압착 양모 펠트 미세모',
+    lighting: '무광 디퓨즈 산란광 + 소프트 베벨',
+    bestFor: '따스한 카페 아이콘, 포근한 모달창, 티켓 배지',
+    toast: '포근한 펠트 모직지 질감이 적용되었습니다! 포근하고 따뜻한 촉감이 느껴집니다.'
+  },
+  eco: {
+    id: 'eco',
+    name: '친환경 에코 플록지',
+    badge: 'Eco Flecked Recycled',
+    desc: '천연 목재 칩과 식물성 섬유 티끌이 박혀 있는 자연주의 재생 크라프트',
+    category: 'Vintage',
+    weight: '240g/m²',
+    fiber: '재생 펄프 목재 칩 & 보태니컬 티끌',
+    lighting: '내추럴 그레인 음영 + 크래프트 엣지',
+    bestFor: '에코 패키징, 자연/식물 아이콘, 리사이클 태그',
+    toast: '친환경 에코 플록지 질감이 적용되었습니다! 자연스러운 목재 티끌이 어우러집니다.'
+  },
+  washi: {
+    id: 'washi',
+    name: '오리가미 운용 화지',
+    badge: 'Origami Cloud Washi',
+    desc: '구름처럼 자유롭게 유영하는 운용사(雲龍絲) 장섬유가 매력적인 수제 화지',
+    category: 'Specialty',
+    weight: '80g/m²',
+    fiber: '실크 운용사(雲龍絲) 클라우드 파이버',
+    lighting: '섬세한 곡선 장섬유 음영',
+    bestFor: '오리가미 접기 요소, 꽃/자연 아이콘, 섬세한 칩',
+    toast: '오리가미 운용 화지 질감이 적용되었습니다! 구름 같은 실크 장섬유가 유영합니다.'
+  },
+  bookcloth: {
+    id: 'bookcloth',
+    name: '캔버스 북클로스지',
+    badge: 'Bookcloth Canvas Board',
+    desc: '클래식 양장본 서적의 커버를 연상시키는 탄탄한 캔버스 직물 감촉',
+    category: 'Specialty',
+    weight: '380g/m²',
+    fiber: '굵은 패브릭 캔버스 북바인딩 조직',
+    lighting: '강한 그리드 셰이딩 + 견고한 칼선 베벨',
+    bestFor: '라이브러리 북마크, 하드커버 패널, 양장본 배지',
+    toast: '캔버스 북클로스지 질감이 적용되었습니다! 묵직한 하드커버 서적의 텍스처입니다.'
+  },
+  tracing: {
+    id: 'tracing',
+    name: '프로스티드 트레이싱지',
+    badge: 'Frosted Tracing Vellum',
+    desc: '건축가의 도면 트레이싱지처럼 매트하고 서리 낀 듯 부드러운 반투명 미스트',
+    category: 'Fine Art',
+    weight: '90g/m²',
+    fiber: '초미세 프로스티드 매트 파티클',
+    lighting: '소프트 디퓨전 광채 + 미세 엣지',
+    bestFor: '도면/설계 아이콘, 반투명 인풋박스, 보조 배지',
+    toast: '프로스티드 트레이싱지 질감이 적용되었습니다! 은은한 반투명 도면 효과입니다.'
+  },
+  leatherette: {
+    id: 'leatherette',
+    name: '엠보스 레더렛지',
+    badge: 'Saffiano Leatherette',
+    desc: '사피아노 격자 무늬가 도톰하게 음각으로 새겨진 하드커버 패키징 질감',
+    category: 'Specialty',
+    weight: '340g/m²',
+    fiber: '사피아노 크로스해치 엠보스 가죽결',
+    lighting: '대각선 크로스해치 셰도우 + 럭셔리 베벨',
+    bestFor: '지갑/쇼핑 아이콘, 패키징 박스, 프리미엄 버튼',
+    toast: '엠보스 레더렛지 질감이 적용되었습니다! 도톰한 사피아노 엠보싱이 나타납니다.'
+  },
+  woodbark: {
+    id: 'woodbark',
+    name: '바크 내추럴 우드지',
+    badge: 'Pressed Wood Bark',
+    desc: '원목 나이테의 결이 살아 있는 내추럴 우드 펄프 수제지',
+    category: 'Vintage',
+    weight: '270g/m²',
+    fiber: '천연 원목 나이테 결 & 우드 펄프',
+    lighting: '종방향 수직 결 음영 + 러프 엣지',
+    bestFor: '캠핑/아웃도어 아이콘, 원목 감성 카드, 네이처 태그',
+    toast: '바크 내추럴 우드지 질감이 적용되었습니다! 원목 나이테의 자연스러운 결입니다.'
+  },
+  none: {
+    id: 'none',
+    name: '디지털 플랫 표면 (질감 없음)',
+    badge: 'Digital Flat Vector',
+    desc: '종이 질감과 엠보싱 요철이 제거된 매끄러운 2D 디지털 벡터 표면 (비교용)',
+    category: 'Baseline',
+    weight: '0g/m² (Flat Pixel)',
+    fiber: '질감 없음 (순수 디지털 RGB 평면)',
+    lighting: '광원 없음 (플랫 2D 평면 렌더링)',
+    bestFor: '질감 전/후 비교용 베이스라인',
+    toast: '디지털 플랫 모드로 전환되었습니다. (질감 및 엠보싱 OFF)'
+  }
+};
+
+/**
+ * Live Customization Playground
+ */
 function initPlayground() {
   const shadowSlider = document.getElementById('pg-shadow-depth');
   const radiusSlider = document.getElementById('pg-border-radius');
   const paletteSelector = document.getElementById('pg-palette-select');
   const playgroundBox = document.getElementById('playground-preview-box');
+  const textureSelector = document.getElementById('pg-texture-select');
+  const iconSelector = document.getElementById('pg-icon-select');
+  const flatIconContainer = document.getElementById('pg-flat-icon-container');
+  const texturedIconContainer = document.getElementById('pg-textured-icon-container');
+  const texturedIconWrap = document.getElementById('pg-textured-icon-wrap');
 
+  let currentPgTexture = 'cotton';
+  let currentPgTheme = 'theme-cream';
+  let currentPgIcon = 'home';
+
+  // 1. Shadow depth slider
   if (shadowSlider && playgroundBox) {
     shadowSlider.addEventListener('input', (e) => {
       const val = e.target.value;
@@ -474,6 +685,7 @@ function initPlayground() {
     });
   }
 
+  // 2. Corner radius slider
   if (radiusSlider && playgroundBox) {
     radiusSlider.addEventListener('input', (e) => {
       const val = e.target.value;
@@ -483,99 +695,176 @@ function initPlayground() {
     });
   }
 
-  let currentPgTexture = 'cotton';
-  const textureSelector = document.getElementById('pg-texture-select');
+  // 3. Central Texture Update Function (Applies to Canvas, Components, and Icons)
+  function updatePlaygroundTexture(textureId, notify = true) {
+    if (!window.PAPERCUT_TEXTURES[textureId]) {
+      textureId = 'cotton';
+    }
+    currentPgTexture = textureId;
+    const spec = window.PAPERCUT_TEXTURES[textureId];
 
-  function updatePlaygroundClasses() {
-    if (!playgroundBox) return;
-    const theme = paletteSelector ? paletteSelector.value : 'theme-cream';
-    let textureClass = '';
-    if (currentPgTexture === 'cotton') textureClass = 'pc-texture-paper';
-    else if (currentPgTexture === 'hanji') textureClass = 'pc-texture-hanji';
-    else if (currentPgTexture === 'kraft') textureClass = 'pc-texture-kraft';
+    const allTextureClasses = Object.keys(window.PAPERCUT_TEXTURES).map(k => `pc-texture-${k}`);
+    allTextureClasses.push('pc-texture-paper', 'pc-texture-kraft', 'pc-texture-none');
 
-    playgroundBox.className = `pc-card pc-card-stacked ${theme} ${textureClass}`.trim();
+    // A. Update Canvas Box
+    if (playgroundBox) {
+      allTextureClasses.forEach(c => playgroundBox.classList.remove(c));
+      playgroundBox.classList.add(`pc-texture-${textureId}`);
+    }
+
+    // B. Update all interactive components inside playground
+    const texturedItems = playgroundBox ? playgroundBox.querySelectorAll('.pg-textured-item') : [];
+    texturedItems.forEach(el => {
+      allTextureClasses.forEach(c => el.classList.remove(c));
+      el.classList.add(`pc-texture-${textureId}`);
+    });
+
+    // C. Update Textured Icon Wrap
+    if (texturedIconWrap) {
+      allTextureClasses.forEach(c => texturedIconWrap.classList.remove(c));
+      texturedIconWrap.classList.add(`pc-texture-${textureId}`);
+      texturedIconWrap.style.opacity = (textureId === 'none') ? '0.85' : '1';
+    }
+
+    // D. Update Header Badges & Labels
+    const activeBadge = document.getElementById('pg-active-texture-badge');
+    if (activeBadge) {
+      activeBadge.textContent = spec.name;
+    }
+    const iconTextureLabel = document.getElementById('pg-icon-texture-label');
+    if (iconTextureLabel) {
+      iconTextureLabel.textContent = spec.name;
+    }
+
+    // E. Update Dynamic Paper Spec Profile Card
+    const specTitle = document.getElementById('pg-spec-title');
+    if (specTitle) specTitle.textContent = spec.name;
+    const specDesc = document.getElementById('pg-spec-desc');
+    if (specDesc) specDesc.textContent = spec.desc;
+    const specWeight = document.getElementById('pg-spec-weight');
+    if (specWeight) specWeight.textContent = spec.weight;
+    const specFiber = document.getElementById('pg-spec-fiber');
+    if (specFiber) specFiber.textContent = spec.fiber;
+    const specLighting = document.getElementById('pg-spec-lighting');
+    if (specLighting) specLighting.textContent = spec.lighting;
+    const specBestFor = document.getElementById('pg-spec-bestfor');
+    if (specBestFor) specBestFor.textContent = spec.bestFor;
+    const specCat = document.getElementById('pg-spec-category-badge');
+    if (specCat) specCat.textContent = spec.category;
+
+    // F. Sync Dropdown and Quick Chips
+    if (textureSelector) {
+      if (textureSelector.value !== textureId) {
+        textureSelector.value = textureId;
+      }
+      const customDropdown = textureSelector.closest('.pc-select-wrapper')?.querySelector('.pc-dropdown-custom');
+      if (customDropdown) {
+        const triggerText = customDropdown.querySelector('.trigger-text');
+        if (triggerText) {
+          triggerText.textContent = spec.name;
+        }
+        customDropdown.querySelectorAll('.pc-dropdown-item').forEach(item => {
+          item.classList.toggle('is-selected', item.dataset.value === textureId);
+        });
+      }
+    }
+    const chips = document.querySelectorAll('.pg-texture-chip');
+    chips.forEach(chip => {
+      chip.classList.toggle('is-active', chip.getAttribute('data-texture') === textureId);
+    });
+
+    // G. Notify user via toast
+    if (notify) {
+      showPaperToast(spec.toast, textureId === 'none' ? 'peach' : 'mint');
+    }
   }
 
+  // 4. Central Icon Update Function
+  function updatePlaygroundIcons(iconId) {
+    if (!iconId) iconId = 'home';
+    currentPgIcon = iconId;
+
+    let svg = '';
+    if (typeof window.getPapercutIconSvg === 'function') {
+      svg = window.getPapercutIconSvg(iconId);
+    }
+    if (!svg && window.PAPERCUT_ICONS) {
+      const found = window.PAPERCUT_ICONS.find(i => i.id === iconId);
+      if (found) svg = found.svg;
+    }
+
+    if (svg) {
+      if (flatIconContainer) flatIconContainer.innerHTML = svg;
+      if (texturedIconContainer) texturedIconContainer.innerHTML = svg;
+
+      // Update badge icons too
+      const badges = ['pg-badge-postage', 'pg-badge-pebble', 'pg-badge-hexagon', 'pg-badge-scallop'];
+      badges.forEach(badgeId => {
+        const badge = document.getElementById(badgeId);
+        if (badge) {
+          const iconSpan = badge.querySelector('.pc-inline-icon');
+          if (iconSpan) {
+            iconSpan.innerHTML = svg;
+          }
+        }
+      });
+    }
+  }
+
+  // 5. Texture Select Event
+  if (textureSelector) {
+    textureSelector.addEventListener('change', (e) => {
+      updatePlaygroundTexture(e.target.value, true);
+    });
+  }
+
+  // 6. Quick Texture Chips Click Event
+  document.addEventListener('click', (e) => {
+    const chip = e.target.closest('.pg-texture-chip');
+    if (chip) {
+      const tex = chip.getAttribute('data-texture');
+      if (tex) {
+        updatePlaygroundTexture(tex, true);
+      }
+    }
+  });
+
+  // 7. Icon Select Event
+  if (iconSelector) {
+    iconSelector.addEventListener('change', (e) => {
+      updatePlaygroundIcons(e.target.value);
+      const iconName = e.target.options[e.target.selectedIndex]?.text || e.target.value;
+      showPaperToast(`아이콘이 [${iconName}]로 전환되어 실시간 질감이 합성되었습니다!`, 'mint');
+    });
+  }
+
+  // 8. Palette Select Event
   if (paletteSelector && playgroundBox) {
     paletteSelector.addEventListener('change', (e) => {
       const theme = e.target.value;
-      updatePlaygroundClasses();
+      currentPgTheme = theme;
 
-      // Transform preview buttons inside playground to reflect the selected pastel palette
+      // Remove previous themes
+      const themes = ['theme-cream', 'theme-peach', 'theme-lavender', 'theme-buttercup', 'theme-sky', 'theme-cherry', 'theme-matcha', 'theme-cotton-candy', 'theme-lemon', 'theme-twilight', 'theme-apricot', 'theme-eucalyptus', 'theme-berry', 'theme-teddy'];
+      themes.forEach(t => playgroundBox.classList.remove(t));
+      playgroundBox.classList.add(theme);
+
+      // Transform preview buttons inside playground
       const previewBtns = playgroundBox.querySelectorAll('.pc-btn');
       if (previewBtns.length >= 2) {
-        // Reset classes
-        previewBtns[0].className = 'pc-btn';
-        previewBtns[1].className = 'pc-btn';
-
-        if (theme === 'theme-cream') {
-          previewBtns[0].classList.add('pc-btn-mint');
-          previewBtns[1].classList.add('pc-btn-buttercup');
-        } else if (theme === 'theme-peach') {
-          previewBtns[0].classList.add('pc-btn-peach');
-          previewBtns[1].classList.add('pc-btn-rose');
-        } else if (theme === 'theme-lavender') {
-          previewBtns[0].classList.add('pc-btn-lavender');
-          previewBtns[1].classList.add('pc-btn-sky');
-        } else if (theme === 'theme-buttercup') {
-          previewBtns[0].classList.add('pc-btn-buttercup');
-          previewBtns[1].classList.add('pc-btn-mint');
-        } else if (theme === 'theme-sky') {
-          previewBtns[0].classList.add('pc-btn-sky');
-          previewBtns[1].classList.add('pc-btn-mint');
-        } else if (theme === 'theme-cherry') {
-          previewBtns[0].classList.add('pc-btn-rose');
-          previewBtns[1].classList.add('pc-btn-peach');
-        } else if (theme === 'theme-matcha') {
-          previewBtns[0].classList.add('pc-btn-sage');
-          previewBtns[1].classList.add('pc-btn-buttercup');
-        } else if (theme === 'theme-cotton-candy') {
-          previewBtns[0].classList.add('pc-btn-rose');
-          previewBtns[1].classList.add('pc-btn-sky');
-        } else if (theme === 'theme-lemon') {
-          previewBtns[0].classList.add('pc-btn-buttercup');
-          previewBtns[1].classList.add('pc-btn-mint');
-        } else if (theme === 'theme-twilight') {
-          previewBtns[0].classList.add('pc-btn-lavender');
-          previewBtns[1].classList.add('pc-btn-buttercup');
-        } else if (theme === 'theme-apricot') {
-          previewBtns[0].classList.add('pc-btn-peach');
-          previewBtns[1].classList.add('pc-btn-rose');
-        } else if (theme === 'theme-eucalyptus') {
-          previewBtns[0].classList.add('pc-btn-sage');
-          previewBtns[1].classList.add('pc-btn-lavender');
-        } else if (theme === 'theme-berry') {
-          previewBtns[0].classList.add('pc-btn-rose');
-          previewBtns[1].classList.add('pc-btn-sky');
-        } else if (theme === 'theme-teddy') {
-          previewBtns[0].classList.add('pc-btn-peach');
-          previewBtns[1].classList.add('pc-btn-buttercup');
-        } else {
-          previewBtns[0].classList.add('pc-btn-mint');
-          previewBtns[1].classList.add('pc-btn-buttercup');
-        }
+        previewBtns[0].className = `pc-btn ${theme === 'theme-peach' ? 'pc-btn-peach' : theme === 'theme-lavender' ? 'pc-btn-lavender' : theme === 'theme-cherry' ? 'pc-btn-rose' : 'pc-btn-mint'} pc-texture-${currentPgTexture} pg-textured-item`;
+        previewBtns[1].className = `pc-btn ${theme === 'theme-peach' ? 'pc-btn-rose' : theme === 'theme-lavender' ? 'pc-btn-sky' : 'pc-btn-peach'} pc-texture-${currentPgTexture} pg-textured-item`;
       }
 
       showPaperToast(`파스텔 테마 색지가 [${e.target.options[e.target.selectedIndex].text}]로 적용되었습니다!`, 'mint');
     });
   }
 
-  if (textureSelector && playgroundBox) {
-    textureSelector.addEventListener('change', (e) => {
-      currentPgTexture = e.target.value;
-      updatePlaygroundClasses();
-      if (currentPgTexture === 'cotton') {
-        showPaperToast('프리뷰 캔버스에 300g 수제 코튼 펄프 질감이 적용되었습니다!', 'mint');
-      } else if (currentPgTexture === 'hanji') {
-        showPaperToast('프리뷰 캔버스에 전통 닥나무 수제 한지결이 적용되었습니다!', 'sage');
-      } else if (currentPgTexture === 'kraft') {
-        showPaperToast('프리뷰 캔버스에 350g 매트 크라프트 질감이 적용되었습니다!', 'peach');
-      } else {
-        showPaperToast('프리뷰 캔버스가 플랫 매끄러운 표면으로 전환되었습니다.', 'buttercup');
-      }
-    });
-  }
+  // 9. Initial setup
+  setTimeout(() => {
+    updatePlaygroundIcons('home');
+    updatePlaygroundTexture('cotton', false);
+  }, 100);
 
   // Icon Gallery click to copy SVG code
   document.addEventListener('click', (e) => {
@@ -672,7 +961,7 @@ function initTextureModes() {
   const modeNames = {
     'texture-soft': '소프트 파스텔지 (기본)',
     'texture-cotton': '300g 수제 코튼지 (엠보싱 극대화)',
-    'texture-hanji': '전통 닥나무 한지 (거친 결)',
+    'texture-hanji': '닥나무 한지결 (은은한 결)',
     'texture-flat': '일반 디지털 플랫 UI (질감/그림자 OFF)'
   };
 
@@ -746,11 +1035,11 @@ function initMatteTextureShowcase() {
       } else if (grade === 'hanji') {
         canvas.style.backgroundColor = '#FAF7F0';
         shader.style.opacity = '0.35';
-        showPaperToast('닥나무 수제 한지 (Mulberry Fiber Hanji) 선택됨', 'sage');
+        showPaperToast('닥나무 한지결 (Mulberry Fiber Hanji) 선택됨', 'sage');
       } else if (grade === 'vellum') {
         canvas.style.backgroundColor = '#FFFDF8';
         shader.style.opacity = '0.2';
-        showPaperToast('실크 스무스 벨럼지 (Smooth Silk Vellum) 선택됨', 'sky');
+        showPaperToast('실크벨러지 (Smooth Silk Vellum) 선택됨', 'sky');
       }
     });
   });

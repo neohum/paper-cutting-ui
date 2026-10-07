@@ -1197,10 +1197,32 @@ This tactile paper texture is fully modular and can be effortlessly applied to b
   `.pc-texture-paper::after` injects the 1.5px white cut-edge highlight (`rgba(255,255,255,0.95)`).
 - **Z-Index Containment:**
   Using `isolation: isolate` guarantees the blend mode stays within the component boundary and doesn't pollute ancestor backgrounds.
-- **Available Variants:**
-  - `.pc-texture-paper` / `.pc-surface-cotton`: 300g heavyweight cotton watercolor paper.
-  - `.pc-texture-hanji`: Mulberry fiber traditional Korean Hanji with directional fibers.
-  - `.pc-texture-kraft`: 350g recycled unbleached kraft paperboard.
+- **Available Paper Texture Stock Variants (16 Authentic Handcrafted Procedural Presets):**
+  1. **3D Simulator Core Stocks (4 Presets):**
+     - `.pc-texture-cotton` / `.pc-texture-paper`: 300g/m² Heavyweight Cold-Press Cotton (Fine pulp fiber tooth, 45° ambient lighting).
+     - `.pc-texture-cream`: 350g/m² Matte Cream Board (Dense smooth ivory cardstock, firm crisp bevel).
+     - `.pc-texture-hanji`: 120g/m² Mulberry Fiber Hanji (Natural Korean mulberry paper with directional long fibers).
+     - `.pc-texture-vellum`: 110g/m² Smooth Silk Vellum (Silky smooth, semi-translucent frosted glass touch).
+  2. **Fine Art & Fabric Stocks (4 Presets):**
+     - `.pc-texture-watercolor`: 300g/m² Rough Cold-Press Watercolor Paper (Deep dimple craters, dramatic relief).
+     - `.pc-texture-linen`: 250g/m² French Woven Linen (Dual orthogonal crosshatch woven textile grid).
+     - `.pc-texture-shimmer`: 280g/m² Pearlescent Stardream Shimmer (Specular reflective powder sparkles, satin sheen).
+     - `.pc-texture-tracing`: 90g/m² Frosted Tracing Vellum (Architectural drafting vellum, milky diffusion).
+  3. **Vintage & Natural Stocks (3 Presets):**
+     - `.pc-texture-parchment`: 200g/m² Antique Vintage Parchment (Tea-stained aged cloud patina).
+     - `.pc-texture-eco`: 240g/m² Recycled Flecked Eco-Kraft (Organic wood chips and botanical fiber specks).
+     - `.pc-texture-woodbark`: 270g/m² Pressed Wood Bark Paper (Vertical tree ring striations, rustic raw wood).
+  4. **Specialty Embossed Stocks (4 Presets):**
+     - `.pc-texture-felt`: 320g/m² Soft Pressed Wool Felt (Non-directional fluffy wool micro-fibers, cozy tactile warmth).
+     - `.pc-texture-washi`: 80g/m² Origami Cloud Washi (Swirling Unryu silk fibers embedded in thin paper).
+     - `.pc-texture-bookcloth`: 380g/m² Hardcover Bookcloth Canvas (Tactile library bookbinding fabric weave).
+     - `.pc-texture-leatherette`: 340g/m² Embossed Saffiano Leatherette (Cross-grain saffiano grid embossing).
+  5. **Baseline Reference:**
+     - `.pc-texture-none`: 0g/m² Digital Flat Vector Surface (Pure RGB digital flat comparison baseline).
+
+- **Freestanding Kirigami Icon Texture Overlay (`.pc-icon-texture-wrap`):**
+  - Synthesizes 3D paper stock fibers directly onto freestanding SVG icons without altering underlying vector code.
+  - Multiplies the procedural SVG fiber shader across pastel paper layers via `mix-blend-mode: multiply` at `z-index: 10`, allowing users to verify authentic texture on icons and badge plates in the Live Design Lab.
 
 ### 8.4 529 Standalone Layered Paper-Cut Icon System (Flaticon 500+ Complete Taxonomy & Kirigami Motifs)
 529 mastercrafted 64x64px freestanding kirigami paper-cut illustrations with **zero background box or badge tiles**:
