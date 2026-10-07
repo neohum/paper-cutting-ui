@@ -1,0 +1,22 @@
+# Node & Dependencies
+node_modules/
+dist/
+build/
+
+# Environment Variables
+.env
+.env.local
+.env.*
+!.env.example
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Scratch & Temporary Build Artifacts
+scratch/
+logs/
+*.bundle
