@@ -442,7 +442,7 @@
             <span class="pc-inline-icon is-sm" data-icon="file"></span> <span>300g 수제 코튼지 (엠보싱)</span>
           </button>
           <button class="pc-btn pc-btn-sm" data-texture-mode="texture-hanji">
-            <span class="pc-inline-icon is-sm" data-icon="leaf"></span> <span>전통 닥나무 한지</span>
+            <span class="pc-inline-icon is-sm" data-icon="leaf"></span> <span>닥나무 한지결</span>
           </button>
           <button class="pc-btn pc-btn-sm pc-btn-peach" data-texture-mode="texture-flat">
             <span class="pc-inline-icon is-sm" data-icon="monitor"></span> <span>플랫 UI (비교용)</span>
@@ -2146,7 +2146,7 @@
               <button type="button" class="pc-btn pc-btn-sm pc-btn-mint is-active" data-matte-grade="cotton">300g 수제 코튼지</button>
               <button type="button" class="pc-btn pc-btn-sm" data-matte-grade="kraft">350g 매트 크림 보드</button>
               <button type="button" class="pc-btn pc-btn-sm" data-matte-grade="hanji">닥나무 한지결</button>
-              <button type="button" class="pc-btn pc-btn-sm" data-matte-grade="vellum">실크 벨럼지</button>
+              <button type="button" class="pc-btn pc-btn-sm" data-matte-grade="vellum">실크벨러지</button>
             </div>
           </div>
         </div>
@@ -2442,97 +2442,278 @@
             </div>
           </div>
 
-          <div style="margin-bottom: 18px;">
-            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">
-              <span>캔버스 종이 질감 (Paper Texture)</span>
+                    <div style="margin-bottom: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 13px; font-weight: 700;">캔버스 종이 질감 (Paper Texture)</span>
+              <span class="pc-badge pc-badge-peach" style="font-size: 11px;">16종 리얼 텍스처</span>
             </div>
             <div class="pc-select-wrapper">
               <select id="pg-texture-select" class="pc-select">
-                <option value="none" data-icon="laptop">01. 디지털 플랫 표면 (질감 없음)</option>
-                <option value="cotton" selected data-icon="scroll">02. 300g 수제 코튼지 (미세 펄프 엠보싱)</option>
-                <option value="hanji" data-icon="bamboo">03. 전통 닥나무 수제 한지결</option>
-                <option value="kraft" data-icon="package">04. 350g 매트 크라프트 보드</option>
+                <optgroup label="🌟 3D 시뮬레이터 핵심 지질 4종 (Core Stocks)">
+                  <option value="cotton" selected data-icon="file">01. 300g 수제 코튼지 (미세 펄프 엠보싱)</option>
+                  <option value="cream" data-icon="file">02. 350g 매트 크림보드 (도톰한 매트 카드스톡)</option>
+                  <option value="hanji" data-icon="leaf">03. 닥나무 한지결 (자연스러운 닥나무 수제 결)</option>
+                  <option value="vellum" data-icon="sparkles">04. 실크벨러지 (매끄러운 실크 벨럼 투과광)</option>
+                </optgroup>
+                <optgroup label="🎨 파인아트 & 패브릭 지질 (Fine Art & Fabric)">
+                  <option value="watercolor" data-icon="palette">05. 300g 아르쉬 수채화지 (거친 콜드프레스 딤플)</option>
+                  <option value="linen" data-icon="price-tag">06. 프렌치 린넨 패브릭지 (이중 직조 격자 섬유)</option>
+                  <option value="shimmer" data-icon="sparkles">07. 펄 메탈릭 쉬머지 (미세 진주빛 광채 셰이더)</option>
+                  <option value="tracing" data-icon="search">08. 프로스티드 트레이싱지 (서리 낀 듯한 반투명 미스트)</option>
+                </optgroup>
+                <optgroup label="📜 빈티지 & 내추럴 지질 (Vintage & Natural)">
+                  <option value="parchment" data-icon="scroll">09. 빈티지 앤틱 양피지 (홍차빛 세월감 파티나)</option>
+                  <option value="eco" data-icon="sprout">10. 친환경 에코 플록지 (천연 목재 칩 & 보태니컬 티끌)</option>
+                  <option value="woodbark" data-icon="tree">11. 바크 내추럴 우드지 (원목 나이테 결 & 우드 펄프)</option>
+                </optgroup>
+                <optgroup label="💼 스페셜티 엠보싱 지질 (Specialty Embossed)">
+                  <option value="felt" data-icon="cloud">12. 포근한 펠트 모직지 (무방향 압착 양모 펠트)</option>
+                  <option value="washi" data-icon="quill-inkpot">13. 오리가미 운용 화지 (구름처럼 유영하는 장섬유)</option>
+                  <option value="bookcloth" data-icon="book">14. 캔버스 북클로스지 (클래식 양장본 캔버스 커버)</option>
+                  <option value="leatherette" data-icon="package">15. 엠보스 레더렛지 (사피아노 격자 무늬 가죽결)</option>
+                </optgroup>
+                <optgroup label="💻 기준 비교용 (Baseline Reference)">
+                  <option value="none" data-icon="monitor">16. 디지털 플랫 표면 (질감 없음 - Flat 2D)</option>
+                </optgroup>
               </select>
+            </div>
+
+            <!-- Quick Texture Swatch Chips -->
+            <div class="pg-texture-chips">
+              <button type="button" class="pg-texture-chip is-active" data-texture="cotton"><span class="pc-inline-icon is-xs" data-icon="file"></span> 수제 코튼지</button>
+              <button type="button" class="pg-texture-chip" data-texture="cream"><span class="pc-inline-icon is-xs" data-icon="file"></span> 매트 크림보드</button>
+              <button type="button" class="pg-texture-chip" data-texture="hanji"><span class="pc-inline-icon is-xs" data-icon="leaf"></span> 닥나무 한지결</button>
+              <button type="button" class="pg-texture-chip" data-texture="vellum"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> 실크벨러지</button>
+              <button type="button" class="pg-texture-chip" data-texture="watercolor"><span class="pc-inline-icon is-xs" data-icon="palette"></span> 수채화지</button>
+              <button type="button" class="pg-texture-chip" data-texture="linen"><span class="pc-inline-icon is-xs" data-icon="price-tag"></span> 린넨지</button>
+              <button type="button" class="pg-texture-chip" data-texture="shimmer"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> 펄 쉬머지</button>
+              <button type="button" class="pg-texture-chip" data-texture="parchment"><span class="pc-inline-icon is-xs" data-icon="scroll"></span> 양피지</button>
+              <button type="button" class="pg-texture-chip" data-texture="eco"><span class="pc-inline-icon is-xs" data-icon="sprout"></span> 에코 플록지</button>
+              <button type="button" class="pg-texture-chip" data-texture="none"><span class="pc-inline-icon is-xs" data-icon="monitor"></span> 플랫 표면</button>
             </div>
           </div>
 
           <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed rgba(74,58,42,0.15);">
             <div style="font-size: 12px; color: var(--pc-ink-muted); line-height: 1.5;">
-              <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> 팁: 종이 질감을 선택하면 프리뷰 캔버스와 내부 컴포넌트 전체에 3D 펄프 요철과 1.5px 절단면 칼선 베벨이 실시간으로 렌더링됩니다.
+              <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <strong>실시간 물리 렌더링:</strong> 16종 종이 질감을 전환하면 프리뷰 캔버스, 모든 인터랙티브 UI 컴포넌트, 3D 키리가미 아이콘에 즉시 적용되어 실제 출력물 같은 물리적 입체감을 확인할 수 있습니다.
             </div>
           </div>
         </div>
 
         <!-- Live Preview Stage -->
-        <div id="playground-preview-box" class="pc-card pc-card-stacked pc-texture-paper" style="padding: 32px; display: flex; flex-direction: column; gap: 20px; justify-content: center; background: #FFFFFF;">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <span class="pc-icon-badge pc-badge-shape-pebble" style="width: 38px; height: 38px; background: var(--pc-mint-layer);">
-                <span class="pc-inline-icon is-sm" data-icon="scissors" style="z-index: 5;"></span>
+        <div id="playground-preview-box" class="pc-card pc-card-stacked pc-texture-cotton" style="padding: 28px 24px; display: flex; flex-direction: column; gap: 24px; background: #FFFFFF;">
+          <!-- Stage Top Header -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-bottom: 1.5px dashed rgba(74,58,42,0.15); padding-bottom: 16px;">
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <span class="pc-icon-badge pc-badge-shape-pebble" style="width: 42px; height: 42px; background: var(--pc-mint-layer);">
+                <span class="pc-inline-icon is-sm" data-icon="palette" style="z-index: 5;"></span>
               </span>
-              <h3 style="margin: 0; font-size: 20px; font-weight: 800;">실시간 컴포넌트 프리뷰 캔버스</h3>
+              <div>
+                <h3 style="margin: 0; font-size: 20px; font-weight: 800;">실시간 컴포넌트 & 아이콘 페이퍼 랩</h3>
+                <div style="font-size: 12.5px; color: var(--pc-ink-muted); margin-top: 2px;">
+                  선택한 지질이 프리뷰 캔버스, 모든 인터랙티브 UI 컴포넌트, 3D 키리가미 아이콘에 즉시 실시간 렌더링됩니다.
+                </div>
+              </div>
             </div>
-            <span class="pc-label-tag">Live Reactivity</span>
+            <div style="display: flex; gap: 8px; align-items: center;">
+              <span id="pg-active-texture-badge" class="pc-badge pc-badge-mint">300g 수제 코튼지</span>
+              <span class="pc-label-tag">Live Reactivity</span>
+            </div>
           </div>
 
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-            <div class="pc-input-wrapper">
-              <label class="pc-label" style="display: flex; align-items: center; gap: 6px;">
-                <span><span class="pc-inline-icon is-sm" data-icon="search"></span> 검색 인풋 필드 (아이콘 결합)</span>
+          <!-- =============================================================
+               PART 1: 3D KIRIGAMI ICON TEXTURE LABORATORY (아이콘 질감 검증)
+               ============================================================= -->
+          <div style="background: var(--pc-bg-cream); border-radius: 18px; padding: 20px 22px; border: 1.5px solid rgba(74,58,42,0.12);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+              <div>
+                <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 2px;">
+                  <span class="pc-badge pc-badge-lavender">Icon Texture Lab</span>
+                  <span class="pc-badge pc-badge-peach">500+ Freestanding Kirigami</span>
+                </div>
+                <h4 style="margin: 0; font-size: 16px; font-weight: 800; color: var(--pc-ink);">
+                  <span class="pc-inline-icon is-sm" data-icon="scissors"></span> 1. 스탠드얼론 키리가미 아이콘 종이 질감 실시간 융합 검증
+                </h4>
+              </div>
+
+              <!-- Interactive Icon Chooser -->
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--pc-ink-muted);">테스트 아이콘:</span>
+                <div class="pc-select-wrapper" style="min-width: 150px;">
+                  <select id="pg-icon-select" class="pc-select pc-select-sm">
+                    <option value="home" selected data-icon="home">홈 & 코티지</option>
+                    <option value="coffee" data-icon="coffee">따스한 커피</option>
+                    <option value="gift" data-icon="gift">선물 상자</option>
+                    <option value="settings" data-icon="settings">공예 톱니바퀴</option>
+                    <option value="sprout" data-icon="sprout">파스텔 나뭇잎</option>
+                    <option value="camera" data-icon="camera">빈티지 카메라</option>
+                    <option value="paper-plane" data-icon="paper-plane">종이 비행기</option>
+                    <option value="scissors" data-icon="scissors">크래프트 가위</option>
+                    <option value="palette" data-icon="palette">아트 팔레트</option>
+                    <option value="flower" data-icon="flower">벚꽃 플라워</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dual Comparison: [Flat Vector Icon] vs [3D Textured Paper-Cut Icon] -->
+            <div class="pg-dual-icon-grid">
+              <!-- Left: Baseline Flat 2D Icon -->
+              <div class="pg-icon-display-box" style="background: #FFFFFF;">
+                <span class="pc-badge pc-badge-sky" style="font-size: 11px;">💻 비교용 2D 디지털 플랫 (질감 OFF)</span>
+                <div id="pg-flat-icon-container" style="display: flex; align-items: center; justify-content: center; min-height: 80px;">
+                  <!-- Filled via JS -->
+                </div>
+                <div style="font-size: 12px; color: var(--pc-ink-muted);">
+                  순수 2D 평면 벡터 (오돌토돌한 요철 및 광원 없음)
+                </div>
+              </div>
+
+              <!-- Right: 3D Paper-Textured Icon -->
+              <div class="pg-icon-display-box" style="background: #FFFDF9; border-color: rgba(163, 216, 195, 0.8); box-shadow: var(--pc-paper-shadow-sm);">
+                <span class="pc-badge pc-badge-mint" style="font-size: 11px;">✨ 3D 종이 질감 융합 (<span id="pg-icon-texture-label">300g 수제 코튼지</span>)</span>
+                <div id="pg-textured-icon-wrap" class="pc-icon-texture-wrap pc-texture-cotton" style="padding: 10px; border-radius: 16px; display: flex; align-items: center; justify-content: center; min-height: 80px; width: 100px; height: 100px; background: rgba(250, 246, 237, 0.45);">
+                  <div id="pg-textured-icon-container" style="display: flex; align-items: center; justify-content: center;">
+                    <!-- Filled via JS -->
+                  </div>
+                </div>
+                <div style="font-size: 12px; color: var(--pc-ink); font-weight: 700;">
+                  파스텔 색지 레이어마다 3D 물리 펄프 요철 & 음영 합성
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 Signature Paper-Cut Badges with Selected Texture -->
+            <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(74,58,42,0.15);">
+              <div style="font-size: 12.5px; font-weight: 800; margin-bottom: 10px; color: var(--pc-ink);">
+                ✦ 4대 시그니처 아이콘 배지 플레이트에 실시간 질감 적용:
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+                <!-- 1. Postage Badge -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
+                  <div id="pg-badge-postage" class="pc-icon-badge pc-badge-shape-postage pc-texture-cotton pg-textured-item" style="width: 64px; height: 64px; background: #FAF6ED; box-shadow: var(--pc-paper-shadow-sm);">
+                    <span class="pc-inline-icon is-badge-icon" data-icon="home" style="z-index: 5;"></span>
+                  </div>
+                  <span style="font-size: 11px; font-weight: 700; color: var(--pc-ink-muted);">우표 천공 배지</span>
+                </div>
+                <!-- 2. Pebble Badge -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
+                  <div id="pg-badge-pebble" class="pc-icon-badge pc-badge-shape-pebble pc-texture-cotton pg-textured-item" style="width: 64px; height: 64px; background: var(--pc-mint-layer); box-shadow: var(--pc-paper-shadow-sm);">
+                    <span class="pc-inline-icon is-badge-icon" data-icon="coffee" style="z-index: 5;"></span>
+                  </div>
+                  <span style="font-size: 11px; font-weight: 700; color: var(--pc-ink-muted);">조약돌 유기형</span>
+                </div>
+                <!-- 3. Hexagon Badge -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
+                  <div id="pg-badge-hexagon" class="pc-icon-badge pc-badge-shape-hexagon pc-texture-cotton pg-textured-item" style="width: 64px; height: 64px; background: var(--pc-lavender-layer); box-shadow: var(--pc-paper-shadow-sm);">
+                    <span class="pc-inline-icon is-badge-icon" data-icon="gift" style="z-index: 5;"></span>
+                  </div>
+                  <span style="font-size: 11px; font-weight: 700; color: var(--pc-ink-muted);">오리가미 헥사곤</span>
+                </div>
+                <!-- 4. Scallop Badge -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;">
+                  <div id="pg-badge-scallop" class="pc-icon-badge pc-badge-shape-scallop pc-texture-cotton pg-textured-item" style="width: 64px; height: 64px; background: var(--pc-peach-layer); box-shadow: var(--pc-paper-shadow-sm);">
+                    <span class="pc-inline-icon is-badge-icon" data-icon="sprout" style="z-index: 5;"></span>
+                  </div>
+                  <span style="font-size: 11px; font-weight: 700; color: var(--pc-ink-muted);">가리비 스캘럽</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- =============================================================
+               PART 2: 4대 UI 컴포넌트 실시간 질감 반응 (Interactive UI Controls)
+               ============================================================= -->
+          <div>
+            <h4 style="margin: 0 0 12px; font-size: 16px; font-weight: 800; color: var(--pc-ink);">
+              <span class="pc-inline-icon is-sm" data-icon="settings"></span> 2. UI 컴포넌트(인풋·셀렉트·체크박스·버튼) 질감 실시간 반응
+            </h4>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+              <!-- Input -->
+              <div class="pc-input-wrapper">
+                <label class="pc-label" style="display: flex; align-items: center; gap: 6px;">
+                  <span class="pc-inline-icon is-sm" data-icon="search"></span> <span>음각 조각칼 인풋 필드 (Carved Inset)</span>
+                </label>
+                <div style="position: relative;">
+                  <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
+                  <input type="text" class="pc-input pc-texture-cotton pg-textured-item" placeholder="3D 종이 질감 인풋 필드 테스트..." style="padding-left: 42px; width: 100%;">
+                </div>
+              </div>
+              <!-- Dropdown -->
+              <div class="pc-input-wrapper">
+                <label class="pc-label" style="display: flex; align-items: center; gap: 6px;">
+                  <span class="pc-inline-icon is-sm" data-icon="price-tag"></span> <span>종이 질감 드롭다운 셀렉트</span>
+                </label>
+                <div class="pc-select-wrapper">
+                  <select class="pc-select pc-texture-cotton pg-textured-item">
+                    <option data-icon="coffee">따스한 카페 아메리카노</option>
+                    <option data-icon="croissant">갓 구운 버터 크루아상</option>
+                    <option data-icon="flower">벚꽃 잎차 블렌딩</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Checkbox & Buttons Bar -->
+            <div class="pc-texture-cotton pg-textured-item" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; background: var(--pc-bg-parchment); padding: 14px 18px; border-radius: 14px; border: 1.5px solid rgba(74,58,42,0.12);">
+              <label class="pc-checkbox-label">
+                <input type="checkbox" class="pc-checkbox-input" checked>
+                <span class="pc-checkbox-box"></span>
+                <span style="font-weight: 700;">오리가미 모서리 접기 활성화</span>
               </label>
-              <div style="position: relative;">
-                <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
-                <input type="text" class="pc-input pc-texture-paper" placeholder="페이퍼 컷팅 컴포넌트 검색..." style="padding-left: 42px; width: 100%;">
-              </div>
-            </div>
-            <div class="pc-input-wrapper">
-              <label class="pc-label" style="display: flex; align-items: center; gap: 6px;">
-                <span class="pc-inline-icon is-sm" data-icon="price-tag"></span> <span>옵션 드롭다운</span>
-              </label>
-              <div class="pc-select-wrapper">
-                <select class="pc-select pc-texture-paper">
-                  <option data-icon="coffee">따스한 카페 아메리카노</option>
-                  <option data-icon="croissant">갓 구운 버터 크루아상</option>
-                  <option data-icon="flower">벚꽃 잎차 블렌딩</option>
-                </select>
+
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="pc-btn pc-btn-mint pc-texture-cotton pg-textured-item" onclick="showPaperToast('3D 펄프 질감 민트 액션 버튼이 눌렸습니다!', 'mint')">
+                  <span class="pc-inline-icon" data-icon="coffee"></span> <span>커피 주문하기</span>
+                </button>
+                <button class="pc-btn pc-btn-peach pc-texture-cotton pg-textured-item" onclick="showPaperToast('선물 상자 피치 버튼이 눌렸습니다!', 'peach')">
+                  <span class="pc-inline-icon" data-icon="gift"></span> <span>선물 포장</span>
+                </button>
+                <button class="pc-btn pc-btn-organic-scallop pc-btn-lavender pc-texture-cotton pg-textured-item" onclick="showPaperToast('구름 스캘럽 버튼 클릭!', 'lavender')">
+                  <span class="pc-inline-icon" data-icon="paper-plane"></span> <span>종이비행기</span>
+                </button>
               </div>
             </div>
           </div>
 
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; background: var(--pc-bg-parchment); padding: 14px 18px; border-radius: 12px;">
-            <label class="pc-checkbox-label">
-              <input type="checkbox" class="pc-checkbox-input" checked>
-              <span class="pc-checkbox-box"></span>
-              <span>오리가미 모서리 접기 활성화</span>
-            </label>
-            <div style="display: flex; gap: 10px;">
-              <button class="pc-btn pc-btn-mint pc-texture-paper" onclick="showPaperToast('축하합니다! 3D 펄프 질감 민트 버튼이 눌렸습니다.', 'mint')">
-                <span class="pc-inline-icon" data-icon="coffee"></span> <span>커피 주문하기</span>
-              </button>
-              <button class="pc-btn pc-btn-peach pc-texture-paper" onclick="showPaperToast('선물 상자 피치 버튼이 눌렸습니다.', 'peach')">
-                <span class="pc-inline-icon" data-icon="gift"></span> <span>선물 포장</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Integrated Paper-Cut Badge Showcase inside Playground -->
-          <div style="display: flex; gap: 16px; align-items: center; border-top: 1px dashed rgba(74,58,42,0.15); padding-top: 16px;">
-            <div class="pc-icon-badge pc-badge-shape-postage pc-texture-paper" style="width: 76px; height: 76px; background: #FAF6ED; flex-shrink: 0; box-shadow: var(--pc-paper-shadow-sm);">
-              <span class="pc-inline-icon is-badge-icon" data-icon="home" style="z-index: 5;"></span>
-            </div>
-            <div>
-              <div style="font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 8px;">
-                <span>스탠드얼론 아이콘 + 배경 플레이트 실시간 융합</span>
-                <span class="pc-badge pc-badge-mint">Integrated Kirigami</span>
+          <!-- =============================================================
+               PART 3: DYNAMIC PAPER STOCK PROFILE CARD (지질 상세 물리 정보)
+               ============================================================= -->
+          <div class="pg-spec-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+                <span class="pc-inline-icon is-sm" data-icon="file"></span>
+                <span>현재 선택된 종이 지질(Paper Stock) 물리 프로필: <strong id="pg-spec-title" style="color: var(--pc-ink); text-decoration: underline;">300g 수제 코튼지</strong></span>
               </div>
-              <div style="font-size: 12.5px; color: var(--pc-ink-muted); margin-top: 2px;">
-                우표 천공 타일 배경 박스에 300g 수제 코튼지 질감과 홈 & 코티지 아이콘이 결합되어 실시간 물리 반응을 테스트할 수 있습니다.
+              <span id="pg-spec-category-badge" class="pc-badge pc-badge-mint">Core Stock</span>
+            </div>
+            <p id="pg-spec-desc" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0 0 10px; line-height: 1.5;">
+              은은한 펄프 섬유 요철과 부드러운 코튼 볼륨감 (콜드프레스 질감)
+            </p>
+            <div class="pg-spec-card-grid">
+              <div class="pg-spec-item">
+                <div class="pg-spec-item-label">지질 평량 (Weight)</div>
+                <div class="pg-spec-item-value" id="pg-spec-weight">300g/m²</div>
+              </div>
+              <div class="pg-spec-item">
+                <div class="pg-spec-item-label">펄프 섬유 특성 (Fiber)</div>
+                <div class="pg-spec-item-value" id="pg-spec-fiber">순수 면 100% 코튼 펄프 요철</div>
+              </div>
+              <div class="pg-spec-item">
+                <div class="pg-spec-item-label">3D 조명 & 베벨 (Lighting)</div>
+                <div class="pg-spec-item-value" id="pg-spec-lighting">45° 앰비언트 확산광 + 1.5px 칼선 베벨</div>
+              </div>
+              <div class="pg-spec-item">
+                <div class="pg-spec-item-label">최적 추천 컴포넌트 (Best For)</div>
+                <div class="pg-spec-item-value" id="pg-spec-bestfor">버튼, 메인 카드, 스탠드얼론 키리가미 아이콘</div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
+
 
     <!-- Footer -->
     <footer style="margin-top: 80px; text-align: center; color: var(--pc-ink-muted); font-size: 14px;">

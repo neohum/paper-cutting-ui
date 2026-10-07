@@ -1503,11 +1503,15 @@ body.texture-cotton.pc-paper-grain::before {
   z-index: 2;
 }
 
+.pc-texture-none,
 [class*="pc-texture-none"]::before {
   display: none !important;
+  opacity: 0 !important;
 }
+.pc-texture-none::after,
 [class*="pc-texture-none"]::after {
   box-shadow: none !important;
+  background-image: none !important;
 }
 
 /* Ensure contents stay above base background texture layer */
