@@ -2041,17 +2041,20 @@
     }
   }
 
-  function getMountedIconSvg(iconId) {
+  function getMountedIconSvg(iconId, suffix) {
     if (iconId === 'none') return '';
-    const icons = window.PAPERCUT_ICONS || [];
-    const icon = icons.find(i => i.id === iconId);
-    if (!icon) return '';
+    const rawSvg = typeof window.getPapercutIconSvg === 'function' ? window.getPapercutIconSvg(iconId, suffix || 'bg-plate') : '';
+    if (!rawSvg) return '';
 
-    // Extract inside of SVG or return scaled SVG
-    // We position the icon at center (x=48, y=48) scaled nicely (42x42 size inside 96x96 background)
+    // Mathematically center icon (48x48) precisely at center (24, 24) on the 96x96 topmost paper plate
+    const centeredSvg = rawSvg.replace(/<svg\b([^>]*)>/, (m, attrs) => {
+      const cleanAttrs = attrs.replace(/\b(width|height|x|y|style)="[^"]*"/g, '').trim();
+      return `<svg ${cleanAttrs} x="24" y="24" width="48" height="48" style="width:48px !important; height:48px !important; display:block !important; overflow:visible !important;">`;
+    });
+
     return `
-      <g class="pc-mounted-icon" transform="translate(24, 24) scale(0.75)">
-        ${icon.svg}
+      <g class="pc-mounted-icon" style="transform-origin: 48px 48px;">
+        ${centeredSvg}
       </g>
     `;
   }
@@ -2071,10 +2074,9 @@
       countBadge.textContent = `${filtered.length}개 배경 모양`;
     }
 
-    const mountedIconSvg = getMountedIconSvg(previewIconId);
-
     const fragment = document.createDocumentFragment();
     filtered.forEach((item, idx) => {
+      const mountedIconSvg = getMountedIconSvg(previewIconId, 'bg-' + item.id);
       const card = document.createElement('div');
       card.className = 'pc-bg-card';
       card.dataset.shape = item.id;
@@ -2104,10 +2106,10 @@
           <div class="pc-bg-rec-tag">✦ 추천 아이콘: ${item.recommendedFor}</div>
           <div class="pc-bg-action-row">
             <button type="button" class="pc-btn pc-btn-sm pc-bg-copy-svg-btn" title="아이콘이 결합된 SVG 복사">
-              <span>📋 SVG 복사</span>
+              <span class="pc-inline-icon is-xs" data-icon="clipboard"></span> <span>SVG 복사</span>
             </button>
             <button type="button" class="pc-btn pc-btn-sm pc-bg-copy-css-btn pc-btn-peach" title="CSS 클래스 복사">
-              <span>🏷️ CSS 클래스</span>
+              <span class="pc-inline-icon is-xs" data-icon="price-tag"></span> <span>CSS 클래스</span>
             </button>
           </div>
         </div>
@@ -2117,6 +2119,9 @@
 
     container.innerHTML = '';
     container.appendChild(fragment);
+    if (typeof window.hydratePapercutIcons === 'function') {
+      window.hydratePapercutIcons(container);
+    }
   }
 
   window.initPapercutBackgroundShowcase = initBackgroundShowcase;

@@ -1,0 +1,931 @@
+/**
+ * PaperCut UI - Icon Size & Stroke Simulation Matrix
+ * Stylesheet for the interactive multi-size outline simulation matrix.
+ */
+
+/* ==========================================================================
+   Section & Layout Wrapper
+   ========================================================================== */
+.pc-sim-matrix-section {
+  position: relative;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 40px 36px;
+  background: #FFFFFF;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(74, 58, 42, 0.08), 0 1px 3px rgba(74, 58, 42, 0.05);
+}
+
+.pc-sim-header {
+  margin-bottom: 28px;
+}
+
+.pc-sim-badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.pc-sim-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  letter-spacing: -0.02em;
+}
+
+.pc-sim-subtitle {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--pc-ink-muted, #7D7166);
+  margin: 0;
+  max-width: 980px;
+}
+
+/* ==========================================================================
+   Interactive Console / Control Panel
+   ========================================================================== */
+.pc-sim-console {
+  background: var(--pc-cream, #FAF7F0);
+  border: 1px solid var(--pc-border-color, #EADFD3);
+  border-radius: 20px;
+  padding: 24px 26px;
+  margin-bottom: 34px;
+  box-shadow: inset 0 2px 4px rgba(74, 58, 42, 0.04);
+}
+
+.pc-sim-console-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.pc-sim-control-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(234, 223, 211, 0.85);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 8px rgba(74, 58, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pc-sim-control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-sim-control-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Quick Icon Chips */
+.pc-sim-quick-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.pc-sim-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #FAF7F0;
+  border: 1px solid #EADFD3;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: #5A4E42;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  vertical-align: middle;
+  text-align: center;
+}
+.pc-sim-chip-btn > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-sim-chip-btn:hover {
+  background: #F3EBDD;
+  border-color: #D8C7B4;
+  transform: translateY(-1px);
+}
+
+.pc-sim-chip-btn.is-active {
+  background: var(--pc-ink, #3D352E);
+  color: #FFFFFF;
+  border-color: var(--pc-ink, #3D352E);
+  box-shadow: 0 2px 6px rgba(61, 53, 46, 0.25);
+}
+
+/* 10 Curated Ink Swatches */
+.pc-sim-swatch-grid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pc-sim-color-picker-wrap {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  border: 2px solid #FFFFFF;
+  cursor: pointer;
+}
+
+.pc-sim-color-input {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.pc-sim-swatch-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pc-sim-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 4px rgba(74, 58, 42, 0.18);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  position: relative;
+  outline: none;
+  padding: 0;
+}
+
+.pc-sim-swatch:hover {
+  transform: scale(1.18);
+  z-index: 2;
+  box-shadow: 0 3px 8px rgba(74, 58, 42, 0.25);
+}
+
+.pc-sim-swatch.is-active {
+  outline: 2px solid var(--pc-ink, #3D352E);
+  outline-offset: 2px;
+  transform: scale(1.15);
+}
+
+.pc-sim-swatch[data-color="#FFFFFF"] {
+  border-color: #D8C7B4;
+}
+
+/* Segmented Buttons */
+.pc-sim-segmented {
+  display: flex;
+  background: #F3EBDD;
+  border-radius: 10px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.pc-sim-seg-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #6B5E52;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pc-sim-seg-btn:hover {
+  color: var(--pc-ink, #3D352E);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.pc-sim-seg-btn.is-active {
+  background: #FFFFFF;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 0 1px 4px rgba(74, 58, 42, 0.12);
+}
+
+/* Slider Controls */
+.pc-sim-range-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pc-sim-range-input {
+  width: 100%;
+  accent-color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  height: 6px;
+  border-radius: 4px;
+}
+
+.pc-sim-thick-presets {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.pc-sim-preset-btn {
+  border: 1px solid #EADFD3;
+  background: #FAF7F0;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #6B5E52;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.pc-sim-preset-btn:hover {
+  background: #F0E8D9;
+}
+
+.pc-sim-preset-btn.is-active {
+  background: var(--pc-ink, #3D352E);
+  color: #FFFFFF;
+  border-color: var(--pc-ink, #3D352E);
+}
+
+/* Background Chips */
+.pc-sim-bg-chips {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.pc-sim-bg-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  border: 1px solid #E5D9CC;
+  background: #FFFFFF;
+  color: #5A4E42;
+  transition: all 0.15s ease;
+  vertical-align: middle;
+  text-align: center;
+}
+.pc-sim-bg-chip > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-sim-bg-chip.is-active {
+  border-color: var(--pc-ink, #3D352E);
+  background: var(--pc-ink, #3D352E);
+  color: #FFFFFF;
+}
+
+.pc-sim-bg-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  display: inline-block;
+}
+
+/* ==========================================================================
+   Multi-Size Simulation Matrix Grid
+   ========================================================================== */
+.pc-sim-matrix-container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Individual Size Row Card */
+.pc-sim-size-card {
+  background: #FFFFFF;
+  border: 1px solid #EAE0D4;
+  border-radius: 18px;
+  padding: 20px 22px;
+  box-shadow: 0 2px 10px rgba(74, 58, 42, 0.05);
+  transition: all 0.2s ease;
+}
+
+.pc-sim-size-card:hover {
+  border-color: #D9CBBD;
+  box-shadow: 0 4px 16px rgba(74, 58, 42, 0.08);
+}
+
+/* Size Card Header Bar */
+.pc-sim-size-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed #EAE0D4;
+}
+
+.pc-sim-size-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pc-sim-size-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAF5ED;
+  color: var(--pc-ink, #3D352E);
+  border: 1.5px solid #DBCBB9;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.pc-sim-size-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-sim-size-name-ko {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-sim-size-name-en {
+  font-size: 11.5px;
+  color: var(--pc-ink-muted, #7D7166);
+  font-weight: 600;
+}
+
+/* Metrics & Clarity Readout */
+.pc-sim-size-metrics {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pc-sim-metric-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #F7F3EB;
+  border: 1px solid #E7DDD1;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #5D5246;
+}
+
+.pc-sim-clarity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.pc-sim-clarity-badge.is-optimal {
+  background: #E3F5EC;
+  color: #1F6B43;
+  border: 1px solid #B8E4CD;
+}
+
+.pc-sim-clarity-badge.is-good {
+  background: #E8F1FC;
+  color: #26558A;
+  border: 1px solid #BCD3F0;
+}
+
+.pc-sim-clarity-badge.is-warning {
+  background: #FEF7E6;
+  color: #946200;
+  border: 1px solid #F8DF9E;
+}
+
+.pc-sim-clarity-badge.is-choked {
+  background: #FDF0ED;
+  color: #A33527;
+  border: 1px solid #F5C2B8;
+}
+
+/* Size Actions */
+.pc-sim-size-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pc-sim-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #FAF7F0;
+  border: 1px solid #DECFC0;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  vertical-align: middle;
+  text-align: center;
+}
+.pc-sim-action-btn > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-sim-action-btn:hover {
+  background: #F0E6D8;
+  border-color: #CBB9A6;
+  transform: translateY(-1px);
+}
+
+.pc-sim-action-btn.is-active {
+  background: var(--pc-ink, #3D352E);
+  color: #FFFFFF;
+  border-color: var(--pc-ink, #3D352E);
+}
+
+/* ==========================================================================
+   Comparison Grid (6 Comparative Slots: 0px, 1px, 2px, 3px, 4.5px, Active)
+   ========================================================================== */
+.pc-sim-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 1200px) {
+  .pc-sim-compare-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .pc-sim-compare-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.pc-sim-cell {
+  background: #FAF8F4;
+  border: 1px solid #EBE2D7;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px 10px;
+  position: relative;
+  transition: all 0.18s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-sim-cell:hover {
+  background: #FFFFFF;
+  border-color: #D3C2B0;
+  box-shadow: 0 4px 12px rgba(74, 58, 42, 0.08);
+  transform: translateY(-2px);
+}
+
+.pc-sim-cell.is-active-slot {
+  background: #FFFFFF;
+  border: 2px solid var(--pc-ink, #3D352E);
+  box-shadow: 0 4px 14px rgba(61, 53, 46, 0.14);
+}
+
+.pc-sim-cell-badge {
+  font-size: 11px;
+  font-weight: 800;
+  color: #7A6B5D;
+  margin-bottom: 8px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pc-sim-cell.is-active-slot .pc-sim-cell-badge {
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-sim-live-tag {
+  background: #FEE396;
+  color: #5D4304;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Icon Stage Canvas Viewport */
+.pc-sim-stage {
+  width: 100%;
+  height: 96px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: background 0.25s ease;
+}
+
+/* Background Presets for Stages */
+.pc-sim-stage.bg-cream {
+  background-color: #FAF7F0;
+}
+
+.pc-sim-stage.bg-white {
+  background-color: #FFFFFF;
+}
+
+.pc-sim-stage.bg-dark {
+  background-color: #221C18;
+}
+
+.pc-sim-stage.bg-mint {
+  background-color: #E8F5EE;
+}
+
+.pc-sim-stage.bg-peach {
+  background-color: #FDEEE4;
+}
+
+.pc-sim-stage.bg-blueprint {
+  background-color: #152A38;
+  background-image: 
+    linear-gradient(rgba(100, 185, 230, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 185, 230, 0.15) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+/* Svg Element Display - Strictly constrained to specified pixel width and height */
+.pc-sim-svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: visible;
+}
+
+.pc-sim-svg-wrapper svg,
+.pc-sim-svg-wrapper svg.pc-layered-paper-icon {
+  width: var(--sim-icon-size, 16px) !important;
+  height: var(--sim-icon-size, 16px) !important;
+  min-width: var(--sim-icon-size, 16px) !important;
+  min-height: var(--sim-icon-size, 16px) !important;
+  max-width: var(--sim-icon-size, 16px) !important;
+  max-height: var(--sim-icon-size, 16px) !important;
+  display: block !important;
+  overflow: visible !important;
+  filter: none;
+}
+
+/* Loupe Zoom & Filter Controls */
+.pc-sim-loupe-wrap {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  background: #FAF7F0;
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid rgba(74, 58, 42, 0.12);
+}
+
+.pc-sim-loupe-btn {
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 800;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--pc-ink-muted, #73675B);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pc-sim-loupe-btn.is-active {
+  background: #FFFFFF;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.pc-sim-size-filter-bar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: #FAF7F0;
+  border-radius: 14px;
+  border: 1px dashed rgba(74, 58, 42, 0.15);
+  margin-bottom: 20px;
+}
+
+.pc-sim-size-filter-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+  font-size: 11.5px;
+  font-weight: 800;
+  line-height: 1;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 58, 42, 0.12);
+  background: #FFFFFF;
+  color: var(--pc-ink-muted, #73675B);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.pc-sim-size-filter-chip:hover {
+  background: var(--pc-mint-light, #E8F5EE);
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-sim-size-filter-chip.is-active {
+  background: var(--pc-mint, #A3D8C3);
+  color: var(--pc-mint-dark, #1B4D3E);
+  border-color: var(--pc-mint, #A3D8C3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Cell Footer Label & Quick Copy */
+.pc-sim-cell-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.pc-sim-cell-thick {
+  font-family: monospace;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-sim-cell-copy-hint {
+  font-size: 10.5px;
+  color: #9C8F82;
+  font-weight: 700;
+}
+
+.pc-sim-cell:hover .pc-sim-cell-copy-hint {
+  color: var(--pc-ink, #3D352E);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Per-Size Fine Tuning Drawer
+   ========================================================================== */
+.pc-sim-persize-drawer {
+  display: none;
+  margin-top: 16px;
+  padding: 14px 18px;
+  background: #FAF7F0;
+  border-radius: 12px;
+  border: 1px solid #E6D9CA;
+  animation: pcSimSlideDown 0.2s ease-out forwards;
+}
+
+.pc-sim-persize-drawer.is-open {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@keyframes pcSimSlideDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pc-sim-persize-label {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pc-sim-persize-slider {
+  flex: 1;
+  min-width: 160px;
+  accent-color: var(--pc-ink, #3D352E);
+  height: 6px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Export & Inspection Drawer / Panel
+   ========================================================================== */
+.pc-sim-export-panel {
+  margin-top: 36px;
+  background: var(--pc-cream, #FAF7F0);
+  border: 1px solid var(--pc-border-color, #EADFD3);
+  border-radius: 20px;
+  padding: 24px 26px;
+}
+
+.pc-sim-export-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.pc-sim-export-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.pc-sim-tab-btn {
+  background: #FFFFFF;
+  border: 1px solid #DECFC0;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #6D6054;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pc-sim-tab-btn.is-active {
+  background: var(--pc-ink, #3D352E);
+  color: #FFFFFF;
+  border-color: var(--pc-ink, #3D352E);
+}
+
+.pc-sim-code-box {
+  background: #201A16;
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #F8EFE6;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 12.5px;
+  line-height: 1.6;
+  overflow-x: auto;
+  max-height: 280px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  border: 1px solid #362D26;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Search Dropdown Modal / Popover */
+.pc-sim-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: #FFFFFF;
+  border: 1.5px solid #DECFC0;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(74, 58, 42, 0.16);
+  max-height: 320px;
+  overflow-y: auto;
+  margin-top: 6px;
+  display: none;
+}
+
+.pc-sim-search-dropdown.is-open {
+  display: block;
+}
+
+.pc-sim-search-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid #F5EFE7;
+  transition: background 0.12s ease;
+}
+
+.pc-sim-search-item:last-child {
+  border-bottom: none;
+}
+
+.pc-sim-search-item:hover {
+  background: #FAF5ED;
+}
+
+.pc-sim-search-item-thumb {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pc-sim-search-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-sim-search-item-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-sim-search-item-meta {
+  font-size: 11px;
+  color: #918478;
+}
+
+/* Tooltip & Micro animations */
+.pc-sim-tooltip {
+  position: relative;
+}
+
+.pc-sim-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2B241E;
+  color: #FFFFFF;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}

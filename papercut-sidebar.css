@@ -1,0 +1,554 @@
+/**
+ * PaperCut UI - Stationery Sidebar Navigation Panel (사이드바 메뉴)
+ * Styled as a handcrafted accordion binder / stationery file folder with tabs
+ */
+
+:root {
+  --pc-sidebar-width: 270px;
+  --pc-sidebar-collapsed-width: 64px;
+}
+
+/* Sidebar Container */
+#pc-sidebar-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--pc-sidebar-width);
+  background: #FAF7F0;
+  border-right: 1.5px solid #E6DBC9;
+  box-shadow: 
+    1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    4px 0 20px rgba(74, 58, 42, 0.08),
+    1px 0 4px rgba(74, 58, 42, 0.04);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  user-select: none;
+}
+
+/* Collapsed Mode */
+#pc-sidebar-nav.is-collapsed {
+  width: var(--pc-sidebar-collapsed-width);
+}
+
+/* Sidebar Header */
+.pc-sidebar-header {
+  padding: 18px 16px 14px;
+  border-bottom: 1px solid rgba(74, 58, 42, 0.08);
+  box-shadow: 0 1px 0 #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFDF9;
+  position: relative;
+}
+
+.pc-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--pc-ink, #3D352E);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.pc-sidebar-logo-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: #FAF6ED;
+  border: 1px solid #EADBCC;
+  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pc-sidebar-brand-text {
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.2s ease;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-brand-text {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.pc-sidebar-brand-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--pc-ink, #3D352E);
+  line-height: 1.2;
+}
+
+.pc-sidebar-brand-sub {
+  font-size: 11px;
+  color: var(--pc-ink-muted, #7A6F64);
+  font-weight: 600;
+}
+
+/* Toggle Collapse Button */
+.pc-sidebar-toggle-btn {
+  background: #FAF6ED;
+  border: 1px solid #EADBCC;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 0 1px 2px rgba(74, 58, 42, 0.06);
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+.pc-sidebar-toggle-btn:hover {
+  background: #F3EEFB;
+  border-color: #D2C4EC;
+  color: #4E3E75;
+  transform: scale(1.05);
+}
+
+/* Sidebar Scrollable Menu Items */
+/* Custom Handcrafted Paper Scrollbar (Parchment Well & Cardstock Bookmark Thumb) */
+.pc-sidebar-menu {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px 8px 14px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: #D5C8B4 #EDE6D8;
+}
+
+/* Scrollbar Track (Carved Matboard Paper Well) */
+.pc-sidebar-menu::-webkit-scrollbar {
+  width: 7px;
+}
+.pc-sidebar-menu::-webkit-scrollbar-track {
+  background: #EDE6D8;
+  border-radius: 999px;
+  box-shadow: 
+    inset 1px 1px 2px rgba(74, 58, 42, 0.14),
+    inset -1px -1px 1px rgba(255, 255, 255, 0.8);
+  margin: 6px 0;
+}
+
+/* Scrollbar Thumb (Thick Cardstock Bookmark Strip with Embossed Grip Lines) */
+.pc-sidebar-menu::-webkit-scrollbar-thumb {
+  background: 
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 3px,
+      rgba(74, 58, 42, 0.09) 3px,
+      rgba(74, 58, 42, 0.09) 4px
+    ),
+    linear-gradient(135deg, #FAF7F0 0%, #E8DFC9 100%);
+  border: 1.5px solid #D5C6AF;
+  border-radius: 999px;
+  box-shadow: 
+    0 2px 4px rgba(74, 58, 42, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.pc-sidebar-menu::-webkit-scrollbar-thumb:hover {
+  background: 
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 3px,
+      rgba(74, 58, 42, 0.14) 3px,
+      rgba(74, 58, 42, 0.14) 4px
+    ),
+    linear-gradient(135deg, #FFFDF9 0%, #DFD3BA 100%);
+  border-color: #BFB097;
+  box-shadow: 
+    0 3px 7px rgba(74, 58, 42, 0.22),
+    inset 0 1px 0 #FFFFFF;
+}
+
+/* Menu Category Label with Embossed Paper Crease Divider */
+.pc-sidebar-category {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #8C7C6D;
+  padding: 10px 10px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+.pc-sidebar-category:not(:first-child) {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(74, 58, 42, 0.07);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.85);
+}
+#pc-sidebar-nav.is-collapsed .pc-sidebar-category {
+  display: none;
+}
+
+/* Menu Item Link */
+.pc-sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--pc-ink, #3D352E);
+  font-size: 13.5px;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  position: relative;
+}
+
+.pc-sidebar-item:hover {
+  background: #FFFDF9;
+  border-color: #ECE2D2;
+  transform: translateX(3px);
+  box-shadow: 0 2px 6px rgba(74, 58, 42, 0.06);
+}
+
+.pc-sidebar-item.is-active {
+  background: #FFFDF9;
+  border-color: #A3D8C3;
+  color: #1E5C41;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 3px 8px rgba(44, 107, 80, 0.12);
+  transform: translateX(3px);
+}
+
+/* Active Indicator Paper Ribbon */
+.pc-sidebar-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.5px;
+  height: 20px;
+  background: #4DA778;
+  border-radius: 0 3px 3px 0;
+  box-shadow: 1px 0 2px rgba(44, 107, 80, 0.25);
+}
+
+/* 3D Layered Paper-Cut Icon Mount Plate */
+.pc-sidebar-item-icon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #FFFDF9;
+  border: 1.5px solid #E6DCCF;
+  box-shadow: 
+    0 1.5px 0 #DDD2C0,
+    0 3px 6px rgba(74, 58, 42, 0.08);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pc-sidebar-item:hover .pc-sidebar-item-icon {
+  transform: translateY(-1.5px) rotate(-1deg);
+  border-color: #D9CEBE;
+  box-shadow: 
+    0 2.5px 0 #D0C3AF,
+    0 5px 10px rgba(74, 58, 42, 0.12);
+}
+.pc-sidebar-item.is-active .pc-sidebar-item-icon {
+  background: #E8F6EE;
+  border-color: #9FD6B8;
+  transform: translateY(-1px);
+  box-shadow: 
+    0 2px 0 #85C2A0,
+    0 4px 10px rgba(44, 107, 80, 0.18);
+}
+
+.pc-sidebar-item-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item-text {
+  display: none;
+}
+
+/* Handcrafted Paper Notch Ribbon Tag / Scallop Stamp Badge */
+.pc-sidebar-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2.5px 8px 3px;
+  border-radius: 6px;
+  background: #F4EFFC;
+  color: #55417F;
+  border: 1px solid #D8CBEF;
+  box-shadow: 
+    0 1.5px 0 #CBBDE6,
+    0 2px 5px rgba(74, 58, 42, 0.08);
+  flex-shrink: 0;
+  position: relative;
+  letter-spacing: -0.2px;
+  transition: all 0.2s ease;
+}
+.pc-sidebar-item:hover .pc-sidebar-badge {
+  transform: translateY(-0.5px);
+  box-shadow: 
+    0 2px 0 #C2B3E0,
+    0 3px 6px rgba(74, 58, 42, 0.12);
+}
+.pc-sidebar-item.is-active .pc-sidebar-badge {
+  background: #E8F6EE;
+  color: #1A543B;
+  border-color: #A3D8C3;
+  box-shadow: 
+    0 1.5px 0 #89C7AC,
+    0 3px 6px rgba(44, 107, 80, 0.16);
+}
+#pc-sidebar-nav.is-collapsed .pc-sidebar-badge {
+  display: none;
+}
+
+/* Sidebar Footer (Quick Back to Top) with Pressed Paper Crease */
+.pc-sidebar-footer {
+  padding: 12px 14px;
+  border-top: 1px solid rgba(74, 58, 42, 0.08);
+  box-shadow: 0 -1px 0 #FFFFFF;
+  background: #FFFDF9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pc-sidebar-top-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #FAF6ED;
+  border: 1px solid #EADBCC;
+  border-radius: 8px;
+  color: var(--pc-ink, #3D352E);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(74, 58, 42, 0.05);
+  transition: all 0.15s ease;
+}
+.pc-sidebar-top-btn:hover {
+  background: #F3EEFB;
+  border-color: #D2C4EC;
+  color: #4E3E75;
+  transform: translateY(-1px);
+}
+#pc-sidebar-nav.is-collapsed .pc-sidebar-top-btn span:not(.pc-inline-icon) {
+  display: none;
+}
+
+/* Layout Shift on Desktop */
+@media (min-width: 1280px) {
+  body.has-pc-sidebar {
+    padding-left: var(--pc-sidebar-width);
+    transition: padding-left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  body.has-pc-sidebar.is-collapsed {
+    padding-left: var(--pc-sidebar-collapsed-width);
+  }
+}
+
+/* Responsive Mobile Floating Toggle Button */
+.pc-sidebar-floating-toggle {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #FFFDF9;
+  border: 1.5px solid #A3D8C3;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(74, 58, 42, 0.16);
+  font-family: var(--pc-font);
+  font-size: 13px;
+  font-weight: 800;
+  color: #1E5C41;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.pc-sidebar-floating-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74, 58, 42, 0.22);
+}
+
+@media (max-width: 1279px) {
+  #pc-sidebar-nav {
+    transform: translateX(-100%);
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.2);
+  }
+  #pc-sidebar-nav.is-mobile-open {
+    transform: translateX(0);
+  }
+  .pc-sidebar-floating-toggle {
+    display: inline-flex;
+  }
+}
+
+/* ==========================================================================
+   MULTI-PAGE VIEW ROUTER MODE (사이드바 메뉴별 독립 페이지 전환 모드)
+   ========================================================================== */
+
+/* Page View Base */
+.pc-page-view {
+  position: relative;
+  transition: opacity 0.25s ease;
+}
+
+/* When in Page View Mode, only the active page is displayed */
+body.pc-page-mode .pc-page-view {
+  display: none !important;
+}
+
+body.pc-page-mode .pc-page-view.is-active-page {
+  display: block !important;
+  animation: pcPageUnfold 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pcPageUnfold {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.992);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Page Navigation Header Bar (Breadcrumbs & Mode Toggle) */
+.pc-page-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #FFFDF9;
+  border: 1.5px solid #EADBCC;
+  border-radius: 16px;
+  margin-bottom: 28px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 3px 8px rgba(74, 58, 42, 0.06);
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+}
+
+.pc-page-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ink-muted, #7A6F64);
+}
+.pc-page-breadcrumb-current {
+  color: var(--pc-ink, #3D352E);
+  font-weight: 800;
+}
+
+.pc-page-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pc-page-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #FAF6ED;
+  border: 1px solid #D5C8B4;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  transition: all 0.18s;
+  box-shadow: 0 1px 2px rgba(74, 58, 42, 0.05);
+}
+.pc-page-mode-toggle:hover {
+  background: #E8F6EE;
+  border-color: #4DA778;
+  color: #1E5C41;
+  transform: translateY(-1px);
+}
+
+/* Page Bottom Pagination Bar */
+.pc-page-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 10px;
+  margin-top: 40px;
+  border-top: 1.5px dashed rgba(74, 58, 42, 0.18);
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+}
+
+.pc-page-prev-btn,
+.pc-page-next-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 14px;
+  background: #FFFDF9;
+  border: 1.5px solid #E6DCCF;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  box-shadow: 0 1px 0 #FFFFFF inset, 0 3px 6px rgba(74, 58, 42, 0.08);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+.pc-page-prev-btn:hover,
+.pc-page-next-btn:hover {
+  background: #FAF6ED;
+  transform: translateY(-2px);
+  border-color: #C8B9A0;
+  box-shadow: 0 6px 14px rgba(74, 58, 42, 0.12);
+}
+.pc-page-next-btn {
+  margin-left: auto;
+  background: #EAF7F1;
+  border-color: #A3D8C3;
+  color: #275C46;
+}
+.pc-page-next-btn:hover {
+  background: #D9F0E5;
+  border-color: #72BE99;
+}

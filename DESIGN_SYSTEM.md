@@ -269,6 +269,35 @@ This section specifies the anatomy, structural markup, state changes, and visual
 
 ---
 
+### 3.0 Topmost Layer Geometric Centering Standard (최상위 페이퍼 레이어 기준 기하학적 정렬 원칙)
+
+다층 종이 공예(Layered Papercraft) UI 컴포넌트는 하부 그림자 시트(`::before`, `::after`)와 입체 오프셋(Z-Stack)을 가지므로, 정렬 기준점이 컴포넌트 전체 외곽이 아닌 **최상위 표면 레이어(Layer 3 / Face Sheet)**에 엄격히 고정되어야 합니다.
+
+```
++--------------------------------------------------------------+
+| MULTI-LAYER CENTERING REFERENCE COORDINATES                  |
+|                                                              |
+|        [Topmost Face Sheet: Layer 3]  <--- DEAD CENTER HERE! |
+|       +-----------------------------+                        |
+|       |  [Icon]   Text Content      |  (dy = 0px, dx = 0px)  |
+|     +-----------------------------+ |                        |
+|     | Accent Sheet: Layer 2       | |                        |
+|   +-----------------------------+ |/                         |
+|   | Base Kraft: Layer 1         |/                           |
+|   +-----------------------------+                            |
++--------------------------------------------------------------+
+```
+
+1. **Top Face Bounding Box Reference:**
+   - 다층 페이퍼 버튼(`.pc-btn`), 배지(`.pc-badge`), 필터 칩, 드롭다운 트리거의 상하좌우 정렬은 장식용 하부 시트의 오프셋(`right: -7.5px; bottom: -7.5px`)이나 입체 그림자 돌출부와 무관하게 최상위 면판(Face Sheet)의 내부 지오메트리를 기준으로 정중앙(`dy = 0.00px`, `dx = 0.00px`)에 배치됩니다.
+2. **Asymmetric Typography & SVG Baseline Normalization:**
+   - 한글 폰트 및 시스템 글꼴의 baseline 비대칭 선행 여백(leading)으로 인해 텍스트가 아이콘보다 하단으로 처지는 현상을 방지하기 위해 컨테이너에 `line-height: 1;`을 강제합니다.
+   - 아이콘과 텍스트 쌍은 `display: inline-flex; align-items: center; justify-content: center; gap: ...; line-height: 1;` 구조로 묶어 벡터 중심축과 글꼴의 x-height 중앙선이 완벽히 일치하도록 합니다.
+3. **Decoupled Decorative Perforations:**
+   - 페이퍼 태그(`.pc-btn-tag`)의 아일렛 타공 홀 등 비대칭 장식 요소는 `position: absolute`로 면판 외곽에 고정하여 내부 콘텐츠의 기하학적 중앙 대칭성을 왜곡하지 않습니다.
+
+---
+
 ### 3.1 Button Primitives
 
 Buttons represent tactile physical paper elements that invite pressing, pulling, or tearing.
@@ -1322,6 +1351,194 @@ To provide flexible visual hierarchy when icons need backing badges, buttons, or
   - Real-time icon selector dropdown mounts any of our 500 icons into all 130 background shapes simultaneously.
   - One-click SVG code copy (including nested icon and isolated filters).
   - One-click CSS class copy (`.pc-icon-badge` + shape modifiers).
+
+### 8.6 Direct Component Paper Texture Shaders & Void Element Adapters
+To allow paper textures to be applied directly on individual UI controls (buttons, inputs, dropdowns, checkboxes, badges) rather than solely on canvas backgrounds, the library implements direct procedural SVG shader adapters:
+- **Void Element Challenge & Solution:**
+  HTML void elements (`<input>`, `<select>`, `<textarea>`) cannot render CSS pseudo-elements (`::before` / `::after`). Applying texture purely through container wrappers forces excessive HTML boilerplate.
+  - **Procedural SVG Data URI Shaders:** Texture classes (`.pc-texture-cotton`, `.pc-texture-cream`, `.pc-texture-hanji`, `.pc-texture-kraft`, `.pc-texture-watercolor`, `.pc-texture-linen`) apply seamless procedural SVG turbulence shaders directly via `background-image` on `input.pc-input` and `select.pc-select`.
+  - **Multiply Blend Rendering:** Using `background-blend-mode: multiply` on the component surface blends the microscopic paper grain, wood pulp specks, and cold-press dimples into the component's pastel cardstock base color without washing out typed text.
+- **Component-Level Tactile Beveling:**
+  Buttons and active input wells receive physical knife-cut paper bevels (`box-shadow: 0 1px 0 rgba(255,255,255,0.85) inset, 0 -1.5px 0 rgba(74,58,42,0.12) inset`) creating the visual illusion of 300g cardstock cut with a sharp craft blade.
+- **Dedicated Component Texture Lab (`#playground-components-lab`):**
+  Provides a side-by-side dual inspection grid comparing **[Standard 2D Flat Components (No texture)]** directly against **[3D Paper-Textured Components (`.pg-comp-target`)]** across 7 paper stocks (Cotton, Cream Board, Hanji, Kraft, Arches Watercolor, French Linen, Flat).
+
+---
+
+### 8.7 Interactive Icon Outline & Dynamic Scale Studio (`#icon-stroke-studio`)
+To solve legibility and contrast across varying backgrounds and scales, the library features an interactive outline and scaling engine:
+- **Three Outline Modes:**
+  1. **Sticker Die-Cut (`sticker`):**
+     Applies an SVG perimeter dilation filter (`<feMorphology in="SourceAlpha" operator="dilate" radius="...">` + `<feFlood>` + `<feComposite>` + `<feDropShadow>`). This creates a continuous outer sticker border around the icon silhouette with soft drop shadowing, leaving inner paper cuts intact.
+  2. **Kirigami Layer Cutline (`layer`):**
+     Uses `paint-order: stroke fill` with rounded stroke caps and joins directly on filled SVG paths. Because the stroke renders beneath the fill, it expands outward from each individual colored paper layer without encroaching on inner details.
+  3. **Double Outline (`double`):**
+     Combines both an outer sticker die-cut contour and inner colored paper layer cutlines for high-contrast badge display.
+- **Thickness & Palette Controls:**
+  - Range: `0.5px` to `8.0px` with micro-step precision and quick chips (1px, 1.5px, 2.5px, 3.5px, 5px).
+  - Arbitrary HEX color picker plus curated papercraft ink swatches (`#3D352E` Charcoal Dark Ink, `#5A4535` Chocolate, `#2D4A3E` Sage, `#2B3E50` Navy, `#FFFFFF` Pure White Sticker, `#C05C46` Terracotta, `#5C4E8A` Lavender Dusk, `#9E7422` Vintage Gold).
+- **Scale Behavior (Fixed Pixel vs Proportional):**
+  - **Fixed Pixel (`vector-effect="non-scaling-stroke"`):** Maintains the designated stroke thickness on screen even as the icon is scaled down to 24px or 36px, preventing outline loss in micro UI contexts.
+  - **Proportional Scale:** Dynamically scales outline thickness relative to the icon dimensions (`(strokeWidth * size / 64)`).
+- **6-Step Design System Matrix:**
+  Renders live across standard token scales:
+  - `24px` (Micro UI / Inset actions)
+  - `36px` (Compact toolbar / navigation)
+  - `48px` (Standard UI button / form)
+  - `64px` (Base design system spec)
+  - `96px` (Featured card badge)
+  - `128px` (Hero display illustration)
+- **One-Click Export:**
+  - **SVG Export:** Serializes the complete SVG with embedded `<filter id="pc-export-diecut">` and SVG stroke attributes for zero-dependency standalone use in Figma, React, Vue, or native web.
+  - **CSS Export:** Copies the exact CSS rule block including custom properties (`--pc-icon-stroke-color`, `--pc-icon-stroke-width`), `paint-order`, and `vector-effect`.
+
+### 8.8 Icon Micro-Scale & Stroke Simulation Matrix (`#icon-stroke-matrix-sim`)
+A dedicated micro-scale simulation component (`papercut-icon-sim.js` & `papercut-icon-sim.css`) designed specifically for micro-resolutions strictly ranging from **3px to 16px** (`3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12px, 13px, 14px, 15px, 16px`). All larger resolutions (>16px) are eliminated to focus exclusively on subpixel clarity, anti-aliasing behavior, and stroke choking prevention in high-density UI contexts.
+
+1. **Dynamic Icon Selection & Quick Chips:**
+   - Universal search and selector across all 529 standalone layered kirigami icons (`window.PAPERCUT_ICONS`).
+   - 12 instant sample chips: `coffee`, `home`, `camera`, `gift`, `heart`, `sun`, `sparkles`, `mail`, `scissors`, `cart`, `shield`, `bell`.
+
+2. **14 Micro-Pixel Physical Dimensions (3px ~ 16px strictly):**
+   - **3px**: Nano Dot Pixel (Rec: `0.1 ~ 0.3px`, Choke limit: `0.6px`)
+   - **4px**: Subpixel Indicator (Rec: `0.1 ~ 0.4px`, Choke limit: `0.8px`)
+   - **5px**: Mini Badge Pin (Rec: `0.2 ~ 0.4px`, Choke limit: `0.9px`)
+   - **6px**: Micro Status Dot (Rec: `0.2 ~ 0.5px`, Choke limit: `1.0px`)
+   - **7px**: Inline Micro Tag (Rec: `0.2 ~ 0.5px`, Choke limit: `1.1px`)
+   - **8px**: Micro Glyph (Rec: `0.3 ~ 0.6px`, Choke limit: `1.3px`)
+   - **9px**: Dense Data Cell (Rec: `0.3 ~ 0.7px`, Choke limit: `1.5px`)
+   - **10px**: Subtext Icon (Rec: `0.4 ~ 0.8px`, Choke limit: `1.7px`)
+   - **11px**: Caption Indicator (Rec: `0.4 ~ 0.8px`, Choke limit: `1.8px`)
+   - **12px**: Compact Inline Symbol (Rec: `0.5 ~ 0.9px`, Choke limit: `2.0px`)
+   - **13px**: Button Prefix Tag (Rec: `0.5 ~ 1.0px`, Choke limit: `2.2px`)
+   - **14px**: Body Text Inline (Rec: `0.5 ~ 1.1px`, Choke limit: `2.4px`)
+   - **15px**: Form Label Icon (Rec: `0.6 ~ 1.2px`, Choke limit: `2.5px`)
+   - **16px**: Favicon & Micro Standard (Rec: `0.6 ~ 1.4px`, Choke limit: `2.8px`)
+
+3. **5-Stage Side-by-Side Outline Comparison per Size:**
+   - **Baseline (0px):** Pure kirigami artwork with no outline.
+   - **Hairline (0.2px):** Nano line detail separator for micro badges.
+   - **Subtle (0.4px):** Delicate outline boundary.
+   - **Standard (0.7px):** Standard UI boundary token calibrated for sub-16px.
+   - **Bold (1.2px):** High-contrast sticker border.
+   - **Dynamic Live Slot:** Real-time reflection of the active slider thickness (calibrated from 0.1px to 2.5px), with live badge and click-to-select interaction.
+
+4. **Micro-Scale Loupe Zoom Inspector (1x, 2x, 4x, 8x):**
+   - Built-in optical loupe magnifier allows instant inspection of both 1:1 true physical pixel display and 2x, 4x, 8x magnified vector contours without changing the underlying token dimensions.
+   - Filter bar allows filtering all 14 sizes or isolating any specific micro size (`3px` through `16px`).
+
+5. **Curated Ink Swatches, Modes & Backgrounds:**
+   - **10 Curated Craft Inks:** Dark Charcoal (`#2B2623`), Chocolate (`#4E3629`), Sage (`#4A6B5D`), Midnight Navy (`#1E2B37`), White (`#FFFFFF`), Coral Red (`#D9534F`), Lavender Dusk (`#6B5B82`), Antique Gold (`#B58900`), Forest Pine (`#2D5A43`), Dusty Rose (`#B86574`), plus custom color picker.
+   - **3 Outline Modes:** Sticker Die-Cut (`sticker`), Kirigami Layer Cutline (`layer`), Double Outline (`double`).
+   - **Scale Behavior:** Fixed Pixel (`vector-effect="non-scaling-stroke"`) vs Proportional.
+   - **6 Background Environments:** Matte Cream (`#FAF7F0`), Clean White (`#FFFFFF`), Midnight Dark (`#221C18`), Pastel Mint (`#E8F5EE`), Pastel Peach (`#FDEEE4`), Grid Blueprint (Drafting mat `#152A38`).
+
+6. **Clarity Diagnostics & Instant Code Export:**
+   - Real-time stroke width, stroke-to-size ratio (%), and clarity rating (Ultra Crisp / Subtle / Bold Accent / Choked Warning) with design token recommendations.
+   - Per-size independent fine-tuning drawer with sync restoration.
+   - One-click standalone SVG serialization and CSS class generation.
+
+### 8.9 shadcn/ui Paper-Cut Component Library (45 Interactive Components)
+The complete official suite of **45 shadcn/ui components** has been reimagined in authentic **3D Layered Paper-Cut Aesthetics**:
+- **Design Foundations:**
+  - Base Cardstock: High-bulk matte cream (`#FAF7F0`, `#FFFDF9`, `#F3EFE6`).
+  - Warm Umber Shadows: Multi-tier wood-pulp drop shadows (`rgba(74, 60, 49, 0.08 - 0.22)`) across elevations E-1 through E-5, plus carved debossed well shadows.
+  - Tactile Embellishments: Washi tape pins (`.pc-sd-washi-pin`), deckle edges, postage stamp roulette perforations, scallop cuts, origami dogear corner folds, and concertina pleats.
+- **Component Catalog (45 Components):**
+  1. *Accordion*: Concertina pleated paper fold with rotating chevron cutline.
+  2. *Alert*: Postage stamp deckle edge badge with ribbon border & pastel status tints.
+  3. *Alert Dialog*: Layered shadowbox modal overlay with peach under-sheet accent.
+  4. *Aspect Ratio*: Cardstock picture frame with 4 triangular photo corner mounts.
+  5. *Avatar*: Circular cutout paper silhouette with dual concentric pastel rings.
+  6. *Badge*: 4 variants: perforated stamp, scalloped seal, ribbon tag, origami fold.
+  7. *Breadcrumb*: Pencil-cut paper arrows connecting craft tags.
+  8. *Button*: 3-sheet cardstock stack, debossed pressed well, scallop cut, washi pin.
+  9. *Calendar*: Tear-off desk calendar with ring binder cuts, month nav & pastel day wax seals.
+  10. *Card*: Stacked multi-layer cardstock with subtle offset underlay & paper shadow.
+  11. *Carousel*: Cardboard sliding slide deck with spring glide, paper paddles & pagination dots.
+  12. *Checkbox*: Origami dogear corner fold revealing sage tint with inked stamp checkmark.
+  13. *Collapsible*: Sliding matchbox paper drawer with debossed cutout well.
+  14. *Combobox*: Deckle search input with fan-out bookmark suggestions & real-time filter.
+  15. *Command*: Carved command palette popup (`Ctrl+K`/`Cmd+K`), category tabs & shortcut badges.
+  16. *Context Menu*: Floating craft card menu with knife-cut dividers.
+  17. *Dialog*: Layered paper shadowbox modal overlay with paper close button.
+  18. *Drawer*: Bottom/side sliding craft tray with rounded pull-tab handle.
+  19. *Dropdown Menu*: Fanning bookmark strip menu with paper hover state & keyboard navigation.
+  20. *Form*: Carved input wells with floating craft labels & pop-out rose error paper tags.
+  21. *Hover Card*: Peeking craft memo slip that lifts on hover with warm drop shadow.
+  22. *Input*: Carved inset well with fine craft knife bevels & postage dashed variant.
+  23. *Input OTP*: Perforated tear-off paper digit boxes with shadow depths & auto-advance.
+  24. *Label*: Craft ribbon label with stitched hairline border.
+  25. *Menubar*: Stationery desktop menu bar with foldout sheets & hover switching.
+  26. *Navigation Menu*: Horizontal craft tabs with sliding pastel underlay indicator.
+  27. *Pagination*: Perforated ticket stub page numbers with active sage wax seal stamp.
+  28. *Popover*: Pop-up book flap with triangular folded paper pointer notch.
+  29. *Progress*: Layered pastel paper fill bar moving along an inset carved track.
+  30. *Radio Group*: Concentric paper target discs with animated pop-in pastel dot center.
+  31. *Resizable*: Paper fold crease splitter with grip dots & proportional panel dragging.
+  32. *Scroll Area*: Parchment scroll well with custom peach paper thumb bar.
+  33. *Select*: Bookmark trigger with pop-out paper option tray & selection stamp.
+  34. *Separator*: Perforated cutline (`is-perforated`), deckle tear line (`is-deckle`), washi divider.
+  35. *Sheet*: Slide-over craft panel (right, left, top, bottom) with stitched edge.
+  36. *Skeleton*: Pulsing paper pulp shimmer placeholder with organic light gradient sweep.
+  37. *Slider*: Paper ruler track with folded origami triangular thumb.
+  38. *Switch*: Paper rocker pill toggle with sliding circular paper disc.
+  39. *Table*: Accounting ledger paper table with alternating subtle peach/mint tint bands.
+  40. *Tabs*: Layered file folder tabs with active raised cardstock state.
+  41. *Textarea*: Lined notebook paper well with ruled hairlines & auto-height resizing.
+  42. *Toast*: Parchment envelope memo slip sliding in with paper washi tape pin & timer.
+  43. *Toggle*: Pressed craft button with debossed inset shadow depth.
+  44. *Toggle Group*: Interlocking paper puzzle button strip with single/multiple modes.
+  45. *Tooltip*: Floating craft paper tag with 3D shadow & directional triangular notches.
+
+---
+
+### 8.10 shadcn/ui Production Blocks (6 Core Scenarios)
+1. **Admin & SaaS Analytics Dashboard Block (`admin-dashboard`)**:
+   - Header with search well, notification bell with red indicator badge, user avatar seal, and washi tape accent.
+   - 4 Metric Cards (Revenue, Subscriptions, Active Now, Sales) with pastel badges, percentage pill tags, and mini icon discs.
+   - Embedded Mountain Terrain Area chart for monthly revenue visualization.
+   - Recent Transactions cardstock ledger with user avatar seals, item descriptions, and price tags.
+   - Quick Actions stack with tactile click feedback and floating paper toast notifications.
+2. **Authentication Block (`auth`)**:
+   - Handcrafted craft envelope card with top folded flap triangular shadow (`.pc-envelope-flap`) and center papercraft seal stamp.
+   - Overlapping tabs: `[로그인]` / `[회원가입]`.
+   - Social login buttons with authentic papercut SVG icons (Google, GitHub, Apple).
+   - Perforated cutline divider, carved inputs, origami dog-ear checkbox, and raised mint action button.
+3. **Settings & Profile Layout Block (`settings`)**:
+   - Sidebar file folder tabs: General, Account, Appearance, Notifications, Billing with active elevation.
+   - Profile photo uploader with deckle frame, display name input, and ruled notebook bio textarea.
+   - Paper toggle switches for notifications and raised save button with toast alert.
+4. **E-Commerce Storefront & Cart Block (`ecommerce`)**:
+   - 4 Craft product cards with price tag stickers, discount washi tape, favorite heart seals, and add to cart buttons.
+   - Slide-over Shopping Cart drawer with backdrop blur, item cards, quantity adjusters, delete scissor buttons, subtotal calculation, and checkout button.
+5. **Pricing Matrix Block (`pricing`)**:
+   - Billing cycle toggle (`[월간 결제]` / `[연간 결제]`) with "2개월 무료!" washi tape tag.
+   - 3 Tiered Cards (Starter, Pro, Enterprise) on layered pastel cardstock.
+   - Highlighted Pro card with top folded paper ribbon badge and elevated shadow depth.
+6. **File Dropzone & Uploader Block (`dropzone`)**:
+   - Stitched cardboard dropzone with dashed cutline border, paper airplane vector icon, and drag-and-drop prompt.
+   - Upload progress bar with carved paper groove and gradient paper strip.
+   - Uploaded file item cards with format icon, metadata, and scissor delete button with dismiss animation.
+
+---
+
+### 8.11 3D Paper-Cut Vector Charts (6 Data Visualizations)
+1. **Area Chart (Pastel Paper Mountain Terrain - `area`)**:
+   - 3 overlapping mountain silhouettes in Mint (`#A3D8C3`), Sky (`#BDE0EA`), and Lavender (`#D7CBEB`) with cubic bezier curves, linear gradients, and layered drop shadows.
+2. **Bar Chart (Stacked Paper Columns - `bar`)**:
+   - 7 days columns with rounded paper caps (`rx="7"`), underlying offset shadow sheet, dual stacked series (New vs Recurring), and hover lift interaction.
+3. **Line Chart (Origami Ribbon Wave - `line`)**:
+   - Smooth curved SVG stroke with folded ribbon styling, circular paper node markers, and dashed reference target line with folded paper tag badge.
+4. **Pie / Donut Chart (Folded Paper Fan Wheel - `donut`)**:
+   - Concentric sliced donut with multi-color pastel paper sectors, inner cutout well base, center total count badge (`12,480건`), and hover outward radial expansion.
+5. **Radar Chart (Origami Kite Polygon - `radar`)**:
+   - Hexagonal web grid with concentric creased dotted lines, translucent pastel paper polygon, and vertex pin rivets with score tooltips.
+6. **Radial Bar Chart (Concentric Craft Gauge - `radial`)**:
+   - Concentric layered circular arcs in Mint, Sky, Peach, and Lavender with warm cream background track (`#EDE8DE`) and center summary disc.
+7. **Interactive Chart Tooltip & Legend**:
+   - Floating paper speech bubble tooltip with triangular pointer and warm burnt umber drop shadow.
+   - Legend items with matching pastel square paper chips and hover highlights.
 
 ---
 
