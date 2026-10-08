@@ -1,0 +1,561 @@
+/**
+ * PaperCut UI - 3D Paper Depth & Shadow Simulator
+ * Real-time physics engine for craft lamp angle, paper elevation, multi-tier shadows, and 3D parallax tilt.
+ */
+
+:root {
+  --pc-sim-angle: 315deg;
+  --pc-sim-elevation: 4px;
+  --pc-sim-blur: 8px;
+  --pc-sim-spread: 0px;
+  --pc-sim-opacity: 0.18;
+  --pc-sim-color: 74, 58, 42; /* Warm Burnt Umber */
+  --pc-sim-shadow-tier1: 0 1px 3px rgba(74, 58, 42, 0.22);
+  --pc-sim-shadow-tier2: 0 4px 8px rgba(74, 58, 42, 0.14);
+  --pc-sim-shadow-tier3: 0 10px 20px rgba(74, 58, 42, 0.08);
+  --pc-sim-highlight: 0 1px 0 rgba(255, 255, 255, 0.95) inset;
+}
+
+/* ==========================================================================
+   SHADOW STUDIO MAIN CONTAINER
+   ========================================================================== */
+
+.pc-shadow-studio {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+}
+
+.pc-shadow-studio-grid {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 28px;
+}
+
+@media (max-width: 1080px) {
+  .pc-shadow-studio-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   CONTROL PANEL (LEFT SIDE)
+   ========================================================================== */
+
+.pc-shadow-controls-card {
+  background: var(--pc-paper-white, #FFFDF9);
+  border-radius: 24px;
+  padding: 26px;
+  border: 1.5px solid rgba(74, 58, 42, 0.12);
+  box-shadow: var(--pc-paper-shadow-md, 0 4px 12px rgba(74, 58, 42, 0.08));
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pc-shadow-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(74, 58, 42, 0.15);
+  padding-bottom: 12px;
+}
+
+.pc-shadow-panel-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Virtual Craft Lamp Circular Compass Dial */
+.pc-virtual-lamp-box {
+  background: #FAF6ED;
+  border: 1.5px solid #E6DBC9;
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: inset 0 2px 5px rgba(74, 58, 42, 0.06);
+}
+
+.pc-lamp-dial-container {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFFDF9 0%, #EDE5D6 100%);
+  border: 2px solid #D5C6AF;
+  box-shadow: 
+    0 4px 10px rgba(74, 58, 42, 0.12),
+    inset 0 2px 4px rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.pc-lamp-dial-container:active {
+  cursor: grabbing;
+}
+
+/* Cardinal direction markers */
+.pc-dial-marker {
+  position: absolute;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #8C7E70;
+  pointer-events: none;
+}
+.pc-dial-marker.is-n { top: 6px; }
+.pc-dial-marker.is-s { bottom: 6px; }
+.pc-dial-marker.is-w { left: 6px; }
+.pc-dial-marker.is-e { right: 6px; }
+
+/* Rotating Light Beam Needle */
+.pc-lamp-dial-needle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.08s ease-out;
+}
+
+.pc-lamp-dial-orb {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFDF9 0%, #FEE396 55%, #F7BA9E 100%);
+  border: 1.5px solid #D59F58;
+  box-shadow: 
+    0 0 12px rgba(254, 227, 150, 0.9),
+    0 2px 6px rgba(74, 58, 42, 0.25);
+}
+
+.pc-lamp-center-pin {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3D352E;
+  border: 2px solid #FFFDF9;
+  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.3);
+  z-index: 2;
+}
+
+.pc-lamp-angle-readout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+}
+
+/* Parameter Sliders */
+.pc-shadow-slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pc-param-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pc-param-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-param-val-badge {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--pc-mint-light, #EAF7F1);
+  color: var(--pc-mint-dark, #275C46);
+  border: 1px solid var(--pc-mint, #A3D8C3);
+}
+
+.pc-param-range {
+  width: 100%;
+  accent-color: #4DA778;
+  cursor: pointer;
+  height: 6px;
+  border-radius: 999px;
+  background: #E8E1D0;
+}
+
+/* Multi-Tier Shadow Toggles */
+.pc-shadow-tiers-box {
+  background: #FAF6ED;
+  border: 1.5px solid #E6DBC9;
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pc-tier-toggle-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+.pc-tier-toggle-item:hover {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.pc-tier-toggle-item input[type="checkbox"] {
+  accent-color: #4DA778;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Color Temperature Swatches */
+.pc-shadow-color-swatches {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pc-color-swatch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #FFFDF9;
+  border: 1.5px solid #E2D7C5;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--pc-ink, #3D352E);
+  transition: all 0.18s;
+}
+.pc-color-swatch-btn:hover {
+  transform: translateY(-1px);
+  border-color: #C8B9A0;
+}
+.pc-color-swatch-btn.is-active {
+  background: #E8F6EE;
+  border-color: #4DA778;
+  color: #1E5C41;
+  box-shadow: 0 1px 3px rgba(44, 107, 80, 0.18);
+}
+
+.pc-color-swatch-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   VIEWPORT & DEMO TARGETS (RIGHT SIDE)
+   ========================================================================== */
+
+.pc-shadow-viewport-card {
+  background: var(--pc-paper-white, #FFFDF9);
+  border-radius: 24px;
+  padding: 26px;
+  border: 1.5px solid rgba(74, 58, 42, 0.12);
+  box-shadow: var(--pc-paper-shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* Viewport Tabs */
+.pc-shadow-view-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px dashed rgba(74, 58, 42, 0.15);
+  padding-bottom: 14px;
+}
+
+.pc-shadow-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: #FAF6ED;
+  border: 1px solid #E6DBC9;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pc-ink-muted, #7A6F64);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pc-shadow-tab-btn:hover {
+  background: #FFFDF9;
+  color: var(--pc-ink, #3D352E);
+  transform: translateY(-1px);
+}
+.pc-shadow-tab-btn.is-active {
+  background: #EAF7F1;
+  border-color: #A3D8C3;
+  color: #275C46;
+  box-shadow: 0 2px 6px rgba(44, 107, 80, 0.14);
+}
+
+/* 3D Stage Well (Carved Matboard Display Window) */
+.pc-shadow-stage-well {
+  position: relative;
+  background: #F4EFE6;
+  border-radius: 20px;
+  padding: 36px 28px;
+  min-height: 420px;
+  border: 1.5px solid #E4D9C8;
+  box-shadow: 
+    inset 0 3px 8px rgba(74, 58, 42, 0.14),
+    inset 0 1px 2px rgba(74, 58, 42, 0.08),
+    0 1px 0 #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  perspective: 1000px;
+}
+
+/* 3D Floating Stage Canvas */
+.pc-shadow-stage-canvas {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   SAMPLE A: 5-LAYER 3D PAPER-CUT MOUNTAIN LANDSCAPE
+   -------------------------------------------------------------------------- */
+.pc-landscape-scene {
+  position: relative;
+  width: 100%;
+  max-width: 580px;
+  height: 320px;
+  border-radius: 20px;
+  background: #EDF7FA; /* Sky base */
+  overflow: hidden;
+  border: 2px solid #E2D7C5;
+  box-shadow: 
+    0 1px 0 #FFFFFF inset,
+    var(--pc-sim-dynamic-shadow, 0 8px 24px rgba(74, 58, 42, 0.12));
+  transform-style: preserve-3d;
+}
+
+.pc-layer-mount {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  transition: filter 0.1s ease-out, transform 0.2s ease-out;
+  will-change: filter, transform;
+}
+
+.pc-layer-1-sky-cloud {
+  top: 10px;
+  height: 90px;
+  z-index: 1;
+}
+.pc-layer-2-deep-mount {
+  height: 220px;
+  z-index: 2;
+}
+.pc-layer-3-mid-hill {
+  height: 170px;
+  z-index: 3;
+}
+.pc-layer-4-fore-hill {
+  height: 120px;
+  z-index: 4;
+}
+.pc-layer-5-hot-balloon {
+  top: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 96px;
+  z-index: 5;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   SAMPLE B: UI CARD & BUTTON STACK
+   -------------------------------------------------------------------------- */
+.pc-ui-stack-scene {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  width: 100%;
+  max-width: 520px;
+  align-items: center;
+}
+
+.pc-sample-target-card {
+  width: 100%;
+  background: #FFFDF9;
+  border-radius: 18px;
+  padding: 24px;
+  transition: box-shadow 0.1s ease-out, transform 0.2s ease;
+  position: relative;
+}
+
+.pc-sample-target-btn {
+  padding: 12px 28px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(180deg, #BCE4CF 0%, #A3D8C3 100%);
+  color: #1E5C41;
+  transition: box-shadow 0.1s ease-out, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   SAMPLE C: 3D FREESTANDING ICONS
+   -------------------------------------------------------------------------- */
+.pc-icons-shadow-scene {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pc-shadow-icon-plate {
+  width: 100px;
+  height: 100px;
+  border-radius: 24px;
+  background: #FFFDF9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.1s ease-out;
+}
+
+.pc-shadow-icon-plate svg {
+  width: 54px;
+  height: 54px;
+}
+
+/* --------------------------------------------------------------------------
+   PRESETS & CODE EXPORT BAR
+   ========================================================================== */
+
+.pc-shadow-bottom-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #FAF6ED;
+  border: 1.5px solid #E6DBC9;
+  border-radius: 18px;
+  padding: 16px 20px;
+  min-width: 0;
+}
+
+.pc-presets-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.pc-preset-pill {
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #FFFDF9;
+  border: 1px solid #D5C6AF;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.pc-preset-pill:hover {
+  background: #E8F6EE;
+  border-color: #4DA778;
+  color: #1E5C41;
+  transform: translateY(-1px);
+}
+
+.pc-code-preview-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #231C16;
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: #F8F4EC;
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+.pc-code-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #A3D8C3;
+}
+
+.pc-copy-shadow-code-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #3D352E;
+  border: 1px solid #5C4F44;
+  border-radius: 8px;
+  color: #FFFDF9;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s;
+  flex-shrink: 0;
+}
+.pc-copy-shadow-code-btn:hover {
+  background: #4DA778;
+  border-color: #4DA778;
+}

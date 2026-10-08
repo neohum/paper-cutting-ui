@@ -2,13 +2,13 @@
  * PaperCut UI - Standalone Layered Paper-Cut Icon System (Flaticon 500+ Taxonomy)
  * Mastercrafted freestanding kirigami SVG icons without background boxes.
  * Provides real-time search, multi-category filtering, live count badges, and one-click SVG copy.
- * Total Icons: 529
+ * Total Icons: 619
  */
 
 (function () {
   'use strict';
 
-  // Global icon registry (529 Standalone Layered Paper-Cut Icons)
+  // Global icon registry (619 Standalone Layered Paper-Cut Icons)
   window.PAPERCUT_ICONS = [
   {
     "id": "home",
@@ -7238,423 +7238,2467 @@
     "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-graduation-cap\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"32,14 58,24 32,34 6,24\" fill=\"#3D352E\" filter=\"url(#ps-graduation-cap)\"/><path d=\"M18 29 V42 C18 46 24 50 32 50 C40 50 46 46 46 42 V29\" fill=\"#D7CBEB\" filter=\"url(#ps-graduation-cap)\"/><circle cx=\"32\" cy=\"24\" r=\"2.5\" fill=\"#FEE396\"/><path d=\"M32 24 L48 30 V42\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\" fill=\"none\"/><polygon points=\"46,42 50,42 49,47 47,47\" fill=\"#FEE396\"/></svg>"
   },
   {
-  "id": "dog",
-  "nameKo": "강아지 친구",
-  "nameEn": "Cozy Puppy",
-  "category": "nature",
-  "tags": [
-    "dog",
-    "puppy",
-    "pet",
-    "animal"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-dog\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-dog)\">\n    <!-- Body & Tail -->\n    <path d=\"M26 38 C20 38 15 43 15 50 C15 54 18 56 22 56 L42 56 C46 56 49 53 49 48 C49 42 44 38 38 38 Z\" fill=\"#FAF6ED\"/>\n    <path d=\"M47 48 C52 46 56 42 56 36 C56 34 54 33 52 35 C50 37 47 42 45 46 Z\" fill=\"#F7BA9E\"/>\n    <!-- Collar -->\n    <rect x=\"23\" y=\"37\" width=\"18\" height=\"4\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <circle cx=\"32\" cy=\"42\" r=\"2.5\" fill=\"#FEE396\"/>\n    <!-- Head Base -->\n    <circle cx=\"32\" cy=\"27\" r=\"14\" fill=\"#FAF6ED\"/>\n    <!-- Floppy Ears -->\n    <path d=\"M20 18 C16 20 13 26 14 33 C15 36 18 36 19 33 C20 28 22 23 23 20 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M44 18 C48 20 51 26 50 33 C49 36 46 36 45 33 C44 28 42 23 41 20 Z\" fill=\"#F7BA9E\"/>\n    <!-- Snout & Nose -->\n    <ellipse cx=\"32\" cy=\"31\" rx=\"6.5\" ry=\"5\" fill=\"#FFFDF9\"/>\n    <path d=\"M29.5 28.5 C31 27.5 33 27.5 34.5 28.5 C35 29 34.5 30.5 32 30.5 C29.5 30.5 29 29 29.5 28.5 Z\" fill=\"#3D352E\"/>\n    <path d=\"M32 30.5 L32 33 M30 33 C31 34 33 34 34 33\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Eyes -->\n    <circle cx=\"26.5\" cy=\"24\" r=\"1.8\" fill=\"#3D352E\"/>\n    <circle cx=\"27\" cy=\"23.5\" r=\"0.6\" fill=\"#FFFDF9\"/>\n    <circle cx=\"37.5\" cy=\"24\" r=\"1.8\" fill=\"#3D352E\"/>\n    <circle cx=\"38\" cy=\"23.5\" r=\"0.6\" fill=\"#FFFDF9\"/>\n    <!-- Cheeks -->\n    <circle cx=\"23\" cy=\"28\" r=\"2\" fill=\"#F5B8BE\" opacity=\"0.6\"/>\n    <circle cx=\"41\" cy=\"28\" r=\"2\" fill=\"#F5B8BE\" opacity=\"0.6\"/>\n  </g>\n</svg>"
-},
+    "id": "dog",
+    "nameKo": "강아지 친구",
+    "nameEn": "Cozy Puppy",
+    "category": "nature",
+    "tags": [
+      "dog",
+      "puppy",
+      "pet",
+      "animal"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-dog\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-dog)\">\n    <!-- Body & Tail -->\n    <path d=\"M26 38 C20 38 15 43 15 50 C15 54 18 56 22 56 L42 56 C46 56 49 53 49 48 C49 42 44 38 38 38 Z\" fill=\"#FAF6ED\"/>\n    <path d=\"M47 48 C52 46 56 42 56 36 C56 34 54 33 52 35 C50 37 47 42 45 46 Z\" fill=\"#F7BA9E\"/>\n    <!-- Collar -->\n    <rect x=\"23\" y=\"37\" width=\"18\" height=\"4\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <circle cx=\"32\" cy=\"42\" r=\"2.5\" fill=\"#FEE396\"/>\n    <!-- Head Base -->\n    <circle cx=\"32\" cy=\"27\" r=\"14\" fill=\"#FAF6ED\"/>\n    <!-- Floppy Ears -->\n    <path d=\"M20 18 C16 20 13 26 14 33 C15 36 18 36 19 33 C20 28 22 23 23 20 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M44 18 C48 20 51 26 50 33 C49 36 46 36 45 33 C44 28 42 23 41 20 Z\" fill=\"#F7BA9E\"/>\n    <!-- Snout & Nose -->\n    <ellipse cx=\"32\" cy=\"31\" rx=\"6.5\" ry=\"5\" fill=\"#FFFDF9\"/>\n    <path d=\"M29.5 28.5 C31 27.5 33 27.5 34.5 28.5 C35 29 34.5 30.5 32 30.5 C29.5 30.5 29 29 29.5 28.5 Z\" fill=\"#3D352E\"/>\n    <path d=\"M32 30.5 L32 33 M30 33 C31 34 33 34 34 33\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Eyes -->\n    <circle cx=\"26.5\" cy=\"24\" r=\"1.8\" fill=\"#3D352E\"/>\n    <circle cx=\"27\" cy=\"23.5\" r=\"0.6\" fill=\"#FFFDF9\"/>\n    <circle cx=\"37.5\" cy=\"24\" r=\"1.8\" fill=\"#3D352E\"/>\n    <circle cx=\"38\" cy=\"23.5\" r=\"0.6\" fill=\"#FFFDF9\"/>\n    <!-- Cheeks -->\n    <circle cx=\"23\" cy=\"28\" r=\"2\" fill=\"#F5B8BE\" opacity=\"0.6\"/>\n    <circle cx=\"41\" cy=\"28\" r=\"2\" fill=\"#F5B8BE\" opacity=\"0.6\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "cat",
-  "nameKo": "고양이 친구",
-  "nameEn": "Cozy Cat",
-  "category": "nature",
-  "tags": [
-    "cat",
-    "kitty",
-    "pet",
-    "animal"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-cat\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-cat)\">\n    <!-- Body & Curved Tail -->\n    <path d=\"M25 39 C19 39 16 44 16 51 C16 54 18 56 22 56 L42 56 C46 56 48 53 48 49 C48 42 42 39 36 39 Z\" fill=\"#FAF6ED\"/>\n    <path d=\"M46 50 C51 49 55 45 55 38 C55 35 52 35 51 38 C50 42 47 46 43 48 Z\" fill=\"#F7BA9E\"/>\n    <!-- Ribbon Collar -->\n    <path d=\"M23 40 C28 42 36 42 41 40 L40 43 C35 45 29 45 24 43 Z\" fill=\"#D7CBEB\"/>\n    <circle cx=\"32\" cy=\"44.5\" r=\"2\" fill=\"#A3D8C3\"/>\n    <!-- Head with Pointy Ears -->\n    <path d=\"M19 28 L21 15 L30 22 C31.3 21.8 32.7 21.8 34 22 L43 15 L45 28 C48 32 46 38 42 41 C37 44 27 44 22 41 C18 38 16 32 19 28 Z\" fill=\"#FAF6ED\"/>\n    <!-- Inner Ear Flaps -->\n    <path d=\"M23 20 L22 17 L27 21 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M41 20 L42 17 L37 21 Z\" fill=\"#F5B8BE\"/>\n    <!-- Eyes & Snout -->\n    <ellipse cx=\"26\" cy=\"28\" rx=\"2\" ry=\"2.4\" fill=\"#3D352E\"/>\n    <circle cx=\"26.6\" cy=\"27.3\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <ellipse cx=\"38\" cy=\"28\" rx=\"2\" ry=\"2.4\" fill=\"#3D352E\"/>\n    <circle cx=\"38.6\" cy=\"27.3\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <polygon points=\"32,32 30.5,30 33.5,30\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 32 L32 33.5 M30.5 33.5 C31.2 34.2 32.8 34.2 33.5 33.5\" stroke=\"#3D352E\" stroke-width=\"1.1\" stroke-linecap=\"round\"/>\n    <!-- Whiskers -->\n    <line x1=\"24\" y1=\"31\" x2=\"16\" y2=\"30\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n    <line x1=\"24\" y1=\"33\" x2=\"17\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n    <line x1=\"40\" y1=\"31\" x2=\"48\" y2=\"30\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n    <line x1=\"40\" y1=\"33\" x2=\"47\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n  </g>\n</svg>"
-},
+    "id": "cat",
+    "nameKo": "고양이 친구",
+    "nameEn": "Cozy Cat",
+    "category": "nature",
+    "tags": [
+      "cat",
+      "kitty",
+      "pet",
+      "animal"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-cat\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-cat)\">\n    <!-- Body & Curved Tail -->\n    <path d=\"M25 39 C19 39 16 44 16 51 C16 54 18 56 22 56 L42 56 C46 56 48 53 48 49 C48 42 42 39 36 39 Z\" fill=\"#FAF6ED\"/>\n    <path d=\"M46 50 C51 49 55 45 55 38 C55 35 52 35 51 38 C50 42 47 46 43 48 Z\" fill=\"#F7BA9E\"/>\n    <!-- Ribbon Collar -->\n    <path d=\"M23 40 C28 42 36 42 41 40 L40 43 C35 45 29 45 24 43 Z\" fill=\"#D7CBEB\"/>\n    <circle cx=\"32\" cy=\"44.5\" r=\"2\" fill=\"#A3D8C3\"/>\n    <!-- Head with Pointy Ears -->\n    <path d=\"M19 28 L21 15 L30 22 C31.3 21.8 32.7 21.8 34 22 L43 15 L45 28 C48 32 46 38 42 41 C37 44 27 44 22 41 C18 38 16 32 19 28 Z\" fill=\"#FAF6ED\"/>\n    <!-- Inner Ear Flaps -->\n    <path d=\"M23 20 L22 17 L27 21 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M41 20 L42 17 L37 21 Z\" fill=\"#F5B8BE\"/>\n    <!-- Eyes & Snout -->\n    <ellipse cx=\"26\" cy=\"28\" rx=\"2\" ry=\"2.4\" fill=\"#3D352E\"/>\n    <circle cx=\"26.6\" cy=\"27.3\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <ellipse cx=\"38\" cy=\"28\" rx=\"2\" ry=\"2.4\" fill=\"#3D352E\"/>\n    <circle cx=\"38.6\" cy=\"27.3\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <polygon points=\"32,32 30.5,30 33.5,30\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 32 L32 33.5 M30.5 33.5 C31.2 34.2 32.8 34.2 33.5 33.5\" stroke=\"#3D352E\" stroke-width=\"1.1\" stroke-linecap=\"round\"/>\n    <!-- Whiskers -->\n    <line x1=\"24\" y1=\"31\" x2=\"16\" y2=\"30\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n    <line x1=\"24\" y1=\"33\" x2=\"17\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n    <line x1=\"40\" y1=\"31\" x2=\"48\" y2=\"30\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n    <line x1=\"40\" y1=\"33\" x2=\"47\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "paw",
-  "nameKo": "반려동물 발바닥",
-  "nameEn": "Pet Paw Print",
-  "category": "nature",
-  "tags": [
-    "paw",
-    "pet",
-    "dog",
-    "cat",
-    "footprint"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-paw\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-paw)\">\n    <!-- Base Shadow Pad -->\n    <path d=\"M32 29 C24 29 18 36 18 44 C18 51 24 55 32 55 C40 55 46 51 46 44 C46 36 40 29 32 29 Z\" fill=\"#F7BA9E\" opacity=\"0.4\"/>\n    <!-- Main Center Pad (Heart-lobed) -->\n    <path d=\"M32 31 C25 31 20 37 20 44 C20 49 24 53 32 53 C40 53 44 49 44 44 C44 37 39 31 32 31 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 36 C28 36 24 40 24 44 C24 47 27 50 32 50 C37 50 40 47 40 44 C40 40 36 36 32 36 Z\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n    <!-- 4 Toe Pads in Arc -->\n    <!-- Toe 1 -->\n    <ellipse cx=\"17\" cy=\"27\" rx=\"4.5\" ry=\"6\" transform=\"rotate(-25 17 27)\" fill=\"#F7BA9E\"/>\n    <ellipse cx=\"17\" cy=\"27\" rx=\"2.5\" ry=\"3.5\" transform=\"rotate(-25 17 27)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n    <!-- Toe 2 -->\n    <ellipse cx=\"27\" cy=\"18\" rx=\"4.8\" ry=\"6.5\" transform=\"rotate(-8 27 18)\" fill=\"#F5B8BE\"/>\n    <ellipse cx=\"27\" cy=\"18\" rx=\"2.6\" ry=\"3.8\" transform=\"rotate(-8 27 18)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n    <!-- Toe 3 -->\n    <ellipse cx=\"37\" cy=\"18\" rx=\"4.8\" ry=\"6.5\" transform=\"rotate(8 37 18)\" fill=\"#F5B8BE\"/>\n    <ellipse cx=\"37\" cy=\"18\" rx=\"2.6\" ry=\"3.8\" transform=\"rotate(8 37 18)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n    <!-- Toe 4 -->\n    <ellipse cx=\"47\" cy=\"27\" rx=\"4.5\" ry=\"6\" transform=\"rotate(25 47 27)\" fill=\"#F7BA9E\"/>\n    <ellipse cx=\"47\" cy=\"27\" rx=\"2.5\" ry=\"3.5\" transform=\"rotate(25 47 27)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n  </g>\n</svg>"
-},
+    "id": "paw",
+    "nameKo": "반려동물 발바닥",
+    "nameEn": "Pet Paw Print",
+    "category": "nature",
+    "tags": [
+      "paw",
+      "pet",
+      "dog",
+      "cat",
+      "footprint"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-paw\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-paw)\">\n    <!-- Base Shadow Pad -->\n    <path d=\"M32 29 C24 29 18 36 18 44 C18 51 24 55 32 55 C40 55 46 51 46 44 C46 36 40 29 32 29 Z\" fill=\"#F7BA9E\" opacity=\"0.4\"/>\n    <!-- Main Center Pad (Heart-lobed) -->\n    <path d=\"M32 31 C25 31 20 37 20 44 C20 49 24 53 32 53 C40 53 44 49 44 44 C44 37 39 31 32 31 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 36 C28 36 24 40 24 44 C24 47 27 50 32 50 C37 50 40 47 40 44 C40 40 36 36 32 36 Z\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n    <!-- 4 Toe Pads in Arc -->\n    <!-- Toe 1 -->\n    <ellipse cx=\"17\" cy=\"27\" rx=\"4.5\" ry=\"6\" transform=\"rotate(-25 17 27)\" fill=\"#F7BA9E\"/>\n    <ellipse cx=\"17\" cy=\"27\" rx=\"2.5\" ry=\"3.5\" transform=\"rotate(-25 17 27)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n    <!-- Toe 2 -->\n    <ellipse cx=\"27\" cy=\"18\" rx=\"4.8\" ry=\"6.5\" transform=\"rotate(-8 27 18)\" fill=\"#F5B8BE\"/>\n    <ellipse cx=\"27\" cy=\"18\" rx=\"2.6\" ry=\"3.8\" transform=\"rotate(-8 27 18)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n    <!-- Toe 3 -->\n    <ellipse cx=\"37\" cy=\"18\" rx=\"4.8\" ry=\"6.5\" transform=\"rotate(8 37 18)\" fill=\"#F5B8BE\"/>\n    <ellipse cx=\"37\" cy=\"18\" rx=\"2.6\" ry=\"3.8\" transform=\"rotate(8 37 18)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n    <!-- Toe 4 -->\n    <ellipse cx=\"47\" cy=\"27\" rx=\"4.5\" ry=\"6\" transform=\"rotate(25 47 27)\" fill=\"#F7BA9E\"/>\n    <ellipse cx=\"47\" cy=\"27\" rx=\"2.5\" ry=\"3.5\" transform=\"rotate(25 47 27)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "honey",
-  "nameKo": "달콤한 꿀단지",
-  "nameEn": "Honey Pot",
-  "category": "nature",
-  "tags": [
-    "honey",
-    "pot",
-    "jar",
-    "sweet",
-    "bee"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-honey\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-honey)\">\n    <!-- Pot Body -->\n    <path d=\"M19 23 C14 30 14 47 18 52 C21 56 43 56 46 52 C50 47 50 30 45 23 Z\" fill=\"#F7BA9E\"/>\n    <!-- Rim Collar -->\n    <rect x=\"18\" y=\"19\" width=\"28\" height=\"6\" rx=\"3\" fill=\"#FAF6ED\"/>\n    <!-- Kraft Label -->\n    <rect x=\"21\" y=\"32\" width=\"22\" height=\"12\" rx=\"3\" fill=\"#FFFDF9\"/>\n    <!-- Honeycomb cell icon on label -->\n    <polygon points=\"32,34 35,36 35,39 32,41 29,39 29,36\" fill=\"#FEE396\"/>\n    <!-- Dripping Honey -->\n    <path d=\"M18 24 C21 24 23 27 25 27 C27 27 28 32 30 32 C32 32 33 28 35 28 C37 28 38 34 40 34 C42 34 44 26 46 24 Z\" fill=\"#FEE396\"/>\n    <circle cx=\"30\" cy=\"34\" r=\"1.5\" fill=\"#FEE396\"/>\n    <!-- Dipper Wand resting at angle -->\n    <line x1=\"40\" y1=\"12\" x2=\"48\" y2=\"28\" stroke=\"#E2CCA8\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n    <ellipse cx=\"41\" cy=\"14\" rx=\"3\" ry=\"2\" transform=\"rotate(30 41 14)\" fill=\"#D4A373\"/>\n    <ellipse cx=\"43\" cy=\"17\" rx=\"3.5\" ry=\"2.2\" transform=\"rotate(30 43 17)\" fill=\"#D4A373\"/>\n    <ellipse cx=\"45\" cy=\"20\" rx=\"3\" ry=\"2\" transform=\"rotate(30 45 20)\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
-},
+    "id": "honey",
+    "nameKo": "달콤한 꿀단지",
+    "nameEn": "Honey Pot",
+    "category": "nature",
+    "tags": [
+      "honey",
+      "pot",
+      "jar",
+      "sweet",
+      "bee"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-honey\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-honey)\">\n    <!-- Pot Body -->\n    <path d=\"M19 23 C14 30 14 47 18 52 C21 56 43 56 46 52 C50 47 50 30 45 23 Z\" fill=\"#F7BA9E\"/>\n    <!-- Rim Collar -->\n    <rect x=\"18\" y=\"19\" width=\"28\" height=\"6\" rx=\"3\" fill=\"#FAF6ED\"/>\n    <!-- Kraft Label -->\n    <rect x=\"21\" y=\"32\" width=\"22\" height=\"12\" rx=\"3\" fill=\"#FFFDF9\"/>\n    <!-- Honeycomb cell icon on label -->\n    <polygon points=\"32,34 35,36 35,39 32,41 29,39 29,36\" fill=\"#FEE396\"/>\n    <!-- Dripping Honey -->\n    <path d=\"M18 24 C21 24 23 27 25 27 C27 27 28 32 30 32 C32 32 33 28 35 28 C37 28 38 34 40 34 C42 34 44 26 46 24 Z\" fill=\"#FEE396\"/>\n    <circle cx=\"30\" cy=\"34\" r=\"1.5\" fill=\"#FEE396\"/>\n    <!-- Dipper Wand resting at angle -->\n    <line x1=\"40\" y1=\"12\" x2=\"48\" y2=\"28\" stroke=\"#E2CCA8\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n    <ellipse cx=\"41\" cy=\"14\" rx=\"3\" ry=\"2\" transform=\"rotate(30 41 14)\" fill=\"#D4A373\"/>\n    <ellipse cx=\"43\" cy=\"17\" rx=\"3.5\" ry=\"2.2\" transform=\"rotate(30 43 17)\" fill=\"#D4A373\"/>\n    <ellipse cx=\"45\" cy=\"20\" rx=\"3\" ry=\"2\" transform=\"rotate(30 45 20)\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "butter",
-  "nameKo": "버터 슬라이스",
-  "nameEn": "Butter Slice",
-  "category": "nature",
-  "tags": [
-    "butter",
-    "slice",
-    "bakery",
-    "dairy",
-    "food"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-butter\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-butter)\">\n    <!-- Ceramic Dish Plate -->\n    <ellipse cx=\"32\" cy=\"48\" rx=\"24\" ry=\"7\" fill=\"#FAF6ED\"/>\n    <ellipse cx=\"32\" cy=\"47\" rx=\"20\" ry=\"5.5\" fill=\"#FFFDF9\"/>\n    <!-- Butter Block Base 3D -->\n    <!-- Front Face -->\n    <path d=\"M15 36 L36 43 L36 32 L15 25 Z\" fill=\"#FEE396\"/>\n    <!-- Side Face -->\n    <path d=\"M36 43 L49 37 L49 26 L36 32 Z\" fill=\"#F7BA9E\"/>\n    <!-- Top Face -->\n    <path d=\"M15 25 L28 19 L49 26 L36 32 Z\" fill=\"#FEF3C7\"/>\n    <!-- Melting Soft Pat on Top -->\n    <path d=\"M26 21 C29 19 35 21 34 24 C33 26 27 27 25 24 C24 22 25 21 26 21 Z\" fill=\"#FDE68A\"/>\n    <!-- Sliced Pat Curving beside -->\n    <path d=\"M20 41 C24 38 29 40 28 43 C26 45 21 44 20 41 Z\" fill=\"#FEF3C7\"/>\n    <!-- Butter Knife -->\n    <path d=\"M42 22 L55 35 C56 36 55 38 53 38 L48 37 L38 27 Z\" fill=\"#D7CBEB\" opacity=\"0.8\"/>\n  </g>\n</svg>"
-},
+    "id": "butter",
+    "nameKo": "버터 슬라이스",
+    "nameEn": "Butter Slice",
+    "category": "nature",
+    "tags": [
+      "butter",
+      "slice",
+      "bakery",
+      "dairy",
+      "food"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-butter\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-butter)\">\n    <!-- Ceramic Dish Plate -->\n    <ellipse cx=\"32\" cy=\"48\" rx=\"24\" ry=\"7\" fill=\"#FAF6ED\"/>\n    <ellipse cx=\"32\" cy=\"47\" rx=\"20\" ry=\"5.5\" fill=\"#FFFDF9\"/>\n    <!-- Butter Block Base 3D -->\n    <!-- Front Face -->\n    <path d=\"M15 36 L36 43 L36 32 L15 25 Z\" fill=\"#FEE396\"/>\n    <!-- Side Face -->\n    <path d=\"M36 43 L49 37 L49 26 L36 32 Z\" fill=\"#F7BA9E\"/>\n    <!-- Top Face -->\n    <path d=\"M15 25 L28 19 L49 26 L36 32 Z\" fill=\"#FEF3C7\"/>\n    <!-- Melting Soft Pat on Top -->\n    <path d=\"M26 21 C29 19 35 21 34 24 C33 26 27 27 25 24 C24 22 25 21 26 21 Z\" fill=\"#FDE68A\"/>\n    <!-- Sliced Pat Curving beside -->\n    <path d=\"M20 41 C24 38 29 40 28 43 C26 45 21 44 20 41 Z\" fill=\"#FEF3C7\"/>\n    <!-- Butter Knife -->\n    <path d=\"M42 22 L55 35 C56 36 55 38 53 38 L48 37 L38 27 Z\" fill=\"#D7CBEB\" opacity=\"0.8\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "shrine-torii",
-  "nameKo": "신사 토리이",
-  "nameEn": "Torii Shrine Gate",
-  "category": "travel",
-  "tags": [
-    "shrine",
-    "torii",
-    "japan",
-    "kyoto",
-    "travel",
-    "gate"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-torii\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-torii)\">\n    <!-- Base Stones -->\n    <rect x=\"18\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\"/>\n    <rect x=\"39\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\"/>\n    <!-- Main Vertical Pillars -->\n    <rect x=\"19.5\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\"/>\n    <rect x=\"40\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\"/>\n    <!-- Lower Horizontal Bar (Nuki) -->\n    <rect x=\"15\" y=\"27\" width=\"34\" height=\"4\" rx=\"1.5\" fill=\"#F5B8BE\"/>\n    <!-- Center Tablet Plaque (Gakuzuka) -->\n    <rect x=\"30\" y=\"18\" width=\"4\" height=\"10\" rx=\"1\" fill=\"#FAF6ED\"/>\n    <rect x=\"31\" y=\"20\" width=\"2\" height=\"6\" fill=\"#3D352E\"/>\n    <!-- Upper Horizontal Sub-Bar (Shimaki) -->\n    <rect x=\"11\" y=\"17\" width=\"42\" height=\"4\" rx=\"1.5\" fill=\"#F7BA9E\"/>\n    <!-- Curved Sweeping Roof Beam (Kasagi) -->\n    <path d=\"M8 17 C16 14 48 14 56 17 L54 13 C46 11 18 11 10 13 Z\" fill=\"#F5B8BE\"/>\n    <!-- Top Ridge Cap -->\n    <path d=\"M9 13.5 C18 11.5 46 11.5 55 13.5 L54 12 C46 10 18 10 10 12 Z\" fill=\"#3D352E\"/>\n  </g>\n</svg>"
-},
+    "id": "shrine-torii",
+    "nameKo": "신사 토리이",
+    "nameEn": "Torii Shrine Gate",
+    "category": "travel",
+    "tags": [
+      "shrine",
+      "torii",
+      "japan",
+      "kyoto",
+      "travel",
+      "gate"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-torii\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-torii)\">\n    <!-- Base Stones -->\n    <rect x=\"18\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\"/>\n    <rect x=\"39\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\"/>\n    <!-- Main Vertical Pillars -->\n    <rect x=\"19.5\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\"/>\n    <rect x=\"40\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\"/>\n    <!-- Lower Horizontal Bar (Nuki) -->\n    <rect x=\"15\" y=\"27\" width=\"34\" height=\"4\" rx=\"1.5\" fill=\"#F5B8BE\"/>\n    <!-- Center Tablet Plaque (Gakuzuka) -->\n    <rect x=\"30\" y=\"18\" width=\"4\" height=\"10\" rx=\"1\" fill=\"#FAF6ED\"/>\n    <rect x=\"31\" y=\"20\" width=\"2\" height=\"6\" fill=\"#3D352E\"/>\n    <!-- Upper Horizontal Sub-Bar (Shimaki) -->\n    <rect x=\"11\" y=\"17\" width=\"42\" height=\"4\" rx=\"1.5\" fill=\"#F7BA9E\"/>\n    <!-- Curved Sweeping Roof Beam (Kasagi) -->\n    <path d=\"M8 17 C16 14 48 14 56 17 L54 13 C46 11 18 11 10 13 Z\" fill=\"#F5B8BE\"/>\n    <!-- Top Ridge Cap -->\n    <path d=\"M9 13.5 C18 11.5 46 11.5 55 13.5 L54 12 C46 10 18 10 10 12 Z\" fill=\"#3D352E\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "eiffel-tower",
-  "nameKo": "파리 에펠탑",
-  "nameEn": "Eiffel Tower",
-  "category": "travel",
-  "tags": [
-    "eiffel",
-    "tower",
-    "paris",
-    "france",
-    "landmark",
-    "travel"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-eiffel\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-eiffel)\">\n    <!-- Base Arched Legs -->\n    <path d=\"M16 56 L20 40 L26 40 L23 56 Z\" fill=\"#E2CCA8\"/>\n    <path d=\"M48 56 L44 40 L38 40 L41 56 Z\" fill=\"#E2CCA8\"/>\n    <!-- Center Arch Cutout -->\n    <path d=\"M24 56 C24 45 40 45 40 56 Z\" fill=\"#FFFDF9\" opacity=\"0.6\"/>\n    <path d=\"M22 47 C25 43 39 43 42 47\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- First Tier Deck Platform -->\n    <rect x=\"18\" y=\"38\" width=\"28\" height=\"3\" rx=\"1\" fill=\"#3D352E\"/>\n    <!-- Middle Tier Pillar Truss -->\n    <path d=\"M23 38 L27 25 L37 25 L41 38 Z\" fill=\"#FAF6ED\"/>\n    <line x1=\"25\" y1=\"38\" x2=\"37\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\"/>\n    <line x1=\"39\" y1=\"38\" x2=\"27\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\"/>\n    <!-- Second Tier Deck Platform -->\n    <rect x=\"25\" y=\"24\" width=\"14\" height=\"2.5\" rx=\"0.8\" fill=\"#3D352E\"/>\n    <!-- Top Spire Pyramid -->\n    <path d=\"M28 24 L31 9 L33 9 L36 24 Z\" fill=\"#E2CCA8\"/>\n    <!-- Beacon Spire & Dome -->\n    <rect x=\"31\" y=\"7\" width=\"2\" height=\"4\" fill=\"#3D352E\"/>\n    <line x1=\"32\" y1=\"7\" x2=\"32\" y2=\"3\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <circle cx=\"32\" cy=\"3\" r=\"1\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
-},
+    "id": "eiffel-tower",
+    "nameKo": "파리 에펠탑",
+    "nameEn": "Eiffel Tower",
+    "category": "travel",
+    "tags": [
+      "eiffel",
+      "tower",
+      "paris",
+      "france",
+      "landmark",
+      "travel"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-eiffel\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-eiffel)\">\n    <!-- Base Arched Legs -->\n    <path d=\"M16 56 L20 40 L26 40 L23 56 Z\" fill=\"#E2CCA8\"/>\n    <path d=\"M48 56 L44 40 L38 40 L41 56 Z\" fill=\"#E2CCA8\"/>\n    <!-- Center Arch Cutout -->\n    <path d=\"M24 56 C24 45 40 45 40 56 Z\" fill=\"#FFFDF9\" opacity=\"0.6\"/>\n    <path d=\"M22 47 C25 43 39 43 42 47\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- First Tier Deck Platform -->\n    <rect x=\"18\" y=\"38\" width=\"28\" height=\"3\" rx=\"1\" fill=\"#3D352E\"/>\n    <!-- Middle Tier Pillar Truss -->\n    <path d=\"M23 38 L27 25 L37 25 L41 38 Z\" fill=\"#FAF6ED\"/>\n    <line x1=\"25\" y1=\"38\" x2=\"37\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\"/>\n    <line x1=\"39\" y1=\"38\" x2=\"27\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\"/>\n    <!-- Second Tier Deck Platform -->\n    <rect x=\"25\" y=\"24\" width=\"14\" height=\"2.5\" rx=\"0.8\" fill=\"#3D352E\"/>\n    <!-- Top Spire Pyramid -->\n    <path d=\"M28 24 L31 9 L33 9 L36 24 Z\" fill=\"#E2CCA8\"/>\n    <!-- Beacon Spire & Dome -->\n    <rect x=\"31\" y=\"7\" width=\"2\" height=\"4\" fill=\"#3D352E\"/>\n    <line x1=\"32\" y1=\"7\" x2=\"32\" y2=\"3\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <circle cx=\"32\" cy=\"3\" r=\"1\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "matterhorn",
-  "nameKo": "설산 봉우리",
-  "nameEn": "Matterhorn Peak",
-  "category": "travel",
-  "tags": [
-    "matterhorn",
-    "mountain",
-    "peak",
-    "alps",
-    "snow",
-    "swiss"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-matterhorn\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-matterhorn)\">\n    <!-- Morning Sun Ring peeking behind -->\n    <circle cx=\"44\" cy=\"22\" r=\"9\" fill=\"#FEE396\"/>\n    <!-- Shadowed Back Ridge -->\n    <polygon points=\"12,54 28,14 42,54\" fill=\"#A3D8C3\"/>\n    <!-- Main Jagged Pyramid Face -->\n    <polygon points=\"28,14 42,54 54,54 44,28\" fill=\"#BDE0EA\"/>\n    <!-- Steep East Face (Lavender/Slate) -->\n    <polygon points=\"28,14 12,54 28,54 34,34\" fill=\"#D7CBEB\"/>\n    <!-- White Glacial Snowcap -->\n    <path d=\"M28 14 L24 23 L28 21 L32 25 L34 20 L37 24 L35 18 Z\" fill=\"#FFFDF9\"/>\n    <!-- Mid Snow Slits -->\n    <path d=\"M22 30 L26 28 L24 35 L28 32 L30 38\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n    <path d=\"M34 28 L37 32 L36 38\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n  </g>\n</svg>"
-},
+    "id": "matterhorn",
+    "nameKo": "설산 봉우리",
+    "nameEn": "Matterhorn Peak",
+    "category": "travel",
+    "tags": [
+      "matterhorn",
+      "mountain",
+      "peak",
+      "alps",
+      "snow",
+      "swiss"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-matterhorn\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-matterhorn)\">\n    <!-- Morning Sun Ring peeking behind -->\n    <circle cx=\"44\" cy=\"22\" r=\"9\" fill=\"#FEE396\"/>\n    <!-- Shadowed Back Ridge -->\n    <polygon points=\"12,54 28,14 42,54\" fill=\"#A3D8C3\"/>\n    <!-- Main Jagged Pyramid Face -->\n    <polygon points=\"28,14 42,54 54,54 44,28\" fill=\"#BDE0EA\"/>\n    <!-- Steep East Face (Lavender/Slate) -->\n    <polygon points=\"28,14 12,54 28,54 34,34\" fill=\"#D7CBEB\"/>\n    <!-- White Glacial Snowcap -->\n    <path d=\"M28 14 L24 23 L28 21 L32 25 L34 20 L37 24 L35 18 Z\" fill=\"#FFFDF9\"/>\n    <!-- Mid Snow Slits -->\n    <path d=\"M22 30 L26 28 L24 35 L28 32 L30 38\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n    <path d=\"M34 28 L37 32 L36 38\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "bouquet",
-  "nameKo": "꽃다발",
-  "nameEn": "Flower Bouquet",
-  "category": "nature",
-  "tags": [
-    "bouquet",
-    "flowers",
-    "celebration",
-    "gift",
-    "wedding"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-bouquet\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-bouquet)\">\n    <!-- Kraft Cone Wrap Base -->\n    <path d=\"M23 37 L30 56 C31 58 33 58 34 56 L41 37 Z\" fill=\"#E2CCA8\"/>\n    <!-- Folded Paper Collar Flaps -->\n    <path d=\"M21 34 L32 40 L24 45 Z\" fill=\"#D4A373\"/>\n    <path d=\"M43 34 L32 40 L40 45 Z\" fill=\"#FAF6ED\"/>\n    <!-- Foliage Layer -->\n    <ellipse cx=\"23\" cy=\"24\" rx=\"4\" ry=\"7\" transform=\"rotate(-30 23 24)\" fill=\"#A3D8C3\"/>\n    <ellipse cx=\"41\" cy=\"24\" rx=\"4\" ry=\"7\" transform=\"rotate(30 41 24)\" fill=\"#A3D8C3\"/>\n    <circle cx=\"32\" cy=\"18\" r=\"5\" fill=\"#BBD5B8\"/>\n    <!-- Flowers: 3 Major Blooms -->\n    <!-- Flower Left (Peach) -->\n    <circle cx=\"26\" cy=\"27\" r=\"7\" fill=\"#F7BA9E\"/>\n    <circle cx=\"26\" cy=\"27\" r=\"4\" fill=\"#FEE396\"/>\n    <circle cx=\"26\" cy=\"27\" r=\"1.5\" fill=\"#FAF6ED\"/>\n    <!-- Flower Right (Rose) -->\n    <circle cx=\"38\" cy=\"27\" r=\"7\" fill=\"#F5B8BE\"/>\n    <circle cx=\"38\" cy=\"27\" r=\"4\" fill=\"#F7BA9E\"/>\n    <circle cx=\"38\" cy=\"27\" r=\"1.5\" fill=\"#FAF6ED\"/>\n    <!-- Center Top Bloom (Buttercup) -->\n    <circle cx=\"32\" cy=\"21\" r=\"7\" fill=\"#FEE396\"/>\n    <circle cx=\"32\" cy=\"21\" r=\"3.8\" fill=\"#F5B8BE\"/>\n    <circle cx=\"32\" cy=\"21\" r=\"1.5\" fill=\"#FAF6ED\"/>\n    <!-- Ribbon Bow Tie -->\n    <circle cx=\"32\" cy=\"46\" r=\"2.5\" fill=\"#F5B8BE\"/>\n    <path d=\"M30 46 C25 43 24 49 29 48 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M34 46 C39 43 40 49 35 48 Z\" fill=\"#F7BA9E\"/>\n  </g>\n</svg>"
-},
+    "id": "bouquet",
+    "nameKo": "꽃다발",
+    "nameEn": "Flower Bouquet",
+    "category": "nature",
+    "tags": [
+      "bouquet",
+      "flowers",
+      "celebration",
+      "gift",
+      "wedding"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-bouquet\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-bouquet)\">\n    <!-- Kraft Cone Wrap Base -->\n    <path d=\"M23 37 L30 56 C31 58 33 58 34 56 L41 37 Z\" fill=\"#E2CCA8\"/>\n    <!-- Folded Paper Collar Flaps -->\n    <path d=\"M21 34 L32 40 L24 45 Z\" fill=\"#D4A373\"/>\n    <path d=\"M43 34 L32 40 L40 45 Z\" fill=\"#FAF6ED\"/>\n    <!-- Foliage Layer -->\n    <ellipse cx=\"23\" cy=\"24\" rx=\"4\" ry=\"7\" transform=\"rotate(-30 23 24)\" fill=\"#A3D8C3\"/>\n    <ellipse cx=\"41\" cy=\"24\" rx=\"4\" ry=\"7\" transform=\"rotate(30 41 24)\" fill=\"#A3D8C3\"/>\n    <circle cx=\"32\" cy=\"18\" r=\"5\" fill=\"#BBD5B8\"/>\n    <!-- Flowers: 3 Major Blooms -->\n    <!-- Flower Left (Peach) -->\n    <circle cx=\"26\" cy=\"27\" r=\"7\" fill=\"#F7BA9E\"/>\n    <circle cx=\"26\" cy=\"27\" r=\"4\" fill=\"#FEE396\"/>\n    <circle cx=\"26\" cy=\"27\" r=\"1.5\" fill=\"#FAF6ED\"/>\n    <!-- Flower Right (Rose) -->\n    <circle cx=\"38\" cy=\"27\" r=\"7\" fill=\"#F5B8BE\"/>\n    <circle cx=\"38\" cy=\"27\" r=\"4\" fill=\"#F7BA9E\"/>\n    <circle cx=\"38\" cy=\"27\" r=\"1.5\" fill=\"#FAF6ED\"/>\n    <!-- Center Top Bloom (Buttercup) -->\n    <circle cx=\"32\" cy=\"21\" r=\"7\" fill=\"#FEE396\"/>\n    <circle cx=\"32\" cy=\"21\" r=\"3.8\" fill=\"#F5B8BE\"/>\n    <circle cx=\"32\" cy=\"21\" r=\"1.5\" fill=\"#FAF6ED\"/>\n    <!-- Ribbon Bow Tie -->\n    <circle cx=\"32\" cy=\"46\" r=\"2.5\" fill=\"#F5B8BE\"/>\n    <path d=\"M30 46 C25 43 24 49 29 48 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M34 46 C39 43 40 49 35 48 Z\" fill=\"#F7BA9E\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "butterfly",
-  "nameKo": "나비 페이퍼 컷",
-  "nameEn": "Kirigami Butterfly",
-  "category": "nature",
-  "tags": [
-    "butterfly",
-    "insect",
-    "craft",
-    "kirigami",
-    "spring"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-butterfly\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-butterfly)\">\n    <!-- Lower Wings (Lavender & Peach) -->\n    <path d=\"M31 34 C24 37 15 42 18 50 C21 56 29 53 32 42 Z\" fill=\"#D7CBEB\"/>\n    <circle cx=\"23\" cy=\"47\" r=\"2\" fill=\"#FAF6ED\"/>\n    <path d=\"M33 34 C40 37 49 42 46 50 C43 56 35 53 32 42 Z\" fill=\"#D7CBEB\"/>\n    <circle cx=\"41\" cy=\"47\" r=\"2\" fill=\"#FAF6ED\"/>\n    <!-- Upper Wings (Mint & Sky) -->\n    <path d=\"M30 32 C20 28 8 20 12 12 C16 4 27 12 31 23 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M18 16 C21 14 26 18 25 21 C22 22 17 19 18 16 Z\" fill=\"#BDE0EA\"/>\n    <circle cx=\"20\" cy=\"14\" r=\"1.5\" fill=\"#FFFDF9\"/>\n    <path d=\"M34 32 C44 28 56 20 52 12 C48 4 37 12 33 23 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M46 16 C43 14 38 18 39 21 C42 22 47 19 46 16 Z\" fill=\"#BDE0EA\"/>\n    <circle cx=\"44\" cy=\"14\" r=\"1.5\" fill=\"#FFFDF9\"/>\n    <!-- Center Slender Body -->\n    <ellipse cx=\"32\" cy=\"32\" rx=\"2\" ry=\"11\" fill=\"#3D352E\"/>\n    <circle cx=\"32\" cy=\"20\" r=\"2.2\" fill=\"#3D352E\"/>\n    <!-- Antennae -->\n    <path d=\"M31 18 C28 14 25 14 24 16\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <path d=\"M33 18 C36 14 39 14 40 16\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n  </g>\n</svg>"
-},
+    "id": "butterfly",
+    "nameKo": "나비 페이퍼 컷",
+    "nameEn": "Kirigami Butterfly",
+    "category": "nature",
+    "tags": [
+      "butterfly",
+      "insect",
+      "craft",
+      "kirigami",
+      "spring"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-butterfly\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-butterfly)\">\n    <!-- Lower Wings (Lavender & Peach) -->\n    <path d=\"M31 34 C24 37 15 42 18 50 C21 56 29 53 32 42 Z\" fill=\"#D7CBEB\"/>\n    <circle cx=\"23\" cy=\"47\" r=\"2\" fill=\"#FAF6ED\"/>\n    <path d=\"M33 34 C40 37 49 42 46 50 C43 56 35 53 32 42 Z\" fill=\"#D7CBEB\"/>\n    <circle cx=\"41\" cy=\"47\" r=\"2\" fill=\"#FAF6ED\"/>\n    <!-- Upper Wings (Mint & Sky) -->\n    <path d=\"M30 32 C20 28 8 20 12 12 C16 4 27 12 31 23 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M18 16 C21 14 26 18 25 21 C22 22 17 19 18 16 Z\" fill=\"#BDE0EA\"/>\n    <circle cx=\"20\" cy=\"14\" r=\"1.5\" fill=\"#FFFDF9\"/>\n    <path d=\"M34 32 C44 28 56 20 52 12 C48 4 37 12 33 23 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M46 16 C43 14 38 18 39 21 C42 22 47 19 46 16 Z\" fill=\"#BDE0EA\"/>\n    <circle cx=\"44\" cy=\"14\" r=\"1.5\" fill=\"#FFFDF9\"/>\n    <!-- Center Slender Body -->\n    <ellipse cx=\"32\" cy=\"32\" rx=\"2\" ry=\"11\" fill=\"#3D352E\"/>\n    <circle cx=\"32\" cy=\"20\" r=\"2.2\" fill=\"#3D352E\"/>\n    <!-- Antennae -->\n    <path d=\"M31 18 C28 14 25 14 24 16\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <path d=\"M33 18 C36 14 39 14 40 16\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "cloud-sun-rays",
-  "nameKo": "구름 사이 햇살",
-  "nameEn": "Sunburst Clouds",
-  "category": "nature",
-  "tags": [
-    "sun",
-    "cloud",
-    "rays",
-    "weather",
-    "sky",
-    "afternoon"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-cloud-sun-rays\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-cloud-sun-rays)\">\n    <!-- Sun Rays Behind -->\n    <path d=\"M40 8 L40 13 M48 11 L45 15 M53 19 L48 20 M55 27 L50 27 M33 12 L35 15\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n    <!-- Golden Sun Disc -->\n    <circle cx=\"40\" cy=\"24\" r=\"11\" fill=\"#FEE396\"/>\n    <circle cx=\"40\" cy=\"24\" r=\"8\" fill=\"#F7BA9E\" opacity=\"0.6\"/>\n    <!-- Cloud Shadow Base -->\n    <path d=\"M19 49 L43 49 C48 49 52 45 52 40 C52 35 48 32 44 32 C43 27 38 23 33 23 C29 23 25 25 24 28 C20 28 16 32 16 36 C16 43 14 49 19 49 Z\" fill=\"#BDE0EA\"/>\n    <!-- Main Fluffy Cloud -->\n    <path d=\"M18 47 L44 47 C48.5 47 51 43.5 51 39 C51 34.5 47 31.5 43 31.5 C42 26 37 22 31.5 22 C27 22 23 24.5 22 28 C18 28 14 31.5 14 36 C14 42 16 47 18 47 Z\" fill=\"#FFFDF9\"/>\n    <!-- Inner Cloud Puffs -->\n    <circle cx=\"27\" cy=\"38\" r=\"6\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n    <circle cx=\"37\" cy=\"39\" r=\"5\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n  </g>\n</svg>"
-},
+    "id": "cloud-sun-rays",
+    "nameKo": "구름 사이 햇살",
+    "nameEn": "Sunburst Clouds",
+    "category": "nature",
+    "tags": [
+      "sun",
+      "cloud",
+      "rays",
+      "weather",
+      "sky",
+      "afternoon"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-cloud-sun-rays\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-cloud-sun-rays)\">\n    <!-- Sun Rays Behind -->\n    <path d=\"M40 8 L40 13 M48 11 L45 15 M53 19 L48 20 M55 27 L50 27 M33 12 L35 15\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n    <!-- Golden Sun Disc -->\n    <circle cx=\"40\" cy=\"24\" r=\"11\" fill=\"#FEE396\"/>\n    <circle cx=\"40\" cy=\"24\" r=\"8\" fill=\"#F7BA9E\" opacity=\"0.6\"/>\n    <!-- Cloud Shadow Base -->\n    <path d=\"M19 49 L43 49 C48 49 52 45 52 40 C52 35 48 32 44 32 C43 27 38 23 33 23 C29 23 25 25 24 28 C20 28 16 32 16 36 C16 43 14 49 19 49 Z\" fill=\"#BDE0EA\"/>\n    <!-- Main Fluffy Cloud -->\n    <path d=\"M18 47 L44 47 C48.5 47 51 43.5 51 39 C51 34.5 47 31.5 43 31.5 C42 26 37 22 31.5 22 C27 22 23 24.5 22 28 C18 28 14 31.5 14 36 C14 42 16 47 18 47 Z\" fill=\"#FFFDF9\"/>\n    <!-- Inner Cloud Puffs -->\n    <circle cx=\"27\" cy=\"38\" r=\"6\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n    <circle cx=\"37\" cy=\"39\" r=\"5\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "fireplace",
-  "nameKo": "벽난로 장작불",
-  "nameEn": "Cozy Fireplace",
-  "category": "lifestyle",
-  "tags": [
-    "fireplace",
-    "fire",
-    "hearth",
-    "cozy",
-    "warm",
-    "winter"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-fireplace\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-fireplace)\">\n    <!-- Mantle Base Frame -->\n    <path d=\"M14 18 L50 18 L50 54 L14 54 Z\" fill=\"#FAF6ED\"/>\n    <!-- Hearth Cavity (Dark Arch) -->\n    <path d=\"M22 54 L22 35 C22 29 42 29 42 35 L42 54 Z\" fill=\"#3D352E\"/>\n    <!-- Mantle Top Shelf -->\n    <rect x=\"11\" y=\"14\" width=\"42\" height=\"5\" rx=\"2\" fill=\"#E2CCA8\"/>\n    <!-- Fireplace Trim Ledge -->\n    <rect x=\"18\" y=\"22\" width=\"28\" height=\"3\" rx=\"1\" fill=\"#D4A373\"/>\n    <!-- Firewood Logs -->\n    <rect x=\"23\" y=\"47\" width=\"18\" height=\"4\" rx=\"2\" transform=\"rotate(-10 32 49)\" fill=\"#D4A373\"/>\n    <rect x=\"23\" y=\"47\" width=\"18\" height=\"4\" rx=\"2\" transform=\"rotate(10 32 49)\" fill=\"#8C6239\"/>\n    <!-- Multi-layered Flames -->\n    <path d=\"M32 32 C37 36 38 41 36 47 C34 49 30 49 28 47 C26 41 27 36 32 32 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 35 C35 38 36 42 34 46 C33 47 31 47 30 46 C28 42 29 38 32 35 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M32 38 C34 40 34 43 33 46 C32 47 31 47 31 46 C30 43 30 40 32 38 Z\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
-},
+    "id": "fireplace",
+    "nameKo": "벽난로 장작불",
+    "nameEn": "Cozy Fireplace",
+    "category": "lifestyle",
+    "tags": [
+      "fireplace",
+      "fire",
+      "hearth",
+      "cozy",
+      "warm",
+      "winter"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-fireplace\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-fireplace)\">\n    <!-- Mantle Base Frame -->\n    <path d=\"M14 18 L50 18 L50 54 L14 54 Z\" fill=\"#FAF6ED\"/>\n    <!-- Hearth Cavity (Dark Arch) -->\n    <path d=\"M22 54 L22 35 C22 29 42 29 42 35 L42 54 Z\" fill=\"#3D352E\"/>\n    <!-- Mantle Top Shelf -->\n    <rect x=\"11\" y=\"14\" width=\"42\" height=\"5\" rx=\"2\" fill=\"#E2CCA8\"/>\n    <!-- Fireplace Trim Ledge -->\n    <rect x=\"18\" y=\"22\" width=\"28\" height=\"3\" rx=\"1\" fill=\"#D4A373\"/>\n    <!-- Firewood Logs -->\n    <rect x=\"23\" y=\"47\" width=\"18\" height=\"4\" rx=\"2\" transform=\"rotate(-10 32 49)\" fill=\"#D4A373\"/>\n    <rect x=\"23\" y=\"47\" width=\"18\" height=\"4\" rx=\"2\" transform=\"rotate(10 32 49)\" fill=\"#8C6239\"/>\n    <!-- Multi-layered Flames -->\n    <path d=\"M32 32 C37 36 38 41 36 47 C34 49 30 49 28 47 C26 41 27 36 32 32 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 35 C35 38 36 42 34 46 C33 47 31 47 30 46 C28 42 29 38 32 35 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M32 38 C34 40 34 43 33 46 C32 47 31 47 31 46 C30 43 30 40 32 38 Z\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "fire",
-  "nameKo": "모닥불 불꽃",
-  "nameEn": "Campfire Flame",
-  "category": "nature",
-  "tags": [
-    "fire",
-    "flame",
-    "campfire",
-    "warmth",
-    "burn"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-fire\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-fire)\">\n    <!-- Crossed Firewood Logs -->\n    <rect x=\"16\" y=\"50\" width=\"32\" height=\"5\" rx=\"2.5\" transform=\"rotate(-8 32 52)\" fill=\"#8C6239\"/>\n    <rect x=\"16\" y=\"50\" width=\"32\" height=\"5\" rx=\"2.5\" transform=\"rotate(8 32 52)\" fill=\"#D4A373\"/>\n    <!-- Outer Flame Shell (Rose) -->\n    <path d=\"M32 10 C39 20 48 29 46 41 C44 49 38 52 32 52 C26 52 20 49 18 41 C16 29 25 20 32 10 Z\" fill=\"#F5B8BE\"/>\n    <!-- Mid Flame (Peach) -->\n    <path d=\"M32 18 C37 26 42 32 40 42 C39 47 35 50 32 50 C29 50 25 47 24 42 C22 32 27 26 32 18 Z\" fill=\"#F7BA9E\"/>\n    <!-- Core Flame (Buttercup) -->\n    <path d=\"M32 26 C35 32 37 36 36 43 C35 46 33 48 32 48 C31 48 29 46 28 43 C27 36 29 32 32 26 Z\" fill=\"#FEE396\"/>\n    <!-- White Hot Core Spark -->\n    <circle cx=\"32\" cy=\"42\" r=\"2.5\" fill=\"#FFFDF9\"/>\n  </g>\n</svg>"
-},
+    "id": "fire",
+    "nameKo": "모닥불 불꽃",
+    "nameEn": "Campfire Flame",
+    "category": "nature",
+    "tags": [
+      "fire",
+      "flame",
+      "campfire",
+      "warmth",
+      "burn"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-fire\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-fire)\">\n    <!-- Crossed Firewood Logs -->\n    <rect x=\"16\" y=\"50\" width=\"32\" height=\"5\" rx=\"2.5\" transform=\"rotate(-8 32 52)\" fill=\"#8C6239\"/>\n    <rect x=\"16\" y=\"50\" width=\"32\" height=\"5\" rx=\"2.5\" transform=\"rotate(8 32 52)\" fill=\"#D4A373\"/>\n    <!-- Outer Flame Shell (Rose) -->\n    <path d=\"M32 10 C39 20 48 29 46 41 C44 49 38 52 32 52 C26 52 20 49 18 41 C16 29 25 20 32 10 Z\" fill=\"#F5B8BE\"/>\n    <!-- Mid Flame (Peach) -->\n    <path d=\"M32 18 C37 26 42 32 40 42 C39 47 35 50 32 50 C29 50 25 47 24 42 C22 32 27 26 32 18 Z\" fill=\"#F7BA9E\"/>\n    <!-- Core Flame (Buttercup) -->\n    <path d=\"M32 26 C35 32 37 36 36 43 C35 46 33 48 32 48 C31 48 29 46 28 43 C27 36 29 32 32 26 Z\" fill=\"#FEE396\"/>\n    <!-- White Hot Core Spark -->\n    <circle cx=\"32\" cy=\"42\" r=\"2.5\" fill=\"#FFFDF9\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "airplane-seat",
-  "nameKo": "비행기 좌석",
-  "nameEn": "First-Class Seat",
-  "category": "travel",
-  "tags": [
-    "seat",
-    "airplane",
-    "airline",
-    "flight",
-    "chair",
-    "firstclass"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-airplane-seat\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-airplane-seat)\">\n    <!-- Outer Privacy Pod Shell -->\n    <path d=\"M16 16 C16 12 20 10 25 10 L39 10 C46 10 50 14 50 22 L50 48 C50 52 46 54 42 54 L18 54 Z\" fill=\"#D7CBEB\"/>\n    <!-- Headrest Cushion -->\n    <rect x=\"23\" y=\"13\" width=\"18\" height=\"9\" rx=\"4\" fill=\"#A3D8C3\"/>\n    <!-- Ergonomic Backrest -->\n    <rect x=\"21\" y=\"24\" width=\"22\" height=\"18\" rx=\"4\" fill=\"#FFFDF9\"/>\n    <!-- Quilted Stitch Lines -->\n    <line x1=\"24\" y1=\"30\" x2=\"40\" y2=\"30\" stroke=\"#BDE0EA\" stroke-width=\"1.2\"/>\n    <line x1=\"24\" y1=\"36\" x2=\"40\" y2=\"36\" stroke=\"#BDE0EA\" stroke-width=\"1.2\"/>\n    <!-- Seat Base Cushion -->\n    <path d=\"M19 42 L45 42 C47 42 48 44 48 46 L48 48 C48 50 46 51 44 51 L19 51 Z\" fill=\"#F7BA9E\"/>\n    <!-- Armrest with Fold-out Screen -->\n    <rect x=\"15\" y=\"34\" width=\"6\" height=\"16\" rx=\"3\" fill=\"#FAF6ED\"/>\n    <rect x=\"17\" y=\"24\" width=\"3\" height=\"9\" fill=\"#3D352E\"/>\n    <rect x=\"14\" y=\"20\" width=\"8\" height=\"6\" rx=\"1.5\" fill=\"#BDE0EA\"/>\n  </g>\n</svg>"
-},
+    "id": "airplane-seat",
+    "nameKo": "비행기 좌석",
+    "nameEn": "First-Class Seat",
+    "category": "travel",
+    "tags": [
+      "seat",
+      "airplane",
+      "airline",
+      "flight",
+      "chair",
+      "firstclass"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-airplane-seat\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-airplane-seat)\">\n    <!-- Outer Privacy Pod Shell -->\n    <path d=\"M16 16 C16 12 20 10 25 10 L39 10 C46 10 50 14 50 22 L50 48 C50 52 46 54 42 54 L18 54 Z\" fill=\"#D7CBEB\"/>\n    <!-- Headrest Cushion -->\n    <rect x=\"23\" y=\"13\" width=\"18\" height=\"9\" rx=\"4\" fill=\"#A3D8C3\"/>\n    <!-- Ergonomic Backrest -->\n    <rect x=\"21\" y=\"24\" width=\"22\" height=\"18\" rx=\"4\" fill=\"#FFFDF9\"/>\n    <!-- Quilted Stitch Lines -->\n    <line x1=\"24\" y1=\"30\" x2=\"40\" y2=\"30\" stroke=\"#BDE0EA\" stroke-width=\"1.2\"/>\n    <line x1=\"24\" y1=\"36\" x2=\"40\" y2=\"36\" stroke=\"#BDE0EA\" stroke-width=\"1.2\"/>\n    <!-- Seat Base Cushion -->\n    <path d=\"M19 42 L45 42 C47 42 48 44 48 46 L48 48 C48 50 46 51 44 51 L19 51 Z\" fill=\"#F7BA9E\"/>\n    <!-- Armrest with Fold-out Screen -->\n    <rect x=\"15\" y=\"34\" width=\"6\" height=\"16\" rx=\"3\" fill=\"#FAF6ED\"/>\n    <rect x=\"17\" y=\"24\" width=\"3\" height=\"9\" fill=\"#3D352E\"/>\n    <rect x=\"14\" y=\"20\" width=\"8\" height=\"6\" rx=\"1.5\" fill=\"#BDE0EA\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "lemon",
-  "nameKo": "상큼한 레몬",
-  "nameEn": "Fresh Lemon",
-  "category": "nature",
-  "tags": [
-    "lemon",
-    "citrus",
-    "fruit",
-    "yellow",
-    "sour"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-lemon\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-lemon)\">\n    <!-- Whole Lemon peaking behind -->\n    <path d=\"M38 16 C46 16 54 22 54 30 C54 38 48 44 38 44 C42 38 44 32 44 26 C44 20 41 17 38 16 Z\" fill=\"#FEE396\"/>\n    <!-- Fresh Leaf on Stem -->\n    <path d=\"M44 14 C48 8 55 9 55 14 C51 17 46 17 44 14 Z\" fill=\"#A3D8C3\"/>\n    <!-- Main Sliced Lemon Wheel (Outer Rind) -->\n    <circle cx=\"28\" cy=\"36\" r=\"18\" fill=\"#FDE68A\"/>\n    <!-- Inner White Pith -->\n    <circle cx=\"28\" cy=\"36\" r=\"15\" fill=\"#FFFDF9\"/>\n    <!-- Citrus Center Core -->\n    <circle cx=\"28\" cy=\"36\" r=\"2.5\" fill=\"#FEE396\"/>\n    <!-- 8 Triangular Segments -->\n    <path d=\"M28 32 L28 23 C31 23 33 24 34 25 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M32 33 L39 28 C40 30 41 32 41 34 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M32 37 L41 38 C41 40 40 42 39 44 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M31 40 L34 47 C32 48 30 49 28 49 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M27 40 L22 47 C24 48 26 49 28 49 Z\" fill=\"#FEE396\"/>\n    <path d=\"M24 37 L15 38 C15 40 16 42 17 44 Z\" fill=\"#FEE396\"/>\n    <path d=\"M24 33 L17 28 C16 30 15 32 15 34 Z\" fill=\"#FEE396\"/>\n    <path d=\"M27 32 L22 25 C24 24 26 23 28 23 Z\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
-},
+    "id": "lemon",
+    "nameKo": "상큼한 레몬",
+    "nameEn": "Fresh Lemon",
+    "category": "nature",
+    "tags": [
+      "lemon",
+      "citrus",
+      "fruit",
+      "yellow",
+      "sour"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-lemon\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-lemon)\">\n    <!-- Whole Lemon peaking behind -->\n    <path d=\"M38 16 C46 16 54 22 54 30 C54 38 48 44 38 44 C42 38 44 32 44 26 C44 20 41 17 38 16 Z\" fill=\"#FEE396\"/>\n    <!-- Fresh Leaf on Stem -->\n    <path d=\"M44 14 C48 8 55 9 55 14 C51 17 46 17 44 14 Z\" fill=\"#A3D8C3\"/>\n    <!-- Main Sliced Lemon Wheel (Outer Rind) -->\n    <circle cx=\"28\" cy=\"36\" r=\"18\" fill=\"#FDE68A\"/>\n    <!-- Inner White Pith -->\n    <circle cx=\"28\" cy=\"36\" r=\"15\" fill=\"#FFFDF9\"/>\n    <!-- Citrus Center Core -->\n    <circle cx=\"28\" cy=\"36\" r=\"2.5\" fill=\"#FEE396\"/>\n    <!-- 8 Triangular Segments -->\n    <path d=\"M28 32 L28 23 C31 23 33 24 34 25 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M32 33 L39 28 C40 30 41 32 41 34 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M32 37 L41 38 C41 40 40 42 39 44 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M31 40 L34 47 C32 48 30 49 28 49 Z\" fill=\"#FDE68A\"/>\n    <path d=\"M27 40 L22 47 C24 48 26 49 28 49 Z\" fill=\"#FEE396\"/>\n    <path d=\"M24 37 L15 38 C15 40 16 42 17 44 Z\" fill=\"#FEE396\"/>\n    <path d=\"M24 33 L17 28 C16 30 15 32 15 34 Z\" fill=\"#FEE396\"/>\n    <path d=\"M27 32 L22 25 C24 24 26 23 28 23 Z\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "apricot",
-  "nameKo": "따스한 살구",
-  "nameEn": "Warm Apricot",
-  "category": "nature",
-  "tags": [
-    "apricot",
-    "peach",
-    "fruit",
-    "sweet",
-    "summer"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-apricot\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-apricot)\">\n    <!-- Twig Stem -->\n    <path d=\"M32 12 C33 16 33 20 32 24\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <!-- Sage Green Leaf -->\n    <path d=\"M33 16 C39 12 45 14 47 19 C42 22 36 20 33 16 Z\" fill=\"#A3D8C3\"/>\n    <line x1=\"34\" y1=\"16\" x2=\"43\" y2=\"18\" stroke=\"#FFFDF9\" stroke-width=\"1\"/>\n    <!-- Left Fruit Lobed Hemisphere -->\n    <path d=\"M32 23 C20 23 14 31 14 41 C14 51 22 55 32 55 C32 46 32 33 32 23 Z\" fill=\"#F7BA9E\"/>\n    <!-- Right Fruit Lobed Hemisphere -->\n    <path d=\"M32 23 C44 23 50 31 50 41 C50 51 42 55 32 55 C32 46 32 33 32 23 Z\" fill=\"#F5B8BE\"/>\n    <!-- Cleft Fold Crease -->\n    <path d=\"M32 23 C31 32 31 46 32 55\" stroke=\"#F7BA9E\" stroke-width=\"2\"/>\n    <!-- Blush Glow Spot -->\n    <circle cx=\"25\" cy=\"38\" r=\"4\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n  </g>\n</svg>"
-},
+    "id": "apricot",
+    "nameKo": "따스한 살구",
+    "nameEn": "Warm Apricot",
+    "category": "nature",
+    "tags": [
+      "apricot",
+      "peach",
+      "fruit",
+      "sweet",
+      "summer"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-apricot\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-apricot)\">\n    <!-- Twig Stem -->\n    <path d=\"M32 12 C33 16 33 20 32 24\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <!-- Sage Green Leaf -->\n    <path d=\"M33 16 C39 12 45 14 47 19 C42 22 36 20 33 16 Z\" fill=\"#A3D8C3\"/>\n    <line x1=\"34\" y1=\"16\" x2=\"43\" y2=\"18\" stroke=\"#FFFDF9\" stroke-width=\"1\"/>\n    <!-- Left Fruit Lobed Hemisphere -->\n    <path d=\"M32 23 C20 23 14 31 14 41 C14 51 22 55 32 55 C32 46 32 33 32 23 Z\" fill=\"#F7BA9E\"/>\n    <!-- Right Fruit Lobed Hemisphere -->\n    <path d=\"M32 23 C44 23 50 31 50 41 C50 51 42 55 32 55 C32 46 32 33 32 23 Z\" fill=\"#F5B8BE\"/>\n    <!-- Cleft Fold Crease -->\n    <path d=\"M32 23 C31 32 31 46 32 55\" stroke=\"#F7BA9E\" stroke-width=\"2\"/>\n    <!-- Blush Glow Spot -->\n    <circle cx=\"25\" cy=\"38\" r=\"4\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "blueberry",
-  "nameKo": "야생 블루베리",
-  "nameEn": "Wild Blueberries",
-  "category": "nature",
-  "tags": [
-    "blueberry",
-    "berry",
-    "fruit",
-    "sweet",
-    "wild"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-blueberry\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-blueberry)\">\n    <!-- Stem & Foliage -->\n    <path d=\"M22 18 C28 22 36 24 44 24\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <ellipse cx=\"20\" cy=\"18\" rx=\"7\" ry=\"4\" transform=\"rotate(-30 20 18)\" fill=\"#A3D8C3\"/>\n    <ellipse cx=\"44\" cy=\"20\" rx=\"6\" ry=\"3.5\" transform=\"rotate(20 44 20)\" fill=\"#BBD5B8\"/>\n    <!-- Berry 1 (Back Left) -->\n    <circle cx=\"23\" cy=\"33\" r=\"11\" fill=\"#7A6EB5\"/>\n    <circle cx=\"23\" cy=\"33\" r=\"8\" fill=\"#9B8EC4\"/>\n    <!-- Crown 1 -->\n    <polygon points=\"20,26 23,24 26,26 25,29 21,29\" fill=\"#584D8C\"/>\n    <!-- Berry 2 (Right) -->\n    <circle cx=\"41\" cy=\"35\" r=\"12\" fill=\"#7A6EB5\"/>\n    <circle cx=\"41\" cy=\"35\" r=\"9\" fill=\"#9B8EC4\"/>\n    <circle cx=\"43\" cy=\"33\" r=\"3\" fill=\"#D9EEF8\" opacity=\"0.5\"/>\n    <!-- Crown 2 -->\n    <polygon points=\"41,27 44,25 47,27 46,30 42,30\" fill=\"#584D8C\"/>\n    <!-- Berry 3 (Foreground Front Center) -->\n    <circle cx=\"30\" cy=\"44\" r=\"12\" fill=\"#7A6EB5\"/>\n    <circle cx=\"30\" cy=\"44\" r=\"9.5\" fill=\"#9B8EC4\"/>\n    <circle cx=\"33\" cy=\"42\" r=\"3.5\" fill=\"#D9EEF8\" opacity=\"0.6\"/>\n    <!-- Crown 3 (Star Cutout) -->\n    <polygon points=\"28,38 31,36 34,38 33,41 29,41\" fill=\"#584D8C\"/>\n  </g>\n</svg>"
-},
+    "id": "blueberry",
+    "nameKo": "야생 블루베리",
+    "nameEn": "Wild Blueberries",
+    "category": "nature",
+    "tags": [
+      "blueberry",
+      "berry",
+      "fruit",
+      "sweet",
+      "wild"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-blueberry\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-blueberry)\">\n    <!-- Stem & Foliage -->\n    <path d=\"M22 18 C28 22 36 24 44 24\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <ellipse cx=\"20\" cy=\"18\" rx=\"7\" ry=\"4\" transform=\"rotate(-30 20 18)\" fill=\"#A3D8C3\"/>\n    <ellipse cx=\"44\" cy=\"20\" rx=\"6\" ry=\"3.5\" transform=\"rotate(20 44 20)\" fill=\"#BBD5B8\"/>\n    <!-- Berry 1 (Back Left) -->\n    <circle cx=\"23\" cy=\"33\" r=\"11\" fill=\"#7A6EB5\"/>\n    <circle cx=\"23\" cy=\"33\" r=\"8\" fill=\"#9B8EC4\"/>\n    <!-- Crown 1 -->\n    <polygon points=\"20,26 23,24 26,26 25,29 21,29\" fill=\"#584D8C\"/>\n    <!-- Berry 2 (Right) -->\n    <circle cx=\"41\" cy=\"35\" r=\"12\" fill=\"#7A6EB5\"/>\n    <circle cx=\"41\" cy=\"35\" r=\"9\" fill=\"#9B8EC4\"/>\n    <circle cx=\"43\" cy=\"33\" r=\"3\" fill=\"#D9EEF8\" opacity=\"0.5\"/>\n    <!-- Crown 2 -->\n    <polygon points=\"41,27 44,25 47,27 46,30 42,30\" fill=\"#584D8C\"/>\n    <!-- Berry 3 (Foreground Front Center) -->\n    <circle cx=\"30\" cy=\"44\" r=\"12\" fill=\"#7A6EB5\"/>\n    <circle cx=\"30\" cy=\"44\" r=\"9.5\" fill=\"#9B8EC4\"/>\n    <circle cx=\"33\" cy=\"42\" r=\"3.5\" fill=\"#D9EEF8\" opacity=\"0.6\"/>\n    <!-- Crown 3 (Star Cutout) -->\n    <polygon points=\"28,38 31,36 34,38 33,41 29,41\" fill=\"#584D8C\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "teddy-bear",
-  "nameKo": "빈티지 테디베어",
-  "nameEn": "Vintage Teddy Bear",
-  "category": "lifestyle",
-  "tags": [
-    "teddy",
-    "bear",
-    "toy",
-    "vintage",
-    "childhood",
-    "cute"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-teddy-bear\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-teddy-bear)\">\n    <!-- Round Ears -->\n    <circle cx=\"18\" cy=\"20\" r=\"7\" fill=\"#D4A373\"/>\n    <circle cx=\"18\" cy=\"20\" r=\"4\" fill=\"#F7BA9E\"/>\n    <circle cx=\"46\" cy=\"20\" r=\"7\" fill=\"#D4A373\"/>\n    <circle cx=\"46\" cy=\"20\" r=\"4\" fill=\"#F7BA9E\"/>\n    <!-- Head Base -->\n    <circle cx=\"32\" cy=\"33\" r=\"16\" fill=\"#E2CCA8\"/>\n    <!-- Puffy Muzzle Oval -->\n    <ellipse cx=\"32\" cy=\"38\" rx=\"8\" ry=\"6\" fill=\"#FFFDF9\"/>\n    <!-- Stitched Charcoal Nose & Smile -->\n    <ellipse cx=\"32\" cy=\"35\" rx=\"3\" ry=\"2\" fill=\"#3D352E\"/>\n    <path d=\"M32 37 L32 40 M29.5 40 C30.5 41.5 33.5 41.5 34.5 40\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Button Eyes -->\n    <circle cx=\"25\" cy=\"30\" r=\"2.2\" fill=\"#3D352E\"/>\n    <circle cx=\"25.6\" cy=\"29.4\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <circle cx=\"39\" cy=\"30\" r=\"2.2\" fill=\"#3D352E\"/>\n    <circle cx=\"39.6\" cy=\"29.4\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <!-- Bow Tie Below -->\n    <path d=\"M32 49 L25 45 L25 53 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 49 L39 45 L39 53 Z\" fill=\"#F5B8BE\"/>\n    <circle cx=\"32\" cy=\"49\" r=\"2.2\" fill=\"#A3D8C3\"/>\n  </g>\n</svg>"
-},
+    "id": "teddy-bear",
+    "nameKo": "빈티지 테디베어",
+    "nameEn": "Vintage Teddy Bear",
+    "category": "lifestyle",
+    "tags": [
+      "teddy",
+      "bear",
+      "toy",
+      "vintage",
+      "childhood",
+      "cute"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-teddy-bear\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-teddy-bear)\">\n    <!-- Round Ears -->\n    <circle cx=\"18\" cy=\"20\" r=\"7\" fill=\"#D4A373\"/>\n    <circle cx=\"18\" cy=\"20\" r=\"4\" fill=\"#F7BA9E\"/>\n    <circle cx=\"46\" cy=\"20\" r=\"7\" fill=\"#D4A373\"/>\n    <circle cx=\"46\" cy=\"20\" r=\"4\" fill=\"#F7BA9E\"/>\n    <!-- Head Base -->\n    <circle cx=\"32\" cy=\"33\" r=\"16\" fill=\"#E2CCA8\"/>\n    <!-- Puffy Muzzle Oval -->\n    <ellipse cx=\"32\" cy=\"38\" rx=\"8\" ry=\"6\" fill=\"#FFFDF9\"/>\n    <!-- Stitched Charcoal Nose & Smile -->\n    <ellipse cx=\"32\" cy=\"35\" rx=\"3\" ry=\"2\" fill=\"#3D352E\"/>\n    <path d=\"M32 37 L32 40 M29.5 40 C30.5 41.5 33.5 41.5 34.5 40\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Button Eyes -->\n    <circle cx=\"25\" cy=\"30\" r=\"2.2\" fill=\"#3D352E\"/>\n    <circle cx=\"25.6\" cy=\"29.4\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <circle cx=\"39\" cy=\"30\" r=\"2.2\" fill=\"#3D352E\"/>\n    <circle cx=\"39.6\" cy=\"29.4\" r=\"0.7\" fill=\"#FFFDF9\"/>\n    <!-- Bow Tie Below -->\n    <path d=\"M32 49 L25 45 L25 53 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M32 49 L39 45 L39 53 Z\" fill=\"#F5B8BE\"/>\n    <circle cx=\"32\" cy=\"49\" r=\"2.2\" fill=\"#A3D8C3\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "dove",
-  "nameKo": "평화의 비둘기",
-  "nameEn": "Peace Dove",
-  "category": "nature",
-  "tags": [
-    "dove",
-    "bird",
-    "peace",
-    "fly",
-    "olive",
-    "freedom"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-dove\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-dove)\">\n    <!-- Back Wing (Sky Tint) -->\n    <path d=\"M28 26 C28 14 36 8 46 8 C43 14 38 21 34 26 Z\" fill=\"#BDE0EA\"/>\n    <path d=\"M37 13 C35 17 32 22 30 25\" stroke=\"#FFFDF9\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Tail Feathers -->\n    <path d=\"M12 44 C15 39 21 37 26 36 L22 47 C17 48 13 46 12 44 Z\" fill=\"#FAF6ED\"/>\n    <!-- Dove Body & Head -->\n    <path d=\"M22 36 C22 31 27 26 34 26 C41 26 47 28 50 32 C48 35 44 38 38 41 C30 45 24 43 22 36 Z\" fill=\"#FFFDF9\"/>\n    <circle cx=\"45\" cy=\"30\" r=\"1.5\" fill=\"#3D352E\"/>\n    <!-- Beak -->\n    <polygon points=\"50,31 55,33 50,34\" fill=\"#FEE396\"/>\n    <!-- Front Flapping Wing -->\n    <path d=\"M26 35 C23 23 29 15 38 17 C35 23 31 31 28 36 Z\" fill=\"#FAF6ED\"/>\n    <path d=\"M31 22 C29 26 28 31 27 34\" stroke=\"#D7CBEB\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Olive Sprig in Beak -->\n    <path d=\"M53 34 C56 36 60 38 60 41\" stroke=\"#8C6239\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <ellipse cx=\"58\" cy=\"36\" rx=\"2.5\" ry=\"1.4\" transform=\"rotate(-30 58 36)\" fill=\"#A3D8C3\"/>\n    <ellipse cx=\"60\" cy=\"41\" rx=\"2.5\" ry=\"1.4\" transform=\"rotate(30 60 41)\" fill=\"#A3D8C3\"/>\n  </g>\n</svg>"
-},
+    "id": "dove",
+    "nameKo": "평화의 비둘기",
+    "nameEn": "Peace Dove",
+    "category": "nature",
+    "tags": [
+      "dove",
+      "bird",
+      "peace",
+      "fly",
+      "olive",
+      "freedom"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-dove\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-dove)\">\n    <!-- Back Wing (Sky Tint) -->\n    <path d=\"M28 26 C28 14 36 8 46 8 C43 14 38 21 34 26 Z\" fill=\"#BDE0EA\"/>\n    <path d=\"M37 13 C35 17 32 22 30 25\" stroke=\"#FFFDF9\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Tail Feathers -->\n    <path d=\"M12 44 C15 39 21 37 26 36 L22 47 C17 48 13 46 12 44 Z\" fill=\"#FAF6ED\"/>\n    <!-- Dove Body & Head -->\n    <path d=\"M22 36 C22 31 27 26 34 26 C41 26 47 28 50 32 C48 35 44 38 38 41 C30 45 24 43 22 36 Z\" fill=\"#FFFDF9\"/>\n    <circle cx=\"45\" cy=\"30\" r=\"1.5\" fill=\"#3D352E\"/>\n    <!-- Beak -->\n    <polygon points=\"50,31 55,33 50,34\" fill=\"#FEE396\"/>\n    <!-- Front Flapping Wing -->\n    <path d=\"M26 35 C23 23 29 15 38 17 C35 23 31 31 28 36 Z\" fill=\"#FAF6ED\"/>\n    <path d=\"M31 22 C29 26 28 31 27 34\" stroke=\"#D7CBEB\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <!-- Olive Sprig in Beak -->\n    <path d=\"M53 34 C56 36 60 38 60 41\" stroke=\"#8C6239\" stroke-width=\"1.2\" stroke-linecap=\"round\"/>\n    <ellipse cx=\"58\" cy=\"36\" rx=\"2.5\" ry=\"1.4\" transform=\"rotate(-30 58 36)\" fill=\"#A3D8C3\"/>\n    <ellipse cx=\"60\" cy=\"41\" rx=\"2.5\" ry=\"1.4\" transform=\"rotate(30 60 41)\" fill=\"#A3D8C3\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "scroll",
-  "nameKo": "두루마리 한지",
-  "nameEn": "Ancient Scroll",
-  "category": "doc",
-  "tags": [
-    "scroll",
-    "paper",
-    "parchment",
-    "document",
-    "hanji",
-    "ancient"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-scroll\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-scroll)\">\n    <!-- Top Wooden Roller Spindle -->\n    <rect x=\"12\" y=\"13\" width=\"40\" height=\"4\" rx=\"2\" fill=\"#D4A373\"/>\n    <circle cx=\"11\" cy=\"15\" r=\"2.5\" fill=\"#8C6239\"/>\n    <circle cx=\"53\" cy=\"15\" r=\"2.5\" fill=\"#8C6239\"/>\n    <!-- Main Unrolled Parchment Sheet -->\n    <path d=\"M16 16 L48 16 L48 48 C44 46 36 49 32 47 C28 45 20 48 16 46 Z\" fill=\"#FAF6ED\"/>\n    <!-- Bottom Curled Roll -->\n    <path d=\"M14 47 C14 44 17 44 20 44 L44 44 C47 44 50 46 50 49 C50 52 47 54 44 54 L18 54 C15 54 14 51 14 47 Z\" fill=\"#E2CCA8\"/>\n    <!-- Text / Calligraphy Ink Score Lines -->\n    <line x1=\"21\" y1=\"24\" x2=\"43\" y2=\"24\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\"0.6\"/>\n    <line x1=\"21\" y1=\"30\" x2=\"39\" y2=\"30\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\"0.6\"/>\n    <line x1=\"21\" y1=\"36\" x2=\"41\" y2=\"36\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\"0.6\"/>\n    <!-- Wax Seal Ribbon Hanging Down -->\n    <rect x=\"36\" y=\"42\" width=\"4\" height=\"12\" fill=\"#F5B8BE\"/>\n    <circle cx=\"38\" cy=\"46\" r=\"3.2\" fill=\"#F7BA9E\"/>\n  </g>\n</svg>"
-},
+    "id": "scroll",
+    "nameKo": "두루마리 한지",
+    "nameEn": "Ancient Scroll",
+    "category": "doc",
+    "tags": [
+      "scroll",
+      "paper",
+      "parchment",
+      "document",
+      "hanji",
+      "ancient"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-scroll\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-scroll)\">\n    <!-- Top Wooden Roller Spindle -->\n    <rect x=\"12\" y=\"13\" width=\"40\" height=\"4\" rx=\"2\" fill=\"#D4A373\"/>\n    <circle cx=\"11\" cy=\"15\" r=\"2.5\" fill=\"#8C6239\"/>\n    <circle cx=\"53\" cy=\"15\" r=\"2.5\" fill=\"#8C6239\"/>\n    <!-- Main Unrolled Parchment Sheet -->\n    <path d=\"M16 16 L48 16 L48 48 C44 46 36 49 32 47 C28 45 20 48 16 46 Z\" fill=\"#FAF6ED\"/>\n    <!-- Bottom Curled Roll -->\n    <path d=\"M14 47 C14 44 17 44 20 44 L44 44 C47 44 50 46 50 49 C50 52 47 54 44 54 L18 54 C15 54 14 51 14 47 Z\" fill=\"#E2CCA8\"/>\n    <!-- Text / Calligraphy Ink Score Lines -->\n    <line x1=\"21\" y1=\"24\" x2=\"43\" y2=\"24\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\"0.6\"/>\n    <line x1=\"21\" y1=\"30\" x2=\"39\" y2=\"30\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\"0.6\"/>\n    <line x1=\"21\" y1=\"36\" x2=\"41\" y2=\"36\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" opacity=\"0.6\"/>\n    <!-- Wax Seal Ribbon Hanging Down -->\n    <rect x=\"36\" y=\"42\" width=\"4\" height=\"12\" fill=\"#F5B8BE\"/>\n    <circle cx=\"38\" cy=\"46\" r=\"3.2\" fill=\"#F7BA9E\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "bamboo",
-  "nameKo": "전통 대나무",
-  "nameEn": "Bamboo Stalks",
-  "category": "nature",
-  "tags": [
-    "bamboo",
-    "plant",
-    "nature",
-    "oriental",
-    "hanji",
-    "green"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-bamboo\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-bamboo)\">\n    <!-- Back Stalk (Sage) -->\n    <rect x=\"38\" y=\"10\" width=\"5\" height=\"12\" rx=\"1.5\" fill=\"#BBD5B8\"/>\n    <rect x=\"38\" y=\"24\" width=\"5\" height=\"14\" rx=\"1.5\" fill=\"#BBD5B8\"/>\n    <rect x=\"38\" y=\"40\" width=\"5\" height=\"15\" rx=\"1.5\" fill=\"#BBD5B8\"/>\n    <!-- Main Fore Stalk (Mint) -->\n    <rect x=\"22\" y=\"8\" width=\"7\" height=\"13\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <rect x=\"22\" y=\"23\" width=\"7\" height=\"15\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <rect x=\"22\" y=\"40\" width=\"7\" height=\"16\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <!-- Node Rings -->\n    <rect x=\"21\" y=\"21\" width=\"9\" height=\"2.5\" rx=\"1.2\" fill=\"#8ABF9E\"/>\n    <rect x=\"21\" y=\"38\" width=\"9\" height=\"2.5\" rx=\"1.2\" fill=\"#8ABF9E\"/>\n    <!-- Left Leaves -->\n    <path d=\"M22 22 C15 20 10 24 8 28 C13 28 19 25 22 22 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M22 24 C14 26 12 33 11 38 C15 36 20 31 22 24 Z\" fill=\"#8ABF9E\"/>\n    <!-- Right Leaves -->\n    <path d=\"M29 39 C36 36 43 38 48 42 C43 44 35 43 29 39 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M43 25 C50 22 55 24 57 28 C52 29 47 28 43 25 Z\" fill=\"#BBD5B8\"/>\n  </g>\n</svg>"
-},
+    "id": "bamboo",
+    "nameKo": "전통 대나무",
+    "nameEn": "Bamboo Stalks",
+    "category": "nature",
+    "tags": [
+      "bamboo",
+      "plant",
+      "nature",
+      "oriental",
+      "hanji",
+      "green"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-bamboo\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-bamboo)\">\n    <!-- Back Stalk (Sage) -->\n    <rect x=\"38\" y=\"10\" width=\"5\" height=\"12\" rx=\"1.5\" fill=\"#BBD5B8\"/>\n    <rect x=\"38\" y=\"24\" width=\"5\" height=\"14\" rx=\"1.5\" fill=\"#BBD5B8\"/>\n    <rect x=\"38\" y=\"40\" width=\"5\" height=\"15\" rx=\"1.5\" fill=\"#BBD5B8\"/>\n    <!-- Main Fore Stalk (Mint) -->\n    <rect x=\"22\" y=\"8\" width=\"7\" height=\"13\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <rect x=\"22\" y=\"23\" width=\"7\" height=\"15\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <rect x=\"22\" y=\"40\" width=\"7\" height=\"16\" rx=\"2\" fill=\"#A3D8C3\"/>\n    <!-- Node Rings -->\n    <rect x=\"21\" y=\"21\" width=\"9\" height=\"2.5\" rx=\"1.2\" fill=\"#8ABF9E\"/>\n    <rect x=\"21\" y=\"38\" width=\"9\" height=\"2.5\" rx=\"1.2\" fill=\"#8ABF9E\"/>\n    <!-- Left Leaves -->\n    <path d=\"M22 22 C15 20 10 24 8 28 C13 28 19 25 22 22 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M22 24 C14 26 12 33 11 38 C15 36 20 31 22 24 Z\" fill=\"#8ABF9E\"/>\n    <!-- Right Leaves -->\n    <path d=\"M29 39 C36 36 43 38 48 42 C43 44 35 43 29 39 Z\" fill=\"#A3D8C3\"/>\n    <path d=\"M43 25 C50 22 55 24 57 28 C52 29 47 28 43 25 Z\" fill=\"#BBD5B8\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "galaxy",
-  "nameKo": "은하수 별바다",
-  "nameEn": "Cosmic Galaxy",
-  "category": "nature",
-  "tags": [
-    "galaxy",
-    "space",
-    "stars",
-    "milkyway",
-    "cosmic",
-    "night"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-galaxy\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-galaxy)\">\n    <!-- Swirling Spiral Arm 1 (Deep Lavender) -->\n    <path d=\"M32 32 C38 24 50 25 52 34 C54 44 42 53 28 51 C14 49 10 33 16 21 C22 9 40 7 51 16\" stroke=\"#C9C1F8\" stroke-width=\"4.5\" stroke-linecap=\"round\" fill=\"none\"/>\n    <!-- Swirling Spiral Arm 2 (Sky Blue) -->\n    <path d=\"M32 32 C26 40 14 39 12 30 C10 20 22 11 36 13 C50 15 54 31 48 43 C42 55 24 57 13 48\" stroke=\"#BDE0EA\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/>\n    <!-- Central Core Bulge -->\n    <circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#FEE396\"/>\n    <circle cx=\"32\" cy=\"32\" r=\"4.5\" fill=\"#FFFDF9\"/>\n    <!-- Floating Paper Stars -->\n    <polygon points=\"46,18 47.5,21 50.5,21 48,23 49,26 46,24 43,26 44,23 41.5,21 44.5,21\" fill=\"#FEE396\"/>\n    <polygon points=\"18,44 19,46 21,46 19.5,47.5 20,49.5 18,48 16,49.5 16.5,47.5 15,46 17,46\" fill=\"#FFFDF9\"/>\n    <circle cx=\"20\" cy=\"18\" r=\"1.5\" fill=\"#F5B8BE\"/>\n    <circle cx=\"48\" cy=\"46\" r=\"1.8\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
-},
+    "id": "galaxy",
+    "nameKo": "은하수 별바다",
+    "nameEn": "Cosmic Galaxy",
+    "category": "nature",
+    "tags": [
+      "galaxy",
+      "space",
+      "stars",
+      "milkyway",
+      "cosmic",
+      "night"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-galaxy\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-galaxy)\">\n    <!-- Swirling Spiral Arm 1 (Deep Lavender) -->\n    <path d=\"M32 32 C38 24 50 25 52 34 C54 44 42 53 28 51 C14 49 10 33 16 21 C22 9 40 7 51 16\" stroke=\"#C9C1F8\" stroke-width=\"4.5\" stroke-linecap=\"round\" fill=\"none\"/>\n    <!-- Swirling Spiral Arm 2 (Sky Blue) -->\n    <path d=\"M32 32 C26 40 14 39 12 30 C10 20 22 11 36 13 C50 15 54 31 48 43 C42 55 24 57 13 48\" stroke=\"#BDE0EA\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/>\n    <!-- Central Core Bulge -->\n    <circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#FEE396\"/>\n    <circle cx=\"32\" cy=\"32\" r=\"4.5\" fill=\"#FFFDF9\"/>\n    <!-- Floating Paper Stars -->\n    <polygon points=\"46,18 47.5,21 50.5,21 48,23 49,26 46,24 43,26 44,23 41.5,21 44.5,21\" fill=\"#FEE396\"/>\n    <polygon points=\"18,44 19,46 21,46 19.5,47.5 20,49.5 18,48 16,49.5 16.5,47.5 15,46 17,46\" fill=\"#FFFDF9\"/>\n    <circle cx=\"20\" cy=\"18\" r=\"1.5\" fill=\"#F5B8BE\"/>\n    <circle cx=\"48\" cy=\"46\" r=\"1.8\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "crystal-ball",
-  "nameKo": "신비한 수정구슬",
-  "nameEn": "Crystal Ball",
-  "category": "lifestyle",
-  "tags": [
-    "crystal",
-    "ball",
-    "magic",
-    "fortune",
-    "mystic",
-    "orb"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-crystal-ball\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-crystal-ball)\">\n    <!-- Ornate Claw Stand Base -->\n    <path d=\"M20 54 C23 49 27 47 32 47 C37 47 41 49 44 54 L38 54 C35 52 29 52 26 54 Z\" fill=\"#D4A373\"/>\n    <circle cx=\"32\" cy=\"48\" r=\"3\" fill=\"#8C6239\"/>\n    <path d=\"M24 53 C22 55 18 56 16 55\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <path d=\"M40 53 C42 55 46 56 48 55\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <!-- Crystal Orb Outer Glass Sphere -->\n    <circle cx=\"32\" cy=\"27\" r=\"18\" fill=\"#D7CBEB\"/>\n    <!-- Inner Swirling Nebula -->\n    <circle cx=\"32\" cy=\"27\" r=\"14\" fill=\"#BDE0EA\"/>\n    <path d=\"M24 25 C26 21 34 20 38 24 C40 27 38 31 32 32 C26 33 22 29 24 25 Z\" fill=\"#F5B8BE\" opacity=\"0.6\"/>\n    <!-- Specular Highlight Curve -->\n    <path d=\"M22 17 C26 13 32 12 37 14\" stroke=\"#FFFDF9\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n    <circle cx=\"21\" cy=\"21\" r=\"1.5\" fill=\"#FFFDF9\"/>\n    <!-- Magical Sparkles -->\n    <polygon points=\"40,24 41,26 43,26 41.5,27.5 42,29.5 40,28 38,29.5 38.5,27.5 37,26 39,26\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
-},
+    "id": "crystal-ball",
+    "nameKo": "신비한 수정구슬",
+    "nameEn": "Crystal Ball",
+    "category": "lifestyle",
+    "tags": [
+      "crystal",
+      "ball",
+      "magic",
+      "fortune",
+      "mystic",
+      "orb"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-crystal-ball\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-crystal-ball)\">\n    <!-- Ornate Claw Stand Base -->\n    <path d=\"M20 54 C23 49 27 47 32 47 C37 47 41 49 44 54 L38 54 C35 52 29 52 26 54 Z\" fill=\"#D4A373\"/>\n    <circle cx=\"32\" cy=\"48\" r=\"3\" fill=\"#8C6239\"/>\n    <path d=\"M24 53 C22 55 18 56 16 55\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <path d=\"M40 53 C42 55 46 56 48 55\" stroke=\"#8C6239\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n    <!-- Crystal Orb Outer Glass Sphere -->\n    <circle cx=\"32\" cy=\"27\" r=\"18\" fill=\"#D7CBEB\"/>\n    <!-- Inner Swirling Nebula -->\n    <circle cx=\"32\" cy=\"27\" r=\"14\" fill=\"#BDE0EA\"/>\n    <path d=\"M24 25 C26 21 34 20 38 24 C40 27 38 31 32 32 C26 33 22 29 24 25 Z\" fill=\"#F5B8BE\" opacity=\"0.6\"/>\n    <!-- Specular Highlight Curve -->\n    <path d=\"M22 17 C26 13 32 12 37 14\" stroke=\"#FFFDF9\" stroke-width=\"2.5\" stroke-linecap=\"round\"/>\n    <circle cx=\"21\" cy=\"21\" r=\"1.5\" fill=\"#FFFDF9\"/>\n    <!-- Magical Sparkles -->\n    <polygon points=\"40,24 41,26 43,26 41.5,27.5 42,29.5 40,28 38,29.5 38.5,27.5 37,26 39,26\" fill=\"#FEE396\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "ban",
-  "nameKo": "아이콘 없음",
-  "nameEn": "Prohibited Mark",
-  "category": "ui",
-  "tags": [
-    "ban",
-    "none",
-    "prohibited",
-    "empty",
-    "no-icon"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-ban\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-ban)\">\n    <!-- Outer Ring Base -->\n    <circle cx=\"32\" cy=\"32\" r=\"22\" fill=\"#F5B8BE\"/>\n    <!-- Inner Circle Cutout -->\n    <circle cx=\"32\" cy=\"32\" r=\"16\" fill=\"#FAF6ED\"/>\n    <!-- 45-degree Diagonal Slash Bar with Paper Shadow -->\n    <rect x=\"29\" y=\"11\" width=\"6\" height=\"42\" rx=\"3\" transform=\"rotate(45 32 32)\" fill=\"#F5B8BE\"/>\n    <rect x=\"30\" y=\"13\" width=\"2.5\" height=\"38\" rx=\"1.2\" transform=\"rotate(45 32 32)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n  </g>\n</svg>"
-},
+    "id": "ban",
+    "nameKo": "아이콘 없음",
+    "nameEn": "Prohibited Mark",
+    "category": "ui",
+    "tags": [
+      "ban",
+      "none",
+      "prohibited",
+      "empty",
+      "no-icon"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-ban\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-ban)\">\n    <!-- Outer Ring Base -->\n    <circle cx=\"32\" cy=\"32\" r=\"22\" fill=\"#F5B8BE\"/>\n    <!-- Inner Circle Cutout -->\n    <circle cx=\"32\" cy=\"32\" r=\"16\" fill=\"#FAF6ED\"/>\n    <!-- 45-degree Diagonal Slash Bar with Paper Shadow -->\n    <rect x=\"29\" y=\"11\" width=\"6\" height=\"42\" rx=\"3\" transform=\"rotate(45 32 32)\" fill=\"#F5B8BE\"/>\n    <rect x=\"30\" y=\"13\" width=\"2.5\" height=\"38\" rx=\"1.2\" transform=\"rotate(45 32 32)\" fill=\"#FFFDF9\" opacity=\"0.5\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "cloud",
-  "nameKo": "몽실몽실 구름",
-  "nameEn": "Puffy Cloud",
-  "category": "nature",
-  "tags": [
-    "cloud",
-    "weather",
-    "sky",
-    "puffy",
-    "air"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-cloud\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-cloud)\">\n    <!-- Shadow Base Cloud (Sky Blue) -->\n    <path d=\"M19 50 L45 50 C50 50 54 46 54 41 C54 36 50 33 46 33 C45 27 40 22 34 22 C30 22 26 24 24 28 C20 28 16 32 16 37 C16 44 14 50 19 50 Z\" fill=\"#BDE0EA\"/>\n    <!-- Main Fluffy Cloud (Pure White) -->\n    <path d=\"M18 47 L44 47 C48.5 47 52 43.5 52 39 C52 34.5 48 31.5 44 31.5 C43 25.5 37.5 21 31.5 21 C26.5 21 22.5 24 21 28 C17.5 28 13.5 31.5 13.5 36 C13.5 42 15.5 47 18 47 Z\" fill=\"#FFFDF9\"/>\n    <!-- Overlapping Inner Puffs -->\n    <circle cx=\"26\" cy=\"38\" r=\"6.5\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n    <circle cx=\"37\" cy=\"39\" r=\"6\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n    <circle cx=\"32\" cy=\"30\" r=\"5\" fill=\"#FAF6ED\" opacity=\"0.6\"/>\n  </g>\n</svg>"
-},
+    "id": "cloud",
+    "nameKo": "몽실몽실 구름",
+    "nameEn": "Puffy Cloud",
+    "category": "nature",
+    "tags": [
+      "cloud",
+      "weather",
+      "sky",
+      "puffy",
+      "air"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-cloud\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-cloud)\">\n    <!-- Shadow Base Cloud (Sky Blue) -->\n    <path d=\"M19 50 L45 50 C50 50 54 46 54 41 C54 36 50 33 46 33 C45 27 40 22 34 22 C30 22 26 24 24 28 C20 28 16 32 16 37 C16 44 14 50 19 50 Z\" fill=\"#BDE0EA\"/>\n    <!-- Main Fluffy Cloud (Pure White) -->\n    <path d=\"M18 47 L44 47 C48.5 47 52 43.5 52 39 C52 34.5 48 31.5 44 31.5 C43 25.5 37.5 21 31.5 21 C26.5 21 22.5 24 21 28 C17.5 28 13.5 31.5 13.5 36 C13.5 42 15.5 47 18 47 Z\" fill=\"#FFFDF9\"/>\n    <!-- Overlapping Inner Puffs -->\n    <circle cx=\"26\" cy=\"38\" r=\"6.5\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n    <circle cx=\"37\" cy=\"39\" r=\"6\" fill=\"#FAF6ED\" opacity=\"0.8\"/>\n    <circle cx=\"32\" cy=\"30\" r=\"5\" fill=\"#FAF6ED\" opacity=\"0.6\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "book",
-  "nameKo": "펼쳐진 동화책",
-  "nameEn": "Open Storybook",
-  "category": "lifestyle",
-  "tags": [
-    "book",
-    "reading",
-    "storybook",
-    "education",
-    "study"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-book\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-book)\">\n    <!-- Book Hardcover Backing (Pastel Peach/Coral) -->\n    <path d=\"M10 44 C20 41 31 43 32 45 C33 43 44 41 54 44 L54 22 C44 19 33 21 32 23 C31 21 20 19 10 22 Z\" fill=\"#F7BA9E\"/>\n    <!-- Page Depth Stack -->\n    <path d=\"M11 42 C20 39 30 41 32 43 C34 41 44 39 53 42 L53 20 C44 17 34 19 32 21 C30 19 20 17 11 20 Z\" fill=\"#FAF6ED\"/>\n    <!-- Top White Open Pages -->\n    <path d=\"M12 40 C21 37 31 39 32 41 C31 28 31 18 32 19 C31 17 21 15 12 18 Z\" fill=\"#FFFDF9\"/>\n    <path d=\"M52 40 C43 37 33 39 32 41 C33 28 33 18 32 19 C33 17 43 15 52 18 Z\" fill=\"#FFFDF9\"/>\n    <!-- Text Lines on Left Page -->\n    <line x1=\"16\" y1=\"23\" x2=\"28\" y2=\"22\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"16\" y1=\"28\" x2=\"27\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"16\" y1=\"33\" x2=\"25\" y2=\"32\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <!-- Text Lines on Right Page -->\n    <line x1=\"36\" y1=\"22\" x2=\"48\" y2=\"23\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"37\" y1=\"27\" x2=\"48\" y2=\"28\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"39\" y1=\"32\" x2=\"48\" y2=\"33\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <!-- Ribbon Bookmark Hanging Out -->\n    <path d=\"M32 20 L32 48 L35 45 L38 48 L38 21\" fill=\"#F5B8BE\"/>\n  </g>\n</svg>"
-},
+    "id": "book",
+    "nameKo": "펼쳐진 동화책",
+    "nameEn": "Open Storybook",
+    "category": "lifestyle",
+    "tags": [
+      "book",
+      "reading",
+      "storybook",
+      "education",
+      "study"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-book\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-book)\">\n    <!-- Book Hardcover Backing (Pastel Peach/Coral) -->\n    <path d=\"M10 44 C20 41 31 43 32 45 C33 43 44 41 54 44 L54 22 C44 19 33 21 32 23 C31 21 20 19 10 22 Z\" fill=\"#F7BA9E\"/>\n    <!-- Page Depth Stack -->\n    <path d=\"M11 42 C20 39 30 41 32 43 C34 41 44 39 53 42 L53 20 C44 17 34 19 32 21 C30 19 20 17 11 20 Z\" fill=\"#FAF6ED\"/>\n    <!-- Top White Open Pages -->\n    <path d=\"M12 40 C21 37 31 39 32 41 C31 28 31 18 32 19 C31 17 21 15 12 18 Z\" fill=\"#FFFDF9\"/>\n    <path d=\"M52 40 C43 37 33 39 32 41 C33 28 33 18 32 19 C33 17 43 15 52 18 Z\" fill=\"#FFFDF9\"/>\n    <!-- Text Lines on Left Page -->\n    <line x1=\"16\" y1=\"23\" x2=\"28\" y2=\"22\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"16\" y1=\"28\" x2=\"27\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"16\" y1=\"33\" x2=\"25\" y2=\"32\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <!-- Text Lines on Right Page -->\n    <line x1=\"36\" y1=\"22\" x2=\"48\" y2=\"23\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"37\" y1=\"27\" x2=\"48\" y2=\"28\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <line x1=\"39\" y1=\"32\" x2=\"48\" y2=\"33\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/>\n    <!-- Ribbon Bookmark Hanging Out -->\n    <path d=\"M32 20 L32 48 L35 45 L38 48 L38 21\" fill=\"#F5B8BE\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "package",
-  "nameKo": "종이 배송 상자",
-  "nameEn": "Parcel Package",
-  "category": "commerce",
-  "tags": [
-    "package",
-    "box",
-    "parcel",
-    "delivery",
-    "shipping",
-    "post"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-package\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-package)\">\n    <!-- Isometric Box 3D -->\n    <!-- Front Left Face -->\n    <path d=\"M14 26 L32 35 L32 54 L14 45 Z\" fill=\"#D4A373\"/>\n    <!-- Front Right Face -->\n    <path d=\"M32 35 L50 26 L50 45 L32 54 Z\" fill=\"#E2CCA8\"/>\n    <!-- Top Face -->\n    <path d=\"M32 16 L50 26 L32 35 L14 26 Z\" fill=\"#F0E2CA\"/>\n    <!-- Pastel Tape Strip Across Center -->\n    <path d=\"M28 18 L36 22 L36 40 L28 36 Z\" fill=\"#A3D8C3\"/>\n    <!-- Shipping Label Stamp on Side -->\n    <polygon points=\"36,36 46,31 46,40 36,45\" fill=\"#FAF6ED\"/>\n    <line x1=\"38\" y1=\"37\" x2=\"44\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"0.8\" opacity=\"0.5\"/>\n    <line x1=\"38\" y1=\"40\" x2=\"43\" y2=\"37.5\" stroke=\"#3D352E\" stroke-width=\"0.8\" opacity=\"0.5\"/>\n  </g>\n</svg>"
-},
+    "id": "package",
+    "nameKo": "종이 배송 상자",
+    "nameEn": "Parcel Package",
+    "category": "commerce",
+    "tags": [
+      "package",
+      "box",
+      "parcel",
+      "delivery",
+      "shipping",
+      "post"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-package\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-package)\">\n    <!-- Isometric Box 3D -->\n    <!-- Front Left Face -->\n    <path d=\"M14 26 L32 35 L32 54 L14 45 Z\" fill=\"#D4A373\"/>\n    <!-- Front Right Face -->\n    <path d=\"M32 35 L50 26 L50 45 L32 54 Z\" fill=\"#E2CCA8\"/>\n    <!-- Top Face -->\n    <path d=\"M32 16 L50 26 L32 35 L14 26 Z\" fill=\"#F0E2CA\"/>\n    <!-- Pastel Tape Strip Across Center -->\n    <path d=\"M28 18 L36 22 L36 40 L28 36 Z\" fill=\"#A3D8C3\"/>\n    <!-- Shipping Label Stamp on Side -->\n    <polygon points=\"36,36 46,31 46,40 36,45\" fill=\"#FAF6ED\"/>\n    <line x1=\"38\" y1=\"37\" x2=\"44\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"0.8\" opacity=\"0.5\"/>\n    <line x1=\"38\" y1=\"40\" x2=\"43\" y2=\"37.5\" stroke=\"#3D352E\" stroke-width=\"0.8\" opacity=\"0.5\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "moon",
-  "nameKo": "은은한 초승달",
-  "nameEn": "Crescent Moon",
-  "category": "nature",
-  "tags": [
-    "moon",
-    "crescent",
-    "night",
-    "sky",
-    "sleep",
-    "dream"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-moon\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-moon)\">\n    <!-- Base Crescent (Golden Buttercup) -->\n    <path d=\"M38 10 C24 10 13 21 13 35 C13 49 24 60 38 60 C42 60 46 59 49 57 C37 54 28 44 28 32 C28 20 37 10 49 7 C46 5 42 4 38 10 Z\" fill=\"#FEE396\"/>\n    <!-- Inner Layer Crescent (Peach Highlight) -->\n    <path d=\"M36 14 C26 14 17 23 17 35 C17 47 26 56 36 56 C39 56 42 55 45 53 C35 50 28 42 28 32 C28 22 35 14 45 11 C42 9 39 14 36 14 Z\" fill=\"#F7BA9E\" opacity=\"0.6\"/>\n    <!-- Cuddle Paper Stars -->\n    <polygon points=\"44,22 45.5,25 48.5,25 46,27 47,30 44,28 41,30 42,27 39.5,25 42.5,25\" fill=\"#FFFDF9\"/>\n    <circle cx=\"48\" cy=\"38\" r=\"1.5\" fill=\"#FFFDF9\"/>\n  </g>\n</svg>"
-},
+    "id": "moon",
+    "nameKo": "은은한 초승달",
+    "nameEn": "Crescent Moon",
+    "category": "nature",
+    "tags": [
+      "moon",
+      "crescent",
+      "night",
+      "sky",
+      "sleep",
+      "dream"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-moon\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-moon)\">\n    <!-- Base Crescent (Golden Buttercup) -->\n    <path d=\"M38 10 C24 10 13 21 13 35 C13 49 24 60 38 60 C42 60 46 59 49 57 C37 54 28 44 28 32 C28 20 37 10 49 7 C46 5 42 4 38 10 Z\" fill=\"#FEE396\"/>\n    <!-- Inner Layer Crescent (Peach Highlight) -->\n    <path d=\"M36 14 C26 14 17 23 17 35 C17 47 26 56 36 56 C39 56 42 55 45 53 C35 50 28 42 28 32 C28 22 35 14 45 11 C42 9 39 14 36 14 Z\" fill=\"#F7BA9E\" opacity=\"0.6\"/>\n    <!-- Cuddle Paper Stars -->\n    <polygon points=\"44,22 45.5,25 48.5,25 46,27 47,30 44,28 41,30 42,27 39.5,25 42.5,25\" fill=\"#FFFDF9\"/>\n    <circle cx=\"48\" cy=\"38\" r=\"1.5\" fill=\"#FFFDF9\"/>\n  </g>\n</svg>"
+  },
   {
-  "id": "ribbon",
-  "nameKo": "선물 리본",
-  "nameEn": "Gift Ribbon Bow",
-  "category": "commerce",
-  "tags": [
-    "ribbon",
-    "bow",
-    "gift",
-    "decoration",
-    "craft"
-  ],
-  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-ribbon\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-ribbon)\">\n    <!-- Trailing Tails Behind -->\n    <path d=\"M30 35 L19 54 L25 54 L32 40 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M34 35 L45 54 L39 54 L32 40 Z\" fill=\"#F5B8BE\"/>\n    <!-- Left Loop -->\n    <path d=\"M32 30 C20 18 10 24 12 33 C14 40 24 36 32 32 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M30 30 C22 23 16 26 17 32 C18 36 24 34 30 31 Z\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n    <!-- Right Loop -->\n    <path d=\"M32 30 C44 18 54 24 52 33 C50 40 40 36 32 32 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M34 30 C42 23 48 26 47 32 C46 36 40 34 34 31 Z\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n    <!-- Center Knot -->\n    <circle cx=\"32\" cy=\"31\" r=\"5\" fill=\"#F5B8BE\"/>\n    <circle cx=\"32\" cy=\"31\" r=\"2.8\" fill=\"#FFFDF9\" opacity=\"0.6\"/>\n  </g>\n</svg>"
-}
+    "id": "ribbon",
+    "nameKo": "선물 리본",
+    "nameEn": "Gift Ribbon Bow",
+    "category": "commerce",
+    "tags": [
+      "ribbon",
+      "bow",
+      "gift",
+      "decoration",
+      "craft"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-ribbon\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <g filter=\"url(#ps-ribbon)\">\n    <!-- Trailing Tails Behind -->\n    <path d=\"M30 35 L19 54 L25 54 L32 40 Z\" fill=\"#F5B8BE\"/>\n    <path d=\"M34 35 L45 54 L39 54 L32 40 Z\" fill=\"#F5B8BE\"/>\n    <!-- Left Loop -->\n    <path d=\"M32 30 C20 18 10 24 12 33 C14 40 24 36 32 32 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M30 30 C22 23 16 26 17 32 C18 36 24 34 30 31 Z\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n    <!-- Right Loop -->\n    <path d=\"M32 30 C44 18 54 24 52 33 C50 40 40 36 32 32 Z\" fill=\"#F7BA9E\"/>\n    <path d=\"M34 30 C42 23 48 26 47 32 C46 36 40 34 34 31 Z\" fill=\"#FFFDF9\" opacity=\"0.4\"/>\n    <!-- Center Knot -->\n    <circle cx=\"32\" cy=\"31\" r=\"5\" fill=\"#F5B8BE\"/>\n    <circle cx=\"32\" cy=\"31\" r=\"2.8\" fill=\"#FFFDF9\" opacity=\"0.6\"/>\n  </g>\n</svg>"
+  },
+  {
+    "id": "check-mark",
+    "nameKo": "클린 페이퍼 체크마크",
+    "nameEn": "Pure Clean Checkmark",
+    "category": "ui",
+    "tags": [
+      "check",
+      "checkmark",
+      "tick",
+      "confirm",
+      "done",
+      "success",
+      "approve"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-check-mark\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Base Shadow Paper Tick -->\n  <path d=\"M13 33 L25 47 L51 17\" stroke=\"#BBD5B8\" stroke-width=\"10\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-check-mark)\"/>\n  <!-- Main Mint Paper Body Tick -->\n  <path d=\"M13 33 L25 47 L51 17\" stroke=\"#A3D8C3\" stroke-width=\"7.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-check-mark)\"/>\n  <!-- Folded Origami Ribbons & Facets -->\n  <polygon points=\"20,41 25,47 33,39 26,33\" fill=\"#FEE396\" filter=\"url(#ps-check-mark)\"/>\n  <!-- Long Arm Crisp Cream Top Layer -->\n  <path d=\"M26 45 L50 17\" stroke=\"#FFFDF9\" stroke-width=\"4.5\" stroke-linecap=\"round\" fill=\"none\"/>\n  <!-- Short Arm Cream Facet -->\n  <path d=\"M14 33 L24 45\" stroke=\"#FFFDF9\" stroke-width=\"3.5\" stroke-linecap=\"round\" fill=\"none\"/>\n  <!-- Charcoal Crisp Fold Accent -->\n  <path d=\"M15 34 L25 46 L49 18\" stroke=\"#3D352E\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" opacity=\"0.6\"/>\n</svg>"
+  },
+  {
+    "id": "check-circle",
+    "nameKo": "체크 원형 디스크",
+    "nameEn": "Check Circle Disc",
+    "category": "status",
+    "tags": [
+      "check",
+      "circle",
+      "success",
+      "confirm",
+      "approved",
+      "done",
+      "status"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-check-circle\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Pastel Sky Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#BDE0EA\" filter=\"url(#ps-check-circle)\"/>\n  <!-- Middle Mint Cutout Ring -->\n  <circle cx=\"32\" cy=\"32\" r=\"19\" fill=\"#A3D8C3\" filter=\"url(#ps-check-circle)\"/>\n  <!-- Inner Cream Plate -->\n  <circle cx=\"32\" cy=\"32\" r=\"14\" fill=\"#FFFDF9\" filter=\"url(#ps-check-circle)\"/>\n  <!-- Raised Checkmark Layer -->\n  <path d=\"M23 32 L29 38 L41 26\" stroke=\"#FAF6ED\" stroke-width=\"6.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-check-circle)\"/>\n  <path d=\"M23 32 L29 38 L41 26\" stroke=\"#3D352E\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <!-- Corner Peach Accent Fold -->\n  <circle cx=\"43\" cy=\"21\" r=\"2\" fill=\"#F7BA9E\"/>\n</svg>"
+  },
+  {
+    "id": "check-circle-2",
+    "nameKo": "이중 링 체크 인장",
+    "nameEn": "Double-ring Check Seal",
+    "category": "status",
+    "tags": [
+      "check",
+      "circle",
+      "double",
+      "seal",
+      "verified",
+      "stamp",
+      "badge"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-check-circle-2\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Lavender Ring -->\n  <circle cx=\"32\" cy=\"32\" r=\"24.5\" fill=\"#D7CBEB\" filter=\"url(#ps-check-circle-2)\"/>\n  <!-- Middle Cream Ring -->\n  <circle cx=\"32\" cy=\"32\" r=\"19.5\" fill=\"#FFFDF9\" filter=\"url(#ps-check-circle-2)\"/>\n  <!-- Inner Buttercup Medallion Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"15\" fill=\"#FEE396\" filter=\"url(#ps-check-circle-2)\"/>\n  <!-- Crisp Layered Origami Check -->\n  <path d=\"M23.5 32.5 L29 38 L40.5 26.5\" stroke=\"#FAF6ED\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-check-circle-2)\"/>\n  <path d=\"M23.5 32.5 L29 38 L40.5 26.5\" stroke=\"#A3D8C3\" stroke-width=\"3.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <path d=\"M23.5 32.5 L29 38 L40.5 26.5\" stroke=\"#3D352E\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "check-square",
+    "nameKo": "종이 체크박스",
+    "nameEn": "Origami Check Square",
+    "category": "ui",
+    "tags": [
+      "checkbox",
+      "square",
+      "check",
+      "form",
+      "select",
+      "toggle",
+      "option"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-check-square\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Peach Square Backing -->\n  <rect x=\"11\" y=\"11\" width=\"42\" height=\"42\" rx=\"9\" fill=\"#F7BA9E\" filter=\"url(#ps-check-square)\"/>\n  <!-- Middle Cream Paper Inset -->\n  <rect x=\"15\" y=\"15\" width=\"34\" height=\"34\" rx=\"7\" fill=\"#FAF6ED\" filter=\"url(#ps-check-square)\"/>\n  <!-- Inner Sky Blue Paper Well -->\n  <rect x=\"19\" y=\"19\" width=\"26\" height=\"26\" rx=\"5\" fill=\"#BDE0EA\"/>\n  <!-- Popping Folded Checkmark -->\n  <path d=\"M22 32 L29 39 L43 23\" stroke=\"#FFFDF9\" stroke-width=\"6.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-check-square)\"/>\n  <path d=\"M22 32 L29 39 L43 23\" stroke=\"#A3D8C3\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <path d=\"M22 32 L29 39 L43 23\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "check-check",
+    "nameKo": "이중 체크 확인 (모두 완료)",
+    "nameEn": "Double Checkmark (Done All)",
+    "category": "comm",
+    "tags": [
+      "check",
+      "double",
+      "read",
+      "delivered",
+      "sent",
+      "done",
+      "all"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-check-check\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Rear Checkmark Shadow Base (Sky Blue) -->\n  <path d=\"M12 34 L22 44 L40 24\" stroke=\"#BDE0EA\" stroke-width=\"7.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-check-check)\"/>\n  <!-- Rear Checkmark Body (Lavender) -->\n  <path d=\"M12 34 L22 44 L40 24\" stroke=\"#D7CBEB\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <!-- Front Overlapping Checkmark Base (Mint) -->\n  <path d=\"M24 34 L34 44 L52 24\" stroke=\"#A3D8C3\" stroke-width=\"7.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-check-check)\"/>\n  <!-- Front Checkmark Top Sheet (Cream) -->\n  <path d=\"M24 34 L34 44 L52 24\" stroke=\"#FFFDF9\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <!-- Overlapping Fold Highlight (Buttercup) -->\n  <polygon points=\"30,40 34,44 39,39 35,35\" fill=\"#FEE396\"/>\n  <!-- Charcoal Accent Line -->\n  <path d=\"M24 34 L34 44 L52 24\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "badge-check",
+    "nameKo": "로제트 인증 배지",
+    "nameEn": "Scalloped Rosette Badge Check",
+    "category": "status",
+    "tags": [
+      "badge",
+      "check",
+      "verified",
+      "rosette",
+      "star",
+      "ribbon",
+      "award",
+      "guarantee"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-badge-check\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Hanging Ribbon Tails -->\n  <path d=\"M24 40 L19 56 L27 52 L31 56 L31 40 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-badge-check)\"/>\n  <path d=\"M40 40 L45 56 L37 52 L33 56 L33 40 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-badge-check)\"/>\n  <!-- 12-lobed Rosette Star Base (Buttercup) -->\n  <path d=\"M32 9 L36.2 12.2 L41.4 11.2 L44.3 15.6 L49.5 16.8 L50.6 22 L54.7 25.3 L53.8 30.6 L56 35 L53.2 39.5 L53.3 44.8 L48.3 46.8 L46.4 51.7 L41.2 51.5 L37.5 55.2 L32 53.2 L26.5 55.2 L22.8 51.5 L17.6 51.7 L15.7 46.8 L10.7 44.8 L10.8 39.5 L8 35 L10.2 30.6 L9.3 25.3 L13.4 22 L14.5 16.8 L19.7 15.6 L22.6 11.2 L27.8 12.2 Z\" fill=\"#FEE396\" filter=\"url(#ps-badge-check)\"/>\n  <!-- Inner Circular Medallion (Cream) -->\n  <circle cx=\"32\" cy=\"31\" r=\"14.5\" fill=\"#FFFDF9\" filter=\"url(#ps-badge-check)\"/>\n  <!-- Inset Sage Ring -->\n  <circle cx=\"32\" cy=\"31\" r=\"11.5\" fill=\"#BBD5B8\"/>\n  <!-- Crisp Contrast Checkmark -->\n  <path d=\"M26 31 L30 35 L38 26\" stroke=\"#FAF6ED\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-badge-check)\"/>\n  <path d=\"M26 31 L30 35 L38 26\" stroke=\"#3D352E\" stroke-width=\"2.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "shield-check-clean",
+    "nameKo": "보안 방패 확인",
+    "nameEn": "Heraldic Shield Check",
+    "category": "status",
+    "tags": [
+      "shield",
+      "check",
+      "security",
+      "safe",
+      "protect",
+      "verified",
+      "trust"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-shield-check-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Heraldic Shield (Lavender) -->\n  <path d=\"M14 12 C24 12 32 8 32 8 C32 8 40 12 50 12 C50 33 44 49 32 56 C20 49 14 33 14 12 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-shield-check-clean)\"/>\n  <!-- Middle Shield Rim (Cream) -->\n  <path d=\"M17 15 C25 15 32 11.5 32 11.5 C32 11.5 39 15 47 15 C47 32 42 46 32 52.5 C22 46 17 32 17 15 Z\" fill=\"#FFFDF9\" filter=\"url(#ps-shield-check-clean)\"/>\n  <!-- Front Shield Core (Mint) -->\n  <path d=\"M20 18 C26 18 32 15 32 15 C32 15 38 18 44 18 C44 31 39.5 43 32 48.5 C24.5 43 20 31 20 18 Z\" fill=\"#A3D8C3\"/>\n  <!-- Raised Checkmark -->\n  <path d=\"M25 31 L29.5 35.5 L39 25\" stroke=\"#FFFDF9\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-shield-check-clean)\"/>\n  <path d=\"M25 31 L29.5 35.5 L39 25\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <path d=\"M25 31 L29.5 35.5 L39 25\" stroke=\"#3D352E\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "file-check-clean",
+    "nameKo": "확인된 종이 문서",
+    "nameEn": "Document File Verified",
+    "category": "ui",
+    "tags": [
+      "file",
+      "document",
+      "check",
+      "paper",
+      "verified",
+      "done",
+      "contract"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-file-check-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Document Base Sheet (Cream) with Fold Notch -->\n  <path d=\"M15 10 H37 L49 22 V52 C49 54.2 47.2 56 45 56 H15 C12.8 56 11 54.2 11 52 V14 C11 11.8 12.8 10 15 10 Z\" fill=\"#FFFDF9\" filter=\"url(#ps-file-check-clean)\"/>\n  <!-- Folded Corner Flap (Buttercup) -->\n  <path d=\"M37 10 V22 H49 Z\" fill=\"#FEE396\" filter=\"url(#ps-file-check-clean)\"/>\n  <!-- Document Text Strips -->\n  <rect x=\"17\" y=\"24\" width=\"16\" height=\"3\" rx=\"1.5\" fill=\"#BDE0EA\"/>\n  <rect x=\"17\" y=\"30\" width=\"22\" height=\"3\" rx=\"1.5\" fill=\"#BDE0EA\"/>\n  <rect x=\"17\" y=\"36\" width=\"14\" height=\"3\" rx=\"1.5\" fill=\"#BDE0EA\"/>\n  <!-- Stamped Verified Seal (Mint Disc) -->\n  <circle cx=\"39\" cy=\"44\" r=\"9.5\" fill=\"#A3D8C3\" filter=\"url(#ps-file-check-clean)\"/>\n  <circle cx=\"39\" cy=\"44\" r=\"7.5\" fill=\"#BBD5B8\"/>\n  <path d=\"M35 44 L38 47 L43.5 41\" stroke=\"#FFFDF9\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "folder-check-clean",
+    "nameKo": "승인된 폴더",
+    "nameEn": "Folder Verified Clean",
+    "category": "ui",
+    "tags": [
+      "folder",
+      "directory",
+      "check",
+      "approved",
+      "storage",
+      "archive"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-folder-check-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Back Folder Leaf with Tab (Buttercup) -->\n  <path d=\"M10 18 C10 15.8 11.8 14 14 14 H26 L31 20 H50 C52.2 20 54 21.8 54 24 V48 C54 50.2 52.2 52 50 52 H14 C11.8 52 10 50.2 10 48 Z\" fill=\"#FEE396\" filter=\"url(#ps-folder-check-clean)\"/>\n  <!-- Peeking Interior Document (Cream) -->\n  <rect x=\"16\" y=\"18\" width=\"32\" height=\"18\" rx=\"2\" fill=\"#FFFDF9\" filter=\"url(#ps-folder-check-clean)\"/>\n  <line x1=\"20\" y1=\"23\" x2=\"32\" y2=\"23\" stroke=\"#BDE0EA\" stroke-width=\"2\" stroke-linecap=\"round\"/>\n  <!-- Front Folder Pocket (Peach) -->\n  <path d=\"M10 25 C10 23.2 11.6 22 13.5 22 H50.5 C52.4 22 54 23.2 54 25 L52 48 C52 50.2 50.2 52 48 52 H12 C9.8 52 8 50.2 8 48 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-folder-check-clean)\"/>\n  <!-- Stamped Verified Seal (Mint) -->\n  <circle cx=\"34\" cy=\"38\" r=\"9\" fill=\"#A3D8C3\" filter=\"url(#ps-folder-check-clean)\"/>\n  <circle cx=\"34\" cy=\"38\" r=\"7\" fill=\"#BBD5B8\"/>\n  <path d=\"M29.5 38 L32.5 41 L38.5 35\" stroke=\"#FFFDF9\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "user-check-clean",
+    "nameKo": "인증된 사용자",
+    "nameEn": "Verified User Clean",
+    "category": "ui",
+    "tags": [
+      "user",
+      "profile",
+      "account",
+      "check",
+      "verified",
+      "member",
+      "person"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-user-check-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- User Bust Torso (Lavender) -->\n  <path d=\"M12 52 C12 41 20 36 29 36 C38 36 45 41 45 52 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-user-check-clean)\"/>\n  <!-- Folded Collar V-Neck (Cream) -->\n  <polygon points=\"25,36 29,42 33,36\" fill=\"#FFFDF9\"/>\n  <!-- User Head Disc (Peach) -->\n  <circle cx=\"29\" cy=\"21\" r=\"10\" fill=\"#F7BA9E\" filter=\"url(#ps-user-check-clean)\"/>\n  <path d=\"M23 18 C24 14 27 12 32 12 C35 12 37 13.5 38 15\" stroke=\"#FEE396\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\"/>\n  <!-- Floating Verified Seal Badge (Mint) -->\n  <circle cx=\"47\" cy=\"41\" r=\"9.5\" fill=\"#A3D8C3\" filter=\"url(#ps-user-check-clean)\"/>\n  <circle cx=\"47\" cy=\"41\" r=\"7.5\" fill=\"#BBD5B8\"/>\n  <path d=\"M43 41 L45.8 43.8 L51 38.5\" stroke=\"#FFFDF9\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "bookmark-check-clean",
+    "nameKo": "확인된 리본 북마크",
+    "nameEn": "Bookmark Check Clean",
+    "category": "ui",
+    "tags": [
+      "bookmark",
+      "ribbon",
+      "check",
+      "saved",
+      "favorite",
+      "tag",
+      "label"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-bookmark-check-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Ribbon Outer Body (Rose) -->\n  <polygon points=\"17,8 47,8 47,56 32,45 17,56\" fill=\"#F5B8BE\" filter=\"url(#ps-bookmark-check-clean)\"/>\n  <!-- Inner Stitched Layer (Cream) -->\n  <polygon points=\"21,8 43,8 43,48 32,39 21,48\" fill=\"#FFFDF9\" filter=\"url(#ps-bookmark-check-clean)\"/>\n  <!-- Sky Blue Core Inset Stripe -->\n  <polygon points=\"25,8 39,8 39,41 32,35 25,41\" fill=\"#BDE0EA\"/>\n  <!-- Circular Check Medallion (Mint) -->\n  <circle cx=\"32\" cy=\"24\" r=\"8.5\" fill=\"#A3D8C3\" filter=\"url(#ps-bookmark-check-clean)\"/>\n  <path d=\"M28 24 L31 27 L36 21\" stroke=\"#FFFDF9\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <!-- Top Folded Tab (Lavender) -->\n  <rect x=\"23\" y=\"6\" width=\"18\" height=\"4\" rx=\"2\" fill=\"#D7CBEB\"/>\n</svg>"
+  },
+  {
+    "id": "list-checks",
+    "nameKo": "체크리스트 노트",
+    "nameEn": "Task Checklist Sheet",
+    "category": "ui",
+    "tags": [
+      "list",
+      "tasks",
+      "todo",
+      "checklist",
+      "done",
+      "sheet",
+      "notes"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-list-checks\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Notepad Paper Sheet (Cream) -->\n  <rect x=\"12\" y=\"10\" width=\"40\" height=\"48\" rx=\"5\" fill=\"#FAF6ED\" filter=\"url(#ps-list-checks)\"/>\n  <!-- Top Binding Strip (Buttercup) -->\n  <path d=\"M12 15 C12 12.2 14.2 10 17 10 H47 C49.8 10 52 12.2 52 15 V17 H12 Z\" fill=\"#FEE396\"/>\n  <circle cx=\"19\" cy=\"13.5\" r=\"1.5\" fill=\"#3D352E\" opacity=\"0.3\"/>\n  <circle cx=\"32\" cy=\"13.5\" r=\"1.5\" fill=\"#3D352E\" opacity=\"0.3\"/>\n  <circle cx=\"45\" cy=\"13.5\" r=\"1.5\" fill=\"#3D352E\" opacity=\"0.3\"/>\n  <!-- 3 Check Discs & Ticks -->\n  <circle cx=\"21\" cy=\"24\" r=\"4.2\" fill=\"#A3D8C3\" filter=\"url(#ps-list-checks)\"/>\n  <path d=\"M19 24 L20.5 25.5 L23.5 22.5\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <circle cx=\"21\" cy=\"34\" r=\"4.2\" fill=\"#A3D8C3\" filter=\"url(#ps-list-checks)\"/>\n  <path d=\"M19 34 L20.5 35.5 L23.5 32.5\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <circle cx=\"21\" cy=\"44\" r=\"4.2\" fill=\"#A3D8C3\" filter=\"url(#ps-list-checks)\"/>\n  <path d=\"M19 44 L20.5 45.5 L23.5 42.5\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n  <!-- Corresponding Task Lines -->\n  <rect x=\"28\" y=\"22.5\" width=\"18\" height=\"3\" rx=\"1.5\" fill=\"#BDE0EA\"/>\n  <rect x=\"28\" y=\"32.5\" width=\"15\" height=\"3\" rx=\"1.5\" fill=\"#D7CBEB\"/>\n  <rect x=\"28\" y=\"42.5\" width=\"20\" height=\"3\" rx=\"1.5\" fill=\"#F7BA9E\"/>\n</svg>"
+  },
+  {
+    "id": "clipboard-check-clean",
+    "nameKo": "클립보드 확인",
+    "nameEn": "Clipboard Check Clean",
+    "category": "ui",
+    "tags": [
+      "clipboard",
+      "check",
+      "task",
+      "audit",
+      "survey",
+      "inspection",
+      "completed"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-clipboard-check-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Clipboard Board Base (Peach) -->\n  <rect x=\"13\" y=\"12\" width=\"38\" height=\"46\" rx=\"6\" fill=\"#F7BA9E\" filter=\"url(#ps-clipboard-check-clean)\"/>\n  <!-- Clipped Document Sheet (Cream) -->\n  <rect x=\"17\" y=\"16\" width=\"30\" height=\"38\" rx=\"3\" fill=\"#FFFDF9\" filter=\"url(#ps-clipboard-check-clean)\"/>\n  <!-- Top Clamp (Lavender) -->\n  <rect x=\"23\" y=\"8\" width=\"18\" height=\"8\" rx=\"3\" fill=\"#D7CBEB\" filter=\"url(#ps-clipboard-check-clean)\"/>\n  <rect x=\"27\" y=\"11\" width=\"10\" height=\"2.5\" rx=\"1\" fill=\"#3D352E\" opacity=\"0.35\"/>\n  <!-- Stamped Checkmark on Paper -->\n  <path d=\"M23 35 L29 41 L41 29\" stroke=\"#FFFDF9\" stroke-width=\"6.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-clipboard-check-clean)\"/>\n  <path d=\"M23 35 L29 41 L41 29\" stroke=\"#A3D8C3\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <path d=\"M23 35 L29 41 L41 29\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "card-check",
+    "nameKo": "결제 승인 카드",
+    "nameEn": "Payment Card Approved",
+    "category": "ui",
+    "tags": [
+      "card",
+      "payment",
+      "credit",
+      "id",
+      "check",
+      "approved",
+      "success"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-card-check\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Card Base Rectangle (Lavender) -->\n  <rect x=\"9\" y=\"16\" width=\"46\" height=\"32\" rx=\"6\" fill=\"#D7CBEB\" filter=\"url(#ps-card-check)\"/>\n  <!-- Top Pastel Stripe (Cream) -->\n  <rect x=\"9\" y=\"22\" width=\"46\" height=\"5\" fill=\"#FFFDF9\" opacity=\"0.8\"/>\n  <!-- Chip Origami Plate (Buttercup) -->\n  <rect x=\"14\" y=\"30\" width=\"8\" height=\"6.5\" rx=\"1.5\" fill=\"#FEE396\" filter=\"url(#ps-card-check)\"/>\n  <line x1=\"18\" y1=\"30\" x2=\"18\" y2=\"36.5\" stroke=\"#3D352E\" stroke-width=\"0.8\" opacity=\"0.4\"/>\n  <!-- Embossed Card Dashes (Cream) -->\n  <rect x=\"25\" y=\"32\" width=\"10\" height=\"2.5\" rx=\"1\" fill=\"#FFFDF9\"/>\n  <!-- Floating Approved Seal (Mint) -->\n  <circle cx=\"45\" cy=\"38\" r=\"9.5\" fill=\"#A3D8C3\" filter=\"url(#ps-card-check)\"/>\n  <circle cx=\"45\" cy=\"38\" r=\"7.5\" fill=\"#BBD5B8\"/>\n  <path d=\"M41 38 L43.8 40.8 L49 35.5\" stroke=\"#FFFDF9\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "bell-check",
+    "nameKo": "알림 확인 종",
+    "nameEn": "Notification Bell Check",
+    "category": "comm",
+    "tags": [
+      "bell",
+      "notification",
+      "alert",
+      "check",
+      "reminder",
+      "chime",
+      "confirmed"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-bell-check\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Top Loop (Rose) -->\n  <circle cx=\"30\" cy=\"11\" r=\"4.5\" fill=\"#F5B8BE\" filter=\"url(#ps-bell-check)\"/>\n  <circle cx=\"30\" cy=\"11\" r=\"2\" fill=\"#FAF6ED\"/>\n  <!-- Bell Flare Body (Buttercup) -->\n  <path d=\"M17 44 C17 31 21 20 30 19 C39 20 43 31 43 44 Z\" fill=\"#FEE396\" filter=\"url(#ps-bell-check)\"/>\n  <!-- Bell Bottom Lip (Peach) & Clapper -->\n  <rect x=\"14\" y=\"44\" width=\"32\" height=\"4\" rx=\"2\" fill=\"#F7BA9E\"/>\n  <circle cx=\"30\" cy=\"50\" r=\"3.5\" fill=\"#3D352E\" opacity=\"0.8\"/>\n  <!-- Confirmation Badge on Side (Mint) -->\n  <circle cx=\"43\" cy=\"42\" r=\"8.5\" fill=\"#A3D8C3\" filter=\"url(#ps-bell-check)\"/>\n  <circle cx=\"43\" cy=\"42\" r=\"6.5\" fill=\"#BBD5B8\"/>\n  <path d=\"M39.5 42 L42 44.5 L46.5 39.5\" stroke=\"#FFFDF9\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "message-check",
+    "nameKo": "메시지 전송 완료",
+    "nameEn": "Delivered Message Bubble",
+    "category": "comm",
+    "tags": [
+      "message",
+      "chat",
+      "bubble",
+      "check",
+      "delivered",
+      "sent",
+      "sms"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-message-check\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Speech Bubble (Sky Blue) -->\n  <path d=\"M12 16 C12 12.7 14.7 10 18 10 H46 C49.3 10 52 12.7 52 16 V38 C52 41.3 49.3 44 46 44 H25 L16 52 V44 H18 C14.7 44 12 41.3 12 38 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-message-check)\"/>\n  <!-- Inset Message Paper Panel (Cream) -->\n  <path d=\"M16 18 C16 15.8 17.8 14 20 14 H44 C46.2 14 48 15.8 48 18 V36 C48 38.2 46.2 40 44 40 H20 C17.8 40 16 38.2 16 36 Z\" fill=\"#FFFDF9\" filter=\"url(#ps-message-check)\"/>\n  <!-- Double Delivered Checkmarks (Mint) -->\n  <path d=\"M21 28 L25 32 L33 24\" stroke=\"#A3D8C3\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <path d=\"M29 28 L33 32 L41 24\" stroke=\"#A3D8C3\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <path d=\"M29 28 L33 32 L41 24\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" opacity=\"0.6\"/>\n  <!-- Status Accent Dot (Peach) -->\n  <circle cx=\"23\" cy=\"20\" r=\"1.8\" fill=\"#F7BA9E\"/>\n</svg>"
+  },
+  {
+    "id": "cart-check",
+    "nameKo": "장바구니 담기 완료",
+    "nameEn": "Shopping Cart Check",
+    "category": "ui",
+    "tags": [
+      "cart",
+      "shopping",
+      "ecommerce",
+      "basket",
+      "check",
+      "added",
+      "buy"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-cart-check\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Cart Wireframe Handle & Chassis (Lavender) -->\n  <path d=\"M10 14 H16 L22 38 H44 L49 20 H18\" stroke=\"#D7CBEB\" stroke-width=\"4.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-cart-check)\"/>\n  <!-- Basket Pocket Fill (Cream) -->\n  <polygon points=\"20,22 47,22 43,36 23,36\" fill=\"#FAF6ED\" filter=\"url(#ps-cart-check)\"/>\n  <!-- Rolling Wheels (Charcoal + Cream Hub) -->\n  <circle cx=\"25\" cy=\"46\" r=\"4.5\" fill=\"#3D352E\"/>\n  <circle cx=\"25\" cy=\"46\" r=\"2\" fill=\"#FFFDF9\"/>\n  <circle cx=\"41\" cy=\"46\" r=\"4.5\" fill=\"#3D352E\"/>\n  <circle cx=\"41\" cy=\"46\" r=\"2\" fill=\"#FFFDF9\"/>\n  <!-- Floating Added Check Badge (Mint) -->\n  <circle cx=\"34\" cy=\"26\" r=\"8.5\" fill=\"#A3D8C3\" filter=\"url(#ps-cart-check)\"/>\n  <path d=\"M30.5 26 L33 28.5 L37.5 23.5\" stroke=\"#FFFDF9\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "lock-check",
+    "nameKo": "안전 잠금 확인",
+    "nameEn": "Verified Security Padlock",
+    "category": "status",
+    "tags": [
+      "lock",
+      "padlock",
+      "security",
+      "safe",
+      "check",
+      "verified",
+      "protection"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-lock-check\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Top Shackle Loop (Lavender) -->\n  <path d=\"M22 28 V19 C22 13.5 26.5 9 32 9 C37.5 9 42 13.5 42 19 V28\" stroke=\"#D7CBEB\" stroke-width=\"5\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-lock-check)\"/>\n  <!-- Padlock Body Block (Buttercup) -->\n  <rect x=\"15\" y=\"26\" width=\"34\" height=\"28\" rx=\"7\" fill=\"#FEE396\" filter=\"url(#ps-lock-check)\"/>\n  <!-- Inset Faceplate (Peach) -->\n  <rect x=\"19\" y=\"30\" width=\"26\" height=\"20\" rx=\"4\" fill=\"#F7BA9E\" filter=\"url(#ps-lock-check)\"/>\n  <!-- Verified Checkmark Motif -->\n  <path d=\"M25 40 L29.5 44.5 L39 34\" stroke=\"#FFFDF9\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-lock-check)\"/>\n  <path d=\"M25 40 L29.5 44.5 L39 34\" stroke=\"#A3D8C3\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n  <path d=\"M25 40 L29.5 44.5 L39 34\" stroke=\"#3D352E\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "calendar-check-clean",
+    "nameKo": "일정 확인 달력",
+    "nameEn": "Calendar Event Confirmed",
+    "category": "ui",
+    "tags": [
+      "calendar",
+      "date",
+      "event",
+      "schedule",
+      "check",
+      "confirmed",
+      "appointment"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-calendar-check-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Calendar Page Base (Cream) -->\n  <rect x=\"12\" y=\"14\" width=\"40\" height=\"42\" rx=\"6\" fill=\"#FFFDF9\" filter=\"url(#ps-calendar-check-clean)\"/>\n  <!-- Top Month Banner (Rose) -->\n  <path d=\"M12 20 C12 16.7 14.7 14 18 14 H46 C49.3 14 52 16.7 52 20 V25 H12 Z\" fill=\"#F5B8BE\"/>\n  <!-- Binding Pegs at Top (Lavender) -->\n  <rect x=\"20\" y=\"10\" width=\"4\" height=\"8\" rx=\"2\" fill=\"#D7CBEB\" filter=\"url(#ps-calendar-check-clean)\"/>\n  <rect x=\"40\" y=\"10\" width=\"4\" height=\"8\" rx=\"2\" fill=\"#D7CBEB\" filter=\"url(#ps-calendar-check-clean)\"/>\n  <!-- Calendar Grid Day Dots (Sky Blue) -->\n  <circle cx=\"21\" cy=\"33\" r=\"2\" fill=\"#BDE0EA\"/>\n  <circle cx=\"32\" cy=\"33\" r=\"2\" fill=\"#BDE0EA\"/>\n  <circle cx=\"43\" cy=\"33\" r=\"2\" fill=\"#BDE0EA\"/>\n  <circle cx=\"21\" cy=\"43\" r=\"2\" fill=\"#BDE0EA\"/>\n  <!-- Circled Confirmed Day Badge (Mint) -->\n  <circle cx=\"35\" cy=\"43\" r=\"8.5\" fill=\"#A3D8C3\" filter=\"url(#ps-calendar-check-clean)\"/>\n  <path d=\"M31.5 43 L34 45.5 L38.5 40.5\" stroke=\"#FFFDF9\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/>\n</svg>"
+  },
+  {
+    "id": "circle-dot",
+    "nameKo": "동심원 타깃 디스크",
+    "nameEn": "Origami Target Disc",
+    "category": "ui",
+    "tags": [
+      "circle",
+      "dot",
+      "target",
+      "bullseye",
+      "focus",
+      "selected",
+      "radio"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-circle-dot\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Sage Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#BBD5B8\" filter=\"url(#ps-circle-dot)\"/>\n  <!-- Middle Cream Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"18\" fill=\"#FAF6ED\" filter=\"url(#ps-circle-dot)\"/>\n  <!-- Inner Sky Blue Ring -->\n  <circle cx=\"32\" cy=\"32\" r=\"12\" fill=\"#BDE0EA\" filter=\"url(#ps-circle-dot)\"/>\n  <!-- Raised Center Dot (Charcoal & Cream Highlight) -->\n  <circle cx=\"32\" cy=\"32\" r=\"6.5\" fill=\"#3D352E\" filter=\"url(#ps-circle-dot)\"/>\n  <circle cx=\"32\" cy=\"32\" r=\"2.8\" fill=\"#FFFDF9\"/>\n</svg>"
+  },
+  {
+    "id": "x-mark",
+    "nameKo": "클린 페이퍼 크로스",
+    "nameEn": "Clean Paper Cross",
+    "category": "ui",
+    "tags": [
+      "cross",
+      "x",
+      "close",
+      "cancel",
+      "remove",
+      "delete",
+      "clear"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-x-mark\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Bottom Diagonal Paper Ribbon (Rose) -->\n  <line x1=\"16\" y1=\"16\" x2=\"48\" y2=\"48\" stroke=\"#F5B8BE\" stroke-width=\"10\" stroke-linecap=\"round\" filter=\"url(#ps-x-mark)\"/>\n  <line x1=\"16\" y1=\"16\" x2=\"48\" y2=\"48\" stroke=\"#FFFDF9\" stroke-width=\"6\" stroke-linecap=\"round\"/>\n  <!-- Top Diagonal Paper Ribbon Crossing Over (Peach) -->\n  <line x1=\"16\" y1=\"48\" x2=\"48\" y2=\"16\" stroke=\"#F7BA9E\" stroke-width=\"10\" stroke-linecap=\"round\" filter=\"url(#ps-x-mark)\"/>\n  <line x1=\"16\" y1=\"48\" x2=\"48\" y2=\"16\" stroke=\"#FFFDF9\" stroke-width=\"6\" stroke-linecap=\"round\"/>\n  <!-- Overlapping Center Origami Fold Diamond (Buttercup) -->\n  <polygon points=\"32,25 39,32 32,39 25,32\" fill=\"#FEE396\" filter=\"url(#ps-x-mark)\"/>\n  <!-- Center Crisp Fold Button (Charcoal) -->\n  <circle cx=\"32\" cy=\"32\" r=\"2.5\" fill=\"#3D352E\"/>\n</svg>"
+  },
+  {
+    "id": "x-circle",
+    "nameKo": "원형 취소 디스크",
+    "nameEn": "Cross Circle Disc",
+    "category": "status",
+    "tags": [
+      "cross",
+      "circle",
+      "cancel",
+      "error",
+      "failed",
+      "rejected",
+      "close"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-x-circle\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Rose Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#F5B8BE\" filter=\"url(#ps-x-circle)\"/>\n  <!-- Middle Cream Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"19\" fill=\"#FAF6ED\" filter=\"url(#ps-x-circle)\"/>\n  <!-- Inner Peach Well -->\n  <circle cx=\"32\" cy=\"32\" r=\"14\" fill=\"#F7BA9E\"/>\n  <!-- Raised Paper Cross (Cream & Charcoal) -->\n  <path d=\"M24 24 L40 40 M40 24 L24 40\" stroke=\"#FFFDF9\" stroke-width=\"6\" stroke-linecap=\"round\" filter=\"url(#ps-x-circle)\"/>\n  <path d=\"M24 24 L40 40 M40 24 L24 40\" stroke=\"#3D352E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <!-- Center Buttercup Accent -->\n  <circle cx=\"32\" cy=\"32\" r=\"2\" fill=\"#FEE396\"/>\n</svg>"
+  },
+  {
+    "id": "x-square",
+    "nameKo": "사각형 취소 박스",
+    "nameEn": "Origami Square Cancel",
+    "category": "ui",
+    "tags": [
+      "cross",
+      "square",
+      "cancel",
+      "close",
+      "checkbox",
+      "rejected",
+      "delete"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-x-square\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Lavender Square -->\n  <rect x=\"11\" y=\"11\" width=\"42\" height=\"42\" rx=\"9\" fill=\"#D7CBEB\" filter=\"url(#ps-x-square)\"/>\n  <!-- Middle Cream Inset -->\n  <rect x=\"15\" y=\"15\" width=\"34\" height=\"34\" rx=\"7\" fill=\"#FAF6ED\" filter=\"url(#ps-x-square)\"/>\n  <!-- Inner Rose Well -->\n  <rect x=\"19\" y=\"19\" width=\"26\" height=\"26\" rx=\"5\" fill=\"#F5B8BE\"/>\n  <!-- Raised Paper Cross -->\n  <path d=\"M24 24 L40 40 M40 24 L24 40\" stroke=\"#FFFDF9\" stroke-width=\"6\" stroke-linecap=\"round\" filter=\"url(#ps-x-square)\"/>\n  <path d=\"M24 24 L40 40 M40 24 L24 40\" stroke=\"#3D352E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n  <circle cx=\"32\" cy=\"32\" r=\"2\" fill=\"#FEE396\"/>\n</svg>"
+  },
+  {
+    "id": "x-octagon",
+    "nameKo": "정지 신호 팔각 X",
+    "nameEn": "Stop Sign Octagon Cross",
+    "category": "status",
+    "tags": [
+      "octagon",
+      "stop",
+      "cross",
+      "danger",
+      "halt",
+      "prohibited",
+      "error"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-x-octagon\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Rose Octagon Plate -->\n  <polygon points=\"20,8 44,8 56,20 56,44 44,56 20,56 8,44 8,20\" fill=\"#F5B8BE\" filter=\"url(#ps-x-octagon)\"/>\n  <!-- Inner White Border Rim -->\n  <polygon points=\"21.5,12 42.5,12 52,21.5 52,42.5 42.5,52 21.5,52 12,42.5 12,21.5\" fill=\"#FFFDF9\"/>\n  <!-- Inner Peach Field -->\n  <polygon points=\"23,15 41,15 49,23 49,41 41,49 23,49 15,41 15,23\" fill=\"#F7BA9E\" filter=\"url(#ps-x-octagon)\"/>\n  <!-- Raised Paper Cross -->\n  <path d=\"M25 25 L39 39 M39 25 L25 39\" stroke=\"#FFFDF9\" stroke-width=\"6\" stroke-linecap=\"round\" filter=\"url(#ps-x-octagon)\"/>\n  <path d=\"M25 25 L39 39 M39 25 L25 39\" stroke=\"#3D352E\" stroke-width=\"3\" stroke-linecap=\"round\"/>\n</svg>"
+  },
+  {
+    "id": "alert-circle-clean",
+    "nameKo": "원형 경고 알림",
+    "nameEn": "Alert Circle Notice",
+    "category": "status",
+    "tags": [
+      "alert",
+      "warning",
+      "circle",
+      "notice",
+      "attention",
+      "info",
+      "exclamation"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-alert-circle-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Buttercup Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#FEE396\" filter=\"url(#ps-alert-circle-clean)\"/>\n  <!-- Middle Peach Ring -->\n  <circle cx=\"32\" cy=\"32\" r=\"19\" fill=\"#F7BA9E\" filter=\"url(#ps-alert-circle-clean)\"/>\n  <!-- Inner Cream Plate -->\n  <circle cx=\"32\" cy=\"32\" r=\"14\" fill=\"#FAF6ED\"/>\n  <!-- Layered Exclamation Mark -->\n  <line x1=\"32\" y1=\"20\" x2=\"32\" y2=\"33\" stroke=\"#FFFDF9\" stroke-width=\"6.5\" stroke-linecap=\"round\" filter=\"url(#ps-alert-circle-clean)\"/>\n  <line x1=\"32\" y1=\"20\" x2=\"32\" y2=\"33\" stroke=\"#3D352E\" stroke-width=\"3.6\" stroke-linecap=\"round\"/>\n  <circle cx=\"32\" cy=\"42\" r=\"3.4\" fill=\"#FFFDF9\" filter=\"url(#ps-alert-circle-clean)\"/>\n  <circle cx=\"32\" cy=\"42\" r=\"2\" fill=\"#3D352E\"/>\n</svg>"
+  },
+  {
+    "id": "alert-triangle",
+    "nameKo": "삼각 주의 경고",
+    "nameEn": "Warning Triangle Hazard",
+    "category": "status",
+    "tags": [
+      "alert",
+      "triangle",
+      "warning",
+      "hazard",
+      "caution",
+      "danger",
+      "exclamation"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-alert-triangle\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Hazard Triangle (Buttercup) -->\n  <path d=\"M29 12 C30.5 9.5 33.5 9.5 35 12 L54 47 C55.5 49.5 54 53 51 53 H13 C10 53 8.5 49.5 10 47 Z\" fill=\"#FEE396\" filter=\"url(#ps-alert-triangle)\"/>\n  <!-- Middle Contrast Border (Peach) -->\n  <path d=\"M29.5 16 C30.7 14 33.3 14 34.5 16 L49.5 45 C50.7 47 49.5 49.5 47 49.5 H17 C14.5 49.5 13.3 47 14.5 45 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-alert-triangle)\"/>\n  <!-- Inner Cream Plate -->\n  <path d=\"M30 20 C30.9 18.5 33.1 18.5 34 20 L45.5 43 C46.4 44.5 45.4 46.5 43.5 46.5 H20.5 C18.6 46.5 17.6 44.5 18.5 43 Z\" fill=\"#FFFDF9\"/>\n  <!-- Exclamation Point -->\n  <line x1=\"32\" y1=\"25\" x2=\"32\" y2=\"35\" stroke=\"#3D352E\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>\n  <circle cx=\"32\" cy=\"42\" r=\"2.2\" fill=\"#3D352E\"/>\n  <circle cx=\"32\" cy=\"25\" r=\"2.2\" fill=\"#F5B8BE\"/>\n</svg>"
+  },
+  {
+    "id": "alert-octagon-stop",
+    "nameKo": "팔각 비상 경고",
+    "nameEn": "Emergency Octagon Alert",
+    "category": "status",
+    "tags": [
+      "alert",
+      "octagon",
+      "emergency",
+      "danger",
+      "warning",
+      "stop",
+      "caution"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-alert-octagon-stop\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Peach Octagon Plate -->\n  <polygon points=\"20,8 44,8 56,20 56,44 44,56 20,56 8,44 8,20\" fill=\"#F7BA9E\" filter=\"url(#ps-alert-octagon-stop)\"/>\n  <!-- Middle Contrast Border (Cream) -->\n  <polygon points=\"21.5,12 42.5,12 52,21.5 52,42.5 42.5,52 21.5,52 12,42.5 12,21.5\" fill=\"#FFFDF9\"/>\n  <!-- Core Lavender Octagon Plate -->\n  <polygon points=\"23,15 41,15 49,23 49,41 41,49 23,49 15,41 15,23\" fill=\"#D7CBEB\" filter=\"url(#ps-alert-octagon-stop)\"/>\n  <!-- Floating Exclamation Point -->\n  <line x1=\"32\" y1=\"21\" x2=\"32\" y2=\"34\" stroke=\"#FFFDF9\" stroke-width=\"6.5\" stroke-linecap=\"round\" filter=\"url(#ps-alert-octagon-stop)\"/>\n  <line x1=\"32\" y1=\"21\" x2=\"32\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"3.5\" stroke-linecap=\"round\"/>\n  <circle cx=\"32\" cy=\"42\" r=\"3.4\" fill=\"#FFFDF9\" filter=\"url(#ps-alert-octagon-stop)\"/>\n  <circle cx=\"32\" cy=\"42\" r=\"2\" fill=\"#3D352E\"/>\n</svg>"
+  },
+  {
+    "id": "help-circle-clean",
+    "nameKo": "도움말 질문 서클",
+    "nameEn": "Help Circle Query",
+    "category": "ui",
+    "tags": [
+      "help",
+      "question",
+      "query",
+      "support",
+      "faq",
+      "circle",
+      "info"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-help-circle-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Lavender Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#D7CBEB\" filter=\"url(#ps-help-circle-clean)\"/>\n  <!-- Middle Sky Blue Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"19\" fill=\"#BDE0EA\" filter=\"url(#ps-help-circle-clean)\"/>\n  <!-- Inner Cream Plate -->\n  <circle cx=\"32\" cy=\"32\" r=\"14\" fill=\"#FFFDF9\"/>\n  <!-- Layered Question Mark Hook & Dot -->\n  <path d=\"M26 25 C26 21 28.5 19 32 19 C35.5 19 38 21 38 24.5 C38 27.5 35.5 29 33 31 V33\" stroke=\"#F7BA9E\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-help-circle-clean)\"/>\n  <path d=\"M26 25 C26 21 28.5 19 32 19 C35.5 19 38 21 38 24.5 C38 27.5 35.5 29 33 31 V33\" stroke=\"#3D352E\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\"/>\n  <circle cx=\"33\" cy=\"41\" r=\"3.2\" fill=\"#F7BA9E\" filter=\"url(#ps-help-circle-clean)\"/>\n  <circle cx=\"33\" cy=\"41\" r=\"1.8\" fill=\"#3D352E\"/>\n</svg>"
+  },
+  {
+    "id": "info-circle",
+    "nameKo": "정보 안내 서클",
+    "nameEn": "Information Disc",
+    "category": "ui",
+    "tags": [
+      "info",
+      "information",
+      "about",
+      "guide",
+      "details",
+      "circle",
+      "help"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-info-circle\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Sky Blue Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#BDE0EA\" filter=\"url(#ps-info-circle)\"/>\n  <!-- Middle Mint Disc -->\n  <circle cx=\"32\" cy=\"32\" r=\"19\" fill=\"#A3D8C3\" filter=\"url(#ps-info-circle)\"/>\n  <!-- Inner Cream Plate -->\n  <circle cx=\"32\" cy=\"32\" r=\"14\" fill=\"#FFFDF9\"/>\n  <!-- Information 'i' Stem & Dot -->\n  <line x1=\"32\" y1=\"28\" x2=\"32\" y2=\"43\" stroke=\"#FAF6ED\" stroke-width=\"6.5\" stroke-linecap=\"round\" filter=\"url(#ps-info-circle)\"/>\n  <line x1=\"32\" y1=\"28\" x2=\"32\" y2=\"43\" stroke=\"#3D352E\" stroke-width=\"3.4\" stroke-linecap=\"round\"/>\n  <circle cx=\"32\" cy=\"21\" r=\"3.4\" fill=\"#FEE396\" filter=\"url(#ps-info-circle)\"/>\n  <circle cx=\"32\" cy=\"21\" r=\"2\" fill=\"#3D352E\"/>\n</svg>"
+  },
+  {
+    "id": "ban-sign",
+    "nameKo": "금지 표시 기호",
+    "nameEn": "Prohibited Ban Sign",
+    "category": "status",
+    "tags": [
+      "ban",
+      "prohibited",
+      "blocked",
+      "forbidden",
+      "cancel",
+      "no",
+      "disabled"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs>\n    <filter id=\"ps-ban-sign\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\">\n      <feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/>\n    </filter>\n  </defs>\n  <!-- Outer Rose Ring -->\n  <circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#F5B8BE\" filter=\"url(#ps-ban-sign)\"/>\n  <!-- Middle Cream Well -->\n  <circle cx=\"32\" cy=\"32\" r=\"18\" fill=\"#FAF6ED\" filter=\"url(#ps-ban-sign)\"/>\n  <!-- Inner Lavender Well -->\n  <circle cx=\"32\" cy=\"32\" r=\"13\" fill=\"#D7CBEB\"/>\n  <!-- Diagonal Paper Slash Ribbon -->\n  <line x1=\"18\" y1=\"18\" x2=\"46\" y2=\"46\" stroke=\"#F5B8BE\" stroke-width=\"7.5\" stroke-linecap=\"round\" filter=\"url(#ps-ban-sign)\"/>\n  <line x1=\"18\" y1=\"18\" x2=\"46\" y2=\"46\" stroke=\"#FFFDF9\" stroke-width=\"4\" stroke-linecap=\"round\"/>\n  <line x1=\"20\" y1=\"20\" x2=\"44\" y2=\"44\" stroke=\"#3D352E\" stroke-width=\"1.6\" stroke-linecap=\"round\" opacity=\"0.6\"/>\n</svg>"
+  },
+  {
+    "id": "arrow-up-right",
+    "nameKo": "대각선 우상단 화살표",
+    "nameEn": "Arrow Up Right",
+    "category": "ui",
+    "tags": [
+      "arrow",
+      "up-right",
+      "diagonal",
+      "external",
+      "navigation",
+      "direction",
+      "origami"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-arrow-up-right\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M16 48 C14 46 14 43 16 41 L37 20 L44 27 L23 48 C21 50 18 50 16 48 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-arrow-up-right)\"/><path d=\"M19 45 L39 25 L43 29 L23 49 Z\" fill=\"#FAF6ED\" filter=\"url(#ps-arrow-up-right)\"/><line x1=\"21\" y1=\"44\" x2=\"38\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><polygon points=\"53,11 27,19 36,28 28,36 36,36 44,28 51,37\" fill=\"#A3D8C3\" filter=\"url(#ps-arrow-up-right)\"/><polygon points=\"53,11 29,20 38,29 38,20\" fill=\"#FEE396\" filter=\"url(#ps-arrow-up-right)\"/><polygon points=\"53,11 38,20 47,35 41,29\" fill=\"#F7BA9E\" filter=\"url(#ps-arrow-up-right)\"/><polygon points=\"53,11 41,29 49,37\" fill=\"#F5B8BE\"/><circle cx=\"18\" cy=\"46\" r=\"2.5\" fill=\"#FEE396\" filter=\"url(#ps-arrow-up-right)\"/><circle cx=\"18\" cy=\"46\" r=\"1.2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "arrow-down-left",
+    "nameKo": "대각선 좌하단 화살표",
+    "nameEn": "Arrow Down Left",
+    "category": "ui",
+    "tags": [
+      "arrow",
+      "down-left",
+      "diagonal",
+      "return",
+      "navigation",
+      "direction",
+      "origami"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-arrow-down-left\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M48 16 C50 18 50 21 48 23 L27 44 L20 37 L41 16 C43 14 46 14 48 16 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-arrow-down-left)\"/><path d=\"M45 19 L25 39 L21 35 L41 15 Z\" fill=\"#FAF6ED\" filter=\"url(#ps-arrow-down-left)\"/><line x1=\"43\" y1=\"20\" x2=\"26\" y2=\"37\" stroke=\"#3D352E\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><polygon points=\"11,53 37,45 28,36 36,28 28,28 20,36 13,27\" fill=\"#D7CBEB\" filter=\"url(#ps-arrow-down-left)\"/><polygon points=\"11,53 35,44 26,35 26,44\" fill=\"#A3D8C3\" filter=\"url(#ps-arrow-down-left)\"/><polygon points=\"11,53 26,44 17,29 23,35\" fill=\"#FEE396\" filter=\"url(#ps-arrow-down-left)\"/><polygon points=\"11,53 23,35 15,27\" fill=\"#F7BA9E\"/><circle cx=\"46\" cy=\"18\" r=\"2.5\" fill=\"#F5B8BE\" filter=\"url(#ps-arrow-down-left)\"/><circle cx=\"46\" cy=\"18\" r=\"1.2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "corner-down-right",
+    "nameKo": "우하단 꺾임 곡선 화살표",
+    "nameEn": "Corner Down Right",
+    "category": "ui",
+    "tags": [
+      "arrow",
+      "corner",
+      "down-right",
+      "turn",
+      "flow",
+      "origami",
+      "path"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-corner-down-right\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M16 12 H26 V28 C26 33 29 36 34 36 H44 V46 H34 C24 46 16 38 16 28 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-corner-down-right)\"/><path d=\"M16 28 C16 38 24 46 34 46 L26 36 C22 36 20 34 20 30 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-corner-down-right)\"/><path d=\"M21 16 V28 C21 35 25 41 34 41 H42\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 3\"/><rect x=\"14\" y=\"9\" width=\"14\" height=\"6\" rx=\"2\" fill=\"#FEE396\" filter=\"url(#ps-corner-down-right)\"/><circle cx=\"21\" cy=\"12\" r=\"1.2\" fill=\"#3D352E\"/><polygon points=\"55,41 39,29 42,38 34,38 34,44 42,44 39,53\" fill=\"#F7BA9E\" filter=\"url(#ps-corner-down-right)\"/><polygon points=\"55,41 42,35 42,47\" fill=\"#FEE396\" filter=\"url(#ps-corner-down-right)\"/><polygon points=\"55,41 42,41 42,47\" fill=\"#F5B8BE\"/></svg>"
+  },
+  {
+    "id": "corner-up-left",
+    "nameKo": "좌상단 꺾임 곡선 화살표",
+    "nameEn": "Corner Up Left",
+    "category": "ui",
+    "tags": [
+      "arrow",
+      "corner",
+      "up-left",
+      "turn",
+      "return",
+      "origami",
+      "path"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-corner-up-left\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M48 52 H38 V36 C38 31 35 28 30 28 H20 V18 H30 C40 18 48 26 48 36 Z\" fill=\"#BBD5B8\" filter=\"url(#ps-corner-up-left)\"/><path d=\"M48 36 C48 26 40 18 30 18 L38 28 C42 28 44 30 44 34 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-corner-up-left)\"/><path d=\"M43 48 V36 C43 29 39 23 30 23 H22\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 3\"/><rect x=\"36\" y=\"49\" width=\"14\" height=\"6\" rx=\"2\" fill=\"#FEE396\" filter=\"url(#ps-corner-up-left)\"/><circle cx=\"43\" cy=\"52\" r=\"1.2\" fill=\"#3D352E\"/><polygon points=\"9,23 25,11 22,20 30,20 30,26 22,26 25,35\" fill=\"#F5B8BE\" filter=\"url(#ps-corner-up-left)\"/><polygon points=\"9,23 22,17 22,29\" fill=\"#F7BA9E\" filter=\"url(#ps-corner-up-left)\"/><polygon points=\"9,23 22,23 22,29\" fill=\"#D7CBEB\"/></svg>"
+  },
+  {
+    "id": "refresh-cw",
+    "nameKo": "시계방향 원형 리본 화살표",
+    "nameEn": "Refresh Clockwise",
+    "category": "ui",
+    "tags": [
+      "refresh",
+      "reload",
+      "sync",
+      "loop",
+      "clockwise",
+      "arrows",
+      "ribbon"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-refresh-cw\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M22 17 C25 15 28.5 14 32 14 C42 14 50 22 50 32 C50 35 49 38 47.5 40.5\" stroke=\"#A3D8C3\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-refresh-cw)\"/><path d=\"M26 17 C28 16.5 30 16 32 16 C39 16 45 22 45.5 28\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2\"/><polygon points=\"55,23 45,13 46,20 40,21 42,26 48,25 49,31\" fill=\"#FEE396\" filter=\"url(#ps-refresh-cw)\"/><polygon points=\"55,23 46,20 49,31\" fill=\"#F7BA9E\"/><path d=\"M42 47 C39 49 35.5 50 32 50 C22 50 14 42 14 32 C14 29 15 26 16.5 23.5\" stroke=\"#D7CBEB\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-refresh-cw)\"/><path d=\"M38 47 C36 47.5 34 48 32 48 C25 48 19 42 18.5 36\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2\"/><polygon points=\"9,41 19,51 18,44 24,43 22,38 16,39 15,33\" fill=\"#F5B8BE\" filter=\"url(#ps-refresh-cw)\"/><polygon points=\"9,41 18,44 15,33\" fill=\"#F7BA9E\"/><circle cx=\"32\" cy=\"32\" r=\"5.5\" fill=\"#FAF6ED\" filter=\"url(#ps-refresh-cw)\"/><circle cx=\"32\" cy=\"32\" r=\"3.2\" fill=\"#FEE396\" filter=\"url(#ps-refresh-cw)\"/><circle cx=\"32\" cy=\"32\" r=\"1.5\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "refresh-ccw",
+    "nameKo": "반시계방향 원형 리본 화살표",
+    "nameEn": "Refresh Counter-Clockwise",
+    "category": "ui",
+    "tags": [
+      "refresh",
+      "reload",
+      "undo",
+      "counter-clockwise",
+      "sync",
+      "loop",
+      "ribbon"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-refresh-ccw\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M42 17 C39 15 35.5 14 32 14 C22 14 14 22 14 32 C14 35 15 38 16.5 40.5\" stroke=\"#BDE0EA\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-refresh-ccw)\"/><path d=\"M38 17 C36 16.5 34 16 32 16 C25 16 19 22 18.5 28\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2\"/><polygon points=\"9,23 19,13 18,20 24,21 22,26 16,25 15,31\" fill=\"#F5B8BE\" filter=\"url(#ps-refresh-ccw)\"/><polygon points=\"9,23 18,20 15,31\" fill=\"#F7BA9E\"/><path d=\"M22 47 C25 49 28.5 50 32 50 C42 50 50 42 50 32 C50 29 49 26 47.5 23.5\" stroke=\"#FEE396\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-refresh-ccw)\"/><path d=\"M26 47 C28 47.5 30 48 32 48 C39 48 45 42 45.5 36\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2\"/><polygon points=\"55,41 45,51 46,44 40,43 42,38 48,39 49,33\" fill=\"#A3D8C3\" filter=\"url(#ps-refresh-ccw)\"/><polygon points=\"55,41 46,44 49,33\" fill=\"#BBD5B8\"/><circle cx=\"32\" cy=\"32\" r=\"5.5\" fill=\"#FAF6ED\" filter=\"url(#ps-refresh-ccw)\"/><circle cx=\"32\" cy=\"32\" r=\"3.2\" fill=\"#D7CBEB\" filter=\"url(#ps-refresh-ccw)\"/><circle cx=\"32\" cy=\"32\" r=\"1.5\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "rotate-cw",
+    "nameKo": "시계방향 피벗 회전 화살표",
+    "nameEn": "Rotate Clockwise with Pivot",
+    "category": "ui",
+    "tags": [
+      "rotate",
+      "spin",
+      "turn",
+      "clockwise",
+      "orientation",
+      "arrow",
+      "pivot"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-rotate-cw\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M32 13 C44 13 54 22 54 34 C54 46 44 55 32 55 C20 55 10 45 10 33 C10 27 12.5 21.5 17 17.5\" stroke=\"#F7BA9E\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-rotate-cw)\"/><path d=\"M30 13 C41 13 49 20 49 34 C49 44 41 50 32 50 C23 50 15 42 15 33\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2.5\"/><polygon points=\"36,6 46,14 36,22 38,16 30,16 30,12 38,12\" fill=\"#FEE396\" filter=\"url(#ps-rotate-cw)\"/><polygon points=\"36,6 46,14 36,22 38,14\" fill=\"#F5B8BE\"/><circle cx=\"32\" cy=\"34\" r=\"11\" fill=\"#D7CBEB\" filter=\"url(#ps-rotate-cw)\"/><circle cx=\"32\" cy=\"34\" r=\"8\" fill=\"#A3D8C3\" filter=\"url(#ps-rotate-cw)\"/><circle cx=\"32\" cy=\"34\" r=\"4.5\" fill=\"#FAF6ED\" filter=\"url(#ps-rotate-cw)\"/><circle cx=\"32\" cy=\"34\" r=\"2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "rotate-ccw",
+    "nameKo": "반시계방향 피벗 회전 화살표",
+    "nameEn": "Rotate Counter-Clockwise with Pivot",
+    "category": "ui",
+    "tags": [
+      "rotate",
+      "spin",
+      "undo",
+      "counter-clockwise",
+      "orientation",
+      "arrow",
+      "pivot"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-rotate-ccw\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M32 13 C20 13 10 22 10 34 C10 46 20 55 32 55 C44 55 54 45 54 33 C54 27 51.5 21.5 47 17.5\" stroke=\"#A3D8C3\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-rotate-ccw)\"/><path d=\"M34 13 C23 13 15 20 15 34 C15 44 23 50 32 50 C41 50 49 42 49 33\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2.5\"/><polygon points=\"28,6 18,14 28,22 26,16 34,16 34,12 26,12\" fill=\"#BDE0EA\" filter=\"url(#ps-rotate-ccw)\"/><polygon points=\"28,6 18,14 28,22 26,14\" fill=\"#D7CBEB\"/><circle cx=\"32\" cy=\"34\" r=\"11\" fill=\"#FEE396\" filter=\"url(#ps-rotate-ccw)\"/><circle cx=\"32\" cy=\"34\" r=\"8\" fill=\"#F5B8BE\" filter=\"url(#ps-rotate-ccw)\"/><circle cx=\"32\" cy=\"34\" r=\"4.5\" fill=\"#FAF6ED\" filter=\"url(#ps-rotate-ccw)\"/><circle cx=\"32\" cy=\"34\" r=\"2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "external-link-arrow",
+    "nameKo": "외부 링크 열기",
+    "nameEn": "External Link Window Box",
+    "category": "ui",
+    "tags": [
+      "external",
+      "link",
+      "outward",
+      "window",
+      "open",
+      "new-tab",
+      "tray"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-external-link-arrow\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M30 18 H18 C14.7 18 12 20.7 12 24 V48 C12 51.3 14.7 54 18 54 H42 C45.3 54 48 51.3 48 48 V36\" stroke=\"#D7CBEB\" stroke-width=\"6\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-external-link-arrow)\"/><path d=\"M26 22 H19 C17.3 22 16 23.3 16 25 V47 C16 48.7 17.3 50 19 50 H41 C42.7 50 44 48.7 44 47 V38\" stroke=\"#FAF6ED\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"18\" cy=\"48\" r=\"2.5\" fill=\"#A3D8C3\" filter=\"url(#ps-external-link-arrow)\"/><circle cx=\"18\" cy=\"48\" r=\"1.2\" fill=\"#3D352E\"/><line x1=\"28\" y1=\"38\" x2=\"48\" y2=\"18\" stroke=\"#F7BA9E\" stroke-width=\"5\" stroke-linecap=\"round\" filter=\"url(#ps-external-link-arrow)\"/><line x1=\"28\" y1=\"38\" x2=\"48\" y2=\"18\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><polygon points=\"54,12 36,14 42,20 40,24 44,24 44,28 50,22 52,28\" fill=\"#FEE396\" filter=\"url(#ps-external-link-arrow)\"/><polygon points=\"54,12 40,16 46,22\" fill=\"#F5B8BE\"/></svg>"
+  },
+  {
+    "id": "maximize-2",
+    "nameKo": "코너 확장 (전체화면)",
+    "nameEn": "Maximize 2 Corners Outward",
+    "category": "ui",
+    "tags": [
+      "maximize",
+      "expand",
+      "fullscreen",
+      "enlarge",
+      "arrows",
+      "corners",
+      "wedges"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-maximize-2\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"36\" y1=\"28\" x2=\"48\" y2=\"16\" stroke=\"#A3D8C3\" stroke-width=\"5\" stroke-linecap=\"round\" filter=\"url(#ps-maximize-2)\"/><line x1=\"36\" y1=\"28\" x2=\"48\" y2=\"16\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><path d=\"M37 13 H51 V27\" stroke=\"#F7BA9E\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-maximize-2)\"/><polygon points=\"53,11 41,11 53,23\" fill=\"#FEE396\" filter=\"url(#ps-maximize-2)\"/><line x1=\"28\" y1=\"36\" x2=\"16\" y2=\"48\" stroke=\"#BDE0EA\" stroke-width=\"5\" stroke-linecap=\"round\" filter=\"url(#ps-maximize-2)\"/><line x1=\"28\" y1=\"36\" x2=\"16\" y2=\"48\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><path d=\"M27 51 H13 V37\" stroke=\"#D7CBEB\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-maximize-2)\"/><polygon points=\"11,53 23,53 11,41\" fill=\"#F5B8BE\" filter=\"url(#ps-maximize-2)\"/><circle cx=\"32\" cy=\"32\" r=\"5\" fill=\"#FAF6ED\" filter=\"url(#ps-maximize-2)\"/><circle cx=\"32\" cy=\"32\" r=\"2.5\" fill=\"#F7BA9E\" filter=\"url(#ps-maximize-2)\"/><circle cx=\"32\" cy=\"32\" r=\"1.2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "minimize-2",
+    "nameKo": "코너 축소 (창 복구)",
+    "nameEn": "Minimize 2 Corners Inward",
+    "category": "ui",
+    "tags": [
+      "minimize",
+      "shrink",
+      "contract",
+      "reduce",
+      "arrows",
+      "corners",
+      "wedges"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-minimize-2\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"50\" y1=\"14\" x2=\"38\" y2=\"26\" stroke=\"#D7CBEB\" stroke-width=\"4.5\" stroke-linecap=\"round\" filter=\"url(#ps-minimize-2)\"/><path d=\"M53 25 H39 V11\" stroke=\"#F5B8BE\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-minimize-2)\"/><path d=\"M51 22 H42 V13\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2\"/><polygon points=\"37,27 49,27 37,15\" fill=\"#FEE396\" filter=\"url(#ps-minimize-2)\"/><line x1=\"14\" y1=\"50\" x2=\"26\" y2=\"38\" stroke=\"#BDE0EA\" stroke-width=\"4.5\" stroke-linecap=\"round\" filter=\"url(#ps-minimize-2)\"/><path d=\"M11 39 H25 V53\" stroke=\"#A3D8C3\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-minimize-2)\"/><path d=\"M13 42 H22 V51\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\" stroke-dasharray=\"2 2\"/><polygon points=\"27,37 15,37 27,49\" fill=\"#BBD5B8\" filter=\"url(#ps-minimize-2)\"/><circle cx=\"32\" cy=\"32\" r=\"5\" fill=\"#FAF6ED\" filter=\"url(#ps-minimize-2)\"/><circle cx=\"32\" cy=\"32\" r=\"2.5\" fill=\"#F7BA9E\" filter=\"url(#ps-minimize-2)\"/><circle cx=\"32\" cy=\"32\" r=\"1.2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "move",
+    "nameKo": "4방향 십자 이동 화살표",
+    "nameEn": "Move 4-Way Cross Arrows",
+    "category": "ui",
+    "tags": [
+      "move",
+      "drag",
+      "pan",
+      "arrows",
+      "4-way",
+      "direction",
+      "cross"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-move\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"29\" y=\"14\" width=\"6\" height=\"36\" rx=\"3\" fill=\"#D7CBEB\" filter=\"url(#ps-move)\"/><rect x=\"14\" y=\"29\" width=\"36\" height=\"6\" rx=\"3\" fill=\"#BDE0EA\" filter=\"url(#ps-move)\"/><polygon points=\"32,7 23,17 41,17\" fill=\"#FEE396\" filter=\"url(#ps-move)\"/><polygon points=\"32,7 32,17 41,17\" fill=\"#F7BA9E\"/><polygon points=\"32,57 23,47 41,47\" fill=\"#A3D8C3\" filter=\"url(#ps-move)\"/><polygon points=\"32,57 32,47 23,47\" fill=\"#BBD5B8\"/><polygon points=\"7,32 17,23 17,41\" fill=\"#F5B8BE\" filter=\"url(#ps-move)\"/><polygon points=\"7,32 17,32 17,41\" fill=\"#F7BA9E\"/><polygon points=\"57,32 47,23 47,41\" fill=\"#A3D8C3\" filter=\"url(#ps-move)\"/><polygon points=\"57,32 47,32 47,23\" fill=\"#FEE396\"/><circle cx=\"32\" cy=\"32\" r=\"8\" fill=\"#FFFDF9\" filter=\"url(#ps-move)\"/><circle cx=\"32\" cy=\"32\" r=\"5\" fill=\"#D7CBEB\" filter=\"url(#ps-move)\"/><circle cx=\"32\" cy=\"32\" r=\"2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "layers-isometric",
+    "nameKo": "입체 3단 종이 레이어",
+    "nameEn": "Layers 3 Staggered Sheets",
+    "category": "ui",
+    "tags": [
+      "layers",
+      "stack",
+      "sheets",
+      "levels",
+      "design",
+      "isometric",
+      "paper"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-layers-isometric\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"32,38 56,48 32,58 8,48\" fill=\"#D7CBEB\" filter=\"url(#ps-layers-isometric)\"/><polygon points=\"32,41 53,48 32,55 11,48\" fill=\"#FAF6ED\" opacity=\"0.6\"/><polygon points=\"32,24 56,34 32,44 8,34\" fill=\"#A3D8C3\" filter=\"url(#ps-layers-isometric)\"/><polygon points=\"32,27 52,34 32,41 12,34\" fill=\"#FAF6ED\" opacity=\"0.6\"/><polygon points=\"32,10 56,20 32,30 8,20\" fill=\"#FEE396\" filter=\"url(#ps-layers-isometric)\"/><polygon points=\"32,13 52,20 32,27 12,20\" fill=\"#FFFDF9\" filter=\"url(#ps-layers-isometric)\"/><polygon points=\"50,17.5 56,20 48,23.3 45,20\" fill=\"#F7BA9E\" filter=\"url(#ps-layers-isometric)\"/><circle cx=\"32\" cy=\"20\" r=\"2.2\" fill=\"#F5B8BE\"/></svg>"
+  },
+  {
+    "id": "copy",
+    "nameKo": "종이 카드 겹침 복사",
+    "nameEn": "Copy Overlapping Cards",
+    "category": "ui",
+    "tags": [
+      "copy",
+      "duplicate",
+      "cards",
+      "sheets",
+      "clone",
+      "files",
+      "paper"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-copy\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"22\" y=\"10\" width=\"30\" height=\"36\" rx=\"4\" fill=\"#D7CBEB\" filter=\"url(#ps-copy)\"/><path d=\"M44 10 H52 V18 Z\" fill=\"#FEE396\" filter=\"url(#ps-copy)\"/><line x1=\"28\" y1=\"20\" x2=\"42\" y2=\"20\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"28\" y1=\"26\" x2=\"40\" y2=\"26\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\"/><rect x=\"12\" y=\"18\" width=\"30\" height=\"36\" rx=\"4\" fill=\"#FAF6ED\" filter=\"url(#ps-copy)\"/><path d=\"M12 22 C12 19.8 13.8 18 16 18 H38 C40.2 18 42 19.8 42 22 V27 H12 Z\" fill=\"#A3D8C3\"/><polygon points=\"34,54 42,46 34,46\" fill=\"#F7BA9E\" filter=\"url(#ps-copy)\"/><line x1=\"18\" y1=\"33\" x2=\"34\" y2=\"33\" stroke=\"#F5B8BE\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><line x1=\"18\" y1=\"39\" x2=\"36\" y2=\"39\" stroke=\"#BDE0EA\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><line x1=\"18\" y1=\"45\" x2=\"28\" y2=\"45\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><circle cx=\"36\" cy=\"22.5\" r=\"1.5\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "clipboard-copy",
+    "nameKo": "클립보드와 복제된 시트",
+    "nameEn": "Clipboard with Floating Cloned Sheet",
+    "category": "ui",
+    "tags": [
+      "clipboard",
+      "copy",
+      "clone",
+      "paste",
+      "duplicate",
+      "notes",
+      "paper"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-clipboard-copy\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"14\" y=\"14\" width=\"30\" height=\"42\" rx=\"4\" fill=\"#F7BA9E\" filter=\"url(#ps-clipboard-copy)\"/><rect x=\"21\" y=\"9\" width=\"16\" height=\"8\" rx=\"2.5\" fill=\"#D7CBEB\" filter=\"url(#ps-clipboard-copy)\"/><rect x=\"25\" y=\"7\" width=\"8\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\"/><rect x=\"18\" y=\"20\" width=\"22\" height=\"32\" rx=\"2\" fill=\"#FAF6ED\" filter=\"url(#ps-clipboard-copy)\"/><line x1=\"22\" y1=\"28\" x2=\"35\" y2=\"28\" stroke=\"#D7CBEB\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"22\" y1=\"34\" x2=\"33\" y2=\"34\" stroke=\"#D7CBEB\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"22\" y1=\"40\" x2=\"29\" y2=\"40\" stroke=\"#D7CBEB\" stroke-width=\"2\" stroke-linecap=\"round\"/><g transform=\"rotate(10 38 34)\"><rect x=\"26\" y=\"20\" width=\"22\" height=\"30\" rx=\"2\" fill=\"#A3D8C3\" filter=\"url(#ps-clipboard-copy)\"/><rect x=\"29\" y=\"23\" width=\"16\" height=\"24\" rx=\"1\" fill=\"#FFFDF9\"/><line x1=\"32\" y1=\"28\" x2=\"42\" y2=\"28\" stroke=\"#FEE396\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"32\" y1=\"34\" x2=\"40\" y2=\"34\" stroke=\"#FEE396\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"32\" y1=\"40\" x2=\"37\" y2=\"40\" stroke=\"#F5B8BE\" stroke-width=\"2\" stroke-linecap=\"round\"/></g></svg>"
+  },
+  {
+    "id": "clipboard-list",
+    "nameKo": "줄노트 클립보드 목록",
+    "nameEn": "Clipboard with Ruled Line Rows",
+    "category": "ui",
+    "tags": [
+      "clipboard",
+      "list",
+      "todo",
+      "checklist",
+      "tasks",
+      "notes",
+      "paper"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-clipboard-list\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"12\" y=\"12\" width=\"40\" height=\"46\" rx=\"5\" fill=\"#D7CBEB\" filter=\"url(#ps-clipboard-list)\"/><rect x=\"16\" y=\"18\" width=\"32\" height=\"36\" rx=\"3\" fill=\"#FAF6ED\" filter=\"url(#ps-clipboard-list)\"/><rect x=\"22\" y=\"8\" width=\"20\" height=\"9\" rx=\"3\" fill=\"#FEE396\" filter=\"url(#ps-clipboard-list)\"/><path d=\"M28 8 V7 C28 5.9 28.9 5 30 5 H34 C35.1 5 36 5.9 36 7 V8\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"32\" cy=\"12.5\" r=\"1.8\" fill=\"#F7BA9E\"/><rect x=\"20\" y=\"24\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#A3D8C3\"/><line x1=\"27\" y1=\"26\" x2=\"42\" y2=\"26\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\"/><rect x=\"20\" y=\"32\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#F5B8BE\"/><line x1=\"27\" y1=\"34\" x2=\"40\" y2=\"34\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\"/><rect x=\"20\" y=\"40\" width=\"4\" height=\"4\" rx=\"1\" fill=\"#BDE0EA\"/><line x1=\"27\" y1=\"42\" x2=\"36\" y2=\"42\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\"/></svg>"
+  },
+  {
+    "id": "download-arrow",
+    "nameKo": "다운로드 트레이 화살표",
+    "nameEn": "Download Chevron with Inset Tray",
+    "category": "ui",
+    "tags": [
+      "download",
+      "save",
+      "arrow",
+      "tray",
+      "receive",
+      "file",
+      "down"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-download-arrow\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M12 40 V48 C12 51.3 14.7 54 18 54 H46 C49.3 54 52 51.3 52 48 V40\" stroke=\"#BDE0EA\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-download-arrow)\"/><path d=\"M15 48 H49\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"16\" cy=\"42\" r=\"2.2\" fill=\"#D7CBEB\" filter=\"url(#ps-download-arrow)\"/><circle cx=\"48\" cy=\"42\" r=\"2.2\" fill=\"#D7CBEB\" filter=\"url(#ps-download-arrow)\"/><rect x=\"28\" y=\"10\" width=\"8\" height=\"22\" rx=\"3\" fill=\"#FAF6ED\" filter=\"url(#ps-download-arrow)\"/><line x1=\"32\" y1=\"13\" x2=\"32\" y2=\"28\" stroke=\"#F7BA9E\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 2.5\"/><polygon points=\"32,44 16,26 48,26\" fill=\"#FEE396\" filter=\"url(#ps-download-arrow)\"/><polygon points=\"32,44 32,26 48,26\" fill=\"#F7BA9E\"/><polygon points=\"32,44 24,30 40,30\" fill=\"#F5B8BE\"/></svg>"
+  },
+  {
+    "id": "upload-arrow",
+    "nameKo": "업로드 배출 트레이 화살표",
+    "nameEn": "Upload Chevron with Eject Tray",
+    "category": "ui",
+    "tags": [
+      "upload",
+      "export",
+      "arrow",
+      "send",
+      "tray",
+      "file",
+      "up"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-upload-arrow\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M12 44 V50 C12 52.2 13.8 54 16 54 H48 C50.2 54 52 52.2 52 50 V44\" stroke=\"#D7CBEB\" stroke-width=\"6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-upload-arrow)\"/><line x1=\"16\" y1=\"50\" x2=\"48\" y2=\"50\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"20\" cy=\"38\" r=\"1.8\" fill=\"#FEE396\" filter=\"url(#ps-upload-arrow)\"/><circle cx=\"44\" cy=\"38\" r=\"1.8\" fill=\"#FEE396\" filter=\"url(#ps-upload-arrow)\"/><rect x=\"28\" y=\"24\" width=\"8\" height=\"22\" rx=\"3\" fill=\"#A3D8C3\" filter=\"url(#ps-upload-arrow)\"/><line x1=\"32\" y1=\"28\" x2=\"32\" y2=\"42\" stroke=\"#FFFDF9\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 2.5\"/><polygon points=\"32,8 16,26 48,26\" fill=\"#FEE396\" filter=\"url(#ps-upload-arrow)\"/><polygon points=\"32,8 32,26 48,26\" fill=\"#F7BA9E\"/><polygon points=\"32,8 24,22 40,22\" fill=\"#F5B8BE\"/></svg>"
+  },
+  {
+    "id": "cloud-download",
+    "nameKo": "구름 저장소 다운로드",
+    "nameEn": "Cloud with Downward Moving Arrow",
+    "category": "ui",
+    "tags": [
+      "cloud",
+      "download",
+      "storage",
+      "cloud-storage",
+      "sync",
+      "save",
+      "weather"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-cloud-download\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M18 42 C13.6 42 10 38.4 10 34 C10 30.1 12.8 26.8 16.6 26.1 C17.8 19.8 23.3 15 30 15 C37.8 15 44.2 21.1 44.9 28.8 C48.9 29.5 52 33 52 37.2 C52 41.9 48.2 45.7 43.5 45.7 H38\" fill=\"#BDE0EA\" filter=\"url(#ps-cloud-download)\"/><path d=\"M16 40 C13 40 10.5 37.5 10.5 34.5 C10.5 31.8 12.4 29.5 15.1 29 C16.2 23.5 21 19.5 26.8 19.5 C33.5 19.5 39 24.7 39.6 31.3 C43 31.9 45.5 34.8 45.5 38.4 C45.5 42.4 42.2 45.7 38.2 45.7\" fill=\"#FAF6ED\" filter=\"url(#ps-cloud-download)\"/><path d=\"M22 22 C24.5 20.5 27.5 20 30.5 20.5\" stroke=\"#D7CBEB\" stroke-width=\"2\" stroke-linecap=\"round\"/><rect x=\"28\" y=\"27\" width=\"8\" height=\"18\" rx=\"2.5\" fill=\"#F7BA9E\" filter=\"url(#ps-cloud-download)\"/><line x1=\"32\" y1=\"30\" x2=\"32\" y2=\"42\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><polygon points=\"32,56 20,40 44,40\" fill=\"#FEE396\" filter=\"url(#ps-cloud-download)\"/><polygon points=\"32,56 32,40 44,40\" fill=\"#F5B8BE\"/></svg>"
+  },
+  {
+    "id": "cloud-upload",
+    "nameKo": "구름 저장소 업로드",
+    "nameEn": "Cloud with Upward Moving Arrow",
+    "category": "ui",
+    "tags": [
+      "cloud",
+      "upload",
+      "storage",
+      "cloud-storage",
+      "backup",
+      "sync",
+      "weather"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-cloud-upload\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M18 45 C13.6 45 10 41.4 10 37 C10 33.1 12.8 29.8 16.6 29.1 C17.8 22.8 23.3 18 30 18 C37.8 18 44.2 24.1 44.9 31.8 C48.9 32.5 52 36 52 40.2 C52 44.9 48.2 48.7 43.5 48.7 H38\" fill=\"#D7CBEB\" filter=\"url(#ps-cloud-upload)\"/><path d=\"M16 43 C13 43 10.5 40.5 10.5 37.5 C10.5 34.8 12.4 32.5 15.1 32 C16.2 26.5 21 22.5 26.8 22.5 C33.5 22.5 39 27.7 39.6 34.3 C43 34.9 45.5 37.8 45.5 41.4 C45.5 45.4 42.2 48.7 38.2 48.7\" fill=\"#FAF6ED\" filter=\"url(#ps-cloud-upload)\"/><path d=\"M22 25 C24.5 23.5 27.5 23 30.5 23.5\" stroke=\"#BDE0EA\" stroke-width=\"2\" stroke-linecap=\"round\"/><rect x=\"28\" y=\"24\" width=\"8\" height=\"24\" rx=\"2.5\" fill=\"#A3D8C3\" filter=\"url(#ps-cloud-upload)\"/><line x1=\"32\" y1=\"27\" x2=\"32\" y2=\"44\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"2 2.5\"/><polygon points=\"32,8 20,24 44,24\" fill=\"#FEE396\" filter=\"url(#ps-cloud-upload)\"/><polygon points=\"32,8 32,24 44,24\" fill=\"#F7BA9E\"/></svg>"
+  },
+  {
+    "id": "sliders",
+    "nameKo": "눈금자 듀얼 슬라이더",
+    "nameEn": "Dual Vertical Rulers with Folded Knobs",
+    "category": "ui",
+    "tags": [
+      "sliders",
+      "settings",
+      "controls",
+      "levels",
+      "adjust",
+      "filter",
+      "equalizer"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-sliders\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"20\" y=\"10\" width=\"6\" height=\"44\" rx=\"3\" fill=\"#D7CBEB\" filter=\"url(#ps-sliders)\"/><line x1=\"16\" y1=\"16\" x2=\"19\" y2=\"16\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"16\" y1=\"24\" x2=\"19\" y2=\"24\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"16\" y1=\"32\" x2=\"19\" y2=\"32\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"16\" y1=\"40\" x2=\"19\" y2=\"40\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"16\" y1=\"48\" x2=\"19\" y2=\"48\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><rect x=\"15\" y=\"17\" width=\"16\" height=\"12\" rx=\"3\" fill=\"#A3D8C3\" filter=\"url(#ps-sliders)\"/><rect x=\"18\" y=\"21\" width=\"10\" height=\"4\" rx=\"1.5\" fill=\"#FAF6ED\"/><line x1=\"23\" y1=\"19\" x2=\"23\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><rect x=\"38\" y=\"10\" width=\"6\" height=\"44\" rx=\"3\" fill=\"#BBD5B8\" filter=\"url(#ps-sliders)\"/><line x1=\"45\" y1=\"16\" x2=\"48\" y2=\"16\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"45\" y1=\"24\" x2=\"48\" y2=\"24\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"45\" y1=\"32\" x2=\"48\" y2=\"32\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"45\" y1=\"40\" x2=\"48\" y2=\"40\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"45\" y1=\"48\" x2=\"48\" y2=\"48\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><rect x=\"33\" y=\"33\" width=\"16\" height=\"12\" rx=\"3\" fill=\"#FEE396\" filter=\"url(#ps-sliders)\"/><rect x=\"36\" y=\"37\" width=\"10\" height=\"4\" rx=\"1.5\" fill=\"#F7BA9E\"/><line x1=\"41\" y1=\"35\" x2=\"41\" y2=\"43\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg>"
+  },
+  {
+    "id": "toggle-left",
+    "nameKo": "캡슐 토글 스위치 (왼쪽 꺼짐)",
+    "nameEn": "Pill Switch with Left Circular Disc",
+    "category": "ui",
+    "tags": [
+      "toggle",
+      "switch",
+      "left",
+      "off",
+      "controls",
+      "inactive",
+      "pill"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-toggle-left\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"18\" width=\"48\" height=\"28\" rx=\"14\" fill=\"#FAF6ED\" stroke=\"#D7CBEB\" stroke-width=\"3\" filter=\"url(#ps-toggle-left)\"/><rect x=\"13\" y=\"23\" width=\"38\" height=\"18\" rx=\"9\" fill=\"#E8E2D5\" opacity=\"0.4\"/><rect x=\"11\" y=\"21\" width=\"42\" height=\"22\" rx=\"11\" stroke=\"#FAF6ED\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"42\" cy=\"32\" r=\"3\" fill=\"#D7CBEB\"/><circle cx=\"22\" cy=\"32\" r=\"11\" fill=\"#FFFDF9\" filter=\"url(#ps-toggle-left)\"/><circle cx=\"22\" cy=\"32\" r=\"8\" fill=\"#F7BA9E\" filter=\"url(#ps-toggle-left)\"/><circle cx=\"22\" cy=\"32\" r=\"4.5\" fill=\"#FAF6ED\"/><circle cx=\"22\" cy=\"32\" r=\"2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "toggle-right",
+    "nameKo": "캡슐 토글 스위치 (오른쪽 켜짐)",
+    "nameEn": "Pill Switch with Right Circular Active Disc",
+    "category": "ui",
+    "tags": [
+      "toggle",
+      "switch",
+      "right",
+      "on",
+      "controls",
+      "active",
+      "pill"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-toggle-right\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"18\" width=\"48\" height=\"28\" rx=\"14\" fill=\"#A3D8C3\" filter=\"url(#ps-toggle-right)\"/><rect x=\"12\" y=\"22\" width=\"40\" height=\"20\" rx=\"10\" fill=\"#BDE0EA\" opacity=\"0.5\"/><rect x=\"11\" y=\"21\" width=\"42\" height=\"22\" rx=\"11\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"20\" cy=\"32\" r=\"3.5\" fill=\"#FFFDF9\"/><circle cx=\"20\" cy=\"32\" r=\"1.5\" fill=\"#A3D8C3\"/><circle cx=\"42\" cy=\"32\" r=\"11\" fill=\"#FFFDF9\" filter=\"url(#ps-toggle-right)\"/><circle cx=\"42\" cy=\"32\" r=\"8\" fill=\"#FEE396\" filter=\"url(#ps-toggle-right)\"/><circle cx=\"42\" cy=\"32\" r=\"4.5\" fill=\"#F7BA9E\"/><circle cx=\"42\" cy=\"32\" r=\"2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "plus-circle",
+    "nameKo": "파스텔 원형 플러스 버튼",
+    "nameEn": "Round Disc with Raised Cutout Plus",
+    "category": "ui",
+    "tags": [
+      "plus",
+      "add",
+      "circle",
+      "button",
+      "new",
+      "create",
+      "badge"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-plus-circle\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><circle cx=\"32\" cy=\"32\" r=\"22\" fill=\"#A3D8C3\" filter=\"url(#ps-plus-circle)\"/><circle cx=\"32\" cy=\"32\" r=\"17\" fill=\"#FAF6ED\" filter=\"url(#ps-plus-circle)\"/><circle cx=\"32\" cy=\"32\" r=\"19.5\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-dasharray=\"2.5 3\" fill=\"none\"/><rect x=\"22\" y=\"28.5\" width=\"20\" height=\"7\" rx=\"3.5\" fill=\"#FEE396\" filter=\"url(#ps-plus-circle)\"/><rect x=\"28.5\" y=\"22\" width=\"7\" height=\"20\" rx=\"3.5\" fill=\"#F7BA9E\" filter=\"url(#ps-plus-circle)\"/><rect x=\"28.5\" y=\"28.5\" width=\"7\" height=\"7\" rx=\"1.5\" fill=\"#F5B8BE\"/><circle cx=\"32\" cy=\"32\" r=\"1.5\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "minus-circle",
+    "nameKo": "파스텔 원형 마이너스 버튼",
+    "nameEn": "Round Disc with Raised Cutout Minus",
+    "category": "ui",
+    "tags": [
+      "minus",
+      "remove",
+      "circle",
+      "button",
+      "delete",
+      "reduce",
+      "badge"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-minus-circle\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><circle cx=\"32\" cy=\"32\" r=\"22\" fill=\"#F5B8BE\" filter=\"url(#ps-minus-circle)\"/><circle cx=\"32\" cy=\"32\" r=\"17\" fill=\"#FAF6ED\" filter=\"url(#ps-minus-circle)\"/><circle cx=\"32\" cy=\"32\" r=\"19.5\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-dasharray=\"2.5 3\" fill=\"none\"/><rect x=\"20\" y=\"28.5\" width=\"24\" height=\"7\" rx=\"3.5\" fill=\"#D7CBEB\" filter=\"url(#ps-minus-circle)\"/><rect x=\"22\" y=\"29.5\" width=\"20\" height=\"3\" rx=\"1.5\" fill=\"#BDE0EA\"/><circle cx=\"24\" cy=\"32\" r=\"1.3\" fill=\"#3D352E\"/><circle cx=\"40\" cy=\"32\" r=\"1.3\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "loader",
+    "nameKo": "바람개비 스파이럴 터빈 로더",
+    "nameEn": "Pinwheel Spiral Paper Turbine",
+    "category": "ui",
+    "tags": [
+      "loader",
+      "spinner",
+      "loading",
+      "progress",
+      "pinwheel",
+      "turbine",
+      "origami"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-loader\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g transform=\"rotate(0 32 32)\"><path d=\"M32 32 L32 10 C36 10 41 13 41 19 L32 32 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-loader)\"/><path d=\"M32 32 L32 10 L37 13 Z\" fill=\"#FFFDF9\" opacity=\"0.5\"/></g><g transform=\"rotate(60 32 32)\"><path d=\"M32 32 L32 10 C36 10 41 13 41 19 L32 32 Z\" fill=\"#FEE396\" filter=\"url(#ps-loader)\"/><path d=\"M32 32 L32 10 L37 13 Z\" fill=\"#FFFDF9\" opacity=\"0.5\"/></g><g transform=\"rotate(120 32 32)\"><path d=\"M32 32 L32 10 C36 10 41 13 41 19 L32 32 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-loader)\"/><path d=\"M32 32 L32 10 L37 13 Z\" fill=\"#FFFDF9\" opacity=\"0.5\"/></g><g transform=\"rotate(180 32 32)\"><path d=\"M32 32 L32 10 C36 10 41 13 41 19 L32 32 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-loader)\"/><path d=\"M32 32 L32 10 L37 13 Z\" fill=\"#FFFDF9\" opacity=\"0.5\"/></g><g transform=\"rotate(240 32 32)\"><path d=\"M32 32 L32 10 C36 10 41 13 41 19 L32 32 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-loader)\"/><path d=\"M32 32 L32 10 L37 13 Z\" fill=\"#FFFDF9\" opacity=\"0.5\"/></g><g transform=\"rotate(300 32 32)\"><path d=\"M32 32 L32 10 C36 10 41 13 41 19 L32 32 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-loader)\"/><path d=\"M32 32 L32 10 L37 13 Z\" fill=\"#FFFDF9\" opacity=\"0.5\"/></g><circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#FAF6ED\" filter=\"url(#ps-loader)\"/><circle cx=\"32\" cy=\"32\" r=\"4.5\" fill=\"#FEE396\" filter=\"url(#ps-loader)\"/><circle cx=\"32\" cy=\"32\" r=\"2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "activity",
+    "nameKo": "심박 EKG 펄스 리본 라인",
+    "nameEn": "Heartbeat EKG Pulse Line with Paper Node",
+    "category": "ui",
+    "tags": [
+      "activity",
+      "pulse",
+      "heartbeat",
+      "ekg",
+      "monitor",
+      "vital",
+      "health"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-activity\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M8 34 H20 L25 44 L32 14 L39 50 L45 30 L49 34 H56\" stroke=\"#D7CBEB\" stroke-width=\"7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-activity)\"/><path d=\"M8 34 H20 L25 44 L32 14 L39 50 L45 30 L49 34 H56\" stroke=\"#F5B8BE\" stroke-width=\"4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-activity)\"/><path d=\"M9 34 H19 L25 43 L32 16 L39 48 L45 31 L48 34 H55\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" stroke-dasharray=\"2 2\"/><circle cx=\"32\" cy=\"14\" r=\"6\" fill=\"#FEE396\" filter=\"url(#ps-activity)\"/><circle cx=\"32\" cy=\"14\" r=\"3.5\" fill=\"#F7BA9E\"/><circle cx=\"32\" cy=\"14\" r=\"1.5\" fill=\"#3D352E\"/><circle cx=\"45\" cy=\"30\" r=\"3.5\" fill=\"#A3D8C3\" filter=\"url(#ps-activity)\"/><circle cx=\"45\" cy=\"30\" r=\"1.5\" fill=\"#FAF6ED\"/></svg>"
+  },
+  {
+    "id": "thumbs-up",
+    "nameKo": "오리가미 손 엄지 척 (좋아요)",
+    "nameEn": "Origami Hand with Raised Thumb",
+    "category": "ui",
+    "tags": [
+      "thumbs-up",
+      "like",
+      "approve",
+      "hand",
+      "positive",
+      "origami",
+      "social"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-thumbs-up\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M19 48 V34 C19 31 21 28 24 28 L27 28 C28.5 28 29.5 26.5 30.5 24.5 L34 16 C35.5 13 38.5 11 41.5 12.5 C44 13.8 45 16.5 44 19.5 L41.5 28 H50 C53 28 55.5 30.5 55 33.5 L53 45 C52.5 48 49.5 50 46.5 50 H24 C21 50 19 49 19 48 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-thumbs-up)\"/><path d=\"M29 27 L33 17 C34 14 36.5 13 38.5 14 C40.5 15 41 17 40.5 19 L38 27 Z\" fill=\"#FEE396\" filter=\"url(#ps-thumbs-up)\"/><rect x=\"34\" y=\"28\" width=\"18\" height=\"5.5\" rx=\"2.7\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-up)\"/><rect x=\"33\" y=\"34\" width=\"19\" height=\"5.5\" rx=\"2.7\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-up)\"/><rect x=\"32\" y=\"40\" width=\"18\" height=\"5.5\" rx=\"2.7\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-up)\"/><rect x=\"31\" y=\"46\" width=\"16\" height=\"4.5\" rx=\"2.2\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-up)\"/><line x1=\"38\" y1=\"33.5\" x2=\"48\" y2=\"33.5\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"37\" y1=\"39.5\" x2=\"47\" y2=\"39.5\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"36\" y1=\"45.5\" x2=\"45\" y2=\"45.5\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/><rect x=\"10\" y=\"32\" width=\"10\" height=\"19\" rx=\"3\" fill=\"#A3D8C3\" filter=\"url(#ps-thumbs-up)\"/><line x1=\"15\" y1=\"35\" x2=\"15\" y2=\"48\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><circle cx=\"15\" cy=\"41.5\" r=\"1.8\" fill=\"#FEE396\"/></svg>"
+  },
+  {
+    "id": "thumbs-down",
+    "nameKo": "오리가미 손 엄지 아래 (싫어요)",
+    "nameEn": "Origami Hand with Downward Thumb",
+    "category": "ui",
+    "tags": [
+      "thumbs-down",
+      "dislike",
+      "disapprove",
+      "hand",
+      "negative",
+      "origami",
+      "social"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-thumbs-down\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M19 16 V30 C19 33 21 36 24 36 L27 36 C28.5 36 29.5 37.5 30.5 39.5 L34 48 C35.5 51 38.5 53 41.5 51.5 C44 50.2 45 47.5 44 44.5 L41.5 36 H50 C53 36 55.5 33.5 55 30.5 L53 19 C52.5 16 49.5 14 46.5 14 H24 C21 14 19 15 19 16 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-thumbs-down)\"/><path d=\"M29 37 L33 47 C34 50 36.5 51 38.5 50 C40.5 49 41 47 40.5 45 L38 37 Z\" fill=\"#FEE396\" filter=\"url(#ps-thumbs-down)\"/><rect x=\"34\" y=\"30.5\" width=\"18\" height=\"5.5\" rx=\"2.7\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-down)\"/><rect x=\"33\" y=\"24.5\" width=\"19\" height=\"5.5\" rx=\"2.7\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-down)\"/><rect x=\"32\" y=\"18.5\" width=\"18\" height=\"5.5\" rx=\"2.7\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-down)\"/><rect x=\"31\" y=\"13.5\" width=\"16\" height=\"4.5\" rx=\"2.2\" fill=\"#FAF6ED\" filter=\"url(#ps-thumbs-down)\"/><line x1=\"38\" y1=\"30.5\" x2=\"48\" y2=\"30.5\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"37\" y1=\"24.5\" x2=\"47\" y2=\"24.5\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/><line x1=\"36\" y1=\"18.5\" x2=\"45\" y2=\"18.5\" stroke=\"#3D352E\" stroke-width=\"1\" stroke-linecap=\"round\"/><rect x=\"10\" y=\"13\" width=\"10\" height=\"19\" rx=\"3\" fill=\"#D7CBEB\" filter=\"url(#ps-thumbs-down)\"/><line x1=\"15\" y1=\"16\" x2=\"15\" y2=\"29\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><circle cx=\"15\" cy=\"22.5\" r=\"1.8\" fill=\"#BDE0EA\"/></svg>"
+  },
+  {
+    "id": "heart-handshake",
+    "nameKo": "하트 오리가미 악수",
+    "nameEn": "Interlocking Paper Hands forming Heart Outline",
+    "category": "ui",
+    "tags": [
+      "heart",
+      "handshake",
+      "partnership",
+      "trust",
+      "love",
+      "community",
+      "hands",
+      "origami"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-heart-handshake\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M32 54 C32 54 12 41 12 25 C12 17 17.5 12 24.5 12 C28.5 12 31 14 32 16 C33 14 35.5 12 39.5 12 C46.5 12 52 17 52 25 C52 41 32 54 32 54 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-heart-handshake)\"/><path d=\"M32 50 C32 50 15 39 15 25 C15 19 19 15 24.5 15 C28 15 30.5 17 32 19 C33.5 17 36 15 39.5 15 C45 15 49 19 49 25 C49 39 32 50 32 50 Z\" fill=\"#FAF6ED\" filter=\"url(#ps-heart-handshake)\"/><path d=\"M14 28 L22 23 L28 32 L20 38 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-heart-handshake)\"/><line x1=\"16\" y1=\"30\" x2=\"20\" y2=\"25\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><path d=\"M22 25 C25 24 28 24 30 27 L33 30 C34 31 34 33 33 34 L29 38 L24 32 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-heart-handshake)\"/><path d=\"M50 28 L42 23 L36 32 L44 38 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-heart-handshake)\"/><line x1=\"48\" y1=\"30\" x2=\"44\" y2=\"25\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><path d=\"M38 28 L32 34 L34 37 L41 31 Z\" fill=\"#FEE396\" filter=\"url(#ps-heart-handshake)\"/><rect x=\"29\" y=\"32\" width=\"7\" height=\"3\" rx=\"1.5\" transform=\"rotate(-25 29 32)\" fill=\"#FFFDF9\"/><rect x=\"27\" y=\"35\" width=\"7\" height=\"3\" rx=\"1.5\" transform=\"rotate(-25 27 35)\" fill=\"#FFFDF9\"/><polygon points=\"32,20 33.5,23.5 37,25 33.5,26.5 32,30 30.5,26.5 27,25 30.5,23.5\" fill=\"#FEE396\" filter=\"url(#ps-heart-handshake)\"/></svg>"
+  },
+  {
+    "id": "code",
+    "nameKo": "코드 브래킷",
+    "nameEn": "Code Brackets",
+    "category": "tech",
+    "tags": [
+      "code",
+      "developer",
+      "brackets",
+      "slash",
+      "programming",
+      "syntax"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-code\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"38\" y1=\"11\" x2=\"26\" y2=\"53\" stroke=\"#D7CBEB\" stroke-width=\"6.5\" stroke-linecap=\"round\" filter=\"url(#ps-code)\"/><line x1=\"38\" y1=\"11\" x2=\"26\" y2=\"53\" stroke=\"#FFFDF9\" stroke-width=\"2.2\" stroke-linecap=\"round\"/><path d=\"M22 17 L10 32 L22 47\" stroke=\"#A3D8C3\" stroke-width=\"5.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" filter=\"url(#ps-code)\"/><path d=\"M22 17 L10 32 L22 47\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M42 17 L54 32 L42 47\" stroke=\"#F7BA9E\" stroke-width=\"5.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" filter=\"url(#ps-code)\"/><path d=\"M42 17 L54 32 L42 47\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"16\" cy=\"32\" r=\"2.2\" fill=\"#FEE396\" filter=\"url(#ps-code)\"/><circle cx=\"48\" cy=\"32\" r=\"2.2\" fill=\"#FEE396\" filter=\"url(#ps-code)\"/><circle cx=\"32\" cy=\"32\" r=\"2.5\" fill=\"#F5B8BE\" filter=\"url(#ps-code)\"/></svg>"
+  },
+  {
+    "id": "terminal-console",
+    "nameKo": "터미널 콘솔",
+    "nameEn": "Terminal Console",
+    "category": "tech",
+    "tags": [
+      "terminal",
+      "console",
+      "command",
+      "prompt",
+      "shell",
+      "cli"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-terminal-console\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"11\" width=\"48\" height=\"42\" rx=\"7\" fill=\"#BDE0EA\" filter=\"url(#ps-terminal-console)\"/><path d=\"M8 18 C8 14.1 11.1 11 15 11 H49 C52.9 11 56 14.1 56 18 V20 H8 Z\" fill=\"#D7CBEB\"/><circle cx=\"15\" cy=\"15.5\" r=\"2\" fill=\"#F5B8BE\"/><circle cx=\"21\" cy=\"15.5\" r=\"2\" fill=\"#FEE396\"/><circle cx=\"27\" cy=\"15.5\" r=\"2\" fill=\"#A3D8C3\"/><rect x=\"12\" y=\"23\" width=\"40\" height=\"26\" rx=\"4\" fill=\"#3D352E\" filter=\"url(#ps-terminal-console)\"/><path d=\"M17 31 L23 35 L17 39\" stroke=\"#A3D8C3\" stroke-width=\"2.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><rect x=\"26\" y=\"32\" width=\"6\" height=\"4\" rx=\"1\" fill=\"#FEE396\" filter=\"url(#ps-terminal-console)\"/><line x1=\"17\" y1=\"43\" x2=\"33\" y2=\"43\" stroke=\"#FAF6ED\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-dasharray=\"3 2\"/><rect x=\"42\" y=\"14\" width=\"8\" height=\"2\" rx=\"1\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "git-branch",
+    "nameKo": "깃 브랜치",
+    "nameEn": "Git Branch",
+    "category": "tech",
+    "tags": [
+      "git",
+      "branch",
+      "version-control",
+      "fork",
+      "code"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-git-branch\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"18\" y1=\"12\" x2=\"18\" y2=\"52\" stroke=\"#BDE0EA\" stroke-width=\"5\" stroke-linecap=\"round\" filter=\"url(#ps-git-branch)\"/><line x1=\"18\" y1=\"15\" x2=\"18\" y2=\"49\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M18 38 C18 24 46 28 46 16\" stroke=\"#D7CBEB\" stroke-width=\"5\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-git-branch)\"/><path d=\"M18 38 C18 24 46 28 46 16\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"18\" cy=\"46\" r=\"7.5\" fill=\"#A3D8C3\" filter=\"url(#ps-git-branch)\"/><circle cx=\"18\" cy=\"46\" r=\"4.2\" fill=\"#FFFDF9\"/><circle cx=\"18\" cy=\"46\" r=\"2\" fill=\"#3D352E\"/><circle cx=\"18\" cy=\"18\" r=\"7.5\" fill=\"#F7BA9E\" filter=\"url(#ps-git-branch)\"/><circle cx=\"18\" cy=\"18\" r=\"4.2\" fill=\"#FFFDF9\"/><circle cx=\"18\" cy=\"18\" r=\"2\" fill=\"#3D352E\"/><circle cx=\"46\" cy=\"18\" r=\"7.5\" fill=\"#FEE396\" filter=\"url(#ps-git-branch)\"/><circle cx=\"46\" cy=\"18\" r=\"4.2\" fill=\"#F5B8BE\"/><circle cx=\"46\" cy=\"18\" r=\"2\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "git-commit",
+    "nameKo": "깃 커밋 노드",
+    "nameEn": "Git Commit Node",
+    "category": "tech",
+    "tags": [
+      "git",
+      "commit",
+      "node",
+      "version-control",
+      "history"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-git-commit\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"8\" y1=\"32\" x2=\"56\" y2=\"32\" stroke=\"#D7CBEB\" stroke-width=\"5.5\" stroke-linecap=\"round\" filter=\"url(#ps-git-commit)\"/><line x1=\"10\" y1=\"32\" x2=\"54\" y2=\"32\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><circle cx=\"32\" cy=\"32\" r=\"16\" fill=\"#F7BA9E\" filter=\"url(#ps-git-commit)\"/><circle cx=\"32\" cy=\"32\" r=\"12\" fill=\"#FEE396\" filter=\"url(#ps-git-commit)\"/><circle cx=\"32\" cy=\"32\" r=\"8.5\" fill=\"#FFFDF9\" filter=\"url(#ps-git-commit)\"/><circle cx=\"32\" cy=\"32\" r=\"5\" fill=\"#A3D8C3\" filter=\"url(#ps-git-commit)\"/><circle cx=\"32\" cy=\"32\" r=\"2\" fill=\"#3D352E\"/><circle cx=\"12\" cy=\"32\" r=\"2.8\" fill=\"#BDE0EA\" filter=\"url(#ps-git-commit)\"/><circle cx=\"52\" cy=\"32\" r=\"2.8\" fill=\"#F5B8BE\" filter=\"url(#ps-git-commit)\"/></svg>"
+  },
+  {
+    "id": "git-merge",
+    "nameKo": "깃 병합",
+    "nameEn": "Git Merge",
+    "category": "tech",
+    "tags": [
+      "git",
+      "merge",
+      "combine",
+      "version-control",
+      "branch"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-git-merge\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"44\" y1=\"12\" x2=\"44\" y2=\"52\" stroke=\"#BDE0EA\" stroke-width=\"5\" stroke-linecap=\"round\" filter=\"url(#ps-git-merge)\"/><line x1=\"44\" y1=\"15\" x2=\"44\" y2=\"49\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\"/><path d=\"M20 18 C20 36 44 32 44 46\" stroke=\"#A3D8C3\" stroke-width=\"5\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-git-merge)\"/><circle cx=\"20\" cy=\"18\" r=\"7.5\" fill=\"#F7BA9E\" filter=\"url(#ps-git-merge)\"/><circle cx=\"20\" cy=\"18\" r=\"4.2\" fill=\"#FFFDF9\"/><circle cx=\"20\" cy=\"18\" r=\"2\" fill=\"#3D352E\"/><circle cx=\"44\" cy=\"18\" r=\"7.5\" fill=\"#D7CBEB\" filter=\"url(#ps-git-merge)\"/><circle cx=\"44\" cy=\"18\" r=\"4.2\" fill=\"#FEE396\"/><circle cx=\"44\" cy=\"18\" r=\"2\" fill=\"#FFFDF9\"/><circle cx=\"44\" cy=\"46\" r=\"8.5\" fill=\"#F5B8BE\" filter=\"url(#ps-git-merge)\"/><circle cx=\"44\" cy=\"46\" r=\"5\" fill=\"#FEE396\"/><circle cx=\"44\" cy=\"46\" r=\"2.5\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "git-pull-request",
+    "nameKo": "깃 풀 리퀘스트",
+    "nameEn": "Git Pull Request",
+    "category": "tech",
+    "tags": [
+      "git",
+      "pull-request",
+      "pr",
+      "review",
+      "merge",
+      "github"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-git-pull-request\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"20\" y1=\"16\" x2=\"20\" y2=\"48\" stroke=\"#BDE0EA\" stroke-width=\"5\" stroke-linecap=\"round\" filter=\"url(#ps-git-pull-request)\"/><line x1=\"44\" y1=\"28\" x2=\"44\" y2=\"48\" stroke=\"#D7CBEB\" stroke-width=\"5\" stroke-linecap=\"round\" filter=\"url(#ps-git-pull-request)\"/><path d=\"M20 32 C20 16 44 16 44 26\" stroke=\"#A3D8C3\" stroke-width=\"5\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-git-pull-request)\"/><circle cx=\"20\" cy=\"46\" r=\"7.5\" fill=\"#F7BA9E\" filter=\"url(#ps-git-pull-request)\"/><circle cx=\"20\" cy=\"46\" r=\"4.2\" fill=\"#FFFDF9\"/><circle cx=\"20\" cy=\"46\" r=\"2\" fill=\"#3D352E\"/><circle cx=\"20\" cy=\"18\" r=\"7.5\" fill=\"#FEE396\" filter=\"url(#ps-git-pull-request)\"/><circle cx=\"20\" cy=\"18\" r=\"4.2\" fill=\"#FFFDF9\"/><circle cx=\"20\" cy=\"18\" r=\"2\" fill=\"#3D352E\"/><circle cx=\"44\" cy=\"46\" r=\"7.5\" fill=\"#F5B8BE\" filter=\"url(#ps-git-pull-request)\"/><circle cx=\"44\" cy=\"46\" r=\"4.2\" fill=\"#FFFDF9\"/><circle cx=\"44\" cy=\"46\" r=\"2\" fill=\"#3D352E\"/><path d=\"M39 23 L44 28 L49 23\" stroke=\"#A3D8C3\" stroke-width=\"3.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" filter=\"url(#ps-git-pull-request)\"/></svg>"
+  },
+  {
+    "id": "cpu",
+    "nameKo": "중앙 처리 장치",
+    "nameEn": "CPU Chip Package",
+    "category": "tech",
+    "tags": [
+      "cpu",
+      "processor",
+      "chip",
+      "hardware",
+      "silicon",
+      "system"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-cpu\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"24\" y1=\"6\" x2=\"24\" y2=\"16\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"40\" y1=\"6\" x2=\"40\" y2=\"16\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"24\" y1=\"48\" x2=\"24\" y2=\"58\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"40\" y1=\"48\" x2=\"40\" y2=\"58\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"6\" y1=\"24\" x2=\"16\" y2=\"24\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"6\" y1=\"40\" x2=\"16\" y2=\"40\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"48\" y1=\"24\" x2=\"58\" y2=\"24\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><line x1=\"48\" y1=\"40\" x2=\"58\" y2=\"40\" stroke=\"#FEE396\" stroke-width=\"3.5\" stroke-linecap=\"round\"/><rect x=\"14\" y=\"14\" width=\"36\" height=\"36\" rx=\"7\" fill=\"#A3D8C3\" filter=\"url(#ps-cpu)\"/><rect x=\"20\" y=\"20\" width=\"24\" height=\"24\" rx=\"4\" fill=\"#D7CBEB\" filter=\"url(#ps-cpu)\"/><rect x=\"25\" y=\"25\" width=\"14\" height=\"14\" rx=\"2.5\" fill=\"#FFFDF9\" filter=\"url(#ps-cpu)\"/><rect x=\"29\" y=\"29\" width=\"6\" height=\"6\" rx=\"1.5\" fill=\"#F7BA9E\"/><circle cx=\"18\" cy=\"18\" r=\"1.8\" fill=\"#FEE396\"/></svg>"
+  },
+  {
+    "id": "database-stack",
+    "nameKo": "데이터베이스 실린더",
+    "nameEn": "Database Canisters",
+    "category": "tech",
+    "tags": [
+      "database",
+      "db",
+      "storage",
+      "sql",
+      "data",
+      "canister"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-database-stack\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M14 38 C14 43 22 47 32 47 C42 47 50 43 50 38 V46 C50 51 42 55 32 55 C22 55 14 51 14 46 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-database-stack)\"/><circle cx=\"43\" cy=\"48\" r=\"2.2\" fill=\"#FEE396\" filter=\"url(#ps-database-stack)\"/><path d=\"M14 26 C14 31 22 35 32 35 C42 35 50 31 50 26 V34 C50 39 42 43 32 43 C22 43 14 39 14 34 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-database-stack)\"/><circle cx=\"43\" cy=\"36\" r=\"2.2\" fill=\"#F7BA9E\" filter=\"url(#ps-database-stack)\"/><path d=\"M14 14 C14 19 22 23 32 23 C42 23 50 19 50 14 V22 C50 27 42 31 32 31 C22 31 14 27 14 22 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-database-stack)\"/><ellipse cx=\"32\" cy=\"14\" rx=\"18\" ry=\"6.5\" fill=\"#FFFDF9\" filter=\"url(#ps-database-stack)\"/><ellipse cx=\"32\" cy=\"14\" rx=\"12\" ry=\"4\" fill=\"#F7BA9E\"/><circle cx=\"43\" cy=\"24\" r=\"2.2\" fill=\"#A3D8C3\" filter=\"url(#ps-database-stack)\"/></svg>"
+  },
+  {
+    "id": "server-rack",
+    "nameKo": "서버 랙 유닛",
+    "nameEn": "Server Rack Units",
+    "category": "tech",
+    "tags": [
+      "server",
+      "rack",
+      "hosting",
+      "network",
+      "datacenter",
+      "cloud"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-server-rack\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"10\" y=\"38\" width=\"44\" height=\"15\" rx=\"4\" fill=\"#BDE0EA\" filter=\"url(#ps-server-rack)\"/><rect x=\"15\" y=\"44\" width=\"22\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><circle cx=\"43\" cy=\"45.5\" r=\"2.2\" fill=\"#A3D8C3\"/><circle cx=\"48.5\" cy=\"45.5\" r=\"2.2\" fill=\"#FEE396\"/><rect x=\"10\" y=\"24\" width=\"44\" height=\"15\" rx=\"4\" fill=\"#A3D8C3\" filter=\"url(#ps-server-rack)\"/><rect x=\"15\" y=\"30\" width=\"22\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><circle cx=\"43\" cy=\"31.5\" r=\"2.2\" fill=\"#F7BA9E\"/><circle cx=\"48.5\" cy=\"31.5\" r=\"2.2\" fill=\"#F5B8BE\"/><rect x=\"10\" y=\"10\" width=\"44\" height=\"15\" rx=\"4\" fill=\"#D7CBEB\" filter=\"url(#ps-server-rack)\"/><rect x=\"15\" y=\"16\" width=\"22\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><circle cx=\"43\" cy=\"17.5\" r=\"2.2\" fill=\"#FEE396\"/><circle cx=\"48.5\" cy=\"17.5\" r=\"2.2\" fill=\"#A3D8C3\"/><circle cx=\"12.5\" cy=\"17.5\" r=\"1.2\" fill=\"#3D352E\"/><circle cx=\"12.5\" cy=\"31.5\" r=\"1.2\" fill=\"#3D352E\"/><circle cx=\"12.5\" cy=\"45.5\" r=\"1.2\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "hard-drive-chassis",
+    "nameKo": "하드 드라이브",
+    "nameEn": "Hard Disk Drive",
+    "category": "tech",
+    "tags": [
+      "hard-drive",
+      "hdd",
+      "storage",
+      "disk",
+      "drive",
+      "hardware"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-hard-drive-chassis\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"10\" y=\"12\" width=\"44\" height=\"40\" rx=\"6\" fill=\"#A3D8C3\" filter=\"url(#ps-hard-drive-chassis)\"/><rect x=\"13\" y=\"15\" width=\"38\" height=\"34\" rx=\"4\" fill=\"#FFFDF9\" filter=\"url(#ps-hard-drive-chassis)\"/><circle cx=\"28\" cy=\"32\" r=\"13\" fill=\"#BDE0EA\" filter=\"url(#ps-hard-drive-chassis)\"/><circle cx=\"28\" cy=\"32\" r=\"6\" fill=\"#FEE396\" filter=\"url(#ps-hard-drive-chassis)\"/><circle cx=\"28\" cy=\"32\" r=\"2.5\" fill=\"#F7BA9E\"/><circle cx=\"44\" cy=\"22\" r=\"4.5\" fill=\"#D7CBEB\" filter=\"url(#ps-hard-drive-chassis)\"/><path d=\"M43 23 L32 30 L30 28 Z\" fill=\"#F5B8BE\"/><circle cx=\"44\" cy=\"22\" r=\"1.5\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "qr-code-clean",
+    "nameKo": "QR 코드 모자이크",
+    "nameEn": "QR Code Mosaic",
+    "category": "tech",
+    "tags": [
+      "qr-code",
+      "qr",
+      "scan",
+      "barcode",
+      "matrix",
+      "code"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-qr-code-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"8\" width=\"18\" height=\"18\" rx=\"4\" fill=\"#D7CBEB\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"12\" y=\"12\" width=\"10\" height=\"10\" rx=\"2\" fill=\"#FFFDF9\"/><rect x=\"14.5\" y=\"14.5\" width=\"5\" height=\"5\" rx=\"1.2\" fill=\"#3D352E\"/><rect x=\"38\" y=\"8\" width=\"18\" height=\"18\" rx=\"4\" fill=\"#A3D8C3\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"42\" y=\"12\" width=\"10\" height=\"10\" rx=\"2\" fill=\"#FFFDF9\"/><rect x=\"44.5\" y=\"14.5\" width=\"5\" height=\"5\" rx=\"1.2\" fill=\"#3D352E\"/><rect x=\"8\" y=\"38\" width=\"18\" height=\"18\" rx=\"4\" fill=\"#F7BA9E\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"12\" y=\"42\" width=\"10\" height=\"10\" rx=\"2\" fill=\"#FFFDF9\"/><rect x=\"14.5\" y=\"44.5\" width=\"5\" height=\"5\" rx=\"1.2\" fill=\"#3D352E\"/><rect x=\"30\" y=\"10\" width=\"5\" height=\"5\" rx=\"1.5\" fill=\"#FEE396\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"30\" y=\"19\" width=\"5\" height=\"13\" rx=\"2\" fill=\"#BDE0EA\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"10\" y=\"30\" width=\"13\" height=\"5\" rx=\"2\" fill=\"#F5B8BE\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"38\" y=\"32\" width=\"8\" height=\"8\" rx=\"2\" fill=\"#BBD5B8\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"49\" y=\"32\" width=\"7\" height=\"14\" rx=\"2\" fill=\"#FEE396\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"38\" y=\"43\" width=\"8\" height=\"8\" rx=\"2\" fill=\"#F5B8BE\" filter=\"url(#ps-qr-code-clean)\"/><rect x=\"30\" y=\"46\" width=\"5\" height=\"8\" rx=\"2\" fill=\"#D7CBEB\" filter=\"url(#ps-qr-code-clean)\"/></svg>"
+  },
+  {
+    "id": "scan-barcode",
+    "nameKo": "바코드 스캔",
+    "nameEn": "Barcode Scanner",
+    "category": "tech",
+    "tags": [
+      "barcode",
+      "scan",
+      "laser",
+      "reader",
+      "code",
+      "retail"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-scan-barcode\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"12\" y=\"14\" width=\"4\" height=\"36\" rx=\"2\" fill=\"#A3D8C3\" filter=\"url(#ps-scan-barcode)\"/><rect x=\"19\" y=\"14\" width=\"2.5\" height=\"36\" rx=\"1.2\" fill=\"#D7CBEB\" filter=\"url(#ps-scan-barcode)\"/><rect x=\"24.5\" y=\"14\" width=\"5.5\" height=\"36\" rx=\"2\" fill=\"#3D352E\" filter=\"url(#ps-scan-barcode)\"/><rect x=\"33\" y=\"14\" width=\"3\" height=\"36\" rx=\"1.5\" fill=\"#F7BA9E\" filter=\"url(#ps-scan-barcode)\"/><rect x=\"39\" y=\"14\" width=\"5\" height=\"36\" rx=\"2\" fill=\"#BDE0EA\" filter=\"url(#ps-scan-barcode)\"/><rect x=\"47\" y=\"14\" width=\"3.5\" height=\"36\" rx=\"1.5\" fill=\"#BBD5B8\" filter=\"url(#ps-scan-barcode)\"/><rect x=\"6\" y=\"30\" width=\"52\" height=\"4.5\" rx=\"2.2\" fill=\"#F5B8BE\" filter=\"url(#ps-scan-barcode)\"/><line x1=\"8\" y1=\"32.25\" x2=\"56\" y2=\"32.25\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\"/><path d=\"M8 18 V12 H14\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M50 12 H56 V18\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M8 46 V52 H14\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M50 52 H56 V46\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"
+  },
+  {
+    "id": "percent",
+    "nameKo": "퍼센트 리본",
+    "nameEn": "Percent Ribbon",
+    "category": "tech",
+    "tags": [
+      "percent",
+      "percentage",
+      "discount",
+      "ratio",
+      "math",
+      "finance"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-percent\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"29\" y=\"8\" width=\"6\" height=\"48\" rx=\"3\" transform=\"rotate(35 32 32)\" fill=\"#D7CBEB\" filter=\"url(#ps-percent)\"/><line x1=\"44\" y1=\"14\" x2=\"20\" y2=\"50\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\"/><circle cx=\"20\" cy=\"20\" r=\"10\" fill=\"#A3D8C3\" filter=\"url(#ps-percent)\"/><circle cx=\"20\" cy=\"20\" r=\"5.5\" fill=\"#FFFDF9\" filter=\"url(#ps-percent)\"/><circle cx=\"20\" cy=\"20\" r=\"2.5\" fill=\"#F7BA9E\"/><circle cx=\"44\" cy=\"44\" r=\"10\" fill=\"#F7BA9E\" filter=\"url(#ps-percent)\"/><circle cx=\"44\" cy=\"44\" r=\"5.5\" fill=\"#FEE396\" filter=\"url(#ps-percent)\"/><circle cx=\"44\" cy=\"44\" r=\"2.5\" fill=\"#F5B8BE\"/></svg>"
+  },
+  {
+    "id": "calculator-craft",
+    "nameKo": "계산기",
+    "nameEn": "Pocket Calculator",
+    "category": "tech",
+    "tags": [
+      "calculator",
+      "math",
+      "finance",
+      "accounting",
+      "numbers"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-calculator-craft\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"13\" y=\"8\" width=\"38\" height=\"48\" rx=\"8\" fill=\"#F7BA9E\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"17\" y=\"13\" width=\"30\" height=\"12\" rx=\"3.5\" fill=\"#A3D8C3\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"19\" y=\"16\" width=\"10\" height=\"3\" rx=\"1\" fill=\"#D7CBEB\"/><rect x=\"33\" y=\"16\" width=\"11\" height=\"5\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"18\" y=\"28\" width=\"7\" height=\"6\" rx=\"2\" fill=\"#FFFDF9\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"28.5\" y=\"28\" width=\"7\" height=\"6\" rx=\"2\" fill=\"#FFFDF9\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"39\" y=\"28\" width=\"7\" height=\"6\" rx=\"2\" fill=\"#FEE396\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"18\" y=\"37\" width=\"7\" height=\"6\" rx=\"2\" fill=\"#FFFDF9\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"28.5\" y=\"37\" width=\"7\" height=\"6\" rx=\"2\" fill=\"#FFFDF9\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"39\" y=\"37\" width=\"7\" height=\"6\" rx=\"2\" fill=\"#FEE396\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"18\" y=\"46\" width=\"17.5\" height=\"6\" rx=\"2\" fill=\"#BDE0EA\" filter=\"url(#ps-calculator-craft)\"/><rect x=\"39\" y=\"46\" width=\"7\" height=\"6\" rx=\"2\" fill=\"#F5B8BE\" filter=\"url(#ps-calculator-craft)\"/></svg>"
+  },
+  {
+    "id": "banknote",
+    "nameKo": "지폐",
+    "nameEn": "Pastel Banknote",
+    "category": "tech",
+    "tags": [
+      "banknote",
+      "cash",
+      "money",
+      "currency",
+      "bill",
+      "finance"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-banknote\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"17\" width=\"48\" height=\"30\" rx=\"5\" transform=\"rotate(-3 32 32)\" fill=\"#BBD5B8\" filter=\"url(#ps-banknote)\"/><rect x=\"8\" y=\"17\" width=\"48\" height=\"30\" rx=\"5\" fill=\"#A3D8C3\" filter=\"url(#ps-banknote)\"/><rect x=\"12\" y=\"21\" width=\"40\" height=\"22\" rx=\"3\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-dasharray=\"3 2\" fill=\"none\"/><ellipse cx=\"32\" cy=\"32\" rx=\"9.5\" ry=\"7\" fill=\"#FAF6ED\" filter=\"url(#ps-banknote)\"/><circle cx=\"32\" cy=\"32\" r=\"4.2\" fill=\"#FEE396\"/><circle cx=\"16\" cy=\"25\" r=\"2.5\" fill=\"#F7BA9E\"/><circle cx=\"48\" cy=\"39\" r=\"2.5\" fill=\"#F7BA9E\"/></svg>"
+  },
+  {
+    "id": "piggy-bank-coin",
+    "nameKo": "돼지 저금통",
+    "nameEn": "Piggy Bank",
+    "category": "tech",
+    "tags": [
+      "piggy-bank",
+      "savings",
+      "coin",
+      "money",
+      "finance",
+      "bank"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-piggy-bank-coin\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M22 17 L28 12 L30 20 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-piggy-bank-coin)\"/><path d=\"M14 31 C10 31 9 25 12 24 C14 23 15 27 11 28\" stroke=\"#F5B8BE\" stroke-width=\"2.5\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M14 34 C14 24 22 18 34 18 C46 18 52 23 52 32 C52 36 50 38 48 39 C48 44 48 47 45 47 C43 47 43 42 42 42 H26 C25 42 25 47 23 47 C20 47 20 44 20 40 C16 39 14 36 14 34 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-piggy-bank-coin)\"/><rect x=\"47\" y=\"29\" width=\"6\" height=\"8\" rx=\"3\" fill=\"#F7BA9E\" filter=\"url(#ps-piggy-bank-coin)\"/><circle cx=\"49\" cy=\"32\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"49\" cy=\"34\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"41\" cy=\"27\" r=\"1.5\" fill=\"#3D352E\"/><ellipse cx=\"38\" cy=\"33\" rx=\"3.5\" ry=\"2.2\" fill=\"#F7BA9E\" opacity=\"0.8\"/><rect x=\"29\" y=\"17\" width=\"8\" height=\"2.2\" rx=\"1\" fill=\"#3D352E\"/><circle cx=\"33\" cy=\"11\" r=\"5.5\" fill=\"#FEE396\" filter=\"url(#ps-piggy-bank-coin)\"/><circle cx=\"33\" cy=\"11\" r=\"3.2\" stroke=\"#FAF6ED\" stroke-width=\"1.2\" fill=\"none\"/></svg>"
+  },
+  {
+    "id": "trending-up",
+    "nameKo": "상승 트렌드",
+    "nameEn": "Trending Up",
+    "category": "tech",
+    "tags": [
+      "trending-up",
+      "chart",
+      "growth",
+      "increase",
+      "analytics",
+      "rise"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-trending-up\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M10 46 L24 32 L36 40 L52 18\" stroke=\"#D7CBEB\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-trending-up)\"/><path d=\"M10 46 L24 32 L36 40 L52 18\" stroke=\"#A3D8C3\" stroke-width=\"5.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-trending-up)\"/><path d=\"M10 46 L24 32 L36 40 L52 18\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/><path d=\"M38 18 H52 V32\" stroke=\"#FEE396\" stroke-width=\"5.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-trending-up)\"/><circle cx=\"10\" cy=\"46\" r=\"4.5\" fill=\"#F7BA9E\" filter=\"url(#ps-trending-up)\"/><circle cx=\"24\" cy=\"32\" r=\"4.5\" fill=\"#FEE396\" filter=\"url(#ps-trending-up)\"/><circle cx=\"36\" cy=\"40\" r=\"4.5\" fill=\"#F5B8BE\" filter=\"url(#ps-trending-up)\"/><circle cx=\"24\" cy=\"32\" r=\"2\" fill=\"#FFFDF9\"/><circle cx=\"36\" cy=\"40\" r=\"2\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "trending-down",
+    "nameKo": "하강 트렌드",
+    "nameEn": "Trending Down",
+    "category": "tech",
+    "tags": [
+      "trending-down",
+      "chart",
+      "decline",
+      "decrease",
+      "analytics",
+      "fall"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-trending-down\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M10 18 L24 32 L36 24 L52 46\" stroke=\"#F7BA9E\" stroke-width=\"8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-trending-down)\"/><path d=\"M10 18 L24 32 L36 24 L52 46\" stroke=\"#F5B8BE\" stroke-width=\"5.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-trending-down)\"/><path d=\"M10 18 L24 32 L36 24 L52 46\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"/><path d=\"M38 46 H52 V32\" stroke=\"#FEE396\" stroke-width=\"5.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\" filter=\"url(#ps-trending-down)\"/><circle cx=\"10\" cy=\"18\" r=\"4.5\" fill=\"#BDE0EA\" filter=\"url(#ps-trending-down)\"/><circle cx=\"24\" cy=\"32\" r=\"4.5\" fill=\"#D7CBEB\" filter=\"url(#ps-trending-down)\"/><circle cx=\"36\" cy=\"24\" r=\"4.5\" fill=\"#A3D8C3\" filter=\"url(#ps-trending-down)\"/><circle cx=\"24\" cy=\"32\" r=\"2\" fill=\"#FFFDF9\"/><circle cx=\"36\" cy=\"24\" r=\"2\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "pie-chart-clean",
+    "nameKo": "원형 파이 차트",
+    "nameEn": "Clean Pie Chart",
+    "category": "tech",
+    "tags": [
+      "pie-chart",
+      "chart",
+      "analytics",
+      "statistics",
+      "data",
+      "share"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-pie-chart-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M34 30 L34 10 A22 22 0 0 1 53 40 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-pie-chart-clean)\"/><path d=\"M34 14 A18 18 0 0 1 49 38\" stroke=\"#FFFDF9\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M32 35 L49 43 A22 22 0 0 1 15 43 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-pie-chart-clean)\"/><circle cx=\"32\" cy=\"46\" r=\"2.5\" fill=\"#FFFDF9\"/><path d=\"M28 28 L11 38 A22 22 0 0 1 28 10 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-pie-chart-clean)\"/><circle cx=\"21\" cy=\"24\" r=\"2.5\" fill=\"#FFFDF9\"/><circle cx=\"32\" cy=\"32\" r=\"6\" fill=\"#FEE396\" filter=\"url(#ps-pie-chart-clean)\"/><circle cx=\"32\" cy=\"32\" r=\"2.8\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "bar-chart-clean",
+    "nameKo": "막대 바 차트",
+    "nameEn": "Clean Bar Chart",
+    "category": "tech",
+    "tags": [
+      "bar-chart",
+      "chart",
+      "analytics",
+      "metrics",
+      "stats",
+      "graph"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-bar-chart-clean\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"50\" width=\"48\" height=\"5\" rx=\"2.5\" fill=\"#D7CBEB\" filter=\"url(#ps-bar-chart-clean)\"/><rect x=\"11\" y=\"36\" width=\"9\" height=\"15\" rx=\"3\" fill=\"#A3D8C3\" filter=\"url(#ps-bar-chart-clean)\"/><rect x=\"13.5\" y=\"38\" width=\"4\" height=\"6\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"22.5\" y=\"24\" width=\"9\" height=\"27\" rx=\"3\" fill=\"#F7BA9E\" filter=\"url(#ps-bar-chart-clean)\"/><rect x=\"25\" y=\"26\" width=\"4\" height=\"10\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"34\" y=\"30\" width=\"9\" height=\"21\" rx=\"3\" fill=\"#FEE396\" filter=\"url(#ps-bar-chart-clean)\"/><rect x=\"36.5\" y=\"32\" width=\"4\" height=\"8\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"45.5\" y=\"14\" width=\"9\" height=\"37\" rx=\"3\" fill=\"#BDE0EA\" filter=\"url(#ps-bar-chart-clean)\"/><rect x=\"48\" y=\"16\" width=\"4\" height=\"14\" rx=\"1.5\" fill=\"#FFFDF9\"/><circle cx=\"50\" cy=\"9\" r=\"2.5\" fill=\"#F5B8BE\" filter=\"url(#ps-bar-chart-clean)\"/></svg>"
+  },
+  {
+    "id": "ruler-metrics",
+    "nameKo": "눈금자",
+    "nameEn": "Craft Ruler",
+    "category": "tech",
+    "tags": [
+      "ruler",
+      "measurement",
+      "scale",
+      "craft",
+      "design",
+      "size"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-ruler-metrics\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"22\" width=\"48\" height=\"20\" rx=\"4\" fill=\"#FEE396\" filter=\"url(#ps-ruler-metrics)\"/><rect x=\"8\" y=\"22\" width=\"48\" height=\"6\" rx=\"2\" fill=\"#F7BA9E\"/><line x1=\"14\" y1=\"22\" x2=\"14\" y2=\"31\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"19\" y1=\"22\" x2=\"19\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"24\" y1=\"22\" x2=\"24\" y2=\"31\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"29\" y1=\"22\" x2=\"29\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"34\" y1=\"22\" x2=\"34\" y2=\"31\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"39\" y1=\"22\" x2=\"39\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><line x1=\"44\" y1=\"22\" x2=\"44\" y2=\"31\" stroke=\"#3D352E\" stroke-width=\"2\" stroke-linecap=\"round\"/><line x1=\"49\" y1=\"22\" x2=\"49\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><circle cx=\"14\" cy=\"35\" r=\"3\" fill=\"#FFFDF9\" filter=\"url(#ps-ruler-metrics)\"/><circle cx=\"14\" cy=\"35\" r=\"1.5\" fill=\"#3D352E\"/><rect x=\"22\" y=\"34\" width=\"28\" height=\"3\" rx=\"1.5\" fill=\"#A3D8C3\"/></svg>"
+  },
+  {
+    "id": "brush",
+    "nameKo": "페인트 브러시",
+    "nameEn": "Paint Brush",
+    "category": "tech",
+    "tags": [
+      "brush",
+      "paint",
+      "art",
+      "drawing",
+      "design",
+      "creative"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-brush\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M37 27 L53 11 C55 9 58 9 59 11 C60 12 60 15 58 17 L42 33 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-brush)\"/><circle cx=\"56\" cy=\"14\" r=\"3\" fill=\"#FEE396\"/><path d=\"M33 23 L41 31 L37 35 L29 27 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-brush)\"/><line x1=\"31\" y1=\"29\" x2=\"39\" y2=\"29\" stroke=\"#FFFDF9\" stroke-width=\"1.5\"/><path d=\"M31 29 C27 34 18 43 12 49 C14 53 19 54 25 48 C29 44 35 35 35 35 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-brush)\"/><path d=\"M12 49 C14 53 19 54 22 51 C19 47 15 45 12 49 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-brush)\"/><circle cx=\"8\" cy=\"56\" r=\"2.8\" fill=\"#F5B8BE\" filter=\"url(#ps-brush)\"/><circle cx=\"15\" cy=\"58\" r=\"1.5\" fill=\"#FEE396\"/></svg>"
+  },
+  {
+    "id": "eraser",
+    "nameKo": "지우개 블록",
+    "nameEn": "Wedge Eraser",
+    "category": "tech",
+    "tags": [
+      "eraser",
+      "rubber",
+      "edit",
+      "clear",
+      "remove",
+      "tool"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-eraser\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M10 32 L26 22 L26 44 L10 50 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-eraser)\"/><path d=\"M26 22 L44 12 L54 18 L36 44 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-eraser)\"/><path d=\"M10 32 L26 22 L44 12 L28 22 Z\" fill=\"#F7BA9E\"/><path d=\"M22 24 L36 16 L42 26 L28 44 Z\" fill=\"#FFFDF9\" filter=\"url(#ps-eraser)\"/><line x1=\"26\" y1=\"26\" x2=\"38\" y2=\"34\" stroke=\"#FEE396\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><ellipse cx=\"14\" cy=\"54\" rx=\"2.5\" ry=\"1.5\" fill=\"#F5B8BE\"/><circle cx=\"21\" cy=\"56\" r=\"1.2\" fill=\"#D7CBEB\"/></svg>"
+  },
+  {
+    "id": "layout-grid",
+    "nameKo": "그리드 레이아웃",
+    "nameEn": "Layout Grid",
+    "category": "tech",
+    "tags": [
+      "layout-grid",
+      "grid",
+      "tiles",
+      "cards",
+      "interface",
+      "view"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-layout-grid\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"10\" y=\"10\" width=\"20\" height=\"20\" rx=\"5\" fill=\"#BDE0EA\" filter=\"url(#ps-layout-grid)\"/><rect x=\"14\" y=\"14\" width=\"12\" height=\"12\" rx=\"3\" fill=\"#FFFDF9\"/><circle cx=\"18\" cy=\"18\" r=\"2.2\" fill=\"#FEE396\"/><rect x=\"34\" y=\"10\" width=\"20\" height=\"20\" rx=\"5\" fill=\"#F7BA9E\" filter=\"url(#ps-layout-grid)\"/><rect x=\"38\" y=\"15\" width=\"12\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"38\" y=\"21\" width=\"8\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"10\" y=\"34\" width=\"20\" height=\"20\" rx=\"5\" fill=\"#D7CBEB\" filter=\"url(#ps-layout-grid)\"/><circle cx=\"20\" cy=\"44\" r=\"5\" fill=\"#FFFDF9\"/><circle cx=\"20\" cy=\"44\" r=\"2.5\" fill=\"#F5B8BE\"/><rect x=\"34\" y=\"34\" width=\"20\" height=\"20\" rx=\"5\" fill=\"#A3D8C3\" filter=\"url(#ps-layout-grid)\"/><rect x=\"38.5\" y=\"44\" width=\"3\" height=\"5\" rx=\"1\" fill=\"#FFFDF9\"/><rect x=\"43.5\" y=\"40\" width=\"3\" height=\"9\" rx=\"1\" fill=\"#FFFDF9\"/><rect x=\"48.5\" y=\"42\" width=\"3\" height=\"7\" rx=\"1\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "layout-list",
+    "nameKo": "리스트 레이아웃",
+    "nameEn": "Layout List",
+    "category": "tech",
+    "tags": [
+      "layout-list",
+      "list",
+      "rows",
+      "interface",
+      "menu",
+      "view"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-layout-list\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"10\" y=\"10\" width=\"44\" height=\"8\" rx=\"4\" fill=\"#D7CBEB\" filter=\"url(#ps-layout-list)\"/><circle cx=\"15\" cy=\"14\" r=\"2\" fill=\"#FFFDF9\"/><rect x=\"20\" y=\"12.5\" width=\"18\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"10\" y=\"22\" width=\"44\" height=\"10\" rx=\"4\" fill=\"#A3D8C3\" filter=\"url(#ps-layout-list)\"/><circle cx=\"16\" cy=\"27\" r=\"2.8\" fill=\"#FFFDF9\"/><rect x=\"23\" y=\"25.5\" width=\"24\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"10\" y=\"35\" width=\"44\" height=\"10\" rx=\"4\" fill=\"#F7BA9E\" filter=\"url(#ps-layout-list)\"/><circle cx=\"16\" cy=\"40\" r=\"2.8\" fill=\"#FFFDF9\"/><rect x=\"23\" y=\"38.5\" width=\"18\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/><rect x=\"10\" y=\"48\" width=\"44\" height=\"10\" rx=\"4\" fill=\"#FEE396\" filter=\"url(#ps-layout-list)\"/><circle cx=\"16\" cy=\"53\" r=\"2.8\" fill=\"#F5B8BE\"/><rect x=\"23\" y=\"51.5\" width=\"22\" height=\"3\" rx=\"1.5\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "sidebar",
+    "nameKo": "사이드바 창",
+    "nameEn": "Sidebar Window",
+    "category": "tech",
+    "tags": [
+      "sidebar",
+      "drawer",
+      "panel",
+      "window",
+      "navigation",
+      "layout"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-sidebar\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"10\" width=\"48\" height=\"44\" rx=\"6\" fill=\"#BDE0EA\" filter=\"url(#ps-sidebar)\"/><line x1=\"8\" y1=\"20\" x2=\"56\" y2=\"20\" stroke=\"#FFFDF9\" stroke-width=\"2\"/><circle cx=\"14\" cy=\"15\" r=\"1.8\" fill=\"#F5B8BE\"/><circle cx=\"19\" cy=\"15\" r=\"1.8\" fill=\"#FEE396\"/><rect x=\"10\" y=\"22\" width=\"15\" height=\"30\" rx=\"3\" fill=\"#A3D8C3\" filter=\"url(#ps-sidebar)\"/><rect x=\"13\" y=\"26\" width=\"9\" height=\"2.5\" rx=\"1\" fill=\"#FFFDF9\"/><rect x=\"13\" y=\"32\" width=\"9\" height=\"2.5\" rx=\"1\" fill=\"#FFFDF9\"/><rect x=\"13\" y=\"38\" width=\"9\" height=\"2.5\" rx=\"1\" fill=\"#FFFDF9\"/><rect x=\"28\" y=\"24\" width=\"25\" height=\"14\" rx=\"3\" fill=\"#FFFDF9\" filter=\"url(#ps-sidebar)\"/><rect x=\"28\" y=\"41\" width=\"25\" height=\"10\" rx=\"3\" fill=\"#F7BA9E\"/></svg>"
+  },
+  {
+    "id": "table-cells",
+    "nameKo": "테이블 셀 그리드",
+    "nameEn": "Table Cells Grid",
+    "category": "tech",
+    "tags": [
+      "table",
+      "cells",
+      "grid",
+      "spreadsheet",
+      "matrix",
+      "data"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-table-cells\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"8\" y=\"12\" width=\"48\" height=\"40\" rx=\"6\" fill=\"#BDE0EA\" filter=\"url(#ps-table-cells)\"/><rect x=\"10\" y=\"14\" width=\"44\" height=\"10\" rx=\"3\" fill=\"#F7BA9E\" filter=\"url(#ps-table-cells)\"/><line x1=\"24\" y1=\"14\" x2=\"24\" y2=\"24\" stroke=\"#FFFDF9\" stroke-width=\"2\"/><line x1=\"39\" y1=\"14\" x2=\"39\" y2=\"24\" stroke=\"#FFFDF9\" stroke-width=\"2\"/><rect x=\"10\" y=\"26\" width=\"13\" height=\"11\" rx=\"2\" fill=\"#FFFDF9\"/><rect x=\"25\" y=\"26\" width=\"13\" height=\"11\" rx=\"2\" fill=\"#A3D8C3\" filter=\"url(#ps-table-cells)\"/><rect x=\"40\" y=\"26\" width=\"14\" height=\"11\" rx=\"2\" fill=\"#FFFDF9\"/><rect x=\"10\" y=\"39\" width=\"13\" height=\"11\" rx=\"2\" fill=\"#FFFDF9\"/><rect x=\"25\" y=\"39\" width=\"13\" height=\"11\" rx=\"2\" fill=\"#FFFDF9\"/><rect x=\"40\" y=\"39\" width=\"14\" height=\"11\" rx=\"2\" fill=\"#FEE396\" filter=\"url(#ps-table-cells)\"/><rect x=\"12\" y=\"30\" width=\"8\" height=\"2\" rx=\"1\" fill=\"#D7CBEB\"/><rect x=\"27\" y=\"30\" width=\"8\" height=\"2\" rx=\"1\" fill=\"#FFFDF9\"/><rect x=\"42\" y=\"30\" width=\"9\" height=\"2\" rx=\"1\" fill=\"#D7CBEB\"/></svg>"
+  },
+  {
+    "id": "bell-ring-sound",
+    "nameKo": "울리는 종",
+    "nameEn": "Ringing Chime Bell",
+    "category": "media",
+    "tags": [
+      "bell",
+      "ring",
+      "alarm",
+      "chime",
+      "sound",
+      "notification"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-bell-ring-sound\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M12 25 C9 30 9 38 12 43\" stroke=\"#BDE0EA\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-bell-ring-sound)\"/><path d=\"M7 21 C3 28 3 40 7 47\" stroke=\"#D7CBEB\" stroke-width=\"2.5\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M52 25 C55 30 55 38 52 43\" stroke=\"#BDE0EA\" stroke-width=\"3\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-bell-ring-sound)\"/><path d=\"M57 21 C61 28 61 40 57 47\" stroke=\"#D7CBEB\" stroke-width=\"2.5\" stroke-linecap=\"round\" fill=\"none\"/><path d=\"M29 14 C29 10 35 10 35 14\" stroke=\"#F7BA9E\" stroke-width=\"3.2\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-bell-ring-sound)\"/><path d=\"M21 42 C21 27 24 15 32 15 C40 15 43 27 43 42 C45 44 47 45 47 47 C47 49 45 50 43 50 H21 C19 50 17 49 17 47 C17 45 19 44 21 42 Z\" fill=\"#FEE396\" filter=\"url(#ps-bell-ring-sound)\"/><path d=\"M21 42 C25 44 39 44 43 42\" stroke=\"#FAF6ED\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"32\" cy=\"53\" r=\"4.5\" fill=\"#F7BA9E\" filter=\"url(#ps-bell-ring-sound)\"/><circle cx=\"32\" cy=\"53\" r=\"2\" fill=\"#FFFDF9\"/><ellipse cx=\"26\" cy=\"27\" rx=\"2\" ry=\"5\" transform=\"rotate(-20 26 27)\" fill=\"#FFFDF9\"/></svg>"
+  },
+  {
+    "id": "bell-off",
+    "nameKo": "종 끄기",
+    "nameEn": "Mute Chime Bell",
+    "category": "media",
+    "tags": [
+      "bell-off",
+      "mute",
+      "silent",
+      "notification",
+      "quiet",
+      "disable"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-bell-off\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M29 14 C29 10 35 10 35 14\" stroke=\"#D7CBEB\" stroke-width=\"3.2\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-bell-off)\"/><path d=\"M21 42 C21 27 24 15 32 15 C40 15 43 27 43 42 C45 44 47 45 47 47 C47 49 45 50 43 50 H21 C19 50 17 49 17 47 C17 45 19 44 21 42 Z\" fill=\"#BBD5B8\" filter=\"url(#ps-bell-off)\"/><path d=\"M21 42 C25 44 39 44 43 42\" stroke=\"#FAF6ED\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><circle cx=\"32\" cy=\"53\" r=\"4.5\" fill=\"#FEE396\" filter=\"url(#ps-bell-off)\"/><circle cx=\"32\" cy=\"53\" r=\"2\" fill=\"#FFFDF9\"/><line x1=\"12\" y1=\"12\" x2=\"52\" y2=\"52\" stroke=\"#F5B8BE\" stroke-width=\"6\" stroke-linecap=\"round\" filter=\"url(#ps-bell-off)\"/><line x1=\"12\" y1=\"12\" x2=\"52\" y2=\"52\" stroke=\"#FFFDF9\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"14\" y1=\"14\" x2=\"50\" y2=\"50\" stroke=\"#F7BA9E\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\" stroke-linecap=\"round\"/><circle cx=\"47\" cy=\"19\" r=\"2\" fill=\"#D7CBEB\"/></svg>"
+  },
+  {
+    "id": "wifi-off",
+    "nameKo": "와이파이 차단",
+    "nameEn": "Wi-Fi Off",
+    "category": "tech",
+    "tags": [
+      "wifi-off",
+      "offline",
+      "disconnect",
+      "wireless",
+      "network",
+      "signal"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-wifi-off\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M12 20 C24 10 40 10 52 20\" stroke=\"#BDE0EA\" stroke-width=\"4.5\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-wifi-off)\"/><path d=\"M18 29 C26 21 38 21 46 29\" stroke=\"#A3D8C3\" stroke-width=\"4.5\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-wifi-off)\"/><path d=\"M24 38 C28 33 36 33 40 38\" stroke=\"#FEE396\" stroke-width=\"4.5\" stroke-linecap=\"round\" fill=\"none\" filter=\"url(#ps-wifi-off)\"/><circle cx=\"32\" cy=\"48\" r=\"5\" fill=\"#F7BA9E\" filter=\"url(#ps-wifi-off)\"/><circle cx=\"32\" cy=\"48\" r=\"2.2\" fill=\"#FFFDF9\"/><line x1=\"10\" y1=\"10\" x2=\"54\" y2=\"54\" stroke=\"#F5B8BE\" stroke-width=\"6\" stroke-linecap=\"round\" filter=\"url(#ps-wifi-off)\"/><line x1=\"10\" y1=\"10\" x2=\"54\" y2=\"54\" stroke=\"#FFFDF9\" stroke-width=\"3\" stroke-linecap=\"round\"/><line x1=\"12\" y1=\"12\" x2=\"52\" y2=\"52\" stroke=\"#F7BA9E\" stroke-width=\"1.5\" stroke-dasharray=\"3 3\" stroke-linecap=\"round\"/></svg>"
+  },
+  {
+    "id": "digit-0",
+    "nameKo": "숫자 0 (제로)",
+    "nameEn": "Digit Zero",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "zero",
+      "0",
+      "math",
+      "typography",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-0\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 32 10 C 42 10 47 20 47 32 C 47 44 42 54 32 54 C 22 54 17 44 17 32 C 17 20 22 10 32 10 Z M 32 19 C 27 19 24.5 25 24.5 32 C 24.5 39 27 45 32 45 C 37 45 39.5 39 39.5 32 C 39.5 25 37 19 32 19 Z\" fill=\"#D7CBEB\" fill-rule=\"evenodd\" filter=\"url(#ps-digit-0)\"/><path d=\"M 32 10 C 39 10 44 16 46 25 L 39 28 C 37.5 23 35 19 32 19 C 27 19 24.5 25 24.5 32 C 24.5 37 26 42 29 44 L 21 49 C 18 45 17 39 17 32 C 17 20 22 10 32 10 Z\" fill=\"#FEE396\" filter=\"url(#ps-digit-0)\"/><path d=\"M 32 54 C 42 54 47 44 47 32 L 40 32 C 40 39 37 45 32 45 C 29 45 27 43 25 41 L 22 47 C 25 51 28 54 32 54 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-0)\"/><polygon points=\"41,12 49,18 45,26 38,19\" fill=\"#F7BA9E\" filter=\"url(#ps-digit-0)\"/><path d=\"M 32 14 C 40 14 44 22 44 32 C 44 42 40 50 32 50 C 24 50 20 42 20 32 C 20 22 24 14 32 14\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"45\" cy=\"21\" r=\"2.2\" fill=\"#FEE396\" filter=\"url(#ps-digit-0)\"/><circle cx=\"45\" cy=\"21\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-1",
+    "nameKo": "숫자 1 (원)",
+    "nameEn": "Digit One",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "one",
+      "1",
+      "math",
+      "first",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-1\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"18\" y=\"47\" width=\"28\" height=\"7\" rx=\"3\" fill=\"#BDE0EA\" filter=\"url(#ps-digit-1)\"/><path d=\"M 18 47 L 28 47 L 23 54 L 18 54 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-digit-1)\"/><path d=\"M 28 15 L 38 15 L 38 48 L 28 48 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-digit-1)\"/><path d=\"M 33 15 L 38 15 L 38 48 L 33 48 Z\" fill=\"#FAF6ED\"/><path d=\"M 33 12 L 17 25 L 21 31 L 33 21 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-1)\"/><polygon points=\"17,25 21,31 16,33\" fill=\"#FEE396\" filter=\"url(#ps-digit-1)\"/><line x1=\"31\" y1=\"18\" x2=\"31\" y2=\"45\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"50.5\" r=\"2\" fill=\"#FEE396\"/><circle cx=\"32\" cy=\"50.5\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-2",
+    "nameKo": "숫자 2 (투)",
+    "nameEn": "Digit Two",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "two",
+      "2",
+      "math",
+      "second",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-2\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 18 46 L 47 46 C 48.5 46 49 48 48 50 L 45 54 L 17 54 C 15.5 54 15 52 16 50 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-2)\"/><polygon points=\"40,46 47,46 45,54 38,54\" fill=\"#FEE396\" filter=\"url(#ps-digit-2)\"/><path d=\"M 21 24 C 21 16 26 11 34 11 C 42 11 47 16 47 24 C 47 31 41 38 34 44 L 21 54 L 21 46 L 31 38 C 38 32 40 27 40 23 C 40 18 37 16 34 16 C 30 16 27 18 27 24 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-digit-2)\"/><path d=\"M 24 18 C 27 13 32 11 36 11 C 43 11 47 16 47 24 C 47 28 44 33 39 37 L 35 32 C 38 29 40 26 40 23 C 40 18 37 16 34 16 C 31 16 29 17 27 20 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-digit-2)\"/><polygon points=\"17,54 22,46 25,54\" fill=\"#F5B8BE\" filter=\"url(#ps-digit-2)\"/><path d=\"M 24 23 C 25 15 30 14 34 14 C 40 14 43 18 43 23 C 43 28 38 34 32 40 L 22 49\" stroke=\"#FFFDF9\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"34\" cy=\"18\" r=\"2.2\" fill=\"#FEE396\"/><circle cx=\"34\" cy=\"18\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-3",
+    "nameKo": "숫자 3 (쓰리)",
+    "nameEn": "Digit Three",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "three",
+      "3",
+      "math",
+      "third",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-3\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 21 13 L 42 13 C 46 13 47 17 46 22 C 45 27 41 31 34 32 L 31 27 C 36 26 39 23 39 20 C 39 17 37 16 33 16 L 24 16 Z\" fill=\"#FEE396\" filter=\"url(#ps-digit-3)\"/><path d=\"M 32 30 C 40 31 46 36 46 43 C 46 50 40 54 30 54 C 21 54 18 49 18 44 L 25 44 C 25 47 27 49 31 49 C 36 49 39 46 39 42 C 39 37 35 34 29 34 L 29 29 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-3)\"/><polygon points=\"26,30 38,30 33,35 28,35\" fill=\"#F5B8BE\" filter=\"url(#ps-digit-3)\"/><polygon points=\"21,13 26,13 22,21 18,21\" fill=\"#D7CBEB\" filter=\"url(#ps-digit-3)\"/><path d=\"M 26 15 L 38 15 C 42 15 44 18 44 21 C 44 25 40 28 34 29\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\" fill=\"none\"/><path d=\"M 33 33 C 41 34 43 38 43 43 C 43 47 38 51 31 51 C 26 51 22 48 22 45\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"33\" cy=\"32\" r=\"2.2\" fill=\"#FEE396\"/><circle cx=\"33\" cy=\"32\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-4",
+    "nameKo": "숫자 4 (포)",
+    "nameEn": "Digit Four",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "four",
+      "4",
+      "math",
+      "origami",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-4\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"34,10 40,10 18,44 12,44\" fill=\"#D7CBEB\" filter=\"url(#ps-digit-4)\"/><rect x=\"12\" y=\"38\" width=\"40\" height=\"7\" rx=\"3\" fill=\"#FEE396\" filter=\"url(#ps-digit-4)\"/><rect x=\"34\" y=\"14\" width=\"8\" height=\"40\" rx=\"3\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-4)\"/><polygon points=\"46,38 52,38 49,45 43,45\" fill=\"#F7BA9E\"/><polygon points=\"12,44 19,38 18,44\" fill=\"#F5B8BE\"/><line x1=\"38\" y1=\"18\" x2=\"38\" y2=\"50\" stroke=\"#FFFDF9\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"16\" y1=\"41.5\" x2=\"32\" y2=\"41.5\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><circle cx=\"38\" cy=\"41.5\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"38\" cy=\"41.5\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-5",
+    "nameKo": "숫자 5 (파이브)",
+    "nameEn": "Digit Five",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "five",
+      "5",
+      "math",
+      "origami",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-5\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 23 31 C 29 29 38 29 43 33 C 48 37 47 46 43 50 C 39 54 31 54 23 52 L 24 46 C 29 48 35 48 38 45 C 41 42 41 37 37 35 C 33 33 27 33 22 35 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-5)\"/><polygon points=\"22,17 29,17 27,33 21,33\" fill=\"#F7BA9E\" filter=\"url(#ps-digit-5)\"/><rect x=\"22\" y=\"11\" width=\"26\" height=\"7\" rx=\"2.5\" fill=\"#BDE0EA\" filter=\"url(#ps-digit-5)\"/><polygon points=\"42,11 48,11 45,18 39,18\" fill=\"#FEE396\" filter=\"url(#ps-digit-5)\"/><path d=\"M 40 35 C 45 39 44 47 40 50 L 37 45 C 39 42 39 38 36 36 Z\" fill=\"#F5B8BE\"/><path d=\"M 25 34 C 32 32 41 33 44 38 C 46 43 43 49 37 50\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"25\" cy=\"14.5\" r=\"2\" fill=\"#FEE396\"/><circle cx=\"25\" cy=\"14.5\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-6",
+    "nameKo": "숫자 6 (식스)",
+    "nameEn": "Digit Six",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "six",
+      "6",
+      "math",
+      "loop",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-6\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 33 28 C 42 28 47 34 47 41 C 47 48 42 54 33 54 C 24 54 19 48 19 41 C 19 34 24 28 33 28 Z M 33 34 C 28 34 25.5 37 25.5 41 C 25.5 45 28 48 33 48 C 38 48 40.5 45 40.5 41 C 40.5 37 38 34 33 34 Z\" fill=\"#F7BA9E\" fill-rule=\"evenodd\" filter=\"url(#ps-digit-6)\"/><path d=\"M 43 13 C 33 11 23 18 20 29 C 18 36 18 44 20 49 L 26 47 C 24 43 24 37 26 31 C 28 22 34 17 42 18 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-6)\"/><path d=\"M 40 11 C 45 11 48 14 47 18 C 45 21 41 21 38 18 Z\" fill=\"#FEE396\" filter=\"url(#ps-digit-6)\"/><circle cx=\"33\" cy=\"41\" r=\"3.5\" fill=\"#D7CBEB\"/><path d=\"M 41 15 C 33 14 25 21 23 32 C 21 40 21 45 23 48\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"33\" cy=\"41\" r=\"1.8\" fill=\"#FEE396\"/><circle cx=\"33\" cy=\"41\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-7",
+    "nameKo": "숫자 7 (세븐)",
+    "nameEn": "Digit Seven",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "seven",
+      "7",
+      "math",
+      "lucky",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-7\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"46,14 48,18 28,54 22,54\" fill=\"#D7CBEB\" filter=\"url(#ps-digit-7)\"/><path d=\"M 16 12 L 48 12 L 46 19 L 16 19 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-digit-7)\"/><rect x=\"25\" y=\"32\" width=\"18\" height=\"6\" rx=\"2.5\" fill=\"#FEE396\" filter=\"url(#ps-digit-7)\"/><polygon points=\"16,12 21,12 19,23 15,21\" fill=\"#F5B8BE\" filter=\"url(#ps-digit-7)\"/><polygon points=\"41,18 45,18 26,54 23,54\" fill=\"#FAF6ED\"/><line x1=\"43\" y1=\"18\" x2=\"25\" y2=\"52\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"34\" cy=\"35\" r=\"2\" fill=\"#F7BA9E\"/><circle cx=\"34\" cy=\"35\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-8",
+    "nameKo": "숫자 8 (에잇)",
+    "nameEn": "Digit Eight",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "eight",
+      "8",
+      "math",
+      "infinity",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-8\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 32 30 C 41 30 47 36 47 43 C 47 50 41 54 32 54 C 23 54 17 50 17 43 C 17 36 23 30 32 30 Z M 32 36 C 27 36 24 39 24 43 C 24 47 27 49 32 49 C 37 49 40 47 40 43 C 40 39 37 36 32 36 Z\" fill=\"#BDE0EA\" fill-rule=\"evenodd\" filter=\"url(#ps-digit-8)\"/><path d=\"M 32 10 C 39 10 45 15 45 22 C 45 29 40 32 32 32 C 24 32 19 29 19 22 C 19 15 25 10 32 10 Z M 32 15 C 28 15 25 18 25 22 C 25 26 28 28 32 28 C 36 28 39 26 39 22 C 39 18 36 15 32 15 Z\" fill=\"#FEE396\" fill-rule=\"evenodd\" filter=\"url(#ps-digit-8)\"/><polygon points=\"25,32 39,32 36,28 28,28\" fill=\"#F5B8BE\" filter=\"url(#ps-digit-8)\"/><polygon points=\"24,34 32,26 40,28 32,36\" fill=\"#A3D8C3\"/><path d=\"M 32 12 C 37 12 42 16 42 22 C 42 27 37 30 32 30 C 27 30 22 27 22 22 C 22 16 27 12 32 12\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-dasharray=\"2 2\" fill=\"none\"/><path d=\"M 32 33 C 39 33 44 38 44 43 C 44 48 39 52 32 52 C 25 52 20 48 20 43 C 20 38 25 33 32 33\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"32\" cy=\"31\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"31\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "digit-9",
+    "nameKo": "숫자 9 (나인)",
+    "nameEn": "Digit Nine",
+    "category": "symbol",
+    "tags": [
+      "digit",
+      "number",
+      "nine",
+      "9",
+      "math",
+      "loop",
+      "papercut"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-digit-9\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 32 10 C 41 10 47 16 47 25 C 47 34 41 40 32 40 C 23 40 17 34 17 25 C 17 16 23 10 32 10 Z M 32 16 C 27 16 24 20 24 25 C 24 30 27 34 32 34 C 37 34 40 30 40 25 C 40 20 37 16 32 16 Z\" fill=\"#FEE396\" fill-rule=\"evenodd\" filter=\"url(#ps-digit-9)\"/><path d=\"M 44 22 C 46 29 45 37 41 44 C 38 49 32 54 22 53 L 23 47 C 30 48 34 45 36 41 C 39 36 40 30 38 24 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-digit-9)\"/><polygon points=\"22,53 28,47 24,44 19,48\" fill=\"#F7BA9E\" filter=\"url(#ps-digit-9)\"/><path d=\"M 32 10 C 37 10 42 13 44 18 L 38 21 C 36 18 34 16 32 16 Z\" fill=\"#D7CBEB\"/><path d=\"M 43 24 C 44 32 42 40 38 45 C 34 49 28 51 22 50\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"32\" cy=\"25\" r=\"2.2\" fill=\"#F5B8BE\"/><circle cx=\"32\" cy=\"25\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-hash",
+    "nameKo": "해시 기호 (샵)",
+    "nameEn": "Hash Symbol",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "hash",
+      "tag",
+      "number-sign",
+      "pound-sign",
+      "sharp",
+      "math"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-hash\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"24,10 29,10 23,54 18,54\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-hash)\"/><polygon points=\"39,10 44,10 38,54 33,54\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-hash)\"/><rect x=\"11\" y=\"21\" width=\"42\" height=\"7\" rx=\"3\" fill=\"#FEE396\" filter=\"url(#ps-symbol-hash)\"/><rect x=\"11\" y=\"36\" width=\"42\" height=\"7\" rx=\"3\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-hash)\"/><polygon points=\"11,21 16,21 13,28 11,28\" fill=\"#F7BA9E\"/><polygon points=\"53,36 48,36 51,43 53,43\" fill=\"#F5B8BE\"/><line x1=\"14\" y1=\"24.5\" x2=\"50\" y2=\"24.5\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"14\" y1=\"39.5\" x2=\"50\" y2=\"39.5\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"26\" cy=\"24.5\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"26\" cy=\"24.5\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"41\" cy=\"24.5\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"41\" cy=\"24.5\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"23.5\" cy=\"39.5\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"23.5\" cy=\"39.5\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"38.5\" cy=\"39.5\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"38.5\" cy=\"39.5\" r=\"0.8\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-at",
+    "nameKo": "골뱅이 기호 (앳)",
+    "nameEn": "At Symbol",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "at",
+      "email",
+      "mention",
+      "web",
+      "internet",
+      "tag"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-at\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 37 38 C 42 38 46 34 46 29 C 46 20 39 13 30 13 C 20 13 14 21 14 32 C 14 43 21 51 32 51 C 39 51 45 47 48 41 L 43 38 C 41 42 37 45 32 45 C 24 45 20 39 20 32 C 20 25 24 19 30 19 C 36 19 40 23 40 29 C 40 31 38 33 36 33 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-at)\"/><polygon points=\"43,38 48,41 51,35 46,33\" fill=\"#FEE396\" filter=\"url(#ps-symbol-at)\"/><circle cx=\"31\" cy=\"33\" r=\"8.5\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-at)\"/><circle cx=\"31\" cy=\"33\" r=\"4.5\" fill=\"#FAF6ED\"/><rect x=\"36\" y=\"27\" width=\"4\" height=\"11\" rx=\"1.5\" fill=\"#F5B8BE\"/><path d=\"M 30 16 C 22 16 17 23 17 32 C 17 41 23 48 32 48 C 38 48 42 45 45 40\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"31\" cy=\"33\" r=\"2\" fill=\"#FEE396\"/><circle cx=\"31\" cy=\"33\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-ampersand",
+    "nameKo": "앰퍼샌드 기호 (&)",
+    "nameEn": "Ampersand Symbol",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "ampersand",
+      "and",
+      "typography",
+      "ligature",
+      "calligraphy"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-ampersand\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 28 32 C 36 32 43 37 43 44 C 43 50 37 54 28 54 C 20 54 16 49 16 43 C 16 36 22 31 30 26 Z M 28 37 C 24 39 22 41 22 44 C 22 47 25 49 28 49 C 33 49 37 47 37 44 C 37 40 33 37 28 37 Z\" fill=\"#F5B8BE\" fill-rule=\"evenodd\" filter=\"url(#ps-symbol-ampersand)\"/><path d=\"M 33 11 C 39 11 43 15 43 20 C 43 26 38 31 30 36 C 26 31 25 25 26 20 C 27 15 30 11 33 11 Z M 33 16 C 31 16 29 18 29 21 C 29 24 32 27 35 25 C 37 24 37 21 37 20 C 37 17 35 16 33 16 Z\" fill=\"#A3D8C3\" fill-rule=\"evenodd\" filter=\"url(#ps-symbol-ampersand)\"/><path d=\"M 27 28 L 47 48 L 51 44 L 32 24 Z\" fill=\"#FEE396\" filter=\"url(#ps-symbol-ampersand)\"/><polygon points=\"47,48 53,52 50,44\" fill=\"#D7CBEB\"/><line x1=\"29\" y1=\"26\" x2=\"49\" y2=\"46\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><path d=\"M 33 13 C 37 13 40 16 40 20 C 40 23 37 27 31 31\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-dasharray=\"2 2\" fill=\"none\"/><circle cx=\"31\" cy=\"32\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"31\" cy=\"32\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-dollar",
+    "nameKo": "달러 기호 ($)",
+    "nameEn": "Dollar Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "dollar",
+      "currency",
+      "money",
+      "finance",
+      "usd",
+      "price"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-dollar\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"29\" y=\"8\" width=\"6\" height=\"48\" rx=\"2.5\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-dollar)\"/><path d=\"M 44 19 C 44 14 38 12 32 12 C 24 12 18 16 18 23 C 18 31 27 32 34 35 C 41 37 45 40 45 46 C 45 52 39 56 31 56 C 23 56 17 51 17 45 L 24 45 C 24 48 27 50 31 50 C 36 50 39 48 39 45 C 39 40 33 39 26 36 C 20 33 14 30 14 23 C 14 14 22 8 32 8 C 40 8 48 13 47 21 Z\" fill=\"#FEE396\" filter=\"url(#ps-symbol-dollar)\"/><path d=\"M 32 12 C 38 12 44 14 44 19 L 40 21 C 40 18 36 16 32 16 Z M 31 56 C 23 56 17 51 17 45 L 22 45 C 22 48 26 51 31 51 Z\" fill=\"#F7BA9E\"/><polygon points=\"44,19 48,22 46,26 42,23\" fill=\"#F5B8BE\"/><line x1=\"32\" y1=\"12\" x2=\"32\" y2=\"52\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"34\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"34\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-euro",
+    "nameKo": "유로 기호 (€)",
+    "nameEn": "Euro Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "euro",
+      "currency",
+      "money",
+      "europe",
+      "finance",
+      "eur"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-euro\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 46 17 C 42 12 36 10 30 10 C 19 10 12 20 12 32 C 12 44 19 54 30 54 C 36 54 42 52 46 47 L 42 41 C 39 44 35 46 30 46 C 23 46 18 39 18 32 C 18 25 23 18 30 18 C 35 18 39 20 42 23 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-euro)\"/><rect x=\"10\" y=\"25\" width=\"26\" height=\"6\" rx=\"2.5\" fill=\"#FEE396\" filter=\"url(#ps-symbol-euro)\"/><rect x=\"10\" y=\"34\" width=\"26\" height=\"6\" rx=\"2.5\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-euro)\"/><polygon points=\"46,17 42,23 48,27 50,19\" fill=\"#A3D8C3\"/><polygon points=\"46,47 42,41 48,37 50,45\" fill=\"#F5B8BE\"/><path d=\"M 44 19 C 39 15 34 14 30 14 C 20 14 15 22 15 32 C 15 42 20 50 30 50 C 34 50 39 49 44 45\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"20\" cy=\"28\" r=\"1.8\" fill=\"#FFFDF9\"/><circle cx=\"20\" cy=\"28\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"20\" cy=\"37\" r=\"1.8\" fill=\"#FFFDF9\"/><circle cx=\"20\" cy=\"37\" r=\"0.8\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-yen",
+    "nameKo": "엔화/위안화 기호 (¥)",
+    "nameEn": "Yen Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "yen",
+      "yuan",
+      "currency",
+      "money",
+      "jpy",
+      "cny",
+      "finance"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-yen\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"16,12 23,12 34,29 27,29\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-yen)\"/><polygon points=\"48,12 41,12 30,29 37,29\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-yen)\"/><rect x=\"29\" y=\"28\" width=\"6\" height=\"26\" rx=\"2.5\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-yen)\"/><rect x=\"16\" y=\"30\" width=\"32\" height=\"6\" rx=\"2.5\" fill=\"#FEE396\" filter=\"url(#ps-symbol-yen)\"/><rect x=\"18\" y=\"38\" width=\"28\" height=\"6\" rx=\"2.5\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-yen)\"/><polygon points=\"16,12 20,12 18,17 14,17\" fill=\"#BDE0EA\"/><polygon points=\"48,12 44,12 46,17 50,17\" fill=\"#BDE0EA\"/><line x1=\"32\" y1=\"31\" x2=\"32\" y2=\"52\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"33\" r=\"2.2\" fill=\"#FFFDF9\"/><circle cx=\"32\" cy=\"33\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-pound",
+    "nameKo": "파운드 기호 (£)",
+    "nameEn": "Pound Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "pound",
+      "gbp",
+      "currency",
+      "money",
+      "uk",
+      "finance"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-pound\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 43 18 C 43 13 37 11 31 11 C 23 11 19 16 19 23 C 19 32 25 39 25 44 L 18 44 C 16 44 14 47 16 50 L 18 53 L 46 53 C 48 53 49 50 47 47 L 44 47 C 38 47 31 47 31 44 C 31 38 25 31 25 24 C 25 18 28 16 32 16 C 36 16 38 18 38 21 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-pound)\"/><path d=\"M 16 50 C 20 47 24 53 30 50 C 36 47 42 53 47 48 L 47 53 L 16 53 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-pound)\"/><rect x=\"14\" y=\"29\" width=\"24\" height=\"6\" rx=\"2.5\" fill=\"#FEE396\" filter=\"url(#ps-symbol-pound)\"/><circle cx=\"41\" cy=\"20\" r=\"3.5\" fill=\"#F7BA9E\"/><path d=\"M 40 19 C 39 15 35 14 31 14 C 25 14 22 18 22 24 C 22 33 28 40 28 46\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"24\" cy=\"32\" r=\"1.8\" fill=\"#FFFDF9\"/><circle cx=\"24\" cy=\"32\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-plus",
+    "nameKo": "더하기 기호 (플러스)",
+    "nameEn": "Plus Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "plus",
+      "add",
+      "addition",
+      "math",
+      "create",
+      "positive"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-plus\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"10\" y=\"26\" width=\"44\" height=\"12\" rx=\"4\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-plus)\"/><rect x=\"26\" y=\"10\" width=\"12\" height=\"44\" rx=\"4\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-plus)\"/><rect x=\"24\" y=\"24\" width=\"16\" height=\"16\" rx=\"3\" fill=\"#FEE396\" filter=\"url(#ps-symbol-plus)\"/><polygon points=\"10,26 18,26 10,34\" fill=\"#F7BA9E\"/><polygon points=\"54,26 46,26 54,34\" fill=\"#F7BA9E\"/><polygon points=\"26,10 26,18 34,10\" fill=\"#F5B8BE\"/><polygon points=\"38,54 38,46 30,54\" fill=\"#F5B8BE\"/><line x1=\"14\" y1=\"32\" x2=\"50\" y2=\"32\" stroke=\"#FAF6ED\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"32\" y1=\"14\" x2=\"32\" y2=\"50\" stroke=\"#FAF6ED\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"32\" r=\"2.8\" fill=\"#FEE396\"/><circle cx=\"32\" cy=\"32\" r=\"1.3\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-minus",
+    "nameKo": "빼기 기호 (마이너스)",
+    "nameEn": "Minus Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "minus",
+      "subtract",
+      "dash",
+      "negative",
+      "remove",
+      "math"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-minus\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"10\" y=\"25\" width=\"44\" height=\"14\" rx=\"5\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-minus)\"/><rect x=\"12\" y=\"25\" width=\"40\" height=\"7\" rx=\"3\" fill=\"#FEE396\" filter=\"url(#ps-symbol-minus)\"/><polygon points=\"10,25 18,25 14,39 10,39\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-minus)\"/><polygon points=\"54,25 46,25 50,39 54,39\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-minus)\"/><line x1=\"16\" y1=\"32\" x2=\"48\" y2=\"32\" stroke=\"#FFFDF9\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"21\" cy=\"32\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"21\" cy=\"32\" r=\"1\" fill=\"#3D352E\"/><circle cx=\"43\" cy=\"32\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"43\" cy=\"32\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-multiply",
+    "nameKo": "곱하기 기호 (크로스)",
+    "nameEn": "Multiply Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "multiply",
+      "cross",
+      "times",
+      "x",
+      "math",
+      "calculator"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-multiply\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"14,19 19,14 50,45 45,50\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-multiply)\"/><polygon points=\"45,14 50,19 19,50 14,45\" fill=\"#FEE396\" filter=\"url(#ps-symbol-multiply)\"/><polygon points=\"32,23 41,32 32,41 23,32\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-multiply)\"/><polygon points=\"14,19 19,14 22,22 17,22\" fill=\"#F7BA9E\"/><polygon points=\"45,50 50,45 42,42 42,47\" fill=\"#F7BA9E\"/><line x1=\"17\" y1=\"17\" x2=\"47\" y2=\"47\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"47\" y1=\"17\" x2=\"17\" y2=\"47\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"32\" r=\"2.5\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"32\" r=\"1.1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-divide",
+    "nameKo": "나누기 기호 (디바이드)",
+    "nameEn": "Divide Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "divide",
+      "division",
+      "math",
+      "fraction",
+      "calculator",
+      "math"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-divide\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"12\" y=\"27\" width=\"40\" height=\"10\" rx=\"4\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-divide)\"/><rect x=\"14\" y=\"27\" width=\"36\" height=\"5\" rx=\"2.5\" fill=\"#BDE0EA\"/><circle cx=\"32\" cy=\"16\" r=\"7\" fill=\"#FEE396\" filter=\"url(#ps-symbol-divide)\"/><circle cx=\"32\" cy=\"16\" r=\"4.2\" fill=\"#F5B8BE\"/><circle cx=\"32\" cy=\"48\" r=\"7\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-divide)\"/><circle cx=\"32\" cy=\"48\" r=\"4.2\" fill=\"#F7BA9E\"/><polygon points=\"12,27 18,27 15,37 12,37\" fill=\"#FEE396\"/><polygon points=\"52,27 46,27 49,37 52,37\" fill=\"#F5B8BE\"/><line x1=\"16\" y1=\"32\" x2=\"48\" y2=\"32\" stroke=\"#FFFDF9\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"16\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"16\" r=\"0.9\" fill=\"#3D352E\"/><circle cx=\"32\" cy=\"48\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"48\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-equal",
+    "nameKo": "등호 기호 (이퀄)",
+    "nameEn": "Equal Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "equal",
+      "equation",
+      "math",
+      "balance",
+      "same",
+      "identical"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-equal\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"12\" y=\"19\" width=\"40\" height=\"10\" rx=\"4\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-equal)\"/><rect x=\"12\" y=\"35\" width=\"40\" height=\"10\" rx=\"4\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-equal)\"/><polygon points=\"12,19 20,19 16,29 12,29\" fill=\"#FEE396\" filter=\"url(#ps-symbol-equal)\"/><polygon points=\"52,35 44,35 48,45 52,45\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-equal)\"/><line x1=\"16\" y1=\"24\" x2=\"48\" y2=\"24\" stroke=\"#FFFDF9\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"16\" y1=\"40\" x2=\"48\" y2=\"40\" stroke=\"#FFFDF9\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"46\" cy=\"24\" r=\"2.2\" fill=\"#FEE396\"/><circle cx=\"46\" cy=\"24\" r=\"1\" fill=\"#3D352E\"/><circle cx=\"18\" cy=\"40\" r=\"2.2\" fill=\"#FEE396\"/><circle cx=\"18\" cy=\"40\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-not-equal",
+    "nameKo": "부등호 기호 (낫이퀄)",
+    "nameEn": "Not Equal Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "not-equal",
+      "inequality",
+      "math",
+      "different",
+      "logic"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-not-equal\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"12\" y=\"19\" width=\"40\" height=\"10\" rx=\"4\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-not-equal)\"/><rect x=\"12\" y=\"35\" width=\"40\" height=\"10\" rx=\"4\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-not-equal)\"/><polygon points=\"44,10 50,13 22,54 16,51\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-not-equal)\"/><polygon points=\"44,10 47,12 20,53 17,51\" fill=\"#FEE396\"/><polygon points=\"12,19 18,19 15,29 12,29\" fill=\"#F7BA9E\"/><line x1=\"46\" y1=\"12\" x2=\"19\" y2=\"52\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"16\" y1=\"24\" x2=\"33\" y2=\"24\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-dasharray=\"2 2\"/><line x1=\"28\" y1=\"40\" x2=\"48\" y2=\"40\" stroke=\"#FFFDF9\" stroke-width=\"1.5\" stroke-dasharray=\"2 2\"/><circle cx=\"39\" cy=\"24\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"39\" cy=\"24\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-percent",
+    "nameKo": "백분율 기호 (퍼센트)",
+    "nameEn": "Percent Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "percent",
+      "percentage",
+      "ratio",
+      "discount",
+      "sale",
+      "math"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-percent\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"46,12 51,15 20,52 15,49\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-percent)\"/><polygon points=\"46,12 49,14 18,51 15,49\" fill=\"#FAF6ED\"/><circle cx=\"23\" cy=\"23\" r=\"8.5\" fill=\"#FEE396\" filter=\"url(#ps-symbol-percent)\"/><circle cx=\"23\" cy=\"23\" r=\"4.5\" fill=\"#FAF6ED\"/><circle cx=\"41\" cy=\"41\" r=\"8.5\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-percent)\"/><circle cx=\"41\" cy=\"41\" r=\"4.5\" fill=\"#F7BA9E\"/><polygon points=\"46,12 51,15 48,21 44,18\" fill=\"#F5B8BE\"/><line x1=\"47\" y1=\"14\" x2=\"18\" y2=\"50\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"23\" cy=\"23\" r=\"1.8\" fill=\"#F7BA9E\"/><circle cx=\"23\" cy=\"23\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"41\" cy=\"41\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"41\" cy=\"41\" r=\"0.8\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-exclamation",
+    "nameKo": "느낌표 기호 (익스클레메이션)",
+    "nameEn": "Exclamation Mark",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "exclamation",
+      "alert",
+      "warning",
+      "attention",
+      "mark",
+      "important"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-exclamation\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"26,10 38,10 35,37 29,37\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-exclamation)\"/><polygon points=\"26,10 32,10 32,37 29,37\" fill=\"#FEE396\" filter=\"url(#ps-symbol-exclamation)\"/><rect x=\"25\" y=\"9\" width=\"14\" height=\"4\" rx=\"2\" fill=\"#D7CBEB\"/><circle cx=\"32\" cy=\"48\" r=\"6.5\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-exclamation)\"/><circle cx=\"32\" cy=\"48\" r=\"4\" fill=\"#F7BA9E\"/><line x1=\"32\" y1=\"12\" x2=\"32\" y2=\"35\" stroke=\"#FFFDF9\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"48\" r=\"1.8\" fill=\"#FFFDF9\"/><circle cx=\"32\" cy=\"48\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-question",
+    "nameKo": "물음표 기호 (퀘스천)",
+    "nameEn": "Question Mark",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "question",
+      "help",
+      "faq",
+      "ask",
+      "query",
+      "support"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-question\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 21 21 C 21 14 26 10 33 10 C 41 10 46 15 46 22 C 46 28 41 31 36 34 C 33 36 33 38 33 41 L 27 41 C 27 36 29 32 34 29 C 38 27 40 25 40 22 C 40 18 37 16 33 16 C 28 16 26 19 26 22 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-question)\"/><path d=\"M 28 12 C 32 10 37 10 41 12 L 39 17 C 36 16 33 16 30 17 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-question)\"/><polygon points=\"21,21 26,22 25,27 20,26\" fill=\"#A3D8C3\"/><circle cx=\"30\" cy=\"49\" r=\"6.5\" fill=\"#FEE396\" filter=\"url(#ps-symbol-question)\"/><circle cx=\"30\" cy=\"49\" r=\"4\" fill=\"#F5B8BE\"/><path d=\"M 24 21 C 24 16 28 13 33 13 C 39 13 43 17 43 22 C 43 27 39 30 35 32 C 31 34 30 37 30 40\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"30\" cy=\"49\" r=\"1.8\" fill=\"#FFFDF9\"/><circle cx=\"30\" cy=\"49\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-asterisk",
+    "nameKo": "별표 기호 (애스터리스크)",
+    "nameEn": "Asterisk Symbol",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "asterisk",
+      "star",
+      "wildcard",
+      "bullet",
+      "origami",
+      "shine"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-asterisk\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><rect x=\"28\" y=\"10\" width=\"8\" height=\"44\" rx=\"3.5\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-asterisk)\"/><rect x=\"28\" y=\"10\" width=\"8\" height=\"44\" rx=\"3.5\" transform=\"rotate(60 32 32)\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-asterisk)\"/><rect x=\"28\" y=\"10\" width=\"8\" height=\"44\" rx=\"3.5\" transform=\"rotate(120 32 32)\" fill=\"#FEE396\" filter=\"url(#ps-symbol-asterisk)\"/><polygon points=\"32,23 40,27 40,37 32,41 24,37 24,27\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-asterisk)\"/><circle cx=\"32\" cy=\"32\" r=\"5.5\" fill=\"#F5B8BE\"/><line x1=\"32\" y1=\"12\" x2=\"32\" y2=\"52\" stroke=\"#FFFDF9\" stroke-width=\"1.3\" stroke-dasharray=\"2 3\"/><line x1=\"14\" y1=\"22\" x2=\"50\" y2=\"42\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"32\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"32\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-tilde",
+    "nameKo": "물결표 기호 (틸드)",
+    "nameEn": "Tilde Symbol",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "tilde",
+      "wave",
+      "approximate",
+      "range",
+      "home",
+      "sine"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-tilde\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 12 36 C 16 24 24 24 30 30 C 36 36 44 36 48 24 L 52 26 C 48 40 40 40 34 34 C 28 28 20 28 16 40 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-tilde)\"/><path d=\"M 16 32 C 19 24 24 24 29 29 L 27 33 C 23 30 19 30 17 35 Z\" fill=\"#FEE396\" filter=\"url(#ps-symbol-tilde)\"/><path d=\"M 33 35 C 37 40 43 40 47 31 L 49 35 C 44 42 37 42 31 37 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-tilde)\"/><polygon points=\"12,36 16,40 18,34 14,31\" fill=\"#F7BA9E\"/><polygon points=\"48,24 52,26 50,32 46,30\" fill=\"#F5B8BE\"/><path d=\"M 14 38 C 18 26 25 26 31 32 C 37 38 44 38 50 25\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"32\" cy=\"32\" r=\"2\" fill=\"#FFFDF9\"/><circle cx=\"32\" cy=\"32\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-caret",
+    "nameKo": "캐럿 기호 (윗방향 꺾쇠)",
+    "nameEn": "Caret Symbol",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "caret",
+      "chevron",
+      "up",
+      "arrow",
+      "exponent",
+      "hat"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-caret\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"32,15 36,19 19,43 14,39\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-caret)\"/><polygon points=\"32,15 28,19 45,43 50,39\" fill=\"#FEE396\" filter=\"url(#ps-symbol-caret)\"/><polygon points=\"32,12 39,22 32,26 25,22\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-caret)\"/><polygon points=\"14,39 19,43 16,47 11,43\" fill=\"#A3D8C3\"/><polygon points=\"50,39 45,43 48,47 53,43\" fill=\"#A3D8C3\"/><line x1=\"30\" y1=\"21\" x2=\"16\" y2=\"41\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"34\" y1=\"21\" x2=\"48\" y2=\"41\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"32\" cy=\"20\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"20\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-slash",
+    "nameKo": "슬래시 기호 (빗금)",
+    "nameEn": "Forward Slash",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "slash",
+      "forward-slash",
+      "diagonal",
+      "divider",
+      "path"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-slash\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"46,12 51,15 20,52 15,49\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-slash)\"/><polygon points=\"46,12 48.5,13.5 17.5,50.5 15,49\" fill=\"#FEE396\" filter=\"url(#ps-symbol-slash)\"/><polygon points=\"46,12 51,15 48,22 43,19\" fill=\"#F7BA9E\"/><polygon points=\"20,52 15,49 18,42 23,45\" fill=\"#A3D8C3\"/><line x1=\"47\" y1=\"15\" x2=\"19\" y2=\"49\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"43\" cy=\"20\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"43\" cy=\"20\" r=\"0.9\" fill=\"#3D352E\"/><circle cx=\"23\" cy=\"44\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"23\" cy=\"44\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-backslash",
+    "nameKo": "역슬래시 기호 (백슬래시)",
+    "nameEn": "Backslash",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "backslash",
+      "reverse-slash",
+      "diagonal",
+      "escape",
+      "code"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-backslash\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><polygon points=\"18,12 13,15 44,52 49,49\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-backslash)\"/><polygon points=\"18,12 15.5,13.5 46.5,50.5 49,49\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-backslash)\"/><polygon points=\"18,12 13,15 16,22 21,19\" fill=\"#A3D8C3\"/><polygon points=\"44,52 49,49 46,42 41,45\" fill=\"#FEE396\"/><line x1=\"17\" y1=\"15\" x2=\"45\" y2=\"49\" stroke=\"#3D352E\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"21\" cy=\"20\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"21\" cy=\"20\" r=\"0.9\" fill=\"#3D352E\"/><circle cx=\"41\" cy=\"44\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"41\" cy=\"44\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-infinity",
+    "nameKo": "무한대 기호 (인피니티)",
+    "nameEn": "Infinity Symbol",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "infinity",
+      "infinite",
+      "loop",
+      "forever",
+      "lemniscate",
+      "math"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-infinity\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 23 23 C 16 23 11 27 11 32 C 11 37 16 41 23 41 C 29 41 33 37 36 32 C 33 27 29 23 23 23 Z M 23 28 C 25.5 28 27.5 29.5 29 32 C 27.5 34.5 25.5 36 23 36 C 20.5 36 18 34.5 18 32 C 18 29.5 20.5 28 23 28 Z\" fill=\"#A3D8C3\" fill-rule=\"evenodd\" filter=\"url(#ps-symbol-infinity)\"/><path d=\"M 41 23 C 35 23 31 27 28 32 C 31 37 35 41 41 41 C 48 41 53 37 53 32 C 53 27 48 23 41 23 Z M 41 28 C 43.5 28 46 29.5 46 32 C 46 34.5 43.5 36 41 36 C 38.5 36 36.5 34.5 35 32 C 36.5 29.5 38.5 28 41 28 Z\" fill=\"#BDE0EA\" fill-rule=\"evenodd\" filter=\"url(#ps-symbol-infinity)\"/><polygon points=\"26,27 38,37 36,41 24,31\" fill=\"#FEE396\" filter=\"url(#ps-symbol-infinity)\"/><polygon points=\"21,23 25,23 23,28 19,28\" fill=\"#F7BA9E\"/><polygon points=\"43,41 47,41 45,36 41,36\" fill=\"#F5B8BE\"/><path d=\"M 23 25 C 18 25 14 28 14 32 C 14 36 18 39 23 39 C 27 39 30 36 32 32 C 34 28 37 25 41 25 C 46 25 50 28 50 32 C 50 36 46 39 41 39\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"32\" cy=\"32\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"32\" r=\"1\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-pi",
+    "nameKo": "파이 기호 (원주율)",
+    "nameEn": "Pi Constant",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "pi",
+      "constant",
+      "math",
+      "circle",
+      "greek",
+      "geometry"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-pi\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 13 18 C 13 15 16 14 20 16 L 46 16 C 49 14 52 16 52 19 L 50 23 L 15 23 Z\" fill=\"#FEE396\" filter=\"url(#ps-symbol-pi)\"/><polygon points=\"15,16 49,16 47,20 17,20\" fill=\"#F7BA9E\"/><path d=\"M 22 21 L 28 21 L 27 48 C 27 51 24 53 20 52 L 21 47 C 23 47 24 46 24 44 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-pi)\"/><path d=\"M 37 21 L 43 21 L 43 44 C 43 48 46 51 50 49 L 48 53 C 42 55 37 51 37 45 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-pi)\"/><polygon points=\"46,47 50,49 48,53 44,51\" fill=\"#F5B8BE\"/><line x1=\"16\" y1=\"19.5\" x2=\"48\" y2=\"19.5\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"25\" y1=\"24\" x2=\"25\" y2=\"47\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><path d=\"M 40 24 L 40 45 C 40 48 43 50 46 49\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"25\" cy=\"21\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"25\" cy=\"21\" r=\"0.9\" fill=\"#3D352E\"/><circle cx=\"40\" cy=\"21\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"40\" cy=\"21\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-degree",
+    "nameKo": "도 기호 (디그리)",
+    "nameEn": "Degree Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "degree",
+      "temperature",
+      "angle",
+      "celsius",
+      "fahrenheit",
+      "weather"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-degree\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 32 12 C 43 12 52 21 52 32 C 52 43 43 52 32 52 C 21 52 12 43 12 32 C 12 21 21 12 32 12 Z M 32 20 C 25.5 20 20 25.5 20 32 C 20 38.5 25.5 44 32 44 C 38.5 44 44 38.5 44 32 C 44 25.5 38.5 20 32 20 Z\" fill=\"#BDE0EA\" fill-rule=\"evenodd\" filter=\"url(#ps-symbol-degree)\"/><path d=\"M 32 12 C 43 12 52 21 52 32 L 44 32 C 44 25.5 38.5 20 32 20 Z\" fill=\"#FEE396\" filter=\"url(#ps-symbol-degree)\"/><path d=\"M 32 52 C 21 52 12 43 12 32 L 20 32 C 20 38.5 25.5 44 32 44 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-degree)\"/><circle cx=\"32\" cy=\"32\" r=\"16\" stroke=\"#FAF6ED\" stroke-width=\"1.4\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"32\" cy=\"16\" r=\"1.8\" fill=\"#FEE396\"/><circle cx=\"32\" cy=\"16\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"48\" cy=\"32\" r=\"1.8\" fill=\"#FEE396\"/><circle cx=\"48\" cy=\"32\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"32\" cy=\"48\" r=\"1.8\" fill=\"#FEE396\"/><circle cx=\"32\" cy=\"48\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"16\" cy=\"32\" r=\"1.8\" fill=\"#FEE396\"/><circle cx=\"16\" cy=\"32\" r=\"0.8\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-quotes",
+    "nameKo": "큰따옴표 기호 (더블 쿼츠)",
+    "nameEn": "Double Quotes",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "quotes",
+      "quotation",
+      "speech",
+      "dialogue",
+      "typography",
+      "citation"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-quotes\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 23 18 C 27 18 30 21 30 25 C 30 28 28 31 25 33 C 24 37 21 42 16 46 L 15 42 C 19 38 21 34 21 31 C 18 31 16 28 16 25 C 16 21 19 18 23 18 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-quotes)\"/><path d=\"M 41 18 C 45 18 48 21 48 25 C 48 28 46 31 43 33 C 42 37 39 42 34 46 L 33 42 C 37 38 39 34 39 31 C 36 31 34 28 34 25 C 34 21 37 18 41 18 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-quotes)\"/><circle cx=\"23\" cy=\"24\" r=\"4.5\" fill=\"#FEE396\" filter=\"url(#ps-symbol-quotes)\"/><circle cx=\"41\" cy=\"24\" r=\"4.5\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-quotes)\"/><path d=\"M 21 31 C 19 36 17 41 15 43\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><path d=\"M 39 31 C 37 36 35 41 33 43\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 2\"/><circle cx=\"23\" cy=\"24\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"23\" cy=\"24\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"41\" cy=\"24\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"41\" cy=\"24\" r=\"0.8\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-parentheses",
+    "nameKo": "소괄호 기호 (패런씨시스)",
+    "nameEn": "Parentheses",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "parentheses",
+      "brackets",
+      "round-brackets",
+      "math",
+      "syntax",
+      "group"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-parentheses\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 26 12 C 17 21 17 43 26 52 L 21 52 C 11 41 11 23 21 12 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-parentheses)\"/><path d=\"M 38 12 C 47 21 47 43 38 52 L 43 52 C 53 41 53 23 43 12 Z\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-parentheses)\"/><polygon points=\"21,12 26,12 24,18 19,18\" fill=\"#FEE396\"/><polygon points=\"38,12 43,12 45,18 40,18\" fill=\"#FEE396\"/><polygon points=\"21,52 26,52 24,46 19,46\" fill=\"#F5B8BE\"/><polygon points=\"38,52 43,52 45,46 40,46\" fill=\"#F5B8BE\"/><path d=\"M 23 15 C 15 23 15 41 23 49\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><path d=\"M 41 15 C 49 23 49 41 41 49\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"15\" cy=\"32\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"15\" cy=\"32\" r=\"0.9\" fill=\"#3D352E\"/><circle cx=\"49\" cy=\"32\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"49\" cy=\"32\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-brackets",
+    "nameKo": "대괄호 기호 (스퀘어 브래킷)",
+    "nameEn": "Square Brackets",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "brackets",
+      "square-brackets",
+      "array",
+      "math",
+      "code",
+      "syntax"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-brackets\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 27 13 L 17 13 L 17 51 L 27 51 L 27 45 L 23 45 L 23 19 L 27 19 Z\" fill=\"#BDE0EA\" filter=\"url(#ps-symbol-brackets)\"/><path d=\"M 37 13 L 47 13 L 47 51 L 37 51 L 37 45 L 41 45 L 41 19 L 37 19 Z\" fill=\"#F7BA9E\" filter=\"url(#ps-symbol-brackets)\"/><polygon points=\"17,13 23,13 17,19\" fill=\"#FEE396\"/><polygon points=\"17,51 23,51 17,45\" fill=\"#FEE396\"/><polygon points=\"47,13 41,13 47,19\" fill=\"#A3D8C3\"/><polygon points=\"47,51 41,51 47,45\" fill=\"#A3D8C3\"/><line x1=\"20\" y1=\"16\" x2=\"20\" y2=\"48\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><line x1=\"44\" y1=\"16\" x2=\"44\" y2=\"48\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"20\" cy=\"32\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"20\" cy=\"32\" r=\"0.9\" fill=\"#3D352E\"/><circle cx=\"44\" cy=\"32\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"44\" cy=\"32\" r=\"0.9\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-braces",
+    "nameKo": "중괄호 기호 (컬리 브레이시스)",
+    "nameEn": "Curly Braces",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "braces",
+      "curly-braces",
+      "object",
+      "json",
+      "code",
+      "math"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-braces\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 27 12 C 22 12 21 16 21 21 C 21 26 19 28 14 31 L 14 33 C 19 36 21 38 21 43 C 21 48 22 52 27 52 L 27 47 C 24 47 25 44 25 41 C 25 36 21 33 18 32 C 21 31 25 28 25 23 C 25 20 24 17 27 17 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-braces)\"/><path d=\"M 37 12 C 42 12 43 16 43 21 C 43 26 45 28 50 31 L 50 33 C 45 36 43 38 43 43 C 43 48 42 52 37 52 L 37 47 C 40 47 39 44 39 41 C 39 36 43 33 46 32 C 43 31 39 28 39 23 C 39 20 40 17 37 17 Z\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-braces)\"/><polygon points=\"14,32 18,30 22,32 18,34\" fill=\"#FEE396\" filter=\"url(#ps-symbol-braces)\"/><polygon points=\"50,32 46,30 42,32 46,34\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-braces)\"/><circle cx=\"27\" cy=\"14.5\" r=\"2.5\" fill=\"#BDE0EA\"/><circle cx=\"37\" cy=\"14.5\" r=\"2.5\" fill=\"#F7BA9E\"/><path d=\"M 25 15 C 23 15 23 18 23 22 C 23 27 19 29 16 32 C 19 35 23 37 23 42 C 23 46 23 49 25 49\" stroke=\"#3D352E\" stroke-width=\"1.3\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"18\" cy=\"32\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"18\" cy=\"32\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"46\" cy=\"32\" r=\"1.8\" fill=\"#FAF6ED\"/><circle cx=\"46\" cy=\"32\" r=\"0.8\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-ellipsis",
+    "nameKo": "말줄임표 기호 (엘립시스)",
+    "nameEn": "Ellipsis",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "ellipsis",
+      "dots",
+      "more",
+      "loading",
+      "overflow",
+      "options"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-ellipsis\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><line x1=\"18\" y1=\"32\" x2=\"46\" y2=\"32\" stroke=\"#FAF6ED\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><line x1=\"18\" y1=\"32\" x2=\"46\" y2=\"32\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" stroke-dasharray=\"2 3\"/><circle cx=\"18\" cy=\"32\" r=\"7\" fill=\"#A3D8C3\" filter=\"url(#ps-symbol-ellipsis)\"/><circle cx=\"18\" cy=\"32\" r=\"4.2\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"32\" r=\"8\" fill=\"#FEE396\" filter=\"url(#ps-symbol-ellipsis)\"/><circle cx=\"32\" cy=\"32\" r=\"5\" fill=\"#F5B8BE\"/><circle cx=\"46\" cy=\"32\" r=\"7\" fill=\"#D7CBEB\" filter=\"url(#ps-symbol-ellipsis)\"/><circle cx=\"46\" cy=\"32\" r=\"4.2\" fill=\"#BDE0EA\"/><circle cx=\"18\" cy=\"32\" r=\"1.8\" fill=\"#F7BA9E\"/><circle cx=\"18\" cy=\"32\" r=\"0.8\" fill=\"#3D352E\"/><circle cx=\"32\" cy=\"32\" r=\"2.2\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"32\" r=\"1\" fill=\"#3D352E\"/><circle cx=\"46\" cy=\"32\" r=\"1.8\" fill=\"#FEE396\"/><circle cx=\"46\" cy=\"32\" r=\"0.8\" fill=\"#3D352E\"/></svg>"
+  },
+  {
+    "id": "symbol-copyright",
+    "nameKo": "저작권 기호 (카피라이트)",
+    "nameEn": "Copyright Sign",
+    "category": "symbol",
+    "tags": [
+      "symbol",
+      "copyright",
+      "rights",
+      "reserved",
+      "legal",
+      "intellectual-property",
+      "license"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-copyright\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 32 10 C 44 10 54 20 54 32 C 54 44 44 54 32 54 C 20 54 10 44 10 32 C 10 20 20 10 32 10 Z M 32 16 C 23.2 16 16 23.2 16 32 C 16 40.8 23.2 48 32 48 C 40.8 48 48 40.8 48 32 C 48 23.2 40.8 16 32 16 Z\" fill=\"#BDE0EA\" fill-rule=\"evenodd\" filter=\"url(#ps-symbol-copyright)\"/><polygon points=\"46,18 52,24 48,28 42,22\" fill=\"#FEE396\" filter=\"url(#ps-symbol-copyright)\"/><path d=\"M 40 25 C 38 22 35 21 32 21 C 26 21 22 26 22 32 C 22 38 26 43 32 43 C 35 43 38 42 40 39 L 36 36 C 35 38 33 39 32 39 C 28 39 26 36 26 32 C 26 28 28 25 32 25 C 33 25 35 26 36 28 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-copyright)\"/><polygon points=\"40,25 36,28 39,31 43,28\" fill=\"#A3D8C3\"/><polygon points=\"40,39 36,36 39,33 43,36\" fill=\"#A3D8C3\"/><circle cx=\"32\" cy=\"32\" r=\"14\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"32\" cy=\"13\" r=\"1.5\" fill=\"#FAF6ED\"/><circle cx=\"51\" cy=\"32\" r=\"1.5\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"51\" r=\"1.5\" fill=\"#FAF6ED\"/><circle cx=\"13\" cy=\"32\" r=\"1.5\" fill=\"#FAF6ED\"/></svg>"
+  }
 ];
 
   let currentCategory = 'all';
@@ -7745,7 +9789,7 @@
     if (filtered.length === 0) {
       container.innerHTML = `
         <div class="pc-icon-empty-state">
-          <div style="font-size: 32px; margin-bottom: 8px;">✂️</div>
+          <div style="margin-bottom: 8px;"><span class="pc-inline-icon is-lg" data-icon="scissors"></span></div>
           <div style="font-weight: 800; font-size: 16px;">일치하는 종이 아이콘이 없습니다</div>
           <div style="font-size: 13px; margin-top: 4px;">다른 검색어나 카테고리 필터를 선택해보세요.</div>
         </div>
@@ -7790,9 +9834,68 @@
     return iconLookupMap;
   }
 
-  function getPapercutIconSvg(iconId) {
+  let instanceSeq = 0;
+  function getPapercutIconSvg(iconId, customSuffix = null) {
     const map = getIconMap();
-    return map.get(iconId)?.svg || '';
+    const raw = map.get(iconId)?.svg || '';
+    if (!raw) return '';
+    const suffix = customSuffix || (`inst-${++instanceSeq}`);
+    return raw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${suffix}"`)
+              .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${suffix})`);
+  }
+
+  /**
+   * Automatic Icon Outline (Stroke) & Scale Rules Engine
+   * Rule 1: Size <= 32px (specifically 24px standard UI icons):
+   *         Stroke: 2.5px (#3D352E), individual paper shapes outline, fixed pixel scale (vector-effect: non-scaling-stroke)
+   * Rule 2: Size >= 33px:
+   *         Stroke: OFF (pure standalone kirigami silhouette)
+   */
+  function applyPapercutStrokeByScale(root = document) {
+    if (!root || typeof root.querySelectorAll !== 'function') return;
+    const svgs = root.querySelectorAll('svg.pc-layered-paper-icon, .pc-inline-icon svg');
+    svgs.forEach(svg => {
+      const parent = svg.parentElement;
+      const isLargeContext = svg.closest('.pc-icon-card') || 
+                             svg.closest('.pc-bg-card') ||
+                             svg.closest('.pc-product-media') ||
+                             (parent && (parent.classList.contains('is-lg') || parent.classList.contains('is-xl')));
+      
+      const isSmallContext = (parent && (parent.classList.contains('is-xs') || parent.classList.contains('is-sm') || parent.classList.contains('is-input-icon'))) ||
+                             svg.closest('.pc-btn') ||
+                             svg.closest('.pc-dropdown-trigger') ||
+                             svg.closest('.pc-dropdown-item') ||
+                             svg.closest('.pc-sidebar-item') ||
+                             svg.closest('.pc-sidebar-item-icon') ||
+                             svg.closest('.pc-pill-badge') ||
+                             svg.closest('.pc-mini-icon-disc') ||
+                             svg.closest('.pc-check-paper-disc') ||
+                             svg.closest('.pc-admin-brand-logo');
+
+      // Check bounding width or explicit attribute
+      let w = 0;
+      if (svg.hasAttribute('width')) w = parseFloat(svg.getAttribute('width'));
+      if (!w && parent && parent.hasAttribute('data-icon-size')) w = parseFloat(parent.getAttribute('data-icon-size'));
+      if (!w && svg.clientWidth > 0) w = svg.clientWidth;
+
+      if ((w > 0 && w <= 32.5) || isSmallContext || (!w && !isLargeContext)) {
+        // <= 32px or compact UI context: Apply stroke 2.5px #3D352E, individual paper outline, fixed scale
+        svg.classList.add('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on');
+        svg.classList.remove('pc-stroke-off', 'pc-auto-stroke-off');
+        if (parent && parent.classList.contains('pc-inline-icon')) {
+          parent.classList.add('pc-auto-stroke-on');
+          parent.classList.remove('pc-auto-stroke-off');
+        }
+      } else if (w >= 33 || isLargeContext) {
+        // >= 33px or large showcase context: Stroke OFF (Pure Standalone Kirigami)
+        svg.classList.add('pc-stroke-off', 'pc-auto-stroke-off');
+        svg.classList.remove('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on');
+        if (parent && parent.classList.contains('pc-inline-icon')) {
+          parent.classList.add('pc-auto-stroke-off');
+          parent.classList.remove('pc-auto-stroke-on');
+        }
+      }
+    });
   }
 
   function hydratePapercutIcons(root = document) {
@@ -7804,10 +9907,11 @@
       const iconId = el.getAttribute('data-icon');
       const icon = map.get(iconId);
       if (icon) {
-        el.innerHTML = icon.svg;
+        el.innerHTML = getPapercutIconSvg(iconId);
         el.classList.add('pc-inline-icon');
       }
     });
+    applyPapercutStrokeByScale(root);
   }
 
   if (document.readyState === 'loading') {
@@ -7818,8 +9922,13 @@
     hydratePapercutIcons();
   }
 
+  window.addEventListener('load', () => {
+    applyPapercutStrokeByScale();
+  });
+
   window.getPapercutIconSvg = getPapercutIconSvg;
   window.hydratePapercutIcons = hydratePapercutIcons;
+  window.applyPapercutStrokeByScale = applyPapercutStrokeByScale;
   window.initPapercutIconExplorer = initPapercutIconExplorer;
   window.renderPapercutIcons = renderIcons;
 })();

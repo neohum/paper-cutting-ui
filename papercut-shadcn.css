@@ -1,0 +1,2897 @@
+/**
+ * PaperCut UI - Shadcn Components Edition (papercut-shadcn.css)
+ * 
+ * Reimagining the complete suite of shadcn/ui components (all 45 components)
+ * in authentic 3D Layered Paper-Cut aesthetics:
+ * - Matte cream & cardstock base (#FAF7F0, #FFFDF9)
+ * - Soft pastel palette (Mint, Peach, Lavender, Buttercup, Sky, Rose, Sage)
+ * - Tactile knife-cut edges (zero harsh cartoon borders)
+ * - Warm paper drop shadows with organic wood-pulp umber tones
+ * - 3D paper folds, concertina pleats, matchbox drawers, and origami dogears
+ * - Washi tape pins, deckle torn edges, perforated roulette punches
+ * - Seamless integration with the 529 PaperCut SVG icon system
+ */
+
+/* ==========================================================================
+   0. DESIGN TOKENS & SYSTEM FOUNDATIONS
+   ========================================================================== */
+
+:root {
+  /* Surface Bases (Archival cardstock 200-300gsm) */
+  --pc-sd-bg-cream: #FAF7F0;
+  --pc-sd-bg-sheet-light: #FFFDF9;
+  --pc-sd-bg-sheet-card: #FFFFFF;
+  --pc-sd-bg-recessed: #F3EFE6;
+  --pc-sd-border-kraft: #E2DAC8;
+  --pc-sd-border-faint: rgba(74, 60, 49, 0.12);
+
+  /* Primary Typography (Warm craft ink) */
+  --pc-sd-ink-dark: #2D2926;
+  --pc-sd-ink-body: #3D352E;
+  --pc-sd-ink-muted: #6E645A;
+  --pc-sd-ink-faint: #9E948A;
+
+  /* Pastel Palette Primaries & Tints */
+  --pc-sd-sage: #A8D5BA;
+  --pc-sd-sage-tint: #D2E8D4;
+  --pc-sd-sage-dark: #275C46;
+
+  --pc-sd-peach: #F7C5A8;
+  --pc-sd-peach-tint: #FDE2D1;
+  --pc-sd-peach-dark: #6E3B21;
+
+  --pc-sd-lavender: #C9C1F8;
+  --pc-sd-lavender-tint: #E3DEFD;
+  --pc-sd-lavender-dark: #473B6B;
+
+  --pc-sd-buttercup: #FDE68A;
+  --pc-sd-buttercup-tint: #FEF3C7;
+  --pc-sd-buttercup-dark: #6E530F;
+
+  --pc-sd-sky: #BAE6FD;
+  --pc-sd-sky-tint: #D9EEF8;
+  --pc-sd-sky-dark: #204C5A;
+
+  --pc-sd-rose: #FBCFE8;
+  --pc-sd-rose-tint: #FCE7F3;
+  --pc-sd-rose-dark: #702830;
+
+  /* Shadcn Semantic Mapping */
+  --pc-sd-primary: var(--pc-sd-sage);
+  --pc-sd-primary-foreground: var(--pc-sd-ink-dark);
+  --pc-sd-secondary: var(--pc-sd-peach-tint);
+  --pc-sd-secondary-foreground: var(--pc-sd-ink-dark);
+  --pc-sd-destructive: var(--pc-sd-rose);
+  --pc-sd-destructive-foreground: var(--pc-sd-rose-dark);
+  --pc-sd-muted: var(--pc-sd-bg-recessed);
+  --pc-sd-muted-foreground: var(--pc-sd-ink-muted);
+  --pc-sd-accent: var(--pc-sd-lavender-tint);
+  --pc-sd-accent-foreground: var(--pc-sd-ink-dark);
+
+  /* Multi-stop Warm Umber Paper Shadows (rgb(74, 60, 49)) */
+  --pc-sd-shadow-tint: 74, 60, 49;
+  
+  --pc-sd-shadow-1: 
+    0 1px 2px 0 rgba(var(--pc-sd-shadow-tint), 0.06),
+    0 2px 6px -1px rgba(var(--pc-sd-shadow-tint), 0.08);
+
+  --pc-sd-shadow-2: 
+    0 2px 4px 0 rgba(var(--pc-sd-shadow-tint), 0.06),
+    0 6px 14px -2px rgba(var(--pc-sd-shadow-tint), 0.10);
+
+  --pc-sd-shadow-3: 
+    0 3px 6px 0 rgba(var(--pc-sd-shadow-tint), 0.08),
+    0 10px 22px -3px rgba(var(--pc-sd-shadow-tint), 0.12);
+
+  --pc-sd-shadow-4: 
+    0 4px 8px 0 rgba(var(--pc-sd-shadow-tint), 0.09),
+    0 16px 30px -4px rgba(var(--pc-sd-shadow-tint), 0.14);
+
+  --pc-sd-shadow-5: 
+    0 6px 12px 0 rgba(var(--pc-sd-shadow-tint), 0.10),
+    0 24px 48px -6px rgba(var(--pc-sd-shadow-tint), 0.16);
+
+  --pc-sd-shadow-inset: 
+    inset 0 2px 4px 0 rgba(var(--pc-sd-shadow-tint), 0.11),
+    inset 0 1px 2px 0 rgba(var(--pc-sd-shadow-tint), 0.07),
+    0 1px 0 0 rgba(255, 255, 255, 0.85);
+
+  --pc-sd-shadow-cutout: 
+    inset 0 3px 6px rgba(var(--pc-sd-shadow-tint), 0.13),
+    inset 0 8px 16px rgba(var(--pc-sd-shadow-tint), 0.08),
+    0 1px 2px rgba(255, 255, 255, 0.85);
+
+  /* Corner Radii */
+  --pc-sd-radius-xs: 4px;
+  --pc-sd-radius-sm: 8px;
+  --pc-sd-radius-md: 12px;
+  --pc-sd-radius-lg: 18px;
+  --pc-sd-radius-xl: 26px;
+  --pc-sd-radius-pill: 9999px;
+
+  /* Physics & Durations */
+  --pc-sd-ease-fold: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --pc-sd-ease-glide: cubic-bezier(0.25, 1, 0.5, 1);
+  --pc-sd-dur-quick: 140ms;
+  --pc-sd-dur-norm: 220ms;
+  --pc-sd-dur-unfold: 340ms;
+}
+
+/* Base resets & typography within shadcn components */
+.pc-sd-root, [class*="pc-sd-"], [class*="pc-shadcn-"] {
+  box-sizing: border-box;
+  font-family: inherit;
+  color: var(--pc-sd-ink-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+[class*="pc-sd-"] *, [class*="pc-sd-"] *::before, [class*="pc-sd-"] *::after,
+[class*="pc-shadcn-"] *, [class*="pc-shadcn-"] *::before, [class*="pc-shadcn-"] *::after {
+  box-sizing: border-box;
+}
+
+/* Inline icon sizing in shadcn context */
+.pc-sd-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35em;
+  height: 1.35em;
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+  line-height: 1;
+}
+.pc-sd-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Washi Tape Pin Accent Utility */
+.pc-sd-washi-pin {
+  position: relative;
+}
+.pc-sd-washi-pin::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 58px;
+  height: 18px;
+  background-color: rgba(247, 197, 168, 0.75);
+  box-shadow: 0 1px 3px rgba(74, 60, 49, 0.15);
+  clip-path: polygon(4px 0, 100% 1px, calc(100% - 3px) 100%, 0 calc(100% - 2px));
+  z-index: 2;
+  pointer-events: none;
+}
+.pc-sd-washi-pin.is-sage::before { background-color: rgba(168, 213, 186, 0.75); }
+.pc-sd-washi-pin.is-lavender::before { background-color: rgba(201, 193, 248, 0.75); }
+.pc-sd-washi-pin.is-buttercup::before { background-color: rgba(253, 230, 138, 0.85); }
+.pc-sd-washi-pin.is-sky::before { background-color: rgba(186, 230, 253, 0.75); }
+.pc-sd-washi-pin.is-rose::before { background-color: rgba(251, 207, 232, 0.75); }
+
+
+/* ==========================================================================
+   1. ACCORDION (Concertina pleated paper fold with chevron cutline)
+   ========================================================================== */
+.pc-sd-accordion, .pc-shadcn-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.pc-sd-accordion-item, .pc-shadcn-accordion-item {
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-1);
+  overflow: hidden;
+  transition: all var(--pc-sd-dur-norm) var(--pc-sd-ease-glide);
+}
+
+.pc-sd-accordion-item[data-state="open"], .pc-shadcn-accordion-item[data-state="open"] {
+  box-shadow: var(--pc-sd-shadow-2);
+  border-color: var(--pc-sd-lavender);
+  background: #FFFDFB;
+}
+
+.pc-sd-accordion-trigger, .pc-shadcn-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-dark);
+  text-align: left;
+  transition: background-color var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-accordion-trigger:hover, .pc-shadcn-accordion-trigger:hover {
+  background: var(--pc-sd-bg-recessed);
+}
+
+.pc-sd-accordion-chevron, .pc-shadcn-accordion-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--pc-sd-radius-pill);
+  background: var(--pc-sd-lavender-tint);
+  color: var(--pc-sd-lavender-dark);
+  transition: transform var(--pc-sd-dur-norm) var(--pc-sd-ease-fold), background-color var(--pc-sd-dur-quick) ease;
+  box-shadow: 0 1px 3px rgba(var(--pc-sd-shadow-tint), 0.08);
+}
+
+.pc-sd-accordion-item[data-state="open"] .pc-sd-accordion-chevron,
+.pc-shadcn-accordion-item[data-state="open"] .pc-shadcn-accordion-chevron {
+  transform: rotate(180deg);
+  background: var(--pc-sd-lavender);
+}
+
+.pc-sd-accordion-content, .pc-shadcn-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--pc-sd-dur-norm) var(--pc-sd-ease-glide);
+}
+
+.pc-sd-accordion-item[data-state="open"] .pc-sd-accordion-content,
+.pc-shadcn-accordion-item[data-state="open"] .pc-shadcn-accordion-content {
+  grid-template-rows: 1fr;
+}
+
+.pc-sd-accordion-body, .pc-shadcn-accordion-body {
+  overflow: hidden;
+}
+
+.pc-sd-accordion-inner, .pc-shadcn-accordion-inner {
+  padding: 0 20px 18px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--pc-sd-ink-muted);
+  border-top: 1px dashed var(--pc-sd-border-kraft);
+  margin-top: 2px;
+  padding-top: 14px;
+  background: linear-gradient(180deg, rgba(201, 193, 248, 0.08) 0%, transparent 24px);
+}
+
+
+/* ==========================================================================
+   2. ALERT (Postage stamp deckle badge with ribbon border)
+   ========================================================================== */
+.pc-sd-alert, .pc-shadcn-alert {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--pc-sd-bg-sheet-light);
+  border-radius: var(--pc-sd-radius-md);
+  border-left: 5px solid var(--pc-sd-lavender);
+  box-shadow: var(--pc-sd-shadow-2);
+  margin-bottom: 14px;
+}
+
+.pc-sd-alert.is-stamp {
+  border-left: none;
+  background-image: 
+    radial-gradient(circle at 0 50%, transparent 6px, var(--pc-sd-bg-sheet-light) 7px),
+    radial-gradient(circle at 100% 50%, transparent 6px, var(--pc-sd-bg-sheet-light) 7px);
+  background-size: 100% 20px;
+  background-position: left center, right center;
+  background-repeat: repeat-y;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-top: 1px solid var(--pc-sd-border-kraft);
+  border-bottom: 1px solid var(--pc-sd-border-kraft);
+}
+
+.pc-sd-alert.is-info {
+  border-left-color: var(--pc-sd-sky);
+  background-color: var(--pc-sd-sky-tint);
+}
+.pc-sd-alert.is-success {
+  border-left-color: var(--pc-sd-sage);
+  background-color: var(--pc-sd-sage-tint);
+}
+.pc-sd-alert.is-warning {
+  border-left-color: var(--pc-sd-buttercup);
+  background-color: var(--pc-sd-buttercup-tint);
+}
+.pc-sd-alert.is-destructive {
+  border-left-color: var(--pc-sd-rose);
+  background-color: var(--pc-sd-rose-tint);
+}
+
+.pc-sd-alert-icon, .pc-shadcn-alert-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 22px;
+  height: 22px;
+}
+
+.pc-sd-alert-body, .pc-shadcn-alert-body {
+  flex: 1;
+}
+
+.pc-sd-alert-title, .pc-shadcn-alert-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-alert-description, .pc-shadcn-alert-description {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--pc-sd-ink-muted);
+}
+
+.pc-sd-alert-close, .pc-shadcn-alert-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: var(--pc-sd-ink-faint);
+  border-radius: var(--pc-sd-radius-xs);
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+.pc-sd-alert-close:hover {
+  color: var(--pc-sd-ink-dark);
+  background: rgba(74, 60, 49, 0.08);
+}
+
+
+/* ==========================================================================
+   3. ALERT DIALOG (Layered shadowbox modal with deckle edge and paper buttons)
+   ========================================================================== */
+.pc-sd-alert-dialog-overlay, .pc-shadcn-alert-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.42);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-sd-dur-norm) ease;
+}
+
+.pc-sd-alert-dialog-overlay[data-state="open"], .pc-shadcn-alert-dialog-overlay[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-sd-alert-dialog-content, .pc-shadcn-alert-dialog-content {
+  position: relative;
+  background: var(--pc-sd-bg-sheet-light);
+  border-radius: var(--pc-sd-radius-lg);
+  border: 1px solid var(--pc-sd-border-kraft);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-sd-shadow-5);
+  max-width: 520px;
+  width: 100%;
+  padding: 28px 30px;
+  transform: scale(0.94) translateY(8px);
+  transition: transform var(--pc-sd-dur-norm) var(--pc-sd-ease-fold);
+}
+
+.pc-sd-alert-dialog-overlay[data-state="open"] .pc-sd-alert-dialog-content,
+.pc-shadcn-alert-dialog-overlay[data-state="open"] .pc-shadcn-alert-dialog-content {
+  transform: scale(1) translateY(0);
+}
+
+.pc-sd-alert-dialog-content::before {
+  content: "";
+  position: absolute;
+  inset: -6px -6px 6px 6px;
+  background: var(--pc-sd-peach-tint);
+  border-radius: calc(var(--pc-sd-radius-lg) + 2px);
+  z-index: -1;
+  box-shadow: var(--pc-sd-shadow-1);
+}
+
+.pc-sd-alert-dialog-header, .pc-shadcn-alert-dialog-header {
+  margin-bottom: 16px;
+}
+
+.pc-sd-alert-dialog-title, .pc-shadcn-alert-dialog-title {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-alert-dialog-description, .pc-shadcn-alert-dialog-description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--pc-sd-ink-muted);
+}
+
+.pc-sd-alert-dialog-footer, .pc-shadcn-alert-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+
+/* ==========================================================================
+   4. ASPECT RATIO (Cardstock picture frame with photo corner mounts)
+   ========================================================================== */
+.pc-sd-aspect-ratio, .pc-shadcn-aspect-ratio {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--pc-sd-radius-md);
+  background: var(--pc-sd-bg-recessed);
+  box-shadow: var(--pc-sd-shadow-inset);
+  border: 1px solid var(--pc-sd-border-kraft);
+}
+
+.pc-sd-aspect-ratio-inner, .pc-shadcn-aspect-ratio-inner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pc-sd-aspect-ratio-inner img,
+.pc-sd-aspect-ratio-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pc-sd-aspect-ratio .pc-sd-corner-mount,
+.pc-shadcn-aspect-ratio .pc-sd-corner-mount {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.pc-sd-aspect-ratio .pc-sd-corner-mount.top-left {
+  top: 0; left: 0;
+  background: linear-gradient(135deg, var(--pc-sd-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(1px 1px 2px rgba(74, 60, 49, 0.2));
+}
+.pc-sd-aspect-ratio .pc-sd-corner-mount.top-right {
+  top: 0; right: 0;
+  background: linear-gradient(225deg, var(--pc-sd-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(-1px 1px 2px rgba(74, 60, 49, 0.2));
+}
+.pc-sd-aspect-ratio .pc-sd-corner-mount.bottom-left {
+  bottom: 0; left: 0;
+  background: linear-gradient(45deg, var(--pc-sd-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(1px -1px 2px rgba(74, 60, 49, 0.2));
+}
+.pc-sd-aspect-ratio .pc-sd-corner-mount.bottom-right {
+  bottom: 0; right: 0;
+  background: linear-gradient(315deg, var(--pc-sd-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(-1px -1px 2px rgba(74, 60, 49, 0.2));
+}
+
+
+/* ==========================================================================
+   5. AVATAR (Circular layered paper silhouette with dual pastel rings)
+   ========================================================================== */
+.pc-sd-avatar, .pc-shadcn-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--pc-sd-radius-pill);
+  background: var(--pc-sd-bg-sheet-light);
+  box-shadow: 
+    0 0 0 2px var(--pc-sd-bg-sheet-light),
+    0 0 0 4px var(--pc-sd-lavender),
+    0 0 0 6px var(--pc-sd-buttercup-tint),
+    var(--pc-sd-shadow-2);
+  overflow: visible;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.pc-sd-avatar-image, .pc-shadcn-avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--pc-sd-radius-pill);
+  object-fit: cover;
+  display: block;
+}
+
+.pc-sd-avatar-fallback, .pc-shadcn-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--pc-sd-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--pc-sd-ink-dark);
+  background: var(--pc-sd-peach-tint);
+}
+
+.pc-sd-avatar-indicator, .pc-shadcn-avatar-indicator {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 13px;
+  height: 13px;
+  border-radius: var(--pc-sd-radius-pill);
+  background: var(--pc-sd-sage);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.18);
+}
+
+
+/* ==========================================================================
+   6. BADGE (Perforated stamp, scalloped seal, ribbon tag, origami fold)
+   ========================================================================== */
+.pc-sd-badge, .pc-shadcn-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: var(--pc-sd-radius-pill);
+  background: var(--pc-sd-sage-tint);
+  color: var(--pc-sd-ink-dark);
+  box-shadow: var(--pc-sd-shadow-1);
+  transition: all var(--pc-sd-dur-quick) ease;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+}
+.pc-sd-badge > span, .pc-shadcn-badge > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-sd-badge:hover, .pc-shadcn-badge:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--pc-sd-shadow-2);
+}
+
+.pc-sd-badge.is-stamp {
+  border-radius: 4px;
+  border: 1px dashed var(--pc-sd-border-kraft);
+  background: var(--pc-sd-bg-sheet-light);
+}
+
+.pc-sd-badge.is-scallop {
+  border-radius: var(--pc-sd-radius-md);
+  background: var(--pc-sd-buttercup-tint);
+  border: 1px solid var(--pc-sd-buttercup);
+}
+
+.pc-sd-badge.is-ribbon {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%, 6px 50%);
+  padding: 5px 14px;
+  background: var(--pc-sd-lavender);
+}
+
+.pc-sd-badge.is-origami {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-right: 14px;
+}
+.pc-sd-badge.is-origami::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  border-width: 0 8px 8px 0;
+  border-style: solid;
+  border-color: transparent var(--pc-sd-peach) transparent transparent;
+}
+
+.pc-sd-badge.is-peach { background: var(--pc-sd-peach-tint); }
+.pc-sd-badge.is-lavender { background: var(--pc-sd-lavender-tint); }
+.pc-sd-badge.is-buttercup { background: var(--pc-sd-buttercup-tint); }
+.pc-sd-badge.is-sky { background: var(--pc-sd-sky-tint); }
+.pc-sd-badge.is-rose { background: var(--pc-sd-rose-tint); }
+
+
+/* ==========================================================================
+   7. BREADCRUMB (Pencil-cut paper arrows connecting craft tags)
+   ========================================================================== */
+.pc-sd-breadcrumb, .pc-shadcn-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 13.5px;
+}
+
+.pc-sd-breadcrumb-list, .pc-shadcn-breadcrumb-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+}
+
+.pc-sd-breadcrumb-item, .pc-shadcn-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-sd-breadcrumb-link, .pc-shadcn-breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--pc-sd-bg-sheet-light);
+  border-radius: var(--pc-sd-radius-xs);
+  border: 1px solid var(--pc-sd-border-kraft);
+  color: var(--pc-sd-ink-muted);
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.05);
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-breadcrumb-link:hover, .pc-shadcn-breadcrumb-link:hover {
+  background: var(--pc-sd-peach-tint);
+  color: var(--pc-sd-ink-dark);
+  transform: translateY(-1px);
+}
+
+.pc-sd-breadcrumb-page, .pc-shadcn-breadcrumb-page {
+  padding: 4px 10px;
+  background: var(--pc-sd-sage-tint);
+  border-radius: var(--pc-sd-radius-xs);
+  border: 1px solid var(--pc-sd-sage);
+  color: var(--pc-sd-ink-dark);
+  font-weight: 700;
+  box-shadow: var(--pc-sd-shadow-1);
+}
+
+.pc-sd-breadcrumb-separator, .pc-shadcn-breadcrumb-separator {
+  color: var(--pc-sd-ink-faint);
+  display: inline-flex;
+  align-items: center;
+}
+
+
+/* ==========================================================================
+   8. BUTTON (Cardstock stack, pressed-in active state, scallop cut, washi tape)
+   ========================================================================== */
+.pc-sd-btn, .pc-shadcn-button, .pc-sd-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: var(--pc-sd-radius-md);
+  border: 1px solid var(--pc-sd-border-kraft);
+  background: var(--pc-sd-bg-sheet-light);
+  color: var(--pc-sd-ink-dark);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  vertical-align: middle;
+  text-align: center;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    var(--pc-sd-shadow-2);
+  transform: translateY(0);
+  transition: 
+    transform var(--pc-sd-dur-quick) var(--pc-sd-ease-fold),
+    box-shadow var(--pc-sd-dur-quick) ease,
+    background-color var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-btn > span, .pc-shadcn-button > span, .pc-sd-button > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-sd-btn:hover, .pc-shadcn-button:hover, .pc-sd-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-sd-shadow-3);
+}
+
+.pc-sd-btn:active, .pc-sd-btn.is-active,
+.pc-shadcn-button:active, .pc-shadcn-button.is-active {
+  transform: translateY(1.5px);
+  box-shadow: var(--pc-sd-shadow-1);
+}
+
+/* 3-Sheet Cardstock Stack Variant */
+.pc-sd-btn.is-stack, .pc-shadcn-button.is-stack {
+  background: var(--pc-sd-sage);
+  color: var(--pc-sd-ink-dark);
+  border-color: rgba(74, 60, 49, 0.16);
+  transform: translate(-3px, -3px);
+  box-shadow: 
+    1.5px 1.5px 0 0 var(--pc-sd-sage-tint),
+    3px 3px 0 0 var(--pc-sd-border-kraft),
+    4px 4px 8px 0 rgba(74, 60, 49, 0.14);
+}
+.pc-sd-btn.is-stack:hover, .pc-shadcn-button.is-stack:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 
+    2px 2px 0 0 var(--pc-sd-sage-tint),
+    4px 4px 0 0 var(--pc-sd-border-kraft),
+    6px 6px 12px 0 rgba(74, 60, 49, 0.18);
+}
+.pc-sd-btn.is-stack:active, .pc-shadcn-button.is-stack:active {
+  transform: translate(0, 0);
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.12);
+}
+
+/* Pressed-in debossed well variant */
+.pc-sd-btn.is-pressed, .pc-shadcn-button.is-pressed {
+  background: var(--pc-sd-bg-recessed);
+  box-shadow: var(--pc-sd-shadow-inset);
+  border-color: var(--pc-sd-border-kraft);
+}
+.pc-sd-btn.is-pressed:hover, .pc-shadcn-button.is-pressed:hover {
+  background: #EFE9DE;
+  transform: none;
+}
+.pc-sd-btn.is-pressed:active, .pc-shadcn-button.is-pressed:active {
+  background: #E8E0D2;
+  box-shadow: 
+    inset 0 3px 6px rgba(74, 60, 49, 0.18),
+    inset 0 1px 2px rgba(74, 60, 49, 0.12);
+  transform: translateY(1px);
+}
+
+/* Scallop Cut Edge Button */
+.pc-sd-btn.is-scallop, .pc-shadcn-button.is-scallop {
+  border-radius: var(--pc-sd-radius-lg);
+  background: var(--pc-sd-peach);
+  border: none;
+  box-shadow: var(--pc-sd-shadow-3);
+}
+
+/* Button Color Variants */
+.pc-sd-btn.is-primary { background: var(--pc-sd-sage); border-color: rgba(74, 60, 49, 0.15); }
+.pc-sd-btn.is-secondary { background: var(--pc-sd-peach-tint); border-color: var(--pc-sd-peach); }
+.pc-sd-btn.is-lavender { background: var(--pc-sd-lavender-tint); border-color: var(--pc-sd-lavender); }
+.pc-sd-btn.is-buttercup { background: var(--pc-sd-buttercup); border-color: rgba(74, 60, 49, 0.15); }
+.pc-sd-btn.is-destructive { background: var(--pc-sd-rose); color: var(--pc-sd-rose-dark); border-color: rgba(112, 40, 48, 0.2); }
+.pc-sd-btn.is-outline { background: transparent; border: 1.5px dashed var(--pc-sd-border-kraft); box-shadow: none; }
+.pc-sd-btn.is-outline:hover { background: var(--pc-sd-bg-sheet-light); border-style: solid; }
+.pc-sd-btn.is-ghost { background: transparent; border-color: transparent; box-shadow: none; }
+.pc-sd-btn.is-ghost:hover { background: var(--pc-sd-bg-recessed); }
+
+/* Button Sizes */
+.pc-sd-btn.is-sm { padding: 6px 12px; font-size: 12.5px; gap: 5px; }
+.pc-sd-btn.is-lg { padding: 12px 24px; font-size: 16px; gap: 10px; }
+.pc-sd-btn.is-icon { padding: 8px; width: 38px; height: 38px; }
+
+
+/* ==========================================================================
+   9. CALENDAR (Tear-off desk calendar with ring binder cuts & marked day seals)
+   ========================================================================== */
+.pc-sd-calendar, .pc-shadcn-calendar {
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-lg);
+  box-shadow: var(--pc-sd-shadow-3);
+  padding: 20px;
+  width: 320px;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-sd-calendar-binder {
+  display: flex;
+  justify-content: space-around;
+  margin: -20px -20px 14px;
+  padding: 8px 12px;
+  background: var(--pc-sd-bg-recessed);
+  border-bottom: 2px dashed var(--pc-sd-border-kraft);
+}
+
+.pc-sd-calendar-ring {
+  width: 12px;
+  height: 18px;
+  background: #FFFDF9;
+  border-radius: 4px;
+  border: 1px solid var(--pc-sd-border-kraft);
+  box-shadow: 
+    inset 0 1px 2px rgba(74, 60, 49, 0.15),
+    0 2px 4px rgba(74, 60, 49, 0.08);
+}
+
+.pc-sd-calendar-header, .pc-shadcn-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.pc-sd-calendar-title, .pc-shadcn-calendar-title {
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-calendar-grid, .pc-shadcn-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.pc-sd-calendar-weekday, .pc-shadcn-calendar-weekday {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-muted);
+  padding: 6px 0;
+}
+
+.pc-sd-calendar-day, .pc-shadcn-calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: var(--pc-sd-radius-pill);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: all var(--pc-sd-dur-quick) ease;
+  color: var(--pc-sd-ink-body);
+}
+
+.pc-sd-calendar-day:hover:not(.is-disabled) {
+  background: var(--pc-sd-peach-tint);
+  transform: scale(1.08);
+}
+
+.pc-sd-calendar-day.is-today {
+  border: 1.5px solid var(--pc-sd-lavender);
+  font-weight: 700;
+}
+
+.pc-sd-calendar-day.is-selected {
+  background: var(--pc-sd-sage);
+  color: var(--pc-sd-ink-dark);
+  font-weight: 800;
+  box-shadow: 
+    0 0 0 2px var(--pc-sd-bg-sheet-light),
+    0 2px 4px rgba(74, 60, 49, 0.15);
+}
+
+.pc-sd-calendar-day.is-other-month, .pc-sd-calendar-day.is-disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+
+/* ==========================================================================
+   10. CARD (Stacked multi-layer cardstock with subtle offset and paper shadow)
+   ========================================================================== */
+.pc-sd-card, .pc-shadcn-card {
+  position: relative;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-lg);
+  box-shadow: var(--pc-sd-shadow-3);
+  overflow: hidden;
+  transition: transform var(--pc-sd-dur-norm) ease, box-shadow var(--pc-sd-dur-norm) ease;
+}
+
+.pc-sd-card:hover, .pc-shadcn-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-sd-shadow-4);
+}
+
+.pc-sd-card.is-stacked::after {
+  content: "";
+  position: absolute;
+  top: 6px; left: 6px; right: -6px; bottom: -6px;
+  background: var(--pc-sd-peach-tint);
+  border-radius: var(--pc-sd-radius-lg);
+  z-index: -1;
+  box-shadow: var(--pc-sd-shadow-1);
+}
+
+.pc-sd-card-header, .pc-shadcn-card-header {
+  padding: 24px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pc-sd-card-title, .pc-shadcn-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-card-description, .pc-shadcn-card-description {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--pc-sd-ink-muted);
+  line-height: 1.5;
+}
+
+.pc-sd-card-content, .pc-shadcn-card-content {
+  padding: 0 24px 24px;
+}
+
+.pc-sd-card-footer, .pc-shadcn-card-footer {
+  padding: 16px 24px;
+  background: var(--pc-sd-bg-recessed);
+  border-top: 1px dashed var(--pc-sd-border-kraft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* ==========================================================================
+   11. CAROUSEL (Cardboard sliding slide deck with paper pagination dots)
+   ========================================================================== */
+.pc-sd-carousel, .pc-shadcn-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.pc-sd-carousel-viewport, .pc-shadcn-carousel-viewport {
+  overflow: hidden;
+  border-radius: var(--pc-sd-radius-lg);
+}
+
+.pc-sd-carousel-track, .pc-shadcn-carousel-track {
+  display: flex;
+  transition: transform var(--pc-sd-dur-unfold) var(--pc-sd-ease-glide);
+}
+
+.pc-sd-carousel-item, .pc-shadcn-carousel-item {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 10px;
+}
+
+.pc-sd-carousel-controls, .pc-shadcn-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+
+.pc-sd-carousel-dots, .pc-shadcn-carousel-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pc-sd-carousel-dot, .pc-shadcn-carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--pc-sd-radius-pill);
+  background: var(--pc-sd-border-kraft);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all var(--pc-sd-dur-norm) var(--pc-sd-ease-fold);
+}
+
+.pc-sd-carousel-dot.is-active, .pc-shadcn-carousel-dot.is-active {
+  width: 24px;
+  background: var(--pc-sd-sage);
+  box-shadow: 0 1px 3px rgba(74, 60, 49, 0.15);
+}
+
+
+/* ==========================================================================
+   12. CHECKBOX (Origami corner fold with paper stamp checkmark)
+   ========================================================================== */
+.pc-sd-checkbox-wrapper, .pc-shadcn-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-sd-checkbox, .pc-shadcn-checkbox {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #FAF7F0;
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(240,233,220,0.5) 100%);
+  border: 1.5px solid #DED4C3;
+  border-radius: var(--pc-sd-radius-xs);
+  box-shadow: 
+    0 2px 4px rgba(74, 58, 42, 0.12),
+    0 1px 2px rgba(74, 58, 42, 0.08),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(74, 58, 42, 0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: visible;
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-checkbox:hover, .pc-shadcn-checkbox:hover {
+  border-color: #D2C2AD;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(74, 58, 42, 0.16);
+}
+
+.pc-sd-checkbox::after, .pc-shadcn-checkbox::after {
+  content: "";
+  position: absolute;
+  top: -1px; right: -1px;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 0 0 0;
+  border-color: transparent var(--pc-sd-sage) transparent transparent;
+  transition: border-width var(--pc-sd-dur-quick) var(--pc-sd-ease-fold);
+  box-shadow: -1px 1px 2px rgba(74, 60, 49, 0.15);
+  pointer-events: none;
+}
+
+.pc-sd-checkbox[data-state="checked"], .pc-shadcn-checkbox[data-state="checked"] {
+  background-color: #E8F6EE;
+  background-image: linear-gradient(135deg, #F0FAF4 0%, #DCF2E5 100%);
+  border-color: #83C9A6;
+  box-shadow: 
+    0 1px 3px rgba(74, 58, 42, 0.14),
+    inset 0 2px 4px rgba(45, 100, 75, 0.12);
+  transform: translateY(0.5px);
+}
+
+.pc-sd-checkbox[data-state="checked"]::after, .pc-shadcn-checkbox[data-state="checked"]::after {
+  border-width: 0 8px 8px 0;
+}
+
+.pc-sd-checkbox-icon, .pc-shadcn-checkbox-icon {
+  opacity: 0;
+  transform: scale(0.4) rotate(-15deg);
+  transition: all 0.24s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 1.5px 1.5px rgba(25, 75, 50, 0.3));
+}
+
+.pc-sd-checkbox[data-state="checked"] .pc-sd-checkbox-icon,
+.pc-shadcn-checkbox[data-state="checked"] .pc-shadcn-checkbox-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.pc-shadcn-checkbox[data-state="checked"] .pc-shadcn-checkbox-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+
+/* ==========================================================================
+   13. COLLAPSIBLE (Sliding matchbox paper drawer)
+   ========================================================================== */
+.pc-sd-collapsible, .pc-shadcn-collapsible {
+  width: 100%;
+  border-radius: var(--pc-sd-radius-md);
+  border: 1px solid var(--pc-sd-border-kraft);
+  background: var(--pc-sd-bg-sheet-light);
+  box-shadow: var(--pc-sd-shadow-1);
+  overflow: hidden;
+}
+
+.pc-sd-collapsible-trigger-bar, .pc-shadcn-collapsible-trigger-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  background: var(--pc-sd-bg-sheet-light);
+}
+
+.pc-sd-collapsible-content, .pc-shadcn-collapsible-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--pc-sd-dur-norm) var(--pc-sd-ease-glide);
+  background: var(--pc-sd-bg-recessed);
+}
+
+.pc-sd-collapsible[data-state="open"] .pc-sd-collapsible-content,
+.pc-shadcn-collapsible[data-state="open"] .pc-shadcn-collapsible-content {
+  grid-template-rows: 1fr;
+}
+
+.pc-sd-collapsible-inner, .pc-shadcn-collapsible-inner {
+  overflow: hidden;
+  padding: 0 18px 16px;
+  box-shadow: var(--pc-sd-shadow-cutout);
+}
+
+
+/* ==========================================================================
+   14. COMBOBOX (Deckle search input with fan-out bookmark suggestions)
+   ========================================================================== */
+.pc-sd-combobox, .pc-shadcn-combobox {
+  position: relative;
+  width: 100%;
+}
+
+.pc-sd-combobox-trigger, .pc-shadcn-combobox-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-inset);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pc-sd-combobox-dropdown, .pc-shadcn-combobox-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 8px;
+  z-index: 100;
+  display: none;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.pc-sd-combobox[data-state="open"] .pc-sd-combobox-dropdown,
+.pc-shadcn-combobox[data-state="open"] .pc-shadcn-combobox-dropdown {
+  display: block;
+}
+
+.pc-sd-combobox-input, .pc-shadcn-combobox-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-sm);
+  background: var(--pc-sd-bg-recessed);
+  margin-bottom: 6px;
+  font-size: 13.5px;
+  outline: none;
+}
+
+.pc-sd-combobox-item, .pc-shadcn-combobox-item {
+  padding: 8px 12px;
+  border-radius: var(--pc-sd-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  transition: background var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-combobox-item:hover, .pc-sd-combobox-item.is-highlighted,
+.pc-shadcn-combobox-item:hover, .pc-shadcn-combobox-item.is-highlighted {
+  background: var(--pc-sd-lavender-tint);
+}
+
+
+/* ==========================================================================
+   15. COMMAND (Carved command palette popup with category tabs & shortcut badges)
+   ========================================================================== */
+.pc-sd-command-dialog, .pc-shadcn-command-dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: 1100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 80px 20px 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-sd-dur-norm) ease;
+}
+
+.pc-sd-command-dialog[data-state="open"], .pc-shadcn-command-dialog[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-sd-command, .pc-shadcn-command {
+  width: 100%;
+  max-width: 600px;
+  background: var(--pc-sd-bg-sheet-light);
+  border-radius: var(--pc-sd-radius-lg);
+  border: 1px solid var(--pc-sd-border-kraft);
+  box-shadow: var(--pc-sd-shadow-5);
+  overflow: hidden;
+  transform: translateY(-10px) scale(0.96);
+  transition: transform var(--pc-sd-dur-norm) var(--pc-sd-ease-fold);
+}
+
+.pc-sd-command-dialog[data-state="open"] .pc-sd-command,
+.pc-shadcn-command-dialog[data-state="open"] .pc-shadcn-command {
+  transform: translateY(0) scale(1);
+}
+
+.pc-sd-command-input-wrap, .pc-shadcn-command-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--pc-sd-border-kraft);
+  background: var(--pc-sd-bg-recessed);
+}
+
+.pc-sd-command-input, .pc-shadcn-command-input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-command-list, .pc-shadcn-command-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.pc-sd-command-group-title, .pc-shadcn-command-group-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pc-sd-ink-faint);
+  padding: 8px 12px 4px;
+}
+
+.pc-sd-command-item, .pc-shadcn-command-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  border-radius: var(--pc-sd-radius-md);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-command-item:hover, .pc-sd-command-item[data-selected="true"],
+.pc-shadcn-command-item:hover, .pc-shadcn-command-item[data-selected="true"] {
+  background: var(--pc-sd-lavender-tint);
+}
+
+.pc-sd-command-shortcut, .pc-shadcn-command-shortcut {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-xs);
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.08);
+}
+
+
+/* ==========================================================================
+   16. CONTEXT MENU (Floating craft card menu with knife-cut dividers)
+   ========================================================================== */
+.pc-sd-context-menu, .pc-shadcn-context-menu {
+  position: fixed;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 6px;
+  min-width: 190px;
+  z-index: 1200;
+  display: none;
+}
+
+.pc-sd-context-menu[data-state="open"], .pc-shadcn-context-menu[data-state="open"] {
+  display: block;
+}
+
+.pc-sd-context-menu-item, .pc-shadcn-context-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: var(--pc-sd-radius-sm);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-context-menu-item:hover, .pc-shadcn-context-menu-item:hover {
+  background: var(--pc-sd-peach-tint);
+}
+
+.pc-sd-context-menu-separator, .pc-shadcn-context-menu-separator {
+  height: 1px;
+  border-top: 1px dashed var(--pc-sd-border-kraft);
+  margin: 5px 0;
+}
+
+
+/* ==========================================================================
+   17. DIALOG (Layered paper shadowbox modal overlay)
+   ========================================================================== */
+.pc-sd-dialog-overlay, .pc-shadcn-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-sd-dur-norm) ease;
+}
+
+.pc-sd-dialog-overlay[data-state="open"], .pc-shadcn-dialog-overlay[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-sd-dialog-content, .pc-shadcn-dialog-content {
+  position: relative;
+  background: var(--pc-sd-bg-sheet-light);
+  border-radius: var(--pc-sd-radius-lg);
+  border: 1px solid var(--pc-sd-border-kraft);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-sd-shadow-5);
+  max-width: 540px;
+  width: 100%;
+  padding: 28px;
+  transform: translateY(12px) scale(0.95);
+  transition: transform var(--pc-sd-dur-norm) var(--pc-sd-ease-fold);
+}
+
+.pc-sd-dialog-overlay[data-state="open"] .pc-sd-dialog-content,
+.pc-shadcn-dialog-overlay[data-state="open"] .pc-shadcn-dialog-content {
+  transform: translateY(0) scale(1);
+}
+
+.pc-sd-dialog-header, .pc-shadcn-dialog-header { margin-bottom: 16px; }
+.pc-sd-dialog-title, .pc-shadcn-dialog-title { margin: 0 0 8px; font-size: 19px; font-weight: 800; color: var(--pc-sd-ink-dark); }
+.pc-sd-dialog-description, .pc-shadcn-dialog-description { margin: 0; font-size: 14px; line-height: 1.6; color: var(--pc-sd-ink-muted); }
+.pc-sd-dialog-footer, .pc-shadcn-dialog-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+
+.pc-sd-dialog-close, .pc-shadcn-dialog-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--pc-sd-radius-pill);
+  color: var(--pc-sd-ink-muted);
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-dialog-close:hover, .pc-shadcn-dialog-close:hover {
+  background: var(--pc-sd-rose-tint);
+  color: var(--pc-sd-rose-dark);
+}
+
+
+/* ==========================================================================
+   18. DRAWER (Bottom/side sliding craft tray with pull tab)
+   ========================================================================== */
+.pc-sd-drawer-overlay, .pc-shadcn-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.35);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-sd-dur-norm) ease;
+}
+
+.pc-sd-drawer-overlay[data-state="open"], .pc-shadcn-drawer-overlay[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-sd-drawer-content, .pc-shadcn-drawer-content {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  max-height: 80vh;
+  background: var(--pc-sd-bg-sheet-light);
+  border-top: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-xl) var(--pc-sd-radius-xl) 0 0;
+  box-shadow: var(--pc-sd-shadow-5);
+  padding: 16px 24px 32px;
+  z-index: 1001;
+  transform: translateY(100%);
+  transition: transform var(--pc-sd-dur-unfold) var(--pc-sd-ease-glide);
+}
+
+.pc-sd-drawer-overlay[data-state="open"] ~ .pc-sd-drawer-content,
+.pc-sd-drawer-content[data-state="open"],
+.pc-shadcn-drawer-overlay[data-state="open"] ~ .pc-shadcn-drawer-content,
+.pc-shadcn-drawer-content[data-state="open"] {
+  transform: translateY(0);
+}
+
+.pc-sd-drawer-handle, .pc-shadcn-drawer-handle {
+  width: 48px;
+  height: 6px;
+  background: var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-pill);
+  margin: 0 auto 16px;
+  cursor: grab;
+}
+
+
+/* ==========================================================================
+   19. DROPDOWN MENU (Fanning bookmark strip menu with paper hover state)
+   ========================================================================== */
+.pc-sd-dropdown-menu, .pc-shadcn-dropdown-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-sd-dropdown-menu-content, .pc-shadcn-dropdown-menu-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 6px;
+  z-index: 900;
+  display: none;
+  transform-origin: top left;
+}
+
+.pc-sd-dropdown-menu[data-state="open"] .pc-sd-dropdown-menu-content,
+.pc-shadcn-dropdown-menu[data-state="open"] .pc-shadcn-dropdown-menu-content {
+  display: block;
+  animation: pc-sd-fan-in var(--pc-sd-dur-norm) var(--pc-sd-ease-fold);
+}
+
+@keyframes pc-sd-fan-in {
+  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.pc-sd-dropdown-menu-item, .pc-shadcn-dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--pc-sd-radius-sm);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background var(--pc-sd-dur-quick) ease, transform var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-dropdown-menu-item:hover, .pc-shadcn-dropdown-menu-item:hover {
+  background: var(--pc-sd-buttercup-tint);
+  transform: translateX(2px);
+}
+
+
+/* ==========================================================================
+   20. FORM (Carved input fields with floating craft labels & error paper tags)
+   ========================================================================== */
+.pc-sd-form, .pc-shadcn-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-sd-form-item, .pc-shadcn-form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.pc-sd-form-label, .pc-shadcn-form-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pc-sd-form-description, .pc-shadcn-form-description {
+  font-size: 12.5px;
+  color: var(--pc-sd-ink-muted);
+}
+
+.pc-sd-form-message, .pc-shadcn-form-message {
+  font-size: 12px;
+  color: var(--pc-sd-rose-dark);
+  background: var(--pc-sd-rose-tint);
+  padding: 4px 8px;
+  border-radius: var(--pc-sd-radius-xs);
+  display: inline-block;
+  align-self: flex-start;
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.08);
+}
+
+
+/* ==========================================================================
+   21. HOVER CARD (Peeking craft memo slip that lifts on hover)
+   ========================================================================== */
+.pc-sd-hover-card, .pc-shadcn-hover-card {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-sd-hover-card-content, .pc-shadcn-hover-card-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: 280px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 16px;
+  z-index: 800;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--pc-sd-dur-norm) var(--pc-sd-ease-glide);
+}
+
+.pc-sd-hover-card:hover .pc-sd-hover-card-content,
+.pc-sd-hover-card[data-state="open"] .pc-sd-hover-card-content,
+.pc-shadcn-hover-card:hover .pc-shadcn-hover-card-content,
+.pc-shadcn-hover-card[data-state="open"] .pc-shadcn-hover-card-content {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* ==========================================================================
+   22. INPUT (Carved inset well with fine craft knife bevels)
+   ========================================================================== */
+.pc-sd-input, .pc-shadcn-input, .pc-sd-input-well {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--pc-sd-ink-dark);
+  background: var(--pc-sd-bg-recessed);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-inset);
+  outline: none;
+  transition: all var(--pc-sd-dur-norm) ease;
+}
+
+.pc-sd-input:focus, .pc-shadcn-input:focus, .pc-sd-input-well:focus {
+  background: #FFFDF9;
+  border-color: var(--pc-sd-lavender);
+  box-shadow: 
+    inset 0 1px 2px rgba(74, 60, 49, 0.06),
+    0 0 0 3px var(--pc-sd-lavender-tint);
+}
+
+.pc-sd-input::placeholder, .pc-shadcn-input::placeholder, .pc-sd-input-well::placeholder {
+  color: var(--pc-sd-ink-faint);
+}
+
+.pc-sd-input.is-postage, .pc-sd-input-postage {
+  border: 2px dashed var(--pc-sd-peach);
+  border-radius: var(--pc-sd-radius-xs);
+  background: var(--pc-sd-bg-sheet-light);
+}
+
+
+/* ==========================================================================
+   23. INPUT OTP (3D Layered Paper-Cut Background Plate Digit Boxes)
+   ========================================================================== */
+.pc-sd-otp-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Shape Picker Toolbar */
+.pc-sd-otp-shape-picker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #FFFDF9;
+  border: 1.5px solid #EAE0D2;
+  border-radius: 10px;
+  box-shadow: 0 1.5px 0 #DDD2C0, 0 3px 6px rgba(74, 58, 42, 0.05);
+}
+
+.pc-sd-otp-picker-label {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #7A6C5F;
+  margin-right: 4px;
+}
+
+.pc-sd-otp-shape-btn {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  background: #FAF6ED;
+  color: var(--pc-ink, #3D352E);
+  border: 1px solid #DCD1BF;
+  box-shadow: 0 1px 0 #D0C3AF;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pc-sd-otp-shape-btn:hover {
+  background: #F3EEFB;
+  border-color: #CBBDE6;
+  color: #55417F;
+  transform: translateY(-1px);
+}
+.pc-sd-otp-shape-btn.is-active {
+  background: #E8F6EE;
+  color: #1A543B;
+  border-color: #8FC4A3;
+  box-shadow: 0 1.5px 0 #7AB892, 0 2px 4px rgba(44, 107, 80, 0.15);
+  font-weight: 800;
+  transform: translateY(-1px);
+}
+
+/* OTP Slots Container */
+.pc-sd-input-otp, .pc-shadcn-input-otp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-sd-input-otp-group, .pc-shadcn-input-otp-group {
+  display: flex;
+  gap: 6px;
+}
+
+/* 3D Papercut Background Plate Slot Wrap */
+.pc-sd-input-otp-slot-wrap {
+  position: relative;
+  width: 48px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pc-sd-input-otp-slot-wrap:hover {
+  transform: translateY(-2px);
+}
+
+.pc-sd-input-otp-slot-wrap.is-focused {
+  transform: translateY(-4px) scale(1.04);
+}
+
+/* Background Plate SVG */
+.pc-sd-otp-bg-svg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: filter 0.2s ease;
+}
+
+.pc-sd-input-otp-slot-wrap.is-focused .pc-sd-otp-bg-svg-layer svg {
+  filter: drop-shadow(0 0 6px rgba(163, 216, 195, 0.75));
+}
+
+.pc-sd-input-otp-slot-wrap.is-filled .pc-sd-otp-bg-svg-layer svg path:first-child,
+.pc-sd-input-otp-slot-wrap.is-filled .pc-sd-otp-bg-svg-layer svg polygon:first-child {
+  stroke: #A3D8C3;
+}
+
+/* Text Input sitting on top of Background Plate */
+.pc-sd-input-otp-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  background: transparent;
+  border: none;
+  outline: none;
+  caret-color: #38986B;
+}
+
+/* Separator Ribbon */
+.pc-sd-input-otp-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 3px;
+  background: #D5C7B2;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 #FFF;
+  margin: 0 4px;
+}
+
+
+/* ==========================================================================
+   24. LABEL (Craft ribbon label with stitched hairline border)
+   ========================================================================== */
+.pc-sd-label, .pc-shadcn-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.pc-sd-label.is-ribbon, .pc-shadcn-label.is-ribbon {
+  padding: 4px 10px;
+  background: var(--pc-sd-peach-tint);
+  border-top: 1px dashed var(--pc-sd-peach);
+  border-bottom: 1px dashed var(--pc-sd-peach);
+  border-radius: 2px;
+}
+
+
+/* ==========================================================================
+   25. MENUBAR (Stationery desktop menu bar with foldout sheets)
+   ========================================================================== */
+.pc-sd-menubar, .pc-shadcn-menubar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-1);
+}
+
+.pc-sd-menubar-menu, .pc-shadcn-menubar-menu {
+  position: relative;
+}
+
+.pc-sd-menubar-trigger, .pc-shadcn-menubar-trigger {
+  padding: 6px 12px;
+  border-radius: var(--pc-sd-radius-xs);
+  border: none;
+  background: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-menubar-trigger:hover, .pc-sd-menubar-trigger[data-state="open"],
+.pc-shadcn-menubar-trigger:hover, .pc-shadcn-menubar-trigger[data-state="open"] {
+  background: var(--pc-sd-lavender-tint);
+}
+
+.pc-sd-menubar-content, .pc-shadcn-menubar-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 6px;
+  z-index: 1050;
+  display: none;
+}
+
+.pc-sd-menubar-menu[data-state="open"] .pc-sd-menubar-content,
+.pc-shadcn-menubar-menu[data-state="open"] .pc-shadcn-menubar-content {
+  display: block;
+  animation: pc-sd-fan-in var(--pc-sd-dur-norm) var(--pc-sd-ease-fold);
+}
+
+.pc-sd-menubar-item, .pc-shadcn-menubar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  font-size: 13.5px;
+  border-radius: var(--pc-sd-radius-sm);
+  cursor: pointer;
+  color: var(--pc-sd-ink-body);
+  transition: background var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-menubar-item:hover, .pc-shadcn-menubar-item:hover {
+  background: var(--pc-sd-lavender-tint);
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-menubar-separator, .pc-shadcn-menubar-separator {
+  height: 1px;
+  border-top: 1px dashed var(--pc-sd-border-kraft);
+  margin: 4px 0;
+}
+
+.pc-sd-menubar-shortcut, .pc-shadcn-menubar-shortcut {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-faint);
+  margin-left: auto;
+  padding-left: 16px;
+}
+
+
+/* ==========================================================================
+   26. NAVIGATION MENU (Horizontal craft tabs with sliding pastel underlay)
+   ========================================================================== */
+.pc-sd-navigation-menu, .pc-sd-nav-menu,
+.pc-shadcn-navigation-menu, .pc-shadcn-nav-menu {
+  position: relative;
+  display: inline-flex;
+}
+
+.pc-sd-navigation-menu-list, .pc-sd-nav-menu-list,
+.pc-shadcn-navigation-menu-list, .pc-shadcn-nav-menu-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  background: var(--pc-sd-bg-recessed);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-inset);
+  gap: 4px;
+  position: relative;
+}
+
+.pc-sd-navigation-menu-item, .pc-sd-nav-menu-item,
+.pc-shadcn-navigation-menu-item, .pc-shadcn-nav-menu-item {
+  position: relative;
+}
+
+.pc-sd-navigation-menu-trigger, .pc-sd-nav-menu-trigger,
+.pc-shadcn-navigation-menu-trigger, .pc-shadcn-nav-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-muted);
+  border: none;
+  background: none;
+  border-radius: var(--pc-sd-radius-sm);
+  cursor: pointer;
+  transition: all var(--pc-sd-dur-quick) ease;
+  position: relative;
+  z-index: 2;
+}
+
+.pc-sd-navigation-menu-trigger:hover, .pc-sd-nav-menu-trigger:hover,
+.pc-shadcn-navigation-menu-trigger:hover, .pc-shadcn-nav-menu-trigger:hover {
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-navigation-menu-trigger.is-active, .pc-sd-nav-menu-trigger.is-active,
+.pc-shadcn-navigation-menu-trigger.is-active, .pc-shadcn-nav-menu-trigger.is-active {
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-navigation-menu-indicator, .pc-sd-nav-menu-indicator,
+.pc-shadcn-navigation-menu-indicator, .pc-shadcn-nav-menu-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  background: var(--pc-sd-bg-sheet-light);
+  border-radius: var(--pc-sd-radius-sm);
+  box-shadow: var(--pc-sd-shadow-1);
+  transition: all var(--pc-sd-dur-norm) var(--pc-sd-ease-glide);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pc-sd-navigation-menu-content, .pc-sd-nav-menu-content,
+.pc-shadcn-navigation-menu-content, .pc-shadcn-nav-menu-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 16px;
+  min-width: 320px;
+  z-index: 950;
+  display: none;
+}
+
+.pc-sd-navigation-menu-item[data-state="open"] .pc-sd-navigation-menu-content,
+.pc-sd-nav-menu-item[data-state="open"] .pc-sd-nav-menu-content,
+.pc-shadcn-navigation-menu-item[data-state="open"] .pc-shadcn-navigation-menu-content,
+.pc-shadcn-nav-menu-item[data-state="open"] .pc-shadcn-nav-menu-content {
+  display: block;
+}
+
+
+/* ==========================================================================
+   27. PAGINATION (Perforated ticket stub page numbers with active wax seal)
+   ========================================================================== */
+.pc-sd-pagination, .pc-shadcn-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pc-sd-pagination-content, .pc-shadcn-pagination-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pc-sd-pagination-item, .pc-shadcn-pagination-item {
+  min-width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-sm);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-dark);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.08);
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-pagination-item:hover, .pc-shadcn-pagination-item:hover {
+  background: var(--pc-sd-peach-tint);
+  transform: translateY(-1px);
+}
+
+.pc-sd-pagination-item.is-active, .pc-shadcn-pagination-item.is-active {
+  background: var(--pc-sd-sage);
+  border-radius: var(--pc-sd-radius-pill);
+  box-shadow: 
+    0 0 0 2px var(--pc-sd-bg-sheet-light),
+    var(--pc-sd-shadow-2);
+}
+
+.pc-sd-pagination-ellipsis, .pc-shadcn-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  color: var(--pc-sd-ink-faint);
+}
+
+
+/* ==========================================================================
+   28. POPOVER (Pop-up book flap with triangular paper arrow)
+   ========================================================================== */
+.pc-sd-popover, .pc-shadcn-popover {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-sd-popover-content, .pc-shadcn-popover-content {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 16px;
+  width: 260px;
+  z-index: 850;
+  display: none;
+}
+
+.pc-sd-popover[data-state="open"] .pc-sd-popover-content,
+.pc-shadcn-popover[data-state="open"] .pc-shadcn-popover-content {
+  display: block;
+}
+
+.pc-sd-popover-arrow, .pc-shadcn-popover-arrow {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: var(--pc-sd-bg-sheet-light);
+  border-top: 1px solid var(--pc-sd-border-kraft);
+  border-left: 1px solid var(--pc-sd-border-kraft);
+}
+
+
+/* ==========================================================================
+   29. PROGRESS (Layered pastel paper fill bar moving along an inset track)
+   ========================================================================== */
+.pc-sd-progress, .pc-shadcn-progress {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  background: var(--pc-sd-bg-recessed);
+  border-radius: var(--pc-sd-radius-pill);
+  box-shadow: var(--pc-sd-shadow-inset);
+  border: 1px solid var(--pc-sd-border-kraft);
+  overflow: hidden;
+}
+
+.pc-sd-progress-indicator, .pc-shadcn-progress-indicator {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pc-sd-sage), var(--pc-sd-sage-tint));
+  border-radius: var(--pc-sd-radius-pill);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    1px 0 2px rgba(74, 60, 49, 0.15);
+  transition: width var(--pc-sd-dur-norm) var(--pc-sd-ease-glide);
+}
+
+
+/* ==========================================================================
+   30. RADIO GROUP (Concentric paper target discs with pastel dot center)
+   ========================================================================== */
+.pc-sd-radio-group, .pc-shadcn-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pc-sd-radio-item, .pc-shadcn-radio-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-sd-radio-circle, .pc-shadcn-radio-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--pc-sd-radius-pill);
+  background-color: #FAF7F0;
+  background-image: radial-gradient(circle at 45% 45%, #FFFFFF 0%, #EDE4D4 100%);
+  border: 2px solid #DED4C3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 2px 4px rgba(74, 58, 42, 0.12),
+    inset 0 2.5px 4px rgba(74, 58, 42, 0.16),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.85);
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-radio-item:hover .pc-sd-radio-circle,
+.pc-shadcn-radio-item:hover .pc-shadcn-radio-circle {
+  border-color: #D2C2AD;
+  transform: translateY(-1px);
+  box-shadow: 
+    0 3px 8px rgba(74, 58, 42, 0.16),
+    inset 0 2px 4px rgba(74, 58, 42, 0.14);
+}
+
+.pc-sd-radio-dot, .pc-shadcn-radio-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: var(--pc-sd-radius-pill);
+  background: radial-gradient(circle at 35% 35%, #A3D8C3 0%, #4FA981 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  transition: transform 0.24s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 2px 4px rgba(35, 80, 55, 0.35),
+    0 1px 1px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.pc-sd-radio-item[data-state="checked"] .pc-sd-radio-circle,
+.pc-shadcn-radio-item[data-state="checked"] .pc-shadcn-radio-circle {
+  border-color: #83C9A6;
+  background-color: #E8F6EE;
+  background-image: radial-gradient(circle at 50% 50%, #EBF7F1 0%, #D8EFE3 100%);
+  box-shadow: 
+    0 1px 3px rgba(74, 58, 42, 0.15),
+    inset 0 2px 4px rgba(45, 100, 75, 0.2);
+}
+
+.pc-sd-radio-item[data-state="checked"] .pc-sd-radio-dot,
+.pc-shadcn-radio-item[data-state="checked"] .pc-shadcn-radio-dot {
+  transform: scale(1);
+}
+
+
+/* ==========================================================================
+   31. RESIZABLE (Paper fold crease splitter with grip dots)
+   ========================================================================== */
+.pc-sd-resizable-group, .pc-shadcn-resizable-group,
+.pc-sd-resizable-panel-group, .pc-shadcn-resizable-panel-group {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  overflow: hidden;
+  background: var(--pc-sd-bg-sheet-light);
+}
+
+.pc-sd-resizable-panel, .pc-shadcn-resizable-panel {
+  overflow: auto;
+  padding: 16px;
+}
+
+.pc-sd-resizable-handle, .pc-shadcn-resizable-handle {
+  width: 10px;
+  background: var(--pc-sd-bg-recessed);
+  border-left: 1px dashed var(--pc-sd-border-kraft);
+  border-right: 1px dashed var(--pc-sd-border-kraft);
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.pc-sd-resizable-handle::after, .pc-shadcn-resizable-handle::after {
+  content: ":::";
+  font-size: 10px;
+  letter-spacing: -1px;
+  color: var(--pc-sd-ink-faint);
+  transform: rotate(90deg);
+}
+
+
+/* ==========================================================================
+   32. SCROLL AREA (Parchment scroll well with custom paper thumb bar)
+   ========================================================================== */
+.pc-sd-scroll-area, .pc-shadcn-scroll-area {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--pc-sd-radius-md);
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+}
+
+.pc-sd-scroll-viewport, .pc-shadcn-scroll-viewport,
+.pc-sd-scroll-area-viewport, .pc-shadcn-scroll-area-viewport {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pc-sd-border-kraft) transparent;
+}
+
+.pc-sd-scroll-viewport::-webkit-scrollbar,
+.pc-sd-scroll-area-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+.pc-sd-scroll-viewport::-webkit-scrollbar-thumb,
+.pc-sd-scroll-area-viewport::-webkit-scrollbar-thumb {
+  background: var(--pc-sd-peach-tint);
+  border-radius: 4px;
+  border: 1px solid var(--pc-sd-border-kraft);
+}
+
+
+/* ==========================================================================
+   33. SELECT (Bookmark trigger with pop-out paper option tray)
+   ========================================================================== */
+.pc-sd-select, .pc-shadcn-select {
+  position: relative;
+  width: 100%;
+}
+
+.pc-sd-select-trigger, .pc-shadcn-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-1);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-select-trigger:hover, .pc-shadcn-select-trigger:hover {
+  background: var(--pc-sd-peach-tint);
+}
+
+.pc-sd-select-content, .pc-shadcn-select-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 6px;
+  z-index: 950;
+  display: none;
+}
+
+.pc-sd-select[data-state="open"] .pc-sd-select-content,
+.pc-shadcn-select[data-state="open"] .pc-shadcn-select-content {
+  display: block;
+}
+
+.pc-sd-select-item, .pc-shadcn-select-item {
+  padding: 8px 12px;
+  border-radius: var(--pc-sd-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  transition: background var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-select-item:hover, .pc-shadcn-select-item:hover {
+  background: var(--pc-sd-lavender-tint);
+}
+
+
+/* ==========================================================================
+   34. SEPARATOR (Perforated dashed cutline, deckle tear line, washi tape)
+   ========================================================================== */
+.pc-sd-separator, .pc-shadcn-separator {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  border-top: 1px dashed var(--pc-sd-border-kraft);
+  margin: 16px 0;
+}
+
+.pc-sd-separator[data-orientation="vertical"],
+.pc-sd-separator.is-vertical,
+.pc-shadcn-separator[data-orientation="vertical"] {
+  width: 1px;
+  height: 100%;
+  min-height: 24px;
+  border-top: none;
+  border-left: 1px dashed var(--pc-sd-border-kraft);
+  margin: 0 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pc-sd-separator.is-washi, .pc-sd-separator-washi {
+  height: 6px;
+  border-top: none;
+  background: rgba(247, 197, 168, 0.45);
+  border-radius: 2px;
+}
+
+.pc-sd-separator.is-deckle, .pc-sd-separator-deckle {
+  height: 4px;
+  border-top: none;
+  background-image: radial-gradient(circle at 4px 2px, var(--pc-sd-border-kraft) 1px, transparent 1px);
+  background-size: 8px 4px;
+}
+
+.pc-sd-separator.is-perforated, .pc-sd-separator-perforated {
+  border-top: 2px dotted var(--pc-sd-border-kraft);
+}
+
+
+/* ==========================================================================
+   35. SHEET (Slide-over side craft panel with stitched edge)
+   ========================================================================== */
+.pc-sd-sheet-overlay, .pc-shadcn-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.4);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-sd-dur-norm) ease;
+}
+
+.pc-sd-sheet-overlay[data-state="open"], .pc-shadcn-sheet-overlay[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-sd-sheet-content, .pc-shadcn-sheet-content {
+  position: fixed;
+  top: 0; bottom: 0; right: 0;
+  width: 380px;
+  max-width: 100%;
+  background: var(--pc-sd-bg-sheet-light);
+  border-left: 2px dashed var(--pc-sd-border-kraft);
+  box-shadow: var(--pc-sd-shadow-5);
+  padding: 28px;
+  z-index: 1001;
+  transform: translateX(100%);
+  transition: transform var(--pc-sd-dur-unfold) var(--pc-sd-ease-glide);
+}
+
+.pc-sd-sheet-content[data-side="left"], .pc-shadcn-sheet-content[data-side="left"] {
+  left: 0; right: auto;
+  border-left: none;
+  border-right: 2px dashed var(--pc-sd-border-kraft);
+  transform: translateX(-100%);
+}
+
+.pc-sd-sheet-content[data-side="top"], .pc-shadcn-sheet-content[data-side="top"] {
+  top: 0; bottom: auto; left: 0; right: 0;
+  width: 100%;
+  border-bottom: 2px dashed var(--pc-sd-border-kraft);
+  border-left: none;
+  transform: translateY(-100%);
+}
+
+.pc-sd-sheet-content[data-side="bottom"], .pc-shadcn-sheet-content[data-side="bottom"] {
+  top: auto; bottom: 0; left: 0; right: 0;
+  width: 100%;
+  border-top: 2px dashed var(--pc-sd-border-kraft);
+  border-left: none;
+  transform: translateY(100%);
+}
+
+.pc-sd-sheet-content[data-state="open"], .pc-shadcn-sheet-content[data-state="open"] {
+  transform: translate(0, 0) !important;
+}
+
+.pc-sd-sheet-header, .pc-shadcn-sheet-header { margin-bottom: 20px; }
+.pc-sd-sheet-title, .pc-shadcn-sheet-title { margin: 0 0 6px; font-size: 18px; font-weight: 800; color: var(--pc-sd-ink-dark); }
+.pc-sd-sheet-description, .pc-shadcn-sheet-description { margin: 0; font-size: 13.5px; color: var(--pc-sd-ink-muted); line-height: 1.5; }
+.pc-sd-sheet-footer, .pc-shadcn-sheet-footer { margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px; }
+
+
+/* ==========================================================================
+   36. SKELETON (Pulsing paper pulp shimmer placeholder)
+   ========================================================================== */
+.pc-sd-skeleton, .pc-shadcn-skeleton {
+  background: var(--pc-sd-bg-recessed);
+  border-radius: var(--pc-sd-radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-sd-skeleton::after, .pc-shadcn-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transform: translateX(-100%);
+  animation: pc-sd-shimmer 1.8s infinite;
+}
+
+@keyframes pc-sd-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+
+/* ==========================================================================
+   37. SLIDER (Paper ruler track with folded origami triangular thumb)
+   ========================================================================== */
+.pc-sd-slider, .pc-shadcn-slider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.pc-sd-slider-track, .pc-shadcn-slider-track {
+  position: relative;
+  flex: 1;
+  height: 12px;
+  background: #E8E1D0;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 58, 42, 0.12);
+  box-shadow: 
+    inset 1.5px 2px 4px rgba(74, 58, 42, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(74, 58, 42, 0.12) 0px,
+    rgba(74, 58, 42, 0.12) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  overflow: visible;
+}
+
+/* Active Range: Lifted, rounded knife-cut paper strip */
+.pc-sd-slider-range, .pc-shadcn-slider-range {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0;
+  background: linear-gradient(180deg, #BCE4CF 0%, #8CCAA9 100%);
+  border-radius: 999px 4px 4px 999px;
+  box-shadow: 
+    0 3.5px 7px rgba(74, 58, 42, 0.22),
+    0 1.5px 2px rgba(74, 58, 42, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-right: 2.5px solid rgba(255, 255, 255, 0.95);
+  transition: width 0.05s ease-out;
+}
+
+/* Paper curl / lift at the terminal cut edge */
+.pc-sd-slider-range::after, .pc-shadcn-slider-range::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  bottom: -3px;
+  width: 10px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, #C4EDD8 60%, #9DD0B8 100%);
+  border-radius: 0 5px 5px 0;
+  box-shadow: 
+    3px 2px 6px rgba(74, 58, 42, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: rotate(3.5deg) skewY(2deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Thumb Bookmark Pin */
+.pc-sd-slider-thumb, .pc-shadcn-slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 26px;
+  background: linear-gradient(135deg, #FFFDF9 0%, #EDE6D8 100%);
+  border: 1.5px solid #C4B59D;
+  border-radius: 6px;
+  box-shadow: 
+    0 4px 10px rgba(74, 58, 42, 0.28),
+    0 1px 0 #FFFFFF inset,
+    0 -1px 0 rgba(74, 58, 42, 0.1) inset;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(74, 58, 42, 0.16) 3px,
+    rgba(74, 58, 42, 0.16) 4.5px
+  );
+  cursor: grab;
+  z-index: 5;
+  transition: transform var(--pc-sd-dur-quick) ease, box-shadow var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-slider-thumb:hover, .pc-shadcn-slider-thumb:hover {
+  transform: translate(-50%, -50%) scale(1.15) rotate(-2deg);
+  box-shadow: 
+    0 6px 14px rgba(74, 58, 42, 0.32),
+    0 1px 0 #FFFFFF inset;
+}
+
+.pc-sd-slider-thumb:active, .pc-shadcn-slider-thumb:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 
+    0 2px 5px rgba(74, 58, 42, 0.25),
+    0 1px 0 #FFFFFF inset;
+}
+
+
+/* ==========================================================================
+   38. SWITCH (Paper rocker pill toggle with sliding circular paper disc)
+   ========================================================================== */
+.pc-sd-switch, .pc-shadcn-switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  background: var(--pc-sd-bg-recessed);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-pill);
+  box-shadow: var(--pc-sd-shadow-inset);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  transition: background var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-switch[data-state="checked"], .pc-shadcn-switch[data-state="checked"] {
+  background: var(--pc-sd-sage);
+  border-color: var(--pc-sd-sage-dark);
+}
+
+.pc-sd-switch-thumb, .pc-shadcn-switch-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--pc-sd-bg-sheet-light);
+  border-radius: var(--pc-sd-radius-pill);
+  box-shadow: 0 1px 3px rgba(74, 60, 49, 0.2);
+  transform: translateX(0);
+  transition: transform var(--pc-sd-dur-quick) var(--pc-sd-ease-fold);
+}
+
+.pc-sd-switch[data-state="checked"] .pc-sd-switch-thumb,
+.pc-shadcn-switch[data-state="checked"] .pc-shadcn-switch-thumb {
+  transform: translateX(20px);
+}
+
+
+/* ==========================================================================
+   39. TABLE (Accounting ledger paper table with alternating tint bands)
+   ========================================================================== */
+.pc-sd-table, .pc-shadcn-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  overflow: hidden;
+  box-shadow: var(--pc-sd-shadow-2);
+  font-size: 13.5px;
+}
+
+.pc-sd-table th, .pc-shadcn-table th,
+.pc-sd-table-head, .pc-shadcn-table-head {
+  background: var(--pc-sd-bg-recessed);
+  color: var(--pc-sd-ink-dark);
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--pc-sd-border-kraft);
+}
+
+.pc-sd-table td, .pc-shadcn-table td,
+.pc-sd-table-cell, .pc-shadcn-table-cell {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pc-sd-border-kraft);
+  color: var(--pc-sd-ink-body);
+}
+
+.pc-sd-table tr:last-child td, .pc-shadcn-table tr:last-child td {
+  border-bottom: none;
+}
+
+.pc-sd-table tbody tr:nth-child(even), .pc-shadcn-table tbody tr:nth-child(even) {
+  background: rgba(253, 226, 209, 0.25);
+}
+
+.pc-sd-table tbody tr:hover, .pc-shadcn-table tbody tr:hover {
+  background: var(--pc-sd-lavender-tint);
+}
+
+
+/* ==========================================================================
+   40. TABS (Layered file folder tabs with active raised cardstock state)
+   ========================================================================== */
+.pc-sd-tabs, .pc-shadcn-tabs {
+  width: 100%;
+}
+
+.pc-sd-tabs-list, .pc-shadcn-tabs-list {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 4px;
+  border-bottom: 2px solid var(--pc-sd-border-kraft);
+  width: 100%;
+  padding-left: 8px;
+}
+
+.pc-sd-tabs-trigger, .pc-shadcn-tabs-trigger {
+  padding: 9px 18px;
+  background: var(--pc-sd-bg-recessed);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-bottom: none;
+  border-radius: var(--pc-sd-radius-sm) var(--pc-sd-radius-sm) 0 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-muted);
+  cursor: pointer;
+  position: relative;
+  bottom: -2px;
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-tabs-trigger:hover, .pc-shadcn-tabs-trigger:hover {
+  background: var(--pc-sd-buttercup-tint);
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-tabs-trigger[data-state="active"], .pc-shadcn-tabs-trigger[data-state="active"] {
+  background: var(--pc-sd-bg-sheet-light);
+  color: var(--pc-sd-ink-dark);
+  border-bottom: 2px solid var(--pc-sd-bg-sheet-light);
+  transform: translateY(-2px);
+  box-shadow: 0 -2px 6px rgba(74, 60, 49, 0.08);
+}
+
+.pc-sd-tabs-content, .pc-shadcn-tabs-content {
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-top: none;
+  border-radius: 0 0 var(--pc-sd-radius-md) var(--pc-sd-radius-md);
+  padding: 20px;
+  box-shadow: var(--pc-sd-shadow-2);
+  display: none;
+}
+
+.pc-sd-tabs-content[data-state="active"], .pc-shadcn-tabs-content[data-state="active"] {
+  display: block;
+}
+
+
+/* ==========================================================================
+   41. TEXTAREA (Lined notebook paper well with ruled hairlines)
+   ========================================================================== */
+.pc-sd-textarea, .pc-shadcn-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--pc-sd-ink-dark);
+  background-color: var(--pc-sd-bg-recessed);
+  background-image: linear-gradient(rgba(226, 218, 200, 0.6) 1px, transparent 1px);
+  background-size: 100% 24px;
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-inset);
+  outline: none;
+  resize: vertical;
+}
+
+.pc-sd-textarea:focus, .pc-shadcn-textarea:focus {
+  background-color: #FFFDF9;
+  border-color: var(--pc-sd-lavender);
+}
+
+
+/* ==========================================================================
+   42. TOAST (Parchment envelope memo slip sliding in with paper rustle)
+   ========================================================================== */
+.pc-sd-toast-viewport, .pc-shadcn-toast-viewport {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2000;
+  pointer-events: none;
+  max-width: 400px;
+}
+
+.pc-sd-toast, .pc-shadcn-toast {
+  pointer-events: auto;
+  position: relative;
+  background: var(--pc-sd-bg-sheet-light);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  box-shadow: var(--pc-sd-shadow-4);
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transform: translateX(120%);
+  transition: transform var(--pc-sd-dur-unfold) var(--pc-sd-ease-fold);
+}
+
+.pc-sd-toast[data-state="open"], .pc-shadcn-toast[data-state="open"] {
+  transform: translateX(0);
+}
+
+.pc-sd-toast::before, .pc-shadcn-toast::before {
+  content: "";
+  position: absolute;
+  top: -6px; left: 24px;
+  width: 44px; height: 14px;
+  background: rgba(247, 197, 168, 0.7);
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.12);
+  transform: rotate(-2deg);
+}
+
+.pc-sd-toast-content, .pc-shadcn-toast-content {
+  flex: 1;
+}
+
+.pc-sd-toast-title, .pc-shadcn-toast-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-toast-description, .pc-shadcn-toast-description {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--pc-sd-ink-muted);
+}
+
+
+/* ==========================================================================
+   43. TOGGLE (Pressed craft button with pressed-in shadow depth)
+   ========================================================================== */
+.pc-sd-toggle, .pc-shadcn-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: var(--pc-sd-radius-md);
+  border: 1px solid var(--pc-sd-border-kraft);
+  background: var(--pc-sd-bg-sheet-light);
+  color: var(--pc-sd-ink-dark);
+  cursor: pointer;
+  box-shadow: var(--pc-sd-shadow-1);
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-toggle:hover, .pc-shadcn-toggle:hover {
+  background: var(--pc-sd-peach-tint);
+}
+
+.pc-sd-toggle[data-state="on"], .pc-shadcn-toggle[data-state="on"] {
+  background: var(--pc-sd-sage-tint);
+  border-color: var(--pc-sd-sage);
+  box-shadow: var(--pc-sd-shadow-inset);
+  transform: translateY(1px);
+}
+
+
+/* ==========================================================================
+   44. TOGGLE GROUP (Interlocking paper puzzle button strip)
+   ========================================================================== */
+.pc-sd-toggle-group, .pc-shadcn-toggle-group {
+  display: inline-flex;
+  background: var(--pc-sd-bg-recessed);
+  border: 1px solid var(--pc-sd-border-kraft);
+  border-radius: var(--pc-sd-radius-md);
+  padding: 3px;
+  gap: 2px;
+  box-shadow: var(--pc-sd-shadow-inset);
+}
+
+.pc-sd-toggle-group-item, .pc-shadcn-toggle-group-item {
+  border: none;
+  background: none;
+  padding: 6px 12px;
+  border-radius: var(--pc-sd-radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pc-sd-ink-muted);
+  cursor: pointer;
+  transition: all var(--pc-sd-dur-quick) ease;
+}
+
+.pc-sd-toggle-group-item:hover, .pc-shadcn-toggle-group-item:hover {
+  color: var(--pc-sd-ink-dark);
+}
+
+.pc-sd-toggle-group-item[data-state="on"], .pc-shadcn-toggle-group-item[data-state="on"] {
+  background: var(--pc-sd-bg-sheet-light);
+  color: var(--pc-sd-ink-dark);
+  box-shadow: var(--pc-sd-shadow-1);
+}
+
+
+/* ==========================================================================
+   45. TOOLTIP (Floating paper tag with 3D shadow and triangular notch)
+   ========================================================================== */
+.pc-sd-tooltip-wrapper, .pc-shadcn-tooltip-wrapper,
+.pc-sd-tooltip, .pc-shadcn-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-sd-tooltip-content, .pc-shadcn-tooltip-content {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 6px 12px;
+  background: var(--pc-sd-ink-dark);
+  color: #FFFDF9;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--pc-sd-radius-xs);
+  box-shadow: var(--pc-sd-shadow-3);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all var(--pc-sd-dur-quick) ease;
+  z-index: 1000;
+}
+
+.pc-sd-tooltip-content::after, .pc-shadcn-tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px 5px 0;
+  border-style: solid;
+  border-color: var(--pc-sd-ink-dark) transparent transparent;
+}
+
+.pc-sd-tooltip-wrapper:hover .pc-sd-tooltip-content,
+.pc-sd-tooltip:hover .pc-sd-tooltip-content,
+.pc-shadcn-tooltip-wrapper:hover .pc-shadcn-tooltip-content,
+.pc-shadcn-tooltip:hover .pc-shadcn-tooltip-content {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.pc-sd-tooltip-content.is-bottom {
+  top: calc(100% + 8px);
+  bottom: auto;
+}
+.pc-sd-tooltip-content.is-bottom::after {
+  bottom: 100%;
+  top: auto;
+  border-width: 0 5px 5px;
+  border-color: transparent transparent var(--pc-sd-ink-dark) transparent;
+}

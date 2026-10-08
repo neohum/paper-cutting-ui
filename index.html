@@ -9,6 +9,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Square+Round:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="papercut.css">
+  <link rel="stylesheet" href="papercut-alerts-toasts.css">
+  <link rel="stylesheet" href="papercut-modals.css">
+  <link rel="stylesheet" href="papercut-animations.css">
+  <link rel="stylesheet" href="papercut-sidebar.css">
+  <link rel="stylesheet" href="papercut-shadcn.css">
+  <link rel="stylesheet" href="papercut-blocks-charts.css">
+  <link rel="stylesheet" href="papercut-shadow-studio.css">
   <style>
     /* Showcase Page Specific Layout */
     body {
@@ -82,7 +89,7 @@
     }
 
     .prompt-box::before {
-      content: "✦ USER PROMPT AESTHETIC";
+      content: "USER PROMPT AESTHETIC";
       position: absolute;
       top: -11px;
       left: 18px;
@@ -149,6 +156,11 @@
     }
 
     .pc-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      line-height: 1;
       padding: 9px 18px;
       font-size: 13.5px;
       font-weight: 700;
@@ -159,6 +171,14 @@
       cursor: pointer;
       box-shadow: var(--pc-paper-shadow-xs);
       transition: all 0.15s ease;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .pc-filter-btn > span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
     }
     .pc-filter-btn:hover {
       background: var(--pc-buttercup-light);
@@ -356,7 +376,7 @@
   <div class="showcase-container">
     
     <!-- Hero Banner with Subagent Paper-cut Artwork -->
-    <header class="hero-banner">
+    <header class="hero-banner pc-page-view" id="overview">
       <div class="pc-washi-tape"></div>
       <div class="hero-content">
         <div>
@@ -377,21 +397,39 @@
             "Layered paper-cut illustration of [ ], with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling."
           </div>
 
-          <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-            <a href="#examples-section" class="pc-btn pc-btn-mint pc-btn-lg">
-              <span class="pc-inline-icon" data-icon="contacts-book"></span> <span>30가지 예제 탐색하기</span>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <a href="#paper-animation-studio" class="pc-btn pc-btn-lavender pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="sparkles"></span> <span>페이퍼 애니메이션 스튜디오 (8종)</span>
             </a>
-            <a href="#matte-texture-showcase" class="pc-btn pc-btn-peach pc-btn-lg">
-              <span class="pc-inline-icon" data-icon="receipt"></span> <span>매트 크림 3D 질감 원리</span>
+            <a href="#paper-alerts-toasts" class="pc-btn pc-btn-peach pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="bell"></span> <span>알림 & 토스트 시스템</span>
+            </a>
+            <a href="#shadcn-components" class="pc-btn pc-btn-lavender pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="layers"></span> <span>페이퍼 UI 컴포넌트 (44종)</span>
+            </a>
+            <a href="#shadcn-blocks-charts" class="pc-btn pc-btn-mint pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="contacts-book"></span> <span>페이퍼 애플리케이션 블록 (6선)</span>
+            </a>
+            <a href="#shadcn-charts-section" class="pc-btn pc-btn-sky pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="chart-bar"></span> <span>3D 페이퍼 차트 (6종)</span>
+            </a>
+            <a href="#playground" class="pc-btn pc-btn-mint pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="settings"></span> <span>16종 컴포넌트 종이질감 랩</span>
             </a>
             <a href="#icon-gallery" class="pc-btn pc-btn-sky pc-btn-lg">
-              <span class="pc-inline-icon" data-icon="scissors"></span> <span>스탠드얼론 아이콘 (529종)</span>
+              <span class="pc-inline-icon" data-icon="scissors"></span> <span>스탠드얼론 아이콘 (659종)</span>
             </a>
-            <a href="#icon-backgrounds" class="pc-btn pc-btn-peach pc-btn-lg">
-              <span class="pc-inline-icon" data-icon="palette"></span> <span>배경 박스 (130종)</span>
+            <a href="#bg-library" class="pc-btn pc-btn-peach pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="palette"></span> <span>배경 플레이트 (130종)</span>
+            </a>
+            <a href="#core-components" class="pc-btn pc-btn-mint pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="contacts-book"></span> <span>30가지 예제 탐색하기</span>
+            </a>
+            <a href="#texture-showcase" class="pc-btn pc-btn-peach pc-btn-lg">
+              <span class="pc-inline-icon" data-icon="receipt"></span> <span>매트 크림 3D 질감 원리</span>
             </a>
             <a href="#playground" class="pc-btn pc-btn-lavender pc-btn-lg">
-              <span class="pc-inline-icon" data-icon="palette"></span> <span>디자인 랩 플레이그라운드</span>
+              <span class="pc-inline-icon" data-icon="palette"></span> <span>디자인 랩</span>
             </a>
             <button id="toggle-paper-sound" class="pc-btn pc-btn-buttercup pc-btn-lg">
               <span class="pc-inline-icon is-sm" data-icon="mute"></span> <span class="label">종이 소리: OFF</span>
@@ -415,7 +453,7 @@
     </header>
 
     <!-- Real Paper-Cut Shadowbox Diorama (Recreating the AI Artwork in Pure HTML & CSS) -->
-    <section class="pc-card" style="background: #FFFFFF; border-radius: 28px; padding: 36px; margin-bottom: 40px; box-shadow: var(--pc-paper-shadow-lg);">
+    <section class="pc-card pc-page-view" id="shadowbox-diorama" style="background: #FFFFFF; border-radius: 28px; padding: 36px; margin-bottom: 40px; box-shadow: var(--pc-paper-shadow-lg);">
       <div class="pc-washi-tape pc-washi-tape-mint"></div>
       
       <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
@@ -536,33 +574,12 @@
       </div>
     </section>
 
-    <!-- Sticky Navigation, Filters & Live Search -->
-    <nav class="controls-panel" id="examples-section">
-      <div class="filter-pills">
-        <button class="pc-filter-btn is-active" data-filter="all">전체보기 (30)</button>
-        <button class="pc-filter-btn" data-filter="cat-core">01. 기본 원형 (8)</button>
-        <button class="pc-filter-btn" data-filter="cat-forms">02. 인터랙티브 폼 (8)</button>
-        <button class="pc-filter-btn" data-filter="cat-widgets">03. 시나리오 위젯 (8)</button>
-        <button class="pc-filter-btn" data-filter="cat-advanced">04. 복합 컴포넌트 (6)</button>
-        <button class="pc-filter-btn" data-filter="comp-btn">#버튼</button>
-        <button class="pc-filter-btn" data-filter="comp-input">#인풋</button>
-        <button class="pc-filter-btn" data-filter="comp-check">#체크박스</button>
-        <button class="pc-filter-btn" data-filter="comp-select">#드롭다운</button>
-      </div>
-
-      <div style="display: flex; gap: 12px; align-items: center;">
-        <span id="visible-count" class="pc-badge pc-badge-peach">30개 예제</span>
-        <div class="search-wrapper">
-          <input type="text" id="search-examples-input" class="pc-input pc-input-pill" placeholder="예제 검색 (예: 북클럽, 우표, 커피...)" style="padding-left: 36px;">
-          <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.6;"></span>
-        </div>
-      </div>
-    </nav>
 
 
     <!-- =========================================================================
          SECTION 1: THE CORE PRIMITIVES & STYLING VARIATIONS (01 ~ 08)
          ========================================================================= -->
+    <section class="pc-page-view" id="core-components">
     <div class="section-title-wrap">
       <h2 class="section-title">
         <span class="pc-ribbon-banner">PART 1</span>
@@ -718,8 +735,8 @@
           <div class="demo-stage">
             <div class="pc-dropdown-custom">
               <button class="pc-dropdown-trigger" type="button">
-                <span class="pc-inline-icon is-sm" data-icon="bookmark"></span> <span>파스텔 민트 색지</span>
-                <span style="font-size: 11px;">▼</span>
+                <span class="trigger-content"><span class="pc-inline-icon is-sm" data-icon="bookmark"></span> <span class="trigger-text">파스텔 민트 색지</span></span>
+                <span class="arrow-icon"><span class="pc-inline-icon is-xs" data-icon="arrow-down"></span></span>
               </button>
               <div class="pc-dropdown-menu">
                 <button class="pc-dropdown-item is-selected" data-value="mint"><span class="pc-inline-icon is-sm" data-icon="bookmark"></span> <span>파스텔 민트 색지</span></button>
@@ -908,11 +925,14 @@
       </article>
 
     </div>
+    </section>
+
 
 
     <!-- =========================================================================
          SECTION 2: WHIMSICAL MICRO-INTERACTIONS & FORM MODULES (09 ~ 16)
          ========================================================================= -->
+    <section class="pc-page-view" id="part-2-forms">
     <div class="section-title-wrap">
       <h2 class="section-title">
         <span class="pc-ribbon-banner">PART 2</span>
@@ -1336,11 +1356,14 @@
       </article>
 
     </div>
+    </section>
+
 
 
     <!-- =========================================================================
          SECTION 3: SCENARIO CARDS & APPLICATION WIDGETS (17 ~ 24)
          ========================================================================= -->
+    <section class="pc-page-view" id="part-3-widgets">
     <div class="section-title-wrap">
       <h2 class="section-title">
         <span class="pc-ribbon-banner">PART 3</span>
@@ -1740,11 +1763,14 @@
       </article>
 
     </div>
+    </section>
+
 
 
     <!-- =========================================================================
          SECTION 4: ADVANCED COMPOSITIONS & PLAYGROUND (25 ~ 30)
          ========================================================================= -->
+    <section class="pc-page-view" id="part-4-advanced">
     <div class="section-title-wrap">
       <h2 class="section-title">
         <span class="pc-ribbon-banner">PART 4</span>
@@ -2065,13 +2091,15 @@
       </article>
 
     </div>
+    </section>
+
 
 
     <!-- =========================================================================
          MATTE CREAM 3D ART SURFACE TEXTURE SHOWCASE
          Explaining & Demonstrating Pure CSS/SVG Pulp Shader Realism
          ========================================================================= -->
-    <section class="pc-matte-showcase" id="matte-texture-showcase">
+    <section class="pc-matte-showcase pc-page-view" id="texture-showcase">
       <div class="pc-washi-tape pc-washi-tape-buttercup"></div>
       <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
         <span class="pc-badge pc-badge-peach">Deep Technical Insight</span>
@@ -2087,7 +2115,7 @@
 
       <div class="pc-matte-stage">
         <!-- Interactive Paper Sheet Canvas -->
-        <div class="pc-card" style="padding: 24px; background: var(--pc-bg-cream); display: flex; flex-direction: column; justify-content: space-between;">
+        <div class="pc-card" id="texture-sim" style="padding: 24px; background: var(--pc-bg-cream); display: flex; flex-direction: column; justify-content: space-between;">
           <div>
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
               <h4 style="margin: 0; font-size: 16px; font-weight: 800;">실시간 3D 종이 질감 인터랙티브 시뮬레이터</h4>
@@ -2190,7 +2218,7 @@
           </div>
 
           <div style="background: var(--pc-bg-canvas); border-radius: 12px; padding: 12px 14px; font-size: 12px; color: var(--pc-ink-muted);">
-            <div style="font-weight: 800; color: var(--pc-ink); margin-bottom: 4px;"><span class="pc-inline-icon is-sm" data-icon="lightbulb-idea"></span> 핵심 CSS 한 줄 요약:</div>
+            <div style="font-weight: 800; color: var(--pc-ink); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-sm" data-icon="lightbulb-idea"></span> <span>핵심 CSS 한 줄 요약:</span></div>
             <code>box-shadow: 0 1.5px 0 rgba(255,255,255,0.95) inset, 0 8px 16px rgba(55,40,30,0.08);</code><br>
             <code>filter: url(#pulp-filter); mix-blend-mode: multiply;</code>
           </div>
@@ -2243,7 +2271,7 @@
           <div style="background: var(--pc-bg-cream); padding: 18px; border-radius: 16px; display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center;">
             <span style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink-muted);">3. 수제 카드스톡 패널</span>
             <div class="pc-card pc-texture-paper ui-textured-sample" style="width: 100%; padding: 14px; background: #FFFDF9; border-radius: 14px;">
-              <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink);"><span class="pc-inline-icon is-sm" data-icon="file"></span> 도톰한 350g 매트 보드</div>
+              <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-sm" data-icon="file"></span> <span>도톰한 350g 매트 보드</span></div>
               <div style="font-size: 11px; color: var(--pc-ink-muted); margin-top: 3px;">표면에 빛이 산란되어 깊이감 형성</div>
             </div>
             <span style="font-size: 11px; color: var(--pc-ink-muted);">클래스: <code>.pc-card.pc-texture-paper</code></span>
@@ -2261,10 +2289,385 @@
       </div>
     </section>
 
+    <!-- Global SVG Filter for Die-cut Paper Sticker Contours -->
+    <svg width="0" height="0" style="position:absolute;pointer-events:none;opacity:0;" aria-hidden="true">
+      <defs>
+        <filter id="pc-filter-diecut-sticker" x="-40%" y="-40%" width="180%" height="180%">
+          <feMorphology in="SourceAlpha" result="EXP" operator="dilate" radius="2.5" id="pc-filter-sticker-dilate"/>
+          <feFlood flood-color="#3D352E" result="COL" id="pc-filter-sticker-flood"/>
+          <feComposite in="COL" in2="EXP" operator="in" result="OUT"/>
+          <feDropShadow in="OUT" dx="0" dy="2.5" stdDeviation="1.5" flood-color="#4A3A2A" flood-opacity="0.22" result="SHD"/>
+          <feMerge>
+            <feMergeNode in="SHD"/>
+            <feMergeNode in="OUT"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+    </svg>
+
     <!-- =========================================================================
-         3D PAPER-CUT ICON GALLERY (30 MASTER-CRAFTED DETAILED ICONS)
+         3D PAPERCRAFT DEPTH & SHADOW STUDIO (입체감 & 그림자 시뮬레이터)
          ========================================================================= -->
-    <section class="pc-card pc-card-stacked" id="icon-gallery" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+    <section class="pc-card pc-card-stacked pc-page-view" id="paper-shadow-studio" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+    </section>
+
+    <!-- =========================================================================
+         3D PAPERCRAFT ANIMATION STUDIO & RECOMMENDATIONS (애니메이션 스튜디오 & 시뮬레이터)
+         ========================================================================= -->
+    <section class="pc-card pc-card-stacked pc-page-view" id="paper-animation-studio" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+      <div class="pc-washi-tape pc-washi-tape-mint"></div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+        <span class="pc-badge pc-badge-sky">Motion Studio</span>
+        <span class="pc-badge pc-badge-lavender">8 Papercraft Styles</span>
+        <span class="pc-badge pc-badge-peach">Live Simulator & Generator</span>
+      </div>
+      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+        <span class="pc-inline-icon is-md" data-icon="sparkles"></span> 3D 페이퍼크래프트 애니메이션 스튜디오 & 추천 시뮬레이터
+      </h2>
+      <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
+        종이의 물리적 특성(3D 오리가미 접힘 펼침, 팝업북 입체 스프링, 공중 부유 펄럭임, 모서리 스티커 들뜸, 왁스 인장 스탬프, 가위질 싹둑 진동 등)을 순수 CSS 키프레임으로 재현한 실시간 모션 엔진입니다. 아이콘과 컴포넌트를 선택하여 즉시 시뮬레이션하고 원클릭으로 코드를 복사할 수 있습니다.
+      </p>
+
+      <!-- 1. Motion Recommendation Matrix Guide -->
+      <div style="margin-bottom: 30px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <h3 style="font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink); display: flex; align-items: center; gap: 8px;">
+            <span class="pc-inline-icon is-sm" data-icon="bookmark"></span> 페이퍼 UI 컴포넌트별 모션 추천 가이드라인
+          </h3>
+          <span class="pc-badge pc-badge-mint" style="font-size: 11px;">Best Practices</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+          <!-- Card 1: Icons -->
+          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 16px; border: 1.5px solid #E6DBCB;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <div style="width: 32px; height: 32px; background: #E8F6EE; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
+              </div>
+              <div style="font-weight: 800; font-size: 14.5px; color: #37281E;">아이콘 & 엠블럼 (Icons)</div>
+            </div>
+            <p style="font-size: 12.5px; color: #6D5C4C; margin: 0 0 10px; line-height: 1.5;">
+              첫 렌더링 시 <strong>팝업북 스프링(Pop-up)</strong>으로 통통 튀어오르게 하거나, 마우스 호버 시 <strong>공중 부유(Flutter)</strong> 또는 <strong>가위질(Snip)</strong>로 반응성을 극대화합니다.
+            </p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <span class="pc-badge pc-badge-mint" style="font-size: 10.5px;">.pc-anim-popup</span>
+              <span class="pc-badge pc-badge-sky" style="font-size: 10.5px;">.pc-hover-flutter</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Buttons -->
+          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 16px; border: 1.5px solid #E6DBCB;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <div style="width: 32px; height: 32px; background: #FDEFE6; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <span class="pc-inline-icon is-xs" data-icon="scissors"></span>
+              </div>
+              <div style="font-weight: 800; font-size: 14.5px; color: #37281E;">버튼 & 클릭 액션 (Buttons)</div>
+            </div>
+            <p style="font-size: 12.5px; color: #6D5C4C; margin: 0 0 10px; line-height: 1.5;">
+              마우스를 올렸을 때 스티커 모서리가 들뜨는 <strong>스티커 필오프(Peel)</strong>를, 클릭 순간에는 도장을 꾹 누르는 <strong>스탬프 프레스(Stamp)</strong>로 물리적 타건감을 부여합니다.
+            </p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <span class="pc-badge pc-badge-peach" style="font-size: 10.5px;">.pc-hover-peel</span>
+              <span class="pc-badge pc-badge-lavender" style="font-size: 10.5px;">.pc-active-stamp</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Modals -->
+          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 16px; border: 1.5px solid #E6DBCB;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <div style="width: 32px; height: 32px; background: #F3EEFD; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <span class="pc-inline-icon is-xs" data-icon="book"></span>
+              </div>
+              <div style="font-weight: 800; font-size: 14.5px; color: #37281E;">모달 & 드롭다운 (Overlays)</div>
+            </div>
+            <p style="font-size: 12.5px; color: #6D5C4C; margin: 0 0 10px; line-height: 1.5;">
+              다이얼로그나 메뉴가 나타날 때 접힌 편지가 펴지듯 <strong>오리가미 언폴드(Unfold)</strong>를 사용하고, 서랍 트레이는 <strong>아코디언 주름(Accordion)</strong>으로 확장합니다.
+            </p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <span class="pc-badge pc-badge-lavender" style="font-size: 10.5px;">.pc-anim-unfold</span>
+              <span class="pc-badge pc-badge-buttercup" style="font-size: 10.5px;">.pc-anim-accordion</span>
+            </div>
+          </div>
+
+          <!-- Card 4: Toasts -->
+          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 16px; border: 1.5px solid #E6DBCB;">
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <div style="width: 32px; height: 32px; background: #FEF8E3; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <span class="pc-inline-icon is-xs" data-icon="bell"></span>
+              </div>
+              <div style="font-weight: 800; font-size: 14.5px; color: #37281E;">알림 카드 & 피드백 (Toasts)</div>
+            </div>
+            <p style="font-size: 12.5px; color: #6D5C4C; margin: 0 0 10px; line-height: 1.5;">
+              화면 우측에서 날아올 때 <strong>팝업북 스프링</strong>으로 시선을 사로잡고, 상태 전환 및 페이지 전환에는 <strong>3D 책장 넘김(Flip)</strong>을 추천합니다.
+            </p>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <span class="pc-badge pc-badge-mint" style="font-size: 10.5px;">.pc-anim-popup</span>
+              <span class="pc-badge pc-badge-rose" style="font-size: 10.5px;">.pc-anim-flip</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Interactive Simulator Studio Layout -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px;">
+        <!-- Left: Stage & Controls -->
+        <div>
+          <!-- Target Element Selector -->
+          <div style="margin-bottom: 14px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--pc-ink); margin-bottom: 8px;">테스트 대상 컴포넌트:</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <button type="button" class="pc-anim-target-tab is-active" data-target-type="icon">아이콘 (Icon)</button>
+              <button type="button" class="pc-anim-target-tab" data-target-type="button">버튼 (Button)</button>
+              <button type="button" class="pc-anim-target-tab" data-target-type="card">카드 (Card)</button>
+              <button type="button" class="pc-anim-target-tab" data-target-type="badge">배지 (Badge)</button>
+              <button type="button" class="pc-anim-target-tab" data-target-type="alert">알림 (Alert)</button>
+              <button type="button" class="pc-anim-target-tab" data-target-type="checkbox">체크박스 (Check)</button>
+              <button type="button" class="pc-anim-target-tab" data-target-type="radio">라디오 (Radio)</button>
+            </div>
+          </div>
+
+          <!-- 8 Preset Chips -->
+          <div style="margin-bottom: 18px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--pc-ink); margin-bottom: 8px;">8대 페이퍼크래프트 모션 프리셋:</div>
+            <div id="anim-preset-chips" style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <!-- Rendered by papercut-animations.js -->
+            </div>
+          </div>
+
+          <!-- Stage Card -->
+          <div class="pc-anim-stage-card">
+            <div class="pc-anim-stage-grid"></div>
+            <div id="anim-stage-target">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Playback Controls -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; background: #FAF7F0; padding: 12px 18px; border-radius: 14px; border: 1.5px solid #E6DBCB; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 12.5px; font-weight: 700; color: #4A3A2C;">재생 속도:</span>
+              <input type="range" id="anim-speed-slider" min="0.5" max="2.0" step="0.1" value="1.0" style="width: 100px; accent-color: #5BAF8E; cursor: pointer;">
+              <span id="anim-speed-val" style="font-size: 12.5px; font-weight: 800; color: #1A4D38;">1.0x</span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <label class="pc-checkbox-label" style="font-size: 12.5px;">
+                <input type="checkbox" id="anim-loop-toggle" class="pc-checkbox-input" checked>
+                <span class="pc-checkbox-box"></span>
+                <span>무한 반복 (Loop)</span>
+              </label>
+
+              <button type="button" class="pc-btn pc-btn-sm pc-btn-mint" id="anim-btn-replay">
+                <span class="pc-inline-icon is-xs" data-icon="refresh-cw"></span>
+                <span>다시 재생</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Preset Info & Code Generator -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <!-- Active Preset Description Card -->
+          <div class="pc-card" style="padding: 20px 22px; background: #FAF7F0; border-radius: 18px; border: 1.5px solid #E6DBCB;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; color: #8C7868;">Selected Motion Preset</div>
+              <span class="pc-badge pc-badge-mint" style="font-size: 11px;">Active</span>
+            </div>
+            <h4 id="anim-info-title" style="margin: 0 0 8px; font-size: 18px; font-weight: 800; color: #37281E;">
+              01. 팝업북 스프링 (Pop-up Spring)
+            </h4>
+            <p id="anim-info-desc" style="font-size: 13.5px; color: #6D5C4C; margin: 0 0 14px; line-height: 1.5;">
+              어린이 3D 팝업북처럼 바닥에서 탄력 있게 솟아오르는 페이퍼 입체감 효과
+            </p>
+            <div style="background: #FFFFFF; border-radius: 12px; padding: 10px 14px; border: 1px solid #EADBCC; font-size: 12.5px;">
+              <div style="font-weight: 800; color: #4A3A2C; margin-bottom: 2px;">추천 컴포넌트:</div>
+              <div id="anim-info-recommended" style="color: #6D5C4C;">아이콘, 배지, 툴팁, 토스트, 아바타</div>
+            </div>
+          </div>
+
+          <!-- Code Generator Box -->
+          <div style="flex: 1; display: flex; flex-direction: column;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="font-size: 13px; font-weight: 800; color: #4A3A2C; display: flex; align-items: center; gap: 6px;">
+                <span class="pc-inline-icon is-xs" data-icon="code"></span>
+                <span>CSS 클래스 적용 코드 (One-Click Copy)</span>
+              </div>
+              <button type="button" class="pc-btn pc-btn-sm pc-btn-lavender" id="anim-btn-copy-code" style="padding: 4px 12px; font-size: 12px;">
+                <span class="pc-inline-icon is-xs" data-icon="copy"></span>
+                <span>코드 복사</span>
+              </button>
+            </div>
+            <pre class="pc-anim-code-block" id="anim-code-preview" style="flex: 1; margin: 0; min-height: 180px;"></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         PAPER ALERTS & TOAST NOTIFICATION SYSTEM (알림 & 토스트 컴포넌트 시스템)
+         Handcrafted 3D Layered Paper-Cut Alerts, Memo Slips, and Toast Notifications
+         ========================================================================= -->
+    <section class="pc-card pc-card-stacked pc-page-view" id="paper-alerts-toasts" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+      <div class="pc-washi-tape pc-washi-tape-lavender"></div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
+        <span class="pc-badge pc-badge-mint">Notification Center</span>
+        <span class="pc-badge pc-badge-peach">4 Semantic Types</span>
+        <span class="pc-badge pc-badge-sky">Interactive Toast Studio</span>
+      </div>
+      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+        <span class="pc-inline-icon is-md" data-icon="bell"></span> 페이퍼컷 알림(Alert) & 토스트(Toast) 시스템
+      </h2>
+      <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
+        색종이를 겹쳐 붙인 절단면(Kirigami Edge)과 마스킹 테이프, 카드스톡 입체 그림자를 결합한 <strong>정통 3D 페이퍼컷 알림(Alert)과 플로팅 토스트(Toast) 알림 엔진</strong>입니다. 상황별 4가지 의미론적 색채(성공·안내·주의·오류)와 실시간 트리거 컨트롤러를 제공합니다.
+      </p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 28px;">
+        <!-- Left Column: In-page Alert Components Showcase -->
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h3 style="font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink);">
+              <span class="pc-inline-icon is-sm" data-icon="bookmark"></span> 페이퍼 알림 슬립 (Alert Variants)
+            </h3>
+            <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">4가지 상태 규격</span>
+          </div>
+
+          <div class="pc-alert-suite">
+            <!-- 1. Success Alert -->
+            <div class="pc-alert pc-alert-success">
+              <div class="pc-alert-icon-box">
+                <span class="pc-inline-icon is-sm" data-icon="check"></span>
+              </div>
+              <div class="pc-alert-content">
+                <div class="pc-alert-title">작업 성공 · 동기화 완료</div>
+                <p class="pc-alert-desc">수제 코튼지 질감 프로필과 619종 스탠드얼론 아이콘 메타데이터가 로컬 저장소에 안전하게 기록되었습니다.</p>
+              </div>
+              <button type="button" class="pc-alert-close" aria-label="닫기">
+                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+              </button>
+            </div>
+
+            <!-- 2. Info Alert -->
+            <div class="pc-alert pc-alert-info">
+              <div class="pc-alert-icon-box">
+                <span class="pc-inline-icon is-sm" data-icon="info"></span>
+              </div>
+              <div class="pc-alert-content">
+                <div class="pc-alert-title">디자인 시스템 2.0 업데이트</div>
+                <p class="pc-alert-desc">드롭다운 메뉴의 2중 배경을 제거하고, 순수 카드스톡 베이스와 항목별 명확한 배경색 분리 체계가 적용되었습니다.</p>
+                <div class="pc-alert-actions">
+                  <button type="button" class="pc-btn pc-btn-sm pc-btn-lavender" style="padding: 4px 12px; font-size: 12px;">자세히 보기</button>
+                  <button type="button" class="pc-btn pc-btn-sm pc-btn-ghost" style="padding: 4px 10px; font-size: 12px;">확인</button>
+                </div>
+              </div>
+              <button type="button" class="pc-alert-close" aria-label="닫기">
+                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+              </button>
+            </div>
+
+            <!-- 3. Warning Alert -->
+            <div class="pc-alert pc-alert-warning">
+              <div class="pc-alert-icon-box">
+                <span class="pc-inline-icon is-sm" data-icon="warning"></span>
+              </div>
+              <div class="pc-alert-content">
+                <div class="pc-alert-title">선 두께(Stroke) 조정 주의</div>
+                <p class="pc-alert-desc">스케일 모드가 '고정 픽셀'인 상태에서 선 두께가 5.0px를 초과하면 소형 화면(24px 이하)에서 시인성이 저하될 수 있습니다.</p>
+              </div>
+              <button type="button" class="pc-alert-close" aria-label="닫기">
+                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+              </button>
+            </div>
+
+            <!-- 4. Destructive / Error Alert -->
+            <div class="pc-alert pc-alert-destructive">
+              <div class="pc-alert-icon-box">
+                <span class="pc-inline-icon is-sm" data-icon="close"></span>
+              </div>
+              <div class="pc-alert-content">
+                <div class="pc-alert-title">외부 SVG 파싱 실패</div>
+                <p class="pc-alert-desc">선택된 그래픽 파일의 viewBox 속성을 검출할 수 없습니다. 0 0 64 64 정규 규격의 페이퍼컷 SVG를 업로드해주세요.</p>
+                <div class="pc-alert-actions">
+                  <button type="button" class="pc-btn pc-btn-sm pc-btn-rose" style="padding: 4px 12px; font-size: 12px;">다시 시도</button>
+                </div>
+              </div>
+              <button type="button" class="pc-alert-close" aria-label="닫기">
+                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+              </button>
+            </div>
+
+            <!-- 5. Pinned Memo Slip Alert -->
+            <div class="pc-alert pc-alert-memo">
+              <div class="pc-washi-tape-pin"></div>
+              <div class="pc-alert-icon-box" style="background: #FFFDF9;">
+                <span class="pc-inline-icon is-sm" data-icon="edit"></span>
+              </div>
+              <div class="pc-alert-content">
+                <div class="pc-alert-title">마스킹 테이프 메모 슬립 (Post-it Memo)</div>
+                <p class="pc-alert-desc">"디자인 시스템 가이드라인: 종이의 질감은 컴포넌트의 본질을 해치지 않도록 은은한 멀티플라이 셰이더로 적용해야 합니다."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Live Toast Studio -->
+        <div style="background: #FAF7F0; border: 1.5px solid #EADBCC; border-radius: 20px; padding: 24px; display: flex; flex-direction: column;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h3 style="font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink);">
+              <span class="pc-inline-icon is-sm" data-icon="bell"></span> 라이브 토스트 알림 스튜디오 (Interactive)
+            </h3>
+            <span class="pc-badge pc-badge-mint" style="font-size: 11px;">실시간 플로팅 렌더링</span>
+          </div>
+
+          <p style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0 0 20px; line-height: 1.5;">
+            버튼을 클릭하여 화면에 실시간으로 날아오는 3D 페이퍼컷 토스트 카드를 테스트해보세요. 마스킹 테이프 핀, 프로그레스 타이머 바, 액션 버튼(실행 취소)이 내장되어 있습니다.
+          </p>
+
+          <!-- Toast Position Selector -->
+          <div style="margin-bottom: 20px;">
+            <div style="font-size: 12px; font-weight: 800; color: var(--pc-ink); margin-bottom: 8px;">
+              토스트 팝업 앵커 위치:
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="pc-filter-btn pc-toast-pos-btn is-active" data-pos="top-right" style="flex: 1; padding: 6px 10px; font-size: 12px;">우측 상단 (Top-R)</button>
+              <button type="button" class="pc-filter-btn pc-toast-pos-btn" data-pos="bottom-right" style="flex: 1; padding: 6px 10px; font-size: 12px;">우측 하단 (Bottom-R)</button>
+              <button type="button" class="pc-filter-btn pc-toast-pos-btn" data-pos="top-center" style="flex: 1; padding: 6px 10px; font-size: 12px;">상단 중앙 (Center)</button>
+            </div>
+          </div>
+
+          <!-- Toast Trigger Stack -->
+          <div style="display: flex; flex-direction: column; gap: 10px; flex: 1;">
+            <button type="button" id="btn-demo-toast-success" class="pc-btn pc-btn-mint" style="width: 100%; justify-content: flex-start; padding: 12px 18px; font-size: 14px;">
+              <span class="pc-inline-icon is-sm" data-icon="check"></span>
+              <span style="font-weight: 800;">성공 토스트 띄우기 (Success Toast)</span>
+            </button>
+            <button type="button" id="btn-demo-toast-info" class="pc-btn pc-btn-lavender" style="width: 100%; justify-content: flex-start; padding: 12px 18px; font-size: 14px;">
+              <span class="pc-inline-icon is-sm" data-icon="info"></span>
+              <span style="font-weight: 800;">안내 토스트 띄우기 (Info Toast)</span>
+            </button>
+            <button type="button" id="btn-demo-toast-warning" class="pc-btn pc-btn-buttercup" style="width: 100%; justify-content: flex-start; padding: 12px 18px; font-size: 14px;">
+              <span class="pc-inline-icon is-sm" data-icon="warning"></span>
+              <span style="font-weight: 800;">주의 토스트 띄우기 (Warning Toast)</span>
+            </button>
+            <button type="button" id="btn-demo-toast-error" class="pc-btn pc-btn-rose" style="width: 100%; justify-content: flex-start; padding: 12px 18px; font-size: 14px;">
+              <span class="pc-inline-icon is-sm" data-icon="close"></span>
+              <span style="font-weight: 800;">오류 토스트 띄우기 (Destructive Toast)</span>
+            </button>
+            <button type="button" id="btn-demo-toast-action" class="pc-btn pc-btn-peach" style="width: 100%; justify-content: flex-start; padding: 12px 18px; font-size: 14px;">
+              <span class="pc-inline-icon is-sm" data-icon="trash"></span>
+              <span style="font-weight: 800;">액션 포함 토스트 (Undo Action Toast)</span>
+            </button>
+          </div>
+
+          <!-- Quick JS Snippet Readout -->
+          <div style="margin-top: 20px; background: #3D352E; border-radius: 12px; padding: 12px 16px; color: #FAF6ED; font-family: monospace; font-size: 12px; line-height: 1.5;">
+            <div style="color: #A3D8C3; font-weight: bold; margin-bottom: 4px;">// 1줄 호출 코드:</div>
+            <code>window.showPaperToast('작업이 완료되었습니다!', 'mint', 'check');</code>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="pc-card pc-card-stacked pc-page-view" id="icon-gallery" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
       <div class="pc-washi-tape pc-washi-tape-peach"></div>
       <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
         <span class="pc-badge pc-badge-sky">No Background Box</span>
@@ -2272,10 +2675,10 @@
         <span class="pc-badge pc-badge-mint">Click to Copy SVG</span>
       </div>
       <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
-        <span class="pc-inline-icon is-md" data-icon="scissors"></span> 3D 페이퍼 컷 정밀 아이콘 갤러리 (배경 박스 없는 순수 레이어드 페이퍼 아트 · 529종)
+        <span class="pc-inline-icon is-md" data-icon="scissors"></span> 3D 페이퍼 컷 정밀 아이콘 갤러리 (배경 박스 없는 순수 레이어드 페이퍼 아트 · 659종)
       </h2>
       <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
-        기존의 사각형/원형 배경 타일을 완전히 걷어내고, <strong>아이콘 오브젝트 자체를 3~5겹의 파스텔 색종이로 오려 붙인 정밀 스탠드얼론 페이퍼 컷(Kirigami) 컬렉션 529선</strong>입니다. Flaticon 최다 다운로드 500+ 디자인 체계를 바탕으로 UI, 커뮤니케이션, 소셜, 커머스, 금융, 미디어, 디바이스, 자연, 푸드, 여행, 라이프스타일을 완벽 지원합니다. 카드를 클릭하면 SVG 코드가 즉시 복사됩니다.
+        기존의 사각형/원형 배경 타일을 완전히 걷어내고, <strong>아이콘 오브젝트 자체를 3~5겹의 파스텔 색종이로 오려 붙인 정밀 스탠드얼론 페이퍼 컷(Kirigami) 컬렉션 659선</strong>입니다. 글로벌 모던 UI 표준 체계를 바탕으로 숫자(0-9), 특수 기호/연산자, 체크마크, UI 컨트롤, 커뮤니케이션, 소셜, 커머스, 금융, 개발자 도구, 미디어, 디바이스, 자연, 푸드, 여행, 라이프스타일을 완벽 지원합니다. 카드를 클릭하면 SVG 코드가 즉시 복사됩니다.
       </p>
 
       <!-- Icon Explorer Toolbar & Filters -->
@@ -2283,14 +2686,15 @@
         <div class="pc-icon-search-bar">
           <div style="position: relative; flex: 1; max-width: 480px;">
             <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
-            <input type="text" id="icon-search-input" class="pc-input" placeholder="아이콘 이름 또는 영문/태그 검색 (예: 홈, 커피, 카메라, mail...)" style="padding-left: 44px; width: 100%; border-radius: 999px; height: 44px;">
+            <input type="text" id="icon-search-input" class="pc-input" placeholder="아이콘 이름, 숫자(0-9), 기호(#, &), 영문/태그 검색 (예: 0, 7, #, &, 체크, coffee, check, mail...)" style="padding-left: 44px; width: 100%; border-radius: 999px; height: 44px;">
           </div>
-          <span class="pc-badge pc-badge-mint" id="icon-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">529개 아이콘</span>
-          <span style="font-size: 13px; color: var(--pc-ink-muted);"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> 아이콘 카드를 클릭하면 인라인 SVG 코드가 클립보드에 즉시 복사됩니다.</span>
+          <span class="pc-badge pc-badge-mint" id="icon-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">659개 아이콘</span>
+          <span style="font-size: 13px; color: var(--pc-ink-muted); display: inline-flex; align-items: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>아이콘 카드를 클릭하면 인라인 SVG 코드가 클립보드에 즉시 복사됩니다.</span></span>
         </div>
 
         <div class="pc-icon-category-pills">
-          <button type="button" class="pc-icon-cat-btn is-active" data-cat="all">전체 (529)</button>
+          <button type="button" class="pc-icon-cat-btn is-active" data-cat="all">전체 (659)</button>
+          <button type="button" class="pc-icon-cat-btn" data-cat="symbol">숫자 & 특수 기호 (40)</button>
           <button type="button" class="pc-icon-cat-btn" data-cat="ui">UI & 시스템 (125)</button>
           <button type="button" class="pc-icon-cat-btn" data-cat="comm">커뮤니케이션 (58)</button>
           <button type="button" class="pc-icon-cat-btn" data-cat="user,social">유저 & 소셜 (56)</button>
@@ -2318,7 +2722,7 @@
     <!-- =========================================================================
          3D LAYERED PAPER-CUT ICON BACKGROUND PLATES (30 CURATED SHAPES)
          ========================================================================= -->
-    <section class="pc-card pc-card-stacked" id="icon-backgrounds" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+    <section class="pc-card pc-card-stacked pc-page-view" id="bg-library" data-alias="icon-backgrounds" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
       <div class="pc-washi-tape pc-washi-tape-mint"></div>
       <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
         <span class="pc-badge pc-badge-peach">Icon Plate System</span>
@@ -2337,7 +2741,7 @@
         <div class="pc-bg-controls-row">
           <div class="pc-bg-preview-selector">
             <label for="bg-preview-icon-select" style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
-              <span><span class="pc-inline-icon is-sm" data-icon="eye"></span> 배경 위에 얹을 테스트 아이콘:</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-sm" data-icon="eye"></span> <span>배경 위에 얹을 테스트 아이콘:</span></span>
             </label>
             <select id="bg-preview-icon-select" class="pc-bg-preview-select">
               <option value="coffee" selected data-icon="coffee">따스한 커피 머그</option>
@@ -2360,7 +2764,7 @@
 
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
             <span class="pc-badge pc-badge-peach" id="bg-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">130개 배경 모양</span>
-            <span style="font-size: 13px; color: var(--pc-ink-muted);"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> 카드의 버튼을 누르면 인라인 SVG 또는 CSS 클래스가 즉시 복사됩니다.</span>
+            <span style="font-size: 13px; color: var(--pc-ink-muted); display: inline-flex; align-items: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>카드의 버튼을 누르면 인라인 SVG 또는 CSS 클래스가 즉시 복사됩니다.</span></span>
           </div>
         </div>
 
@@ -2384,7 +2788,7 @@
     <!-- =========================================================================
          LIVE DESIGN PLAYGROUND & BOTANICAL ACCENT
          ========================================================================= -->
-    <section class="playground-section" id="playground">
+    <section class="playground-section pc-page-view" id="playground">
       <div class="pc-washi-tape pc-washi-tape-mint"></div>
       <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px;">
         <span class="pc-badge pc-badge-lavender">Design System Laboratory</span>
@@ -2449,30 +2853,30 @@
             </div>
             <div class="pc-select-wrapper">
               <select id="pg-texture-select" class="pc-select">
-                <optgroup label="🌟 3D 시뮬레이터 핵심 지질 4종 (Core Stocks)">
+                <optgroup label="3D 시뮬레이터 핵심 지질 4종 (Core Stocks)">
                   <option value="cotton" selected data-icon="file">01. 300g 수제 코튼지 (미세 펄프 엠보싱)</option>
                   <option value="cream" data-icon="file">02. 350g 매트 크림보드 (도톰한 매트 카드스톡)</option>
                   <option value="hanji" data-icon="leaf">03. 닥나무 한지결 (자연스러운 닥나무 수제 결)</option>
                   <option value="vellum" data-icon="sparkles">04. 실크벨러지 (매끄러운 실크 벨럼 투과광)</option>
                 </optgroup>
-                <optgroup label="🎨 파인아트 & 패브릭 지질 (Fine Art & Fabric)">
+                <optgroup label="파인아트 & 패브릭 지질 (Fine Art & Fabric)">
                   <option value="watercolor" data-icon="palette">05. 300g 아르쉬 수채화지 (거친 콜드프레스 딤플)</option>
                   <option value="linen" data-icon="price-tag">06. 프렌치 린넨 패브릭지 (이중 직조 격자 섬유)</option>
                   <option value="shimmer" data-icon="sparkles">07. 펄 메탈릭 쉬머지 (미세 진주빛 광채 셰이더)</option>
                   <option value="tracing" data-icon="search">08. 프로스티드 트레이싱지 (서리 낀 듯한 반투명 미스트)</option>
                 </optgroup>
-                <optgroup label="📜 빈티지 & 내추럴 지질 (Vintage & Natural)">
+                <optgroup label="빈티지 & 내추럴 지질 (Vintage & Natural)">
                   <option value="parchment" data-icon="scroll">09. 빈티지 앤틱 양피지 (홍차빛 세월감 파티나)</option>
                   <option value="eco" data-icon="sprout">10. 친환경 에코 플록지 (천연 목재 칩 & 보태니컬 티끌)</option>
                   <option value="woodbark" data-icon="tree">11. 바크 내추럴 우드지 (원목 나이테 결 & 우드 펄프)</option>
                 </optgroup>
-                <optgroup label="💼 스페셜티 엠보싱 지질 (Specialty Embossed)">
+                <optgroup label="스페셜티 엠보싱 지질 (Specialty Embossed)">
                   <option value="felt" data-icon="cloud">12. 포근한 펠트 모직지 (무방향 압착 양모 펠트)</option>
                   <option value="washi" data-icon="quill-inkpot">13. 오리가미 운용 화지 (구름처럼 유영하는 장섬유)</option>
                   <option value="bookcloth" data-icon="book">14. 캔버스 북클로스지 (클래식 양장본 캔버스 커버)</option>
                   <option value="leatherette" data-icon="package">15. 엠보스 레더렛지 (사피아노 격자 무늬 가죽결)</option>
                 </optgroup>
-                <optgroup label="💻 기준 비교용 (Baseline Reference)">
+                <optgroup label="기준 비교용 (Baseline Reference)">
                   <option value="none" data-icon="monitor">16. 디지털 플랫 표면 (질감 없음 - Flat 2D)</option>
                 </optgroup>
               </select>
@@ -2495,7 +2899,11 @@
 
           <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed rgba(74,58,42,0.15);">
             <div style="font-size: 12px; color: var(--pc-ink-muted); line-height: 1.5;">
-              <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <strong>실시간 물리 렌더링:</strong> 16종 종이 질감을 전환하면 프리뷰 캔버스, 모든 인터랙티브 UI 컴포넌트, 3D 키리가미 아이콘에 즉시 적용되어 실제 출력물 같은 물리적 입체감을 확인할 수 있습니다.
+              <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 4px; font-weight: 800; color: var(--pc-ink); line-height: 1;">
+                <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
+                <span>실시간 물리 렌더링</span>
+              </div>
+              <div>16종 종이 질감을 전환하면 프리뷰 캔버스, 모든 인터랙티브 UI 컴포넌트, 3D 키리가미 아이콘에 즉시 적용되어 실제 출력물 같은 물리적 입체감을 확인할 수 있습니다.</div>
             </div>
           </div>
         </div>
@@ -2560,7 +2968,7 @@
             <div class="pg-dual-icon-grid">
               <!-- Left: Baseline Flat 2D Icon -->
               <div class="pg-icon-display-box" style="background: #FFFFFF;">
-                <span class="pc-badge pc-badge-sky" style="font-size: 11px;">💻 비교용 2D 디지털 플랫 (질감 OFF)</span>
+                <span class="pc-badge pc-badge-sky" style="font-size: 11px;"><span class="pc-inline-icon is-xs" data-icon="laptop"></span> <span>비교용 2D 디지털 플랫 (질감 OFF)</span></span>
                 <div id="pg-flat-icon-container" style="display: flex; align-items: center; justify-content: center; min-height: 80px;">
                   <!-- Filled via JS -->
                 </div>
@@ -2571,7 +2979,7 @@
 
               <!-- Right: 3D Paper-Textured Icon -->
               <div class="pg-icon-display-box" style="background: #FFFDF9; border-color: rgba(163, 216, 195, 0.8); box-shadow: var(--pc-paper-shadow-sm);">
-                <span class="pc-badge pc-badge-mint" style="font-size: 11px;">✨ 3D 종이 질감 융합 (<span id="pg-icon-texture-label">300g 수제 코튼지</span>)</span>
+                <span class="pc-badge pc-badge-mint" style="font-size: 11px;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>3D 종이 질감 융합 (<span id="pg-icon-texture-label">300g 수제 코튼지</span>)</span></span>
                 <div id="pg-textured-icon-wrap" class="pc-icon-texture-wrap pc-texture-cotton" style="padding: 10px; border-radius: 16px; display: flex; align-items: center; justify-content: center; min-height: 80px; width: 100px; height: 100px; background: rgba(250, 246, 237, 0.45);">
                   <div id="pg-textured-icon-container" style="display: flex; align-items: center; justify-content: center;">
                     <!-- Filled via JS -->
@@ -2585,8 +2993,8 @@
 
             <!-- 4 Signature Paper-Cut Badges with Selected Texture -->
             <div style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(74,58,42,0.15);">
-              <div style="font-size: 12.5px; font-weight: 800; margin-bottom: 10px; color: var(--pc-ink);">
-                ✦ 4대 시그니처 아이콘 배지 플레이트에 실시간 질감 적용:
+              <div style="font-size: 12.5px; font-weight: 800; margin-bottom: 10px; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+                <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>4대 시그니처 아이콘 배지 플레이트에 실시간 질감 적용:</span>
               </div>
               <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
                 <!-- 1. Postage Badge -->
@@ -2622,57 +3030,134 @@
           </div>
 
           <!-- =============================================================
-               PART 2: 4대 UI 컴포넌트 실시간 질감 반응 (Interactive UI Controls)
+               PART 2: DEDICATED COMPONENT PAPER TEXTURE LAB (개별 컴포넌트 종이 질감 실시간 랩)
                ============================================================= -->
-          <div>
-            <h4 style="margin: 0 0 12px; font-size: 16px; font-weight: 800; color: var(--pc-ink);">
-              <span class="pc-inline-icon is-sm" data-icon="settings"></span> 2. UI 컴포넌트(인풋·셀렉트·체크박스·버튼) 질감 실시간 반응
-            </h4>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
-              <!-- Input -->
-              <div class="pc-input-wrapper">
-                <label class="pc-label" style="display: flex; align-items: center; gap: 6px;">
-                  <span class="pc-inline-icon is-sm" data-icon="search"></span> <span>음각 조각칼 인풋 필드 (Carved Inset)</span>
-                </label>
-                <div style="position: relative;">
-                  <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
-                  <input type="text" class="pc-input pc-texture-cotton pg-textured-item" placeholder="3D 종이 질감 인풋 필드 테스트..." style="padding-left: 42px; width: 100%;">
+          <div id="playground-components-lab" style="margin-top: 24px; padding-top: 20px; border-top: 2px dashed rgba(74,58,42,0.15);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+              <div>
+                <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 2px;">
+                  <span class="pc-badge pc-badge-peach">Direct Component Shaders</span>
+                  <span class="pc-badge pc-badge-mint">Tactile Surface & Void Elements</span>
                 </div>
+                <h4 style="margin: 0; font-size: 18px; font-weight: 800; color: var(--pc-ink);">
+                  <span class="pc-inline-icon is-sm" data-icon="settings"></span> 2. 개별 UI 컴포넌트 실시간 종이 질감 체감 스튜디오 (Buttons, Inputs, Selects, Checkboxes)
+                </h4>
+                <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 4px 0 0;">
+                  배경 캔버스뿐만 아니라 <strong>버튼, 음각 인풋박스, 드롭다운 셀렉트, 체크박스 개별 컴포넌트 표면</strong>에 직접 물리적 종이 섬유 질감을 입혔을 때의 실물 입체감을 검증합니다.
+                </p>
               </div>
-              <!-- Dropdown -->
-              <div class="pc-input-wrapper">
-                <label class="pc-label" style="display: flex; align-items: center; gap: 6px;">
-                  <span class="pc-inline-icon is-sm" data-icon="price-tag"></span> <span>종이 질감 드롭다운 셀렉트</span>
-                </label>
-                <div class="pc-select-wrapper">
-                  <select class="pc-select pc-texture-cotton pg-textured-item">
-                    <option data-icon="coffee">따스한 카페 아메리카노</option>
-                    <option data-icon="croissant">갓 구운 버터 크루아상</option>
-                    <option data-icon="flower">벚꽃 잎차 블렌딩</option>
-                  </select>
-                </div>
+
+              <!-- Texture Chooser Chips -->
+              <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--pc-ink-muted);">컴포넌트 지질 선택:</span>
+                <button type="button" class="pc-filter-btn pg-comp-chip is-active pc-btn-mint" data-comp-texture="cotton" style="padding: 5px 10px; font-size: 12px;">300g 코튼지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="cream" style="padding: 5px 10px; font-size: 12px;">350g 매트크림</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="hanji" style="padding: 5px 10px; font-size: 12px;">닥나무 한지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="vellum" style="padding: 5px 10px; font-size: 12px;">실크벨러지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="watercolor" style="padding: 5px 10px; font-size: 12px;">수채화지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="linen" style="padding: 5px 10px; font-size: 12px;">프렌치 린넨</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="shimmer" style="padding: 5px 10px; font-size: 12px;">펄 쉬머지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="tracing" style="padding: 5px 10px; font-size: 12px;">트레이싱지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="parchment" style="padding: 5px 10px; font-size: 12px;">앤틱 양피지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="eco" style="padding: 5px 10px; font-size: 12px;">에코 플록지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="woodbark" style="padding: 5px 10px; font-size: 12px;">바크 우드지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="felt" style="padding: 5px 10px; font-size: 12px;">펠트 모직지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="washi" style="padding: 5px 10px; font-size: 12px;">운용 화지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="bookcloth" style="padding: 5px 10px; font-size: 12px;">북클로스지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="leatherette" style="padding: 5px 10px; font-size: 12px;">레더렛지</button>
+                <button type="button" class="pc-filter-btn pg-comp-chip" data-comp-texture="none" style="padding: 5px 10px; font-size: 12px;">디지털 플랫 (None)</button>
               </div>
             </div>
 
-            <!-- Checkbox & Buttons Bar -->
-            <div class="pc-texture-cotton pg-textured-item" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; background: var(--pc-bg-parchment); padding: 14px 18px; border-radius: 14px; border: 1.5px solid rgba(74,58,42,0.12);">
-              <label class="pc-checkbox-label">
-                <input type="checkbox" class="pc-checkbox-input" checked>
-                <span class="pc-checkbox-box"></span>
-                <span style="font-weight: 700;">오리가미 모서리 접기 활성화</span>
-              </label>
+            <!-- Side-by-side Dual Comparison: [Flat Components] vs [3D Textured Components] -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; margin-top: 14px;">
+              <!-- Left: Baseline Flat 2D Components -->
+              <div style="background: #FFFFFF; border-radius: 18px; padding: 20px; border: 1.5px solid rgba(74,58,42,0.12); display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.12); padding-bottom: 8px;">
+                  <span class="pc-badge pc-badge-sky" style="font-size: 11px;"><span class="pc-inline-icon is-xs" data-icon="laptop"></span> <span>일반 2D 플랫 컴포넌트 (종이 질감 없음)</span></span>
+                  <span style="font-size: 11px; color: var(--pc-ink-muted);">디지털 평면 스타일</span>
+                </div>
 
-              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button class="pc-btn pc-btn-mint pc-texture-cotton pg-textured-item" onclick="showPaperToast('3D 펄프 질감 민트 액션 버튼이 눌렸습니다!', 'mint')">
-                  <span class="pc-inline-icon" data-icon="coffee"></span> <span>커피 주문하기</span>
-                </button>
-                <button class="pc-btn pc-btn-peach pc-texture-cotton pg-textured-item" onclick="showPaperToast('선물 상자 피치 버튼이 눌렸습니다!', 'peach')">
-                  <span class="pc-inline-icon" data-icon="gift"></span> <span>선물 포장</span>
-                </button>
-                <button class="pc-btn pc-btn-organic-scallop pc-btn-lavender pc-texture-cotton pg-textured-item" onclick="showPaperToast('구름 스캘럽 버튼 클릭!', 'lavender')">
-                  <span class="pc-inline-icon" data-icon="paper-plane"></span> <span>종이비행기</span>
-                </button>
+                <!-- Flat Input -->
+                <div>
+                  <label class="pc-label" style="font-size: 12px; margin-bottom: 4px;">플랫 인풋 필드</label>
+                  <input type="text" class="pc-input" placeholder="질감 없는 매끄러운 2D 인풋..." style="width: 100%;">
+                </div>
+
+                <!-- Flat Select -->
+                <div>
+                  <label class="pc-label" style="font-size: 12px; margin-bottom: 4px;">플랫 드롭다운 셀렉트</label>
+                  <select class="pc-select" style="width: 100%;">
+                    <option>디지털 플랫 옵션 A</option>
+                    <option>디지털 플랫 옵션 B</option>
+                  </select>
+                </div>
+
+                <!-- Flat Checkbox & Buttons -->
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding: 10px 12px; background: #FAF7F0; border-radius: 12px;">
+                  <label class="pc-checkbox-label" style="font-size: 12.5px; margin: 0;">
+                    <input type="checkbox" class="pc-checkbox-input" checked>
+                    <span class="pc-checkbox-box"></span>
+                    <span>플랫 체크</span>
+                  </label>
+                  <div style="display: flex; gap: 8px;">
+                    <button class="pc-btn pc-btn-mint pc-btn-sm">플랫 민트 버튼</button>
+                    <button class="pc-btn pc-btn-peach pc-btn-sm">플랫 피치 버튼</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: 3D Paper-Textured Components -->
+              <div style="background: #FFFDF9; border-radius: 18px; padding: 20px; border: 1.5px solid var(--pc-mint); box-shadow: var(--pc-paper-shadow-sm); display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.12); padding-bottom: 8px;">
+                  <span class="pc-badge pc-badge-mint" style="font-size: 11px;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>3D 종이 질감 컴포넌트: <strong id="pg-comp-active-badge">300g 수제 코튼지</strong></span></span>
+                  <span class="pc-label-tag">Tactile Bevel</span>
+                </div>
+
+                <!-- Textured Input -->
+                <div>
+                  <label class="pc-label" style="font-size: 12px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                    <span class="pc-inline-icon is-xs" data-icon="search"></span> <span>음각 조각칼 종이 질감 인풋 (.pg-comp-target)</span>
+                  </label>
+                  <div style="position: relative;">
+                    <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
+                    <input type="text" class="pc-input pc-texture-cotton pg-comp-target" placeholder="만져질 듯한 펄프 요철 종이 인풋 필드..." style="padding-left: 42px; width: 100%;">
+                  </div>
+                </div>
+
+                <!-- Textured Select -->
+                <div>
+                  <label class="pc-label" style="font-size: 12px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                    <span class="pc-inline-icon is-xs" data-icon="price-tag"></span> <span>종이 질감 드롭다운 셀렉트 (.pg-comp-target)</span>
+                  </label>
+                  <div class="pc-select-wrapper">
+                    <select class="pc-select pc-texture-cotton pg-comp-target" style="width: 100%;">
+                      <option data-icon="coffee">3D 질감 적용 옵션 1 (따스한 아메리카노)</option>
+                      <option data-icon="croissant">3D 질감 적용 옵션 2 (버터 크루아상)</option>
+                      <option data-icon="flower">3D 질감 적용 옵션 3 (벚꽃 블렌딩 티)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Textured Checkbox & Buttons -->
+                <div class="pc-texture-cotton pg-comp-target" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding: 10px 12px; background: var(--pc-bg-parchment); border-radius: 12px; border: 1.5px solid rgba(74,58,42,0.12);">
+                  <label class="pc-checkbox-label" style="font-size: 12.5px; margin: 0;">
+                    <input type="checkbox" class="pc-checkbox-input" checked>
+                    <span class="pc-checkbox-box"></span>
+                    <span>오리가미 질감 체크</span>
+                  </label>
+                  <div style="display: flex; gap: 8px;">
+                    <button class="pc-btn pc-btn-mint pc-btn-sm pc-texture-cotton pg-comp-target" onclick="showPaperToast('3D 종이 질감 민트 버튼이 눌렸습니다!', 'mint')">
+                      <span class="pc-inline-icon is-xs" data-icon="coffee"></span> <span>주문</span>
+                    </button>
+                    <button class="pc-btn pc-btn-peach pc-btn-sm pc-texture-cotton pg-comp-target" onclick="showPaperToast('3D 종이 질감 피치 버튼이 눌렸습니다!', 'peach')">
+                      <span class="pc-inline-icon is-xs" data-icon="gift"></span> <span>선물</span>
+                    </button>
+                    <button class="pc-btn pc-btn-lavender pc-btn-sm pc-texture-cotton pg-comp-target" onclick="showPaperToast('3D 종이 질감 라벤더 버튼!', 'lavender')">
+                      <span class="pc-inline-icon is-xs" data-icon="paper-plane"></span> <span>발송</span>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -2715,6 +3200,457 @@
     </section>
 
 
+
+    <!-- =========================================================================
+         SHADCN/UI PAPER-CUT COMPONENTS SUITE (45 MASTER-CRAFTED COMPONENTS)
+         ========================================================================= -->
+    <section class="pc-card pc-card-stacked pc-page-view" id="shadcn-components" data-alias="shadcn-components-section" style="margin-top: 60px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+      <div class="pc-washi-tape pc-washi-tape-peach"></div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+        <span class="pc-badge pc-badge-mint">Paper UI Suite</span>
+        <span class="pc-badge pc-badge-peach">44 Master Components</span>
+        <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">참고: shadcn/ui 표준 명세</span>
+      </div>
+      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+        <span class="pc-inline-icon is-md" data-icon="layers"></span> 페이퍼컷 모던 UI 컴포넌트 컬렉션 (44종 3D 마스터크래프트)
+      </h2>
+      <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
+        모던 웹 인터페이스 명세를 참고하여(참고: shadcn/ui), <strong>44종 전 컴포넌트</strong>를 100% 수제 레이어드 페이퍼 아트(3D 지질 질감, 부드러운 파스텔 컬러 팔레트, 미세 칼선 베벨, 따스한 번트 엄버 그림자)로 완성했습니다. 모든 컴포넌트는 659종 스탠드얼론 아이콘과 연동되며 키보드 내비게이션 및 인터랙티브 동작을 지원합니다.
+      </p>
+
+      <!-- Category Filter Pills -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px;">
+        <button type="button" class="pc-filter-btn is-active" onclick="PaperCutShadcnUI.filterTab('all', this)">전체 컴포넌트 (45)</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.filterTab('forms', this)">01. 폼 & 입력 (11)</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.filterTab('nav', this)">02. 내비게이션 & 메뉴 (7)</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.filterTab('overlays', this)">03. 오버레이 & 피드백 (14)</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.filterTab('data', this)">04. 데이터 & 레이아웃 (13)</button>
+      </div>
+
+      <!-- Interactive Components Showcase Grid -->
+      <div class="pc-sd-showcase-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 24px;">
+
+        <!-- Card 1: Buttons, Badges, Toggles & Sliders -->
+        <div class="pc-sd-card pc-comp-group" data-cat="forms" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 10px; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+              <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> Buttons, Badges, Sliders & Toggles
+            </span>
+            <span class="pc-badge pc-badge-mint">Interactive</span>
+          </div>
+
+          <!-- Buttons Row -->
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;">
+            <button class="pc-sd-btn is-primary" onclick="PaperCutShadcn.toast({ title: 'Primary Button Pressed', description: '3D 페이퍼 스택 프라이머리 버튼이 클릭되었습니다.' })">
+              <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>Primary Stack</span>
+            </button>
+            <button class="pc-sd-btn is-secondary">Secondary</button>
+            <button class="pc-sd-btn is-destructive">Destructive</button>
+            <button class="pc-sd-btn is-outline">Outline Tag</button>
+          </div>
+
+          <!-- Badges Row -->
+          <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+            <span class="pc-sd-badge">Default Stamp</span>
+            <span class="pc-sd-badge is-secondary">Secondary Mint</span>
+            <span class="pc-sd-badge is-outline">Outline Deckle</span>
+            <span class="pc-sd-badge is-scallop">Scallop Seal</span>
+            <span class="pc-sd-badge is-ribbon">Ribbon Tag</span>
+          </div>
+
+          <!-- Slider (종이가 슬라이드 배경에서 해당 사이즈까지 살짝 라운드하게 들려져서 잘리는 느낌) -->
+          <div style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 8px;">
+              <span>Slider (3D 종이 눈금자 컷팅 트랙):</span>
+              <span id="sd-slider-val" style="color: var(--pc-mint-dark); font-weight: 800;">65%</span>
+            </div>
+            <div class="pc-sd-slider" data-min="0" data-max="100" data-value="65" style="width: 100%;">
+              <div class="pc-sd-slider-track">
+                <div class="pc-sd-slider-range" style="width: 65%;"></div>
+                <div class="pc-sd-slider-thumb" style="left: 65%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Toggle & Toggle Group -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <button type="button" class="pc-sd-toggle is-pressed" data-state="on" onclick="this.classList.toggle('is-pressed'); this.setAttribute('data-state', this.classList.contains('is-pressed')?'on':'off');">
+              <span class="pc-inline-icon is-xs" data-icon="heart"></span> <span>북마크 찜</span>
+            </button>
+
+            <div class="pc-sd-toggle-group" data-type="single" style="display: inline-flex; border-radius: 12px; background: #F0EAE1; padding: 3px;">
+              <button type="button" class="pc-sd-toggle is-pressed" style="padding: 4px 10px; font-size: 12px; border: none; border-radius: 8px; background: #FFFFFF; font-weight: 700;">일간</button>
+              <button type="button" class="pc-sd-toggle" style="padding: 4px 10px; font-size: 12px; border: none; border-radius: 8px; background: transparent; font-weight: 700;">주간</button>
+              <button type="button" class="pc-sd-toggle" style="padding: 4px 10px; font-size: 12px; border: none; border-radius: 8px; background: transparent; font-weight: 700;">월간</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Forms, Inputs, Select, Combobox & OTP -->
+        <div class="pc-sd-card pc-comp-group" data-cat="forms" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 10px; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+              <span class="pc-inline-icon is-xs" data-icon="edit"></span> Input, Select, Combobox & OTP
+            </span>
+            <span class="pc-badge pc-badge-peach">Carved Inset</span>
+          </div>
+
+          <!-- Carved Input with Icon -->
+          <div style="margin-bottom: 12px;">
+            <label class="pc-sd-label" style="font-size: 12px; font-weight: 800; margin-bottom: 4px; display: block;">조각칼 음각 인풋 (Carved Input)</label>
+            <div style="position: relative;">
+              <span class="pc-inline-icon is-xs" data-icon="mail" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
+              <input type="text" class="pc-sd-input" placeholder="letter@papercraft.art" style="padding-left: 36px; width: 100%; box-sizing: border-box;">
+            </div>
+          </div>
+
+          <!-- Select & Combobox -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+            <div>
+              <label class="pc-sd-label" style="font-size: 11.5px; font-weight: 800; margin-bottom: 4px; display: block;">Select 셀렉트</label>
+              <div class="pc-sd-select" style="position: relative;">
+                <select class="pc-sd-input" style="width: 100%; box-sizing: border-box;">
+                  <option>300g 수제 코튼지</option>
+                  <option>350g 매트 크림보드</option>
+                  <option>닥나무 한지결</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="pc-sd-label" style="font-size: 11.5px; font-weight: 800; margin-bottom: 4px; display: block;">Combobox 검색</label>
+              <div style="position: relative;">
+                <input type="text" class="pc-sd-input" placeholder="지질 검색..." style="width: 100%; box-sizing: border-box;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Input OTP with 3D Papercut Background Plate & Shape Switcher -->
+          <div class="pc-sd-otp-wrapper">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label class="pc-sd-label" style="font-size: 11.5px; font-weight: 800; margin-bottom: 0;">Input OTP (3D 페이퍼컷 배경 플레이트 인증코드)</label>
+              <span class="pc-badge pc-badge-mint" style="font-size: 10px; padding: 1px 6px;">6종 배경 전환</span>
+            </div>
+
+            <!-- Shape Switcher Toolbar -->
+            <div class="pc-sd-otp-shape-picker">
+              <span class="pc-sd-otp-picker-label">배경 형태:</span>
+              <button type="button" class="pc-sd-otp-shape-btn is-active" data-shape="postage-stamp">우표 천공</button>
+              <button type="button" class="pc-sd-otp-shape-btn" data-shape="wax-seal">앤틱 왁스씰</button>
+              <button type="button" class="pc-sd-otp-shape-btn" data-shape="hexagon">육각 타일</button>
+              <button type="button" class="pc-sd-otp-shape-btn" data-shape="deckle">수제 데클지</button>
+              <button type="button" class="pc-sd-otp-shape-btn" data-shape="ticket">티켓 노치</button>
+              <button type="button" class="pc-sd-otp-shape-btn" data-shape="origami">오리가미</button>
+            </div>
+
+            <div class="pc-sd-input-otp" style="display: flex; align-items: center; gap: 6px;">
+              <div class="pc-sd-input-otp-group" style="display: flex; gap: 6px;">
+                <div class="pc-sd-input-otp-slot-wrap is-filled" data-shape="postage-stamp">
+                  <div class="pc-sd-otp-bg-svg-layer"></div>
+                  <input type="text" class="pc-sd-input-otp-input" maxlength="1" value="7" inputmode="numeric">
+                </div>
+                <div class="pc-sd-input-otp-slot-wrap is-filled" data-shape="postage-stamp">
+                  <div class="pc-sd-otp-bg-svg-layer"></div>
+                  <input type="text" class="pc-sd-input-otp-input" maxlength="1" value="2" inputmode="numeric">
+                </div>
+                <div class="pc-sd-input-otp-slot-wrap is-filled" data-shape="postage-stamp">
+                  <div class="pc-sd-otp-bg-svg-layer"></div>
+                  <input type="text" class="pc-sd-input-otp-input" maxlength="1" value="9" inputmode="numeric">
+                </div>
+              </div>
+
+              <div class="pc-sd-input-otp-separator"></div>
+
+              <div class="pc-sd-input-otp-group" style="display: flex; gap: 6px;">
+                <div class="pc-sd-input-otp-slot-wrap is-filled" data-shape="postage-stamp">
+                  <div class="pc-sd-otp-bg-svg-layer"></div>
+                  <input type="text" class="pc-sd-input-otp-input" maxlength="1" value="4" inputmode="numeric">
+                </div>
+                <div class="pc-sd-input-otp-slot-wrap" data-shape="postage-stamp">
+                  <div class="pc-sd-otp-bg-svg-layer"></div>
+                  <input type="text" class="pc-sd-input-otp-input" maxlength="1" value="" placeholder="-" inputmode="numeric">
+                </div>
+                <div class="pc-sd-input-otp-slot-wrap" data-shape="postage-stamp">
+                  <div class="pc-sd-otp-bg-svg-layer"></div>
+                  <input type="text" class="pc-sd-input-otp-input" maxlength="1" value="" placeholder="-" inputmode="numeric">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Checkbox, Radio Group & Switch -->
+        <div class="pc-sd-card pc-comp-group" data-cat="forms" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 10px; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+              <span class="pc-inline-icon is-xs" data-icon="check"></span> Checkbox, Radio & Switch
+            </span>
+            <span class="pc-badge pc-badge-lavender">Tactile Controls</span>
+          </div>
+
+          <!-- Origami Checkboxes -->
+          <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px;">
+            <label class="pc-sd-checkbox-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" checked class="pc-sd-checkbox">
+              <span style="font-size: 13px; font-weight: 700;">오리가미 모서리 접기 활성화</span>
+            </label>
+            <label class="pc-sd-checkbox-label" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="checkbox" checked class="pc-sd-checkbox">
+              <span style="font-size: 13px; font-weight: 700;">핸드크래프트 펄프 텍스처 셰이더 적용</span>
+            </label>
+          </div>
+
+          <!-- Concentric Radio Group -->
+          <div class="pc-sd-radio-group" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; padding: 10px; background: #FAF7F0; border-radius: 12px;">
+            <span style="font-size: 11.5px; font-weight: 800; color: var(--pc-ink-muted);">Radio Group (동심원 페이퍼 과녁 타깃):</span>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+              <input type="radio" name="sd-radio-demo" checked class="pc-sd-radio">
+              <span>기본 배송 (파스텔 종이 포장)</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer;">
+              <input type="radio" name="sd-radio-demo" class="pc-sd-radio">
+              <span>특급 배송 (실링 왁스 봉인함)</span>
+            </label>
+          </div>
+
+          <!-- Switches Row -->
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 12.5px; font-weight: 700;">종이 바스락 효과음:</span>
+            <label class="pc-sd-switch-label" style="cursor: pointer; position: relative; width: 46px; height: 26px; display: inline-block;">
+              <input type="checkbox" checked class="pc-sd-switch" style="opacity: 0; width: 0; height: 0;">
+              <span class="pc-sd-switch-track" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--pc-mint); transition: .3s; border-radius: 34px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);"></span>
+              <span class="pc-sd-switch-thumb" style="position: absolute; height: 20px; width: 20px; left: 23px; bottom: 3px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: var(--pc-paper-shadow-xs);"></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Card 4: Accordion & Collapsible -->
+        <div class="pc-sd-card pc-comp-group" data-cat="overlays" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 10px; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+              <span class="pc-inline-icon is-xs" data-icon="file"></span> Accordion & Collapsible
+            </span>
+            <span class="pc-badge pc-badge-mint">Pleated Folds</span>
+          </div>
+
+          <div class="pc-sd-accordion" data-type="single">
+            <div class="pc-sd-accordion-item is-open" data-state="open" style="border-bottom: 1px dashed rgba(74,58,42,0.15); padding: 8px 0;">
+              <button type="button" class="pc-sd-accordion-trigger" style="display: flex; justify-content: space-between; width: 100%; border: none; background: none; font-size: 13.5px; font-weight: 800; cursor: pointer; padding: 6px 0;">
+                <span>01. 3D 페이퍼 컷팅이란 무엇인가요?</span>
+                <span class="pc-inline-icon is-xs" data-icon="arrow-down"></span>
+              </button>
+              <div class="pc-sd-accordion-content" style="font-size: 12.5px; color: var(--pc-ink-muted); padding: 8px 0; line-height: 1.5;">
+                전통 키리가미(切り紙) 기법에 착안하여, 3~5겹의 도톰한 카드스톡을 레이어링하고 물리적 그림자 깊이를 계산하여 브라우저에 실물 공예 감성을 표현하는 디자인 시스템입니다.
+              </div>
+            </div>
+
+            <div class="pc-sd-accordion-item" data-state="closed" style="border-bottom: 1px dashed rgba(74,58,42,0.15); padding: 8px 0;">
+              <button type="button" class="pc-sd-accordion-trigger" style="display: flex; justify-content: space-between; width: 100%; border: none; background: none; font-size: 13.5px; font-weight: 800; cursor: pointer; padding: 6px 0;">
+                <span>02. 어떤 기술 스택을 지원하나요?</span>
+                <span class="pc-inline-icon is-xs" data-icon="arrow-down"></span>
+              </button>
+              <div class="pc-sd-accordion-content" style="display: none; font-size: 12.5px; color: var(--pc-ink-muted); padding: 8px 0; line-height: 1.5;">
+                순수 CSS와 시맨틱 HTML, 바닐라 JS로 제작되어 React, Next.js, Vue, Svelte는 물론 정적 HTML 어디든 무겁지 않게 이식 가능합니다.
+              </div>
+            </div>
+
+            <div class="pc-sd-accordion-item" data-state="closed" style="padding: 8px 0;">
+              <button type="button" class="pc-sd-accordion-trigger" style="display: flex; justify-content: space-between; width: 100%; border: none; background: none; font-size: 13.5px; font-weight: 800; cursor: pointer; padding: 6px 0;">
+                <span>03. 상업적 프로젝트에 무료로 쓸 수 있나요?</span>
+                <span class="pc-inline-icon is-xs" data-icon="arrow-down"></span>
+              </button>
+              <div class="pc-sd-accordion-content" style="display: none; font-size: 12.5px; color: var(--pc-ink-muted); padding: 8px 0; line-height: 1.5;">
+                네, MIT 오픈소스 라이선스를 준수하며 상업적 서비스와 개인 프로젝트 모두에 자유롭게 활용하실 수 있습니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Dialog, Sheet, Drawer & Popover Triggers -->
+        <div class="pc-sd-card pc-comp-group" data-cat="overlays" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 10px; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+              <span class="pc-inline-icon is-xs" data-icon="eye"></span> Overlays & Shadowbox Modals
+            </span>
+            <span class="pc-badge pc-badge-peach">Shadow Box</span>
+          </div>
+
+          <p style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0 0 14px; line-height: 1.5;">
+            버튼을 클릭하여 3D 페이퍼 섀도우박스 모달, 슬라이드 사이드 시트, 토스트 알림을 직접 띄워보세요.
+          </p>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <button class="pc-sd-btn is-outline" onclick="PaperCutShadcnUI.openDemoModal()">
+              <span class="pc-inline-icon is-xs" data-icon="search"></span> <span>다이얼로그 (Dialog)</span>
+            </button>
+            <button class="pc-sd-btn is-outline" onclick="PaperCutShadcnUI.openDemoSheet()">
+              <span class="pc-inline-icon is-xs" data-icon="book"></span> <span>사이드 시트 (Sheet)</span>
+            </button>
+            <button class="pc-sd-btn is-outline" onclick="PaperCutShadcnUI.openDemoDrawer()">
+              <span class="pc-inline-icon is-xs" data-icon="inbox"></span> <span>바텀 드로어 (Drawer)</span>
+            </button>
+            <button class="pc-sd-btn is-primary" onclick="PaperCutShadcn.toast({ title: '수제 편지 발송 완료!', description: '파스텔 편지봉투가 보관함에 전달되었습니다.', variant: 'mint' })">
+              <span class="pc-inline-icon is-xs" data-icon="mail"></span> <span>토스트 발송 (Toast)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 6: Tabs, Breadcrumb, Pagination & Progress -->
+        <div class="pc-sd-card pc-comp-group" data-cat="nav" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 10px; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+              <span class="pc-inline-icon is-xs" data-icon="bookmark"></span> Tabs, Breadcrumb & Pagination
+            </span>
+            <span class="pc-badge pc-badge-sky">Folder Tabs</span>
+          </div>
+
+          <!-- Breadcrumb -->
+          <div class="pc-sd-breadcrumb" style="display: flex; gap: 6px; align-items: center; font-size: 12px; font-weight: 700; margin-bottom: 14px;">
+            <a href="#" style="color: var(--pc-ink-muted); text-decoration: none;">홈</a>
+            <span>/</span>
+            <a href="#" style="color: var(--pc-ink-muted); text-decoration: none;">디자인 시스템</a>
+            <span>/</span>
+            <span class="pc-sd-badge is-secondary" style="font-size: 11px;">shadcn/ui Paper</span>
+          </div>
+
+          <!-- Progress Bar -->
+          <div style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; font-size: 11.5px; font-weight: 800; margin-bottom: 4px;">
+              <span>종이 공예 완성도 (Progress):</span>
+              <span style="color: var(--pc-mint-dark);">85%</span>
+            </div>
+            <div class="pc-sd-progress" style="height: 10px; background: #EAE3D2; border-radius: 999px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
+              <div style="width: 85%; height: 100%; background: linear-gradient(90deg, var(--pc-mint), #7ECBAE); border-radius: 999px;"></div>
+            </div>
+          </div>
+
+          <!-- Pagination (Ticket stubs) -->
+          <div class="pc-sd-pagination" style="display: flex; gap: 6px; justify-content: center; align-items: center;">
+            <button class="pc-sd-pagination-btn" style="padding: 4px 10px; font-size: 12px; font-weight: 800; border-radius: 8px; border: 1px solid rgba(74,58,42,0.15); background: #FAF7F0;">이전</button>
+            <button class="pc-sd-pagination-btn is-active" style="padding: 4px 10px; font-size: 12px; font-weight: 800; border-radius: 8px; border: none; background: var(--pc-mint); color: var(--pc-mint-dark); box-shadow: var(--pc-paper-shadow-xs);">1</button>
+            <button class="pc-sd-pagination-btn" style="padding: 4px 10px; font-size: 12px; font-weight: 800; border-radius: 8px; border: 1px solid rgba(74,58,42,0.15); background: #FFFFFF;">2</button>
+            <button class="pc-sd-pagination-btn" style="padding: 4px 10px; font-size: 12px; font-weight: 800; border-radius: 8px; border: 1px solid rgba(74,58,42,0.15); background: #FFFFFF;">3</button>
+            <button class="pc-sd-pagination-btn" style="padding: 4px 10px; font-size: 12px; font-weight: 800; border-radius: 8px; border: 1px solid rgba(74,58,42,0.15); background: #FAF7F0;">다음</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SHADCN/UI BLOCKS SHOWCASE (6 CORE APPLICATION SCENARIOS)
+         ========================================================================= -->
+    <section class="pc-card pc-card-stacked pc-page-view" id="shadcn-blocks-charts" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+      <div class="pc-washi-tape pc-washi-tape-mint"></div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+        <span class="pc-badge pc-badge-mint">Paper-Cut Blocks</span>
+        <span class="pc-badge pc-badge-peach">6 Core Scenarios</span>
+        <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">참고: shadcn 블록 아키텍처</span>
+      </div>
+      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+        <span class="pc-inline-icon is-md" data-icon="contacts-book"></span> 페이퍼크래프트 실전 애플리케이션 블록 (6대 핵심 시나리오)
+      </h2>
+      <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
+        실제 프로덕션 SaaS 대시보드, 크래프트 봉투 인증, 설정 레이아웃, 이커머스 스토어프론트, 3단 가격 플랜, 파일 업로더 드롭존을 <strong>3D 페이퍼 아트 테마</strong>로 완성한 종합 블록 컬렉션입니다.
+      </p>
+
+      <!-- Block Selector Tabs -->
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;">
+        <button type="button" class="pc-filter-btn is-active" onclick="PaperCutShadcnUI.switchBlock('admin-dashboard', this)">01. SaaS & Admin 대시보드</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.switchBlock('auth', this)">02. 편지봉투 크래프트 인증</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.switchBlock('settings', this)">03. 설정 & 프로필 레이아웃</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.switchBlock('ecommerce', this)">04. 이커머스 상품 & 카트</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.switchBlock('pricing', this)">05. 3단 가격 플랜 & 리본 배지</button>
+        <button type="button" class="pc-filter-btn" onclick="PaperCutShadcnUI.switchBlock('dropzone', this)">06. 스티치 골판지 드롭존</button>
+      </div>
+
+      <!-- Mount Points for Blocks (Auto-Hydrated by papercut-blocks-charts.js) -->
+      <div id="sd-blocks-viewport" style="background: var(--pc-bg-cream); border-radius: 24px; padding: 24px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 480px;">
+        <div id="block-admin-dashboard" class="pc-block-container" data-papercut-block="admin-dashboard"></div>
+        <div id="block-auth" class="pc-block-container" data-papercut-block="auth" style="display: none;"></div>
+        <div id="block-settings" class="pc-block-container" data-papercut-block="settings" style="display: none;"></div>
+        <div id="block-ecommerce" class="pc-block-container" data-papercut-block="ecommerce" style="display: none;"></div>
+        <div id="block-pricing" class="pc-block-container" data-papercut-block="pricing" style="display: none;"></div>
+        <div id="block-dropzone" class="pc-block-container" data-papercut-block="dropzone" style="display: none;"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SHADCN/UI 3D PAPER-CUT VECTOR CHARTS (6 DATA VISUALIZATIONS)
+         ========================================================================= -->
+    <section class="pc-card pc-card-stacked pc-page-view" id="shadcn-charts-section" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+      <div class="pc-washi-tape pc-washi-tape-lavender"></div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+        <span class="pc-badge pc-badge-lavender">3D Vector Charts</span>
+        <span class="pc-badge pc-badge-mint">Papercraft Data Viz</span>
+        <span class="pc-badge pc-badge-peach">6 Interactive Archetypes</span>
+      </div>
+      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+        <span class="pc-inline-icon is-md" data-icon="chart-bar"></span> 3D 페이퍼 컷팅 벡터 차트 (6종 데이터 시각화)
+      </h2>
+      <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
+        기존의 평면 웹 차트를 <strong>3D 색종이 레이어 지형, 칼선 절단면 음영, 오리가미 리본 웨이브, 부채꼴 휠, 호버 인터랙티브 툴팁</strong>으로 재해석한 순수 SVG 데이터 시각화 6종입니다. 마우스를 올리면 각 지점의 수치가 인터랙티브 툴팁으로 표시됩니다.
+      </p>
+
+      <!-- 6 Charts Grid (Auto-Hydrated by papercut-blocks-charts.js) -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 24px;">
+        
+        <!-- 1. Area Chart -->
+        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="mountain"></span> <span>01. Area Chart (페이퍼 산맥 마운틴 지형)</span></span>
+            <span class="pc-badge pc-badge-mint">Layered Area</span>
+          </div>
+          <div data-papercut-chart="area" style="min-height: 240px;"></div>
+        </div>
+
+        <!-- 2. Bar Chart -->
+        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="settings"></span> <span>02. Bar Chart (도톰한 종이 기둥 입체 차트)</span></span>
+            <span class="pc-badge pc-badge-peach">Cardstock Columns</span>
+          </div>
+          <div data-papercut-chart="bar" style="min-height: 240px;"></div>
+        </div>
+
+        <!-- 3. Line Chart -->
+        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="paper-plane"></span> <span>03. Line Chart (오리가미 종이 리본 웨이브)</span></span>
+            <span class="pc-badge pc-badge-lavender">Ribbon Curve</span>
+          </div>
+          <div data-papercut-chart="line" style="min-height: 240px;"></div>
+        </div>
+
+        <!-- 4. Donut / Pie Chart -->
+        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="palette"></span> <span>04. Donut Chart (부채꼴 색종이 휠)</span></span>
+            <span class="pc-badge pc-badge-buttercup">Origami Fan</span>
+          </div>
+          <div data-papercut-chart="donut" style="min-height: 240px;"></div>
+        </div>
+
+        <!-- 5. Radar Chart -->
+        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>05. Radar Chart (키리가미 입체 연 폴리곤)</span></span>
+            <span class="pc-badge pc-badge-sky">Kite Polygon</span>
+          </div>
+          <div data-papercut-chart="radar" style="min-height: 240px;"></div>
+        </div>
+
+        <!-- 6. Radial Bar Chart -->
+        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="compass"></span> <span>06. Radial Bar Chart (원형 종이 링 게이지)</span></span>
+            <span class="pc-badge pc-badge-mint">Paper Gauge</span>
+          </div>
+          <div data-papercut-chart="radial" style="min-height: 240px;"></div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer style="margin-top: 80px; text-align: center; color: var(--pc-ink-muted); font-size: 14px;">
       <div class="pc-ribbon-banner" style="font-size: 14px;"><span class="pc-inline-icon is-sm" data-icon="scissors"></span> <span>PaperCut UI System</span></div>
@@ -2728,8 +3664,56 @@
 
   </div>
 
-  <script src="papercut.js"></script>
   <script src="papercut-icons.js"></script>
   <script src="papercut-backgrounds.js"></script>
+  <script src="papercut.js"></script>
+  <script src="papercut-alerts-toasts.js"></script>
+  <script src="papercut-modals.js"></script>
+  <script src="papercut-animations.js"></script>
+  <script src="papercut-shadow-studio.js"></script>
+  <script src="papercut-sidebar.js"></script>
+  <script src="papercut-shadcn.js"></script>
+  <script src="papercut-blocks-charts.js"></script>
+
+  <script>
+    window.PaperCutShadcnUI = {
+      filterTab(cat, btn) {
+        btn.closest('div').querySelectorAll('.pc-filter-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        document.querySelectorAll('.pc-comp-group').forEach(el => {
+          if (cat === 'all' || el.getAttribute('data-cat') === cat) {
+            el.style.display = 'block';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      },
+      switchBlock(blockId, btn) {
+        btn.closest('div').querySelectorAll('.pc-filter-btn').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        document.querySelectorAll('.pc-block-container').forEach(c => c.style.display = 'none');
+        const target = document.getElementById('block-' + blockId);
+        if (target) {
+          target.style.display = 'block';
+        }
+      },
+      openDemoModal() {
+        if (window.PaperCutModal && window.PaperCutModal.openDialog) {
+          window.PaperCutModal.openDialog();
+        }
+      },
+      openDemoSheet() {
+        if (window.PaperCutModal && window.PaperCutModal.openSheet) {
+          window.PaperCutModal.openSheet();
+        }
+      },
+      openDemoDrawer() {
+        if (window.PaperCutModal && window.PaperCutModal.openDrawer) {
+          window.PaperCutModal.openDrawer();
+        }
+      }
+    };
+  </script>
+
 </body>
 </html>

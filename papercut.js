@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   initInteractiveDemos();
   initPlayground();
+  initComponentTextureStudio();
   initPaperSoundEffect();
   initTextureModes();
   initMatteTextureShowcase();
@@ -46,7 +47,7 @@ function initDropdowns() {
       const triggerContent = trigger ? trigger.querySelector('.trigger-content') : null;
       const itemIcon = item.querySelector('.pc-inline-icon');
       const itemText = item.querySelector('.pc-dropdown-text') || item;
-      const cleanText = (itemText.textContent || item.textContent).replace('✓', '').trim();
+      const cleanText = (itemText.textContent || item.textContent).replace(/[\u2713\u2714\u2705]/g, '').trim();
 
       if (triggerContent) {
         if (itemIcon) {
@@ -99,28 +100,28 @@ function extractOptionIcon(opt) {
   }
   const text = opt.textContent.trim();
   const emojiMap = {
-    '🐶': 'dog', '🐱': 'cat', '🐾': 'paw',
-    '🍯': 'honey', '🧈': 'butter',
-    '⛩': 'shrine-torii', '⛩️': 'shrine-torii',
-    '🗼': 'eiffel-tower', '🏔': 'matterhorn', '🏔️': 'matterhorn',
-    '💐': 'bouquet', '✂': 'scissors', '✂️': 'scissors',
-    '🌤': 'cloud-sun-rays', '🌤️': 'cloud-sun-rays',
-    '🌧': 'cloud-rain', '🌧️': 'cloud-rain',
-    '🎧': 'headphones', '🎨': 'palette', '💻': 'laptop',
-    '🌿': 'leaf', '🍃': 'leaf', '🍑': 'apricot', '🍊': 'apricot',
-    '🔮': 'crystal-ball', '💺': 'airplane-seat',
-    '☕': 'coffee', '🥐': 'croissant', '🌸': 'flower',
-    '🛡': 'shield', '🛡️': 'shield', '🛒': 'cart', '🚫': 'ban',
-    '☀️': 'sun', '☀': 'sun', '✨': 'sparkles',
-    '✉': 'mail', '✉️': 'mail', '💌': 'mail', '🔍': 'search',
-    '🎁': 'gift', '💖': 'heart', '📷': 'camera',
-    '🍭': 'lollipop', '🍋': 'lemon', '🫐': 'blueberry',
-    '🧸': 'teddy-bear', '📜': 'scroll', '🎋': 'bamboo',
-    '📦': 'package', '🕊': 'dove', '🕊️': 'dove',
-    '📖': 'book', '🌙': 'moon', '🌌': 'galaxy',
-    '🔐': 'lock', '🎂': 'cake', '🏡': 'home',
-    '🍵': 'tea', '🏷': 'price-tag', '🏷️': 'price-tag', '🌱': 'sprout',
-    '⛅': 'cloud-sun', '☁': 'cloud', '☁️': 'cloud', '🔖': 'bookmark'
+    '\u{1F436}': 'dog', '\u{1F431}': 'cat', '\u{1F43E}': 'paw',
+    '\u{1F36F}': 'honey', '\u{1F9C8}': 'butter',
+    '\u{26E9}': 'shrine-torii', '\u{26E9}\u{FE0F}': 'shrine-torii',
+    '\u{1F5FC}': 'eiffel-tower', '\u{1F3D4}': 'matterhorn', '\u{1F3D4}\u{FE0F}': 'matterhorn',
+    '\u{1F490}': 'bouquet', '\u{2702}': 'scissors', '\u{2702}\u{FE0F}': 'scissors',
+    '\u{1F324}': 'cloud-sun-rays', '\u{1F324}\u{FE0F}': 'cloud-sun-rays',
+    '\u{1F327}': 'cloud-rain', '\u{1F327}\u{FE0F}': 'cloud-rain',
+    '\u{1F3A7}': 'headphones', '\u{1F3A8}': 'palette', '\u{1F4BB}': 'laptop',
+    '\u{1F33F}': 'leaf', '\u{1F343}': 'leaf', '\u{1F351}': 'apricot', '\u{1F34A}': 'apricot',
+    '\u{1F52E}': 'crystal-ball', '\u{1F4BA}': 'airplane-seat',
+    '\u{2615}': 'coffee', '\u{1F950}': 'croissant', '\u{1F338}': 'flower',
+    '\u{1F6E1}': 'shield', '\u{1F6E1}\u{FE0F}': 'shield', '\u{1F6D2}': 'cart', '\u{1F6AB}': 'ban',
+    '\u{2600}': 'sun', '\u{2600}\u{FE0F}': 'sun', '\u{2728}': 'sparkles',
+    '\u{2709}': 'mail', '\u{2709}\u{FE0F}': 'mail', '\u{1F48C}': 'mail', '\u{1F50D}': 'search',
+    '\u{1F381}': 'gift', '\u{1F496}': 'heart', '\u{1F4F7}': 'camera',
+    '\u{1F36D}': 'lollipop', '\u{1F34B}': 'lemon', '\u{1FAD0}': 'blueberry',
+    '\u{1F9F8}': 'teddy-bear', '\u{1F4DC}': 'scroll', '\u{1F38B}': 'bamboo',
+    '\u{1F4E6}': 'package', '\u{1F54A}': 'dove', '\u{1F54A}\u{FE0F}': 'dove',
+    '\u{1F4D6}': 'book', '\u{1F319}': 'moon', '\u{1F30C}': 'galaxy',
+    '\u{1F510}': 'lock', '\u{1F382}': 'cake', '\u{1F3E1}': 'home',
+    '\u{1F375}': 'tea', '\u{1F3F7}': 'price-tag', '\u{1F3F7}\u{FE0F}': 'price-tag', '\u{1F331}': 'sprout',
+    '\u{26C5}': 'cloud-sun', '\u{2601}': 'cloud', '\u{2601}\u{FE0F}': 'cloud', '\u{1F516}': 'bookmark'
   };
 
   for (const [em, iconId] of Object.entries(emojiMap)) {
@@ -206,7 +207,7 @@ function autoEnhanceSelectsToPaperDropdowns() {
 /**
  * Toast Notification for Copy and Action Feedback
  */
-function showPaperToast(message, type = 'mint') {
+function showPaperToast(message, type = 'mint', iconId = 'check') {
   let toastContainer = document.getElementById('pc-toast-container');
   if (!toastContainer) {
     toastContainer = document.createElement('div');
@@ -243,8 +244,11 @@ function showPaperToast(message, type = 'mint') {
     gap: 8px;
     pointer-events: auto;
   `;
-  toast.innerHTML = `<span>✂️</span> <span>${message}</span>`;
+  toast.innerHTML = `<span class="pc-inline-icon is-xs" data-icon="${iconId}"></span> <span>${message}</span>`;
   toastContainer.appendChild(toast);
+  if (typeof window.hydratePapercutIcons === 'function') {
+    window.hydratePapercutIcons(toast);
+  }
 
   requestAnimationFrame(() => {
     toast.style.transform = 'translateY(0) scale(1)';
@@ -272,13 +276,16 @@ function initCopyCodeButtons() {
 
     const code = targetElement.textContent.trim();
     navigator.clipboard.writeText(code).then(() => {
-      showPaperToast('코드가 클립보드에 복사되었습니다!', 'mint');
+      showPaperToast('코드가 클립보드에 복사되었습니다!', 'mint', 'check');
       const originalText = copyBtn.innerHTML;
-      copyBtn.innerHTML = '<span>✓ 복사됨</span>';
+      copyBtn.innerHTML = '<span class="pc-inline-icon is-xs" data-icon="check"></span> <span>복사됨</span>';
+      if (typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(copyBtn);
+      }
       setTimeout(() => copyBtn.innerHTML = originalText, 1800);
     }).catch(err => {
       console.error(err);
-      showPaperToast('복사에 실패했습니다.', 'peach');
+      showPaperToast('복사에 실패했습니다.', 'peach', 'ban');
     });
   });
 
@@ -372,7 +379,7 @@ function initInteractiveDemos() {
         showPaperToast('이메일 주소를 입력해주세요.', 'peach');
         return;
       }
-      showPaperToast(`💌 '${email}'님께 주간 종이비둘기 레터 발송 신청 완료!`, 'mint');
+      showPaperToast(`'${email}'님께 주간 종이비둘기 레터 발송 신청 완료!`, 'mint', 'mail');
       demo9Form.reset();
     });
   }
@@ -382,7 +389,7 @@ function initInteractiveDemos() {
   if (demo12Btn) {
     demo12Btn.addEventListener('click', () => {
       const name = document.getElementById('demo12-name').value || '몬스테라 친구';
-      showPaperToast(`🌱 [${name}]의 물주기 종이 라벨이 화분에 걸렸습니다!`, 'sage');
+      showPaperToast(`[${name}]의 물주기 종이 라벨이 화분에 걸렸습니다!`, 'sage', 'sprout');
     });
   }
 
@@ -392,7 +399,7 @@ function initInteractiveDemos() {
     demo13Btn.addEventListener('click', () => {
       const item = document.getElementById('demo13-item')?.value || '딸기 크로와상';
       const qty = document.getElementById('demo13-qty')?.value || '1';
-      showPaperToast(`🥐 주문 접수: ${item} ${qty}개 (종이 영수증 발행)`, 'buttercup');
+      showPaperToast(`주문 접수: ${item} ${qty}개 (종이 영수증 발행)`, 'buttercup', 'croissant');
     });
   }
 
@@ -402,10 +409,10 @@ function initInteractiveDemos() {
     demo15Btn.addEventListener('click', () => {
       const title = document.getElementById('demo15-title').value;
       if (!title) {
-        showPaperToast('기억나는 꿈의 제목을 적어주세요.', 'lavender');
+        showPaperToast('기억나는 꿈의 제목을 적어주세요.', 'lavender', 'quill-inkpot');
         return;
       }
-      showPaperToast(`🌙 꿈 일기 '${title}'가 파스텔 서랍에 보관되었습니다.`, 'lavender');
+      showPaperToast(`꿈 일기 '${title}'가 파스텔 서랍에 보관되었습니다.`, 'lavender', 'moon');
       document.getElementById('demo15-title').value = '';
     });
   }
@@ -432,7 +439,7 @@ function initInteractiveDemos() {
       li.querySelector('button').addEventListener('click', () => li.remove());
       demo27List.appendChild(li);
       demo27Input.value = '';
-      showPaperToast('새 할 일 종이띠가 추가되었습니다.', 'sky');
+      showPaperToast('새 할 일 종이띠가 추가되었습니다.', 'sky', 'check');
     });
   }
 
@@ -441,7 +448,7 @@ function initInteractiveDemos() {
   if (demo22Btn) {
     demo22Btn.addEventListener('click', () => {
       const tea = document.getElementById('demo22-tea')?.value || '캐모마일 민트';
-      showPaperToast(`🍵 향긋한 [${tea}] 블렌딩 티백이 종이 봉투에 담겼습니다.`, 'sage');
+      showPaperToast(`향긋한 [${tea}] 블렌딩 티백이 종이 봉투에 담겼습니다.`, 'sage', 'tea');
     });
   }
 
@@ -451,7 +458,7 @@ function initInteractiveDemos() {
     demo17Btn.addEventListener('click', () => {
       const name = document.getElementById('demo17-name')?.value || '여행자';
       const dest = document.getElementById('demo17-dest')?.value || '교토';
-      showPaperToast(`✈️ [${dest}]행 ${name}님의 러기지 종이 태그가 발행되었습니다!`, 'rose');
+      showPaperToast(`[${dest}]행 ${name}님의 러기지 종이 태그가 발행되었습니다!`, 'rose', 'airplane');
     });
   }
 }
@@ -712,8 +719,8 @@ function initPlayground() {
       playgroundBox.classList.add(`pc-texture-${textureId}`);
     }
 
-    // B. Update all interactive components inside playground
-    const texturedItems = playgroundBox ? playgroundBox.querySelectorAll('.pg-textured-item') : [];
+    // B. Update all interactive components inside playground and component studio
+    const texturedItems = document.querySelectorAll('.pg-textured-item, .pg-comp-target');
     texturedItems.forEach(el => {
       allTextureClasses.forEach(c => el.classList.remove(c));
       el.classList.add(`pc-texture-${textureId}`);
@@ -731,10 +738,22 @@ function initPlayground() {
     if (activeBadge) {
       activeBadge.textContent = spec.name;
     }
+    const compActiveBadge = document.getElementById('pg-comp-active-badge');
+    if (compActiveBadge) {
+      compActiveBadge.textContent = spec.name;
+    }
     const iconTextureLabel = document.getElementById('pg-icon-texture-label');
     if (iconTextureLabel) {
       iconTextureLabel.textContent = spec.name;
     }
+
+    // Sync component studio chips if present
+    const compChips = document.querySelectorAll('.pg-comp-chip');
+    compChips.forEach(c => {
+      const isMatch = c.getAttribute('data-comp-texture') === textureId;
+      c.classList.toggle('is-active', isMatch);
+      c.classList.toggle('pc-btn-mint', isMatch);
+    });
 
     // E. Update Dynamic Paper Spec Profile Card
     const specTitle = document.getElementById('pg-spec-title');
@@ -965,6 +984,13 @@ function initTextureModes() {
     'texture-flat': '일반 디지털 플랫 UI (질감/그림자 OFF)'
   };
 
+  const modeToCompTexture = {
+    'texture-soft': 'cotton',
+    'texture-cotton': 'cotton',
+    'texture-hanji': 'hanji',
+    'texture-flat': 'none'
+  };
+
   textureButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const mode = btn.getAttribute('data-texture-mode');
@@ -977,7 +1003,14 @@ function initTextureModes() {
       textureButtons.forEach(b => b.classList.remove('is-active', 'pc-btn-mint'));
       btn.classList.add('is-active', 'pc-btn-mint');
 
-      showPaperToast(`종이 질감이 [${modeNames[mode] || mode}] 모드로 변경되었습니다!`, mode === 'texture-flat' ? 'peach' : 'mint');
+      // Seamlessly coordinate component texture
+      const compTextureKey = modeToCompTexture[mode] || 'cotton';
+      if (typeof window.applyComponentPaperTexture === 'function') {
+        window.applyComponentPaperTexture(compTextureKey, false);
+      }
+
+      const toastIcon = mode === 'texture-flat' ? 'laptop' : (mode === 'texture-hanji' ? 'leaf' : 'sprout');
+      showPaperToast(`종이 질감이 [${modeNames[mode] || mode}] 모드로 변경되었습니다!`, mode === 'texture-flat' ? 'peach' : 'mint', toastIcon);
     });
   });
 }
@@ -1057,15 +1090,528 @@ function initMatteTextureShowcase() {
       if (isUniversalActive) {
         universalToggle.classList.add('pc-btn-mint');
         universalToggle.classList.remove('pc-btn-peach');
-        universalToggle.querySelector('span').textContent = '🌱 전체 UI 질감: ON (코튼 펄프)';
-        showPaperToast('모든 UI 컴포넌트에 300g 수제 코튼 펄프 질감이 적용되었습니다!', 'mint');
+        universalToggle.innerHTML = '<span class="pc-inline-icon is-sm" data-icon="sprout"></span> <span>전체 UI 질감: ON (코튼 펄프)</span>';
+        if (typeof window.hydratePapercutIcons === 'function') {
+          window.hydratePapercutIcons(universalToggle);
+        }
+        showPaperToast('모든 UI 컴포넌트에 300g 수제 코튼 펄프 질감이 적용되었습니다!', 'mint', 'sprout');
       } else {
         universalToggle.classList.remove('pc-btn-mint');
         universalToggle.classList.add('pc-btn-peach');
-        universalToggle.querySelector('span').textContent = '💻 전체 UI 질감: OFF (플랫 표면)';
-        showPaperToast('모든 UI 컴포넌트의 질감이 플랫 매끄러운 모드로 전환되었습니다.', 'peach');
+        universalToggle.innerHTML = '<span class="pc-inline-icon is-sm" data-icon="laptop"></span> <span>전체 UI 질감: OFF (플랫 표면)</span>';
+        if (typeof window.hydratePapercutIcons === 'function') {
+          window.hydratePapercutIcons(universalToggle);
+        }
+        showPaperToast('모든 UI 컴포넌트의 질감이 플랫 매끄러운 모드로 전환되었습니다.', 'peach', 'laptop');
       }
     });
   }
 }
+
+/**
+ * =========================================================================
+ * 12. COMPONENT PAPER TEXTURE STUDIO (컴포넌트 종이 질감 실시간 스튜디오)
+ * =========================================================================
+ */
+function initComponentTextureStudio() {
+  const compChips = document.querySelectorAll('.pg-comp-chip');
+  const activeBadge = document.getElementById('pg-comp-active-badge');
+
+  const compTextureNames = {
+    cotton: '300g 수제 코튼지',
+    cream: '350g 매트 크림보드',
+    hanji: '닥나무 한지',
+    vellum: '실크벨러지',
+    watercolor: '300g 아르쉬 수채화지',
+    linen: '프렌치 린넨 패브릭지',
+    shimmer: '펄 메탈릭 쉬머지',
+    tracing: '프로스티드 트레이싱지',
+    parchment: '빈티지 앤틱 양피지',
+    eco: '친환경 에코 플록지',
+    woodbark: '바크 내추럴 우드지',
+    felt: '포근한 펠트 모직지',
+    washi: '오리가미 운용 화지',
+    bookcloth: '캔버스 북클로스지',
+    leatherette: '엠보스 레더렛지',
+    none: '디지털 플랫 표면 (질감 없음)',
+    kraft: '350g 크라프트 보드',
+    paper: '300g 코튼지'
+  };
+
+  const allCompTextureClasses = [
+    'pc-texture-cotton', 'pc-texture-cream', 'pc-texture-hanji', 'pc-texture-vellum',
+    'pc-texture-watercolor', 'pc-texture-linen', 'pc-texture-shimmer', 'pc-texture-tracing',
+    'pc-texture-parchment', 'pc-texture-eco', 'pc-texture-woodbark', 'pc-texture-felt',
+    'pc-texture-washi', 'pc-texture-bookcloth', 'pc-texture-leatherette', 'pc-texture-none',
+    'pc-texture-kraft', 'pc-texture-paper'
+  ];
+
+  function applyComponentTexture(textureKey, notify = true) {
+    const textureName = compTextureNames[textureKey] || textureKey;
+    const targets = document.querySelectorAll('.pg-comp-target, .pg-textured-item');
+
+    targets.forEach(el => {
+      allCompTextureClasses.forEach(cls => el.classList.remove(cls));
+      if (textureKey !== 'none') {
+        el.classList.add(`pc-texture-${textureKey}`);
+      } else {
+        el.classList.add('pc-texture-none');
+      }
+    });
+
+    if (activeBadge) {
+      activeBadge.textContent = textureName;
+    }
+
+    compChips.forEach(c => {
+      const isMatch = c.getAttribute('data-comp-texture') === textureKey;
+      c.classList.toggle('is-active', isMatch);
+      c.classList.toggle('pc-btn-mint', isMatch);
+    });
+
+    if (notify) {
+      const toastIcon = textureKey === 'none' ? 'laptop' : 'sprout';
+      showPaperToast(`컴포넌트에 [${textureName}] 표면 질감이 적용되었습니다!`, textureKey === 'none' ? 'peach' : 'mint', toastIcon);
+    }
+  }
+
+  // Expose globally for seamless coordination with canvas texture modes & playground
+  window.applyComponentPaperTexture = applyComponentTexture;
+
+  compChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const textureKey = chip.getAttribute('data-comp-texture');
+      applyComponentTexture(textureKey, true);
+    });
+  });
+}
+
+/**
+ * =========================================================================
+ * 13. INTERACTIVE ICON OUTLINE & DYNAMIC SCALE STUDIO
+ * (실시간 아이콘 외곽선/두께/색상/모드 및 크기 스케일 스튜디오)
+ * =========================================================================
+ */
+function initIconOutlineStudio() {
+  if (!document.getElementById('studio-icon-select')) return;
+  const studioState = {
+    iconId: 'coffee',
+    outlineEnabled: true,
+    mode: 'layer', // 'layer' | 'double' | 'sticker'
+    strokeWidth: 2.5,
+    strokeColor: '#3D352E',
+    scaleBehavior: 'fixed', // 'fixed' | 'proportional'
+    activeSize: 72,
+    stageBg: 'cream'
+  };
+
+  const iconSelect = document.getElementById('studio-icon-select');
+  const outlineToggle = document.getElementById('studio-outline-toggle');
+  const modeStickerBtn = document.getElementById('studio-mode-sticker');
+  const modeLayerBtn = document.getElementById('studio-mode-layer');
+  const modeDoubleBtn = document.getElementById('studio-mode-double');
+  const modeDesc = document.getElementById('studio-mode-desc');
+
+  const strokeSlider = document.getElementById('studio-stroke-slider');
+  const strokeVal = document.getElementById('studio-stroke-val');
+  const thickChips = document.querySelectorAll('.studio-thick-chip');
+
+  const colorPicker = document.getElementById('studio-color-picker');
+  const colorCode = document.getElementById('studio-color-code');
+  const swatches = document.querySelectorAll('.pc-stroke-swatch');
+
+  const scaleFixedBtn = document.getElementById('studio-scale-fixed');
+  const scalePropBtn = document.getElementById('studio-scale-prop');
+
+  const sizeSlider = document.getElementById('studio-size-slider');
+  const sizeDisplay = document.getElementById('studio-size-display');
+  const mainStage = document.getElementById('studio-main-stage');
+  const bgChips = document.querySelectorAll('.studio-bg-chip');
+  const quickIcons = document.querySelectorAll('.studio-quick-icon');
+
+  const copySvgBtn = document.getElementById('btn-copy-outline-svg');
+  const copyCssBtn = document.getElementById('btn-copy-outline-css');
+
+  function getModeTitle(m) {
+    if (m === 'layer') return '개별 종이 외곽선 (모든 종이 모양)';
+    if (m === 'double') return '더블 외곽선 (개별 종이 + 다이컷)';
+    return '전체 다이컷 외곽선 (스티커)';
+  }
+
+  function applyStylesToTarget(target, size) {
+    target.classList.remove('pc-stroke-active-layer', 'pc-stroke-active-sticker', 'pc-stroke-active-fixed');
+    const svg = target.querySelector('svg');
+
+    if (!studioState.outlineEnabled) {
+      target.style.removeProperty('--pc-icon-stroke-color');
+      target.style.removeProperty('--pc-icon-stroke-width');
+      if (svg) svg.style.filter = '';
+      return;
+    }
+
+    let calculatedWidth = studioState.strokeWidth;
+    if (studioState.scaleBehavior === 'proportional' && size) {
+      calculatedWidth = Math.max(0.5, (studioState.strokeWidth * (size / 64))).toFixed(1);
+    }
+
+    target.style.setProperty('--pc-icon-stroke-color', studioState.strokeColor);
+    target.style.setProperty('--pc-icon-stroke-width', `${calculatedWidth}px`);
+
+    if (studioState.mode === 'sticker') {
+      target.classList.add('pc-stroke-active-sticker');
+      if (svg) svg.style.filter = 'url(#pc-filter-diecut-sticker)';
+    } else if (studioState.mode === 'layer') {
+      target.classList.add('pc-stroke-active-layer');
+      if (studioState.scaleBehavior === 'fixed') {
+        target.classList.add('pc-stroke-active-fixed');
+      }
+      if (svg) svg.style.filter = 'none';
+    } else if (studioState.mode === 'double') {
+      target.classList.add('pc-stroke-active-layer');
+      target.classList.add('pc-stroke-active-sticker');
+      if (studioState.scaleBehavior === 'fixed') {
+        target.classList.add('pc-stroke-active-fixed');
+      }
+      if (svg) svg.style.filter = 'url(#pc-filter-diecut-sticker)';
+    }
+  }
+
+  function syncLinkedDropdown(sel) {
+    if (!sel || !sel.id) return;
+    const parent = document.querySelector(`.pc-dropdown-custom[data-linked-select="${sel.id}"]`);
+    if (!parent) return;
+    const trigger = parent.querySelector('.pc-dropdown-trigger');
+    const triggerContent = trigger ? trigger.querySelector('.trigger-content') : null;
+    const selectedOpt = sel.options[sel.selectedIndex];
+    if (!selectedOpt) return;
+    const extracted = extractOptionIcon(selectedOpt);
+    if (triggerContent) {
+      triggerContent.innerHTML = `
+        ${extracted.iconId ? `<span class="pc-inline-icon is-sm" data-icon="${extracted.iconId}"></span>` : ''}
+        <span class="trigger-text">${extracted.label}</span>
+      `;
+      if (typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(triggerContent);
+      }
+    }
+    parent.querySelectorAll('.pc-dropdown-item').forEach(item => {
+      item.classList.toggle('is-selected', item.dataset.value === sel.value);
+    });
+  }
+
+  function populateIconSelect() {
+    if (iconSelect && window.PAPERCUT_ICONS && window.PAPERCUT_ICONS.length > 0) {
+      if (iconSelect.options.length <= 10) {
+        iconSelect.innerHTML = window.PAPERCUT_ICONS.map(ic => 
+          `<option value="${ic.id}">${ic.nameKo || ic.nameEn || ic.id} (${ic.id})</option>`
+        ).join('');
+        iconSelect.value = studioState.iconId;
+
+        // Also populate linked custom dropdown if present
+        const customDropdown = document.querySelector(`.pc-dropdown-custom[data-linked-select="${iconSelect.id}"]`);
+        if (customDropdown) {
+          const menu = customDropdown.querySelector('.pc-dropdown-menu');
+          if (menu) {
+            menu.innerHTML = '';
+            Array.from(iconSelect.options).forEach(opt => {
+              const item = document.createElement('button');
+              item.type = 'button';
+              item.className = 'pc-dropdown-item' + (opt.value === studioState.iconId ? ' is-selected' : '');
+              item.dataset.value = opt.value;
+              item.innerHTML = `
+                <span class="pc-inline-icon is-sm" data-icon="${opt.value}"></span>
+                <span class="pc-dropdown-text">${opt.textContent.trim()}</span>
+              `;
+              menu.appendChild(item);
+            });
+            if (typeof window.hydratePapercutIcons === 'function') {
+              window.hydratePapercutIcons(menu);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  function updateStudio() {
+    populateIconSelect();
+    const rawSvg = typeof window.getPapercutIconSvg === 'function' ? window.getPapercutIconSvg(studioState.iconId, 'studio-main') : '';
+    if (!rawSvg) {
+      setTimeout(updateStudio, 80);
+      return;
+    }
+
+    // 1. Update Global SVG Filter
+    const dilate = document.getElementById('pc-filter-sticker-dilate');
+    const flood = document.getElementById('pc-filter-sticker-flood');
+    if (dilate) dilate.setAttribute('radius', studioState.strokeWidth);
+    if (flood) flood.setAttribute('flood-color', studioState.strokeColor);
+
+    // 2. Main Active Icon Box
+    const activeBox = document.getElementById('studio-active-icon-box');
+    if (activeBox) {
+      activeBox.style.width = `${studioState.activeSize}px`;
+      activeBox.style.height = `${studioState.activeSize}px`;
+      activeBox.innerHTML = rawSvg;
+      applyStylesToTarget(activeBox, studioState.activeSize);
+    }
+
+    // 3. Multi-Size Step Progression Cards
+    const sizes = [24, 36, 48, 64, 96, 128];
+    sizes.forEach(sz => {
+      const el = document.getElementById(`studio-size-target-${sz}`);
+      if (el) {
+        el.style.width = `${sz}px`;
+        el.style.height = `${sz}px`;
+        el.innerHTML = typeof window.getPapercutIconSvg === 'function' ? window.getPapercutIconSvg(studioState.iconId, `studio-sz-${sz}`) : rawSvg;
+        applyStylesToTarget(el, sz);
+      }
+    });
+
+    // 4. Update Info Labels
+    const info = document.getElementById('studio-stage-info');
+    if (info) {
+      info.textContent = studioState.outlineEnabled 
+        ? `크기: ${studioState.activeSize}px | 외곽선: ${studioState.strokeWidth}px (${studioState.strokeColor}) | 모드: ${getModeTitle(studioState.mode)} | 스케일: ${studioState.scaleBehavior === 'fixed' ? '고정 픽셀' : '크기 비례'}`
+        : `크기: ${studioState.activeSize}px | 외곽선: OFF (순수 스탠드얼론 키리가미)`;
+    }
+
+    if (strokeVal) strokeVal.textContent = `${studioState.strokeWidth}px`;
+    if (strokeSlider) strokeSlider.value = studioState.strokeWidth;
+    if (colorCode) colorCode.textContent = studioState.strokeColor.toUpperCase();
+    if (colorPicker) colorPicker.value = studioState.strokeColor;
+    if (sizeDisplay) sizeDisplay.textContent = `${studioState.activeSize}px`;
+    if (sizeSlider) sizeSlider.value = studioState.activeSize;
+  }
+
+  // Event Listeners
+  if (iconSelect) {
+    iconSelect.addEventListener('change', (e) => {
+      studioState.iconId = e.target.value;
+      quickIcons.forEach(b => {
+        b.classList.toggle('is-active', b.getAttribute('data-icon') === studioState.iconId);
+      });
+      syncLinkedDropdown(iconSelect);
+      updateStudio();
+    });
+  }
+
+  quickIcons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-icon');
+      if (id) {
+        studioState.iconId = id;
+        if (iconSelect) {
+          iconSelect.value = id;
+          syncLinkedDropdown(iconSelect);
+        }
+        quickIcons.forEach(b => b.classList.toggle('is-active', b === btn));
+        updateStudio();
+      }
+    });
+  });
+
+  if (outlineToggle) {
+    outlineToggle.addEventListener('change', (e) => {
+      studioState.outlineEnabled = e.target.checked;
+      updateStudio();
+      showPaperToast(studioState.outlineEnabled ? '외곽선이 활성화되었습니다.' : '외곽선이 비활성화되었습니다.', 'mint');
+    });
+  }
+
+  function setMode(newMode) {
+    studioState.mode = newMode;
+    [modeStickerBtn, modeLayerBtn, modeDoubleBtn].forEach(b => b?.classList.remove('is-active'));
+    if (newMode === 'layer') {
+      modeLayerBtn?.classList.add('is-active');
+      if (modeDesc) modeDesc.textContent = '아이콘을 구성하는 모든 종이 모양(도형, 조각, 라인)에 각각 정밀 외곽선 테두리를 두릅니다.';
+    } else if (newMode === 'double') {
+      modeDoubleBtn?.classList.add('is-active');
+      if (modeDesc) modeDesc.textContent = '아이콘 내 모든 종이 조각 외곽선과 외부 다이컷 스티커 경계선을 동시에 적용합니다.';
+    } else {
+      modeStickerBtn?.classList.add('is-active');
+      if (modeDesc) modeDesc.textContent = '아이콘 전체 실루엣 외곽에만 부드러운 다이컷 종이 스티커 경계선을 둘러줍니다.';
+    }
+    updateStudio();
+  }
+
+  modeStickerBtn?.addEventListener('click', () => setMode('sticker'));
+  modeLayerBtn?.addEventListener('click', () => setMode('layer'));
+  modeDoubleBtn?.addEventListener('click', () => setMode('double'));
+
+  if (strokeSlider) {
+    strokeSlider.addEventListener('input', (e) => {
+      studioState.strokeWidth = parseFloat(e.target.value);
+      thickChips.forEach(c => c.classList.remove('is-active'));
+      updateStudio();
+    });
+  }
+
+  thickChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      thickChips.forEach(c => c.classList.remove('is-active'));
+      chip.classList.add('is-active');
+      studioState.strokeWidth = parseFloat(chip.getAttribute('data-width'));
+      updateStudio();
+    });
+  });
+
+  if (colorPicker) {
+    colorPicker.addEventListener('input', (e) => {
+      studioState.strokeColor = e.target.value;
+      swatches.forEach(s => s.classList.remove('is-active'));
+      updateStudio();
+    });
+  }
+
+  swatches.forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('is-active'));
+      swatch.classList.add('is-active');
+      studioState.strokeColor = swatch.getAttribute('data-color');
+      updateStudio();
+    });
+  });
+
+  scaleFixedBtn?.addEventListener('click', () => {
+    studioState.scaleBehavior = 'fixed';
+    scaleFixedBtn.classList.add('is-active');
+    scalePropBtn.classList.remove('is-active');
+    updateStudio();
+    showPaperToast('외곽선 두께: 고정 픽셀 모드 (모든 크기에서 균일한 굵기 유지)', 'mint');
+  });
+
+  scalePropBtn?.addEventListener('click', () => {
+    studioState.scaleBehavior = 'proportional';
+    scalePropBtn.classList.add('is-active');
+    scaleFixedBtn.classList.remove('is-active');
+    updateStudio();
+    showPaperToast('외곽선 두께: 크기 비례 모드 (아이콘 크기에 비례하여 굵기 변화)', 'peach');
+  });
+
+  if (sizeSlider) {
+    sizeSlider.addEventListener('input', (e) => {
+      studioState.activeSize = parseInt(e.target.value, 10);
+      updateStudio();
+    });
+  }
+
+  bgChips.forEach(btn => {
+    btn.addEventListener('click', () => {
+      bgChips.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const bg = btn.getAttribute('data-bg');
+      if (mainStage) {
+        ['bg-cream', 'bg-white', 'bg-dark', 'bg-grid'].forEach(c => mainStage.classList.remove(c));
+        mainStage.classList.add(`bg-${bg}`);
+      }
+    });
+  });
+
+  // Copy SVG with applied stroke
+  copySvgBtn?.addEventListener('click', () => {
+    const activeBox = document.getElementById('studio-active-icon-box');
+    const svgEl = activeBox?.querySelector('svg');
+    if (!svgEl) return;
+
+    let svgClone = svgEl.cloneNode(true);
+    if (studioState.outlineEnabled) {
+      if (studioState.mode === 'sticker' || studioState.mode === 'double') {
+        const defs = svgClone.querySelector('defs') || document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        const filterStr = `
+  <filter id="pc-export-diecut" x="-40%" y="-40%" width="180%" height="180%">
+    <feMorphology in="SourceAlpha" result="EXP" operator="dilate" radius="${studioState.strokeWidth}"/>
+    <feFlood flood-color="${studioState.strokeColor}" result="COL"/>
+    <feComposite in="COL" in2="EXP" operator="in" result="OUT"/>
+    <feDropShadow in="OUT" dx="0" dy="2.5" stdDeviation="1.5" flood-color="#4A3A2A" flood-opacity="0.22" result="SHD"/>
+    <feMerge>
+      <feMergeNode in="SHD"/>
+      <feMergeNode in="OUT"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>`;
+        defs.innerHTML += filterStr;
+        if (!svgClone.querySelector('defs')) svgClone.insertBefore(defs, svgClone.firstChild);
+        svgClone.style.filter = 'url(#pc-export-diecut)';
+      }
+      if (studioState.mode === 'layer' || studioState.mode === 'double') {
+        const filledShapes = svgClone.querySelectorAll('path:not([fill="none"]), rect:not([fill="none"]), circle:not([fill="none"]), ellipse:not([fill="none"]), polygon:not([fill="none"])');
+        filledShapes.forEach(sh => {
+          sh.setAttribute('stroke', studioState.strokeColor);
+          sh.setAttribute('stroke-width', `${studioState.strokeWidth}px`);
+          sh.setAttribute('stroke-linejoin', 'round');
+          sh.setAttribute('stroke-linecap', 'round');
+          sh.style.paintOrder = 'stroke fill';
+          if (studioState.scaleBehavior === 'fixed') {
+            sh.setAttribute('vector-effect', 'non-scaling-stroke');
+          }
+        });
+
+        const openShapes = svgClone.querySelectorAll('path[fill="none"], circle[fill="none"], rect[fill="none"], ellipse[fill="none"], polygon[fill="none"], line, polyline');
+        openShapes.forEach(sh => {
+          const swHalf = (studioState.strokeWidth * 0.5).toFixed(1);
+          sh.style.filter = `drop-shadow(${swHalf}px 0 0 ${studioState.strokeColor}) drop-shadow(-${swHalf}px 0 0 ${studioState.strokeColor}) drop-shadow(0 ${swHalf}px 0 ${studioState.strokeColor}) drop-shadow(0 -${swHalf}px 0 ${studioState.strokeColor})`;
+          if (studioState.scaleBehavior === 'fixed') {
+            sh.setAttribute('vector-effect', 'non-scaling-stroke');
+          }
+        });
+      }
+    }
+
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svgClone);
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(svgString).then(() => {
+        showPaperToast(`[${studioState.iconId}] 모든 종이 모양 외곽선이 적용된 스탠드얼론 SVG 코드가 복사되었습니다!`, 'mint');
+      });
+    }
+  });
+
+  // Copy CSS
+  copyCssBtn?.addEventListener('click', () => {
+    const cssCode = `/* PaperCut Icon Outline Styles - All Individual Paper Shapes */
+.my-papercut-icon {
+  --pc-icon-stroke-color: ${studioState.strokeColor};
+  --pc-icon-stroke-width: ${studioState.strokeWidth}px;
+}
+/* 1. Filled Paper Shapes */
+.my-papercut-icon svg path:not([fill="none"]),
+.my-papercut-icon svg rect:not([fill="none"]),
+.my-papercut-icon svg circle:not([fill="none"]),
+.my-papercut-icon svg ellipse:not([fill="none"]),
+.my-papercut-icon svg polygon:not([fill="none"]) {
+  stroke: var(--pc-icon-stroke-color);
+  stroke-width: var(--pc-icon-stroke-width);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  paint-order: stroke fill;
+  ${studioState.scaleBehavior === 'fixed' ? 'vector-effect: non-scaling-stroke;' : ''}
+}
+/* 2. Linear & Open Paper Shapes (handles, steam, lines) */
+.my-papercut-icon svg path[fill="none"],
+.my-papercut-icon svg circle[fill="none"],
+.my-papercut-icon svg rect[fill="none"],
+.my-papercut-icon svg ellipse[fill="none"],
+.my-papercut-icon svg polygon[fill="none"],
+.my-papercut-icon svg line,
+.my-papercut-icon svg polyline {
+  filter: drop-shadow(calc(var(--pc-icon-stroke-width) * 0.5) 0 0 var(--pc-icon-stroke-color))
+          drop-shadow(calc(var(--pc-icon-stroke-width) * -0.5) 0 0 var(--pc-icon-stroke-color))
+          drop-shadow(0 calc(var(--pc-icon-stroke-width) * 0.5) 0 var(--pc-icon-stroke-color))
+          drop-shadow(0 calc(var(--pc-icon-stroke-width) * -0.5) 0 var(--pc-icon-stroke-color));
+  ${studioState.scaleBehavior === 'fixed' ? 'vector-effect: non-scaling-stroke;' : ''}
+}`;
+
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(cssCode).then(() => {
+        showPaperToast('모든 종이 모양 외곽선 CSS 스타일 코드가 클립보드에 복사되었습니다!', 'peach');
+      });
+    }
+  });
+
+  // Initial Render
+  updateStudio();
+}
+
 

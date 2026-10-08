@@ -1,0 +1,387 @@
+/**
+ * PaperCut UI - Alerts & Toasts Notification System
+ * Authentic 3D Layered Paper-Cut Aesthetic (Cardstock, Washi Tape, Deckle Slips)
+ */
+
+/* ==========================================================================
+   1. ALERT NOTIFICATION COMPONENTS (.pc-alert)
+   ========================================================================== */
+
+.pc-alert-suite {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.pc-alert {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 22px;
+  border-radius: var(--pc-radius-md, 16px);
+  background: #FFFDF9;
+  border: 1.5px solid #EADBCC;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 4px 12px rgba(74, 58, 42, 0.08),
+    0 1px 3px rgba(74, 58, 42, 0.05);
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  color: var(--pc-ink, #3D352E);
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.pc-alert:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 8px 20px rgba(74, 58, 42, 0.12),
+    0 2px 5px rgba(74, 58, 42, 0.06);
+}
+
+/* Left Accent Color Strip (Folded Paper Edge) */
+.pc-alert::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 6px;
+  background: var(--pc-mint, #A3D8C3);
+  border-radius: var(--pc-radius-md, 16px) 0 0 var(--pc-radius-md, 16px);
+}
+
+.pc-alert-icon-box {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFDF9;
+  border: 1px solid rgba(74, 58, 42, 0.10);
+  box-shadow: 0 2px 5px rgba(74, 58, 42, 0.06);
+}
+
+.pc-alert-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.pc-alert-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin: 0 0 4px;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-alert-desc {
+  font-size: 13.5px;
+  color: var(--pc-ink-muted, #7A6F64);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.pc-alert-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pc-alert-close {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 8px;
+  color: var(--pc-ink-muted, #7A6F64);
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-alert-close:hover {
+  background: rgba(74, 58, 42, 0.08);
+  color: var(--pc-ink, #3D352E);
+  transform: rotate(90deg);
+}
+
+/* 4 Semantic Variants */
+/* Success */
+.pc-alert-success {
+  background: #F4FAF6;
+  border-color: #BBE5CE;
+}
+.pc-alert-success::before {
+  background: #4DA778;
+}
+.pc-alert-success .pc-alert-title {
+  color: #1E5C41;
+}
+.pc-alert-success .pc-alert-icon-box {
+  background: #E4F5EB;
+  border-color: #A3D8C3;
+}
+
+/* Info */
+.pc-alert-info {
+  background: #F2F8FC;
+  border-color: #BDE0EA;
+}
+.pc-alert-info::before {
+  background: #3B82A6;
+}
+.pc-alert-info .pc-alert-title {
+  color: #1B4D66;
+}
+.pc-alert-info .pc-alert-icon-box {
+  background: #E2F0F7;
+  border-color: #BDE0EA;
+}
+
+/* Warning */
+.pc-alert-warning {
+  background: #FEFBF0;
+  border-color: #FEE396;
+}
+.pc-alert-warning::before {
+  background: #D9A01C;
+}
+.pc-alert-warning .pc-alert-title {
+  color: #7A5812;
+}
+.pc-alert-warning .pc-alert-icon-box {
+  background: #FEF4D5;
+  border-color: #FEE396;
+}
+
+/* Destructive / Error */
+.pc-alert-destructive,
+.pc-alert-error {
+  background: #FDF3F4;
+  border-color: #F7BAC2;
+}
+.pc-alert-destructive::before,
+.pc-alert-error::before {
+  background: #C94A5C;
+}
+.pc-alert-destructive .pc-alert-title,
+.pc-alert-error .pc-alert-title {
+  color: #8C2D3B;
+}
+.pc-alert-destructive .pc-alert-icon-box,
+.pc-alert-error .pc-alert-icon-box {
+  background: #FCE6E9;
+  border-color: #F5B8BE;
+}
+
+/* Special Variant: Pinned Memo Slip with Washi Tape */
+.pc-alert-memo {
+  background: #FFFDF8;
+  border: 1.5px dashed #DCCFBC;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(74, 58, 42, 0.08);
+  padding-top: 24px;
+}
+.pc-alert-memo::before {
+  display: none;
+}
+.pc-alert-memo .pc-washi-tape-pin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 90px;
+  height: 22px;
+  background: rgba(247, 186, 158, 0.85);
+  box-shadow: 0 2px 4px rgba(74, 58, 42, 0.12);
+  border-left: 2px dashed rgba(255, 255, 255, 0.5);
+  border-right: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   2. TOAST NOTIFICATION CONTAINER & TOAST CARDS
+   ========================================================================== */
+
+#pc-toast-container {
+  position: fixed;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  pointer-events: none;
+  max-width: 420px;
+  width: calc(100% - 32px);
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+/* Positions */
+#pc-toast-container.pos-top-right {
+  top: 16px;
+  right: 16px;
+}
+#pc-toast-container.pos-bottom-right {
+  bottom: 16px;
+  right: 16px;
+  flex-direction: column-reverse;
+}
+#pc-toast-container.pos-top-center {
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.pc-toast-card {
+  pointer-events: auto;
+  position: relative;
+  background: #FFFDF9;
+  border: 1.5px solid #E6DBC9;
+  border-radius: 16px;
+  padding: 16px 18px 18px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 14px 35px rgba(74, 58, 42, 0.18),
+    0 3px 8px rgba(74, 58, 42, 0.08);
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  color: var(--pc-ink, #3D352E);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  overflow: hidden;
+  animation: pcToastEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.pc-toast-card.is-leaving {
+  animation: pcToastExit 0.28s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+@keyframes pcToastEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pcToastExit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.90);
+  }
+}
+
+/* Washi Tape Corner Stamp */
+.pc-toast-tape {
+  position: absolute;
+  top: -8px;
+  right: 24px;
+  width: 50px;
+  height: 16px;
+  background: rgba(163, 216, 195, 0.85);
+  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.12);
+  transform: rotate(2deg);
+}
+.pc-toast-card.variant-peach .pc-toast-tape { background: rgba(247, 186, 158, 0.85); }
+.pc-toast-card.variant-lavender .pc-toast-tape { background: rgba(215, 203, 235, 0.85); }
+.pc-toast-card.variant-buttercup .pc-toast-tape { background: rgba(254, 227, 150, 0.85); }
+.pc-toast-card.variant-rose .pc-toast-tape { background: rgba(245, 184, 190, 0.85); }
+
+.pc-toast-icon-wrap {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #FAF6ED;
+  border: 1px solid #EADBCC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.06);
+}
+
+.pc-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.pc-toast-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  margin: 0 0 3px;
+  line-height: 1.3;
+}
+
+.pc-toast-msg {
+  font-size: 13px;
+  color: var(--pc-ink-muted, #7A6F64);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.pc-toast-action-btn {
+  margin-top: 8px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 6px;
+  background: #3D352E;
+  color: #FFFDF9;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(74, 58, 42, 0.15);
+  transition: all 0.15s ease;
+}
+.pc-toast-action-btn:hover {
+  background: #231E1A;
+  transform: translateY(-1px);
+}
+
+.pc-toast-close-btn {
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: var(--pc-ink-muted, #7A6F64);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc-toast-close-btn:hover {
+  background: rgba(74, 58, 42, 0.08);
+  color: var(--pc-ink, #3D352E);
+}
+
+/* Progress Countdown Bar */
+.pc-toast-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--pc-mint, #A3D8C3);
+  width: 100%;
+  transform-origin: left;
+}
+.pc-toast-card.variant-peach .pc-toast-progress-bar { background: var(--pc-peach, #F7BA9E); }
+.pc-toast-card.variant-lavender .pc-toast-progress-bar { background: var(--pc-lavender, #D7CBEB); }
+.pc-toast-card.variant-buttercup .pc-toast-progress-bar { background: var(--pc-buttercup, #FEE396); }
+.pc-toast-card.variant-rose .pc-toast-progress-bar { background: var(--pc-rose, #F5B8BE); }
