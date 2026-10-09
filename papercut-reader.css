@@ -1717,15 +1717,22 @@
 .pc-window-controls {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  margin-right: 14px;
+  gap: 9px;
+  margin-right: 16px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(235, 226, 212, 0.5);
+  border: 1px solid rgba(210, 198, 180, 0.6);
+  box-shadow: inset 0 1px 2px rgba(70, 50, 30, 0.08);
+  -webkit-app-region: no-drag !important;
   user-select: none;
+  z-index: 999;
 }
 
 .pc-traffic-btn {
   position: relative;
-  width: 15px;
-  height: 15px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -1735,6 +1742,7 @@
   transition: all 0.14s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 0;
   outline: none;
+  -webkit-app-region: no-drag !important;
 }
 .pc-traffic-btn i {
   font-size: 8px;
@@ -1744,7 +1752,7 @@
   font-weight: 900;
 }
 .pc-window-controls:hover .pc-traffic-btn i {
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 /* 🔴 닫기 (Close) */
@@ -1752,11 +1760,11 @@
   background: #FF8787;
   border-color: #FA5252;
   box-shadow: 0 2px 0 #E03131, 0 3px 6px rgba(224, 49, 49, 0.25);
-  color: #7A1919;
+  color: #5C0B0B;
 }
 .pc-traffic-btn.is-close:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 0 #E03131, 0 4px 8px rgba(224, 49, 49, 0.35);
+  transform: translateY(-1.5px);
+  box-shadow: 0 3.5px 0 #E03131, 0 5px 10px rgba(224, 49, 49, 0.35);
   background: #FF6B6B;
 }
 .pc-traffic-btn.is-close:active {
@@ -1769,11 +1777,11 @@
   background: #FFE066;
   border-color: #FAB005;
   box-shadow: 0 2px 0 #E67700, 0 3px 6px rgba(230, 119, 0, 0.25);
-  color: #7D4300;
+  color: #633500;
 }
 .pc-traffic-btn.is-minimize:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 0 #E67700, 0 4px 8px rgba(230, 119, 0, 0.35);
+  transform: translateY(-1.5px);
+  box-shadow: 0 3.5px 0 #E67700, 0 5px 10px rgba(230, 119, 0, 0.35);
   background: #FFD43B;
 }
 .pc-traffic-btn.is-minimize:active {
@@ -1786,11 +1794,11 @@
   background: #8CE99A;
   border-color: #40C057;
   box-shadow: 0 2px 0 #2B8A3E, 0 3px 6px rgba(43, 138, 62, 0.25);
-  color: #175224;
+  color: #0E3D18;
 }
 .pc-traffic-btn.is-maximize:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 0 #2B8A3E, 0 4px 8px rgba(43, 138, 62, 0.35);
+  transform: translateY(-1.5px);
+  box-shadow: 0 3.5px 0 #2B8A3E, 0 5px 10px rgba(43, 138, 62, 0.35);
   background: #69DB7C;
 }
 .pc-traffic-btn.is-maximize:active {
@@ -1804,9 +1812,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
   background: #FFFDF9;
   border: 1.5px solid #DED4C2;
   box-shadow: 
@@ -1843,19 +1851,19 @@
 .pc-icon-plate.is-sm {
   width: 30px;
   height: 30px;
-  border-radius: 9px;
+  border-radius: 10px;
   box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 2px 0 #C9BDAA, 0 3px 6px rgba(70,50,30,0.1);
 }
 .pc-icon-plate.is-lg {
-  width: 48px;
-  height: 48px;
-  border-radius: 15px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 3.5px 0 #C9BDAA, 0 6px 12px rgba(70,50,30,0.14);
+  width: 50px;
+  height: 50px;
+  border-radius: 16px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 3.5px 0 #C9BDAA, 0 6px 14px rgba(70,50,30,0.14);
 }
 .pc-icon-plate.is-xl {
-  width: 58px;
-  height: 58px;
-  border-radius: 18px;
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
   box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 4px 0 #C9BDAA, 0 8px 18px rgba(70,50,30,0.15);
 }
 
@@ -1925,22 +1933,22 @@
 
 /* 먹색 선화 아이콘 (Dark Charcoal Inked Icons Mounted on Paper Plates) */
 .pc-icon-plate i.fi {
-  font-size: 17.5px;
+  font-size: 18px;
   color: #1E1A17 !important;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 800;
 }
 .pc-icon-plate.is-sm i.fi {
   font-size: 13.5px;
 }
 .pc-icon-plate.is-lg i.fi {
-  font-size: 22px;
+  font-size: 24px;
 }
 .pc-icon-plate.is-xl i.fi {
-  font-size: 28px;
+  font-size: 30px;
 }
 
 /* 4. 3D Decoupage Paper-Cut Card (.pc-papercut-card) */
@@ -1960,7 +1968,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 290px;
+  min-height: 295px;
 }
 .pc-papercut-card:hover {
   transform: translateY(-8px);
@@ -1971,31 +1979,33 @@
     0 26px 56px rgba(70, 50, 30, 0.14);
 }
 
-/* 3-Layer Decoupage Paper Sheets Peeking Out Behind */
-/* Layer 1: Peach/Lavender Paper Sheet (우하단 7px 오프셋) */
+/* 3-Layer Decoupage Paper Sheets Peeking Out Behind (Overlapping Shapes in Soft Pastel Colors) */
+/* Layer 1: Peach/Lavender Paper Sheet (우하단 8px 오프셋 + 1.2deg 회전) */
 .pc-papercut-card::before {
   content: "";
   position: absolute;
-  top: 7px; left: 7px; right: -7px; bottom: -7px;
+  top: 8px; left: 8px; right: -8px; bottom: -8px;
   background: #FEE3D2;
   border: 2px solid #F8B692;
   border-radius: 22px;
   z-index: -1;
-  box-shadow: 0 4px 10px rgba(70, 50, 30, 0.08);
+  box-shadow: 0 4px 12px rgba(70, 50, 30, 0.09);
   transition: transform 0.26s ease;
+  transform: rotate(0.8deg);
 }
 
-/* Layer 2: Mint/Yellow Paper Sheet (우하단 14px 오프셋) */
+/* Layer 2: Mint/Yellow Paper Sheet (우하단 16px 오프셋 - 1.2deg 회전) */
 .pc-papercut-card::after {
   content: "";
   position: absolute;
-  top: 14px; left: 14px; right: -14px; bottom: -14px;
+  top: 16px; left: 16px; right: -16px; bottom: -16px;
   background: #D8F3DC;
   border: 2px solid #95D5B2;
   border-radius: 22px;
   z-index: -2;
-  box-shadow: 0 6px 16px rgba(70, 50, 30, 0.07);
+  box-shadow: 0 6px 18px rgba(70, 50, 30, 0.08);
   transition: transform 0.26s ease;
+  transform: rotate(-1.2deg);
 }
 
 /* Card Color Variants */
@@ -2018,11 +2028,12 @@
 }
 
 .pc-papercut-card:hover::before {
-  transform: translate(3px, 3px) rotate(0.6deg);
+  transform: translate(3px, 3px) rotate(1.4deg);
 }
 .pc-papercut-card:hover::after {
-  transform: translate(6px, 6px) rotate(1.2deg);
+  transform: translate(6px, 6px) rotate(-1.8deg);
 }
+
 
 /* Washi Tape Paper Accent on Card Top Corner */
 .pc-card-washi {
