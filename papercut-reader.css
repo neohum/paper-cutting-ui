@@ -1713,26 +1713,38 @@
   background-position: 0 0, 0 0, 10px 10px;
 }
 
-/* 2. macOS 3D Paper-Cut Window Controls (3색 신호등 버튼) */
+/* 2. macOS 3D Layered Paper-Cut Window Controls (3색 파스텔 신호등 버튼) */
 .pc-window-controls {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  margin-right: 16px;
-  padding: 4px 8px;
+  gap: 10px;
+  margin-right: 18px;
+  padding: 5px 11px;
   border-radius: 999px;
-  background: rgba(235, 226, 212, 0.5);
-  border: 1px solid rgba(210, 198, 180, 0.6);
-  box-shadow: inset 0 1px 2px rgba(70, 50, 30, 0.08);
+  background: #FFFDF8;
+  border: 1.5px solid #E2D7C3;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 2px 0 #D8CEBB,
+    0 4px 10px rgba(70, 50, 30, 0.08);
   -webkit-app-region: no-drag !important;
   user-select: none;
   z-index: 999;
+  transition: all 0.16s ease;
+}
+
+.pc-window-controls:hover {
+  background: #FAF6ED;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 2.5px 0 #C9BDAA,
+    0 6px 14px rgba(70, 50, 30, 0.12);
 }
 
 .pc-traffic-btn {
   position: relative;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -1744,66 +1756,98 @@
   outline: none;
   -webkit-app-region: no-drag !important;
 }
+
 .pc-traffic-btn i {
-  font-size: 8px;
+  font-size: 7.5px;
   line-height: 1;
   opacity: 0;
-  transition: opacity 0.15s ease;
+  transition: opacity 0.15s ease, transform 0.15s ease;
   font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .pc-window-controls:hover .pc-traffic-btn i {
   opacity: 0.95;
 }
 
-/* 🔴 닫기 (Close) */
+/* 🔴 닫기 (Close) - Strawberry Rose Layered Paper Cut */
 .pc-traffic-btn.is-close {
-  background: #FF8787;
-  border-color: #FA5252;
-  box-shadow: 0 2px 0 #E03131, 0 3px 6px rgba(224, 49, 49, 0.25);
-  color: #5C0B0B;
+  background: #FF7B89;
+  border-color: #FF5C6E;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2.5px 0 #D9384E,
+    0 3px 6px rgba(217, 56, 78, 0.28);
+  color: #4A0713;
 }
 .pc-traffic-btn.is-close:hover {
   transform: translateY(-1.5px);
-  box-shadow: 0 3.5px 0 #E03131, 0 5px 10px rgba(224, 49, 49, 0.35);
-  background: #FF6B6B;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 4px 0 #D9384E,
+    0 6px 12px rgba(217, 56, 78, 0.38);
+  background: #FF6676;
 }
 .pc-traffic-btn.is-close:active {
-  transform: translateY(1.5px);
-  box-shadow: 0 0.5px 0 #E03131, 0 1px 3px rgba(224, 49, 49, 0.2);
+  transform: translateY(2px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 0.5px 0 #D9384E,
+    0 1px 3px rgba(217, 56, 78, 0.2);
 }
 
-/* 🟡 최소화 (Minimize) */
+/* 🟡 최소화 (Minimize) - Honey Buttercup Layered Paper Cut */
 .pc-traffic-btn.is-minimize {
-  background: #FFE066;
-  border-color: #FAB005;
-  box-shadow: 0 2px 0 #E67700, 0 3px 6px rgba(230, 119, 0, 0.25);
-  color: #633500;
+  background: #FDCB58;
+  border-color: #FABE2C;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    0 2.5px 0 #C68A08,
+    0 3px 6px rgba(198, 138, 8, 0.28);
+  color: #4E3100;
 }
 .pc-traffic-btn.is-minimize:hover {
   transform: translateY(-1.5px);
-  box-shadow: 0 3.5px 0 #E67700, 0 5px 10px rgba(230, 119, 0, 0.35);
-  background: #FFD43B;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 4px 0 #C68A08,
+    0 6px 12px rgba(198, 138, 8, 0.38);
+  background: #FDBF3B;
 }
 .pc-traffic-btn.is-minimize:active {
-  transform: translateY(1.5px);
-  box-shadow: 0 0.5px 0 #E67700, 0 1px 3px rgba(230, 119, 0, 0.2);
+  transform: translateY(2px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 0.5px 0 #C68A08,
+    0 1px 3px rgba(198, 138, 8, 0.2);
 }
 
-/* 🟢 최대화 (Maximize) */
+/* 🟢 최대화 (Maximize) - Fresh Mint Leaf Layered Paper Cut */
 .pc-traffic-btn.is-maximize {
-  background: #8CE99A;
-  border-color: #40C057;
-  box-shadow: 0 2px 0 #2B8A3E, 0 3px 6px rgba(43, 138, 62, 0.25);
-  color: #0E3D18;
+  background: #4ECCA3;
+  border-color: #36B88E;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    0 2.5px 0 #1C8C67,
+    0 3px 6px rgba(28, 140, 103, 0.28);
+  color: #073B2B;
 }
 .pc-traffic-btn.is-maximize:hover {
   transform: translateY(-1.5px);
-  box-shadow: 0 3.5px 0 #2B8A3E, 0 5px 10px rgba(43, 138, 62, 0.35);
-  background: #69DB7C;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 4px 0 #1C8C67,
+    0 6px 12px rgba(28, 140, 103, 0.38);
+  background: #3BBD93;
 }
 .pc-traffic-btn.is-maximize:active {
-  transform: translateY(1.5px);
-  box-shadow: 0 0.5px 0 #2B8A3E, 0 1px 3px rgba(43, 138, 62, 0.2);
+  transform: translateY(2px);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    0 0.5px 0 #1C8C67,
+    0 1px 3px rgba(28, 140, 103, 0.2);
 }
 
 /* 3. 3D Pastel Paper-Cut Icon Plate (색종이 조각 위에 얹힌 아이콘) */
@@ -1954,16 +1998,17 @@
 /* 4. 3D Decoupage Paper-Cut Card (.pc-papercut-card) */
 .pc-papercut-card {
   position: relative;
+  isolation: isolate;
   background: #FFFDF8;
-  border-radius: 22px;
-  padding: 26px 26px 22px;
-  border: 2px solid #E8DFCF;
+  border-radius: 20px;
+  padding: 24px 24px 20px;
+  border: 1.5px solid #E2D7C5;
   box-shadow: 
     0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 4px 0 #D4C7B2, /* 도톰한 상단 카드 단면 */
-    0 8px 20px rgba(70, 50, 30, 0.08),
-    0 18px 40px rgba(70, 50, 30, 0.08);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+    0 3.5px 0 #D4C6B0, /* 도톰한 상단 카드 단면 */
+    0 6px 16px rgba(70, 50, 30, 0.08),
+    0 14px 32px rgba(70, 50, 30, 0.06);
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.26s ease;
   user-select: none;
   display: flex;
   flex-direction: column;
@@ -1971,67 +2016,71 @@
   min-height: 295px;
 }
 .pc-papercut-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   box-shadow: 
     0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 6px 0 #D4C7B2,
-    0 14px 28px rgba(70, 50, 30, 0.12),
-    0 26px 56px rgba(70, 50, 30, 0.14);
+    0 5px 0 #D4C6B0,
+    0 12px 24px rgba(70, 50, 30, 0.11),
+    0 22px 48px rgba(70, 50, 30, 0.1);
 }
 
 /* 3-Layer Decoupage Paper Sheets Peeking Out Behind (Overlapping Shapes in Soft Pastel Colors) */
-/* Layer 1: Peach/Lavender Paper Sheet (우하단 8px 오프셋 + 1.2deg 회전) */
+/* Layer 1: Colored Cardstock Sheet (우하단 12px 오프셋 + 1.8deg 회전) */
 .pc-papercut-card::before {
   content: "";
   position: absolute;
-  top: 8px; left: 8px; right: -8px; bottom: -8px;
+  top: 8px; left: 8px; right: -12px; bottom: -12px;
   background: #FEE3D2;
-  border: 2px solid #F8B692;
-  border-radius: 22px;
+  border: 1.5px solid #F8B692;
+  border-radius: 20px;
   z-index: -1;
-  box-shadow: 0 4px 12px rgba(70, 50, 30, 0.09);
-  transition: transform 0.26s ease;
-  transform: rotate(0.8deg);
+  box-shadow: 0 4px 14px rgba(120, 60, 20, 0.12);
+  transition: transform 0.24s ease;
+  transform: rotate(1.6deg);
 }
 
-/* Layer 2: Mint/Yellow Paper Sheet (우하단 16px 오프셋 - 1.2deg 회전) */
+/* Layer 2: Pastel Cardstock Sheet (하단 18px 오프셋 - 2deg 회전) */
 .pc-papercut-card::after {
   content: "";
   position: absolute;
-  top: 16px; left: 16px; right: -16px; bottom: -16px;
+  top: 14px; left: 4px; right: -8px; bottom: -18px;
   background: #D8F3DC;
-  border: 2px solid #95D5B2;
-  border-radius: 22px;
+  border: 1.5px solid #8FD4AF;
+  border-radius: 20px;
   z-index: -2;
-  box-shadow: 0 6px 18px rgba(70, 50, 30, 0.08);
-  transition: transform 0.26s ease;
-  transform: rotate(-1.2deg);
+  box-shadow: 0 6px 20px rgba(40, 100, 60, 0.1);
+  transition: transform 0.24s ease;
+  transform: rotate(-1.8deg);
 }
 
 /* Card Color Variants */
 .pc-papercut-card.is-variant-lavender::before {
   background: #EDE4F9;
   border-color: #CCAEEF;
+  box-shadow: 0 4px 14px rgba(80, 40, 120, 0.12);
 }
 .pc-papercut-card.is-variant-lavender::after {
   background: #FFF3CD;
   border-color: #FEE388;
+  box-shadow: 0 6px 20px rgba(120, 90, 10, 0.1);
 }
 
 .pc-papercut-card.is-variant-sky::before {
   background: #DBEEF9;
   border-color: #A1D4F0;
+  box-shadow: 0 4px 14px rgba(30, 90, 130, 0.12);
 }
 .pc-papercut-card.is-variant-sky::after {
   background: #FDE2E4;
   border-color: #F8ADC0;
+  box-shadow: 0 6px 20px rgba(140, 40, 60, 0.1);
 }
 
 .pc-papercut-card:hover::before {
-  transform: translate(3px, 3px) rotate(1.4deg);
+  transform: translate(3px, 3px) rotate(2.4deg);
 }
 .pc-papercut-card:hover::after {
-  transform: translate(6px, 6px) rotate(-1.8deg);
+  transform: translate(5px, 5px) rotate(-2.8deg);
 }
 
 
