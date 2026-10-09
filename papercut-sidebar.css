@@ -555,15 +555,17 @@ body.pc-page-mode .pc-page-view.is-active-page {
 
 /* ==========================================================================
    Desktop App & In-Window Sidebar Layout Extensions (.pc-sidebar)
+   Authentic Stationery Accordion Binder with Layered Paper Tabs
    ========================================================================== */
 
 .pc-sidebar {
   width: var(--pc-sidebar-width, 260px);
-  background: #FFFDF9;
-  border-right: 1.5px solid #E6DBC9;
+  background: #FAF7F0;
+  border-right: 2px solid #E6DBC9;
   box-shadow: 
-    1px 0 0 rgba(255, 255, 255, 0.9) inset,
-    3px 0 14px rgba(74, 58, 42, 0.05);
+    1px 0 0 rgba(255, 255, 255, 0.95) inset,
+    4px 0 20px rgba(74, 58, 42, 0.08),
+    1px 0 4px rgba(74, 58, 42, 0.04);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -572,46 +574,23 @@ body.pc-page-mode .pc-page-view.is-active-page {
   user-select: none;
   position: relative;
   z-index: 10;
+  background-image: radial-gradient(#E8DFC8 0.75px, transparent 0.75px);
+  background-size: 16px 16px;
 }
 
 .pc-sidebar.is-collapsed {
-  width: var(--pc-sidebar-collapsed-width, 68px);
-}
-
-/* Sidebar Toggle Button */
-.pc-sidebar-toggle-btn {
-  background: #FAF6ED;
-  border: 1px solid #EADBCC;
-  border-radius: 8px;
-  width: 28px;
-  height: 28px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--pc-ink, #3D352E);
-  box-shadow: 0 1px 2px rgba(74, 58, 42, 0.06);
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-.pc-sidebar-toggle-btn:hover {
-  background: #EAF7F1;
-  border-color: #A3D8C3;
-  color: #275C46;
-  transform: scale(1.06);
-}
-.pc-sidebar.is-collapsed .pc-sidebar-toggle-btn i {
-  transform: rotate(180deg);
+  width: var(--pc-sidebar-collapsed-width, 72px);
 }
 
 /* Sidebar Header */
 .pc-sidebar-header {
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(74, 58, 42, 0.08);
+  border-bottom: 1.5px solid #E6DBC9;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #FAF7F0;
+  background: #FFFDF9;
+  box-shadow: 0 1px 0 #FFFFFF;
   gap: 8px;
 }
 .pc-sidebar.is-collapsed .pc-sidebar-header {
@@ -630,104 +609,203 @@ body.pc-page-mode .pc-page-view.is-active-page {
   display: none;
 }
 
-/* Sidebar Nav Items */
+.pc-sidebar-brand-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--pc-ink, #3D352E);
+  line-height: 1.2;
+}
+
+.pc-sidebar-brand-sub {
+  font-size: 10.5px;
+  color: var(--pc-ink-muted, #7A6F64);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Sidebar Toggle Button (Craft Paper Punch Hole) */
+.pc-sidebar-toggle-btn {
+  background: #FAF6ED;
+  border: 1.5px solid #EADBCC;
+  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(74, 58, 42, 0.08), inset 0 1px 0 #FFFFFF;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  padding: 0;
+}
+.pc-sidebar-toggle-btn:hover {
+  background: #EAF7F1;
+  border-color: #A3D8C3;
+  transform: scale(1.08) translateY(-1px);
+  box-shadow: 0 4px 8px rgba(44, 107, 80, 0.14);
+}
+.pc-sidebar-toggle-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Sidebar Nav Items List */
 .pc-sidebar-nav-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 12px 10px;
+  gap: 6px;
+  padding: 14px 10px;
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
 }
 .pc-sidebar.is-collapsed .pc-sidebar-nav-list {
-  padding: 12px 6px;
+  padding: 14px 8px;
 }
 
+/* Category Stamp Divider */
+.pc-sidebar-category {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #8C7C6D;
+  padding: 10px 10px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-bottom: 1px dashed #E2DAC8;
+  margin-bottom: 4px;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-category {
+  display: none;
+}
+
+/* Handcrafted Paper Tab Item */
 .pc-sidebar-item {
   display: flex;
   align-items: center;
   justify-content: flex-start !important;
   text-align: left !important;
   gap: 12px;
-  padding: 9px 12px;
-  border-radius: 9px;
+  padding: 10px 14px;
+  border-radius: 12px;
   font-size: 13.5px;
   font-weight: 700;
-  color: #7D7368;
-  background: transparent;
-  border: 1px solid transparent;
+  color: #5C5247;
+  background: #FAF6ED;
+  border: 1px solid #EADBCC;
   cursor: pointer;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
   position: relative;
   width: 100%;
+  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
-.pc-sidebar-item i.fi {
-  font-size: 16px;
-  width: 20px;
+
+.pc-sidebar-item:hover {
+  background: #FFFDF9;
+  color: #2D2926;
+  border-color: #D5C8B4;
+  transform: translateX(4px);
+  box-shadow: 0 4px 10px rgba(74, 58, 42, 0.08);
+}
+
+.pc-sidebar-item.is-active {
+  background: #FFFDF9;
+  color: #1E5C41;
+  border-color: #A3D8C3;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 4px 14px rgba(44, 107, 80, 0.12),
+    0 1px 3px rgba(44, 107, 80, 0.06);
+  transform: translateX(4px);
+}
+
+/* Active Ribbon Indicator */
+.pc-sidebar-item.is-active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 22px;
+  background: #275C46;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 1px 0 3px rgba(39, 92, 70, 0.3);
+}
+
+/* Layered Paper Icon Container */
+.pc-sidebar-item .pc-icon-wrap {
+  width: 28px;
+  height: 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.18s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.pc-sidebar-item:hover {
-  background: #FAF6ED;
-  color: #2D2926;
-  border-color: #E6DBC9;
-  transform: translateX(2px);
+.pc-sidebar-item:hover .pc-icon-wrap {
+  transform: scale(1.12) rotate(2deg);
 }
-.pc-sidebar-item.is-active {
-  background: #EAF7F1;
-  color: #275C46;
-  border-color: #A3D8C3;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 2px 6px rgba(44, 107, 80, 0.1);
+.pc-sidebar-item.is-active .pc-icon-wrap {
+  transform: scale(1.15);
 }
-.pc-sidebar-item.is-active i.fi {
-  color: #1E5C41;
+.pc-sidebar-item .pc-icon-wrap svg {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 2px 3px rgba(74, 58, 42, 0.12));
 }
 
 /* Collapsed Item Behavior */
 .pc-sidebar.is-collapsed .pc-sidebar-item {
   justify-content: center !important;
   padding: 10px;
-  position: relative;
+  transform: none;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-item:hover {
+  transform: scale(1.08);
+}
+.pc-sidebar.is-collapsed .pc-sidebar-item.is-active {
+  transform: scale(1.08);
 }
 .pc-sidebar.is-collapsed .pc-sidebar-item span.pc-sidebar-label {
-  display: none;
-}
-.pc-sidebar.is-collapsed .pc-sidebar-category {
   display: none;
 }
 .pc-sidebar.is-collapsed .pc-sidebar-item:hover::after {
   content: attr(data-tooltip);
   position: absolute;
-  left: calc(100% + 10px);
+  left: calc(100% + 12px);
   top: 50%;
   transform: translateY(-50%);
   background: #2D2926;
   color: #FFFDF9;
-  padding: 5px 10px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   pointer-events: none;
 }
 
-/* Sidebar Footer */
+/* Sidebar Footer (Craft Pocket) */
 .pc-sidebar-footer {
-  padding: 12px;
-  border-top: 1px dashed #E2DAC8;
-  background: #FAF7F0;
+  padding: 14px 12px;
+  border-top: 1.5px dashed #E2DAC8;
+  background: #FFFDF9;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  box-shadow: 0 -2px 6px rgba(74, 58, 42, 0.03);
 }
 .pc-sidebar.is-collapsed .pc-sidebar-footer .pc-sidebar-footer-detail {
   display: none;
 }
+
 
