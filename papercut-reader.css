@@ -1562,4 +1562,127 @@
   filter: drop-shadow(0 4px 6px rgba(74, 58, 42, 0.14));
 }
 
+/* ==========================================================================
+   6. USER-REFERENCE MATCHED: 3D SHADOW BOX DIORAMA ARTWORK STYLES
+   - Deep Carved Matboard Frame with rich brown inner drop-shadow
+   - Multi-tier pastel paper layers: Sky, Scalloped Clouds, Rolling Hills, Hot Air Balloon
+   - Real knife-cut deckle paper edges (zero cartoon borders)
+   - Overlapping foreground elements breaking the frame
+   ========================================================================== */
+
+/* The Master Diorama Shadow Box Banner */
+.pc-shadowbox-hero {
+  position: relative;
+  background: linear-gradient(180deg, #CDEBF5 0%, #E2F2F7 45%, #FAF7F0 100%);
+  border-radius: 24px;
+  padding: 32px 36px 36px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 10px 32px rgba(74, 58, 42, 0.16),
+    inset 0 2px 6px rgba(74, 58, 42, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.95),
+    0 6px 20px rgba(74, 58, 42, 0.06);
+  border: 3px solid #FAF7F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Layered Cloud & Hill SVG Scenery inside the Box */
+.pc-hero-scenery {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pc-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 580px;
+}
+
+/* 3D Paper Diorama Book Card (Miniature Shadow Box) */
+.pc-book-diorama-card {
+  position: relative;
+  background: #FFFDF9;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 6px 14px rgba(74, 58, 42, 0.08),
+    0 16px 36px rgba(74, 58, 42, 0.1);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+  user-select: none;
+  overflow: visible;
+  border: none;
+}
+.pc-book-diorama-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 12px 24px rgba(74, 58, 42, 0.12),
+    0 24px 52px rgba(74, 58, 42, 0.16);
+}
+
+/* Multi-sheet colored cardstocks visibly peeking behind */
+.pc-book-diorama-card::before {
+  content: "";
+  position: absolute;
+  top: 6px; left: 6px; right: -6px; bottom: -6px;
+  background: #F7BA9E; /* Warm Peach layer */
+  border-radius: 20px;
+  z-index: -1;
+  box-shadow: 0 4px 10px rgba(74, 58, 42, 0.08);
+  transition: transform 0.28s ease;
+}
+.pc-book-diorama-card::after {
+  content: "";
+  position: absolute;
+  top: 12px; left: 12px; right: -12px; bottom: -12px;
+  background: #A3D8C3; /* Mint layer */
+  border-radius: 20px;
+  z-index: -2;
+  box-shadow: 0 6px 16px rgba(74, 58, 42, 0.06);
+  transition: transform 0.28s ease;
+}
+.pc-book-diorama-card:hover::before {
+  transform: translate(2px, 2px) rotate(0.6deg);
+}
+.pc-book-diorama-card:hover::after {
+  transform: translate(4px, 4px) rotate(1.2deg);
+}
+
+/* Scalloped Cloud Badge */
+.pc-cloud-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #FFFFFF;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #275C46;
+  box-shadow: 0 2px 6px rgba(74, 58, 42, 0.08);
+}
+
+/* Rolling Hill Progress Track */
+.pc-hill-progress-track {
+  height: 8px;
+  background: #EDE6D8;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(74, 58, 42, 0.12);
+  margin-top: 8px;
+}
+.pc-hill-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #A3D8C3 0%, #FEE396 100%);
+  box-shadow: 0 1px 3px rgba(39, 92, 70, 0.2);
+}
+
+
 
