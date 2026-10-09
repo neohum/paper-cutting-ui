@@ -552,3 +552,182 @@ body.pc-page-mode .pc-page-view.is-active-page {
   background: #D9F0E5;
   border-color: #72BE99;
 }
+
+/* ==========================================================================
+   Desktop App & In-Window Sidebar Layout Extensions (.pc-sidebar)
+   ========================================================================== */
+
+.pc-sidebar {
+  width: var(--pc-sidebar-width, 260px);
+  background: #FFFDF9;
+  border-right: 1.5px solid #E6DBC9;
+  box-shadow: 
+    1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    3px 0 14px rgba(74, 58, 42, 0.05);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex-shrink: 0;
+  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  position: relative;
+  z-index: 10;
+}
+
+.pc-sidebar.is-collapsed {
+  width: var(--pc-sidebar-collapsed-width, 68px);
+}
+
+/* Sidebar Toggle Button */
+.pc-sidebar-toggle-btn {
+  background: #FAF6ED;
+  border: 1px solid #EADBCC;
+  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 0 1px 2px rgba(74, 58, 42, 0.06);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.pc-sidebar-toggle-btn:hover {
+  background: #EAF7F1;
+  border-color: #A3D8C3;
+  color: #275C46;
+  transform: scale(1.06);
+}
+.pc-sidebar.is-collapsed .pc-sidebar-toggle-btn i {
+  transform: rotate(180deg);
+}
+
+/* Sidebar Header */
+.pc-sidebar-header {
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(74, 58, 42, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FAF7F0;
+  gap: 8px;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-header {
+  padding: 14px 10px;
+  justify-content: center;
+}
+
+.pc-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-brand-text {
+  display: none;
+}
+
+/* Sidebar Nav Items */
+.pc-sidebar-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 10px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-nav-list {
+  padding: 12px 6px;
+}
+
+.pc-sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #7D7368;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
+}
+.pc-sidebar-item i.fi {
+  font-size: 16px;
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+.pc-sidebar-item:hover {
+  background: #FAF6ED;
+  color: #2D2926;
+  border-color: #E6DBC9;
+  transform: translateX(2px);
+}
+.pc-sidebar-item.is-active {
+  background: #EAF7F1;
+  color: #275C46;
+  border-color: #A3D8C3;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 2px 6px rgba(44, 107, 80, 0.1);
+}
+.pc-sidebar-item.is-active i.fi {
+  color: #1E5C41;
+}
+
+/* Collapsed Item Behavior */
+.pc-sidebar.is-collapsed .pc-sidebar-item {
+  justify-content: center !important;
+  padding: 10px;
+  position: relative;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-item span.pc-sidebar-label {
+  display: none;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-category {
+  display: none;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-item:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #2D2926;
+  color: #FFFDF9;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Sidebar Footer */
+.pc-sidebar-footer {
+  padding: 12px;
+  border-top: 1px dashed #E2DAC8;
+  background: #FAF7F0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pc-sidebar.is-collapsed .pc-sidebar-footer .pc-sidebar-footer-detail {
+  display: none;
+}
+
