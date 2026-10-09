@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="papercut-shadcn.css">
   <link rel="stylesheet" href="papercut-blocks-charts.css">
   <link rel="stylesheet" href="papercut-shadow-studio.css">
+  <link rel="stylesheet" href="papercut-reader.css">
   <style>
     /* Showcase Page Specific Layout */
     body {
@@ -3651,6 +3652,384 @@
       </div>
     </section>
 
+
+    <!-- =========================================================================
+         PART 5: 개발 서적 리더 & 라이브러리 컴포넌트 (Book-Vec Reader Suite)
+         ========================================================================= -->
+    <section class="pc-card pc-card-stacked pc-page-view" id="book-vec-reader-suite" style="margin-top: 50px; margin-bottom: 50px; padding: 36px 32px; background: #FFFFFF;">
+      <div class="pc-washi-tape pc-washi-tape-mint"></div>
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
+        <span class="pc-badge pc-badge-mint">Paper-Cut Reader Suite</span>
+        <span class="pc-badge pc-badge-peach">Book-Vec Core UI</span>
+        <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">원문 열람 & 시맨틱 검색</span>
+      </div>
+      <h2 style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+        <span class="pc-inline-icon is-md" data-icon="book-open"></span> Part 5. 개발 서적 리더 & 라이브러리 컴포넌트 (Book-Vec Reader Suite)
+      </h2>
+      <p style="font-size: 14.5px; color: var(--pc-ink-muted); margin: 0 0 28px; line-height: 1.6;">
+        원문 PDF/EPUB 팩시밀리 열람, 출처 스탬프가 각인된 3D 크래프트 코드 뷰어, 윈도우 PC(172.30.1.67) GPU 벡터화 워커 연결 캡슐 뱃지, 2분할 대조 리더 레이아웃을 제공하는 서적 리더 전용 디자인 시스템입니다.
+      </p>
+
+      <!-- Section 5-1: Windows PC (172.30.1.67) GPU Worker Status Capsules -->
+      <div style="margin-bottom: 32px; background: #FAF7F0; border-radius: 20px; padding: 20px 24px; border: 1.5px solid rgba(74, 58, 42, 0.1);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: var(--pc-ink);">
+              <span class="pc-inline-icon is-xs" data-icon="settings"></span> 5-A. 윈도우 PC(172.30.1.67) 전용 GPU 벡터화 워커 상태 캡슐 (.pc-worker-status)
+            </h3>
+            <p style="margin: 0; font-size: 13px; color: var(--pc-ink-muted);">
+              온라인 · 작업중(임베딩 추출) · 대기 · 오프라인 4대 연결 상태 실시간 모니터링
+            </p>
+          </div>
+          <!-- Interactive Mock Status Switcher -->
+          <div style="display: flex; gap: 6px;">
+            <button class="pc-filter-btn is-active" onclick="PaperCutReader.updateWorkerStatus({status: 'online', gpuLoad: 'RTX 4090 · 68%', queueCount: '대기 3권 · 420p'}, '#demo-live-worker')">온라인</button>
+            <button class="pc-filter-btn" onclick="PaperCutReader.updateWorkerStatus({status: 'processing', gpuLoad: 'RTX 4090 · 94%', queueCount: '대기 5권 · 850p'}, '#demo-live-worker')">작업중</button>
+            <button class="pc-filter-btn" onclick="PaperCutReader.updateWorkerStatus({status: 'idle', gpuLoad: 'RTX 4090 · 8%', queueCount: '대기 0권 · 0p'}, '#demo-live-worker')">대기</button>
+            <button class="pc-filter-btn" onclick="PaperCutReader.updateWorkerStatus({status: 'offline', gpuLoad: '연결 대기중', queueCount: '큐 일시중지'}, '#demo-live-worker')">오프라인</button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: center;">
+          <!-- 1. Live Interactive Worker -->
+          <div class="pc-worker-status is-online" id="demo-live-worker">
+            <div class="pc-worker-indicator">
+              <span class="pc-worker-dot"></span>
+            </div>
+            <div class="pc-worker-info">
+              <div class="pc-worker-main">
+                <div class="pc-worker-title-row">
+                  <span class="pc-worker-title">Windows GPU 워커</span>
+                  <span class="pc-worker-ip">172.30.1.67</span>
+                </div>
+              </div>
+              <div class="pc-worker-metrics">
+                <span class="pc-worker-metric-chip pc-worker-chip-gpu">⚡ RTX 4090 · 68%</span>
+                <span class="pc-worker-metric-chip pc-worker-chip-queue">📥 대기 3권 · 420p</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Compact Topbar Variant -->
+          <div class="pc-worker-status is-processing is-compact">
+            <div class="pc-worker-indicator">
+              <span class="pc-worker-dot"></span>
+            </div>
+            <div class="pc-worker-info">
+              <span class="pc-worker-title">탑바 콤팩트 모드</span>
+              <span class="pc-worker-metric-chip pc-worker-chip-gpu">RTX 4090 · 94%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5-2: 3D Layered Paper-Art Book Cards Grid -->
+      <div style="margin-bottom: 36px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div>
+            <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: var(--pc-ink);">
+              <span class="pc-inline-icon is-xs" data-icon="bookmark"></span> 5-B. 3D 레이어드 페이퍼아트 서적 카드 (.pc-book-card)
+            </h3>
+            <p style="margin: 0; font-size: 13px; color: var(--pc-ink-muted);">
+              책등 악센트, 파스텔 표지 레이어, PDF/EPUB 포맷 태그, 독서 진도율 바, 처리 상태 뱃지
+            </p>
+          </div>
+          <!-- Filter Tabs -->
+          <div class="filter-pills">
+            <button class="pc-filter-btn is-active" onclick="PaperCutReader.filterBooks('all', '#demo-book-grid')">전체 서적 (4)</button>
+            <button class="pc-filter-btn" onclick="PaperCutReader.filterBooks('completed', '#demo-book-grid')">완료</button>
+            <button class="pc-filter-btn" onclick="PaperCutReader.filterBooks('processing', '#demo-book-grid')">분석중</button>
+            <button class="pc-filter-btn" onclick="PaperCutReader.filterBooks('pdf', '#demo-book-grid')">PDF</button>
+            <button class="pc-filter-btn" onclick="PaperCutReader.filterBooks('epub', '#demo-book-grid')">EPUB</button>
+          </div>
+        </div>
+
+        <div class="pc-book-grid" id="demo-book-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+          <!-- Book Card 1: Data-Intensive Applications -->
+          <div class="pc-book-card theme-mint status-completed format-pdf">
+            <div class="pc-book-spine"></div>
+            <div class="pc-book-cover">
+              <div class="pc-book-header">
+                <span class="pc-book-format-tag pc-format-pdf">PDF</span>
+                <span class="pc-book-status pc-status-completed">완료</span>
+              </div>
+              <div class="pc-book-title-area">
+                <h3 class="pc-book-title">데이터 중심 애플리케이션 설계</h3>
+                <p class="pc-book-author">마틴 클леп만 · 제이펍</p>
+              </div>
+              <div class="pc-book-meta-chips">
+                <span class="pc-book-chip">📄 612p</span>
+                <span class="pc-book-chip">⚡ 벡터화 100%</span>
+              </div>
+              <div class="pc-book-progress-wrapper">
+                <div class="pc-book-progress-header">
+                  <span>독서 진도율</span>
+                  <span class="pc-book-progress-pct">68%</span>
+                </div>
+                <div class="pc-book-progress-track">
+                  <div class="pc-book-progress-fill" style="width: 68%;"></div>
+                </div>
+              </div>
+              <div class="pc-book-actions">
+                <button class="pc-btn-reader primary">원문 열람</button>
+                <button class="pc-btn-reader subtle">시맨틱 검색</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Book Card 2: Clean Architecture -->
+          <div class="pc-book-card theme-lavender status-completed format-pdf">
+            <div class="pc-book-spine"></div>
+            <div class="pc-book-cover">
+              <div class="pc-book-header">
+                <span class="pc-book-format-tag pc-format-pdf">PDF</span>
+                <span class="pc-book-status pc-status-completed">완료</span>
+              </div>
+              <div class="pc-book-title-area">
+                <h3 class="pc-book-title">클린 아키텍처: 소프트웨어 구조와 설계의 원칙</h3>
+                <p class="pc-book-author">로버트 C. 마틴 · 인사이트</p>
+              </div>
+              <div class="pc-book-meta-chips">
+                <span class="pc-book-chip">📄 384p</span>
+                <span class="pc-book-chip">⚡ 벡터화 100%</span>
+              </div>
+              <div class="pc-book-progress-wrapper">
+                <div class="pc-book-progress-header">
+                  <span>독서 진도율</span>
+                  <span class="pc-book-progress-pct">45%</span>
+                </div>
+                <div class="pc-book-progress-track">
+                  <div class="pc-book-progress-fill" style="width: 45%;"></div>
+                </div>
+              </div>
+              <div class="pc-book-actions">
+                <button class="pc-btn-reader primary">원문 열람</button>
+                <button class="pc-btn-reader subtle">시맨틱 검색</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Book Card 3: High-Performance Go -->
+          <div class="pc-book-card theme-sky status-processing format-epub">
+            <div class="pc-book-spine"></div>
+            <div class="pc-book-cover">
+              <div class="pc-book-header">
+                <span class="pc-book-format-tag pc-format-epub">EPUB</span>
+                <span class="pc-book-status pc-status-processing">분석중</span>
+              </div>
+              <div class="pc-book-title-area">
+                <h3 class="pc-book-title">Go 언어로 구현하는 고성능 마이크로서비스</h3>
+                <p class="pc-book-author">롭 파이크 외 · 에이콘출판사</p>
+              </div>
+              <div class="pc-book-meta-chips">
+                <span class="pc-book-chip">📄 420p</span>
+                <span class="pc-book-chip">⚡ 벡터화 42%</span>
+              </div>
+              <div class="pc-book-progress-wrapper">
+                <div class="pc-book-progress-header">
+                  <span>독서 진도율</span>
+                  <span class="pc-book-progress-pct">12%</span>
+                </div>
+                <div class="pc-book-progress-track">
+                  <div class="pc-book-progress-fill" style="width: 12%; background: linear-gradient(90deg, #98C8D6, #6899A7);"></div>
+                </div>
+              </div>
+              <div class="pc-book-actions">
+                <button class="pc-btn-reader primary">진행상황</button>
+                <button class="pc-btn-reader subtle">큐 확인</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Book Card 4: Rust Official Guide -->
+          <div class="pc-book-card theme-buttercup status-queued format-pdf">
+            <div class="pc-book-spine"></div>
+            <div class="pc-book-cover">
+              <div class="pc-book-header">
+                <span class="pc-book-format-tag pc-format-pdf">PDF</span>
+                <span class="pc-book-status pc-status-queued">대기</span>
+              </div>
+              <div class="pc-book-title-area">
+                <h3 class="pc-book-title">러스트 프로그래밍 공식 가이드 2판</h3>
+                <p class="pc-book-author">스티브 클랩닉, 캐럴 니콜스 · 제이펍</p>
+              </div>
+              <div class="pc-book-meta-chips">
+                <span class="pc-book-chip">📄 560p</span>
+                <span class="pc-book-chip">⚡ 벡터 대기중</span>
+              </div>
+              <div class="pc-book-progress-wrapper">
+                <div class="pc-book-progress-header">
+                  <span>독서 진도율</span>
+                  <span class="pc-book-progress-pct">0%</span>
+                </div>
+                <div class="pc-book-progress-track">
+                  <div class="pc-book-progress-fill" style="width: 0%;"></div>
+                </div>
+              </div>
+              <div class="pc-book-actions">
+                <button class="pc-btn-reader primary">우선순위 상향</button>
+                <button class="pc-btn-reader subtle">상세 정보</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5-3: 3D Craft Paper Code Provenance Viewer -->
+      <div style="margin-bottom: 36px;">
+        <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: var(--pc-ink);">
+          <span class="pc-inline-icon is-xs" data-icon="file-code"></span> 5-C. 3D 크래프트 페이퍼 코드 뷰어 & 출처 스탬프 (.pc-code-provenance)
+        </h3>
+        <p style="margin: 0 0 16px; font-size: 13px; color: var(--pc-ink-muted);">
+          라인 번호 구거, 크래프트 잉크 구문 하이라이트, 출처 고무 스탬프(p.142 · 5장), 햅틱 프레스 복사 버튼, 원문 대조 토글
+        </p>
+
+        <!-- Live Code Provenance Component -->
+        <div class="pc-code-provenance">
+          <div class="pc-code-header">
+            <div class="pc-code-stamp">
+              <span class="pc-code-stamp-icon">🔖</span>
+              <span class="pc-code-stamp-text">출처: p.142 · 제5장 복제 (Replication)</span>
+            </div>
+            <div class="pc-code-controls">
+              <button class="pc-code-btn pc-btn-contrast-toggle" title="원문 이미지 대조 토글">
+                <span>📖</span>
+                <span>원문 대조</span>
+              </button>
+              <button class="pc-code-btn pc-btn-copy" title="코드 복사">
+                <span>📋</span>
+                <span class="pc-copy-label">복사</span>
+              </button>
+            </div>
+          </div>
+          <div class="pc-code-body-wrapper">
+            <div class="pc-code-gutter">
+              <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+            </div>
+            <pre class="pc-code-content"><code><span class="pc-syn-kw">package</span> replication
+
+<span class="pc-syn-kw">import</span> (
+  <span class="pc-syn-str">"context"</span>
+  <span class="pc-syn-str">"fmt"</span>
+)
+
+<span class="pc-syn-com">// HandleReplicationStream synchronizes log entries across followers</span>
+<span class="pc-syn-kw">func</span> <span class="pc-syn-fn">HandleReplicationStream</span>(ctx <span class="pc-syn-type">context.Context</span>, leaderID <span class="pc-syn-type">string</span>, term <span class="pc-syn-type">uint64</span>) <span class="pc-syn-type">error</span> {
+  <span class="pc-syn-kw">if</span> term == <span class="pc-syn-num">0</span> {
+    <span class="pc-syn-kw">return</span> fmt.<span class="pc-syn-fn">Errorf</span>(<span class="pc-syn-str">"invalid term %d from leader %s"</span>, term, leaderID)
+  }
+  <span class="pc-syn-kw">return</span> <span class="pc-syn-kw">nil</span>
+}</code></pre>
+          </div>
+          <div class="pc-code-footer">
+            <span class="pc-code-continuity-badge">✓ 페이지 간 연속 코드 블록 연결됨 (신뢰도 98.4%)</span>
+            <span class="pc-code-lang-tag">GO 1.22</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5-4: 2-Split / 3-Region Reader Layout -->
+      <div>
+        <h3 style="margin: 0 0 4px; font-size: 17px; font-weight: 800; color: var(--pc-ink);">
+          <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> 5-D. 2분할/3영역 리더 레이아웃 (.pc-reader-split)
+        </h3>
+        <p style="margin: 0 0 16px; font-size: 13px; color: var(--pc-ink-muted);">
+          좌측 원본 팩시밀리(스캔본 바운딩 박스) + 우측 정제된 텍스트 및 코드 동기화 대조 뷰어
+        </p>
+
+        <!-- Live Split Reader Demo -->
+        <div class="pc-reader-split mode-two-up" id="demo-split-reader">
+          <div class="pc-reader-toolbar">
+            <div class="pc-reader-toolbar-left">
+              <span class="pc-reader-book-title">클린 아키텍처 · 로버트 C. 마틴</span>
+              <span class="pc-reader-page-capsule">p.142 / 384</span>
+            </div>
+            <div class="pc-reader-mode-switch">
+              <button class="pc-mode-btn is-active" data-mode="two-up">2분할 대조</button>
+              <button class="pc-mode-btn" data-mode="facsimile-only">원문 페이퍼</button>
+              <button class="pc-mode-btn" data-mode="text-only">텍스트 & 코드</button>
+            </div>
+            <div class="pc-reader-toolbar-right">
+              <div class="pc-worker-status is-online is-compact">
+                <div class="pc-worker-indicator">
+                  <span class="pc-worker-dot"></span>
+                </div>
+                <div class="pc-worker-info">
+                  <span class="pc-worker-title">GPU 워커 연결됨</span>
+                  <span class="pc-worker-metric-chip pc-worker-chip-gpu">RTX 4090</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pc-reader-workspace">
+            <!-- Left Pane: Facsimile Scan -->
+            <div class="pc-reader-pane-facsimile">
+              <div class="pc-facsimile-paper-sheet">
+                <div class="pc-facsimile-header">
+                  <span>CLEAN ARCHITECTURE · CHAPTER 14</span>
+                  <span>PAGE 142</span>
+                </div>
+                <div class="pc-facsimile-body-text">
+                  The Component Coherence principles describe how software modules should be grouped together into release units. As Robert Martin outlines, the Single Responsibility Principle guides cohesion at the class level, while reuse-release equivalence governs library packaging.
+                </div>
+                <div class="pc-facsimile-bbox-highlight" title="원문 상의 추출 코드 위치">
+                  <div style="font-family: monospace; font-size: 12px; color: #275C46;">
+                    // OCR Coordinate Span [35%, 12%, 76%, 28%]
+                    <br>
+                    func HandleReplicationStream(ctx context.Context) error { ... }
+                  </div>
+                </div>
+                <div class="pc-facsimile-body-text" style="margin-top: 14px;">
+                  Below this snippet, the author explains why decoupling business rules from presentation frameworks is paramount for automated regression testing and platform independence.
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Pane: Extracted Text & Code -->
+            <div class="pc-reader-pane-extracted">
+              <div class="pc-extracted-article">
+                <span class="pc-extracted-chapter">제14장 컴포넌트 결합도와 응집도</span>
+                <h2 class="pc-extracted-heading">컴포넌트 릴리스와 재사용 원칙</h2>
+                <p class="pc-extracted-paragraph">
+                  재사용 단위는 릴리스 단위와 같다. 컴포넌트를 구성하는 클래스와 모듈은 서로 밀접하게 연관되어 있어야 하며, 하나의 목적을 위해 함께 릴리스되고 버전 번호가 매겨져야 합니다.
+                </p>
+
+                <!-- Embedded Code Provenance in Reader -->
+                <div class="pc-code-provenance" style="margin: 14px 0;">
+                  <div class="pc-code-header">
+                    <div class="pc-code-stamp">
+                      <span class="pc-code-stamp-icon">🔖</span>
+                      <span class="pc-code-stamp-text">출처: p.142 · 제14장 컴포넌트 원칙</span>
+                    </div>
+                    <div class="pc-code-controls">
+                      <button class="pc-code-btn pc-btn-copy" title="코드 복사">
+                        <span>📋</span>
+                        <span class="pc-copy-label">복사</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="pc-code-body-wrapper">
+                    <div class="pc-code-gutter">
+                      <span>1</span><span>2</span><span>3</span><span>4</span>
+                    </div>
+                    <pre class="pc-code-content"><code><span class="pc-syn-kw">type</span> <span class="pc-syn-type">ComponentRelease</span> <span class="pc-syn-kw">struct</span> {
+  PackageName <span class="pc-syn-type">string</span>
+  VersionTag  <span class="pc-syn-type">string</span>
+}</code></pre>
+                  </div>
+                </div>
+
+                <p class="pc-extracted-paragraph">
+                  이 원칙을 통해 우리는 의존성 비순환 원칙(Acyclic Dependencies Principle)을 달성할 수 있으며, 시스템 컴포넌트 그래프에 순환 참조가 발생하는 것을 원천적으로 차단합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer style="margin-top: 80px; text-align: center; color: var(--pc-ink-muted); font-size: 14px;">
       <div class="pc-ribbon-banner" style="font-size: 14px;"><span class="pc-inline-icon is-sm" data-icon="scissors"></span> <span>PaperCut UI System</span></div>
@@ -3674,6 +4053,7 @@
   <script src="papercut-sidebar.js"></script>
   <script src="papercut-shadcn.js"></script>
   <script src="papercut-blocks-charts.js"></script>
+  <script src="papercut-reader.js"></script>
 
   <script>
     window.PaperCutShadcnUI = {
