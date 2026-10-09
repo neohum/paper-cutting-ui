@@ -453,15 +453,18 @@
 
 .pc-code-provenance {
   position: relative;
-  background: var(--pc-syntax-bg);
+  background-color: #F8F3EA;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
   border-radius: 18px;
   margin: 18px 0;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 3px 6px rgba(55, 40, 30, 0.08),
-    0 8px 22px rgba(55, 40, 30, 0.09);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 3px 0 #D4C6B0,
+    0 8px 22px rgba(55, 40, 30, 0.1);
   overflow: hidden;
-  border: 1.5px solid rgba(74, 58, 42, 0.12);
+  border: none !important;
 }
 
 /* Paper Deckle / Washi Tape Header */
@@ -802,13 +805,16 @@
 .pc-reader-split {
   display: flex;
   flex-direction: column;
-  background: var(--pc-reader-bg);
+  background-color: #FAF5EB;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
   border-radius: 24px;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 6px 14px rgba(55, 40, 30, 0.08),
-    0 20px 44px rgba(55, 40, 30, 0.1);
-  border: 1.5px solid rgba(74, 58, 42, 0.12);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 3.5px 0 #D4C6B0,
+    0 8px 24px rgba(55, 40, 30, 0.1);
+  border: none !important;
   overflow: hidden;
   margin: 28px 0;
   min-height: 680px;
@@ -1184,21 +1190,26 @@
 .pc-desktop-body {
   display: flex;
   flex: 1;
-  height: calc(100vh - 48px);
+  height: calc(100vh - 52px);
   overflow: hidden;
   position: relative;
 }
 
-/* Main Viewport Content */
+/* Main Viewport Content - Handcrafted 3D Paper Shadowbox Recessed Well */
 .pc-desktop-viewport {
   flex: 1;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 30px 40px;
-  background-color: var(--pc-bg-cream, #FAF7F0);
-  background-image: radial-gradient(#E8DFC8 0.75px, transparent 0.75px);
-  background-size: 20px 20px;
+  padding: 32px 42px 48px;
+  background-color: #FAF5EB;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
+  /* Genuine multi-layered shadowbox carved window depth */
+  box-shadow: 
+    inset 0 3px 10px rgba(60, 42, 25, 0.09),
+    inset 0 1px 3px rgba(60, 42, 25, 0.06);
 }
 
 /* Top Action Header */
@@ -1420,13 +1431,17 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
-  background: #FFFDF9;
-  border: 2px solid #E6DBC9;
+  background-color: #FFFDF9;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
+  border: none !important;
   border-radius: 16px;
   margin-bottom: 20px;
   box-shadow: 
-    0 1px 0 #FFFFFF inset,
-    0 4px 12px rgba(74, 58, 42, 0.06);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 2.5px 0 #DECFAF,
+    0 5px 14px rgba(60, 42, 25, 0.08);
   flex-wrap: wrap;
   gap: 14px;
 }
@@ -1441,14 +1456,18 @@
   font-size: 13.5px;
   font-weight: 800;
   padding: 8px 16px;
-  background: #FAF7F0;
-  border: 1.5px solid #E2DAC8;
+  background-color: #FAF5EB;
+  background-image: url("/paper-texture.png");
+  background-blend-mode: multiply;
+  border: none !important;
   border-radius: 10px;
   color: #2D2926;
   display: flex;
   align-items: center;
   gap: 8px;
-  box-shadow: inset 0 1px 3px rgba(74, 58, 42, 0.05);
+  box-shadow: 
+    inset 0 1.5px 3px rgba(60, 40, 20, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 /* 3D Paper Modal / Envelope Dialog */
@@ -1471,15 +1490,20 @@
 }
 
 .pc-modal-paper {
-  background: #FFFDF9;
-  border: 2px solid #E6DBC9;
+  background-color: #FFFDF9;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
+  border: none !important;
   border-radius: 24px;
   width: 90%;
   max-width: 560px;
   padding: 32px 36px;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 18px 48px rgba(74, 58, 42, 0.28);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 4px 0 #D4C6B0,
+    0 16px 36px rgba(45, 35, 25, 0.22),
+    0 32px 64px rgba(45, 35, 25, 0.14);
   transform: translateY(20px) scale(0.96);
   transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -1510,8 +1534,10 @@
 }
 
 .pc-modal-close-btn {
-  background: #FAF6ED;
-  border: 1.5px solid #E2DAC8;
+  background-color: #FAF5EB;
+  background-image: url("/paper-texture.png");
+  background-blend-mode: multiply;
+  border: none !important;
   border-radius: 10px;
   width: 32px;
   height: 32px;
@@ -1521,11 +1547,18 @@
   cursor: pointer;
   transition: all 0.18s ease;
   padding: 0;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 0 #C9BDAA,
+    0 3px 6px rgba(70, 50, 30, 0.08);
 }
 .pc-modal-close-btn:hover {
-  background: #FEE8E8;
-  border-color: #F5B8BE;
+  background-color: #FEE8E8;
   transform: scale(1.08);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 3px 0 #E892A8,
+    0 5px 10px rgba(180, 50, 70, 0.15);
 }
 .pc-modal-close-btn svg {
   width: 18px;
@@ -1702,15 +1735,15 @@
    - Recessed Cut-Out Wells & Progress Trenches
    ========================================================================== */
 
-/* 1. Paper Grain Background Texture */
+/* 1. Authentic Tactile Cold-Press Watercolor / Heavy Cardstock Paper Canvas */
 .pc-paper-grain {
-  background-color: #FAF5EB !important;
+  background-color: #F8F3E8 !important;
   background-image: 
-    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.6) 0%, transparent 100%),
-    radial-gradient(#E8DEC8 0.75px, transparent 0.75px),
-    radial-gradient(#DFD4BC 0.75px, #FAF5EB 0.75px);
-  background-size: 100% 100%, 20px 20px, 40px 40px;
-  background-position: 0 0, 0 0, 10px 10px;
+    radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.6) 0%, rgba(243, 235, 220, 0.4) 60%, rgba(220, 205, 185, 0.5) 100%),
+    url("/paper-texture.png") !important;
+  background-repeat: no-repeat, repeat !important;
+  background-size: 100% 100%, 256px 256px !important;
+  background-blend-mode: multiply !important;
 }
 
 /* 2. macOS 3D Layered Paper-Cut Window Controls (3색 파스텔 신호등 버튼) */
@@ -1719,14 +1752,17 @@
   align-items: center;
   gap: 10px;
   margin-right: 18px;
-  padding: 5px 11px;
+  padding: 5px 12px;
   border-radius: 999px;
-  background: #FFFDF8;
-  border: 1.5px solid #E2D7C3;
+  background-color: #FFFDF8;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  border: none;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 2px 0 #D8CEBB,
-    0 4px 10px rgba(70, 50, 30, 0.08);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 2.5px 0 #D4C6B0,
+    0 4px 10px rgba(70, 45, 25, 0.1);
   -webkit-app-region: no-drag !important;
   user-select: none;
   z-index: 999;
@@ -1734,11 +1770,11 @@
 }
 
 .pc-window-controls:hover {
-  background: #FAF6ED;
+  background-color: #FAF5EB;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 2.5px 0 #C9BDAA,
-    0 6px 14px rgba(70, 50, 30, 0.12);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 3px 0 #C9BDAA,
+    0 6px 14px rgba(70, 45, 25, 0.14);
 }
 
 .pc-traffic-btn {
@@ -1750,7 +1786,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  border: 1.5px solid transparent;
+  border: none;
   transition: all 0.14s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 0;
   outline: none;
@@ -1775,79 +1811,76 @@
 /* 🔴 닫기 (Close) - Strawberry Rose Layered Paper Cut */
 .pc-traffic-btn.is-close {
   background: #FF7B89;
-  border-color: #FF5C6E;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
     0 2.5px 0 #D9384E,
-    0 3px 6px rgba(217, 56, 78, 0.28);
+    0 3px 6px rgba(217, 56, 78, 0.32);
   color: #4A0713;
 }
 .pc-traffic-btn.is-close:hover {
   transform: translateY(-1.5px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 4px 0 #D9384E,
-    0 6px 12px rgba(217, 56, 78, 0.38);
+    0 6px 12px rgba(217, 56, 78, 0.42);
   background: #FF6676;
 }
 .pc-traffic-btn.is-close:active {
   transform: translateY(2px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
     0 0.5px 0 #D9384E,
-    0 1px 3px rgba(217, 56, 78, 0.2);
+    0 1px 3px rgba(217, 56, 78, 0.25);
 }
 
 /* 🟡 최소화 (Minimize) - Honey Buttercup Layered Paper Cut */
 .pc-traffic-btn.is-minimize {
   background: #FDCB58;
-  border-color: #FABE2C;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.85) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
     0 2.5px 0 #C68A08,
-    0 3px 6px rgba(198, 138, 8, 0.28);
+    0 3px 6px rgba(198, 138, 8, 0.32);
   color: #4E3100;
 }
 .pc-traffic-btn.is-minimize:hover {
   transform: translateY(-1.5px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
     0 4px 0 #C68A08,
-    0 6px 12px rgba(198, 138, 8, 0.38);
+    0 6px 12px rgba(198, 138, 8, 0.42);
   background: #FDBF3B;
 }
 .pc-traffic-btn.is-minimize:active {
   transform: translateY(2px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
     0 0.5px 0 #C68A08,
-    0 1px 3px rgba(198, 138, 8, 0.2);
+    0 1px 3px rgba(198, 138, 8, 0.25);
 }
 
 /* 🟢 최대화 (Maximize) - Fresh Mint Leaf Layered Paper Cut */
 .pc-traffic-btn.is-maximize {
   background: #4ECCA3;
-  border-color: #36B88E;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
     0 2.5px 0 #1C8C67,
-    0 3px 6px rgba(28, 140, 103, 0.28);
+    0 3px 6px rgba(28, 140, 103, 0.32);
   color: #073B2B;
 }
 .pc-traffic-btn.is-maximize:hover {
   transform: translateY(-1.5px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 4px 0 #1C8C67,
-    0 6px 12px rgba(28, 140, 103, 0.38);
+    0 6px 12px rgba(28, 140, 103, 0.42);
   background: #3BBD93;
 }
 .pc-traffic-btn.is-maximize:active {
   transform: translateY(2px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.5) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
     0 0.5px 0 #1C8C67,
-    0 1px 3px rgba(28, 140, 103, 0.2);
+    0 1px 3px rgba(28, 140, 103, 0.25);
 }
 
 /* 3. 3D Pastel Paper-Cut Icon Plate (색종이 조각 위에 얹힌 아이콘) */
@@ -1856,15 +1889,18 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 13px;
-  background: #FFFDF9;
-  border: 1.5px solid #DED4C2;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  background-color: #FFFDF8;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  border: none;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 2.5px 0 #C9BDAA,
-    0 4px 8px rgba(70, 50, 30, 0.12);
+    0 4px 8px rgba(70, 45, 25, 0.12);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
   vertical-align: middle;
@@ -1876,103 +1912,96 @@
   content: "";
   position: absolute;
   top: 2px; left: 2px; right: -2px; bottom: -2px;
-  background: rgba(70, 50, 30, 0.1);
+  background: rgba(70, 45, 25, 0.1);
   border-radius: inherit;
   z-index: -1;
   transition: all 0.2s ease;
-  transform: rotate(1deg);
+  transform: rotate(1.2deg);
 }
 
 .pc-icon-plate:hover {
   transform: translateY(-2px) rotate(1deg);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 4px 0 #C9BDAA,
-    0 8px 14px rgba(70, 50, 30, 0.16);
+    0 8px 14px rgba(70, 45, 25, 0.16);
 }
 
 /* Sizes */
 .pc-icon-plate.is-sm {
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 2px 0 #C9BDAA, 0 3px 6px rgba(70,50,30,0.1);
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 2px 0 #C9BDAA, 0 3px 6px rgba(70,45,25,0.1);
 }
 .pc-icon-plate.is-lg {
-  width: 50px;
-  height: 50px;
-  border-radius: 16px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 3.5px 0 #C9BDAA, 0 6px 14px rgba(70,50,30,0.14);
+  width: 48px;
+  height: 48px;
+  border-radius: 15px;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.95), 0 3.5px 0 #C9BDAA, 0 6px 14px rgba(70,45,25,0.14);
 }
 .pc-icon-plate.is-xl {
-  width: 60px;
-  height: 60px;
-  border-radius: 20px;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.95) inset, 0 4px 0 #C9BDAA, 0 8px 18px rgba(70,50,30,0.15);
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.95), 0 4px 0 #C9BDAA, 0 8px 18px rgba(70,45,25,0.15);
 }
 
 /* Rich Pastel Cardstock Color Variants */
 .pc-icon-plate.is-mint {
-  background: #D8F3DC;
-  border-color: #8FD4AF;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2.5px 0 #68B88E, 0 4px 8px rgba(40,100,60,0.14);
+  background-color: #D8F3DC;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 2.5px 0 #68B88E, 0 4px 8px rgba(40,100,60,0.15);
 }
 .pc-icon-plate.is-mint:hover {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 0 #68B88E, 0 8px 14px rgba(40,100,60,0.2);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 4px 0 #68B88E, 0 8px 14px rgba(40,100,60,0.22);
 }
 
 .pc-icon-plate.is-peach {
-  background: #FEE3D2;
-  border-color: #F8B692;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2.5px 0 #E5956A, 0 4px 8px rgba(120,60,20,0.14);
+  background-color: #FEE3D2;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 2.5px 0 #E5956A, 0 4px 8px rgba(120,60,20,0.15);
 }
 .pc-icon-plate.is-peach:hover {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 0 #E5956A, 0 8px 14px rgba(120,60,20,0.2);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 4px 0 #E5956A, 0 8px 14px rgba(120,60,20,0.22);
 }
 
 .pc-icon-plate.is-lavender {
-  background: #EDE4F9;
-  border-color: #CCAEEF;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2.5px 0 #A884D6, 0 4px 8px rgba(80,40,120,0.14);
+  background-color: #EDE4F9;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 2.5px 0 #A884D6, 0 4px 8px rgba(80,40,120,0.15);
 }
 .pc-icon-plate.is-lavender:hover {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 0 #A884D6, 0 8px 14px rgba(80,40,120,0.2);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 4px 0 #A884D6, 0 8px 14px rgba(80,40,120,0.22);
 }
 
 .pc-icon-plate.is-buttercup {
-  background: #FFF3CD;
-  border-color: #FEE388;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2.5px 0 #E6C35C, 0 4px 8px rgba(120,90,10,0.14);
+  background-color: #FFF3CD;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 2.5px 0 #E6C35C, 0 4px 8px rgba(120,90,10,0.15);
 }
 .pc-icon-plate.is-buttercup:hover {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 0 #E6C35C, 0 8px 14px rgba(120,90,10,0.2);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 4px 0 #E6C35C, 0 8px 14px rgba(120,90,10,0.22);
 }
 
 .pc-icon-plate.is-sky {
-  background: #DBEEF9;
-  border-color: #A1D4F0;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2.5px 0 #71B2D8, 0 4px 8px rgba(30,90,130,0.14);
+  background-color: #DBEEF9;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 2.5px 0 #71B2D8, 0 4px 8px rgba(30,90,130,0.15);
 }
 .pc-icon-plate.is-sky:hover {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 0 #71B2D8, 0 8px 14px rgba(30,90,130,0.2);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 4px 0 #71B2D8, 0 8px 14px rgba(30,90,130,0.22);
 }
 
 .pc-icon-plate.is-rose {
-  background: #FDE2E4;
-  border-color: #F8ADC0;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2.5px 0 #E892A8, 0 4px 8px rgba(140,40,60,0.14);
+  background-color: #FDE2E4;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 2.5px 0 #E892A8, 0 4px 8px rgba(140,40,60,0.15);
 }
 .pc-icon-plate.is-rose:hover {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 0 #E892A8, 0 8px 14px rgba(140,40,60,0.2);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 4px 0 #E892A8, 0 8px 14px rgba(140,40,60,0.22);
 }
 
 .pc-icon-plate.is-sage {
-  background: #E3ECE1;
-  border-color: #B8D3B4;
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 2.5px 0 #8BAF86, 0 4px 8px rgba(50,80,45,0.14);
+  background-color: #E3ECE1;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 2.5px 0 #8BAF86, 0 4px 8px rgba(50,80,45,0.15);
 }
 .pc-icon-plate.is-sage:hover {
-  box-shadow: 0 1px 0 rgba(255,255,255,0.9) inset, 0 4px 0 #8BAF86, 0 8px 14px rgba(50,80,45,0.2);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.9), 0 4px 0 #8BAF86, 0 8px 14px rgba(50,80,45,0.22);
 }
 
 /* 먹색 선화 아이콘 (Dark Charcoal Inked Icons Mounted on Paper Plates) */
@@ -1995,19 +2024,29 @@
   font-size: 30px;
 }
 
-/* 4. 3D Decoupage Paper-Cut Card (.pc-papercut-card) */
+/* 4. 3D Decoupage Paper-Cut Card (.pc-papercut-card) - 100% Real Handcrafted Papercraft */
 .pc-papercut-card {
   position: relative;
   isolation: isolate;
-  background: #FFFDF8;
+  background-color: #FFFDF8;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
   border-radius: 20px;
   padding: 24px 24px 20px;
-  border: 1.5px solid #E2D7C5;
+  /* NO ARTIFICIAL BORDER LINE! Genuine knife-cut cardstock edge & shadows */
+  border: none !important;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 3.5px 0 #D4C6B0, /* 도톰한 상단 카드 단면 */
-    0 6px 16px rgba(70, 50, 30, 0.08),
-    0 14px 32px rgba(70, 50, 30, 0.06);
+    /* Beveled cut highlight */
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    inset 1px 0 0 rgba(255, 255, 255, 0.6),
+    /* Physical cardstock thickness drop edge */
+    0 3.5px 0 #D4C6B0,
+    /* Foam spacer contact shadow */
+    0 4px 8px -1px rgba(70, 45, 25, 0.12),
+    /* Deep diffuse ambient shadow */
+    0 14px 28px -4px rgba(70, 45, 25, 0.1),
+    0 26px 52px -8px rgba(70, 45, 25, 0.06);
   transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.26s ease;
   user-select: none;
   display: flex;
@@ -2016,88 +2055,97 @@
   min-height: 295px;
 }
 .pc-papercut-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-7px) rotate(0.4deg);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 5px 0 #D4C6B0,
-    0 12px 24px rgba(70, 50, 30, 0.11),
-    0 22px 48px rgba(70, 50, 30, 0.1);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 5.5px 0 #D4C6B0,
+    0 18px 36px -4px rgba(70, 45, 25, 0.14),
+    0 32px 64px -8px rgba(70, 45, 25, 0.08);
 }
 
 /* 3-Layer Decoupage Paper Sheets Peeking Out Behind (Overlapping Shapes in Soft Pastel Colors) */
-/* Layer 1: Colored Cardstock Sheet (우하단 12px 오프셋 + 1.8deg 회전) */
+/* Layer 1: Colored Cardstock Sheet (우하단 14px 오프셋 + 2deg 회전) */
 .pc-papercut-card::before {
   content: "";
   position: absolute;
-  top: 8px; left: 8px; right: -12px; bottom: -12px;
-  background: #FEE3D2;
-  border: 1.5px solid #F8B692;
-  border-radius: 20px;
+  top: 10px; left: -6px; right: -16px; bottom: -14px;
+  background-color: #FEE3D2;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  border-radius: 24px 16px 22px 18px;
   z-index: -1;
-  box-shadow: 0 4px 14px rgba(120, 60, 20, 0.12);
+  border: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2.5px 0 #E5956A,
+    0 6px 16px rgba(120, 60, 20, 0.14);
   transition: transform 0.24s ease;
-  transform: rotate(1.6deg);
+  transform: rotate(2deg);
 }
 
-/* Layer 2: Pastel Cardstock Sheet (하단 18px 오프셋 - 2deg 회전) */
+/* Layer 2: Pastel Cardstock Sheet (하단 20px 오프셋 - 2.2deg 회전) */
 .pc-papercut-card::after {
   content: "";
   position: absolute;
-  top: 14px; left: 4px; right: -8px; bottom: -18px;
-  background: #D8F3DC;
-  border: 1.5px solid #8FD4AF;
-  border-radius: 20px;
+  top: 14px; left: 8px; right: -8px; bottom: -20px;
+  background-color: #D8F3DC;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  border-radius: 18px 24px 16px 26px;
   z-index: -2;
-  box-shadow: 0 6px 20px rgba(40, 100, 60, 0.1);
+  border: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 2.5px 0 #68B88E,
+    0 8px 24px rgba(40, 100, 60, 0.12);
   transition: transform 0.24s ease;
-  transform: rotate(-1.8deg);
+  transform: rotate(-2.2deg);
 }
 
 /* Card Color Variants */
 .pc-papercut-card.is-variant-lavender::before {
-  background: #EDE4F9;
-  border-color: #CCAEEF;
-  box-shadow: 0 4px 14px rgba(80, 40, 120, 0.12);
+  background-color: #EDE4F9;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #A884D6, 0 6px 16px rgba(80, 40, 120, 0.14);
 }
 .pc-papercut-card.is-variant-lavender::after {
-  background: #FFF3CD;
-  border-color: #FEE388;
-  box-shadow: 0 6px 20px rgba(120, 90, 10, 0.1);
+  background-color: #FFF3CD;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #E6C35C, 0 8px 24px rgba(120, 90, 10, 0.12);
 }
 
 .pc-papercut-card.is-variant-sky::before {
-  background: #DBEEF9;
-  border-color: #A1D4F0;
-  box-shadow: 0 4px 14px rgba(30, 90, 130, 0.12);
+  background-color: #DBEEF9;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #71B2D8, 0 6px 16px rgba(30, 90, 130, 0.14);
 }
 .pc-papercut-card.is-variant-sky::after {
-  background: #FDE2E4;
-  border-color: #F8ADC0;
-  box-shadow: 0 6px 20px rgba(140, 40, 60, 0.1);
+  background-color: #FDE2E4;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #E892A8, 0 8px 24px rgba(140, 40, 60, 0.12);
 }
 
 .pc-papercut-card:hover::before {
-  transform: translate(3px, 3px) rotate(2.4deg);
+  transform: translate(3px, 4px) rotate(2.8deg);
 }
 .pc-papercut-card:hover::after {
-  transform: translate(5px, 5px) rotate(-2.8deg);
+  transform: translate(6px, 6px) rotate(-3.2deg);
 }
 
-
-/* Washi Tape Paper Accent on Card Top Corner */
+/* Authentic Torn Washi Tape (찢긴 일본 마스킹 테이프 장식) */
 .pc-card-washi {
   position: absolute;
-  top: -9px;
+  top: -10px;
   right: 28px;
-  width: 64px;
-  height: 18px;
-  background: rgba(254, 227, 136, 0.85);
-  border: 1px dashed rgba(230, 195, 92, 0.9);
-  box-shadow: 0 2px 5px rgba(70, 50, 30, 0.1);
+  width: 68px;
+  height: 20px;
+  background: rgba(254, 227, 136, 0.82);
+  backdrop-filter: blur(1.5px);
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.18) 0px, rgba(255,255,255,0.18) 2px, transparent 2px, transparent 5px);
+  /* Jagged / torn ends of ripped masking tape */
+  clip-path: polygon(3% 0%, 97% 0%, 100% 25%, 98% 50%, 100% 75%, 97% 100%, 3% 100%, 0% 75%, 2% 50%, 0% 25%);
+  box-shadow: 0 2.5px 6px rgba(70, 45, 25, 0.15);
   transform: rotate(3deg);
   pointer-events: none;
-  border-radius: 2px;
-  z-index: 2;
+  z-index: 5;
 }
 
 /* Card Header with Paper Tags */
@@ -2108,36 +2156,36 @@
   margin-bottom: 16px;
 }
 
-/* Scalloped / Notched Paper Tags */
+/* Scalloped / Notched Paper Postage Tags */
 .pc-paper-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 5px 12px;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 7px;
+  font-size: 11.5px;
   font-weight: 800;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 1.5px 0 rgba(70, 50, 30, 0.12), 0 2px 4px rgba(70, 50, 30, 0.06);
+  border: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 0 rgba(70, 45, 25, 0.14),
+    0 3px 6px rgba(70, 45, 25, 0.08);
   letter-spacing: 0.3px;
 }
 .pc-paper-tag.is-pdf {
-  background: #FDE2E4;
-  border: 1.5px solid #F8ADC0;
+  background-color: #FDE2E4;
   color: #9C1C36;
 }
 .pc-paper-tag.is-epub {
-  background: #DBEEF9;
-  border: 1.5px solid #A1D4F0;
+  background-color: #DBEEF9;
   color: #124C6F;
 }
 .pc-paper-tag.is-completed {
-  background: #D8F3DC;
-  border: 1.5px solid #95D5B2;
+  background-color: #D8F3DC;
   color: #155535;
 }
 .pc-paper-tag.is-processing {
-  background: #FFF3CD;
-  border: 1.5px solid #FEE388;
+  background-color: #FFF3CD;
   color: #7A550A;
 }
 
@@ -2157,6 +2205,54 @@
   margin-bottom: 18px;
 }
 
+/* Sunken Carved Paper Progress Groove (음각 종이 홈) */
+.pc-paper-progress-wrap {
+  margin-bottom: 20px;
+}
+.pc-paper-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: #7A6F62;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.pc-paper-progress-track {
+  height: 10px;
+  background: #EAE1D2;
+  border-radius: 999px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 
+    inset 0 2.5px 5px rgba(60, 40, 20, 0.22),
+    inset 0 1px 2px rgba(60, 40, 20, 0.15),
+    0 1px 0 rgba(255, 255, 255, 0.9);
+}
+.pc-paper-progress-bar {
+  height: 100%;
+  border-radius: 999px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 1px 0 rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease;
+}
+.pc-paper-progress-bar.is-mint {
+  background: #4ECCA3;
+}
+.pc-paper-progress-bar.is-lavender {
+  background: #A884D6;
+}
+.pc-paper-progress-bar.is-sky {
+  background: #71B2D8;
+}
+
+/* Card Actions */
+.pc-card-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+}
+
 /* 5. Tactile 3D Paper-Press Button (.pc-paper-btn) */
 .pc-paper-btn {
   position: relative;
@@ -2169,213 +2265,181 @@
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
-  background: #FFFDF9;
-  border: 1.5px solid #DCD2C0;
+  background-color: #FFFDF9;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  border: none !important;
   color: #2D2926;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
     0 3.5px 0 #C4B69E, /* 도톰한 종이 단면 두께 */
-    0 6px 14px rgba(70, 50, 30, 0.12);
+    0 6px 14px rgba(70, 45, 25, 0.14);
   transition: all 0.12s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   user-select: none;
 }
 .pc-paper-btn:hover {
   transform: translateY(-2px);
-  background: #FAF6ED;
+  background-color: #FAF5EB;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
     0 5.5px 0 #C4B69E,
-    0 8px 18px rgba(70, 50, 30, 0.16);
-  border-color: #C8BAA2;
+    0 9px 18px rgba(70, 45, 25, 0.18);
 }
 .pc-paper-btn:active {
   transform: translateY(2.5px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
     0 1px 0 #C4B69E,
-    0 2px 4px rgba(70, 50, 30, 0.1);
+    0 2px 4px rgba(70, 45, 25, 0.12);
 }
 
 /* Color Variants for Paper Buttons */
 .pc-paper-btn.is-primary,
 .pc-paper-btn.is-mint {
-  background: #D8F3DC;
-  border-color: #8FD4AF;
+  background-color: #D8F3DC;
   color: #144932;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 3.5px 0 #68B88E,
-    0 6px 14px rgba(40, 100, 60, 0.16);
+    0 6px 14px rgba(40, 100, 60, 0.18);
 }
 .pc-paper-btn.is-primary:hover,
 .pc-paper-btn.is-mint:hover {
-  background: #C4ECCB;
+  background-color: #C4ECCB;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 5.5px 0 #68B88E,
-    0 8px 18px rgba(40, 100, 60, 0.22);
+    0 9px 18px rgba(40, 100, 60, 0.24);
 }
 .pc-paper-btn.is-primary:active,
 .pc-paper-btn.is-mint:active {
   transform: translateY(2.5px);
-  box-shadow: 0 1px 0 #68B88E, 0 2px 4px rgba(40, 100, 60, 0.1);
+  box-shadow: inset 0 1px 0 #FFF, 0 1px 0 #68B88E, 0 2px 4px rgba(40, 100, 60, 0.12);
 }
 
 .pc-paper-btn.is-sage {
-  background: #E3ECE1;
-  border-color: #B8D3B4;
+  background-color: #E3ECE1;
   color: #23471E;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 3.5px 0 #8BAF86,
-    0 6px 14px rgba(50, 80, 45, 0.15);
+    0 6px 14px rgba(50, 80, 45, 0.18);
 }
 .pc-paper-btn.is-sage:hover {
-  background: #D4E3D1;
+  background-color: #D4E3D1;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 5.5px 0 #8BAF86,
-    0 8px 18px rgba(50, 80, 45, 0.2);
+    0 9px 18px rgba(50, 80, 45, 0.24);
 }
 .pc-paper-btn.is-sage:active {
   transform: translateY(2.5px);
-  box-shadow: 0 1px 0 #8BAF86, 0 2px 4px rgba(50, 80, 45, 0.1);
+  box-shadow: inset 0 1px 0 #FFF, 0 1px 0 #8BAF86, 0 2px 4px rgba(50, 80, 45, 0.12);
 }
 
 .pc-paper-btn.is-peach {
-  background: #FEE3D2;
-  border-color: #F8B692;
+  background-color: #FEE3D2;
   color: #702F10;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 3.5px 0 #E5956A,
-    0 6px 14px rgba(120, 60, 20, 0.15);
+    0 6px 14px rgba(120, 60, 20, 0.18);
 }
 .pc-paper-btn.is-peach:hover {
-  background: #FCD2B9;
+  background-color: #FCD5BE;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 5.5px 0 #E5956A,
-    0 8px 18px rgba(120, 60, 20, 0.2);
+    0 9px 18px rgba(120, 60, 20, 0.24);
 }
 .pc-paper-btn.is-peach:active {
   transform: translateY(2.5px);
-  box-shadow: 0 1px 0 #E5956A, 0 2px 4px rgba(120, 60, 20, 0.1);
+  box-shadow: inset 0 1px 0 #FFF, 0 1px 0 #E5956A, 0 2px 4px rgba(120, 60, 20, 0.12);
 }
 
 .pc-paper-btn.is-lavender {
-  background: #EDE4F9;
-  border-color: #CCAEEF;
-  color: #432475;
+  background-color: #EDE4F9;
+  color: #3C1B68;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 3.5px 0 #A884D6,
-    0 6px 14px rgba(80, 40, 120, 0.15);
+    0 6px 14px rgba(80, 40, 120, 0.18);
 }
 .pc-paper-btn.is-lavender:hover {
-  background: #E0D2F4;
+  background-color: #E2D3F5;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 5.5px 0 #A884D6,
-    0 8px 18px rgba(80, 40, 120, 0.2);
+    0 9px 18px rgba(80, 40, 120, 0.24);
 }
 .pc-paper-btn.is-lavender:active {
   transform: translateY(2.5px);
-  box-shadow: 0 1px 0 #A884D6, 0 2px 4px rgba(80, 40, 120, 0.1);
+  box-shadow: inset 0 1px 0 #FFF, 0 1px 0 #A884D6, 0 2px 4px rgba(80, 40, 120, 0.12);
 }
 
 .pc-paper-btn.is-buttercup {
-  background: #FFF3CD;
-  border-color: #FEE388;
-  color: #6A4905;
+  background-color: #FFF3CD;
+  color: #573D05;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 3.5px 0 #E6C35C,
-    0 6px 14px rgba(120, 90, 10, 0.15);
+    0 6px 14px rgba(120, 90, 10, 0.18);
 }
 .pc-paper-btn.is-buttercup:hover {
-  background: #FEE79F;
+  background-color: #FDE8A5;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
     0 5.5px 0 #E6C35C,
-    0 8px 18px rgba(120, 90, 10, 0.2);
+    0 9px 18px rgba(120, 90, 10, 0.24);
 }
 .pc-paper-btn.is-buttercup:active {
   transform: translateY(2.5px);
-  box-shadow: 0 1px 0 #E6C35C, 0 2px 4px rgba(120, 90, 10, 0.1);
+  box-shadow: inset 0 1px 0 #FFF, 0 1px 0 #E6C35C, 0 2px 4px rgba(120, 90, 10, 0.12);
 }
+/* ==========================================================================
+   AUTHENTIC 3D PAPERCRAFT DESKTOP APP FRAMEWORK
+   - Handcrafted Stationery Binder Sidebar with Color Index Tabs
+   - 3D Paper Shadowbox Window & Titlebar
+   - Die-Cut Postage Badges & Philatelic Stamp Pills
+   - Layered Cardstock Facsimile & Modal Dialogs
+   ========================================================================== */
 
-/* Card Actions Row */
+/* Card Actions Container */
 .pc-card-actions {
   display: flex;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 .pc-card-actions .pc-paper-btn {
   flex: 1;
 }
 
-/* 6. Recessed Paper Progress Trench */
-.pc-paper-progress-wrap {
-  margin: 14px 0 16px;
-  background: #F4EDE0;
-  border: 1.5px solid #E4DAC8;
-  border-radius: 12px;
-  padding: 10px 14px;
-  box-shadow: inset 0 2px 4px rgba(70, 50, 30, 0.08);
-}
-.pc-paper-progress-labels {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #7A6F62;
-  font-weight: 800;
-  margin-bottom: 7px;
-}
-.pc-paper-progress-labels strong {
-  color: #24201D;
-}
-.pc-paper-progress-track {
-  width: 100%;
-  height: 9px;
-  background: #E5DCB;
-  background-color: #E6DCBE;
-  border-radius: 999px;
-  overflow: hidden;
-  box-shadow: inset 0 1.5px 3px rgba(70, 50, 30, 0.15);
-}
-.pc-paper-progress-bar {
-  height: 100%;
-  border-radius: 999px;
-  box-shadow: 0 1px 2px rgba(70, 50, 30, 0.2);
-  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.pc-paper-progress-bar.is-mint {
-  background: linear-gradient(90deg, #95D5B2, #52B788);
-}
-.pc-paper-progress-bar.is-lavender {
-  background: linear-gradient(90deg, #CCAEEF, #9D75DA);
-}
-.pc-paper-progress-bar.is-sky {
-  background: linear-gradient(90deg, #A1D4F0, #5CA4D0);
-}
-
-/* 7. Desktop App Paper Frame & Titlebar */
+/* 7. Desktop App Paper Frame & Drag Titlebar */
 .pc-desktop-window {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  background: #FAF5EB;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.9);
+  background-color: #FAF5EB;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
+  overflow: hidden;
 }
 
 .pc-desktop-titlebar {
-  height: 50px;
-  background: #FFFDF9;
-  border-bottom: 2px solid #E8DFCF;
-  box-shadow: 0 3px 10px rgba(70, 50, 30, 0.06);
+  height: 52px;
+  background-color: #FFFDF8;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
+  border-bottom: none !important;
+  box-shadow: 
+    inset 0 -1px 0 #EBDDC8,
+    0 2.5px 0 #DECFAF,
+    0 5px 14px rgba(60, 42, 25, 0.07);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -2388,6 +2452,7 @@
 .pc-desktop-titlebar * {
   -webkit-app-region: no-drag;
 }
+
 .pc-titlebar-brand {
   display: flex;
   align-items: center;
@@ -2400,42 +2465,53 @@
 .pc-titlebar-badge {
   font-size: 11px;
   font-weight: 800;
-  padding: 3px 9px;
+  padding: 3px 10px;
   border-radius: 7px;
-  background: #FEE3D2;
-  border: 1.5px solid #F8B692;
+  background-color: #FEE3D2;
+  background-image: url("/paper-texture.png");
+  background-blend-mode: multiply;
+  border: none !important;
   color: #7A3614;
   letter-spacing: 0.3px;
-  box-shadow: 0 1px 2px rgba(70, 50, 30, 0.06);
+  box-shadow: 
+    inset 0 1px 0 rgba(255,255,255,0.9),
+    0 1.5px 0 #E5956A,
+    0 2px 4px rgba(120,60,20,0.1);
 }
 
-/* Worker Capsule Badge */
+/* Worker Capsule Badge (Die-cut Pill Stamp) */
 .pc-worker-capsule-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #FFFDF9;
-  border: 2px solid #B8D3B4;
+  background-color: #FFFDF9;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  border: none !important;
   border-radius: 999px;
-  padding: 5px 14px 5px 8px;
+  padding: 5px 14px 5px 10px;
   font-size: 12px;
   font-weight: 800;
   color: #23471E;
   box-shadow: 
-    0 1px 0 #FFFFFF inset,
+    inset 0 1.5px 0 rgba(255,255,255,0.98),
     0 2.5px 0 #8BAF86,
     0 4px 10px rgba(50, 80, 45, 0.12);
   cursor: pointer;
   transition: all 0.18s ease;
 }
 .pc-worker-capsule-badge:hover {
-  background: #E3ECE1;
+  background-color: #E3ECE1;
   transform: translateY(-1.5px);
-  box-shadow: 0 1px 0 #FFFFFF inset, 0 4px 0 #8BAF86, 0 6px 14px rgba(50, 80, 45, 0.18);
+  box-shadow: 
+    inset 0 1.5px 0 rgba(255,255,255,0.98),
+    0 4px 0 #8BAF86,
+    0 6px 14px rgba(50, 80, 45, 0.18);
 }
 .pc-worker-capsule-badge:active {
   transform: translateY(1.5px);
-  box-shadow: 0 1px 0 #8BAF86, 0 2px 4px rgba(50, 80, 45, 0.1);
+  box-shadow: inset 0 1px 0 #FFF, 0 1px 0 #8BAF86, 0 2px 4px rgba(50, 80, 45, 0.1);
 }
 .pc-worker-capsule-dot {
   width: 9px;
@@ -2450,18 +2526,18 @@
   50% { transform: scale(1.25); opacity: 0.75; }
 }
 
-/* 8. Sidebar Binder Aesthetics */
-.pc-desktop-body {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-}
-
+/* 8. Stationery Binder Sidebar (Stationery File Folder with Index Tabs) */
 .pc-sidebar {
   width: var(--pc-sidebar-width, 270px);
-  background: #FFFDF8;
-  border-right: 2px solid #E8DFCF;
-  box-shadow: 4px 0 16px rgba(70, 50, 30, 0.05);
+  background-color: #F8F3EA;
+  background-image: url("/paper-texture.png");
+  background-size: 384px 384px;
+  background-blend-mode: multiply;
+  border-right: none !important;
+  box-shadow: 
+    inset -1px 0 0 #EBDDC8,
+    2.5px 0 0 #DECFAF,
+    6px 0 20px rgba(60, 42, 25, 0.08);
   display: flex;
   flex-direction: column;
   transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2472,18 +2548,38 @@
   width: var(--pc-sidebar-collapsed-width, 74px);
 }
 
+/* 3 Authentic Binder Punch-Holes Down the Left Spine (바인더 타공 링) */
+.pc-sidebar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 6px;
+  bottom: 0;
+  width: 16px;
+  background-image: 
+    radial-gradient(circle at 8px 70px, #3A2E24 0%, #3A2E24 4px, #EDE4D4 4.5px, #EDE4D4 7.5px, transparent 8px),
+    radial-gradient(circle at 8px 50%, #3A2E24 0%, #3A2E24 4px, #EDE4D4 4.5px, #EDE4D4 7.5px, transparent 8px),
+    radial-gradient(circle at 8px calc(100% - 70px), #3A2E24 0%, #3A2E24 4px, #EDE4D4 4.5px, #EDE4D4 7.5px, transparent 8px);
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 10;
+}
+
 .pc-sidebar-header {
-  padding: 18px 16px;
+  padding: 16px 16px 14px 22px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1.5px solid #EFE6D7;
+  border-bottom: 1px solid #EAE0D0;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 .pc-sidebar-brand-title {
   font-size: 15px;
   font-weight: 800;
   color: #24201D;
   display: block;
+  letter-spacing: -0.3px;
 }
 .pc-sidebar-brand-sub {
   font-size: 11px;
@@ -2497,10 +2593,15 @@
 .pc-sidebar-toggle-btn {
   width: 32px;
   height: 32px;
-  border-radius: 10px;
-  background: #F8F3E8;
-  border: 1.5px solid #E0D4C0;
-  box-shadow: 0 1px 0 #FFFFFF inset, 0 2px 0 #C9BDAA, 0 3px 6px rgba(70, 50, 30, 0.08);
+  border-radius: 9px;
+  background-color: #FAF5EB;
+  background-image: url("/paper-texture.png");
+  background-blend-mode: multiply;
+  border: none !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 0 #C9BDAA,
+    0 3px 6px rgba(70, 50, 30, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2509,18 +2610,22 @@
 }
 .pc-sidebar-toggle-btn:hover {
   transform: translateY(-1.5px);
-  background: #FAF6ED;
-  box-shadow: 0 1px 0 #FFFFFF inset, 0 3.5px 0 #C9BDAA, 0 5px 10px rgba(70, 50, 30, 0.12);
+  background-color: #FFFDF9;
+  box-shadow: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 3.5px 0 #C9BDAA,
+    0 5px 10px rgba(70, 50, 30, 0.12);
 }
 .pc-sidebar-toggle-btn:active {
   transform: translateY(1.5px);
-  box-shadow: 0 1px 0 #C9BDAA, 0 1px 3px rgba(70, 50, 30, 0.06);
+  box-shadow: inset 0 1px 0 #FFF, 0 1px 0 #C9BDAA, 0 1px 3px rgba(70, 50, 30, 0.06);
 }
 
-/* Sidebar Navigation Items (Left-aligned & 3D Paper Tab Effect) */
+/* Sidebar Navigation Items (Stationery Colored Index Tabs) */
+/* Hard rule: Left-aligned (justify-content: flex-start, text-align: left) */
 .pc-sidebar-nav-list {
   flex: 1;
-  padding: 16px 12px;
+  padding: 16px 10px 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -2539,65 +2644,91 @@
 }
 
 .pc-sidebar-item {
+  position: relative;
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
   text-align: left !important;
   gap: 12px;
-  padding: 8px 12px;
-  border-radius: 14px;
-  border: 1.5px solid transparent;
-  background: transparent;
+  padding: 9px 14px;
+  border-radius: 8px 18px 18px 8px;
+  border: none !important;
+  background-color: transparent;
   color: #38312B;
   font-size: 13.5px;
   font-weight: 800;
   cursor: pointer;
-  transition: all 0.16s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   width: 100%;
 }
 .pc-sidebar-item:hover {
-  background: #FAF5EB;
-  border-color: #E8DFCF;
+  background-color: rgba(255, 253, 249, 0.75);
+  background-image: url("/paper-texture.png");
+  background-blend-mode: multiply;
   transform: translateX(4px);
-  box-shadow: 0 2px 8px rgba(70, 50, 30, 0.06);
-}
-.pc-sidebar-item.is-active {
-  background: #D8F3DC;
-  border-color: #8FD4AF;
-  color: #144932;
   box-shadow: 
-    0 1px 0 #FFFFFF inset,
-    0 2.5px 0 #68B88E,
-    0 4px 12px rgba(40, 100, 60, 0.15);
-  transform: translateX(4px);
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 6px rgba(70, 50, 30, 0.08);
 }
+
+/* Active Index Tab: Extends out by 8px with authentic cardstock shadow */
+.pc-sidebar-item.is-active {
+  background-color: #D8F3DC;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  color: #144932;
+  transform: translateX(8px);
+  box-shadow: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 2.5px 0 #72BD95,
+    0 6px 16px rgba(40, 100, 60, 0.18);
+}
+.pc-sidebar-item.is-active[data-view="view-reader"] {
+  background-color: #FEE3D2;
+  color: #702F10;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.98), 0 2.5px 0 #E5956A, 0 6px 16px rgba(120,60,20,0.18);
+}
+.pc-sidebar-item.is-active[data-view="view-search"] {
+  background-color: #EDE4F9;
+  color: #3C1B68;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.98), 0 2.5px 0 #A884D6, 0 6px 16px rgba(80,40,120,0.18);
+}
+.pc-sidebar-item.is-active[data-view="view-bundles"] {
+  background-color: #FFF3CD;
+  color: #573D05;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.98), 0 2.5px 0 #E6C35C, 0 6px 16px rgba(120,90,10,0.18);
+}
+.pc-sidebar-item.is-active[data-view="view-settings"] {
+  background-color: #DBEEF9;
+  color: #124C6F;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,0.98), 0 2.5px 0 #71B2D8, 0 6px 16px rgba(30,90,130,0.18);
+}
+
 .pc-sidebar.is-collapsed .pc-sidebar-item {
   justify-content: center !important;
-  padding: 8px 0;
+  padding: 9px 0;
   transform: none !important;
+  border-radius: 12px;
 }
 .pc-sidebar.is-collapsed .pc-sidebar-label {
   display: none !important;
 }
 
-/* Sidebar Footer */
+/* Sidebar Footer (Kraft Stationery Pocket) */
 .pc-sidebar-footer {
-  padding: 16px;
-  border-top: 1.5px solid #EFE6D7;
-  background: #FDF9F2;
+  padding: 16px 16px 16px 20px;
+  border-top: 1px solid #EAE0D0;
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
+  background-color: #F6EFE3;
+  background-image: url("/paper-texture.png");
+  background-blend-mode: multiply;
 }
 .pc-sidebar.is-collapsed .pc-sidebar-footer {
   display: none;
 }
 
-/* 9. Viewport Container */
-.pc-desktop-viewport {
-  flex: 1;
-  overflow-y: auto;
-  padding: 32px 40px;
-}
-
-/* View Header & Titles */
+/* 9. View Header & Titles */
 .pc-view-header {
   display: flex;
   justify-content: space-between;
@@ -2617,7 +2748,7 @@
   font-weight: 600;
 }
 
-/* 10. Quick Stats Paper Stamp Badges */
+/* 10. Quick Stats Paper Stamp Badges (우표형 스탬프 뱃지) */
 .pc-stats-strip {
   display: flex;
   gap: 16px;
@@ -2628,18 +2759,30 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  background: #FFFDF8;
-  border: 1.5px solid #E8DFCF;
+  background-color: #FFFDF9;
+  background-image: url("/paper-texture.png");
+  background-size: 256px 256px;
+  background-blend-mode: multiply;
+  border: none !important;
   border-radius: 16px;
   padding: 8px 18px 8px 10px;
   box-shadow: 
-    0 1px 0 #FFFFFF inset,
-    0 2.5px 0 #D4C7B2,
-    0 4px 10px rgba(70, 50, 30, 0.06);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 2.5px 0 #D4C6B0,
+    0 4px 10px rgba(70, 45, 25, 0.08);
   font-size: 13px;
   font-weight: 700;
   color: #24201D;
+  transition: transform 0.18s ease;
 }
+.pc-stat-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 4px 0 #D4C6B0,
+    0 6px 14px rgba(70, 45, 25, 0.12);
+}
+
 
 
 
