@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PaperCut UI - 레이어드 페이퍼 아트 디자인 시스템 (30가지 추천 예제)</title>
+  
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
   <!-- Google Fonts: Gaegu (손글씨 감성) & NanumSquareRound -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -373,7 +378,12 @@
     }
   </style>
 </head>
-<body class="pc-paper-grain texture-soft">
+<body class="pc-paper-grain texture-soft has-pc-sidebar">
+  <script>
+    if (localStorage.getItem('pc_sidebar_collapsed') === 'true') {
+      document.body.classList.add('is-collapsed');
+    }
+  </script>
 
   <div class="showcase-container">
     
@@ -382,6 +392,9 @@
       <div class="pc-washi-tape"></div>
       <div class="hero-content">
         <div>
+          <div style="margin-bottom: 16px;">
+            <img src="logo.svg" alt="PaperCut UI - Layered Craft Design System" style="height: 48px; width: auto; max-width: 100%; display: block;">
+          </div>
           <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
             <span class="pc-badge pc-badge-peach"><span class="pc-inline-icon is-sm" data-icon="scissors"></span> <span>Paper-Cut UI Library</span></span>
             <span class="pc-badge pc-badge-mint">Pure CSS + Vanilla JS</span>
@@ -420,6 +433,12 @@
             </a>
             <a href="#icon-gallery" class="pc-btn pc-btn-sky pc-btn-lg">
               <span class="pc-inline-icon" data-icon="scissors"></span> <span>스탠드얼론 아이콘 (659종)</span>
+            </a>
+            <a href="icon-simulator.html#mode=firr" class="pc-btn pc-btn-peach pc-btn-lg" style="text-decoration: none;">
+              <span class="pc-inline-icon" data-icon="minus"></span> <span>fi-rr 라인 랩 (16~28px)</span>
+            </a>
+            <a href="icon-simulator.html#mode=paper3d" class="pc-btn pc-btn-buttercup pc-btn-lg" style="text-decoration: none;">
+              <span class="pc-inline-icon" data-icon="sparkles"></span> <span>3D 페이퍼 랩 (32~256px)</span>
             </a>
             <a href="#bg-library" class="pc-btn pc-btn-peach pc-btn-lg">
               <span class="pc-inline-icon" data-icon="palette"></span> <span>배경 플레이트 (130종)</span>
@@ -2003,8 +2022,8 @@
             <input type="text" class="pc-input" value="어린 왕자와 파스텔 별" placeholder="도서명">
             <div class="pc-select-wrapper">
               <select class="pc-select">
-                <option>⏳ 14일 대출 (표준 대출)</option>
-                <option>⏳ 28일 대출 (연구자 우대)</option>
+                <option>14일 대출 (표준 대출)</option>
+                <option>28일 대출 (연구자 우대)</option>
               </select>
             </div>
             <label class="pc-checkbox-label">
@@ -2682,6 +2701,15 @@
       <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
         기존의 사각형/원형 배경 타일을 완전히 걷어내고, <strong>아이콘 오브젝트 자체를 3~5겹의 파스텔 색종이로 오려 붙인 정밀 스탠드얼론 페이퍼 컷(Kirigami) 컬렉션 659선</strong>입니다. 글로벌 모던 UI 표준 체계를 바탕으로 숫자(0-9), 특수 기호/연산자, 체크마크, UI 컨트롤, 커뮤니케이션, 소셜, 커머스, 금융, 개발자 도구, 미디어, 디바이스, 자연, 푸드, 여행, 라이프스타일을 완벽 지원합니다. 카드를 클릭하면 SVG 코드가 즉시 복사됩니다.
       </p>
+
+      <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 24px; flex-wrap: wrap;">
+        <a href="icon-simulator.html#mode=firr" class="pc-btn pc-btn-peach" style="text-decoration: none;">
+          <span class="pc-inline-icon" data-icon="minus"></span> <span>fi fi-rr 라인 랩 (16~28px · UI 글리프 가독성 집중)</span>
+        </a>
+        <a href="icon-simulator.html#mode=paper3d" class="pc-btn pc-btn-mint" style="text-decoration: none;">
+          <span class="pc-inline-icon" data-icon="sparkles"></span> <span>3D 페이퍼 아트 랩 (32~256px · 다층 색지 디오라마)</span>
+        </a>
+      </div>
 
       <!-- Icon Explorer Toolbar & Filters -->
       <div class="pc-icon-toolbar">
@@ -3705,8 +3733,8 @@
                 </div>
               </div>
               <div class="pc-worker-metrics">
-                <span class="pc-worker-metric-chip pc-worker-chip-gpu">⚡ RTX 4090 · 68%</span>
-                <span class="pc-worker-metric-chip pc-worker-chip-queue">📥 대기 3권 · 420p</span>
+                <span class="pc-worker-metric-chip pc-worker-chip-gpu"><span class="pc-inline-icon is-xs" data-icon="lightning"></span> <span>RTX 4090 · 68%</span></span>
+                <span class="pc-worker-metric-chip pc-worker-chip-queue"><span class="pc-inline-icon is-xs" data-icon="inbox"></span> <span>대기 3권 · 420p</span></span>
               </div>
             </div>
           </div>
@@ -3759,8 +3787,8 @@
                 <p class="pc-book-author">마틴 클леп만 · 제이펍</p>
               </div>
               <div class="pc-book-meta-chips">
-                <span class="pc-book-chip">📄 612p</span>
-                <span class="pc-book-chip">⚡ 벡터화 100%</span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="file"></span> <span>612p</span></span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="lightning"></span> <span>벡터화 100%</span></span>
               </div>
               <div class="pc-book-progress-wrapper">
                 <div class="pc-book-progress-header">
@@ -3791,8 +3819,8 @@
                 <p class="pc-book-author">로버트 C. 마틴 · 인사이트</p>
               </div>
               <div class="pc-book-meta-chips">
-                <span class="pc-book-chip">📄 384p</span>
-                <span class="pc-book-chip">⚡ 벡터화 100%</span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="file"></span> <span>384p</span></span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="lightning"></span> <span>벡터화 100%</span></span>
               </div>
               <div class="pc-book-progress-wrapper">
                 <div class="pc-book-progress-header">
@@ -3823,8 +3851,8 @@
                 <p class="pc-book-author">롭 파이크 외 · 에이콘출판사</p>
               </div>
               <div class="pc-book-meta-chips">
-                <span class="pc-book-chip">📄 420p</span>
-                <span class="pc-book-chip">⚡ 벡터화 42%</span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="file"></span> <span>420p</span></span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="lightning"></span> <span>벡터화 42%</span></span>
               </div>
               <div class="pc-book-progress-wrapper">
                 <div class="pc-book-progress-header">
@@ -3855,8 +3883,8 @@
                 <p class="pc-book-author">스티브 클랩닉, 캐럴 니콜스 · 제이펍</p>
               </div>
               <div class="pc-book-meta-chips">
-                <span class="pc-book-chip">📄 560p</span>
-                <span class="pc-book-chip">⚡ 벡터 대기중</span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="file"></span> <span>560p</span></span>
+                <span class="pc-book-chip"><span class="pc-inline-icon is-xs" data-icon="lightning"></span> <span>벡터 대기중</span></span>
               </div>
               <div class="pc-book-progress-wrapper">
                 <div class="pc-book-progress-header">
@@ -3889,16 +3917,16 @@
         <div class="pc-code-provenance">
           <div class="pc-code-header">
             <div class="pc-code-stamp">
-              <span class="pc-code-stamp-icon">🔖</span>
+              <span class="pc-inline-icon is-xs" data-icon="bookmark"></span>
               <span class="pc-code-stamp-text">출처: p.142 · 제5장 복제 (Replication)</span>
             </div>
             <div class="pc-code-controls">
               <button class="pc-code-btn pc-btn-contrast-toggle" title="원문 이미지 대조 토글">
-                <span>📖</span>
+                <span class="pc-inline-icon is-xs" data-icon="book"></span>
                 <span>원문 대조</span>
               </button>
               <button class="pc-code-btn pc-btn-copy" title="코드 복사">
-                <span>📋</span>
+                <span class="pc-inline-icon is-xs" data-icon="copy"></span>
                 <span class="pc-copy-label">복사</span>
               </button>
             </div>
@@ -3923,7 +3951,7 @@
 }</code></pre>
           </div>
           <div class="pc-code-footer">
-            <span class="pc-code-continuity-badge">✓ 페이지 간 연속 코드 블록 연결됨 (신뢰도 98.4%)</span>
+            <span class="pc-code-continuity-badge"><span class="pc-inline-icon is-xs" data-icon="check"></span> <span>페이지 간 연속 코드 블록 연결됨 (신뢰도 98.4%)</span></span>
             <span class="pc-code-lang-tag">GO 1.22</span>
           </div>
         </div>
@@ -4000,12 +4028,12 @@
                 <div class="pc-code-provenance" style="margin: 14px 0;">
                   <div class="pc-code-header">
                     <div class="pc-code-stamp">
-                      <span class="pc-code-stamp-icon">🔖</span>
+                      <span class="pc-inline-icon is-xs" data-icon="bookmark"></span>
                       <span class="pc-code-stamp-text">출처: p.142 · 제14장 컴포넌트 원칙</span>
                     </div>
                     <div class="pc-code-controls">
                       <button class="pc-code-btn pc-btn-copy" title="코드 복사">
-                        <span>📋</span>
+                        <span class="pc-inline-icon is-xs" data-icon="copy"></span>
                         <span class="pc-copy-label">복사</span>
                       </button>
                     </div>

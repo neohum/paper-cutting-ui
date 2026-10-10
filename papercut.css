@@ -1315,6 +1315,16 @@ body.texture-flat.pc-paper-grain::before {
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Global Guard: fi fi-rr style and compact micro-icons must NEVER exceed 28px */
+.pc-layered-paper-icon.pc-firr-style,
+.pc-layered-paper-icon[data-style="fi-rr"],
+.pc-layered-paper-icon.pc-stroke-active-layer {
+  width: var(--pc-icon-size, 24px) !important;
+  height: var(--pc-icon-size, 24px) !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+}
+
 .pc-icon-name-ko {
   font-size: 14.5px;
   font-weight: 800;
@@ -2843,68 +2853,70 @@ textarea.pc-input.pc-texture-paper,
    ========================================================================== */
 
 :root {
-  --pc-icon-stroke-color: #3D352E;
-  --pc-icon-stroke-width: 2.5px;
+  --pc-icon-stroke-color: #423D39;      /* Sophisticated Dark Charcoal Grey for clean, refined contrast */
+  --pc-icon-stroke-width: 0.88px;       /* 16px ~ 28px: Ultra-slim, delicate & crisp fi fi-rr vector stroke */
 }
 
 /* --------------------------------------------------------------------------
-   RULE 1: SIZE <= 32px (24px Standard UI Icons)
-   Applies to all UI icons in buttons, inputs, badges, dropdowns, tables, sidebar,
-   as well as .is-xs, .is-sm, .is-input-icon, .pc-stroke-active-layer, and .pc-auto-stroke-on.
+   RULE 1: SIZE 16px ~ 28px (fi fi-rr Ultra-Slim Dark Grey Vector Line Art)
+   * 10px ~ 14px are officially UNSUPPORTED (below human clarity threshold).
+   * 16px ~ 28px transforms into ultra-slim, dark grey Flaticon Regular Rounded (fi fi-rr) lines:
+     1. Drop-shadow filters completely removed (filter: none !important).
+     2. Ultra-slim, crisp 0.88px dark grey stroke (#423D39) with geometricPrecision.
+     3. Ultra-subtle, airy translucent paper-tint wash (fill-opacity: 0.08) so the line outline stands out sharply.
+     4. Interactive live hover feedback for web components.
    -------------------------------------------------------------------------- */
 
-/* 1-A: Filled paper cutout shapes (paths, rects, circles, ellipses, polygons) */
-.pc-stroke-active-layer path:not([fill="none"]),
-.pc-stroke-active-layer rect:not([fill="none"]),
-.pc-stroke-active-layer circle:not([fill="none"]),
-.pc-stroke-active-layer ellipse:not([fill="none"]),
-.pc-stroke-active-layer polygon:not([fill="none"]),
-.pc-auto-stroke-on path:not([fill="none"]),
-.pc-auto-stroke-on rect:not([fill="none"]),
-.pc-auto-stroke-on circle:not([fill="none"]),
-.pc-auto-stroke-on ellipse:not([fill="none"]),
-.pc-auto-stroke-on polygon:not([fill="none"]),
-.pc-stroke-24 path:not([fill="none"]),
-.pc-stroke-24 rect:not([fill="none"]),
-.pc-stroke-24 circle:not([fill="none"]),
-.pc-stroke-24 ellipse:not([fill="none"]),
-.pc-stroke-24 polygon:not([fill="none"]),
-.pc-inline-icon.is-xs path:not([fill="none"]),
-.pc-inline-icon.is-xs rect:not([fill="none"]),
-.pc-inline-icon.is-xs circle:not([fill="none"]),
-.pc-inline-icon.is-xs ellipse:not([fill="none"]),
-.pc-inline-icon.is-xs polygon:not([fill="none"]),
-.pc-inline-icon.is-sm path:not([fill="none"]),
-.pc-inline-icon.is-sm rect:not([fill="none"]),
-.pc-inline-icon.is-sm circle:not([fill="none"]),
-.pc-inline-icon.is-sm ellipse:not([fill="none"]),
-.pc-inline-icon.is-sm polygon:not([fill="none"]),
-.pc-inline-icon.is-input-icon path:not([fill="none"]),
-.pc-inline-icon.is-input-icon rect:not([fill="none"]),
-.pc-inline-icon.is-input-icon circle:not([fill="none"]),
-.pc-inline-icon.is-input-icon ellipse:not([fill="none"]),
-.pc-inline-icon.is-input-icon polygon:not([fill="none"]),
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) path:not([fill="none"]),
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) rect:not([fill="none"]),
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) circle:not([fill="none"]),
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) ellipse:not([fill="none"]),
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) polygon:not([fill="none"]),
-.pc-dropdown-trigger .pc-inline-icon path:not([fill="none"]),
-.pc-dropdown-item .pc-inline-icon path:not([fill="none"]),
-.pc-sidebar-item-icon .pc-inline-icon path:not([fill="none"]),
-.pc-mini-icon-disc svg path:not([fill="none"]),
-.pc-pill-badge svg path:not([fill="none"]),
-.pc-check-paper-disc svg path:not([fill="none"]),
-.pc-admin-brand-logo svg path:not([fill="none"]) {
-  stroke: var(--pc-icon-stroke-color, #3D352E) !important;
-  stroke-width: var(--pc-icon-stroke-width, 2.5px) !important;
-  stroke-linejoin: round !important;
-  stroke-linecap: round !important;
-  paint-order: stroke fill !important;
-  vector-effect: non-scaling-stroke !important;
+/* Global Guard: fi fi-rr Line Style is Strictly Capped at 16px ~ 28px */
+.pc-layered-paper-icon.pc-firr-style,
+.pc-layered-paper-icon[data-style="fi-rr"],
+.pc-layered-paper-icon.pc-stroke-active-layer {
+  width: var(--pc-icon-size, 24px) !important;
+  height: var(--pc-icon-size, 24px) !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
 }
 
-/* 1-B: Fixed Non-Scaling Stroke on ALL 24px and compact icons */
+/* 1-A: Complete Drop-Shadow Filter Removal for <= 28px */
+.pc-firr-style,
+.pc-firr-style *,
+.pc-stroke-active-layer,
+.pc-stroke-active-layer *,
+.pc-auto-stroke-on,
+.pc-auto-stroke-on *,
+.pc-stroke-24,
+.pc-stroke-24 *,
+.pc-inline-icon.is-xs svg,
+.pc-inline-icon.is-xs svg *,
+.pc-inline-icon.is-sm svg,
+.pc-inline-icon.is-sm svg *,
+.pc-inline-icon.is-input-icon svg,
+.pc-inline-icon.is-input-icon svg *,
+.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg,
+.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg *,
+.pc-dropdown-trigger .pc-inline-icon svg,
+.pc-dropdown-trigger .pc-inline-icon svg *,
+.pc-dropdown-item .pc-inline-icon svg,
+.pc-dropdown-item .pc-inline-icon svg *,
+.pc-mini-icon-disc svg,
+.pc-mini-icon-disc svg *,
+.pc-pill-badge svg,
+.pc-pill-badge svg *,
+.pc-check-paper-disc svg,
+.pc-check-paper-disc svg *,
+.pc-admin-brand-logo svg,
+.pc-admin-brand-logo svg * {
+  filter: none !important;
+}
+
+/* 1-B: Ultra-Slim Dark Grey fi fi-rr Rounded Stroke (0.88px) */
+.pc-firr-style path,
+.pc-firr-style rect,
+.pc-firr-style circle,
+.pc-firr-style ellipse,
+.pc-firr-style polygon,
+.pc-firr-style line,
+.pc-firr-style polyline,
 .pc-stroke-active-layer path,
 .pc-stroke-active-layer rect,
 .pc-stroke-active-layer circle,
@@ -2912,13 +2924,6 @@ textarea.pc-input.pc-texture-paper,
 .pc-stroke-active-layer polygon,
 .pc-stroke-active-layer line,
 .pc-stroke-active-layer polyline,
-.pc-stroke-active-fixed path,
-.pc-stroke-active-fixed rect,
-.pc-stroke-active-fixed circle,
-.pc-stroke-active-fixed ellipse,
-.pc-stroke-active-fixed polygon,
-.pc-stroke-active-fixed line,
-.pc-stroke-active-fixed polyline,
 .pc-auto-stroke-on path,
 .pc-auto-stroke-on rect,
 .pc-auto-stroke-on circle,
@@ -2933,13 +2938,89 @@ textarea.pc-input.pc-texture-paper,
 .pc-stroke-24 polygon,
 .pc-stroke-24 line,
 .pc-stroke-24 polyline,
-.pc-inline-icon.is-xs svg *,
-.pc-inline-icon.is-sm svg *,
-.pc-inline-icon.is-input-icon svg * {
+.pc-inline-icon.is-xs:not(.is-color) svg *,
+.pc-inline-icon.is-sm:not(.is-color) svg *,
+.pc-inline-icon.is-input-icon svg *,
+.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg *,
+.pc-dropdown-trigger .pc-inline-icon svg *,
+.pc-dropdown-item .pc-inline-icon svg *,
+.pc-mini-icon-disc svg *,
+.pc-pill-badge svg *,
+.pc-check-paper-disc svg *,
+.pc-admin-brand-logo svg * {
+  stroke: var(--pc-icon-stroke-color, #423D39) !important;
+  stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
+  stroke-linejoin: round !important;
+  stroke-linecap: round !important;
+  stroke-miterlimit: 10 !important;
+  shape-rendering: geometricPrecision !important;
+  paint-order: stroke fill !important;
   vector-effect: non-scaling-stroke !important;
 }
 
-/* 1-C: Linear details on 24px icons (lines, wireframes, open paths) */
+/* 1-C: Pure fi fi-rr Transparent Fills (Clean Vector Outline Dominance - NO COLOR) */
+.pc-firr-style path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-active-layer path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-active-layer rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-active-layer circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-active-layer ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-active-layer polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-auto-stroke-on path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-auto-stroke-on rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-auto-stroke-on circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-auto-stroke-on ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-auto-stroke-on polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-24 path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-24 rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-24 circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-24 ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-stroke-24 polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-inline-icon.is-xs:not(.is-color) svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-inline-icon.is-sm:not(.is-color) svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-inline-icon.is-input-icon svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-dropdown-trigger .pc-inline-icon svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-dropdown-item .pc-inline-icon svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-mini-icon-disc svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-pill-badge svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-check-paper-disc svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-admin-brand-logo svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
+  fill: none !important;
+  fill-opacity: 0 !important;
+}
+
+/* 1-D: Interactive Live Hover Micro-Motion */
+.pc-firr-style svg,
+.pc-inline-icon.is-firr svg {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.22s ease;
+}
+.pc-firr-style:hover svg,
+.pc-inline-icon.is-firr:hover svg {
+  transform: translateY(-1.5px) scale(1.04);
+}
+
+/* Solid Dark Accents (Eyes, knobs, pupils keep solid fill) */
+.pc-firr-style [fill="#3D352E"],
+.pc-firr-style [fill="#2B2623"],
+.pc-stroke-active-layer [fill="#3D352E"],
+.pc-stroke-active-layer [fill="#2B2623"],
+.pc-auto-stroke-on [fill="#3D352E"],
+.pc-auto-stroke-on [fill="#2B2623"],
+.pc-inline-icon svg [fill="#3D352E"] {
+  fill: var(--pc-icon-stroke-color, #423D39) !important;
+  fill-opacity: 1 !important;
+}
+
+/* 1-E: Linear Details (Open strokes, lines, steam, spark glints) */
+.pc-firr-style path[fill="none"],
+.pc-firr-style circle[fill="none"],
+.pc-firr-style rect[fill="none"],
+.pc-firr-style ellipse[fill="none"],
+.pc-firr-style polygon[fill="none"],
 .pc-stroke-active-layer path[fill="none"],
 .pc-stroke-active-layer circle[fill="none"],
 .pc-stroke-active-layer rect[fill="none"],
@@ -2948,15 +3029,17 @@ textarea.pc-input.pc-texture-paper,
 .pc-auto-stroke-on path[fill="none"],
 .pc-auto-stroke-on circle[fill="none"],
 .pc-stroke-24 path[fill="none"] {
-  stroke: var(--pc-icon-stroke-color, #3D352E) !important;
-  stroke-width: var(--pc-icon-stroke-width, 2.5px) !important;
+  stroke: var(--pc-icon-stroke-color, #423D39) !important;
+  stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
   stroke-linejoin: round !important;
   stroke-linecap: round !important;
+  shape-rendering: geometricPrecision !important;
   vector-effect: non-scaling-stroke !important;
+  fill: none !important;
 }
 
 /* --------------------------------------------------------------------------
-   RULE 2: SIZE >= 33px (Pure Standalone Kirigami - Stroke OFF)
+   RULE 2: SIZE >= 29px (Pure Standalone 3D Kirigami - Stroke OFF)
    Applies to showcase cards, icon gallery, background library, .is-lg, .is-xl,
    and .pc-stroke-off. All filled paper shapes receive stroke: none!
    -------------------------------------------------------------------------- */

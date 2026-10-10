@@ -454,7 +454,7 @@
 .pc-code-provenance {
   position: relative;
   background-color: #F8F3EA;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   border-radius: 18px;
@@ -806,7 +806,7 @@
   display: flex;
   flex-direction: column;
   background-color: #FAF5EB;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   border-radius: 24px;
@@ -1203,7 +1203,7 @@
   overflow-x: hidden;
   padding: 32px 42px 48px;
   background-color: #FAF5EB;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   /* Genuine multi-layered shadowbox carved window depth */
@@ -1432,7 +1432,7 @@
   align-items: center;
   padding: 14px 20px;
   background-color: #FFFDF9;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   border: none !important;
@@ -1457,7 +1457,7 @@
   font-weight: 800;
   padding: 8px 16px;
   background-color: #FAF5EB;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-blend-mode: multiply;
   border: none !important;
   border-radius: 10px;
@@ -1491,7 +1491,7 @@
 
 .pc-modal-paper {
   background-color: #FFFDF9;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   border: none !important;
@@ -1535,7 +1535,7 @@
 
 .pc-modal-close-btn {
   background-color: #FAF5EB;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-blend-mode: multiply;
   border: none !important;
   border-radius: 10px;
@@ -1740,7 +1740,7 @@
   background-color: #F8F3E8 !important;
   background-image: 
     radial-gradient(ellipse at 50% 25%, rgba(255, 255, 255, 0.6) 0%, rgba(243, 235, 220, 0.4) 60%, rgba(220, 205, 185, 0.5) 100%),
-    url("/paper-texture.png") !important;
+    url("paper-texture.png") !important;
   background-repeat: no-repeat, repeat !important;
   background-size: 100% 100%, 256px 256px !important;
   background-blend-mode: multiply !important;
@@ -1755,7 +1755,7 @@
   padding: 5px 12px;
   border-radius: 999px;
   background-color: #FFFDF8;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border: none;
@@ -1893,7 +1893,7 @@
   height: 38px;
   border-radius: 12px;
   background-color: #FFFDF8;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border: none;
@@ -2029,7 +2029,7 @@
   position: relative;
   isolation: isolate;
   background-color: #FFFDF8;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border-radius: 20px;
@@ -2070,7 +2070,7 @@
   position: absolute;
   top: 10px; left: -6px; right: -16px; bottom: -14px;
   background-color: #FEE3D2;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border-radius: 24px 16px 22px 18px;
@@ -2090,7 +2090,7 @@
   position: absolute;
   top: 14px; left: 8px; right: -8px; bottom: -20px;
   background-color: #D8F3DC;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border-radius: 18px 24px 16px 26px;
@@ -2266,7 +2266,7 @@
   font-weight: 800;
   cursor: pointer;
   background-color: #FFFDF9;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border: none !important;
@@ -2423,7 +2423,7 @@
   height: 100vh;
   width: 100vw;
   background-color: #FAF5EB;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   overflow: hidden;
@@ -2432,7 +2432,7 @@
 .pc-desktop-titlebar {
   height: 52px;
   background-color: #FFFDF8;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   border-bottom: none !important;
@@ -2468,7 +2468,7 @@
   padding: 3px 10px;
   border-radius: 7px;
   background-color: #FEE3D2;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-blend-mode: multiply;
   border: none !important;
   color: #7A3614;
@@ -2485,7 +2485,7 @@
   align-items: center;
   gap: 8px;
   background-color: #FFFDF9;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border: none !important;
@@ -2530,7 +2530,7 @@
 .pc-sidebar {
   width: var(--pc-sidebar-width, 270px);
   background-color: #F8F3EA;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 384px 384px;
   background-blend-mode: multiply;
   border-right: none !important;
@@ -2595,7 +2595,7 @@
   height: 32px;
   border-radius: 9px;
   background-color: #FAF5EB;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-blend-mode: multiply;
   border: none !important;
   box-shadow: 
@@ -2663,7 +2663,7 @@
 }
 .pc-sidebar-item:hover {
   background-color: rgba(255, 253, 249, 0.75);
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-blend-mode: multiply;
   transform: translateX(4px);
   box-shadow: 
@@ -2674,7 +2674,7 @@
 /* Active Index Tab: Extends out by 8px with authentic cardstock shadow */
 .pc-sidebar-item.is-active {
   background-color: #D8F3DC;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   color: #144932;
@@ -2721,7 +2721,7 @@
   border-top: 1px solid #EAE0D0;
   box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.8);
   background-color: #F6EFE3;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-blend-mode: multiply;
 }
 .pc-sidebar.is-collapsed .pc-sidebar-footer {
@@ -2760,7 +2760,7 @@
   align-items: center;
   gap: 12px;
   background-color: #FFFDF9;
-  background-image: url("/paper-texture.png");
+  background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
   border: none !important;

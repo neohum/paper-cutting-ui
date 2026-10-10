@@ -34,6 +34,27 @@
   width: var(--pc-sidebar-collapsed-width);
 }
 
+#pc-sidebar-nav.is-collapsed .pc-sidebar-header {
+  padding: 12px 6px;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-brand {
+  justify-content: center;
+  padding: 0;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-brand-text {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-toggle-btn {
+  margin: 0 auto;
+}
+
 /* Sidebar Header */
 .pc-sidebar-header {
   padding: 18px 16px 14px;
@@ -205,6 +226,8 @@
 .pc-sidebar-item {
   display: flex;
   align-items: center;
+  justify-content: flex-start !important;
+  text-align: left !important;
   gap: 11px;
   padding: 8px 12px;
   border-radius: 10px;
@@ -250,36 +273,77 @@
   box-shadow: 1px 0 2px rgba(44, 107, 80, 0.25);
 }
 
-/* 3D Layered Paper-Cut Icon Mount Plate */
+/* ==========================================================================
+   3D Layered Paper-Cut Icon Mount Plate (130종 수공예 배경 박스 컬렉션 완비)
+   기본 적용된 버튼 느낌의 테두리/박스 배경을 완전히 제거하고,
+   130종 3D 페이퍼 컷팅 배경 박스 조형물과 3D 컬러 아이콘의 정교한 결합으로 렌더링
+   ========================================================================== */
 .pc-sidebar-item-icon {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  position: relative;
+  overflow: visible;
+  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 3D Paper Cut Background Plate + Center Mounted Icon Combined SVG (viewBox 0 0 96 96) */
+.pc-sidebar-plate-svg {
+  width: 36px !important;
+  height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  display: block !important;
+  overflow: visible !important;
+  flex-shrink: 0;
+  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.22s ease;
+  filter: drop-shadow(0 2px 5px rgba(74, 58, 42, 0.12));
+}
+
+.pc-sidebar-item:hover .pc-sidebar-plate-svg {
+  transform: scale(1.14) translateY(-1px);
+  filter: drop-shadow(0 4px 9px rgba(74, 58, 42, 0.18));
+}
+
+.pc-sidebar-item.is-active .pc-sidebar-plate-svg {
+  transform: scale(1.10);
+  filter: drop-shadow(0 3px 7px rgba(44, 107, 80, 0.22));
+}
+
+/* Fallback placeholder if backgrounds library is still initializing */
+.pc-sidebar-plate-placeholder {
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: #FFFDF9;
-  border: 1.5px solid #E6DCCF;
-  box-shadow: 
-    0 1.5px 0 #DDD2C0,
-    0 3px 6px rgba(74, 58, 42, 0.08);
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.pc-sidebar-item:hover .pc-sidebar-item-icon {
-  transform: translateY(-1.5px) rotate(-1deg);
-  border-color: #D9CEBE;
-  box-shadow: 
-    0 2.5px 0 #D0C3AF,
-    0 5px 10px rgba(74, 58, 42, 0.12);
+
+/* Inner Centered 3D Icon styling inside the 96x96 Kirigami Well */
+.pc-sidebar-plate-svg .pc-mounted-icon svg {
+  width: 48px !important;
+  height: 48px !important;
+  display: block !important;
+  overflow: visible !important;
+  filter: drop-shadow(0 1.5px 3.5px rgba(74, 58, 42, 0.22)) !important;
 }
-.pc-sidebar-item.is-active .pc-sidebar-item-icon {
-  background: #E8F6EE;
-  border-color: #9FD6B8;
-  transform: translateY(-1px);
-  box-shadow: 
-    0 2px 0 #85C2A0,
-    0 4px 10px rgba(44, 107, 80, 0.18);
+
+.pc-sidebar-plate-svg path,
+.pc-sidebar-plate-svg rect,
+.pc-sidebar-plate-svg circle,
+.pc-sidebar-plate-svg polygon,
+.pc-sidebar-plate-svg line,
+.pc-sidebar-plate-svg ellipse {
+  vector-effect: non-scaling-stroke;
 }
 
 .pc-sidebar-item-text {
@@ -315,6 +379,56 @@
     0 2px 0 #C2B3E0,
     0 3px 6px rgba(74, 58, 42, 0.12);
 }
+
+/* Theme-matched sidebar badges */
+.pc-sidebar-badge.pc-badge-peach {
+  background: #FDEEE4;
+  color: #A34718;
+  border-color: #F7BA9E;
+  box-shadow: 0 1.5px 0 #EBB196;
+}
+.pc-sidebar-badge.pc-badge-mint {
+  background: #E8F5EE;
+  color: #19523C;
+  border-color: #A3D8C3;
+  box-shadow: 0 1.5px 0 #95CCA6;
+}
+.pc-sidebar-badge.pc-badge-lavender {
+  background: #ECE8F6;
+  color: #55417F;
+  border-color: #D7CBEB;
+  box-shadow: 0 1.5px 0 #C6B7DD;
+}
+.pc-sidebar-badge.pc-badge-buttercup {
+  background: #FFF9E6;
+  color: #8C6708;
+  border-color: #FEE396;
+  box-shadow: 0 1.5px 0 #EDD182;
+}
+.pc-sidebar-badge.pc-badge-rose {
+  background: #FCE8EB;
+  color: #9C2636;
+  border-color: #F5B8BE;
+  box-shadow: 0 1.5px 0 #E3A3AA;
+}
+.pc-sidebar-badge.pc-badge-sky {
+  background: #E8F4FD;
+  color: #174E6F;
+  border-color: #BDE0EA;
+  box-shadow: 0 1.5px 0 #A8CFDB;
+}
+.pc-sidebar-badge.pc-badge-sage {
+  background: #EDF4ED;
+  color: #245724;
+  border-color: #BFDCBF;
+  box-shadow: 0 1.5px 0 #AAC9AA;
+}
+.pc-sidebar-badge.pc-badge-coral {
+  background: #FFF0E8;
+  color: #A83E15;
+  border-color: #F8C3A9;
+  box-shadow: 0 1.5px 0 #E5AD92;
+}
 .pc-sidebar-item.is-active .pc-sidebar-badge {
   background: #E8F6EE;
   color: #1A543B;
@@ -325,6 +439,39 @@
 }
 #pc-sidebar-nav.is-collapsed .pc-sidebar-badge {
   display: none;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-menu {
+  padding: 10px 6px;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item {
+  justify-content: center !important;
+  padding: 8px 0 !important;
+  transform: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item:hover {
+  transform: scale(1.08) !important;
+  background: #FFFDF9;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  background: #2D2926;
+  color: #FFFDF9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  pointer-events: none;
 }
 
 /* Sidebar Footer (Quick Back to Top) with Pressed Paper Crease */
@@ -363,6 +510,19 @@
 }
 #pc-sidebar-nav.is-collapsed .pc-sidebar-top-btn span:not(.pc-inline-icon) {
   display: none;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-footer {
+  padding: 10px 6px;
+  justify-content: center;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-top-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 /* Layout Shift on Desktop */
