@@ -308,15 +308,18 @@ function initCopyCodeButtons() {
  * Category Filtering for 30 Examples
  */
 function initCategoryFilters() {
-  const filterButtons = document.querySelectorAll('.pc-filter-btn');
+  const filterButtons = document.querySelectorAll('.pc-filter-btn[data-filter]');
+  if (!filterButtons.length) return;
   const exampleCards = document.querySelectorAll('.example-item');
 
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      if (!filter) return;
+
       filterButtons.forEach(b => b.classList.remove('is-active'));
       btn.classList.add('is-active');
 
-      const filter = btn.dataset.filter;
       let count = 0;
 
       exampleCards.forEach(card => {

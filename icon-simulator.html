@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PaperCut UI - 아이콘 규격별 실시간 시뮬레이터 (Icon Size Simulator)</title>
+  
+  <!-- Favicon & Brand Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+  
+  <!-- Google Fonts: Gaegu & NanumSquareRound & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Square+Round:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="assets/uicons/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="papercut.css">
+  <link rel="stylesheet" href="papercut-alerts-toasts.css">
+  <link rel="stylesheet" href="papercut-sidebar.css">
+  <link rel="stylesheet" href="papercut-icon-sim.css">
+  <link rel="stylesheet" href="icon-simulator.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--pc-bg-cream, #FBF8F1);
+      color: var(--pc-ink, #3D352E);
+      font-family: 'Nanum Square Round', -apple-system, sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: radial-gradient(#E8DFC8 0.75px, transparent 0.75px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body class="pc-paper-grain texture-soft has-pc-sidebar">
+  <script>
+    if (localStorage.getItem('pc_sidebar_collapsed') === 'true') {
+      document.body.classList.add('is-collapsed');
+    }
+  </script>
+
+  <div class="sim-page-container">
+
+    <!-- Header Card -->
+    <header class="sim-header-card">
+      <div class="pc-washi-tape pc-washi-tape-mint"></div>
+      
+      <div class="sim-header-top">
+        <nav class="sim-nav-breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">
+            <span class="pc-inline-icon is-sm" data-icon="home"></span> <span>메인 쇼케이스</span>
+          </a>
+          <span>›</span>
+          <a href="index.html#icon-gallery">
+            <span class="pc-inline-icon is-sm" data-icon="sparkles"></span> <span>아이콘 라이브러리</span>
+          </a>
+          <span>›</span>
+          <span style="color: var(--pc-peach-dark, #D35400);">아이콘 크기별 시뮬레이터</span>
+        </nav>
+
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <a href="index.html" class="pc-btn pc-btn-sm pc-btn-lavender" style="text-decoration: none;">
+            <span class="pc-inline-icon is-sm" data-icon="arrow-left"></span> <span>메인 쇼케이스로 돌아가기</span>
+          </a>
+        </div>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <a href="index.html" style="text-decoration: none; display: inline-block;">
+          <img src="logo.svg" alt="PaperCut UI" style="height: 38px; width: auto; display: block;">
+        </a>
+      </div>
+
+      <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px; flex-wrap: wrap;">
+        <span class="pc-badge pc-badge-peach"><span class="pc-inline-icon is-xs" data-icon="minus"></span> <span>fi fi-rr 라인 스튜디오 (16~28px)</span></span>
+        <span class="pc-badge pc-badge-mint"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>3D 페이퍼 스튜디오 (32~256px)</span></span>
+        <span class="pc-badge pc-badge-lavender">디자인 관점 완전 분리</span>
+        <span class="pc-badge pc-badge-buttercup"><span class="pc-inline-icon is-xs" data-icon="download"></span> <span>독립형 SVG 파일 다운로드</span></span>
+      </div>
+
+      <h1 style="font-size: 32px; font-weight: 900; margin: 10px 0 12px; letter-spacing: -0.02em;">
+        아이콘 규격별 듀얼 디자인 시뮬레이션 스튜디오
+      </h1>
+      <p style="font-size: 15px; color: var(--pc-ink-muted, #7D7166); margin: 0; max-width: 960px;">
+        가독성 한계 이하인 <strong>10px~14px는 지원하지 않으며, 16px부터 256px까지 완벽하게 지원</strong>합니다.
+        <strong>16~28px 구간(fi fi-rr 정밀 라인 스튜디오)</strong>과 <strong>32~256px 구간(3D 레이어드 페이퍼 아트 스튜디오)</strong>은 디자인 관점(UI 글리프 가독성 vs 3D 페이퍼 디오라마 질감)이 완전히 다르므로 <strong>두 개의 독립된 전문 스튜디오로 완벽하게 분리</strong>되어 운영됩니다.
+      </p>
+
+      <!-- Vector Code Philosophy Callout Card -->
+      <div style="margin-top: 18px; padding: 14px 18px; background: rgba(255, 255, 255, 0.7); border: 1.5px dashed var(--pc-mint-dark, #275C46); border-radius: 14px; position: relative;">
+        <div style="font-size: 12.5px; font-weight: 800; color: var(--pc-mint-dark, #275C46); margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+          <span class="pc-inline-icon is-sm" data-icon="quote-right" style="color: var(--pc-mint-dark);"></span>
+          <span>수학적 벡터와 인터랙티브 코드의 진화 (The Renaissance of Vector & Code)</span>
+        </div>
+        <p style="font-size: 13.5px; line-height: 1.6; color: var(--pc-ink); margin: 0; font-style: italic;">
+          “처음엔 AI가 당연히 수학계산 방식인 벡터 방식부터 올 줄 알았는데, 픽셀 베이스의 비트맵 방식이 먼저 오고, 이제야 벡터 방식이 빠르게 발전하는 것 같아요. 벡터 형식인 SVG가 실상 XML 기반의 '코드'(Code) 인데, 최근 이 부분에서 비약적인 발전이 있기 때문인 것 같아요.<br>
+          제품 이미지를 넣어주거나, 설명을 하면, 라인 형식으로 인터렉티브한 코드 파일을 만들어 줍니다. :) <strong>SVG로 다운도 가능하여 웹사이트에 넣기에 안성맞춤</strong>입니다.”
+        </p>
+      </div>
+    </header>
+
+    <!-- Dual Studio Direct Navigator (Dual Canvases Live Comparison) -->
+    <div class="sim-studio-switcher-wrap" role="navigation" aria-label="실시간 듀얼 캔버스 바로가기">
+      <!-- Nav 1: fi fi-rr Slim Line Studio (16px ~ 28px) -->
+      <a href="#canvas-scaler-firr" class="sim-studio-tab-btn is-active" id="tab-studio-firr" style="text-decoration: none;">
+        <div class="sim-studio-tab-icon" style="display: flex; align-items: center; justify-content: center;">
+          <svg width="22" height="22" viewBox="0 0 64 64" fill="none" class="pc-layered-paper-icon pc-firr-style" data-style="fi-rr" shape-rendering="geometricPrecision" style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; overflow: visible; filter: none;">
+            <path d="M28 14 C28 23 21 30 12 32 C21 34 28 41 28 50 C28 41 35 34 44 32 C35 30 28 23 28 14 Z" fill="none" stroke="#423D39" stroke-width="0.88" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+            <polygon points="28,23 32.5,32 28,41 23.5,32" fill="none" stroke="#423D39" stroke-width="0.88" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+            <path d="M48 6 C48 11 44 15 39 16 C44 17 48 21 48 26 C48 21 52 17 57 16 C52 15 48 11 48 6 Z" fill="none" stroke="#423D39" stroke-width="0.88" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+          </svg>
+        </div>
+        <div class="sim-studio-tab-content">
+          <div class="sim-studio-tab-header">
+            <span class="sim-studio-tab-title">1. fi fi-rr 정밀 벡터 라인 캔버스</span>
+            <span class="pc-badge pc-badge-peach" style="font-size: 11.5px; font-weight: 800;">16px ~ 28px</span>
+          </div>
+          <p class="sim-studio-tab-desc">
+            <strong>디자인 관점: UI 글리프 가독성 집중.</strong> 0.88px 진회색(#423D39) 극세 라인, 8% 파스텔 워시, 3D 그림자 차단으로 마이크로 컴포넌트(버튼·인풋·탭바)의 또렷한 가독성을 제공합니다.
+          </p>
+        </div>
+      </a>
+
+      <!-- Nav 2: 3D Paper Art Studio (32px ~ 256px) -->
+      <a href="#canvas-scaler-paper3d" class="sim-studio-tab-btn" id="tab-studio-paper3d" style="text-decoration: none;">
+        <div class="sim-studio-tab-icon" style="display: flex; align-items: center; justify-content: center;">
+          <svg width="26" height="26" viewBox="0 0 64 64" fill="none" class="pc-layered-paper-icon" style="width: 26px !important; height: 26px !important; max-width: 26px !important; max-height: 26px !important; overflow: visible;">
+            <defs>
+              <filter id="ps-nav-sparkles" x="-10%" y="-10%" width="130%" height="130%">
+                <feDropShadow dx="0" dy="2" stdDeviation="1.2" flood-color="#4A3A2A" flood-opacity="0.22"/>
+              </filter>
+            </defs>
+            <path d="M28 14 C28 23 21 30 12 32 C21 34 28 41 28 50 C28 41 35 34 44 32 C35 30 28 23 28 14 Z" fill="#FEE396" filter="url(#ps-nav-sparkles)"/>
+            <polygon points="28,23 32.5,32 28,41 23.5,32" fill="#FFFDF9" filter="url(#ps-nav-sparkles)"/>
+            <polygon points="28,27 30.5,32 28,37 25.5,32" fill="#F7BA9E"/>
+            <path d="M48 6 C48 11 44 15 39 16 C44 17 48 21 48 26 C48 21 52 17 57 16 C52 15 48 11 48 6 Z" fill="#BDE0EA" filter="url(#ps-nav-sparkles)"/>
+            <polygon points="48,11 50.5,16 48,21 45.5,16" fill="#FFFDF9"/>
+            <circle cx="47" cy="40" r="2.4" fill="#A3D8C3" filter="url(#ps-nav-sparkles)"/>
+            <circle cx="16" cy="18" r="1.8" fill="#D7CBEB" filter="url(#ps-nav-sparkles)"/>
+          </svg>
+        </div>
+        <div class="sim-studio-tab-content">
+          <div class="sim-studio-tab-header">
+            <span class="sim-studio-tab-title">2. 3D 레이어드 페이퍼 아트 캔버스</span>
+            <span class="pc-badge pc-badge-mint" style="font-size: 11.5px; font-weight: 800;">16px ~ 256px</span>
+          </div>
+          <p class="sim-studio-tab-desc">
+            <strong>디자인 관점: 종이 공예의 디오라마적 공간감.</strong> 16px부터 256px까지 외곽선 없는 순수 다층 색지(Mint·Peach·Lavender)와 3D 입체 드롭섀도우로 카드·모달·배너·쇼케이스의 예술적 깊이를 연출합니다.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Dual Canvas Philosophy Banner -->
+    <div class="sim-studio-banner is-firr" id="sim-active-studio-banner" style="background: linear-gradient(135deg, rgba(253, 238, 228, 0.7) 0%, rgba(232, 245, 238, 0.7) 100%); border: 1.5px solid rgba(74, 58, 42, 0.15);">
+      <div style="font-size: 24px; line-height: 1;" id="sim-studio-banner-icon">
+        <span class="pc-inline-icon is-md" data-icon="exchange-arrows" style="color: var(--pc-ink);"></span>
+      </div>
+      <div style="flex: 1;">
+        <strong id="sim-studio-banner-title" style="font-size: 14.5px; color: var(--pc-ink);">실시간 동적 스케일링 듀얼 캔버스 동시 구동 중</strong>
+        <p id="sim-studio-banner-desc" style="font-size: 13px; color: var(--pc-ink-muted); margin: 2px 0 0; line-height: 1.45;">
+          왼쪽 <strong>[캔버스 1: ≤28px fi-rr 극세 라인]</strong>과 오른쪽 <strong>[캔버스 2: 16px~256px 3D 페이퍼 컬러]</strong>가 동시에 실시간 렌더링되며, 각각의 슬라이더 조작 및 루페 확대를 통해 최적화된 시각적 차이를 직접 검증할 수 있습니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Icon Selection Bar -->
+    <section class="sim-select-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <div style="font-size: 14.5px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 8px;">
+            <span class="pc-inline-icon is-sm" data-icon="apps"></span>
+            <span>검사 대상 아이콘 선택:</span>
+            <span class="pc-badge pc-badge-peach" id="sim-active-name-ko" style="font-size: 13px; font-weight: 800;">커피</span>
+            <span id="sim-active-name-en" style="font-size: 12px; color: var(--pc-ink-muted); font-weight: 600;">Warm Coffee</span>
+            <span class="pc-label-tag" id="sim-active-id-badge" style="font-family: monospace;">coffee</span>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <button type="button" class="pc-btn pc-btn-sm pc-btn-peach btn-trigger-download-svg" title="현재 아이콘을 독립형 SVG 파일로 즉시 다운로드">
+            <span class="pc-inline-icon is-xs" data-icon="download"></span> <span>SVG 다운로드 (.svg)</span>
+          </button>
+          <a href="#sim-gallery-section" class="pc-btn pc-btn-sm pc-btn-mint" style="text-decoration: none;">
+            <span class="pc-inline-icon is-xs" data-icon="search"></span> <span>619종 전체 갤러리</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Sample Chips (16 Curated Icons) -->
+      <div class="sim-quick-chips-wrap">
+        <button type="button" class="sim-icon-chip is-active" data-chip-icon="coffee"><span class="pc-inline-icon is-firr is-xs" data-icon="coffee"></span> <span>커피</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="home"><span class="pc-inline-icon is-firr is-xs" data-icon="home"></span> <span>홈</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="search"><span class="pc-inline-icon is-firr is-xs" data-icon="search"></span> <span>검색</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="scissors"><span class="pc-inline-icon is-firr is-xs" data-icon="scissors"></span> <span>가위</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="gift"><span class="pc-inline-icon is-firr is-xs" data-icon="gift"></span> <span>선물</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="camera"><span class="pc-inline-icon is-firr is-xs" data-icon="camera"></span> <span>카메라</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="mail"><span class="pc-inline-icon is-firr is-xs" data-icon="mail"></span> <span>편지</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="heart"><span class="pc-inline-icon is-firr is-xs" data-icon="heart"></span> <span>하트</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="sun"><span class="pc-inline-icon is-firr is-xs" data-icon="sun"></span> <span>태양</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="sparkles"><span class="pc-inline-icon is-firr is-xs" data-icon="sparkles"></span> <span>반짝임</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="cart"><span class="pc-inline-icon is-firr is-xs" data-icon="cart"></span> <span>카트</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="shield"><span class="pc-inline-icon is-firr is-xs" data-icon="shield"></span> <span>방패</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="bell"><span class="pc-inline-icon is-firr is-xs" data-icon="bell"></span> <span>알림종</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="book"><span class="pc-inline-icon is-firr is-xs" data-icon="book"></span> <span>도서</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="settings"><span class="pc-inline-icon is-firr is-xs" data-icon="settings"></span> <span>설정</span></button>
+        <button type="button" class="sim-icon-chip" data-chip-icon="check"><span class="pc-inline-icon is-firr is-xs" data-icon="check"></span> <span>체크</span></button>
+      </div>
+    </section>
+
+
+    <!-- Global Stage & Guide Toolbar -->
+    <div class="sim-global-stage-bar">
+      <!-- Background Color Switcher -->
+      <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+        <span style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+          <span class="pc-inline-icon is-xs" data-icon="palette"></span> <span>스테이지 배경:</span>
+        </span>
+        <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+          <button type="button" class="pc-btn pc-btn-sm sim-bg-chip is-active" data-bg="cream" style="padding: 3px 9px; font-size: 11.5px;"><span>크림</span></button>
+          <button type="button" class="pc-btn pc-btn-sm sim-bg-chip" data-bg="white" style="padding: 3px 9px; font-size: 11.5px;"><span>화이트</span></button>
+          <button type="button" class="pc-btn pc-btn-sm sim-bg-chip" data-bg="dark" style="padding: 3px 9px; font-size: 11.5px;"><span>다크</span></button>
+          <button type="button" class="pc-btn pc-btn-sm sim-bg-chip" data-bg="mint" style="padding: 3px 9px; font-size: 11.5px;"><span>민트</span></button>
+          <button type="button" class="pc-btn pc-btn-sm sim-bg-chip" data-bg="peach" style="padding: 3px 9px; font-size: 11.5px;"><span>피치</span></button>
+          <button type="button" class="pc-btn pc-btn-sm sim-bg-chip" data-bg="lavender" style="padding: 3px 9px; font-size: 11.5px;"><span>라벤더</span></button>
+          <button type="button" class="pc-btn pc-btn-sm sim-bg-chip" data-bg="blueprint" style="padding: 3px 9px; font-size: 11.5px;"><span>그리드</span></button>
+        </div>
+      </div>
+
+      <!-- Guide Overlays Toggle -->
+      <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+        <label class="pc-checkbox-label" style="font-size: 12.5px; margin: 0;">
+          <input type="checkbox" class="pc-checkbox-input" id="toggle-bbox" checked>
+          <span class="pc-checkbox-box"></span>
+          <span>경계선 (Bounding Box)</span>
+        </label>
+        <label class="pc-checkbox-label" style="font-size: 12.5px; margin: 0;">
+          <input type="checkbox" class="pc-checkbox-input" id="toggle-grid">
+          <span class="pc-checkbox-box"></span>
+          <span>서브픽셀 격자 (Pixel Grid)</span>
+        </label>
+      </div>
+    </div>
+
+
+    <!-- =========================================================================
+         SECTION 1: DUAL REAL-TIME DYNAMIC SCALING CANVASES
+         1. Canvas 1: <= 28px fi-rr Style
+         2. Canvas 2: >= 32px 3D Paper Cut Style
+         ========================================================================= -->
+    <div class="sim-dual-canvases-grid">
+
+      <!-- =====================================================================
+           CANVAS 1: fi fi-rr 정밀 벡터 라인 캔버스 (16px ~ 28px)
+           ===================================================================== -->
+      <section class="sim-scaler-card is-firr-card" id="canvas-scaler-firr">
+        <!-- Card Header -->
+        <div class="sim-scaler-header">
+          <div class="sim-scaler-title-group">
+            <div class="sim-scaler-badges">
+              <span class="pc-badge pc-badge-peach" style="font-size: 11px; font-weight: 800;">Canvas 1</span>
+              <span class="pc-badge pc-badge-peach" style="font-size: 11px; font-weight: 800;">16px ~ 28px</span>
+              <span class="pc-label-tag" style="font-size: 11px;">0.88px 진회색 극세선</span>
+            </div>
+            <h2 class="sim-scaler-title" style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; flex-shrink: 0;">
+                <svg width="22" height="22" viewBox="0 0 64 64" fill="none" class="pc-layered-paper-icon pc-firr-style" data-style="fi-rr" shape-rendering="geometricPrecision" style="width: 22px !important; height: 22px !important; max-width: 22px !important; max-height: 22px !important; overflow: visible; filter: none;">
+                  <path d="M28 14 C28 23 21 30 12 32 C21 34 28 41 28 50 C28 41 35 34 44 32 C35 30 28 23 28 14 Z" fill="none" stroke="#423D39" stroke-width="0.88" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+                  <polygon points="28,23 32.5,32 28,41 23.5,32" fill="none" stroke="#423D39" stroke-width="0.88" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+                  <path d="M48 6 C48 11 44 15 39 16 C44 17 48 21 48 26 C48 21 52 17 57 16 C52 15 48 11 48 6 Z" fill="none" stroke="#423D39" stroke-width="0.88" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+                  <path d="M14 39 C14 42.5 11.5 45 8 46 C11.5 47 14 49.5 14 53 C14 49.5 16.5 47 20 46 C16.5 45 14 42.5 14 39 Z" fill="none" stroke="#423D39" stroke-width="0.88" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" vector-effect="non-scaling-stroke"/>
+                </svg>
+              </span>
+              <span>fi fi-rr 정밀 벡터 라인 캔버스</span>
+            </h2>
+            <p class="sim-scaler-desc">
+              <strong>디자인 관점: UI 글리프 가독성 집중.</strong> 10~14px는 미지원하며, 16px부터 28px까지 0.88px 진회색(#423D39) 극세선, 8% 파스텔 워시, 3D 그림자 완전 차단(Shadow OFF)으로 마이크로 컴포넌트의 또렷한 가독성을 제공합니다.
+            </p>
+          </div>
+
+          <div class="sim-scaler-actions">
+            <span class="pc-badge pc-badge-peach" id="sim-dim-firr" style="font-size: 13px; font-weight: 800; font-family: monospace;">24px × 24px</span>
+            <button type="button" class="pc-btn pc-btn-sm pc-btn-peach" id="btn-download-firr" title="28px 이하 fi-rr 극세 라인 SVG 즉시 다운로드">
+              <span class="pc-inline-icon is-xs" data-icon="download"></span> <span>라인 SVG</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas 1 Viewport Stage -->
+        <div class="sim-canvas-viewport" id="sim-viewport-firr" data-bg="cream">
+          <div class="sim-icon-vessel has-bbox" id="sim-vessel-firr" data-dim="24 × 24">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Controls for Canvas 1 -->
+        <div class="sim-scaler-controls">
+          <!-- Slider & Number Input -->
+          <div class="sim-scaler-subgroup">
+            <div class="sim-control-label">
+              <span style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">
+                실시간 동적 스케일 (16px ~ 28px)
+              </span>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <input type="number" id="sim-num-firr" min="16" max="28" step="1" value="24" style="width: 54px; padding: 3px 4px; font-size: 12.5px; font-weight: 800; text-align: center; border: 1.5px solid rgba(211,84,0,0.3); border-radius: 8px;">
+                <span style="font-size: 12px; font-weight: 700;">px</span>
+              </div>
+            </div>
+
+            <div class="sim-range-wrapper">
+              <input type="range" id="sim-slider-firr" class="sim-slider" min="16" max="28" step="1" value="24" style="accent-color: var(--pc-peach-dark, #D35400);">
+              
+              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--pc-ink-muted);">
+                <span>16px (최소)</span>
+                <span>18px</span>
+                <span>20px</span>
+                <span>24px (기본)</span>
+                <span>28px (한계)</span>
+              </div>
+
+              <!-- Fine-tune Step Buttons -->
+              <div style="display: flex; gap: 6px; margin-top: 2px;">
+                <button type="button" class="sim-step-btn" id="btn-step-firr-minus" data-step="-1">-1px</button>
+                <button type="button" class="sim-step-btn" id="btn-step-firr-plus" data-step="+1">+1px</button>
+                <span style="font-size: 11px; color: var(--pc-ink-muted); margin-left: auto; align-self: center;">※ 10~14px는 가독성 한계로 미지원</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standard Presets for Canvas 1 -->
+          <div class="sim-scaler-subgroup">
+            <div class="sim-control-label">
+              <span style="font-size: 12.5px; font-weight: 800;">표준 규격 프리셋 (클릭 시 즉시 스케일링)</span>
+            </div>
+            <div class="sim-preset-btn-grid" id="sim-presets-firr" style="grid-template-columns: repeat(6, 1fr);">
+              <button type="button" class="sim-preset-btn" data-size="16">16px<br><span style="font-size:9.5px;font-weight:600;">파비콘</span></button>
+              <button type="button" class="sim-preset-btn" data-size="18">18px<br><span style="font-size:9.5px;font-weight:600;">인풋</span></button>
+              <button type="button" class="sim-preset-btn" data-size="20">20px<br><span style="font-size:9.5px;font-weight:600;">폼</span></button>
+              <button type="button" class="sim-preset-btn" data-size="22">22px<br><span style="font-size:9.5px;font-weight:600;">툴바</span></button>
+              <button type="button" class="sim-preset-btn is-active" data-size="24">24px<br><span style="font-size:9.5px;font-weight:600;">버튼(권장)</span></button>
+              <button type="button" class="sim-preset-btn" data-size="28">28px<br><span style="font-size:9.5px;font-weight:600;">한계</span></button>
+            </div>
+          </div>
+
+          <!-- 3. Stroke Width Scaler (0.4px ~ 2.4px) -->
+          <div class="sim-scaler-subgroup">
+            <div class="sim-control-label">
+              <span style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+                <span class="pc-inline-icon is-xs" data-icon="edit" style="color: var(--pc-peach-dark);"></span>
+                <span>선의 굵기 (Stroke Width)</span>
+              </span>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <input type="number" id="sim-width-firr" min="0.4" max="2.4" step="0.05" value="0.88" style="width: 58px; padding: 3px 4px; font-size: 12.5px; font-weight: 800; text-align: center; border: 1.5px solid rgba(211,84,0,0.3); border-radius: 8px;">
+                <span style="font-size: 12px; font-weight: 700;">px</span>
+              </div>
+            </div>
+
+            <div class="sim-range-wrapper">
+              <input type="range" id="sim-slider-width-firr" class="sim-slider" min="0.4" max="2.4" step="0.05" value="0.88" style="accent-color: var(--pc-peach-dark, #D35400);">
+              
+              <div style="display: flex; justify-content: space-between; font-size: 10.5px; font-weight: 700; color: var(--pc-ink-muted);">
+                <span>0.4px (극세)</span>
+                <span>0.75px</span>
+                <span>0.88px (표준)</span>
+                <span>1.25px</span>
+                <span>2.4px (최대)</span>
+              </div>
+
+              <!-- Stroke Width Presets & Step Buttons -->
+              <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-top: 4px; align-items: center;">
+                <div style="display: flex; gap: 4px;">
+                  <button type="button" class="sim-step-btn" id="btn-step-width-minus" data-step="-0.05" title="-0.05px 미세 조절">-0.05</button>
+                  <button type="button" class="sim-step-btn" id="btn-step-width-plus" data-step="+0.05" title="+0.05px 미세 조절">+0.05</button>
+                </div>
+                <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto;" id="sim-presets-stroke-width">
+                  <button type="button" class="sim-preset-btn" data-swidth="0.65" style="padding: 3px 7px; font-size: 10.5px;">0.65px</button>
+                  <button type="button" class="sim-preset-btn" data-swidth="0.75" style="padding: 3px 7px; font-size: 10.5px;">0.75px</button>
+                  <button type="button" class="sim-preset-btn is-active" data-swidth="0.88" style="padding: 3px 7px; font-size: 10.5px;">0.88px (표준)</button>
+                  <button type="button" class="sim-preset-btn" data-swidth="1.0" style="padding: 3px 7px; font-size: 10.5px;">1.0px</button>
+                  <button type="button" class="sim-preset-btn" data-swidth="1.25" style="padding: 3px 7px; font-size: 10.5px;">1.25px</button>
+                  <button type="button" class="sim-preset-btn" data-swidth="1.5" style="padding: 3px 7px; font-size: 10.5px;">1.5px</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Stroke Color Selector -->
+          <div class="sim-scaler-subgroup">
+            <div class="sim-control-label">
+              <span style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+                <span class="pc-inline-icon is-xs" data-icon="palette" style="color: var(--pc-peach-dark);"></span>
+                <span>선의 색상 (Stroke Color)</span>
+              </span>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span id="sim-color-preview-badge" style="display: inline-block; width: 14px; height: 14px; border-radius: 4px; background: #423D39; border: 1px solid rgba(0,0,0,0.2);"></span>
+                <span id="sim-color-firr-label" style="font-size: 11.5px; font-weight: 800; font-family: monospace; color: var(--pc-ink);">#423D39</span>
+              </div>
+            </div>
+
+            <!-- Color Palette Chips -->
+            <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;" id="sim-palette-firr">
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip is-active" data-color="#423D39" title="클래식 진회색 (표준 권장)" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #423D39;"></span>
+                <span>진회색</span>
+              </button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip" data-color="#2B2623" title="딥 차콜 잉크" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #2B2623;"></span>
+                <span>차콜</span>
+              </button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip" data-color="#111111" title="퓨어 블랙" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #111111;"></span>
+                <span>블랙</span>
+              </button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip" data-color="#5C534B" title="웜 모카 그레이" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #5C534B;"></span>
+                <span>모카</span>
+              </button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip" data-color="#8C4A32" title="테라코타 잉크" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #8C4A32;"></span>
+                <span>테라코타</span>
+              </button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip" data-color="#235B47" title="포레스트 잉크" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #235B47;"></span>
+                <span>포레스트</span>
+              </button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip" data-color="#21496B" title="인디고 블루" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #21496B;"></span>
+                <span>인디고</span>
+              </button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-color-chip" data-color="#FFFFFF" title="화이트 라인 (다크 배경용)" style="padding: 3px 8px; font-size: 11px; display: inline-flex; align-items: center; gap: 5px;">
+                <span style="width: 10px; height: 10px; border-radius: 50%; background: #FFFFFF; border: 1px solid #777;"></span>
+                <span>화이트</span>
+              </button>
+
+              <!-- Custom Color Picker Input -->
+              <label style="margin: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; border-radius: 8px; border: 1.5px dashed rgba(74,58,42,0.25); background: #FFF;" title="직접 컬러 선택">
+                <input type="color" id="sim-color-firr-picker" value="#423D39" style="width: 18px; height: 18px; border: none; padding: 0; cursor: pointer; border-radius: 4px; background: none;">
+                <span style="font-size: 10.5px; font-weight: 700; color: var(--pc-ink-muted);">커스텀</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- 5. Canvas 1 Independent Background Selection -->
+          <div class="sim-scaler-subgroup">
+            <div class="sim-control-label">
+              <span style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+                <span class="pc-inline-icon is-xs" data-icon="layers" style="color: var(--pc-peach-dark);"></span>
+                <span>캔버스 1 배경 종류 (Background)</span>
+              </span>
+              <span class="pc-badge pc-badge-peach" id="sim-firr-bg-badge" style="font-size: 10.5px;">화이트(기본)</span>
+            </div>
+
+            <!-- Background Chips -->
+            <div style="display: flex; gap: 5px; flex-wrap: wrap;" id="sim-firr-bg-bar">
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn is-active" data-bg="white" style="padding: 3px 8px; font-size: 11px;"><span>화이트</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="cream" style="padding: 3px 8px; font-size: 11px;"><span>크림</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="dark" style="padding: 3px 8px; font-size: 11px;"><span>다크</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="mint" style="padding: 3px 8px; font-size: 11px;"><span>민트</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="peach" style="padding: 3px 8px; font-size: 11px;"><span>피치</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="lavender" style="padding: 3px 8px; font-size: 11px;"><span>라벤더</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="buttercup" style="padding: 3px 8px; font-size: 11px;"><span>버터컵</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="blueprint" style="padding: 3px 8px; font-size: 11px;"><span>그리드</span></button>
+              <button type="button" class="pc-btn pc-btn-sm sim-firr-bg-btn" data-bg="checker" style="padding: 3px 8px; font-size: 11px;"><span>투명 격자</span></button>
+            </div>
+          </div>
+
+          <!-- Loupe Magnifier for Canvas 1 -->
+          <div class="sim-loupe-stage" style="margin-top: 4px; padding-top: 14px;">
+            <div class="sim-loupe-box" id="sim-loupe-box-firr" style="border-color: var(--pc-peach, #F7BA9E);" title="고배율 정밀 루페 확대">
+              <!-- Scaled Loupe SVG -->
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 8px;">
+                <span class="pc-inline-icon is-xs" data-icon="zoom-in"></span>
+                <span>정밀 픽셀 루페 돋보기</span>
+                <span class="pc-badge pc-badge-peach" id="sim-loupe-factor-firr" style="font-size: 10.5px;">4x 배율 루페</span>
+              </div>
+              <div style="font-size: 11.5px; color: var(--pc-ink-muted); margin: 3px 0 6px;">
+                0.88px 진회색 극세선, 안티앨리어싱, 8% 파스텔 워시 층위를 검사합니다.
+              </div>
+              <div style="display: flex; gap: 5px; flex-wrap: wrap;" id="sim-loupe-zooms-firr">
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="1"><span>1x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="2"><span>2x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn is-active" data-zoom="4"><span>4x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="8"><span>8x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="16"><span>16x</span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Micro UI Preview Strip -->
+          <div class="sim-micro-ui-preview-strip">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <button type="button" class="pc-btn pc-btn-peach" style="padding: 6px 14px; font-size: 13px;">
+                <span id="preview-btn-icon-firr"></span>
+                <span>버튼 결합 (24px)</span>
+              </button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; background: #FFF; padding: 4px 10px; border-radius: 999px; border: 1px solid rgba(74,58,42,0.15);">
+              <span id="preview-input-icon-firr"></span>
+              <span style="font-size: 12px; color: var(--pc-ink-muted);">검색창 접두사 (20px)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <span class="pc-badge pc-badge-peach" style="font-size: 11px;">
+                <span id="preview-badge-icon-firr"></span>
+                <span>인라인 (16px)</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- =====================================================================
+           CANVAS 2: 3D 레이어드 페이퍼 아트 칼라 캔버스 (16px ~ 256px)
+           ===================================================================== -->
+      <section class="sim-scaler-card is-paper3d-card" id="canvas-scaler-paper3d">
+        <!-- Card Header -->
+        <div class="sim-scaler-header">
+          <div class="sim-scaler-title-group">
+            <div class="sim-scaler-badges">
+              <span class="pc-badge pc-badge-mint" style="font-size: 11px; font-weight: 800;">Canvas 2</span>
+              <span class="pc-badge pc-badge-mint" style="font-size: 11px; font-weight: 800;">16px ~ 256px</span>
+              <span class="pc-label-tag" style="font-size: 11px;">다층 색지 & 3D 그림자</span>
+            </div>
+            <h2 class="sim-scaler-title" style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex-shrink: 0;">
+                <svg width="26" height="26" viewBox="0 0 64 64" fill="none" class="pc-layered-paper-icon" style="width: 26px !important; height: 26px !important; max-width: 26px !important; max-height: 26px !important; overflow: visible;">
+                  <defs>
+                    <filter id="ps-title-sparkles-header" x="-10%" y="-10%" width="130%" height="130%">
+                      <feDropShadow dx="0" dy="2" stdDeviation="1.2" flood-color="#4A3A2A" flood-opacity="0.22"/>
+                    </filter>
+                  </defs>
+                  <path d="M28 14 C28 23 21 30 12 32 C21 34 28 41 28 50 C28 41 35 34 44 32 C35 30 28 23 28 14 Z" fill="#FEE396" filter="url(#ps-title-sparkles-header)"/>
+                  <polygon points="28,23 32.5,32 28,41 23.5,32" fill="#FFFDF9" filter="url(#ps-title-sparkles-header)"/>
+                  <polygon points="28,27 30.5,32 28,37 25.5,32" fill="#F7BA9E"/>
+                  <path d="M48 6 C48 11 44 15 39 16 C44 17 48 21 48 26 C48 21 52 17 57 16 C52 15 48 11 48 6 Z" fill="#BDE0EA" filter="url(#ps-title-sparkles-header)"/>
+                  <polygon points="48,11 50.5,16 48,21 45.5,16" fill="#FFFDF9"/>
+                  <path d="M14 39 C14 42.5 11.5 45 8 46 C11.5 47 14 49.5 14 53 C14 49.5 16.5 47 20 46 C16.5 45 14 42.5 14 39 Z" fill="#F5B8BE" filter="url(#ps-title-sparkles-header)"/>
+                  <circle cx="47" cy="40" r="2.4" fill="#A3D8C3" filter="url(#ps-title-sparkles-header)"/>
+                  <circle cx="16" cy="18" r="1.8" fill="#D7CBEB" filter="url(#ps-title-sparkles-header)"/>
+                  <circle cx="38" cy="50" r="1.5" fill="#F7BA9E"/>
+                </svg>
+              </span>
+              <span>3D 레이어드 페이퍼 아트 칼라 캔버스</span>
+            </h2>
+            <p class="sim-scaler-desc">
+              <strong>디자인 관점: 종이 공예의 디오라마적 공간감.</strong> 16px부터 256px까지 외곽선 없는 순수 다층 색지(Mint·Peach·Lavender)와 3D 입체 드롭섀도우로 카드·모달·배너·쇼케이스의 예술적 깊이를 연출합니다.
+            </p>
+          </div>
+
+          <div class="sim-scaler-actions">
+            <span class="pc-badge pc-badge-mint" id="sim-dim-paper3d" style="font-size: 13px; font-weight: 800; font-family: monospace;">64px × 64px</span>
+            <button type="button" class="pc-btn pc-btn-sm pc-btn-mint" id="btn-download-paper3d" title="16px 이상 3D 페이퍼 컬러 SVG 즉시 다운로드">
+              <span class="pc-inline-icon is-xs" data-icon="download"></span> <span>3D 페이퍼 SVG</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Canvas 2 Viewport Stage -->
+        <div class="sim-canvas-viewport" id="sim-viewport-paper3d" data-bg="cream">
+          <div class="sim-icon-vessel has-bbox" id="sim-vessel-paper3d" data-dim="64 × 64">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Controls for Canvas 2 -->
+        <div class="sim-scaler-controls">
+          <!-- Slider & Number Input -->
+          <div class="sim-scaler-subgroup">
+            <div class="sim-control-label">
+              <span style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">
+                실시간 동적 스케일 (16px ~ 256px)
+              </span>
+              <div style="display: flex; align-items: center; gap: 4px;">
+                <input type="number" id="sim-num-paper3d" min="16" max="256" step="2" value="64" style="width: 58px; padding: 3px 4px; font-size: 12.5px; font-weight: 800; text-align: center; border: 1.5px solid rgba(35,91,71,0.3); border-radius: 8px;">
+                <span style="font-size: 12px; font-weight: 700;">px</span>
+              </div>
+            </div>
+
+            <div class="sim-range-wrapper">
+              <input type="range" id="sim-slider-paper3d" class="sim-slider" min="16" max="256" step="2" value="64" style="accent-color: var(--pc-mint-dark, #235B47);">
+              
+              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--pc-ink-muted);">
+                <span>16px (최소)</span>
+                <span>32px</span>
+                <span>64px (기본)</span>
+                <span>128px</span>
+                <span>256px (최대)</span>
+              </div>
+
+              <!-- Fine-tune Step Buttons -->
+              <div style="display: flex; gap: 6px; margin-top: 2px;">
+                <button type="button" class="sim-step-btn" id="btn-step-paper3d-m4" data-step="-4">-4px</button>
+                <button type="button" class="sim-step-btn" id="btn-step-paper3d-p4" data-step="+4">+4px</button>
+                <button type="button" class="sim-step-btn" id="btn-step-paper3d-m16" data-step="-16">-16px</button>
+                <button type="button" class="sim-step-btn" id="btn-step-paper3d-p16" data-step="+16">+16px</button>
+                <span style="font-size: 11px; color: var(--pc-ink-muted); margin-left: auto; align-self: center;">※ 다층 색지 & 드롭섀도우 활성</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Standard Presets for Canvas 2 (Ordered from 16px to 256px) -->
+          <div class="sim-scaler-subgroup">
+            <div class="sim-control-label">
+              <span style="font-size: 12.5px; font-weight: 800;">표준 규격 프리셋 (16px부터 순서대로 선택)</span>
+            </div>
+            <div class="sim-preset-btn-grid" id="sim-presets-paper3d" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 6px;">
+              <button type="button" class="sim-preset-btn" data-size="16">16px<br><span style="font-size:9px;font-weight:600;">마이크로</span></button>
+              <button type="button" class="sim-preset-btn" data-size="20">20px<br><span style="font-size:9px;font-weight:600;">스몰</span></button>
+              <button type="button" class="sim-preset-btn" data-size="24">24px<br><span style="font-size:9px;font-weight:600;">버튼</span></button>
+              <button type="button" class="sim-preset-btn" data-size="28">28px<br><span style="font-size:9px;font-weight:600;">임계점</span></button>
+              <button type="button" class="sim-preset-btn" data-size="32">32px<br><span style="font-size:9px;font-weight:600;">카드</span></button>
+              <button type="button" class="sim-preset-btn" data-size="40">40px<br><span style="font-size:9px;font-weight:600;">리스트</span></button>
+              <button type="button" class="sim-preset-btn" data-size="48">48px<br><span style="font-size:9px;font-weight:600;">대시보드</span></button>
+              <button type="button" class="sim-preset-btn is-active" data-size="64">64px<br><span style="font-size:9px;font-weight:600;">모달(권장)</span></button>
+              <button type="button" class="sim-preset-btn" data-size="80">80px<br><span style="font-size:9px;font-weight:600;">배너</span></button>
+              <button type="button" class="sim-preset-btn" data-size="96">96px<br><span style="font-size:9px;font-weight:600;">런처</span></button>
+              <button type="button" class="sim-preset-btn" data-size="128">128px<br><span style="font-size:9px;font-weight:600;">히어로</span></button>
+              <button type="button" class="sim-preset-btn" data-size="192">192px<br><span style="font-size:9px;font-weight:600;">일러스트</span></button>
+              <button type="button" class="sim-preset-btn" data-size="256">256px<br><span style="font-size:9px;font-weight:600;">디오라마</span></button>
+            </div>
+          </div>
+
+          <!-- Loupe Magnifier for Canvas 2 -->
+          <div class="sim-loupe-stage" style="margin-top: 4px; padding-top: 14px;">
+            <div class="sim-loupe-box" id="sim-loupe-box-paper3d" style="border-color: var(--pc-mint, #A3D8C3);" title="3D 페이퍼 레이어 루페 확대">
+              <!-- Scaled Loupe SVG -->
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 8px;">
+                <span class="pc-inline-icon is-xs" data-icon="zoom-in"></span>
+                <span>3D 페이퍼 레이어 루페</span>
+                <span class="pc-badge pc-badge-mint" id="sim-loupe-factor-paper3d" style="font-size: 10.5px;">1x 배율 루페</span>
+              </div>
+              <div style="font-size: 11.5px; color: var(--pc-ink-muted); margin: 3px 0 6px;">
+                외곽선 없는 순수 다층 색지와 3D 입체 그림자 블러 깊이를 검사합니다.
+              </div>
+              <div style="display: flex; gap: 5px; flex-wrap: wrap;" id="sim-loupe-zooms-paper3d">
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn is-active" data-zoom="1"><span>1x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="2"><span>2x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="4"><span>4x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="8"><span>8x</span></button>
+                <button type="button" class="pc-btn pc-btn-sm sim-zoom-btn" data-zoom="16"><span>16x</span></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Showcase UI Preview Strip -->
+          <div class="sim-micro-ui-preview-strip">
+            <div style="display: flex; align-items: center; gap: 10px; background: #FFF; padding: 6px 14px; border-radius: 14px; border: 1px solid rgba(74,58,42,0.12); box-shadow: 0 2px 6px rgba(55,40,30,0.06);">
+              <span id="preview-kpi-icon-paper3d"></span>
+              <div>
+                <div style="font-size: 10px; color: var(--pc-ink-muted); font-weight: 700;">KPI WIDGET (48px)</div>
+                <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">+1,280 Pts</div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; background: #FFF; padding: 6px 14px; border-radius: 14px; border: 1px solid rgba(74,58,42,0.12); box-shadow: 0 2px 6px rgba(55,40,30,0.06);">
+              <span id="preview-modal-icon-paper3d"></span>
+              <div>
+                <div style="font-size: 10px; color: var(--pc-mint-dark); font-weight: 700;">MODAL HEADER (64px)</div>
+                <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">디자인 완료</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- =========================================================================
+         SECTION 2: MULTI-SCALE COMPARISON MATRIX
+         ========================================================================= -->
+    <section class="sim-matrix-section">
+      <div class="pc-washi-tape pc-washi-tape-peach"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 4px; flex-wrap: wrap;">
+            <span class="pc-badge pc-badge-mint" id="sim-matrix-badge-1">Multi-Scale Comparison Matrix</span>
+            <span class="pc-badge pc-badge-peach" id="sim-matrix-badge-2">16px ~ 256px 전 규격 비교</span>
+          </div>
+          <h2 style="font-size: 24px; font-weight: 800; margin: 0; color: var(--pc-ink);" id="sim-matrix-title">
+            한눈에 보는 16px ~ 256px 전 규격 동시 비교 매트릭스
+          </h2>
+          <p style="font-size: 14px; color: var(--pc-ink-muted); margin: 4px 0 0;" id="sim-matrix-desc">
+            16px~28px 구간은 0.88px 진회색 극세선(fi-rr)으로, 32px~256px 구간은 3D 입체 다층 색지(Paper Art)로 자동 최적화 렌더링되며 카드를 클릭하면 해당 캔버스로 즉시 스케일링됩니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Matrix Grid -->
+      <div class="sim-matrix-grid" id="sim-matrix-grid">
+        <!-- Rendered dynamically by renderComparisonMatrix() -->
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 3: REAL-WORLD UI CONTEXT SIMULATOR
+         ========================================================================= -->
+    <section class="sim-context-section">
+      <div class="pc-washi-tape pc-washi-tape-mint"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 4px;">
+            <span class="pc-badge pc-badge-peach" id="sim-context-badge-1">Dual Component In-Situ Preview</span>
+            <span class="pc-badge pc-badge-mint" id="sim-context-badge-2">마이크로 UI & 대형 쇼케이스</span>
+          </div>
+          <h2 style="font-size: 24px; font-weight: 800; margin: 0; color: var(--pc-ink);" id="sim-context-title">
+            실전 마이크로 UI & 대형 쇼케이스 결합 시뮬레이션
+          </h2>
+          <p style="font-size: 14px; color: var(--pc-ink-muted); margin: 4px 0 0;" id="sim-context-desc">
+            선택된 아이콘이 16~28px 고밀도 마이크로 UI(버튼, 인풋, 배지, 탭바)와 32~256px 대형 쇼케이스(KPI 카드, 모달 다이얼로그, 피처 배너) 속에 각각 삽입된 최적화 상태를 동시에 검증합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- Context Mockups Grid -->
+      <div class="sim-context-grid" id="sim-context-mockups">
+        <!-- Rendered dynamically by renderUiContexts() -->
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 4: INTERACTIVE VECTOR CODE & SVG DOWNLOAD STUDIO
+         ========================================================================= -->
+    <section class="sim-matrix-section" style="margin-top: 50px;">
+      <div class="pc-washi-tape pc-washi-tape-lavender"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px;">
+        <div>
+          <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 4px;">
+            <span class="pc-badge pc-badge-peach">Interactive Vector Code Studio</span>
+            <span class="pc-badge pc-badge-mint">웹사이트 최적화 SVG 배포</span>
+          </div>
+          <h2 style="font-size: 24px; font-weight: 800; margin: 0; color: var(--pc-ink);">
+            인터랙티브 SVG 벡터 코드 & 원클릭 다운로드 스튜디오
+          </h2>
+          <p style="font-size: 14px; color: var(--pc-ink-muted); margin: 4px 0 0;">
+            벡터 형식인 SVG는 실상 XML 기반의 '살아있는 코드(Code)'입니다. 라인 형식으로 인터랙티브한 코드 파일을 생성하고, 웹사이트에 바로 넣을 수 있는 독립형 SVG 파일로 즉시 다운로드하세요.
+          </p>
+        </div>
+
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="pc-btn pc-btn-peach btn-trigger-download-svg" style="padding: 8px 16px; font-weight: 800;">
+            <span class="pc-inline-icon is-sm" data-icon="download"></span> <span>현재 아이콘 SVG 다운로드 (.svg)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Vector Feature Showcase Box -->
+      <div style="background: rgba(255, 255, 255, 0.7); border: 2px solid rgba(74, 58, 42, 0.12); border-radius: 20px; padding: 24px; box-shadow: 0 4px 12px rgba(61, 53, 46, 0.04);">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <!-- Feature 1: Crisp Line Silhouette -->
+          <div style="background: var(--pc-paper-white, #FFFDF9); border-radius: 14px; padding: 18px; border: 1px solid rgba(74,58,42,0.08);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge-peach" style="font-size: 11px;">fi fi-rr Line Art</span>
+              <strong style="color: var(--pc-ink);">0.88px 극세 진회색 라인의 정밀한 가독성</strong>
+            </div>
+            <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 0; line-height: 1.5;">
+              SVG 벡터 본연의 수학적 정밀도를 살린 0.88px 극세 선 두께와 세련된 진회색(#423D39), <code>geometricPrecision</code> 렌더링으로 작은 크기에서도 뭉침 없이 날렵하고 또렷하게 빛납니다.
+            </p>
+          </div>
+
+          <!-- Feature 2: Soft Pastel Paper Wash -->
+          <div style="background: var(--pc-paper-white, #FFFDF9); border-radius: 14px; padding: 18px; border: 1px solid rgba(74,58,42,0.08);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge-mint" style="font-size: 11px;">Aesthetic Wash</span>
+              <strong style="color: var(--pc-ink);">아름다운 파스텔 페이퍼 틴트</strong>
+            </div>
+            <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 0; line-height: 1.5;">
+              차가운 흑백 선화가 아니라, 13%의 맑은 수채화 색지 틴트(민트·피치·라벤더)가 감돌아 따뜻하고 우아한 종이 예술의 품격을 간직합니다.
+            </p>
+          </div>
+
+          <!-- Feature 3: Standalone & Web Ready -->
+          <div style="background: var(--pc-paper-white, #FFFDF9); border-radius: 14px; padding: 18px; border: 1px solid rgba(74,58,42,0.08);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">Zero Dependency</span>
+              <strong style="color: var(--pc-ink);">외부 CSS 없는 독립형 SVG</strong>
+            </div>
+            <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 0; line-height: 1.5;">
+              다운로드된 SVG는 인라인 속성이 완벽히 패키징되어 있어 외부 CSS 없이도 피그마, 리액트, 뷰, 웹사이트 어디서나 동일하게 작동합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 5: 678 ICON GALLERY EXPLORER & SEARCH
+         ========================================================================= -->
+    <section class="sim-matrix-section" id="sim-gallery-section" style="margin-top: 50px;">
+      <div class="pc-washi-tape pc-washi-tape-mint"></div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px;">
+        <div>
+          <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 4px; flex-wrap: wrap;">
+            <span class="pc-badge pc-badge-peach">678 Icons Master Catalog</span>
+            <span class="pc-badge pc-badge-mint" id="sim-gallery-count">전체 678종 라이브러리 완비</span>
+          </div>
+          <h2 style="font-size: 24px; font-weight: 800; margin: 0; color: var(--pc-ink);">
+            페이퍼컷 아이콘 라이브러리 전체 탐색기 (678종)
+          </h2>
+          <p style="font-size: 14px; color: var(--pc-ink-muted); margin: 4px 0 0;">
+            678종 전체 아이콘의 배경색을 자유롭게 전환하여 선명도를 검증하고, 클릭하여 상단 듀얼 캔버스와 실시간 결합해보세요.
+          </p>
+        </div>
+
+        <!-- Search Bar -->
+        <div style="min-width: 280px; position: relative;">
+          <input type="text" id="sim-gallery-search" class="pc-input" placeholder="아이콘 한글/영문/태그 검색..." style="width: 100%; padding-left: 36px;">
+          <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.5;">
+            <span class="pc-inline-icon is-xs" data-icon="search"></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Gallery Toolbar: Card Background Color & Render Style & Viewport Controls -->
+      <div style="background: rgba(74, 58, 42, 0.035); border-radius: 18px; padding: 12px 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border: 1px solid rgba(74, 58, 42, 0.08);">
+        <!-- Card Background Color Switcher -->
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <span style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+            <span class="pc-inline-icon is-xs" data-icon="palette"></span> <span>아이콘 카드 배경색:</span>
+          </span>
+          <div style="display: flex; gap: 5px; flex-wrap: wrap;" id="sim-gallery-theme-bar">
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip is-active" data-gtheme="white" style="padding: 3px 9px; font-size: 11.5px;"><span>화이트(기본)</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip" data-gtheme="cream" style="padding: 3px 9px; font-size: 11.5px;"><span>크림</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip" data-gtheme="dark" style="padding: 3px 9px; font-size: 11.5px;"><span>다크</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip" data-gtheme="mint" style="padding: 3px 9px; font-size: 11.5px;"><span>민트</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip" data-gtheme="peach" style="padding: 3px 9px; font-size: 11.5px;"><span>피치</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip" data-gtheme="lavender" style="padding: 3px 9px; font-size: 11.5px;"><span>라벤더</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip" data-gtheme="buttercup" style="padding: 3px 9px; font-size: 11.5px;"><span>버터컵</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-bg-chip" data-gtheme="blueprint" style="padding: 3px 9px; font-size: 11.5px;"><span>그리드</span></button>
+          </div>
+        </div>
+
+        <!-- Gallery Render Style & View Toggles -->
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <div style="display: flex; gap: 4px; background: #FFF; padding: 3px 4px; border-radius: 10px; border: 1px solid rgba(74,58,42,0.12);">
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-style-btn is-active" data-style="paper3d" style="padding: 3px 8px; font-size: 11.5px;"><span>3D 페이퍼 뷰</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-gallery-style-btn" data-style="firr" style="padding: 3px 8px; font-size: 11.5px;"><span>0.88px 라인 뷰</span></button>
+          </div>
+
+          <button type="button" class="pc-btn pc-btn-sm pc-btn-mint" id="btn-toggle-gallery-expand" style="padding: 5px 12px; font-size: 12px; font-weight: 800;">
+            <span class="pc-inline-icon is-xs" data-icon="expand"></span> <span id="label-gallery-expand">전체 678종 한 번에 펼치기</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px;">
+        <button type="button" class="pc-btn pc-btn-sm sim-cat-btn is-active" data-cat="all"><span>전체 카테고리 (678종)</span></button>
+        <button type="button" class="pc-btn pc-btn-sm sim-cat-btn" data-cat="ui"><span>UI 인터페이스</span></button>
+        <button type="button" class="pc-btn pc-btn-sm sim-cat-btn" data-cat="food"><span>음식 & 카페</span></button>
+        <button type="button" class="pc-btn pc-btn-sm sim-cat-btn" data-cat="nature"><span>자연 & 식물</span></button>
+        <button type="button" class="pc-btn pc-btn-sm sim-cat-btn" data-cat="tools"><span>도구 & 공예</span></button>
+        <button type="button" class="pc-btn pc-btn-sm sim-cat-btn" data-cat="weather"><span>날씨 & 우주</span></button>
+        <button type="button" class="pc-btn pc-btn-sm sim-cat-btn" data-cat="travel"><span>여행 & 사물</span></button>
+      </div>
+
+      <!-- Icon Cards Grid -->
+      <div id="sim-gallery-grid" data-gallery-theme="white" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; max-height: 560px; overflow-y: auto; padding: 12px 10px; background: rgba(74,58,42,0.02); border-radius: 20px; border: 1.5px dashed rgba(74,58,42,0.12);">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Load More / Full View Actions -->
+      <div id="sim-gallery-load-actions" style="margin-top: 18px; display: flex; justify-content: center; gap: 10px; align-items: center; flex-wrap: wrap;">
+        <button type="button" class="pc-btn pc-btn-peach" id="btn-gallery-load-more" style="padding: 9px 24px; font-weight: 800;">
+          <span class="pc-inline-icon is-sm" data-icon="add"></span> <span id="label-load-more">더 많은 아이콘 보기 (+120종)</span>
+        </button>
+        <button type="button" class="pc-btn pc-btn-mint" id="btn-gallery-load-all" style="padding: 9px 24px; font-weight: 800;">
+          <span class="pc-inline-icon is-sm" data-icon="apps"></span> <span>전체 678종 한 번에 모두 로드</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         SECTION 6: CODE EXPORT & COPY CENTER
+         ========================================================================= -->
+    <section class="sim-code-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 4px;">
+            <span class="pc-badge pc-badge-mint">Code Export Center</span>
+            <span class="pc-badge pc-badge-lavender">One-Click Copy & Download</span>
+          </div>
+          <h2 style="font-size: 22px; font-weight: 800; margin: 0; color: var(--pc-ink);">
+            시뮬레이션 규격 코드 내보내기 & SVG 파일 저장
+          </h2>
+        </div>
+
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <div style="display: flex; gap: 4px; background: #FAF7F0; padding: 4px; border-radius: 10px;">
+            <button type="button" class="pc-btn pc-btn-sm sim-code-tab-btn is-active" data-tab="svg"><span>Standalone SVG</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-code-tab-btn" data-tab="html"><span>HTML Tag</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-code-tab-btn" data-tab="component"><span>Web Component</span></button>
+            <button type="button" class="pc-btn pc-btn-sm sim-code-tab-btn" data-tab="css"><span>CSS Class</span></button>
+          </div>
+          <button type="button" class="pc-btn pc-btn-peach btn-trigger-download-svg">
+            <span class="pc-inline-icon is-sm" data-icon="download"></span> <span>SVG 파일 다운로드</span>
+          </button>
+          <button type="button" class="pc-btn pc-btn-mint" id="btn-copy-code">
+            <span class="pc-inline-icon is-sm" data-icon="copy"></span> <span>코드 복사하기</span>
+          </button>
+        </div>
+      </div>
+
+      <pre class="sim-code-pre" id="sim-code-preview"><!-- Code will appear here --></pre>
+    </section>
+
+    <!-- Footer -->
+    <footer style="margin-top: 60px; text-align: center; color: var(--pc-ink-muted); font-size: 13.5px;">
+      <div class="pc-ribbon-banner" style="font-size: 13.5px;"><span class="pc-inline-icon is-sm" data-icon="scissors"></span> <span>PaperCut UI Design System</span></div>
+      <p style="margin: 12px 0 6px;">
+        16px ~ 256px 멀티 스케일 아이콘 시뮬레이션 & 서브픽셀 가독성 검증 랩
+      </p>
+      <p style="font-size: 12px; opacity: 0.75;">
+        <a href="index.html" style="color: inherit; text-decoration: underline;">메인 쇼케이스로 돌아가기</a> · 619종 페이퍼컷 아이콘 완비
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="papercut-icons.js"></script>
+  <script src="papercut-backgrounds.js"></script>
+  <script src="papercut-alerts-toasts.js"></script>
+  <script src="papercut-sidebar.js"></script>
+  <script src="icon-simulator.js"></script>
+
+</body>
+</html>

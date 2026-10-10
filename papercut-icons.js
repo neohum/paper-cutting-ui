@@ -9698,7 +9698,275 @@
       "license"
     ],
     "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-symbol-copyright\" x=\"-10%\" y=\"-10%\" width=\"130%\" height=\"130%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><path d=\"M 32 10 C 44 10 54 20 54 32 C 54 44 44 54 32 54 C 20 54 10 44 10 32 C 10 20 20 10 32 10 Z M 32 16 C 23.2 16 16 23.2 16 32 C 16 40.8 23.2 48 32 48 C 40.8 48 48 40.8 48 32 C 48 23.2 40.8 16 32 16 Z\" fill=\"#BDE0EA\" fill-rule=\"evenodd\" filter=\"url(#ps-symbol-copyright)\"/><polygon points=\"46,18 52,24 48,28 42,22\" fill=\"#FEE396\" filter=\"url(#ps-symbol-copyright)\"/><path d=\"M 40 25 C 38 22 35 21 32 21 C 26 21 22 26 22 32 C 22 38 26 43 32 43 C 35 43 38 42 40 39 L 36 36 C 35 38 33 39 32 39 C 28 39 26 36 26 32 C 26 28 28 25 32 25 C 33 25 35 26 36 28 Z\" fill=\"#F5B8BE\" filter=\"url(#ps-symbol-copyright)\"/><polygon points=\"40,25 36,28 39,31 43,28\" fill=\"#A3D8C3\"/><polygon points=\"40,39 36,36 39,33 43,36\" fill=\"#A3D8C3\"/><circle cx=\"32\" cy=\"32\" r=\"14\" stroke=\"#FFFDF9\" stroke-width=\"1.4\" stroke-dasharray=\"2 3\" fill=\"none\"/><circle cx=\"32\" cy=\"13\" r=\"1.5\" fill=\"#FAF6ED\"/><circle cx=\"51\" cy=\"32\" r=\"1.5\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"51\" r=\"1.5\" fill=\"#FAF6ED\"/><circle cx=\"13\" cy=\"32\" r=\"1.5\" fill=\"#FAF6ED\"/></svg>"
-  }
+  },
+  {
+  "id": "contacts-book",
+  "nameKo": "연락처 주소록",
+  "nameEn": "Contacts Book",
+  "category": "ui",
+  "tags": [
+    "contacts",
+    "book",
+    "address",
+    "directory",
+    "profile"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-contacts-book\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-contacts-book)\"><rect x=\"14\" y=\"10\" width=\"38\" height=\"46\" rx=\"4\" fill=\"#D7CBEB\"/><rect x=\"18\" y=\"10\" width=\"34\" height=\"46\" rx=\"3\" fill=\"#FFFDF9\"/><rect x=\"10\" y=\"15\" width=\"8\" height=\"6\" rx=\"2\" fill=\"#F7BA9E\"/><rect x=\"10\" y=\"25\" width=\"8\" height=\"6\" rx=\"2\" fill=\"#A3D8C3\"/><rect x=\"10\" y=\"35\" width=\"8\" height=\"6\" rx=\"2\" fill=\"#FEE396\"/><rect x=\"10\" y=\"45\" width=\"8\" height=\"6\" rx=\"2\" fill=\"#BDE0EA\"/><circle cx=\"35\" cy=\"27\" r=\"6\" fill=\"#F7BA9E\"/><path d=\"M25 43 C25 37 45 37 45 43 Z\" fill=\"#A3D8C3\"/></g></svg>"
+},
+  {
+  "id": "pie-chart-clean",
+  "nameKo": "페이퍼 파이차트",
+  "nameEn": "Paper Pie Chart",
+  "category": "finance",
+  "tags": [
+    "chart",
+    "pie",
+    "analytics",
+    "statistics",
+    "report"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-pie-chart-clean\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-pie-chart-clean)\"><circle cx=\"32\" cy=\"32\" r=\"22\" fill=\"#FAF6ED\"/><path d=\"M32 10 A22 22 0 0 1 54 32 L32 32 Z\" fill=\"#A3D8C3\"/><path d=\"M54 32 A22 22 0 0 1 32 54 L32 32 Z\" fill=\"#F7BA9E\"/><path d=\"M32 54 A22 22 0 0 1 10 32 L32 32 Z\" fill=\"#D7CBEB\"/><path d=\"M10 32 A22 22 0 0 1 32 10 L32 32 Z\" fill=\"#FEE396\"/><circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#FFFDF9\"/></g></svg>"
+},
+  {
+  "id": "layout-list",
+  "nameKo": "목록 리스트 뷰",
+  "nameEn": "Layout List View",
+  "category": "ui",
+  "tags": [
+    "list",
+    "layout",
+    "menu",
+    "bullet",
+    "todo"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-layout-list\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-layout-list)\"><rect x=\"10\" y=\"12\" width=\"12\" height=\"10\" rx=\"3\" fill=\"#A3D8C3\"/><rect x=\"26\" y=\"14\" width=\"28\" height=\"6\" rx=\"2\" fill=\"#FAF6ED\"/><rect x=\"10\" y=\"27\" width=\"12\" height=\"10\" rx=\"3\" fill=\"#F7BA9E\"/><rect x=\"26\" y=\"29\" width=\"28\" height=\"6\" rx=\"2\" fill=\"#FAF6ED\"/><rect x=\"10\" y=\"42\" width=\"12\" height=\"10\" rx=\"3\" fill=\"#D7CBEB\"/><rect x=\"26\" y=\"44\" width=\"28\" height=\"6\" rx=\"2\" fill=\"#FAF6ED\"/></g></svg>"
+},
+  {
+  "id": "book-open",
+  "nameKo": "펼쳐진 책 리더",
+  "nameEn": "Open Book Reader",
+  "category": "lifestyle",
+  "tags": [
+    "book",
+    "open",
+    "read",
+    "education",
+    "literature"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-book-open\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-book-open)\"><path d=\"M10 44 C20 41 31 43 32 45 C33 43 44 41 54 44 L54 22 C44 19 33 21 32 23 C31 21 20 19 10 22 Z\" fill=\"#F7BA9E\"/><path d=\"M11 42 C20 39 30 41 32 43 C34 41 44 39 53 42 L53 20 C44 17 34 19 32 21 C30 19 20 17 11 20 Z\" fill=\"#FAF6ED\"/><path d=\"M12 40 C21 37 31 39 32 41 C31 28 31 18 32 19 C31 17 21 15 12 18 Z\" fill=\"#FFFDF9\"/><path d=\"M52 40 C43 37 33 39 32 41 C33 28 33 18 32 19 C33 17 43 15 52 18 Z\" fill=\"#FFFDF9\"/><line x1=\"16\" y1=\"23\" x2=\"28\" y2=\"22\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/><line x1=\"16\" y1=\"28\" x2=\"27\" y2=\"27\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/><line x1=\"36\" y1=\"22\" x2=\"48\" y2=\"23\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/><line x1=\"37\" y1=\"27\" x2=\"48\" y2=\"28\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" opacity=\"0.4\"/><path d=\"M32 20 L32 48 L35 45 L38 48 L38 21\" fill=\"#A3D8C3\"/></g></svg>"
+},
+  {
+  "id": "apps",
+  "nameKo": "앱 런처 그리드",
+  "nameEn": "Apps Launcher Grid",
+  "category": "ui",
+  "tags": [
+    "apps",
+    "grid",
+    "launcher",
+    "menu",
+    "tiles"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-apps\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-apps)\"><rect x=\"10\" y=\"10\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#A3D8C3\"/><rect x=\"26.5\" y=\"10\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#F7BA9E\"/><rect x=\"43\" y=\"10\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#D7CBEB\"/><rect x=\"10\" y=\"26.5\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#FEE396\"/><rect x=\"26.5\" y=\"26.5\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#FAF6ED\"/><rect x=\"43\" y=\"26.5\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#BDE0EA\"/><rect x=\"10\" y=\"43\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#F5B8BE\"/><rect x=\"26.5\" y=\"43\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#A3D8C3\"/><rect x=\"43\" y=\"43\" width=\"11\" height=\"11\" rx=\"3\" fill=\"#F7BA9E\"/></g></svg>"
+},
+  {
+  "id": "cassette-tape",
+  "nameKo": "레트로 카세트 테이프",
+  "nameEn": "Retro Cassette Tape",
+  "category": "media",
+  "tags": [
+    "cassette",
+    "tape",
+    "retro",
+    "lofi",
+    "music",
+    "audio"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-cassette-tape\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-cassette-tape)\"><rect x=\"8\" y=\"16\" width=\"48\" height=\"32\" rx=\"4\" fill=\"#FAF6ED\"/><rect x=\"12\" y=\"20\" width=\"40\" height=\"24\" rx=\"3\" fill=\"#F7BA9E\"/><rect x=\"18\" y=\"25\" width=\"28\" height=\"14\" rx=\"2\" fill=\"#FFFDF9\"/><circle cx=\"25\" cy=\"32\" r=\"4.5\" fill=\"#3D352E\"/><circle cx=\"39\" cy=\"32\" r=\"4.5\" fill=\"#3D352E\"/><circle cx=\"25\" cy=\"32\" r=\"2\" fill=\"#FAF6ED\"/><circle cx=\"39\" cy=\"32\" r=\"2\" fill=\"#FAF6ED\"/><rect x=\"29\" y=\"29\" width=\"6\" height=\"6\" rx=\"1\" fill=\"#A3D8C3\"/></g></svg>"
+},
+  {
+  "id": "music-vinyl",
+  "nameKo": "바이닐 레코드판",
+  "nameEn": "Vinyl Record",
+  "category": "media",
+  "tags": [
+    "vinyl",
+    "record",
+    "music",
+    "album",
+    "lp"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-music-vinyl\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-music-vinyl)\"><circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#3D352E\"/><circle cx=\"32\" cy=\"32\" r=\"18\" stroke=\"#4A3F37\" stroke-width=\"1.2\" fill=\"none\"/><circle cx=\"32\" cy=\"32\" r=\"14\" stroke=\"#4A3F37\" stroke-width=\"1.2\" fill=\"none\"/><circle cx=\"32\" cy=\"32\" r=\"10\" fill=\"#A3D8C3\"/><circle cx=\"32\" cy=\"32\" r=\"3\" fill=\"#FAF6ED\"/></g></svg>"
+},
+  {
+  "id": "stamp-rubber",
+  "nameKo": "우편 고무 스탬프",
+  "nameEn": "Postal Rubber Stamp",
+  "category": "lifestyle",
+  "tags": [
+    "stamp",
+    "rubber",
+    "post",
+    "mail",
+    "mark"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-stamp-rubber\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-stamp-rubber)\"><path d=\"M28 12 C28 8 36 8 36 12 L35 24 L44 32 L44 42 L20 42 L20 32 L29 24 Z\" fill=\"#D4A373\"/><rect x=\"16\" y=\"42\" width=\"32\" height=\"6\" rx=\"2\" fill=\"#FAF6ED\"/><rect x=\"14\" y=\"48\" width=\"36\" height=\"5\" rx=\"2\" fill=\"#A3D8C3\"/></g></svg>"
+},
+  {
+  "id": "tea-leaves",
+  "nameKo": "유기농 찻잎",
+  "nameEn": "Organic Tea Leaves",
+  "category": "food",
+  "tags": [
+    "tea",
+    "leaves",
+    "botanical",
+    "organic",
+    "green"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-tea-leaves\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-tea-leaves)\"><path d=\"M32 10 C32 10 44 20 44 34 C44 44 36 48 32 52 C28 48 20 44 20 34 C20 20 32 10 32 10 Z\" fill=\"#A3D8C3\"/><path d=\"M32 18 V46\" stroke=\"#FAF6ED\" stroke-width=\"2\" stroke-linecap=\"round\"/><path d=\"M32 26 C36 28 39 30 40 33\" stroke=\"#FAF6ED\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><path d=\"M32 34 C28 36 25 38 24 41\" stroke=\"#FAF6ED\" stroke-width=\"1.5\" stroke-linecap=\"round\"/><circle cx=\"36\" cy=\"22\" r=\"2.5\" fill=\"#BDE0EA\"/></g></svg>"
+},
+  {
+  "id": "vault-safe",
+  "nameKo": "종이 금고 다이얼",
+  "nameEn": "Paper Vault Safe",
+  "category": "finance",
+  "tags": [
+    "safe",
+    "vault",
+    "lock",
+    "security",
+    "dial"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-vault-safe\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-vault-safe)\"><rect x=\"10\" y=\"10\" width=\"44\" height=\"44\" rx=\"8\" fill=\"#D7CBEB\"/><rect x=\"14\" y=\"14\" width=\"36\" height=\"36\" rx=\"6\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"32\" r=\"12\" fill=\"#F7BA9E\"/><circle cx=\"32\" cy=\"32\" r=\"7\" fill=\"#FFFDF9\"/><rect x=\"42\" y=\"29\" width=\"6\" height=\"6\" rx=\"1.5\" fill=\"#A3D8C3\"/></g></svg>"
+},
+  {
+  "id": "crescent-moon-cloud",
+  "nameKo": "초승달과 밤구름",
+  "nameEn": "Crescent Moon with Cloud",
+  "category": "weather",
+  "tags": [
+    "moon",
+    "cloud",
+    "night",
+    "crescent",
+    "stars"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-crescent-moon-cloud\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-crescent-moon-cloud)\"><path d=\"M38 12 C30 14 26 22 28 30 C30 38 38 42 46 38 C42 44 32 46 24 40 C16 34 16 22 24 14 C28 10 34 10 38 12 Z\" fill=\"#FEE396\"/><path d=\"M16 48 C14 48 12 46 12 44 C12 41 15 39 17 39 C18 35 22 32 26 32 C30 32 34 35 35 38 C37 38 39 39 40 41 C42 41 44 43 44 45 C44 48 41 48 40 48 Z\" fill=\"#A3D8C3\"/></g></svg>"
+},
+  {
+  "id": "coffee-beans",
+  "nameKo": "로스팅 원두",
+  "nameEn": "Roasted Coffee Beans",
+  "category": "food",
+  "tags": [
+    "coffee",
+    "beans",
+    "roastery",
+    "cafe",
+    "espresso"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-coffee-beans\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-coffee-beans)\"><ellipse cx=\"24\" cy=\"24\" rx=\"10\" ry=\"14\" transform=\"rotate(-30 24 24)\" fill=\"#D4A373\"/><path d=\"M19 14 C25 22 23 26 29 34\" stroke=\"#4A3828\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/><ellipse cx=\"40\" cy=\"38\" rx=\"11\" ry=\"15\" transform=\"rotate(40 40 38)\" fill=\"#B58253\"/><path d=\"M48 28 C40 36 42 40 32 48\" stroke=\"#3D2B1F\" stroke-width=\"2\" stroke-linecap=\"round\" fill=\"none\"/></g></svg>"
+},
+  {
+  "id": "bakery-bread",
+  "nameKo": "갓 구운 빵",
+  "nameEn": "Fresh Bakery Bread",
+  "category": "food",
+  "tags": [
+    "bread",
+    "bakery",
+    "pastry",
+    "baguette",
+    "loaf"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-bakery-bread\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-bakery-bread)\"><ellipse cx=\"32\" cy=\"34\" rx=\"22\" ry=\"14\" fill=\"#E2CCA8\"/><ellipse cx=\"32\" cy=\"31\" rx=\"20\" ry=\"12\" fill=\"#D4A373\"/><ellipse cx=\"32\" cy=\"28\" rx=\"17\" ry=\"9\" fill=\"#B58253\"/><line x1=\"22\" y1=\"24\" x2=\"26\" y2=\"32\" stroke=\"#FAF6ED\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><line x1=\"30\" y1=\"23\" x2=\"34\" y2=\"33\" stroke=\"#FAF6ED\" stroke-width=\"2.5\" stroke-linecap=\"round\"/><line x1=\"38\" y1=\"24\" x2=\"42\" y2=\"32\" stroke=\"#FAF6ED\" stroke-width=\"2.5\" stroke-linecap=\"round\"/></g></svg>"
+},
+  {
+  "id": "potted-plant",
+  "nameKo": "화분과 새싹",
+  "nameEn": "Potted Botanical Plant",
+  "category": "nature",
+  "tags": [
+    "plant",
+    "potted",
+    "botanical",
+    "leaf",
+    "garden"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-potted-plant\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-potted-plant)\"><path d=\"M22 36 L24 52 C24 54 26 55 28 55 H36 C38 55 40 54 40 52 L42 36 Z\" fill=\"#F7BA9E\"/><rect x=\"20\" y=\"32\" width=\"24\" height=\"5\" rx=\"2\" fill=\"#E89F7D\"/><path d=\"M32 32 C32 20 44 16 44 16 C44 26 36 30 32 32 Z\" fill=\"#A3D8C3\"/><path d=\"M32 32 C32 18 20 14 20 14 C20 24 28 29 32 32 Z\" fill=\"#88C7AD\"/><circle cx=\"32\" cy=\"20\" r=\"3\" fill=\"#FEE396\"/></g></svg>"
+},
+  {
+  "id": "team-meeting",
+  "nameKo": "팀 미팅 회의",
+  "nameEn": "Team Meeting",
+  "category": "user",
+  "tags": [
+    "team",
+    "meeting",
+    "users",
+    "collaborate",
+    "people"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-team-meeting\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-team-meeting)\"><ellipse cx=\"32\" cy=\"46\" rx=\"22\" ry=\"7\" fill=\"#FAF6ED\"/><circle cx=\"32\" cy=\"24\" r=\"6\" fill=\"#F7BA9E\"/><path d=\"M24 38 C24 33 40 33 40 38 Z\" fill=\"#A3D8C3\"/><circle cx=\"18\" cy=\"28\" r=\"5\" fill=\"#D7CBEB\"/><path d=\"M11 41 C11 37 25 37 25 41 Z\" fill=\"#BDE0EA\"/><circle cx=\"46\" cy=\"28\" r=\"5\" fill=\"#FEE396\"/><path d=\"M39 41 C39 37 53 37 53 41 Z\" fill=\"#F5B8BE\"/></g></svg>"
+},
+  {
+  "id": "butterfly",
+  "nameKo": "종이 나비",
+  "nameEn": "Origami Butterfly",
+  "category": "nature",
+  "tags": [
+    "butterfly",
+    "insect",
+    "wings",
+    "spring",
+    "nature"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-butterfly\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-butterfly)\"><path d=\"M32 28 C26 14 10 16 12 28 C14 36 28 32 32 36 Z\" fill=\"#F7BA9E\"/><path d=\"M32 28 C38 14 54 16 52 28 C50 36 36 32 32 36 Z\" fill=\"#F7BA9E\"/><path d=\"M32 36 C24 36 16 44 20 50 C24 54 30 44 32 38 Z\" fill=\"#D7CBEB\"/><path d=\"M32 36 C40 36 48 44 44 50 C40 54 34 44 32 38 Z\" fill=\"#D7CBEB\"/><rect x=\"31\" y=\"24\" width=\"2\" height=\"18\" rx=\"1\" fill=\"#3D352E\"/><circle cx=\"30\" cy=\"20\" r=\"1.5\" fill=\"#FEE396\"/><circle cx=\"34\" cy=\"20\" r=\"1.5\" fill=\"#FEE396\"/></g></svg>"
+},
+  {
+  "id": "envelope-heart",
+  "nameKo": "하트 러브레터",
+  "nameEn": "Heart Love Letter",
+  "category": "comm",
+  "tags": [
+    "mail",
+    "envelope",
+    "heart",
+    "love",
+    "letter"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-envelope-heart\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-envelope-heart)\"><rect x=\"10\" y=\"18\" width=\"44\" height=\"30\" rx=\"4\" fill=\"#FAF6ED\"/><polygon points=\"10,18 32,34 54,18\" fill=\"#F7BA9E\"/><path d=\"M32 34 C30 30 25 30 25 34 C25 38 32 43 32 43 C32 43 39 38 39 34 C39 30 34 30 32 34 Z\" fill=\"#F5B8BE\"/></g></svg>"
+},
+  {
+  "id": "google",
+  "nameKo": "구글 소셜 엠블럼",
+  "nameEn": "Google Social Emblem",
+  "category": "social",
+  "tags": [
+    "google",
+    "social",
+    "auth",
+    "login",
+    "brand"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-google\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-google)\"><circle cx=\"32\" cy=\"32\" r=\"22\" fill=\"#FFFDF9\"/><path d=\"M32 18 C37 18 41 20 44 23 L39 28 C37 26 35 25 32 25 C27 25 24 28 23 32 H46 C46 38 41 46 32 46 C24 46 18 40 18 32 C18 24 24 18 32 18 Z\" fill=\"#F7BA9E\"/><path d=\"M23 32 C23 30 24 28 25 26 L19 22 C17 25 16 28 16 32 C16 36 17 39 19 42 L25 38 C24 36 23 34 23 32 Z\" fill=\"#FEE396\"/><path d=\"M32 46 C37 46 41 44 44 41 L39 36 C37 38 35 39 32 39 C28 39 25 36 24 32 L18 36 C21 42 26 46 32 46 Z\" fill=\"#A3D8C3\"/><path d=\"M46 32 H32 V26 H46 C46 28 46 30 46 32 Z\" fill=\"#BDE0EA\"/></g></svg>"
+},
+  {
+  "id": "github",
+  "nameKo": "깃허브 옥토캣",
+  "nameEn": "GitHub Octocat",
+  "category": "social",
+  "tags": [
+    "github",
+    "git",
+    "code",
+    "dev",
+    "social",
+    "brand"
+  ],
+  "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-github\" x=\"-20%\" y=\"-20%\" width=\"140%\" height=\"140%\"><feDropShadow dx=\"0\" dy=\"2.5\" stdDeviation=\"1.5\" flood-color=\"#4A3A2A\" flood-opacity=\"0.18\"/></filter></defs><g filter=\"url(#ps-github)\"><circle cx=\"32\" cy=\"32\" r=\"24\" fill=\"#3D352E\"/><circle cx=\"32\" cy=\"32\" r=\"21\" fill=\"#4A3F37\"/><path d=\"M32 14 C22 14 14 22 14 32 C14 40 19 47 26 49 C27 49 27 49 27 48 V44 C20 45 19 41 19 41 C18 38 16 37 16 37 C14 36 16 36 16 36 C18 36 19 38 19 38 C21 41 24 40 25 39 C25 37 26 36 27 35 C21 34 16 32 16 23 C16 20 17 18 19 16 C18 15 17 12 19 9 C19 9 21 8 26 12 C28 11 30 11 32 11 C34 11 36 11 38 12 C43 8 45 9 45 9 C47 12 46 15 45 16 C47 18 48 20 48 23 C48 32 43 34 37 35 C38 36 39 38 39 41 V48 C39 49 39 49 40 49 C47 47 52 40 52 32 C52 22 44 14 32 14 Z\" fill=\"#FFFDF9\"/></g></svg>"
+}
 ];
 
   let currentCategory = 'all';
@@ -9823,6 +10091,34 @@
    * Automatically replaces or populates <span class="pc-inline-icon" data-icon="{id}"></span>
    * with the exact multi-layered freestanding kirigami SVG.
    */
+  // PaperCut Icon Aliases & Normalization Map
+  const ICON_ALIASES = {
+    "paper-plane-fly": "paper-plane",
+    "ribbon-rosette": "ribbon",
+    "checkbox-mark": "check",
+    "tag-single": "price-tag",
+    "package-box": "package",
+    "envelope-letter": "mail",
+    "gift-ribbon-bow": "gift",
+    "scissors-cut": "scissors",
+    "tea-cup": "tea",
+    "package-sealed": "package",
+    "bookmark-check": "bookmark",
+    "lightbulb-idea": "lightbulb",
+    "quill-inkpot": "edit",
+    "book-open": "book-open",
+    "file-code": "code",
+    "apps": "apps",
+    "envelope": "mail",
+    "shopping-cart": "cart",
+    "book-alt": "book",
+    "contacts-book": "contacts-book",
+    "pie-chart-clean": "pie-chart-clean",
+    "layout-list": "layout-list",
+    "bolt": "lightning",
+    "document": "file"
+  };
+
   let iconLookupMap = null;
   function getIconMap() {
     if (!iconLookupMap) {
@@ -9830,6 +10126,12 @@
       (window.PAPERCUT_ICONS || []).forEach(icon => {
         iconLookupMap.set(icon.id, icon);
       });
+      // Register aliases
+      for (const [alias, realId] of Object.entries(ICON_ALIASES)) {
+        if (!iconLookupMap.has(alias) && iconLookupMap.has(realId)) {
+          iconLookupMap.set(alias, iconLookupMap.get(realId));
+        }
+      }
     }
     return iconLookupMap;
   }
@@ -9856,21 +10158,31 @@
     const svgs = root.querySelectorAll('svg.pc-layered-paper-icon, .pc-inline-icon svg');
     svgs.forEach(svg => {
       const parent = svg.parentElement;
-      const isLargeContext = svg.closest('.pc-icon-card') || 
+      const isColorContext = svg.closest('.pc-sidebar-item') ||
+                             svg.closest('.pc-sidebar-item-icon') ||
+                             svg.closest('.pc-sidebar-header') ||
+                             svg.closest('.pc-sidebar-footer') ||
+                             svg.closest('.pc-sidebar-floating-toggle') ||
+                             svg.closest('.pc-page-nav-bar') ||
+                             svg.closest('.pc-page-pagination-bar') ||
+                             svg.closest('[data-color-icon="true"]') ||
+                             (parent && (parent.classList.contains('is-color') || parent.classList.contains('pc-color-icon')));
+
+      const isLargeContext = isColorContext ||
+                             svg.closest('.pc-icon-card') || 
                              svg.closest('.pc-bg-card') ||
                              svg.closest('.pc-product-media') ||
                              (parent && (parent.classList.contains('is-lg') || parent.classList.contains('is-xl')));
       
-      const isSmallContext = (parent && (parent.classList.contains('is-xs') || parent.classList.contains('is-sm') || parent.classList.contains('is-input-icon'))) ||
+      const isSmallContext = !isColorContext && (
+                             (parent && (parent.classList.contains('is-xs') || parent.classList.contains('is-sm') || parent.classList.contains('is-input-icon'))) ||
                              svg.closest('.pc-btn') ||
                              svg.closest('.pc-dropdown-trigger') ||
                              svg.closest('.pc-dropdown-item') ||
-                             svg.closest('.pc-sidebar-item') ||
-                             svg.closest('.pc-sidebar-item-icon') ||
                              svg.closest('.pc-pill-badge') ||
                              svg.closest('.pc-mini-icon-disc') ||
                              svg.closest('.pc-check-paper-disc') ||
-                             svg.closest('.pc-admin-brand-logo');
+                             svg.closest('.pc-admin-brand-logo'));
 
       // Check bounding width or explicit attribute
       let w = 0;
@@ -9878,21 +10190,29 @@
       if (!w && parent && parent.hasAttribute('data-icon-size')) w = parseFloat(parent.getAttribute('data-icon-size'));
       if (!w && svg.clientWidth > 0) w = svg.clientWidth;
 
-      if ((w > 0 && w <= 32.5) || isSmallContext || (!w && !isLargeContext)) {
-        // <= 32px or compact UI context: Apply stroke 2.5px #3D352E, individual paper outline, fixed scale
-        svg.classList.add('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on');
+      if (isColorContext) {
+        // Explicit PaperCut UI color mode: pure colorful kirigami papercraft with drop shadows
+        svg.classList.add('pc-stroke-off', 'pc-auto-stroke-off');
+        svg.classList.remove('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on', 'pc-firr-style');
+        if (parent && parent.classList.contains('pc-inline-icon')) {
+          parent.classList.add('pc-auto-stroke-off', 'is-color');
+          parent.classList.remove('pc-auto-stroke-on', 'pc-firr-style', 'is-firr');
+        }
+      } else if ((w > 0 && w <= 28.5) || isSmallContext || (!w && !isLargeContext)) {
+        // <= 28px or compact UI context: fi fi-rr style ultra-thin line art, drop shadows off
+        svg.classList.add('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on', 'pc-firr-style');
         svg.classList.remove('pc-stroke-off', 'pc-auto-stroke-off');
         if (parent && parent.classList.contains('pc-inline-icon')) {
-          parent.classList.add('pc-auto-stroke-on');
+          parent.classList.add('pc-auto-stroke-on', 'pc-firr-style');
           parent.classList.remove('pc-auto-stroke-off');
         }
-      } else if (w >= 33 || isLargeContext) {
-        // >= 33px or large showcase context: Stroke OFF (Pure Standalone Kirigami)
+      } else if (w >= 29 || isLargeContext) {
+        // >= 29px or large showcase context: Full Standalone 3D Kirigami Paper Art
         svg.classList.add('pc-stroke-off', 'pc-auto-stroke-off');
-        svg.classList.remove('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on');
+        svg.classList.remove('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on', 'pc-firr-style');
         if (parent && parent.classList.contains('pc-inline-icon')) {
           parent.classList.add('pc-auto-stroke-off');
-          parent.classList.remove('pc-auto-stroke-on');
+          parent.classList.remove('pc-auto-stroke-on', 'pc-firr-style');
         }
       }
     });

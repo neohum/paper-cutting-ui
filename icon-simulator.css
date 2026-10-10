@@ -1,0 +1,1162 @@
+/**
+ * PaperCut UI - Icon Size Simulator Stylesheet
+ * Responsive layout and craft aesthetic for multi-size icon simulation.
+ */
+
+/* ==========================================================================
+   Page Layout & Container
+   ========================================================================== */
+.sim-page-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 32px 24px 100px;
+}
+
+/* Header & Breadcrumb */
+.sim-header-card {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 28px;
+  padding: 36px 40px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55,40,30,0.12));
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.sim-header-card::before {
+  content: "";
+  position: absolute;
+  top: 8px; left: 8px; right: -8px; bottom: -8px;
+  background: var(--pc-buttercup-light, #FFF5D6);
+  border-radius: 28px;
+  z-index: -1;
+  box-shadow: var(--pc-paper-shadow-xs, 0 2px 6px rgba(55,40,30,0.08));
+}
+
+.sim-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.sim-nav-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ink-muted, #7D7166);
+}
+
+.sim-nav-breadcrumb a {
+  color: var(--pc-ink, #3D352E);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sim-nav-breadcrumb a:hover {
+  color: var(--pc-peach-dark, #D35400);
+}
+
+/* ==========================================================================
+   Studio Mode Switcher (16~28px fi fi-rr Line Lab vs 32~256px 3D Paper Lab)
+   ========================================================================== */
+.sim-studio-switcher-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  background: var(--pc-cream, #FAF7F0);
+  border: 1.5px solid rgba(74, 58, 42, 0.12);
+  border-radius: 24px;
+  padding: 10px;
+  margin-bottom: 28px;
+  box-shadow: inset 0 2px 6px rgba(55, 40, 30, 0.05);
+}
+
+@media (max-width: 860px) {
+  .sim-studio-switcher-wrap {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-studio-tab-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 22px;
+  border-radius: 18px;
+  background: transparent;
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  font-family: inherit;
+  color: var(--pc-ink, #3D352E);
+  position: relative;
+}
+
+.sim-studio-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+}
+
+.sim-studio-tab-btn.is-active {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-color: rgba(74, 58, 42, 0.15);
+  box-shadow: 
+    0 8px 24px rgba(55, 40, 30, 0.09),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  transform: translateY(-2px);
+}
+
+.sim-studio-tab-btn[data-mode="firr"].is-active {
+  border-color: var(--pc-peach-dark, #D35400);
+}
+
+.sim-studio-tab-btn[data-mode="paper3d"].is-active {
+  border-color: var(--pc-mint-dark, #235B47);
+}
+
+.sim-studio-tab-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(55, 40, 30, 0.08);
+}
+
+.sim-studio-tab-icon svg.pc-layered-paper-icon,
+.sim-studio-tab-icon .pc-inline-icon,
+.sim-studio-tab-icon .pc-inline-icon svg {
+  width: 24px !important;
+  height: 24px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+}
+
+#tab-studio-firr .sim-studio-tab-icon svg,
+.sim-studio-tab-btn[data-mode="firr"] .sim-studio-tab-icon svg {
+  width: 22px !important;
+  height: 22px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+}
+
+#tab-studio-paper3d .sim-studio-tab-icon svg,
+.sim-studio-tab-btn[data-mode="paper3d"] .sim-studio-tab-icon svg {
+  width: 26px !important;
+  height: 26px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+}
+
+.sim-studio-tab-btn[data-mode="firr"] .sim-studio-tab-icon {
+  background: #FFF0E6;
+  color: var(--pc-peach-dark, #D35400);
+  border: 1px solid rgba(211, 84, 0, 0.2);
+}
+
+.sim-studio-tab-btn[data-mode="paper3d"] .sim-studio-tab-icon {
+  background: #E8F5EE;
+  color: var(--pc-mint-dark, #235B47);
+  border: 1px solid rgba(35, 91, 71, 0.2);
+}
+
+.sim-studio-tab-content {
+  flex: 1;
+}
+
+.sim-studio-tab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.sim-studio-tab-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  letter-spacing: -0.01em;
+}
+
+.sim-studio-tab-desc {
+  font-size: 13px;
+  color: var(--pc-ink-muted, #7D7166);
+  line-height: 1.45;
+  margin: 0;
+}
+
+/* Studio Context Philosophy Banner */
+.sim-studio-banner {
+  padding: 14px 20px;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s ease;
+}
+
+.sim-studio-banner.is-firr {
+  background: linear-gradient(135deg, rgba(253, 238, 228, 0.8) 0%, rgba(255, 253, 249, 0.9) 100%);
+  border: 1.5px solid rgba(211, 84, 0, 0.25);
+}
+
+.sim-studio-banner.is-paper3d {
+  background: linear-gradient(135deg, rgba(232, 245, 238, 0.8) 0%, rgba(255, 253, 249, 0.9) 100%);
+  border: 1.5px solid rgba(35, 91, 71, 0.25);
+}
+
+/* ==========================================================================
+   Icon Selection Bar
+   ========================================================================== */
+.sim-select-section {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 24px;
+  padding: 24px 28px;
+  margin-bottom: 32px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-md, 0 8px 20px rgba(55,40,30,0.08));
+}
+
+.sim-quick-chips-wrap {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.sim-icon-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 58, 42, 0.12);
+  background: var(--pc-cream, #FAF7F0);
+  color: var(--pc-ink, #3D352E);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1;
+}
+
+.sim-icon-chip .pc-inline-icon {
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sim-icon-chip .pc-inline-icon svg {
+  width: 14px !important;
+  height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+}
+
+.sim-icon-chip:hover {
+  background: var(--pc-buttercup-light, #FFF5D6);
+  transform: translateY(-1px);
+  border-color: rgba(74, 58, 42, 0.25);
+}
+
+.sim-icon-chip.is-active {
+  background: var(--pc-mint, #A3D8C3);
+  color: var(--pc-mint-dark, #235B47);
+  border-color: transparent;
+  box-shadow: 0 2px 6px rgba(55,40,30,0.12);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   Dual Real-Time Dynamic Scaling Canvases Layout
+   1. Canvas 1: <= 28px fi-rr Style
+   2. Canvas 2: >= 32px 3D Paper Cut Style
+   ========================================================================== */
+.sim-dual-canvases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  margin-bottom: 40px;
+  align-items: stretch;
+}
+
+@media (max-width: 1100px) {
+  .sim-dual-canvases-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-scaler-card {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 28px;
+  padding: 26px 28px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55,40,30,0.1));
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sim-scaler-card.is-firr-card {
+  border: 2px solid rgba(211, 84, 0, 0.2);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
+}
+
+.sim-scaler-card.is-paper3d-card {
+  border: 2px solid rgba(35, 91, 71, 0.2);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAFCFB 100%);
+}
+
+.sim-scaler-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sim-scaler-title-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.sim-scaler-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.sim-scaler-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.sim-scaler-title svg.pc-layered-paper-icon,
+.sim-scaler-title .pc-inline-icon,
+.sim-scaler-title .pc-inline-icon svg {
+  width: 22px !important;
+  height: 22px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+}
+
+#canvas-scaler-firr .sim-scaler-title svg {
+  width: 22px !important;
+  height: 22px !important;
+  max-width: 24px !important;
+  max-height: 24px !important;
+}
+
+#canvas-scaler-paper3d .sim-scaler-title svg.pc-layered-paper-icon {
+  width: 26px !important;
+  height: 26px !important;
+  max-width: 32px !important;
+  max-height: 32px !important;
+}
+
+.sim-scaler-desc {
+  font-size: 12.5px;
+  color: var(--pc-ink-muted, #7D7166);
+  margin: 4px 0 0;
+  line-height: 1.45;
+}
+
+.sim-scaler-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sim-global-stage-bar {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 20px;
+  padding: 14px 22px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  box-shadow: 0 4px 14px rgba(55, 40, 30, 0.05);
+  border: 1px solid rgba(74, 58, 42, 0.08);
+}
+
+.sim-dual-canvases-grid .sim-canvas-viewport {
+  min-height: 280px;
+  height: 280px;
+  margin-bottom: 16px;
+}
+
+.sim-scaler-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.sim-scaler-subgroup {
+  background: rgba(74, 58, 42, 0.025);
+  border: 1px solid rgba(74, 58, 42, 0.08);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sim-micro-ui-preview-strip {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: rgba(74, 58, 42, 0.025);
+  border-radius: 14px;
+  border: 1px dashed rgba(74, 58, 42, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sim-step-btn {
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(74, 58, 42, 0.15);
+  background: #FFF;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--pc-ink);
+  transition: all 0.15s ease;
+}
+.sim-step-btn:hover {
+  background: var(--pc-buttercup-light, #FFF5D6);
+  border-color: rgba(74, 58, 42, 0.3);
+}
+
+/* Legacy single workbench support */
+.sim-workbench-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 28px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 980px) {
+  .sim-workbench-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-canvas-card {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 28px;
+  padding: 28px 32px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55,40,30,0.12));
+  display: flex;
+  flex-direction: column;
+}
+
+.sim-canvas-viewport {
+  position: relative;
+  min-height: 380px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(55, 40, 30, 0.12);
+  transition: background-color 0.2s ease;
+  padding: 32px;
+}
+
+/* Canvas Background Variants */
+.sim-canvas-viewport[data-bg="cream"] {
+  background-color: #FAF7F0;
+}
+.sim-canvas-viewport[data-bg="white"] {
+  background-color: #FFFFFF;
+}
+.sim-canvas-viewport[data-bg="dark"] {
+  background-color: #221C18;
+  color: #FAF7F0;
+}
+.sim-canvas-viewport[data-bg="mint"] {
+  background-color: #E8F5EE;
+}
+.sim-canvas-viewport[data-bg="peach"] {
+  background-color: #FDEEE4;
+}
+.sim-canvas-viewport[data-bg="lavender"] {
+  background-color: #ECE8F6;
+}
+.sim-canvas-viewport[data-bg="buttercup"] {
+  background-color: #FFF9E6;
+}
+.sim-canvas-viewport[data-bg="blueprint"] {
+  background-color: #152A38;
+  background-image: 
+    linear-gradient(rgba(100, 185, 230, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 185, 230, 0.2) 1px, transparent 1px);
+  background-size: 16px 16px;
+  color: #FAF7F0;
+}
+.sim-canvas-viewport[data-bg="checker"] {
+  background-color: #FFFFFF !important;
+  background-image: 
+    linear-gradient(45deg, #EBE5DC 25%, transparent 25%), 
+    linear-gradient(-45deg, #EBE5DC 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #EBE5DC 75%), 
+    linear-gradient(-45deg, transparent 75%, #EBE5DC 75%) !important;
+  background-size: 16px 16px !important;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0px !important;
+}
+
+/* Loupe Box Background Sync */
+.sim-loupe-box[data-bg="cream"] { background-color: #FAF7F0; }
+.sim-loupe-box[data-bg="white"] { background-color: #FFFFFF; }
+.sim-loupe-box[data-bg="dark"] { background-color: #221C18; }
+.sim-loupe-box[data-bg="mint"] { background-color: #E8F5EE; }
+.sim-loupe-box[data-bg="peach"] { background-color: #FDEEE4; }
+.sim-loupe-box[data-bg="lavender"] { background-color: #ECE8F6; }
+.sim-loupe-box[data-bg="buttercup"] { background-color: #FFF9E6; }
+.sim-loupe-box[data-bg="blueprint"] {
+  background-color: #152A38;
+  background-image: 
+    linear-gradient(rgba(100, 185, 230, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 185, 230, 0.25) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+.sim-loupe-box[data-bg="checker"] {
+  background-color: #FFFFFF !important;
+  background-image: 
+    linear-gradient(45deg, #EBE5DC 25%, transparent 25%), 
+    linear-gradient(-45deg, #EBE5DC 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #EBE5DC 75%), 
+    linear-gradient(-45deg, transparent 75%, #EBE5DC 75%) !important;
+  background-size: 12px 12px !important;
+  background-position: 0 0, 0 6px, 6px -6px, -6px 0px !important;
+}
+
+/* Pixel Grid Overlay */
+.sim-canvas-viewport.has-grid {
+  background-image: 
+    radial-gradient(rgba(74, 58, 42, 0.15) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.sim-canvas-viewport[data-bg="dark"].has-grid {
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+}
+
+/* Icon Target Vessel */
+.sim-icon-vessel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease;
+}
+
+.sim-icon-vessel.has-bbox::after {
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border: 1px dashed rgba(217, 83, 79, 0.6);
+  pointer-events: none;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.sim-icon-vessel.has-bbox::before {
+  content: attr(data-dim);
+  position: absolute;
+  top: -24px;
+  font-size: 11px;
+  font-weight: 800;
+  font-family: monospace;
+  background: rgba(43, 38, 35, 0.85);
+  color: #FFF5D6;
+  padding: 1px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Loupe Inspector */
+.sim-loupe-stage {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(74, 58, 42, 0.15);
+  flex-wrap: wrap;
+}
+
+.sim-loupe-box {
+  width: 90px;
+  height: 90px;
+  border-radius: 16px;
+  background: var(--pc-paper-white, #FFFFFF);
+  border: 2px solid var(--pc-peach, #F7BA9E);
+  box-shadow: var(--pc-paper-shadow-sm, 0 4px 10px rgba(55,40,30,0.1));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.sim-loupe-box svg {
+  transform-origin: center center;
+  image-rendering: pixelated;
+}
+
+/* Workbench Control Sidepanel */
+.sim-control-panel {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55,40,30,0.12));
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sim-control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sim-control-label {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sim-range-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sim-slider {
+  width: 100%;
+  accent-color: var(--pc-peach-dark, #D35400);
+  cursor: pointer;
+}
+
+.sim-preset-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.sim-preset-btn {
+  padding: 6px 4px;
+  border-radius: 8px;
+  border: 1px solid rgba(74, 58, 42, 0.12);
+  background: var(--pc-cream, #FAF7F0);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+
+.sim-preset-btn:hover {
+  background: var(--pc-mint-light, #E8F5EE);
+  border-color: var(--pc-mint, #A3D8C3);
+}
+
+.sim-preset-btn.is-active {
+  background: var(--pc-mint, #A3D8C3);
+  color: var(--pc-mint-dark, #235B47);
+  border-color: transparent;
+  box-shadow: 0 1px 3px rgba(55,40,30,0.15);
+}
+
+/* ==========================================================================
+   Multi-Scale Comparison Matrix (16 Standard Sizes)
+   ========================================================================== */
+.sim-matrix-section {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 28px;
+  padding: 36px 32px;
+  margin-bottom: 40px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55,40,30,0.12));
+}
+
+.sim-matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.sim-matrix-card {
+  background: var(--pc-cream, #FAF7F0);
+  border: 1.5px solid rgba(74, 58, 42, 0.1);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  transition: all 0.2s ease;
+  position: relative;
+  min-height: 180px;
+}
+
+.sim-matrix-card:hover {
+  transform: translateY(-3px);
+  background: #FFFFFF;
+  border-color: var(--pc-mint, #A3D8C3);
+  box-shadow: var(--pc-paper-shadow-md, 0 8px 20px rgba(55,40,30,0.08));
+}
+
+.sim-matrix-card.is-active-inspect {
+  border: 2px solid var(--pc-peach-dark, #D35400);
+  background: #FFFFFF;
+  box-shadow: 0 0 0 4px var(--pc-peach-light, #FDEEE4);
+}
+
+.sim-matrix-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 90px;
+}
+
+.sim-matrix-meta {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.sim-matrix-dim {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+}
+
+.sim-matrix-desc {
+  font-size: 11px;
+  color: var(--pc-ink-muted, #7D7166);
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   Real-World UI Context Simulator
+   ========================================================================== */
+.sim-context-section {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 28px;
+  padding: 36px 32px;
+  margin-bottom: 40px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55,40,30,0.12));
+}
+
+.sim-context-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.sim-context-box {
+  background: #FAF7F0;
+  border-radius: 20px;
+  padding: 22px 24px;
+  border: 1px solid rgba(74, 58, 42, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sim-context-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Mockup Elements */
+.sim-mockup-mobile-bar {
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(55,40,30,0.06);
+}
+
+.sim-mockup-tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pc-ink-muted, #7D7166);
+  cursor: pointer;
+}
+
+.sim-mockup-tab-item.is-active {
+  color: var(--pc-peach-dark, #D35400);
+}
+
+/* ==========================================================================
+   Code Export Card
+   ========================================================================== */
+.sim-code-section {
+  background: var(--pc-paper-white, #FFFFFF);
+  border-radius: 28px;
+  padding: 32px;
+  margin-bottom: 40px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55,40,30,0.12));
+}
+
+.sim-code-pre {
+  background: #25201B;
+  color: #FFF5D6;
+  border-radius: 14px;
+  padding: 16px 20px;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 12.5px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.6;
+  max-height: 240px;
+  margin: 12px 0 0;
+}
+
+/* ==========================================================================
+   fi fi-rr Slim & Razor-Sharp Vector Line Art Style for 16px ~ 28px in Simulator
+   (10px ~ 14px are officially unsupported below clarity threshold)
+   ========================================================================== */
+.pc-firr-style,
+.sim-scaler-title .pc-firr-style,
+.sim-studio-tab-icon .pc-firr-style,
+.pc-layered-paper-icon.pc-firr-style,
+.pc-layered-paper-icon[data-style="fi-rr"],
+.pc-layered-paper-icon.pc-stroke-active-layer {
+  max-width: 28px !important;
+  max-height: 28px !important;
+  width: var(--pc-icon-size, 20px) !important;
+  height: var(--pc-icon-size, 20px) !important;
+}
+
+.pc-firr-style,
+.pc-firr-style *,
+.sim-matrix-card[data-size="16"] svg,
+.sim-matrix-card[data-size="16"] svg *,
+.sim-matrix-card[data-size="18"] svg,
+.sim-matrix-card[data-size="18"] svg *,
+.sim-matrix-card[data-size="20"] svg,
+.sim-matrix-card[data-size="20"] svg *,
+.sim-matrix-card[data-size="24"] svg,
+.sim-matrix-card[data-size="24"] svg *,
+.sim-matrix-card[data-size="28"] svg,
+.sim-matrix-card[data-size="28"] svg * {
+  filter: none !important;
+}
+
+.pc-firr-style path,
+.pc-firr-style rect,
+.pc-firr-style circle,
+.pc-firr-style ellipse,
+.pc-firr-style polygon,
+.pc-firr-style line,
+.pc-firr-style polyline,
+.sim-matrix-card[data-size="16"] svg *,
+.sim-matrix-card[data-size="18"] svg *,
+.sim-matrix-card[data-size="20"] svg *,
+.sim-matrix-card[data-size="24"] svg *,
+.sim-matrix-card[data-size="28"] svg * {
+  stroke: var(--pc-icon-stroke-color, #423D39) !important;
+  stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  stroke-miterlimit: 10 !important;
+  shape-rendering: geometricPrecision !important;
+  vector-effect: non-scaling-stroke !important;
+  paint-order: stroke fill !important;
+}
+
+/* Pure fi fi-rr Monochrome Vector Line Art: Strictly NO colorful fills! (Transparent fill: none) */
+.pc-firr-style *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]):not([fill="black"]),
+.sim-matrix-card[data-size="16"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.sim-matrix-card[data-size="18"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.sim-matrix-card[data-size="20"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.sim-matrix-card[data-size="24"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.sim-matrix-card[data-size="28"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+#canvas-scaler-firr svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+#sim-vessel-firr svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+#sim-loupe-box-firr svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
+  fill: none !important;
+  fill-opacity: 0 !important;
+}
+
+/* Solid Dark Accents (Eyes, knobs, pupils keep solid dark grey fill) */
+.pc-firr-style [fill="#3D352E"],
+.pc-firr-style [fill="#2B2623"],
+.pc-firr-style [fill="#423D39"],
+.sim-matrix-card[data-size="16"] svg [fill="#3D352E"],
+.sim-matrix-card[data-size="18"] svg [fill="#3D352E"],
+.sim-matrix-card[data-size="20"] svg [fill="#3D352E"],
+.sim-matrix-card[data-size="24"] svg [fill="#3D352E"],
+.sim-matrix-card[data-size="28"] svg [fill="#3D352E"],
+#canvas-scaler-firr svg [fill="#3D352E"],
+#sim-vessel-firr svg [fill="#3D352E"],
+#sim-loupe-box-firr svg [fill="#3D352E"] {
+  fill-opacity: 1 !important;
+  fill: var(--pc-icon-stroke-color, #423D39) !important;
+  stroke: var(--pc-icon-stroke-color, #423D39) !important;
+}
+
+/* Interactive Card & Icon Hover Animation */
+.sim-matrix-card[data-size="16"] svg,
+.sim-matrix-card[data-size="18"] svg,
+.sim-matrix-card[data-size="20"] svg,
+.sim-matrix-card[data-size="24"] svg,
+.sim-matrix-card[data-size="28"] svg {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.22s ease;
+}
+
+.sim-matrix-card:hover svg {
+  transform: scale(1.08);
+}
+
+/* ==========================================================================
+   Gallery Explorer Card Background Themes & Controls
+   ========================================================================== */
+.sim-icon-card-item {
+  background: var(--pc-gallery-card-bg, #FFFFFF) !important;
+  border-radius: 16px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 1.5px solid rgba(74, 58, 42, 0.12);
+  box-shadow: 0 2px 6px rgba(55, 40, 30, 0.05), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  position: relative;
+}
+
+.sim-icon-card-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--pc-peach-dark, #D35400);
+  box-shadow: 0 8px 18px rgba(55, 40, 30, 0.12);
+}
+
+.sim-icon-card-item.is-selected {
+  border: 2px solid var(--pc-peach-dark, #D35400) !important;
+  box-shadow: 0 0 0 4px var(--pc-peach-light, #FDEEE4), 0 8px 20px rgba(211, 84, 0, 0.18) !important;
+  transform: translateY(-3px);
+}
+
+/* Gallery Background Themes */
+#sim-gallery-grid[data-gallery-theme="white"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #FFFFFF;
+}
+#sim-gallery-grid[data-gallery-theme="cream"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #FAF7F0;
+}
+#sim-gallery-grid[data-gallery-theme="dark"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #221C18;
+  color: #FFFDF9;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+#sim-gallery-grid[data-gallery-theme="dark"] .sim-icon-card-item div {
+  color: #FFFDF9 !important;
+}
+#sim-gallery-grid[data-gallery-theme="mint"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #E8F5EE;
+}
+#sim-gallery-grid[data-gallery-theme="peach"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #FDEEE4;
+}
+#sim-gallery-grid[data-gallery-theme="lavender"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #ECE8F6;
+}
+#sim-gallery-grid[data-gallery-theme="buttercup"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #FFF9E6;
+}
+#sim-gallery-grid[data-gallery-theme="blueprint"] .sim-icon-card-item {
+  --pc-gallery-card-bg: #152A38;
+  color: #FFFDF9;
+  border-color: rgba(100, 185, 230, 0.3);
+}
+#sim-gallery-grid[data-gallery-theme="blueprint"] .sim-icon-card-item div {
+  color: #FFFDF9 !important;
+}
+
+#sim-gallery-grid.is-expanded {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* ==========================================================================
+   Pure PaperCut UI Custom Paper Dropdown Component
+   ========================================================================== */
+.pc-custom-paper-dropdown {
+  position: relative;
+  display: inline-block;
+  min-width: 220px;
+}
+
+.pc-paper-dropdown-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--pc-paper-white, #FFFFFF);
+  border: 1.5px solid rgba(74, 58, 42, 0.15);
+  border-radius: var(--pc-radius-md, 14px);
+  padding: 10px 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-sm, 0 4px 10px rgba(55, 40, 30, 0.08));
+  transition: all 0.18s ease;
+  user-select: none;
+}
+
+.pc-paper-dropdown-trigger:hover {
+  background: var(--pc-cream, #FAF7F0);
+  border-color: var(--pc-peach, #F7BA9E);
+  box-shadow: var(--pc-paper-shadow-md, 0 8px 18px rgba(55, 40, 30, 0.12));
+}
+
+.pc-paper-dropdown-trigger.is-open {
+  border-color: var(--pc-peach-dark, #D35400);
+  box-shadow: 0 0 0 3px var(--pc-peach-light, #FDEEE4);
+}
+
+.pc-paper-dropdown-arrow {
+  transition: transform 0.2s ease;
+  font-size: 11px;
+  color: var(--pc-ink-muted, #7D7166);
+}
+
+.pc-paper-dropdown-trigger.is-open .pc-paper-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.pc-paper-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: var(--pc-paper-white, #FFFFFF);
+  border: 1.5px solid rgba(74, 58, 42, 0.15);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-lg, 0 16px 36px rgba(55, 40, 30, 0.16));
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  animation: pcDropdownFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pc-paper-dropdown-menu.is-active {
+  display: flex;
+}
+
+@keyframes pcDropdownFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pc-paper-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.pc-paper-dropdown-item:hover {
+  background: var(--pc-buttercup-light, #FFF5D6);
+  color: var(--pc-ink);
+  transform: translateX(3px);
+}
+
+.pc-paper-dropdown-item.is-selected {
+  background: var(--pc-peach-light, #FDEEE4);
+  color: var(--pc-peach-dark, #D35400);
+}
+
