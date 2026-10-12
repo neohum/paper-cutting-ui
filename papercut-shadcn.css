@@ -23,7 +23,7 @@
   --pc-sd-bg-sheet-card: #FFFFFF;
   --pc-sd-bg-recessed: #F3EFE6;
   --pc-sd-border-kraft: #E2DAC8;
-  --pc-sd-border-faint: rgba(74, 60, 49, 0.12);
+  --pc-sd-border-faint: rgba(var(--pc-sd-shadow-tint, 46, 30, 20), 0.12);
 
   /* Primary Typography (Warm craft ink) */
   --pc-sd-ink-dark: #2D2926;
@@ -68,38 +68,43 @@
   --pc-sd-accent: var(--pc-sd-lavender-tint);
   --pc-sd-accent-foreground: var(--pc-sd-ink-dark);
 
-  /* Multi-stop Warm Umber Paper Shadows (rgb(74, 60, 49)) */
-  --pc-sd-shadow-tint: 74, 60, 49;
+  /* Multi-stop Deep Burnt Umber Paper Shadows (#2E1E14 - B Standard: 2-Tier · 4.5px · 48% Stacking) */
+  --pc-sd-shadow-tint: 46, 30, 20;
   
   --pc-sd-shadow-1: 
-    0 1px 2px 0 rgba(var(--pc-sd-shadow-tint), 0.06),
-    0 2px 6px -1px rgba(var(--pc-sd-shadow-tint), 0.08);
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 1.5px 0 rgba(var(--pc-sd-shadow-tint), 0.45),
+    0 2.5px 6px -1px rgba(var(--pc-sd-shadow-tint), 0.20);
 
   --pc-sd-shadow-2: 
-    0 2px 4px 0 rgba(var(--pc-sd-shadow-tint), 0.06),
-    0 6px 14px -2px rgba(var(--pc-sd-shadow-tint), 0.10);
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 2px 0 rgba(var(--pc-sd-shadow-tint), 0.48),
+    0 4.5px 10px -2px rgba(var(--pc-sd-shadow-tint), 0.26);
 
   --pc-sd-shadow-3: 
-    0 3px 6px 0 rgba(var(--pc-sd-shadow-tint), 0.08),
-    0 10px 22px -3px rgba(var(--pc-sd-shadow-tint), 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 3px 0 rgba(var(--pc-sd-shadow-tint), 0.50),
+    0 8px 18px -3px rgba(var(--pc-sd-shadow-tint), 0.28);
 
   --pc-sd-shadow-4: 
-    0 4px 8px 0 rgba(var(--pc-sd-shadow-tint), 0.09),
-    0 16px 30px -4px rgba(var(--pc-sd-shadow-tint), 0.14);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 2.5px 3.5px 0 rgba(var(--pc-sd-shadow-tint), 0.52),
+    0 14px 28px -4px rgba(var(--pc-sd-shadow-tint), 0.30);
 
   --pc-sd-shadow-5: 
-    0 6px 12px 0 rgba(var(--pc-sd-shadow-tint), 0.10),
-    0 24px 48px -6px rgba(var(--pc-sd-shadow-tint), 0.16);
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 3px 4px 0 rgba(var(--pc-sd-shadow-tint), 0.55),
+    0 22px 48px -6px rgba(var(--pc-sd-shadow-tint), 0.32);
 
   --pc-sd-shadow-inset: 
-    inset 0 2px 4px 0 rgba(var(--pc-sd-shadow-tint), 0.11),
-    inset 0 1px 2px 0 rgba(var(--pc-sd-shadow-tint), 0.07),
+    inset 0 2px 4px 0 rgba(var(--pc-sd-shadow-tint), 0.18),
+    inset 0 1px 2px 0 rgba(var(--pc-sd-shadow-tint), 0.12),
     0 1px 0 0 rgba(255, 255, 255, 0.85);
 
   --pc-sd-shadow-cutout: 
-    inset 0 3px 6px rgba(var(--pc-sd-shadow-tint), 0.13),
-    inset 0 8px 16px rgba(var(--pc-sd-shadow-tint), 0.08),
-    0 1px 2px rgba(255, 255, 255, 0.85);
+    inset 0 1.5px 2.5px rgba(var(--pc-sd-shadow-tint), 0.48),
+    inset 0 4.5px 12px rgba(var(--pc-sd-shadow-tint), 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.9);
 
   /* Corner Radii */
   --pc-sd-radius-xs: 4px;
@@ -274,13 +279,13 @@
   padding: 16px 20px;
   background: var(--pc-sd-bg-sheet-light);
   border-radius: var(--pc-sd-radius-md);
-  border-left: 5px solid var(--pc-sd-lavender);
+  border: 1.5px solid var(--pc-sd-lavender);
   box-shadow: var(--pc-sd-shadow-2);
   margin-bottom: 14px;
 }
 
 .pc-sd-alert.is-stamp {
-  border-left: none;
+  border: 1px solid var(--pc-sd-border-kraft);
   background-image: 
     radial-gradient(circle at 0 50%, transparent 6px, var(--pc-sd-bg-sheet-light) 7px),
     radial-gradient(circle at 100% 50%, transparent 6px, var(--pc-sd-bg-sheet-light) 7px);
@@ -294,19 +299,19 @@
 }
 
 .pc-sd-alert.is-info {
-  border-left-color: var(--pc-sd-sky);
+  border-color: var(--pc-sd-sky);
   background-color: var(--pc-sd-sky-tint);
 }
 .pc-sd-alert.is-success {
-  border-left-color: var(--pc-sd-sage);
+  border-color: var(--pc-sd-sage);
   background-color: var(--pc-sd-sage-tint);
 }
 .pc-sd-alert.is-warning {
-  border-left-color: var(--pc-sd-buttercup);
+  border-color: var(--pc-sd-buttercup);
   background-color: var(--pc-sd-buttercup-tint);
 }
 .pc-sd-alert.is-destructive {
-  border-left-color: var(--pc-sd-rose);
+  border-color: var(--pc-sd-rose);
   background-color: var(--pc-sd-rose-tint);
 }
 
@@ -683,7 +688,7 @@
 
 
 /* ==========================================================================
-   8. BUTTON (Cardstock stack, pressed-in active state, scallop cut, washi tape)
+   8. FLAT KNIFE-CUT BUTTON (Cardstock stack, pressed-in active state, scallop cut, washi tape)
    ========================================================================== */
 .pc-sd-btn, .pc-shadcn-button, .pc-sd-button {
   position: relative;
@@ -691,30 +696,59 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 9px 18px;
+  padding: 11px 20px;
+  min-height: 44px; /* WCAG 2.1 44px+ touch target */
+  min-width: 44px;
   font-size: 14px;
   font-weight: 700;
   line-height: 1;
-  border-radius: var(--pc-sd-radius-md);
-  border: 1px solid var(--pc-sd-border-kraft);
-  background: var(--pc-sd-bg-sheet-light);
+  border-radius: 8px; /* 기본 사각 다이컷 (8px) */
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  background-color: var(--pc-sd-bg-sheet-light);
   color: var(--pc-sd-ink-dark);
   cursor: pointer;
   user-select: none;
   text-decoration: none;
   vertical-align: middle;
   text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+
+  /* 1. 완전 플랫한 매트 종이: 유광/그라데이션 전면 배제 */
+  background-image: none !important;
+
+  /* 2. 칼로 정밀하게 자른 종이 단면 두께감과 2-Tier 그림자 */
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    var(--pc-sd-shadow-2);
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
   transform: translateY(0);
   transition: 
-    transform var(--pc-sd-dur-quick) var(--pc-sd-ease-fold),
-    box-shadow var(--pc-sd-dur-quick) ease,
-    background-color var(--pc-sd-dur-quick) ease;
+    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.15s ease,
+    background-color 0.2s ease;
 }
 
-.pc-sd-btn > span, .pc-shadcn-button > span, .pc-sd-button > span {
+/* 1장의 종이 표면에 흡수된 유기 섬유 펄프 텍스처 오버레이 */
+.pc-sd-btn::before, .pc-shadcn-button::before, .pc-sd-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pGrainSd'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035 0.65' numOctaves='2' result='f1'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65 0.035' numOctaves='2' result='f2'/%3E%3CfeBlend mode='multiply' in='f1' in2='f2'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pGrainSd)'/%3E%3C/svg%3E");
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+/* 단일 종이 원칙: 다층 시트 비표시 */
+.pc-sd-btn::after, .pc-shadcn-button::after, .pc-sd-button::after {
+  display: none !important;
+}
+
+.pc-sd-btn > *, .pc-shadcn-button > *, .pc-sd-button > * {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -722,37 +756,87 @@
 }
 
 .pc-sd-btn:hover, .pc-shadcn-button:hover, .pc-sd-button:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--pc-sd-shadow-3);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.22);
 }
 
 .pc-sd-btn:active, .pc-sd-btn.is-active,
-.pc-shadcn-button:active, .pc-shadcn-button.is-active {
+.pc-shadcn-button:active, .pc-shadcn-button.is-active,
+.pc-sd-button:active, .pc-sd-button.is-active {
   transform: translateY(1.5px);
-  box-shadow: var(--pc-sd-shadow-1);
+  box-shadow: 
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.20);
 }
 
-/* 3-Sheet Cardstock Stack Variant */
-.pc-sd-btn.is-stack, .pc-shadcn-button.is-stack {
-  background: var(--pc-sd-sage);
-  color: var(--pc-sd-ink-dark);
-  border-color: rgba(74, 60, 49, 0.16);
-  transform: translate(-3px, -3px);
+/* ==========================================================================
+   사각 종이 버튼 (Rectangular Paper Button)
+   ========================================================================== */
+.pc-sd-btn-rect, .pc-sd-btn-square {
+  border-radius: 8px;
+}
+.pc-sd-btn-rect-sharp {
+  border-radius: 4px;
+}
+.pc-sd-btn-square {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   원형 종이 버튼 (Circular Paper Button)
+   ========================================================================== */
+.pc-sd-btn-circle, .pc-sd-btn-round {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1;
   box-shadow: 
-    1.5px 1.5px 0 0 var(--pc-sd-sage-tint),
-    3px 3px 0 0 var(--pc-sd-border-kraft),
-    4px 4px 8px 0 rgba(74, 60, 49, 0.14);
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+}
+.pc-sd-btn-circle:hover, .pc-sd-btn-round:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.22);
+}
+.pc-sd-btn-circle:active, .pc-sd-btn-round:active {
+  transform: translateY(1.5px);
+  box-shadow: 
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.20);
+}
+
+/* 단일 두꺼운 카드스톡 변형 (Thick Cardstock Accent Variant) */
+.pc-sd-btn.is-stack, .pc-shadcn-button.is-stack {
+  background-color: var(--pc-sd-sage);
+  color: var(--pc-sd-ink-dark);
+  border-color: rgba(39, 92, 70, 0.22);
+  box-shadow: 
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
 }
 .pc-sd-btn.is-stack:hover, .pc-shadcn-button.is-stack:hover {
-  transform: translate(-4px, -4px);
+  transform: translateY(-1.5px);
   box-shadow: 
-    2px 2px 0 0 var(--pc-sd-sage-tint),
-    4px 4px 0 0 var(--pc-sd-border-kraft),
-    6px 6px 12px 0 rgba(74, 60, 49, 0.18);
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.22);
 }
 .pc-sd-btn.is-stack:active, .pc-shadcn-button.is-stack:active {
-  transform: translate(0, 0);
-  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.12);
+  transform: translateY(1.5px);
+  box-shadow: 
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.20);
 }
 
 /* Pressed-in debossed well variant */
@@ -777,25 +861,27 @@
 .pc-sd-btn.is-scallop, .pc-shadcn-button.is-scallop {
   border-radius: var(--pc-sd-radius-lg);
   background: var(--pc-sd-peach);
-  border: none;
-  box-shadow: var(--pc-sd-shadow-3);
+  border: 1px solid rgba(110, 59, 33, 0.22);
+  box-shadow: 
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
 }
 
 /* Button Color Variants */
-.pc-sd-btn.is-primary { background: var(--pc-sd-sage); border-color: rgba(74, 60, 49, 0.15); }
-.pc-sd-btn.is-secondary { background: var(--pc-sd-peach-tint); border-color: var(--pc-sd-peach); }
-.pc-sd-btn.is-lavender { background: var(--pc-sd-lavender-tint); border-color: var(--pc-sd-lavender); }
-.pc-sd-btn.is-buttercup { background: var(--pc-sd-buttercup); border-color: rgba(74, 60, 49, 0.15); }
-.pc-sd-btn.is-destructive { background: var(--pc-sd-rose); color: var(--pc-sd-rose-dark); border-color: rgba(112, 40, 48, 0.2); }
-.pc-sd-btn.is-outline { background: transparent; border: 1.5px dashed var(--pc-sd-border-kraft); box-shadow: none; }
-.pc-sd-btn.is-outline:hover { background: var(--pc-sd-bg-sheet-light); border-style: solid; }
+.pc-sd-btn.is-primary { background: var(--pc-sd-sage); color: var(--pc-sd-sage-dark); border-color: rgba(39, 92, 70, 0.22); }
+.pc-sd-btn.is-secondary { background: var(--pc-sd-peach-tint); color: var(--pc-sd-peach-dark); border-color: rgba(110, 59, 33, 0.22); }
+.pc-sd-btn.is-lavender { background: var(--pc-sd-lavender); color: var(--pc-sd-lavender-dark); border-color: rgba(71, 59, 107, 0.22); }
+.pc-sd-btn.is-buttercup { background: var(--pc-sd-buttercup); color: var(--pc-sd-buttercup-dark); border-color: rgba(110, 83, 15, 0.22); }
+.pc-sd-btn.is-destructive { background: var(--pc-sd-rose); color: var(--pc-sd-rose-dark); border-color: rgba(112, 40, 48, 0.22); }
+.pc-sd-btn.is-outline { background: transparent; border: 1.5px dashed rgba(46, 30, 20, 0.22); box-shadow: none; }
+.pc-sd-btn.is-outline:hover { background: var(--pc-sd-bg-sheet-light); border-style: solid; box-shadow: 0 2px 0 rgba(46, 30, 20, 0.25); }
 .pc-sd-btn.is-ghost { background: transparent; border-color: transparent; box-shadow: none; }
-.pc-sd-btn.is-ghost:hover { background: var(--pc-sd-bg-recessed); }
+.pc-sd-btn.is-ghost:hover { background: rgba(46, 30, 20, 0.05); }
 
 /* Button Sizes */
-.pc-sd-btn.is-sm { padding: 6px 12px; font-size: 12.5px; gap: 5px; }
-.pc-sd-btn.is-lg { padding: 12px 24px; font-size: 16px; gap: 10px; }
-.pc-sd-btn.is-icon { padding: 8px; width: 38px; height: 38px; }
+.pc-sd-btn.is-sm { padding: 6px 12px; font-size: 12.5px; gap: 5px; min-height: 44px; border-radius: 6px; }
+.pc-sd-btn.is-lg { padding: 12px 24px; font-size: 16px; gap: 10px; min-height: 48px; border-radius: 8px; }
+.pc-sd-btn.is-icon { padding: 8px; width: 44px; height: 44px; min-width: 44px; min-height: 44px; border-radius: 8px; }
 
 
 /* ==========================================================================

@@ -124,7 +124,7 @@ commit·push·promote(staging→canary→production) → 모바일 알림·안�
   push하는 경로는 쓰지 않는다.
 - **main 직접 푸시 금지** — `.githooks/pre-push`가 푸시 시점에 차단하며, 사람이
   의도적으로 올릴 때만 `ALLOW_MAIN_PUSH=1`을 쓴다.
-- **UI Icons Standard (fi fi-rr)** — 모든 UI 아이콘은 Flaticon UIcons Regular Rounded (`fi fi-rr-*`) 스타일을 단일 표준으로 사용하며, 임의의 인라인 SVG, Lucide, Heroicons, 이모지 혼용을 엄격히 금지
+- **UI Icons Standard (Full-Color 3D Paper-Cut Art)** — 모든 UI 아이콘(마이크로 16~28px부터 대형 32~256px까지 버튼·인풋·배지·내비게이션 전역)은 모노크롬 철선(wireframe)을 전면 배제하고, 'AI Agent Generated Paper-cut Art · Matte Cream 3D Art' 미학에 따라 7대 파스텔 색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream)와 2-Tier 48% 번트 엄버 그림자가 적용된 독립형 풀컬러(Color Icon) 3D 키리가미 SVG(678종 시스템)를 단일 표준으로 사용하며, 임의의 Lucide, Heroicons, 이모지 혼용을 엄격히 금지
 - **Fail-closed quality profile** — `.harness-quality.json`의 필수 검사는 우회 불가
 - **Brand assets completion** — 앱·웹 변경은 로고·app-icon·favicon·화면 캡처 필수
 - **Visual deliverable preview** — production 빌드·실행·화면 확인 없이는 완료 금지

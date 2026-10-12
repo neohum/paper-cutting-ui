@@ -28,13 +28,25 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: var(--pc-bg-cream);
+      background-color: var(--pc-bg-cream, #FAF7F0);
       color: var(--pc-ink);
       font-family: 'Nanum Square Round', -apple-system, sans-serif;
       min-height: 100vh;
       line-height: 1.6;
-      background-image: radial-gradient(#E8DFC8 0.75px, transparent 0.75px);
-      background-size: 20px 20px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+    }
+
+    h1, h2, h3, h4, h5, h6, .section-title, .example-title {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      text-wrap: balance;
+    }
+
+    p, .example-desc {
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      text-wrap: pretty;
     }
 
     .showcase-container {
@@ -156,6 +168,23 @@
       justify-content: space-between;
     }
 
+    /* Hero Action Flat Cut-Paper Buttons */
+    .hero-action-btn {
+      background-image: none !important;
+      border: 1px solid rgba(46, 30, 20, 0.14) !important;
+      border-radius: 8px !important;
+      box-shadow: 0 2px 0 rgba(46, 30, 20, 0.38), 0 3.5px 6px rgba(46, 30, 20, 0.20) !important;
+      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease !important;
+    }
+    .hero-action-btn:hover {
+      transform: translateY(-1.5px) !important;
+      box-shadow: 0 3px 0 rgba(46, 30, 20, 0.38), 0 6px 12px rgba(46, 30, 20, 0.22) !important;
+    }
+    .hero-action-btn:active {
+      transform: translateY(1.5px) !important;
+      box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), 0 1.5px 3px rgba(46, 30, 20, 0.20) !important;
+    }
+
     .filter-pills {
       display: flex;
       flex-wrap: wrap;
@@ -168,18 +197,21 @@
       justify-content: center;
       gap: 6px;
       line-height: 1;
-      padding: 9px 18px;
+      padding: 10px 18px;
+      min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
       font-size: 13.5px;
       font-weight: 700;
       border-radius: 999px;
-      border: none;
-      background: #FFFFFF;
+      border: 1px solid rgba(46, 30, 20, 0.14);
+      background-color: #FFFFFF;
+      background-image: none !important;
       color: var(--pc-ink-muted);
       cursor: pointer;
-      box-shadow: var(--pc-paper-shadow-xs);
-      transition: all 0.15s ease;
+      box-shadow: 0 2px 0 rgba(46, 30, 20, 0.38), 0 3.5px 6px rgba(46, 30, 20, 0.20);
+      transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
       vertical-align: middle;
       text-align: center;
+      white-space: nowrap;
     }
     .pc-filter-btn > span {
       display: inline-flex;
@@ -188,15 +220,21 @@
       line-height: 1;
     }
     .pc-filter-btn:hover {
-      background: var(--pc-buttercup-light);
+      background-color: var(--pc-buttercup-light);
       color: var(--pc-ink);
-      transform: translateY(-1px);
+      transform: translateY(-1.5px);
+      box-shadow: 0 3px 0 rgba(46, 30, 20, 0.38), 0 6px 12px rgba(46, 30, 20, 0.22);
     }
     .pc-filter-btn.is-active {
-      background: var(--pc-mint);
+      background-color: var(--pc-mint);
       color: var(--pc-mint-dark);
-      box-shadow: var(--pc-paper-shadow-sm);
-      transform: translateY(-1px);
+      border-color: rgba(39, 92, 70, 0.22);
+      box-shadow: 0 3px 0 rgba(46, 30, 20, 0.38), 0 6px 12px rgba(46, 30, 20, 0.22);
+      transform: translateY(-1.5px);
+    }
+    .pc-filter-btn:active {
+      transform: translateY(1.5px);
+      box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), 0 1.5px 3px rgba(46, 30, 20, 0.20);
     }
 
     .search-wrapper {
@@ -249,15 +287,20 @@
     }
 
     .example-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
       font-family: 'Gaegu', cursive;
       font-size: 20px;
       font-weight: 700;
       color: var(--pc-peach-dark);
       background: var(--pc-peach-light);
       border: none;
-      padding: 3px 12px;
+      padding: 4px 12px;
       border-radius: 12px;
       box-shadow: var(--pc-paper-shadow-xs);
+      white-space: nowrap;
     }
 
     .example-title {
@@ -298,14 +341,19 @@
     }
 
     .comp-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
       font-size: 11px;
       font-weight: 700;
-      padding: 3px 9px;
+      padding: 4px 9px;
       border-radius: 8px;
       background: #F4EFE6;
       border: none;
       box-shadow: 0 1px 2px rgba(55,40,30,0.06);
       color: var(--pc-ink-muted);
+      white-space: nowrap;
     }
 
     .code-accordion {
@@ -332,7 +380,7 @@
       margin-top: 10px;
       box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
       white-space: pre-wrap;
-      word-break: break-all;
+      overflow-wrap: break-word;
     }
 
     /* Section Headers */
@@ -413,46 +461,46 @@
           </div>
 
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <a href="#paper-animation-studio" class="pc-btn pc-btn-lavender pc-btn-lg">
+            <a href="#paper-animation-studio" class="pc-btn pc-btn-lavender pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="sparkles"></span> <span>페이퍼 애니메이션 스튜디오 (8종)</span>
             </a>
-            <a href="#paper-alerts-toasts" class="pc-btn pc-btn-peach pc-btn-lg">
+            <a href="#paper-alerts-toasts" class="pc-btn pc-btn-peach pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="bell"></span> <span>알림 & 토스트 시스템</span>
             </a>
-            <a href="#shadcn-components" class="pc-btn pc-btn-lavender pc-btn-lg">
+            <a href="#shadcn-components" class="pc-btn pc-btn-lavender pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="layers"></span> <span>페이퍼 UI 컴포넌트 (44종)</span>
             </a>
-            <a href="#shadcn-blocks-charts" class="pc-btn pc-btn-mint pc-btn-lg">
+            <a href="#shadcn-blocks-charts" class="pc-btn pc-btn-mint pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="contacts-book"></span> <span>페이퍼 애플리케이션 블록 (6선)</span>
             </a>
-            <a href="#shadcn-charts-section" class="pc-btn pc-btn-sky pc-btn-lg">
+            <a href="#shadcn-charts-section" class="pc-btn pc-btn-sky pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="chart-bar"></span> <span>3D 페이퍼 차트 (6종)</span>
             </a>
-            <a href="#playground" class="pc-btn pc-btn-mint pc-btn-lg">
+            <a href="#playground" class="pc-btn pc-btn-mint pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="settings"></span> <span>16종 컴포넌트 종이질감 랩</span>
             </a>
-            <a href="#icon-gallery" class="pc-btn pc-btn-sky pc-btn-lg">
+            <a href="#icon-gallery" class="pc-btn pc-btn-sky pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="scissors"></span> <span>스탠드얼론 아이콘 (659종)</span>
             </a>
-            <a href="icon-simulator.html#mode=firr" class="pc-btn pc-btn-peach pc-btn-lg" style="text-decoration: none;">
+            <a href="icon-simulator.html#mode=firr" class="pc-btn pc-btn-peach pc-btn-lg hero-action-btn" style="text-decoration: none;">
               <span class="pc-inline-icon" data-icon="minus"></span> <span>fi-rr 라인 랩 (16~28px)</span>
             </a>
-            <a href="icon-simulator.html#mode=paper3d" class="pc-btn pc-btn-buttercup pc-btn-lg" style="text-decoration: none;">
+            <a href="icon-simulator.html#mode=paper3d" class="pc-btn pc-btn-buttercup pc-btn-lg hero-action-btn" style="text-decoration: none;">
               <span class="pc-inline-icon" data-icon="sparkles"></span> <span>3D 페이퍼 랩 (32~256px)</span>
             </a>
-            <a href="#bg-library" class="pc-btn pc-btn-peach pc-btn-lg">
+            <a href="#bg-library" class="pc-btn pc-btn-peach pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="palette"></span> <span>배경 플레이트 (130종)</span>
             </a>
-            <a href="#core-components" class="pc-btn pc-btn-mint pc-btn-lg">
+            <a href="#core-components" class="pc-btn pc-btn-mint pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="contacts-book"></span> <span>30가지 예제 탐색하기</span>
             </a>
-            <a href="#texture-showcase" class="pc-btn pc-btn-peach pc-btn-lg">
+            <a href="#texture-showcase" class="pc-btn pc-btn-peach pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="receipt"></span> <span>매트 크림 3D 질감 원리</span>
             </a>
-            <a href="#playground" class="pc-btn pc-btn-lavender pc-btn-lg">
+            <a href="#playground" class="pc-btn pc-btn-lavender pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon" data-icon="palette"></span> <span>디자인 랩</span>
             </a>
-            <button id="toggle-paper-sound" class="pc-btn pc-btn-buttercup pc-btn-lg">
+            <button id="toggle-paper-sound" class="pc-btn pc-btn-buttercup pc-btn-lg hero-action-btn">
               <span class="pc-inline-icon is-sm" data-icon="mute"></span> <span class="label">종이 소리: OFF</span>
             </button>
           </div>
@@ -616,32 +664,45 @@
         <div>
           <div class="card-meta">
             <span class="example-num">Example 01</span>
-            <span class="pc-badge pc-badge-mint"><span class="pc-inline-icon is-sm" data-icon="leaf"></span> <span>3-Layer Paper Stack</span></span>
+            <span class="pc-badge pc-badge-mint"><span class="pc-inline-icon is-sm" data-icon="layers"></span> <span>플랫 자른 종이 버튼</span></span>
           </div>
-          <h3 class="example-title">3D 유기적 다층 레이어드 종이 버튼</h3>
-          <p class="example-desc">최소 3장의 파스텔 색지가 겹쳐져 제작되었으며, 3장이 같은 모양일 필요 없이 <strong>구름 스캘럽, 리본 태그, 잎사귀 곡선 등 서로 다른 유기적 모양</strong>이 밑으로 빼꼼히 드러나며 눌리는 입체 버튼입니다.</p>
+          <h3 class="example-title">플랫한 자른 종이 버튼 &amp; 사각·원형 두께감</h3>
+          <p class="example-desc">인공적인 그라디언트와 볼록한 광택을 완전히 배제하고, <strong>순수 플랫 단색 색지(350gsm 카드스톡)</strong> 표면에 자연스럽게 흡수된 펄프 질감과 정밀 다이컷 칼선 단면(Razor Cut Edge), 그리고 2-Tier 접촉 그림자를 구현한 플랫 자른 종이 버튼입니다.</p>
 
           <div class="demo-stage">
             <div style="display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap;">
-              <button class="pc-btn pc-btn-mint">
-                <span class="pc-inline-icon is-sm" data-icon="leaf"></span> <span>기본 3단 비대칭 곡선</span>
+              <!-- 1. 사각 카드스톡 종이 버튼 (Rectangular Paper) -->
+              <button class="pc-btn pc-btn-rect pc-btn-mint" onclick="showPaperToast('민트 사각 플랫 종이 버튼이 눌렸습니다!', 'mint', 'leaf')">
+                <span class="pc-inline-icon is-sm" data-icon="leaf"></span> <span>사각 카드스톡 (민트)</span>
               </button>
-              <button class="pc-btn pc-btn-peach pc-btn-organic-scallop">
-                <span class="pc-inline-icon is-sm" data-icon="cloud-sun"></span> <span>구름 스캘럽 3단</span>
+              
+              <!-- 2. 피치 수제 코튼 사각 종이 버튼 -->
+              <button class="pc-btn pc-btn-rect pc-btn-peach" onclick="showPaperToast('피치 플랫 사각 버튼이 눌렸습니다!', 'peach', 'scissors')">
+                <span class="pc-inline-icon is-sm" data-icon="scissors"></span> <span>사각 코튼지 (피치)</span>
               </button>
-              <button class="pc-btn pc-btn-lavender pc-btn-organic-ribbon">
-                <span class="pc-inline-icon is-sm" data-icon="ribbon-rosette"></span> <span>리본 태그 3단</span>
+
+              <!-- 3. 원형 종이 씰 버튼 (Circular Paper Seal) -->
+              <button class="pc-btn pc-btn-circle pc-btn-lavender" onclick="showPaperToast('라벤더 원형 종이 씰 버튼이 눌렸습니다!', 'lavender', 'heart')">
+                <span class="pc-inline-icon is-sm" data-icon="heart"></span>
               </button>
-              <button class="pc-btn pc-btn-buttercup pc-btn-organic-leaf">
-                <span class="pc-inline-icon is-sm" data-icon="sprout"></span> <span>보태니컬 리프 3단</span>
+
+              <!-- 4. 라지 원형 종이 코인 버튼 -->
+              <button class="pc-btn pc-btn-circle pc-btn-lg pc-btn-buttercup" onclick="showPaperToast('버터컵 대형 원형 종이 코인이 눌렸습니다!', 'buttercup', 'sparkles')">
+                <span class="pc-inline-icon is-md" data-icon="sparkles"></span>
+              </button>
+
+              <!-- 5. 세이지 원형 종이 씰 버튼 -->
+              <button class="pc-btn pc-btn-circle pc-btn-sage" onclick="showPaperToast('세이지 원형 종이 씰이 눌렸습니다!', 'sage', 'check')">
+                <span class="pc-inline-icon is-sm" data-icon="check"></span>
               </button>
             </div>
           </div>
 
           <div class="component-tags">
-            <span class="comp-pill">컴포넌트: 버튼 (Button)</span>
-            <span class="comp-pill">구조: 최소 3장 서로 다른 유기적 형태 레이어드</span>
-            <span class="comp-pill">모션: 물리적 3단 압축</span>
+            <span class="comp-pill">표면: 무광 플랫 단색 색지 (Flat Matte Cardstock)</span>
+            <span class="comp-pill">질감: 미세 수제 펄프 &amp; 섬유 질감 오버레이</span>
+            <span class="comp-pill">단면: 날카로운 다이컷 칼선 (Razor Cut Rim)</span>
+            <span class="comp-pill">그림자: 2-Tier 350gsm 카드스톡 접촉 그림자</span>
           </div>
         </div>
 
@@ -650,14 +711,21 @@
             <button class="pc-btn pc-btn-sm" data-toggle-code="code-01"><span class="toggle-label">코드 보기</span></button>
             <button class="pc-btn pc-btn-sm pc-btn-mint" data-copy-target="code-01"><span>복사</span></button>
           </div>
-          <pre class="code-block" id="code-01">&lt;!-- 1. 기본 3단 비대칭 곡선 버튼 --&gt;
-&lt;button class="pc-btn pc-btn-mint"&gt;&lt;span class="pc-inline-icon" data-icon="leaf"&gt;&lt;/span&gt;&lt;span&gt;3단 비대칭&lt;/span&gt;&lt;/button&gt;
+          <pre class="code-block" id="code-01">&lt;!-- 1. 사각 카드스톡 단일 종이 버튼 (Rectangular Paper) --&gt;
+&lt;button class="pc-btn pc-btn-rect pc-btn-mint"&gt;
+  &lt;span class="pc-inline-icon" data-icon="leaf"&gt;&lt;/span&gt;
+  &lt;span&gt;사각 카드스톡 (민트)&lt;/span&gt;
+&lt;/button&gt;
 
-&lt;!-- 2. 구름 스캘럽 3단 버튼 --&gt;
-&lt;button class="pc-btn pc-btn-peach pc-btn-organic-scallop"&gt;&lt;span class="pc-inline-icon" data-icon="cloud"&gt;&lt;/span&gt;&lt;span&gt;구름 스캘럽&lt;/span&gt;&lt;/button&gt;
+&lt;!-- 2. 원형 종이 씰 버튼 (Circular Paper Seal) --&gt;
+&lt;button class="pc-btn pc-btn-circle pc-btn-lavender"&gt;
+  &lt;span class="pc-inline-icon" data-icon="heart"&gt;&lt;/span&gt;
+&lt;/button&gt;
 
-&lt;!-- 3. 리본 태그 3단 버튼 --&gt;
-&lt;button class="pc-btn pc-btn-lavender pc-btn-organic-ribbon"&gt;&lt;span class="pc-inline-icon" data-icon="ribbon"&gt;&lt;/span&gt;&lt;span&gt;리본 태그&lt;/span&gt;&lt;/button&gt;</pre>
+&lt;!-- 3. 라지 원형 종이 코인 버튼 (Large Circle Coin) --&gt;
+&lt;button class="pc-btn pc-btn-circle pc-btn-lg pc-btn-buttercup"&gt;
+  &lt;span class="pc-inline-icon" data-icon="sparkles"&gt;&lt;/span&gt;
+&lt;/button&gt;</pre>
         </div>
       </article>
 
@@ -668,8 +736,8 @@
             <span class="example-num">Example 02</span>
             <span class="pc-badge pc-badge-peach"><span class="pc-inline-icon is-sm" data-icon="edit"></span> <span>Input Primitive</span></span>
           </div>
-          <h3 class="example-title">음각 프레스 카빙 페이퍼 인풋</h3>
-          <p class="example-desc">두꺼운 질감의 마테 크림지에 도장을 찍듯 음각으로 파인(Carved Inset) 인풋입니다. 포커스 시 은은한 파스텔 빛이 피어납니다.</p>
+          <h3 class="example-title">다층 레이어드 웰 페이퍼 인풋</h3>
+          <p class="example-desc">두꺼운 질감의 마테 크림지 위에 프레임 종이를 덧대어 완성한 깊이감 있는 웰(Layered Well) 인풋입니다. 포커스 시 은은한 파스텔 빛이 피어납니다.</p>
 
           <div class="demo-stage">
             <div class="pc-input-wrapper">
@@ -804,10 +872,10 @@
 
           <div class="demo-stage">
             <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
-              <button class="pc-btn pc-btn-scallop pc-btn-sky">
+              <button class="pc-btn pc-btn-scallop pc-btn-sky" onclick="showPaperToast('레이저 컷팅 버튼이 부드럽게 클릭되었습니다!', 'sky', 'scissors')">
                 <span class="pc-inline-icon is-sm" data-icon="scissors"></span> <span>레이저 컷팅 버튼</span>
               </button>
-              <button class="pc-btn pc-btn-scallop pc-btn-rose">
+              <button class="pc-btn pc-btn-scallop pc-btn-rose" onclick="showPaperToast('꽃잎 스캘럽 버튼이 부드럽게 클릭되었습니다!', 'rose', 'flower')">
                 <span class="pc-inline-icon is-sm" data-icon="flower"></span> <span>꽃잎 스캘럽</span>
               </button>
             </div>
@@ -1033,15 +1101,15 @@
 
           <div class="demo-stage">
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <input type="text" class="pc-input pc-input-pill" placeholder="도서/작품 검색..." style="flex: 1; min-width: 140px;">
+              <input type="text" id="demo10-input" class="pc-input pc-input-pill" placeholder="도서/작품 검색..." style="flex: 1; min-width: 140px;">
               <div class="pc-select-wrapper" style="width: auto; min-width: 120px;">
-                <select class="pc-select pc-btn-pill">
+                <select id="demo10-select" class="pc-select pc-btn-pill">
                   <option>전체 카테고리</option>
                   <option>동화/일러스트</option>
                   <option>종이공예 도안</option>
                 </select>
               </div>
-              <button class="pc-btn pc-btn-sky pc-btn-pill">
+              <button id="demo10-btn" class="pc-btn pc-btn-sky pc-btn-pill">
                 <span class="pc-inline-icon" data-icon="search"></span> <span>검색</span>
               </button>
             </div>
@@ -1078,9 +1146,9 @@
           <p class="example-desc">낭독자 이름 인풋, 선호하는 독서 장르 드롭다운, 주간 서평 알림 체크박스, 책갈피 발급 버튼으로 구성됩니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" placeholder="낭독자 닉네임 (예: 종이별책방)">
+            <input type="text" id="demo11-name" class="pc-input" placeholder="낭독자 닉네임 (예: 종이별책방)">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo11-genre" class="pc-select">
                 <option data-icon="book">포근한 힐링 에세이 모임</option>
                 <option data-icon="moon">환상 동화 & 판타지 모임</option>
                 <option data-icon="leaf">식물과 정원 인문학 모임</option>
@@ -1091,7 +1159,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">주간 추천 도서 책갈피 수신</span>
             </label>
-            <button class="pc-btn pc-btn-lavender">
+            <button id="demo11-btn" class="pc-btn pc-btn-lavender">
               <span class="pc-inline-icon" data-icon="bookmark"></span> <span>북클럽 책갈피 발급받기</span>
             </button>
           </div>
@@ -1237,19 +1305,19 @@
 
           <div class="demo-stage">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo14-bean" class="pc-select">
                 <option data-icon="coffee">에티오피아 예가체프 G1 (꽃향기)</option>
                 <option data-icon="coffee">콜롬비아 수프레모 (견과류 단맛)</option>
                 <option data-icon="coffee">과테말라 안티구아 (스모키 초콜릿)</option>
               </select>
             </div>
-            <input type="text" class="pc-input" placeholder="분쇄 요청 (예: 핸드드립용 굵은 소금 크기)">
+            <input type="text" id="demo14-req" class="pc-input" placeholder="분쇄 요청 (예: 핸드드립용 굵은 소금 크기)">
             <label class="pc-checkbox-label">
               <input type="checkbox" class="pc-checkbox-input">
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">아로마 밸브 장착 종이 봉투 사용</span>
             </label>
-            <button class="pc-btn pc-btn-peach">
+            <button id="demo14-btn" class="pc-btn pc-btn-peach">
               <span class="pc-inline-icon" data-icon="coffee"></span> <span>원두 백 봉인하기</span>
             </button>
           </div>
@@ -1340,9 +1408,9 @@
           <p class="example-desc">4자리 비밀번호 인풋, 보안 힌트 드롭다운, 암호 기억 체크박스, 종이 자물쇠 해제 버튼이 있는 시크릿 락 폼입니다.</p>
 
           <div class="demo-stage">
-            <input type="password" class="pc-input" placeholder="•••• 4자리 비밀핀 입력" maxlength="8">
+            <input type="password" id="demo16-pass" class="pc-input" placeholder="•••• 4자리 비밀핀 입력" maxlength="8">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo16-hint" class="pc-select">
                 <option data-icon="lock">힌트 질문: 가장 좋아했던 동화책은?</option>
                 <option data-icon="lock">힌트 질문: 첫 반려식물의 이름은?</option>
               </select>
@@ -1352,7 +1420,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">이 기기에서 종이 접힌 상태 기억하기</span>
             </label>
-            <button class="pc-btn pc-btn-rose">
+            <button id="demo16-btn" class="pc-btn pc-btn-rose">
               <span class="pc-inline-icon" data-icon="unlock"></span> <span>종이 접기 해제 & 금고 열기</span>
             </button>
           </div>
@@ -1458,9 +1526,9 @@
           <p class="example-desc">받는 이 이름 인풋, 축하 테마 드롭다운, 실크 리본 묶기 체크박스, 왁스 실링 봉인 버튼으로 완성하는 선물 카드 빌더입니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" placeholder="사랑하는 친구 / 부모님 성함">
+            <input type="text" id="demo18-to" class="pc-input" placeholder="사랑하는 친구 / 부모님 성함">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo18-theme" class="pc-select">
                 <option data-icon="cake">세상에서 가장 행복한 생일 축하</option>
                 <option data-icon="bouquet">새로운 시작과 취업 축하</option>
                 <option data-icon="home">포근하고 따스한 집들이 축하</option>
@@ -1471,7 +1539,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">피치 핑크 실크 리본 동봉하기</span>
             </label>
-            <button class="pc-btn pc-btn-rose">
+            <button id="demo18-btn" class="pc-btn pc-btn-rose">
               <span class="pc-inline-icon" data-icon="envelope-heart"></span> <span>왁스 실링 도장으로 봉인</span>
             </button>
           </div>
@@ -1510,9 +1578,9 @@
           <p class="example-desc">참가자 연락처 인풋, 스킬 레벨 드롭다운, 조각칼 대여 체크박스, 참가 신청 버튼으로 종이 공예 수업을 신청합니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" placeholder="참가자 연락처 (010-0000-0000)">
+            <input type="text" id="demo19-phone" class="pc-input" placeholder="참가자 연락처 (010-0000-0000)">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo19-level" class="pc-select">
                 <option data-icon="butterfly">초급: 나비 & 꽃잎 3D 레이어링</option>
                 <option data-icon="scissors">중급: 정교한 숲속 섀도우 박스 제작</option>
               </select>
@@ -1522,7 +1590,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">개인 커팅 매트와 아트나이프 지참</span>
             </label>
-            <button class="pc-btn pc-btn-mint">
+            <button id="demo19-btn" class="pc-btn pc-btn-mint">
               <span class="pc-inline-icon" data-icon="ticket"></span> <span>클래스 티켓 예약하기</span>
             </button>
           </div>
@@ -1557,9 +1625,9 @@
           <p class="example-desc">도시 인풋, 예보 스타일 드롭다운, 노을 알림 체크박스, 파스텔 구름 새로고침 버튼으로 매일의 하늘을 확인합니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" value="서울 (Seoul)" placeholder="도시명...">
+            <input type="text" id="demo20-city" class="pc-input" value="서울 (Seoul)" placeholder="도시명...">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo20-weather" class="pc-select">
                 <option data-icon="cloud-sun-rays">구름 사이로 햇살 쏟아지는 오후</option>
                 <option data-icon="cloud-rain">파스텔 빗방울이 토닥이는 저녁</option>
               </select>
@@ -1569,7 +1637,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">일몰 30분 전 핑크 노을 푸시 알림</span>
             </label>
-            <button class="pc-btn pc-btn-sky">
+            <button id="demo20-btn" class="pc-btn pc-btn-sky">
               <span class="pc-inline-icon" data-icon="cloud-sun"></span> <span>구름 종이 새로고침</span>
             </button>
           </div>
@@ -1604,9 +1672,9 @@
           <p class="example-desc">돌봄이 거주지 인풋, 희망 동물 드롭다운, 알러지 검사 완료 체크박스, 매칭 문의 버튼이 어우러진 카드입니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" placeholder="거주 환경 (예: 아파트, 마당 있는 단독주택)">
+            <input type="text" id="demo21-home" class="pc-input" placeholder="거주 환경 (예: 아파트, 마당 있는 단독주택)">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo21-pet" class="pc-select">
                 <option data-icon="dog">부드러운 털의 강아지 친구</option>
                 <option data-icon="cat">얌전한 치즈 태비 고양이 친구</option>
               </select>
@@ -1616,7 +1684,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">가족 전원 동물 알러지 검사 통과</span>
             </label>
-            <button class="pc-btn pc-btn-buttercup">
+            <button id="demo21-btn" class="pc-btn pc-btn-buttercup">
               <span class="pc-inline-icon" data-icon="heart"></span> <span>따뜻한 만남 신청하기</span>
             </button>
           </div>
@@ -1699,9 +1767,9 @@
           <p class="example-desc">배송 주소 인풋, 배송 속도 드롭다운, 수취인 서명 필수 체크박스, 스탬프 날인 버튼이 있는 아날로그 택배장입니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input pc-input-stamp" placeholder="배송지 상세 도로명 주소">
+            <input type="text" id="demo23-addr" class="pc-input pc-input-stamp" placeholder="배송지 상세 도로명 주소">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo23-type" class="pc-select">
                 <option data-icon="package">안심 특급 우편 (익일 정오 도착)</option>
                 <option data-icon="package">일반 등기 우편 (3일 소요)</option>
               </select>
@@ -1711,7 +1779,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">본인 대면 서명 수령 옵션</span>
             </label>
-            <button class="pc-btn pc-btn-peach">
+            <button id="demo23-btn" class="pc-btn pc-btn-peach">
               <span class="pc-inline-icon" data-icon="stamp-rubber"></span> <span>소포에 스탬프 도장 날인</span>
             </button>
           </div>
@@ -1746,9 +1814,9 @@
           <p class="example-desc">집중 키워드 인풋, 앰비언스 드롭다운, 빗소리 레이어링 체크박스, 카세트 테이프 재생 버튼으로 구성된 힐링 콘솔입니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" value="오후 3시의 종이 공방 소리" placeholder="오늘의 무드...">
+            <input type="text" id="demo24-mood" class="pc-input" value="오후 3시의 종이 공방 소리" placeholder="오늘의 무드...">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo24-track" class="pc-select">
                 <option data-icon="fireplace">따스한 벽난로와 책장 넘기는 소리</option>
                 <option data-icon="cloud-rain">유리창을 두드리는 봄비 소리</option>
                 <option data-icon="leaf">조용한 숲속의 바람과 풀벌레</option>
@@ -1759,7 +1827,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">아날로그 테이프 백색소음 믹싱</span>
             </label>
-            <button class="pc-btn pc-btn-lavender">
+            <button id="demo24-btn" class="pc-btn pc-btn-lavender">
               <span class="pc-inline-icon" data-icon="cassette-tape"></span> <span>카세트 테이프 감기 & 재생</span>
             </button>
           </div>
@@ -1814,15 +1882,19 @@
 
           <div class="demo-stage">
             <div style="display: flex; gap: 4px; margin-bottom: 8px;">
-              <span class="pc-badge pc-badge-mint" style="flex:1; justify-content:center;">1단계: 인적사항</span>
-              <span class="pc-badge pc-badge-buttercup" style="flex:1; justify-content:center;">2단계: 팀 선택</span>
+              <span id="demo25-step1-badge" class="pc-badge pc-badge-mint" style="flex:1; justify-content:center;">1단계: 인적사항</span>
+              <span id="demo25-step2-badge" class="pc-badge" style="flex:1; justify-content:center; opacity: 0.6;">2단계: 팀 선택</span>
             </div>
-            <input type="text" class="pc-input" placeholder="성함 (Full Name)">
-            <div class="pc-select-wrapper">
-              <select class="pc-select">
-                <option data-icon="palette">페이퍼 아트 디자인팀</option>
-                <option data-icon="laptop">프론트엔드 크래프트팀</option>
-              </select>
+            <div id="demo25-step1-content">
+              <input type="text" id="demo25-name" class="pc-input" placeholder="성함 (Full Name)" value="홍길동">
+            </div>
+            <div id="demo25-step2-content" style="display: none;">
+              <div class="pc-select-wrapper">
+                <select id="demo25-team" class="pc-select">
+                  <option data-icon="palette">페이퍼 아트 디자인팀</option>
+                  <option data-icon="laptop">프론트엔드 크래프트팀</option>
+                </select>
+              </div>
             </div>
             <label class="pc-checkbox-label">
               <input type="checkbox" class="pc-checkbox-input" checked>
@@ -1830,8 +1902,8 @@
               <span style="font-size: 12px;">온보딩 종이 가이드북 수령</span>
             </label>
             <div style="display: flex; gap: 8px;">
-              <button class="pc-btn" style="flex: 1;"><span>이전</span></button>
-              <button class="pc-btn pc-btn-mint" style="flex: 2;"><span>다음 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="arrow-right"></span></button>
+              <button id="demo25-prev-btn" class="pc-btn" style="flex: 1;" disabled><span>이전</span></button>
+              <button id="demo25-next-btn" class="pc-btn pc-btn-mint" style="flex: 2;"><span>다음 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="arrow-right"></span></button>
             </div>
           </div>
 
@@ -1869,14 +1941,14 @@
 
           <div class="demo-stage">
             <div style="display: flex; gap: 8px;">
-              <input type="text" class="pc-input" value="#A8D5BA" style="font-family: monospace;">
-              <div style="width: 44px; height: 44px; border-radius: 10px; background: #A8D5BA; border: 2px solid #85BE9A; box-shadow: 0 3px 0 #85BE9A; flex-shrink: 0;"></div>
+              <input type="text" id="demo26-hex" class="pc-input" value="#A8D5BA" style="font-family: monospace;">
+              <div id="demo26-preview" style="width: 44px; height: 44px; border-radius: 10px; background: #A8D5BA; border: 2px solid #85BE9A; box-shadow: 0 3px 0 #85BE9A; flex-shrink: 0; transition: background 0.2s;"></div>
             </div>
             <div class="pc-select-wrapper">
-              <select class="pc-select">
-                <option data-icon="leaf">봄의 들판 (민트 & 세이지 & 버터컵)</option>
-                <option data-icon="apricot">노을빛 복숭아 (피치 & 로즈)</option>
-                <option data-icon="galaxy">새벽 은하수 (라벤더 & 스카이)</option>
+              <select id="demo26-theme" class="pc-select">
+                <option value="#A8D5BA" data-icon="leaf">봄의 들판 (민트 & 세이지 & 버터컵)</option>
+                <option value="#F7B2AD" data-icon="apricot">노을빛 복숭아 (피치 & 로즈)</option>
+                <option value="#B8B8F3" data-icon="galaxy">새벽 은하수 (라벤더 & 스카이)</option>
               </select>
             </div>
             <label class="pc-checkbox-label">
@@ -1884,7 +1956,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">현재 파스텔 색상 조합 고정하기</span>
             </label>
-            <button class="pc-btn pc-btn-peach">
+            <button id="demo26-btn" class="pc-btn pc-btn-peach">
               <span class="pc-inline-icon" data-icon="palette"></span> <span>CSS 변수 팔레트 복사</span>
             </button>
           </div>
@@ -1972,9 +2044,9 @@
           <p class="example-desc">절취선 점선이 새겨진 탑승권 인풋, 좌석 등급 드롭다운, 기내식 체크박스, 바코드 티켓 발행 버튼 조합입니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" value="AIR PAPER #772" placeholder="항공편 코드">
+            <input type="text" id="demo28-code" class="pc-input" value="AIR PAPER #772" placeholder="항공편 코드">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo28-seat" class="pc-select">
                 <option data-icon="airplane-seat">퍼스트 페이퍼 스위트 1A</option>
                 <option data-icon="airplane-seat">비즈니스 오리가미 8C</option>
               </select>
@@ -1984,7 +2056,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">채식 오가닉 비건 기내식 사전 신청</span>
             </label>
-            <button class="pc-btn pc-btn-rose">
+            <button id="demo28-btn" class="pc-btn pc-btn-rose">
               <span class="pc-inline-icon" data-icon="ticket"></span> <span>보딩패스 실물 종이 출력</span>
             </button>
           </div>
@@ -2019,9 +2091,9 @@
           <p class="example-desc">도서 제목 인풋, 대출 기간 드롭다운, 반납 기일 알림 체크박스, 그리고 붉은 잉크 반납 도장 날인 버튼입니다.</p>
 
           <div class="demo-stage">
-            <input type="text" class="pc-input" value="어린 왕자와 파스텔 별" placeholder="도서명">
+            <input type="text" id="demo29-book" class="pc-input" value="어린 왕자와 파스텔 별" placeholder="도서명">
             <div class="pc-select-wrapper">
-              <select class="pc-select">
+              <select id="demo29-period" class="pc-select">
                 <option>14일 대출 (표준 대출)</option>
                 <option>28일 대출 (연구자 우대)</option>
               </select>
@@ -2031,7 +2103,7 @@
               <span class="pc-checkbox-box"></span>
               <span style="font-size: 13px;">반납 3일 전 문자 알림 받기</span>
             </label>
-            <button class="pc-btn pc-btn-buttercup">
+            <button id="demo29-btn" class="pc-btn pc-btn-buttercup">
               <span class="pc-inline-icon" data-icon="calendar"></span> <span>반납 예정일 스탬프 날인</span>
             </button>
           </div>
@@ -2176,12 +2248,12 @@
                 <p style="font-size: 13.5px; color: var(--pc-ink-muted); max-width: 320px; margin: 0; line-height: 1.5;">
                   종이의 펄프 섬유(Fiber) 요철과 절단된 단면의 칼선 하이라이트가 물리적으로 조화를 이룹니다.
                 </p>
-                <div style="display: flex; gap: 10px; margin-top: 8px;">
-                  <button class="pc-btn pc-btn-organic-scallop pc-btn-mint" onclick="showPaperToast('물리적 3겹 종이 프레스 완료!', 'mint')">
-                    <span>구름 곡선 버튼</span>
+                <div style="display: flex; gap: 10px; margin-top: 8px; align-items: center;">
+                  <button class="pc-btn pc-btn-rect pc-btn-mint" onclick="showPaperToast('사각 단일 종이 카드스톡 버튼 클릭! (두께 2.2px)', 'mint', 'leaf')">
+                    <span class="pc-inline-icon is-sm" data-icon="leaf"></span> <span>사각 카드스톡</span>
                   </button>
-                  <button class="pc-btn pc-btn-organic-leaf pc-btn-peach" onclick="showPaperToast('비대칭 나뭇잎 버튼 클릭!', 'peach')">
-                    <span>나뭇잎 컷팅 버튼</span>
+                  <button class="pc-btn pc-btn-circle pc-btn-peach" onclick="showPaperToast('원형 단일 종이 씰 버튼 클릭! (360° 원호 두께감)', 'peach', 'scissors')">
+                    <span class="pc-inline-icon is-sm" data-icon="scissors"></span>
                   </button>
                 </div>
               </div>
@@ -3062,7 +3134,7 @@
           <!-- =============================================================
                PART 2: DEDICATED COMPONENT PAPER TEXTURE LAB (개별 컴포넌트 종이 질감 실시간 랩)
                ============================================================= -->
-          <div id="playground-components-lab" style="margin-top: 24px; padding-top: 20px; border-top: 2px dashed rgba(74,58,42,0.15);">
+          <div id="playground-components-lab" style="margin-top: 24px; padding-top: 20px; border-top: 1px dashed rgba(var(--pc-shadow-tint, 46, 30, 20), 0.2);">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
               <div>
                 <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 2px;">

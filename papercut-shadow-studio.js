@@ -9,10 +9,10 @@
   const PaperShadowStudio = {
     state: {
       angle: 315,         // Degrees (0 ~ 360)
-      elevation: 6,       // px (Layer spacer height: 1 ~ 30)
-      blur: 12,           // px (Gaussian diffusion: 0 ~ 45)
-      opacity: 0.18,      // 0.05 ~ 0.50
-      color: [74, 58, 42],// Warm Burnt Umber [R, G, B]
+      elevation: 4.5,     // px (Layer spacer height: 1 ~ 30) - B Standard 4.5px
+      blur: 10,           // px (Gaussian diffusion: 0 ~ 45)
+      opacity: 0.48,      // 0.05 ~ 0.50 - B Standard 48%
+      color: [46, 30, 20],// Deep Burnt Umber [R, G, B] #2E1E14 - Canonical B Standard
       enableTier1: true,  // Contact shadow
       enableTier2: true,  // Mid-air float shadow
       enableTier3: true,  // Atmospheric ambient shadow
@@ -142,8 +142,8 @@
             <div style="display:flex;flex-direction:column;gap:8px;">
               <span style="font-size:12.5px;font-weight:800;color:var(--pc-ink);">3. 그림자 틴트 & 색온도 (Patina)</span>
               <div class="pc-shadow-color-swatches">
-                <button type="button" class="pc-color-swatch-btn is-active" data-rgb="74,58,42">
-                  <span class="pc-color-swatch-dot" style="background:#4A3A2A;"></span> <span>번트 엄버 (표준)</span>
+                <button type="button" class="pc-color-swatch-btn is-active" data-rgb="46,30,20">
+                  <span class="pc-color-swatch-dot" style="background:#2E1E14;"></span> <span>딥 번트 엄버 (B표준)</span>
                 </button>
                 <button type="button" class="pc-color-swatch-btn" data-rgb="40,52,65">
                   <span class="pc-color-swatch-dot" style="background:#283441;"></span> <span>쿨 슬레이트</span>
@@ -407,11 +407,11 @@
 
       // 6. Presets
       const PRESETS = {
-        micro: { angle: 315, elevation: 2, blur: 4, opacity: 0.20, label: '0.5mm' },
-        standard: { angle: 315, elevation: 6, blur: 12, opacity: 0.18, label: '2mm' },
-        diorama: { angle: 315, elevation: 14, blur: 24, opacity: 0.15, label: '8mm' },
-        raking: { angle: 80, elevation: 20, blur: 30, opacity: 0.22, label: '15mm' },
-        levitate: { angle: 315, elevation: 26, blur: 42, opacity: 0.12, label: '25mm' }
+        micro: { angle: 315, elevation: 2, blur: 4, opacity: 0.52, label: '0.5mm' },
+        standard: { angle: 315, elevation: 4.5, blur: 10, opacity: 0.48, label: '2mm (B표준)' },
+        diorama: { angle: 315, elevation: 14, blur: 24, opacity: 0.42, label: '8mm' },
+        raking: { angle: 80, elevation: 20, blur: 30, opacity: 0.48, label: '15mm' },
+        levitate: { angle: 315, elevation: 26, blur: 42, opacity: 0.38, label: '25mm' }
       };
 
       container.querySelectorAll('.pc-depth-preset-btn').forEach(btn => {

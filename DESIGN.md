@@ -3,20 +3,30 @@
 > The single source of truth for visual + interaction conventions.
 > Agents touching view code MUST consult this first.
 
-## Tokens
+## Tokens (PaperCut UI Authentic Palette)
 
 | Token            | Value             | Use                     |
 | ---------------- | ----------------- | ----------------------- |
-| `color.bg`       | `#0b0c0f`         | page background         |
-| `color.fg`       | `#e7e9ee`         | primary text            |
-| `color.muted`    | `#8a8f9c`         | secondary text          |
-| `color.accent`   | `#7c8cff`         | interactive / focus     |
-| `color.danger`   | `#ff5d6c`         | destructive             |
-| `radius.sm`      | `6px`             | inputs, small cards     |
-| `radius.md`      | `10px`            | cards, modals           |
+| `color.bg`       | `#F8F4EC`         | matte cream page canvas |
+| `color.paper`    | `#FFFDF9`         | elevated paper sheet    |
+| `color.fg`       | `#3D352E`         | natural warm charcoal ink |
+| `color.muted`    | `#7D7368`         | secondary muted text    |
+| `color.mint`     | `#A3D8C3`         | primary affirmative / nature |
+| `color.peach`    | `#F7BA9E`         | energetic action buttons |
+| `color.lavender` | `#D7CBEB`         | structure, navigation   |
+| `color.buttercup`| `#FEE396`         | warnings, stars, accents|
+| `color.sky`      | `#BDE0EA`         | information, links      |
+| `color.danger`   | `#F5B8BE`         | soft rose destructive   |
+| `shadow.contact` | `0 1.2px 2px rgba(46, 30, 20, 0.48)` | 2-Tier knife contact edge |
+| `shadow.elevated`| `0 4.5px 10px rgba(46, 30, 20, 0.26)`| 4.5px 48% stacking standard |
+| `radius.sm`      | `10px`            | inputs, small cards     |
+| `radius.md`      | `16px`            | cards, dialogs, modals  |
+| `radius.lg`      | `24px`            | containers, hero panels |
+| `radius.pill`    | `999px`           | badges, search capsules |
 | `space.unit`     | `4px`             | base spacing grid       |
-| `font.sans`      | system stack + `"Apple SD Gothic Neo", "Noto Sans KR"` | body & UI (Korean-capable) |
-| `font.mono`      | ui-monospace      | code, IDs               |
+| `font.sans`      | `'Nanum Square Round', -apple-system, sans-serif` | body & UI (Korean-capable) |
+| `font.hand`      | `'Gaegu', cursive, sans-serif` | handcrafted craft accents |
+| `font.mono`      | ui-monospace, monospace | code, IDs, parameters   |
 
 ## Components — contract
 
@@ -68,9 +78,9 @@ empty-state illustrations, OG/social images, placeholder imagery — is
 **generated for this project** in its design language, never left as a
 framework default or pulled from a generic pack.
 
-- **Icons:** inline SVG drawn on the `space.unit` grid (24px viewBox, 2px
-  stroke), `currentColor` fill/stroke so tokens drive the color. One consistent
-  family for the whole product — never mix icon sets.
+- **Icons (Full-Color 3D Paper-Cut Art · 678 Icons):**
+  - **Universal Full-Color 3D Kirigami Standard (16px ~ 256px 전역):** 모노크롬 철선을 전면 배제하고, AI 원작 아트워크(`assets/papercut-hero.jpg`)의 파스텔 7색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream)와 2-Tier 48% 번트 엄버 그림자가 살아있는 독립형 풀컬러 3D 종이공예 SVG(678종 시스템)를 단일 표준으로 적용. 버튼, 인풋, 배지, 내비게이션, 드롭다운 등 모든 UI 컴포넌트에서 풍부한 컬러 페이퍼 층위와 3D 입체감을 유지.
+  - **Dynamic Hydration:** `<span class="pc-inline-icon" data-icon="{id}"></span>`로 주입되며, 자동 인스턴스 ID 고유화 및 315° 번트 엄버(`rgba(46, 30, 20, ...)`) 2-Tier 48% 접촉 그림자 필터가 안정적으로 렌더링됨.
 - **Favicon / logo:** derived from the paper-cutting-ui identity and
   `color.accent` on `color.bg`; author the SVG first, export raster sizes
   from it.

@@ -387,6 +387,26 @@ function initInteractiveDemos() {
     });
   }
 
+  // Demo 10: Search & Category Filter
+  const demo10Btn = document.getElementById('demo10-btn');
+  if (demo10Btn) {
+    demo10Btn.addEventListener('click', () => {
+      const q = document.getElementById('demo10-input')?.value.trim() || '전체';
+      const cat = document.getElementById('demo10-select')?.value || '전체';
+      showPaperToast(`[${cat}] 카테고리에서 '${q}' 도안을 종이 서고에서 찾았습니다.`, 'sky', 'search');
+    });
+  }
+
+  // Demo 11: Book Club Registration
+  const demo11Btn = document.getElementById('demo11-btn');
+  if (demo11Btn) {
+    demo11Btn.addEventListener('click', () => {
+      const name = document.getElementById('demo11-name')?.value.trim() || '독서가';
+      const genre = document.getElementById('demo11-genre')?.value || '힐링 에세이';
+      showPaperToast(`[${name}]님께 '${genre}' 북클럽 책갈피가 발송되었습니다!`, 'lavender', 'bookmark');
+    });
+  }
+
   // Demo 12: Plant Care Reminder
   const demo12Btn = document.getElementById('demo12-btn');
   if (demo12Btn) {
@@ -406,6 +426,16 @@ function initInteractiveDemos() {
     });
   }
 
+  // Demo 14: Coffee Customizer
+  const demo14Btn = document.getElementById('demo14-btn');
+  if (demo14Btn) {
+    demo14Btn.addEventListener('click', () => {
+      const bean = document.getElementById('demo14-bean')?.value || '에티오피아 예가체프';
+      const req = document.getElementById('demo14-req')?.value.trim() || '핸드드립용';
+      showPaperToast(`[${bean} / ${req}] 아로마 밸브 종이 백에 봉인 완료!`, 'peach', 'coffee');
+    });
+  }
+
   // Demo 15: Dream Journal
   const demo15Btn = document.getElementById('demo15-btn');
   if (demo15Btn) {
@@ -420,29 +450,62 @@ function initInteractiveDemos() {
     });
   }
 
-  // Demo 27: Todo Paper Strips
-  const demo27AddBtn = document.getElementById('demo27-add-btn');
-  const demo27Input = document.getElementById('demo27-input');
-  const demo27List = document.getElementById('demo27-list');
-  if (demo27AddBtn && demo27Input && demo27List) {
-    demo27AddBtn.addEventListener('click', () => {
-      const text = demo27Input.value.trim();
-      if (!text) return;
-      const li = document.createElement('div');
-      li.className = 'pc-card';
-      li.style.cssText = 'padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; border-radius: 8px; margin-top: 6px; background: #FFFDF9;';
-      li.innerHTML = `
-        <label class="pc-checkbox-label">
-          <input type="checkbox" class="pc-checkbox-input">
-          <span class="pc-checkbox-box"></span>
-          <span>${text}</span>
-        </label>
-        <button class="pc-btn pc-btn-sm pc-btn-peach" style="padding: 2px 8px; font-size: 11px;">삭제</button>
-      `;
-      li.querySelector('button').addEventListener('click', () => li.remove());
-      demo27List.appendChild(li);
-      demo27Input.value = '';
-      showPaperToast('새 할 일 종이띠가 추가되었습니다.', 'sky', 'check');
+  // Demo 16: Secret Vault Passcode
+  const demo16Btn = document.getElementById('demo16-btn');
+  if (demo16Btn) {
+    demo16Btn.addEventListener('click', () => {
+      const pass = document.getElementById('demo16-pass')?.value;
+      if (!pass || pass.length < 4) {
+        showPaperToast('비밀번호 4자리를 정확히 입력해주세요.', 'peach', 'lock');
+        return;
+      }
+      showPaperToast('비밀 페이퍼 금고가 스르륵 펼쳐졌습니다!', 'rose', 'unlock');
+    });
+  }
+
+  // Demo 17: Luggage Tag
+  const demo17Btn = document.getElementById('demo17-btn');
+  if (demo17Btn) {
+    demo17Btn.addEventListener('click', () => {
+      const name = document.getElementById('demo17-name')?.value || '여행자';
+      const dest = document.getElementById('demo17-dest')?.value || '교토';
+      showPaperToast(`[${dest}]행 ${name}님의 러기지 종이 태그가 발행되었습니다!`, 'rose', 'airplane');
+    });
+  }
+
+  // Demo 18: Celebration Card Builder
+  const demo18Btn = document.getElementById('demo18-btn');
+  if (demo18Btn) {
+    demo18Btn.addEventListener('click', () => {
+      const to = document.getElementById('demo18-to')?.value.trim() || '소중한 분';
+      showPaperToast(`[${to}]님을 향한 입체 축하 카드에 왁스 실링 도장이 찍혔습니다!`, 'rose', 'envelope-heart');
+    });
+  }
+
+  // Demo 19: Workshop Registration
+  const demo19Btn = document.getElementById('demo19-btn');
+  if (demo19Btn) {
+    demo19Btn.addEventListener('click', () => {
+      const phone = document.getElementById('demo19-phone')?.value.trim() || '010-0000-0000';
+      showPaperToast(`연락처(${phone})로 원데이 클래스 종이 티켓이 예약되었습니다!`, 'mint', 'ticket');
+    });
+  }
+
+  // Demo 20: Sky & Cloud Forecast
+  const demo20Btn = document.getElementById('demo20-btn');
+  if (demo20Btn) {
+    demo20Btn.addEventListener('click', () => {
+      const city = document.getElementById('demo20-city')?.value.trim() || '서울';
+      showPaperToast(`[${city}]의 하늘 구름 종이가 산뜻하게 새로고침되었습니다.`, 'sky', 'cloud-sun');
+    });
+  }
+
+  // Demo 21: Pet Companion Adoption
+  const demo21Btn = document.getElementById('demo21-btn');
+  if (demo21Btn) {
+    demo21Btn.addEventListener('click', () => {
+      const home = document.getElementById('demo21-home')?.value.trim() || '따뜻한 보금자리';
+      showPaperToast(`[${home}] 임시보호 매칭 신청서가 전송되었습니다!`, 'buttercup', 'heart');
     });
   }
 
@@ -455,13 +518,159 @@ function initInteractiveDemos() {
     });
   }
 
-  // Demo 17: Luggage Tag
-  const demo17Btn = document.getElementById('demo17-btn');
-  if (demo17Btn) {
-    demo17Btn.addEventListener('click', () => {
-      const name = document.getElementById('demo17-name')?.value || '여행자';
-      const dest = document.getElementById('demo17-dest')?.value || '교토';
-      showPaperToast(`[${dest}]행 ${name}님의 러기지 종이 태그가 발행되었습니다!`, 'rose', 'airplane');
+  // Demo 23: Vintage Parcel Dispatch
+  const demo23Btn = document.getElementById('demo23-btn');
+  if (demo23Btn) {
+    demo23Btn.addEventListener('click', () => {
+      const addr = document.getElementById('demo23-addr')?.value.trim() || '배송지 주소';
+      showPaperToast(`[${addr}]행 소포 발송장에 빨간 스탬프 날인 완료!`, 'peach', 'stamp-rubber');
+    });
+  }
+
+  // Demo 24: Lo-Fi Soundscape
+  const demo24Btn = document.getElementById('demo24-btn');
+  if (demo24Btn) {
+    demo24Btn.addEventListener('click', () => {
+      const mood = document.getElementById('demo24-mood')?.value.trim() || '오후의 공방';
+      showPaperToast(`[${mood}] 카세트 테이프가 돌아가며 아늑한 소리가 흐릅니다.`, 'lavender', 'music');
+    });
+  }
+
+  // Demo 25: Paper Stepper (Fold metaphor)
+  const demo25PrevBtn = document.getElementById('demo25-prev-btn');
+  const demo25NextBtn = document.getElementById('demo25-next-btn');
+  const demo25Step1 = document.getElementById('demo25-step1-content');
+  const demo25Step2 = document.getElementById('demo25-step2-content');
+  const demo25Step1Badge = document.getElementById('demo25-step1-badge');
+  const demo25Step2Badge = document.getElementById('demo25-step2-badge');
+  let demo25CurrentStep = 1;
+
+  if (demo25NextBtn && demo25PrevBtn && demo25Step1 && demo25Step2) {
+    demo25NextBtn.addEventListener('click', () => {
+      if (demo25CurrentStep === 1) {
+        demo25CurrentStep = 2;
+        demo25Step1.style.display = 'none';
+        demo25Step2.style.display = 'block';
+        demo25PrevBtn.disabled = false;
+        demo25NextBtn.innerHTML = '<span>가입 완료 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="check"></span>';
+        if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(demo25NextBtn);
+        if (demo25Step1Badge) {
+          demo25Step1Badge.classList.remove('pc-badge-mint');
+          demo25Step1Badge.style.opacity = '0.6';
+        }
+        if (demo25Step2Badge) {
+          demo25Step2Badge.classList.add('pc-badge-buttercup');
+          demo25Step2Badge.style.opacity = '1';
+        }
+        showPaperToast('2단계 팀 선택 종이를 펼쳤습니다!', 'mint', 'arrow-right');
+      } else {
+        const name = document.getElementById('demo25-name')?.value || '신규 크래프터';
+        const team = document.getElementById('demo25-team')?.value || '디자인팀';
+        showPaperToast(`[${name}] 크래프터님의 [${team}] 온보딩 종이 접기가 완료되었습니다!`, 'mint', 'team-meeting');
+      }
+    });
+
+    demo25PrevBtn.addEventListener('click', () => {
+      if (demo25CurrentStep === 2) {
+        demo25CurrentStep = 1;
+        demo25Step2.style.display = 'none';
+        demo25Step1.style.display = 'block';
+        demo25PrevBtn.disabled = true;
+        demo25NextBtn.innerHTML = '<span>다음 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="arrow-right"></span>';
+        if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(demo25NextBtn);
+        if (demo25Step1Badge) {
+          demo25Step1Badge.classList.add('pc-badge-mint');
+          demo25Step1Badge.style.opacity = '1';
+        }
+        if (demo25Step2Badge) {
+          demo25Step2Badge.classList.remove('pc-badge-buttercup');
+          demo25Step2Badge.style.opacity = '0.6';
+        }
+        showPaperToast('1단계 인적사항 종이로 되돌아왔습니다.', 'peach', 'arrow-left');
+      }
+    });
+  }
+
+  // Demo 26: Color Swatch Generator
+  const demo26Btn = document.getElementById('demo26-btn');
+  const demo26Theme = document.getElementById('demo26-theme');
+  const demo26Hex = document.getElementById('demo26-hex');
+  const demo26Preview = document.getElementById('demo26-preview');
+
+  if (demo26Theme && demo26Hex && demo26Preview) {
+    demo26Theme.addEventListener('change', (e) => {
+      const hex = e.target.value;
+      if (hex) {
+        demo26Hex.value = hex;
+        demo26Preview.style.background = hex;
+      }
+    });
+    demo26Hex.addEventListener('input', (e) => {
+      demo26Preview.style.background = e.target.value;
+    });
+  }
+  if (demo26Btn && demo26Hex) {
+    demo26Btn.addEventListener('click', () => {
+      const hex = demo26Hex.value;
+      const cssVar = `--pc-custom-pastel: ${hex};`;
+      navigator.clipboard.writeText(cssVar).then(() => {
+        showPaperToast(`CSS 변수 [${cssVar}]가 클립보드에 복사되었습니다!`, 'peach', 'palette');
+      }).catch(() => {
+        showPaperToast(`팔레트 색상: ${hex}`, 'peach', 'palette');
+      });
+    });
+  }
+
+  // Demo 27: Todo Paper Strips with Enter key
+  const demo27AddBtn = document.getElementById('demo27-add-btn');
+  const demo27Input = document.getElementById('demo27-input');
+  const demo27List = document.getElementById('demo27-list');
+  if (demo27AddBtn && demo27Input && demo27List) {
+    const handleAddTodo = () => {
+      const text = demo27Input.value.trim();
+      if (!text) return;
+      const li = document.createElement('div');
+      li.className = 'pc-card';
+      li.style.cssText = 'padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; border-radius: 8px; margin-top: 6px; background: #FFFDF9;';
+      li.innerHTML = `
+        <label class="pc-checkbox-label">
+          <input type="checkbox" class="pc-checkbox-input">
+          <span class="pc-checkbox-box"></span>
+          <span>${text}</span>
+        </label>
+        <button class="pc-btn pc-btn-sm pc-btn-peach inline-flex items-center justify-center leading-none whitespace-nowrap" style="padding: 4px 10px; font-size: 11px; min-height: 44px;">삭제</button>
+      `;
+      li.querySelector('button').addEventListener('click', () => li.remove());
+      demo27List.appendChild(li);
+      demo27Input.value = '';
+      showPaperToast('새 할 일 종이띠가 추가되었습니다.', 'sky', 'check');
+    };
+
+    demo27AddBtn.addEventListener('click', handleAddTodo);
+    demo27Input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleAddTodo();
+      }
+    });
+  }
+
+  // Demo 28: Airline Boarding Pass
+  const demo28Btn = document.getElementById('demo28-btn');
+  if (demo28Btn) {
+    demo28Btn.addEventListener('click', () => {
+      const code = document.getElementById('demo28-code')?.value || 'AIR PAPER #772';
+      const seat = document.getElementById('demo28-seat')?.value || '퍼스트 스위트 1A';
+      showPaperToast(`[${code} / ${seat}] 실물 종이 보딩패스가 인쇄되었습니다!`, 'rose', 'ticket');
+    });
+  }
+
+  // Demo 29: Library Checkout Slip
+  const demo29Btn = document.getElementById('demo29-btn');
+  if (demo29Btn) {
+    demo29Btn.addEventListener('click', () => {
+      const book = document.getElementById('demo29-book')?.value || '어린 왕자';
+      showPaperToast(`[${book}] 대출 슬립에 반납 예정일 붉은 도장이 날인되었습니다!`, 'buttercup', 'calendar');
     });
   }
 }
