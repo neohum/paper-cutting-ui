@@ -51,6 +51,19 @@
     firrStrokeWidth: 0.88,      // 0.4px ~ 2.4px (default 0.88px)
     firrStrokeColor: '#423D39', // Stroke color (default #423D39)
     firrBg: 'white',            // Canvas 1 independent background: 'white' | 'cream' | 'dark' | 'mint' | 'peach' | 'lavender' | 'buttercup' | 'blueprint' | 'checker'
+    // Canvas 2 (3D Layered Paper Art) Physics & Shadow Lab States
+    paper3dShadowDist: 4.5,       // Distance / elevation (0 ~ 20px, default 4.5px)
+    paper3dShadowAngle: 315,      // Light direction angle (0 ~ 360 deg, default 315 deg top-left)
+    paper3dShadowBlur: 1.2,       // Blur / stdDeviation (0 ~ 8px, default 1.2px)
+    paper3dShadowOpacity: 0.48,   // Shadow opacity (0.05 ~ 0.95, default 0.48)
+    paper3dShadowColor: '#2E1E14',// Shadow flood-color (default #2E1E14 Deep Burnt Umber)
+    paper3dShadowTier: 'double',  // 'single' | 'double' | 'ambient'
+    paper3dHighlight: true,       // White bevel knife highlight
+    paper3dEdgeMode: 'none',      // 'none' | 'hairline' | 'outline' | 'sticker'
+    paper3dEdgeColor: '#3D352E',  // Paper cutline stroke color
+    paper3dPreset: 'crisp',       // 'crisp' | 'diorama' | 'morning' | 'charcoal' | 'hairline' | 'legacy'
+    paper3dBg: 'cream',           // Canvas 2 independent background
+    isAbComparing: true,          // A/B comparison active state
     // Gallery Explorer States
     galleryTheme: 'white',      // 'white' | 'cream' | 'dark' | 'mint' | 'peach' | 'lavender' | 'buttercup' | 'blueprint'
     galleryStyle: 'paper3d',    // 'paper3d' (3D colored paper) | 'firr' (0.88px line)
@@ -58,6 +71,234 @@
     galleryExpanded: false,     // Expanded height mode toggle
     selectedDropdownValue: '선택 옵션 A (fi fi-rr 라인 렌더링)'
   };
+
+  // Curated 3D Paper Physics Presets for One-click Spatial Tuning
+  const PAPER3D_PRESETS = {
+    crisp: {
+      angle: 315,
+      dist: 4.5,
+      blur: 1.2,
+      opacity: 0.48,
+      color: '#2E1E14',
+      tier: 'double',
+      highlight: true,
+      edgeMode: 'none',
+      name: '선명한 칼선 2-Tier (강력추천)'
+    },
+    diorama: {
+      angle: 315,
+      dist: 8.5,
+      blur: 2.4,
+      opacity: 0.55,
+      color: '#1F140E',
+      tier: 'ambient',
+      highlight: true,
+      edgeMode: 'none',
+      name: '리얼 섀도우박스 (6mm)'
+    },
+    morning: {
+      angle: 45,
+      dist: 5.0,
+      blur: 1.4,
+      opacity: 0.42,
+      color: '#452115',
+      tier: 'double',
+      highlight: true,
+      edgeMode: 'none',
+      name: '아침 햇살 사광 (45°)'
+    },
+    charcoal: {
+      angle: 315,
+      dist: 3.5,
+      blur: 0.8,
+      opacity: 0.65,
+      color: '#1A1715',
+      tier: 'double',
+      highlight: true,
+      edgeMode: 'none',
+      name: '고대비 차콜 림 (65%)'
+    },
+    hairline: {
+      angle: 315,
+      dist: 4.0,
+      blur: 1.2,
+      opacity: 0.45,
+      color: '#2E1E14',
+      tier: 'double',
+      highlight: true,
+      edgeMode: 'hairline',
+      name: '헤어라인 칼선 융합 (0.88px)'
+    },
+    legacy: {
+      angle: 0,
+      dist: 2.5,
+      blur: 1.5,
+      opacity: 0.18,
+      color: '#4A3A2A',
+      tier: 'single',
+      highlight: false,
+      edgeMode: 'none',
+      name: '기존 기본값 (18% 흐림)'
+    }
+  };
+
+  /**
+   * Generate mathematically precise, multi-layered SVG filter for 3D Layered Paper Cut Art
+   * Transforms faint flat shadows into authentic kirigami shadowbox depths with contact shadows,
+   * floating gradients, and knife-cut bevel highlights.
+   */
+  function generatePaper3dFilter(filterId, opts = {}) {
+    // Legacy faint baseline for A/B comparison or legacy preset
+    if (opts.isLegacy) {
+      const legFilter = `<feDropShadow dx="0" dy="2.5" stdDeviation="1.5" flood-color="#4A3A2A" flood-opacity="0.18"/>`;
+      return `<filter id="${filterId}" x="-20%" y="-20%" width="140%" height="140%">${legFilter}</filter>` +
+             `<filter id="${filterId}-base" x="-20%" y="-20%" width="140%" height="140%">${legFilter}</filter>` +
+             `<filter id="${filterId}-mid" x="-20%" y="-20%" width="140%" height="140%">${legFilter}</filter>` +
+             `<filter id="${filterId}-top" x="-20%" y="-20%" width="140%" height="140%">${legFilter}</filter>` +
+             `<filter id="${filterId}-steam" x="-20%" y="-20%" width="140%" height="140%">${legFilter}</filter>`;
+    }
+
+    const dist = typeof opts.dist === 'number' ? opts.dist : (simState.paper3dShadowDist ?? 4.5);
+    const angle = typeof opts.angle === 'number' ? opts.angle : (simState.paper3dShadowAngle ?? 315);
+    const blur = typeof opts.blur === 'number' ? opts.blur : (simState.paper3dShadowBlur ?? 1.2);
+    const opacity = typeof opts.opacity === 'number' ? opts.opacity : (simState.paper3dShadowOpacity ?? 0.48);
+    const color = opts.color || simState.paper3dShadowColor || '#2E1E14';
+    const tier = opts.tier || simState.paper3dShadowTier || 'double';
+    const highlight = typeof opts.highlight === 'boolean' ? opts.highlight : (simState.paper3dHighlight ?? true);
+
+    // Calculate trigonometric dx, dy from angle (0° = North/Top, 90° = East/Right, 180° = South/Bottom, 270° = West/Left, 315° = North-West/Top-Left)
+    // Formula: dx = -dist * sin(angle_rad), dy = dist * cos(angle_rad)
+    const rad = (angle * Math.PI) / 180;
+    const rawDx = -dist * Math.sin(rad);
+    const rawDy = dist * Math.cos(rad);
+    const dx = Math.round(rawDx * 100) / 100;
+    const dy = Math.round(rawDy * 100) / 100;
+
+    // 1. BASE FILTER (Cardstock base silhouette resting on canvas)
+    let baseContent = '';
+    if (tier === 'single') {
+      baseContent += `<feDropShadow dx="${dx}" dy="${dy}" stdDeviation="${blur.toFixed(2)}" flood-color="${color}" flood-opacity="${opacity.toFixed(2)}"/>`;
+    } else if (tier === 'double') {
+      const cDx = Math.round((dx * 0.35) * 100) / 100;
+      const cDy = Math.round((dy * 0.35) * 100) / 100;
+      const cBlur = Math.max(0.25, Math.round((blur * 0.45) * 100) / 100);
+      const cOp = Math.min(0.95, Math.round(Math.min(1, opacity * 1.25) * 100) / 100);
+
+      const fBlur = Math.max(0.6, Math.round(blur * 100) / 100);
+      const fOp = Math.round((opacity * 0.72) * 100) / 100;
+
+      baseContent += `<feDropShadow dx="${cDx}" dy="${cDy}" stdDeviation="${cBlur}" flood-color="${color}" flood-opacity="${cOp}"/><feDropShadow dx="${dx}" dy="${dy}" stdDeviation="${fBlur}" flood-color="${color}" flood-opacity="${fOp}"/>`;
+    } else if (tier === 'ambient') {
+      const cDx = Math.round((dx * 0.3) * 100) / 100;
+      const cDy = Math.round((dy * 0.3) * 100) / 100;
+      const cBlur = Math.max(0.25, Math.round((blur * 0.4) * 100) / 100);
+      const cOp = Math.min(0.95, Math.round(Math.min(1, opacity * 1.3) * 100) / 100);
+
+      const fBlur = Math.max(0.6, Math.round(blur * 100) / 100);
+      const fOp = Math.round((opacity * 0.7) * 100) / 100;
+
+      const aDx = Math.round((dx * 1.7) * 100) / 100;
+      const aDy = Math.round((dy * 1.7) * 100) / 100;
+      const aBlur = Math.round((blur * 2.2) * 100) / 100;
+      const aOp = Math.round((opacity * 0.32) * 100) / 100;
+
+      baseContent += `<feDropShadow dx="${cDx}" dy="${cDy}" stdDeviation="${cBlur}" flood-color="${color}" flood-opacity="${cOp}"/><feDropShadow dx="${dx}" dy="${dy}" stdDeviation="${fBlur}" flood-color="${color}" flood-opacity="${fOp}"/><feDropShadow dx="${aDx}" dy="${aDy}" stdDeviation="${aBlur}" flood-color="${color}" flood-opacity="${aOp}"/>`;
+    }
+
+    if (highlight && dist > 0.5) {
+      const hDx = Math.round((-dx * 0.16) * 100) / 100;
+      const hDy = Math.round((-dy * 0.16) * 100) / 100;
+      baseContent += `<feDropShadow dx="${hDx}" dy="${hDy}" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>`;
+    }
+
+    // 2. MID FILTER (BOLD Multi-Tier Stacking: As deep and dark as base cup shadow)
+    let midContent = '';
+    const mcDx = Math.round((dx * 0.28) * 100) / 100;
+    const mcDy = Math.round((dy * 0.28) * 100) / 100;
+    const mcBlur = Math.max(0.25, Math.round((blur * 0.45) * 100) / 100);
+    const mcOp = Math.min(0.95, Math.round(opacity * 1.25 * 100) / 100);
+
+    const mfDx = Math.round((dx * 0.65) * 100) / 100;
+    const mfDy = Math.round((dy * 0.65) * 100) / 100;
+    const mfBlur = Math.max(0.5, Math.round((blur * 0.85) * 100) / 100);
+    const mfOp = Math.round(opacity * 0.85 * 100) / 100;
+
+    midContent += `<feDropShadow dx="${mcDx}" dy="${mcDy}" stdDeviation="${mcBlur}" flood-color="${color}" flood-opacity="${mcOp}"/><feDropShadow dx="${mfDx}" dy="${mfDy}" stdDeviation="${mfBlur}" flood-color="${color}" flood-opacity="${mfOp}"/>`;
+    if (highlight && dist > 0.5) {
+      const mhDx = Math.round((-dx * 0.12) * 100) / 100;
+      const mhDy = Math.round((-dy * 0.12) * 100) / 100;
+      midContent += `<feDropShadow dx="${mhDx}" dy="${mhDy}" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.9"/>`;
+    }
+
+    // 3. TOP FILTER (BOLD Multi-Tier Stacking: Contact shadow directly onto Pink Band & Latte)
+    let topContent = '';
+    const tcDx = Math.round((dx * 0.22) * 100) / 100;
+    const tcDy = Math.round((dy * 0.22) * 100) / 100;
+    const tcBlur = Math.max(0.2, Math.round((blur * 0.38) * 100) / 100);
+    const tcOp = Math.min(0.95, Math.round(opacity * 1.35 * 100) / 100);
+
+    const tfDx = Math.round((dx * 0.5) * 100) / 100;
+    const tfDy = Math.round((dy * 0.5) * 100) / 100;
+    const tfBlur = Math.max(0.35, Math.round((blur * 0.65) * 100) / 100);
+    const tfOp = Math.round(opacity * 0.8 * 100) / 100;
+
+    topContent += `<feDropShadow dx="${tcDx}" dy="${tcDy}" stdDeviation="${tcBlur}" flood-color="${color}" flood-opacity="${tcOp}"/><feDropShadow dx="${tfDx}" dy="${tfDy}" stdDeviation="${tfBlur}" flood-color="${color}" flood-opacity="${tfOp}"/>`;
+    if (highlight && dist > 0.5) {
+      const thDx = Math.round((-dx * 0.1) * 100) / 100;
+      const thDy = Math.round((-dy * 0.1) * 100) / 100;
+      topContent += `<feDropShadow dx="${thDx}" dy="${thDy}" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>`;
+    }
+
+    // 4. STEAM FILTER (Floating Air Ribbons / Motion Trails - Bold 2-Tier Shadow)
+    let steamContent = '';
+    const sDx = Math.round((dx * 0.3) * 100) / 100;
+    const sDy = Math.round((dy * 0.3) * 100) / 100;
+    const sBlur = Math.max(0.3, Math.round((blur * 0.45) * 100) / 100);
+    const sOp = Math.min(0.95, Math.round(opacity * 1.15 * 100) / 100);
+
+    const sfDx = Math.round((dx * 0.75) * 100) / 100;
+    const sfDy = Math.round((dy * 0.75) * 100) / 100;
+    const sfBlur = Math.max(0.6, Math.round((blur * 0.95) * 100) / 100);
+    const sfOp = Math.round(opacity * 0.85 * 100) / 100;
+
+    steamContent += `<feDropShadow dx="${sDx}" dy="${sDy}" stdDeviation="${sBlur}" flood-color="${color}" flood-opacity="${sOp}"/><feDropShadow dx="${sfDx}" dy="${sfDy}" stdDeviation="${sfBlur}" flood-color="${color}" flood-opacity="${sfOp}"/>`;
+    if (highlight && dist > 0.5) {
+      const shDx = Math.round((-dx * 0.12) * 100) / 100;
+      const shDy = Math.round((-dy * 0.12) * 100) / 100;
+      steamContent += `<feDropShadow dx="${shDx}" dy="${shDy}" stdDeviation="0.28" flood-color="#FFFFFF" flood-opacity="0.85"/>`;
+    }
+
+    // Wrap in filter elements with generous bounds to prevent clipping
+    return `<filter id="${filterId}" x="-40%" y="-40%" width="180%" height="180%">${baseContent}</filter>` +
+           `<filter id="${filterId}-base" x="-40%" y="-40%" width="180%" height="180%">${baseContent}</filter>` +
+           `<filter id="${filterId}-mid" x="-40%" y="-40%" width="180%" height="180%">${midContent}</filter>` +
+           `<filter id="${filterId}-top" x="-40%" y="-40%" width="180%" height="180%">${topContent}</filter>` +
+           `<filter id="${filterId}-steam" x="-40%" y="-40%" width="180%" height="180%">${steamContent}</filter>`;
+  }
+
+  /**
+   * Apply Curated 3D Paper Physics Preset
+   */
+  function applyPaper3dPreset(presetKey) {
+    const p = PAPER3D_PRESETS[presetKey];
+    if (!p) return;
+
+    simState.paper3dPreset = presetKey;
+    simState.paper3dShadowAngle = p.angle;
+    simState.paper3dShadowDist = p.dist;
+    simState.paper3dShadowBlur = p.blur;
+    simState.paper3dShadowOpacity = p.opacity;
+    simState.paper3dShadowColor = p.color;
+    simState.paper3dShadowTier = p.tier;
+    simState.paper3dHighlight = p.highlight;
+    simState.paper3dEdgeMode = p.edgeMode;
+
+    updateCanvasPaper3d();
+    renderComparisonMatrix();
+    renderUiContexts();
+    updateCodeExport();
+    notify(`3D 페이퍼 프리셋: [${p.name}] 적용 완료`, 'mint');
+  }
 
   let uniqueCounter = 0;
 
@@ -81,8 +322,8 @@
     let svgRaw = icon.svg;
     const uid = `sim-${++uniqueCounter}`;
 
-    // Mode determination: forcePaper3d keeps pure 3D paper color even at <= 28px
-    const isLineMode = !options.forcePaper3d && (options.forceLineMode || size <= 28);
+    // Mode determination: Default to full-color 3D kirigami paper art unless line mode is explicitly forced
+    const isLineMode = !!options.forceLineMode;
     const strokeWidth = options.strokeWidth || simState.firrStrokeWidth || 0.88;
     const strokeColor = options.strokeColor || simState.firrStrokeColor || '#423D39';
 
@@ -123,9 +364,104 @@
         }
       });
     } else {
-      // Replace drop-shadow filter IDs for 3D paper art (16px ~ 256px) to prevent DOM id conflicts
-      svgRaw = svgRaw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${uid}"`)
-                     .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${uid})`);
+      // 3D Layered Paper Art Mode (16px ~ 256px) - Dynamic Kirigami Shadow Physics
+      const filterId = `ps-${iconId}-${uid}`;
+      const filterXml = generatePaper3dFilter(filterId, {
+        isLegacy: !!options.isLegacy,
+        dist: options.p3dDist,
+        angle: options.p3dAngle,
+        blur: options.p3dBlur,
+        opacity: options.p3dOpacity,
+        color: options.p3dColor,
+        tier: options.p3dTier,
+        highlight: options.p3dHighlight
+      });
+
+      if (/<defs>[\s\S]*?<\/defs>/i.test(svgRaw)) {
+        svgRaw = svgRaw.replace(/<defs>[\s\S]*?<\/defs>/gi, `<defs>${filterXml}</defs>`);
+      } else {
+        svgRaw = svgRaw.replace(/<svg\b([^>]*)>/i, `<svg$1><defs>${filterXml}</defs>`);
+      }
+
+      if (options.isLegacy) {
+        // Legacy: only replace existing filter references with single faint filter (unlayered shapes stay flat)
+        svgRaw = svgRaw.replace(/filter="url\(#ps-[^)]+\)"/gi, `filter="url(#${filterId})"`)
+                       .replace(/filter="url\(#[^)]+\)"/gi, `filter="url(#${filterId})"`);
+      } else {
+        // Multi-Tier Layered Papercut Mapping
+        let shapeIndex = 0;
+        let insideLayerGroup = false;
+        svgRaw = svgRaw.replace(/<\/?(g|path|rect|circle|ellipse|polygon)\b([^>]*?)(?:(\/?)>)/gi, (match, tag, rawAttrs, selfClose) => {
+          if (match.startsWith('</g>')) {
+            insideLayerGroup = false;
+            return match;
+          }
+          if (tag === 'g') {
+            if (/data-layer=/i.test(rawAttrs)) {
+              const layerMatch = rawAttrs.match(/data-layer="([^"]+)"/i);
+              const layer = layerMatch ? layerMatch[1] : 'base';
+              insideLayerGroup = true;
+              let clean = rawAttrs.replace(/filter="[^"]*"/gi, '').trim();
+              return `<g ${clean} filter="url(#${filterId}-${layer})">`;
+            }
+            return match;
+          }
+
+          if (insideLayerGroup) {
+            let clean = (rawAttrs || '').replace(/filter="[^"]*"/gi, '').trim();
+            return `<${tag} ${clean}/>`;
+          }
+
+          shapeIndex++;
+          let layer = 'base';
+          const layerAttr = rawAttrs ? rawAttrs.match(/data-layer="([^"]+)"/i) : null;
+          if (layerAttr) {
+            layer = layerAttr[1];
+          } else {
+            // Heuristic detection if data-layer is absent
+            const isStrokeOnly = /stroke=/i.test(rawAttrs) && (!/fill=/i.test(rawAttrs) || /fill="none"/i.test(rawAttrs));
+            if (isStrokeOnly && shapeIndex <= 2) {
+              layer = 'steam';
+            } else if (shapeIndex === 1 || shapeIndex === 2) {
+              layer = 'base';
+            } else if (shapeIndex >= 5) {
+              layer = 'top';
+            } else {
+              layer = 'mid';
+            }
+          }
+
+          let cleanAttrs = (rawAttrs || '').replace(/filter="[^"]*"/gi, '').trim();
+          return `<${tag} ${cleanAttrs} filter="url(#${filterId}-${layer})"/>`;
+        });
+      }
+
+      // Paper Edge Mode (hairline, outline, sticker)
+      const edgeMode = options.paper3dEdgeMode || simState.paper3dEdgeMode || 'none';
+      if (edgeMode === 'hairline') {
+        const edgeColor = simState.paper3dEdgeColor || '#3D352E';
+        svgRaw = svgRaw.replace(/<(path|rect|circle|ellipse|polygon)\b([^>]*?)(?:\/?>)/gi, (m, tag, attrs) => {
+          if (!/stroke=/i.test(attrs)) {
+            return `<${tag} ${attrs} stroke="${edgeColor}" stroke-width="0.75" stroke-opacity="0.38" stroke-linejoin="round"/>`;
+          }
+          return m;
+        });
+      } else if (edgeMode === 'outline') {
+        const edgeColor = simState.paper3dEdgeColor || '#3D352E';
+        svgRaw = svgRaw.replace(/<(path|rect|circle|ellipse|polygon)\b([^>]*?)(?:\/?>)/gi, (m, tag, attrs) => {
+          if (!/stroke=/i.test(attrs)) {
+            return `<${tag} ${attrs} stroke="${edgeColor}" stroke-width="1.25" stroke-opacity="0.65" stroke-linejoin="round"/>`;
+          }
+          return m;
+        });
+      } else if (edgeMode === 'sticker') {
+        svgRaw = svgRaw.replace(/<(path|rect|circle|ellipse|polygon)\b([^>]*?)(?:\/?>)/gi, (m, tag, attrs) => {
+          if (!/stroke=/i.test(attrs)) {
+            return `<${tag} ${attrs} stroke="#FFFFFF" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`;
+          }
+          return m;
+        });
+      }
     }
 
     const vbMatch = svgRaw.match(/viewBox="([^"]+)"/);
@@ -364,6 +700,24 @@
   function updateCanvasPaper3d() {
     const id = simState.selectedIconId;
     const size = simState.paper3dSize;
+    const p3dBg = simState.paper3dBg || 'cream';
+    const dist = simState.paper3dShadowDist ?? 4.5;
+    const angle = simState.paper3dShadowAngle ?? 315;
+    const blur = simState.paper3dShadowBlur ?? 1.2;
+    const opacity = simState.paper3dShadowOpacity ?? 0.48;
+    const color = simState.paper3dShadowColor || '#2E1E14';
+    const tier = simState.paper3dShadowTier || 'double';
+    const highlight = simState.paper3dHighlight ?? true;
+    const edgeMode = simState.paper3dEdgeMode || 'none';
+    const preset = simState.paper3dPreset || 'crisp';
+    const opPercent = Math.round(opacity * 100);
+    const tierName = tier === 'single' ? '1-Tier' : (tier === 'double' ? '2-Tier' : '3-Tier');
+
+    // 0. Set CSS Properties for Canvas 2 container
+    const scalerCard = document.getElementById('canvas-scaler-paper3d');
+    if (scalerCard) {
+      scalerCard.style.setProperty('--pc-paper3d-bg', p3dBg);
+    }
 
     // 1. Vessel & Viewport
     const vessel = document.getElementById('sim-vessel-paper3d');
@@ -379,7 +733,7 @@
     }
 
     if (viewport) {
-      viewport.setAttribute('data-bg', simState.background);
+      viewport.setAttribute('data-bg', p3dBg);
       viewport.classList.toggle('has-grid', simState.showGrid);
     }
 
@@ -399,12 +753,13 @@
     const loupeBox = document.getElementById('sim-loupe-box-paper3d');
     const loupeFactor = document.getElementById('sim-loupe-factor-paper3d');
     if (loupeBox) {
+      loupeBox.setAttribute('data-bg', p3dBg);
       loupeBox.innerHTML = buildScaledSvg(id, size, { forcePaper3d: true });
       const svgEl = loupeBox.querySelector('svg');
       if (svgEl) svgEl.style.transform = `scale(${simState.paper3dZoom})`;
     }
     if (loupeFactor) {
-      loupeFactor.textContent = `${simState.paper3dZoom}x 배율 루페 (3D 색지 그림자)`;
+      loupeFactor.textContent = `${simState.paper3dZoom}x 배율 루페 (3D 입체 ${tierName})`;
     }
     document.querySelectorAll('#sim-loupe-zooms-paper3d .sim-zoom-btn').forEach(btn => {
       btn.classList.toggle('is-active', parseFloat(btn.getAttribute('data-zoom')) === simState.paper3dZoom);
@@ -415,6 +770,146 @@
     const pModal = document.getElementById('preview-modal-icon-paper3d');
     if (pKpi) pKpi.innerHTML = buildScaledSvg(id, 48, { forcePaper3d: true });
     if (pModal) pModal.innerHTML = buildScaledSvg(id, 64, { forcePaper3d: true });
+
+    // 6. Physics Panel UI Controls Sync
+    // 6-1. Spec Pill
+    const specPill = document.getElementById('sim-paper3d-spec-pill');
+    if (specPill) {
+      specPill.textContent = `${tierName} · dy: ${dist}px · blur: ${blur}px · op: ${opPercent}%`;
+    }
+
+    // 6-2. Angle UI
+    const angleRange = document.getElementById('sim-p3d-range-angle');
+    const angleVal = document.getElementById('sim-p3d-val-angle');
+    if (angleRange) angleRange.value = angle;
+    if (angleVal) {
+      let angleDesc = '사광';
+      if (angle >= 300 && angle <= 330) angleDesc = '탑레프트';
+      else if (angle === 0 || angle === 360) angleDesc = '정오 수직';
+      else if (angle >= 30 && angle <= 60) angleDesc = '모닝 사광';
+      else if (angle >= 75 && angle <= 105) angleDesc = '우측 사광';
+      else if (angle >= 165 && angle <= 195) angleDesc = '하단 역광';
+      else if (angle >= 255 && angle <= 285) angleDesc = '좌측 사광';
+      angleVal.textContent = `${angle}° (${angleDesc})`;
+    }
+    document.querySelectorAll('.sim-angle-chip').forEach(chip => {
+      const a = parseInt(chip.getAttribute('data-angle'), 10);
+      chip.classList.toggle('is-active', a === angle);
+    });
+
+    // 6-3. Distance UI
+    const distRange = document.getElementById('sim-p3d-range-dist');
+    const distNum = document.getElementById('sim-p3d-num-dist');
+    if (distRange) distRange.value = dist;
+    if (distNum) distNum.value = dist;
+    document.querySelectorAll('.sim-dist-chip').forEach(chip => {
+      const d = parseFloat(chip.getAttribute('data-dist'));
+      chip.classList.toggle('is-active', Math.abs(d - dist) < 0.1);
+    });
+
+    // 6-4. Blur UI
+    const blurRange = document.getElementById('sim-p3d-range-blur');
+    const blurNum = document.getElementById('sim-p3d-num-blur');
+    if (blurRange) blurRange.value = blur;
+    if (blurNum) blurNum.value = blur;
+    document.querySelectorAll('.sim-blur-chip').forEach(chip => {
+      const b = parseFloat(chip.getAttribute('data-blur'));
+      chip.classList.toggle('is-active', Math.abs(b - blur) < 0.1);
+    });
+
+    // 6-5. Opacity UI
+    const opRange = document.getElementById('sim-p3d-range-opacity');
+    const opNum = document.getElementById('sim-p3d-num-opacity');
+    if (opRange) opRange.value = opPercent;
+    if (opNum) opNum.value = opPercent;
+    document.querySelectorAll('.sim-opacity-chip').forEach(chip => {
+      const o = parseInt(chip.getAttribute('data-op'), 10);
+      chip.classList.toggle('is-active', o === opPercent);
+    });
+
+    // 6-6. Color UI
+    const colorBadge = document.getElementById('sim-p3d-color-preview-badge');
+    const colorVal = document.getElementById('sim-p3d-color-val');
+    const colorPicker = document.getElementById('sim-p3d-color-picker');
+    if (colorBadge) colorBadge.style.backgroundColor = color;
+    if (colorVal) colorVal.textContent = color.toUpperCase();
+    if (colorPicker && /^#[0-9a-fA-F]{6}$/i.test(color)) colorPicker.value = color;
+    document.querySelectorAll('.sim-shadow-swatch-chip').forEach(chip => {
+      const c = chip.getAttribute('data-color');
+      chip.classList.toggle('is-active', c.toLowerCase() === color.toLowerCase());
+    });
+
+    // 6-7. Tier UI
+    const tierBadge = document.getElementById('sim-p3d-tier-badge');
+    if (tierBadge) {
+      const tierLabels = {
+        single: '1-Tier 단일',
+        double: '2-Tier (Contact+Float)',
+        ambient: '3-Tier (Ambient+Diorama)'
+      };
+      tierBadge.textContent = tierLabels[tier] || tier;
+    }
+    document.querySelectorAll('#sim-p3d-tier-group .sim-tier-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.getAttribute('data-tier') === tier);
+    });
+
+    // 6-8. Highlight UI
+    const hlToggle = document.getElementById('sim-p3d-toggle-highlight');
+    if (hlToggle) hlToggle.checked = highlight;
+
+    // 6-9. Edge Mode UI
+    document.querySelectorAll('.sim-edge-chip').forEach(chip => {
+      chip.classList.toggle('is-active', chip.getAttribute('data-edge') === edgeMode);
+    });
+
+    // 6-10. Canvas 2 Background UI
+    document.querySelectorAll('.sim-p3d-bg-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.getAttribute('data-bg') === p3dBg);
+    });
+
+    // 6-11. Presets Active State
+    document.querySelectorAll('.sim-preset-card-btn').forEach(btn => {
+      btn.classList.toggle('is-active', btn.getAttribute('data-p3d-preset') === preset);
+    });
+
+    // 7. In-situ 2-Card A/B Comparison (A. Legacy Faint 18% vs B. New Standard 2-Tier 3D 48%)
+    const abLegacy = document.getElementById('sim-ab-vessel-legacy');
+    const abTuned = document.getElementById('sim-ab-vessel-tuned');
+    const abTunedBadge = document.getElementById('sim-ab-tuned-badge');
+    const abTunedSummary = document.getElementById('sim-ab-tuned-summary');
+    const abLabel = document.getElementById('btn-ab-label');
+    const abToggleBtn = document.getElementById('btn-toggle-ab-compare');
+
+    if (abLabel) {
+      abLabel.textContent = `⚡ 2종 A/B 비교: [A. 레거시 18% 흐림] vs [B. 신규 표준 2-Tier 3D 입체 (48%)] (${simState.isAbComparing ? 'ON' : 'OFF'})`;
+    }
+    if (abToggleBtn) {
+      abToggleBtn.classList.toggle('is-active', simState.isAbComparing);
+    }
+
+    if (abLegacy) {
+      // Card A: Legacy Faint 18% Rendering at 56px
+      abLegacy.innerHTML = buildScaledSvg(id, 56, { forcePaper3d: true, isLegacy: true });
+    }
+    if (abTuned) {
+      // Card B: BOLD Multi-Tier Stacking (신규 표준 양각 위로 쌓기) at 56px with full 2-Tier deep contact shadows
+      abTuned.innerHTML = buildScaledSvg(id, 56, { forcePaper3d: true });
+    }
+    if (abTunedBadge) {
+      abTunedBadge.textContent = `${tierName} · ${dist}px · ${opPercent}%`;
+    }
+    if (abTunedSummary) {
+      abTunedSummary.textContent = `신규 다층 적층: [김 가닥 ➔ 찻잔 ➔ 분홍 띠 ➔ 하트] 층층이 짙은 접촉 그림자(48%)를 드리워 완벽한 3D 페이퍼컷 입체감`;
+    }
+
+    // 8. Generated Filter Code Readout
+    const codeText = document.getElementById('sim-p3d-code-text');
+    if (codeText) {
+      const rad = (angle * Math.PI) / 180;
+      const dx = Math.round((-dist * Math.sin(rad)) * 100) / 100;
+      const dy = Math.round((dist * Math.cos(rad)) * 100) / 100;
+      codeText.textContent = `<feDropShadow dx="${dx}" dy="${dy}" stdDeviation="${blur}" flood-color="${color}" flood-opacity="${opacity}"/>`;
+    }
   }
 
   /**
@@ -547,7 +1042,7 @@
               <span>라지 버튼 (24px)</span>
             </button>
             <!-- Circle Icon Button (20px icon) -->
-            <button class="pc-btn pc-btn-buttercup" style="width: 40px; height: 40px; border-radius: 50%; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="원형 아이콘 버튼 (20px)">
+            <button class="pc-btn pc-btn-buttercup" style="width: 44px; height: 44px; border-radius: 50%; padding: 0; display: inline-flex; align-items: center; justify-content: center;" title="원형 아이콘 버튼 (20px)">
               ${buildScaledSvg(iconId, 20)}
             </button>
           </div>
@@ -675,7 +1170,7 @@
             <span>06. 컴팩트 토스트 알림 팝업</span>
             <span class="pc-badge pc-badge-peach">18px / 20px</span>
           </div>
-          <div style="background: #FFFFFF; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 14px rgba(55,40,30,0.08); border-left: 4px solid var(--pc-peach, #F5BCA0);">
+          <div style="background: #FFFFFF; border-radius: 14px; padding: 12px 16px; display: flex; align-items: center; gap: 12px; box-shadow: var(--pc-paper-shadow-sm); border: 1.5px solid var(--pc-peach, #F5BCA0);">
             <div style="flex-shrink: 0;">${buildScaledSvg(iconId, 20)}</div>
             <div>
               <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">0.88px 극세선 정밀 동기화 완료</div>
@@ -1023,7 +1518,13 @@
     } else if (simState.exportTab === 'component') {
       pre.textContent = `<!-- fi fi-rr Line Button Component -->\n<button type="button" class="pc-btn pc-btn-peach">\n  <span class="pc-inline-icon is-firr" data-icon="${id}" style="--pc-icon-stroke-width: ${sw}px; --pc-icon-stroke-color: ${sc};"></span>\n  <span>라인 버튼 (${simState.firrSize}px)</span>\n</button>\n\n<!-- 3D Paper Art Action Component -->\n<button type="button" class="pc-btn pc-btn-mint">\n  <span class="pc-inline-icon" data-icon="${id}"></span>\n  <span>페이퍼 액션 (${simState.paper3dSize}px)</span>\n</button>`;
     } else if (simState.exportTab === 'css') {
-      pre.textContent = `/* Dual Canvas CSS Specifications */\n/* Canvas 1: ${sw}px Crisp Line (<=28px) */\n.pc-icon-${id}-firr {\n  width: ${simState.firrSize}px;\n  height: ${simState.firrSize}px;\n  stroke: ${sc};\n  stroke-width: ${sw}px;\n  filter: none;\n}\n\n/* Canvas 2: 3D Layered Paper Art (16px ~ 256px) */\n.pc-icon-${id}-paper3d {\n  width: ${simState.paper3dSize}px;\n  height: ${simState.paper3dSize}px;\n  filter: drop-shadow(0 4px 10px rgba(55,40,30,0.18));\n}`;
+      const rad = (simState.paper3dShadowAngle * Math.PI) / 180;
+      const dx = Math.round((-simState.paper3dShadowDist * Math.sin(rad)) * 100) / 100;
+      const dy = Math.round((simState.paper3dShadowDist * Math.cos(rad)) * 100) / 100;
+      const blur = simState.paper3dShadowBlur;
+      const col = simState.paper3dShadowColor;
+      const op = simState.paper3dShadowOpacity;
+      pre.textContent = `/* Dual Canvas CSS Specifications */\n/* Canvas 1: ${sw}px Crisp Line (<=28px) */\n.pc-icon-${id}-firr {\n  width: ${simState.firrSize}px;\n  height: ${simState.firrSize}px;\n  stroke: ${sc};\n  stroke-width: ${sw}px;\n  filter: none;\n}\n\n/* Canvas 2: 3D Layered Paper Art (${simState.paper3dSize}px, ${simState.paper3dShadowTier}) */\n.pc-icon-${id}-paper3d {\n  width: ${simState.paper3dSize}px;\n  height: ${simState.paper3dSize}px;\n  filter: drop-shadow(${dx}px ${dy}px ${blur}px ${col});\n}`;
     }
   }
 
@@ -1031,6 +1532,23 @@
    * Attach All Event Listeners for Dual Canvases
    */
   function initEvents() {
+    // Studio Mode Switcher Tabs
+    document.getElementById('tab-studio-firr')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchStudioMode('firr');
+      if (window.history && typeof window.history.replaceState === 'function') {
+        window.history.replaceState(null, '', `#mode=firr&icon=${simState.selectedIconId}`);
+      }
+    });
+
+    document.getElementById('tab-studio-paper3d')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchStudioMode('paper3d');
+      if (window.history && typeof window.history.replaceState === 'function') {
+        window.history.replaceState(null, '', `#mode=paper3d&icon=${simState.selectedIconId}`);
+      }
+    });
+
     // ---------------------------------------------------------
     // CANVAS 1: fi fi-rr Line Scaler (16px ~ 28px)
     // ---------------------------------------------------------
@@ -1247,6 +1765,248 @@
       downloadSvgFile(simState.selectedIconId, simState.paper3dSize, { forcePaper3d: true });
     });
 
+    // --- Canvas 2 Physics Lab: One-Click Presets ---
+    document.querySelectorAll('.sim-preset-card-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const presetKey = btn.getAttribute('data-p3d-preset');
+        if (presetKey) applyPaper3dPreset(presetKey);
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: Light Direction Angle ---
+    const rangeAngle = document.getElementById('sim-p3d-range-angle');
+    rangeAngle?.addEventListener('input', (e) => {
+      simState.paper3dShadowAngle = parseInt(e.target.value, 10);
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    document.querySelectorAll('.sim-angle-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const a = parseInt(chip.getAttribute('data-angle'), 10);
+        simState.paper3dShadowAngle = a;
+        updateCanvasPaper3d();
+        renderComparisonMatrix();
+        renderUiContexts();
+        updateCodeExport();
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: Shadow Distance ---
+    const rangeDist = document.getElementById('sim-p3d-range-dist');
+    const numDist = document.getElementById('sim-p3d-num-dist');
+    rangeDist?.addEventListener('input', (e) => {
+      simState.paper3dShadowDist = parseFloat(e.target.value);
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    numDist?.addEventListener('change', (e) => {
+      let v = parseFloat(e.target.value);
+      if (isNaN(v)) v = 4.5;
+      simState.paper3dShadowDist = Math.max(0, Math.min(20, Math.round(v * 10) / 10));
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    document.querySelectorAll('.sim-dist-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const d = parseFloat(chip.getAttribute('data-dist'));
+        simState.paper3dShadowDist = d;
+        updateCanvasPaper3d();
+        renderComparisonMatrix();
+        renderUiContexts();
+        updateCodeExport();
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: Blur / stdDeviation ---
+    const rangeBlur = document.getElementById('sim-p3d-range-blur');
+    const numBlur = document.getElementById('sim-p3d-num-blur');
+    rangeBlur?.addEventListener('input', (e) => {
+      simState.paper3dShadowBlur = parseFloat(e.target.value);
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    numBlur?.addEventListener('change', (e) => {
+      let v = parseFloat(e.target.value);
+      if (isNaN(v)) v = 1.2;
+      simState.paper3dShadowBlur = Math.max(0, Math.min(10, Math.round(v * 10) / 10));
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    document.querySelectorAll('.sim-blur-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const b = parseFloat(chip.getAttribute('data-blur'));
+        simState.paper3dShadowBlur = b;
+        updateCanvasPaper3d();
+        renderComparisonMatrix();
+        renderUiContexts();
+        updateCodeExport();
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: Opacity / Darkness ---
+    const rangeOp = document.getElementById('sim-p3d-range-opacity');
+    const numOp = document.getElementById('sim-p3d-num-opacity');
+    rangeOp?.addEventListener('input', (e) => {
+      simState.paper3dShadowOpacity = parseInt(e.target.value, 10) / 100;
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    numOp?.addEventListener('change', (e) => {
+      let v = parseInt(e.target.value, 10);
+      if (isNaN(v)) v = 48;
+      simState.paper3dShadowOpacity = Math.max(0.05, Math.min(1.0, v / 100));
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    document.querySelectorAll('.sim-opacity-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const o = parseInt(chip.getAttribute('data-op'), 10);
+        simState.paper3dShadowOpacity = o / 100;
+        updateCanvasPaper3d();
+        renderComparisonMatrix();
+        renderUiContexts();
+        updateCodeExport();
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: Shadow Color Swatches & Picker ---
+    document.querySelectorAll('.sim-shadow-swatch-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const c = chip.getAttribute('data-color');
+        if (c) {
+          simState.paper3dShadowColor = c;
+          updateCanvasPaper3d();
+          renderComparisonMatrix();
+          renderUiContexts();
+          updateCodeExport();
+          notify(`그림자 틴트가 [${c}]로 변경되었습니다.`, 'peach');
+        }
+      });
+    });
+
+    const colorPickerP3d = document.getElementById('sim-p3d-color-picker');
+    colorPickerP3d?.addEventListener('input', (e) => {
+      simState.paper3dShadowColor = e.target.value;
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    // --- Canvas 2 Physics Lab: Tier Architecture ---
+    document.querySelectorAll('#sim-p3d-tier-group .sim-tier-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tier = btn.getAttribute('data-tier');
+        if (tier) {
+          simState.paper3dShadowTier = tier;
+          updateCanvasPaper3d();
+          renderComparisonMatrix();
+          renderUiContexts();
+          updateCodeExport();
+          notify(`그림자 구조: [${tier.toUpperCase()}] 적용됨`, 'mint');
+        }
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: White Bevel Highlight Toggle ---
+    document.getElementById('sim-p3d-toggle-highlight')?.addEventListener('change', (e) => {
+      simState.paper3dHighlight = e.target.checked;
+      updateCanvasPaper3d();
+      renderComparisonMatrix();
+      renderUiContexts();
+      updateCodeExport();
+    });
+
+    // --- Canvas 2 Physics Lab: Paper Edge Mode ---
+    document.querySelectorAll('.sim-edge-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const edge = chip.getAttribute('data-edge');
+        if (edge) {
+          simState.paper3dEdgeMode = edge;
+          updateCanvasPaper3d();
+          renderComparisonMatrix();
+          renderUiContexts();
+          updateCodeExport();
+          notify(`종이 테두리 모드: [${edge}] 적용됨`, 'mint');
+        }
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: Independent Background ---
+    document.querySelectorAll('#sim-p3d-bg-bar .sim-p3d-bg-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const bg = btn.getAttribute('data-bg');
+        if (bg) {
+          simState.paper3dBg = bg;
+          updateCanvasPaper3d();
+          notify(`3D 캔버스 배경: [${btn.textContent.trim()}] 적용됨`, 'mint');
+        }
+      });
+    });
+
+    // --- Canvas 2 Physics Lab: A/B Comparison Toggle ---
+    document.getElementById('btn-toggle-ab-compare')?.addEventListener('click', () => {
+      simState.isAbComparing = !simState.isAbComparing;
+      const abStage = document.querySelector('.sim-ab-compare-stage');
+      if (abStage) {
+        abStage.style.display = simState.isAbComparing ? 'grid' : 'none';
+      }
+      updateCanvasPaper3d();
+      notify(`A/B 비교 뷰가 ${simState.isAbComparing ? '활성화' : '비활성화'}되었습니다.`, 'peach');
+    });
+
+    // --- Canvas 2 Physics Lab: Copy SVG Filter & CSS Filter ---
+    document.getElementById('btn-copy-p3d-svg-filter')?.addEventListener('click', () => {
+      const filterXml = generatePaper3dFilter(`ps-export-${simState.selectedIconId}`, {
+        dist: simState.paper3dShadowDist,
+        angle: simState.paper3dShadowAngle,
+        blur: simState.paper3dShadowBlur,
+        opacity: simState.paper3dShadowOpacity,
+        color: simState.paper3dShadowColor,
+        tier: simState.paper3dShadowTier,
+        highlight: simState.paper3dHighlight
+      });
+      const defsXml = `<defs>\n  ${filterXml}\n</defs>`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(defsXml).then(() => {
+          notify('3D 페이퍼 SVG <filter> 정의가 클립보드에 복사되었습니다!', 'mint');
+        });
+      }
+    });
+
+    document.getElementById('btn-copy-p3d-css-filter')?.addEventListener('click', () => {
+      const rad = (simState.paper3dShadowAngle * Math.PI) / 180;
+      const dx = Math.round((-simState.paper3dShadowDist * Math.sin(rad)) * 100) / 100;
+      const dy = Math.round((simState.paper3dShadowDist * Math.cos(rad)) * 100) / 100;
+      const cssFilter = `filter: drop-shadow(${dx}px ${dy}px ${simState.paper3dShadowBlur}px ${simState.paper3dShadowColor});`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(cssFilter).then(() => {
+          notify('3D 페이퍼 CSS filter 속성이 클립보드에 복사되었습니다!', 'peach');
+        });
+      }
+    });
+
     // ---------------------------------------------------------
     // GLOBAL STAGE: Background & Overlay Toggles
     // ---------------------------------------------------------
@@ -1402,11 +2162,17 @@
   }
 
   /**
-   * Parse URL Hash (#icon=coffee)
+   * Parse URL Hash (#mode=paper3d, #mode=firr, #icon=coffee)
    */
   function parseHashAndApply() {
     if (isInternalHashChange) return;
     const hash = window.location.hash || '';
+
+    if (hash.includes('mode=paper3d')) {
+      switchStudioMode('paper3d');
+    } else if (hash.includes('mode=firr')) {
+      switchStudioMode('firr');
+    }
 
     const iconMatch = hash.match(/icon=([a-zA-Z0-9_-]+)/);
     if (iconMatch && iconMatch[1]) {
@@ -1426,6 +2192,12 @@
 
     initEvents();
     selectIcon(simState.selectedIconId);
+
+    if (hash.includes('mode=paper3d')) {
+      setTimeout(() => switchStudioMode('paper3d'), 120);
+    } else if (hash.includes('mode=firr')) {
+      setTimeout(() => switchStudioMode('firr'), 120);
+    }
   }
 
   // Run on DOM Ready
@@ -1446,6 +2218,9 @@
     updateCanvasPaper3d,
     updateWorkbench,
     buildScaledSvg,
+    generatePaper3dFilter,
+    applyPaper3dPreset,
+    PAPER3D_PRESETS,
     simState
   };
 

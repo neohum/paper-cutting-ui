@@ -304,7 +304,13 @@
 }
 
 .pc-anim-target-tab {
-  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 6px 14px;
   border-radius: 8px;
   border: 1.5px solid #E6DBCB;
   background: #FFFFFF;

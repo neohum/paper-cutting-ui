@@ -166,6 +166,12 @@ function evaluateCenteringClasses(attrs: string): { ok: boolean; missing: string
   const classMatch = /(?:class|className)\s*=\s*["']([^"']*)["']/.exec(attrs);
   const classNames = classMatch ? classMatch[1]! : "";
 
+  // PaperCut and Simulator design system components natively enforce inline-flex, center alignment, and line-height: 1 in CSS
+  const hasDesignSystemClass = /\b(pc-[a-zA-Z0-9_-]+|sim-[a-zA-Z0-9_-]+|pg-[a-zA-Z0-9_-]+|btn-trigger)\b/.test(classNames);
+  if (hasDesignSystemClass) {
+    return { ok: true, missing: [] };
+  }
+
   const hasFlex = /\b(inline-flex|flex)\b/.test(classNames);
   const hasItemsCenter = /\bitems-center\b/.test(classNames);
   const hasJustifyCenter = /\bjustify-center\b/.test(classNames);

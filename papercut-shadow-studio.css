@@ -437,16 +437,21 @@
 
 .pc-sample-target-btn {
   padding: 12px 28px;
-  border-radius: 14px;
+  min-height: 44px;
+  min-width: 44px;
+  border-radius: 8px;
   font-weight: 800;
   font-size: 15px;
   cursor: pointer;
-  border: none;
-  background: linear-gradient(180deg, #BCE4CF 0%, #A3D8C3 100%);
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  background-color: var(--pc-mint, #A3D8C3);
+  background-image: none !important;
   color: #1E5C41;
   transition: box-shadow 0.1s ease-out, transform 0.15s;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  line-height: 1;
   gap: 8px;
 }
 

@@ -27,13 +27,11 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: var(--pc-bg-cream, #FBF8F1);
+      background-color: var(--pc-bg-cream, #FAF7F0);
       color: var(--pc-ink, #3D352E);
       font-family: 'Nanum Square Round', -apple-system, sans-serif;
       min-height: 100vh;
       line-height: 1.6;
-      background-image: radial-gradient(#E8DFC8 0.75px, transparent 0.75px);
-      background-size: 20px 20px;
     }
   </style>
 </head>
@@ -625,6 +623,311 @@
               <button type="button" class="sim-preset-btn" data-size="192">192px<br><span style="font-size:9px;font-weight:600;">일러스트</span></button>
               <button type="button" class="sim-preset-btn" data-size="256">256px<br><span style="font-size:9px;font-weight:600;">디오라마</span></button>
             </div>
+          </div>
+
+          <!-- =================================================================
+               3D PAPER DEPTH & SHADOW PHYSICS STUDIO (입체감 & 그림자 심층 실험실)
+               ================================================================= -->
+          <div class="sim-paper3d-physics-card" id="sim-paper3d-physics-panel">
+            <div class="pc-washi-tape pc-washi-tape-mint" style="top: -10px; left: 24px;"></div>
+            
+            <!-- Panel Header -->
+            <div class="sim-physics-header">
+              <div class="sim-physics-title-group">
+                <span class="pc-badge pc-badge-mint" style="font-size: 11px; font-weight: 800;">Paper Physics Lab</span>
+                <h3 class="sim-physics-title" style="margin: 0;">
+                  <span class="pc-inline-icon is-sm" data-icon="layers" style="color: var(--pc-mint-dark);"></span>
+                  <span>3D 페이퍼 컷 정밀 입체감 & 다층 그림자 조절 랩</span>
+                </h3>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <!-- Real-time Spec Pill -->
+                <span class="pc-badge pc-badge-lavender" id="sim-paper3d-spec-pill" style="font-size: 11.5px; font-weight: 800; font-family: monospace;">
+                  2-Tier · dy: 4.5px · op: 48%
+                </span>
+                <!-- A/B Comparison Toggle Button -->
+                <button type="button" class="sim-ab-toggle-btn" id="btn-toggle-ab-compare" title="기존 18% 흐린 그림자와 신규 깊은 2-Tier 그림자를 즉시 비교합니다">
+                  <span class="pc-inline-icon is-xs" data-icon="exchange-arrows"></span>
+                  <span id="btn-ab-label">⚡ A/B 비교: 신규 짙은 입체 (ON)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 1. Curated Physical Presets -->
+            <div class="sim-preset-bar">
+              <span style="font-size: 12px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 4px;">
+                <span class="pc-inline-icon is-xs" data-icon="sparkles" style="color: var(--pc-peach-dark);"></span>
+                <span>원클릭 입체 프리셋:</span>
+              </span>
+              <button type="button" class="sim-preset-card-btn is-active" data-p3d-preset="crisp" title="2-Tier 짙은 접촉그림자(48%) + 부유그림자로 형태가 가장 또렷함">
+                <span>⭐ 선명한 칼선 2-Tier (강력추천)</span>
+              </button>
+              <button type="button" class="sim-preset-card-btn" data-p3d-preset="diorama" title="6mm 섀도우박스 디오라마의 웅장한 깊이감">
+                <span>리얼 섀도우박스 (6mm)</span>
+              </button>
+              <button type="button" class="sim-preset-card-btn" data-p3d-preset="morning" title="45도 탑라이트 아침 햇살 사광">
+                <span>아침 햇살 사광 (45°)</span>
+              </button>
+              <button type="button" class="sim-preset-card-btn" data-p3d-preset="charcoal" title="65% 딥 차콜 잉크 그림자로 100% 형태 구분">
+                <span>고대비 차콜 림 (65%)</span>
+              </button>
+              <button type="button" class="sim-preset-card-btn" data-p3d-preset="hairline" title="3D 그림자 + 0.88px 미세 칼선 라인 융합">
+                <span>헤어라인 칼선 융합 (0.88px)</span>
+              </button>
+              <button type="button" class="sim-preset-card-btn" data-p3d-preset="legacy" title="기존 18% 흐린 그림자 (형태 구분이 어려운 레거시 기본값 비교)">
+                <span>기존 기본값 (18% 흐림)</span>
+              </button>
+            </div>
+
+            <!-- 2. Two-Column Detailed Physics Controls -->
+            <div class="sim-physics-grid">
+              
+              <!-- LEFT COLUMN: Light, Distance, Blur, Opacity -->
+              <div class="sim-physics-col">
+                
+                <!-- 2-1. Light Direction / Angle (360°) -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>1. 가상 광원 각도 (Light Direction)</span>
+                    <span class="sim-physics-val-badge" id="sim-p3d-val-angle">315° (탑레프트 사광)</span>
+                  </div>
+                  <div class="sim-range-wrapper">
+                    <input type="range" class="sim-slider" id="sim-p3d-range-angle" min="0" max="360" step="5" value="315" style="accent-color: var(--pc-peach-dark, #D35400);">
+                  </div>
+                  <!-- Quick Compass Chips -->
+                  <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">
+                    <button type="button" class="sim-step-btn sim-angle-chip is-active" data-angle="315">315° 탑레프트(권장)</button>
+                    <button type="button" class="sim-step-btn sim-angle-chip" data-angle="0">0° 정오(수직)</button>
+                    <button type="button" class="sim-step-btn sim-angle-chip" data-angle="45">45° 모닝광</button>
+                    <button type="button" class="sim-step-btn sim-angle-chip" data-angle="90">90° 우측사광</button>
+                    <button type="button" class="sim-step-btn sim-angle-chip" data-angle="180">180° 하단림</button>
+                    <button type="button" class="sim-step-btn sim-angle-chip" data-angle="270">270° 좌측사광</button>
+                  </div>
+                </div>
+
+                <!-- 2-2. Shadow Distance / Elevation (dy / dx) -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>2. 그림자 거리 / 단차 높이 (Distance)</span>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                      <input type="number" id="sim-p3d-num-dist" min="0" max="20" step="0.5" value="4.5" style="width: 52px; padding: 2px 4px; font-size: 11.5px; font-weight: 800; text-align: center; border: 1px solid #D8CABE; border-radius: 6px;">
+                      <span style="font-size: 11.5px; font-weight: 700;">px</span>
+                    </div>
+                  </div>
+                  <div class="sim-range-wrapper">
+                    <input type="range" class="sim-slider" id="sim-p3d-range-dist" min="0" max="16" step="0.5" value="4.5" style="accent-color: var(--pc-mint-dark, #235B47);">
+                  </div>
+                  <!-- Preset Distance Buttons -->
+                  <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">
+                    <button type="button" class="sim-step-btn sim-dist-chip" data-dist="1.5">1.5px(밀착)</button>
+                    <button type="button" class="sim-step-btn sim-dist-chip" data-dist="3.0">3.0px</button>
+                    <button type="button" class="sim-step-btn sim-dist-chip is-active" data-dist="4.5">4.5px(권장)</button>
+                    <button type="button" class="sim-step-btn sim-dist-chip" data-dist="6.0">6.0px(깊음)</button>
+                    <button type="button" class="sim-step-btn sim-dist-chip" data-dist="8.5">8.5px(부유)</button>
+                    <button type="button" class="sim-step-btn sim-dist-chip" data-dist="12.0">12px(디오라마)</button>
+                  </div>
+                </div>
+
+                <!-- 2-3. Shadow Blur / Sharpness (stdDeviation) -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>3. 그림자 확산도 / 블러 (Blur)</span>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                      <input type="number" id="sim-p3d-num-blur" min="0" max="8" step="0.2" value="1.2" style="width: 52px; padding: 2px 4px; font-size: 11.5px; font-weight: 800; text-align: center; border: 1px solid #D8CABE; border-radius: 6px;">
+                      <span style="font-size: 11.5px; font-weight: 700;">px</span>
+                    </div>
+                  </div>
+                  <div class="sim-range-wrapper">
+                    <input type="range" class="sim-slider" id="sim-p3d-range-blur" min="0" max="8" step="0.2" value="1.2" style="accent-color: var(--pc-lavender-dark, #4A3A8A);">
+                  </div>
+                  <!-- Preset Blur Buttons -->
+                  <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">
+                    <button type="button" class="sim-step-btn sim-blur-chip" data-blur="0.4">0.4px(칼선 선명)</button>
+                    <button type="button" class="sim-step-btn sim-blur-chip is-active" data-blur="1.2">1.2px(권장)</button>
+                    <button type="button" class="sim-step-btn sim-blur-chip" data-blur="1.8">1.8px(표준)</button>
+                    <button type="button" class="sim-step-btn sim-blur-chip" data-blur="2.8">2.8px(소프트)</button>
+                    <button type="button" class="sim-step-btn sim-blur-chip" data-blur="4.5">4.5px(대기광)</button>
+                  </div>
+                </div>
+
+                <!-- 2-4. Shadow Opacity / Darkness (flood-opacity) -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>4. 그림자 농도 / 진함 (Darkness)</span>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                      <input type="number" id="sim-p3d-num-opacity" min="5" max="95" step="1" value="48" style="width: 52px; padding: 2px 4px; font-size: 11.5px; font-weight: 800; text-align: center; border: 1px solid #D8CABE; border-radius: 6px;">
+                      <span style="font-size: 11.5px; font-weight: 700;">%</span>
+                    </div>
+                  </div>
+                  <div class="sim-range-wrapper">
+                    <input type="range" class="sim-slider" id="sim-p3d-range-opacity" min="5" max="90" step="1" value="48" style="accent-color: var(--pc-ink, #3D352E);">
+                  </div>
+                  <!-- Preset Opacity Buttons -->
+                  <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px;">
+                    <button type="button" class="sim-step-btn sim-opacity-chip" data-op="18">18%(기존-흐림)</button>
+                    <button type="button" class="sim-step-btn sim-opacity-chip" data-op="32">32%(내추럴)</button>
+                    <button type="button" class="sim-step-btn sim-opacity-chip is-active" data-op="48">48%(선명-권장)</button>
+                    <button type="button" class="sim-step-btn sim-opacity-chip" data-op="65">65%(딥 차콜)</button>
+                    <button type="button" class="sim-step-btn sim-opacity-chip" data-op="80">80%(고대비)</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- RIGHT COLUMN: Color, Tier Architecture, Highlight, Edge, Background -->
+              <div class="sim-physics-col">
+                
+                <!-- 2-5. Shadow Color & Patina -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>5. 그림자 틴트 & 색상 (Patina)</span>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                      <span id="sim-p3d-color-preview-badge" style="display: inline-block; width: 14px; height: 14px; border-radius: 4px; background: #2E1E14; border: 1px solid rgba(0,0,0,0.2);"></span>
+                      <span id="sim-p3d-color-val" style="font-size: 11.5px; font-weight: 800; font-family: monospace;">#2E1E14</span>
+                    </div>
+                  </div>
+                  <div class="sim-shadow-swatches-wrap" id="sim-p3d-color-swatches">
+                    <button type="button" class="sim-shadow-swatch-chip is-active" data-color="#2E1E14" title="딥 번트 엄버 (표준 권장)">
+                      <span class="sim-shadow-swatch-dot" style="background:#2E1E14;"></span> <span>딥 엄버</span>
+                    </button>
+                    <button type="button" class="sim-shadow-swatch-chip" data-color="#1F140E" title="리치 에스프레소">
+                      <span class="sim-shadow-swatch-dot" style="background:#1F140E;"></span> <span>에스프레소</span>
+                    </button>
+                    <button type="button" class="sim-shadow-swatch-chip" data-color="#1A1715" title="챠콜 잉크 블랙">
+                      <span class="sim-shadow-swatch-dot" style="background:#1A1715;"></span> <span>챠콜 잉크</span>
+                    </button>
+                    <button type="button" class="sim-shadow-swatch-chip" data-color="#452115" title="웜 테라코타 노을">
+                      <span class="sim-shadow-swatch-dot" style="background:#452115;"></span> <span>테라코타</span>
+                    </button>
+                    <button type="button" class="sim-shadow-swatch-chip" data-color="#1A222C" title="쿨 슬레이트 네이비">
+                      <span class="sim-shadow-swatch-dot" style="background:#1A222C;"></span> <span>쿨 슬레이트</span>
+                    </button>
+                    <button type="button" class="sim-shadow-swatch-chip" data-color="#1E2C22" title="포레스트 세이지">
+                      <span class="sim-shadow-swatch-dot" style="background:#1E2C22;"></span> <span>세이지</span>
+                    </button>
+                    <label style="margin: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; padding: 2px 6px; border-radius: 8px; border: 1.5px dashed rgba(74,58,42,0.25); background: #FFF;" title="직접 컬러 선택">
+                      <input type="color" id="sim-p3d-color-picker" value="#2E1E14" style="width: 18px; height: 18px; border: none; padding: 0; cursor: pointer; border-radius: 4px; background: none;">
+                      <span style="font-size: 10.5px; font-weight: 700; color: var(--pc-ink-muted);">커스텀</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- 2-6. Shadow Tier Architecture -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>6. 다층 그림자 구조 (Tier Architecture)</span>
+                    <span class="pc-badge pc-badge-mint" id="sim-p3d-tier-badge" style="font-size: 10.5px;">2-Tier (Contact+Float)</span>
+                  </div>
+                  <div class="sim-tier-btn-group" id="sim-p3d-tier-group">
+                    <button type="button" class="sim-tier-btn" data-tier="single">
+                      <span>단일 (Single)</span><br><span style="font-size:9.5px;opacity:0.8;">표준 1-Drop</span>
+                    </button>
+                    <button type="button" class="sim-tier-btn is-active" data-tier="double">
+                      <span>2-Tier 복합</span><br><span style="font-size:9.5px;opacity:0.8;">칼선접촉 + 부유광(권장)</span>
+                    </button>
+                    <button type="button" class="sim-tier-btn" data-tier="ambient">
+                      <span>3-Tier 입체</span><br><span style="font-size:9.5px;opacity:0.8;">대기바닥광 포함</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 2-7. White Knife-cut Highlight & Edge Contour -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>7. 칼선 반사 림 & 종이 테두리 모드</span>
+                  </div>
+                  <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <!-- Highlight Checkbox -->
+                    <label class="pc-checkbox-label" style="font-size: 12px; margin: 0;">
+                      <input type="checkbox" class="pc-checkbox-input" id="sim-p3d-toggle-highlight" checked>
+                      <span class="pc-checkbox-box"></span>
+                      <span><strong>칼선 화이트 반사 림 (1px Knife Bevel)</strong> - 빛을 받는 종이 단면에 두께감 하이라이트</span>
+                    </label>
+                    <!-- Edge Contour Modes -->
+                    <div style="display: flex; gap: 5px; align-items: center; flex-wrap: wrap;">
+                      <span style="font-size: 11.5px; font-weight: 700; color: var(--pc-ink-muted);">종이 테두리:</span>
+                      <button type="button" class="sim-step-btn sim-edge-chip is-active" data-edge="none">무테 (순수 종이)</button>
+                      <button type="button" class="sim-step-btn sim-edge-chip" data-edge="hairline">0.75px 초미세 칼선</button>
+                      <button type="button" class="sim-step-btn sim-edge-chip" data-edge="outline">1.2px 표준 외곽선</button>
+                      <button type="button" class="sim-step-btn sim-edge-chip" data-edge="sticker">화이트 다이컷</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 2-8. Canvas 2 Background & Paper Texture -->
+                <div class="sim-physics-subgroup">
+                  <div class="sim-physics-label-row">
+                    <span>8. 캔버스 배경 & 종이 질감 오버레이</span>
+                  </div>
+                  <div style="display: flex; gap: 5px; flex-wrap: wrap;" id="sim-p3d-bg-bar">
+                    <button type="button" class="pc-btn pc-btn-sm sim-p3d-bg-btn is-active" data-bg="cream" style="padding: 3px 8px; font-size: 11px;"><span>크림</span></button>
+                    <button type="button" class="pc-btn pc-btn-sm sim-p3d-bg-btn" data-bg="white" style="padding: 3px 8px; font-size: 11px;"><span>화이트</span></button>
+                    <button type="button" class="pc-btn pc-btn-sm sim-p3d-bg-btn" data-bg="dark" style="padding: 3px 8px; font-size: 11px;"><span>다크</span></button>
+                    <button type="button" class="pc-btn pc-btn-sm sim-p3d-bg-btn" data-bg="mint" style="padding: 3px 8px; font-size: 11px;"><span>민트</span></button>
+                    <button type="button" class="pc-btn pc-btn-sm sim-p3d-bg-btn" data-bg="peach" style="padding: 3px 8px; font-size: 11px;"><span>피치</span></button>
+                    <button type="button" class="pc-btn pc-btn-sm sim-p3d-bg-btn" data-bg="lavender" style="padding: 3px 8px; font-size: 11px;"><span>라벤더</span></button>
+                    <button type="button" class="pc-btn pc-btn-sm sim-p3d-bg-btn" data-bg="blueprint" style="padding: 3px 8px; font-size: 11px;"><span>그리드</span></button>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- 3. Side-by-Side In-situ Comparison Strip (A/B Test View) -->
+            <div style="margin-top: 6px;">
+              <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="display: flex; align-items: center; gap: 6px;">
+                  <span class="pc-inline-icon is-xs" data-icon="exchange-arrows"></span>
+                  <span>실시간 A/B 비교: [A. 레거시 18% 흐림] vs [B. 신규 3D 표준 양각 위로 쌓기 (48%)]</span>
+                </span>
+                <span style="font-size: 11px; color: var(--pc-ink-muted);">슬라이더 변경 시 우측 카드가 즉시 동기화됩니다</span>
+              </div>
+              <div class="sim-ab-compare-stage">
+                <!-- Card A: Legacy Faint Shadow -->
+                <div class="sim-ab-card is-legacy">
+                  <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; gap: 6px;">
+                    <span class="pc-badge pc-badge-peach" style="font-size: 11px; padding: 2px 8px;">A. 레거시 (18% 흐림)</span>
+                    <span style="font-size: 10.5px; font-weight: 700; color: var(--pc-ink-muted); font-family: monospace;">dy: 2.5px · 18%</span>
+                  </div>
+                  <div class="sim-ab-vessel" id="sim-ab-vessel-legacy">
+                    <!-- Legacy rendered dynamically -->
+                  </div>
+                  <div style="font-size: 11.5px; color: var(--pc-ink-muted); line-height: 1.35; text-align: center;">
+                    그림자가 짧고 흐려 인접한 파스텔 색지 간의 칼선 경계 구분이 다소 불분명함
+                  </div>
+                </div>
+                <!-- Card B: New Deep Tuned Shadow (Standard Stacking - 양각 위로 쌓기) -->
+                <div class="sim-ab-card is-new-deep">
+                  <div style="display: flex; justify-content: space-between; width: 100%; align-items: center; gap: 6px;">
+                    <span class="pc-badge pc-badge-mint" style="font-size: 11px; padding: 2px 8px;">B. 신규 3D 입체 표준</span>
+                    <span class="sim-physics-val-badge" id="sim-ab-tuned-badge" style="font-size: 10.5px; padding: 2px 7px;">2-Tier · 4.5px · 48%</span>
+                  </div>
+                  <div class="sim-ab-vessel" id="sim-ab-vessel-tuned">
+                    <!-- Tuned rendered dynamically -->
+                  </div>
+                  <div style="font-size: 11.5px; color: var(--pc-mint-dark); font-weight: 700; line-height: 1.35; text-align: center;" id="sim-ab-tuned-summary">
+                    신규 다층 적층: [김 가닥 ➔ 찻잔 ➔ 분홍 띠 ➔ 하트] 층층이 짙은 접촉 그림자(48%)를 드리워 완벽한 3D 페이퍼컷 입체감
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Generated Filter Code Readout & Export Bar -->
+            <div class="sim-filter-code-readout">
+              <span class="sim-filter-code-text" id="sim-p3d-code-text">
+                &lt;feDropShadow dx="3.18" dy="3.18" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.48"/&gt;
+              </span>
+              <div style="display: flex; gap: 6px; flex-shrink: 0;">
+                <button type="button" class="pc-btn pc-btn-sm pc-btn-mint" id="btn-copy-p3d-svg-filter" style="padding: 3px 8px; font-size: 11px;">
+                  <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 필터 복사</span>
+                </button>
+                <button type="button" class="pc-btn pc-btn-sm pc-btn-peach" id="btn-copy-p3d-css-filter" style="padding: 3px 8px; font-size: 11px;">
+                  <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>CSS 복사</span>
+                </button>
+              </div>
+            </div>
+
           </div>
 
           <!-- Loupe Magnifier for Canvas 2 -->

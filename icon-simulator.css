@@ -109,9 +109,7 @@
 .sim-studio-tab-btn.is-active {
   background: var(--pc-paper-white, #FFFFFF);
   border-color: rgba(74, 58, 42, 0.15);
-  box-shadow: 
-    0 8px 24px rgba(55, 40, 30, 0.09),
-    0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  box-shadow: 0 4px 14px rgba(55, 40, 30, 0.08);
   transform: translateY(-2px);
 }
 
@@ -904,33 +902,20 @@
   height: var(--pc-icon-size, 20px) !important;
 }
 
-.pc-firr-style,
-.pc-firr-style *,
-.sim-matrix-card[data-size="16"] svg,
-.sim-matrix-card[data-size="16"] svg *,
-.sim-matrix-card[data-size="18"] svg,
-.sim-matrix-card[data-size="18"] svg *,
-.sim-matrix-card[data-size="20"] svg,
-.sim-matrix-card[data-size="20"] svg *,
-.sim-matrix-card[data-size="24"] svg,
-.sim-matrix-card[data-size="24"] svg *,
-.sim-matrix-card[data-size="28"] svg,
-.sim-matrix-card[data-size="28"] svg * {
-  filter: none !important;
+/* Full-Color 3D Paper-Cut Art Matrix Support (All sizes retain rich pastel paper colors & shadows) */
+.sim-matrix-card svg {
+  overflow: visible;
+}
+.sim-matrix-card svg * {
+  shape-rendering: geometricPrecision;
 }
 
-.pc-firr-style path,
-.pc-firr-style rect,
-.pc-firr-style circle,
-.pc-firr-style ellipse,
-.pc-firr-style polygon,
-.pc-firr-style line,
-.pc-firr-style polyline,
-.sim-matrix-card[data-size="16"] svg *,
-.sim-matrix-card[data-size="18"] svg *,
-.sim-matrix-card[data-size="20"] svg *,
-.sim-matrix-card[data-size="24"] svg *,
-.sim-matrix-card[data-size="28"] svg * {
+/* Explicit fi fi-rr Line Mode Testing (Opt-in only via .force-firr) */
+.force-firr.pc-firr-style path,
+.force-firr.pc-firr-style rect,
+.force-firr.pc-firr-style circle,
+.force-firr.pc-firr-style ellipse,
+.force-firr.pc-firr-style polygon {
   stroke: var(--pc-icon-stroke-color, #423D39) !important;
   stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
   stroke-linecap: round !important;
@@ -938,19 +923,9 @@
   stroke-miterlimit: 10 !important;
   shape-rendering: geometricPrecision !important;
   vector-effect: non-scaling-stroke !important;
-  paint-order: stroke fill !important;
 }
 
-/* Pure fi fi-rr Monochrome Vector Line Art: Strictly NO colorful fills! (Transparent fill: none) */
-.pc-firr-style *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]):not([fill="black"]),
-.sim-matrix-card[data-size="16"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.sim-matrix-card[data-size="18"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.sim-matrix-card[data-size="20"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.sim-matrix-card[data-size="24"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.sim-matrix-card[data-size="28"] svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-#canvas-scaler-firr svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-#sim-vessel-firr svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-#sim-loupe-box-firr svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
+.force-firr.pc-firr-style *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]):not([fill="black"]) {
   fill: none !important;
   fill-opacity: 0 !important;
 }
@@ -1160,3 +1135,361 @@
   color: var(--pc-peach-dark, #D35400);
 }
 
+
+
+/* ==========================================================================
+   CANVAS 2: 3D PAPER-CUT DEPTH & SHADOW PHYSICS STUDIO
+   ========================================================================== */
+
+.sim-paper3d-physics-card {
+  margin-top: 18px;
+  background: #FFFDF9;
+  border: 1.5px solid #E6DBC9;
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-paper-shadow-sm, 0 4px 12px rgba(55, 40, 30, 0.08));
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  position: relative;
+}
+
+.sim-physics-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1.5px dashed rgba(74, 58, 42, 0.15);
+  padding-bottom: 14px;
+}
+
+.sim-physics-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sim-physics-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sim-preset-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: #FAF6ED;
+  border: 1.5px solid #E4D9C8;
+  border-radius: 14px;
+}
+
+.sim-preset-card-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: #FFFDF9;
+  border: 1.5px solid #D8CABE;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sim-preset-card-btn:hover {
+  background: #E8F5EE;
+  border-color: #A3D8C3;
+  color: #1E5C41;
+  transform: translateY(-1.5px);
+  box-shadow: 0 2px 6px rgba(44, 107, 80, 0.14);
+}
+
+.sim-preset-card-btn.is-active {
+  background: #E8F6EE;
+  border-color: #235B47;
+  color: #1E5C41;
+  box-shadow: 0 2px 6px rgba(35, 91, 71, 0.22);
+}
+
+.sim-ab-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  min-height: 44px;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #FDEEE4;
+  background-image: none !important;
+  border: 1.5px solid #F7BA9E;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #8C4A32;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 0 rgba(46, 30, 20, 0.25), 0 3px 6px rgba(46, 30, 20, 0.15);
+}
+
+.sim-ab-toggle-btn:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 3px 0 rgba(46, 30, 20, 0.28), 0 5px 10px rgba(46, 30, 20, 0.18);
+}
+
+.sim-ab-toggle-btn.is-comparing {
+  background-color: #F5B8BE;
+  background-image: none !important;
+  border-color: #DE939B;
+  color: #702830;
+  box-shadow: 0 1px 0 rgba(46, 30, 20, 0.3), 0 2px 4px rgba(46, 30, 20, 0.18);
+}
+
+/* 2-Column Physics Grid */
+.sim-physics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px 22px;
+}
+
+@media (max-width: 960px) {
+  .sim-physics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-physics-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sim-physics-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #FAF7F0;
+  border: 1px solid #E8DEC9;
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.sim-physics-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+}
+
+.sim-physics-val-badge {
+  font-size: 11.5px;
+  font-weight: 800;
+  font-family: monospace;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #FFFDF9;
+  border: 1px solid #D5C6AF;
+  color: var(--pc-mint-dark, #235B47);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Shadow Swatches */
+.sim-shadow-swatches-wrap {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.sim-shadow-swatch-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #FFFDF9;
+  border: 1.5px solid #D8CABE;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sim-shadow-swatch-chip:hover {
+  transform: translateY(-1px);
+  border-color: #235B47;
+}
+
+.sim-shadow-swatch-chip.is-active {
+  background: #E8F6EE;
+  border-color: #235B47;
+  color: #1E5C41;
+  box-shadow: 0 1px 4px rgba(35, 91, 71, 0.2);
+}
+
+.sim-shadow-swatch-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Tier Radio Strip */
+.sim-tier-btn-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sim-tier-btn {
+  flex: 1;
+  min-width: 90px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: #FFFDF9;
+  border: 1.5px solid #D8CABE;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.sim-tier-btn:hover {
+  border-color: #235B47;
+  color: #1E5C41;
+}
+
+.sim-tier-btn.is-active {
+  background: #E8F6EE;
+  border-color: #235B47;
+  color: #1E5C41;
+  box-shadow: 0 2px 6px rgba(35, 91, 71, 0.18);
+}
+
+/* Stacking Architecture Radio Strip */
+.sim-stack-btn-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sim-stack-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: #FFFDF9;
+  border: 1.5px solid #D8CABE;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.sim-stack-btn:hover {
+  border-color: #235B47;
+  color: #1E5C41;
+}
+
+.sim-stack-btn.is-active {
+  background: #E8F6EE;
+  border-color: #235B47;
+  color: #1E5C41;
+  box-shadow: 0 2px 6px rgba(35, 91, 71, 0.18);
+}
+
+/* Side-by-Side In-situ Comparison Strip */
+.sim-ab-compare-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  background: #F4EFE6;
+  border: 1.5px solid #E2D7C5;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 4px;
+}
+
+@media (max-width: 720px) {
+  .sim-ab-compare-stage {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sim-ab-card {
+  background: #FAF7F0;
+  border: 1.5px solid #E6DBC9;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.sim-ab-card.is-legacy {
+  border-color: #E2CCA8;
+  background: #FFFDF9;
+}
+
+.sim-ab-card.is-new-deep {
+  border-color: #A3D8C3;
+  background: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(35, 91, 71, 0.08);
+}
+
+.sim-ab-card .pc-badge,
+.sim-ab-card .sim-physics-val-badge {
+  white-space: nowrap;
+}
+
+.sim-ab-vessel {
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Code Output Readout */
+.sim-filter-code-readout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #231C16;
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: #F8F4EC;
+  font-family: 'Consolas', monospace;
+  font-size: 11.5px;
+  overflow: hidden;
+}
+
+.sim-filter-code-text {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #A3D8C3;
+}

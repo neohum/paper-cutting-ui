@@ -10,15 +10,15 @@
 
 :root {
   /* Matte Cream Canvas & Papers (Exact tones from AI Paper-cut Artwork) */
-  --pc-bg-cream: #F8F4EC;
-  --pc-bg-canvas: #F4EFE6;
+  --pc-bg-cream: #FAF7F0;
+  --pc-bg-canvas: #FAF7F0;
   --pc-paper-white: #FFFDF9;
   --pc-paper-cream: #FAF6ED;
   --pc-paper-card: #FFFFFF;
   
   /* Natural Ink Typography (Warm Charcoal) */
   --pc-ink: #3D352E;
-  --pc-ink-muted: #7D7368;
+  --pc-ink-muted: #544B42;
   --pc-ink-light: #ABA195;
   
   /* Soft Pastel Palette - Handcrafted Construction Paper Sheets */
@@ -57,23 +57,45 @@
   --pc-sage-dark: #324D2E;
   --pc-sage-layer: #9EC09A;
 
-  /* Authentic Layered Paper Shadows (Warm diffuse umber tone, NO harsh black) */
-  --pc-shadow-tint: 55, 40, 30;
+  /* Authentic 3D Layered Paper Shadows (B Standard: 2-Tier · 4.5px · 48% Stacking) */
+  /* Deep Burnt Umber Patina (#2E1E14) - Matches 3D Paper Physics Lab B Standard */
+  --pc-shadow-tint: 46, 30, 20;
   
-  /* Shadow 1: Surface contact (very close cut paper) */
-  --pc-paper-shadow-xs: 0 1px 3px rgba(var(--pc-shadow-tint), 0.08), 0 2px 6px rgba(var(--pc-shadow-tint), 0.06);
+  /* 2-Tier Contact Shadow: 48% crisp shape definition right under knife cut */
+  --pc-shadow-contact: 0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48);
+  --pc-shadow-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.95);
   
-  /* Shadow 2: Raised single cardstock sheet */
-  --pc-paper-shadow-sm: 0 3px 6px rgba(var(--pc-shadow-tint), 0.09), 0 6px 14px rgba(var(--pc-shadow-tint), 0.07);
+  /* Shadow 1: Surface contact (very close cut paper, badges, tags, mini chips) */
+  --pc-paper-shadow-xs: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 1.5px rgba(var(--pc-shadow-tint), 0.45),
+    0 2.2px 5px rgba(var(--pc-shadow-tint), 0.18);
   
-  /* Shadow 3: Medium elevation (Buttons, Badges) */
-  --pc-paper-shadow-md: 0 4px 8px rgba(var(--pc-shadow-tint), 0.08), 0 10px 20px rgba(var(--pc-shadow-tint), 0.09), 0 16px 32px rgba(var(--pc-shadow-tint), 0.05);
+  /* Shadow 2: Raised single cardstock sheet (Standard 2-Tier 4.5px 48% Stacking) */
+  --pc-paper-shadow-sm: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
+    0 4.5px 10px rgba(var(--pc-shadow-tint), 0.26);
   
-  /* Shadow 4: High floating paper layer (Cards, Modals) */
-  --pc-paper-shadow-lg: 0 6px 12px rgba(var(--pc-shadow-tint), 0.08), 0 14px 28px rgba(var(--pc-shadow-tint), 0.1), 0 28px 50px rgba(var(--pc-shadow-tint), 0.06);
+  /* Shadow 3: Medium elevation (Buttons, Raised Cards, Selects, Floating Tags) */
+  --pc-paper-shadow-md: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 3px rgba(var(--pc-shadow-tint), 0.50),
+    0 6px 16px rgba(var(--pc-shadow-tint), 0.28),
+    0 12px 28px rgba(var(--pc-shadow-tint), 0.10);
+  
+  /* Shadow 4: High floating paper layer (Cards, Modals, Overlays, Sheet Drawers) */
+  --pc-paper-shadow-lg: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 2.5px 3.5px rgba(var(--pc-shadow-tint), 0.52),
+    0 12px 26px rgba(var(--pc-shadow-tint), 0.30),
+    0 24px 50px rgba(var(--pc-shadow-tint), 0.12);
 
-  /* Deep Cutout Well (Shadow Box hole carved into paper) */
-  --pc-shadow-cutout: inset 0 3px 6px rgba(var(--pc-shadow-tint), 0.14), inset 0 8px 16px rgba(var(--pc-shadow-tint), 0.08), 0 1px 2px rgba(255, 255, 255, 0.8);
+  /* Deep Cutout Well (Paper Carved Well Depth) */
+  --pc-shadow-cutout: 
+    inset 0 1.5px 2.5px rgba(var(--pc-shadow-tint), 0.45),
+    inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.9);
 
   /* Geometry & Fonts */
   --pc-radius-sm: 10px;
@@ -94,13 +116,15 @@
   top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='mattePulpFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04 0.35' numOctaves='4' result='fiber'/%3E%3CfeDiffuseLighting in='fiber' lighting-color='%23FAF7F0' surfaceScale='2.0' result='light'%3E%3CfeDistantLight azimuth='50' elevation='55'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23mattePulpFilter)' fill='%235A4838'/%3E%3C/svg%3E");
 }
 
 /* Texture modes */
 body.texture-soft.pc-paper-grain::before {
-  opacity: 0.04;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
 }
 
 body.texture-cotton.pc-paper-grain::before {
@@ -125,6 +149,25 @@ body.texture-flat.pc-paper-grain::before {
   box-sizing: border-box;
 }
 
+/* Korean Typography Standards (한국어 줄바꿈 국룰) */
+body, [lang="ko"] {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4, h5, h6,
+.section-title, .example-title {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+p, .example-desc {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
 /* ==========================================================================
    1. BUTTON PRIMITIVES & VARIATIONS
    Clean vector knife-cut paper sheets with realistic soft drop shadow
@@ -132,8 +175,14 @@ body.texture-flat.pc-paper-grain::before {
    ========================================================================== */
 
 /* ==========================================================================
-   1. 3-SHEET LAYERED PAPER BUTTON (최소 3장의 종이가 겹쳐진 3D 페이퍼 버튼)
-   Base: Layer 1 (Bottom Sheet) | ::before: Layer 2 (Middle Sheet) | Button Face: Layer 3 (Top Sheet)
+   1. FLAT KNIFE-CUT PAPER BUTTONS (플랫한 자른 종이 버튼)
+   - Completely FLAT matte paper surface (zero glossy gradient / plastic shine)
+   - Organic cardstock/pulp paper grain overlay (::before)
+   - Crisp knife-cut razor edge (1px solid rgba(46, 30, 20, 0.14) or matching tint)
+   - Crisp 2-tier cut thickness shadow:
+       default: box-shadow: 0 2px 0 rgba(46, 30, 20, 0.38), 0 3.5px 6px rgba(46, 30, 20, 0.20);
+       hover:   transform: translateY(-1.5px); box-shadow: 0 3px 0 rgba(46, 30, 20, 0.42), 0 6px 12px rgba(46, 30, 20, 0.24);
+       active:  transform: translateY(1.5px); box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), 0 1.5px 2px rgba(46, 30, 20, 0.16);
    ========================================================================== */
 
 .pc-btn {
@@ -141,264 +190,270 @@ body.texture-flat.pc-paper-grain::before {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 11px 22px;
+  padding: 12px 22px;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
+  min-width: 44px;
   font-family: var(--pc-font);
   font-size: 15px;
   font-weight: 700;
   line-height: 1;
   color: var(--pc-ink);
   background-color: var(--pc-paper-white);
-  border: none;
-  border-radius: var(--pc-radius-md);
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  border-radius: 8px; /* 기본 사각 다이컷 (8px) */
   cursor: pointer;
   user-select: none;
   position: relative;
-  z-index: 3;
-  margin: 3px 8px 8px 3px;
+  overflow: hidden;
+  margin: 3px 6px 6px 3px;
   text-decoration: none;
   outline: none;
   white-space: nowrap;
   vertical-align: middle;
   text-align: center;
   
-  /* Layer 3 (Top Face Sheet): 1px clean knife-cut highlight */
+  /* 1. 완전 플랫한 매트 종이: 유광/그라데이션 전면 배제 */
+  background-image: none !important;
+
+  /* 2. 칼로 정밀하게 자른 종이 단면 두께감과 2-Tier 그림자 */
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 2px 4px rgba(var(--pc-shadow-tint), 0.12);
-  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease;
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.2s ease;
 }
 
-/* Ensure inner text of button is strictly centered with the icon on the topmost layer */
-.pc-btn > span,
-.pc-btn > strong,
-.pc-btn > em {
+/* 유기 섬유 펄프 텍스처 오버레이 (광택 없는 단단한 매트 카드스톡 질감) */
+.pc-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035 0.65' numOctaves='2' result='f1'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65 0.035' numOctaves='2' result='f2'/%3E%3CfeBlend mode='multiply' in='f1' in2='f2'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pGrain)'/%3E%3C/svg%3E");
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+/* 단일 종이 원칙: 다층 시트 비표시 */
+.pc-btn::after {
+  display: none !important;
+}
+
+/* 텍스트 및 아이콘은 종이 섬유 질감 위에 또렷하게 중앙 정렬 */
+.pc-btn > * {
+  position: relative;
+  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
 }
 
-/* Layer 2 (Middle Paper Sheet - Asymmetric Organic Wave/Petal Cut) */
-.pc-btn::before {
-  content: "";
-  position: absolute;
-  top: 3.5px;
-  left: 3.5px;
-  right: -4px;
-  bottom: -4px;
-  background-color: var(--pc-buttercup);
-  border-radius: 20px 8px 18px 10px; /* Non-identical organic shape! */
-  z-index: -1;
-  pointer-events: none;
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.8) inset,
-    0 2px 5px rgba(var(--pc-shadow-tint), 0.1);
-  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+/* ==========================================================================
+   사각 종이 버튼 (Rectangular Paper Button)
+   - 반듯하고 정밀한 카드스톡 칼선과 하단 수평 단면 두께
+   ========================================================================== */
+.pc-btn-rect,
+.pc-btn-square {
+  border-radius: 8px; /* 단정한 사각 카드스톡 (6px~8px) */
 }
-
-/* Layer 1 (Bottom Foundation Paper Sheet - Distinct Deckle Curve & Grounding Shadow) */
-.pc-btn::after {
-  content: "";
-  position: absolute;
-  top: 7px;
-  left: 6.5px;
-  right: -7.5px;
-  bottom: -7.5px;
-  background-color: var(--pc-peach);
-  border-radius: 8px 24px 10px 22px; /* Distinct non-identical shape! */
-  z-index: -2;
-  pointer-events: none;
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.7) inset,
-    0 5px 12px rgba(var(--pc-shadow-tint), 0.14),
-    0 12px 24px rgba(var(--pc-shadow-tint), 0.08);
-  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background-color 0.2s ease;
+.pc-btn-rect-sharp {
+  border-radius: 4px; /* 날카로운 정밀 다이컷 사각 (3px~4px) */
 }
-
-/* Specialized Non-Identical Layered Button Styles */
-.pc-btn-organic-scallop::before {
-  clip-path: polygon(0% 15%, 15% 0%, 85% 0%, 100% 15%, 100% 85%, 85% 100%, 15% 100%, 0% 85%);
-  border-radius: 24px;
-}
-.pc-btn-organic-scallop::after {
-  border-radius: 28px 10px 28px 10px;
-}
-
-.pc-btn-organic-ribbon::before {
-  right: -10px;
-  clip-path: polygon(0% 0%, 100% 0%, 88% 50%, 100% 100%, 0% 100%);
-  border-radius: 12px 0 0 12px;
-}
-
-.pc-btn-organic-leaf::before {
-  border-radius: 26px 4px 26px 4px;
-}
-.pc-btn-organic-leaf::after {
-  border-radius: 4px 26px 4px 26px;
-}
-
-/* Hover: The top sheet lifts slightly off the stack */
-.pc-btn:hover {
-  transform: translate(-1.5px, -1.5px);
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 4px 8px rgba(var(--pc-shadow-tint), 0.14);
-}
-.pc-btn:hover::before {
-  transform: translate(-0.5px, -0.5px);
-}
-.pc-btn:hover::after {
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.7) inset,
-    0 7px 16px rgba(var(--pc-shadow-tint), 0.16),
-    0 16px 32px rgba(var(--pc-shadow-tint), 0.1);
-}
-
-/* Active / Pressed: Physical compression of all 3 paper sheets together */
-.pc-btn:active,
-.pc-btn.is-pressed {
-  transform: translate(4px, 4px);
-  box-shadow: 0 1px 2px rgba(var(--pc-shadow-tint), 0.15);
-}
-.pc-btn:active::before,
-.pc-btn.is-pressed::before {
-  transform: translate(-2px, -2px);
-}
-.pc-btn:active::after,
-.pc-btn.is-pressed::after {
-  transform: translate(-3.5px, -3.5px);
-  box-shadow: 0 2px 6px rgba(var(--pc-shadow-tint), 0.12);
+.pc-btn-square {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 8px;
 }
 
 /* ==========================================================================
-   3-LAYER COLOR HARMONIES (Top, Middle, Bottom Pastel Papers)
+   원형 종이 버튼 (Circular Paper Button)
+   - 360° 원형 다이컷, 원호 단면 두께와 플랫한 2-Tier 그림자
+   ========================================================================== */
+.pc-btn-circle,
+.pc-btn-round {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1;
+  box-shadow: 
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+}
+.pc-btn-circle.pc-btn-lg,
+.pc-btn-round.pc-btn-lg {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  border-radius: 50% !important;
+  box-shadow: 
+    0 2.5px 0 rgba(46, 30, 20, 0.38),
+    0 4.5px 8px rgba(46, 30, 20, 0.22);
+}
+.pc-btn-circle.pc-btn-sm,
+.pc-btn-round.pc-btn-sm {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50% !important;
+  box-shadow: 
+    0 1.5px 0 rgba(46, 30, 20, 0.36),
+    0 2.5px 4px rgba(46, 30, 20, 0.18);
+}
+
+/* ==========================================================================
+   플랫한 종이 물리 상호작용 (Hover Lift & Active Press)
+   ========================================================================== */
+.pc-btn:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.22);
+}
+.pc-btn-circle:hover,
+.pc-btn-round:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.22);
+}
+
+.pc-btn:active,
+.pc-btn.is-pressed {
+  transform: translateY(1.5px);
+  box-shadow: 
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.20);
+}
+.pc-btn-circle:active,
+.pc-btn-round:active {
+  transform: translateY(1.5px);
+  box-shadow: 
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.20);
+}
+
+/* ==========================================================================
+   단일 종이 파스텔 플랫 색상 시스템 (Single-Sheet Pastel Flat Craft Paper Colors)
+   완전 플랫한 매트 종이 본연의 색상과 또렷한 대비의 칼선 테두리
    ========================================================================== */
 
-/* 1. Mint 3-Layer: Top Mint (#A3D8C3) -> Middle Buttercup (#FEE396) -> Bottom Peach (#F7BA9E) */
+/* 1. Mint Single Sheet */
 .pc-btn-mint {
   background-color: var(--pc-mint);
   color: var(--pc-mint-dark);
-}
-.pc-btn-mint::before {
-  background-color: var(--pc-buttercup);
-}
-.pc-btn-mint::after {
-  background-color: var(--pc-peach);
+  border-color: rgba(39, 92, 70, 0.22);
 }
 
-/* 2. Peach 3-Layer: Top Peach (#F7BA9E) -> Middle Mint (#A3D8C3) -> Bottom Buttercup (#FEE396) */
+/* 2. Peach Single Sheet */
 .pc-btn-peach {
   background-color: var(--pc-peach);
   color: var(--pc-peach-dark);
-}
-.pc-btn-peach::before {
-  background-color: var(--pc-mint);
-}
-.pc-btn-peach::after {
-  background-color: var(--pc-buttercup);
+  border-color: rgba(110, 59, 33, 0.22);
 }
 
-/* 3. Lavender 3-Layer: Top Lavender (#D7CBEB) -> Middle Sky (#BDE0EA) -> Bottom Rose (#F5B8BE) */
+/* 3. Lavender Single Sheet */
 .pc-btn-lavender {
   background-color: var(--pc-lavender);
   color: var(--pc-lavender-dark);
-}
-.pc-btn-lavender::before {
-  background-color: var(--pc-sky);
-}
-.pc-btn-lavender::after {
-  background-color: var(--pc-rose);
+  border-color: rgba(71, 59, 107, 0.22);
 }
 
-/* 4. Buttercup 3-Layer: Top Buttercup (#FEE396) -> Middle Mint (#A3D8C3) -> Bottom Lavender (#D7CBEB) */
+/* 4. Buttercup Single Sheet */
 .pc-btn-buttercup {
   background-color: var(--pc-buttercup);
   color: var(--pc-buttercup-dark);
-}
-.pc-btn-buttercup::before {
-  background-color: var(--pc-mint);
-}
-.pc-btn-buttercup::after {
-  background-color: var(--pc-lavender);
+  border-color: rgba(110, 83, 15, 0.22);
 }
 
-/* 5. Sky 3-Layer: Top Sky (#BDE0EA) -> Middle Lavender (#D7CBEB) -> Bottom Mint (#A3D8C3) */
+/* 5. Sky Single Sheet */
 .pc-btn-sky {
   background-color: var(--pc-sky);
   color: var(--pc-sky-dark);
-}
-.pc-btn-sky::before {
-  background-color: var(--pc-lavender);
-}
-.pc-btn-sky::after {
-  background-color: var(--pc-mint);
+  border-color: rgba(32, 76, 90, 0.22);
 }
 
-/* 6. Rose 3-Layer: Top Rose (#F5B8BE) -> Middle Peach (#F7BA9E) -> Bottom Buttercup (#FEE396) */
+/* 6. Rose Single Sheet */
 .pc-btn-rose {
   background-color: var(--pc-rose);
   color: var(--pc-rose-dark);
-}
-.pc-btn-rose::before {
-  background-color: var(--pc-peach);
-}
-.pc-btn-rose::after {
-  background-color: var(--pc-buttercup);
+  border-color: rgba(112, 40, 48, 0.22);
 }
 
-/* 7. Sage 3-Layer: Top Sage (#BBD5B8) -> Middle Buttercup (#FEE396) -> Bottom Mint (#A3D8C3) */
+/* 7. Sage Single Sheet */
 .pc-btn-sage {
   background-color: var(--pc-sage);
   color: var(--pc-sage-dark);
-}
-.pc-btn-sage::before {
-  background-color: var(--pc-buttercup);
-}
-.pc-btn-sage::after {
-  background-color: var(--pc-mint);
+  border-color: rgba(50, 77, 46, 0.22);
 }
 
-/* Button Shape Adaptations for 3-Layer Construction */
-.pc-btn-pill,
-.pc-btn-scallop {
-  border-radius: var(--pc-radius-pill);
+/* 8. Kraft Single Sheet */
+.pc-btn-kraft {
+  background-color: #E2CCA8;
+  color: #4A3A2C;
+  border-color: rgba(74, 58, 44, 0.22);
 }
-.pc-btn-pill::before,
-.pc-btn-pill::after,
-.pc-btn-scallop::before,
-.pc-btn-scallop::after {
+
+/* 9. Ghost / Parchment Single Sheet */
+.pc-btn-ghost {
+  background-color: rgba(255, 253, 249, 0.92);
+  color: var(--pc-ink);
+  border-color: rgba(46, 30, 20, 0.14);
+}
+
+/* Button Shape Adaptations */
+.pc-btn-pill {
   border-radius: var(--pc-radius-pill);
 }
 
-/* Sizes for 3-Layer Buttons */
+/* Button Sizes */
 .pc-btn-sm {
-  padding: 6px 14px;
+  padding: 8px 14px;
   font-size: 13px;
-  border-radius: var(--pc-radius-sm);
+  min-height: 44px; /* Ensure 44px touch target standard */
+  border-radius: 6px;
   margin: 1px 4px 4px 1px;
-}
-.pc-btn-sm::before {
-  top: 2px; left: 2px; right: -2px; bottom: -2px;
-  border-radius: var(--pc-radius-sm);
-}
-.pc-btn-sm::after {
-  top: 4px; left: 4px; right: -4px; bottom: -4px;
-  border-radius: var(--pc-radius-sm);
 }
 
 .pc-btn-lg {
-  padding: 13px 28px;
+  padding: 14px 28px;
   font-size: 16px;
-  border-radius: var(--pc-radius-lg);
-  margin: 3px 9px 9px 3px;
+  min-height: 48px;
+  border-radius: 8px;
+  margin: 3px 6px 6px 3px;
 }
-.pc-btn-lg::before {
-  top: 4.5px; left: 4.5px; right: -4.5px; bottom: -4.5px;
-  border-radius: var(--pc-radius-lg);
+
+/* 겹친 종이 효과 버튼 (Multi-layer Cut Paper Button) */
+.pc-btn-stacked {
+  position: relative;
 }
-.pc-btn-lg::after {
-  top: 9px; left: 9px; right: -9px; bottom: -9px;
-  border-radius: var(--pc-radius-lg);
+.pc-btn-stacked::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  top: 3px; left: 3px; right: -3px; bottom: -3px;
+  background-color: var(--pc-mint-layer, #82C2A8);
+  border-radius: inherit;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  z-index: -1;
+  box-shadow: 0 2px 0 rgba(46, 30, 20, 0.38), 0 3.5px 6px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pc-btn-stacked:hover::after {
+  transform: translate(1px, 1px);
+}
+.pc-btn-stacked:active::after {
+  transform: translate(-1.5px, -1.5px);
 }
 
 /* Paper Tag Button with Eyelet Punch Hole */
@@ -436,9 +491,14 @@ body.texture-flat.pc-paper-grain::before {
   box-shadow: -2px 2px 4px rgba(var(--pc-shadow-tint), 0.18);
 }
 
-/* Sizes */
-.pc-btn-sm { padding: 7px 14px; font-size: 13px; gap: 6px; line-height: 1; border-radius: var(--pc-radius-sm); }
-.pc-btn-lg { padding: 14px 28px; font-size: 16px; gap: 10px; line-height: 1; border-radius: var(--pc-radius-lg); }
+/* Focus Ring (Keyboard Accessibility) */
+.pc-btn:focus-visible,
+.pc-select:focus-visible,
+.pc-dropdown-trigger:focus-visible {
+  outline: 2px solid #7c8cff !important;
+  outline-offset: 2px !important;
+}
+
 .pc-btn-pill { border-radius: var(--pc-radius-pill); }
 
 .pc-btn-sm > span, .pc-btn-lg > span {
@@ -472,18 +532,23 @@ body.texture-flat.pc-paper-grain::before {
 }
 
 .pc-label-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
   background-color: var(--pc-buttercup);
   color: var(--pc-buttercup-dark);
   font-size: 11px;
   font-weight: 700;
-  padding: 2px 7px;
+  padding: 3px 8px;
   border-radius: 6px;
   box-shadow: var(--pc-paper-shadow-xs);
 }
 
 .pc-input {
   width: 100%;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   font-family: var(--pc-font);
   font-size: 15px;
   color: var(--pc-ink);
@@ -529,30 +594,6 @@ body.texture-flat.pc-paper-grain::before {
 
 
 /* ==========================================================================
-   3. CHECKBOX PRIMITIVES & VARIATIONS
-   Origami paper folds & soft pastel raised tags
-   ========================================================================== */
-
-.pc-checkbox-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--pc-ink);
-  position: relative;
-}
-
-.pc-checkbox-input {
-  position: absolute;
-  opacity: 0;
-  width: 0; height: 0;
-  margin: 0;
-}
-
-/* ==========================================================================
    3. CHECKBOX & RADIO PRIMITIVES & VARIATIONS
    Layered Cardstock, Die-cut Paper Wells & Origami Stamp Marks
    ========================================================================== */
@@ -575,19 +616,22 @@ body.texture-flat.pc-paper-grain::before {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   cursor: pointer;
   user-select: none;
+  font-size: 14px;
   font-weight: 600;
   color: var(--pc-ink);
+  position: relative;
   transition: opacity 0.15s ease;
 }
 .pc-checkbox-label:hover .pc-checkbox-box {
   border-color: #D2C2AD;
   transform: translateY(-1px);
   box-shadow: 
-    0 3px 8px rgba(74, 58, 42, 0.16),
-    0 1px 2px rgba(74, 58, 42, 0.08),
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.95);
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 1.5px 2.5px rgba(var(--pc-shadow-tint), 0.50),
+    0 4.5px 10px rgba(var(--pc-shadow-tint), 0.26);
 }
 
 .pc-checkbox-input {
@@ -606,14 +650,13 @@ body.texture-flat.pc-paper-grain::before {
   background-color: #FAF7F0;
   background-image: 
     linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(240,233,220,0.5) 100%),
-    linear-gradient(135deg, transparent 80%, rgba(74, 58, 42, 0.08) 80%, rgba(255, 255, 255, 0.85) 86%, transparent 88%);
+    linear-gradient(135deg, transparent 80%, rgba(var(--pc-shadow-tint), 0.12) 80%, rgba(255, 255, 255, 0.85) 86%, transparent 88%);
   border: 1.5px solid #DED4C3;
   border-radius: 7px;
   box-shadow: 
-    0 2px 5px rgba(74, 58, 42, 0.12),
-    0 1px 2px rgba(74, 58, 42, 0.08),
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 2px rgba(74, 58, 42, 0.05);
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48),
+    0 3.5px 8px rgba(var(--pc-shadow-tint), 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -628,9 +671,10 @@ body.texture-flat.pc-paper-grain::before {
   background-image: linear-gradient(135deg, #F0FAF4 0%, #DCF2E5 100%);
   border-color: #83C9A6;
   box-shadow: 
-    0 1px 3px rgba(74, 58, 42, 0.14),
-    inset 0 2px 4px rgba(45, 100, 75, 0.12),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.8);
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 2px 4px rgba(45, 100, 75, 0.18),
+    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
+    0 3px 6px rgba(var(--pc-shadow-tint), 0.20);
   transform: translateY(0.5px);
 }
 
@@ -684,7 +728,8 @@ body.texture-flat.pc-paper-grain::before {
 
 /* Paper Tag Badge Toggle */
 .pc-checkbox-tag-btn {
-  padding: 8px 18px;
+  padding: 10px 18px;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   background-color: #FAF7F0;
   border: 1.5px solid #E6DBCB;
   border-radius: var(--pc-radius-pill);
@@ -693,6 +738,9 @@ body.texture-flat.pc-paper-grain::before {
   font-weight: 700;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
   gap: 8px;
   color: var(--pc-ink);
 }
@@ -724,6 +772,7 @@ body.texture-flat.pc-paper-grain::before {
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   cursor: pointer;
   user-select: none;
   font-weight: 600;
@@ -734,9 +783,9 @@ body.texture-flat.pc-paper-grain::before {
   border-color: #D2C2AD;
   transform: translateY(-1px);
   box-shadow: 
-    0 3px 8px rgba(74, 58, 42, 0.16),
-    inset 0 2px 4px rgba(74, 58, 42, 0.14),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.9);
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 1.5px 2.5px rgba(var(--pc-shadow-tint), 0.50),
+    0 4.5px 10px rgba(var(--pc-shadow-tint), 0.26);
 }
 
 .pc-radio-input {
@@ -757,9 +806,9 @@ body.texture-flat.pc-paper-grain::before {
   background-image: radial-gradient(circle at 45% 45%, #FFFFFF 0%, #EDE4D4 100%);
   border: 2px solid #DED4C3;
   box-shadow: 
-    0 2px 4px rgba(74, 58, 42, 0.12),
-    inset 0 2.5px 4px rgba(74, 58, 42, 0.16),
-    inset 0 -1px 1px rgba(255, 255, 255, 0.85);
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48),
+    0 3.5px 8px rgba(var(--pc-shadow-tint), 0.22);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -773,8 +822,10 @@ body.texture-flat.pc-paper-grain::before {
   background-color: #E8F6EE;
   background-image: radial-gradient(circle at 50% 50%, #EBF7F1 0%, #D8EFE3 100%);
   box-shadow: 
-    0 1px 3px rgba(74, 58, 42, 0.15),
-    inset 0 2px 4px rgba(45, 100, 75, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 2px 4px rgba(45, 100, 75, 0.2),
+    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
+    0 3px 6px rgba(var(--pc-shadow-tint), 0.20);
 }
 
 /* Raised 3D Paper Disc Center Seal */
@@ -784,11 +835,11 @@ body.texture-flat.pc-paper-grain::before {
   height: 11px;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #A3D8C3 0%, #4FA981 100%);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.75);
   box-shadow: 
-    0 2px 4px rgba(35, 80, 55, 0.35),
-    0 1px 1px rgba(0, 0, 0, 0.15),
-    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+    inset 0 1px 1px rgba(255, 255, 255, 0.85),
+    0 1.5px 2.5px rgba(var(--pc-shadow-tint), 0.48),
+    0 3px 6px rgba(var(--pc-shadow-tint), 0.25);
   opacity: 0;
   transform: scale(0.2);
   transition: opacity 0.12s ease;
@@ -833,6 +884,7 @@ body.texture-flat.pc-paper-grain::before {
 }
 .pc-select {
   width: 100%;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   font-family: var(--pc-font);
   font-size: 15px;
   font-weight: 600;
@@ -877,8 +929,12 @@ body.texture-flat.pc-paper-grain::before {
   position: relative;
   width: 100%;
 }
+.pc-dropdown-custom.is-open {
+  z-index: 50;
+}
 .pc-dropdown-trigger {
   width: 100%;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -891,14 +947,12 @@ body.texture-flat.pc-paper-grain::before {
   font-weight: 700;
   color: var(--pc-ink);
   line-height: 1;
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.9) inset,
-    var(--pc-paper-shadow-sm);
+  box-shadow: var(--pc-paper-shadow-sm);
   cursor: pointer;
   transition: all 0.18s ease;
 }
 .pc-dropdown-trigger:hover {
-  transform: translateY(-1px);
+  transform: translateY(-1.5px);
   box-shadow: var(--pc-paper-shadow-md);
 }
 .pc-dropdown-trigger .trigger-content {
@@ -928,11 +982,8 @@ body.texture-flat.pc-paper-grain::before {
   background: #FAF7F0; /* Clean Single Warm Cardstock Base Plate */
   border: 1.5px solid #E6DBC9;
   border-radius: var(--pc-radius-md);
-  /* Single cohesive paper shadow without multi-sheet stacked backing */
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 10px 25px rgba(var(--pc-shadow-tint), 0.14),
-    0 20px 40px rgba(var(--pc-shadow-tint), 0.08);
+  /* 2-Tier 48% Stacking Paper Shadow */
+  box-shadow: var(--pc-paper-shadow-lg);
   padding: 8px;
   z-index: 1000;
   opacity: 0;
@@ -973,7 +1024,8 @@ body.texture-flat.pc-paper-grain::before {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 11px 14px;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   border-radius: 9px;
   font-family: var(--pc-font);
   font-size: 14px;
@@ -1034,20 +1086,16 @@ body.texture-flat.pc-paper-grain::before {
   border: none; /* NO dark border */
   border-radius: var(--pc-radius-lg);
   padding: 24px;
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    var(--pc-paper-shadow-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--pc-paper-shadow-md);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
 }
 
 .pc-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    var(--pc-paper-shadow-lg);
+  transform: translateY(-2.5px);
+  box-shadow: var(--pc-paper-shadow-lg);
 }
 
-/* Multi-Layer Stacked Paper Construction Card (Sheets visibly peeking out) */
+/* Multi-Layer Stacked Paper Construction Card (Sheets visibly peeking out with 48% contact shadow) */
 .pc-card-stacked {
   position: relative;
   z-index: 1;
@@ -1059,7 +1107,10 @@ body.texture-flat.pc-paper-grain::before {
   background: var(--pc-peach-light);
   border-radius: var(--pc-radius-lg);
   z-index: -1;
-  box-shadow: var(--pc-paper-shadow-xs);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.45),
+    0 4px 8px rgba(var(--pc-shadow-tint), 0.22);
 }
 .pc-card-stacked::after {
   content: "";
@@ -1068,10 +1119,13 @@ body.texture-flat.pc-paper-grain::before {
   background: var(--pc-mint-light);
   border-radius: var(--pc-radius-lg);
   z-index: -2;
-  box-shadow: var(--pc-paper-shadow-xs);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 2px 3px rgba(var(--pc-shadow-tint), 0.48),
+    0 7px 16px rgba(var(--pc-shadow-tint), 0.24);
 }
 
-/* Washi Tape Strip (Translucent paper tape with deckle edge) */
+/* Washi Tape Strip (Translucent paper tape with deckle edge & contact shadow) */
 .pc-washi-tape {
   position: absolute;
   top: -12px;
@@ -1079,9 +1133,11 @@ body.texture-flat.pc-paper-grain::before {
   transform: translateX(-50%) rotate(-1deg);
   width: 90px;
   height: 24px;
-  background-color: rgba(254, 227, 150, 0.75);
+  background-color: rgba(254, 227, 150, 0.82);
   backdrop-filter: blur(2px);
-  box-shadow: 0 2px 5px rgba(var(--pc-shadow-tint), 0.1);
+  box-shadow: 
+    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.45),
+    0 3px 6px rgba(var(--pc-shadow-tint), 0.20);
   pointer-events: none;
   z-index: 10;
   clip-path: polygon(4% 0%, 96% 0%, 100% 50%, 96% 100%, 4% 100%, 0% 50%);
@@ -2209,8 +2265,7 @@ body.texture-flat.pc-paper-grain::before {
   height: 100%;
   display: block;
   overflow: visible;
-  /* CRITICAL: Remove compounding blur rasterization. Rely purely on internal SVG paper shadows */
-  filter: none !important;
+  /* Allow rich layered SVG filters and drop shadows to render with full depth */
   shape-rendering: geometricPrecision;
   text-rendering: geometricPrecision;
   image-rendering: -webkit-optimize-contrast;
@@ -2858,96 +2913,31 @@ textarea.pc-input.pc-texture-paper,
 }
 
 /* --------------------------------------------------------------------------
-   RULE 1: SIZE 16px ~ 28px (fi fi-rr Ultra-Slim Dark Grey Vector Line Art)
-   * 10px ~ 14px are officially UNSUPPORTED (below human clarity threshold).
-   * 16px ~ 28px transforms into ultra-slim, dark grey Flaticon Regular Rounded (fi fi-rr) lines:
-     1. Drop-shadow filters completely removed (filter: none !important).
-     2. Ultra-slim, crisp 0.88px dark grey stroke (#423D39) with geometricPrecision.
-     3. Ultra-subtle, airy translucent paper-tint wash (fill-opacity: 0.08) so the line outline stands out sharply.
-     4. Interactive live hover feedback for web components.
+   RULE 1: EXPLICIT MONOCHROME LINE STYLE (Strictly Opt-in via .force-firr)
+   By default across PaperCut UI, all icons render in full vibrant pastel colors
+   with authentic layered drop shadows. Only elements with .force-firr or .is-firr
+   switch to single-color vector strokes.
    -------------------------------------------------------------------------- */
 
-/* Global Guard: fi fi-rr Line Style is Strictly Capped at 16px ~ 28px */
-.pc-layered-paper-icon.pc-firr-style,
-.pc-layered-paper-icon[data-style="fi-rr"],
-.pc-layered-paper-icon.pc-stroke-active-layer {
-  width: var(--pc-icon-size, 24px) !important;
-  height: var(--pc-icon-size, 24px) !important;
+/* Explicit Opt-in Only */
+.pc-layered-paper-icon.force-firr,
+.pc-inline-icon.is-firr svg {
   max-width: 28px !important;
   max-height: 28px !important;
 }
 
-/* 1-A: Complete Drop-Shadow Filter Removal for <= 28px */
-.pc-firr-style,
-.pc-firr-style *,
-.pc-stroke-active-layer,
-.pc-stroke-active-layer *,
-.pc-auto-stroke-on,
-.pc-auto-stroke-on *,
-.pc-stroke-24,
-.pc-stroke-24 *,
-.pc-inline-icon.is-xs svg,
-.pc-inline-icon.is-xs svg *,
-.pc-inline-icon.is-sm svg,
-.pc-inline-icon.is-sm svg *,
-.pc-inline-icon.is-input-icon svg,
-.pc-inline-icon.is-input-icon svg *,
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg,
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg *,
-.pc-dropdown-trigger .pc-inline-icon svg,
-.pc-dropdown-trigger .pc-inline-icon svg *,
-.pc-dropdown-item .pc-inline-icon svg,
-.pc-dropdown-item .pc-inline-icon svg *,
-.pc-mini-icon-disc svg,
-.pc-mini-icon-disc svg *,
-.pc-pill-badge svg,
-.pc-pill-badge svg *,
-.pc-check-paper-disc svg,
-.pc-check-paper-disc svg *,
-.pc-admin-brand-logo svg,
-.pc-admin-brand-logo svg * {
+.pc-firr-style.force-firr,
+.pc-firr-style.force-firr * {
   filter: none !important;
 }
 
-/* 1-B: Ultra-Slim Dark Grey fi fi-rr Rounded Stroke (0.88px) */
-.pc-firr-style path,
-.pc-firr-style rect,
-.pc-firr-style circle,
-.pc-firr-style ellipse,
-.pc-firr-style polygon,
-.pc-firr-style line,
-.pc-firr-style polyline,
-.pc-stroke-active-layer path,
-.pc-stroke-active-layer rect,
-.pc-stroke-active-layer circle,
-.pc-stroke-active-layer ellipse,
-.pc-stroke-active-layer polygon,
-.pc-stroke-active-layer line,
-.pc-stroke-active-layer polyline,
-.pc-auto-stroke-on path,
-.pc-auto-stroke-on rect,
-.pc-auto-stroke-on circle,
-.pc-auto-stroke-on ellipse,
-.pc-auto-stroke-on polygon,
-.pc-auto-stroke-on line,
-.pc-auto-stroke-on polyline,
-.pc-stroke-24 path,
-.pc-stroke-24 rect,
-.pc-stroke-24 circle,
-.pc-stroke-24 ellipse,
-.pc-stroke-24 polygon,
-.pc-stroke-24 line,
-.pc-stroke-24 polyline,
-.pc-inline-icon.is-xs:not(.is-color) svg *,
-.pc-inline-icon.is-sm:not(.is-color) svg *,
-.pc-inline-icon.is-input-icon svg *,
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg *,
-.pc-dropdown-trigger .pc-inline-icon svg *,
-.pc-dropdown-item .pc-inline-icon svg *,
-.pc-mini-icon-disc svg *,
-.pc-pill-badge svg *,
-.pc-check-paper-disc svg *,
-.pc-admin-brand-logo svg * {
+.pc-firr-style.force-firr path,
+.pc-firr-style.force-firr rect,
+.pc-firr-style.force-firr circle,
+.pc-firr-style.force-firr ellipse,
+.pc-firr-style.force-firr polygon,
+.pc-firr-style.force-firr line,
+.pc-firr-style.force-firr polyline {
   stroke: var(--pc-icon-stroke-color, #423D39) !important;
   stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
   stroke-linejoin: round !important;
@@ -2958,90 +2948,30 @@ textarea.pc-input.pc-texture-paper,
   vector-effect: non-scaling-stroke !important;
 }
 
-/* 1-C: Pure fi fi-rr Transparent Fills (Clean Vector Outline Dominance - NO COLOR) */
-.pc-firr-style path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-active-layer path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-active-layer rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-active-layer circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-active-layer ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-active-layer polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-auto-stroke-on path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-auto-stroke-on rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-auto-stroke-on circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-auto-stroke-on ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-auto-stroke-on polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-24 path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-24 rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-24 circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-24 ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-stroke-24 polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-inline-icon.is-xs:not(.is-color) svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-inline-icon.is-sm:not(.is-color) svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-inline-icon.is-input-icon svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-btn .pc-inline-icon:not(.is-lg):not(.is-xl) svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-dropdown-trigger .pc-inline-icon svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-dropdown-item .pc-inline-icon svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-mini-icon-disc svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-pill-badge svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-check-paper-disc svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-admin-brand-logo svg *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
+.pc-firr-style.force-firr path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.force-firr rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.force-firr circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.force-firr ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.force-firr polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
   fill: none !important;
   fill-opacity: 0 !important;
 }
 
-/* 1-D: Interactive Live Hover Micro-Motion */
-.pc-firr-style svg,
-.pc-inline-icon.is-firr svg {
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), filter 0.22s ease;
+/* Interactive Live Hover Micro-Motion */
+.pc-inline-icon svg,
+.pc-layered-paper-icon {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.pc-firr-style:hover svg,
-.pc-inline-icon.is-firr:hover svg {
-  transform: translateY(-1.5px) scale(1.04);
-}
-
-/* Solid Dark Accents (Eyes, knobs, pupils keep solid fill) */
-.pc-firr-style [fill="#3D352E"],
-.pc-firr-style [fill="#2B2623"],
-.pc-stroke-active-layer [fill="#3D352E"],
-.pc-stroke-active-layer [fill="#2B2623"],
-.pc-auto-stroke-on [fill="#3D352E"],
-.pc-auto-stroke-on [fill="#2B2623"],
-.pc-inline-icon svg [fill="#3D352E"] {
-  fill: var(--pc-icon-stroke-color, #423D39) !important;
-  fill-opacity: 1 !important;
-}
-
-/* 1-E: Linear Details (Open strokes, lines, steam, spark glints) */
-.pc-firr-style path[fill="none"],
-.pc-firr-style circle[fill="none"],
-.pc-firr-style rect[fill="none"],
-.pc-firr-style ellipse[fill="none"],
-.pc-firr-style polygon[fill="none"],
-.pc-stroke-active-layer path[fill="none"],
-.pc-stroke-active-layer circle[fill="none"],
-.pc-stroke-active-layer rect[fill="none"],
-.pc-stroke-active-layer ellipse[fill="none"],
-.pc-stroke-active-layer polygon[fill="none"],
-.pc-auto-stroke-on path[fill="none"],
-.pc-auto-stroke-on circle[fill="none"],
-.pc-stroke-24 path[fill="none"] {
-  stroke: var(--pc-icon-stroke-color, #423D39) !important;
-  stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
-  stroke-linejoin: round !important;
-  stroke-linecap: round !important;
-  shape-rendering: geometricPrecision !important;
-  vector-effect: non-scaling-stroke !important;
-  fill: none !important;
+.pc-btn:hover .pc-inline-icon svg,
+.pc-inline-icon:hover svg {
+  transform: translateY(-1.5px) scale(1.08);
 }
 
 /* --------------------------------------------------------------------------
-   RULE 2: SIZE >= 29px (Pure Standalone 3D Kirigami - Stroke OFF)
-   Applies to showcase cards, icon gallery, background library, .is-lg, .is-xl,
-   and .pc-stroke-off. All filled paper shapes receive stroke: none!
+   RULE 2: UNIVERSAL FULL-COLOR 3D KIRIGAMI ART (DEFAULT FOR ALL SIZES)
+   All paper shapes retain their authentic pastel construction paper colors
+   (#A3D8C3 Mint, #F7BA9E Peach, #D7CBEB Lavender, #FEE396 Buttercup,
+   #BDE0EA Sky, #F5B8BE Rose, #FAF6ED Cream) and layered drop shadows!
    -------------------------------------------------------------------------- */
 
 .pc-stroke-off path:not([fill="none"]),
@@ -3064,28 +2994,28 @@ textarea.pc-input.pc-texture-paper,
 .pc-bg-card svg circle:not([fill="none"]),
 .pc-bg-card svg ellipse:not([fill="none"]),
 .pc-bg-card svg polygon:not([fill="none"]),
-.pc-inline-icon.is-lg svg path:not([fill="none"]),
-.pc-inline-icon.is-lg svg rect:not([fill="none"]),
-.pc-inline-icon.is-lg svg circle:not([fill="none"]),
-.pc-inline-icon.is-lg svg ellipse:not([fill="none"]),
-.pc-inline-icon.is-lg svg polygon:not([fill="none"]),
-.pc-inline-icon.is-xl svg path:not([fill="none"]),
-.pc-inline-icon.is-xl svg rect:not([fill="none"]),
-.pc-inline-icon.is-xl svg circle:not([fill="none"]),
-.pc-inline-icon.is-xl svg ellipse:not([fill="none"]),
-.pc-inline-icon.is-xl svg polygon:not([fill="none"]) {
+.pc-inline-icon svg path:not([fill="none"]),
+.pc-inline-icon svg rect:not([fill="none"]),
+.pc-inline-icon svg circle:not([fill="none"]),
+.pc-inline-icon svg ellipse:not([fill="none"]),
+.pc-inline-icon svg polygon:not([fill="none"]) {
   stroke: none !important;
   vector-effect: none !important;
 }
 
-/* Ensure no filter outline distortion for >= 33px standalone icons */
-.pc-stroke-off,
-.pc-auto-stroke-off,
-.pc-icon-card .pc-icon-stage svg,
-.pc-bg-card svg,
-.pc-inline-icon.is-lg svg,
-.pc-inline-icon.is-xl svg {
-  filter: none;
+/* Linear Details (Steam, sparks, and accent lines) preserve their stroke */
+.pc-inline-icon svg path[fill="none"],
+.pc-inline-icon svg circle[fill="none"],
+.pc-inline-icon svg rect[fill="none"],
+.pc-inline-icon svg line,
+.pc-inline-icon svg polyline,
+.pc-layered-paper-icon path[fill="none"],
+.pc-layered-paper-icon circle[fill="none"],
+.pc-layered-paper-icon rect[fill="none"],
+.pc-layered-paper-icon line,
+.pc-layered-paper-icon polyline {
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 

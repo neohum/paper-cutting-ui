@@ -266,8 +266,25 @@
     }
   }
 
+  let previousActiveElement = null;
+
+  function getFocusableElements(container) {
+    if (!container) return [];
+    return Array.from(container.querySelectorAll(
+      'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    ));
+  }
+
+  function getActiveModal() {
+    if (dialogBackdrop && dialogBackdrop.classList.contains('is-active')) return dialogBackdrop;
+    if (sheetBackdrop && sheetBackdrop.classList.contains('is-active')) return sheetBackdrop;
+    if (drawerBackdrop && drawerBackdrop.classList.contains('is-active')) return drawerBackdrop;
+    return null;
+  }
+
   function openDialog(opts = {}) {
     ensureModalsDOM();
+    previousActiveElement = document.activeElement;
     if (opts.title) {
       const titleSpan = dialogBackdrop.querySelector('#pc-dialog-title span:last-child');
       if (titleSpan) titleSpan.textContent = opts.title;
@@ -278,47 +295,100 @@
     }
     dialogBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
+
+    // Move focus to first focusable element
+    requestAnimationFrame(() => {
+      const focusable = getFocusableElements(dialogBackdrop);
+      if (focusable.length > 0) focusable[0].focus();
+    });
   }
 
   function closeDialog() {
-    if (dialogBackdrop) {
+    if (dialogBackdrop && dialogBackdrop.classList.contains('is-active')) {
       dialogBackdrop.classList.remove('is-active');
       document.body.style.overflow = '';
+      if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+        previousActiveElement.focus();
+        previousActiveElement = null;
+      }
     }
   }
 
   function openSheet(opts = {}) {
     ensureModalsDOM();
+    previousActiveElement = document.activeElement;
     sheetBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+      const focusable = getFocusableElements(sheetBackdrop);
+      if (focusable.length > 0) focusable[0].focus();
+    });
   }
 
   function closeSheet() {
-    if (sheetBackdrop) {
+    if (sheetBackdrop && sheetBackdrop.classList.contains('is-active')) {
       sheetBackdrop.classList.remove('is-active');
       document.body.style.overflow = '';
+      if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+        previousActiveElement.focus();
+        previousActiveElement = null;
+      }
     }
   }
 
   function openDrawer(opts = {}) {
     ensureModalsDOM();
+    previousActiveElement = document.activeElement;
     drawerBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
+
+    requestAnimationFrame(() => {
+      const focusable = getFocusableElements(drawerBackdrop);
+      if (focusable.length > 0) focusable[0].focus();
+    });
   }
 
   function closeDrawer() {
-    if (drawerBackdrop) {
+    if (drawerBackdrop && drawerBackdrop.classList.contains('is-active')) {
       drawerBackdrop.classList.remove('is-active');
       document.body.style.overflow = '';
+      if (previousActiveElement && typeof previousActiveElement.focus === 'function') {
+        previousActiveElement.focus();
+        previousActiveElement = null;
+      }
     }
   }
 
-  // Global Keydown Handler (Escape closes active modal)
+  // Global Keydown Handler (Escape closes active modal; Tab traps focus within modal)
   document.addEventListener('keydown', (e) => {
+    const activeModal = getActiveModal();
+    if (!activeModal) return;
+
     if (e.key === 'Escape') {
       closeDialog();
       closeSheet();
       closeDrawer();
+      return;
+    }
+
+    if (e.key === 'Tab') {
+      const focusable = getFocusableElements(activeModal);
+      if (focusable.length === 0) return;
+      const firstEl = focusable[0];
+      const lastEl = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstEl || !activeModal.contains(document.activeElement)) {
+          e.preventDefault();
+          lastEl.focus();
+        }
+      } else {
+        if (document.activeElement === lastEl || !activeModal.contains(document.activeElement)) {
+          e.preventDefault();
+          firstEl.focus();
+        }
+      }
     }
   });
 
