@@ -1,0 +1,54 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="wetland_mallard" data-category="wetland">
+  <defs>
+    
+    <filter id="ps-wetland_mallard-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-wetland_mallard-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-wetland_mallard-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-wetland_mallard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-wetland_mallard)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-wetland_mallard-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#0D9488" opacity="0.18" filter="url(#ps-wetland_mallard-base)"/>
+  
+        <!-- Wetland Reeds & Water Lilies -->
+        <path d="M 22 80 Q 24 55 20 40 M 26 80 Q 28 50 32 38" stroke="#86EFAC" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <path d="M 74 80 Q 72 52 76 38 M 78 80 Q 82 56 80 44" stroke="#86EFAC" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <ellipse cx="50" cy="74" rx="14" ry="4" fill="#A3D8C3" opacity="0.5"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Mallard Glossy Green Head with White Neck Ring -->
+      <ellipse cx="50" cy="48" rx="16" ry="16" fill="#0D9488" filter="url(#ps-wetland_mallard-mid)"/>
+      <polygon points="46,50 54,50 50,62" fill="#F97316" filter="url(#ps-wetland_mallard-top)"/>
+      <rect x="40" y="60" width="20" height="3" fill="#FFFDF9" rx="1"/>
+      
+    <circle cx="43" cy="45" r="2.2" fill="#3D352E" filter="url(#ps-wetland_mallard-top)"/>
+    <circle cx="57" cy="45" r="2.2" fill="#3D352E" filter="url(#ps-wetland_mallard-top)"/>
+    <circle cx="42" cy="44" r="0.8800000000000001" fill="#FFFDF9"/>
+    <circle cx="56" cy="44" r="0.8800000000000001" fill="#FFFDF9"/>
+    <circle cx="38" cy="50" r="3" fill="#F7BA9E" opacity="0.7"/>
+    <circle cx="62" cy="50" r="3" fill="#F7BA9E" opacity="0.7"/>
+  
+    
+</svg>

@@ -1,141 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 120" width="512" height="120">
   <defs>
-    <!-- PaperCut Multi-Tier Soft Umber 3D Shadows -->
-    <filter id="pc-shadow-deep" x="-20%" y="-20%" width="150%" height="150%">
-      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#4A3828" flood-opacity="0.14"/>
-      <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#4A3828" flood-opacity="0.16"/>
+    <!-- PaperCut Multi-Tier Soft Umber 3D Shadows: 2-Tier 48% Burnt Umber Standard -->
+    <filter id="pc-shadow-stamp" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="1.6" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.48"/>
+      <feDropShadow dx="0" dy="4.8" stdDeviation="2.4" flood-color="#2E1E14" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="-0.6" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+    <filter id="pc-shadow-scissors" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1.0" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.42"/>
+      <feDropShadow dx="0.6" dy="2.6" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.25"/>
+      <feDropShadow dx="-0.4" dy="-0.4" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
     </filter>
     <filter id="pc-shadow-mid" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#4A3828" flood-opacity="0.14"/>
-    </filter>
-    <filter id="pc-shadow-lift" x="-25%" y="-25%" width="150%" height="150%">
-      <feDropShadow dx="0.8" dy="3" stdDeviation="2.5" flood-color="#3A2518" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="1.2" stdDeviation="1.5" flood-color="#2E1E14" flood-opacity="0.16"/>
     </filter>
     <filter id="pc-shadow-text" x="-10%" y="-10%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#4A3828" flood-opacity="0.15"/>
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.18"/>
     </filter>
     <filter id="pc-shadow-badge" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#3A2818" flood-opacity="0.18"/>
+      <feDropShadow dx="0" dy="1.5" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="3.5" stdDeviation="2.0" flood-color="#2E1E14" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
     </filter>
 
     <!-- Linear Gradients for Soft Paper Cardstock -->
-    <linearGradient id="pc-grad-cream" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="100%" stop-color="#FAF6ED"/>
-    </linearGradient>
-    <linearGradient id="pc-grad-mint" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#B6E5D2"/>
-      <stop offset="100%" stop-color="#8DCDB3"/>
-    </linearGradient>
-    <linearGradient id="pc-grad-peach" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FAC8B0"/>
-      <stop offset="100%" stop-color="#F2A584"/>
-    </linearGradient>
-    <linearGradient id="pc-grad-lavender" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E2D8F5"/>
-      <stop offset="100%" stop-color="#C5B4E4"/>
-    </linearGradient>
-    <linearGradient id="pc-grad-buttercup" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#FFE9A8"/>
-      <stop offset="100%" stop-color="#FCD56B"/>
-    </linearGradient>
-    <linearGradient id="pc-grad-blade" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#FFFFFF"/>
-      <stop offset="75%" stop-color="#FAF7F2"/>
-      <stop offset="100%" stop-color="#ECE5D8"/>
-    </linearGradient>
     <linearGradient id="pc-grad-ink" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#483F37"/>
       <stop offset="100%" stop-color="#332B24"/>
     </linearGradient>
     <linearGradient id="pc-grad-badge" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#A9DEC9"/>
-      <stop offset="100%" stop-color="#76C4A5"/>
+      <stop offset="0%" stop-color="#BBD5B8"/>
+      <stop offset="100%" stop-color="#8DCDB3"/>
     </linearGradient>
-
-    <!-- Clip Path for Base Cardstock Rounded Squircle -->
-    <clipPath id="pc-emblem-clip">
-      <rect x="12" y="10" width="100" height="100" rx="26" />
-    </clipPath>
   </defs>
 
   <!-- ============================================================== -->
-  <!-- 1. LEFT EMBLEM: 3D Layered Paper Kirigami Art Shadowbox       -->
+  <!-- 1. LEFT EMBLEM: 3D Postage Stamp + Craft Scissors (100% Unified) -->
   <!-- ============================================================== -->
-  <g id="pc-logo-emblem">
-    <!-- Base Layer: 300g Matte Cream Cardstock Base with 3D Shadow -->
-    <rect x="12" y="10" width="100" height="100" rx="26" fill="url(#pc-grad-cream)" filter="url(#pc-shadow-deep)" />
-    <rect x="12" y="10" width="100" height="100" rx="26" fill="none" stroke="#FAF1E3" stroke-width="1.2" />
-
-    <!-- Nested Kirigami Pastel Paper Layers (Clipped) -->
-    <g clip-path="url(#pc-emblem-clip)">
-      <!-- Layer 1: Pastel Lavender Curvature Sheet -->
-      <path d="M12 56 C30 46 60 58 84 46 C98 38 108 44 112 36 L112 110 L12 110 Z" 
-            fill="url(#pc-grad-lavender)" opacity="0.9" />
-
-      <!-- Layer 2: Pastel Mint Scallop Contour Sheet -->
-      <path d="M12 72 C32 64 56 78 82 68 C96 62 106 68 112 62 L112 110 L12 110 Z" 
-            fill="url(#pc-grad-mint)" filter="url(#pc-shadow-mid)" />
-
-      <!-- Layer 3: Pastel Peach Arc Ribbon -->
-      <path d="M12 90 C34 82 66 94 92 84 C104 80 110 84 112 80 L112 110 L12 110 Z" 
-            fill="url(#pc-grad-peach)" filter="url(#pc-shadow-mid)" />
-
-      <!-- Craft Mat Metric Guidelines (Delicate laser grid) -->
-      <path d="M37 10 L37 110 M62 10 L62 110 M87 10 L87 110 M12 35 L112 35 M12 60 L112 60 M12 85 L112 85" 
-            stroke="#EDE5D5" stroke-width="0.8" stroke-dasharray="2 3.5" opacity="0.6" />
-    </g>
-
-    <!-- Signature Origami Dog-Ear Corner Fold (Top-Right) -->
-    <g filter="url(#pc-shadow-mid)">
-      <!-- Exposed Kraft Layer under Fold -->
-      <path d="M84 10 L112 10 L112 38 Z" fill="#E8D8C2" />
-      <!-- Folded Flap in Buttercup Cardstock -->
-      <path d="M84 10 L112 38 L84 38 Z" fill="url(#pc-grad-buttercup)" />
-      <!-- Crease Shadow & Fold Highlight -->
-      <line x1="84" y1="10" x2="84" y2="38" stroke="#F5C856" stroke-width="0.8" />
-      <line x1="84" y1="38" x2="112" y2="38" stroke="#E5B540" stroke-width="0.8" />
-    </g>
-
-    <!-- Dashed Kirigami Cutting Trajectory Arc -->
-    <path d="M96 38 C90 44 76 52 60 63" 
-          fill="none" stroke="#7D7368" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="3 2.5" opacity="0.75" />
-
-    <!-- 3D Kirigami Craft Scissors (Hero Motif) -->
-    <g filter="url(#pc-shadow-lift)">
-      <!-- Lower Blade (Back Layer - Slicing Horizontally) -->
-      <path d="M58 64 L96 61 C98.5 60.8 100 62.8 99.2 64.8 L94 72 C93 73.5 91.2 74 89.5 73 L55 69 Z" 
-            fill="url(#pc-grad-blade)" stroke="#D4C9B8" stroke-width="0.7" stroke-linejoin="round" />
-
-      <!-- Upper Handle Loop (Peach Pastel Cardstock) -->
-      <path d="M57 60 L44 48 C37 42 27 45 23 52 C19 60 24 68 32 70 C37 71 43 68 47 64 L57 60 Z" 
-            fill="url(#pc-grad-peach)" stroke="#E59A76" stroke-width="0.8" />
-      <!-- Upper Handle Cutout -->
-      <ellipse cx="32" cy="56" rx="6.5" ry="5.8" transform="rotate(-25 32 56)" 
-               fill="#FFFDF9" stroke="#E59A76" stroke-width="0.7" />
-
-      <!-- Upper Blade (Front Layer - Cutting Downwards) -->
-      <path d="M57 60 L92 35 C94.5 33.2 97.5 35.5 96.2 38 L88 51 C87 52.8 85 53.5 83 53.5 L57 65 Z" 
-            fill="url(#pc-grad-blade)" stroke="#D4C9B8" stroke-width="0.7" stroke-linejoin="round" />
-
-      <!-- Lower Handle Loop (Mint Pastel Cardstock) -->
-      <path d="M55 67 L45 79 C40 85 30 87 23 81 C16 75 17 65 24 59 C29 55 36 56 41 60 L55 67 Z" 
-            fill="url(#pc-grad-mint)" stroke="#74BA9E" stroke-width="0.8" />
-      <!-- Lower Handle Cutout -->
-      <ellipse cx="31" cy="73" rx="6.8" ry="5.8" transform="rotate(25 31 73)" 
-               fill="#FFFDF9" stroke="#74BA9E" stroke-width="0.7" />
-
-      <!-- Center Brass Rivet / Craft Fastener -->
-      <circle cx="58" cy="63.5" r="4.8" fill="url(#pc-grad-buttercup)" stroke="#70530C" stroke-width="0.8" />
-      <circle cx="58" cy="63.5" r="2" fill="#70530C" />
-      <circle cx="56.8" cy="62.2" r="1" fill="#FFFFFF" opacity="0.9" />
-    </g>
-
-    <!-- Floating Paper Cut Confetti / Diamonds -->
-    <g filter="url(#pc-shadow-mid)">
-      <polygon points="26,20 29,25 26,30 23,25" fill="url(#pc-grad-buttercup)" />
-      <polygon points="101,84 107,88 98,92" fill="#A3D8C3" transform="rotate(18 102 88)" />
-      <polygon points="102,48 105,51 102,54 99,51" fill="#F7BA9E" />
+  <g id="pc-logo-emblem" transform="translate(17, 15) scale(2.25)">
+    <!-- Layer 1: Postage Stamp Perforated Icon Background Plate Base (Mint Pastel #BBD5B8) -->
+    <path d="M 6 4 Q 8 6 10 4 Q 12 6 14 4 Q 16 6 18 4 Q 20 6 22 4 Q 24 6 26 4 Q 28 6 30 4 Q 32 6 34 4 Q 36 6 38 4 Q 37 6 37 8 Q 39 10 37 12 Q 39 14 37 16 Q 39 18 37 20 Q 39 22 37 24 Q 39 26 37 28 Q 39 30 37 32 Q 39 34 37 36 Q 36 34 34 36 Q 32 34 30 36 Q 28 34 26 36 Q 24 34 22 36 Q 20 34 18 36 Q 16 34 14 36 Q 12 34 10 36 Q 8 34 6 36 Q 4 34 2 36 Q 3 34 3 32 Q 1 30 3 28 Q 1 26 3 24 Q 1 22 3 20 Q 1 18 3 16 Q 1 14 3 12 Q 1 10 3 8 Q 1 6 3 4 Z" fill="#BBD5B8" filter="url(#pc-shadow-stamp)"/>
+    <!-- Layer 2: Inner Cream Paper Inlay Sheet -->
+    <rect x="6.5" y="6.5" width="27" height="27" rx="3" fill="#FFFDF9"/>
+    <!-- Layer 3: Dashed Perforation Ring -->
+    <rect x="8.5" y="8.5" width="23" height="23" rx="2" fill="none" stroke="#D8CEBD" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <!-- Layer 4: 3D Paper-Cut Scissors Craft Motif -->
+    <g transform="translate(10.5, 10.5) scale(0.29)" filter="url(#pc-shadow-scissors)">
+      <circle cx="16" cy="18" r="9" fill="#F7BA9E"/>
+      <circle cx="16" cy="18" r="5" fill="#FFFDF9"/>
+      <circle cx="16" cy="46" r="9" fill="#F7BA9E"/>
+      <circle cx="16" cy="46" r="5" fill="#FFFDF9"/>
+      <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#FFFDF9" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#A3D8C3" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="34" cy="32" r="3.2" fill="#FEE396"/>
     </g>
   </g>
 
@@ -284,10 +201,10 @@
   <g id="pc-logo-subtitle">
     <!-- Palette Swatch Studs (Mint, Peach, Lavender, Buttercup) -->
     <g transform="translate(136, 88)">
-      <rect x="0" y="-4" width="7" height="7" rx="2" fill="#A3D8C3" transform="rotate(45 3.5 -0.5)" filter="url(#pc-shadow-mid)" />
+      <rect x="0" y="-4" width="7" height="7" rx="2" fill="#BBD5B8" transform="rotate(45 3.5 -0.5)" filter="url(#pc-shadow-mid)" />
       <rect x="14" y="-4" width="7" height="7" rx="2" fill="#F7BA9E" transform="rotate(45 17.5 -0.5)" filter="url(#pc-shadow-mid)" />
       <rect x="28" y="-4" width="7" height="7" rx="2" fill="#D7CBEB" transform="rotate(45 31.5 -0.5)" filter="url(#pc-shadow-mid)" />
-      <rect x="42" y="-4" width="7" height="7" rx="2" fill="#FFE082" transform="rotate(45 45.5 -0.5)" filter="url(#pc-shadow-mid)" />
+      <rect x="42" y="-4" width="7" height="7" rx="2" fill="#FEE396" transform="rotate(45 45.5 -0.5)" filter="url(#pc-shadow-mid)" />
     </g>
 
     <!-- Subtitle Text -->

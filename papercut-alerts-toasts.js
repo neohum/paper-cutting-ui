@@ -1,6 +1,7 @@
 /**
  * PaperCut UI - Alerts & Toasts Interactive Controller
- * Provides toast notification dispatcher and interactive demo studio.
+ * 12 Kirigami Papercraft Archetypes (Stamp, Wax, Ticket, Thin, Tag, Dogear, Washi, Gem, Deckle, Ribbon, Envelope, Voucher)
+ * 7 Pastel Paper Variations (Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream / Sage)
  */
 
 (function () {
@@ -8,6 +9,22 @@
 
   let toastContainer = null;
   let currentPosition = 'pos-top-right';
+
+  // SVG Medallion for Alerts & Toasts
+  const TOAST_WAX_SVG = `
+    <svg class="pc-wax-seal-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="pc-toast-wax-sh" x="-20%" y="-20%" width="140%" height="150%">
+          <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.48"/>
+          <feDropShadow dx="0" dy="2.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.25"/>
+        </filter>
+      </defs>
+      <circle cx="16" cy="16" r="15" fill="#F5B8BE" filter="url(#pc-toast-wax-sh)"/>
+      <circle cx="16" cy="16" r="12" fill="#F7BA9E"/>
+      <circle cx="16" cy="16" r="8.5" fill="#FAF6ED"/>
+      <path d="M 16 12 C 14.2 9.5 11 11 11 14 C 11 17 16 20 16 20.5 C 16 20 21 17 21 14 C 21 11 17.8 9.5 16 12 Z" fill="#F5B8BE"/>
+    </svg>
+  `;
 
   function ensureToastContainer() {
     if (!toastContainer) {
@@ -23,9 +40,9 @@
   }
 
   /**
-   * Global Toast Dispatcher
+   * Global 3D Kirigami Toast Dispatcher
    * @param {Object|string} options - Toast options or simple message string
-   * @param {string} type - 'mint' | 'peach' | 'lavender' | 'buttercup' | 'rose' | 'info' | 'success' | 'warning' | 'error'
+   * @param {string} type - 'mint' | 'peach' | 'lavender' | 'buttercup' | 'sky' | 'rose' | 'cream' | 'sage' | 'info' | 'success' | 'warning' | 'error'
    * @param {string} iconId - Papercut icon ID
    */
   window.triggerPaperToast = function (options, type = 'mint', iconId = null) {
@@ -40,40 +57,60 @@
         message: options,
         variant: type,
         icon: iconId,
-        duration: 3800
+        kirigami: 'washi',
+        duration: 4000
       };
     } else {
       opts = Object.assign({
         title: '알림',
         message: '',
         variant: 'mint',
+        kirigami: 'washi',
         icon: null,
-        duration: 4000,
+        duration: 4200,
         actionLabel: null,
-        onAction: null
+        onAction: null,
+        showProgress: true
       }, options);
     }
 
-    // Map variant alias
+    // Support style alias for kirigami
+    if (opts.style && !opts.kirigami) {
+      opts.kirigami = opts.style;
+    }
+
+    // Map variant aliases
     if (opts.variant === 'success') opts.variant = 'mint';
     if (opts.variant === 'info') opts.variant = 'sky';
     if (opts.variant === 'warning') opts.variant = 'buttercup';
     if (opts.variant === 'error' || opts.variant === 'destructive') opts.variant = 'rose';
 
-    // Default icon
+    // Default icon selection based on variant
     if (!opts.icon) {
       if (opts.variant === 'mint') opts.icon = 'check';
       else if (opts.variant === 'rose') opts.icon = 'warning';
       else if (opts.variant === 'buttercup') opts.icon = 'bell';
       else if (opts.variant === 'lavender') opts.icon = 'sparkles';
+      else if (opts.variant === 'peach') opts.icon = 'heart';
       else opts.icon = 'info';
     }
 
     const toastEl = document.createElement('div');
-    toastEl.className = `pc-toast-card variant-${opts.variant}`;
+    const kirigamiClass = opts.kirigami ? `pc-toast-${opts.kirigami}` : 'pc-toast-washi';
+    toastEl.className = `pc-toast-card variant-${opts.variant} ${kirigamiClass}`;
+
+    // Build Kirigami Ornamentation
+    let ornamentHtml = '';
+    if (opts.kirigami === 'washi') {
+      ornamentHtml = '<div class="pc-toast-tape"></div>';
+    } else if (opts.kirigami === 'dogear') {
+      ornamentHtml = '<div class="pc-toast-dogear-flap"></div>';
+    } else if (opts.kirigami === 'wax') {
+      ornamentHtml = `<div class="pc-toast-wax-seal">${TOAST_WAX_SVG}</div>`;
+    }
 
     toastEl.innerHTML = `
-      <div class="pc-toast-tape"></div>
+      ${ornamentHtml}
       <div class="pc-toast-icon-wrap">
         <span class="pc-inline-icon is-sm" data-icon="${opts.icon}"></span>
       </div>
@@ -85,7 +122,7 @@
       <button type="button" class="pc-toast-close-btn" aria-label="닫기">
         <span class="pc-inline-icon is-xs" data-icon="close"></span>
       </button>
-      <div class="pc-toast-progress-bar"></div>
+      ${opts.showProgress !== false ? '<div class="pc-toast-progress-bar"></div>' : ''}
     `;
 
     container.appendChild(toastEl);
@@ -130,12 +167,185 @@
       }, 300);
     }
 
-    return { dismiss };
+    return { dismiss, el: toastEl };
   };
 
-  // Connect / Override showPaperToast to use rich papercraft card
+  // Connect / Override showPaperToast
   window.showPaperToast = function (msg, type = 'mint', iconId = null) {
     return window.triggerPaperToast(msg, type, iconId);
+  };
+
+  // Pre-packaged Toast Helpers
+  window.PaperCutToast = {
+    ticket: (title, message, variant = 'buttercup', opts = {}) => {
+      return window.triggerPaperToast(Object.assign({ title, message, variant, kirigami: 'ticket', icon: 'ticket' }, opts));
+    },
+    dogear: (title, message, variant = 'mint', opts = {}) => {
+      return window.triggerPaperToast(Object.assign({ title, message, variant, kirigami: 'dogear', icon: 'check' }, opts));
+    },
+    washi: (title, message, variant = 'peach', opts = {}) => {
+      return window.triggerPaperToast(Object.assign({ title, message, variant, kirigami: 'washi', icon: 'bookmark' }, opts));
+    },
+    stamp: (title, message, variant = 'mint', opts = {}) => {
+      return window.triggerPaperToast(Object.assign({ title, message, variant, kirigami: 'stamp', icon: 'scissors' }, opts));
+    },
+    wax: (title, message, variant = 'rose', opts = {}) => {
+      return window.triggerPaperToast(Object.assign({ title, message, variant, kirigami: 'wax', icon: 'sparkles' }, opts));
+    },
+    ribbon: (title, message, variant = 'sky', opts = {}) => {
+      return window.triggerPaperToast(Object.assign({ title, message, variant, kirigami: 'ribbon', icon: 'bookmark' }, opts));
+    },
+    gem: (title, message, variant = 'lavender', opts = {}) => {
+      return window.triggerPaperToast(Object.assign({ title, message, variant, kirigami: 'gem', icon: 'sparkles' }, opts));
+    }
+  };
+
+  // ==========================================================================
+  // PAPERCUT ALERT SYSTEM BUILDER (DOM GENERATOR & CONTROLLER)
+  // ==========================================================================
+  window.PaperCutAlert = {
+    /**
+     * Create an Alert DOM Element
+     * @param {Object} opts - Alert options
+     *   title: string
+     *   message: string
+     *   variant: 'mint' | 'peach' | 'lavender' | 'buttercup' | 'sky' | 'rose' | 'cream' | 'sage' | 'success' | 'info' | 'warning' | 'error'
+     *   kirigami: 'washi' | 'ribbon' | 'stamp' | 'ticket' | 'dogear' | 'wax' | 'gem' | 'deckle' | 'tag' | 'voucher' | 'envelope' | 'thin'
+     *   icon: string
+     *   closable: boolean
+     *   actions: Array<{ label, class, onClick }>
+     */
+    create: function (opts = {}) {
+      const config = Object.assign({
+        title: '알림',
+        message: '',
+        variant: 'mint',
+        kirigami: 'washi',
+        icon: null,
+        closable: true,
+        actions: []
+      }, opts);
+
+      if (config.variant === 'success') config.variant = 'mint';
+      if (config.variant === 'info') config.variant = 'sky';
+      if (config.variant === 'warning') config.variant = 'buttercup';
+      if (config.variant === 'error' || config.variant === 'destructive') config.variant = 'rose';
+
+      if (!config.icon) {
+        if (config.variant === 'mint') config.icon = 'check';
+        else if (config.variant === 'rose') config.icon = 'warning';
+        else if (config.variant === 'buttercup') config.icon = 'bell';
+        else if (config.variant === 'lavender') config.icon = 'sparkles';
+        else if (config.variant === 'peach') config.icon = 'heart';
+        else config.icon = 'info';
+      }
+
+      const alertEl = document.createElement('div');
+      const kirigamiClass = `pc-alert-${config.kirigami || 'washi'}`;
+      alertEl.className = `pc-alert pc-alert-${config.variant} ${kirigamiClass}`;
+
+      let ornamentHtml = '';
+      if (config.kirigami === 'washi' || config.kirigami === 'memo') {
+        ornamentHtml = '<div class="pc-washi-tape-pin"></div>';
+      } else if (config.kirigami === 'dogear') {
+        ornamentHtml = '<div class="pc-alert-dogear-flap"></div>';
+      } else if (config.kirigami === 'wax') {
+        ornamentHtml = `<div class="pc-alert-wax-seal">${TOAST_WAX_SVG}</div>`;
+      } else if (config.kirigami === 'tag') {
+        ornamentHtml = '<div class="pc-alert-tag-eyelet"></div>';
+      } else if (config.kirigami === 'envelope') {
+        ornamentHtml = '<div class="pc-alert-envelope-flap"></div>';
+      }
+
+      let actionsHtml = '';
+      if (config.actions && config.actions.length > 0) {
+        actionsHtml = '<div class="pc-alert-actions">';
+        config.actions.forEach((act, idx) => {
+          actionsHtml += `<button type="button" class="pc-btn pc-btn-sm ${act.class || 'pc-btn-ghost'}" data-act-idx="${idx}">${act.label}</button>`;
+        });
+        actionsHtml += '</div>';
+      }
+
+      alertEl.innerHTML = `
+        ${ornamentHtml}
+        <div class="pc-alert-icon-box">
+          <span class="pc-inline-icon is-sm" data-icon="${config.icon}"></span>
+        </div>
+        <div class="pc-alert-content">
+          <div class="pc-alert-title">${config.title}</div>
+          <p class="pc-alert-desc">${config.message}</p>
+          ${actionsHtml}
+        </div>
+        ${config.closable ? `
+          <button type="button" class="pc-alert-close" aria-label="닫기">
+            <span class="pc-inline-icon is-xs" data-icon="close"></span>
+          </button>
+        ` : ''}
+      `;
+
+      // Hydrate icons
+      if (typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(alertEl);
+      }
+
+      // Close handler
+      if (config.closable) {
+        alertEl.querySelector('.pc-alert-close')?.addEventListener('click', () => {
+          alertEl.style.transition = 'all 0.25s ease';
+          alertEl.style.opacity = '0';
+          alertEl.style.transform = 'scale(0.95) translateY(-8px)';
+          setTimeout(() => alertEl.remove(), 260);
+          if (typeof config.onClose === 'function') config.onClose();
+        });
+      }
+
+      // Action buttons
+      if (config.actions && config.actions.length > 0) {
+        alertEl.querySelectorAll('.pc-alert-actions button').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const idx = parseInt(e.currentTarget.getAttribute('data-act-idx'), 10);
+            if (!isNaN(idx) && typeof config.actions[idx]?.onClick === 'function') {
+              config.actions[idx].onClick(alertEl);
+            }
+          });
+        });
+      }
+
+      return alertEl;
+    },
+
+    mount: function (container, opts) {
+      const target = typeof container === 'string' ? document.querySelector(container) : container;
+      if (!target) return null;
+      const el = this.create(opts);
+      target.appendChild(el);
+      return el;
+    },
+
+    washi: function (title, message, variant = 'peach', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'washi' }, opts));
+    },
+    ribbon: function (title, message, variant = 'sky', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'ribbon' }, opts));
+    },
+    stamp: function (title, message, variant = 'mint', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'stamp' }, opts));
+    },
+    ticket: function (title, message, variant = 'buttercup', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'ticket' }, opts));
+    },
+    dogear: function (title, message, variant = 'mint', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'dogear' }, opts));
+    },
+    wax: function (title, message, variant = 'rose', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'wax' }, opts));
+    },
+    gem: function (title, message, variant = 'lavender', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'gem' }, opts));
+    },
+    voucher: function (title, message, variant = 'buttercup', opts = {}) {
+      return this.create(Object.assign({ title, message, variant, kirigami: 'voucher' }, opts));
+    }
   };
 
   /**
@@ -154,32 +364,35 @@
       });
     });
 
-    // Interactive Demo Trigger Buttons
+    // Interactive Demo Trigger Buttons with Diverse Kirigami Archetypes
     document.getElementById('btn-demo-toast-success')?.addEventListener('click', () => {
       window.triggerPaperToast({
-        title: '수제 코튼지 저장 완료',
-        message: '300g 아르쉬 텍스처와 아이콘 외곽선 프로필이 안전하게 보관되었습니다.',
+        title: '시네마 티켓형 완료 토스트',
+        message: '양측 반원 노치 홈과 점선 절취선이 적용된 3D 티켓 토스트입니다.',
         variant: 'mint',
-        icon: 'check',
-        duration: 4000
+        kirigami: 'ticket',
+        icon: 'ticket',
+        duration: 4200
       });
     });
 
     document.getElementById('btn-demo-toast-info')?.addEventListener('click', () => {
       window.triggerPaperToast({
-        title: '신규 텍스처 엔진 안내',
-        message: '16종의 종이 질감과 619종 스탠드얼론 아이콘이 실시간으로 렌더링 중입니다.',
+        title: '마스킹 테이프 메모 토스트',
+        message: '벽에 찢어 붙인 듯한 지그재그 마스킹 테이프가 장착된 감성 토스트입니다.',
         variant: 'lavender',
-        icon: 'info',
-        duration: 4000
+        kirigami: 'washi',
+        icon: 'bookmark',
+        duration: 4200
       });
     });
 
     document.getElementById('btn-demo-toast-warning')?.addEventListener('click', () => {
       window.triggerPaperToast({
-        title: '외곽선 두께 주의',
-        message: '현재 5.0px 이상의 두께가 지정되어 소형 픽셀(16px)에서 선이 굵어질 수 있습니다.',
+        title: '도그이어 접힌 카드 토스트',
+        message: '우측 상단 45° 접힌 모서리와 배면 버터컵 색지가 노출된 카드 토스트입니다.',
         variant: 'buttercup',
+        kirigami: 'dogear',
         icon: 'warning',
         duration: 4500
       });
@@ -187,9 +400,10 @@
 
     document.getElementById('btn-demo-toast-error')?.addEventListener('click', () => {
       window.triggerPaperToast({
-        title: '칼선 연결 실패',
-        message: '지정된 SVG 패스에 결함이 감지되었습니다. 레이어 구조를 재확인해주세요.',
+        title: '우표 천공 테두리 토스트',
+        message: '정밀 톱니바퀴 우표 펀칭 테두리와 칼선 림이 적용된 로즈 토스트입니다.',
         variant: 'rose',
+        kirigami: 'stamp',
         icon: 'close',
         duration: 5000
       });
@@ -197,19 +411,26 @@
 
     document.getElementById('btn-demo-toast-action')?.addEventListener('click', () => {
       window.triggerPaperToast({
-        title: '종이 컴포넌트 삭제됨',
-        message: '선택하신 [커스텀 북마크 드롭다운]이 휴지통으로 이동되었습니다.',
+        title: '앤틱 왁스 실링 인장 토스트',
+        message: '장미빛 왁스가 녹아내린 하트 실링 인장과 함께 액션 버튼을 제공합니다.',
         variant: 'peach',
-        icon: 'trash',
-        duration: 6000,
+        kirigami: 'wax',
+        icon: 'sparkles',
+        duration: 6500,
         actionLabel: '실행 취소 (Undo)',
         onAction: () => {
-          window.triggerPaperToast('삭제되었던 컴포넌트가 복원되었습니다!', 'mint', 'check');
+          window.triggerPaperToast({
+            title: '복원 완료',
+            message: '삭제되었던 컴포넌트가 제자리로 복원되었습니다!',
+            variant: 'mint',
+            kirigami: 'dogear',
+            icon: 'check'
+          });
         }
       });
     });
 
-    // Dismiss Alert Demo buttons
+    // Dismiss Alert Demo buttons with authentic paper lift-off animation
     document.querySelectorAll('.pc-alert-close').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const alertEl = e.currentTarget.closest('.pc-alert');

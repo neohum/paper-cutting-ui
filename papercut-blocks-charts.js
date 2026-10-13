@@ -42,23 +42,44 @@
     fileText: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M16 10 H38 L48 20 V54 H16 Z" fill="#FAF6ED" stroke="#DCD1BF" stroke-width="1.5"/><polygon points="38,10 38,20 48,20" fill="#E8DEC9"/><line x1="22" y1="28" x2="42" y2="28" stroke="#3D352E" stroke-width="2"/><line x1="22" y1="36" x2="42" y2="36" stroke="#3D352E" stroke-width="2"/></svg>`,
     paperPlane: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M10 30 L54 10 L34 54 L28 36 Z" fill="#BDE0EA" stroke="#3D352E" stroke-width="2"/><path d="M28 36 L54 10" stroke="#3D352E" stroke-width="2"/></svg>`,
     tag: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M14 12 H36 L52 28 L36 44 H14 Z" fill="#FEE396"/><circle cx="22" cy="28" r="3.5" fill="#FAF6ED"/></svg>`,
-    trash: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M18 20 H46 L42 54 H22 Z" fill="#D7CBEB"/><path d="M14 16 H50 L46 12 H18 Z" fill="#FAF6ED"/><line x1="28" y1="26" x2="28" y2="46" stroke="#3D352E" stroke-width="2"/><line x1="36" y1="26" x2="36" y2="46" stroke="#3D352E" stroke-width="2"/></svg>`
+    trash: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M18 20 H46 L42 54 H22 Z" fill="#D7CBEB"/><path d="M14 16 H50 L46 12 H18 Z" fill="#FAF6ED"/><line x1="28" y1="26" x2="28" y2="46" stroke="#3D352E" stroke-width="2"/><line x1="36" y1="26" x2="36" y2="46" stroke="#3D352E" stroke-width="2"/></svg>`,
+    calendar: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><rect x="10" y="14" width="44" height="40" rx="6" fill="#FAF6ED" stroke="#DCD1BF" stroke-width="2"/><rect x="10" y="14" width="44" height="12" rx="4" fill="#F7BA9E"/><rect x="18" y="8" width="6" height="10" rx="2" fill="#3D352E"/><rect x="40" y="8" width="6" height="10" rx="2" fill="#3D352E"/><circle cx="22" cy="36" r="3" fill="#A3D8C3"/><circle cx="32" cy="36" r="3" fill="#BDE0EA"/><circle cx="42" cy="36" r="3" fill="#D7CBEB"/><circle cx="22" cy="46" r="3" fill="#FEE396"/><circle cx="32" cy="46" r="3" fill="#F5B8BE"/></svg>`,
+    clock: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="22" fill="#FAF6ED" stroke="#DCD1BF" stroke-width="2"/><circle cx="32" cy="32" r="18" fill="#BDE0EA" opacity="0.45"/><circle cx="32" cy="32" r="4" fill="#3D352E"/><line x1="32" y1="32" x2="32" y2="18" stroke="#3D352E" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="32" x2="42" y2="32" stroke="#F7BA9E" stroke-width="3" stroke-linecap="round"/></svg>`,
+    history: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 12 A20 20 0 1 0 52 32 H44 A12 12 0 1 1 32 20 V26 L42 16 L32 6 Z" fill="#D7CBEB" stroke="#3D352E" stroke-width="1.5"/><circle cx="32" cy="32" r="3" fill="#3D352E"/><line x1="32" y1="32" x2="32" y2="24" stroke="#3D352E" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="32" x2="38" y2="32" stroke="#3D352E" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    sparkles: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 8 Q32 24 48 24 Q32 24 32 40 Q32 24 16 24 Q32 24 32 8 Z" fill="#FEE396" stroke="#3D352E" stroke-width="1.5"/><path d="M46 36 Q46 44 54 44 Q46 44 46 52 Q46 44 38 44 Q46 44 46 36 Z" fill="#A3D8C3"/><circle cx="18" cy="46" r="3.5" fill="#F5B8BE"/></svg>`,
+    sprout: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 54 V30" stroke="#38986B" stroke-width="4" stroke-linecap="round"/><path d="M32 34 C32 20 18 16 14 26 C12 34 26 36 32 34 Z" fill="#A3D8C3" stroke="#2D7A53" stroke-width="1.5"/><path d="M32 30 C32 16 48 14 50 24 C52 32 38 32 32 30 Z" fill="#BBD5B8" stroke="#2D7A53" stroke-width="1.5"/></svg>`,
+    ticket: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M10 20 H54 V44 H10 Z" fill="#BDE0EA" stroke="#3D352E" stroke-width="2"/><circle cx="10" cy="32" r="5" fill="#FAF6ED"/><circle cx="54" cy="32" r="5" fill="#FAF6ED"/><line x1="28" y1="20" x2="28" y2="44" stroke="#3D352E" stroke-width="2" stroke-dasharray="3 3"/><circle cx="41" cy="32" r="4" fill="#FEE396"/></svg>`,
+    lightning: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><polygon points="36,6 16,34 32,34 28,58 48,30 32,30" fill="#FEE396" stroke="#3D352E" stroke-width="2" stroke-linejoin="round"/></svg>`,
+    shield: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 8 L50 16 V32 C50 45 42 53 32 58 C22 53 14 45 14 32 V16 Z" fill="#D7CBEB" stroke="#3D352E" stroke-width="2"/><path d="M32 14 L44 20 V32 C44 41 38 47 32 51 Z" fill="#FAF6ED" opacity="0.6"/></svg>`,
+    kanban: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><rect x="10" y="12" width="12" height="40" rx="3" fill="#A3D8C3" stroke="#3D352E" stroke-width="1.5"/><rect x="26" y="12" width="12" height="28" rx="3" fill="#FEE396" stroke="#3D352E" stroke-width="1.5"/><rect x="42" y="12" width="12" height="34" rx="3" fill="#BDE0EA" stroke="#3D352E" stroke-width="1.5"/></svg>`,
+    arrowLeft: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M38 18 L24 32 L38 46" stroke="#3D352E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    arrowRight: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M26 18 L40 32 L26 46" stroke="#3D352E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`
   };
 
   const SVG_ICONS = new Proxy(RAW_PAPERCUT_SVGS, {
     get(target, prop) {
-      if (typeof window !== 'undefined' && Array.isArray(window.PAPERCUT_ICONS)) {
+      if (typeof window !== 'undefined') {
         const idMap = {
           shoppingBag: 'shopping-bag', cart: 'cart', heart: 'heart', scissors: 'scissors',
           trash: 'trash', plus: 'symbol-plus', minus: 'symbol-minus', download: 'download',
           cloudUpload: 'cloud-upload', check: 'check-mark', creditCard: 'credit-card',
           user: 'user', users: 'users', bell: 'bell', shield: 'shield', fileText: 'file',
           paperPlane: 'paper-plane', sliders: 'sliders', wallet: 'wallet', activity: 'activity',
-          eye: 'eye', eyeOff: 'eye-off', tag: 'price-tag'
+          eye: 'eye', eyeOff: 'eye-off', tag: 'price-tag',
+          calendar: 'calendar', clock: 'clock', history: 'history', sparkles: 'sparkles',
+          sprout: 'sprout', ticket: 'ticket', lightning: 'lightning', printer: 'printer',
+          arrowUp: 'arrow-up', arrowDown: 'arrow-down', arrowLeft: 'arrow-left', arrowRight: 'arrow-right',
+          kanban: 'layout-list'
         };
         const iconId = idMap[prop] || prop;
-        const found = window.PAPERCUT_ICONS.find(i => i.id === iconId);
-        if (found && found.svg) return found.svg;
+        if (typeof window.getPapercutIconSvg === 'function') {
+          const s = window.getPapercutIconSvg(iconId);
+          if (s) return s;
+        }
+        if (Array.isArray(window.PAPERCUT_ICONS)) {
+          const found = window.PAPERCUT_ICONS.find(i => i.id === iconId);
+          if (found && found.svg) return found.svg;
+        }
       }
       return target[prop] || '';
     }
@@ -237,8 +258,8 @@
                   <span class="pc-chart-subtitle">3겹 오버래핑 파스텔 종이 마운틴 지형 차트</span>
                 </div>
                 <div style="display:flex;gap:6px;">
-                  <button class="pc-pill-badge is-mint pc-period-btn" data-period="monthly">월간</button>
-                  <button class="pc-pill-badge pc-period-btn" data-period="weekly">주간</button>
+                  <button class="pc-pill-badge is-mint pc-period-btn" data-period="monthly" style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><span style="width:14px;height:14px;display:inline-flex;">${SVG_ICONS.calendar}</span><span>월간</span></button>
+                  <button class="pc-pill-badge pc-period-btn" data-period="weekly" style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><span style="width:14px;height:14px;display:inline-flex;">${SVG_ICONS.clock}</span><span>주간</span></button>
                 </div>
               </div>
               <div class="pc-chart-mount-area" style="min-height:260px;"></div>
@@ -297,6 +318,95 @@
               </div>
             </div>
           </div>
+
+          <!-- Bottom: Interactive Paper Task Board Widget -->
+          <div class="pc-block-card pc-admin-tasks-card" style="margin-top: 24px;">
+            <div class="pc-admin-ledger-header">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="color:var(--pc-mint-dark);width:20px;height:20px;display:flex;">${SVG_ICONS.kanban}</span>
+                <span class="pc-admin-ledger-title">공예 프로젝트 보드 (Craft Task Board)</span>
+              </div>
+              <span class="pc-pill-badge is-mint" style="font-size:11px;">실시간 칸반</span>
+            </div>
+            <div class="pc-task-board">
+              <!-- Col 1: 할 일 -->
+              <div class="pc-task-column">
+                <div class="pc-task-column-header">
+                  <span class="pc-task-column-title">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--pc-peach-dark);"></span>
+                    대기 작업 (To Do)
+                  </span>
+                  <span class="pc-pill-badge is-peach" style="font-size:10.5px;">2</span>
+                </div>
+                <div class="pc-task-cards-list">
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">350g 코튼지 수채 명함 커팅</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-peach" style="font-size:10px;">스튜디오</span>
+                      <span style="color:var(--pc-ink-muted);">D-2</span>
+                    </div>
+                  </div>
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">실링 왁스 황동 인장 검수</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-lavender" style="font-size:10px;">패키징</span>
+                      <span style="color:var(--pc-ink-muted);">D-4</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="pc-task-add-btn" data-col="대기 작업">+ 새 작업 카드 추가</button>
+              </div>
+
+              <!-- Col 2: 진행 중 -->
+              <div class="pc-task-column">
+                <div class="pc-task-column-header">
+                  <span class="pc-task-column-title">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--pc-mint-dark);"></span>
+                    제작 진행중 (In Progress)
+                  </span>
+                  <span class="pc-pill-badge is-mint" style="font-size:10.5px;">2</span>
+                </div>
+                <div class="pc-task-cards-list">
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">오리가미 입체 리본 차트 제작</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-mint" style="font-size:10px;">3D 벡터</span>
+                      <span style="color:var(--pc-mint-dark);font-weight:700;">진행 85%</span>
+                    </div>
+                  </div>
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">섀도우박스 5단 다이오라마 조립</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-sky" style="font-size:10px;">조립</span>
+                      <span style="color:var(--pc-sky-dark);font-weight:700;">진행 60%</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="pc-task-add-btn" data-col="제작 진행중">+ 새 작업 카드 추가</button>
+              </div>
+
+              <!-- Col 3: 완료 -->
+              <div class="pc-task-column">
+                <div class="pc-task-column-header">
+                  <span class="pc-task-column-title">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--pc-buttercup-dark);"></span>
+                    완료 및 출하 (Completed)
+                  </span>
+                  <span class="pc-pill-badge is-buttercup" style="font-size:10.5px;">1</span>
+                </div>
+                <div class="pc-task-cards-list">
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">핸드메이드 마스킹 테이프 5종 출고</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-mint" style="font-size:10px;">배송완료</span>
+                      <span style="color:var(--pc-ink-muted);">오늘</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="pc-task-add-btn" data-col="완료 및 출하">+ 새 작업 카드 추가</button>
+              </div>
+            </div>
+          </div>
         </div>
       `;
 
@@ -334,6 +444,19 @@
           });
         });
       }
+
+      // Task board add button event bindings
+      container.querySelectorAll('.pc-task-add-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const colName = btn.dataset.col || '작업';
+          showPaperToast(`[${colName}] 컬럼에 새 공예 작업 카드가 추가되었습니다.`, 'mint');
+        });
+      });
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     /**
@@ -359,8 +482,14 @@
 
             <!-- Tabs: 로그인 / 회원가입 -->
             <div class="pc-auth-tabs">
-              <button class="pc-auth-tab is-active" data-mode="signin">로그인 (Sign In)</button>
-              <button class="pc-auth-tab" data-mode="signup">회원가입 (Sign Up)</button>
+              <button class="pc-auth-tab is-active" data-mode="signin" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+                <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.user}</span>
+                <span>로그인 (Sign In)</span>
+              </button>
+              <button class="pc-auth-tab" data-mode="signup" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+                <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.sparkles}</span>
+                <span>회원가입 (Sign Up)</span>
+              </button>
             </div>
 
             <!-- Social Login Buttons -->
@@ -406,8 +535,9 @@
                 </label>
               </div>
 
-              <button type="button" class="pc-btn-block-action" id="pc-auth-submit-btn">
-                로그인 완료 (Enter Studio)
+              <button type="button" class="pc-btn-block-action" id="pc-auth-submit-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.check}</span>
+                <span>로그인 완료 (Enter Studio)</span>
               </button>
             </form>
           </div>
@@ -433,13 +563,13 @@
           if (isSignUp) {
             titleText.textContent = "회원가입 (Sign Up)";
             subText.textContent = "종이 질감의 아름다운 디자인 시스템 멤버십을 시작하세요.";
-            submitBtn.textContent = "새 계정 생성하기 (Create Account)";
+            submitBtn.innerHTML = `<span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.sparkles}</span><span>새 계정 생성하기 (Create Account)</span>`;
             signupFields.forEach(el => el.style.display = 'flex');
             signinFields.forEach(el => el.style.display = 'none');
           } else {
             titleText.textContent = "로그인 (Sign In)";
             subText.textContent = "손으로 빚어낸 종이 공예 감성의 워크스페이스에 오신 것을 환영합니다.";
-            submitBtn.textContent = "로그인 완료 (Enter Studio)";
+            submitBtn.innerHTML = `<span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.check}</span><span>로그인 완료 (Enter Studio)</span>`;
             signupFields.forEach(el => el.style.display = 'none');
             signinFields.forEach(el => el.style.display = '');
           }
@@ -464,6 +594,11 @@
           const isSignUp = container.querySelector('.pc-auth-tab.is-active').dataset.mode === 'signup';
           showPaperToast(isSignUp ? "회원가입이 성공적으로 완료되었습니다!" : "반갑습니다! 스튜디오에 접속했습니다.", 'mint');
         });
+      }
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
       }
     },
 
@@ -520,7 +655,7 @@
 
           <div class="pc-form-group">
             <label class="pc-form-label">소개 및 바이오 (Bio - Ruled Paper Ledger)</label>
-            <textarea class="pc-carved-textarea" rows="3">핸드메이드 350g 코튼지와 키리가미 기법을 결합한 인터페이스를 탐구합니다. 디지털 공간에서도 종이 공예의 따스한 촉각과 깊이를 구현하는 것을 지향합니다.</textarea>
+            <textarea class="pc-carved-textarea" rows="3">핸드메이드 350g 코튼지와 페이퍼 커팅 기법을 결합한 인터페이스를 탐구합니다. 디지털 공간에서도 종이 공예의 따스한 촉각과 깊이를 구현하는 것을 지향합니다.</textarea>
           </div>
 
           <div class="pc-form-group">
@@ -528,14 +663,15 @@
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
               <span class="pc-pill-badge is-mint">오리가미 입체설계</span>
               <span class="pc-pill-badge is-peach">350g 카드스톡</span>
-              <span class="pc-pill-badge is-lavender">키리가미 UI</span>
+              <span class="pc-pill-badge is-lavender">페이퍼 커팅 UI</span>
               <span class="pc-pill-badge is-buttercup">양피지 질감 셰이더</span>
             </div>
           </div>
 
           <div style="display:flex;justify-content:flex-end;margin-top:18px;">
-            <button type="button" class="pc-btn-block-action" id="pc-settings-save-btn" style="width:auto;padding:10px 24px;display:inline-flex;align-items:center;gap:8px;">
-              <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.check}</span> 프로필 변경사항 저장
+            <button type="button" class="pc-btn-block-action" id="pc-settings-save-btn" style="width:auto;padding:10px 24px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+              <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.check}</span>
+              <span>프로필 변경사항 저장</span>
             </button>
           </div>
         `,
@@ -972,12 +1108,20 @@
           if (TAB_TEMPLATES[tab] && panel) {
             panel.innerHTML = TAB_TEMPLATES[tab];
             bindTabEvents(tab);
+            if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+              window.hydratePapercutIcons(panel);
+            }
             if (typeof window.showPaperToast === 'function') {
               window.showPaperToast(`${btn.querySelector('span:last-child').textContent} 화면으로 전환되었습니다.`, 'lavender');
             }
           }
         });
       });
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     renderEcommerceBlock(container, customData = {}) {
@@ -1005,7 +1149,7 @@
         },
         {
           id: 3,
-          name: "키리가미 3D 페이퍼 조명 키트 (Shadowbox)",
+          name: "페이퍼 커팅 3D 페이퍼 조명 키트 (Shadowbox)",
           category: "DIY 공예 키트",
           price: 42000,
           originalPrice: 48000,
@@ -1109,8 +1253,8 @@
                   <span>총 결제 예상금액</span>
                   <span id="pc-cart-total" style="color:var(--pc-mint-dark);">₩0</span>
                 </div>
-                <button type="button" class="pc-btn-block-action" id="pc-checkout-btn" style="margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;">
-                  <span style="width:18px;height:18px;display:flex;">${SVG_ICONS.creditCard}</span>
+                <button type="button" class="pc-btn-block-action" id="pc-checkout-btn" style="margin-top:10px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+                  <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.creditCard}</span>
                   <span>주문서 작성 및 결제하기</span>
                 </button>
               </div>
@@ -1237,6 +1381,11 @@
       });
 
       updateCartUI();
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     /**
@@ -1296,8 +1445,9 @@
                 </div>
               </div>
 
-              <button class="pc-btn-block-action" style="background:var(--pc-paper-cream);color:var(--pc-ink);" data-plan="starter">
-                무료로 시작하기
+              <button class="pc-btn-block-action" style="background:var(--pc-paper-cream);color:var(--pc-ink);display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;" data-plan="starter">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.sprout}</span>
+                <span>무료로 시작하기</span>
               </button>
             </div>
 
@@ -1334,8 +1484,9 @@
                 </div>
               </div>
 
-              <button class="pc-btn-block-action" data-plan="pro">
-                프로 플랜 시작하기
+              <button class="pc-btn-block-action" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;" data-plan="pro">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.sparkles}</span>
+                <span>프로 플랜 시작하기</span>
               </button>
             </div>
 
@@ -1369,8 +1520,9 @@
                 </div>
               </div>
 
-              <button class="pc-btn-block-action" style="background:var(--pc-lavender);color:var(--pc-lavender-dark);" data-plan="enterprise">
-                영업팀 문의하기
+              <button class="pc-btn-block-action" style="background:var(--pc-lavender);color:var(--pc-lavender-dark);display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;" data-plan="enterprise">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.mail}</span>
+                <span>영업팀 문의하기</span>
               </button>
             </div>
           </div>
@@ -1404,6 +1556,11 @@
           showPaperToast(`[${btn.dataset.plan.toUpperCase()}] 플랜 신청 절차로 이동합니다.`, 'mint');
         });
       });
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     /**
@@ -1444,6 +1601,12 @@
 
           <!-- Uploaded Files List -->
           <div class="pc-uploaded-files-list" id="pc-uploaded-files-container"></div>
+
+          <!-- Batch Process Action CTA -->
+          <button type="button" class="pc-btn-block-action" id="pc-dropzone-process-btn" style="margin-top:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+            <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.lightning}</span>
+            <span>업로드 파일 일괄 3D 종이 공예 변환 실행</span>
+          </button>
         </div>
       `;
 
@@ -1537,6 +1700,18 @@
       });
 
       renderFilesList();
+
+      const processBtn = container.querySelector('#pc-dropzone-process-btn');
+      if (processBtn) {
+        processBtn.addEventListener('click', () => {
+          showPaperToast(`${uploadedFiles.length}건의 디자인 파일이 3D 페이퍼 레이어로 변환되었습니다!`, 'mint');
+        });
+      }
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     }
   };
 

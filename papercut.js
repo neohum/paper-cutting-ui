@@ -37,6 +37,14 @@ function initDropdowns() {
       });
 
       parent.classList.toggle('is-open', !wasOpen);
+
+      // Lazy hydrate menu icons on first open to avoid main-thread freeze
+      if (!wasOpen && typeof window.hydratePapercutIcons === 'function') {
+        const menu = parent.querySelector('.pc-dropdown-menu');
+        if (menu && menu.querySelector('[data-icon]:not([data-hydrated="true"])')) {
+          window.hydratePapercutIcons(menu);
+        }
+      }
       return;
     }
 
@@ -136,9 +144,10 @@ function extractOptionIcon(opt) {
 /**
  * Automatically transforms all standard <select class="pc-select"> into
  * handcrafted Layered Paper Bookmark Swatch Dropdowns with 100% CSS styling!
+ * Scoped root support and lazy trigger-only hydration
  */
-function autoEnhanceSelectsToPaperDropdowns() {
-  const selectWrappers = document.querySelectorAll('.pc-select-wrapper');
+function autoEnhanceSelectsToPaperDropdowns(root = document) {
+  const selectWrappers = root.querySelectorAll ? root.querySelectorAll('.pc-select-wrapper:not(.is-enhanced)') : [];
 
   selectWrappers.forEach((wrapper, idx) => {
     // Avoid double enhancing
@@ -197,12 +206,13 @@ function autoEnhanceSelectsToPaperDropdowns() {
     wrapper.classList.add('is-enhanced');
     wrapper.appendChild(customDropdown);
 
-    // Hydrate icons in the newly enhanced dropdown
+    // Only hydrate the visible trigger button initially; menu icons hydrate on first open
     if (typeof window.hydratePapercutIcons === 'function') {
-      window.hydratePapercutIcons(customDropdown);
+      window.hydratePapercutIcons(trigger);
     }
   });
 }
+window.autoEnhanceSelectsToPaperDropdowns = autoEnhanceSelectsToPaperDropdowns;
 
 /**
  * Toast Notification for Copy and Action Feedback
@@ -552,8 +562,13 @@ function initInteractiveDemos() {
         demo25Step1.style.display = 'none';
         demo25Step2.style.display = 'block';
         demo25PrevBtn.disabled = false;
-        demo25NextBtn.innerHTML = '<span>가입 완료 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="check"></span>';
-        if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(demo25NextBtn);
+        const nextText = demo25NextBtn.querySelector('.pc-kirigami-text') || demo25NextBtn.querySelector('text');
+        if (nextText) {
+          nextText.textContent = '가입 완료 종이 접기 ✓';
+        } else {
+          demo25NextBtn.innerHTML = '<span>가입 완료 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="check"></span>';
+          if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(demo25NextBtn);
+        }
         if (demo25Step1Badge) {
           demo25Step1Badge.classList.remove('pc-badge-mint');
           demo25Step1Badge.style.opacity = '0.6';
@@ -576,8 +591,13 @@ function initInteractiveDemos() {
         demo25Step2.style.display = 'none';
         demo25Step1.style.display = 'block';
         demo25PrevBtn.disabled = true;
-        demo25NextBtn.innerHTML = '<span>다음 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="arrow-right"></span>';
-        if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(demo25NextBtn);
+        const nextText = demo25NextBtn.querySelector('.pc-kirigami-text') || demo25NextBtn.querySelector('text');
+        if (nextText) {
+          nextText.textContent = '다음 종이 접기 →';
+        } else {
+          demo25NextBtn.innerHTML = '<span>다음 종이 접기</span> <span class="pc-inline-icon is-sm" data-icon="arrow-right"></span>';
+          if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(demo25NextBtn);
+        }
         if (demo25Step1Badge) {
           demo25Step1Badge.classList.add('pc-badge-mint');
           demo25Step1Badge.style.opacity = '1';
@@ -691,7 +711,7 @@ window.PAPERCUT_TEXTURES = {
     weight: '300g/m²',
     fiber: '순수 면 100% 코튼 펄프 요철',
     lighting: '45° 앰비언트 확산광 + 1.5px 칼선 베벨',
-    bestFor: '버튼, 메인 카드, 스탠드얼론 키리가미 아이콘',
+    bestFor: '버튼, 메인 카드, 스탠드얼론 페이퍼 커팅 아이콘',
     toast: '300g 수제 코튼지 질감이 컴포넌트와 아이콘에 적용되었습니다!'
   },
   cream: {
@@ -715,7 +735,7 @@ window.PAPERCUT_TEXTURES = {
     weight: '120g/m²',
     fiber: '천연 닥나무 장섬유 수제 결',
     lighting: '60° 장섬유 사광 + 자연스러운 엣지 하이라이트',
-    bestFor: '동양적 키리가미 아이콘, 오리가미 체크박스, 감성 배지',
+    bestFor: '동양적 페이퍼 커팅 아이콘, 오리가미 체크박스, 감성 배지',
     toast: '닥나무 한지결이 적용되었습니다! 부드러운 수제 한지 장섬유의 운치가 펼쳐집니다.'
   },
   vellum: {
@@ -1536,8 +1556,10 @@ function initIconOutlineStudio() {
               `;
               menu.appendChild(item);
             });
-            if (typeof window.hydratePapercutIcons === 'function') {
-              window.hydratePapercutIcons(menu);
+            // Menu items are lazily hydrated on dropdown open via initDropdowns
+            const trigger = customDropdown.querySelector('.pc-dropdown-trigger');
+            if (trigger && typeof window.hydratePapercutIcons === 'function') {
+              window.hydratePapercutIcons(trigger);
             }
           }
         }
@@ -1585,7 +1607,7 @@ function initIconOutlineStudio() {
     if (info) {
       info.textContent = studioState.outlineEnabled 
         ? `크기: ${studioState.activeSize}px | 외곽선: ${studioState.strokeWidth}px (${studioState.strokeColor}) | 모드: ${getModeTitle(studioState.mode)} | 스케일: ${studioState.scaleBehavior === 'fixed' ? '고정 픽셀' : '크기 비례'}`
-        : `크기: ${studioState.activeSize}px | 외곽선: OFF (순수 스탠드얼론 키리가미)`;
+        : `크기: ${studioState.activeSize}px | 외곽선: OFF (순수 스탠드얼론 페이퍼 커팅)`;
     }
 
     if (strokeVal) strokeVal.textContent = `${studioState.strokeWidth}px`;

@@ -1,0 +1,60 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="ocean_sea_otter" data-category="ocean">
+  <defs>
+    
+    <filter id="ps-ocean_sea_otter-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-ocean_sea_otter-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-ocean_sea_otter-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-ocean_sea_otter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-ocean_sea_otter)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-ocean_sea_otter-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#2DD4BF" opacity="0.18" filter="url(#ps-ocean_sea_otter-base)"/>
+  
+        <!-- Ocean Wave & Bubble Cutouts -->
+        <path d="M 16 68 Q 30 60 44 68 T 72 68 T 88 68 L 88 88 L 16 88 Z" fill="#BDE0EA" opacity="0.65"/>
+        <circle cx="26" cy="36" r="3.5" fill="#FFFDF9" opacity="0.7"/>
+        <circle cx="76" cy="30" r="2.5" fill="#FFFDF9" opacity="0.6"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Sea Otter Floating on Back -->
+      <ellipse cx="50" cy="54" rx="19" ry="17" fill="#0D9488" filter="url(#ps-ocean_sea_otter-mid)"/>
+      <!-- Round Ears -->
+      <circle cx="34" cy="40" r="4.5" fill="#0D9488"/>
+      <circle cx="66" cy="40" r="4.5" fill="#0D9488"/>
+      <!-- Cute Muzzle -->
+      <ellipse cx="50" cy="58" rx="11" ry="8" fill="#FFFDF9" filter="url(#ps-ocean_sea_otter-top)"/>
+      <ellipse cx="50" cy="55" rx="3.5" ry="2.5" fill="#3D352E"/>
+      
+    <circle cx="43" cy="48" r="2.5" fill="#3D352E" filter="url(#ps-ocean_sea_otter-top)"/>
+    <circle cx="57" cy="48" r="2.5" fill="#3D352E" filter="url(#ps-ocean_sea_otter-top)"/>
+    <circle cx="42" cy="47" r="1" fill="#FFFDF9"/>
+    <circle cx="56" cy="47" r="1" fill="#FFFDF9"/>
+    <circle cx="38" cy="53" r="3" fill="#F7BA9E" opacity="0.7"/>
+    <circle cx="62" cy="53" r="3" fill="#F7BA9E" opacity="0.7"/>
+  
+      <!-- Clam shell on belly -->
+      <path d="M 44 70 Q 50 64 56 70 L 53 74 L 47 74 Z" fill="#F7BA9E" filter="url(#ps-ocean_sea_otter-top)"/>
+    
+</svg>

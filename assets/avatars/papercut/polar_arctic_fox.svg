@@ -1,0 +1,55 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="polar_arctic_fox" data-category="polar">
+  <defs>
+    
+    <filter id="ps-polar_arctic_fox-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-polar_arctic_fox-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-polar_arctic_fox-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-polar_arctic_fox" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-polar_arctic_fox)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-polar_arctic_fox-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#38BDF8" opacity="0.18" filter="url(#ps-polar_arctic_fox-base)"/>
+  
+        <!-- Polar Iceberg & Aurora Cutouts -->
+        <path d="M 18 78 L 36 50 L 52 78 Z" fill="#E0F2FE" opacity="0.7"/>
+        <path d="M 50 78 L 68 56 L 84 78 Z" fill="#BDE0EA" opacity="0.5"/>
+        <path d="M 20 28 Q 50 18 80 24" stroke="#67E8F9" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Arctic Fox Fluffy White Ears -->
+      <polygon points="32,28 42,44 26,44" fill="#FFFDF9" stroke="#CBD5E1" stroke-width="1" filter="url(#ps-polar_arctic_fox-mid)"/>
+      <polygon points="68,28 58,44 74,44" fill="#FFFDF9" stroke="#CBD5E1" stroke-width="1" filter="url(#ps-polar_arctic_fox-mid)"/>
+      <path d="M 28 46 L 72 46 L 50 70 Z" fill="#FFFDF9" stroke="#CBD5E1" stroke-width="1" filter="url(#ps-polar_arctic_fox-mid)"/>
+      <circle cx="50" cy="68" r="2.8" fill="#0F172A" filter="url(#ps-polar_arctic_fox-top)"/>
+      
+    <circle cx="43" cy="50" r="2.3" fill="#3D352E" filter="url(#ps-polar_arctic_fox-top)"/>
+    <circle cx="57" cy="50" r="2.3" fill="#3D352E" filter="url(#ps-polar_arctic_fox-top)"/>
+    <circle cx="42" cy="49" r="0.9199999999999999" fill="#FFFDF9"/>
+    <circle cx="56" cy="49" r="0.9199999999999999" fill="#FFFDF9"/>
+    <circle cx="38" cy="55" r="3" fill="#F7BA9E" opacity="0.7"/>
+    <circle cx="62" cy="55" r="3" fill="#F7BA9E" opacity="0.7"/>
+  
+    
+</svg>

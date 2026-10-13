@@ -1,0 +1,62 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="forest_fox" data-category="forest">
+  <defs>
+    
+    <filter id="ps-forest_fox-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-forest_fox-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-forest_fox-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-forest_fox" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-forest_fox)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-forest_fox-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#EA580C" opacity="0.18" filter="url(#ps-forest_fox-base)"/>
+  
+        <!-- Forest Pine/Leaf Cutouts -->
+        <path d="M 22 75 L 30 55 L 38 75 Z" fill="#A3D8C3" opacity="0.6"/>
+        <path d="M 64 78 L 72 58 L 80 78 Z" fill="#A3D8C3" opacity="0.6"/>
+        <circle cx="50" cy="22" r="6" fill="#FFFDF9" opacity="0.4"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Fox Large Pointed Ears -->
+      <polygon points="30,26 42,46 26,46" fill="#EA580C" filter="url(#ps-forest_fox-mid)"/>
+      <polygon points="70,26 58,46 74,46" fill="#EA580C" filter="url(#ps-forest_fox-mid)"/>
+      <polygon points="31,30 40,44 28,44" fill="#FFFDF9"/>
+      <polygon points="69,30 60,44 72,44" fill="#FFFDF9"/>
+      <!-- Fox Head -->
+      <path d="M 28 46 L 72 46 L 50 72 Z" fill="#EA580C" filter="url(#ps-forest_fox-mid)"/>
+      <!-- White Cheek Patches -->
+      <polygon points="28,46 50,68 36,60" fill="#FFFDF9" filter="url(#ps-forest_fox-top)"/>
+      <polygon points="72,46 50,68 64,60" fill="#FFFDF9" filter="url(#ps-forest_fox-top)"/>
+      <!-- Nose & Eyes -->
+      <circle cx="50" cy="69" r="2.8" fill="#3D352E" filter="url(#ps-forest_fox-top)"/>
+      
+    <circle cx="42" cy="51" r="2.5" fill="#3D352E" filter="url(#ps-forest_fox-top)"/>
+    <circle cx="58" cy="51" r="2.5" fill="#3D352E" filter="url(#ps-forest_fox-top)"/>
+    <circle cx="41" cy="50" r="1" fill="#FFFDF9"/>
+    <circle cx="57" cy="50" r="1" fill="#FFFDF9"/>
+    <circle cx="37" cy="56" r="3" fill="#F7BA9E" opacity="0.7"/>
+    <circle cx="63" cy="56" r="3" fill="#F7BA9E" opacity="0.7"/>
+  
+    
+</svg>

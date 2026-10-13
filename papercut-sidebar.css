@@ -4,7 +4,7 @@
  */
 
 :root {
-  --pc-sidebar-width: 270px;
+  --pc-sidebar-width: 295px;
   --pc-sidebar-collapsed-width: 64px;
 }
 
@@ -57,8 +57,8 @@
 
 /* Sidebar Header */
 .pc-sidebar-header {
-  padding: 18px 16px 14px;
-  border-bottom: 1px solid rgba(74, 58, 42, 0.08);
+  padding: 16px 16px 14px;
+  border-bottom: 1.5px solid #E6DBC9;
   box-shadow: 0 1px 0 #FFFFFF;
   display: flex;
   align-items: center;
@@ -70,24 +70,40 @@
 .pc-sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 11px;
   text-decoration: none;
   color: var(--pc-ink, #3D352E);
   overflow: hidden;
   white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.pc-sidebar-brand:hover {
+  opacity: 0.92;
 }
 
 .pc-sidebar-logo-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-  background: #FAF6ED;
-  border: 1px solid #EADBCC;
-  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.08);
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  background: transparent;
+  border: none;
+  overflow: visible;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-sidebar-brand:hover .pc-sidebar-logo-icon {
+  transform: translateY(-1.5px) scale(1.06);
+}
+
+.pc-sidebar-logo-icon svg.pc-logo-plate-svg {
+  width: 34px;
+  height: 34px;
+  display: block;
+  overflow: visible;
 }
 
 .pc-sidebar-brand-text {
@@ -102,7 +118,7 @@
 }
 
 .pc-sidebar-brand-title {
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 800;
   letter-spacing: -0.3px;
   color: var(--pc-ink, #3D352E);
@@ -112,7 +128,8 @@
 .pc-sidebar-brand-sub {
   font-size: 11px;
   color: var(--pc-ink-muted, #7A6F64);
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.2px;
 }
 
 /* Toggle Collapse Button */
@@ -222,66 +239,121 @@
   display: none;
 }
 
-/* Menu Item Link */
+/* Menu Item 3D Kirigami Paper Button (.pc-sidebar-item) */
 .pc-sidebar-item {
   display: flex;
   align-items: center;
   justify-content: flex-start !important;
   text-align: left !important;
-  gap: 11px;
-  padding: 8px 12px;
-  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
-  border-radius: 10px;
+  gap: 9px !important;
+  padding: 6px 10px 6px 8px !important;
+  min-height: 48px; /* WCAG 2.1 touch target 44px+ standard */
+  min-width: 0 !important;
+  max-width: calc(100% - 12px) !important;
+  width: calc(100% - 12px) !important;
+  box-sizing: border-box !important;
+  margin: 4px 6px;
+  border-radius: 12px;
   text-decoration: none;
   color: var(--pc-ink, #3D352E);
   font-size: 13.5px;
   font-weight: 700;
-  background: transparent;
-  border: 1px solid transparent;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(180deg, #FFFDF9 0%, #FAF6ED 100%);
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  box-shadow: 
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.90),
+    0 2.5px 0 rgba(46, 30, 20, 0.38),
+    0 4px 8px rgba(46, 30, 20, 0.12);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.16s cubic-bezier(0.16, 1, 0.3, 1), 
+              background 0.16s ease,
+              border-color 0.16s ease;
   white-space: nowrap;
   position: relative;
+  overflow: visible;
+  cursor: pointer;
 }
 
+/* Authentic handcrafted stationery stitch line */
+.pc-sidebar-item::after {
+  content: "";
+  position: absolute;
+  inset: 2.5px;
+  border-radius: 9.5px;
+  border: 1px dashed rgba(216, 206, 189, 0.55);
+  pointer-events: none;
+  transition: border-color 0.16s ease;
+}
+
+/* Hover: Paper Lift Interaction */
 .pc-sidebar-item:hover {
-  background: #FFFDF9;
-  border-color: #ECE2D2;
-  transform: translateX(3px);
-  box-shadow: 0 2px 6px rgba(74, 58, 42, 0.06);
-}
-
-.pc-sidebar-item.is-active {
-  background: #FFFDF9;
-  border-color: #A3D8C3;
-  color: #1E5C41;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FCF9F2 100%);
+  border-color: rgba(46, 30, 20, 0.26);
+  transform: translateX(3px) translateY(-2px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 3px 8px rgba(44, 107, 80, 0.12);
+    inset 0 1.5px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
+    0 4.5px 0 rgba(46, 30, 20, 0.42),
+    0 8px 16px rgba(46, 30, 20, 0.18);
+  color: var(--pc-ink, #2E251E);
+}
+
+.pc-sidebar-item:hover::after {
+  border-color: rgba(187, 213, 184, 0.7);
+}
+
+/* Active / Press: Paper Depress Tactile Feedback */
+.pc-sidebar-item:active,
+.pc-sidebar-item.is-pressed {
+  transform: translateX(3px) translateY(1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.80),
+    0 0.8px 0 rgba(46, 30, 20, 0.45),
+    0 1.5px 3px rgba(46, 30, 20, 0.16);
+  background: #F4EFE6;
+}
+
+/* Current / Selected Active State (.is-active) */
+.pc-sidebar-item.is-active {
+  background: linear-gradient(180deg, #F2FAF5 0%, #E3F2EB 100%);
+  border-color: #275C46;
+  color: #174E37;
+  font-weight: 800;
+  box-shadow: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.90),
+    0 2.5px 0 rgba(39, 92, 70, 0.55),
+    0 5px 12px rgba(39, 92, 70, 0.22);
   transform: translateX(3px);
 }
 
-/* Active Indicator Paper Ribbon */
+.pc-sidebar-item.is-active::after {
+  border-color: rgba(163, 216, 195, 0.8);
+}
+
+/* Active Indicator Kirigami Ribbon */
 .pc-sidebar-item.is-active::before {
   content: "";
   position: absolute;
-  left: 0;
+  left: -4px;
   top: 50%;
   transform: translateY(-50%);
-  width: 3.5px;
-  height: 20px;
-  background: #4DA778;
-  border-radius: 0 3px 3px 0;
-  box-shadow: 1px 0 2px rgba(44, 107, 80, 0.25);
+  width: 5px;
+  height: 26px;
+  background: #275C46;
+  border-radius: 0 4px 4px 0;
+  box-shadow: 1.5px 0 3px rgba(39, 92, 70, 0.40);
+  z-index: 2;
 }
 
 /* ==========================================================================
-   3D Layered Paper-Cut Icon Mount Plate (130종 수공예 배경 박스 컬렉션 완비)
-   기본 적용된 버튼 느낌의 테두리/박스 배경을 완전히 제거하고,
-   130종 3D 페이퍼 컷팅 배경 박스 조형물과 3D 컬러 아이콘의 정교한 결합으로 렌더링
+   3D Layered Paper-Cut Icon Mount Plate (.pc-sidebar-item-icon)
+   130종 3D 페이퍼 컷팅 배경 박스 조형물과 3D 컬러 아이콘의 정교한 결합
    ========================================================================== */
 .pc-sidebar-item-icon {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -294,42 +366,50 @@
   margin: 0 !important;
   position: relative;
   overflow: visible;
-  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* 3D Paper Cut Background Plate + Center Mounted Icon Combined SVG (viewBox 0 0 96 96) */
 .pc-sidebar-plate-svg {
-  width: 36px !important;
-  height: 36px !important;
-  max-width: 36px !important;
-  max-height: 36px !important;
+  width: 38px !important;
+  height: 38px !important;
+  max-width: 38px !important;
+  max-height: 38px !important;
   display: block !important;
   overflow: visible !important;
   flex-shrink: 0;
-  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.22s ease;
-  filter: drop-shadow(0 2px 5px rgba(74, 58, 42, 0.12));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(46, 30, 20, 0.18));
 }
 
 .pc-sidebar-item:hover .pc-sidebar-plate-svg {
-  transform: scale(1.14) translateY(-1px);
-  filter: drop-shadow(0 4px 9px rgba(74, 58, 42, 0.18));
+  transform: scale(1.15) translateY(-1px);
+  filter: drop-shadow(0 4px 8px rgba(46, 30, 20, 0.24));
+}
+
+.pc-sidebar-item:active .pc-sidebar-plate-svg {
+  transform: scale(0.96) translateY(1px);
 }
 
 .pc-sidebar-item.is-active .pc-sidebar-plate-svg {
   transform: scale(1.10);
-  filter: drop-shadow(0 3px 7px rgba(44, 107, 80, 0.22));
+  filter: drop-shadow(0 3px 6px rgba(39, 92, 70, 0.28));
 }
 
 /* Fallback placeholder if backgrounds library is still initializing */
 .pc-sidebar-plate-placeholder {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Inner Centered 3D Icon styling inside the 96x96 Kirigami Well */
+/* Inner Centered 3D Icon styling inside the 96x96 Paper-Cut Well */
 .pc-sidebar-plate-svg .pc-mounted-icon svg {
   width: 48px !important;
   height: 48px !important;
@@ -348,100 +428,325 @@
 }
 
 .pc-sidebar-item-text {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
   line-height: 1.3;
 }
 #pc-sidebar-nav.is-collapsed .pc-sidebar-item-text {
   display: none;
 }
 
-/* Handcrafted Paper Notch Ribbon Tag / Scallop Stamp Badge */
+/* ==========================================================================
+   AUTHENTIC 3D KIRIGAMI SIDEBAR BADGES
+   Full integration with PaperCut UI Badge System:
+   - 0.88px 화이트 나이프 엣지 림 (White Knife-Edge Rim)
+   - 2-Tier 48% 번트 엄버 그림자 (2-Tier 48% Burnt Umber Shadow: #2E1E14)
+   - 7대 파스텔 색지 컬러웨이 (Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream)
+   - 4대 특화 페이퍼 컷팅 모델 (Stamp, Wax, Ticket, Tag)
+   ========================================================================== */
 .pc-sidebar-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
-  font-size: 10px;
+  font-size: 10.5px;
   font-weight: 800;
   padding: 3px 8px;
-  border-radius: 6px;
-  background: #F4EFFC;
-  color: #55417F;
-  border: 1px solid #D8CBEF;
+  border-radius: 4px;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  background-color: var(--pc-badge-bg, #F4EFFC);
+  color: var(--pc-badge-ink, #55417F);
   box-shadow: 
-    0 1.5px 0 #CBBDE6,
-    0 2px 5px rgba(74, 58, 42, 0.08);
-  flex-shrink: 0;
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.2px 1.5px rgba(46, 30, 20, 0.48),
+    0 3px 6px rgba(46, 30, 20, 0.18);
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
   position: relative;
   letter-spacing: -0.2px;
-  transition: all 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease;
   white-space: nowrap;
 }
+
 .pc-sidebar-item:hover .pc-sidebar-badge {
-  transform: translateY(-0.5px);
+  transform: translateY(-1px);
   box-shadow: 
-    0 2px 0 #C2B3E0,
-    0 3px 6px rgba(74, 58, 42, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
+    0 2px 2.5px rgba(46, 30, 20, 0.50),
+    0 5px 10px rgba(46, 30, 20, 0.22);
 }
 
-/* Theme-matched sidebar badges */
-.pc-sidebar-badge.pc-badge-peach {
-  background: #FDEEE4;
-  color: #A34718;
-  border-color: #F7BA9E;
-  box-shadow: 0 1.5px 0 #EBB196;
+/* 4대 특화 모델 - 사이드바 미니어처 최적화 */
+/* 1. 우표 천공 미니 톱니 (Stamp) */
+.pc-sidebar-badge.pc-badge--stamp {
+  padding: 3px 7px;
+  border-radius: 2px;
+  outline: 1px dashed rgba(255, 255, 255, 0.90);
+  outline-offset: -2.5px;
 }
+.pc-sidebar-badge.pc-badge--stamp::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 2px;
+  right: 2px;
+  background-image: 
+    radial-gradient(circle 1.2px at 2.5px 0px, rgba(46, 30, 20, 0.30) 1.1px, transparent 1.3px),
+    radial-gradient(circle 1.2px at 2.5px 100%, rgba(46, 30, 20, 0.30) 1.1px, transparent 1.3px);
+  background-size: 5px 100%;
+  background-repeat: repeat-x;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.8;
+}
+
+/* 2. 앤틱 왁스 실링 인장 (Wax) */
+.pc-sidebar-badge.pc-badge--wax {
+  padding: 2.5px 8px;
+  border-radius: 52% 48% 51% 49% / 49% 53% 47% 51%;
+  background: radial-gradient(circle at 35% 35%, var(--pc-badge-wax-1, #FCD5D9) 0%, var(--pc-badge-wax-2, #F5B8BE) 55%, var(--pc-badge-wax-3, #C96671) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    inset 0 -1.5px 2px rgba(46, 30, 20, 0.22),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.22);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.50);
+}
+.pc-sidebar-badge.pc-badge--wax::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.60);
+  box-shadow: inset 0 1px 1.5px rgba(46, 30, 20, 0.28);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 3. 좌우 노치 다이컷 티켓 (Ticket) */
+.pc-sidebar-badge.pc-badge--ticket {
+  padding: 3px 9px 3px 12px;
+  border-radius: 3px;
+  -webkit-mask-image: 
+    radial-gradient(circle 2.5px at 0 50%, transparent 2.5px, #000 3px),
+    radial-gradient(circle 2.5px at 100% 50%, transparent 2.5px, #000 3px);
+  -webkit-mask-size: 51% 100%, 51% 100%;
+  -webkit-mask-position: left, right;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: 
+    radial-gradient(circle 2.5px at 0 50%, transparent 2.5px, #000 3px),
+    radial-gradient(circle 2.5px at 100% 50%, transparent 2.5px, #000 3px);
+  mask-size: 51% 100%, 51% 100%;
+  mask-position: left, right;
+  mask-repeat: no-repeat;
+}
+.pc-sidebar-badge.pc-badge--ticket::before {
+  content: "";
+  position: absolute;
+  left: 6.5px;
+  top: 2px;
+  bottom: 2px;
+  width: 0;
+  border-left: 1px dashed rgba(46, 30, 20, 0.20);
+  box-shadow: 0.88px 0 0 rgba(255, 255, 255, 0.80);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 4. 미니 아일렛 타공 태그 (Tag) */
+.pc-sidebar-badge.pc-badge--tag {
+  padding: 3px 7px 3px 13px;
+  border-radius: 3px;
+  clip-path: polygon(5px 0, 100% 0, 100% 100%, 5px 100%, 0 calc(100% - 5px), 0 5px);
+}
+.pc-sidebar-badge.pc-badge--tag::before {
+  content: "";
+  position: absolute;
+  left: 2.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  background-color: var(--pc-bg-cream, #FAF7F0);
+  border: 1.2px solid #E8BD65;
+  border-radius: 50%;
+  box-shadow: inset 0 0.8px 1px rgba(46, 30, 20, 0.40);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* 7대 파스텔 색지 컬러웨이 (Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream) */
+.pc-sidebar-badge.pc-badge--mint,
 .pc-sidebar-badge.pc-badge-mint {
-  background: #E8F5EE;
-  color: #19523C;
+  --pc-badge-bg: #E8F5EE;
+  --pc-badge-ink: #19523C;
+  --pc-badge-wax-1: #C2ECD9;
+  --pc-badge-wax-2: #A3D8C3;
+  --pc-badge-wax-3: #5AA587;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
   border-color: #A3D8C3;
-  box-shadow: 0 1.5px 0 #95CCA6;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(39, 92, 70, 0.35),
+    0 2.5px 5px rgba(39, 92, 70, 0.15);
 }
+
+.pc-sidebar-badge.pc-badge--peach,
+.pc-sidebar-badge.pc-badge-peach {
+  --pc-badge-bg: #FDEEE4;
+  --pc-badge-ink: #A34718;
+  --pc-badge-wax-1: #FCD5C2;
+  --pc-badge-wax-2: #F7BA9E;
+  --pc-badge-wax-3: #D87747;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
+  border-color: #F7BA9E;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(110, 59, 33, 0.35),
+    0 2.5px 5px rgba(110, 59, 33, 0.15);
+}
+
+.pc-sidebar-badge.pc-badge--lavender,
 .pc-sidebar-badge.pc-badge-lavender {
-  background: #ECE8F6;
-  color: #55417F;
+  --pc-badge-bg: #ECE8F6;
+  --pc-badge-ink: #55417F;
+  --pc-badge-wax-1: #E6DEF7;
+  --pc-badge-wax-2: #D7CBEB;
+  --pc-badge-wax-3: #9680CE;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
   border-color: #D7CBEB;
-  box-shadow: 0 1.5px 0 #C6B7DD;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(71, 59, 107, 0.35),
+    0 2.5px 5px rgba(71, 59, 107, 0.15);
 }
+
+.pc-sidebar-badge.pc-badge--buttercup,
 .pc-sidebar-badge.pc-badge-buttercup {
-  background: #FFF9E6;
-  color: #8C6708;
+  --pc-badge-bg: #FFF9E6;
+  --pc-badge-ink: #8C6708;
+  --pc-badge-wax-1: #FFF0BD;
+  --pc-badge-wax-2: #FEE396;
+  --pc-badge-wax-3: #D4A936;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
   border-color: #FEE396;
-  box-shadow: 0 1.5px 0 #EDD182;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(110, 83, 15, 0.35),
+    0 2.5px 5px rgba(110, 83, 15, 0.15);
 }
+
+.pc-sidebar-badge.pc-badge--rose,
 .pc-sidebar-badge.pc-badge-rose {
-  background: #FCE8EB;
-  color: #9C2636;
+  --pc-badge-bg: #FCE8EB;
+  --pc-badge-ink: #9C2636;
+  --pc-badge-wax-1: #FCD5D9;
+  --pc-badge-wax-2: #F5B8BE;
+  --pc-badge-wax-3: #C96671;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
   border-color: #F5B8BE;
-  box-shadow: 0 1.5px 0 #E3A3AA;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(156, 38, 54, 0.35),
+    0 2.5px 5px rgba(156, 38, 54, 0.15);
 }
+
+.pc-sidebar-badge.pc-badge--sky,
 .pc-sidebar-badge.pc-badge-sky {
-  background: #E8F4FD;
-  color: #174E6F;
+  --pc-badge-bg: #E8F4FD;
+  --pc-badge-ink: #174E6F;
+  --pc-badge-wax-1: #DAEFF5;
+  --pc-badge-wax-2: #BDE0EA;
+  --pc-badge-wax-3: #76AAB9;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
   border-color: #BDE0EA;
-  box-shadow: 0 1.5px 0 #A8CFDB;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(32, 76, 90, 0.35),
+    0 2.5px 5px rgba(32, 76, 90, 0.15);
 }
+
+.pc-sidebar-badge.pc-badge--cream,
+.pc-sidebar-badge.pc-badge-cream {
+  --pc-badge-bg: #FFFDF9;
+  --pc-badge-ink: #3D352E;
+  --pc-badge-wax-1: #FFFFFF;
+  --pc-badge-wax-2: #FAF6ED;
+  --pc-badge-wax-3: #D8CDBC;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
+  border-color: #DCD2C3;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(46, 30, 20, 0.35),
+    0 2.5px 5px rgba(46, 30, 20, 0.15);
+}
+
+.pc-sidebar-badge.pc-badge--sage,
 .pc-sidebar-badge.pc-badge-sage {
-  background: #EDF4ED;
-  color: #245724;
+  --pc-badge-bg: #EDF4ED;
+  --pc-badge-ink: #245724;
+  --pc-badge-wax-1: #D5E8D3;
+  --pc-badge-wax-2: #BBD5B8;
+  --pc-badge-wax-3: #7EA67C;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
   border-color: #BFDCBF;
-  box-shadow: 0 1.5px 0 #AAC9AA;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(39, 92, 70, 0.35),
+    0 2.5px 5px rgba(39, 92, 70, 0.15);
 }
+
+.pc-sidebar-badge.pc-badge--coral,
 .pc-sidebar-badge.pc-badge-coral {
-  background: #FFF0E8;
-  color: #A83E15;
+  --pc-badge-bg: #FFF0E8;
+  --pc-badge-ink: #A83E15;
+  --pc-badge-wax-1: #FDE0D3;
+  --pc-badge-wax-2: #F8C3A9;
+  --pc-badge-wax-3: #D97A52;
+  background-color: var(--pc-badge-bg);
+  color: var(--pc-badge-ink);
   border-color: #F8C3A9;
-  box-shadow: 0 1.5px 0 #E5AD92;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 1.2px 1.5px rgba(117, 41, 10, 0.35),
+    0 2.5px 5px rgba(117, 41, 10, 0.15);
 }
+
+/* Active State Badge */
 .pc-sidebar-item.is-active .pc-sidebar-badge {
-  background: #E8F6EE;
+  background-color: #E8F6EE;
   color: #1A543B;
   border-color: #A3D8C3;
   box-shadow: 
-    0 1.5px 0 #89C7AC,
-    0 3px 6px rgba(44, 107, 80, 0.16);
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 2px rgba(39, 92, 70, 0.45),
+    0 4px 8px rgba(39, 92, 70, 0.20);
 }
 #pc-sidebar-nav.is-collapsed .pc-sidebar-badge {
   display: none;

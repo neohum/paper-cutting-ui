@@ -66,135 +66,94 @@
 
 /* ==========================================================================
    Studio Mode Switcher (16~28px fi fi-rr Line Lab vs 32~256px 3D Paper Lab)
+   Pure 3D Layered Kirigami SVG Tab Buttons
    ========================================================================== */
 .sim-studio-switcher-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
-  background: var(--pc-cream, #FAF7F0);
-  border: 1.5px solid rgba(74, 58, 42, 0.12);
-  border-radius: 24px;
-  padding: 10px;
+  background: transparent;
+  border: none;
+  padding: 0;
   margin-bottom: 28px;
-  box-shadow: inset 0 2px 6px rgba(55, 40, 30, 0.05);
+  box-shadow: none;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .sim-studio-switcher-wrap {
     grid-template-columns: 1fr;
   }
 }
 
-.sim-studio-tab-btn {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 18px 22px;
+.sim-studio-tab-btn.pc-svg-kirigami-btn {
+  width: 100%;
+  display: block;
   border-radius: 18px;
-  background: transparent;
-  border: 2px solid transparent;
-  cursor: pointer;
   text-align: left;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: inherit;
-  color: var(--pc-ink, #3D352E);
+}
+
+.sim-studio-tab-btn.pc-svg-kirigami-btn svg.sim-tab-svg {
+  width: 100%;
+  height: auto;
+  min-height: 84px;
+  filter: drop-shadow(0 2px 6px rgba(46, 30, 20, 0.10));
+}
+
+.sim-studio-tab-btn.pc-svg-kirigami-btn:hover svg.sim-tab-svg {
+  filter: drop-shadow(0 6px 18px rgba(46, 30, 20, 0.25));
+}
+
+.sim-studio-tab-btn.pc-svg-kirigami-btn.is-active svg.sim-tab-svg {
+  filter: drop-shadow(0 4px 14px rgba(46, 30, 20, 0.28));
+}
+
+.sim-studio-tab-btn.pc-svg-kirigami-btn.is-active .tab-base-layer {
+  stroke: #FFFFFF;
+  stroke-width: 1.5px;
+}
+
+/* Universal Pure SVG Kirigami Action Button Base */
+.pc-svg-kirigami-btn {
   position: relative;
-}
-
-.sim-studio-tab-btn:hover {
-  background: rgba(255, 255, 255, 0.6);
-  transform: translateY(-1px);
-}
-
-.sim-studio-tab-btn.is-active {
-  background: var(--pc-paper-white, #FFFFFF);
-  border-color: rgba(74, 58, 42, 0.15);
-  box-shadow: 0 4px 14px rgba(55, 40, 30, 0.08);
-  transform: translateY(-2px);
-}
-
-.sim-studio-tab-btn[data-mode="firr"].is-active {
-  border-color: var(--pc-peach-dark, #D35400);
-}
-
-.sim-studio-tab-btn[data-mode="paper3d"].is-active {
-  border-color: var(--pc-mint-dark, #235B47);
-}
-
-.sim-studio-tab-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(55, 40, 30, 0.08);
+  padding: 0 !important;
+  margin: 2px !important;
+  border: none !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  text-decoration: none !important;
+  user-select: none;
+  vertical-align: middle;
+  line-height: 1;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.sim-studio-tab-icon svg.pc-layered-paper-icon,
-.sim-studio-tab-icon .pc-inline-icon,
-.sim-studio-tab-icon .pc-inline-icon svg {
-  width: 24px !important;
-  height: 24px !important;
-  max-width: 28px !important;
-  max-height: 28px !important;
+.pc-svg-kirigami-btn svg.pc-kirigami-btn-svg {
+  display: block;
+  width: 100%;
+  overflow: visible;
+  transition: transform 0.15s ease, filter 0.15s ease;
 }
 
-#tab-studio-firr .sim-studio-tab-icon svg,
-.sim-studio-tab-btn[data-mode="firr"] .sim-studio-tab-icon svg {
-  width: 22px !important;
-  height: 22px !important;
-  max-width: 28px !important;
-  max-height: 28px !important;
+.pc-svg-kirigami-btn:hover {
+  transform: translateY(-2.5px) !important;
 }
 
-#tab-studio-paper3d .sim-studio-tab-icon svg,
-.sim-studio-tab-btn[data-mode="paper3d"] .sim-studio-tab-icon svg {
-  width: 26px !important;
-  height: 26px !important;
-  max-width: 32px !important;
-  max-height: 32px !important;
+.pc-svg-kirigami-btn:hover svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 5px 14px rgba(46, 30, 20, 0.28));
 }
 
-.sim-studio-tab-btn[data-mode="firr"] .sim-studio-tab-icon {
-  background: #FFF0E6;
-  color: var(--pc-peach-dark, #D35400);
-  border: 1px solid rgba(211, 84, 0, 0.2);
+.pc-svg-kirigami-btn:active,
+.pc-svg-kirigami-btn.is-pressed {
+  transform: translateY(1.5px) !important;
 }
 
-.sim-studio-tab-btn[data-mode="paper3d"] .sim-studio-tab-icon {
-  background: #E8F5EE;
-  color: var(--pc-mint-dark, #235B47);
-  border: 1px solid rgba(35, 91, 71, 0.2);
-}
-
-.sim-studio-tab-content {
-  flex: 1;
-}
-
-.sim-studio-tab-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 4px;
-  flex-wrap: wrap;
-}
-
-.sim-studio-tab-title {
-  font-size: 17px;
-  font-weight: 800;
-  color: var(--pc-ink, #3D352E);
-  letter-spacing: -0.01em;
-}
-
-.sim-studio-tab-desc {
-  font-size: 13px;
-  color: var(--pc-ink-muted, #7D7166);
-  line-height: 1.45;
-  margin: 0;
+.pc-svg-kirigami-btn:active svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 1px 2px rgba(46, 30, 20, 0.40));
 }
 
 /* Studio Context Philosophy Banner */
@@ -239,20 +198,29 @@
   margin-top: 12px;
 }
 
+/* 02. 앤틱 왁스 실링 인장형 캡슐 칩 (16 Curated Icons) */
 .sim-icon-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 8px 14px;
+  min-height: 40px;
   border-radius: 999px;
-  border: 1px solid rgba(74, 58, 42, 0.12);
-  background: var(--pc-cream, #FAF7F0);
-  color: var(--pc-ink, #3D352E);
+  background-color: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  font-family: var(--pc-font);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
   cursor: pointer;
-  transition: all 0.15s ease;
+  user-select: none;
   line-height: 1;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 .sim-icon-chip .pc-inline-icon {
@@ -274,17 +242,25 @@
 }
 
 .sim-icon-chip:hover {
-  background: var(--pc-buttercup-light, #FFF5D6);
-  transform: translateY(-1px);
-  border-color: rgba(74, 58, 42, 0.25);
+  background-color: var(--pc-buttercup-light, #FFF9E8);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2.5px 3px rgba(46, 30, 20, 0.48),
+    0 6px 14px rgba(46, 30, 20, 0.26);
 }
 
 .sim-icon-chip.is-active {
-  background: var(--pc-mint, #A3D8C3);
-  color: var(--pc-mint-dark, #235B47);
-  border-color: transparent;
-  box-shadow: 0 2px 6px rgba(55,40,30,0.12);
-  transform: translateY(-1px);
+  background-color: var(--pc-peach, #F7BA9E);
+  color: #6E3B21;
+  border-color: rgba(110, 59, 33, 0.25);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 5px 12px rgba(46, 30, 20, 0.25);
 }
 
 /* ==========================================================================
@@ -446,20 +422,55 @@
   gap: 10px;
 }
 
+/* 미니어처 3D 키리가미 스텝 조절 태그 (-1px, +1px, 등) */
 .sim-step-btn {
-  padding: 3px 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 4px 10px;
+  background-color: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
   border-radius: 6px;
-  border: 1px solid rgba(74, 58, 42, 0.15);
-  background: #FFF;
-  font-size: 11px;
-  font-weight: 700;
+  clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px);
+  color: var(--pc-ink, #3D352E);
+  font-family: var(--pc-font);
+  font-size: 11.5px;
+  font-weight: 800;
   cursor: pointer;
-  color: var(--pc-ink);
-  transition: all 0.15s ease;
+  user-select: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.2px 1.8px rgba(46, 30, 20, 0.48),
+    0 3px 6px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
 }
+
 .sim-step-btn:hover {
-  background: var(--pc-buttercup-light, #FFF5D6);
-  border-color: rgba(74, 58, 42, 0.3);
+  background-color: var(--pc-buttercup-light, #FFF9E8);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 4.5px 9px rgba(46, 30, 20, 0.22);
+}
+
+.sim-step-btn.is-active {
+  background-color: var(--pc-peach, #F7BA9E);
+  color: #6E3B21;
+  border-color: rgba(110, 59, 33, 0.25);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.8px 2.2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.22);
+  transform: translateY(-1px);
+}
+
+.sim-step-btn:active {
+  transform: translateY(1.5px);
 }
 
 /* Legacy single workbench support */
@@ -690,28 +701,75 @@
   gap: 6px;
 }
 
+/* 05. 크라프트 타공 태그형 프리셋 버튼 (Size & Stroke Presets) */
 .sim-preset-btn {
-  padding: 6px 4px;
-  border-radius: 8px;
-  border: 1px solid rgba(74, 58, 42, 0.12);
-  background: var(--pc-cream, #FAF7F0);
-  font-size: 11.5px;
-  font-weight: 700;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 8px 6px;
+  min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
+  background-color: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  border-radius: 6px;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+  color: var(--pc-ink, #3D352E);
+  font-family: var(--pc-font);
+  font-size: 12px;
+  font-weight: 800;
   cursor: pointer;
-  text-align: center;
-  transition: all 0.15s ease;
+  user-select: none;
+  position: relative;
+  line-height: 1.15;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.22);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.sim-preset-btn::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #FAF7F0;
+  box-shadow: inset 0 0.8px 1.5px rgba(46, 30, 20, 0.45);
 }
 
 .sim-preset-btn:hover {
-  background: var(--pc-mint-light, #E8F5EE);
-  border-color: var(--pc-mint, #A3D8C3);
+  background-color: var(--pc-buttercup-light, #FFF9E8);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2.5px 3px rgba(46, 30, 20, 0.48),
+    0 6px 14px rgba(46, 30, 20, 0.26);
 }
 
 .sim-preset-btn.is-active {
-  background: var(--pc-mint, #A3D8C3);
+  background-color: var(--pc-mint, #A3D8C3);
   color: var(--pc-mint-dark, #235B47);
-  border-color: transparent;
-  box-shadow: 0 1px 3px rgba(55,40,30,0.15);
+  border-color: rgba(35, 91, 71, 0.25);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 5px 12px rgba(46, 30, 20, 0.25);
+  transform: translateY(-1.5px);
+}
+
+.sim-preset-btn:active {
+  transform: translateY(1.5px);
+  box-shadow: 
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.95),
+    0 0.8px 1.5px rgba(46, 30, 20, 0.40);
 }
 
 /* ==========================================================================
@@ -1182,45 +1240,68 @@
   gap: 8px;
 }
 
+/* 03. 노치 시네마 티켓 & 바우처형 프리셋 바 (Curated Physical Presets) */
 .sim-preset-bar {
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
-  padding: 10px 14px;
+  padding: 12px 16px;
   background: #FAF6ED;
   border: 1.5px solid #E4D9C8;
-  border-radius: 14px;
+  border-radius: 16px;
+  box-shadow: inset 0 1px 3px rgba(46, 30, 20, 0.06);
 }
 
 .sim-preset-card-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: #FFFDF9;
-  border: 1.5px solid #D8CABE;
-  font-size: 11.5px;
+  justify-content: center;
+  padding: 8px 14px;
+  min-height: 38px;
+  border-radius: 8px;
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+  background-color: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  font-family: var(--pc-font);
+  font-size: 12px;
   font-weight: 800;
   color: var(--pc-ink, #3D352E);
   cursor: pointer;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+  line-height: 1;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
 .sim-preset-card-btn:hover {
-  background: #E8F5EE;
-  border-color: #A3D8C3;
-  color: #1E5C41;
-  transform: translateY(-1.5px);
-  box-shadow: 0 2px 6px rgba(44, 107, 80, 0.14);
+  background-color: var(--pc-buttercup-light, #FFF9E8);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2.5px 3px rgba(46, 30, 20, 0.48),
+    0 6px 14px rgba(46, 30, 20, 0.26);
 }
 
 .sim-preset-card-btn.is-active {
-  background: #E8F6EE;
-  border-color: #235B47;
-  color: #1E5C41;
-  box-shadow: 0 2px 6px rgba(35, 91, 71, 0.22);
+  background-color: var(--pc-mint, #A3D8C3);
+  color: var(--pc-mint-dark, #235B47);
+  border-color: rgba(35, 91, 71, 0.25);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 5px 12px rgba(46, 30, 20, 0.25);
+}
+
+.sim-preset-card-btn:active {
+  transform: translateY(1.5px);
 }
 
 .sim-ab-toggle-btn {
@@ -1234,26 +1315,33 @@
   border-radius: 8px;
   background-color: #FDEEE4;
   background-image: none !important;
-  border: 1.5px solid #F7BA9E;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  font-family: var(--pc-font);
   font-size: 12.5px;
   font-weight: 800;
   color: #8C4A32;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 0 rgba(46, 30, 20, 0.25), 0 3px 6px rgba(46, 30, 20, 0.15);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.22);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sim-ab-toggle-btn:hover {
-  transform: translateY(-1.5px);
-  box-shadow: 0 3px 0 rgba(46, 30, 20, 0.28), 0 5px 10px rgba(46, 30, 20, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2.5px 3px rgba(46, 30, 20, 0.48),
+    0 6px 14px rgba(46, 30, 20, 0.26);
 }
 
 .sim-ab-toggle-btn.is-comparing {
   background-color: #F5B8BE;
-  background-image: none !important;
-  border-color: #DE939B;
+  border-color: rgba(112, 40, 48, 0.25);
   color: #702830;
-  box-shadow: 0 1px 0 rgba(46, 30, 20, 0.3), 0 2px 4px rgba(46, 30, 20, 0.18);
 }
 
 /* 2-Column Physics Grid */
@@ -1307,114 +1395,226 @@
   flex-shrink: 0;
 }
 
-/* Shadow Swatches */
-.sim-shadow-swatches-wrap {
+/* 02. 앤틱 왁스 실링형 섀도우 스와치 & 컬러 칩 */
+.sim-shadow-swatches-wrap,
+#sim-palette-firr {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
   align-items: center;
 }
 
-.sim-shadow-swatch-chip {
+.sim-shadow-swatch-chip,
+.sim-firr-color-chip {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 8px;
-  border-radius: 8px;
-  background: #FFFDF9;
-  border: 1.5px solid #D8CABE;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--pc-ink, #3D352E);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.sim-shadow-swatch-chip:hover {
-  transform: translateY(-1px);
-  border-color: #235B47;
-}
-
-.sim-shadow-swatch-chip.is-active {
-  background: #E8F6EE;
-  border-color: #235B47;
-  color: #1E5C41;
-  box-shadow: 0 1px 4px rgba(35, 91, 71, 0.2);
-}
-
-.sim-shadow-swatch-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-/* Tier Radio Strip */
-.sim-tier-btn-group {
-  display: flex;
   gap: 6px;
-  flex-wrap: wrap;
-}
-
-.sim-tier-btn {
-  flex: 1;
-  min-width: 90px;
-  padding: 6px 10px;
-  border-radius: 10px;
-  background: #FFFDF9;
-  border: 1.5px solid #D8CABE;
+  padding: 5px 12px;
+  min-height: 36px;
+  border-radius: 999px;
+  background-color: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  font-family: var(--pc-font);
   font-size: 11.5px;
   font-weight: 800;
   color: var(--pc-ink, #3D352E);
   cursor: pointer;
-  text-align: center;
-  transition: all 0.15s;
+  user-select: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.2px 1.8px rgba(46, 30, 20, 0.48),
+    0 3.5px 7px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
 }
 
-.sim-tier-btn:hover {
-  border-color: #235B47;
-  color: #1E5C41;
+.sim-shadow-swatch-chip:hover,
+.sim-firr-color-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 3px rgba(46, 30, 20, 0.48),
+    0 5px 12px rgba(46, 30, 20, 0.24);
 }
 
-.sim-tier-btn.is-active {
-  background: #E8F6EE;
-  border-color: #235B47;
-  color: #1E5C41;
-  box-shadow: 0 2px 6px rgba(35, 91, 71, 0.18);
+.sim-shadow-swatch-chip.is-active,
+.sim-firr-color-chip.is-active {
+  background-color: var(--pc-mint-light, #EAF7F1);
+  border-color: rgba(35, 91, 71, 0.3);
+  color: var(--pc-mint-dark, #275C46);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 5px 10px rgba(46, 30, 20, 0.24);
+  transform: translateY(-1.5px);
 }
 
-/* Stacking Architecture Radio Strip */
+.sim-shadow-swatch-dot,
+.sim-firr-color-chip span:first-child {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 1px 2px rgba(46, 30, 20, 0.3);
+  flex-shrink: 0;
+}
+
+/* Tier Architecture & Category & Tabs Radio Buttons */
+.sim-tier-btn-group,
 .sim-stack-btn-group {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
 
-.sim-stack-btn {
+.sim-tier-btn,
+.sim-stack-btn,
+.sim-cat-btn,
+.sim-code-tab-btn,
+.sim-gallery-style-btn {
   flex: 1;
-  min-width: 120px;
-  padding: 6px 10px;
-  border-radius: 10px;
-  background: #FFFDF9;
-  border: 1.5px solid #D8CABE;
+  min-width: 90px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  min-height: 40px;
+  border-radius: 8px;
+  clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px);
+  background-color: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  font-family: var(--pc-font);
   font-size: 11.5px;
   font-weight: 800;
   color: var(--pc-ink, #3D352E);
   cursor: pointer;
+  user-select: none;
   text-align: center;
-  transition: all 0.15s;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
-.sim-stack-btn:hover {
-  border-color: #235B47;
-  color: #1E5C41;
+.sim-tier-btn:hover,
+.sim-stack-btn:hover,
+.sim-cat-btn:hover,
+.sim-code-tab-btn:hover,
+.sim-gallery-style-btn:hover {
+  background-color: var(--pc-buttercup-light, #FFF9E8);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2.5px 3px rgba(46, 30, 20, 0.48),
+    0 6px 14px rgba(46, 30, 20, 0.26);
 }
 
-.sim-stack-btn.is-active {
-  background: #E8F6EE;
-  border-color: #235B47;
-  color: #1E5C41;
-  box-shadow: 0 2px 6px rgba(35, 91, 71, 0.18);
+.sim-tier-btn.is-active,
+.sim-stack-btn.is-active,
+.sim-cat-btn.is-active,
+.sim-code-tab-btn.is-active,
+.sim-gallery-style-btn.is-active {
+  background-color: var(--pc-mint, #A3D8C3);
+  color: var(--pc-mint-dark, #235B47);
+  border-color: rgba(35, 91, 71, 0.25);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 5px 12px rgba(46, 30, 20, 0.25);
+}
+
+/* Background Swatch Chips & Small Physics Chips */
+.sim-bg-chip,
+.sim-firr-bg-btn,
+.sim-p3d-bg-btn,
+.sim-gallery-bg-chip,
+.sim-zoom-btn,
+.sim-angle-chip,
+.sim-dist-chip,
+.sim-blur-chip,
+.sim-opacity-chip,
+.sim-edge-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  min-height: 34px;
+  border-radius: 6px;
+  clip-path: polygon(4px 0, calc(100% - 4px) 0, 100% 4px, 100% calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 0 calc(100% - 4px), 0 4px);
+  background-color: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  font-family: var(--pc-font);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.2px 1.8px rgba(46, 30, 20, 0.48),
+    0 3px 6px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.sim-bg-chip:hover,
+.sim-firr-bg-btn:hover,
+.sim-p3d-bg-btn:hover,
+.sim-gallery-bg-chip:hover,
+.sim-zoom-btn:hover,
+.sim-angle-chip:hover,
+.sim-dist-chip:hover,
+.sim-blur-chip:hover,
+.sim-opacity-chip:hover,
+.sim-edge-chip:hover {
+  background-color: var(--pc-buttercup-light, #FFF9E8);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 4.5px 9px rgba(46, 30, 20, 0.22);
+}
+
+.sim-bg-chip.is-active,
+.sim-firr-bg-btn.is-active,
+.sim-p3d-bg-btn.is-active,
+.sim-gallery-bg-chip.is-active,
+.sim-zoom-btn.is-active,
+.sim-angle-chip.is-active,
+.sim-dist-chip.is-active,
+.sim-blur-chip.is-active,
+.sim-opacity-chip.is-active,
+.sim-edge-chip.is-active {
+  background-color: var(--pc-lavender, #D7CBEB);
+  color: var(--pc-lavender-dark, #473B6B);
+  border-color: rgba(71, 59, 107, 0.25);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1.8px 2.2px rgba(46, 30, 20, 0.48),
+    0 4px 8px rgba(46, 30, 20, 0.22);
+}
+
+.sim-bg-chip:active,
+.sim-firr-bg-btn:active,
+.sim-p3d-bg-btn:active,
+.sim-gallery-bg-chip:active,
+.sim-zoom-btn:active,
+.sim-angle-chip:active,
+.sim-dist-chip:active,
+.sim-blur-chip:active,
+.sim-opacity-chip:active,
+.sim-edge-chip:active {
+  transform: translateY(1.5px);
 }
 
 /* Side-by-Side In-situ Comparison Strip */

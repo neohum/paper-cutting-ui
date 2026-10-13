@@ -1544,9 +1544,9 @@ The complete official suite of **45 shadcn/ui components** has been reimagined i
 
 ### 8.12 Full-Color 3D Paper-Cut Icon System & 'B. 양각 위로 쌓기' (2-Tier · 4.5px · 48% Stacking) Specification
 
-PaperCut UI의 아이콘 시스템은 AI Agent Generated Paper-cut Art 및 Matte Cream 3D Art 미학에 따라 **전 UI 전역 풀컬러 3D 키리가미(Full-Color 3D Kirigami Art)**와 **B. 양각 위로 쌓기 물리 표준**을 단일 표준으로 채택합니다.
+PaperCut UI의 아이콘 시스템은 AI Agent Generated Paper-cut Art 및 Matte Cream 3D Art 미학에 따라 **전 UI 전역 풀컬러 3D 페이퍼 커팅(Full-Color 3D Paper-Cut Art)**와 **B. 양각 위로 쌓기 물리 표준**을 단일 표준으로 채택합니다.
 
-#### 1. 유니버설 풀컬러 3D 키리가미 표준 (Full-Color 3D Paper-Cut Art)
+#### 1. 유니버설 풀컬러 3D 페이퍼 커팅 표준 (Full-Color 3D Paper-Cut Art)
 - **전역 풀컬러 렌더링 (16px ~ 256px 전역):**
   - 모노크롬 철선(wireframe)을 전면 배제하고, 모든 아이콘이 원본 파스텔 색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Sage, Cream)의 풍부한 층위와 3D 입체 그림자를 기본으로 표시합니다.
   - 버튼(`.pc-btn`), 배지(`.pc-pill-badge`), 인풋 접두사(`.pc-input-icon`), 드롭다운 트리거/항목, 모바일 내비게이션 등 소형 UI부터 대형 카드 쇼케이스까지 동일한 따뜻한 종이 공예의 질감과 컬러를 제공합니다.

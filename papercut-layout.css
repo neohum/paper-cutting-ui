@@ -1,0 +1,902 @@
+/**
+ * PaperCut UI - Layout System (Header, Sidebar, Main Content, Footer)
+ * Implements a semantic, responsive 4-tier app layout adhering to:
+ * - 'AI Agent Generated Paper-cut Art · Matte Cream 3D Art' aesthetics
+ * - 2-Tier 48% Burnt Umber Stacking Standard
+ * - WCAG 2.1 AA 44px+ touch targets & Korean Typography Standards
+ * - Permanent Fixed Sidebar (고정형 사이드바 레이아웃)
+ */
+
+:root {
+  --pc-header-height: 64px;
+  --pc-sidebar-width: 295px;
+  --pc-sidebar-collapsed-width: 295px; /* 고정형: 축소 없음 */
+}
+
+/* ==========================================================================
+   0. Body & Layout Reset for Full-Width Header & Fixed Sidebar
+   ========================================================================== */
+body.has-pc-sidebar {
+  padding-left: 0 !important;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+body.is-collapsed {
+  padding-left: 0 !important;
+}
+
+.pc-app-layout {
+  display: block;
+  min-height: calc(100vh - var(--pc-header-height));
+  position: relative;
+  width: 100%;
+}
+
+/* ==========================================================================
+   1. Global Top Header (상단 고정 헤더)
+   ========================================================================== */
+.pc-site-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: var(--pc-header-height);
+  background: rgba(255, 253, 249, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1.5px solid #E6DBC9;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 2px 8px rgba(46, 30, 20, 0.08);
+  z-index: 10000;
+  font-family: var(--pc-font, 'Nanum Square Round', -apple-system, sans-serif);
+  user-select: none;
+}
+
+.pc-site-header-inner {
+  max-width: 1600px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* Header Left: Sidebar Indicator, Logo, Badge */
+.pc-site-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.pc-header-toggle-sidebar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 0 2px 0 rgba(46, 30, 20, 0.35), 0 3px 6px rgba(46, 30, 20, 0.15);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background 0.15s;
+}
+
+.pc-header-toggle-sidebar:hover {
+  background: #F3EEFB;
+  transform: translateY(-1.5px);
+  box-shadow: 0 3px 0 rgba(46, 30, 20, 0.38), 0 5px 10px rgba(46, 30, 20, 0.20);
+}
+
+.pc-header-toggle-sidebar:active {
+  transform: translateY(1.5px);
+  box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), 0 1px 3px rgba(46, 30, 20, 0.15);
+}
+
+.pc-site-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--pc-ink, #3D352E);
+  transition: opacity 0.2s ease;
+}
+
+.pc-site-logo:hover {
+  opacity: 0.88;
+}
+
+.pc-site-logo-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-site-logo:hover .pc-site-logo-plate {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.pc-site-logo-svg {
+  width: 44px;
+  height: 44px;
+  display: block;
+  overflow: visible;
+}
+
+.pc-site-logo-img {
+  height: 38px;
+  width: auto;
+  display: block;
+}
+
+.pc-site-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-site-logo-title {
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  line-height: 1.15;
+  color: var(--pc-ink, #3D352E);
+  white-space: nowrap;
+}
+
+.pc-site-logo-sub {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pc-ink-muted, #7A6F64);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.pc-header-version-badge {
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  letter-spacing: -0.2px;
+}
+
+/* Header Center Navigation */
+.pc-site-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 4px 0;
+}
+
+.pc-site-header-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.pc-header-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  min-height: 44px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ink-muted, #7A6F64);
+  text-decoration: none;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 1;
+  transition: all 0.15s ease;
+}
+
+.pc-header-nav-link:hover {
+  color: var(--pc-ink, #3D352E);
+  background: #FAF5EB;
+  border-color: rgba(74, 58, 42, 0.12);
+  transform: translateY(-1px);
+}
+
+.pc-header-nav-link.is-active {
+  background: var(--pc-mint-light, #E8F5EE);
+  color: var(--pc-mint-dark, #275C46);
+  border-color: rgba(39, 92, 70, 0.25);
+  font-weight: 800;
+}
+
+/* Header Right: Quick Actions */
+.pc-site-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.pc-header-action-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  min-height: 44px !important;
+  min-width: max-content !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  border-radius: 6px !important;
+  clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 2px 0 rgba(46, 30, 20, 0.35),
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease !important;
+}
+
+.pc-header-action-btn:hover {
+  transform: translateY(-1.5px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 3.5px 0 rgba(46, 30, 20, 0.40),
+    0 6px 12px rgba(46, 30, 20, 0.18) !important;
+}
+
+.pc-header-action-btn:active {
+  transform: translateY(1.5px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.12) !important;
+}
+
+/* Responsive Header */
+@media (max-width: 1024px) {
+  .pc-site-header-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .pc-site-header-inner {
+    padding: 0 12px;
+  }
+  .pc-site-logo-sub,
+  .pc-header-version-badge {
+    display: none;
+  }
+  .pc-header-action-btn .label {
+    display: none;
+  }
+  .pc-header-action-btn {
+    padding: 8px 10px !important;
+  }
+}
+
+/* ==========================================================================
+   2. Permanent Fixed Sidebar (고정형 사이드바)
+   ========================================================================== */
+#pc-sidebar-nav {
+  position: fixed !important;
+  top: var(--pc-header-height) !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  height: calc(100vh - var(--pc-header-height)) !important;
+  width: var(--pc-sidebar-width) !important;
+  min-width: var(--pc-sidebar-width) !important;
+  max-width: var(--pc-sidebar-width) !important;
+  background: #FAF7F0 !important;
+  border-right: 1.5px solid #E6DBC9 !important;
+  box-shadow: 
+    inset -1px 0 0 rgba(255, 255, 255, 0.9),
+    2px 0 8px rgba(46, 30, 20, 0.08) !important;
+  z-index: 9990 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: none !important;
+  user-select: none;
+}
+
+/* 접기(Collapse) 기능 완전 비활성화 - 고정형으로 항상 펼쳐진 상태 유지 */
+#pc-sidebar-nav.is-collapsed {
+  width: var(--pc-sidebar-width) !important;
+}
+
+.pc-sidebar-toggle-btn,
+#pc-sidebar-toggle {
+  display: none !important;
+}
+
+.pc-sidebar-brand-text {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Ensure sidebar items are left-aligned 3D paper buttons per AGENTS.md rule */
+.pc-sidebar-item {
+  text-align: left !important;
+  justify-content: flex-start !important;
+  width: calc(100% - 12px) !important;
+  box-sizing: border-box !important;
+}
+
+.pc-sidebar-item-label {
+  text-align: left !important;
+  word-break: keep-all !important;
+  display: inline-block !important;
+}
+
+.pc-sidebar-menu {
+  flex: 1 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* ==========================================================================
+   3. Main Content & Footer Fixed Layout
+   ========================================================================== */
+.pc-site-main {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.pc-site-main.showcase-container {
+  padding-top: 24px;
+}
+
+/* 768px 이상(태블릿, 노트북, 데스크톱 전 규격)에서 항시 270px 고정형 사이드바 레이아웃 */
+@media (min-width: 768px) {
+  #pc-sidebar-nav {
+    transform: none !important;
+    visibility: visible !important;
+    display: flex !important;
+  }
+
+  .pc-site-main,
+  .pc-site-footer {
+    margin-left: var(--pc-sidebar-width) !important;
+    width: calc(100% - var(--pc-sidebar-width)) !important;
+    box-sizing: border-box !important;
+  }
+
+  .pc-sidebar-floating-toggle {
+    display: none !important;
+  }
+}
+
+/* 768px 미만 소형 스마트폰 모바일 */
+@media (max-width: 767px) {
+  #pc-sidebar-nav {
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    box-shadow: 6px 0 24px rgba(46, 30, 20, 0.25) !important;
+  }
+  #pc-sidebar-nav.is-mobile-open {
+    transform: translateX(0) !important;
+  }
+  .pc-site-main,
+  .pc-site-footer {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  .pc-sidebar-floating-toggle {
+    display: inline-flex !important;
+  }
+}
+
+/* ==========================================================================
+   4. Global Footer (하단 전역 푸터)
+   ========================================================================== */
+.pc-site-footer {
+  margin-top: 60px;
+  background: #F8F4EC;
+  border-top: 2px dashed #D9CEBC;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  padding: 60px 24px 40px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  color: var(--pc-ink, #3D352E);
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.pc-footer-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.pc-footer-top-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+  gap: 36px;
+  margin-bottom: 48px;
+}
+
+@media (max-width: 960px) {
+  .pc-footer-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .pc-footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+.pc-footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pc-footer-brand-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-footer-desc {
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--pc-ink-muted, #7A6F64);
+  word-break: keep-all;
+  text-wrap: pretty;
+  margin: 0;
+}
+
+.pc-footer-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.pc-footer-col-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: var(--pc-ink, #3D352E);
+  margin: 0 0 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-break: keep-all;
+}
+
+.pc-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pc-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #3D352E;
+  text-decoration: none;
+  background: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 1.2px 0 rgba(46, 30, 20, 0.35),
+    0 2.5px 5px rgba(46, 30, 20, 0.12);
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  word-break: keep-all;
+  white-space: nowrap;
+  line-height: 1.4;
+  position: relative;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background 0.15s, color 0.15s;
+}
+
+.pc-footer-link::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pc-mint-layer, #82C2A8);
+  box-shadow: 0 0.5px 1px rgba(46, 30, 20, 0.3);
+  flex-shrink: 0;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.pc-footer-link:hover {
+  background: #FAF7F0;
+  color: #3D352E;
+  border-color: rgba(46, 30, 20, 0.22);
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 2.2px 0 rgba(46, 30, 20, 0.38),
+    0 4.5px 9px rgba(46, 30, 20, 0.18);
+}
+
+.pc-footer-link:hover::before {
+  transform: scale(1.3);
+  background: var(--pc-peach-layer, #E69D7B);
+}
+
+.pc-footer-link:active {
+  transform: translateY(1px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 0.5px 0 rgba(46, 30, 20, 0.35),
+    0 1px 2px rgba(46, 30, 20, 0.1);
+}
+
+/* Footer Bottom Bar */
+.pc-footer-bottom-bar {
+  border-top: 1px solid rgba(74, 58, 42, 0.10);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  padding-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.pc-footer-copyright {
+  font-size: 13px;
+  color: var(--pc-ink-muted, #7A6F64);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.pc-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pc-scroll-top-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  background: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 0 2px 0 rgba(46, 30, 20, 0.35), 0 3px 6px rgba(46, 30, 20, 0.15);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+  line-height: 1;
+}
+
+.pc-scroll-top-btn:hover {
+  transform: translateY(-1.5px);
+  background: var(--pc-buttercup-light, #FFF9E6);
+  box-shadow: 0 3px 0 rgba(46, 30, 20, 0.38), 0 5px 10px rgba(46, 30, 20, 0.20);
+}
+
+.pc-scroll-top-btn:active {
+  transform: translateY(1.5px);
+  box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), 0 1px 3px rgba(46, 30, 20, 0.15);
+}
+
+/* ==========================================================================
+   5. Standalone Layered Paper-Cut SVG Buttons (아이콘 제작 방식 100% 동일 구현)
+   - 678종 papercut-icons & 130종 papercut-backgrounds와 동일한 순수 SVG 다층 구조
+   - 2-Tier 48% 번트 엄버 그림자 & 화이트 칼선 하이라이트 내장
+   - 7대 파스텔 색지 (Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream)
+   ========================================================================== */
+
+.pc-svg-btn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pc-svg-kirigami-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  vertical-align: middle;
+  line-height: 1;
+  min-width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-svg-kirigami-btn svg.pc-kirigami-btn-svg {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: 54px;
+  overflow: visible;
+  transition: transform 0.15s ease, filter 0.15s ease;
+  box-sizing: border-box;
+}
+
+/* 햅틱 종이 프레스 인터랙션 */
+.pc-svg-kirigami-btn:hover {
+  transform: translateY(-2px);
+}
+.pc-svg-kirigami-btn:hover svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 4px 10px rgba(46, 30, 20, 0.22));
+}
+
+.pc-svg-kirigami-btn:active,
+.pc-svg-kirigami-btn.is-pressed {
+  transform: translateY(1.5px);
+}
+.pc-svg-kirigami-btn:active svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 1px 2px rgba(46, 30, 20, 0.30));
+}
+
+/* ==========================================================================
+   6. Paper-Cut Component Layouts & Responsive Grids (Cards, Panels, Badges, Forms)
+   - 2-Tier 48% Burnt Umber Physics & 4/8pt Grid System Standard
+   - Responsive layouts for .pc-card-dogear, .pc-card-washi, .pc-card-deckle, .pc-card-ticket
+   - Structured Form Row/Grid Alignment for .pc-input, .pc-select, .pc-toggle, .pc-checkbox, .pc-radio
+   ========================================================================== */
+
+/* 6.1 Paper-Cut Specialty Card & Panel Grid */
+.pc-kirigami-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  align-items: stretch;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+
+.pc-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.pc-plate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+/* 6.2 Badge & Tag Cluster Layout (4/8pt Spacing Alignment) */
+.pc-badge-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0;
+}
+
+.pc-badge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 14px;
+  align-items: center;
+  justify-items: center;
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+/* 6.3 Form Control Layouts & Grids */
+.pc-form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.pc-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.pc-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.pc-form-row > * {
+  flex: 1;
+  min-width: 200px;
+}
+
+.pc-form-row > .pc-toggle,
+.pc-form-row > .pc-checkbox-label,
+.pc-form-row > .pc-radio-label {
+  flex: 0 0 auto;
+  min-width: auto;
+}
+
+.pc-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.pc-checkbox-row,
+.pc-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  align-items: center;
+  margin: 8px 0;
+}
+
+/* 6.4 Responsive Breakdown for Form & Card Grids */
+@media (max-width: 640px) {
+  .pc-kirigami-card-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .pc-form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pc-form-row > * {
+    width: 100%;
+    min-width: 100%;
+  }
+  .pc-badge-cluster {
+    gap: 8px;
+  }
+}
+
+/* ==========================================================================
+   7. 3D Mounted Icon Background Plates on Card Section Headers (.pc-section-plate)
+   - 130종 Background Plates System + 678종 Kirigami Icons Integration
+   - 2-Tier 48% Burnt Umber Shadow + 0.88px White Knife Rim
+   ========================================================================== */
+
+.pc-section-plate,
+.pc-mounted-plate {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  flex-shrink: 0 !important;
+  vertical-align: middle !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease !important;
+  filter: drop-shadow(0 2px 5px rgba(46, 30, 20, 0.20)) !important;
+  overflow: visible !important;
+  line-height: 1 !important;
+  cursor: pointer;
+}
+
+.pc-section-plate:hover,
+.pc-mounted-plate:hover {
+  transform: translateY(-2px) scale(1.06) !important;
+  filter: drop-shadow(0 4px 10px rgba(46, 30, 20, 0.26)) !important;
+}
+
+.pc-section-plate svg.pc-mounted-plate-svg,
+.pc-mounted-plate svg.pc-mounted-plate-svg {
+  width: 52px !important;
+  height: 52px !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+.section-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+/* 7.1 Unified 3D Kirigami SVG Page Mode Toggle Button */
+.pc-page-mode-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-height: 44px !important; /* WCAG 2.1 AA 44px+ touch target */
+  padding: 8px 18px !important;
+  border-radius: 999px !important;
+  background-color: #FFFDF9 !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: var(--pc-ink, #3D352E) !important;
+  cursor: pointer !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.90),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 3.5px 7px rgba(46, 30, 20, 0.18) !important;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+}
+
+.pc-page-mode-toggle:hover {
+  background-color: #FEE396 !important;
+  border-color: rgba(46, 30, 20, 0.22) !important;
+  color: #66460D !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 2.5px 3px rgba(46, 30, 20, 0.50),
+    0 6px 12px rgba(46, 30, 20, 0.22) !important;
+}
+
+.pc-page-mode-toggle:active {
+  transform: translateY(1.5px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    0 0.5px 1px rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.15) !important;
+}
+
+/* Header View Mode Active State */
+#header-view-mode-btn.is-page-mode-active {
+  filter: drop-shadow(0 0 8px rgba(254, 227, 150, 0.65)) drop-shadow(0 3px 6px rgba(46, 30, 20, 0.25)) !important;
+}
+
+

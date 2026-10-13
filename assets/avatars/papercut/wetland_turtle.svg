@@ -1,0 +1,54 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="wetland_turtle" data-category="wetland">
+  <defs>
+    
+    <filter id="ps-wetland_turtle-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-wetland_turtle-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-wetland_turtle-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-wetland_turtle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-wetland_turtle)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-wetland_turtle-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#15803D" opacity="0.18" filter="url(#ps-wetland_turtle-base)"/>
+  
+        <!-- Wetland Reeds & Water Lilies -->
+        <path d="M 22 80 Q 24 55 20 40 M 26 80 Q 28 50 32 38" stroke="#86EFAC" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <path d="M 74 80 Q 72 52 76 38 M 78 80 Q 82 56 80 44" stroke="#86EFAC" stroke-width="2" fill="none" opacity="0.7" stroke-linecap="round"/>
+        <ellipse cx="50" cy="74" rx="14" ry="4" fill="#A3D8C3" opacity="0.5"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Freshwater Turtle Shell & Peeking Head -->
+      <ellipse cx="50" cy="54" rx="19" ry="16" fill="#15803D" filter="url(#ps-wetland_turtle-mid)"/>
+      <ellipse cx="50" cy="38" rx="8" ry="7" fill="#22C55E" filter="url(#ps-wetland_turtle-top)"/>
+      <polygon points="50,47 55,50 55,57 50,60 45,57 45,50" fill="#FEE396"/>
+      
+    <circle cx="46" cy="36" r="1.8" fill="#3D352E" filter="url(#ps-wetland_turtle-top)"/>
+    <circle cx="54" cy="36" r="1.8" fill="#3D352E" filter="url(#ps-wetland_turtle-top)"/>
+    <circle cx="45" cy="35" r="0.7200000000000001" fill="#FFFDF9"/>
+    <circle cx="53" cy="35" r="0.7200000000000001" fill="#FFFDF9"/>
+    <circle cx="41" cy="41" r="3" fill="#F7BA9E" opacity="0.7"/>
+    <circle cx="59" cy="41" r="3" fill="#F7BA9E" opacity="0.7"/>
+  
+    
+</svg>

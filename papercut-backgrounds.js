@@ -1978,12 +1978,15 @@
     { id: 'none', name: '아이콘 없음 (배경만)' }
   ];
 
+  let bgShowcaseRendered = false;
+
   document.addEventListener('DOMContentLoaded', () => {
     initBackgroundShowcase();
   });
 
   function initBackgroundShowcase() {
-    renderBackgrounds();
+    // Initial check: only render immediately if #bg-library is near viewport
+    renderBackgrounds(false);
 
     // Category Buttons
     const catButtons = document.querySelectorAll('.pc-bg-cat-btn');
@@ -1992,7 +1995,7 @@
         catButtons.forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
         currentCategory = btn.getAttribute('data-cat') || 'all';
-        renderBackgrounds();
+        renderBackgrounds(true);
       });
     });
 
@@ -2001,7 +2004,10 @@
     if (iconSelector) {
       iconSelector.addEventListener('change', (e) => {
         previewIconId = e.target.value;
-        renderBackgrounds();
+        renderBackgrounds(true);
+      });
+      iconSelector.addEventListener('focus', () => {
+        if (!bgShowcaseRendered) renderBackgrounds(true);
       });
     }
 
@@ -2059,10 +2065,31 @@
     `;
   }
 
-  function renderBackgrounds() {
+  function renderBackgrounds(force = false) {
     const container = document.getElementById('background-plates-grid');
     const countBadge = document.getElementById('bg-count-badge');
+    const bgSection = document.getElementById('bg-library');
     if (!container) return;
+
+    // Lazy check: if not forced and section is not in/near viewport, show lightweight placeholder
+    if (!force && !bgShowcaseRendered) {
+      if (bgSection) {
+        const rect = bgSection.getBoundingClientRect();
+        const isNear = rect.top < (window.innerHeight + 300) && rect.bottom > -300;
+        if (!isNear) {
+          container.innerHTML = `
+            <div class="pc-bg-gallery-placeholder" style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; color: var(--pc-ink-muted);">
+              <div style="margin-bottom: 12px;"><span class="pc-inline-icon is-lg is-color" data-icon="shield-star"></span></div>
+              <div style="font-weight: 800; font-size: 16px; color: var(--pc-ink);">130종 3D 페이퍼 커팅 배경 플레이트 컬렉션</div>
+              <div style="font-size: 13.5px; margin-top: 6px;">스크롤하여 라이브러리에 접근하면 고화질 3D 배경 플레이트가 자동으로 수화됩니다.</div>
+            </div>
+          `;
+          return;
+        }
+      }
+    }
+
+    bgShowcaseRendered = true;
 
     const all = window.PAPERCUT_BACKGROUNDS || [];
     const filtered = all.filter(item => {
@@ -2097,19 +2124,39 @@
           <div class="pc-bg-card-header">
             <span class="pc-bg-num">#${(idx + 1).toString().padStart(2, '0')}</span>
             <span class="pc-badge pc-badge-${item.category === 'classic' ? 'peach' : item.category === 'nature' ? 'mint' : item.category === 'geo' ? 'lavender' : item.category === 'craft' ? 'buttercup' : 'sky'}" style="font-size: 11px; padding: 2px 8px;">
-              ${item.category === 'classic' ? '우표·인장' : item.category === 'nature' ? '자연·조약돌' : item.category === 'geo' ? '아치·다면체' : item.category === 'craft' ? '접지·문구' : '동화·키리가미'}
+              ${item.category === 'classic' ? '우표·인장' : item.category === 'nature' ? '자연·조약돌' : item.category === 'geo' ? '아치·다면체' : item.category === 'craft' ? '접지·문구' : '동화·페이퍼 커팅'}
             </span>
           </div>
           <div class="pc-bg-name-ko">${item.nameKo}</div>
           <div class="pc-bg-name-en">${item.nameEn}</div>
           <div class="pc-bg-palette-desc">${item.paletteDesc}</div>
           <div class="pc-bg-rec-tag">✦ 추천 아이콘: ${item.recommendedFor}</div>
-          <div class="pc-bg-action-row">
-            <button type="button" class="pc-btn pc-btn-sm pc-bg-copy-svg-btn" title="아이콘이 결합된 SVG 복사">
-              <span class="pc-inline-icon is-xs" data-icon="clipboard"></span> <span>SVG 복사</span>
+          <div class="pc-bg-action-row" style="display:flex; gap:8px; margin-top:8px;">
+            <button type="button" class="pc-svg-kirigami-btn pc-bg-copy-svg-btn" title="아이콘이 결합된 SVG 복사" style="flex:1; width:auto;">
+              <svg class="pc-kirigami-btn-svg" viewBox="0 0 120 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px; width:100%;">
+                <defs>
+                  <filter id="bg-act-sh-svg" x="-20%" y="-20%" width="140%" height="150%">
+                    <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.45"/>
+                    <feDropShadow dx="0" dy="2.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  </filter>
+                </defs>
+                <path d="M 5 4 Q 8 6 11 4 Q 14 6 17 4 Q 20 6 23 4 Q 26 6 29 4 Q 32 6 35 4 Q 38 6 41 4 Q 44 6 47 4 Q 50 6 53 4 Q 56 6 59 4 Q 62 6 65 4 Q 68 6 71 4 Q 74 6 77 4 Q 80 6 83 4 Q 86 6 89 4 Q 92 6 95 4 Q 98 6 101 4 Q 104 6 107 4 Q 110 6 113 4 Q 115 4 116 6 Q 118 9 116 12 Q 118 15 116 18 Q 118 21 116 24 Q 118 27 116 30 Q 118 33 116 34 Q 113 32 110 34 Q 107 32 104 34 Q 101 32 98 34 Q 95 32 92 34 Q 89 32 86 34 Q 83 32 80 34 Q 77 32 74 34 Q 71 32 68 34 Q 65 32 62 34 Q 59 32 56 34 Q 53 32 50 34 Q 47 32 44 34 Q 41 32 38 34 Q 35 32 32 34 Q 29 32 26 34 Q 23 32 20 34 Q 17 32 14 34 Q 11 32 8 34 Q 5 32 4 34 Q 2 31 4 28 Q 2 25 4 22 Q 2 19 4 16 Q 2 13 4 10 Q 2 7 4 5 Z" fill="#BBD5B8" filter="url(#bg-act-sh-svg)"/>
+                <rect x="8" y="7" width="104" height="24" rx="2" fill="#FFFDF9"/>
+                <text x="60" y="23" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="11.5" font-weight="800" fill="#275C46">SVG 복사</text>
+              </svg>
             </button>
-            <button type="button" class="pc-btn pc-btn-sm pc-bg-copy-css-btn pc-btn-peach" title="CSS 클래스 복사">
-              <span class="pc-inline-icon is-xs" data-icon="price-tag"></span> <span>CSS 클래스</span>
+            <button type="button" class="pc-svg-kirigami-btn pc-bg-copy-css-btn" title="CSS 클래스 복사" style="flex:1; width:auto;">
+              <svg class="pc-kirigami-btn-svg" viewBox="0 0 120 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px; width:100%;">
+                <defs>
+                  <filter id="bg-act-sh-css" x="-20%" y="-20%" width="140%" height="150%">
+                    <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.45"/>
+                    <feDropShadow dx="0" dy="2.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  </filter>
+                </defs>
+                <path d="M 6 4 H 114 C 115 4 116 5 116 6 V 14 C 113 14 111 16.5 111 19 C 111 21.5 113 24 116 24 V 32 C 116 33 115 34 114 34 H 6 C 5 34 4 33 4 32 V 24 C 7 24 9 21.5 9 19 C 9 16.5 7 14 4 14 V 6 C 4 5 5 4 6 4 Z" fill="#F7BA9E" filter="url(#bg-act-sh-css)"/>
+                <path d="M 8 7 H 112 V 14 C 109 14 107 16.5 107 19 C 107 21.5 109 24 112 24 V 31 H 8 V 24 C 11 24 13 21.5 13 19 C 13 16.5 11 14 8 14 Z" fill="#FFFDF9"/>
+                <text x="60" y="23" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="11.5" font-weight="800" fill="#6E3B21">CSS 클래스</text>
+              </svg>
             </button>
           </div>
         </div>
@@ -2125,4 +2172,5 @@
   }
 
   window.initPapercutBackgroundShowcase = initBackgroundShowcase;
+  window.renderPapercutBackgrounds = renderBackgrounds;
 })();
