@@ -124,14 +124,17 @@ commit·push·promote(staging→canary→production) → 모바일 알림·안�
   push하는 경로는 쓰지 않는다.
 - **main 직접 푸시 금지** — `.githooks/pre-push`가 푸시 시점에 차단하며, 사람이
   의도적으로 올릴 때만 `ALLOW_MAIN_PUSH=1`을 쓴다.
-- **UI Icons Standard (Full-Color 3D Paper-Cut Art)** — 모든 UI 아이콘(마이크로 16~28px부터 대형 32~256px까지 버튼·인풋·배지·내비게이션 전역)은 모노크롬 철선(wireframe)을 전면 배제하고, 'AI Agent Generated Paper-cut Art · Matte Cream 3D Art' 미학에 따라 7대 파스텔 색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream)와 2-Tier 48% 번트 엄버 그림자가 적용된 독립형 풀컬러(Color Icon) 3D 키리가미 SVG(678종 시스템)를 단일 표준으로 사용하며, 임의의 Lucide, Heroicons, 이모지 혼용을 엄격히 금지
+- **UI Icons Standard (Full-Color 3D Paper-Cut Art)** — 모든 UI 아이콘(마이크로 16~28px부터 대형 32~256px까지 버튼·인풋·배지·내비게이션 전역)은 모노크롬 철선(wireframe)을 전면 배제하고, 'AI Agent Generated Paper-cut Art · Matte Cream 3D Art' 미학에 따라 7대 파스텔 색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream)와 2-Tier 48% 번트 엄버 그림자가 적용된 독립형 풀컬러(Color Icon) 3D 페이퍼 커팅 SVG(678종 시스템)를 단일 표준으로 사용하며, 임의의 Lucide, Heroicons, 이모지 혼용을 엄격히 금지
 - **Fail-closed quality profile** — `.harness-quality.json`의 필수 검사는 우회 불가
 - **Brand assets completion** — 앱·웹 변경은 로고·app-icon·favicon·화면 캡처 필수
 - **Visual deliverable preview** — production 빌드·실행·화면 확인 없이는 완료 금지
 - **Dynamic Context Pruning / ADR 존중** — 규칙을 한꺼번에 쏟지 않고, 리팩터 전에
   `docs/adr/`를 먼저 읽는다
 - **Windows Setup SmartScreen Reputation** — 서명 없는 Windows 셋업 배포 시 웹 2단계 안내([추가 정보] ➔ [실행])와 WDSI 무료 평판 등록(submit-wdsi-helper.ps1) 필수
-- **Web Performance & Compression** — Caddy 전송 압축(zstd/gzip), 정적 자산 브라우저 캐시(max-age=86400+), 렌더 차단 스타일시트 및 UI 핵심 아이콘 preload 필수
+- **Web Performance & Compression Standard** — Caddy 전송 압축(zstd/gzip) 및 고성능 Node 압축 서버(`scripts/ops/serve.ts`), 정적 자산 브라우저 캐시(max-age=86400+, stale-while-revalidate=604800, ETag 304), 렌더 차단 스타일시트 제거, UI 핵심 아이콘/로고 Preload(`as="image"`, `as="style"`), 스크립트 `defer` 필수
+- **UI Library Extensibility & Developer Experience (DX)** — UI 라이브러리로서 누구나 쉽게 CSS 변수(`:root` 디자인 토큰)로 색상·그림자·칼선 림을 오버라이드할 수 있어야 하며, Shadcn 스타일 단일 컴포넌트 복사-붙여넣기, 제로 런타임 순수 웹 표준(Vanilla HTML/CSS/JS), WAI-ARIA 웹 접근성(`:focus-visible`, `@media (prefers-reduced-motion)`), 44x44px 이상 터치 타깃, 웹 오디오 종이 효과음 음소거 토글 등 메이저 UI 라이브러리 수준의 모든 편의 제공 필수
+- **DOM Lazy Hydration Engine** — 대규모 DOM 요소(678종 3D SVG 아이콘, 130종 배경 플레이트 등)는 첫 화면(헤더/사이드바/히어로/12버튼)만 즉시 수화하고, 스크롤 뷰포트 진입(`IntersectionObserver`, rootMargin: 200px) 시점에 점진적 지연 수화(Lazy Hydration) 및 2-Tier 인메모리 `<template>` 캐싱 적용으로 초기 메인 스레드 프리징 10ms 미만 유지 필수
+- **Multi-Device Responsive Geometry (100점 만점)** — `scripts/ops/verify-responsive.ts`를 실행하여 소형 모바일(375px)부터 FHD(1920px)까지 6대 디바이스 전수 100점 만점(결함 0건) 필수 충족
 - **UI/UX Standards & Audit (ux-audit)** — 4/8pt 그리드(`spacing-lint.ts`), 터치 타겟 44px+, Flaticon 단일화, ux-audit 검증 준수
 - **사이드바 좌측 정렬** — 사이드바 메뉴·목록 버튼은 반드시 좌측 정렬(`text-left justify-start`) 적용, 가운데 정렬 상속 금지
 - **Anti-Fingernail Design** — 비대칭 굵은 테두리(`border-l-4 rounded-*`) 금지, 대칭 테두리(`border`) 사용
