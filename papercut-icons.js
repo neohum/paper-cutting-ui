@@ -9971,17 +9971,22 @@
 
   let currentCategory = 'all';
   let currentSearchQuery = '';
+  let iconGalleryRendered = false;
+
+  // In-memory string & template parsing cache
+  const iconStringCache = new Map();
+  const iconTemplateCache = new Map();
+  let iconLookupMap = null;
 
   document.addEventListener('DOMContentLoaded', () => {
     initPapercutIconExplorer();
+    initPapercutLazyHydration();
   });
 
   /**
    * Initializes the Paper-Cut Icon Explorer toolbar, search, and category pills
    */
   function initPapercutIconExplorer() {
-    renderIcons();
-
     // Category Filter Pills
     const catButtons = document.querySelectorAll('.pc-icon-cat-btn');
     catButtons.forEach(btn => {
@@ -9989,7 +9994,7 @@
         catButtons.forEach(b => b.classList.remove('is-active'));
         btn.classList.add('is-active');
         currentCategory = btn.getAttribute('data-cat') || 'all';
-        renderIcons();
+        renderIcons(true);
       });
     });
 
@@ -9998,21 +10003,48 @@
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         currentSearchQuery = e.target.value.toLowerCase().trim();
-        renderIcons();
+        renderIcons(true);
+      });
+      // Render immediately when user focuses search
+      searchInput.addEventListener('focus', () => {
+        if (!iconGalleryRendered) renderIcons(true);
       });
     }
 
-    // Click to Copy SVG Code
+    // Click to Copy / Download SVG Code
     const container = document.getElementById('icon-gallery-grid');
     if (container) {
       container.addEventListener('click', (e) => {
+        const downloadBtn = e.target.closest('.pc-icon-download-btn');
         const card = e.target.closest('.pc-icon-card');
         if (!card) return;
 
-        const svg = card.querySelector('svg');
-        const nameKo = card.querySelector('.pc-icon-name-ko')?.textContent || '아이콘';
-        if (svg && window.navigator && window.navigator.clipboard) {
-          navigator.clipboard.writeText(svg.outerHTML).then(() => {
+        const iconId = card.dataset.icon;
+        const icon = (window.PAPERCUT_ICONS || []).find(i => i.id === iconId);
+        const nameKo = card.querySelector('.pc-icon-name-ko')?.textContent || icon?.nameKo || '아이콘';
+        const svgContent = icon?.svg || card.querySelector('.pc-icon-stage svg')?.outerHTML || '';
+
+        if (downloadBtn) {
+          e.stopPropagation();
+          if (svgContent) {
+            const blob = new Blob([svgContent], { type: 'image/svg+xml;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `papercut-${iconId || 'icon'}.svg`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            if (typeof showPaperToast === 'function') {
+              showPaperToast(`[${nameKo}] SVG 파일이 다운로드되었습니다!`, 'sky');
+            }
+          }
+          return;
+        }
+
+        if (svgContent && window.navigator && window.navigator.clipboard) {
+          navigator.clipboard.writeText(svgContent).then(() => {
             if (typeof showPaperToast === 'function') {
               showPaperToast(`[${nameKo}] 스탠드얼론 종이 아이콘 SVG가 복사되었습니다!`, 'mint');
             }
@@ -10024,15 +10056,45 @@
         }
       });
     }
+
+    // Initial render check: only render immediately if gallery is already near viewport
+    renderIcons(false);
   }
 
   /**
    * Renders the filtered and searched icons into the grid
+   * Uses progressive chunked rendering to prevent main thread freezing
    */
-  function renderIcons() {
+  let galleryRenderTimer = null;
+  function renderIcons(force = false) {
     const container = document.getElementById('icon-gallery-grid');
     const countBadge = document.getElementById('icon-count-badge');
+    const gallerySection = document.getElementById('icon-gallery');
     if (!container) return;
+
+    // Lazy check: if not forced and gallery is not in/near viewport, show lightweight placeholder
+    if (!force && !iconGalleryRendered) {
+      if (gallerySection) {
+        const rect = gallerySection.getBoundingClientRect();
+        const isNear = rect.top < (window.innerHeight + 300) && rect.bottom > -300;
+        if (!isNear) {
+          container.innerHTML = `
+            <div class="pc-icon-gallery-placeholder" style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; color: var(--pc-ink-muted);">
+              <div style="margin-bottom: 12px;"><span class="pc-inline-icon is-lg is-color" data-icon="star-cluster"></span></div>
+              <div style="font-weight: 800; font-size: 16px; color: var(--pc-ink);">678종 스탠드얼론 페이퍼 커팅 아이콘 라이브러리</div>
+              <div style="font-size: 13.5px; margin-top: 6px;">스크롤하여 갤러리에 접근하면 고화질 3D 종이 아이콘이 자동으로 수화됩니다.</div>
+            </div>
+          `;
+          return;
+        }
+      }
+    }
+
+    iconGalleryRendered = true;
+    if (galleryRenderTimer) {
+      cancelAnimationFrame(galleryRenderTimer);
+      galleryRenderTimer = null;
+    }
 
     const allIcons = window.PAPERCUT_ICONS || [];
 
@@ -10065,25 +10127,59 @@
       return;
     }
 
-    const fragment = document.createDocumentFragment();
-    filtered.forEach(icon => {
+    // Helper to create a single card element
+    function createCard(icon) {
       const card = document.createElement('div');
       card.className = 'pc-icon-card';
       card.dataset.icon = icon.id;
       card.title = '클릭하여 SVG 코드 복사';
-
       card.innerHTML = `
         <div class="pc-icon-stage">
           ${icon.svg}
         </div>
         <div class="pc-icon-name-ko">${icon.nameKo}</div>
         <div class="pc-icon-name-en">${icon.nameEn}</div>
+        <div class="pc-icon-action-row" style="display:flex;gap:6px;width:100%;margin-top:6px;">
+          <button type="button" class="pc-icon-copy-btn pc-btn-paper-mini" title="SVG 코드 복사" style="flex:1;">
+            <span>복사</span>
+          </button>
+          <button type="button" class="pc-icon-download-btn pc-btn-paper-mini" title="SVG 파일 다운로드" style="flex:1;">
+            <span>다운</span>
+          </button>
+        </div>
       `;
-      fragment.appendChild(card);
-    });
+      return card;
+    }
+
+    // Progressive Chunked Rendering: Render first 48 cards immediately,
+    // then stream remaining cards in animation frames to prevent main thread stutters.
+    const INITIAL_CHUNK_SIZE = 48;
+    const initialBatch = filtered.slice(0, INITIAL_CHUNK_SIZE);
+    const fragment = document.createDocumentFragment();
+    initialBatch.forEach(icon => fragment.appendChild(createCard(icon)));
 
     container.innerHTML = '';
     container.appendChild(fragment);
+
+    if (filtered.length > INITIAL_CHUNK_SIZE) {
+      let currentIndex = INITIAL_CHUNK_SIZE;
+      const CHUNK_SIZE = 48;
+
+      function renderNextBatch() {
+        if (currentIndex >= filtered.length) return;
+        const nextBatch = filtered.slice(currentIndex, currentIndex + CHUNK_SIZE);
+        const subFragment = document.createDocumentFragment();
+        nextBatch.forEach(icon => subFragment.appendChild(createCard(icon)));
+        container.appendChild(subFragment);
+        currentIndex += CHUNK_SIZE;
+
+        if (currentIndex < filtered.length) {
+          galleryRenderTimer = requestAnimationFrame(renderNextBatch);
+        }
+      }
+
+      galleryRenderTimer = requestAnimationFrame(renderNextBatch);
+    }
   }
 
   /**
@@ -10119,7 +10215,6 @@
     "document": "file"
   };
 
-  let iconLookupMap = null;
   function getIconMap() {
     if (!iconLookupMap) {
       iconLookupMap = new Map();
@@ -10136,14 +10231,62 @@
     return iconLookupMap;
   }
 
-  let instanceSeq = 0;
+  /**
+   * Generates or retrieves cached SVG markup string for a papercut icon
+   * Features in-memory caching to eliminate repetitive regex ID replacements
+   */
   function getPapercutIconSvg(iconId, customSuffix = null) {
     const map = getIconMap();
     const raw = map.get(iconId)?.svg || '';
     if (!raw) return '';
-    const suffix = customSuffix || (`inst-${++instanceSeq}`);
-    return raw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${suffix}"`)
-              .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${suffix})`);
+    const suffix = customSuffix || (`tpl-${iconId}`);
+    const cacheKey = `${iconId}__${suffix}`;
+    let cached = iconStringCache.get(cacheKey);
+    if (!cached) {
+      cached = raw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${suffix}"`)
+                  .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${suffix})`);
+      iconStringCache.set(cacheKey, cached);
+    }
+    return cached;
+  }
+
+  /**
+   * Retrieves or creates a pre-parsed <template> element containing the icon SVG
+   * Fast in-memory node cloning (cloneNode) eliminates costly innerHTML HTML parsing
+   */
+  function getPapercutIconTemplate(iconId, customSuffix = null) {
+    const suffix = customSuffix || (`tpl-${iconId}`);
+    const cacheKey = `${iconId}__${suffix}`;
+    let tpl = iconTemplateCache.get(cacheKey);
+    if (!tpl) {
+      const svgStr = getPapercutIconSvg(iconId, suffix);
+      if (!svgStr) return null;
+      tpl = document.createElement('template');
+      tpl.innerHTML = svgStr;
+      iconTemplateCache.set(cacheKey, tpl);
+    }
+    return tpl;
+  }
+
+  /**
+   * Hydrates a single DOM element with the requested papercut icon using template cloning
+   */
+  function hydrateIconElement(el, forcedIconId = null) {
+    if (!el) return false;
+    if (el.getAttribute('data-hydrated') === 'true' && el.firstElementChild) return true;
+
+    const iconId = forcedIconId || el.getAttribute('data-icon');
+    if (!iconId) return false;
+
+    const tpl = getPapercutIconTemplate(iconId);
+    if (tpl) {
+      el.textContent = '';
+      el.appendChild(tpl.content.cloneNode(true));
+      el.classList.add('pc-inline-icon', 'is-color', 'pc-color-icon');
+      el.setAttribute('data-hydrated', 'true');
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -10168,6 +10311,10 @@
         }
       } else {
         // Universal Full-Color 3D Kirigami Art (is-color, pc-color-icon)
+        // Skip if already configured to avoid unnecessary class mutations
+        if (svg.classList.contains('pc-color-icon') && !svg.classList.contains('pc-stroke-active-layer')) {
+          return;
+        }
         svg.classList.add('pc-stroke-off', 'pc-auto-stroke-off', 'is-color', 'pc-color-icon');
         svg.classList.remove('pc-stroke-active-layer', 'pc-stroke-active-fixed', 'pc-auto-stroke-on', 'pc-firr-style', 'is-firr');
         if (parent && parent.classList.contains('pc-inline-icon')) {
@@ -10178,28 +10325,175 @@
     });
   }
 
+  /**
+   * Scoped Icon Hydrator
+   * Hydrates only the specified root element and its descendants with template cloning
+   */
   function hydratePapercutIcons(root = document) {
-    if (!root || typeof root.querySelectorAll !== 'function') return;
-    const map = getIconMap();
-    const targets = root.querySelectorAll('[data-icon]');
+    if (!root) return;
+
+    // If root itself is a target icon element
+    if (root.getAttribute && root.hasAttribute('data-icon')) {
+      if (!root.classList.contains('pc-icon-card') && !root.classList.contains('pc-bg-card') && root.tagName !== 'OPTION') {
+        hydrateIconElement(root);
+      }
+    }
+
+    if (typeof root.querySelectorAll !== 'function') return;
+
+    const targets = root.querySelectorAll('[data-icon]:not([data-hydrated="true"])');
     targets.forEach(el => {
       if (el.classList.contains('pc-icon-card') || el.classList.contains('pc-bg-card') || el.tagName === 'OPTION') return;
-      const iconId = el.getAttribute('data-icon');
-      const icon = map.get(iconId);
-      if (icon) {
-        el.innerHTML = getPapercutIconSvg(iconId);
-        el.classList.add('pc-inline-icon', 'is-color', 'pc-color-icon');
-      }
+      hydrateIconElement(el);
     });
     applyPapercutStrokeByScale(root);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      hydratePapercutIcons();
+  /**
+   * Intelligent Lazy Hydration System (IntersectionObserver with 200px rootMargin)
+   * Ensures instant above-the-fold hydration for header, sidebar, hero, and buttons,
+   * while lazily hydrating below-the-fold card sections when approaching the viewport.
+   */
+  function initPapercutLazyHydration() {
+    // 1. [Immediate Hydration] First-screen elements must be hydrated synchronously
+    const immediateSelectors = [
+      '#pc-site-header',
+      '#pc-sidebar-nav',
+      '.pc-sidebar-floating-toggle',
+      '#overview',
+      '.hero-banner',
+      '#knife-cut-buttons'
+    ];
+
+    immediateSelectors.forEach(selector => {
+      const el = document.querySelector(selector);
+      if (el) {
+        hydratePapercutIcons(el);
+        if (typeof window.hydrateMountedPlates === 'function') {
+          window.hydrateMountedPlates(el);
+        }
+        el.setAttribute('data-hydrated', 'true');
+      }
     });
-  } else {
-    hydratePapercutIcons();
+
+    // 2. [Lazy Hydration] Below-the-fold sections configured with 200px rootMargin
+    const lazySectionIds = [
+      'kirigami-components',
+      'shadcn-components',
+      'shadcn-blocks-charts',
+      'shadcn-charts-section',
+      'icon-gallery',
+      'bg-library',
+      'texture-showcase',
+      'paper-alerts-toasts',
+      'paper-animation-studio',
+      'pc-site-footer'
+    ];
+
+    if ('IntersectionObserver' in window) {
+      const lazyObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting || entry.intersectionRatio > 0) {
+            const target = entry.target;
+            observer.unobserve(target);
+
+            // Hydrate icons in the section
+            hydratePapercutIcons(target);
+
+            // Hydrate mounted 3D plates in the section
+            if (typeof window.hydrateMountedPlates === 'function') {
+              window.hydrateMountedPlates(target);
+            }
+
+            // If entering Icon Gallery, trigger gallery render
+            if (target.id === 'icon-gallery' || target.querySelector('#icon-gallery-grid')) {
+              renderIcons(true);
+            }
+
+            // If entering Background Showcase, trigger background render if available
+            if (target.id === 'bg-library' || target.querySelector('#background-plates-grid')) {
+              if (typeof window.renderPapercutBackgrounds === 'function') {
+                window.renderPapercutBackgrounds();
+              }
+            }
+
+            target.setAttribute('data-hydrated', 'true');
+          }
+        });
+      }, {
+        rootMargin: '200px',
+        threshold: 0.01
+      });
+
+      // Observe declared lazy sections
+      lazySectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.getAttribute('data-hydrated') !== 'true') {
+          lazyObserver.observe(el);
+        }
+      });
+
+      // Also observe any dynamic .pc-page-view or standalone section not yet hydrated
+      document.querySelectorAll('.pc-page-view:not([data-hydrated="true"]), section:not([data-hydrated="true"])').forEach(el => {
+        if (el.id !== 'overview' && el.id !== 'knife-cut-buttons') {
+          lazyObserver.observe(el);
+        }
+      });
+
+      // 3. [Idle Pre-warming Sweep] Warm any remaining unhydrated sections during low-priority browser idle
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          setTimeout(() => {
+            const pendingSections = lazySectionIds
+              .map(id => document.getElementById(id))
+              .filter(el => el && el.getAttribute('data-hydrated') !== 'true');
+
+            if (pendingSections.length > 0) {
+              const idleChunk = pendingSections.slice(0, 3);
+              idleChunk.forEach(sec => {
+                lazyObserver.unobserve(sec);
+                hydratePapercutIcons(sec);
+                if (typeof window.hydrateMountedPlates === 'function') {
+                  window.hydrateMountedPlates(sec);
+                }
+                sec.setAttribute('data-hydrated', 'true');
+              });
+            }
+          }, 3500);
+        }, { timeout: 6000 });
+      }
+    } else {
+      // 4. [Graceful Fallback] Time-sliced batch hydration for environments without IntersectionObserver
+      const pendingElements = lazySectionIds
+        .map(id => document.getElementById(id))
+        .filter(Boolean);
+
+      function drainFallbackQueue() {
+        if (pendingElements.length === 0) return;
+        const chunk = pendingElements.splice(0, 3);
+        chunk.forEach(el => {
+          hydratePapercutIcons(el);
+          if (typeof window.hydrateMountedPlates === 'function') {
+            window.hydrateMountedPlates(el);
+          }
+          el.setAttribute('data-hydrated', 'true');
+        });
+
+        if (pendingElements.length > 0) {
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(drainFallbackQueue, { timeout: 1000 });
+          } else {
+            setTimeout(drainFallbackQueue, 60);
+          }
+        }
+      }
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(drainFallbackQueue, { timeout: 1500 });
+      } else {
+        setTimeout(drainFallbackQueue, 80);
+      }
+    }
   }
 
   window.addEventListener('load', () => {
@@ -10207,8 +10501,15 @@
   });
 
   window.getPapercutIconSvg = getPapercutIconSvg;
+  window.getPapercutIconTemplate = getPapercutIconTemplate;
   window.hydratePapercutIcons = hydratePapercutIcons;
   window.applyPapercutStrokeByScale = applyPapercutStrokeByScale;
   window.initPapercutIconExplorer = initPapercutIconExplorer;
   window.renderPapercutIcons = renderIcons;
+  window.initPapercutLazyHydration = initPapercutLazyHydration;
+  window.PaperCutIconHydrator = {
+    hydrateElement: hydrateIconElement,
+    hydrateScope: hydratePapercutIcons,
+    initLazy: initPapercutLazyHydration
+  };
 })();

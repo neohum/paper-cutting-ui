@@ -1,6 +1,8 @@
 /**
- * PaperCut UI - 3D Papercraft Modal, Sheet & Drawer Controller
- * Provides real interactive Dialog, Side Sheet, and Bottom Drawer overlays.
+ * PaperCut UI - 3D Papercraft Modal, Dialog, Sheet & Drawer Controller
+ * 12 Kirigami Archetypes (Perforated Stamp, Antique Wax Seal, Notched Cinema Ticket,
+ * Ultra-Thin Crisp, Hanging Tag, Dog-ear Fold, Washi Note, Emerald Gem, Deckle Edge,
+ * Swallowtail Ribbon, Envelope Pocket, Double-Notch Voucher)
  */
 
 (function () {
@@ -9,6 +11,35 @@
   let dialogBackdrop = null;
   let sheetBackdrop = null;
   let drawerBackdrop = null;
+  let previousActiveElement = null;
+
+  // 12 Kirigami Archetype Names
+  const KIRIGAMI_STYLES = [
+    'washi', 'wax', 'ticket', 'thin', 'tag', 'dogear',
+    'gem', 'stamp', 'deckle', 'ribbon', 'envelope', 'voucher'
+  ];
+
+  // 7 Pastel Paper Variant Names
+  const PASTEL_VARIANTS = [
+    'mint', 'peach', 'lavender', 'buttercup', 'sky', 'rose', 'cream', 'sage'
+  ];
+
+  // SVG Medallion Templates
+  const WAX_SEAL_SVG = `
+    <svg class="pc-wax-seal-svg" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id="pc-modal-wax-sh" x="-20%" y="-20%" width="140%" height="150%">
+          <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.48"/>
+          <feDropShadow dx="0" dy="3.5" stdDeviation="1.8" flood-color="#2E1E14" flood-opacity="0.26"/>
+          <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+        </filter>
+      </defs>
+      <circle cx="22" cy="22" r="20" fill="#F5B8BE" filter="url(#pc-modal-wax-sh)"/>
+      <circle cx="22" cy="22" r="16" fill="#F7BA9E"/>
+      <circle cx="22" cy="22" r="11" fill="#FAF6ED"/>
+      <path d="M 22 17 C 19.5 13.5 15.5 15.5 15.5 19.5 C 15.5 23.5 22 27.5 22 28 C 22 27.5 28.5 23.5 28.5 19.5 C 28.5 15.5 24.5 13.5 22 17 Z" fill="#F5B8BE"/>
+    </svg>
+  `;
 
   function ensureModalsDOM() {
     // 1. Dialog (Shadowbox Modal)
@@ -17,56 +48,70 @@
       dialogBackdrop.id = 'pc-modal-dialog-backdrop';
       dialogBackdrop.className = 'pc-modal-backdrop';
       dialogBackdrop.innerHTML = `
-        <div class="pc-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dialog-title">
-          <div class="pc-dialog-washi"></div>
-          <div class="pc-dialog-header">
-            <div class="pc-dialog-title-wrap">
-              <h3 class="pc-dialog-title" id="pc-dialog-title">
-                <span class="pc-inline-icon is-sm" data-icon="settings"></span>
-                <span>3D 페이퍼 섀도우박스 모달</span>
-              </h3>
-              <p class="pc-dialog-desc" id="pc-dialog-desc">색종이를 정밀하게 레이어드한 핸드크래프트 다이얼로그 섀도우박스 창입니다.</p>
-            </div>
-            <button type="button" class="pc-dialog-close" id="pc-dialog-btn-close" aria-label="닫기">
-              <span class="pc-inline-icon is-xs" data-icon="close"></span>
-            </button>
+        <div class="pc-modal-dialog pc-modal-washi variant-mint" id="pc-active-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dialog-title">
+          <!-- Kirigami Ornamentation Mounts -->
+          <div class="pc-dialog-washi" id="pc-dialog-washi-tape"></div>
+          <div class="pc-modal-wax-seal" id="pc-dialog-wax-mount" style="display: none;">${WAX_SEAL_SVG}</div>
+          <div class="pc-modal-dogear-flap" id="pc-dialog-dogear-mount" style="display: none;"></div>
+          <div class="pc-modal-dogear-crease" id="pc-dialog-crease-mount" style="display: none;"></div>
+          <div class="pc-modal-tag-eyelet" id="pc-dialog-tag-mount" style="display: none;"></div>
+          <div class="pc-modal-ribbon-badge" id="pc-dialog-ribbon-mount" style="display: none;">
+            <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>OFFICIAL</span>
           </div>
-          <div class="pc-dialog-body" id="pc-dialog-body">
-            <div style="display: flex; flex-direction: column; gap: 14px;">
-              <div>
-                <label style="display: block; font-size: 13px; font-weight: 700; color: #4A3A2C; margin-bottom: 6px;">
-                  프로필 명칭 (수제 라벨)
-                </label>
-                <input type="text" class="pc-input" value="오리가미 아틀리에 에디터" style="width: 100%;">
+          <div class="pc-modal-envelope-flap" id="pc-dialog-envelope-mount" style="display: none;"></div>
+
+          <div class="pc-dialog-inner">
+            <div class="pc-dialog-header">
+              <div class="pc-dialog-title-wrap">
+                <h3 class="pc-dialog-title" id="pc-dialog-title">
+                  <span class="pc-inline-icon is-sm" id="pc-dialog-icon" data-icon="settings"></span>
+                  <span id="pc-dialog-title-text">3D 페이퍼 섀도우박스 모달</span>
+                </h3>
+                <p class="pc-dialog-desc" id="pc-dialog-desc">색종이를 정밀하게 레이어드한 핸드크래프트 다이얼로그 섀도우박스 창입니다.</p>
               </div>
-              <div>
-                <label style="display: block; font-size: 13px; font-weight: 700; color: #4A3A2C; margin-bottom: 6px;">
-                  종이 지질 선택 (16종 스톡)
-                </label>
-                <div class="pc-select-wrapper">
-                  <select class="pc-select">
-                    <option>300g 수제 코튼지 (Cotton Handmade)</option>
-                    <option>350g 매트 크림보드 (Matte Cream Board)</option>
-                    <option>닥나무 전통 한지 (Mulberry Hanji)</option>
-                    <option>프렌치 린넨 패브릭지 (French Linen)</option>
-                  </select>
+              <button type="button" class="pc-dialog-close" id="pc-dialog-btn-close" aria-label="닫기">
+                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+              </button>
+            </div>
+
+            <div class="pc-dialog-body" id="pc-dialog-body">
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div>
+                  <label style="display: block; font-size: 13px; font-weight: 700; color: #4A3A2C; margin-bottom: 6px;">
+                    프로필 명칭 (수제 라벨)
+                  </label>
+                  <input type="text" class="pc-input" value="오리가미 아틀리에 에디터" style="width: 100%;">
+                </div>
+                <div>
+                  <label style="display: block; font-size: 13px; font-weight: 700; color: #4A3A2C; margin-bottom: 6px;">
+                    종이 지질 선택 (16종 스톡)
+                  </label>
+                  <div class="pc-select-wrapper">
+                    <select class="pc-select">
+                      <option>300g 수제 코튼지 (Cotton Handmade)</option>
+                      <option>350g 매트 크림보드 (Matte Cream Board)</option>
+                      <option>닥나무 전통 한지 (Mulberry Hanji)</option>
+                      <option>프렌치 린넨 패브릭지 (French Linen)</option>
+                    </select>
+                  </div>
+                </div>
+                <div style="background: #F3ECE1; border-radius: 12px; padding: 12px 14px; border: 1px solid #E2D6C3;">
+                  <label class="pc-checkbox-label" style="font-size: 13px;">
+                    <input type="checkbox" class="pc-checkbox-input" checked>
+                    <span class="pc-checkbox-box"></span>
+                    <span>칼선 외곽선(Stroke) 2.0px 안티앨리어싱 자동 보정</span>
+                  </label>
                 </div>
               </div>
-              <div style="background: #F3ECE1; border-radius: 12px; padding: 12px 14px; border: 1px solid #E2D6C3;">
-                <label class="pc-checkbox-label" style="font-size: 13px;">
-                  <input type="checkbox" class="pc-checkbox-input" checked>
-                  <span class="pc-checkbox-box"></span>
-                  <span>칼선 외곽선(Stroke) 2.0px 안티앨리어싱 자동 보정</span>
-                </label>
-              </div>
             </div>
-          </div>
-          <div class="pc-dialog-footer">
-            <button type="button" class="pc-btn pc-btn-ghost" id="pc-dialog-btn-cancel">취소</button>
-            <button type="button" class="pc-btn pc-btn-mint" id="pc-dialog-btn-confirm">
-              <span class="pc-inline-icon is-xs" data-icon="check"></span>
-              <span>설정 저장하기</span>
-            </button>
+
+            <div class="pc-dialog-footer" id="pc-dialog-footer">
+              <button type="button" class="pc-btn pc-btn-ghost" id="pc-dialog-btn-cancel">취소</button>
+              <button type="button" class="pc-btn pc-btn-mint" id="pc-dialog-btn-confirm">
+                <span class="pc-inline-icon is-xs" data-icon="check"></span>
+                <span>설정 저장하기</span>
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -101,14 +146,14 @@
               </div>
               <h3 style="margin: 0; font-size: 20px; font-weight: 800; color: #37281E; display: flex; align-items: center; gap: 8px;">
                 <span class="pc-inline-icon is-sm" data-icon="book"></span>
-                <span>종이 공예 장바구니 & 주문서</span>
+                <span id="pc-sheet-title">종이 공예 장바구니 & 주문서</span>
               </h3>
             </div>
             <button type="button" class="pc-dialog-close" id="pc-sheet-btn-close" aria-label="닫기">
               <span class="pc-inline-icon is-xs" data-icon="close"></span>
             </button>
           </div>
-          <div class="pc-sheet-body">
+          <div class="pc-sheet-body" id="pc-sheet-body">
             <div style="display: flex; flex-direction: column; gap: 14px;">
               <!-- Item 1 -->
               <div class="pc-card" style="padding: 14px; background: #FFFFFF; border-radius: 14px; border: 1.5px solid #E6DCCB;">
@@ -186,7 +231,6 @@
       `;
       document.body.appendChild(sheetBackdrop);
 
-      // Event listeners
       sheetBackdrop.addEventListener('click', (e) => {
         if (e.target === sheetBackdrop) closeSheet();
       });
@@ -213,14 +257,14 @@
               <div style="font-size: 11px; font-weight: 800; color: #8F7D6D; text-transform: uppercase; letter-spacing: 0.5px;">Bottom Drawer Tray</div>
               <h3 style="margin: 0; font-size: 18px; font-weight: 800; color: #37281E; display: flex; align-items: center; gap: 8px;">
                 <span class="pc-inline-icon is-sm" data-icon="inbox"></span>
-                <span>서랍형 바텀 드로어 트레이 (Drawer)</span>
+                <span id="pc-drawer-title">서랍형 바텀 드로어 트레이 (Drawer)</span>
               </h3>
             </div>
             <button type="button" class="pc-dialog-close" id="pc-drawer-btn-close" aria-label="닫기">
               <span class="pc-inline-icon is-xs" data-icon="close"></span>
             </button>
           </div>
-          <div class="pc-drawer-body">
+          <div class="pc-drawer-body" id="pc-drawer-body">
             <p style="margin: 0 0 16px; font-size: 13.5px; color: #6D5C4C;">
               화면 하단에서 부드럽게 솟아오르는 슬라이드업 크래프트 트레이입니다. 모바일 액션 시트나 빠른 설정 제어에 최적화되어 있습니다.
             </p>
@@ -266,8 +310,6 @@
     }
   }
 
-  let previousActiveElement = null;
-
   function getFocusableElements(container) {
     if (!container) return [];
     return Array.from(container.querySelectorAll(
@@ -282,17 +324,143 @@
     return null;
   }
 
+  /**
+   * Open 3D Papercraft Dialog
+   * @param {Object} opts - Dialog configuration options
+   *   kirigami: 'washi' | 'wax' | 'ticket' | 'thin' | 'tag' | 'dogear' | 'gem' | 'stamp' | 'deckle' | 'ribbon' | 'envelope' | 'voucher'
+   *   variant: 'mint' | 'peach' | 'lavender' | 'buttercup' | 'sky' | 'rose' | 'cream' | 'sage'
+   *   title: string
+   *   desc: string
+   *   icon: string (papercut icon name)
+   *   body: string | HTMLElement
+   *   confirmLabel: string
+   *   cancelLabel: string
+   *   confirmStyle: string (e.g. 'pc-btn-mint', 'pc-btn-kirigami-wax')
+   *   onConfirm: Function
+   *   onCancel: Function
+   *   customButtons: Array<{ label, class, onClick }>
+   */
   function openDialog(opts = {}) {
     ensureModalsDOM();
     previousActiveElement = document.activeElement;
-    if (opts.title) {
-      const titleSpan = dialogBackdrop.querySelector('#pc-dialog-title span:last-child');
-      if (titleSpan) titleSpan.textContent = opts.title;
+
+    const dialogEl = dialogBackdrop.querySelector('#pc-active-modal-dialog');
+    if (!dialogEl) return;
+
+    const kirigami = opts.kirigami || opts.style || 'washi';
+    const variant = opts.variant || 'mint';
+
+    // Reset kirigami & variant classes
+    KIRIGAMI_STYLES.forEach(s => dialogEl.classList.remove(`pc-modal-${s}`));
+    PASTEL_VARIANTS.forEach(v => dialogEl.classList.remove(`variant-${v}`));
+
+    dialogEl.classList.add(`pc-modal-${kirigami}`);
+    dialogEl.classList.add(`variant-${variant}`);
+
+    // Manage Kirigami Ornaments
+    const washiTape = dialogBackdrop.querySelector('#pc-dialog-washi-tape');
+    const waxMount = dialogBackdrop.querySelector('#pc-dialog-wax-mount');
+    const dogearMount = dialogBackdrop.querySelector('#pc-dialog-dogear-mount');
+    const creaseMount = dialogBackdrop.querySelector('#pc-dialog-crease-mount');
+    const tagMount = dialogBackdrop.querySelector('#pc-dialog-tag-mount');
+    const ribbonMount = dialogBackdrop.querySelector('#pc-dialog-ribbon-mount');
+    const envelopeMount = dialogBackdrop.querySelector('#pc-dialog-envelope-mount');
+
+    if (washiTape) washiTape.style.display = (kirigami === 'washi') ? 'block' : 'none';
+    if (waxMount) waxMount.style.display = (kirigami === 'wax') ? 'block' : 'none';
+    if (dogearMount) dogearMount.style.display = (kirigami === 'dogear') ? 'block' : 'none';
+    if (creaseMount) creaseMount.style.display = (kirigami === 'dogear') ? 'block' : 'none';
+    if (tagMount) tagMount.style.display = (kirigami === 'tag') ? 'block' : 'none';
+    if (ribbonMount) ribbonMount.style.display = (kirigami === 'ribbon') ? 'block' : 'none';
+    if (envelopeMount) envelopeMount.style.display = (kirigami === 'envelope') ? 'block' : 'none';
+
+    // Title & Description
+    const titleEl = dialogBackdrop.querySelector('#pc-dialog-title-text');
+    if (titleEl && opts.title) titleEl.textContent = opts.title;
+
+    const descEl = dialogBackdrop.querySelector('#pc-dialog-desc');
+    if (descEl) {
+      if (opts.desc) {
+        descEl.textContent = opts.desc;
+        descEl.style.display = 'block';
+      } else {
+        descEl.style.display = 'none';
+      }
     }
-    if (opts.desc) {
-      const descEl = dialogBackdrop.querySelector('#pc-dialog-desc');
-      if (descEl) descEl.textContent = opts.desc;
+
+    // Icon
+    const iconEl = dialogBackdrop.querySelector('#pc-dialog-icon');
+    if (iconEl && opts.icon) {
+      iconEl.setAttribute('data-icon', opts.icon);
     }
+
+    // Body
+    const bodyEl = dialogBackdrop.querySelector('#pc-dialog-body');
+    if (bodyEl && opts.body) {
+      if (typeof opts.body === 'string') {
+        bodyEl.innerHTML = opts.body;
+      } else if (opts.body instanceof HTMLElement) {
+        bodyEl.innerHTML = '';
+        bodyEl.appendChild(opts.body);
+      }
+    }
+
+    // Footer & Buttons
+    const footerEl = dialogBackdrop.querySelector('#pc-dialog-footer');
+    if (footerEl) {
+      if (opts.customButtons && Array.isArray(opts.customButtons)) {
+        footerEl.innerHTML = '';
+        opts.customButtons.forEach(btnDef => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = btnDef.class || 'pc-btn pc-btn-ghost';
+          btn.innerHTML = btnDef.label || '확인';
+          btn.addEventListener('click', () => {
+            if (typeof btnDef.onClick === 'function') btnDef.onClick(closeDialog);
+            else closeDialog();
+          });
+          footerEl.appendChild(btn);
+        });
+      } else {
+        const cancelBtn = footerEl.querySelector('#pc-dialog-btn-cancel');
+        if (cancelBtn) {
+          cancelBtn.textContent = opts.cancelLabel || '취소';
+          cancelBtn.onclick = () => {
+            if (typeof opts.onCancel === 'function') opts.onCancel();
+            closeDialog();
+          };
+        }
+
+        const confirmBtn = footerEl.querySelector('#pc-dialog-btn-confirm');
+        if (confirmBtn) {
+          const confirmText = confirmBtn.querySelector('span:last-child');
+          if (confirmText) confirmText.textContent = opts.confirmLabel || '확인';
+          if (opts.confirmStyle) {
+            confirmBtn.className = `pc-btn ${opts.confirmStyle}`;
+          } else {
+            confirmBtn.className = `pc-btn pc-btn-${variant}`;
+          }
+          confirmBtn.onclick = () => {
+            if (typeof opts.onConfirm === 'function') opts.onConfirm();
+            closeDialog();
+          };
+        }
+      }
+    }
+
+    // Close button styling: stamp or wax seal
+    const closeBtn = dialogBackdrop.querySelector('#pc-dialog-btn-close');
+    if (closeBtn) {
+      closeBtn.className = 'pc-dialog-close';
+      if (kirigami === 'wax') closeBtn.classList.add('is-wax');
+      else if (kirigami === 'stamp') closeBtn.classList.add('is-stamp');
+    }
+
+    // Hydrate icons in dialog
+    if (typeof window.hydratePapercutIcons === 'function') {
+      window.hydratePapercutIcons(dialogEl);
+    }
+
     dialogBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
 
@@ -314,9 +482,28 @@
     }
   }
 
+  /**
+   * Open Side Sheet
+   */
   function openSheet(opts = {}) {
     ensureModalsDOM();
     previousActiveElement = document.activeElement;
+
+    if (opts.title) {
+      const titleEl = sheetBackdrop.querySelector('#pc-sheet-title');
+      if (titleEl) titleEl.textContent = opts.title;
+    }
+    if (opts.body) {
+      const bodyEl = sheetBackdrop.querySelector('#pc-sheet-body');
+      if (bodyEl) {
+        if (typeof opts.body === 'string') bodyEl.innerHTML = opts.body;
+        else if (opts.body instanceof HTMLElement) {
+          bodyEl.innerHTML = '';
+          bodyEl.appendChild(opts.body);
+        }
+      }
+    }
+
     sheetBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
 
@@ -337,9 +524,28 @@
     }
   }
 
+  /**
+   * Open Bottom Drawer
+   */
   function openDrawer(opts = {}) {
     ensureModalsDOM();
     previousActiveElement = document.activeElement;
+
+    if (opts.title) {
+      const titleEl = drawerBackdrop.querySelector('#pc-drawer-title');
+      if (titleEl) titleEl.textContent = opts.title;
+    }
+    if (opts.body) {
+      const bodyEl = drawerBackdrop.querySelector('#pc-drawer-body');
+      if (bodyEl) {
+        if (typeof opts.body === 'string') bodyEl.innerHTML = opts.body;
+        else if (opts.body instanceof HTMLElement) {
+          bodyEl.innerHTML = '';
+          bodyEl.appendChild(opts.body);
+        }
+      }
+    }
+
     drawerBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
 
@@ -392,6 +598,83 @@
     }
   });
 
+  // Pre-packaged Kirigami Dialog Helpers
+  function confirmModal(title, desc, onConfirm, opts = {}) {
+    openDialog(Object.assign({
+      title: title || '확인',
+      desc: desc || '',
+      icon: 'check',
+      kirigami: 'washi',
+      variant: 'mint',
+      confirmLabel: '확인',
+      cancelLabel: '취소',
+      onConfirm
+    }, opts));
+  }
+
+  function waxModal(opts = {}) {
+    openDialog(Object.assign({
+      kirigami: 'wax',
+      variant: 'rose',
+      icon: 'sparkles',
+      confirmStyle: 'pc-btn-kirigami-wax'
+    }, opts));
+  }
+
+  function ticketModal(opts = {}) {
+    openDialog(Object.assign({
+      kirigami: 'ticket',
+      variant: 'buttercup',
+      icon: 'ticket',
+      confirmStyle: 'pc-btn-kirigami-ticket'
+    }, opts));
+  }
+
+  function dogearModal(opts = {}) {
+    openDialog(Object.assign({
+      kirigami: 'dogear',
+      variant: 'mint',
+      icon: 'check',
+      confirmStyle: 'pc-btn-kirigami-dogear'
+    }, opts));
+  }
+
+  function stampModal(opts = {}) {
+    openDialog(Object.assign({
+      kirigami: 'stamp',
+      variant: 'mint',
+      icon: 'scissors',
+      confirmStyle: 'pc-btn-kirigami-stamp'
+    }, opts));
+  }
+
+  function washiModal(opts = {}) {
+    openDialog(Object.assign({
+      kirigami: 'washi',
+      variant: 'peach',
+      icon: 'bookmark',
+      confirmStyle: 'pc-btn-kirigami-washi'
+    }, opts));
+  }
+
+  function gemModal(opts = {}) {
+    openDialog(Object.assign({
+      kirigami: 'gem',
+      variant: 'lavender',
+      icon: 'sparkles',
+      confirmStyle: 'pc-btn-kirigami-gem'
+    }, opts));
+  }
+
+  function envelopeModal(opts = {}) {
+    openDialog(Object.assign({
+      kirigami: 'envelope',
+      variant: 'peach',
+      icon: 'mail',
+      confirmStyle: 'pc-btn-kirigami-envelope'
+    }, opts));
+  }
+
   // Export API
   window.PaperCutModal = {
     openDialog,
@@ -399,7 +682,15 @@
     openSheet,
     closeSheet,
     openDrawer,
-    closeDrawer
+    closeDrawer,
+    confirm: confirmModal,
+    waxModal,
+    ticketModal,
+    dogearModal,
+    stampModal,
+    washiModal,
+    gemModal,
+    envelopeModal
   };
 
   // Wire up with PaperCutShadcnUI

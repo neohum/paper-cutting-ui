@@ -1,0 +1,57 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="polar_walrus" data-category="polar">
+  <defs>
+    
+    <filter id="ps-polar_walrus-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-polar_walrus-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-polar_walrus-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-polar_walrus" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-polar_walrus)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-polar_walrus-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#78350F" opacity="0.18" filter="url(#ps-polar_walrus-base)"/>
+  
+        <!-- Polar Iceberg & Aurora Cutouts -->
+        <path d="M 18 78 L 36 50 L 52 78 Z" fill="#E0F2FE" opacity="0.7"/>
+        <path d="M 50 78 L 68 56 L 84 78 Z" fill="#BDE0EA" opacity="0.5"/>
+        <path d="M 20 28 Q 50 18 80 24" stroke="#67E8F9" stroke-width="2" fill="none" opacity="0.6" stroke-linecap="round"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Walrus Head & Heavy Tusks -->
+      <ellipse cx="50" cy="48" rx="20" ry="17" fill="#78350F" filter="url(#ps-polar_walrus-mid)"/>
+      <ellipse cx="50" cy="56" rx="13" ry="8" fill="#92400E" filter="url(#ps-polar_walrus-top)"/>
+      <!-- Long White Tusks -->
+      <polygon points="43,58 41,74 46,60" fill="#FFFDF9" filter="url(#ps-polar_walrus-top)"/>
+      <polygon points="57,58 59,74 54,60" fill="#FFFDF9" filter="url(#ps-polar_walrus-top)"/>
+      <polygon points="50,53 47,56 53,56" fill="#2E1E14"/>
+      
+    <circle cx="42" cy="44" r="2.2" fill="#3D352E" filter="url(#ps-polar_walrus-top)"/>
+    <circle cx="58" cy="44" r="2.2" fill="#3D352E" filter="url(#ps-polar_walrus-top)"/>
+    <circle cx="41" cy="43" r="0.8800000000000001" fill="#FFFDF9"/>
+    <circle cx="57" cy="43" r="0.8800000000000001" fill="#FFFDF9"/>
+    <circle cx="37" cy="49" r="3" fill="#F7BA9E" opacity="0.7"/>
+    <circle cx="63" cy="49" r="3" fill="#F7BA9E" opacity="0.7"/>
+  
+    
+</svg>

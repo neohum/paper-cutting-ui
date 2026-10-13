@@ -618,16 +618,22 @@
 }
 .pc-actions-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 12px;
 }
 .pc-action-btn {
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 16px 12px;
+  padding: 14px 10px;
+  min-height: 52px;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  word-break: keep-all;
   background-color: var(--pc-paper-white);
   background-image: none !important;
   border: 1px solid rgba(46, 30, 20, 0.14);
@@ -919,13 +925,19 @@
 /* Flat Cut-Paper Mint Action Button */
 .pc-btn-block-action {
   width: 100%;
+  min-width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   line-height: 1;
   text-align: center;
-  padding: 13px 20px;
+  white-space: nowrap;
+  word-break: keep-all;
+  padding: 12px 18px;
+  min-height: 44px;
   margin-top: 8px;
   background-color: var(--pc-mint);
   background-image: none !important;
@@ -933,7 +945,7 @@
   border: 1px solid rgba(39, 92, 70, 0.22);
   border-radius: 8px;
   font-family: var(--pc-font);
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 800;
   cursor: pointer;
   position: relative;
@@ -1410,21 +1422,26 @@
 /* Add to Cart Button */
 .pc-product-add-btn {
   width: 100%;
-  padding: 11px 16px;
+  min-height: 44px;
+  min-width: fit-content;
+  box-sizing: border-box;
+  white-space: nowrap;
+  word-break: keep-all;
+  padding: 10px 14px;
   background-color: var(--pc-mint);
   background-image: none !important;
   color: var(--pc-mint-dark);
   border: 1px solid rgba(39, 92, 70, 0.22);
   border-radius: 8px;
   font-family: var(--pc-font);
-  font-size: 13.5px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 800;
   cursor: pointer;
   box-shadow: 
     0 2px 0 rgba(46, 30, 20, 0.38),
     0 3.5px 6px rgba(46, 30, 20, 0.20);
   transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -2328,4 +2345,221 @@
   height: 100% !important;
   display: block;
 }
+
+/* ==========================================================================
+   9. CONTAINMENT, OVERFLOW-X & BUTTON OPTIMIZATION STANDARDS
+   ========================================================================== */
+
+/* Universal Containment & Horizontal Scroll Safety */
+#sd-blocks-viewport {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pc-block-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pc-block-admin,
+.pc-block-auth,
+.pc-block-settings,
+.pc-block-ecommerce,
+.pc-block-pricing,
+.pc-block-dropzone {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+.pc-chart-card,
+.pc-chart-svg-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+  min-width: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Button & Typography Containment Guarantee */
+.pc-btn-block-action,
+.pc-action-btn,
+.pc-product-add-btn,
+.pc-cart-trigger-btn,
+.pc-auth-tab,
+.pc-folder-tab-btn,
+.pc-period-btn,
+.pc-task-add-btn {
+  box-sizing: border-box;
+  min-width: fit-content;
+  white-space: nowrap;
+  word-break: keep-all;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .pc-btn-block-action {
+    padding: 10px 14px;
+    font-size: 13.5px;
+  }
+  .pc-action-btn {
+    padding: 12px 8px;
+    font-size: 12.5px;
+  }
+  .pc-product-add-btn {
+    padding: 9px 12px;
+    font-size: 12.5px;
+  }
+}
+
+/* Task Board Widget Styles (실전 태스크 보드) */
+.pc-task-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 16px;
+  width: 100%;
+  margin-top: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 800px) {
+  .pc-task-board {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+}
+
+.pc-task-column {
+  background: var(--pc-paper-cream);
+  border-radius: var(--pc-radius-md);
+  padding: 14px;
+  border: 1px solid rgba(46, 30, 20, 0.1);
+  box-shadow: inset 0 1px 2px rgba(var(--pc-shadow-tint), 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 200px;
+  box-sizing: border-box;
+}
+
+.pc-task-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1.5px dashed rgba(46, 30, 20, 0.12);
+}
+
+.pc-task-column-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--pc-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pc-task-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 80px;
+}
+
+.pc-task-card {
+  position: relative;
+  background: var(--pc-paper-white);
+  border-radius: var(--pc-radius-sm);
+  padding: 10px 12px;
+  box-shadow: var(--pc-paper-shadow-xs);
+  border: 1px solid rgba(46, 30, 20, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.pc-task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-paper-shadow-sm);
+}
+
+.pc-task-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pc-ink);
+  line-height: 1.3;
+}
+
+.pc-task-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.pc-task-add-btn {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--pc-paper-white);
+  border: 1.5px dashed rgba(46, 30, 20, 0.22);
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pc-ink-muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: var(--pc-paper-shadow-xs);
+}
+
+.pc-task-add-btn:hover {
+  background: var(--pc-mint-light);
+  color: var(--pc-mint-dark);
+  border-color: var(--pc-mint);
+  transform: translateY(-1px);
+}
+
+/* Papercraft Custom Scrollbar */
+.pc-block-container::-webkit-scrollbar,
+.pc-chart-svg-wrap::-webkit-scrollbar,
+.pc-chart-card::-webkit-scrollbar,
+.pc-task-board::-webkit-scrollbar,
+#sd-blocks-viewport::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.pc-block-container::-webkit-scrollbar-track,
+.pc-chart-svg-wrap::-webkit-scrollbar-track,
+.pc-chart-card::-webkit-scrollbar-track,
+.pc-task-board::-webkit-scrollbar-track,
+#sd-blocks-viewport::-webkit-scrollbar-track {
+  background: var(--pc-paper-recessed, #EDE8DE);
+  border-radius: 999px;
+}
+
+.pc-block-container::-webkit-scrollbar-thumb,
+.pc-chart-svg-wrap::-webkit-scrollbar-thumb,
+.pc-chart-card::-webkit-scrollbar-thumb,
+.pc-task-board::-webkit-scrollbar-thumb,
+#sd-blocks-viewport::-webkit-scrollbar-thumb {
+  background: var(--pc-mint, #A3D8C3);
+  border-radius: 999px;
+}
+
 

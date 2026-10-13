@@ -32,7 +32,7 @@
 
   // 5 Micro-Tuned Comparison Preset Thicknesses
   const COMPARISON_PRESETS = [
-    { key: 'baseline', label: '기준선 (0px)', width: 0, desc: '순수 키리가미' },
+    { key: 'baseline', label: '기준선 (0px)', width: 0, desc: '순수 페이퍼 커팅' },
     { key: 'hairline', label: '초미세 (0.2px)', width: 0.2, desc: '나노 라인' },
     { key: 'subtle', label: '슬림 (0.4px)', width: 0.4, desc: '섬세한 윤곽' },
     { key: 'standard', label: '스탠다드 (0.7px)', width: 0.7, desc: '표준 윤곽' },
@@ -196,7 +196,7 @@
       return {
         score: 100,
         level: 'is-optimal',
-        statusText: '원작 순수 키리가미',
+        statusText: '원작 순수 페이퍼 커팅',
         ratio: 0
       };
     }

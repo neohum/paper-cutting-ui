@@ -9,31 +9,24 @@
 
   const SECTIONS = [
     { id: 'overview', title: '개요 & 히어로', badge: 'Hero', icon: 'home', bgShape: 'postage-stamp', bgTheme: 'peach', category: '기본 정보' },
-    { id: 'shadowbox-diorama', title: '3D 섀도우 박스 디오라마', badge: 'Diorama', icon: 'layers-isometric', bgShape: 'isometric-cube', bgTheme: 'mint', category: '기본 정보' },
     
-    // 30대 실전 컴포넌트 (4개 세부 파트)
-    { id: 'core-components', title: '기본 원형 (Part 1)', badge: '01~08', icon: 'layout-grid', bgShape: 'squircle-offset', bgTheme: 'lavender', category: '30대 실전 컴포넌트' },
-    { id: 'part-2-forms', title: '폼 컨트롤 (Part 2)', badge: '09~16', icon: 'edit', bgShape: 'deckle-edge', bgTheme: 'buttercup', category: '30대 실전 컴포넌트' },
-    { id: 'part-3-widgets', title: '시나리오 위젯 (Part 3)', badge: '17~24', icon: 'package-box', bgShape: 'hanging-tag', bgTheme: 'sky', category: '30대 실전 컴포넌트' },
-    { id: 'part-4-advanced', title: '복합 컴포넌트 (Part 4)', badge: '25~30', icon: 'code-brackets', bgShape: 'octagon-gem', bgTheme: 'rose', category: '30대 실전 컴포넌트' },
+    // 시그니처 프리미티브
+    { id: 'knife-cut-buttons', title: '3D 페이퍼 커팅 버튼', badge: '12종', icon: 'scissors', bgShape: 'deckle-edge', bgTheme: 'peach', category: '시그니처 프리미티브' },
+    { id: 'kirigami-components', title: '페이퍼 커팅 카드 & 폼', badge: 'HOT', icon: 'sparkles', bgShape: 'squircle-offset', bgTheme: 'mint', category: '시그니처 프리미티브' },
     
-    // 디자인 시스템
-    { id: 'texture-showcase', title: '16종 종이 질감', badge: '16 Stocks', icon: 'palette', bgShape: 'pebble-organic', bgTheme: 'sage', category: '디자인 시스템' },
-    { id: 'paper-shadow-studio', title: '3D 페이퍼 그림자 & 입체감 스튜디오', badge: 'DEPTH LAB', icon: 'sun', bgShape: 'cloud-puffy', bgTheme: 'coral', category: '디자인 시스템' },
-    { id: 'paper-animation-studio', title: '페이퍼 애니메이션 스튜디오', badge: '8종 모션', icon: 'sparkles-double', bgShape: 'origami-pinwheel', bgTheme: 'lavender', category: '디자인 시스템' },
-    { id: 'paper-alerts-toasts', title: '알림 & 토스트 시스템', badge: 'NEW', icon: 'bell-ring', bgShape: 'notched-ticket', bgTheme: 'buttercup', category: '디자인 시스템' },
+    // 마스터 UI 키트 (Shadcn 표준)
+    { id: 'shadcn-components', title: '페이퍼 UI 44종 컴포넌트', badge: '44개', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트' },
+    { id: 'shadcn-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
+    { id: 'shadcn-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
-    // 아이콘 & 배경
-    { id: 'icon-simulator-firr', title: 'fi fi-rr 라인 랩 (16~28px)', badge: '16~28px', icon: 'compass', bgShape: 'compass-star-fleur', bgTheme: 'peach', category: '아이콘 & 배경', url: 'icon-simulator.html#mode=firr' },
-    { id: 'icon-simulator-paper3d', title: '3D 페이퍼 아트 랩 (16~256px)', badge: '16~256px', icon: 'sparkles', bgShape: 'wax-seal', bgTheme: 'mint', category: '아이콘 & 배경', url: 'icon-simulator.html#mode=paper3d' },
-    { id: 'icon-gallery', title: '페이퍼컷 아이콘 라이브러리', badge: '659종', icon: 'star-cluster', bgShape: 'cog-seal', bgTheme: 'sky', category: '아이콘 & 배경' },
-    { id: 'bg-library', title: '3D 아이콘 배경 플레이트', badge: '130종', icon: 'shield-star', bgShape: 'shield-crest', bgTheme: 'rose', category: '아이콘 & 배경' },
-    { id: 'playground', title: '실시간 디자인 랩', badge: 'Playground', icon: 'brush', bgShape: 'gingko-fan', bgTheme: 'sage', category: '디자인 랩' },
+    // 에셋 & 배경 시스템
+    { id: 'icon-gallery', title: '3D 페이퍼컷 아이콘', badge: '678종', icon: 'star-cluster', bgShape: 'cog-seal', bgTheme: 'sky', category: '에셋 & 배경 시스템' },
+    { id: 'bg-library', title: '3D 아이콘 배경 플레이트', badge: '130종', icon: 'shield-star', bgShape: 'shield-crest', bgTheme: 'rose', category: '에셋 & 배경 시스템' },
     
-    // 컴포넌트 컬렉션
-    { id: 'shadcn-components', title: '페이퍼 UI 44종 컴포넌트', badge: '44개', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '컴포넌트 컬렉션' },
-    { id: 'shadcn-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'corner-ribbon-photo', bgTheme: 'coral', category: '컴포넌트 컬렉션' },
-    { id: 'shadcn-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'dodecagon-clock', bgTheme: 'mint', category: '컴포넌트 컬렉션' }
+    // 디자인 시스템 & 피드백
+    { id: 'texture-showcase', title: '16종 종이 질감 & 토큰', badge: '16 Stocks', icon: 'palette', bgShape: 'pebble-organic', bgTheme: 'sage', category: '디자인 시스템 & 피드백' },
+    { id: 'paper-alerts-toasts', title: '알림 & 토스트 시스템', badge: 'NEW', icon: 'bell-ring', bgShape: 'notched-ticket', bgTheme: 'buttercup', category: '디자인 시스템 & 피드백' },
+    { id: 'paper-animation-studio', title: '페이퍼 애니메이션 & 모션', badge: '8종 모션', icon: 'sparkles-double', bgShape: 'scallop-sunburst', bgTheme: 'lavender', category: '디자인 시스템 & 피드백' }
   ];
 
   const isSimulatorPage = window.location.pathname.endsWith('icon-simulator.html') || 
@@ -41,40 +34,67 @@
 
   let activePageId = 'overview';
   // Default to Continuous Scroll Mode so all parts (1~4) and sections are immediately visible.
-  // Users can click the top toggle button or a setting to switch to single-page view mode if preferred.
   let isPageMode = localStorage.getItem('pc_view_mode') === 'page';
 
-  /**
-   * Generates a 3D Paper-Cut Icon Plate SVG combining a Kirigami Background Shape (from 130 collection)
-   * with a vibrant 3D Layered Color Icon mathematically centered on the plate.
-   */
-  function getSidebarMountedPlateSvg(bgShapeId, iconId) {
-    const allBgs = window.PAPERCUT_BACKGROUNDS || [];
-    const bgObj = allBgs.find(b => b.id === bgShapeId);
-    
-    if (bgObj && typeof window.getPapercutIconSvg === 'function') {
-      const suffix = 'sb-' + bgShapeId;
-      // Scope filter IDs in background SVG to prevent any ID collision
-      let scopedContent = bgObj.svgContent.replace(/id="([^"]+)"/g, (m, id) => `id="${id}-${suffix}"`);
-      scopedContent = scopedContent.replace(/url\(#([^)]+)\)/g, (m, id) => `url(#${id}-${suffix})`);
+  let plateSeq = 0;
+  let bgLookupMap = null;
+  function getBgMap() {
+    if (!bgLookupMap) {
+      bgLookupMap = new Map();
+      (window.PAPERCUT_BACKGROUNDS || []).forEach(b => {
+        bgLookupMap.set(b.id, b);
+      });
+    }
+    return bgLookupMap;
+  }
 
-      const rawIconSvg = window.getPapercutIconSvg(iconId, suffix);
+  const plateStringCache = new Map();
+  const plateTemplateCache = new Map();
+
+  /**
+   * Generates a 3D Paper-Cut Icon Plate SVG combining a Paper-Cut Background Shape (from 130 collection)
+   * with a vibrant 3D Layered Color Icon mathematically centered on the plate.
+   * Utilizes in-memory caching to prevent repetitive string manipulations and regex sweeps.
+   */
+  function getMountedPapercutPlateSvg(bgShapeId, iconId, options = {}) {
+    const bgMap = getBgMap();
+    const allBgs = window.PAPERCUT_BACKGROUNDS || [];
+    const bgObj = bgMap.get(bgShapeId) || allBgs.find(b => b.id === 'postage-stamp') || allBgs[0];
+    const size = options.size || 96;
+    const iconScale = options.iconScale || 48;
+    const iconOffset = (96 - iconScale) / 2;
+    const customSuffix = options.suffix || (`pl-${bgShapeId || 'shape'}-${iconId || 'icon'}-${size}`);
+
+    const cacheKey = `${bgShapeId}__${iconId}__${size}__${iconScale}__${customSuffix}`;
+    let cached = plateStringCache.get(cacheKey);
+    if (cached) return cached;
+
+    if (bgObj && typeof window.getPapercutIconSvg === 'function') {
+      // Scope filter IDs in background SVG to prevent any ID collision
+      let scopedContent = bgObj.svgContent.replace(/id="([^"]+)"/g, (m, id) => `id="${id}-${customSuffix}"`);
+      scopedContent = scopedContent.replace(/url\(#([^)]+)\)/g, (m, id) => `url(#${id}-${customSuffix})`);
+      // Strip any nested <svg> / </svg> wrappers in svgContent
+      scopedContent = scopedContent.replace(/<\/?svg\b[^>]*>/gi, '');
+
+      const rawIconSvg = window.getPapercutIconSvg(iconId, customSuffix) || window.getPapercutIconSvg('star', customSuffix);
       let centeredIcon = '';
       if (rawIconSvg) {
         centeredIcon = rawIconSvg.replace(/<svg\b([^>]*)>/, (m, attrs) => {
           const cleanAttrs = attrs.replace(/\b(width|height|x|y|style)="[^"]*"/g, '').trim();
-          return `<svg ${cleanAttrs} x="24" y="24" width="48" height="48" style="width:48px !important; height:48px !important; display:block !important; overflow:visible !important;">`;
+          return `<svg ${cleanAttrs} x="${iconOffset}" y="${iconOffset}" width="${iconScale}" height="${iconScale}" style="width:${iconScale}px !important; height:${iconScale}px !important; display:block !important; overflow:visible !important;">`;
         });
       }
 
-      return `
-        <svg class="pc-sidebar-plate-svg" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      cached = `
+        <svg class="pc-mounted-plate-svg pc-sidebar-plate-svg" viewBox="0 0 96 96" width="${size}" height="${size}" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           ${scopedContent}
           <g class="pc-mounted-icon" style="transform-origin: 48px 48px;">
             ${centeredIcon}
           </g>
         </svg>
       `.trim();
+      plateStringCache.set(cacheKey, cached);
+      return cached;
     }
 
     // High-res SVG fallback with genuine 3D papercraft aesthetic if backgrounds library is still initializing
@@ -84,6 +104,73 @@
       </div>
     `.trim();
   }
+
+  function getSidebarMountedPlateSvg(bgShapeId, iconId) {
+    return getMountedPapercutPlateSvg(bgShapeId, iconId, { size: 96, iconScale: 48, suffix: 'sb-' + (bgShapeId || 'shape') });
+  }
+
+  /**
+   * Retrieves or creates pre-parsed template element for mounted papercut plates
+   */
+  function getMountedPapercutPlateTemplate(bgShapeId, iconId, options = {}) {
+    const size = options.size || 96;
+    const iconScale = options.iconScale || 48;
+    const key = `${bgShapeId}__${iconId}__${size}__${iconScale}`;
+    let tpl = plateTemplateCache.get(key);
+    if (!tpl) {
+      const svgHtml = getMountedPapercutPlateSvg(bgShapeId, iconId, options);
+      tpl = document.createElement('template');
+      tpl.innerHTML = svgHtml;
+      plateTemplateCache.set(key, tpl);
+    }
+    return tpl;
+  }
+
+  /**
+   * Scoped Plate Hydrator
+   * Hydrates only the specified root element and its descendants with template cloning
+   */
+  function hydrateMountedPlates(root = document) {
+    if (!root) return;
+
+    // If root itself is a plate element
+    if (root.classList && (root.classList.contains('pc-section-plate') || root.classList.contains('pc-mounted-plate'))) {
+      if (root.getAttribute('data-hydrated') !== 'true' || !root.firstElementChild) {
+        const bgShape = root.getAttribute('data-bg-shape') || (root.dataset && root.dataset.bgShape);
+        const iconId = root.getAttribute('data-icon') || (root.dataset && root.dataset.icon);
+        const sizeAttr = root.getAttribute('data-size') || (root.dataset && root.dataset.size) || '52';
+        const size = parseInt(sizeAttr, 10);
+        if (bgShape && iconId) {
+          const tpl = getMountedPapercutPlateTemplate(bgShape, iconId, { size: size, iconScale: 48 });
+          root.textContent = '';
+          root.appendChild(tpl.content.cloneNode(true));
+          root.setAttribute('data-hydrated', 'true');
+        }
+      }
+    }
+
+    if (typeof root.querySelectorAll !== 'function') return;
+
+    const plates = root.querySelectorAll('.pc-section-plate:not([data-hydrated="true"]), .pc-mounted-plate:not([data-hydrated="true"])');
+    plates.forEach(el => {
+      if (el.getAttribute('data-hydrated') === 'true' && el.firstElementChild) return;
+      const bgShape = el.getAttribute('data-bg-shape') || (el.dataset && el.dataset.bgShape);
+      const iconId = el.getAttribute('data-icon') || (el.dataset && el.dataset.icon);
+      const sizeAttr = el.getAttribute('data-size') || (el.dataset && el.dataset.size) || '52';
+      const size = parseInt(sizeAttr, 10);
+      if (bgShape && iconId) {
+        const tpl = getMountedPapercutPlateTemplate(bgShape, iconId, { size: size, iconScale: 48 });
+        el.textContent = '';
+        el.appendChild(tpl.content.cloneNode(true));
+        el.setAttribute('data-hydrated', 'true');
+      }
+    });
+  }
+
+  // Expose globally for application and section headers
+  window.getMountedPapercutPlateSvg = getMountedPapercutPlateSvg;
+  window.getMountedPapercutPlateTemplate = getMountedPapercutPlateTemplate;
+  window.hydrateMountedPlates = hydrateMountedPlates;
 
   function renderSidebar() {
     let sidebarEl = document.getElementById('pc-sidebar-nav');
@@ -101,79 +188,131 @@
       document.body.classList.add('is-collapsed');
     }
 
-    let menuHtml = '';
-    let lastCat = '';
+    // Fast Hydration: Check if .pc-sidebar-menu already statically exists in the HTML
+    const existingMenu = sidebarEl.querySelector('.pc-sidebar-menu');
+    const hasStaticMenu = !!(existingMenu && existingMenu.firstElementChild);
 
-    SECTIONS.forEach(sec => {
-      if (sec.category !== lastCat) {
-        menuHtml += `<div class="pc-sidebar-category">${sec.category}</div>`;
-        lastCat = sec.category;
-      }
+    if (!hasStaticMenu) {
+      // Fallback: Generate full sidebar markup only when empty or missing
+      let menuHtml = '';
+      let lastCat = '';
 
-      let itemHref = '';
-      if (isSimulatorPage) {
-        if (sec.id === 'icon-simulator-firr') {
-          itemHref = '#mode=firr';
-        } else if (sec.id === 'icon-simulator-paper3d') {
-          itemHref = '#mode=paper3d';
-        } else {
-          itemHref = sec.url || ('index.html#' + sec.id);
+      SECTIONS.forEach(sec => {
+        if (sec.category !== lastCat) {
+          menuHtml += `<div class="pc-sidebar-category">${sec.category}</div>`;
+          lastCat = sec.category;
         }
-      } else {
-        itemHref = sec.url || ('#' + sec.id);
-      }
 
-      const plateSvg = getSidebarMountedPlateSvg(sec.bgShape, sec.icon);
+        let itemHref = '';
+        if (isSimulatorPage) {
+          if (sec.id === 'icon-simulator') {
+            itemHref = 'icon-simulator.html';
+          } else {
+            itemHref = sec.url || ('index.html#' + sec.id);
+          }
+        } else {
+          itemHref = sec.url || ('#' + sec.id);
+        }
 
-      menuHtml += `
-        <a href="${itemHref}" class="pc-sidebar-item" data-target="${sec.id}" title="${sec.title}">
-          <div class="pc-sidebar-item-icon" data-bg-shape="${sec.bgShape}" data-icon="${sec.icon}">
-            ${plateSvg}
-          </div>
-          <span class="pc-sidebar-item-text">${sec.title}</span>
-          <span class="pc-sidebar-badge pc-badge-${sec.bgTheme || 'lavender'}">${sec.badge}</span>
-        </a>
+        const plateSvg = getSidebarMountedPlateSvg(sec.bgShape, sec.icon);
+
+        // Map section to specialized papercut badge model (stamp, wax, ticket, tag)
+        let badgeStyle = 'ticket';
+        if (sec.badgeStyle) {
+          badgeStyle = sec.badgeStyle;
+        } else if (sec.bgShape === 'postage-stamp' || sec.badge === 'Hero' || sec.badge === '659종' || sec.badge === '16 Stocks' || sec.badge === '8종 모션') {
+          badgeStyle = 'stamp';
+        } else if (sec.bgShape === 'wax-seal' || sec.badge === 'HOT' || sec.badge === 'DEPTH LAB' || sec.badge === '16~256px' || sec.badge === 'Playground') {
+          badgeStyle = 'wax';
+        } else if (sec.bgShape === 'hanging-tag' || sec.bgShape === 'shield-crest' || sec.badge === '16~28px' || sec.badge === '6대 블록' || sec.badge === '130종') {
+          badgeStyle = 'tag';
+        }
+
+        menuHtml += `
+          <a href="${itemHref}" class="pc-sidebar-item pc-btn" role="button" data-target="${sec.id}" title="${sec.title}">
+            <div class="pc-sidebar-item-icon" data-bg-shape="${sec.bgShape}" data-icon="${sec.icon}">
+              ${plateSvg}
+            </div>
+            <span class="pc-sidebar-item-text">${sec.title}</span>
+            <span class="pc-sidebar-badge pc-badge--${badgeStyle} pc-badge--${sec.bgTheme || 'lavender'} pc-badge-${sec.bgTheme || 'lavender'}">${sec.badge}</span>
+          </a>
+        `;
+      });
+
+      const brandHref = isSimulatorPage ? 'index.html#overview' : '#overview';
+      const toggleIcon = isCollapsed ? 'arrow-right' : 'arrow-left';
+      const toggleTitle = isCollapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
+
+      sidebarEl.innerHTML = `
+        <div class="pc-sidebar-header">
+          <a href="${brandHref}" class="pc-sidebar-brand" title="PaperCut UI 메인으로 이동">
+            <div class="pc-sidebar-logo-icon" title="PaperCut UI 로고 (우표 천공 플레이트 + 3D 가위)">
+              <svg class="pc-logo-plate-svg" viewBox="0 0 40 40" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id="sb-logo-sh-stamp" x="-20%" y="-20%" width="140%" height="150%">
+                    <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.48"/>
+                    <feDropShadow dx="0" dy="2.8" stdDeviation="1.4" flood-color="#2E1E14" flood-opacity="0.25"/>
+                    <feDropShadow dx="-0.5" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                  </filter>
+                  <filter id="sb-logo-sh-scissors" x="-30%" y="-30%" width="160%" height="160%">
+                    <feDropShadow dx="0" dy="0.8" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.42"/>
+                    <feDropShadow dx="0.5" dy="1.8" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.25"/>
+                    <feDropShadow dx="-0.4" dy="-0.4" stdDeviation="0.2" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                  </filter>
+                </defs>
+                <!-- Layer 1: Postage Stamp Perforated Icon Background Plate -->
+                <path d="M 6 4 Q 8 6 10 4 Q 12 6 14 4 Q 16 6 18 4 Q 20 6 22 4 Q 24 6 26 4 Q 28 6 30 4 Q 32 6 34 4 Q 36 6 38 4 Q 37 6 37 8 Q 39 10 37 12 Q 39 14 37 16 Q 39 18 37 20 Q 39 22 37 24 Q 39 26 37 28 Q 39 30 37 32 Q 39 34 37 36 Q 36 34 34 36 Q 32 34 30 36 Q 28 34 26 36 Q 24 34 22 36 Q 20 34 18 36 Q 16 34 14 36 Q 12 34 10 36 Q 8 34 6 36 Q 4 34 2 36 Q 3 34 3 32 Q 1 30 3 28 Q 1 26 3 24 Q 1 22 3 20 Q 1 18 3 16 Q 1 14 3 12 Q 1 10 3 8 Q 1 6 3 4 Z" fill="#BBD5B8" filter="url(#sb-logo-sh-stamp)"/>
+                <!-- Layer 2: Inner Cream Paper Inlay -->
+                <rect x="6.5" y="6.5" width="27" height="27" rx="3" fill="#FFFDF9"/>
+                <!-- Layer 3: Dashed Perforation Ring -->
+                <rect x="8.5" y="8.5" width="23" height="23" rx="2" fill="none" stroke="#D8CEBD" stroke-width="0.8" stroke-dasharray="2 2"/>
+                <!-- Layer 4: 3D Paper-Cut Scissors Craft Motif -->
+                <g transform="translate(10.5, 10.5) scale(0.29)" filter="url(#sb-logo-sh-scissors)">
+                  <circle cx="16" cy="18" r="9" fill="#F7BA9E"/>
+                  <circle cx="16" cy="18" r="5" fill="#FFFDF9"/>
+                  <circle cx="16" cy="46" r="9" fill="#F7BA9E"/>
+                  <circle cx="16" cy="46" r="5" fill="#FFFDF9"/>
+                  <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#FFFDF9" stroke-width="6" stroke-linecap="round"/>
+                  <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#A3D8C3" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="34" cy="32" r="3.2" fill="#FEE396"/>
+                </g>
+              </svg>
+            </div>
+            <div class="pc-sidebar-brand-text">
+              <span class="pc-sidebar-brand-title">PaperCut UI</span>
+              <span class="pc-sidebar-brand-sub">Layered Craft System</span>
+            </div>
+          </a>
+          <button type="button" class="pc-sidebar-toggle-btn pc-btn" id="pc-sidebar-toggle" title="${toggleTitle}">
+            <span class="pc-inline-icon is-color is-xs" data-icon="${toggleIcon}"></span>
+          </button>
+        </div>
+
+        <div class="pc-sidebar-menu">
+          ${menuHtml}
+        </div>
+
+        <div class="pc-sidebar-footer">
+          <button type="button" class="pc-sidebar-top-btn pc-btn" id="pc-sidebar-to-top">
+            <span class="pc-inline-icon is-color is-xs" data-icon="arrow-up"></span>
+            <span>맨 위로 가기</span>
+          </button>
+        </div>
       `;
-    });
+    }
 
-    const brandHref = isSimulatorPage ? 'index.html#overview' : '#overview';
-    const toggleIcon = isCollapsed ? 'arrow-right' : 'arrow-left';
-    const toggleTitle = isCollapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
-
-    sidebarEl.innerHTML = `
-      <div class="pc-sidebar-header">
-        <a href="${brandHref}" class="pc-sidebar-brand" title="PaperCut UI 메인으로 이동">
-          <div class="pc-sidebar-logo-icon">
-            <img src="favicon.svg" alt="PaperCut UI" width="22" height="22" style="display: block;">
-          </div>
-          <div class="pc-sidebar-brand-text">
-            <span class="pc-sidebar-brand-title">PaperCut UI</span>
-            <span class="pc-sidebar-brand-sub">Layered Craft Library</span>
-          </div>
-        </a>
-        <button type="button" class="pc-sidebar-toggle-btn" id="pc-sidebar-toggle" title="${toggleTitle}">
-          <span class="pc-inline-icon is-color is-xs" data-icon="${toggleIcon}"></span>
-        </button>
-      </div>
-
-      <div class="pc-sidebar-menu">
-        ${menuHtml}
-      </div>
-
-      <div class="pc-sidebar-footer">
-        <button type="button" class="pc-sidebar-top-btn" id="pc-sidebar-to-top">
-          <span class="pc-inline-icon is-color is-xs" data-icon="arrow-up"></span>
-          <span>맨 위로 가기</span>
-        </button>
-      </div>
-    `;
+    // Avoid double-binding event listeners
+    if (sidebarEl.dataset.listenersBound === 'true') {
+      return;
+    }
+    sidebarEl.dataset.listenersBound = 'true';
 
     // Mobile floating toggle button
     let floatBtn = document.querySelector('.pc-sidebar-floating-toggle');
     if (!floatBtn) {
       floatBtn = document.createElement('button');
       floatBtn.type = 'button';
-      floatBtn.className = 'pc-sidebar-floating-toggle';
+      floatBtn.className = 'pc-sidebar-floating-toggle pc-btn';
       floatBtn.innerHTML = `
         <span class="pc-inline-icon is-color is-xs" data-icon="scissors"></span>
         <span>목차 색인</span>
@@ -184,13 +323,13 @@
       });
     }
 
-    // Hydrate icons & 3D plates in sidebar
+    // Hydrate icons & 3D plates in sidebar (scoped strictly to sidebar to prevent main-thread freeze)
     function hydrateIcons() {
       if (typeof window.getPapercutIconSvg === 'function' && window.PAPERCUT_BACKGROUNDS) {
         sidebarEl.querySelectorAll('.pc-sidebar-item-icon').forEach(iconContainer => {
           const bgShape = iconContainer.getAttribute('data-bg-shape');
           const iconId = iconContainer.getAttribute('data-icon');
-          if (bgShape && iconId && !iconContainer.querySelector('.pc-sidebar-plate-svg')) {
+          if (bgShape && iconId && !iconContainer.querySelector('.pc-mounted-plate-svg')) {
             iconContainer.innerHTML = getSidebarMountedPlateSvg(bgShape, iconId);
           }
         });
@@ -199,27 +338,42 @@
         window.hydratePapercutIcons(sidebarEl);
         if (floatBtn) window.hydratePapercutIcons(floatBtn);
       }
+      hydrateMountedPlates(sidebarEl);
     }
     hydrateIcons();
-    window.addEventListener('load', hydrateIcons);
+    window.addEventListener('load', () => {
+      hydrateMountedPlates(sidebarEl);
+    });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', hydrateIcons);
+    }
 
     // Toggle Collapse Button
     const toggleBtn = document.getElementById('pc-sidebar-toggle');
-    toggleBtn?.addEventListener('click', () => {
-      const nowCollapsed = sidebarEl.classList.toggle('is-collapsed');
-      document.body.classList.toggle('is-collapsed', nowCollapsed);
-      localStorage.setItem('pc_sidebar_collapsed', nowCollapsed ? 'true' : 'false');
-      toggleBtn.title = nowCollapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
-      
+    if (toggleBtn) {
+      const toggleTitle = isCollapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
+      toggleBtn.title = toggleTitle;
       const iconSpan = toggleBtn.querySelector('.pc-inline-icon');
       if (iconSpan) {
-        iconSpan.setAttribute('data-icon', nowCollapsed ? 'arrow-right' : 'arrow-left');
-        iconSpan.classList.add('is-color');
-        if (typeof window.hydratePapercutIcons === 'function') {
-          window.hydratePapercutIcons(toggleBtn);
-        }
+        iconSpan.setAttribute('data-icon', isCollapsed ? 'arrow-right' : 'arrow-left');
       }
-    });
+
+      toggleBtn.addEventListener('click', () => {
+        const nowCollapsed = sidebarEl.classList.toggle('is-collapsed');
+        document.body.classList.toggle('is-collapsed', nowCollapsed);
+        localStorage.setItem('pc_sidebar_collapsed', nowCollapsed ? 'true' : 'false');
+        toggleBtn.title = nowCollapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
+        
+        const span = toggleBtn.querySelector('.pc-inline-icon');
+        if (span) {
+          span.setAttribute('data-icon', nowCollapsed ? 'arrow-right' : 'arrow-left');
+          span.classList.add('is-color');
+          if (typeof window.hydratePapercutIcons === 'function') {
+            window.hydratePapercutIcons(toggleBtn);
+          }
+        }
+      });
+    }
 
     // Top Button
     document.getElementById('pc-sidebar-to-top')?.addEventListener('click', () => {
@@ -321,6 +475,18 @@
       }
     });
 
+    // Wire global header view mode switch button (#header-view-mode-btn)
+    const headerBtn = document.getElementById('header-view-mode-btn');
+    if (headerBtn) {
+      headerBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleViewMode();
+      });
+    }
+
+    // Sync button visual state on initial router load
+    syncViewModeButtons();
+
     // Initial page load route
     const initHash = window.location.hash.replace(/^#/, '');
     switchPage(initHash || 'overview', false);
@@ -385,6 +551,24 @@
       item.classList.toggle('is-active', item.getAttribute('data-target') === activePageId);
     });
 
+    // Synchronize view mode buttons across header and in-page bar
+    syncViewModeButtons();
+
+    // Hydrate active section on page switch (scoped to target element)
+    const targetEl = document.getElementById(activePageId);
+    if (targetEl) {
+      if (typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(targetEl);
+      }
+      hydrateMountedPlates(targetEl);
+      if (activePageId === 'icon-gallery' && typeof window.renderPapercutIcons === 'function') {
+        window.renderPapercutIcons(true);
+      }
+      if (activePageId === 'bg-library' && typeof window.renderPapercutBackgrounds === 'function') {
+        window.renderPapercutBackgrounds();
+      }
+    }
+
     // Notify components of activation
     notifyPageActivation(activePageId);
   }
@@ -439,16 +623,78 @@
 
     // Toggle View Mode Button
     bar.querySelector('#pc-toggle-page-mode')?.addEventListener('click', () => {
-      isPageMode = !isPageMode;
-      localStorage.setItem('pc_view_mode', isPageMode ? 'page' : 'scroll');
-      switchPage(activePageId, false);
-      if (typeof window.showPaperToast === 'function') {
-        window.showPaperToast(
-          isPageMode ? '페이지별 독립 보기 모드로 전환되었습니다.' : '전체 스크롤 보기 모드로 전환되었습니다.',
-          'mint'
-        );
-      }
+      toggleViewMode();
     });
+  }
+
+  /**
+   * Centralized View Mode Toggle Controller
+   * Seamlessly synchronizes header button (#header-view-mode-btn) & in-page toggle (#pc-toggle-page-mode)
+   */
+  function toggleViewMode() {
+    isPageMode = !isPageMode;
+    localStorage.setItem('pc_view_mode', isPageMode ? 'page' : 'scroll');
+    syncViewModeButtons();
+    switchPage(activePageId, false);
+    if (typeof window.showPaperToast === 'function') {
+      window.showPaperToast(
+        isPageMode ? '단일 페이지별 보기 모드로 전환되었습니다.' : '전체 연속 스크롤 보기 모드로 전환되었습니다.',
+        isPageMode ? 'buttercup' : 'mint',
+        isPageMode ? 'file' : 'layout-list'
+      );
+    }
+  }
+
+  function syncViewModeButtons() {
+    // 1. Header Button (#header-view-mode-btn)
+    const headerBtn = document.getElementById('header-view-mode-btn');
+    if (headerBtn) {
+      headerBtn.title = isPageMode ? '전체 연속 스크롤 모드로 전환' : '단일 페이지별 분할 보기로 전환';
+      headerBtn.classList.toggle('is-page-mode-active', isPageMode);
+      
+      const labelEl = headerBtn.querySelector('.label') || headerBtn.querySelector('text');
+      if (labelEl) {
+        labelEl.textContent = isPageMode ? '페이지 뷰' : '스크롤 뷰';
+      }
+
+      // Update the SVG ticket color & icon
+      const bgPath = headerBtn.querySelector('path[fill]');
+      if (bgPath) {
+        bgPath.setAttribute('fill', isPageMode ? '#FEE396' : '#BBD5B8');
+      }
+      const iconGroup = headerBtn.querySelector('g[transform]');
+      if (iconGroup) {
+        if (isPageMode) {
+          iconGroup.innerHTML = `
+            <rect x="0" y="0" width="13" height="15" rx="2" fill="#66460D"/>
+            <rect x="2" y="3" width="9" height="2" rx="0.5" fill="#FFFDF9"/>
+            <rect x="2" y="7" width="9" height="2" rx="0.5" fill="#FFFDF9"/>
+            <rect x="2" y="11" width="5" height="2" rx="0.5" fill="#FFFDF9"/>
+          `;
+          if (labelEl) labelEl.setAttribute('fill', '#66460D');
+        } else {
+          iconGroup.innerHTML = `
+            <rect x="0" y="0" width="13" height="4" rx="1.5" fill="#20533C"/>
+            <rect x="0" y="6" width="13" height="4" rx="1.5" fill="#20533C"/>
+            <rect x="0" y="12" width="13" height="4" rx="1.5" fill="#20533C"/>
+          `;
+          if (labelEl) labelEl.setAttribute('fill', '#20533C');
+        }
+      }
+    }
+
+    // 2. In-Page Navigation Bar Toggle Button (#pc-toggle-page-mode)
+    const pageToggle = document.getElementById('pc-toggle-page-mode');
+    if (pageToggle) {
+      pageToggle.title = isPageMode ? '전체 연속 스크롤 모드로 전환합니다' : '페이지별 독립 보기 모드로 전환합니다';
+      pageToggle.innerHTML = `
+        <span class="pc-inline-icon is-xs" data-icon="${isPageMode ? 'file' : 'layout-list'}"></span>
+        <span>${isPageMode ? '단일 페이지 (ON)' : '전체 스크롤 (ON)'}</span>
+      `;
+      if (typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(pageToggle);
+      }
+    }
   }
 
   function renderPagePagination(sec) {
@@ -537,14 +783,20 @@
     });
   }, { passive: true });
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderSidebar);
-  } else {
+  // If sidebar nav already exists in DOM (e.g. script is placed at bottom of body),
+  // initialize immediately with 0ms delay. Otherwise wait for DOMContentLoaded.
+  if (document.getElementById('pc-sidebar-nav') || document.readyState !== 'loading') {
     renderSidebar();
+  } else {
+    document.addEventListener('DOMContentLoaded', renderSidebar);
   }
 
   window.PaperCutSidebar = {
     switchPage,
+    toggleViewMode,
+    syncViewModeButtons,
+    getMountedPapercutPlateSvg,
+    hydrateMountedPlates,
     SECTIONS
   };
 })();

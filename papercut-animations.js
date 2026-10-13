@@ -54,7 +54,7 @@
     },
     {
       id: 'snip',
-      name: '06. 키리가미 가위질 (Scissors Snip)',
+      name: '06. 페이퍼 커팅 가위질 (Scissors Snip)',
       className: 'pc-anim-snip',
       hoverClass: 'pc-hover-snip',
       desc: '가위로 종이를 싹둑 자를 때 발생하는 순간적인 전단 미세 진동 효과',
@@ -123,13 +123,29 @@
       });
     });
 
-    // Speed Slider
+    // Speed Slider & Quick Preset Buttons
     const speedSlider = document.getElementById('anim-speed-slider');
     const speedVal = document.getElementById('anim-speed-val');
+    const speedPresets = document.querySelectorAll('.pc-anim-speed-btn');
+
+    speedPresets.forEach(btn => {
+      btn.addEventListener('click', () => {
+        speedPresets.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        animSpeed = parseFloat(btn.getAttribute('data-speed'));
+        if (speedSlider) speedSlider.value = animSpeed;
+        if (speedVal) speedVal.textContent = `${animSpeed.toFixed(1)}x`;
+        applyAnimation();
+      });
+    });
+
     if (speedSlider) {
       speedSlider.addEventListener('input', (e) => {
         animSpeed = parseFloat(e.target.value);
         if (speedVal) speedVal.textContent = `${animSpeed.toFixed(1)}x`;
+        speedPresets.forEach(btn => {
+          btn.classList.toggle('is-active', Math.abs(parseFloat(btn.getAttribute('data-speed')) - animSpeed) < 0.05);
+        });
         applyAnimation();
       });
     }
@@ -183,9 +199,27 @@
       `;
     } else if (currentTargetType === 'button') {
       html = `
-        <button type="button" class="pc-btn pc-btn-mint pc-btn-lg">
-          <span class="pc-inline-icon is-sm" data-icon="scissors"></span>
-          <span>오리가미 액션 버튼</span>
+        <button type="button" class="pc-svg-kirigami-btn" style="border:none; background:transparent; padding:0; cursor:pointer;" title="오리가미 액션 버튼">
+          <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:200px; height:50px; display:block;">
+            <defs>
+              <filter id="anim-stage-btn-sh" x="-20%" y="-20%" width="140%" height="150%">
+                <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.48"/>
+                <feDropShadow dx="0" dy="3.5" stdDeviation="1.8" flood-color="#2E1E14" flood-opacity="0.26"/>
+                <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+              </filter>
+            </defs>
+            <rect x="8" y="7" width="204" height="40" rx="10" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88" filter="url(#anim-stage-btn-sh)"/>
+            <rect x="11" y="10" width="198" height="34" rx="8" fill="#FFFDF9"/>
+            <g transform="translate(24, 15) scale(0.38)">
+              <circle cx="16" cy="18" r="9" fill="#F7BA9E"/>
+              <circle cx="16" cy="18" r="5" fill="#FFFDF9"/>
+              <circle cx="16" cy="46" r="9" fill="#F7BA9E"/>
+              <circle cx="16" cy="46" r="5" fill="#FFFDF9"/>
+              <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#FFFDF9" stroke-width="6" stroke-linecap="round"/>
+              <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#A3D8C3" stroke-width="3" stroke-linecap="round"/>
+            </g>
+            <text x="56" y="32" font-family="'Nanum Square Round', sans-serif" font-size="14" font-weight="800" fill="#1C4736" letter-spacing="-0.3">오리가미 액션 버튼</text>
+          </svg>
         </button>
       `;
     } else if (currentTargetType === 'card') {

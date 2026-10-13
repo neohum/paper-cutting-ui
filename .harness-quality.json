@@ -4,7 +4,7 @@
   "conditional": [
     {
       "paths": ["src/ui/**", "app/**", "pages/**", "**/*.tsx", "**/*.jsx", "**/*.html", "**/*.vue"],
-      "require": ["e2e", "visual", "responsive"]
+      "require": ["e2e", "visual", "responsive", "perf"]
     },
     {
       "paths": ["bin/**", "scripts/**"],
@@ -18,6 +18,7 @@
     "e2e": "auto",
     "visual": "auto",
     "responsive": "node scripts/ops/verify-responsive.ts",
+    "perf": "node scripts/ops/test-serve.mjs",
     "cli-smoke": "node scripts/route.ts \"health check\""
   }
 }

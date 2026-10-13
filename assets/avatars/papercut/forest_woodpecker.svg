@@ -1,0 +1,50 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="forest_woodpecker" data-category="forest">
+  <defs>
+    
+    <filter id="ps-forest_woodpecker-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-forest_woodpecker-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-forest_woodpecker-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-forest_woodpecker" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-forest_woodpecker)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-forest_woodpecker-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#EF4444" opacity="0.18" filter="url(#ps-forest_woodpecker-base)"/>
+  
+        <!-- Forest Pine/Leaf Cutouts -->
+        <path d="M 22 75 L 30 55 L 38 75 Z" fill="#A3D8C3" opacity="0.6"/>
+        <path d="M 64 78 L 72 58 L 80 78 Z" fill="#A3D8C3" opacity="0.6"/>
+        <circle cx="50" cy="22" r="6" fill="#FFFDF9" opacity="0.4"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Red Crown -->
+      <path d="M 40 24 Q 50 18 60 26 L 50 40 Z" fill="#EF4444" filter="url(#ps-forest_woodpecker-mid)"/>
+      <!-- Head & Beak -->
+      <ellipse cx="48" cy="48" rx="16" ry="16" fill="#1F2937" filter="url(#ps-forest_woodpecker-mid)"/>
+      <polygon points="62,48 78,51 62,54" fill="#64748B" filter="url(#ps-forest_woodpecker-top)"/>
+      <path d="M 40 44 Q 48 40 56 44 L 54 56 Q 46 60 40 54 Z" fill="#FFFDF9" filter="url(#ps-forest_woodpecker-top)"/>
+      <circle cx="48" cy="48" r="3" fill="#3D352E" filter="url(#ps-forest_woodpecker-top)"/>
+      <circle cx="47" cy="47" r="1" fill="#FFFDF9"/>
+    
+</svg>

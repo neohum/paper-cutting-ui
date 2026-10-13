@@ -1403,7 +1403,8 @@
       if (displayList.length >= filtered.length) {
         if (loadMoreBtn) loadMoreBtn.style.display = 'none';
         if (loadAllBtn) {
-          loadAllBtn.innerHTML = `<span class="pc-inline-icon is-sm" style="display:inline-flex;width:14px;height:14px;align-items:center;justify-content:center;">${buildScaledSvg('check', 14, { forceLineMode: true })}</span> <span>${filtered.length}종 전체 로드 완료</span>`;
+          const allLabel = loadAllBtn.querySelector('#label-load-all') || loadAllBtn.querySelector('text') || loadAllBtn.querySelector('span:last-child');
+          if (allLabel) allLabel.textContent = `${filtered.length}종 전체 로드 완료`;
           loadAllBtn.disabled = true;
           loadAllBtn.style.opacity = '0.6';
           loadAllBtn.style.pointerEvents = 'none';
@@ -1413,11 +1414,13 @@
           loadMoreBtn.style.display = 'inline-flex';
           const remaining = filtered.length - displayList.length;
           const nextBatch = Math.min(120, remaining);
-          loadMoreBtn.innerHTML = `<span class="pc-inline-icon is-sm" style="display:inline-flex;width:14px;height:14px;align-items:center;justify-content:center;">${buildScaledSvg('add', 14, { forceLineMode: true })}</span> <span>더 많은 아이콘 보기 (+${nextBatch}종)</span>`;
+          const moreLabel = loadMoreBtn.querySelector('#label-load-more') || loadMoreBtn.querySelector('text') || loadMoreBtn.querySelector('span:last-child');
+          if (moreLabel) moreLabel.textContent = `더 많은 아이콘 보기 (+${nextBatch}종)`;
         }
         if (loadAllBtn) {
           loadAllBtn.style.display = 'inline-flex';
-          loadAllBtn.innerHTML = `<span class="pc-inline-icon is-sm" style="display:inline-flex;width:14px;height:14px;align-items:center;justify-content:center;">${buildScaledSvg('apps', 14, { forceLineMode: true })}</span> <span>전체 ${filtered.length}종 한 번에 모두 로드</span>`;
+          const allLabel = loadAllBtn.querySelector('#label-load-all') || loadAllBtn.querySelector('text') || loadAllBtn.querySelector('span:last-child');
+          if (allLabel) allLabel.textContent = `전체 ${filtered.length}종 한 번에 모두 로드`;
           loadAllBtn.disabled = false;
           loadAllBtn.style.opacity = '1';
           loadAllBtn.style.pointerEvents = 'auto';
@@ -1971,6 +1974,10 @@
       const abStage = document.querySelector('.sim-ab-compare-stage');
       if (abStage) {
         abStage.style.display = simState.isAbComparing ? 'grid' : 'none';
+      }
+      const abLabel = document.getElementById('btn-ab-label');
+      if (abLabel) {
+        abLabel.textContent = simState.isAbComparing ? '⚡ A/B 비교: 신규 짙은 입체 (ON)' : '⚡ A/B 비교: 신규 짙은 입체 (OFF)';
       }
       updateCanvasPaper3d();
       notify(`A/B 비교 뷰가 ${simState.isAbComparing ? '활성화' : '비활성화'}되었습니다.`, 'peach');
