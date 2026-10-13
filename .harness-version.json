@@ -1,12 +1,12 @@
 {
   "_comment": "create-agent-harness provenance - harness-owned; refreshed on scaffold and --update",
   "schema": 1,
-  "version": "0.4.47",
+  "version": "0.4.48",
   "projectName": "paper-cutting-ui",
   "minNode": ">=22.18",
   "mode": "autonomous",
-  "commit": "19597718e81ead8a0e80229f1e932bf1d7eb1860",
+  "commit": "84a16a0503c8a38793fc21634311f7040dce1087",
   "branch": "main",
   "remoteUrl": "https://github.com/neohum/create-agent-harness.git",
-  "stampedAt": "2026-10-12T04:13:49.877Z"
+  "stampedAt": "2026-10-13T06:27:32.222Z"
 }
