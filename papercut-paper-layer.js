@@ -318,6 +318,7 @@
     }
     for (var j = 0; j < list.length; j++) {
       if (explicit) destroyed.delete(list[j]);   // 명시적 hydrate는 destroy 이후에도 다시 동작한다
+      else if (destroyed.has(list[j])) continue; // 자동 경로(MutationObserver 즉시 수화 포함)는 destroy를 존중한다
       if (eager) attach(list[j]); else enqueue(list[j]); }
     return list.length;
   }

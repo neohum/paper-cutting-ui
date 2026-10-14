@@ -131,7 +131,8 @@ const MEASURE_FN = `(args) => {
     const cs = getComputedStyle(el);
     if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) continue;
     if (cs.position === 'fixed') continue;
-    if (el.closest('[aria-hidden="true"], [data-overflow-ok]')) continue;
+    // aria-hidden은 보조기술에서만 숨길 뿐 화면에는 보이므로 제외 근거가 아니다. 의도된 예외만 data-overflow-ok로 표시한다.
+    if (el.closest('[data-overflow-ok]')) continue;
     const b = el.getBoundingClientRect();
     if (cs.position === 'absolute') {
       if (skipAbsolute) continue;
@@ -274,15 +275,21 @@ async function runFixtures(browser, origin, report) {
   // 내용 폭으로 줄어드는 자리에서 컴포넌트가 무너지지 않는지(예: 카드 자체의 container-type)
   const shrinkRan = !only.length || only.includes('shrinkwrap');
   if (shrinkRan) {
-    const collapsed = await page.evaluate(() => [...document.querySelectorAll('[data-fx-min-width]')]
-      .map((el) => ({ sel: el.className, width: Math.round(el.getBoundingClientRect().width), min: Number(el.dataset.fxMinWidth) }))
-      .filter((r) => r.width < r.min));
+    const measured = await page.evaluate(() => [...document.querySelectorAll('[data-fx-min-width]')]
+      .map((el) => ({ sel: el.className, width: Math.round(el.getBoundingClientRect().width), min: Number(el.dataset.fxMinWidth) })));
+    const collapsed = measured.filter((r) => r.width < r.min);
     report.shrinkwrap = collapsed;
-    totalOff += collapsed.length;
-    console.log(`${collapsed.length ? 'FAIL' : 'PASS'} shrinkwrap  collapsed=${collapsed.length}`);
-    for (const c of collapsed) console.log(`       - .${c.sel} w=${c.width} < ${c.min}px`);
+    if (!measured.length) {
+      // 측정 대상이 없으면 무너짐을 검사한 것이 아니다
+      console.error('[오류] shrinkwrap: [data-fx-min-width] 대상이 0건이다');
+      fatal = true;
+    } else {
+      totalOff += collapsed.length;
+      executedCases += measured.length;
+      console.log(`${collapsed.length ? 'FAIL' : 'PASS'} shrinkwrap  targets=${measured.length} collapsed=${collapsed.length}`);
+      for (const c of collapsed) console.log(`       - .${c.sel} w=${c.width} < ${c.min}px`);
+    }
   }
-  if (shrinkRan) executedCases++;
   if (shotDir) {
     fs.mkdirSync(shotDir, { recursive: true });
     await page.screenshot({ path: path.join(shotDir, 'fixtures-1280.png'), fullPage: true });

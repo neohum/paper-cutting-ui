@@ -80,13 +80,26 @@ try {
 
   await page.goto(pathToFileURL(indexFile).href, { waitUntil: 'load' });
   await page.waitForTimeout(1200);
+  // 1단계: 페이지가 스스로 수화했는지. 첫 화면(헤더·사이드바·히어로)은 즉시 수화 대상이라 타이밍과 무관하게 100%여야 한다.
+  const auto = await page.evaluate(() => {
+    const inFirstScreen = [...document.querySelectorAll('[data-icon]')].filter((el) => {
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight && r.right > 0 && r.left < window.innerWidth;
+    });
+    return { first: inFirstScreen.length, firstHydrated: inFirstScreen.filter((el) => el.querySelector('svg')).length,
+      missing: inFirstScreen.filter((el) => !el.querySelector('svg')).slice(0, 5).map((el) => el.getAttribute('data-icon')) };
+  });
   await page.evaluate(async () => {
     const h = document.documentElement.scrollHeight;
     for (let y = 0; y < h; y += 700) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 25)); }
   });
   await page.waitForTimeout(800);
-  // 지연 로딩은 스크롤 타이밍에 따라 덜 끝나 비율이 흔들린다. 이 검사의 대상은 id 무결성이므로
-  // 아이콘 엔진으로 전부 수화한 뒤(가장 많은 복제본이 공존하는 상태) 잰다. 엔진이 없으면 수화율 검사에서 실패한다.
+  // 스크롤 뒤 자동 수화가 실제로 일어났는지(0이 아닌지)만 본다. 지연 로딩 완료율은 스크롤 타이밍에 따라 흔들린다.
+  const autoAfterScroll = await page.evaluate(() => document.querySelectorAll('[data-icon] svg').length);
+  const autoPass = auto.first > 0 && auto.firstHydrated === auto.first && autoAfterScroll > auto.firstHydrated;
+  ok &&= autoPass;
+  console.log(`${autoPass ? 'PASS' : 'FAIL'} index.html    auto: firstScreen=${auto.firstHydrated}/${auto.first} afterScroll=${autoAfterScroll}${auto.missing.length ? ' 미수화 e.g. ' + auto.missing.join(', ') : ''}`);
+  // 2단계: id 무결성은 가장 많은 복제본이 공존하는 상태에서 잰다. 자동 수화 판정이 끝난 뒤에만 전부 수화한다.
   await page.evaluate(() => { if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(document); });
   await page.waitForTimeout(300);
   const idx = await page.evaluate(auditIds);
