@@ -1,6 +1,6 @@
 ---
 plan: papercut-system-unification
-status: approved
+status: done
 risk: medium
 owner: neohum
 ---

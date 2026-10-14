@@ -1,6 +1,6 @@
 ---
 plan: pc-components-paper-rebrand
-status: draft
+status: done
 risk: medium
 owner: neohum
 ---
