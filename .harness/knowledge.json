@@ -1,0 +1,14 @@
+{
+  "entries": [
+    {
+      "id": 1,
+      "title": "PaperCut UI 반응형 준비와 PC 컴포넌트 페이퍼 레이어 재구현 (#9)",
+      "body": "PR #9 squash 머지(b32300d). 반응형: 고정 최소폭 그리드·min-width:max-content 제거, 컨테이너 쿼리, 브레이크포인트 480/768/1024/1280, verify-overflow.mjs(페이지·픽스처·카드 무너짐). 카드 자체에 container-type을 걸면 flex/inline-block 안에서 패딩만 남고 무너진다(회귀 검사 shrinkwrap). shadcn 명칭을 pc-ui-*/papercut-ui.*/PaperCutUI/#pc-components로 변경, shadcn/ui MIT 고지는 THIRD_PARTY_NOTICES.md. papercut-paper-layer 엔진(data-pc-paper 8 variant x 7 tone)으로 버튼·아이콘 외 컴포넌트를 SVG 색지로 재구현. 레이어 SVG는 인라인 !important로 배치를 고정해야 페이지 CSS(.x > svg)가 흐름으로 끌어들이지 못한다. 아이콘 복제본이 필터 id를 공유하면 첫 복제본이 display:none일 때 전부 사라진다 → 인스턴스별 고유 id(verify-icon-ids.mjs). Codex 독립 리뷰 4라운드(8→4→1→승인): 테스트가 거짓 통과하는 경로(범위가 다른 개수 비교, aria-hidden 일괄 제외, 강제 수화로 자동 실패 은폐)를 지적받아 수정.",
+      "tags": "responsive,paper-layer,icons,review",
+      "source": "day-human",
+      "card": null,
+      "created_at": "2026-10-14T05:09:00.734Z"
+    }
+  ],
+  "seq": 1
+}
