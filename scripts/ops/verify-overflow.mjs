@@ -17,6 +17,8 @@ import { chromium } from 'playwright-core';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const PAGE_WIDTHS = [320, 360, 375, 414, 768, 1024, 1280, 1920];
 const SHOT_WIDTHS = [375, 768, 1280];
+// 숨은 옵션 --url을 --page와 함께 주면 index.html 대신 해당 HTML을 검사한다(검사기 자체 검증용)
+const PAGE_PATH_DEFAULT = '/index.html';
 const FIXTURE_PAGE = '/tests/responsive/component-fixtures.html';
 
 // ---------- 인자 ----------
@@ -48,6 +50,7 @@ const MIME = {
   '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.woff2': 'font/woff2', '.woff': 'font/woff',
   '.ttf': 'font/ttf', '.ico': 'image/x-icon', '.txt': 'text/plain; charset=utf-8',
 };
+const PAGE_PATH = modePage && extUrl && !modeFixtures ? `/__ext/${path.basename(extUrl)}` : PAGE_PATH_DEFAULT;
 const extDir = extUrl ? path.dirname(path.resolve(extUrl)) : null;
 
 function startServer() {
@@ -94,10 +97,14 @@ async function newPage(browser, origin, width, height = 900) {
 // root 아래 요소 중 bounds(left/right)를 벗어난 "뿌리 원인"만 모은다.
 //  - 경계 안에 있는 overflow(hidden/auto/scroll/clip) 조상이나 의도된 스트립이 가두면 제외
 //  - 부모도 같이 벗어났다면 부모가 뿌리이므로 제외
-//  - skipAbsolute: position:absolute 장식 요소 제외(페이지 모드). fixed는 항상 제외
+//  - 명시적 제외 목록(조용히 넓히지 않는다): position:fixed, display:none/visibility:hidden/opacity:0,
+//    aria-hidden="true" 조상 안, [data-overflow-ok] 조상 안(의도된 오프스크린 표시용)
+//  - position:absolute 요소: 텍스트 없는 장식은 ABS_DECOR_TOL(px)까지만 삐져나와도 허용, 그 이상은 위반.
+//    skipAbsolute=true면 전부 제외(기본 사용 안 함)
 //  - 텍스트가 요소 안에서 흘러넘치는 경우(요소 박스는 안, 글자만 밖)도 잡는다
 const MEASURE_FN = `(args) => {
   const { rootSel, rootIndex, bounds, skipAbsolute, tol } = args;
+  const ABS_DECOR_TOL = 4;
   const root = rootSel === '__wrapper__' ? document.querySelector('.pc-content-wrapper') : document.querySelectorAll(rootSel)[rootIndex];
   if (!root) return { error: 'root not found: ' + rootSel };
   const L = bounds.left, R = bounds.right;
@@ -122,10 +129,15 @@ const MEASURE_FN = `(args) => {
     if (el.closest('svg') && el.tagName.toLowerCase() !== 'svg') continue;   // svg 내부 도형은 svg 루트로만 판단
     if (el.closest('template')) continue;
     const cs = getComputedStyle(el);
-    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) continue;
     if (cs.position === 'fixed') continue;
-    if (cs.position === 'absolute' && (skipAbsolute || !(el.textContent || '').trim())) continue; // 장식(텍스트 없는 absolute)
+    if (el.closest('[aria-hidden="true"], [data-overflow-ok]')) continue;
     const b = el.getBoundingClientRect();
+    if (cs.position === 'absolute') {
+      if (skipAbsolute) continue;
+      // 텍스트 없는 장식은 몇 px 삐져나오는 것만 허용
+      if (!(el.textContent || '').trim() && b.right <= R + ABS_DECOR_TOL && b.left >= L - ABS_DECOR_TOL) continue;
+    }
     let reason = null, rect = b;
     if (b.width > 0 && b.height > 0 && out(b)) reason = 'box';
     else if (!/(hidden|auto|scroll|clip)/.test(cs.overflowX) && b.width > 0) {
@@ -173,10 +185,10 @@ async function hydrateByScrolling(page) {
 async function runPage(browser, origin, report) {
   let failed = false;
   report.page = [];
-  console.log(`\n== --page: /index.html (${PAGE_WIDTHS.join('/')}px) ==`);
+  console.log(`\n== --page: ${PAGE_PATH} (${PAGE_WIDTHS.join('/')}px) ==`);
   for (const w of PAGE_WIDTHS) {
     const { page, close } = await newPage(browser, origin, w);
-    await page.goto(`${origin}/index.html`, { waitUntil: 'load' });
+    await page.goto(`${origin}${PAGE_PATH}`, { waitUntil: 'load' });
     await hydrateByScrolling(page);
     const scroll = await page.evaluate(() => {
       const wrap = document.querySelector('.pc-content-wrapper');
@@ -191,11 +203,12 @@ async function runPage(browser, origin, report) {
     let roots = { offenders: [], total: 0 };
     if (scroll.wrapFound) {
       const bounds = { left: Math.max(0, scroll.wrapLeft), right: Math.min(scroll.docCW, scroll.wrapRight) };
-      roots = await page.evaluate(`(${MEASURE_FN})(${JSON.stringify({ rootSel: '__wrapper__', rootIndex: 0, bounds, skipAbsolute: true, tol: 1 })})`);
+      roots = await page.evaluate(`(${MEASURE_FN})(${JSON.stringify({ rootSel: '__wrapper__', rootIndex: 0, bounds, skipAbsolute: false, tol: 1 })})`);
     }
     const docOk = scroll.docSW <= scroll.docCW;
     const wrapOk = scroll.wrapFound && scroll.wrapSW <= scroll.wrapCW + 1;
-    const ok = docOk && wrapOk;
+    const rootOk = roots.offenders.length === 0;
+    const ok = docOk && wrapOk && rootOk;
     if (!ok) failed = true;
     report.page.push({ width: w, ok, ...scroll, rootOffenders: roots.offenders });
     console.log(`${ok ? 'PASS' : 'FAIL'} ${String(w).padStart(4)}px  doc ${scroll.docSW}/${scroll.docCW}  wrapper ${scroll.wrapSW}/${scroll.wrapCW}  rootOffenders=${roots.offenders.length}${scroll.wrapFound ? '' : '  (.pc-content-wrapper 없음)'}`);
@@ -223,12 +236,20 @@ async function runFixtures(browser, origin, report) {
   await page.waitForTimeout(800); // 아이콘 수화 대기
   const groups = await page.evaluate(() => [...document.querySelectorAll('section[data-fixture]')].map((s) => s.getAttribute('data-fixture')));
   const wanted = only.length ? groups.filter((g) => only.includes(g)) : groups;
-  for (const o of only) if (!groups.includes(o) && o !== 'shrinkwrap') console.warn(`[경고] 알 수 없는 그룹: ${o}`);
+  const unknown = only.filter((o) => !groups.includes(o) && o !== 'shrinkwrap');
+  if (unknown.length) {
+    console.error(`[오류] 알 수 없는 그룹: ${unknown.join(', ')} (사용 가능: ${[...groups, 'shrinkwrap'].join(', ')})`);
+    await close();
+    fatal = true;
+    return false;
+  }
+  let executedCases = 0;
   let totalOff = 0;
   for (const g of wanted) {
     const widths = await page.evaluate((name) => [...document.querySelectorAll(`section[data-fixture="${name}"] .fx-case`)].map((c) => Number(c.dataset.width)), g);
     for (let idx = 0; idx < widths.length; idx++) {
       const w = widths[idx];
+      executedCases++;
       const caseSel = `section[data-fixture="${g}"] .fx-case`;
       const bounds = await page.evaluate(({ sel, i }) => {
         const c = document.querySelectorAll(sel)[i]; const r = c.getBoundingClientRect();
@@ -251,7 +272,8 @@ async function runFixtures(browser, origin, report) {
     }
   }
   // 내용 폭으로 줄어드는 자리에서 컴포넌트가 무너지지 않는지(예: 카드 자체의 container-type)
-  if (!only.length || only.includes('shrinkwrap')) {
+  const shrinkRan = !only.length || only.includes('shrinkwrap');
+  if (shrinkRan) {
     const collapsed = await page.evaluate(() => [...document.querySelectorAll('[data-fx-min-width]')]
       .map((el) => ({ sel: el.className, width: Math.round(el.getBoundingClientRect().width), min: Number(el.dataset.fxMinWidth) }))
       .filter((r) => r.width < r.min));
@@ -260,6 +282,7 @@ async function runFixtures(browser, origin, report) {
     console.log(`${collapsed.length ? 'FAIL' : 'PASS'} shrinkwrap  collapsed=${collapsed.length}`);
     for (const c of collapsed) console.log(`       - .${c.sel} w=${c.width} < ${c.min}px`);
   }
+  if (shrinkRan) executedCases++;
   if (shotDir) {
     fs.mkdirSync(shotDir, { recursive: true });
     await page.screenshot({ path: path.join(shotDir, 'fixtures-1280.png'), fullPage: true });
@@ -277,7 +300,13 @@ async function runFixtures(browser, origin, report) {
     }
   }
   report.fixtureOffenders = totalOff;
-  console.log(`FIXTURES: ${totalOff ? 'offenders=' + totalOff : 'PASS'}${reportOnly ? ' (report-only)' : ''}`);
+  report.executedCases = executedCases;
+  if (executedCases === 0) {
+    console.error('[오류] 실행된 케이스가 0건입니다(픽스처 섹션 누락?). 통과로 처리하지 않습니다.');
+    fatal = true;
+    return false;
+  }
+  console.log(`FIXTURES: ${totalOff ? 'offenders=' + totalOff : 'PASS'} (케이스 ${executedCases}건)${reportOnly ? ' (report-only)' : ''}`);
   return totalOff === 0;
 }
 
@@ -299,6 +328,7 @@ const origin = `http://127.0.0.1:${server.address().port}`;
 const browser = await launch();
 const report = { generatedAt: new Date().toISOString(), origin: 'http://127.0.0.1:<free-port>', mode: { page: modePage, fixtures: modeFixtures, only, reportOnly } };
 let ok = true;
+let fatal = false;
 try {
   if (modePage) ok = (await runPage(browser, origin, report)) && ok;
   else if (shotDir && !modeFixtures) await runShots(browser, origin);
@@ -315,4 +345,4 @@ if (jsonPath) {
   fs.writeFileSync(jsonPath, JSON.stringify(report, null, 2) + '\n', 'utf8');
   console.log(`리포트 저장: ${jsonPath}`);
 }
-process.exit(ok ? 0 : 1);
+process.exit(ok && !fatal ? 0 : 1);

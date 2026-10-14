@@ -25,6 +25,17 @@
 })(typeof globalThis !== 'undefined' ? globalThis : (typeof self !== 'undefined' ? self : this), function () {
   'use strict';
 
+  // 전역(document) 리스너는 init을 여러 번 불러도 한 번만 등록한다. 핸들러 소스가 같으면 같은 리스너로 본다.
+  const docListeners = new Set();
+  // 컴포넌트 init()은 PaperCutUI.init(root)마다 다시 불리므로, 문서 리스너는 (컴포넌트, 이벤트)당 한 번만 건다.
+  // 핸들러 소스 문자열을 키로 쓰면 다른 컴포넌트의 같은 모양 핸들러가 합쳐지므로 소유자 이름을 키로 쓴다.
+  function onDoc(owner, type, handler) {
+    const key = owner + '|' + type;
+    if (docListeners.has(key)) return;
+    docListeners.add(key);
+    document.addEventListener(type, handler);
+  }
+
   // Safe query helpers
   function $$(selector, context = document) {
     return Array.from(context.querySelectorAll(selector));
@@ -134,6 +145,16 @@
     if (menuKeysBound || typeof document === 'undefined') return;
     menuKeysBound = true;
     document.addEventListener('keydown', (e) => {
+      // div[role=menuitem]은 Enter·Space를 기본 처리하지 않으므로 클릭과 같은 동작으로 연결한다
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.closest) {
+        const it = e.target.closest(ITEM_SEL);
+        if (it && it === e.target && !/^(BUTTON|A|INPUT)$/.test(it.tagName) && it.closest(MENU_SEL)
+            && it.getAttribute('aria-disabled') !== 'true') {
+          e.preventDefault();
+          it.click();
+          return;
+        }
+      }
       const keys = ['ArrowDown', 'ArrowUp', 'Home', 'End'];
       if (!keys.includes(e.key)) return;
       let menu = e.target.closest && e.target.closest(MENU_SEL);
@@ -294,7 +315,7 @@
       }
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('AlertDialog', 'click', (e) => {
         const trigger = e.target.closest('[data-alert-dialog-target]');
         if (trigger) {
           e.preventDefault();
@@ -311,7 +332,7 @@
         }
       });
 
-      document.addEventListener('keydown', (e) => {
+      onDoc('AlertDialog', 'keydown', (e) => {
         if (e.key === 'Escape') {
           $$('.pc-ui-alert-dialog-overlay[data-state="open"], .pc-ui-alert-dialog-overlay[data-state="open"]').forEach(d => AlertDialog.close(d));
         } else if (e.key === 'Tab') {
@@ -376,7 +397,7 @@
      ========================================================================== */
   const Badge = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Badge', 'click', (e) => {
         const dismissBtn = e.target.closest('[data-badge-dismiss]');
         if (dismissBtn) {
           const badge = dismissBtn.closest('.pc-ui-badge, .pc-ui-badge');
@@ -418,7 +439,7 @@
      ========================================================================== */
   const Button = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Button', 'click', (e) => {
         const btn = e.target.closest('.pc-ui-btn, .pc-ui-button');
         if (btn && btn.getAttribute('data-toggle') === 'button') {
           btn.classList.toggle('is-active');
@@ -662,7 +683,7 @@
       }));
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Checkbox', 'click', (e) => {
         const cb = e.target.closest('.pc-ui-checkbox, .pc-ui-checkbox');
         if (cb) {
           e.preventDefault();
@@ -680,7 +701,7 @@
         }
       });
 
-      document.addEventListener('keydown', (e) => {
+      onDoc('Checkbox', 'keydown', (e) => {
         if (e.key === ' ' || e.key === 'Spacebar') {
           const focused = document.activeElement;
           if (focused && (focused.classList.contains('pc-ui-checkbox') || focused.classList.contains('pc-ui-checkbox'))) {
@@ -699,7 +720,7 @@
     init(context = document) {
       if (Collapsible._bound) return;   // document 리스너는 한 번만 (init 재호출 시 이중 토글 방지)
       Collapsible._bound = true;
-      document.addEventListener('click', (e) => {
+      onDoc('Collapsible', 'click', (e) => {
         const trigger = e.target.closest(
           '.pc-ui-collapsible-trigger, .pc-ui-collapsible-trigger-bar, .pc-ui-collapsible-trigger, .pc-ui-collapsible-trigger-bar'
         );
@@ -757,7 +778,7 @@
       }));
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Combobox', 'click', (e) => {
         const trigger = e.target.closest('.pc-ui-combobox-trigger, .pc-ui-combobox-trigger');
         const allCombos = $$('.pc-ui-combobox, .pc-ui-combobox');
 
@@ -784,7 +805,7 @@
         }
       });
 
-      document.addEventListener('input', (e) => {
+      onDoc('Combobox', 'input', (e) => {
         const input = e.target.closest('.pc-ui-combobox-input, .pc-ui-combobox-input');
         if (!input) return;
         const combo = input.closest('.pc-ui-combobox, .pc-ui-combobox');
@@ -798,7 +819,7 @@
       });
 
       // 키보드: 트리거 ↓로 열기, 입력창에서 ↑↓ 이동, Enter 선택, Esc 닫고 트리거로 복귀
-      document.addEventListener('keydown', (e) => {
+      onDoc('Combobox', 'keydown', (e) => {
         const combo = e.target.closest && e.target.closest('.pc-ui-combobox');
         if (!combo) return;
         const trigger = $('.pc-ui-combobox-trigger', combo);
@@ -852,7 +873,7 @@
       if (el) el.setAttribute('data-state', 'closed');
     },
     init(context = document) {
-      document.addEventListener('keydown', (e) => {
+      onDoc('Command', 'keydown', (e) => {
         if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
           const dialog = $('.pc-ui-command-dialog, .pc-ui-command-dialog');
           if (dialog) {
@@ -867,7 +888,7 @@
         }
       });
 
-      document.addEventListener('input', (e) => {
+      onDoc('Command', 'input', (e) => {
         const input = e.target.closest('.pc-ui-command-input, .pc-ui-command-input');
         if (!input) return;
         const cmd = input.closest('.pc-ui-command, .pc-ui-command');
@@ -878,7 +899,7 @@
         });
       });
 
-      document.addEventListener('click', (e) => {
+      onDoc('Command', 'click', (e) => {
         if (e.target.classList.contains('pc-ui-command-dialog') || e.target.classList.contains('pc-ui-command-dialog')) {
           Command.close(e.target);
         }
@@ -891,7 +912,7 @@
      ========================================================================== */
   const ContextMenu = {
     init(context = document) {
-      document.addEventListener('contextmenu', (e) => {
+      onDoc('ContextMenu', 'contextmenu', (e) => {
         const target = e.target.closest('[data-context-menu]');
         if (target) {
           e.preventDefault();
@@ -922,11 +943,11 @@
         if (returnFocus && back && typeof back.focus === 'function') back.focus();
         ContextMenu.lastTrigger = null;
       };
-      document.addEventListener('click', (e) => {
+      onDoc('ContextMenu', 'click', (e) => {
         if (!e.target.closest('.pc-ui-context-menu, .pc-ui-context-menu')) closeAll(false);
         else if (e.target.closest('.pc-ui-context-menu-item')) closeAll(true);
       });
-      document.addEventListener('keydown', (e) => {
+      onDoc('ContextMenu', 'keydown', (e) => {
         if (e.key === 'Escape' && $('.pc-ui-context-menu[data-state="open"]')) { closeAll(true); return; }
         // 키보드: 영역에 포커스를 두고 Enter·Space로도 연다 (Shift+F10·메뉴 키는 브라우저가 contextmenu를 보낸다)
         const area = e.target.closest && e.target.closest('[data-context-menu]');
@@ -959,7 +980,7 @@
       }
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Dialog', 'click', (e) => {
         const trigger = e.target.closest('[data-dialog-target]');
         if (trigger) {
           e.preventDefault();
@@ -979,7 +1000,7 @@
         }
       });
 
-      document.addEventListener('keydown', (e) => {
+      onDoc('Dialog', 'keydown', (e) => {
         if (e.key === 'Escape') {
           $$('.pc-ui-dialog-overlay[data-state="open"], .pc-ui-dialog-overlay[data-state="open"]').forEach(d => Dialog.close(d));
         }
@@ -1008,7 +1029,7 @@
       }
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Drawer', 'click', (e) => {
         const trigger = e.target.closest('[data-drawer-target]');
         if (trigger) {
           e.preventDefault();
@@ -1022,7 +1043,7 @@
       });
 
       // Esc로 닫기 (대화상자·시트·알림 대화상자와 같은 동작)
-      document.addEventListener('keydown', (e) => {
+      onDoc('Drawer', 'keydown', (e) => {
         if (e.key === 'Escape') {
           $$('.pc-ui-drawer-content[data-state="open"]').forEach(d => Drawer.close(d));
         }
@@ -1035,7 +1056,7 @@
      ========================================================================== */
   const DropdownMenu = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('DropdownMenu', 'click', (e) => {
         const trigger = e.target.closest('.pc-ui-dropdown-menu-trigger, .pc-ui-dropdown-menu-trigger');
         const allMenus = $$('.pc-ui-dropdown-menu, .pc-ui-dropdown-menu');
 
@@ -1069,7 +1090,7 @@
       });
 
       // Esc: 열린 메뉴를 닫고 트리거로 포커스를 돌려준다
-      document.addEventListener('keydown', (e) => {
+      onDoc('DropdownMenu', 'keydown', (e) => {
         if (e.key !== 'Escape') return;
         const open = $('.pc-ui-dropdown-menu[data-state="open"]');
         if (!open) return;
@@ -1150,7 +1171,7 @@
      ========================================================================== */
   const Input = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Input', 'click', (e) => {
         const togglePassword = e.target.closest('[data-password-toggle]');
         if (togglePassword) {
           const wrapper = togglePassword.closest('.pc-ui-input-wrapper, .pc-ui-input-wrapper') || togglePassword.parentElement;
@@ -1358,7 +1379,7 @@
      ========================================================================== */
   const Label = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Label', 'click', (e) => {
         const label = e.target.closest('.pc-ui-label, .pc-ui-label');
         if (label) {
           const forId = label.getAttribute('for');
@@ -1492,7 +1513,7 @@
 
       if (Menubar._docBound) return;
       Menubar._docBound = true;
-      document.addEventListener('click', (e) => {
+      onDoc('Menubar', 'click', (e) => {
         if (!e.target.closest('.pc-ui-menubar')) {
           $$('.pc-ui-menubar-menu[data-state="open"]').forEach(m => {
             m.setAttribute('data-state', 'closed');
@@ -1552,16 +1573,19 @@
           const pill = e.target.closest('a.pc-ui-nav-pill');
           const link = e.target.closest('.pc-ui-nav-link');
           const trigger = e.target.closest('button.pc-ui-nav-pill');
+          // 데모 링크(href 없음·"#"·data-pc-demo)만 이동을 막고, 실제 URL은 브라우저가 그대로 이동하게 둔다
+          const isDemo = (a) => !a || a.hasAttribute('data-pc-demo') || ['', '#'].includes((a.getAttribute('href') || '').trim());
           if (pill) {
-            e.preventDefault();   // 데모 링크: 페이지 이동 없이 현재 위치만 옮긴다
+            if (isDemo(pill)) e.preventDefault();
             $$('a.pc-ui-nav-pill', nav).forEach(a => { a.classList.remove('is-active'); a.removeAttribute('aria-current'); });
             pill.classList.add('is-active');
             pill.setAttribute('aria-current', 'page');
             closePanels(null);
           } else if (link) {
-            e.preventDefault();
+            if (isDemo(link)) e.preventDefault();
             closePanels(null);
-            const t = $('button.pc-ui-nav-pill', link.closest('.pc-ui-nav-pill-wrap'));
+            const lw = link.closest('.pc-ui-nav-pill-wrap');
+            const t = lw && $('button.pc-ui-nav-pill', lw);
             if (t) t.focus();
           } else if (trigger) {
             const wrap = trigger.closest('.pc-ui-nav-pill-wrap');
@@ -1647,7 +1671,7 @@
      ========================================================================== */
   const Popover = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Popover', 'click', (e) => {
         const trigger = e.target.closest('.pc-ui-popover-trigger, .pc-ui-popover-trigger');
         const allPopovers = $$('.pc-ui-popover, .pc-ui-popover');
 
@@ -1670,7 +1694,7 @@
       });
 
       // Esc: 열린 팝오버를 닫고 트리거로 포커스를 돌려준다
-      document.addEventListener('keydown', (e) => {
+      onDoc('Popover', 'keydown', (e) => {
         if (e.key !== 'Escape') return;
         const open = $('.pc-ui-popover[data-state="open"]');
         if (!open) return;
@@ -1720,7 +1744,7 @@
       }));
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('RadioGroup', 'click', (e) => {
         const item = e.target.closest('.pc-ui-radio-item, .pc-ui-radio-item');
         if (item) RadioGroup.select(item);
       });
@@ -1842,7 +1866,7 @@
       }));
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Select', 'click', (e) => {
         const trigger = e.target.closest('.pc-ui-select-trigger, .pc-ui-select-trigger');
         const allSelects = $$('.pc-ui-select, .pc-ui-select');
 
@@ -1866,7 +1890,7 @@
       });
 
       // 키보드: 트리거에서 ↓/↑/Enter/Space로 열고, 옵션에서 ↑↓ Home End 이동, Enter/Space 선택, Esc 닫고 트리거로 복귀
-      document.addEventListener('keydown', (e) => {
+      onDoc('Select', 'keydown', (e) => {
         const sel = e.target.closest && e.target.closest('.pc-ui-select');
         if (!sel) return;
         const trigger = $('.pc-ui-select-trigger', sel);
@@ -1944,7 +1968,7 @@
       }
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Sheet', 'click', (e) => {
         const trigger = e.target.closest('[data-sheet-target]');
         if (trigger) {
           e.preventDefault();
@@ -1964,7 +1988,7 @@
         }
       });
 
-      document.addEventListener('keydown', (e) => {
+      onDoc('Sheet', 'keydown', (e) => {
         if (e.key === 'Escape') {
           $$('.pc-ui-sheet-content[data-state="open"], .pc-ui-sheet-content[data-state="open"]').forEach(c => Sheet.close(c));
         }
@@ -2083,7 +2107,7 @@
       }));
     },
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Switch', 'click', (e) => {
         const sw = e.target.closest('.pc-ui-switch, .pc-ui-switch');
         if (sw) {
           e.preventDefault();
@@ -2091,7 +2115,7 @@
         }
       });
 
-      document.addEventListener('keydown', (e) => {
+      onDoc('Switch', 'keydown', (e) => {
         if (e.key === ' ' || e.key === 'Enter') {
           const focused = document.activeElement;
           if (focused && (focused.classList.contains('pc-ui-switch') || focused.classList.contains('pc-ui-switch'))) {
@@ -2307,7 +2331,7 @@
      ========================================================================== */
   const Toggle = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('Toggle', 'click', (e) => {
         const toggle = e.target.closest('.pc-ui-toggle, .pc-ui-toggle');
         if (toggle) {
           const isOn = toggle.getAttribute('data-state') === 'on';
@@ -2323,7 +2347,7 @@
      ========================================================================== */
   const ToggleGroup = {
     init(context = document) {
-      document.addEventListener('click', (e) => {
+      onDoc('ToggleGroup', 'click', (e) => {
         const item = e.target.closest('.pc-ui-toggle-group-item, .pc-ui-toggle-group-item');
         if (!item) return;
 

@@ -30,6 +30,7 @@
   var states = new WeakMap();     // el -> { svg, sig, variant, drawn }
   var io = null, ro = null, mo = null;
   var warned = new WeakSet();
+  var destroyed = new WeakSet();  // destroy()된 요소: 대기 중인 지연 수화가 되살리지 못하게 한다
 
   /* ---------- 공유 필터 defs (문서 전체에 하나) ---------- */
   var LAYER_LOCK = [['position', 'absolute'], ['z-index', '-1'], ['display', 'block'], ['margin', '0'],
@@ -266,10 +267,11 @@
   }
 
   function detach(el) {
-    var st = states.get(el);
-    if (!st) return;
+    // 아직 수화 전(IntersectionObserver 대기 중)인 요소도 관찰을 풀어야 나중에 레이어가 생기지 않는다.
     if (ro) ro.unobserve(el);
     if (io) io.unobserve(el);
+    var st = states.get(el);
+    if (!st) return;
     if (st.svg.parentNode === el) el.removeChild(st.svg);
     el.classList.remove('is-paper-hydrated');
     states.delete(el);
@@ -294,39 +296,45 @@
     for (var i = 0; i < entries.length; i++) {
       if (!entries[i].isIntersecting) continue;
       io.unobserve(entries[i].target);
+      if (destroyed.has(entries[i].target)) continue;
       attach(entries[i].target);
     }
   }
 
   // 지연 수화 대기열에 올린다(첫 화면 근처 200px 안으로 오면 수화).
   function enqueue(el) {
-    if (states.has(el)) return;
+    if (destroyed.has(el)) return;
+    // 엔진 초기화 전에 hydrate된 요소는 ro가 없어 관찰되지 못했다. 여기서 뒤늦게 붙인다(observe는 중복 호출해도 안전).
+    if (states.has(el)) { if (ro) ro.observe(el); return; }
     if (io) io.observe(el); else attach(el);
   }
 
-  function collect(root, eager) {
+  function collect(root, eager, explicit) {
     var list = [];
     if (root.nodeType === 1 && root.hasAttribute('data-pc-paper')) list.push(root);
     if (root.querySelectorAll) {
       var found = root.querySelectorAll('[data-pc-paper]');
       for (var i = 0; i < found.length; i++) list.push(found[i]);
     }
-    for (var j = 0; j < list.length; j++) { if (eager) attach(list[j]); else enqueue(list[j]); }
+    for (var j = 0; j < list.length; j++) {
+      if (explicit) destroyed.delete(list[j]);   // 명시적 hydrate는 destroy 이후에도 다시 동작한다
+      if (eager) attach(list[j]); else enqueue(list[j]); }
     return list.length;
   }
 
   /* ---------- 공개 API ---------- */
   // hydrate: 동적으로 렌더한 뒤 호출하면 지연 없이 즉시 수화한다(토스트·캘린더 날짜 깜빡임 방지).
-  function hydrate(rootEl) { collect(rootEl || document, true); }
+  function hydrate(rootEl) { collect(rootEl || document, true, true); }
 
   function refresh(el) {
     var st = states.get(el);
-    if (!st) { attach(el); return; }
+    destroyed.delete(el);
+    if (!st) { attach(el); if (ro && states.has(el)) ro.observe(el); return; }
     st.sig = '';
     draw([{ el: el, w: el.offsetWidth, h: el.offsetHeight }]);
   }
 
-  function destroy(el) { detach(el); }
+  function destroy(el) { destroyed.add(el); detach(el); }
 
   var api = {
     paper: { hydrate: hydrate, refresh: refresh, destroy: destroy, variants: VARIANTS.slice(), tones: TONES.slice() }
@@ -339,9 +347,10 @@
       io = new IntersectionObserver(onIntersect, { rootMargin: '200px' });
     }
     if (!ro) return;   // ResizeObserver가 없으면 점진적 향상을 포기하고 CSS 모양을 유지한다.
-    collect(document, false);
+    collect(document, false);   // 이미 수화된 요소도 enqueue에서 ro 관찰이 붙는다
     if (typeof MutationObserver !== 'undefined') {
       mo = new MutationObserver(function (records) {
+        var removed = [];
         for (var i = 0; i < records.length; i++) {
           var rec = records[i];
           if (rec.type === 'attributes') {
@@ -351,6 +360,11 @@
             else enqueue(t);
             continue;
           }
+          for (var k = 0; k < rec.removedNodes.length; k++) {
+            var gone = rec.removedNodes[k];
+            if (gone.nodeType !== 1) continue;
+            removed.push(gone);
+          }
           for (var j = 0; j < rec.addedNodes.length; j++) {
             var node = rec.addedNodes[j];
             if (node.nodeType !== 1 || (node.classList && node.classList.contains('pc-ui-paper-layer'))) continue;
@@ -358,6 +372,15 @@
             var count = node.querySelectorAll ? node.querySelectorAll('[data-pc-paper]').length : 0;
             collect(node, count < 24);
           }
+        }
+        // 제거된 서브트리 정리. 같은 배치 안에서 다시 꽂힌 노드(오버레이를 body로 옮기는 경우)는
+        // 처리가 끝난 지금 isConnected이므로 건드리지 않는다.
+        for (var m = 0; m < removed.length; m++) {
+          if (removed[m].isConnected) continue;
+          var gl = removed[m].hasAttribute('data-pc-paper') ? [removed[m]] : [];
+          var inner = removed[m].querySelectorAll('[data-pc-paper]');
+          for (var q = 0; q < inner.length; q++) gl.push(inner[q]);
+          for (var g = 0; g < gl.length; g++) if (!gl[g].isConnected) detach(gl[g]);
         }
       });
       mo.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['data-pc-paper'] });

@@ -29,6 +29,38 @@ const auditIds = () => {
   return { total: ids.length, duplicates: [...dup].slice(0, 10), duplicateCount: dup.size };
 };
 
+// 수화 검사: 화면에 그려지는([data-icon]) 요소는 실제로 svg를 가져야 하고, svg 안의 url(#id)/href="#id"는
+// 같은 svg 안의 요소로 풀려야 한다(문서 다른 곳의 같은 id로 새면 첫 복제본이 숨겨질 때 아이콘이 사라진다).
+const MIN_HYDRATED_RATIO = 0.95;
+const auditHydration = () => {
+  const rendered = [...document.querySelectorAll('[data-icon]')].filter((el) => {
+    const r = el.getBoundingClientRect();
+    return r.width > 0 && r.height > 0;
+  });
+  const hydrated = rendered.filter((el) => el.querySelector('svg'));
+  const missing = rendered.filter((el) => !el.querySelector('svg')).slice(0, 5).map((el) => el.getAttribute('data-icon'));
+  const unresolved = [];
+  let refs = 0;
+  for (const svg of document.querySelectorAll('[data-icon] svg')) {
+    for (const node of [svg, ...svg.querySelectorAll('*')]) {
+      for (const attr of node.attributes) {
+        const ids = [...attr.value.matchAll(/url\(\s*['"]?#([^)'"\s]+)/g)].map((m) => m[1]);
+        if ((attr.name === 'href' || attr.name === 'xlink:href') && attr.value.startsWith('#')) ids.push(attr.value.slice(1));
+        for (const id of ids) {
+          refs++;
+          const target = document.getElementById(id);
+          if (!target || !svg.contains(target)) unresolved.push(`${id}@${el_name(svg)}`);
+        }
+      }
+    }
+  }
+  function el_name(svg) { return (svg.closest('[data-icon]') || svg).getAttribute('data-icon') || '?'; }
+  return { rendered: rendered.length, hydrated: hydrated.length, missing, refs, unresolvedCount: unresolved.length, unresolved: unresolved.slice(0, 5) };
+};
+
+const indexArg = process.argv.find((a) => a.startsWith('--index='));
+const indexFile = indexArg ? path.resolve(indexArg.slice('--index='.length)) : path.join(root, 'index.html');
+
 const browser = await launch();
 let ok = true;
 try {
@@ -46,17 +78,28 @@ try {
   ok &&= fxPass;
   console.log(`${fxPass ? 'PASS' : 'FAIL'} hidden-first  ids=${fx.total} duplicates=${fx.duplicateCount} visibleIconUsesOwnFilters=${ownRefs}`);
 
-  await page.goto(pathToFileURL(path.join(root, 'index.html')).href, { waitUntil: 'load' });
+  await page.goto(pathToFileURL(indexFile).href, { waitUntil: 'load' });
   await page.waitForTimeout(1200);
   await page.evaluate(async () => {
     const h = document.documentElement.scrollHeight;
     for (let y = 0; y < h; y += 700) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 25)); }
   });
   await page.waitForTimeout(800);
+  // 지연 로딩은 스크롤 타이밍에 따라 덜 끝나 비율이 흔들린다. 이 검사의 대상은 id 무결성이므로
+  // 아이콘 엔진으로 전부 수화한 뒤(가장 많은 복제본이 공존하는 상태) 잰다. 엔진이 없으면 수화율 검사에서 실패한다.
+  await page.evaluate(() => { if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(document); });
+  await page.waitForTimeout(300);
   const idx = await page.evaluate(auditIds);
   const idxPass = idx.duplicateCount === 0;
   ok &&= idxPass;
   console.log(`${idxPass ? 'PASS' : 'FAIL'} index.html    ids=${idx.total} duplicates=${idx.duplicateCount}${idx.duplicateCount ? ' e.g. ' + idx.duplicates.join(', ') : ''}`);
+
+  // 스크롤 후 다시 위로: 수화 여부는 화면 박스가 있는 요소만 센다
+  const hy = await page.evaluate(auditHydration);
+  const ratio = hy.rendered ? hy.hydrated / hy.rendered : 0;
+  const hyPass = hy.rendered > 0 && ratio >= MIN_HYDRATED_RATIO && hy.refs > 0 && hy.unresolvedCount === 0;
+  ok &&= hyPass;
+  console.log(`${hyPass ? 'PASS' : 'FAIL'} index.html    hydrated=${hy.hydrated}/${hy.rendered} (${(ratio * 100).toFixed(1)}%, 최소 ${MIN_HYDRATED_RATIO * 100}%) refs=${hy.refs} unresolved=${hy.unresolvedCount}${hy.missing.length ? ' 미수화 e.g. ' + hy.missing.join(', ') : ''}${hy.unresolvedCount ? ' 미해결 e.g. ' + hy.unresolved.join(', ') : ''}`);
 } finally {
   await browser.close();
 }
