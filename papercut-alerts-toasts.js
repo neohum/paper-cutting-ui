@@ -10,6 +10,9 @@
   let toastContainer = null;
   let currentPosition = 'pos-top-right';
 
+  // 페이퍼 레이어 엔진이 아는 7톤 (sage 등 그 밖의 변형은 mint로)
+  const PAPER_TONES = ['mint', 'peach', 'lavender', 'buttercup', 'sky', 'rose', 'cream'];
+
   // SVG Medallion for Alerts & Toasts
   const TOAST_WAX_SVG = `
     <svg class="pc-wax-seal-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -98,6 +101,10 @@
     const toastEl = document.createElement('div');
     const kirigamiClass = opts.kirigami ? `pc-toast-${opts.kirigami}` : 'pc-toast-washi';
     toastEl.className = `pc-toast-card variant-${opts.variant} ${kirigamiClass}`;
+    // 페이퍼 레이어: 토스트는 ticket 색지, 톤은 알림 종류(variant)를 따른다
+    toastEl.setAttribute('data-pc-paper', 'ticket');
+    toastEl.setAttribute('data-pc-tone', PAPER_TONES.indexOf(opts.variant) >= 0 ? opts.variant : 'mint');
+    toastEl.setAttribute('role', opts.variant === 'rose' ? 'alert' : 'status');
 
     // Build Kirigami Ornamentation
     let ornamentHtml = '';
@@ -131,6 +138,8 @@
     if (typeof window.hydratePapercutIcons === 'function') {
       window.hydratePapercutIcons(toastEl);
     }
+    // 동적 생성이므로 지연 없이 색지를 즉시 수화
+    if (window.PaperCutUI && window.PaperCutUI.paper) window.PaperCutUI.paper.hydrate(toastEl);
 
     // Action button callback
     if (opts.actionLabel && typeof opts.onAction === 'function') {
@@ -243,6 +252,8 @@
       const alertEl = document.createElement('div');
       const kirigamiClass = `pc-alert-${config.kirigami || 'washi'}`;
       alertEl.className = `pc-alert pc-alert-${config.variant} ${kirigamiClass}`;
+      alertEl.setAttribute('data-pc-paper', 'ticket');
+      alertEl.setAttribute('data-pc-tone', PAPER_TONES.indexOf(config.variant) >= 0 ? config.variant : 'mint');
 
       let ornamentHtml = '';
       if (config.kirigami === 'washi' || config.kirigami === 'memo') {
@@ -287,6 +298,7 @@
       if (typeof window.hydratePapercutIcons === 'function') {
         window.hydratePapercutIcons(alertEl);
       }
+      if (window.PaperCutUI && window.PaperCutUI.paper) window.PaperCutUI.paper.hydrate(alertEl);
 
       // Close handler
       if (config.closable) {

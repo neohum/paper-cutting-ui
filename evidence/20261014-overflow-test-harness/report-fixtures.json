@@ -1,0 +1,262 @@
+{
+  "generatedAt": "2026-10-14T02:59:21.347Z",
+  "origin": "http://127.0.0.1:<free-port>",
+  "mode": {
+    "page": false,
+    "fixtures": true,
+    "only": [],
+    "reportOnly": true
+  },
+  "fixtures": [
+    {
+      "component": "button",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "button",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "button",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "badge",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "badge",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "badge",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "card",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        1
+      ]
+    },
+    {
+      "component": "card",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        1
+      ]
+    },
+    {
+      "component": "card",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        1
+      ]
+    },
+    {
+      "component": "card",
+      "width": 720,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        2
+      ]
+    },
+    {
+      "component": "form",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "form",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "form",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "tabs",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "tabs",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "tabs",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "table",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "table",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "table",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "modal",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "modal",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "modal",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "toast",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "toast",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "toast",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": []
+    },
+    {
+      "component": "grid",
+      "width": 280,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "component": "grid",
+      "width": 360,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "component": "grid",
+      "width": 480,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "component": "grid",
+      "width": 720,
+      "offenders": 0,
+      "list": [],
+      "columns": [
+        1,
+        2,
+        2
+      ]
+    }
+  ],
+  "columnSummary": {
+    "card": {
+      "280px": [
+        1
+      ],
+      "720px": [
+        2
+      ]
+    },
+    "grid": {
+      "280px": [
+        1,
+        1,
+        1
+      ],
+      "720px": [
+        1,
+        2,
+        2
+      ]
+    }
+  },
+  "fixtureOffenders": 0
+}

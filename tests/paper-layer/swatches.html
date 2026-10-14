@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>페이퍼 레이어 견본 (8 변형 x 7 톤 + 상태)</title>
+  <link rel="stylesheet" href="../../papercut.css">
+  <link rel="stylesheet" href="../../papercut-paper-layer.css">
+  <style>
+    body { margin: 0; padding: 16px; background: #FFFDF9; font-family: var(--pc-font, 'Nanum Square Round', sans-serif); color: #3D352E; }
+    h1 { font-size: 16px; margin: 0 0 12px; }
+    h2 { font-size: 13px; margin: 22px 0 8px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px 14px; padding-right: 6px; }
+    .cell { min-width: 0; }
+    .cell small { display: block; font-size: 10px; color: #7a6a5a; margin-bottom: 4px; }
+    .p { box-sizing: border-box; font-size: 12px; font-weight: 800; }
+    .p.sheet { padding: 14px; border: 1.5px solid #EADBCC; border-radius: 14px; min-height: 70px; background: #fff; }
+    .p.field { padding: 9px 12px; border: 1.5px solid #EADBCC; border-radius: 10px; background: #fff; }
+    .p.pill { display: inline-flex; padding: 5px 14px; border: 0; background: #fff; }
+    .p.tab { display: inline-block; padding: 8px 16px 10px; border: 0; background: #fff; }
+    .p.ticket { padding: 14px 18px; border-radius: 12px; min-height: 56px; background: #fff; }
+    .p.track { height: 10px; background: #fff; }
+    .p.knob { display: inline-block; width: 24px; height: 24px; background: #fff; margin-right: 10px; }
+    .p.menu { padding: 8px 10px; border-radius: 12px; background: #fff; }
+    button.p { font: inherit; font-size: 12px; font-weight: 800; color: inherit; cursor: pointer; }
+    .force-hover > .pc-ui-paper-layer .pc-paper-top { transform: translate(-1px, -1px); }
+    .force-hover > .pc-ui-paper-layer[data-variant]:not([data-variant=track]):not([data-variant=field]) .pc-paper-stack { filter: url(#pc-paper-sh-lift); }
+    .kirigami-ref svg { height: 38px; width: auto; }
+  </style>
+</head>
+<body>
+  <h1>페이퍼 레이어 견본</h1>
+  <h2>기준: 칼선 버튼</h2>
+  <div class="kirigami-ref">
+    <svg viewBox="0 0 142 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs><filter id="ref-sh" x="-20%" y="-20%" width="140%" height="150%">
+        <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.48"/>
+        <feDropShadow dx="0" dy="3.5" stdDeviation="1.8" flood-color="#2E1E14" flood-opacity="0.25"/>
+        <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+      </filter></defs>
+      <rect x="5" y="6" width="132" height="32" rx="7" fill="#9EC49A"/>
+      <rect x="3" y="3" width="134" height="32" rx="7" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.88" filter="url(#ref-sh)"/>
+      <text x="76" y="24" text-anchor="middle" font-size="12.5" font-weight="800" fill="#204A38">Primary Stack</text>
+    </svg>
+  </div>
+
+  <div id="board"></div>
+
+  <h2>상태 (mint 톤): 기본 / hover 강제 / focus / 체크·열림·활성 / 비활성</h2>
+  <div id="states" class="grid"></div>
+
+  <script>
+    var V = ['sheet','field','pill','tab','ticket','track','knob','menu'];
+    var T = ['mint','peach','lavender','buttercup','sky','rose','cream'];
+    var LABEL = { sheet:'시트 카드', field:'입력 필드', pill:'알약 칩', tab:'폴더 탭', ticket:'티켓', track:'', knob:'', menu:'메뉴 패널' };
+    function el(v, tone, extra) {
+      var tag = (v === 'pill' || v === 'tab') ? 'button' : 'div';
+      var a = 'class="p ' + v + '" data-pc-paper="' + v + '" data-pc-tone="' + tone + '" ' + (extra || '');
+      if (tag === 'button') a += ' type="button"';
+      var inner = LABEL[v];
+      if (v === 'menu') inner = '<div>새 프로젝트</div><div>복제하기</div>';
+      return '<' + tag + ' ' + a + '>' + inner + '</' + tag + '>';
+    }
+    var board = document.getElementById('board');
+    V.forEach(function (v) {
+      var h = '<h2>' + v + ' x 7 tones</h2><div class="grid">';
+      T.forEach(function (t) { h += '<div class="cell"><small>' + v + ' / ' + t + '</small>' + el(v, t) + '</div>'; });
+      board.insertAdjacentHTML('beforeend', h + '</div>');
+    });
+    var st = document.getElementById('states');
+    V.forEach(function (v) {
+      var rows = [
+        ['기본', ''],
+        ['hover(강제)', 'data-force="hover"'],
+        ['focus', 'tabindex="0" data-force="focus"'],
+        ['체크/열림', 'aria-checked="true" data-state="open"'],
+        ['비활성', 'aria-disabled="true"']
+      ];
+      rows.forEach(function (r) {
+        st.insertAdjacentHTML('beforeend', '<div class="cell"><small>' + v + ' / ' + r[0] + '</small>' + el(v, 'mint', r[1]) + '</div>');
+      });
+    });
+    // 강제 hover는 클래스로 흉내내고, focus는 첫 번째 키보드 포커스 이후 :focus-visible을 실제로 탄다.
+    document.querySelectorAll('[data-force=hover]').forEach(function (e) { e.classList.add('force-hover'); });
+  </script>
+  <script src="../../papercut-paper-layer.js" defer></script>
+</body>
+</html>

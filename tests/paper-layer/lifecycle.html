@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>paper layer lifecycle</title>
+<link rel="stylesheet" href="../../papercut-paper-layer.css">
+<script src="../../papercut-paper-layer.js"></script>
+<style>body{margin:0;padding:20px}.box{width:200px;height:60px}</style></head>
+<body>
+<div id="early" class="box" data-pc-paper="sheet" style="width:200px">early</div>
+<script>PaperCutUI.paper.hydrate(document.getElementById('early'));</script>
+<div style="height:3000px"></div>
+<div id="pending" class="box" data-pc-paper="sheet">pending</div>
+<div id="mover" class="box" data-pc-paper="sheet">mover</div>
+<div id="remover" class="box" data-pc-paper="sheet">remover</div>
+</body></html>

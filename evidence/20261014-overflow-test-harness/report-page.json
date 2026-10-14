@@ -1,0 +1,127 @@
+{
+  "generatedAt": "2026-10-14T02:59:34.143Z",
+  "origin": "http://127.0.0.1:<free-port>",
+  "mode": {
+    "page": true,
+    "fixtures": false,
+    "only": [],
+    "reportOnly": false
+  },
+  "page": [
+    {
+      "width": 320,
+      "ok": false,
+      "docSW": 320,
+      "docCW": 320,
+      "wrapFound": true,
+      "wrapSW": 362,
+      "wrapCW": 320,
+      "wrapLeft": 0,
+      "wrapRight": 320,
+      "height": 257297,
+      "rootOffenders": [
+        {
+          "sel": "span",
+          "section": "overview",
+          "reason": "text",
+          "left": 73,
+          "right": 356,
+          "width": 284,
+          "overBy": 36
+        }
+      ]
+    },
+    {
+      "width": 360,
+      "ok": false,
+      "docSW": 360,
+      "docCW": 360,
+      "wrapFound": true,
+      "wrapSW": 362,
+      "wrapCW": 360,
+      "wrapLeft": 0,
+      "wrapRight": 360,
+      "height": 245902,
+      "rootOffenders": []
+    },
+    {
+      "width": 375,
+      "ok": true,
+      "docSW": 375,
+      "docCW": 375,
+      "wrapFound": true,
+      "wrapSW": 375,
+      "wrapCW": 375,
+      "wrapLeft": 0,
+      "wrapRight": 375,
+      "height": 243433,
+      "rootOffenders": []
+    },
+    {
+      "width": 414,
+      "ok": true,
+      "docSW": 414,
+      "docCW": 414,
+      "wrapFound": true,
+      "wrapSW": 414,
+      "wrapCW": 414,
+      "wrapLeft": 0,
+      "wrapRight": 414,
+      "height": 238787,
+      "rootOffenders": []
+    },
+    {
+      "width": 768,
+      "ok": true,
+      "docSW": 768,
+      "docCW": 768,
+      "wrapFound": true,
+      "wrapSW": 473,
+      "wrapCW": 473,
+      "wrapLeft": 295,
+      "wrapRight": 768,
+      "height": 234740,
+      "rootOffenders": []
+    },
+    {
+      "width": 1024,
+      "ok": true,
+      "docSW": 1024,
+      "docCW": 1024,
+      "wrapFound": true,
+      "wrapSW": 729,
+      "wrapCW": 729,
+      "wrapLeft": 295,
+      "wrapRight": 1024,
+      "height": 107675,
+      "rootOffenders": []
+    },
+    {
+      "width": 1280,
+      "ok": true,
+      "docSW": 1280,
+      "docCW": 1280,
+      "wrapFound": true,
+      "wrapSW": 985,
+      "wrapCW": 985,
+      "wrapLeft": 295,
+      "wrapRight": 1280,
+      "height": 76743,
+      "rootOffenders": []
+    },
+    {
+      "width": 1920,
+      "ok": true,
+      "docSW": 1920,
+      "docCW": 1920,
+      "wrapFound": true,
+      "wrapSW": 1625,
+      "wrapCW": 1625,
+      "wrapLeft": 295,
+      "wrapRight": 1920,
+      "height": 26015,
+      "rootOffenders": []
+    }
+  ],
+  "pageOk": false
+}

@@ -25,6 +25,9 @@
 .pc-modal-backdrop.is-active {
   opacity: 1;
   visibility: visible;
+  /* papercut-reader.css의 같은 이름 `.pc-modal-backdrop { pointer-events: none }`이 .is-open일 때만 풀리므로,
+     .is-active를 쓰는 이 대화상자는 클릭이 막혔다. 열린 상태에서는 반드시 클릭을 받는다. */
+  pointer-events: auto;
 }
 
 /* Side Sheet Backdrop */
@@ -72,7 +75,7 @@
 .pc-modal-content {
   position: relative;
   width: 520px;
-  max-width: calc(100vw - 32px);
+  max-width: min(calc(100vw - 32px), 100%);
   max-height: calc(100vh - 48px);
   background-color: #FAF7F0;
   background-image: 
@@ -817,4 +820,11 @@
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+}
+
+/* 푸터 액션 줄은 좁은 컨테이너에서 줄바꿈한다 (넘침 방지) */
+.pc-dialog-footer,
+.pc-sheet-footer,
+.pc-drawer-footer {
+  flex-wrap: wrap;
 }

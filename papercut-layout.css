@@ -19,7 +19,8 @@
 body.has-pc-sidebar {
   padding-left: 0 !important;
   margin: 0;
-  overflow-x: hidden;
+  overflow-x: auto;
+  background-color: rgba(255, 253, 249, 0.96);
 }
 
 body.is-collapsed {
@@ -31,6 +32,7 @@ body.is-collapsed {
   min-height: calc(100vh - var(--pc-header-height));
   position: relative;
   width: 100%;
+  background-color: rgba(255, 253, 249, 0.96);
 }
 
 /* ==========================================================================
@@ -233,7 +235,7 @@ body.is-collapsed {
   justify-content: center !important;
   gap: 6px !important;
   min-height: 44px !important;
-  min-width: max-content !important;
+  min-width: 0 !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
   padding: 8px 14px !important;
@@ -271,13 +273,13 @@ body.is-collapsed {
 }
 
 /* Responsive Header */
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .pc-site-header-nav {
     display: none;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .pc-site-header-inner {
     padding: 0 12px;
   }
@@ -305,7 +307,9 @@ body.is-collapsed {
   width: var(--pc-sidebar-width) !important;
   min-width: var(--pc-sidebar-width) !important;
   max-width: var(--pc-sidebar-width) !important;
-  background: #FAF7F0 !important;
+  background: rgba(255, 253, 249, 0.96) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-right: 1.5px solid #E6DBC9 !important;
   box-shadow: 
     inset -1px 0 0 rgba(255, 255, 255, 0.9),
@@ -354,18 +358,99 @@ body.is-collapsed {
 }
 
 /* ==========================================================================
-   3. Main Content & Footer Fixed Layout
+   3. Main Content & Footer Wrapper Layout
+   - Consolidates Main Showcase and Global Footer into a single unified column
+   - Ensures smooth horizontal scrolling across the ENTIRE content (not trapped in cards)
+   - Completely resolves footer cutoff and scroll trap issues
    ========================================================================== */
+.pc-content-wrapper {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  background-color: rgba(255, 253, 249, 0.96);
+  scrollbar-width: thin;
+  scrollbar-color: #D5C8B4 #FAF6ED;
+}
+
 .pc-site-main {
   min-width: 0;
+  max-width: 100%;
+  width: 100%;
   box-sizing: border-box;
+  overflow: visible !important;
+  background-color: transparent;
+}
+
+/* ==========================================================================
+   Responsive Horizontal Scroll & Tactile 3D Paper Scrollbar Engine
+   - Enables smooth horizontal scrolling across the content wrapper
+   - Tactile Cream paper track + 3D Burnt Umber paper thumb
+   ========================================================================== */
+.pc-content-wrapper,
+.pc-scroll-horizontal,
+.pc-scroll-wrap,
+.pc-card-scroll-wrap,
+.pc-table-responsive {
+  scrollbar-width: thin;
+  scrollbar-color: #D5C8B4 #FAF6ED;
+}
+
+.pc-content-wrapper::-webkit-scrollbar,
+.pc-scroll-horizontal::-webkit-scrollbar,
+.pc-scroll-wrap::-webkit-scrollbar,
+.pc-card-scroll-wrap::-webkit-scrollbar,
+.pc-table-responsive::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.pc-content-wrapper::-webkit-scrollbar-track,
+.pc-scroll-horizontal::-webkit-scrollbar-track,
+.pc-scroll-wrap::-webkit-scrollbar-track,
+.pc-card-scroll-wrap::-webkit-scrollbar-track,
+.pc-table-responsive::-webkit-scrollbar-track {
+  background: #FAF6ED;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 2px rgba(46, 30, 20, 0.08);
+}
+
+.pc-content-wrapper::-webkit-scrollbar-thumb,
+.pc-scroll-horizontal::-webkit-scrollbar-thumb,
+.pc-scroll-wrap::-webkit-scrollbar-thumb,
+.pc-card-scroll-wrap::-webkit-scrollbar-thumb,
+.pc-table-responsive::-webkit-scrollbar-thumb {
+  background: #D5C8B4;
+  border-radius: 999px;
+  border: 1.5px solid #FAF6ED;
+  box-shadow: 0 1px 2px rgba(46, 30, 20, 0.15);
+  transition: background-color 0.15s ease;
+}
+
+.pc-content-wrapper::-webkit-scrollbar-thumb:hover,
+.pc-scroll-horizontal::-webkit-scrollbar-thumb:hover,
+.pc-scroll-wrap::-webkit-scrollbar-thumb:hover,
+.pc-card-scroll-wrap::-webkit-scrollbar-thumb:hover,
+.pc-table-responsive::-webkit-scrollbar-thumb:hover {
+  background: #B8A892;
+}
+
+.pc-content-wrapper::-webkit-scrollbar-thumb:active,
+.pc-scroll-horizontal::-webkit-scrollbar-thumb:active,
+.pc-scroll-wrap::-webkit-scrollbar-thumb:active,
+.pc-card-scroll-wrap::-webkit-scrollbar-thumb:active,
+.pc-table-responsive::-webkit-scrollbar-thumb:active {
+  background: #9E8D76;
 }
 
 .pc-site-main.showcase-container {
   padding-top: 24px;
 }
 
-/* 768px 이상(태블릿, 노트북, 데스크톱 전 규격)에서 항시 270px 고정형 사이드바 레이아웃 */
+/* 768px 이상(태블릿, 노트북, 데스크톱 전 규격)에서 항시 295px 고정형 사이드바 레이아웃 */
 @media (min-width: 768px) {
   #pc-sidebar-nav {
     transform: none !important;
@@ -373,10 +458,16 @@ body.is-collapsed {
     display: flex !important;
   }
 
-  .pc-site-main,
-  .pc-site-footer {
+  .pc-content-wrapper {
     margin-left: var(--pc-sidebar-width) !important;
     width: calc(100% - var(--pc-sidebar-width)) !important;
+    box-sizing: border-box !important;
+  }
+
+  .pc-site-main,
+  .pc-site-footer {
+    margin-left: 0 !important;
+    width: 100% !important;
     box-sizing: border-box !important;
   }
 
@@ -395,6 +486,10 @@ body.is-collapsed {
   #pc-sidebar-nav.is-mobile-open {
     transform: translateX(0) !important;
   }
+  .pc-content-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
   .pc-site-main,
   .pc-site-footer {
     margin-left: 0 !important;
@@ -410,7 +505,7 @@ body.is-collapsed {
    ========================================================================== */
 .pc-site-footer {
   margin-top: 60px;
-  background: #F8F4EC;
+  background: rgba(255, 253, 249, 0.96) !important;
   border-top: 2px dashed #D9CEBC;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
   padding: 60px 24px 40px;
@@ -419,6 +514,11 @@ body.is-collapsed {
   position: relative;
   z-index: 10;
   box-sizing: border-box;
+  width: 100% !important;
+  margin-left: 0 !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
 .pc-footer-inner {
@@ -433,19 +533,6 @@ body.is-collapsed {
   margin-bottom: 48px;
 }
 
-@media (max-width: 960px) {
-  .pc-footer-top-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-  }
-}
-
-@media (max-width: 600px) {
-  .pc-footer-top-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-}
 
 .pc-footer-brand-col {
   display: flex;
@@ -626,7 +713,7 @@ body.is-collapsed {
 
 .pc-svg-btn-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 20px;
   align-items: center;
   margin-top: 20px;
@@ -646,7 +733,7 @@ body.is-collapsed {
   user-select: none;
   vertical-align: middle;
   line-height: 1;
-  min-width: max-content;
+  min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
   transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
@@ -688,7 +775,7 @@ body.is-collapsed {
 /* 6.1 Paper-Cut Specialty Card & Panel Grid */
 .pc-kirigami-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 24px;
   align-items: stretch;
   margin-top: 20px;
@@ -697,7 +784,7 @@ body.is-collapsed {
 
 .pc-panel-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 20px;
   align-items: stretch;
   margin-top: 16px;
@@ -706,7 +793,7 @@ body.is-collapsed {
 
 .pc-plate-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
   gap: 16px;
   align-items: stretch;
   margin-top: 16px;
@@ -724,7 +811,7 @@ body.is-collapsed {
 
 .pc-badge-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(130px, 100%), 1fr));
   gap: 14px;
   align-items: center;
   justify-items: center;
@@ -742,7 +829,7 @@ body.is-collapsed {
 
 .pc-form-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 20px;
   width: 100%;
   align-items: flex-start;
@@ -786,7 +873,7 @@ body.is-collapsed {
 }
 
 /* 6.4 Responsive Breakdown for Form & Card Grids */
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .pc-kirigami-card-grid {
     grid-template-columns: 1fr;
     gap: 18px;
@@ -899,4 +986,158 @@ body.is-collapsed {
   filter: drop-shadow(0 0 8px rgba(254, 227, 150, 0.65)) drop-shadow(0 3px 6px rgba(46, 30, 20, 0.25)) !important;
 }
 
+/* ==========================================================================
+   5. Layout Utilities (공개 레이아웃 유틸리티 - 복사한 예제가 같은 반응형을 갖는다)
+   - .pc-grid-auto : 컨테이너 폭에 맞춰 열 수가 자동으로 정해지는 그리드
+                     --pc-grid-min(최소 열 폭, 기본 280px), --pc-grid-gap(간격) 으로 조절
+   - .pc-grid-fill : .pc-grid-auto 와 함께 쓰면 빈 트랙을 남겨 항목 폭을 고정한다
+   - .pc-grid-cols : 고정 열 수 그리드 (--pc-cols), 항목은 줄어들 수 있다
+   - .pc-row / .pc-row-wrap : 가로 줄 (wrap 은 좁아지면 다음 줄로 넘김)
+   - .pc-stack : 세로 쌓기. 간격은 --pc-gap
+   ========================================================================== */
+.pc-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--pc-grid-min, 280px), 100%), 1fr));
+  gap: var(--pc-grid-gap, 20px);
+}
+.pc-grid-auto.pc-grid-fill {
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--pc-grid-min, 280px), 100%), 1fr));
+}
+.pc-grid-cols {
+  display: grid;
+  grid-template-columns: repeat(var(--pc-cols, 2), minmax(0, 1fr));
+  gap: var(--pc-grid-gap, 20px);
+}
+.pc-row,
+.pc-row-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--pc-gap, 8px);
+}
+.pc-row-wrap {
+  flex-wrap: wrap;
+}
+.pc-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-gap, 8px);
+}
+/* 그리드·플렉스 항목은 min-width:auto 때문에 내용 폭만큼 트랙을 밀어내므로 0으로 푼다 */
+.pc-grid-auto > *,
+.pc-grid-cols > *,
+.pc-row > *,
+.pc-row-wrap > *,
+.pc-stack > *,
+.examples-grid > *,
+.hero-content > *,
+.pc-footer-top-grid > *,
+.pc-matte-stage > *,
+.pc-worker-metrics,
+.pc-worker-info {
+  min-width: 0;
+}
 
+.card-meta,
+.pc-page-nav-actions,
+.pc-worker-status,
+.pc-bg-preview-selector,
+.pc-worker-metrics {
+  flex-wrap: wrap;
+}
+.pc-worker-status,
+.pc-bg-preview-selector,
+.pc-bg-preview-select {
+  min-width: 0;
+  max-width: 100%;
+}
+
+:where(img, video, canvas) {
+  max-width: 100%;
+}
+
+.comp-pill {
+  max-width: 100%;
+  white-space: normal;
+}
+
+/* ==========================================================================
+   5.1 Container Queries (컨테이너 기준 반응형)
+   - 본문 열 / 푸터 / 히어로가 뷰포트가 아니라 자기 컨테이너 폭에 반응한다
+   ========================================================================== */
+.pc-site-main {
+  container: pc-main / inline-size;
+}
+.pc-footer-inner {
+  container: pc-footer / inline-size;
+}
+
+/* 푸터 4열은 컨테이너가 900px 미만이면 220px 이상 열을 자동 맞춤한다 */
+@container pc-footer (max-width: 899px) {
+  .pc-footer-top-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+    gap: 30px;
+  }
+}
+@container pc-footer (max-width: 519px) {
+  .pc-footer-top-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .pc-site-header-left {
+    flex-shrink: 1;
+    min-width: 0;
+    gap: 8px;
+  }
+  .pc-header-version-badge {
+    display: none !important;
+  }
+  /* 헤더 빠른 동작은 줄이지 않고 한 줄 가로 스와이프 스트립으로 둔다 */
+  .pc-site-header-right {
+    flex-shrink: 1;
+    min-width: 0;
+    gap: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    padding: 6px 2px;
+  }
+  .pc-site-header-right::-webkit-scrollbar {
+    display: none;
+  }
+  .pc-site-header-right > * {
+    flex-shrink: 0;
+  }
+  .hero-content h1 {
+    font-size: clamp(26px, 7.5vw, 38px) !important;
+  }
+}
+
+@media (max-width: 479px) {
+  .pc-site-logo-text {
+    display: none;
+  }
+  .pc-btn-lg {
+    min-width: 0 !important;
+    max-width: 100%;
+    white-space: normal !important;
+    text-align: center;
+  }
+}
+
+/* 한 줄 가로 스크롤 스트립(필터 필 등) - 항목은 줄지 않고 컨테이너 안에서 스크롤된다 */
+.pc-row-scroll {
+  display: flex;
+  align-items: center;
+  gap: var(--pc-gap, 8px);
+  flex-wrap: nowrap;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+}
+.pc-row-scroll > * {
+  flex-shrink: 0;
+}

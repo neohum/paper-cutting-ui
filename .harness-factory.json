@@ -24,7 +24,7 @@
   "marketIntervalHours": 24,
   "deployGate": "persona-or-human",
   "artifacts": {
-    "provider": "wasabi",
+    "provider": "r2",
     "prefix": "factory"
   },
   "notifications": {

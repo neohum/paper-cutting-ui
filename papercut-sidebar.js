@@ -14,10 +14,10 @@
     { id: 'knife-cut-buttons', title: '3D 페이퍼 커팅 버튼', badge: '12종', icon: 'scissors', bgShape: 'deckle-edge', bgTheme: 'peach', category: '시그니처 프리미티브' },
     { id: 'kirigami-components', title: '페이퍼 커팅 카드 & 폼', badge: 'HOT', icon: 'sparkles', bgShape: 'squircle-offset', bgTheme: 'mint', category: '시그니처 프리미티브' },
     
-    // 마스터 UI 키트 (Shadcn 표준)
-    { id: 'shadcn-components', title: '페이퍼 UI 44종 컴포넌트', badge: '44개', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트' },
-    { id: 'shadcn-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
-    { id: 'shadcn-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
+    // 마스터 UI 키트 (PC 표준)
+    { id: 'pc-components', title: '페이퍼 UI 44종 컴포넌트', badge: '44개', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트' },
+    { id: 'pc-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
+    { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
     // 에셋 & 배경 시스템
     { id: 'icon-gallery', title: '3D 페이퍼컷 아이콘', badge: '678종', icon: 'star-cluster', bgShape: 'cog-seal', bgTheme: 'sky', category: '에셋 & 배경 시스템' },
@@ -448,8 +448,9 @@
           return;
         }
         e.preventDefault();
+        e.stopPropagation();
         sidebarEl.classList.remove('is-mobile-open');
-        const targetId = link.getAttribute('data-target');
+        const targetId = link.getAttribute('data-target') || (href ? href.replace(/^#/, '') : '');
         switchPage(targetId, true);
       });
     });
@@ -458,6 +459,7 @@
     document.addEventListener('click', (e) => {
       const link = e.target.closest('a[href^="#"]');
       if (!link) return;
+      if (link.closest('#pc-sidebar-nav')) return; // Ignore sidebar links handled above
       const href = link.getAttribute('href');
       const hash = href.replace(/^#/, '');
       const match = SECTIONS.find(s => s.id === hash);
@@ -477,9 +479,11 @@
 
     // Wire global header view mode switch button (#header-view-mode-btn)
     const headerBtn = document.getElementById('header-view-mode-btn');
-    if (headerBtn) {
+    if (headerBtn && !headerBtn.dataset.viewBound) {
+      headerBtn.dataset.viewBound = 'true';
       headerBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         toggleViewMode();
       });
     }
@@ -610,9 +614,9 @@
         <span class="pc-badge pc-badge-lavender" style="font-size:11.5px;font-weight:800;">
           ${isPageMode ? `페이지 ${curIndex + 1} / ${SECTIONS.length}` : '전체 연속 스크롤'}
         </span>
-        <button type="button" class="pc-page-mode-toggle" id="pc-toggle-page-mode" title="페이지별 분할 보기와 전체 연속 스크롤 모드를 전환합니다">
+        <button type="button" class="pc-page-mode-toggle" id="pc-toggle-page-mode" title="스크롤뷰 모드를 전환합니다 (ON: 전체 스크롤, OFF: 메뉴별 보기)">
           <span class="pc-inline-icon is-xs" data-icon="${isPageMode ? 'file' : 'layout-list'}"></span>
-          <span>${isPageMode ? '페이지별 보기 (ON)' : '전체 스크롤 모드 (ON)'}</span>
+          <span>${isPageMode ? '스크롤뷰: OFF (메뉴별 보기)' : '스크롤뷰: ON (전체 스크롤)'}</span>
         </button>
       </div>
     `;
@@ -631,30 +635,35 @@
    * Centralized View Mode Toggle Controller
    * Seamlessly synchronizes header button (#header-view-mode-btn) & in-page toggle (#pc-toggle-page-mode)
    */
-  function toggleViewMode() {
-    isPageMode = !isPageMode;
+  function setViewMode(pageMode) {
+    isPageMode = !!pageMode;
     localStorage.setItem('pc_view_mode', isPageMode ? 'page' : 'scroll');
     syncViewModeButtons();
     switchPage(activePageId, false);
     if (typeof window.showPaperToast === 'function') {
       window.showPaperToast(
-        isPageMode ? '단일 페이지별 보기 모드로 전환되었습니다.' : '전체 연속 스크롤 보기 모드로 전환되었습니다.',
+        isPageMode ? '메뉴별 분할 보기 모드로 전환되었습니다. (스크롤뷰: OFF)' : '전체 연속 스크롤 모드로 전환되었습니다. (스크롤뷰: ON)',
         isPageMode ? 'buttercup' : 'mint',
         isPageMode ? 'file' : 'layout-list'
       );
     }
   }
 
+  function toggleViewMode() {
+    setViewMode(!isPageMode);
+  }
+
   function syncViewModeButtons() {
     // 1. Header Button (#header-view-mode-btn)
     const headerBtn = document.getElementById('header-view-mode-btn');
     if (headerBtn) {
-      headerBtn.title = isPageMode ? '전체 연속 스크롤 모드로 전환' : '단일 페이지별 분할 보기로 전환';
+      headerBtn.title = isPageMode ? '스크롤뷰: OFF (현재 메뉴별 보기) — 클릭 시 전체 스크롤 모드로 전환' : '스크롤뷰: ON (현재 전체 스크롤 모드) — 클릭 시 메뉴별 보기로 전환';
       headerBtn.classList.toggle('is-page-mode-active', isPageMode);
       
-      const labelEl = headerBtn.querySelector('.label') || headerBtn.querySelector('text');
+      const labelEl = headerBtn.querySelector('#header-view-mode-label') || headerBtn.querySelector('.label') || headerBtn.querySelector('text');
       if (labelEl) {
-        labelEl.textContent = isPageMode ? '페이지 뷰' : '스크롤 뷰';
+        labelEl.textContent = isPageMode ? '스크롤뷰: OFF' : '스크롤뷰: ON';
+        labelEl.setAttribute('fill', isPageMode ? '#66460D' : '#20533C');
       }
 
       // Update the SVG ticket color & icon
@@ -662,7 +671,7 @@
       if (bgPath) {
         bgPath.setAttribute('fill', isPageMode ? '#FEE396' : '#BBD5B8');
       }
-      const iconGroup = headerBtn.querySelector('g[transform]');
+      const iconGroup = headerBtn.querySelector('#header-view-mode-icon') || headerBtn.querySelector('g[transform]');
       if (iconGroup) {
         if (isPageMode) {
           iconGroup.innerHTML = `
@@ -671,14 +680,12 @@
             <rect x="2" y="7" width="9" height="2" rx="0.5" fill="#FFFDF9"/>
             <rect x="2" y="11" width="5" height="2" rx="0.5" fill="#FFFDF9"/>
           `;
-          if (labelEl) labelEl.setAttribute('fill', '#66460D');
         } else {
           iconGroup.innerHTML = `
             <rect x="0" y="0" width="13" height="4" rx="1.5" fill="#20533C"/>
             <rect x="0" y="6" width="13" height="4" rx="1.5" fill="#20533C"/>
             <rect x="0" y="12" width="13" height="4" rx="1.5" fill="#20533C"/>
           `;
-          if (labelEl) labelEl.setAttribute('fill', '#20533C');
         }
       }
     }
@@ -686,10 +693,10 @@
     // 2. In-Page Navigation Bar Toggle Button (#pc-toggle-page-mode)
     const pageToggle = document.getElementById('pc-toggle-page-mode');
     if (pageToggle) {
-      pageToggle.title = isPageMode ? '전체 연속 스크롤 모드로 전환합니다' : '페이지별 독립 보기 모드로 전환합니다';
+      pageToggle.title = isPageMode ? '전체 연속 스크롤 모드로 전환합니다 (스크롤뷰: ON)' : '메뉴별 독립 보기 모드로 전환합니다 (스크롤뷰: OFF)';
       pageToggle.innerHTML = `
         <span class="pc-inline-icon is-xs" data-icon="${isPageMode ? 'file' : 'layout-list'}"></span>
-        <span>${isPageMode ? '단일 페이지 (ON)' : '전체 스크롤 (ON)'}</span>
+        <span>${isPageMode ? '스크롤뷰: OFF (메뉴별 보기)' : '스크롤뷰: ON (전체 스크롤)'}</span>
       `;
       if (typeof window.hydratePapercutIcons === 'function') {
         window.hydratePapercutIcons(pageToggle);
@@ -742,8 +749,8 @@
     if (pageId === 'paper-shadow-studio' && window.PaperShadowStudio) {
       window.PaperShadowStudio.updateSimulation();
     }
-    if (pageId === 'shadcn-blocks-charts' && window.PaperCutShadcnUI && window.PaperCutShadcnUI.refreshBlocks) {
-      window.PaperCutShadcnUI.refreshBlocks();
+    if (pageId === 'pc-blocks-charts' && window.PaperCutUI && window.PaperCutUI.refreshBlocks) {
+      window.PaperCutUI.refreshBlocks();
     }
     if (typeof window.applyPapercutStrokeByScale === 'function') {
       const activeEl = document.getElementById(pageId);
@@ -793,10 +800,12 @@
 
   window.PaperCutSidebar = {
     switchPage,
+    setViewMode,
     toggleViewMode,
     syncViewModeButtons,
     getMountedPapercutPlateSvg,
     hydrateMountedPlates,
+    get isPageMode() { return isPageMode; },
     SECTIONS
   };
 })();

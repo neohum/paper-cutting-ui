@@ -1,9 +1,9 @@
 /**
- * PaperCut UI - Shadcn Blocks & Charts Edition
+ * PaperCut UI - PC Blocks & Charts Edition
  * Authentic 3D Layered Paper-Cut Design System
  * 
- * Part 1: Shadcn Blocks (Admin Dashboard, Auth, Settings, E-Commerce, Pricing, Dropzone)
- * Part 2: Shadcn Charts (Area, Bar, Line, Donut, Radar, Radial Bar, Tooltip & Legend)
+ * Part 1: PC Blocks (Admin Dashboard, Auth, Settings, E-Commerce, Pricing, Dropzone)
+ * Part 2: PC Charts (Area, Bar, Line, Donut, Radar, Radial Bar, Tooltip & Legend)
  * 
  * Aesthetic Foundation:
  * - 100% authentic papercraft: NO harsh dark cartoon borders
@@ -292,6 +292,7 @@
    ========================================================================== */
 
 .pc-block-admin {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -348,7 +349,9 @@
 }
 .pc-admin-search-wrap {
   position: relative;
-  min-width: 240px;
+  min-width: 0;
+  width: min(240px, 100%);
+  max-width: 100%;
 }
 .pc-admin-search-wrap svg {
   position: absolute;
@@ -452,12 +455,13 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
-@media (max-width: 1024px) {
-  .pc-metric-grid { grid-template-columns: repeat(2, 1fr); }
+@container (max-width: 767px) {
+  .pc-metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 600px) {
-  .pc-metric-grid { grid-template-columns: 1fr; }
+@container (max-width: 479px) {
+  .pc-metric-grid { grid-template-columns: minmax(0, 1fr); }
 }
+.pc-metric-grid > * { min-width: 0; }
 
 .pc-metric-card {
   background: var(--pc-paper-white);
@@ -522,9 +526,10 @@
   grid-template-columns: 1.8fr 1.2fr;
   gap: 22px;
 }
-@media (max-width: 960px) {
-  .pc-admin-content-split { grid-template-columns: 1fr; }
+@container (max-width: 719px) {
+  .pc-admin-content-split { grid-template-columns: minmax(0, 1fr); }
 }
+.pc-admin-content-split > * { min-width: 0; }
 
 /* Recent Transactions Ledger */
 .pc-admin-ledger {
@@ -548,6 +553,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+  box-sizing: border-box;
   padding: 12px 14px;
   background: var(--pc-paper-white);
   border-radius: var(--pc-radius-md);
@@ -564,6 +573,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
+  flex: 1 1 150px;
 }
 .pc-ledger-avatar-seal {
   width: 38px;
@@ -584,6 +595,7 @@
   flex-direction: column;
   gap: 2px;
   text-align: left;
+  min-width: 0;
 }
 .pc-ledger-name {
   font-size: 14px;
@@ -599,8 +611,11 @@
   flex-direction: column;
   align-items: flex-end;
   gap: 3px;
+  flex-shrink: 0;
+  margin-left: auto;
 }
 .pc-ledger-price {
+  white-space: nowrap;
   font-size: 14.5px;
   font-weight: 800;
   color: var(--pc-mint-dark);
@@ -618,7 +633,7 @@
 }
 .pc-actions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
   gap: 12px;
 }
 .pc-action-btn {
@@ -795,7 +810,7 @@
 /* Social Login Buttons */
 .pc-social-buttons {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 88px), 1fr));
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -925,7 +940,7 @@
 /* Flat Cut-Paper Mint Action Button */
 .pc-btn-block-action {
   width: 100%;
-  min-width: fit-content;
+  min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
   display: inline-flex;
@@ -991,15 +1006,17 @@
 .pc-block-settings,
 .pc-block-settings-layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
+  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
   gap: 24px;
   width: 100%;
   align-items: start;
 }
-@media (max-width: 820px) {
+@container (max-width: 639px) {
   .pc-block-settings,
-  .pc-block-settings-layout { grid-template-columns: 1fr; }
+  .pc-block-settings-layout { grid-template-columns: minmax(0, 1fr); }
 }
+.pc-block-settings > *,
+.pc-block-settings-layout > * { min-width: 0; }
 
 .pc-settings-sidebar {
   display: flex;
@@ -1051,7 +1068,7 @@
   flex-direction: column;
   gap: 6px;
 }
-@media (max-width: 820px) {
+@container (max-width: 639px) {
   .pc-folder-tabs,
   .pc-folder-tab-list {
     flex-direction: row;
@@ -1242,6 +1259,7 @@
    ========================================================================== */
 
 .pc-block-ecommerce {
+  container-type: inline-size;
   position: relative;
   width: 100%;
 }
@@ -1315,12 +1333,13 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
-@media (max-width: 1100px) {
-  .pc-product-grid { grid-template-columns: repeat(2, 1fr); }
+@container (max-width: 959px) {
+  .pc-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-@media (max-width: 600px) {
-  .pc-product-grid { grid-template-columns: 1fr; }
+@container (max-width: 479px) {
+  .pc-product-grid { grid-template-columns: minmax(0, 1fr); }
 }
+.pc-product-grid > * { min-width: 0; }
 
 .pc-product-card {
   position: relative;
@@ -1423,9 +1442,9 @@
 .pc-product-add-btn {
   width: 100%;
   min-height: 44px;
-  min-width: fit-content;
+  min-width: 0;
   box-sizing: border-box;
-  white-space: nowrap;
+  white-space: normal;
   word-break: keep-all;
   padding: 10px 14px;
   background-color: var(--pc-mint);
@@ -1635,6 +1654,7 @@
    ========================================================================== */
 
 .pc-block-pricing {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1693,9 +1713,10 @@
   width: 100%;
   align-items: stretch;
 }
-@media (max-width: 960px) {
-  .pc-pricing-matrix { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+@container (max-width: 719px) {
+  .pc-pricing-matrix { grid-template-columns: minmax(0, 1fr); max-width: 440px; margin: 0 auto; }
 }
+.pc-pricing-matrix > * { min-width: 0; }
 
 .pc-pricing-tier-card {
   position: relative;
@@ -1999,7 +2020,7 @@
 
 
 /* ==========================================================================
-   PART 2: SHADCN CHARTS (3D Paper-Cut Vector Craft SVG)
+   PART 2: PC CHARTS (3D Paper-Cut Vector Craft SVG)
    ========================================================================== */
 
 .pc-chart-card {
@@ -2360,6 +2381,7 @@
 }
 
 .pc-block-container {
+  container-type: inline-size; /* 블록 내부 열 접힘이 컨테이너 폭을 기준으로 동작 */
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
@@ -2399,8 +2421,8 @@
 .pc-period-btn,
 .pc-task-add-btn {
   box-sizing: border-box;
-  min-width: fit-content;
-  white-space: nowrap;
+  min-width: 0;
+  white-space: normal;
   word-break: keep-all;
   display: inline-flex;
   align-items: center;
@@ -2408,7 +2430,7 @@
   line-height: 1;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 479px) {
   .pc-btn-block-action {
     padding: 10px 14px;
     font-size: 13.5px;
@@ -2426,7 +2448,7 @@
 /* Task Board Widget Styles (실전 태스크 보드) */
 .pc-task-board {
   display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 16px;
   width: 100%;
   margin-top: 16px;
@@ -2434,12 +2456,6 @@
   padding-bottom: 8px;
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
-}
-
-@media (max-width: 800px) {
-  .pc-task-board {
-    grid-template-columns: repeat(3, minmax(200px, 1fr));
-  }
 }
 
 .pc-task-column {
@@ -2451,7 +2467,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  min-width: 200px;
+  min-width: 0;
   box-sizing: border-box;
 }
 
@@ -2563,3 +2579,9 @@
 }
 
 
+
+/* 푸터/메타 줄은 좁은 컨테이너에서 줄바꿈한다 (넘침 방지) */
+.pc-metric-footer,
+.pc-task-card-meta {
+  flex-wrap: wrap;
+}

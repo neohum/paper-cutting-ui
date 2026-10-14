@@ -17,7 +17,7 @@
     "test": "auto",
     "e2e": "auto",
     "visual": "auto",
-    "responsive": "node scripts/ops/verify-responsive.ts",
+    "responsive": "node scripts/ops/verify-overflow.mjs --page && node scripts/ops/verify-overflow.mjs --fixtures && node scripts/ops/verify-icon-ids.mjs && node scripts/ops/verify-responsive.ts",
     "perf": "node scripts/ops/test-serve.mjs",
     "cli-smoke": "node scripts/route.ts \"health check\""
   }

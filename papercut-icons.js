@@ -7318,7 +7318,7 @@
       "travel",
       "gate"
     ],
-    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs><filter id=\"ps-shrine-torii\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-shrine-torii-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-shrine-torii-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-shrine-torii-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter><filter id=\"ps-shrine-torii-steam\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.95\" dy=\"0.95\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.55\"/><feDropShadow dx=\"2.39\" dy=\"2.39\" stdDeviation=\"1.14\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.28\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter></defs>\n  <g filter=\"url(#ps-torii)\">\n    <!-- Base Stones -->\n    <rect x=\"18\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\" data-layer=\"base\" filter=\"url(#ps-shrine-torii-base)\"/>\n    <rect x=\"39\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\" data-layer=\"base\" filter=\"url(#ps-shrine-torii-base)\"/>\n    <!-- Main Vertical Pillars -->\n    <rect x=\"19.5\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\" data-layer=\"mid\" filter=\"url(#ps-shrine-torii-mid)\"/>\n    <rect x=\"40\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\" data-layer=\"mid\" filter=\"url(#ps-shrine-torii-mid)\"/>\n    <!-- Lower Horizontal Bar (Nuki) -->\n    <rect x=\"15\" y=\"27\" width=\"34\" height=\"4\" rx=\"1.5\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Center Tablet Plaque (Gakuzuka) -->\n    <rect x=\"30\" y=\"18\" width=\"4\" height=\"10\" rx=\"1\" fill=\"#FAF6ED\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <rect x=\"31\" y=\"20\" width=\"2\" height=\"6\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Upper Horizontal Sub-Bar (Shimaki) -->\n    <rect x=\"11\" y=\"17\" width=\"42\" height=\"4\" rx=\"1.5\" fill=\"#F7BA9E\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Curved Sweeping Roof Beam (Kasagi) -->\n    <path d=\"M8 17 C16 14 48 14 56 17 L54 13 C46 11 18 11 10 13 Z\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Top Ridge Cap -->\n    <path d=\"M9 13.5 C18 11.5 46 11.5 55 13.5 L54 12 C46 10 18 10 10 12 Z\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n  </g>\n</svg>"
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs><filter id=\"ps-shrine-torii\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-shrine-torii-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-shrine-torii-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-shrine-torii-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter><filter id=\"ps-shrine-torii-steam\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.95\" dy=\"0.95\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.55\"/><feDropShadow dx=\"2.39\" dy=\"2.39\" stdDeviation=\"1.14\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.28\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter></defs>\n  <g filter=\"url(#ps-shrine-torii)\">\n    <!-- Base Stones -->\n    <rect x=\"18\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\" data-layer=\"base\" filter=\"url(#ps-shrine-torii-base)\"/>\n    <rect x=\"39\" y=\"52\" width=\"7\" height=\"4\" rx=\"1.5\" fill=\"#3D352E\" data-layer=\"base\" filter=\"url(#ps-shrine-torii-base)\"/>\n    <!-- Main Vertical Pillars -->\n    <rect x=\"19.5\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\" data-layer=\"mid\" filter=\"url(#ps-shrine-torii-mid)\"/>\n    <rect x=\"40\" y=\"19\" width=\"4.5\" height=\"34\" rx=\"2\" fill=\"#F7BA9E\" data-layer=\"mid\" filter=\"url(#ps-shrine-torii-mid)\"/>\n    <!-- Lower Horizontal Bar (Nuki) -->\n    <rect x=\"15\" y=\"27\" width=\"34\" height=\"4\" rx=\"1.5\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Center Tablet Plaque (Gakuzuka) -->\n    <rect x=\"30\" y=\"18\" width=\"4\" height=\"10\" rx=\"1\" fill=\"#FAF6ED\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <rect x=\"31\" y=\"20\" width=\"2\" height=\"6\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Upper Horizontal Sub-Bar (Shimaki) -->\n    <rect x=\"11\" y=\"17\" width=\"42\" height=\"4\" rx=\"1.5\" fill=\"#F7BA9E\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Curved Sweeping Roof Beam (Kasagi) -->\n    <path d=\"M8 17 C16 14 48 14 56 17 L54 13 C46 11 18 11 10 13 Z\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n    <!-- Top Ridge Cap -->\n    <path d=\"M9 13.5 C18 11.5 46 11.5 55 13.5 L54 12 C46 10 18 10 10 12 Z\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-shrine-torii-top)\"/>\n  </g>\n</svg>"
   },
   {
     "id": "eiffel-tower",
@@ -7333,7 +7333,7 @@
       "landmark",
       "travel"
     ],
-    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs><filter id=\"ps-eiffel-tower\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-eiffel-tower-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-eiffel-tower-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-eiffel-tower-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter><filter id=\"ps-eiffel-tower-steam\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.95\" dy=\"0.95\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.55\"/><feDropShadow dx=\"2.39\" dy=\"2.39\" stdDeviation=\"1.14\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.28\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter></defs>\n  <g filter=\"url(#ps-eiffel)\">\n    <!-- Base Arched Legs -->\n    <path d=\"M16 56 L20 40 L26 40 L23 56 Z\" fill=\"#E2CCA8\" data-layer=\"base\" filter=\"url(#ps-eiffel-tower-base)\"/>\n    <path d=\"M48 56 L44 40 L38 40 L41 56 Z\" fill=\"#E2CCA8\" data-layer=\"base\" filter=\"url(#ps-eiffel-tower-base)\"/>\n    <!-- Center Arch Cutout -->\n    <path d=\"M24 56 C24 45 40 45 40 56 Z\" fill=\"#FFFDF9\" opacity=\"0.6\" data-layer=\"mid\" filter=\"url(#ps-eiffel-tower-mid)\"/>\n    <path d=\"M22 47 C25 43 39 43 42 47\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" data-layer=\"mid\" filter=\"url(#ps-eiffel-tower-mid)\"/>\n    <!-- First Tier Deck Platform -->\n    <rect x=\"18\" y=\"38\" width=\"28\" height=\"3\" rx=\"1\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Middle Tier Pillar Truss -->\n    <path d=\"M23 38 L27 25 L37 25 L41 38 Z\" fill=\"#FAF6ED\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <line x1=\"25\" y1=\"38\" x2=\"37\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <line x1=\"39\" y1=\"38\" x2=\"27\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Second Tier Deck Platform -->\n    <rect x=\"25\" y=\"24\" width=\"14\" height=\"2.5\" rx=\"0.8\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Top Spire Pyramid -->\n    <path d=\"M28 24 L31 9 L33 9 L36 24 Z\" fill=\"#E2CCA8\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Beacon Spire & Dome -->\n    <rect x=\"31\" y=\"7\" width=\"2\" height=\"4\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <line x1=\"32\" y1=\"7\" x2=\"32\" y2=\"3\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <circle cx=\"32\" cy=\"3\" r=\"1\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n  </g>\n</svg>"
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n  <defs><filter id=\"ps-eiffel-tower\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-eiffel-tower-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-eiffel-tower-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-eiffel-tower-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter><filter id=\"ps-eiffel-tower-steam\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.95\" dy=\"0.95\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.55\"/><feDropShadow dx=\"2.39\" dy=\"2.39\" stdDeviation=\"1.14\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.28\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter></defs>\n  <g filter=\"url(#ps-eiffel-tower)\">\n    <!-- Base Arched Legs -->\n    <path d=\"M16 56 L20 40 L26 40 L23 56 Z\" fill=\"#E2CCA8\" data-layer=\"base\" filter=\"url(#ps-eiffel-tower-base)\"/>\n    <path d=\"M48 56 L44 40 L38 40 L41 56 Z\" fill=\"#E2CCA8\" data-layer=\"base\" filter=\"url(#ps-eiffel-tower-base)\"/>\n    <!-- Center Arch Cutout -->\n    <path d=\"M24 56 C24 45 40 45 40 56 Z\" fill=\"#FFFDF9\" opacity=\"0.6\" data-layer=\"mid\" filter=\"url(#ps-eiffel-tower-mid)\"/>\n    <path d=\"M22 47 C25 43 39 43 42 47\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" data-layer=\"mid\" filter=\"url(#ps-eiffel-tower-mid)\"/>\n    <!-- First Tier Deck Platform -->\n    <rect x=\"18\" y=\"38\" width=\"28\" height=\"3\" rx=\"1\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Middle Tier Pillar Truss -->\n    <path d=\"M23 38 L27 25 L37 25 L41 38 Z\" fill=\"#FAF6ED\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <line x1=\"25\" y1=\"38\" x2=\"37\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <line x1=\"39\" y1=\"38\" x2=\"27\" y2=\"25\" stroke=\"#E2CCA8\" stroke-width=\"1\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Second Tier Deck Platform -->\n    <rect x=\"25\" y=\"24\" width=\"14\" height=\"2.5\" rx=\"0.8\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Top Spire Pyramid -->\n    <path d=\"M28 24 L31 9 L33 9 L36 24 Z\" fill=\"#E2CCA8\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <!-- Beacon Spire & Dome -->\n    <rect x=\"31\" y=\"7\" width=\"2\" height=\"4\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <line x1=\"32\" y1=\"7\" x2=\"32\" y2=\"3\" stroke=\"#3D352E\" stroke-width=\"1.2\" stroke-linecap=\"round\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n    <circle cx=\"32\" cy=\"3\" r=\"1\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-eiffel-tower-top)\"/>\n  </g>\n</svg>"
   },
   {
     "id": "matterhorn",
@@ -10135,7 +10135,7 @@
       card.title = '클릭하여 SVG 코드 복사';
       card.innerHTML = `
         <div class="pc-icon-stage">
-          ${icon.svg}
+          ${getPapercutIconSvg(icon.id) || icon.svg}
         </div>
         <div class="pc-icon-name-ko">${icon.nameKo}</div>
         <div class="pc-icon-name-en">${icon.nameEn}</div>
@@ -10189,6 +10189,9 @@
    */
   // PaperCut Icon Aliases & Normalization Map
   const ICON_ALIASES = {
+    // 레지스트리에 없는 짧은 이름이 데모와 사용자 코드에 쓰여 아이콘이 비어 보였다
+    "star": "award-star",
+    "stamp": "stamp-rubber",
     "paper-plane-fly": "paper-plane",
     "ribbon-rosette": "ribbon",
     "checkbox-mark": "check",
@@ -10235,19 +10238,44 @@
    * Generates or retrieves cached SVG markup string for a papercut icon
    * Features in-memory caching to eliminate repetitive regex ID replacements
    */
+  // url(#id)는 문서에서 처음 나오는 같은 id로 연결된다. 복제본끼리 id를 공유하면 첫 복제본이
+  // display:none 영역에 있을 때 필터가 그려지지 않아 같은 아이콘이 전부 사라지므로, 인스턴스마다 고유 id를 쓴다.
+  const ICON_ID_TOKEN = '__PC_SFX__';
+  let iconInstanceSeq = 0;
+  function nextIconSuffix(iconId) {
+    iconInstanceSeq += 1;
+    return `${iconId}-i${iconInstanceSeq.toString(36)}`;
+  }
+
   function getPapercutIconSvg(iconId, customSuffix = null) {
     const map = getIconMap();
     const raw = map.get(iconId)?.svg || '';
     if (!raw) return '';
-    const suffix = customSuffix || (`tpl-${iconId}`);
-    const cacheKey = `${iconId}__${suffix}`;
-    let cached = iconStringCache.get(cacheKey);
-    if (!cached) {
-      cached = raw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${suffix}"`)
-                  .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${suffix})`);
-      iconStringCache.set(cacheKey, cached);
+    let tokenized = iconStringCache.get(iconId);
+    if (!tokenized) {
+      tokenized = raw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${ICON_ID_TOKEN}"`)
+                     .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${ICON_ID_TOKEN})`);
+      iconStringCache.set(iconId, tokenized);
     }
-    return cached;
+    // 고정 suffix를 넘긴 호출자는 그 이름 공간을 스스로 관리한다(예: 스튜디오 크기별 미리보기)
+    return tokenized.split(ICON_ID_TOKEN).join(customSuffix || nextIconSuffix(iconId));
+  }
+
+  /**
+   * 템플릿 복제본의 ps-* id와 url(#ps-*) 참조를 이 인스턴스 전용 이름으로 바꾼다.
+   */
+  function uniquifyIconIds(fragment, iconId) {
+    const idNodes = fragment.querySelectorAll('[id^="ps-"]');
+    if (!idNodes.length) return;
+    const tag = `-${nextIconSuffix(iconId)}`;
+    idNodes.forEach(node => { node.id += tag; });
+    fragment.querySelectorAll('*').forEach(node => {
+      for (const attr of node.attributes) {
+        if (attr.value.indexOf('url(#ps-') !== -1) {
+          node.setAttribute(attr.name, attr.value.replace(/url\(#(ps-[^)]+)\)/g, `url(#$1${tag})`));
+        }
+      }
+    });
   }
 
   /**
@@ -10280,8 +10308,10 @@
 
     const tpl = getPapercutIconTemplate(iconId);
     if (tpl) {
+      const fragment = tpl.content.cloneNode(true);
+      uniquifyIconIds(fragment, iconId);
       el.textContent = '';
-      el.appendChild(tpl.content.cloneNode(true));
+      el.appendChild(fragment);
       el.classList.add('pc-inline-icon', 'is-color', 'pc-color-icon');
       el.setAttribute('data-hydrated', 'true');
       return true;
@@ -10379,9 +10409,9 @@
     // 2. [Lazy Hydration] Below-the-fold sections configured with 200px rootMargin
     const lazySectionIds = [
       'kirigami-components',
-      'shadcn-components',
-      'shadcn-blocks-charts',
-      'shadcn-charts-section',
+      'pc-components',
+      'pc-blocks-charts',
+      'pc-charts-section',
       'icon-gallery',
       'bg-library',
       'texture-showcase',

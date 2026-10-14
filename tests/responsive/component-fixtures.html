@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PaperCut UI 컴포넌트 반응형 픽스처</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <!-- index.html과 같은 순서로 라이브러리 CSS를 불러온다 (동기 로딩: 측정 결정성) -->
+  <link rel="stylesheet" href="../../assets/uicons/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="../../papercut.css">
+  <link rel="stylesheet" href="../../papercut-layout.css">
+  <link rel="stylesheet" href="../../papercut-sidebar.css">
+  <link rel="stylesheet" href="../../papercut-alerts-toasts.css">
+  <link rel="stylesheet" href="../../papercut-modals.css">
+  <link rel="stylesheet" href="../../papercut-animations.css">
+  <link rel="stylesheet" href="../../papercut-reader.css">
+  <link rel="stylesheet" href="../../papercut-ui.css">
+  <link rel="stylesheet" href="../../papercut-paper-layer.css">
+  <link rel="stylesheet" href="../../papercut-blocks-charts.css">
+  <style>
+    /* 픽스처 하네스 전용 스타일 (라이브러리 규칙을 덮어쓰지 않는다) */
+    body { margin: 0; padding: 16px; background: #FFFDF9; font-family: var(--pc-font, 'Nanum Square Round', sans-serif); }
+    .fx-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .fx-header img { height: 36px; width: auto; }
+    .fx-group { margin-bottom: 32px; }
+    .fx-group > h2 { font-size: 15px; margin: 0 0 8px; }
+    .fx-cases { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+    .fx-label { font-size: 11px; color: #7a6a5a; margin-bottom: 2px; }
+    /* 컨테이너: 콘텐츠 박스 폭이 정확히 data-width. 넘침은 그대로 보이도록 overflow는 visible */
+    .fx-case { box-sizing: content-box; padding: 0; border: 0; outline: 1px dashed #c9b8a4; position: relative; }
+    template { display: none; }
+  </style>
+</head>
+<body>
+  <header class="fx-header">
+    <img src="../../logo.svg" alt="PaperCut UI 로고">
+    <strong>컴포넌트 반응형 픽스처 (280 / 360 / 480px)</strong>
+  </header>
+
+  <main id="fx-root">
+
+  <!-- button: .pc-btn 변형 + SVG 칼선 버튼 -->
+  <section class="fx-group" data-fixture="button">
+    <template>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px;">
+        <button class="pc-btn pc-btn-sm"><span class="pc-btn-icon-plate"><span class="pc-inline-icon is-xs" data-icon="file"></span></span><span class="toggle-label">코드 보기</span></button>
+        <button class="pc-btn pc-btn-sm pc-btn-mint"><span class="pc-btn-icon-plate"><span class="pc-inline-icon is-xs" data-icon="copy"></span></span><span>복사</span></button>
+        <button class="pc-btn pc-btn-peach">피치 기본 버튼</button>
+        <button class="pc-btn pc-btn-lavender pc-btn-lg">라벤더 큰 버튼 (pc-btn-lg)</button>
+        <button class="pc-btn pc-btn-ghost">고스트</button>
+        <button class="pc-btn pc-btn-mint"><span class="pc-inline-icon is-xs" data-icon="check"></span><span>설정 저장하기 아주 긴 라벨 텍스트 줄바꿈 확인</span></button>
+        <button class="pc-btn pc-btn-pill pc-btn-sky">필 버튼</button>
+        <button class="pc-btn pc-btn-tag pc-btn-rose">태그 버튼</button>
+        <button class="pc-btn pc-btn-origami pc-btn-buttercup">오리가미</button>
+        <button class="pc-btn pc-btn-stacked pc-btn-sage">스택 버튼</button>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button type="button" class="pc-svg-kirigami-btn" title="Primary Stack">
+          <svg class="pc-kirigami-btn-svg" viewBox="0 0 142 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 38px; width: auto;">
+            <rect x="5" y="6" width="132" height="32" rx="7" fill="#9EC49A"/>
+            <rect x="3" y="3" width="134" height="32" rx="7" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.88"/>
+            <text x="76" y="24" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="800" fill="#204A38">Primary Stack</text>
+          </svg>
+        </button>
+        <button type="button" class="pc-svg-kirigami-btn" title="Secondary">
+          <svg class="pc-kirigami-btn-svg" viewBox="0 0 118 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 38px; width: auto;">
+            <rect x="3" y="3" width="112" height="32" rx="7" fill="#C5B9E8" stroke="#FFFFFF" stroke-width="0.88"/>
+            <rect x="6" y="6" width="106" height="26" rx="5" fill="none" stroke="#B3A5DC" stroke-width="0.8" stroke-dasharray="2 2"/>
+            <text x="59" y="24" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="800" fill="#3D2C68">Secondary</text>
+          </svg>
+        </button>
+        <button type="button" class="pc-svg-kirigami-btn" title="빈티지 우표 천공 SVG 버튼">
+          <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="6" width="204" height="42" rx="4" fill="#BBD5B8"/>
+            <rect x="14" y="10" width="192" height="34" rx="4" fill="#FFFDF9" data-layer="mid"/>
+            <text x="110" y="32" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="13" font-weight="800" fill="#275C46">우표 천공 버튼</text>
+          </svg>
+        </button>
+      </div>
+      <div class="pc-ui-toggle-group" style="margin-top: 10px;">
+        <button type="button" class="pc-ui-toggle is-pressed">굵게</button>
+        <button type="button" class="pc-ui-toggle">기울임</button>
+        <button type="button" class="pc-ui-pagination-btn is-active">1</button>
+        <button type="button" class="pc-ui-pagination-btn">2</button>
+        <button type="button" class="pc-filter-btn is-active">전체</button>
+        <button type="button" class="pc-filter-btn">필터</button>
+      </div>
+    </template>
+  </section>
+
+  <!-- badge -->
+  <section class="fx-group" data-fixture="badge">
+    <template>
+      <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+        <span class="pc-badge pc-badge--tag pc-badge--peach"><span class="pc-inline-icon is-color is-xs" data-icon="sparkles"></span> <span>Icon-Engine Synergy</span></span>
+        <span class="pc-badge pc-badge--stamp pc-badge--mint">100% 순수 SVG 다층 페이퍼 커팅 구조</span>
+        <span class="pc-badge pc-badge--wax pc-badge--lavender">2-Tier 48% 번트 엄버 그림자</span>
+        <span class="pc-badge pc-badge--ticket pc-badge--sky"><span class="pc-inline-icon is-xs" data-icon="scissors"></span> .pc-card-ticket</span>
+        <span class="pc-badge pc-badge--wax pc-badge--buttercup"><span class="pc-inline-icon is-xs" data-icon="star"></span> Best Pick 4</span>
+        <span class="pc-badge pc-badge-mint">Interactive</span>
+        <span class="pc-badge pc-badge-rose">rose</span>
+        <span class="pc-pill-badge is-mint" style="font-size: 10px;">완료</span>
+        <span class="pc-pill-badge is-lavender" style="font-size: 10px;">제작중</span>
+        <span class="pc-ui-badge is-secondary">PC UI Paper</span>
+        <span class="pc-ui-badge is-outline">outline</span>
+        <span class="pc-ui-badge is-scallop">scallop</span>
+        <span class="pc-ui-badge is-ribbon">ribbon</span>
+        <span class="pc-tag pc-tag-mint">접힌 플랩</span>
+        <span class="pc-tag">스코어 라인</span>
+      </div>
+    </template>
+  </section>
+
+  <!-- card: 구조 카드. 720px에서 열 수를 기록 -->
+  <section class="fx-group" data-fixture="card" data-widths="280,360,480,720">
+    <template>
+      <div data-fx-grid style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 12px;">
+      <div class="pc-card pc-card-washi" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 190px;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span class="pc-badge pc-badge--wax pc-badge--peach"><span class="pc-inline-icon is-xs" data-icon="palette"></span> .pc-card-washi</span>
+            <span style="font-size: 11px; font-weight: 800; color: #6E3B21;">Washi Tape</span>
+          </div>
+          <h4 style="font-size: 16px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">마스킹 테이프 메모 패드 카드</h4>
+          <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.55; margin: 0;">상단에 마스킹 테이프가 붙은 메모 패드 형태의 카드입니다.</p>
+        </div>
+        <div style="margin-top: 14px; display: flex; gap: 8px;">
+          <span class="pc-tag">마스킹 테이프</span>
+          <span class="pc-tag">메모 패드</span>
+        </div>
+      </div>
+      <div class="pc-card pc-card-ticket" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between; min-height: 190px;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span class="pc-badge pc-badge--ticket pc-badge--sky"><span class="pc-inline-icon is-xs" data-icon="scissors"></span> .pc-card-ticket</span>
+            <span style="font-size: 11px; font-weight: 800; color: #204C5A;">Notched Ticket</span>
+          </div>
+          <h4 style="font-size: 16px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">노치 시네마 티켓 카드</h4>
+          <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.55; margin: 0;">양측 반원 노치가 정밀 다이컷되고, 세로 점선 절취선이 내장된 바우처 티켓 카드입니다.</p>
+        </div>
+        <div style="margin-top: 14px; display: flex; gap: 8px;">
+          <span class="pc-tag">반원 노치 홈</span>
+          <span class="pc-tag">점선 절취선</span>
+        </div>
+      </div>
+      <div class="pc-ui-card pc-comp-group" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 10px; margin-bottom: 16px;">
+          <span style="font-size: 14px; font-weight: 800; color: var(--pc-ink); display: flex; align-items: center; gap: 6px;">
+            <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> Buttons, Badges, Sliders &amp; Toggles
+          </span>
+          <span class="pc-badge pc-badge-mint">Interactive</span>
+        </div>
+        <p style="font-size: 13px; margin: 0;">PC 스타일 카드 본문</p>
+      </div>
+      <div class="pc-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span class="pc-badge pc-badge--stamp pc-badge--cream">구조용 패널</span>
+          <code style="font-size: 12px; color: var(--pc-ink-muted);">.pc-panel</code>
+        </div>
+        <p style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0; line-height: 1.5;">독립 카드스톡 구조 패널입니다.</p>
+      </div>
+      </div>
+    </template>
+  </section>
+
+  <!-- form -->
+  <section class="fx-group" data-fixture="form">
+    <template>
+      <div class="pc-ui-card pc-comp-group" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+        <label class="pc-ui-label" style="font-size: 12px; font-weight: 800; margin-bottom: 4px; display: block;">조각칼 음각 인풋 (Carved Input)</label>
+        <input type="text" class="pc-ui-input" placeholder="letter@papercraft.art" style="width: 100%; box-sizing: border-box; margin-bottom: 12px;">
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;">
+          <div style="flex: 1 1 120px; min-width: 0;">
+            <label class="pc-ui-label" style="font-size: 11.5px; font-weight: 800; margin-bottom: 4px; display: block;">Select 셀렉트</label>
+            <div class="pc-ui-select" style="position: relative;">
+              <select class="pc-ui-input" style="width: 100%; box-sizing: border-box;">
+                <option>350g 코튼 매트보드</option>
+                <option>닥나무 전통 한지</option>
+              </select>
+            </div>
+          </div>
+          <div style="flex: 1 1 120px; min-width: 0;">
+            <label class="pc-ui-label" style="font-size: 11.5px; font-weight: 800; margin-bottom: 4px; display: block;">Combobox 검색</label>
+            <input type="text" class="pc-ui-input" placeholder="지질 검색..." style="width: 100%; box-sizing: border-box;">
+          </div>
+        </div>
+        <label class="pc-ui-label" style="display: block; margin-bottom: 4px;">프로필 명칭 (수제 라벨)</label>
+        <input type="text" class="pc-input" value="오리가미 아틀리에 에디터" style="width: 100%; margin-bottom: 12px;">
+        <div class="pc-select-wrapper" style="margin-bottom: 12px;">
+          <select class="pc-select">
+            <option>300g 수제 코튼지 (Cotton Handmade)</option>
+            <option>350g 매트 크림보드 (Matte Cream Board)</option>
+          </select>
+        </div>
+        <div style="background: #F3ECE1; border-radius: 12px; padding: 12px 14px; border: 1px solid #E2D6C3;">
+          <label class="pc-checkbox-label" style="font-size: 13px;">
+            <input type="checkbox" class="pc-checkbox-input" checked>
+            <span class="pc-checkbox-box"></span>
+            <span>칼선 외곽선(Stroke) 2.0px 안티앨리어싱 자동 보정</span>
+          </label>
+        </div>
+      </div>
+    </template>
+  </section>
+
+  <!-- tabs: 폴더 탭 + 메뉴바 + 브레드크럼 -->
+  <section class="fx-group" data-fixture="tabs">
+    <template>
+      <div class="pc-ui-folder-tabs" style="display: flex; gap: 4px; border-bottom: 2px solid #EADBCC; padding-left: 6px;">
+        <button type="button" class="pc-ui-folder-tab is-active" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: #FFFFFF; border: 1.5px solid #EADBCC; border-bottom: 2px solid #FFFFFF; margin-bottom: -2px; border-radius: 10px 10px 0 0; font-size: 12px; font-weight: 800;">
+          <span class="pc-inline-icon is-xs" data-icon="file"></span> <span>개요 (Overview)</span>
+        </button>
+        <button type="button" class="pc-ui-folder-tab" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: #FAF7F0; border: 1.5px solid #EADBCC; border-bottom: none; border-radius: 10px 10px 0 0; font-size: 12px; font-weight: 700;">
+          <span class="pc-inline-icon is-xs" data-icon="settings"></span> <span>사양 (Specs)</span>
+        </button>
+        <button type="button" class="pc-ui-folder-tab" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background: #FAF7F0; border: 1.5px solid #EADBCC; border-bottom: none; border-radius: 10px 10px 0 0; font-size: 12px; font-weight: 700;">
+          <span class="pc-inline-icon is-xs" data-icon="bookmark"></span> <span>가이드 (Guide)</span>
+        </button>
+      </div>
+      <div class="pc-ui-menubar" style="margin-top: 12px;">
+        <button type="button" class="pc-ui-menu-trigger is-active">파일</button>
+        <button type="button" class="pc-ui-menu-trigger">편집</button>
+        <button type="button" class="pc-ui-menu-trigger">보기</button>
+      </div>
+      <div class="pc-ui-breadcrumb" style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: 12px; font-weight: 700; margin-top: 12px;">
+        <a href="#" style="color: var(--pc-ink-muted); text-decoration: none;">홈</a>
+        <span>/</span>
+        <a href="#" style="color: var(--pc-ink-muted); text-decoration: none;">디자인 시스템</a>
+        <span>/</span>
+        <span class="pc-ui-badge is-secondary" style="font-size: 11px;">PC UI Paper</span>
+      </div>
+    </template>
+  </section>
+
+  <!-- paper: 페이퍼 레이어 엔진의 8개 변형 (유동 폭에서 모서리·넘침 확인) -->
+  <section class="fx-group" data-fixture="paper">
+    <template>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 4px 6px 8px 0;">
+        <div data-pc-paper="sheet" data-pc-tone="mint" style="padding: 18px 20px; border-radius: 14px; border: 1.5px solid #EADBCC; box-sizing: border-box;">
+          <h4 style="font-size: 15px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">sheet 시트 카드</h4>
+          <p style="font-size: 13px; margin: 0; line-height: 1.55; color: var(--pc-ink-muted);">점선 천공이 안쪽에 들어간 두꺼운 색지 한 장입니다. 폭이 좁아져도 모서리가 일그러지지 않아야 합니다.</p>
+        </div>
+        <div data-pc-paper="field" data-pc-tone="cream" style="display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 1.5px solid #EADBCC; box-sizing: border-box;">
+          <span class="pc-inline-icon is-xs" data-icon="search"></span>
+          <input type="text" placeholder="지질 검색..." style="flex: 1 1 auto; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 13px; outline: none;">
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <span data-pc-paper="pill" data-pc-tone="peach" style="display: inline-flex; align-items: center; padding: 4px 12px; font-size: 12px; font-weight: 800; box-sizing: border-box;">완료</span>
+          <span data-pc-paper="pill" data-pc-tone="lavender" style="display: inline-flex; align-items: center; padding: 4px 12px; font-size: 12px; font-weight: 800; box-sizing: border-box;">제작중</span>
+          <button type="button" data-pc-paper="pill" data-pc-tone="sky" style="display: inline-flex; align-items: center; padding: 6px 14px; border: 0; font: inherit; font-size: 12px; font-weight: 800; box-sizing: border-box;">필터 칩</button>
+          <button type="button" data-pc-paper="pill" data-pc-tone="rose" aria-pressed="true" style="display: inline-flex; align-items: center; padding: 6px 14px; border: 0; font: inherit; font-size: 12px; font-weight: 800; box-sizing: border-box;">눌린 칩</button>
+        </div>
+        <div style="display: flex; gap: 4px; padding-left: 6px;">
+          <button type="button" data-pc-paper="tab" data-pc-tone="buttercup" aria-selected="true" style="padding: 8px 14px 10px; border: 0; font: inherit; font-size: 12px; font-weight: 800; box-sizing: border-box;">개요</button>
+          <button type="button" data-pc-paper="tab" data-pc-tone="cream" style="padding: 8px 14px 10px; border: 0; font: inherit; font-size: 12px; font-weight: 700; box-sizing: border-box;">사양</button>
+          <button type="button" data-pc-paper="tab" data-pc-tone="cream" style="padding: 8px 14px 10px; border: 0; font: inherit; font-size: 12px; font-weight: 700; box-sizing: border-box;">가이드</button>
+        </div>
+        <div data-pc-paper="ticket" data-pc-tone="sky" style="padding: 16px 22px; border-radius: 12px; box-sizing: border-box;">
+          <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">완료 안내</div>
+          <p style="font-size: 12.5px; margin: 4px 0 0; line-height: 1.5; color: var(--pc-ink-muted);">공백 없는 긴 문자열 ThisIsAVeryLongUnbrokenTokenThatShouldWrapInsideNarrowTicket</p>
+        </div>
+        <div data-pc-paper="track" data-pc-tone="mint" role="progressbar" aria-valuenow="60" style="height: 10px; width: 100%; box-sizing: border-box;">
+          <div style="width: 60%; height: 100%; border-radius: 999px; background: #82C2A8;"></div>
+        </div>
+        <div style="display: flex; gap: 14px; align-items: center;">
+          <span data-pc-paper="knob" data-pc-tone="lavender" style="display: inline-block; width: 22px; height: 22px;"></span>
+          <span data-pc-paper="knob" data-pc-tone="peach" aria-checked="true" role="checkbox" style="display: inline-block; width: 22px; height: 22px; --pc-paper-radius: 6px;"></span>
+          <span data-pc-paper="knob" data-pc-tone="buttercup" style="display: inline-block; width: 28px; height: 28px;"></span>
+        </div>
+        <div data-pc-paper="menu" data-pc-tone="rose" role="menu" style="padding: 8px; border-radius: 12px; box-sizing: border-box;">
+          <div role="menuitem" style="padding: 7px 10px; font-size: 13px; font-weight: 700;">새 프로젝트</div>
+          <div role="menuitem" style="padding: 7px 10px; font-size: 13px; font-weight: 700;">복제하기</div>
+          <div role="menuitem" style="padding: 7px 10px; font-size: 13px; font-weight: 700;">삭제 (비활성)</div>
+        </div>
+      </div>
+    </template>
+  </section>
+
+  <!-- table: 감싸는 div가 overflow-x:auto (의도된 스크롤 컨테이너) -->
+  <section class="fx-group" data-fixture="table">
+    <template>
+      <div style="overflow-x: auto; max-width: 100%; margin-bottom: 16px; border: 1.5px solid #EADBCC; border-radius: 12px; background: #FAF7F0;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; text-align: left;">
+          <thead>
+            <tr style="background: #F0EAE1; border-bottom: 1.5px solid #EADBCC;">
+              <th style="padding: 8px 10px; font-weight: 800; color: var(--pc-ink);">주문 번호</th>
+              <th style="padding: 8px 10px; font-weight: 800; color: var(--pc-ink);">지질 품목</th>
+              <th style="padding: 8px 10px; font-weight: 800; color: var(--pc-ink);">상태</th>
+              <th style="padding: 8px 10px; font-weight: 800; color: var(--pc-ink); text-align: right;">금액</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px dashed rgba(74,58,42,0.12); background: #FFFFFF;">
+              <td style="padding: 8px 10px; font-weight: 700;">#PC-842</td>
+              <td style="padding: 8px 10px;">350g 코튼 매트보드</td>
+              <td style="padding: 8px 10px;"><span class="pc-pill-badge is-mint" style="font-size: 10px;">완료</span></td>
+              <td style="padding: 8px 10px; text-align: right; font-weight: 800;">₩28,000</td>
+            </tr>
+            <tr style="background: #FAF7F0;">
+              <td style="padding: 8px 10px; font-weight: 700;">#PC-843</td>
+              <td style="padding: 8px 10px;">오리가미 다이어리 키트</td>
+              <td style="padding: 8px 10px;"><span class="pc-pill-badge is-lavender" style="font-size: 10px;">제작중</span></td>
+              <td style="padding: 8px 10px; text-align: right; font-weight: 800;">₩35,000</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </template>
+  </section>
+
+  <!-- modal: 백드롭(fixed) 없이 열린 다이얼로그 본체만 정적으로 렌더 -->
+  <section class="fx-group" data-fixture="modal">
+    <template>
+      <!-- 실제 열린 상태(.is-active)를 쓰되 fixed 배치만 정적으로 푼다 -->
+      <div class="pc-modal-backdrop is-active" style="position: static; inset: auto; padding: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; justify-content: flex-start;">
+      <div class="pc-modal-dialog pc-modal-washi variant-mint" role="dialog" aria-label="모달 예시">
+        <div class="pc-dialog-washi"></div>
+        <div class="pc-dialog-inner">
+          <div class="pc-dialog-header">
+            <div class="pc-dialog-title-wrap">
+              <h3 class="pc-dialog-title">
+                <span class="pc-inline-icon is-sm" data-icon="settings"></span>
+                <span>3D 페이퍼 섀도우박스 모달</span>
+              </h3>
+              <p class="pc-dialog-desc">색종이를 정밀하게 레이어드한 핸드크래프트 다이얼로그 섀도우박스 창입니다.</p>
+            </div>
+            <button type="button" class="pc-dialog-close" aria-label="닫기">
+              <span class="pc-inline-icon is-xs" data-icon="close"></span>
+            </button>
+          </div>
+          <div class="pc-dialog-body">
+            <label style="display: block; font-size: 13px; font-weight: 700; color: #4A3A2C; margin-bottom: 6px;">프로필 명칭 (수제 라벨)</label>
+            <input type="text" class="pc-input" value="오리가미 아틀리에 에디터" style="width: 100%;">
+          </div>
+          <div class="pc-dialog-footer">
+            <button type="button" class="pc-btn pc-btn-ghost">취소</button>
+            <button type="button" class="pc-btn pc-btn-mint">
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
+              <span>설정 저장하기</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </template>
+  </section>
+
+  <!-- toast: 컨테이너(fixed) 없이 카드 본체만 정적으로 렌더 -->
+  <section class="fx-group" data-fixture="toast">
+    <template>
+      <div class="pc-toast-card variant-mint pc-toast-washi" style="margin-bottom: 12px;">
+        <div class="pc-toast-tape"></div>
+        <div class="pc-toast-icon-wrap"><span class="pc-inline-icon is-sm" data-icon="check"></span></div>
+        <div class="pc-toast-body">
+          <div class="pc-toast-title">완료 안내</div>
+          <p class="pc-toast-msg">3D 페이퍼 스택 프라이머리 버튼이 클릭되었습니다. 긴 문장도 컨테이너 안에서 줄바꿈되어야 합니다.</p>
+          <button type="button" class="pc-toast-action-btn">실행 취소</button>
+        </div>
+        <button type="button" class="pc-toast-close-btn" aria-label="닫기"><span class="pc-inline-icon is-xs" data-icon="close"></span></button>
+        <div class="pc-toast-progress-bar"></div>
+      </div>
+      <div class="pc-toast-card variant-rose pc-toast-dogear">
+        <div class="pc-toast-dogear-flap"></div>
+        <div class="pc-toast-icon-wrap"><span class="pc-inline-icon is-sm" data-icon="info"></span></div>
+        <div class="pc-toast-body">
+          <div class="pc-toast-title">주의 / 오류</div>
+          <p class="pc-toast-msg">공백 없는 긴 문자열 ThisIsAVeryLongUnbrokenTokenThatShouldWrapInsideNarrowToast</p>
+        </div>
+        <button type="button" class="pc-toast-close-btn" aria-label="닫기"><span class="pc-inline-icon is-xs" data-icon="close"></span></button>
+      </div>
+    </template>
+  </section>
+
+  <!-- grid: 반응형 auto-fit 그리드. 280 vs 720에서 열 수를 기록 -->
+  <section class="fx-group" data-fixture="grid" data-widths="280,360,480,720">
+    <template>
+      <div class="pc-ui-showcase-grid" data-fx-grid style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr)); gap: 24px; margin-bottom: 16px;">
+        <div class="pc-ui-card pc-comp-group" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">셀 1</div>
+        <div class="pc-ui-card pc-comp-group" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">셀 2</div>
+        <div class="pc-ui-card pc-comp-group" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">셀 3</div>
+      </div>
+      <div data-fx-grid style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px; margin-bottom: 16px;">
+        <div style="background: #FAF7F0; border-radius: 20px; padding: 22px; border: 1.5px solid #EADBCC;">셀 A</div>
+        <div style="background: #FAF7F0; border-radius: 20px; padding: 22px; border: 1.5px solid #EADBCC;">셀 B</div>
+      </div>
+      <div class="pc-panel-grid" data-fx-grid>
+        <div class="pc-panel">패널 1</div>
+        <div class="pc-panel">패널 2</div>
+        <div class="pc-panel">패널 3</div>
+      </div>
+    </template>
+  </section>
+
+  <!-- shrinkwrap: 카드가 내용 폭으로 줄어드는 자리(flex 항목, inline-block)에서 패딩만 남기고 무너지지 않는지.
+       container-type: inline-size를 카드 자체에 걸면 내용 폭 기여가 0이 되어 여기서 실패한다. -->
+  <section class="fx-group" data-shrinkwrap>
+    <h2>shrinkwrap</h2>
+    <div style="display: flex; gap: 16px; justify-content: center;">
+      <div class="pc-card" data-fx-min-width="120" style="padding: 20px;"><h3>카드 제목</h3><p>내용이 있는 카드입니다</p></div>
+      <div class="pc-ui-card" data-fx-min-width="100" style="padding: 20px;"><h3>PC 카드</h3><p>내용</p></div>
+    </div>
+    <div style="display: inline-block; margin-top: 12px;">
+      <div class="pc-card" data-fx-min-width="120" style="padding: 20px;">인라인 블록 안 카드</div>
+    </div>
+  </section>
+
+  </main>
+
+  <script>
+    /* 각 section[data-fixture]의 <template>을 폭별 컨테이너에 복제해 렌더한다. */
+    (function () {
+      var DEFAULT_WIDTHS = [280, 360, 480];
+      document.querySelectorAll('section[data-fixture]').forEach(function (sec) {
+        var tpl = sec.querySelector('template');
+        var widths = (sec.getAttribute('data-widths') || '').split(',').filter(Boolean).map(Number);
+        if (!widths.length) widths = DEFAULT_WIDTHS;
+        var h = document.createElement('h2');
+        h.textContent = sec.getAttribute('data-fixture');
+        sec.insertBefore(h, tpl);
+        var cases = document.createElement('div');
+        cases.className = 'fx-cases';
+        widths.forEach(function (w) {
+          var wrap = document.createElement('div');
+          var label = document.createElement('div');
+          label.className = 'fx-label';
+          label.textContent = w + 'px';
+          var box = document.createElement('div');
+          box.className = 'fx-case';
+          box.setAttribute('data-width', String(w));
+          box.style.width = w + 'px';
+          box.appendChild(tpl.content.cloneNode(true));
+          wrap.appendChild(label);
+          wrap.appendChild(box);
+          cases.appendChild(wrap);
+        });
+        sec.appendChild(cases);
+      });
+      document.documentElement.setAttribute('data-fixtures-ready', '1');
+    })();
+  </script>
+  <script src="../../papercut-icons.js" defer></script>
+  <script src="../../papercut-paper-layer.js" defer></script>
+</body>
+</html>
