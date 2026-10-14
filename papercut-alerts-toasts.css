@@ -798,3 +798,8 @@
 .pc-toast-card.variant-rose .pc-toast-progress-bar { background: var(--pc-rose, #F5B8BE); }
 .pc-toast-card.variant-sky .pc-toast-progress-bar { background: var(--pc-sky, #BDE0EA); }
 .pc-toast-card.variant-sage .pc-toast-progress-bar { background: var(--pc-sage, #BBD5B8); }
+
+/* 알림 액션 줄은 좁은 컨테이너에서 줄바꿈한다 (넘침 방지) */
+.pc-alert-actions {
+  flex-wrap: wrap;
+}

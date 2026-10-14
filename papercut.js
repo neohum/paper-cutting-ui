@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPaperSoundEffect();
   initTextureModes();
   initMatteTextureShowcase();
+  initPaperHorizontalScroll();
 });
 
 /**
@@ -1135,48 +1136,80 @@ function initPlayground() {
 }
 
 /**
- * Subtle Paper Rustle Tactile Sound Simulation (Optional Web Audio API synthesis)
+ * Subtle Paper Rustle Tactile Sound Simulation (Web Audio API Multi-Stock Physical Synthesis)
  */
 function initPaperSoundEffect() {
   let audioCtx = null;
-  const soundToggle = document.getElementById('toggle-paper-sound');
-  let soundEnabled = false;
+  const heroSoundToggle = document.getElementById('toggle-paper-sound');
+  const headerSoundBtn = document.getElementById('header-paper-sound-btn');
+  const typeSelect = document.getElementById('header-paper-sound-type');
 
-  if (soundToggle) {
-    soundToggle.addEventListener('click', () => {
-      soundEnabled = !soundEnabled;
-      soundToggle.classList.toggle('is-pressed', soundEnabled);
-      const iconSpan = soundToggle.querySelector('.pc-inline-icon');
-      if (iconSpan && typeof window.getPapercutIconSvg === 'function') {
-        iconSpan.innerHTML = window.getPapercutIconSvg(soundEnabled ? 'volume' : 'mute');
-      }
-      soundToggle.querySelector('.label').textContent = soundEnabled ? '종이 소리: ON' : '종이 소리: OFF';
-      showPaperToast(soundEnabled ? '종이 바스락 효과음이 켜졌습니다.' : '종이 효과음이 꺼졌습니다.', 'buttercup');
-    });
+  let soundEnabled = localStorage.getItem('pc_paper_sound') === 'true';
+  let currentSoundType = localStorage.getItem('pc_screen_paper_texture') || localStorage.getItem('pc_paper_sound_type') || 'cotton';
+
+  if (typeSelect) {
+    typeSelect.value = currentSoundType;
   }
 
-  document.addEventListener('click', (e) => {
-    if (!soundEnabled) return;
-    if (e.target.closest('.pc-btn, .pc-checkbox-label, .pc-dropdown-trigger, .pc-dropdown-item')) {
-      playSoftPaperRustle();
-    }
-  });
+  // 초기 화면 종이 질감 동기화 (색상 및 모양 100% 보존, 펄프 셰이더만 적용)
+  applyScreenPaperTexture(currentSoundType, false);
 
-  function playSoftPaperRustle() {
+  const soundProfiles = {
+    cotton: { freq: 1200, Q: 0.9, dur: 0.085, gain: 0.28, label: '300g 수제 코튼지' },
+    hanji: { freq: 3200, Q: 1.8, dur: 0.048, gain: 0.32, label: '닥나무 한지' },
+    kraft: { freq: 850, Q: 2.2, dur: 0.038, gain: 0.35, label: '350g 크라프트 보드' },
+    vellum: { freq: 4600, Q: 1.4, dur: 0.075, gain: 0.25, label: '실크 벨러지' },
+    origami: { freq: 2200, Q: 1.2, dur: 0.065, gain: 0.28, label: '오리가미 화지' }
+  };
+
+  function syncSoundButtons() {
+    const labelText = soundEnabled ? '종이 소리: ON' : '종이 소리: OFF';
+    const bgFill = soundEnabled ? '#FEE396' : '#FAF6ED';
+    const textColor = soundEnabled ? '#66460D' : '#3D352E';
+
+    // 1. Hero Sound Button
+    if (heroSoundToggle) {
+      heroSoundToggle.classList.toggle('is-pressed', soundEnabled);
+      const label = heroSoundToggle.querySelector('.label') || heroSoundToggle.querySelector('text');
+      if (label) label.textContent = labelText;
+      const path = heroSoundToggle.querySelector('rect[data-layer="base"]');
+      if (path) path.setAttribute('fill', bgFill);
+    }
+
+    // 2. Header Sound Button
+    if (headerSoundBtn) {
+      headerSoundBtn.classList.toggle('is-pressed', soundEnabled);
+      headerSoundBtn.title = soundEnabled ? '종이 바스락 효과음 끄기' : '종이 바스락 효과음 켜기';
+      const label = headerSoundBtn.querySelector('.label') || headerSoundBtn.querySelector('text');
+      if (label) label.textContent = labelText;
+      const path = headerSoundBtn.querySelector('path[fill]');
+      if (path) path.setAttribute('fill', soundEnabled ? '#FEE396' : '#FAF6ED');
+      if (label) label.setAttribute('fill', textColor);
+    }
+  }
+
+  function playPaperSound(type = currentSoundType) {
+    if (!soundEnabled) return;
     try {
       if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        audioCtx = new AudioContextClass();
       }
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
 
-      // Generate a soft noise burst simulating paper rustle
-      const bufferSize = audioCtx.sampleRate * 0.05; // 50ms
-      const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const p = soundProfiles[type] || soundProfiles.cotton;
+      const sampleRate = audioCtx.sampleRate || 44100;
+      const bufferSize = Math.floor(sampleRate * p.dur);
+      const buffer = audioCtx.createBuffer(1, bufferSize, sampleRate);
       const data = buffer.getChannelData(0);
+
       for (let i = 0; i < bufferSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+        const progress = i / bufferSize;
+        const envelope = Math.exp(-progress * 3.5);
+        data[i] = (Math.random() * 2 - 1) * envelope;
       }
 
       const noise = audioCtx.createBufferSource();
@@ -1184,12 +1217,12 @@ function initPaperSoundEffect() {
 
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.frequency.value = 1800;
-      filter.Q.value = 1.2;
+      filter.frequency.setValueAtTime(p.freq, audioCtx.currentTime);
+      filter.Q.setValueAtTime(p.Q, audioCtx.currentTime);
 
       const gain = audioCtx.createGain();
-      gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+      gain.gain.setValueAtTime(p.gain, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + p.dur);
 
       noise.connect(filter);
       filter.connect(gain);
@@ -1200,7 +1233,107 @@ function initPaperSoundEffect() {
       // Ignore audio synthesis errors on restricted environments
     }
   }
+
+  function toggleSound() {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('pc_paper_sound', soundEnabled ? 'true' : 'false');
+    syncSoundButtons();
+    if (soundEnabled) {
+      playPaperSound(currentSoundType);
+      showPaperToast(`종이 바스락 효과음이 켜졌습니다. [${soundProfiles[currentSoundType].label}]`, 'buttercup');
+    } else {
+      showPaperToast('종이 효과음이 꺼졌습니다.', 'peach');
+    }
+  }
+
+  if (heroSoundToggle) {
+    heroSoundToggle.addEventListener('click', toggleSound);
+  }
+  if (headerSoundBtn) {
+    headerSoundBtn.addEventListener('click', toggleSound);
+  }
+
+  if (typeSelect) {
+    typeSelect.addEventListener('change', (e) => {
+      currentSoundType = e.target.value;
+      localStorage.setItem('pc_paper_sound_type', currentSoundType);
+      applyScreenPaperTexture(currentSoundType, false);
+      if (!soundEnabled) {
+        soundEnabled = true;
+        localStorage.setItem('pc_paper_sound', 'true');
+        syncSoundButtons();
+      }
+      playPaperSound(currentSoundType);
+      const profileName = (soundProfiles[currentSoundType] && soundProfiles[currentSoundType].label) || currentSoundType;
+      showPaperToast(`화면 종이 느낌이 [${profileName}]로 변경되었습니다! (질감·소리 동시 적용)`, 'mint');
+    });
+  }
+
+  // Initial sync
+  syncSoundButtons();
+
+  // Tactile sound event listener for all paper interactive elements
+  document.addEventListener('click', (e) => {
+    if (!soundEnabled) return;
+    if (e.target.closest('#header-paper-sound-btn, #toggle-paper-sound, #header-paper-sound-type')) return;
+    if (e.target.closest('.pc-btn, .pc-svg-kirigami-btn, .pc-sidebar-item, .pc-header-nav-link, .pc-checkbox-label, .pc-dropdown-trigger, .pc-dropdown-item, .pc-filter-btn, .pc-ui-toggle, .pc-anim-speed-btn, button, a[href^="#"]')) {
+      playPaperSound(currentSoundType);
+    }
+  });
+
+  window.playPaperSound = playPaperSound;
+  window.setPaperSoundType = (t) => {
+    if (soundProfiles[t] || ['cotton', 'hanji', 'kraft', 'vellum', 'origami'].includes(t)) {
+      currentSoundType = t;
+      if (typeSelect) typeSelect.value = t;
+      localStorage.setItem('pc_paper_sound_type', t);
+      applyScreenPaperTexture(t, false);
+      playPaperSound(t);
+    }
+  };
 }
+
+/**
+ * Global Screen Paper Texture Controller (300g Cotton, Mulberry Hanji, Kraft Board, Silk Vellum, Origami)
+ * Shifts tactile pulp fiber shaders across the entire viewport while preserving 100% colors, shapes & shadows.
+ */
+function applyScreenPaperTexture(paperType, notify = false) {
+  const validTypes = ['cotton', 'hanji', 'kraft', 'vellum', 'origami', 'soft', 'flat'];
+  const target = validTypes.includes(paperType) ? paperType : 'cotton';
+
+  const typeLabels = {
+    cotton: '300g 수제 코튼지',
+    hanji: '닥나무 한지',
+    kraft: '350g 크라프트 보드',
+    vellum: '실크 벨러지',
+    origami: '오리가미 화지',
+    soft: '소프트 파스텔지',
+    flat: '디지털 플랫'
+  };
+
+  // 1. Remove previous texture classes and apply target
+  validTypes.forEach(t => document.body.classList.remove('texture-' + t));
+  document.body.classList.add('texture-' + target);
+
+  // 2. Persist in storage
+  localStorage.setItem('pc_screen_paper_texture', target);
+  localStorage.setItem('pc_paper_sound_type', target);
+
+  // 3. Sync header dropdown if available
+  const typeSelect = document.getElementById('header-paper-sound-type');
+  if (typeSelect && typeSelect.value !== target) {
+    if (typeSelect.querySelector(`option[value="${target}"]`)) {
+      typeSelect.value = target;
+    }
+  }
+
+  // 4. Optional toast notification
+  if (notify && typeof showPaperToast === 'function') {
+    const label = typeLabels[target] || target;
+    showPaperToast(`화면 종이 느낌이 [${label}]로 변경되었습니다. (색상·모양 유지)`, 'mint');
+  }
+}
+window.applyScreenPaperTexture = applyScreenPaperTexture;
 
 /**
  * Paper Texture Mode Switcher (Cotton, Hanji, Soft, Flat)
@@ -1227,9 +1360,8 @@ function initTextureModes() {
     btn.addEventListener('click', () => {
       const mode = btn.getAttribute('data-texture-mode');
       
-      // Update body classes
-      document.body.classList.remove('texture-soft', 'texture-cotton', 'texture-hanji', 'texture-flat');
-      document.body.classList.add(mode);
+      // Update body classes & global screen texture
+      applyScreenPaperTexture(mode.replace('texture-', ''), false);
 
       // Update button active state
       textureButtons.forEach(b => b.classList.remove('is-active', 'pc-btn-mint'));
@@ -1846,6 +1978,47 @@ function initIconOutlineStudio() {
 
   // Initial Render
   updateStudio();
+}
+
+/**
+ * Enables smooth grab-and-drag horizontal scrolling for tactile paper-cut containers
+ * (Supports mouse drag and touch momentum without interfering with clicks)
+ */
+function initPaperHorizontalScroll() {
+  const containers = document.querySelectorAll('.hero-scroll-container, .pc-scroll-horizontal, .pc-filter-pills-row, .pc-card-scroll-wrap');
+  
+  containers.forEach(container => {
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    container.addEventListener('mousedown', (e) => {
+      // Don't drag if clicking an interactive control directly
+      if (e.target.closest('button, a, input, select, textarea, [role="button"], .pc-svg-kirigami-btn')) {
+        return;
+      }
+      isDown = true;
+      container.style.cursor = 'grabbing';
+      container.style.userSelect = 'none';
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      container.style.cursor = '';
+      container.style.removeProperty('user-select');
+    });
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      container.scrollLeft = scrollLeft - walk;
+    });
+  });
 }
 
 

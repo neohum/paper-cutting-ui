@@ -21,6 +21,7 @@
    ========================================================================== */
 
 .pc-shadow-studio {
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -29,13 +30,13 @@
 
 .pc-shadow-studio-grid {
   display: grid;
-  grid-template-columns: 380px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 380px) minmax(0, 1fr);
   gap: 28px;
 }
 
-@media (max-width: 1080px) {
+@container (max-width: 767px) {
   .pc-shadow-studio-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

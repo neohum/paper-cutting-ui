@@ -10135,7 +10135,7 @@
       card.title = '클릭하여 SVG 코드 복사';
       card.innerHTML = `
         <div class="pc-icon-stage">
-          ${icon.svg}
+          ${getPapercutIconSvg(icon.id) || icon.svg}
         </div>
         <div class="pc-icon-name-ko">${icon.nameKo}</div>
         <div class="pc-icon-name-en">${icon.nameEn}</div>
@@ -10235,19 +10235,44 @@
    * Generates or retrieves cached SVG markup string for a papercut icon
    * Features in-memory caching to eliminate repetitive regex ID replacements
    */
+  // url(#id)는 문서에서 처음 나오는 같은 id로 연결된다. 복제본끼리 id를 공유하면 첫 복제본이
+  // display:none 영역에 있을 때 필터가 그려지지 않아 같은 아이콘이 전부 사라지므로, 인스턴스마다 고유 id를 쓴다.
+  const ICON_ID_TOKEN = '__PC_SFX__';
+  let iconInstanceSeq = 0;
+  function nextIconSuffix(iconId) {
+    iconInstanceSeq += 1;
+    return `${iconId}-i${iconInstanceSeq.toString(36)}`;
+  }
+
   function getPapercutIconSvg(iconId, customSuffix = null) {
     const map = getIconMap();
     const raw = map.get(iconId)?.svg || '';
     if (!raw) return '';
-    const suffix = customSuffix || (`tpl-${iconId}`);
-    const cacheKey = `${iconId}__${suffix}`;
-    let cached = iconStringCache.get(cacheKey);
-    if (!cached) {
-      cached = raw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${suffix}"`)
-                  .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${suffix})`);
-      iconStringCache.set(cacheKey, cached);
+    let tokenized = iconStringCache.get(iconId);
+    if (!tokenized) {
+      tokenized = raw.replace(/id="ps-([^"]+)"/g, `id="ps-$1-${ICON_ID_TOKEN}"`)
+                     .replace(/url\(#ps-([^)]+)\)/g, `url(#ps-$1-${ICON_ID_TOKEN})`);
+      iconStringCache.set(iconId, tokenized);
     }
-    return cached;
+    // 고정 suffix를 넘긴 호출자는 그 이름 공간을 스스로 관리한다(예: 스튜디오 크기별 미리보기)
+    return tokenized.split(ICON_ID_TOKEN).join(customSuffix || nextIconSuffix(iconId));
+  }
+
+  /**
+   * 템플릿 복제본의 ps-* id와 url(#ps-*) 참조를 이 인스턴스 전용 이름으로 바꾼다.
+   */
+  function uniquifyIconIds(fragment, iconId) {
+    const idNodes = fragment.querySelectorAll('[id^="ps-"]');
+    if (!idNodes.length) return;
+    const tag = `-${nextIconSuffix(iconId)}`;
+    idNodes.forEach(node => { node.id += tag; });
+    fragment.querySelectorAll('*').forEach(node => {
+      for (const attr of node.attributes) {
+        if (attr.value.indexOf('url(#ps-') !== -1) {
+          node.setAttribute(attr.name, attr.value.replace(/url\(#(ps-[^)]+)\)/g, `url(#$1${tag})`));
+        }
+      }
+    });
   }
 
   /**
@@ -10280,8 +10305,10 @@
 
     const tpl = getPapercutIconTemplate(iconId);
     if (tpl) {
+      const fragment = tpl.content.cloneNode(true);
+      uniquifyIconIds(fragment, iconId);
       el.textContent = '';
-      el.appendChild(tpl.content.cloneNode(true));
+      el.appendChild(fragment);
       el.classList.add('pc-inline-icon', 'is-color', 'pc-color-icon');
       el.setAttribute('data-hydrated', 'true');
       return true;
@@ -10379,9 +10406,9 @@
     // 2. [Lazy Hydration] Below-the-fold sections configured with 200px rootMargin
     const lazySectionIds = [
       'kirigami-components',
-      'shadcn-components',
-      'shadcn-blocks-charts',
-      'shadcn-charts-section',
+      'pc-components',
+      'pc-blocks-charts',
+      'pc-charts-section',
       'icon-gallery',
       'bg-library',
       'texture-showcase',

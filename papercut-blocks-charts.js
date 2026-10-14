@@ -1,9 +1,9 @@
 /**
- * PaperCut UI - Shadcn Blocks & Charts Engine
+ * PaperCut UI - PC Blocks & Charts Engine
  * Authentic 3D Layered Paper-Cut Design System
  * 
- * Part 1: Shadcn Blocks (Admin Dashboard, Auth, Settings, E-Commerce, Pricing, Dropzone)
- * Part 2: Shadcn Charts (Area, Bar, Line, Donut, Radar, Radial Bar, Tooltip & Legend)
+ * Part 1: PC Blocks (Admin Dashboard, Auth, Settings, E-Commerce, Pricing, Dropzone)
+ * Part 2: PC Charts (Area, Bar, Line, Donut, Radar, Radial Bar, Tooltip & Legend)
  */
 
 (function (global) {
@@ -159,7 +159,7 @@
 
 
   // =========================================================================
-  // 2. PART 1: SHADCN BLOCKS ENGINE
+  // 2. PART 1: PC BLOCKS ENGINE
   // =========================================================================
 
   const PapercutBlocks = {
@@ -1717,7 +1717,7 @@
 
 
   // =========================================================================
-  // 3. PART 2: SHADCN CHARTS ENGINE (3D Paper-Cut Vector Craft SVG)
+  // 3. PART 2: PC CHARTS ENGINE (3D Paper-Cut Vector Craft SVG)
   // =========================================================================
 
   const PapercutCharts = {

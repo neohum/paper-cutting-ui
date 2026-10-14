@@ -1,0 +1,11 @@
+{
+  "name": "papercut-ui",
+  "private": true,
+  "description": "PaperCut UI - zero-runtime Vanilla HTML/CSS/JS UI library (테스트용 devDependency만 포함)",
+  "scripts": {
+    "test:overflow": "node scripts/ops/verify-overflow.mjs --page && node scripts/ops/verify-overflow.mjs --fixtures"
+  },
+  "devDependencies": {
+    "playwright-core": "1.48.2"
+  }
+}

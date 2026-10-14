@@ -24,6 +24,15 @@
     'mint', 'peach', 'lavender', 'buttercup', 'sky', 'rose', 'cream', 'sage'
   ];
 
+  // 페이퍼 레이어 엔진이 아는 7톤 (sage 등 그 밖의 변형은 mint로)
+  const PAPER_TONES = ['mint', 'peach', 'lavender', 'buttercup', 'sky', 'rose', 'cream'];
+
+  // 동적으로 바뀐 오버레이 내용을 즉시 수화한다(엔진이 없으면 아무 일도 안 한다)
+  function hydratePaper(el) {
+    const paper = window.PaperCutUI && window.PaperCutUI.paper;
+    if (paper && typeof paper.hydrate === 'function' && el) paper.hydrate(el);
+  }
+
   // SVG Medallion Templates
   const WAX_SEAL_SVG = `
     <svg class="pc-wax-seal-svg" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +57,7 @@
       dialogBackdrop.id = 'pc-modal-dialog-backdrop';
       dialogBackdrop.className = 'pc-modal-backdrop';
       dialogBackdrop.innerHTML = `
-        <div class="pc-modal-dialog pc-modal-washi variant-mint" id="pc-active-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dialog-title">
+        <div class="pc-modal-dialog pc-modal-washi variant-mint" id="pc-active-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dialog-title" data-pc-paper="sheet" data-pc-tone="mint">
           <!-- Kirigami Ornamentation Mounts -->
           <div class="pc-dialog-washi" id="pc-dialog-washi-tape"></div>
           <div class="pc-modal-wax-seal" id="pc-dialog-wax-mount" style="display: none;">${WAX_SEAL_SVG}</div>
@@ -80,25 +89,30 @@
                   <label style="display: block; font-size: 13px; font-weight: 700; color: #4A3A2C; margin-bottom: 6px;">
                     프로필 명칭 (수제 라벨)
                   </label>
-                  <input type="text" class="pc-input" value="오리가미 아틀리에 에디터" style="width: 100%;">
+                  <div class="pc-ui-field-wrap pc-modal-field" data-pc-paper="field" data-pc-tone="cream">
+                    <input type="text" class="pc-input" value="오리가미 아틀리에 에디터" style="width: 100%;">
+                  </div>
                 </div>
                 <div>
                   <label style="display: block; font-size: 13px; font-weight: 700; color: #4A3A2C; margin-bottom: 6px;">
                     종이 지질 선택 (16종 스톡)
                   </label>
-                  <div class="pc-select-wrapper">
-                    <select class="pc-select">
+                  <div class="pc-ui-field-wrap pc-modal-field" data-pc-paper="field" data-pc-tone="cream">
+                    <select class="pc-modal-select" aria-label="종이 지질 선택">
                       <option>300g 수제 코튼지 (Cotton Handmade)</option>
                       <option>350g 매트 크림보드 (Matte Cream Board)</option>
                       <option>닥나무 전통 한지 (Mulberry Hanji)</option>
                       <option>프렌치 린넨 패브릭지 (French Linen)</option>
                     </select>
+                    <span class="pc-inline-icon is-xs pc-modal-select-caret" data-icon="arrow-down" aria-hidden="true"></span>
                   </div>
                 </div>
-                <div style="background: #F3ECE1; border-radius: 12px; padding: 12px 14px; border: 1px solid #E2D6C3;">
-                  <label class="pc-checkbox-label" style="font-size: 13px;">
-                    <input type="checkbox" class="pc-checkbox-input" checked>
-                    <span class="pc-checkbox-box"></span>
+                <div class="pc-modal-callout" data-pc-paper="field" data-pc-tone="buttercup">
+                  <label class="pc-row pc-ui-checkbox-label pc-ui-ctl-label" style="--pc-gap: 8px; font-size: 13px;">
+                    <span class="pc-ui-ctl pc-ui-ctl-check" data-pc-paper="knob" data-pc-tone="mint" data-pc-hover>
+                      <input type="checkbox" class="pc-ui-ctl-input" checked>
+                      <span class="pc-inline-icon is-xs pc-ui-ctl-mark" data-icon="check-mark"></span>
+                    </span>
                     <span>칼선 외곽선(Stroke) 2.0px 안티앨리어싱 자동 보정</span>
                   </label>
                 </div>
@@ -137,12 +151,12 @@
       sheetBackdrop.id = 'pc-modal-sheet-backdrop';
       sheetBackdrop.className = 'pc-modal-sheet-backdrop';
       sheetBackdrop.innerHTML = `
-        <div class="pc-modal-sheet" role="dialog" aria-modal="true">
+        <div class="pc-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="pc-sheet-title" data-pc-paper="sheet" data-pc-tone="cream">
           <div class="pc-sheet-header">
             <div>
               <div style="display: flex; gap: 6px; margin-bottom: 4px;">
-                <span class="pc-badge pc-badge-peach" style="font-size: 11px;">Slide-Over Sheet</span>
-                <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">사이드 패널</span>
+                <span class="pc-badge pc-badge-peach" data-pc-paper="pill" data-pc-tone="peach" style="font-size: 11px;">Slide-Over Sheet</span>
+                <span class="pc-badge pc-badge-lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-size: 11px;">사이드 패널</span>
               </div>
               <h3 style="margin: 0; font-size: 20px; font-weight: 800; color: #37281E; display: flex; align-items: center; gap: 8px;">
                 <span class="pc-inline-icon is-sm" data-icon="book"></span>
@@ -156,7 +170,7 @@
           <div class="pc-sheet-body" id="pc-sheet-body">
             <div style="display: flex; flex-direction: column; gap: 14px;">
               <!-- Item 1 -->
-              <div class="pc-card" style="padding: 14px; background: #FFFFFF; border-radius: 14px; border: 1.5px solid #E6DCCB;">
+              <div class="pc-card pc-modal-sheet-item" data-pc-paper="sheet" data-pc-tone="mint">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                   <div style="display: flex; gap: 10px; align-items: center;">
                     <div style="width: 40px; height: 40px; background: #E8F6EE; border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid #C4E5D4;">
@@ -167,12 +181,12 @@
                       <div style="font-size: 12px; color: #8A7A6A;">300g 미색 코튼 보드지</div>
                     </div>
                   </div>
-                  <span class="pc-badge pc-badge-mint" style="font-weight: 800;">₩18,500</span>
+                  <span class="pc-badge pc-badge-mint" data-pc-paper="pill" data-pc-tone="mint" style="font-weight: 800;">₩18,500</span>
                 </div>
               </div>
 
               <!-- Item 2 -->
-              <div class="pc-card" style="padding: 14px; background: #FFFFFF; border-radius: 14px; border: 1.5px solid #E6DCCB;">
+              <div class="pc-card pc-modal-sheet-item" data-pc-paper="sheet" data-pc-tone="peach">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                   <div style="display: flex; gap: 10px; align-items: center;">
                     <div style="width: 40px; height: 40px; background: #FDEFE6; border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid #F8D3BE;">
@@ -183,12 +197,12 @@
                       <div style="font-size: 12px; color: #8A7A6A;">15mm 폭 반투명 와시 테이프</div>
                     </div>
                   </div>
-                  <span class="pc-badge pc-badge-peach" style="font-weight: 800;">₩12,000</span>
+                  <span class="pc-badge pc-badge-peach" data-pc-paper="pill" data-pc-tone="peach" style="font-weight: 800;">₩12,000</span>
                 </div>
               </div>
 
               <!-- Item 3 -->
-              <div class="pc-card" style="padding: 14px; background: #FFFFFF; border-radius: 14px; border: 1.5px solid #E6DCCB;">
+              <div class="pc-card pc-modal-sheet-item" data-pc-paper="sheet" data-pc-tone="lavender">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                   <div style="display: flex; gap: 10px; align-items: center;">
                     <div style="width: 40px; height: 40px; background: #F3EEFD; border-radius: 10px; display: flex; align-items: center; justify-content: center; border: 1px solid #D9CBFA;">
@@ -199,12 +213,12 @@
                       <div style="font-size: 12px; color: #8A7A6A;">30도 각도 미세 칼날 10매 포함</div>
                     </div>
                   </div>
-                  <span class="pc-badge pc-badge-lavender" style="font-weight: 800;">₩9,800</span>
+                  <span class="pc-badge pc-badge-lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-weight: 800;">₩9,800</span>
                 </div>
               </div>
 
               <!-- Summary -->
-              <div style="background: #F4EFE6; border-radius: 14px; padding: 14px 16px; margin-top: 8px;">
+              <div class="pc-modal-sheet-summary" data-pc-paper="field" data-pc-tone="cream">
                 <div style="display: flex; justify-content: space-between; font-size: 13px; color: #6D5C4C; margin-bottom: 6px;">
                   <span>상품 소계</span>
                   <span>₩40,300</span>
@@ -250,8 +264,8 @@
       drawerBackdrop.id = 'pc-modal-drawer-backdrop';
       drawerBackdrop.className = 'pc-modal-drawer-backdrop';
       drawerBackdrop.innerHTML = `
-        <div class="pc-modal-drawer" role="dialog" aria-modal="true">
-          <div class="pc-drawer-pull-tab" id="pc-drawer-tab" title="아래로 스와이프하여 닫기"></div>
+        <div class="pc-modal-drawer" role="dialog" aria-modal="true" aria-labelledby="pc-drawer-title" data-pc-paper="sheet" data-pc-tone="lavender" style="--pc-paper-radius: 24px;">
+          <div class="pc-drawer-pull-tab" id="pc-drawer-tab" data-pc-paper="track" data-pc-tone="cream" title="아래로 스와이프하여 닫기"></div>
           <div class="pc-drawer-header">
             <div>
               <div style="font-size: 11px; font-weight: 800; color: #8F7D6D; text-transform: uppercase; letter-spacing: 0.5px;">Bottom Drawer Tray</div>
@@ -308,6 +322,9 @@
       window.hydratePapercutIcons(sheetBackdrop);
       window.hydratePapercutIcons(drawerBackdrop);
     }
+    hydratePaper(dialogBackdrop);
+    hydratePaper(sheetBackdrop);
+    hydratePaper(drawerBackdrop);
   }
 
   function getFocusableElements(container) {
@@ -356,6 +373,10 @@
 
     dialogEl.classList.add(`pc-modal-${kirigami}`);
     dialogEl.classList.add(`variant-${variant}`);
+
+    // 페이퍼 레이어: 티켓 모달은 반원 노치가 있는 ticket 색지, 나머지는 sheet. 톤은 모달 색지 변형을 따른다.
+    dialogEl.setAttribute('data-pc-paper', kirigami === 'ticket' ? 'ticket' : 'sheet');
+    dialogEl.setAttribute('data-pc-tone', PAPER_TONES.includes(variant) ? variant : 'mint');
 
     // Manage Kirigami Ornaments
     const washiTape = dialogBackdrop.querySelector('#pc-dialog-washi-tape');
@@ -461,6 +482,7 @@
       window.hydratePapercutIcons(dialogEl);
     }
 
+    hydratePaper(dialogEl);
     dialogBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
 
@@ -504,6 +526,7 @@
       }
     }
 
+    hydratePaper(sheetBackdrop);
     sheetBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
 
@@ -546,6 +569,7 @@
       }
     }
 
+    hydratePaper(drawerBackdrop);
     drawerBackdrop.classList.add('is-active');
     document.body.style.overflow = 'hidden';
 
@@ -693,11 +717,11 @@
     envelopeModal
   };
 
-  // Wire up with PaperCutShadcnUI
-  if (!window.PaperCutShadcnUI) window.PaperCutShadcnUI = {};
-  window.PaperCutShadcnUI.openDemoModal = openDialog;
-  window.PaperCutShadcnUI.openDemoSheet = openSheet;
-  window.PaperCutShadcnUI.openDemoDrawer = openDrawer;
+  // Wire up with PaperCutUI
+  if (!window.PaperCutUI) window.PaperCutUI = {};
+  window.PaperCutUI.openDemoModal = openDialog;
+  window.PaperCutUI.openDemoSheet = openSheet;
+  window.PaperCutUI.openDemoDrawer = openDrawer;
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', ensureModalsDOM);

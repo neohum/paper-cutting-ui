@@ -1438,12 +1438,12 @@ A dedicated micro-scale simulation component (`papercut-icon-sim.js` & `papercut
    - Per-size independent fine-tuning drawer with sync restoration.
    - One-click standalone SVG serialization and CSS class generation.
 
-### 8.9 shadcn/ui Paper-Cut Component Library (45 Interactive Components)
-The complete official suite of **45 shadcn/ui components** has been reimagined in authentic **3D Layered Paper-Cut Aesthetics**:
+### 8.9 PC UI Paper-Cut Component Library (45 Interactive Components)
+The complete official suite of **45 PC UI components** has been reimagined in authentic **3D Layered Paper-Cut Aesthetics**:
 - **Design Foundations:**
   - Base Cardstock: High-bulk matte cream (`#FAF7F0`, `#FFFDF9`, `#F3EFE6`).
   - Warm Umber Shadows: Multi-tier wood-pulp drop shadows (`rgba(74, 60, 49, 0.08 - 0.22)`) across elevations E-1 through E-5, plus carved debossed well shadows.
-  - Tactile Embellishments: Washi tape pins (`.pc-sd-washi-pin`), deckle edges, postage stamp roulette perforations, scallop cuts, origami dogear corner folds, and concertina pleats.
+  - Tactile Embellishments: Washi tape pins (`.pc-ui-washi-pin`), deckle edges, postage stamp roulette perforations, scallop cuts, origami dogear corner folds, and concertina pleats.
 - **Component Catalog (45 Components):**
   1. *Accordion*: Concertina pleated paper fold with rotating chevron cutline.
   2. *Alert*: Postage stamp deckle edge badge with ribbon border & pastel status tints.
@@ -1493,7 +1493,7 @@ The complete official suite of **45 shadcn/ui components** has been reimagined i
 
 ---
 
-### 8.10 shadcn/ui Production Blocks (6 Core Scenarios)
+### 8.10 PC UI Production Blocks (6 Core Scenarios)
 1. **Admin & SaaS Analytics Dashboard Block (`admin-dashboard`)**:
    - Header with search well, notification bell with red indicator badge, user avatar seal, and washi tape accent.
    - 4 Metric Cards (Revenue, Subscriptions, Active Now, Sales) with pastel badges, percentage pill tags, and mini icon discs.

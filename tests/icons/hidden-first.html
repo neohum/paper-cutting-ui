@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>아이콘 id 회귀 픽스처</title>
+  <link rel="icon" href="../../favicon.svg">
+  <link rel="stylesheet" href="../../papercut.css">
+</head>
+<body style="background: #fff;">
+  <!-- 같은 아이콘의 첫 복제본이 display:none 안에 있어도 뒤의 복제본이 그려져야 한다 -->
+  <div style="display: none;"><span class="pc-inline-icon" data-icon="arrow-left"></span></div>
+  <span id="visible-icon" class="pc-inline-icon" data-icon="arrow-left" style="display: inline-block; width: 64px; height: 64px;"></span>
+  <div id="string-icons"></div>
+  <script src="../../papercut-icons.js"></script>
+  <script>
+    window.addEventListener('load', function () {
+      window.hydratePapercutIcons(document);
+      document.getElementById('string-icons').innerHTML =
+        window.getPapercutIconSvg('arrow-left') + window.getPapercutIconSvg('arrow-left');
+      document.documentElement.setAttribute('data-ready', '1');
+    });
+  </script>
+</body>
+</html>

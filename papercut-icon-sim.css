@@ -61,7 +61,7 @@
 
 .pc-sim-console-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 20px;
 }
 
@@ -513,13 +513,13 @@
   gap: 12px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1279px) {
   .pc-sim-compare-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 767px) {
   .pc-sim-compare-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -839,7 +839,7 @@
   overflow-x: auto;
   max-height: 280px;
   white-space: pre-wrap;
-  word-break: break-all;
+  overflow-wrap: anywhere;
   border: 1px solid #362D26;
   box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
 }

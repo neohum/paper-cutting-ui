@@ -7,13 +7,14 @@
 
 ```
 .
-├── index.html                  # 30 interactive apps, 45 shadcn components, 6 charts showcase
+├── index.html                  # 30 interactive apps, 45 PC components, 6 charts showcase
 ├── icon-simulator.html         # Dual Studio Icon Simulator (16~28px line vs 32~256px 3D paper)
 ├── papercut.css                # Core PaperCut UI stylesheet (B Standard 2-Tier 4.5px 48% Stacking)
 ├── papercut.js                 # Interactions, dropdowns, haptic press, toasts, audio synth
 ├── papercut-icons.js           # 678-icon registry (659 SVGs + 19 aliases) & scale-based engine
 ├── papercut-shadow-studio.*    # 3D Depth & Shadow physics simulation lab
-├── papercut-shadcn.*           # 45 shadcn/ui papercraft components
+├── papercut-ui.*           # 45 PC UI papercraft components
+├── papercut-paper-layer.*  # SVG paper layer engine (data-pc-paper) for PC components
 ├── papercut-blocks-charts.*    # 6 production blocks & 6 vector charts
 ├── papercut-alerts-toasts.*    # Alerts & toasts system
 ├── papercut-sidebar.*          # Responsive left-aligned navigation sidebar
@@ -31,7 +32,8 @@
 | `papercut.css`              | Core CSS tokens, elevation & components    | _lead_   | architect, builder          |
 | `papercut-icons.js`         | 678 Kirigami icon system & hydration       | _lead_   | architect, builder          |
 | `papercut-shadow-studio.*`  | 3D multi-tier shadow engine                | _lead_   | architect, builder          |
-| `papercut-shadcn.*`         | 45 shadcn/ui paper component adaptations   | _lead_   | architect, builder          |
+| `papercut-ui.*`         | 45 PC UI paper component adaptations   | _lead_   | architect, builder          |
+| `papercut-paper-layer.*` | SVG cardstock layer engine for PC components | _lead_ | architect, builder |
 | `papercut-blocks-charts.*`  | Scenario blocks & 3D vector data charts    | _lead_   | architect, builder          |
 | `DESIGN_SYSTEM.md`          | Master design specification & app taxonomy | _lead_   | architect                   |
 | `DESIGN.md`                 | Single source of truth for UI/UX contracts | _lead_   | architect                   |
