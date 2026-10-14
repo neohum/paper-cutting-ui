@@ -1,7 +1,7 @@
 ---
 slug: 2026-10-14-idea-audit-and-master-roadmap
 title: "paper-cutting-ui 전수 아이디어·플랜 감사 및 마스터 개발 로드맵"
-status: approved
+status: done
 risk: medium
 created: 2026-10-14
 ---

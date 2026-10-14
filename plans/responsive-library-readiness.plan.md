@@ -1,6 +1,6 @@
 ---
 plan: responsive-library-readiness
-status: draft
+status: done
 risk: medium
 owner: neohum
 ---
