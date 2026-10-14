@@ -89,16 +89,32 @@ try {
     return { first: inFirstScreen.length, firstHydrated: inFirstScreen.filter((el) => el.querySelector('svg')).length,
       missing: inFirstScreen.filter((el) => !el.querySelector('svg')).slice(0, 5).map((el) => el.getAttribute('data-icon')) };
   });
-  await page.evaluate(async () => {
-    const h = document.documentElement.scrollHeight;
-    for (let y = 0; y < h; y += 700) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 25)); }
+  // 처음에 수화되지 않은 아이콘을 표시해 두고, 스크롤로 화면에 실제로 들어온 표시 대상이 자동 수화됐는지 본다.
+  // (문서 전체 SVG 수처럼 범위가 다른 값끼리 비교하면 푸터 선수화 같은 다른 경로가 지연 수화 실패를 가린다.)
+  await page.evaluate(() => {
+    document.querySelectorAll('[data-icon]').forEach((el) => { if (!el.querySelector('svg')) el.setAttribute('data-vi-pending', ''); });
   });
-  await page.waitForTimeout(800);
-  // 스크롤 뒤 자동 수화가 실제로 일어났는지(0이 아닌지)만 본다. 지연 로딩 완료율은 스크롤 타이밍에 따라 흔들린다.
-  const autoAfterScroll = await page.evaluate(() => document.querySelectorAll('[data-icon] svg').length);
-  const autoPass = auto.first > 0 && auto.firstHydrated === auto.first && autoAfterScroll > auto.firstHydrated;
+  const lazy = { seen: 0, hydrated: 0, missing: [] };
+  const docH = await page.evaluate(() => document.documentElement.scrollHeight);
+  for (let k = 1; k <= 9; k++) {
+    await page.evaluate((y) => window.scrollTo(0, y), Math.round((docH * k) / 10));
+    await page.waitForTimeout(700);   // IntersectionObserver 콜백과 수화가 끝날 시간
+    const st = await page.evaluate(() => {
+      const inView = [...document.querySelectorAll('[data-vi-pending]')].filter((el) => {
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+      });
+      const res = { seen: inView.length, hydrated: inView.filter((el) => el.querySelector('svg')).length,
+        missing: inView.filter((el) => !el.querySelector('svg')).slice(0, 3).map((el) => el.getAttribute('data-icon')) };
+      inView.forEach((el) => el.removeAttribute('data-vi-pending'));   // 같은 요소를 두 번 세지 않는다
+      return res;
+    });
+    lazy.seen += st.seen; lazy.hydrated += st.hydrated; lazy.missing.push(...st.missing);
+  }
+  const lazyRatio = lazy.seen ? lazy.hydrated / lazy.seen : 0;
+  const autoPass = auto.first > 0 && auto.firstHydrated === auto.first && lazy.seen > 0 && lazyRatio >= MIN_HYDRATED_RATIO;
   ok &&= autoPass;
-  console.log(`${autoPass ? 'PASS' : 'FAIL'} index.html    auto: firstScreen=${auto.firstHydrated}/${auto.first} afterScroll=${autoAfterScroll}${auto.missing.length ? ' 미수화 e.g. ' + auto.missing.join(', ') : ''}`);
+  console.log(`${autoPass ? 'PASS' : 'FAIL'} index.html    auto: firstScreen=${auto.firstHydrated}/${auto.first} lazyInView=${lazy.hydrated}/${lazy.seen} (${(lazyRatio * 100).toFixed(1)}%, 최소 ${MIN_HYDRATED_RATIO * 100}%)${auto.missing.length ? ' 첫화면 미수화 e.g. ' + auto.missing.join(', ') : ''}${lazy.missing.length ? ' 지연 미수화 e.g. ' + lazy.missing.slice(0, 5).join(', ') : ''}`);
   // 2단계: id 무결성은 가장 많은 복제본이 공존하는 상태에서 잰다. 자동 수화 판정이 끝난 뒤에만 전부 수화한다.
   await page.evaluate(() => { if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(document); });
   await page.waitForTimeout(300);

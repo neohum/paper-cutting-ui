@@ -10189,6 +10189,9 @@
    */
   // PaperCut Icon Aliases & Normalization Map
   const ICON_ALIASES = {
+    // 레지스트리에 없는 짧은 이름이 데모와 사용자 코드에 쓰여 아이콘이 비어 보였다
+    "star": "award-star",
+    "stamp": "stamp-rubber",
     "paper-plane-fly": "paper-plane",
     "ribbon-rosette": "ribbon",
     "checkbox-mark": "check",
