@@ -54,8 +54,8 @@ function initDropdowns() {
       const parent = item.closest('.pc-dropdown-custom');
       const trigger = parent.querySelector('.pc-dropdown-trigger');
       const triggerContent = trigger ? trigger.querySelector('.trigger-content') : null;
-      const itemIcon = item.querySelector('.pc-inline-icon');
-      const itemText = item.querySelector('.pc-dropdown-text') || item;
+      const itemIcon = item.querySelector('.pc-dropdown-item-main .pc-inline-icon') || item.querySelector('.pc-inline-icon:not([data-icon="check"])');
+      const itemText = item.querySelector('.pc-dropdown-text') || item.querySelector('.pc-dropdown-item-main') || item;
       const cleanText = (itemText.textContent || item.textContent).replace(/[\u2713\u2714\u2705]/g, '').trim();
 
       if (triggerContent) {
@@ -73,8 +73,12 @@ function initDropdowns() {
         if (triggerSpan) triggerSpan.textContent = cleanText;
       }
 
-      parent.querySelectorAll('.pc-dropdown-item').forEach(i => i.classList.remove('is-selected'));
+      parent.querySelectorAll('.pc-dropdown-item').forEach(i => {
+        i.classList.remove('is-selected');
+        i.setAttribute('aria-selected', 'false');
+      });
       item.classList.add('is-selected');
+      item.setAttribute('aria-selected', 'true');
       parent.classList.remove('is-open');
 
       // Sync with linked hidden select if present
@@ -160,9 +164,11 @@ function autoEnhanceSelectsToPaperDropdowns(root = document) {
     // Give select an ID if missing
     if (!select.id) select.id = 'pc-auto-select-' + idx;
 
+    const isWell = select.classList.contains('is-well') || select.classList.contains('pc-select-well');
+
     // Create the custom paper dropdown container
     const customDropdown = document.createElement('div');
-    customDropdown.className = 'pc-dropdown-custom';
+    customDropdown.className = 'pc-dropdown-custom' + (isWell ? ' is-well' : '');
     customDropdown.dataset.linkedSelect = select.id;
 
     // Selected text & options
@@ -172,7 +178,9 @@ function autoEnhanceSelectsToPaperDropdowns(root = document) {
     // Trigger button
     const trigger = document.createElement('button');
     trigger.type = 'button';
-    trigger.className = 'pc-dropdown-trigger';
+    trigger.className = 'pc-dropdown-trigger' + (isWell ? ' is-well' : '');
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
     trigger.innerHTML = `
       <span class="trigger-content">
         ${initialExtracted.iconId ? `<span class="pc-inline-icon is-sm" data-icon="${initialExtracted.iconId}"></span>` : ''}
@@ -182,20 +190,34 @@ function autoEnhanceSelectsToPaperDropdowns(root = document) {
     `;
     customDropdown.appendChild(trigger);
 
-    // Menu list
+    // Menu list (넓은 바닥 종이 플레이트)
     const menu = document.createElement('div');
     menu.className = 'pc-dropdown-menu';
+    menu.setAttribute('role', 'listbox');
 
     Array.from(select.options).forEach((opt, optIdx) => {
+      const isSelected = opt.selected || optIdx === select.selectedIndex;
       const item = document.createElement('button');
       item.type = 'button';
-      item.className = 'pc-dropdown-item' + (opt.selected ? ' is-selected' : '');
+      item.className = 'pc-dropdown-item' + (isSelected ? ' is-selected' : '');
+      item.setAttribute('role', 'option');
+      item.setAttribute('aria-selected', isSelected ? 'true' : 'false');
       item.dataset.value = opt.value || opt.textContent.trim();
       
       const optExtracted = extractOptionIcon(opt);
       item.innerHTML = `
-        ${optExtracted.iconId ? `<span class="pc-inline-icon is-sm" data-icon="${optExtracted.iconId}"></span>` : ''}
-        <span class="pc-dropdown-text">${optExtracted.label}</span>
+        <span class="pc-dropdown-item-main">
+          ${optExtracted.iconId ? `<span class="pc-inline-icon is-sm" data-icon="${optExtracted.iconId}"></span>` : ''}
+          <span class="pc-dropdown-text">${optExtracted.label}</span>
+        </span>
+        <span class="pc-dropdown-check" aria-hidden="true">
+          <svg class="pc-check-stream-v" viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M 3.8 10.2 C 4.6 9.4 5.8 8.6 6.8 9.2 C 7.8 10.8 8.8 13.0 10.0 14.8 C 12.2 11.6 15.2 7.6 18.2 4.4 C 19.4 3.8 20.6 4.5 21.2 5.8 C 17.6 10.4 14.0 15.0 10.4 19.4 C 9.6 19.8 8.8 19.6 8.2 18.8 C 6.6 16.0 5.2 13.2 3.8 10.2 Z" fill="#14422E" transform="translate(0, 0.9)"/>
+            <path d="M 3.8 10.2 C 4.6 9.4 5.8 8.6 6.8 9.2 C 7.8 10.8 8.8 13.0 10.0 14.8 C 12.2 11.6 15.2 7.6 18.2 4.4 C 19.4 3.8 20.6 4.5 21.2 5.8 C 17.6 10.4 14.0 15.0 10.4 19.4 C 9.6 19.8 8.8 19.6 8.2 18.8 C 6.6 16.0 5.2 13.2 3.8 10.2 Z" fill="#246D4E"/>
+            <path d="M 4.2 10.2 C 4.8 9.6 5.8 9.0 6.6 9.5 C 7.6 11.0 8.6 13.1 9.8 14.8 C 12.0 11.7 15.0 7.8 18.0 4.7 C 19.0 4.2 20.0 4.8 20.6 5.8 C 17.2 10.2 13.8 14.7 10.2 18.8 C 9.6 19.2 8.9 19.0 8.4 18.4 C 6.9 15.8 5.6 13.1 4.2 10.2 Z" fill="#3D9B72"/>
+            <path d="M 4.2 10.0 C 5.8 8.8 7.8 11.0 9.8 14.8 C 13.5 10.0 17.0 6.2 20.6 5.6" fill="none" stroke="#FFFFFF" stroke-width="0.8" stroke-linecap="round"/>
+          </svg>
+        </span>
       `;
       menu.appendChild(item);
     });

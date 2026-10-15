@@ -68,28 +68,35 @@
   /* Shadow 1: Surface contact (very close cut paper, badges, tags, mini chips) */
   --pc-paper-shadow-xs: 
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1px 1.5px rgba(var(--pc-shadow-tint), 0.45),
-    0 2.2px 5px rgba(var(--pc-shadow-tint), 0.18);
+    0.6px 0.8px 0 #D8CAB8,
+    1.2px 1.6px 0 #B9A58C,
+    1.8px 2.2px 0 rgba(var(--pc-shadow-tint), 0.35),
+    2.5px 3.5px 5px rgba(var(--pc-shadow-tint), 0.10);
   
   /* Shadow 2: Raised single cardstock sheet (Standard 2-Tier 4.5px 48% Stacking) */
   --pc-paper-shadow-sm: 
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 4.5px 10px rgba(var(--pc-shadow-tint), 0.26);
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(var(--pc-shadow-tint), 0.38),
+    3.5px 4.5px 7px rgba(var(--pc-shadow-tint), 0.16);
   
   /* Shadow 3: Medium elevation (Buttons, Raised Cards, Selects, Floating Tags) */
   --pc-paper-shadow-md: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 2px 3px rgba(var(--pc-shadow-tint), 0.50),
-    0 6px 16px rgba(var(--pc-shadow-tint), 0.28),
-    0 12px 28px rgba(var(--pc-shadow-tint), 0.10);
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(var(--pc-shadow-tint), 0.40),
+    3px 4px 6px rgba(var(--pc-shadow-tint), 0.10);
   
   /* Shadow 4: High floating paper layer (Cards, Modals, Overlays, Sheet Drawers) */
   --pc-paper-shadow-lg: 
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
-    0 2.5px 3.5px rgba(var(--pc-shadow-tint), 0.52),
-    0 12px 26px rgba(var(--pc-shadow-tint), 0.30),
-    0 24px 50px rgba(var(--pc-shadow-tint), 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    1px 1px 0 #D8CAB8,
+    1.8px 2px 0 #B9A58C,
+    2.6px 3px 0 rgba(var(--pc-shadow-tint), 0.42),
+    3.8px 4.5px 1.5px rgba(var(--pc-shadow-tint), 0.22),
+    5.5px 7px 10px rgba(var(--pc-shadow-tint), 0.11);
 
   /* Deep Cutout Well (Paper Carved Well Depth) */
   --pc-shadow-cutout: 
@@ -97,10 +104,11 @@
     inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
     0 1px 0 rgba(255, 255, 255, 0.9);
 
-  /* Geometry & Fonts */
-  --pc-radius-sm: 10px;
-  --pc-radius-md: 16px;
-  --pc-radius-lg: 24px;
+  /* Knife-Cut Paper Geometry: Sharp, 90-degree razor knife cuts, zero roundness */
+  --pc-radius-sm: 0px;
+  --pc-radius-md: 0px;
+  --pc-radius-lg: 0px;
+  --pc-radius-xl: 0px;
   --pc-radius-pill: 999px;
   --pc-font: 'Nanum Square Round', -apple-system, sans-serif;
   --pc-font-hand: 'Gaegu', cursive, sans-serif;
@@ -204,12 +212,19 @@ p, .example-desc {
        active:  transform: translateY(1.5px); box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), 0 1.5px 2px rgba(46, 30, 20, 0.16);
    ========================================================================== */
 
+/* ==========================================================================
+   1. BUTTON PRIMITIVES & VARIATIONS
+   3D Layered Paper-on-Paper Stacking Architecture (종이 위에 종이가 얹혀진 2단 적층 구조)
+   - 밑종이 (Base): 사방 3px 살짝 넓은 흰색 카드스톡 종이 시트 (#FFFDF9, 2-Tier 48% 번트 엄버 접촉 그림자)
+   - 윗종이 (Top):  색지(기본 버터컵 노란색 #FEE396 / 민트·피치 등) + 1px 순백색 칼선 림 + 윗종이 밀착 그림자
+   ========================================================================== */
+
 .pc-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 22px;
+  padding: 11px 22px;
   min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   min-width: 0; /* 컨테이너가 좁으면 버튼이 줄어들고 글자가 줄바꿈된다 */
   max-width: 100%;
@@ -218,16 +233,12 @@ p, .example-desc {
   font-size: 15px;
   font-weight: 800;
   line-height: 1;
-  color: var(--pc-ink);
-  background-color: var(--pc-paper-white, #FFFDF9);
-  border: 1px solid rgba(46, 30, 20, 0.16);
-  border-radius: 8px;
-  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
   cursor: pointer;
   user-select: none;
   position: relative;
+  isolation: isolate; /* 밑의 흰색 종이 시트가 부모 배경 뒤로 숨지 않도록 보장 */
   overflow: visible;
-  margin: 3px 6px 6px 3px;
+  margin: 4px 6px;
   text-decoration: none;
   outline: none;
   white-space: normal;
@@ -235,17 +246,51 @@ p, .example-desc {
   text-align: center;
   word-break: keep-all;
   
-  /* 1. 완전 플랫한 매트 종이: 유광/그라데이션 전면 배제 */
+  /* 1. 윗종이 (Top Sheet): 헤더와 동일한 따스한 버터컵 노란색 종이 (#FEE396) */
+  background-color: var(--pc-buttercup, #FEE396);
+  color: var(--pc-buttercup-dark, #66460D);
+  border: 1px solid rgba(184, 142, 38, 0.40);
+  border-radius: 8px;
   background-image: none !important;
 
-  /* 2. 칼로 정밀하게 자른 종이 단면 두께감과 0.88px 화이트 나이프 엣지 림, 2-Tier 48% 번트 엄버 그림자 */
+  /* 2. 칼선 단면 0.88px 순백 나이프 엣지 림 & 밑의 흰 종이에 밀착되는 접촉 그림자 */
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
-    0 2px 0 rgba(46, 30, 20, 0.48),
-    0 4px 8px rgba(46, 30, 20, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.60),
+    0 1px 2px rgba(46, 30, 20, 0.22);
 
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.2s ease;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.16s ease, 
+              background-color 0.2s ease,
+              border-color 0.2s ease;
+}
+
+/* 밑에 살짝 넓은 딥톤 색지 밑판 (Underneath Slightly Wider Colored Base Paper Sheet - 2-Tier Stacking) */
+.pc-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  content: "";
+  position: absolute;
+  top: -1.5px;
+  left: -1.5px;
+  right: -1.5px;
+  bottom: -1.5px;
+  background-color: var(--pc-btn-base-bg, #F5CE6C); /* 기본: 버터컵에 어울리는 딥 골든 색지 밑판 */
+  border-radius: 9px;
+  border: 0.88px solid rgba(46, 30, 20, 0.20);
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.90),
+    0 1px 0 rgba(46, 30, 20, 0.35),
+    0 2px 4px rgba(46, 30, 20, 0.14);
+  pointer-events: none;
+  z-index: -1;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 사이드바 메뉴 및 순수 SVG 버튼은 밑종이 의사요소 예외 처리 */
+.pc-sidebar-item.pc-btn::before,
+.pc-sidebar-top-btn.pc-btn::before,
+.pc-svg-kirigami-btn::before,
+.pc-header-svg-btn::before {
+  display: none !important;
 }
 
 /* 3D Paper-Cut Icon Mount Plate inside Button (0.88px Knife Rim + 2-Tier 48% Shadow) */
@@ -261,8 +306,8 @@ p, .example-desc {
   background: rgba(255, 255, 255, 0.94) !important;
   border: 0.88px solid rgba(255, 255, 255, 0.98) !important;
   box-shadow: 
-    0 1px 0 rgba(46, 30, 20, 0.48),
-    0 2px 4px rgba(46, 30, 20, 0.20) !important;
+    0 1px 0 rgba(46, 30, 20, 0.40),
+    0 2px 4px rgba(46, 30, 20, 0.16) !important;
   flex-shrink: 0 !important;
   line-height: 1 !important;
   vertical-align: middle !important;
@@ -285,24 +330,6 @@ p, .example-desc {
   border-radius: 8px !important;
 }
 
-/* 유기 섬유 펄프 텍스처 오버레이 (광택 없는 단단한 매트 카드스톡 질감) */
-.pc-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='pGrain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035 0.65' numOctaves='2' result='f1'/%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65 0.035' numOctaves='2' result='f2'/%3E%3CfeBlend mode='multiply' in='f1' in2='f2'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23pGrain)'/%3E%3C/svg%3E");
-  opacity: 0.85;
-  mix-blend-mode: multiply;
-  z-index: 1;
-}
-
-/* 단일 종이 원칙: 다층 시트 비표시 */
-.pc-btn::after {
-  display: none !important;
-}
-
 /* 텍스트 및 아이콘은 종이 섬유 질감 위에 또렷하게 중앙 정렬 */
 .pc-btn > * {
   position: relative;
@@ -319,10 +346,17 @@ p, .example-desc {
    ========================================================================== */
 .pc-btn-rect,
 .pc-btn-square {
-  border-radius: 8px; /* 단정한 사각 카드스톡 (6px~8px) */
+  border-radius: 6px;
+}
+.pc-btn-rect:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-btn-square:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  border-radius: 8px;
 }
 .pc-btn-rect-sharp {
-  border-radius: 4px; /* 날카로운 정밀 다이컷 사각 (3px~4px) */
+  border-radius: 4px;
+}
+.pc-btn-rect-sharp:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  border-radius: 6px;
 }
 .pc-btn-square {
   width: 44px;
@@ -332,10 +366,13 @@ p, .example-desc {
   padding: 0;
   border-radius: 8px;
 }
+.pc-btn-square::before {
+  border-radius: 10px;
+}
 
 /* ==========================================================================
    원형 종이 버튼 (Circular Paper Button)
-   - 360° 원형 다이컷, 원호 단면 두께와 플랫한 2-Tier 그림자
+   - 360° 원형 다이컷, 원호 단면 두께와 2단 레이어드 그림자
    ========================================================================== */
 .pc-btn-circle,
 .pc-btn-round {
@@ -346,9 +383,10 @@ p, .example-desc {
   padding: 0;
   border-radius: 50% !important;
   aspect-ratio: 1 / 1;
-  box-shadow: 
-    0 2px 0 rgba(46, 30, 20, 0.38),
-    0 3.5px 6px rgba(46, 30, 20, 0.20);
+}
+.pc-btn-circle:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-btn-round:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  border-radius: 50% !important;
 }
 .pc-btn-circle.pc-btn-lg,
 .pc-btn-round.pc-btn-lg {
@@ -357,9 +395,6 @@ p, .example-desc {
   min-width: 52px;
   min-height: 52px;
   border-radius: 50% !important;
-  box-shadow: 
-    0 2.5px 0 rgba(46, 30, 20, 0.38),
-    0 4.5px 8px rgba(46, 30, 20, 0.22);
 }
 .pc-btn-circle.pc-btn-sm,
 .pc-btn-round.pc-btn-sm {
@@ -368,119 +403,170 @@ p, .example-desc {
   min-width: 44px;
   min-height: 44px;
   border-radius: 50% !important;
-  box-shadow: 
-    0 1.5px 0 rgba(46, 30, 20, 0.36),
-    0 2.5px 4px rgba(46, 30, 20, 0.18);
 }
 
 /* ==========================================================================
    플랫한 종이 물리 상호작용 (Hover Lift & Active Press)
+   - Hover: 윗종이가 밑의 흰 종이로부터 -2px 떠오르며 접촉 그림자 확장
+   - Active: 윗종이가 밑의 흰 종이에 밀착되며 안착
    ========================================================================== */
 .pc-btn:hover {
-  transform: translateY(-1.5px);
+  transform: translateY(-2px);
   box-shadow: 
-    0 3px 0 rgba(46, 30, 20, 0.38),
-    0 6px 12px rgba(46, 30, 20, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.80),
+    0 2px 4px rgba(46, 30, 20, 0.26);
 }
-.pc-btn-circle:hover,
-.pc-btn-round:hover {
-  transform: translateY(-1.5px);
+.pc-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn):hover::before {
+  top: -1.5px;
+  left: -1.5px;
+  right: -1.5px;
+  bottom: -2px;
   box-shadow: 
-    0 3px 0 rgba(46, 30, 20, 0.38),
-    0 6px 12px rgba(46, 30, 20, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 7px rgba(46, 30, 20, 0.16);
 }
 
 .pc-btn:active,
 .pc-btn.is-pressed {
   transform: translateY(1.5px);
   box-shadow: 
-    0 0.5px 0 rgba(46, 30, 20, 0.40),
-    0 1.5px 3px rgba(46, 30, 20, 0.20);
+    inset 0 1.5px 2px rgba(46, 30, 20, 0.20),
+    0 0.5px 1px rgba(46, 30, 20, 0.12);
 }
-.pc-btn-circle:active,
-.pc-btn-round:active {
-  transform: translateY(1.5px);
+.pc-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn):active::before {
   box-shadow: 
-    0 0.5px 0 rgba(46, 30, 20, 0.40),
-    0 1.5px 3px rgba(46, 30, 20, 0.20);
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 0.5px 0 rgba(46, 30, 20, 0.45),
+    0 1.5px 3px rgba(46, 30, 20, 0.16);
 }
 
 /* ==========================================================================
-   단일 종이 파스텔 플랫 색상 시스템 (Single-Sheet Pastel Flat Craft Paper Colors)
-   완전 플랫한 매트 종이 본연의 색상과 또렷한 대비의 칼선 테두리
+   2단 종이 적층 파스텔 색상 시스템 (Layered Paper-on-Paper Pastel Craft Colors)
+   색이 있는 딥톤 종이 밑판 위에 파스텔 유색 종이가 얹혀진 2단 이상의 종이 적층 시스템
    ========================================================================== */
 
-/* 1. Mint Single Sheet */
+/* 1. Buttercup Yellow (딥 골든 밑종이 위에 버터컵 노란색 종이) */
+.pc-btn-buttercup,
+.pc-btn-primary {
+  background-color: var(--pc-buttercup, #FEE396);
+  color: var(--pc-buttercup-dark, #66460D);
+  border-color: rgba(184, 142, 38, 0.40);
+}
+.pc-btn-buttercup:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-btn-primary:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #F5CE6C !important;
+  border-color: rgba(184, 142, 38, 0.45) !important;
+}
+
+/* 2. Mint (딥 세이지 민트 밑종이 위에 민트 파스텔 색지) */
 .pc-btn-mint {
-  background-color: var(--pc-mint);
-  color: var(--pc-mint-dark);
-  border-color: rgba(39, 92, 70, 0.22);
+  background-color: var(--pc-mint, #A3D8C3);
+  color: var(--pc-mint-dark, #1C4736);
+  border-color: rgba(39, 92, 70, 0.32);
+}
+.pc-btn-mint:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #8ECBA5 !important;
+  border-color: rgba(39, 92, 70, 0.40) !important;
 }
 
-/* 2. Peach Single Sheet */
+/* 3. Peach (테라코타 코랄 밑종이 위에 피치 크래프트 색지) */
 .pc-btn-peach {
-  background-color: var(--pc-peach);
-  color: var(--pc-peach-dark);
-  border-color: rgba(110, 59, 33, 0.22);
+  background-color: var(--pc-peach, #F7BA9E);
+  color: var(--pc-peach-dark, #6E3B21);
+  border-color: rgba(110, 59, 33, 0.32);
+}
+.pc-btn-peach:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #ECA282 !important;
+  border-color: rgba(110, 59, 33, 0.40) !important;
 }
 
-/* 3. Lavender Single Sheet */
-.pc-btn-lavender {
-  background-color: var(--pc-lavender);
-  color: var(--pc-lavender-dark);
-  border-color: rgba(71, 59, 107, 0.22);
+/* 4. Lavender (오키드 바이올렛 밑종이 위에 라벤더 퍼플 색지) */
+.pc-btn-lavender,
+.pc-btn-secondary {
+  background-color: var(--pc-lavender, #D7CBEB);
+  color: var(--pc-lavender-dark, #433261);
+  border-color: rgba(71, 59, 107, 0.32);
+}
+.pc-btn-lavender:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-btn-secondary:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #BEACDE !important;
+  border-color: rgba(71, 59, 107, 0.40) !important;
 }
 
-/* 4. Buttercup Single Sheet */
-.pc-btn-buttercup {
-  background-color: var(--pc-buttercup);
-  color: var(--pc-buttercup-dark);
-  border-color: rgba(110, 83, 15, 0.22);
-}
-
-/* 5. Sky Single Sheet */
+/* 5. Sky (딥 세룰리안 스카이 밑종이 위에 스카이 블루 색지) */
 .pc-btn-sky {
-  background-color: var(--pc-sky);
-  color: var(--pc-sky-dark);
-  border-color: rgba(32, 76, 90, 0.22);
+  background-color: var(--pc-sky, #BDE0EA);
+  color: var(--pc-sky-dark, #1D4D5C);
+  border-color: rgba(32, 76, 90, 0.32);
+}
+.pc-btn-sky:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #82C6D8 !important;
+  border-color: rgba(32, 76, 90, 0.40) !important;
 }
 
-/* 6. Rose Single Sheet */
-.pc-btn-rose {
-  background-color: var(--pc-rose);
-  color: var(--pc-rose-dark);
-  border-color: rgba(112, 40, 48, 0.22);
+/* 6. Rose (앤틱 로즈 밑종이 위에 더스티 핑크 색지) */
+.pc-btn-rose,
+.pc-btn-destructive {
+  background-color: var(--pc-rose, #F5B8BE);
+  color: var(--pc-rose-dark, #702830);
+  border-color: rgba(112, 40, 48, 0.32);
+}
+.pc-btn-rose:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-btn-destructive:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #E48D98 !important;
+  border-color: rgba(112, 40, 48, 0.40) !important;
 }
 
-/* 7. Sage Single Sheet */
+/* 7. Sage (세이지 그린 밑종이 위에 라이트 세이지 색지) */
 .pc-btn-sage {
-  background-color: var(--pc-sage);
-  color: var(--pc-sage-dark);
-  border-color: rgba(50, 77, 46, 0.22);
+  background-color: var(--pc-sage, #BBD5B8);
+  color: var(--pc-sage-dark, #2C4F3B);
+  border-color: rgba(50, 77, 46, 0.32);
+}
+.pc-btn-sage:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #8ECBA5 !important;
+  border-color: rgba(50, 77, 46, 0.40) !important;
 }
 
-/* 8. Kraft Single Sheet */
+/* 8. Kraft (딥 웜 크래프트 밑종이 위에 샌드 크래프트 색지) */
 .pc-btn-kraft {
   background-color: #E2CCA8;
   color: #4A3A2C;
-  border-color: rgba(74, 58, 44, 0.22);
+  border-color: rgba(74, 58, 44, 0.32);
+}
+.pc-btn-kraft:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #DFC49D !important;
+  border-color: rgba(74, 58, 44, 0.40) !important;
 }
 
-/* 9. Ghost / Parchment Single Sheet */
-.pc-btn-ghost {
-  background-color: rgba(255, 253, 249, 0.92);
-  color: var(--pc-ink);
-  border-color: rgba(46, 30, 20, 0.14);
+/* 9. Ghost / Cream / White Paper Button (딥 웜 크래프트 밑종이 위에 백색 종이) */
+.pc-btn-ghost,
+.pc-btn-cream,
+.pc-btn-white {
+  background-color: #FFFDF9;
+  color: var(--pc-ink, #3D352E);
+  border-color: rgba(196, 183, 166, 0.65);
+}
+.pc-btn-ghost:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-btn-cream:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-btn-white:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  background-color: #DFC49D !important; /* 백색지 아래에 확실한 톤을 지닌 딥 웜 크래프트 밑종이 */
+  border-color: rgba(196, 183, 166, 0.70) !important;
 }
 
 /* Button Shape Adaptations */
 .pc-btn-pill {
-  border-radius: var(--pc-radius-pill);
+  border-radius: var(--pc-radius-pill, 9999px) !important;
+}
+.pc-btn-pill:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  border-radius: 9999px !important;
 }
 
 /* Button Sizes */
 .pc-btn-sm {
-  padding: 8px 16px;
+  padding: 8px 14px;
   font-size: 13px;
   min-height: 44px; /* Ensure 44px touch target standard */
   min-width: 0;
@@ -488,22 +574,36 @@ p, .example-desc {
   box-sizing: border-box;
   white-space: normal;
   border-radius: 6px;
-  margin: 1px 4px 4px 1px;
+  margin: 2px 4px;
+}
+.pc-btn-sm:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  top: -1.2px;
+  left: -1.2px;
+  right: -1.2px;
+  bottom: -1.2px;
+  border-radius: 7px;
 }
 
 .pc-btn-lg {
-  padding: 14px 28px;
+  padding: 13px 26px;
   font-size: 16px;
   min-height: 48px;
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
   white-space: normal;
-  border-radius: 8px;
-  margin: 3px 6px 6px 3px;
+  border-radius: 10px;
+  margin: 4px 6px;
+}
+.pc-btn-lg:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 11px;
 }
 
-/* 겹친 종이 효과 버튼 (Multi-layer Cut Paper Button) */
+/* 3겹 종이 효과 버튼 (3-Tier Layered Cut Paper Button) */
 .pc-btn-stacked {
   position: relative;
 }
@@ -515,9 +615,15 @@ p, .example-desc {
   background-color: var(--pc-mint-layer, #82C2A8);
   border-radius: inherit;
   border: 1px solid rgba(46, 30, 20, 0.14);
-  z-index: -1;
+  z-index: -2;
   box-shadow: 0 2px 0 rgba(46, 30, 20, 0.38), 0 3.5px 6px rgba(46, 30, 20, 0.20);
   transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pc-btn-stacked:hover::after {
+  transform: translate(1px, 1px);
+}
+.pc-btn-stacked:active::after {
+  transform: translate(-1.5px, -1.5px);
 }
 .pc-btn-stacked:hover::after {
   transform: translate(1px, 1px);
@@ -622,15 +728,14 @@ p, .example-desc {
   font-family: var(--pc-font);
   font-size: 15px;
   color: var(--pc-ink);
-  background-color: #EDE8DE; /* Recessed warm pulp paper well */
-  border: none; /* NO dark border */
-  border-radius: var(--pc-radius-md);
-  padding: 11px 18px;
-  /* Carved Paper Well Depth: Deep inset umber shadow + 1px white bottom reflection rim */
+  /* 1. input 내부는 탁한 색이 채워지지 않고 깨끗한 클린 크림/화이트 종이 */
+  background-color: #FFFDF9 !important;
+  border: 1.2px solid rgba(196, 183, 166, 0.75) !important;
+  border-radius: 4px;
+  padding: 10px 16px;
   box-shadow: 
-    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.45),
-    inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
-    0 1px 0 rgba(255, 255, 255, 0.95);
+    inset 0 1px 2px rgba(46, 30, 20, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
   outline: none;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -641,52 +746,124 @@ p, .example-desc {
 }
 
 .pc-input:focus {
-  background-color: #E8E2D6;
+  background-color: #FFFFFF !important;
+  border-color: var(--pc-mint-dark, #275C46) !important;
+  box-shadow: 
+    0 0 0 2.5px rgba(163, 216, 195, 0.45),
+    inset 0 1px 2px rgba(46, 30, 20, 0.06),
+    0 1px 0 #FFFFFF !important;
+}
+
+/* ==========================================================================
+   WAVY DECKLE PAPER OUTER FRAME (외곽에 구불구불한 수제 종이가 감싸는 프레임)
+   - input 내부는 색 없이 깨끗하고, 외곽에 구불구불한 수제 종이 요철 칼선이 감쌈
+   ========================================================================== */
+.pc-input-deckle-frame {
+  position: relative;
+  width: 100%;
+  display: block;
+  padding: 5px 6px;
+  background-color: #F0E8DC;
+  /* 360° 자연스러운 구불구불한 수제 한지 뜯어낸 데클 요철 테두리 */
+  clip-path: polygon(
+    0% 4px, 2% 1px, 5% 4px, 8% 2px, 11% 5px, 14% 1px, 17% 4px, 20% 2px, 23% 5px, 26% 1px, 29% 4px, 32% 2px, 35% 5px, 38% 1px, 41% 4px, 44% 2px, 47% 5px, 50% 1px, 53% 4px, 56% 2px, 59% 5px, 62% 1px, 65% 4px, 68% 2px, 71% 5px, 74% 1px, 77% 4px, 80% 2px, 83% 5px, 86% 1px, 89% 4px, 92% 2px, 95% 5px, 98% 1px, 100% 3px,
+    99.2% 12%, 100% 24%, 98.8% 36%, 100% 48%, 98.8% 60%, 100% 72%, 99% 84%, 100% 96%,
+    98% 100%, 95% 97.5%, 92% 100%, 89% 98%, 86% 100%, 83% 97.5%, 80% 100%, 77% 98%, 74% 100%, 71% 97.5%, 68% 100%, 65% 98%, 62% 100%, 59% 97.5%, 56% 100%, 53% 98%, 50% 100%, 47% 97.5%, 44% 100%, 41% 98%, 38% 100%, 35% 97.5%, 32% 100%, 29% 98%, 26% 100%, 23% 97.5%, 20% 100%, 17% 98%, 14% 100%, 11% 97.5%, 8% 100%, 5% 98%, 2% 100%, 0% 97%,
+    1% 88%, 0% 76%, 1.2% 64%, 0% 52%, 1.2% 40%, 0% 28%, 1% 16%
+  );
+  filter: drop-shadow(0.8px 1.2px 0 rgba(46, 30, 20, 0.38)) drop-shadow(2px 3.5px 5px rgba(46, 30, 20, 0.16));
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+
+.pc-input-deckle-frame:hover {
+  transform: translateY(-1.5px);
+  filter: drop-shadow(1px 1.8px 0 rgba(46, 30, 20, 0.42)) drop-shadow(3px 6px 10px rgba(46, 30, 20, 0.22));
+}
+
+.pc-input-deckle-frame:focus-within {
+  transform: translateY(-1.5px);
+  filter: drop-shadow(1px 1.8px 0 rgba(46, 30, 20, 0.45)) drop-shadow(3px 6px 12px rgba(46, 30, 20, 0.24));
+}
+
+.pc-input-deckle-frame > .pc-input,
+.pc-input-deckle-frame > .pc-select-wrapper > .pc-select {
+  border-radius: 3px;
+  background-color: #FFFDF9 !important;
+  border: 1px solid rgba(196, 183, 166, 0.70) !important;
+  box-shadow: 
+    inset 0 1px 1.5px rgba(46, 30, 20, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Wavy Deckle Paper Outer Frame Colorways (배면 요철 색지 프리셋) */
+.pc-input-deckle-frame.is-mint {
+  background-color: var(--pc-mint, #A3D8C3);
+}
+.pc-input-deckle-frame.is-peach {
+  background-color: var(--pc-peach, #F7BA9E);
+}
+.pc-input-deckle-frame.is-lavender {
+  background-color: var(--pc-lavender, #D7CBEB);
+}
+.pc-input-deckle-frame.is-buttercup {
+  background-color: var(--pc-buttercup, #FEE396);
+}
+
+/* Standalone Wavy Deckle Edge Input (.pc-input-wavy, .pc-input-deckle) */
+.pc-input-wavy,
+.pc-input-deckle {
+  background-color: #FFFDF9 !important;
+  background-clip: padding-box !important;
+  border: 4px solid transparent !important;
+  border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M 0 3 Q 3 0 6 3 Q 9 6 12 3 Q 15 0 18 3 Q 21 6 24 3 L 24 21 Q 21 24 18 21 Q 15 18 12 21 Q 9 24 6 21 Q 3 18 0 21 Z' fill='%23F0E8DC' stroke='%23C4B7A6' stroke-width='1.2'/%3E%3C/svg%3E") 6 round !important;
+  box-shadow: inset 0 1px 2px rgba(46, 30, 20, 0.08), 0 1px 2px rgba(46, 30, 20, 0.12) !important;
+}
+
+/* ==========================================================================
+   CARVED PAPER WELL DEPTH INPUT (이전 방식: 칼로 파낸 종이 음각 인풋)
+   - 종이를 칼로 음각으로 파내어 생기는 베이지 음영 홈 (#EDE8DE)
+   - 2-Tier 45° 번트 엄버 인셋 그림자 + 하단 1px 화이트 반사 림
+   ========================================================================== */
+.pc-input.is-well,
+.pc-input-well,
+.pc-input--well {
+  background-color: #EDE8DE !important;
+  border: none !important;
+  border-radius: 4px;
+  box-shadow: 
+    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.45),
+    inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.pc-input.is-well:focus,
+.pc-input-well:focus,
+.pc-input--well:focus {
+  background-color: #E8E2D6 !important;
   box-shadow: 
     inset 0 2px 4px rgba(var(--pc-shadow-tint), 0.38),
     inset 0 5px 12px rgba(var(--pc-shadow-tint), 0.18),
     0 0 0 2.5px var(--pc-mint),
-    0 1px 0 #FFFFFF;
+    0 1px 0 #FFFFFF !important;
 }
 
-/* Explicit Carved Well Depth Variant */
-.pc-input-well {
-  background-color: #EDE8DE;
-  box-shadow: 
-    inset 0 2.2px 4px rgba(var(--pc-shadow-tint), 0.48),
-    inset 0 6px 14px rgba(var(--pc-shadow-tint), 0.25),
-    0 1px 0 rgba(255, 255, 255, 0.95);
-}
-
-/* Paper-Cut Input Variations */
 .pc-input-stamp {
-  background-color: #F1ECE2;
+  background-color: #FFFDF9 !important;
+  border: 1.5px dashed rgba(74, 58, 42, 0.35) !important;
   box-shadow: 
-    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.45),
-    inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
-    0 1px 0 rgba(255, 255, 255, 0.95);
-  border: 1.5px dashed rgba(74, 58, 42, 0.20);
+    inset 0 1px 2px rgba(46, 30, 20, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 
 .pc-input-ticket {
   position: relative;
-  border-radius: 8px;
-  background-color: #EDE8DE;
+  background-color: #FFFDF9 !important;
+  border-radius: 4px;
+  border: 1.2px solid rgba(196, 183, 166, 0.70) !important;
+  border-left: 4px dashed var(--pc-mint-dark, #275C46) !important;
   box-shadow: 
-    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.45),
-    inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
-    0 1px 0 rgba(255, 255, 255, 0.95);
-  border-left: 3.5px dashed var(--pc-lavender-layer);
-}
-
-.pc-input-deckle {
-  background-color: #F0EADB;
-  border-radius: 10px;
-  border: 1px solid rgba(196, 183, 166, 0.55);
-  box-shadow: 
-    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.42),
-    inset 0 4px 10px rgba(var(--pc-shadow-tint), 0.18),
-    0 1px 0 rgba(255, 255, 255, 0.95);
+    inset 0 1px 2px rgba(46, 30, 20, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 
 .pc-input-lined {
@@ -1311,23 +1488,27 @@ p, .example-desc {
     var(--pc-paper-shadow-md);
 }
 
-/* Carved Paper Well Depth Select Variant */
+/* Carved Paper Well Depth Select Variant (이전 방식: 음각 종이 드롭다운 셀렉트) */
 .pc-select.is-well,
-.pc-select-well {
-  background-color: #EDE8DE;
+.pc-select-well,
+.pc-select--well {
+  background-color: #EDE8DE !important;
+  border: none !important;
+  border-radius: var(--pc-radius-md);
   box-shadow: 
     inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.45),
     inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
-    0 1px 0 rgba(255, 255, 255, 0.95);
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 .pc-select.is-well:focus,
-.pc-select-well:focus {
-  background-color: #E8E2D6;
+.pc-select-well:focus,
+.pc-select--well:focus {
+  background-color: #E8E2D6 !important;
   box-shadow: 
     inset 0 2px 4px rgba(var(--pc-shadow-tint), 0.38),
     inset 0 5px 12px rgba(var(--pc-shadow-tint), 0.18),
     0 0 0 2.5px var(--pc-lavender),
-    0 1px 0 #FFFFFF;
+    0 1px 0 #FFFFFF !important;
 }
 .pc-select:focus {
   box-shadow: 
@@ -1362,21 +1543,63 @@ p, .example-desc {
   align-items: center;
   justify-content: space-between;
   padding: 11px 18px;
-  background-color: var(--pc-paper-white);
-  border: none;
+  background-color: #FFFDF9;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_trig_p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='3' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23FFFFFF' surfaceScale='1.15' result='l'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='l'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23FFFDF8' filter='url(%23f_trig_p)'/%3E%3C/svg%3E");
+  background-size: 140px 140px;
+  border: 1px solid rgba(196, 183, 166, 0.60);
   border-radius: var(--pc-radius-md);
   font-family: var(--pc-font);
   font-size: 14.5px;
   font-weight: 700;
   color: var(--pc-ink);
   line-height: 1;
-  box-shadow: var(--pc-paper-shadow-sm);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 1px 0 rgba(46, 30, 20, 0.18),
+    0 2px 4px rgba(46, 30, 20, 0.08);
   cursor: pointer;
   transition: all 0.18s ease;
 }
 .pc-dropdown-trigger:hover {
   transform: translateY(-1.5px);
-  box-shadow: var(--pc-paper-shadow-md);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 2.5px 0 rgba(46, 30, 20, 0.25),
+    0 5px 12px rgba(46, 30, 20, 0.12);
+}
+
+/* Carved Paper Well Trigger (.pc-dropdown-trigger.is-well) */
+.pc-dropdown-trigger.is-well,
+.pc-dropdown-custom.is-well .pc-dropdown-trigger {
+  background-color: #EDE8DE !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_well_p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23FFFDF9' surfaceScale='1.3' result='l'%3E%3CfeDistantLight azimuth='45' elevation='55'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23EDE8DE' filter='url(%23f_well_p)'/%3E%3C/svg%3E") !important;
+  background-size: 160px 160px !important;
+  border: 1px solid rgba(196, 183, 166, 0.50) !important;
+  border-radius: var(--pc-radius-md);
+  box-shadow: 
+    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.45),
+    inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+.pc-dropdown-trigger.is-well:hover,
+.pc-dropdown-custom.is-well .pc-dropdown-trigger:hover {
+  background-color: #E8E2D6 !important;
+  transform: translateY(-1px);
+  box-shadow: 
+    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.48),
+    inset 0 5px 12px rgba(var(--pc-shadow-tint), 0.24),
+    0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+.pc-dropdown-custom.is-open .pc-dropdown-trigger.is-well,
+.pc-dropdown-trigger.is-well:focus {
+  background-color: #E5DFD2 !important;
+  box-shadow: 
+    inset 0 2px 4px rgba(var(--pc-shadow-tint), 0.50),
+    inset 0 6px 14px rgba(var(--pc-shadow-tint), 0.26),
+    0 0 0 2.5px var(--pc-mint),
+    0 1px 0 #FFFFFF !important;
 }
 .pc-dropdown-trigger .trigger-content {
   display: inline-flex;
@@ -1397,31 +1620,39 @@ p, .example-desc {
   line-height: 1;
   font-size: 11px;
 }
-/* Layered Paper Dropdown Menu - Single Base Background Plate with Distinct Item Colors */
+/* Layered Paper Base Plate (자른 종이 밑 판 - 기본 종이색 매트 카드스톡) */
 .pc-dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
   left: 0; right: 0;
-  background: #FAF7F0; /* Clean Single Warm Cardstock Base Plate */
-  border: 1.5px solid #E6DBC9;
-  border-radius: var(--pc-radius-md);
-  /* 2-Tier 48% Stacking Paper Shadow */
-  box-shadow: var(--pc-paper-shadow-lg);
-  padding: 8px;
+  min-width: 100%;
+  /* 기본 종이색 자연스러운 크림 카드스톡 (Clean Natural Paper Sheet) */
+  background-color: #FAF7F0;
+  /* 얇은 종이 절단면 1px 칼선 테두리 */
+  border: 1px solid #E2D7C5;
+  border-radius: 6px;
+  /* 바닥면에 안착된 얇은 종이의 자연스러운 45도 접촉 그림자 */
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 0 rgba(46, 30, 20, 0.16),
+    0 2px 5px rgba(46, 30, 20, 0.10),
+    0 8px 20px rgba(46, 30, 20, 0.08);
+  padding: 12px 14px;
   z-index: 1000;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-8px) scale(0.97);
+  transform: translateY(-6px) scale(0.98);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  max-height: 290px;
+  gap: 10px; /* 밑에 살짝 넓은 종이들이 겹치지 않고 온전히 드러나도록 10px 간격 */
+  max-height: 320px;
   overflow-x: hidden !important; /* Zero horizontal scrollbar */
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
   scrollbar-color: var(--pc-mint-layer) transparent;
+  box-sizing: border-box;
 }
 
 /* Custom Slim Paper Scrollbar */
@@ -1442,59 +1673,188 @@ p, .example-desc {
   transform: translateY(0) scale(1);
 }
 
+/* Layered Paper Button: 밑에 살짝 넓은 종이 위에 다른 종이가 올라간 구조 (.pc-dropdown-item) */
 .pc-dropdown-item {
+  position: relative;
+  isolation: isolate; /* 밑에 살짝 넓은 종이(::before)가 밑판 위에 안정적으로 적층되도록 격리 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 11px 14px;
+  gap: 12px;
+  padding: 10px 14px;
   min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
-  border-radius: 9px;
+  border-radius: 4px; /* 90도 직각에 가까운 정밀 종이 칼선 엣지 */
   font-family: var(--pc-font);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 14.5px;
+  font-weight: 700;
   color: var(--pc-ink);
   line-height: 1;
   cursor: pointer;
-  transition: all 0.15s ease;
-  /* Clearly differentiated from the #FAF7F0 base plate: Pure white paper card with fine border */
-  background: #FFFFFF;
-  border: 1px solid #ECE2D2;
   width: 100%;
   text-align: left;
-  box-shadow: 0 1.5px 3px rgba(var(--pc-shadow-tint), 0.05);
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  user-select: none;
+  box-sizing: border-box;
+  /* Top Paper (그 위에 올라간 다른 종이 - 기본 백색 카드스톡) */
+  background-color: #FFFDF9;
+  border: 1px solid rgba(196, 183, 166, 0.65);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 1px 0 rgba(46, 30, 20, 0.18),
+    0 2px 4px rgba(46, 30, 20, 0.08);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+  z-index: 2;
+  margin: 3px 0; /* 밑에 살짝 넓은 종이가 상하로 안전하게 드러나는 마진 */
 }
 
-.pc-dropdown-item > span:not(.pc-inline-icon) {
+/* 밑에 살짝 넓은 종이 (Underneath Slightly Wider Backing Paper) */
+.pc-dropdown-item::before {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background-color: #EFE8DC; /* 기본 종이색 계열의 살짝 짙은 크라프트/카드스톡 밑종이 */
+  border-radius: 6px;
+  border: 1px solid rgba(196, 183, 166, 0.70);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1px 0 rgba(46, 30, 20, 0.16),
+    0 2px 4px rgba(46, 30, 20, 0.08);
+  pointer-events: none;
+  z-index: -1;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-dropdown-item-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.pc-dropdown-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pc-dropdown-item > span:not(.pc-inline-icon):not(.pc-dropdown-item-main):not(.pc-dropdown-check) {
   display: inline-flex;
   align-items: center;
   line-height: 1;
 }
 
+/* Hover: 위의 종이가 밑의 종이에서 가볍게 떠오르며 접촉 그림자 확장 */
 .pc-dropdown-item:hover {
-  background-color: #F3EEFB;
-  border-color: #D2C4EC;
-  color: #4E3E75;
-  transform: translateX(3px);
-  box-shadow: 0 3px 8px rgba(107, 91, 130, 0.12);
+  background-color: #FFFFFF;
+  border-color: #B8A894;
+  color: var(--pc-ink);
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 2px 0 rgba(46, 30, 20, 0.22),
+    0 5px 10px rgba(46, 30, 20, 0.10);
+}
+.pc-dropdown-item:hover::before {
+  top: -2.5px;
+  left: -3px;
+  right: -3px;
+  bottom: -3.5px;
+  background-color: #E8DFD0;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1.5px 0 rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.10);
 }
 
-.pc-dropdown-item.is-selected {
-  background-color: #EAF6F0;
-  border-color: #A3D8C3;
-  color: #1E5C41;
-  font-weight: 700;
-  transform: translateX(3px);
-  box-shadow: 0 3px 8px rgba(44, 107, 80, 0.12);
+/* Active / Pressed: 종이가 밑의 종이로 살짝 눌려 안착 */
+.pc-dropdown-item:active {
+  transform: translateY(0.5px);
+  box-shadow: 
+    inset 0 1px 2px rgba(46, 30, 20, 0.15),
+    0 0.5px 0 rgba(46, 30, 20, 0.22);
 }
-.pc-dropdown-item.is-selected::after {
-  content: "✓";
-  font-size: 13px;
+
+/* Selected state: 밑에 살짝 넓은 민트 배면 색지 + 그 위에 올라간 연민트 표면 종이 */
+.pc-dropdown-item.is-selected {
+  background-color: #EAF7F0 !important; /* 표면 연민트 색지 */
+  border-color: #70B896 !important;
+  color: #1A533C !important;
   font-weight: 800;
-  color: #1E5C41;
+  transform: translateY(-1px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 0 rgba(27, 77, 54, 0.28),
+    0 3.5px 7px rgba(27, 77, 54, 0.10) !important;
+}
+
+.pc-dropdown-item.is-selected::before {
+  background-color: #BDE4D3 !important; /* 밑에 살짝 넓은 민트 배면 색지 */
+  border-color: #6BB591 !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1.5px 0 rgba(27, 77, 54, 0.25),
+    0 3px 6px rgba(27, 77, 54, 0.10) !important;
+}
+
+/* 체크 표시: 배경에 종이 그 위에 종이 느낌 (Paper on Paper Check Badge) */
+.pc-dropdown-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px; /* 사각 다이컷 미니 종이 패치 (배경 종이) */
+  background-color: #FAF7F0; /* 배경에 종이 */
+  border: 1px solid rgba(196, 183, 166, 0.65);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 0 rgba(46, 30, 20, 0.14),
+    0 2px 3px rgba(46, 30, 20, 0.06);
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+  position: relative;
+  z-index: 3;
+}
+
+/* Hover preview of checkmark */
+.pc-dropdown-item:hover:not(.is-selected) .pc-dropdown-check {
+  opacity: 0.50;
+  transform: scale(0.96);
+  background-color: #FFFDF9;
+}
+
+/* Selected state: 배경에 민트 종이 패치 + 그 위에 얹힌 유선형 V 체크 종이 */
+.pc-dropdown-item.is-selected .pc-dropdown-check {
+  opacity: 1 !important;
+  transform: scale(1.05);
+  background-color: #D2EFE2 !important; /* 배경에 민트 색지 패치 */
+  border-color: #78C2A0 !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 0 rgba(27, 77, 54, 0.25),
+    0 2.5px 5px rgba(27, 77, 54, 0.12) !important;
+}
+
+/* 시작과 끝이 유선형으로 넓어지는 페이퍼 커팅 V 체크 아이콘 (Streamlined Flared Paper Check) */
+.pc-check-stream-v {
+  width: 18px;
+  height: 18px;
+  display: block;
+  overflow: visible;
+}
+.pc-check-stream-v path[stroke] {
+  stroke: #FFFFFF !important;
 }
 
 
@@ -1503,164 +1863,304 @@ p, .example-desc {
    ========================================================================== */
 
 /* Authentic Layered Paper Card (Like a sheet of thick handmade paper on cream mat) */
-/* Authentic 3D Paper-Cut Layered Paper Card (300g Matte Cream Cardstock on Desk) */
+/* Authentic 3D Paper-Cut Layered Paper Card (300g Matte Cream Cardstock on Desk)
+   - Sharp knife-cut edges (0px micro-radius, NO bulbous 24px button roundings)
+   - 0.88px White Razor Knife Rim (Reflective bevel cut edge at top)
+   - True Solid Paper Caliper Drop (90° Sharp Solid 0-Blur Caliper Drop)
+   - Tactile 3D Paper Lift on Hover with Caliper Expansion (-2.2px translateY) */
 .pc-card,
 .pc-card.pc-page-view {
   position: relative !important;
   background: #FFFDF9 !important;
-  border: 1.5px solid rgba(46, 30, 20, 0.15) !important;
-  border-radius: 24px !important;
+  border: none !important;
+  border-radius: 0 !important;
   padding: 32px !important;
-  /* Genuine Physical Paper Caliper: 3px Solid Umber Edge + 0.88px White Knife Rim */
+  /* 220g Fine Cardstock 90° Sharp Solid Caliper Drop */
   box-shadow: 
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.92),
-    0 3px 0 rgba(46, 30, 20, 0.38),
-    0 10px 28px rgba(46, 30, 20, 0.16) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(46, 30, 20, 0.38),
+    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
+/* 마우스를 올리면 종이두께(약 2.2px)만큼 떠오르고 아랫쪽 절단면 밑에 45도 명확한 그림자 투영 */
 .pc-card:hover,
 .pc-card.pc-page-view:hover {
-  transform: translateY(-3px) !important;
+  transform: translateY(-2.2px) !important;
   box-shadow: 
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.95),
-    0 5px 0 rgba(46, 30, 20, 0.42),
-    0 16px 36px rgba(46, 30, 20, 0.22) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2.2px 3px 0 rgba(46, 30, 20, 0.42),
+    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
+    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
+    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
+}
+
+/* 12종 버튼 쇼케이스 및 컴포넌트 프리뷰 컨테이너 박스 (종이 커팅 패널) */
+.pc-button-showcase-card,
+.pc-card-showcase,
+#knife-cut-buttons .pc-stack[style*="background: #FAF7F0"],
+#knife-cut-buttons .pc-stack[style*="background:#FAF7F0"],
+#knife-cut-buttons .pc-stack[style*="border-radius: 20px"],
+#knife-cut-buttons .pc-stack[style*="border-radius:20px"] {
+  background: #FFFDF9 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(46, 30, 20, 0.38),
+    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+}
+
+.pc-button-showcase-card:hover,
+.pc-card-showcase:hover,
+#knife-cut-buttons .pc-stack[style*="background: #FAF7F0"]:hover,
+#knife-cut-buttons .pc-stack[style*="background:#FAF7F0"]:hover,
+#knife-cut-buttons .pc-stack[style*="border-radius: 20px"]:hover,
+#knife-cut-buttons .pc-stack[style*="border-radius:20px"]:hover {
+  transform: translateY(-2.2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2.2px 3px 0 rgba(46, 30, 20, 0.42),
+    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
+    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
+    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
 }
 
 /* Tactile Structural Paper Panel (.pc-panel) */
 .pc-panel {
   position: relative;
   background: var(--pc-paper-white, #FFFDF9);
-  border: none;
-  border-radius: var(--pc-radius-lg, 20px);
+  border: none !important;
+  border-radius: 0 !important;
   padding: 24px;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 5px 12px rgba(var(--pc-shadow-tint), 0.24);
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(var(--pc-shadow-tint), 0.38),
+    3px 4px 6px rgba(var(--pc-shadow-tint), 0.09);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
 }
 .pc-panel:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2.2px);
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
-    0 2.5px 3.5px rgba(var(--pc-shadow-tint), 0.50),
-    0 9px 20px rgba(var(--pc-shadow-tint), 0.26);
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2.2px 3px 0 rgba(var(--pc-shadow-tint), 0.42),
+    3.2px 4.5px 0 rgba(var(--pc-shadow-tint), 0.28),
+    4.5px 6.5px 1.5px rgba(var(--pc-shadow-tint), 0.18),
+    6.5px 9px 12px rgba(var(--pc-shadow-tint), 0.11);
 }
 
 /* Flat Decorative Paper Display Plate (.pc-plate) */
 .pc-plate {
   position: relative;
   background: var(--pc-paper-cream, #FAF6ED);
-  border: none;
-  border-radius: var(--pc-radius-md, 16px);
+  border: none !important;
+  border-radius: 0 !important;
   padding: 18px;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
-    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 3.5px 8px rgba(var(--pc-shadow-tint), 0.20);
+    0.8px 1px 0 #D5C7B4,
+    1.5px 1.8px 0 #B2A088,
+    1.8px 2.4px 0 rgba(var(--pc-shadow-tint), 0.32),
+    2.5px 3.5px 5px rgba(var(--pc-shadow-tint), 0.08);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
 }
 .pc-plate:hover {
-  transform: translateY(-1.5px);
+  transform: translateY(-1.8px);
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    0 2px 3px rgba(var(--pc-shadow-tint), 0.48),
-    0 6px 14px rgba(var(--pc-shadow-tint), 0.24);
+    0.8px 1px 0 #D5C7B4,
+    1.5px 1.8px 0 #B2A088,
+    2px 2.8px 0 rgba(var(--pc-shadow-tint), 0.38),
+    3px 4px 0 rgba(var(--pc-shadow-tint), 0.24),
+    4px 5.5px 1.5px rgba(var(--pc-shadow-tint), 0.16),
+    5.5px 8px 10px rgba(var(--pc-shadow-tint), 0.10);
 }
 
 /* ==========================================================================
    PAPERCUT 4 SPECIALTY CARD VARIATIONS (페이퍼 커팅 4대 특화 카드 변형)
+   - Deckle Edge와 동일한 다층 종이 적층 구조(Multi-Layer Sheet Reveals)
+   - 300g 수제 종이의 3단 압축 솔리드 단면 두께(Solid Caliper Drop) 완벽 구현
+   - 카드 본체에 clip-path를 직접 걸지 않아 box-shadow와 배면 시트가 100% 보존됨
    ========================================================================== */
 
 /* 1. Dog-Ear Folded Corner Card (.pc-card-dogear)
-   우측 상단 45° 접힌 모서리 플랩 + 배면 민트 색지(#A3D8C3) 노출 + 접힘 스코어 라인 */
+   우측 상단 45° 접힌 모서리 플랩 + 배면 민트 색지(#A3D8C3) 노출 + 45° 접힘 스코어 라인 + 3D 플랩 펄럭임 */
 .pc-card-dogear {
-  position: relative;
-  overflow: visible;
+  position: relative !important;
+  background: 
+    linear-gradient(225deg, #A3D8C3 36px, #FFFDF9 37px) !important;
+  border-radius: 0 !important;
+  border: none !important;
+  overflow: visible !important;
+  /* 220g 슬림 카드스톡 90° 직각 솔리드 단면 두께 (~2.2px Solid Caliper Drop) */
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(46, 30, 20, 0.38),
+    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
-/* Underneath Exposed Pastel Mint Sheet (#A3D8C3) Reveal */
+
+/* Layer 1: Underneath Exposed Pastel Mint Backing Sheet (#A3D8C3) Reveal (사방 4.5px 슬림 노출) */
 .pc-card-dogear::before {
   content: "";
   position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 40px 40px 0;
-  border-color: transparent var(--pc-mint, #A3D8C3) transparent transparent;
-  border-top-right-radius: var(--pc-radius-lg, 24px);
-  z-index: 1;
+  inset: -4.5px;
+  background-color: #BBD5B8;
+  border-radius: 0;
+  z-index: -1;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    0.8px 1px 0 #9DBFA0,
+    1.5px 2px 0 #7A9F7D,
+    2px 2.6px 0 rgba(39, 92, 70, 0.38),
+    3.5px 4.5px 8px rgba(39, 92, 70, 0.14);
   pointer-events: none;
-  box-shadow: inset -1px 1px 2px rgba(39, 92, 70, 0.3);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-/* Folded-Over Triangular Corner Flap with 2-Tier Shadow & Crease Line */
+
+/* Layer 2: Folded-Over 45° Triangular Corner Flap with 3D Caliper Drop & Crease Line */
 .pc-card-dogear::after {
   content: "";
   position: absolute;
-  top: -1px;
-  right: -1px;
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(225deg, transparent 50%, #82C2A8 50%, var(--pc-mint, #A3D8C3) 54%);
-  border-bottom-left-radius: 4px;
-  /* 2-Tier 48% Umber Contact Shadow under Flap */
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background: 
+    linear-gradient(225deg, transparent 48%, rgba(46, 30, 20, 0.28) 49%, #FAF6ED 50%, #FFFDF9 56%);
+  border-bottom-left-radius: 0;
   box-shadow: 
-    -1.5px 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
-    -3.5px 3.5px 8px rgba(var(--pc-shadow-tint), 0.26);
-  /* 45° Fold Score Line */
+    -1.5px 1.5px 0 rgba(46, 30, 20, 0.35),
+    -2.5px 2.5px 4px rgba(46, 30, 20, 0.18);
   border-bottom: 1.2px solid rgba(46, 30, 20, 0.22);
   border-left: 1.2px solid rgba(46, 30, 20, 0.22);
-  z-index: 2;
+  z-index: 5;
   pointer-events: none;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
 }
+
+/* Dogear Hover: 카드가 종이 두께만큼 들리며 밑에 45도 명확한 그림자 투영 & 우측 상단 플랩 3D 반응 */
+.pc-card-dogear:hover {
+  transform: translateY(-2.2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2.2px 3px 0 rgba(46, 30, 20, 0.42),
+    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
+    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
+    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
+}
+
 .pc-card-dogear:hover::after {
   transform: translate(-2px, 2px) scale(1.06);
   box-shadow: 
-    -2px 2px 3px rgba(var(--pc-shadow-tint), 0.52),
-    -5px 5px 12px rgba(var(--pc-shadow-tint), 0.30);
+    -2px 2px 0 rgba(46, 30, 20, 0.42),
+    -3.5px 3.5px 1px rgba(46, 30, 20, 0.24),
+    -5px 5px 6px rgba(46, 30, 20, 0.12);
 }
 
 /* 2. Washi Tape Diary Notepad Card (.pc-card-washi)
-   상단에 지그재그 찢긴 민트/피치 마스킹 테이프가 비스듬히(-2°) 부착된 다이어리 메모 패드 */
+   상단 마스킹 테이프 + 배면 피치 색지(#F7BA9E) 2단 메모지 스택 + 두꺼운 카드스톡 단면 */
 .pc-card-washi {
-  position: relative;
+  position: relative !important;
+  background: #FFFDF9 !important;
+  border-radius: 0 !important;
+  border: none !important;
   margin-top: 14px;
+  overflow: visible !important;
+  /* 상단 노트 패드 본딩 헤어라인 */
+  border-top: 2.2px solid rgba(216, 202, 184, 0.90) !important;
+  /* 220g 슬림 메모지 90° 직각 솔리드 단면 두께 (~2.2px Solid Caliper Drop) */
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(46, 30, 20, 0.38),
+    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
+
+/* Underneath Peeking Peach Sub-Sheet (#F7BA9E) Stack (사방 4.5px 노출 & 1.2° 비스듬히 겹친 2단 메모지 스택) */
+.pc-card-washi::after {
+  content: "";
+  position: absolute;
+  inset: -4.5px;
+  background-color: #F7BA9E;
+  border-radius: 0;
+  transform: rotate(1.2deg);
+  z-index: -1;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    0.8px 1px 0 #E5A88B,
+    1.5px 2px 0 #D09376,
+    2px 2.6px 0 rgba(110, 59, 33, 0.38),
+    3.5px 4.5px 8px rgba(110, 59, 33, 0.14);
+  pointer-events: none;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-card-washi:hover {
+  transform: translateY(-2.2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2.2px 3px 0 rgba(46, 30, 20, 0.42),
+    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
+    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
+    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
+}
+
+.pc-card-washi:hover::after {
+  transform: rotate(1.8deg) translateY(1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    1px 1.2px 0 #E5A88B,
+    2px 2.4px 0 #D09376,
+    2.8px 3.4px 0 rgba(110, 59, 33, 0.42),
+    4px 5.5px 1.5px rgba(110, 59, 33, 0.22),
+    6.5px 9px 12px rgba(110, 59, 33, 0.12);
+}
+
+/* Real Translucent Washi Tape Strip Adhering the Card */
 .pc-card-washi::before {
   content: "";
   position: absolute;
-  top: -13px;
+  top: -14px;
   left: 50%;
   transform: translateX(-50%) rotate(-2deg);
-  width: 124px;
-  height: 26px;
-  background-color: rgba(163, 216, 195, 0.88); /* Translucent Mint Washi */
+  width: 130px;
+  height: 28px;
+  background-color: rgba(163, 216, 195, 0.90);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
-  /* Organic Jagged Torn Zigzag Edges on Both Left & Right */
   clip-path: polygon(
     0% 3px, 4px 0px, 8px 3px, 12px 0px, 16px 3px,
     calc(100% - 16px) 0px, calc(100% - 12px) 3px, calc(100% - 8px) 0px, calc(100% - 4px) 3px, 100% 0px,
-    calc(100% - 3px) 6px, 100% 13px, calc(100% - 4px) 19px, 100% 26px,
-    calc(100% - 4px) 23px, calc(100% - 8px) 26px, calc(100% - 12px) 23px, calc(100% - 16px) 26px,
-    16px 26px, 12px 23px, 8px 26px, 4px 23px, 0% 26px,
-    3px 19px, 0% 13px, 4px 6px
+    calc(100% - 3px) 6px, 100% 13px, calc(100% - 4px) 19px, 100% 28px,
+    calc(100% - 4px) 25px, calc(100% - 8px) 28px, calc(100% - 12px) 25px, calc(100% - 16px) 28px,
+    16px 28px, 12px 25px, 8px 28px, 4px 25px, 0% 28px,
+    3px 21px, 0% 14px, 4px 7px
   );
-  /* 2-Tier Washi Contact Shadow */
   box-shadow: 
-    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.45),
-    0 3.5px 8px rgba(var(--pc-shadow-tint), 0.20);
-  /* Translucent Pulp Fiber Dashed Stripes */
+    0.8px 0.8px 0 rgba(46, 30, 20, 0.28),
+    2px 2px 5px rgba(46, 30, 20, 0.14);
   background-image: repeating-linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.65) 0px,
@@ -1673,45 +2173,63 @@ p, .example-desc {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .pc-card-washi:hover::before {
-  transform: translateX(-50%) rotate(-1deg) scale(1.03);
+  transform: translateX(-50%) rotate(-1deg) scale(1.05);
 }
 .pc-card-washi.is-peach::before,
 .pc-card-washi-peach::before {
-  background-color: rgba(247, 186, 158, 0.88);
+  background-color: rgba(247, 186, 158, 0.90);
 }
 .pc-card-washi.is-buttercup::before,
 .pc-card-washi-buttercup::before {
-  background-color: rgba(254, 227, 150, 0.88);
+  background-color: rgba(254, 227, 150, 0.90);
 }
 .pc-card-washi.is-lavender::before,
 .pc-card-washi-lavender::before {
-  background-color: rgba(215, 203, 235, 0.88);
+  background-color: rgba(215, 203, 235, 0.90);
 }
 
 /* 3. Deckle Edge Cotton Rag Card (.pc-card-deckle)
    손으로 뜯어낸 닥나무 섬유질 데클 엣지(수제 한지 요철) + 빈티지 코튼지 인레이 헤어라인 */
 .pc-card-deckle {
-  position: relative;
-  background: #FAF6ED;
-  border-radius: 16px;
+  position: relative !important;
+  background: #FAF6ED !important;
+  border-radius: 0 !important;
+  border: none !important;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 5px 12px rgba(var(--pc-shadow-tint), 0.24);
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(46, 30, 20, 0.38),
+    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
-/* Fibrous Torn Hanji Deckle Edge Backing Sheet */
+
+.pc-card-deckle:hover {
+  transform: translateY(-2.2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2.2px 3px 0 rgba(46, 30, 20, 0.42),
+    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
+    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
+    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
+}
+
+/* Fibrous Torn Hanji Deckle Edge Backing Sheet (사방 4.5px 요철 노출) */
 .pc-card-deckle::before {
   content: "";
   position: absolute;
-  inset: -6px;
+  inset: -4.5px;
   background-color: #F0E8DC;
-  border-radius: 20px;
+  border-radius: 0;
   z-index: -1;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1.8px 2.8px rgba(var(--pc-shadow-tint), 0.48),
-    0 6px 16px rgba(var(--pc-shadow-tint), 0.22);
-  /* Organic Torn Deckle Edge Silhouette */
+    0.8px 1px 0 #DCCFBE,
+    1.5px 2px 0 #C4B7A5,
+    2px 2.6px 0 rgba(46, 30, 20, 0.38),
+    3.5px 4.5px 8px rgba(46, 30, 20, 0.14);
   clip-path: polygon(
     0% 4px, 3% 1px, 6% 4px, 10% 2px, 15% 5px, 20% 1px, 25% 4px, 30% 2px, 35% 5px, 40% 1px, 45% 4px, 50% 2px, 55% 5px, 60% 1px, 65% 4px, 70% 2px, 75% 5px, 80% 1px, 85% 4px, 90% 2px, 95% 5px, 100% 2px,
     99% 8%, 100% 16%, 98.5% 24%, 100% 32%, 99% 40%, 100% 48%, 98.5% 56%, 100% 64%, 99% 72%, 100% 80%, 98.5% 88%, 100% 96%,
@@ -1725,71 +2243,177 @@ p, .example-desc {
   content: "";
   position: absolute;
   inset: 8px;
-  border: 1.1px solid rgba(196, 183, 166, 0.65);
-  border-radius: 10px;
+  border: 1.1px solid rgba(196, 183, 166, 0.70);
+  border-radius: 0;
   pointer-events: none;
 }
 
 /* 4. Notched Cinema / Voucher Ticket Card (.pc-card-ticket)
-   양측 또는 상하 반원 노치가 파인 시네마/바우처 티켓 카드 + 점선 절취선 */
+   양측 반원 노치 다이컷 + 배면 버터컵 색지(#FEE396) 2단 적층 + 세로 점선 절취선 + 두꺼운 티켓지 단면 */
 .pc-card-ticket {
-  position: relative;
-  background: var(--pc-paper-white, #FFFFFF);
-  border-radius: 16px;
-  overflow: visible;
+  position: relative !important;
+  background: 
+    radial-gradient(circle 12px at left center, transparent 11.5px, #FFFDF9 12px),
+    radial-gradient(circle 12px at right center, transparent 11.5px, #FFFDF9 12px) !important;
+  background-size: 51% 100% !important;
+  background-position: left center, right center !important;
+  background-repeat: no-repeat !important;
+  border-radius: 0 !important;
+  border: none !important;
+  overflow: visible !important;
+  /* 220g 슬림 티켓 보드지 90° 직각 솔리드 단면 두께 (~2.2px Solid Caliper Drop) */
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    0 1.5px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 5px 12px rgba(var(--pc-shadow-tint), 0.24);
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2px 2.6px 0 rgba(46, 30, 20, 0.38),
+    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
-/* Left & Right Semicircular Cutout Notches */
-.pc-card-ticket::before,
+
+/* Underneath Peeking Buttercup Ticket Sheet (#FEE396) Backing (사방 4.5px 노출 & 매칭 노치 다이컷) */
+.pc-card-ticket::before {
+  content: "";
+  position: absolute;
+  inset: -4.5px;
+  background: 
+    radial-gradient(circle 13px at left center, transparent 12.5px, #FEE396 13px),
+    radial-gradient(circle 13px at right center, transparent 12.5px, #FEE396 13px);
+  background-size: 51% 100%;
+  background-position: left center, right center;
+  background-repeat: no-repeat;
+  border-radius: 0;
+  z-index: -1;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.90),
+    0.8px 1px 0 #E6CA7E,
+    1.5px 2px 0 #CBB065,
+    2px 2.6px 0 rgba(133, 92, 8, 0.38),
+    3.5px 4.5px 8px rgba(133, 92, 8, 0.14);
+  pointer-events: none;
+}
+
+/* Left & Right Notch 3D Die-Cut Punch Rim Shadows */
 .pc-card-ticket::after {
   content: "";
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  background-color: var(--pc-bg-cream, #FAF7F0);
-  border-radius: 50%;
-  box-shadow: inset 0 1.5px 3px rgba(var(--pc-shadow-tint), 0.35);
-  z-index: 2;
+  top: 10px;
+  bottom: 10px;
+  left: 64px;
+  width: 0;
+  border-right: 2px dashed rgba(133, 92, 8, 0.45);
   pointer-events: none;
 }
-.pc-card-ticket::before {
-  left: -11px;
+
+.pc-card-ticket:hover {
+  transform: translateY(-2.2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0.8px 1px 0 #D8CAB8,
+    1.5px 2px 0 #B9A58C,
+    2.2px 3px 0 rgba(46, 30, 20, 0.42),
+    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
+    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
+    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
 }
-.pc-card-ticket::after {
-  right: -11px;
-}
-/* Vertical Ticket Variant (Top & Bottom Notches) */
-.pc-card-ticket.is-voucher::before,
-.pc-card-ticket.is-vertical::before,
-.pc-card-ticket-vertical::before {
-  top: -11px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.pc-card-ticket.is-voucher::after,
-.pc-card-ticket.is-vertical::after,
-.pc-card-ticket-vertical::after {
-  top: auto;
-  bottom: -11px;
-  left: 50%;
-  right: auto;
-  transform: translateX(-50%);
-}
+
 /* Dashed Perforation Tear Line inside Ticket */
 .pc-card-ticket .pc-ticket-perforation,
 .pc-card-ticket .pc-ticket-divider {
   display: block;
   width: 100%;
   border: none;
-  border-top: 1.8px dashed rgba(215, 203, 235, 0.9);
+  border-top: 1.8px dashed rgba(133, 92, 8, 0.45);
   margin: 16px 0;
   position: relative;
+}
+
+/* ==========================================================================
+   ROUNDED CORNER DIE-CUT VARIANTS (모서리가 둥근 다이컷 카드 & 패널 변형)
+   - .is-rounded, .pc-rounded, .pc-card-rounded 추가 시 16~22px 정밀 다이컷 둥근 모서리 적용
+   - 45도 솔리드 단면 두께와 배면 색지 스택이 곡률을 따라 완벽하게 감싸고 돎
+   ========================================================================== */
+
+/* 1. 기본 카드, 버튼 쇼케이스, 패널, 플레이트 둥근 모서리 */
+.pc-card.is-rounded,
+.pc-card.pc-rounded,
+.pc-card-rounded,
+.pc-card.pc-card--rounded,
+.pc-button-showcase-card.is-rounded,
+.pc-button-showcase-card.pc-rounded {
+  border-radius: 22px !important;
+}
+
+.pc-panel.is-rounded,
+.pc-panel.pc-rounded,
+.pc-panel--rounded,
+.pc-panel-rounded {
+  border-radius: 20px !important;
+}
+
+.pc-plate.is-rounded,
+.pc-plate.pc-rounded,
+.pc-plate--rounded,
+.pc-plate-rounded {
+  border-radius: 16px !important;
+}
+
+/* 2. 페이퍼 커팅 4대 특화 카드 둥근 모서리 다이컷 에디션 */
+
+/* 01. Dog-ear 둥근 카드: 우측 상단 45° 접힘 플랩과 조화를 이루는 다이컷 라운딩 (좌상, 좌하, 우하 22px) */
+.pc-card-dogear.is-rounded,
+.pc-card-dogear.pc-rounded,
+.pc-card-dogear--rounded,
+.pc-card-dogear-rounded {
+  border-radius: 22px 0 22px 22px !important;
+}
+.pc-card-dogear.is-rounded::before,
+.pc-card-dogear.pc-rounded::before,
+.pc-card-dogear--rounded::before,
+.pc-card-dogear-rounded::before {
+  border-radius: 26px 0 26px 26px !important;
+}
+
+/* 02. Washi Tape 둥근 메모 카드: 22px 다이컷 라운드 메모 패드 + 24px 회전 피치 배면 시트 */
+.pc-card-washi.is-rounded,
+.pc-card-washi.pc-rounded,
+.pc-card-washi--rounded,
+.pc-card-washi-rounded {
+  border-radius: 22px !important;
+}
+.pc-card-washi.is-rounded::after,
+.pc-card-washi.pc-rounded::after,
+.pc-card-washi--rounded::after,
+.pc-card-washi-rounded::after {
+  border-radius: 24px !important;
+}
+
+/* 03. Deckle Edge 둥근 수제 한지 카드: 22px 본체 라운드 + 14px 내부 골드 헤어라인 인레이 링 */
+.pc-card-deckle.is-rounded,
+.pc-card-deckle.pc-rounded,
+.pc-card-deckle--rounded,
+.pc-card-deckle-rounded {
+  border-radius: 22px !important;
+}
+.pc-card-deckle.is-rounded::after,
+.pc-card-deckle.pc-rounded::after,
+.pc-card-deckle--rounded::after,
+.pc-card-deckle-rounded::after {
+  border-radius: 14px !important;
+}
+
+/* 04. Notched Ticket 둥근 다이컷 시네마 티켓: 4모서리 22px 라운드 + 양측 반원 노치 다이컷 */
+.pc-card-ticket.is-rounded,
+.pc-card-ticket.pc-rounded,
+.pc-card-ticket--rounded,
+.pc-card-ticket-rounded {
+  border-radius: 22px !important;
+}
+.pc-card-ticket.is-rounded::before,
+.pc-card-ticket.pc-rounded::before,
+.pc-card-ticket--rounded::before,
+.pc-card-ticket-rounded::before {
+  border-radius: 26px !important;
 }
 
 /* Multi-Layer Stacked Paper Construction Card (Sheets visibly peeking out with 48% contact shadow) */
@@ -1873,13 +2497,13 @@ p, .example-desc {
      4. pc-badge--tag:    미니 아일렛 타공 태그 뱃지
    ========================================================================== */
 
-/* 1. Base Paper Badge Primitive */
+/* 1. Base Paper Badge Primitive (정통 다이컷 매트 색지 배지) */
 .pc-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 4px 11px;
+  padding: 4px 10px;
   font-family: var(--pc-font, 'Nanum Square Round', -apple-system, sans-serif);
   font-size: 11.5px;
   font-weight: 800;
@@ -1895,36 +2519,37 @@ p, .example-desc {
   vertical-align: middle;
   text-align: center;
   position: relative;
-  border-radius: 4px;
-  border: 1px solid rgba(46, 30, 20, 0.16);
+  border-radius: 0 !important; /* 90도 직각 나이프 엣지 종이 절단면 (둥근 비닐 스티커 외형 제거) */
+  border: none !important;
   
-  /* 0.88px 화이트 나이프 엣지 림 + 2-Tier 48% 번트 엄버 그림자 */
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
-    0 1.5px 2px rgba(46, 30, 20, 0.48),
-    0 3.5px 7px rgba(46, 30, 20, 0.20);
-  
+  /* 비닐 광택 림 제거 ➔ 매트 코튼 색지 90° 직각 솔리드 단면 두께 (~1.6px Solid Caliper Drop) */
   background-color: var(--pc-badge-bg, var(--pc-mint, #A3D8C3));
+  background-image: none !important;
   color: var(--pc-badge-ink, var(--pc-mint-dark, #1A533C));
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.70),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+  
   transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, filter 0.15s ease;
 }
 
 .pc-badge:hover {
-  transform: translateY(-1.5px);
+  transform: translateY(-1.2px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
-    0 2.5px 3.5px rgba(46, 30, 20, 0.50),
-    0 6px 12px rgba(46, 30, 20, 0.24);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
 }
 
 .pc-badge:active {
-  transform: translateY(1px);
+  transform: translateY(0.5px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 0.8px 1px rgba(46, 30, 20, 0.45),
-    0 1.5px 3px rgba(46, 30, 20, 0.16);
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.50),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
 }
 
 .pc-badge > span,
@@ -1938,177 +2563,147 @@ p, .example-desc {
   z-index: 2;
 }
 
-/* 7대 파스텔 색지 컬러웨이 (7 Core Pastel Paper Colorways) */
+/* 7대 파스텔 색지 컬러웨이 (7 Core Pastel Paper Colorways - 무광 수제 색지) */
 /* 1. Mint */
 .pc-badge--mint, .pc-badge-mint {
   --pc-badge-bg: var(--pc-mint, #A3D8C3);
   --pc-badge-ink: var(--pc-mint-dark, #1A533C);
-  --pc-badge-border: #7EBEA5;
-  --pc-badge-wax-1: #B7E4D3;
-  --pc-badge-wax-2: #82C2A8;
-  --pc-badge-wax-3: #5EA98D;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(39, 92, 70, 0.25);
 }
 
 /* 2. Peach */
 .pc-badge--peach, .pc-badge-peach {
   --pc-badge-bg: var(--pc-peach, #F7BA9E);
   --pc-badge-ink: var(--pc-peach-dark, #6E3B21);
-  --pc-badge-border: #E59F7F;
-  --pc-badge-wax-1: #FCD1BD;
-  --pc-badge-wax-2: #F7BA9E;
-  --pc-badge-wax-3: #D4794B;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(138, 72, 34, 0.25);
 }
 
 /* 3. Lavender */
 .pc-badge--lavender, .pc-badge-lavender {
   --pc-badge-bg: var(--pc-lavender, #D7CBEB);
   --pc-badge-ink: var(--pc-lavender-dark, #473B6B);
-  --pc-badge-border: #BBA8DD;
-  --pc-badge-wax-1: #E8E0F7;
-  --pc-badge-wax-2: #D7CBEB;
-  --pc-badge-wax-3: #9782C9;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(78, 62, 117, 0.25);
 }
 
 /* 4. Buttercup */
 .pc-badge--buttercup, .pc-badge-buttercup {
   --pc-badge-bg: var(--pc-buttercup, #FEE396);
   --pc-badge-ink: var(--pc-buttercup-dark, #6E530F);
-  --pc-badge-border: #EDC767;
-  --pc-badge-wax-1: #FFF0BD;
-  --pc-badge-wax-2: #FEE396;
-  --pc-badge-wax-3: #D4A936;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(133, 92, 8, 0.25);
 }
 
 /* 5. Sky */
 .pc-badge--sky, .pc-badge-sky {
   --pc-badge-bg: var(--pc-sky, #BDE0EA);
   --pc-badge-ink: var(--pc-sky-dark, #204C5A);
-  --pc-badge-border: #98C8D6;
-  --pc-badge-wax-1: #DAEFF5;
-  --pc-badge-wax-2: #BDE0EA;
-  --pc-badge-wax-3: #76AAB9;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(32, 76, 90, 0.25);
 }
 
 /* 6. Rose */
 .pc-badge--rose, .pc-badge-rose {
   --pc-badge-bg: var(--pc-rose, #F5B8BE);
   --pc-badge-ink: var(--pc-rose-dark, #702830);
-  --pc-badge-border: #DE939B;
-  --pc-badge-wax-1: #FCD5D9;
-  --pc-badge-wax-2: #F5B8BE;
-  --pc-badge-wax-3: #C96671;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(156, 38, 54, 0.25);
 }
 
 /* 7. Cream */
 .pc-badge--cream, .pc-badge-cream {
   --pc-badge-bg: #FFFDF9;
   --pc-badge-ink: var(--pc-ink, #3D352E);
-  --pc-badge-border: #DCD2C3;
-  --pc-badge-wax-1: #FFFFFF;
-  --pc-badge-wax-2: #FAF6ED;
-  --pc-badge-wax-3: #D8CDBC;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(46, 30, 20, 0.18);
 }
 
 /* Compatible Theme Colors */
 .pc-badge--sage, .pc-badge-sage {
   --pc-badge-bg: var(--pc-sage, #BBD5B8);
   --pc-badge-ink: var(--pc-sage-dark, #324D2E);
-  --pc-badge-border: #A3C5A0;
-  --pc-badge-wax-1: #D5E8D3;
-  --pc-badge-wax-2: #BBD5B8;
-  --pc-badge-wax-3: #7EA67C;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(39, 92, 70, 0.25);
 }
 
 .pc-badge--coral, .pc-badge-coral {
   --pc-badge-bg: #F8C3A9;
   --pc-badge-ink: #75290A;
-  --pc-badge-border: #E89E7D;
-  --pc-badge-wax-1: #FDE0D3;
-  --pc-badge-wax-2: #F8C3A9;
-  --pc-badge-wax-3: #D97A52;
   background-color: var(--pc-badge-bg);
   color: var(--pc-badge-ink);
-  border-color: rgba(117, 41, 10, 0.25);
 }
 
-/* Standalone Paper Tag (.pc-tag) */
+/* Standalone Paper Tag (.pc-tag - 매트 크라프트지/카드스톡 태그) */
 .pc-tag {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 5px 12px;
+  padding: 4px 10px;
   font-family: var(--pc-font);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   line-height: 1;
-  border-radius: 6px;
+  border-radius: 0 !important; /* 90도 직각 나이프 절단면 */
+  border: none !important;
   background-color: var(--pc-paper-white, #FFFDF9);
+  background-image: none !important;
   color: var(--pc-ink);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
-    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.45),
-    0 2.5px 5px rgba(var(--pc-shadow-tint), 0.18);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.70),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
   vertical-align: middle;
   user-select: none;
   white-space: normal;
   word-break: keep-all;
   min-width: 0;
   max-width: 100%;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
 }
-.pc-tag-mint { background-color: var(--pc-mint-light); color: var(--pc-mint-dark); border: 1px solid rgba(39, 92, 70, 0.2); }
-.pc-tag-peach { background-color: var(--pc-peach-light); color: var(--pc-peach-dark); border: 1px solid rgba(110, 59, 33, 0.2); }
-.pc-tag-lavender { background-color: var(--pc-lavender-light); color: var(--pc-lavender-dark); border: 1px solid rgba(71, 59, 107, 0.2); }
-.pc-tag-buttercup { background-color: var(--pc-buttercup-light); color: var(--pc-buttercup-dark); border: 1px solid rgba(110, 83, 15, 0.2); }
+
+.pc-tag:hover {
+  transform: translateY(-1.2px) !important;
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
+}
+
+.pc-tag-mint { background-color: var(--pc-mint-light); color: var(--pc-mint-dark); border: none !important; }
+.pc-tag-peach { background-color: var(--pc-peach-light); color: var(--pc-peach-dark); border: none !important; }
+.pc-tag-lavender { background-color: var(--pc-lavender-light); color: var(--pc-lavender-dark); border: none !important; }
+.pc-tag-buttercup { background-color: var(--pc-buttercup-light); color: var(--pc-buttercup-dark); border: none !important; }
 
 /* ==========================================================================
-   AUTHENTIC 4 SPECIALIZED PAPER-CUT BADGE MODELS
-   1. pc-badge--stamp:  우표 천공(postage-stamp) 톱니 테두리가 들어간 미니 우표 뱃지
-   2. pc-badge--wax:    앤틱 왁스 실링(antique-wax-seal) 원형 압인 뱃지
-   3. pc-badge--ticket: 좌우 노치(notch-ticket)가 파인 다이컷 티켓 뱃지
-   4. pc-badge--tag:    미니 아일렛 타공 태그 뱃지
+   AUTHENTIC 4 SPECIALIZED PAPER-CUT BADGE MODELS (종이 커팅 4대 특화 배지)
+   1. pc-badge--stamp:  우표 천공(postage-stamp) 톱니 테두리가 들어간 미니 우표 배지
+   2. pc-badge--ticket: 좌우 노치(notch-ticket)가 파인 다이컷 티켓 배지
+   3. pc-badge--tag:    미니 아일렛 타공 태그 배지
+   4. pc-badge--dogear: 도그이어 접힌 모서리 배지
+   (Antique Wax Seal 실링은 종이 미학 순수성을 위해 완전 배제됨)
    ========================================================================== */
 
 /* ==========================================================================
-   MODEL 1: pc-badge--stamp (우표 천공 톱니 테두리 미니 우표 뱃지)
+   MODEL 1: pc-badge--stamp (우표 천공 톱니 테두리 미니 우표 배지)
    Postage Stamp Perforated Scalloped Teeth with Roulette Tear Track
    ========================================================================== */
 .pc-badge--stamp,
 .pc-badge-stamp {
   padding: 4px 11px;
-  border-radius: 2px;
-  border: 1px solid rgba(46, 30, 20, 0.16);
+  border-radius: 0 !important;
+  border: none !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
-    0 1.8px 0 rgba(46, 30, 20, 0.48),
-    0 3.5px 7px rgba(46, 30, 20, 0.20);
-  outline: 1.2px dashed rgba(255, 255, 255, 0.92);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.75),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+  outline: 1px dashed rgba(255, 255, 255, 0.85);
   outline-offset: -3px;
   overflow: visible;
 }
@@ -2120,8 +2715,8 @@ p, .example-desc {
   position: absolute;
   inset: 2px;
   border: 1px dashed rgba(46, 30, 20, 0.22);
-  box-shadow: inset 0 0.88px 0 rgba(255, 255, 255, 0.92);
-  border-radius: 1px;
+  box-shadow: inset 0 0.8px 0 rgba(255, 255, 255, 0.80);
+  border-radius: 0;
   pointer-events: none;
   z-index: 1;
 }
@@ -2146,95 +2741,38 @@ p, .example-desc {
 
 .pc-badge--stamp:hover,
 .pc-badge-stamp:hover {
-  transform: translateY(-1.5px);
+  transform: translateY(-1.2px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
-    0 2.8px 0 rgba(46, 30, 20, 0.50),
-    0 6px 12px rgba(46, 30, 20, 0.24);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
 }
 
 .pc-badge--stamp:active,
 .pc-badge-stamp:active {
-  transform: translateY(1px);
+  transform: translateY(0.5px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 0.8px 0 rgba(46, 30, 20, 0.45),
-    0 1.5px 3px rgba(46, 30, 20, 0.16);
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.50),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
 }
 
 
 /* ==========================================================================
-   MODEL 2: pc-badge--wax (앤틱 왁스 실링 원형 압인 뱃지)
-   Antique Wax Seal Circular Stamped Paper Emblem
-   ========================================================================== */
-.pc-badge--wax,
-.pc-badge-wax {
-  min-width: 26px;
-  padding: 3px 10px;
-  border-radius: 52% 48% 51% 49% / 49% 53% 47% 51%;
-  background: radial-gradient(circle at 35% 35%, var(--pc-badge-wax-1, #FCD5D9) 0%, var(--pc-badge-wax-2, #F5B8BE) 55%, var(--pc-badge-wax-3, #C96671) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  box-shadow: 
-    inset 0 1.2px 1px rgba(255, 255, 255, 0.95),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
-    inset 0 -1.8px 2.5px rgba(46, 30, 20, 0.24),
-    0 2px 0 rgba(46, 30, 20, 0.48),
-    0 4.5px 10px rgba(46, 30, 20, 0.24);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
-  overflow: visible;
-}
-
-/* Debossed Wax Seal Center Ring */
-.pc-badge--wax::before,
-.pc-badge-wax::before {
-  content: "";
-  position: absolute;
-  inset: 2.5px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  box-shadow: 
-    inset 0 1.2px 2px rgba(46, 30, 20, 0.32),
-    0 0.88px 0 rgba(255, 255, 255, 0.85);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.pc-badge--wax:hover,
-.pc-badge-wax:hover {
-  transform: translateY(-1.5px) scale(1.04);
-  box-shadow: 
-    inset 0 1.2px 1px rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    inset 0 -1.8px 2.5px rgba(46, 30, 20, 0.26),
-    0 3px 0 rgba(46, 30, 20, 0.52),
-    0 7px 15px rgba(46, 30, 20, 0.28);
-}
-
-.pc-badge--wax:active,
-.pc-badge-wax:active {
-  transform: translateY(1px) scale(0.97);
-  box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.90),
-    0 0.8px 0 rgba(46, 30, 20, 0.45),
-    0 1.5px 3px rgba(46, 30, 20, 0.18);
-}
-
-
-/* ==========================================================================
-   MODEL 3: pc-badge--ticket (좌우 노치 다이컷 티켓 뱃지)
+   MODEL 2: pc-badge--ticket (좌우 노치 다이컷 티켓 배지)
    Die-Cut Cinema / Voucher Ticket with Semicircular Side Notches
    ========================================================================== */
 .pc-badge--ticket,
 .pc-badge-ticket {
   padding: 4px 13px 4px 16px;
-  border-radius: 4px;
-  border: 1px solid rgba(46, 30, 20, 0.16);
+  border-radius: 0 !important;
+  border: none !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
-    0 1.8px 0 rgba(46, 30, 20, 0.48),
-    0 3.5px 8px rgba(46, 30, 20, 0.20);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.75),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
   overflow: visible;
   /* Semicircular side notch apertures */
   -webkit-mask-image: 
@@ -2268,26 +2806,26 @@ p, .example-desc {
 
 .pc-badge--ticket:hover,
 .pc-badge-ticket:hover {
-  transform: translateY(-1.5px);
+  transform: translateY(-1.2px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
-    0 2.8px 0 rgba(46, 30, 20, 0.50),
-    0 6px 12px rgba(46, 30, 20, 0.24);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
 }
 
 .pc-badge--ticket:active,
 .pc-badge-ticket:active {
-  transform: translateY(1px);
+  transform: translateY(0.5px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 0.8px 0 rgba(46, 30, 20, 0.45),
-    0 1.5px 3px rgba(46, 30, 20, 0.16);
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.50),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
 }
 
 
 /* ==========================================================================
-   MODEL 4: pc-badge--tag (미니 아일렛 타공 태그 뱃지)
+   MODEL 3: pc-badge--tag (미니 아일렛 타공 태그 배지)
    Chamfered Craft Tag with Punched Brass Eyelet
    ========================================================================== */
 .pc-badge--tag,
@@ -2295,14 +2833,14 @@ p, .example-desc {
 .pc-tag-eyelet {
   position: relative;
   padding: 4px 11px 4px 18px;
-  border-radius: 4px;
+  border-radius: 0 !important;
   clip-path: polygon(7px 0, 100% 0, 100% 100%, 7px 100%, 0 calc(100% - 7px), 0 7px);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
-    0 1.8px 0 rgba(46, 30, 20, 0.48),
-    0 3.5px 8px rgba(46, 30, 20, 0.20);
-  border: 1px solid rgba(46, 30, 20, 0.16);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.75),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+  border: none !important;
   overflow: visible;
 }
 
@@ -2318,11 +2856,11 @@ p, .example-desc {
   width: 6.5px;
   height: 6.5px;
   background-color: var(--pc-bg-cream, #FAF7F0);
-  border: 1.6px solid #E8BD65; /* Brass Ring */
+  border: 1.4px solid #D5A852; /* Brass Ring */
   border-radius: 50%;
   box-shadow: 
-    inset 0 1px 1.5px rgba(46, 30, 20, 0.45),
-    0 0 0 0.88px rgba(255, 255, 255, 0.88);
+    inset 0 0.8px 1.2px rgba(46, 30, 20, 0.40),
+    0 0 0 0.8px rgba(255, 255, 255, 0.80);
   pointer-events: none;
   z-index: 2;
 }
@@ -2330,22 +2868,65 @@ p, .example-desc {
 .pc-badge--tag:hover,
 .pc-badge-tag:hover,
 .pc-tag-eyelet:hover {
-  transform: translateY(-1.5px);
+  transform: translateY(-1.2px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
-    0 2.8px 0 rgba(46, 30, 20, 0.50),
-    0 6px 12px rgba(46, 30, 20, 0.24);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
 }
 
 .pc-badge--tag:active,
 .pc-badge-tag:active,
 .pc-tag-eyelet:active {
-  transform: translateY(1px);
+  transform: translateY(0.5px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 0.8px 0 rgba(46, 30, 20, 0.45),
-    0 1.5px 3px rgba(46, 30, 20, 0.16);
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.50),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
+}
+
+
+/* ==========================================================================
+   MODEL 4: pc-badge--dogear (도그이어 접힌 모서리 배지)
+   Folded Corner Cardstock Paper Badge
+   ========================================================================== */
+.pc-badge--dogear,
+.pc-badge-dogear {
+  position: relative;
+  border-radius: 0 !important;
+  padding: 4px 14px 4px 10px;
+  border: none !important;
+  overflow: visible;
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.75),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+}
+
+.pc-badge--dogear::after,
+.pc-badge-dogear::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 9px; height: 9px;
+  background: linear-gradient(225deg, transparent 48%, rgba(46, 30, 20, 0.25) 49%, #FAF6ED 50%, #FFFDF9 56%);
+  border-bottom-left-radius: 0;
+  box-shadow: -1px 1px 2px rgba(46, 30, 20, 0.28);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.pc-badge--dogear:hover,
+.pc-badge-dogear:hover {
+  transform: translateY(-1.2px) !important;
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
 }
 
 
@@ -2358,16 +2939,17 @@ p, .example-desc {
 .pc-badge-ribbon,
 .pc-badge--ribbon {
   position: relative;
-  padding: 5px 16px 5px 10px;
+  padding: 4px 14px 4px 9px;
   background-color: var(--pc-sky);
   color: var(--pc-sky-dark);
-  border-radius: 4px 0 0 4px;
+  border-radius: 3px 0 0 3px;
+  border: none !important;
   clip-path: polygon(0 0, 100% 0, calc(100% - 7px) 50%, 100% 100%, 0 100%);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 0 0 0.88px rgba(255, 255, 255, 0.85),
-    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 2.5px 5px rgba(var(--pc-shadow-tint), 0.20);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.70),
+    0.6px 0.6px 0 rgba(46, 30, 20, 0.14),
+    1.2px 1.2px 0 rgba(46, 30, 20, 0.24),
+    2px 2px 3.5px rgba(46, 30, 20, 0.08) !important;
 }
 
 /* 6. Emerald Octagon Gem Beveled Badge (.pc-badge-gem)
@@ -2375,58 +2957,158 @@ p, .example-desc {
 .pc-badge-gem,
 .pc-badge--gem {
   position: relative;
-  padding: 5px 12px;
+  padding: 4px 11px;
   background-color: var(--pc-lavender);
   color: var(--pc-lavender-dark);
-  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+  border: none !important;
+  clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 0 0 0.88px rgba(255, 255, 255, 0.85),
-    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 2.5px 5px rgba(var(--pc-shadow-tint), 0.20);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.70),
+    0.6px 0.6px 0 rgba(46, 30, 20, 0.14),
+    1.2px 1.2px 0 rgba(46, 30, 20, 0.24),
+    2px 2px 3.5px rgba(46, 30, 20, 0.08) !important;
 }
 
-/* 7. Dog-Ear Mini Folded Badge (.pc-badge-dogear)
-   도그이어 접힌 모서리 배지 */
-.pc-badge-dogear,
-.pc-badge--dogear {
-  position: relative;
-  border-radius: 6px;
-  padding: 5px 12px;
-  background-color: var(--pc-mint);
-  color: var(--pc-mint-dark);
-  overflow: visible;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 0 0 0.88px rgba(255, 255, 255, 0.85),
-    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48),
-    0 2.5px 5px rgba(var(--pc-shadow-tint), 0.20);
-}
-.pc-badge-dogear::after,
-.pc-badge--dogear::after {
-  content: "";
-  position: absolute;
-  top: -1px; right: -1px;
-  width: 10px; height: 10px;
-  background: linear-gradient(225deg, transparent 50%, #82C2A8 50%);
-  border-bottom-left-radius: 2px;
-  box-shadow: -1px 1px 2px rgba(var(--pc-shadow-tint), 0.35);
-}
-
-/* 8. Handcrafted Deckle Edge Mini Badge (.pc-badge-deckle)
+/* 7. Handcrafted Deckle Edge Mini Badge (.pc-badge-deckle)
    수제 한지 데클 엣지 배지 */
 .pc-badge-deckle,
 .pc-badge--deckle {
   position: relative;
-  border-radius: 8px;
-  padding: 5px 12px;
+  border-radius: 0 !important;
+  padding: 4px 11px;
   background-color: #FAF6ED;
   color: var(--pc-ink);
-  border: 1px solid rgba(196, 183, 166, 0.7);
+  border: 1px dashed rgba(196, 183, 166, 0.80) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 1.2px 2px rgba(var(--pc-shadow-tint), 0.45),
-    0 2.5px 5px rgba(var(--pc-shadow-tint), 0.18);
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.75),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+}
+
+/* 8. Header View Mode Style: Scrollview Ticket Badge (.pc-badge--scrollview)
+   헤더 스크롤뷰 토글형 다이컷 티켓 배지 (양측 노치 + 세로 절취선) */
+.pc-badge--scrollview,
+.pc-badge-scrollview {
+  position: relative;
+  padding: 4px 13px 4px 18px;
+  background-color: var(--pc-sage, #BBD5B8);
+  color: var(--pc-sage-dark, #1C4835);
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.75),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+  overflow: visible;
+  -webkit-mask-image: 
+    radial-gradient(circle 3px at 0 50%, transparent 3px, #000 3.5px),
+    radial-gradient(circle 3px at 100% 50%, transparent 3px, #000 3.5px);
+  -webkit-mask-size: 51% 100%, 51% 100%;
+  -webkit-mask-position: left, right;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: 
+    radial-gradient(circle 3px at 0 50%, transparent 3px, #000 3.5px),
+    radial-gradient(circle 3px at 100% 50%, transparent 3px, #000 3.5px);
+  mask-size: 51% 100%, 51% 100%;
+  mask-position: left, right;
+  mask-repeat: no-repeat;
+}
+
+.pc-badge--scrollview::before,
+.pc-badge-scrollview::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 3px;
+  bottom: 3px;
+  width: 0;
+  border-left: 1.2px dashed rgba(28, 72, 53, 0.40);
+  box-shadow: 0.88px 0 0 rgba(255, 255, 255, 0.70);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pc-badge--scrollview:hover,
+.pc-badge-scrollview:hover {
+  transform: translateY(-1.2px) !important;
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
+}
+
+.pc-badge--scrollview:active,
+.pc-badge-scrollview:active {
+  transform: translateY(0.5px) !important;
+  box-shadow: 
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.50),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
+}
+
+/* 9. Header Paper Sound Style: Amber Seal Stamp Badge (.pc-badge--sound)
+   헤더 종이 소리 토글형 원형 스탬프 엠블럼 배지 (버터컵 베이스 + 앰버 스탬프 인장) */
+.pc-badge--sound,
+.pc-badge-sound {
+  position: relative;
+  padding: 4px 11px 4px 22px;
+  background-color: var(--pc-buttercup, #FEE396);
+  color: #66460D;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.75),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+  overflow: visible;
+}
+
+.pc-badge--sound::before,
+.pc-badge-sound::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9.5px;
+  height: 9.5px;
+  background-color: #E8BD65;
+  border: 1.2px solid #FEE396;
+  border-radius: 50%;
+  box-shadow: 
+    inset 0 0.8px 1px rgba(46, 30, 20, 0.35),
+    0 0.5px 0.8px rgba(255, 255, 255, 0.80);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.pc-badge--sound.is-inlay,
+.pc-badge-sound.is-inlay {
+  background-color: #FFFBF0;
+  border: 1.2px solid #FEE396 !important;
+}
+
+.pc-badge--sound:hover,
+.pc-badge-sound:hover {
+  transform: translateY(-1.2px) !important;
+  box-shadow: 
+    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
+    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
+    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
+    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
+}
+
+.pc-badge--sound:active,
+.pc-badge-sound:active {
+  transform: translateY(0.5px) !important;
+  box-shadow: 
+    inset 0 0.5px 0 rgba(255, 255, 255, 0.50),
+    0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
 }
 
 /* Paper Cutout Stage/Well inside cards */
@@ -4479,3 +5161,130 @@ textarea.pc-input.pc-texture-paper,
 .pc-bg-action-row {
   flex-wrap: wrap;
 }
+
+/* ==========================================================================
+   PURE SVG MULTI-LAYERED PAPERCUT COMPONENT SUITE (순수 SVG 다층 벡터 아트)
+   - 678종 papercut-icons & 130종 배경 플레이트와 100% 동일한 순수 SVG 다층 벡터
+   - 2-Tier 48% 번트 엄버 그림자 (#2E1E14) + 0.88px 화이트 나이프 엣지 림
+   - 고정/반응형 preserveAspectRatio="none" 다층 벡터 프레임 & 3D 컷 모티프
+   ========================================================================== */
+
+/* 1. Pure SVG Multi-Layer Cards & Panels */
+.pc-svg-card-frame-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  overflow: visible;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  user-select: none;
+}
+.pc-svg-card-frame-wrap:hover {
+  transform: translateY(-2.5px);
+}
+.pc-svg-card-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.pc-svg-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: 190px;
+  box-sizing: border-box;
+}
+
+/* 2. Pure SVG Multi-Layer Badges & Tags */
+.pc-svg-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 2px;
+  text-decoration: none;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1;
+}
+.pc-svg-badge:hover {
+  transform: translateY(-1.5px) scale(1.02);
+}
+.pc-svg-badge:active {
+  transform: translateY(1px);
+}
+.pc-kirigami-badge-svg {
+  display: block;
+  height: 32px;
+  width: auto;
+  overflow: visible;
+}
+
+/* 3. Pure SVG Multi-Layer Form Control Frames */
+.pc-svg-input-frame-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+.pc-svg-input-frame-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+}
+.pc-svg-input-field {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 44px;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 18px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ink);
+}
+.pc-svg-input-field::placeholder {
+  color: rgba(74, 58, 42, 0.50);
+}
+
+/* 4. Pure SVG Panels & Plates */
+.pc-svg-panel-wrap,
+.pc-svg-plate-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 120px;
+  overflow: visible;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+.pc-svg-panel-wrap:hover,
+.pc-svg-plate-wrap:hover {
+  transform: translateY(-2px);
+}
+.pc-svg-panel-wrap .pc-svg-card-content,
+.pc-svg-plate-wrap .pc-svg-card-content {
+  min-height: 120px;
+  padding: 20px;
+}
+
+/* 5. Pure SVG Badge Typography Alignment */
+.pc-kirigami-badge-svg text {
+  user-select: none;
+  pointer-events: none;
+}
+

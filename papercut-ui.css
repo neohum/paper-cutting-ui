@@ -107,12 +107,12 @@
     inset 0 4.5px 12px rgba(var(--pc-ui-shadow-tint), 0.22),
     0 1px 0 rgba(255, 255, 255, 0.9);
 
-  /* Corner Radii */
-  --pc-ui-radius-xs: 4px;
-  --pc-ui-radius-sm: 8px;
-  --pc-ui-radius-md: 12px;
-  --pc-ui-radius-lg: 18px;
-  --pc-ui-radius-xl: 26px;
+  /* Corner Radii - Razor-Sharp Knife-Cut Paper Geometry */
+  --pc-ui-radius-xs: 0px;
+  --pc-ui-radius-sm: 0px;
+  --pc-ui-radius-md: 0px;
+  --pc-ui-radius-lg: 0px;
+  --pc-ui-radius-xl: 0px;
   --pc-ui-radius-pill: 9999px;
 
   /* Physics & Durations */
