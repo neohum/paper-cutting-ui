@@ -12,10 +12,9 @@
     
     // 시그니처 프리미티브
     { id: 'knife-cut-buttons', title: '3D 페이퍼 커팅 버튼', badge: '12종', icon: 'scissors', bgShape: 'deckle-edge', bgTheme: 'peach', category: '시그니처 프리미티브' },
-    { id: 'kirigami-components', title: '페이퍼 커팅 카드 & 폼', badge: 'HOT', icon: 'sparkles', bgShape: 'squircle-offset', bgTheme: 'mint', category: '시그니처 프리미티브' },
     
     // 마스터 UI 키트 (PC 표준)
-    { id: 'pc-components', title: '페이퍼 UI 44종 컴포넌트', badge: '44개', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트' },
+    { id: 'pc-components', title: '페이퍼 UI & 특화 컴포넌트', badge: '통합 마스터', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트', aliases: ['kirigami-components'] },
     { id: 'pc-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
     { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
@@ -223,7 +222,7 @@
         } else if (sec.bgShape === 'postage-stamp' || sec.badge === 'Hero' || sec.badge === '659종' || sec.badge === '16 Stocks' || sec.badge === '8종 모션') {
           badgeStyle = 'stamp';
         } else if (sec.bgShape === 'wax-seal' || sec.badge === 'HOT' || sec.badge === 'DEPTH LAB' || sec.badge === '16~256px' || sec.badge === 'Playground') {
-          badgeStyle = 'wax';
+          badgeStyle = 'ticket';
         } else if (sec.bgShape === 'hanging-tag' || sec.bgShape === 'shield-crest' || sec.badge === '16~28px' || sec.badge === '6대 블록' || sec.badge === '130종') {
           badgeStyle = 'tag';
         }
@@ -497,7 +496,16 @@
   }
 
   function switchPage(pageId, pushState = true) {
-    const targetSec = SECTIONS.find(s => s.id === pageId) || SECTIONS[0];
+    if (pageId === 'kirigami-components') {
+      pageId = 'pc-components';
+      setTimeout(() => {
+        const btn = document.querySelector('.pc-filter-btn[data-target-cat="cards"]');
+        if (btn && window.PaperCutUI && window.PaperCutUI.filterTab) {
+          window.PaperCutUI.filterTab('cards', btn);
+        }
+      }, 50);
+    }
+    const targetSec = SECTIONS.find(s => s.id === pageId || (s.aliases && s.aliases.includes(pageId))) || SECTIONS[0];
     activePageId = targetSec.id;
 
     if (pushState && window.location.protocol !== 'file:') {
