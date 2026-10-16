@@ -13,13 +13,13 @@
 (function (root) {
   'use strict';
 
-  var VARIANTS = ['sheet', 'field', 'pill', 'tab', 'ticket', 'track', 'knob', 'menu'];
+  var VARIANTS = ['sheet', 'field', 'pill', 'tab', 'ticket', 'track', 'knob', 'menu', 'deckle'];
   var TONES = ['mint', 'peach', 'lavender', 'buttercup', 'sky', 'rose', 'cream'];
 
   // 받침 색지가 위쪽 색지에서 어긋나는 거리(px). 변형마다 두께감이 다르다.
-  var OFFSET = { sheet: 3, menu: 3, field: 1.5, pill: 2, tab: 2, ticket: 3, track: 1, knob: 2.5 };
+  var OFFSET = { sheet: 3, menu: 3, field: 1.5, pill: 2, tab: 2, ticket: 3, track: 1, knob: 2.5, deckle: 1.5 };
   // 변형별 기본 모서리 반지름. 값이 0이면 최대 둥근(pill/원형)을 뜻한다.
-  var DEFAULT_RADIUS = { sheet: 14, menu: 12, field: 10, tab: 10, ticket: 12, pill: 0, track: 0, knob: 0 };
+  var DEFAULT_RADIUS = { sheet: 14, menu: 12, field: 10, tab: 10, ticket: 12, pill: 0, track: 0, knob: 0, deckle: 4 };
   var RIM = 0.88;                 // 칼선 버튼과 같은 흰 림 굵기
   var HR = RIM / 2;               // 림이 상자 밖으로 나가지 않도록 안쪽으로 당기는 값
   // 자식을 가질 수 없는 요소: 레이어를 넣을 수 없다.
@@ -134,8 +134,37 @@
     return '<path class="pc-paper-deco" d="' + d + '" fill="none" stroke="#C9B8A4" stroke-width="0.8" stroke-dasharray="2 2"/>';
   }
 
+  // 0~1 사이의 고정 난수. 같은 크기면 다시 그려도 물결이 같다.
+  function jitter(i, seed) {
+    var x = Math.sin(i * 12.9898 + seed * 78.233) * 43758.5453;
+    return x - Math.floor(x);
+  }
+
+  // 손으로 오린 데클 외곽선: 변을 일정 간격으로 나눠 이차 곡선으로 살짝 들쭉날쭉하게 잇는다.
+  // .pc-svg-input-frame-wrap의 물결 외곽(가로 약 40px, 세로 약 12px 간격, 진폭 1~2px)을 실제 px로 그린다.
+  function deckleOutline(x0, y0, x1, y1, seed) {
+    var pts = [], k = 0;
+    function edge(ax, ay, bx, by, step, nx, ny) {
+      var len = Math.abs(bx - ax) + Math.abs(by - ay);
+      var n = Math.max(2, Math.round(len / step));
+      for (var i = 0; i < n; i++) {
+        var t0 = i / n, t1 = (i + 1) / n, tm = (t0 + t1) / 2;
+        var amp = (i % 2 ? -1 : 1) * (0.7 + jitter(k++, seed) * 0.9);
+        var end = (jitter(k++, seed) - 0.5) * 1.1;
+        pts.push('Q' + f(ax + (bx - ax) * tm + nx * amp) + ' ' + f(ay + (by - ay) * tm + ny * amp) + ' ' +
+          f(ax + (bx - ax) * t1 + nx * end) + ' ' + f(ay + (by - ay) * t1 + ny * end));
+      }
+    }
+    edge(x0, y0, x1, y0, 40, 0, 1);    // 위
+    edge(x1, y0, x1, y1, 12, 1, 0);    // 오른쪽
+    edge(x1, y1, x0, y1, 40, 0, 1);    // 아래
+    edge(x0, y1, x0, y0, 12, 1, 0);    // 왼쪽
+    return 'M' + f(x0) + ' ' + f(y0) + pts.join('') + 'Z';
+  }
+
   // 한 요소의 SVG 내부 마크업. 반환값이 ''이면 너무 작아 그릴 수 없다.
   function markup(variant, w, h, radius) {
+    if (variant === 'deckle') return deckleMarkup(w, h, radius);
     var o = Math.min(OFFSET[variant], Math.min(w, h) * 0.2);
     var ux0 = HR, uy0 = HR, ux1 = w - o - HR, uy1 = h - o - HR;
     var uw = ux1 - ux0, uh = uy1 - uy0;
@@ -186,6 +215,25 @@
     };
   }
 
+  // deckle: 물결 외곽 색지(받침) 위에 깨끗한 흰 속지(위쪽 색지)를 얹는다. 입력 프레임과 같은 구조.
+  function deckleMarkup(w, h, radius) {
+    var m = 2.5;                                   // 물결 진폭이 상자 밖으로 나가지 않는 여백
+    if (w < 24 || h < 16) return { html: '', o: 0 };
+    var ix = Math.min(6, w * 0.08), iy = h < 64 ? 3 : 6;
+    var x0 = m + ix, y0 = m + iy, x1 = w - m - ix, y1 = h - m - iy;
+    var r = Math.max(0, Math.min(radius == null ? DEFAULT_RADIUS.deckle : radius, (y1 - y0) / 2));
+    var seed = Math.round(w) * 31 + Math.round(h);
+    return {
+      o: OFFSET.deckle,
+      html:
+        '<g class="pc-paper-stack">' +
+        '<path class="pc-paper-base" d="' + deckleOutline(m, m, w - m, h - m, seed) + '" stroke-width="' + RIM + '"/>' +
+        '<g class="pc-paper-top">' +
+        '<path class="pc-paper-sheet" d="' + rr(x0, y0, x1, y1, r, r, r, r) + '" stroke-width="0.8"/>' +
+        '</g></g>'
+    };
+  }
+
   /* ---------- 그리기: 읽기 → 쓰기 두 단계로 레이아웃 스래싱 방지 ---------- */
   function px(v) { var n = parseFloat(v); return isFinite(n) ? n : null; }
 
@@ -208,7 +256,8 @@
       var rad = readRadius(cs);
       // 완전히 둥근 변형은 CSS 반지름이 0이면 무시한다(--pc-paper-radius가 명시된 경우만 존중)
       var fullRound = it.variant === 'pill' || it.variant === 'track' || it.variant === 'knob';
-      if (fullRound && px(cs.getPropertyValue('--pc-paper-radius')) == null) rad = null;
+      // deckle의 반지름은 속지 모서리(기본 4px)다. 요소의 CSS 모서리는 바깥 상자 값이라 쓰지 않는다.
+      if ((fullRound || it.variant === 'deckle') && px(cs.getPropertyValue('--pc-paper-radius')) == null) rad = null;
       if (!fullRound && !(rad > 0)) rad = null;
       it.rad = rad;
       it.bl = px(cs.borderLeftWidth) || 0;

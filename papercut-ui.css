@@ -3158,7 +3158,7 @@
 }
 
 /* 메뉴·내비게이션 패널이 열린 카드는 다음 카드 위로 올라와야 잘리지 않는다 */
-.pc-comp-group:has(.pc-ui-menubar-menu[data-state="open"], .pc-ui-nav-pill-wrap[data-state="open"]) { z-index: 20; }
+.pc-comp-group:has(.pc-ui-menubar-menu[data-state="open"], .pc-ui-nav-pill-wrap[data-state="open"], .pc-dropdown-custom.is-open) { z-index: 20; }
 
 /* ---- Accordion / Collapsible: 한 장의 sheet 색지, 열린 항목은 accent로 눌린다 ---- */
 .pc-comp-group .pc-ui-accordion { gap: 12px; }
@@ -3671,6 +3671,19 @@
   display: inline-flex; align-items: center; justify-content: center; --pc-paper-radius: 9px; cursor: col-resize; pointer-events: none;
 }
 .pc-ui-resizable-handle:not(.is-paper-hydrated) .pc-ui-resizable-grip { display: none; }
+
+/* PC Comp Group Component Cards (Unified Component Architecture) */
+.pc-comp-group {
+  background: var(--pc-paper-white);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1.5px solid rgba(74, 58, 42, 0.12);
+  box-sizing: border-box;
+  scroll-margin-top: 130px;
+}
+.pc-comp-group.is-suite-header {
+  grid-column: 1 / -1;
+}
 
 /* 좁은 화면: 캘린더·리사이저블이 카드 안쪽 폭(약 190px)에 들어가도록 여백을 줄인다 */
 @media (max-width: 480px) {

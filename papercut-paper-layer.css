@@ -44,6 +44,21 @@
   --pc-paper-accent: #F3E6CB; --pc-paper-accent-base: #D9C6A5;
 }
 
+/* ---------- deckle: 물결 외곽 색지 + 흰 속지 (.pc-svg-input-frame-wrap과 같은 색) ---------- */
+/* 외곽은 톤의 받침 색(크림은 #F4EEE3), 속지는 흰 종이. 활성(선택·눌림·ON)이면 외곽이 accent 받침색,
+   속지가 외곽색을 살짝 머금은 연한 색지로 바뀐다. */
+:where([data-pc-paper="deckle"]) {
+  --pc-paper-deckle: var(--pc-paper-base);
+  --pc-paper-inner: #FFFDF9;
+  --pc-paper-inner-line: color-mix(in srgb, var(--pc-paper-deckle) 55%, #C9B8A4);
+  --pc-paper-deckle-active: var(--pc-paper-accent-base);
+  --pc-paper-inner-active: color-mix(in srgb, var(--pc-paper-deckle-active) 22%, #FFFDF9);
+}
+:where([data-pc-paper="deckle"]:not([data-pc-tone]), [data-pc-paper="deckle"][data-pc-tone="cream"]) {
+  --pc-paper-deckle: #F4EEE3;
+  --pc-paper-inner-line: #EADBCC;
+}
+
 /* ---------- 수화된 요소: 기존 CSS 상자를 끄고 SVG 색지에 맡긴다 ---------- */
 /* border-color만 투명으로: 두께는 유지해 크기가 튀지 않는다. */
 .is-paper-hydrated {
@@ -130,6 +145,16 @@
 .is-paper-hydrated:is([data-state="open"], [data-state="active"], [data-state="checked"], [data-state="on"],
   [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
   :has(> input:checked)) > .pc-ui-paper-layer[data-variant="track"] .pc-paper-stack { filter: none; }
+
+/* deckle 색: 일반 변형의 활성 규칙보다 뒤에 두고 data-variant로 특이도를 높여 덮는다 */
+.pc-ui-paper-layer[data-variant="deckle"] .pc-paper-base  { fill: var(--pc-paper-deckle); stroke: var(--pc-paper-rim); }
+.pc-ui-paper-layer[data-variant="deckle"] .pc-paper-sheet { fill: var(--pc-paper-inner); stroke: var(--pc-paper-inner-line); }
+.is-paper-hydrated:is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
+  .is-selected) > .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-base { fill: var(--pc-paper-deckle-active); }
+.is-paper-hydrated:is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
+  .is-selected) > .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-sheet { fill: var(--pc-paper-inner-active); }
 
 /* 비활성: 채도를 빼고 그림자를 없앤다 */
 .is-paper-hydrated:is(:disabled, [disabled], [aria-disabled="true"], [data-disabled], .is-disabled,

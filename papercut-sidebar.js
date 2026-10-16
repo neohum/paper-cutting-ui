@@ -10,11 +10,20 @@
   const SECTIONS = [
     { id: 'overview', title: '개요 & 히어로', badge: 'Hero', icon: 'home', bgShape: 'postage-stamp', bgTheme: 'peach', category: '기본 정보' },
     
-    // 시그니처 프리미티브
-    { id: 'knife-cut-buttons', title: '3D 페이퍼 커팅 버튼', badge: '12종', icon: 'scissors', bgShape: 'deckle-edge', bgTheme: 'peach', category: '시그니처 프리미티브' },
-    
     // 마스터 UI 키트 (PC 표준)
-    { id: 'pc-components', title: '페이퍼 UI & 특화 컴포넌트', badge: '통합 마스터', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트', aliases: ['kirigami-components'] },
+    { id: 'pc-components', title: '페이퍼 UI & 특화 컴포넌트', badge: '통합 마스터', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트', aliases: ['kirigami-components', 'knife-cut-buttons'],
+      // 예전 섹션 주소를 하위 범주로 잇는다 (#knife-cut-buttons → #pc-components/buttons)
+      aliasSubs: { 'kirigami-components': 'cards', 'knife-cut-buttons': 'buttons' },
+      // 하위 메뉴: 1페이지 연속 스크롤 앵커 (#pc-components/<id>)
+      children: [
+        { id: 'buttons', title: '3D 페이퍼 커팅 버튼', count: 24 },
+        { id: 'cards', title: '특화 카드 & 패널', count: 10 },
+        { id: 'badges', title: '특화 배지 & 7대 색지', count: 16 },
+        { id: 'forms', title: '폼 컨트롤 & 음각 셀렉트', count: 8 },
+        { id: 'nav', title: '내비게이션 & 메뉴', count: 7 },
+        { id: 'overlays', title: '오버레이 & 피드백', count: 14 },
+        { id: 'data', title: '데이터 & 레이아웃', count: 13 }
+      ] },
     { id: 'pc-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
     { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
@@ -22,16 +31,20 @@
     { id: 'icon-gallery', title: '3D 페이퍼컷 아이콘', badge: '678종', icon: 'star-cluster', bgShape: 'cog-seal', bgTheme: 'sky', category: '에셋 & 배경 시스템' },
     { id: 'bg-library', title: '3D 아이콘 배경 플레이트', badge: '130종', icon: 'shield-star', bgShape: 'shield-crest', bgTheme: 'rose', category: '에셋 & 배경 시스템' },
     
-    // 디자인 시스템 & 피드백
     { id: 'texture-showcase', title: '16종 종이 질감 & 토큰', badge: '16 Stocks', icon: 'palette', bgShape: 'pebble-organic', bgTheme: 'sage', category: '디자인 시스템 & 피드백' },
     { id: 'paper-alerts-toasts', title: '알림 & 토스트 시스템', badge: 'NEW', icon: 'bell-ring', bgShape: 'notched-ticket', bgTheme: 'buttercup', category: '디자인 시스템 & 피드백' },
-    { id: 'paper-animation-studio', title: '페이퍼 애니메이션 & 모션', badge: '8종 모션', icon: 'sparkles-double', bgShape: 'scallop-sunburst', bgTheme: 'lavender', category: '디자인 시스템 & 피드백' }
+    { id: 'paper-animation-studio', title: '페이퍼 애니메이션 & 모션', badge: '8종 모션', icon: 'sparkles-double', bgShape: 'scallop-sunburst', bgTheme: 'lavender', category: '디자인 시스템 & 피드백' },
+
+    // 사운드 & 햅틱 (사이드바 제일 하단 메뉴)
+    { id: 'paper-sound-studio', title: '종이 소리 & 햅틱 랩', badge: '8종 ASMR', icon: 'volume', bgShape: 'wax-seal', bgTheme: 'buttercup', category: '사운드 & 인터랙션' }
   ];
 
   const isSimulatorPage = window.location.pathname.endsWith('icon-simulator.html') || 
                           window.location.pathname.includes('icon-simulator');
 
   let activePageId = 'overview';
+  // 하위 메뉴로 고른 범주. 값이 있으면 그 섹션의 해당 범주만 보이고 다른 섹션은 숨긴다(보기 모드 설정과 무관, 저장하지 않음).
+  let activeSubId = '';
   // Default to Continuous Scroll Mode so all parts (1~4) and sections are immediately visible.
   let isPageMode = localStorage.getItem('pc_view_mode') === 'page';
 
@@ -185,6 +198,9 @@
     if (isCollapsed) {
       sidebarEl.classList.add('is-collapsed');
       document.body.classList.add('is-collapsed');
+    } else {
+      sidebarEl.classList.remove('is-collapsed');
+      document.body.classList.remove('is-collapsed');
     }
 
     // Fast Hydration: Check if .pc-sidebar-menu already statically exists in the HTML
@@ -227,16 +243,71 @@
           badgeStyle = 'tag';
         }
 
+        const hasChildren = !!(sec.children && sec.children.length);
+        const chevronHtml = hasChildren ? `<span class="pc-sidebar-chevron fi fi-rr-angle-small-down" aria-hidden="true"></span>` : '';
+        const ariaControlsAttr = hasChildren ? ` aria-controls="pc-sidebar-sub-${sec.id}" aria-expanded="true"` : '';
+
         menuHtml += `
-          <a href="${itemHref}" class="pc-sidebar-item pc-btn" role="button" data-target="${sec.id}" title="${sec.title}">
+          <a href="${itemHref}" class="pc-sidebar-item pc-btn" role="button" data-target="${sec.id}"${ariaControlsAttr} title="${sec.title}">
             <div class="pc-sidebar-item-icon" data-bg-shape="${sec.bgShape}" data-icon="${sec.icon}">
               ${plateSvg}
             </div>
             <span class="pc-sidebar-item-text">${sec.title}</span>
             <span class="pc-sidebar-badge pc-badge--${badgeStyle} pc-badge--${sec.bgTheme || 'lavender'} pc-badge-${sec.bgTheme || 'lavender'}">${sec.badge}</span>
+            ${chevronHtml}
           </a>
         `;
       });
+
+      // Sound widget placed at the bottom of sidebar menu
+      menuHtml += `
+        <div class="pc-sidebar-sound-widget" id="pc-sidebar-sound-widget" aria-label="종이 소리 테스트 제어기">
+          <div class="pc-sidebar-sound-header">
+            <div class="pc-sidebar-sound-title-group">
+              <span class="pc-sidebar-sound-icon fi fi-rr-volume" id="pc-sidebar-sound-icon" aria-hidden="true"></span>
+              <span class="pc-sidebar-sound-label">종이 소리 테스트</span>
+            </div>
+            <button type="button" class="pc-sidebar-sound-toggle-btn" id="pc-sidebar-sound-toggle" title="종이 소리 바스락 효과음 켜기/끄기" aria-pressed="false">
+              <span class="pc-sound-toggle-pip"></span>
+              <span class="pc-sound-toggle-text">OFF</span>
+            </button>
+          </div>
+          <div class="pc-sidebar-sound-papers" id="pc-sidebar-sound-list" role="radiogroup" aria-label="종이 종류별 사운드 선택">
+            <button type="button" class="pc-sidebar-paper-btn is-active" data-paper="cotton" role="radio" aria-checked="true" title="🌿 300g 수제 코튼지 (포근한 펄프 서걱임)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">🌿</span><span class="pc-paper-name">300g 코튼지</span></div>
+              <span class="pc-paper-badge">300g</span>
+            </button>
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="hanji" role="radio" aria-checked="false" title="🎋 닥나무 전통 한지 (맑고 찰랑이는 사각거림)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">🎋</span><span class="pc-paper-name">닥나무 한지</span></div>
+              <span class="pc-paper-badge">한지</span>
+            </button>
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="kraft" role="radio" aria-checked="false" title="📦 350g 크라프트 보드 (묵직한 둔탁음과 마찰)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">📦</span><span class="pc-paper-name">크라프트 보드</span></div>
+              <span class="pc-paper-badge">350g</span>
+            </button>
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="vellum" role="radio" aria-checked="false" title="📜 반투명 실크 벨러지 (바삭바삭 파사삭 찰랑임)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">📜</span><span class="pc-paper-name">실크 벨러지</span></div>
+              <span class="pc-paper-badge">벨럼</span>
+            </button>
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="origami" role="radio" aria-checked="false" title="🎨 오리가미 화지 (경쾌한 착착 접힘 스냅)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">🎨</span><span class="pc-paper-name">오리가미 화지</span></div>
+              <span class="pc-paper-badge">색종이</span>
+            </button>
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="cardboard" role="radio" aria-checked="false" title="📦 골판지 카톤 (드르륵 요철 질감 마찰음)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">📦</span><span class="pc-paper-name">골판지 카톤</span></div>
+              <span class="pc-paper-badge">골판지</span>
+            </button>
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="newsprint" role="radio" aria-checked="false" title="📰 빈티지 신문지 (가볍게 파스락거리는 구김음)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">📰</span><span class="pc-paper-name">빈티지 신문지</span></div>
+              <span class="pc-paper-badge">신문지</span>
+            </button>
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="parchment" role="radio" aria-checked="false" title="📜 고문서 양피지 (바싹 마른 크리스피 크랙클)">
+              <div class="pc-paper-btn-left"><span class="pc-paper-emoji">📜</span><span class="pc-paper-name">고문서 양피지</span></div>
+              <span class="pc-paper-badge">양피지</span>
+            </button>
+          </div>
+        </div>
+      `;
 
       const brandHref = isSimulatorPage ? 'index.html#overview' : '#overview';
       const toggleIcon = isCollapsed ? 'arrow-right' : 'arrow-left';
@@ -244,46 +315,12 @@
 
       sidebarEl.innerHTML = `
         <div class="pc-sidebar-header">
-          <a href="${brandHref}" class="pc-sidebar-brand" title="PaperCut UI 메인으로 이동">
-            <div class="pc-sidebar-logo-icon" title="PaperCut UI 로고 (우표 천공 플레이트 + 3D 가위)">
-              <svg class="pc-logo-plate-svg" viewBox="0 0 40 40" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <filter id="sb-logo-sh-stamp" x="-20%" y="-20%" width="140%" height="150%">
-                    <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.48"/>
-                    <feDropShadow dx="0" dy="2.8" stdDeviation="1.4" flood-color="#2E1E14" flood-opacity="0.25"/>
-                    <feDropShadow dx="-0.5" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
-                  </filter>
-                  <filter id="sb-logo-sh-scissors" x="-30%" y="-30%" width="160%" height="160%">
-                    <feDropShadow dx="0" dy="0.8" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.42"/>
-                    <feDropShadow dx="0.5" dy="1.8" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.25"/>
-                    <feDropShadow dx="-0.4" dy="-0.4" stdDeviation="0.2" flood-color="#FFFFFF" flood-opacity="0.95"/>
-                  </filter>
-                </defs>
-                <!-- Layer 1: Postage Stamp Perforated Icon Background Plate -->
-                <path d="M 6 4 Q 8 6 10 4 Q 12 6 14 4 Q 16 6 18 4 Q 20 6 22 4 Q 24 6 26 4 Q 28 6 30 4 Q 32 6 34 4 Q 36 6 38 4 Q 37 6 37 8 Q 39 10 37 12 Q 39 14 37 16 Q 39 18 37 20 Q 39 22 37 24 Q 39 26 37 28 Q 39 30 37 32 Q 39 34 37 36 Q 36 34 34 36 Q 32 34 30 36 Q 28 34 26 36 Q 24 34 22 36 Q 20 34 18 36 Q 16 34 14 36 Q 12 34 10 36 Q 8 34 6 36 Q 4 34 2 36 Q 3 34 3 32 Q 1 30 3 28 Q 1 26 3 24 Q 1 22 3 20 Q 1 18 3 16 Q 1 14 3 12 Q 1 10 3 8 Q 1 6 3 4 Z" fill="#BBD5B8" filter="url(#sb-logo-sh-stamp)"/>
-                <!-- Layer 2: Inner Cream Paper Inlay -->
-                <rect x="6.5" y="6.5" width="27" height="27" rx="3" fill="#FFFDF9"/>
-                <!-- Layer 3: Dashed Perforation Ring -->
-                <rect x="8.5" y="8.5" width="23" height="23" rx="2" fill="none" stroke="#D8CEBD" stroke-width="0.8" stroke-dasharray="2 2"/>
-                <!-- Layer 4: 3D Paper-Cut Scissors Craft Motif -->
-                <g transform="translate(10.5, 10.5) scale(0.29)" filter="url(#sb-logo-sh-scissors)">
-                  <circle cx="16" cy="18" r="9" fill="#F7BA9E"/>
-                  <circle cx="16" cy="18" r="5" fill="#FFFDF9"/>
-                  <circle cx="16" cy="46" r="9" fill="#F7BA9E"/>
-                  <circle cx="16" cy="46" r="5" fill="#FFFDF9"/>
-                  <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#FFFDF9" stroke-width="6" stroke-linecap="round"/>
-                  <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#A3D8C3" stroke-width="3" stroke-linecap="round"/>
-                  <circle cx="34" cy="32" r="3.2" fill="#FEE396"/>
-                </g>
-              </svg>
-            </div>
-            <div class="pc-sidebar-brand-text">
-              <span class="pc-sidebar-brand-title">PaperCut UI</span>
-              <span class="pc-sidebar-brand-sub">Layered Craft System</span>
-            </div>
-          </a>
-          <button type="button" class="pc-sidebar-toggle-btn pc-btn" id="pc-sidebar-toggle" title="${toggleTitle}">
-            <span class="pc-inline-icon is-color is-xs" data-icon="${toggleIcon}"></span>
+          <div class="pc-sidebar-header-lead">
+            <span class="pc-sidebar-header-icon fi fi-rr-book-alt" aria-hidden="true"></span>
+            <span class="pc-sidebar-header-title">목차 네비게이션</span>
+          </div>
+          <button type="button" class="pc-sidebar-toggle-btn pc-btn" id="pc-sidebar-toggle" title="${toggleTitle}" aria-label="${toggleTitle}">
+            <span class="pc-inline-icon is-color is-xs fi fi-rr-${toggleIcon}" data-icon="${toggleIcon}"></span>
           </button>
         </div>
 
@@ -299,6 +336,8 @@
         </div>
       `;
     }
+
+    mountSubmenus(sidebarEl);
 
     // Avoid double-binding event listeners
     if (sidebarEl.dataset.listenersBound === 'true') {
@@ -347,30 +386,62 @@
       document.addEventListener('DOMContentLoaded', hydrateIcons);
     }
 
-    // Toggle Collapse Button
-    const toggleBtn = document.getElementById('pc-sidebar-toggle');
-    if (toggleBtn) {
-      const toggleTitle = isCollapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
-      toggleBtn.title = toggleTitle;
-      const iconSpan = toggleBtn.querySelector('.pc-inline-icon');
-      if (iconSpan) {
-        iconSpan.setAttribute('data-icon', isCollapsed ? 'arrow-right' : 'arrow-left');
-      }
+    // Synchronize toggle button states (Header & Sidebar)
+    function updateToggleButtons(collapsed) {
+      const toggleBtn = document.getElementById('pc-sidebar-toggle');
+      const headerToggleBtn = document.getElementById('pc-header-sidebar-toggle');
+      const title = collapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
+      const icon = collapsed ? 'arrow-right' : 'arrow-left';
 
-      toggleBtn.addEventListener('click', () => {
-        const nowCollapsed = sidebarEl.classList.toggle('is-collapsed');
-        document.body.classList.toggle('is-collapsed', nowCollapsed);
-        localStorage.setItem('pc_sidebar_collapsed', nowCollapsed ? 'true' : 'false');
-        toggleBtn.title = nowCollapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
-        
-        const span = toggleBtn.querySelector('.pc-inline-icon');
-        if (span) {
-          span.setAttribute('data-icon', nowCollapsed ? 'arrow-right' : 'arrow-left');
-          span.classList.add('is-color');
+      if (toggleBtn) {
+        toggleBtn.title = title;
+        toggleBtn.setAttribute('aria-label', title);
+        const iconSpan = toggleBtn.querySelector('.pc-inline-icon');
+        if (iconSpan) {
+          iconSpan.setAttribute('data-icon', icon);
+          iconSpan.className = `pc-inline-icon is-color is-xs fi fi-rr-${icon}`;
           if (typeof window.hydratePapercutIcons === 'function') {
             window.hydratePapercutIcons(toggleBtn);
           }
         }
+      }
+
+      if (headerToggleBtn) {
+        headerToggleBtn.title = collapsed ? '사이드바 펼치기' : '사이드바 접기';
+        headerToggleBtn.setAttribute('aria-label', collapsed ? '사이드바 펼치기' : '사이드바 접기');
+      }
+    }
+
+    function toggleSidebarCollapse() {
+      if (window.innerWidth < 768) {
+        sidebarEl.classList.toggle('is-mobile-open');
+      } else {
+        const nowCollapsed = sidebarEl.classList.toggle('is-collapsed');
+        document.body.classList.toggle('is-collapsed', nowCollapsed);
+        localStorage.setItem('pc_sidebar_collapsed', nowCollapsed ? 'true' : 'false');
+        updateToggleButtons(nowCollapsed);
+      }
+    }
+
+    updateToggleButtons(isCollapsed);
+
+    // Toggle Collapse Button in Sidebar Header
+    const toggleBtn = document.getElementById('pc-sidebar-toggle');
+    if (toggleBtn && !toggleBtn.dataset.bound) {
+      toggleBtn.dataset.bound = 'true';
+      toggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleSidebarCollapse();
+      });
+    }
+
+    // Toggle Collapse Button in Global Header
+    const headerToggleBtn = document.getElementById('pc-header-sidebar-toggle');
+    if (headerToggleBtn && !headerToggleBtn.dataset.bound) {
+      headerToggleBtn.dataset.bound = 'true';
+      headerToggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleSidebarCollapse();
       });
     }
 
@@ -385,6 +456,104 @@
     } else {
       setupRouter(sidebarEl);
     }
+  }
+
+  /**
+   * 하위 메뉴: children이 있는 섹션의 사이드바 항목 바로 뒤에 번호 매긴 하위 항목을 붙인다.
+   * 정적 사전 렌더링 메뉴와 JS 생성 메뉴 모두에 같은 방식으로 붙이므로 SECTIONS가 유일한 원본이다.
+   */
+  function mountSubmenus(sidebarEl) {
+    SECTIONS.forEach(sec => {
+      if (!sec.children || !sec.children.length) return;
+      const parent = sidebarEl.querySelector(`.pc-sidebar-item[data-target="${sec.id}"]`);
+      if (!parent) return;
+
+      const listId = `pc-sidebar-sub-${sec.id}`;
+      let sub = sidebarEl.querySelector(`.pc-sidebar-submenu[data-parent="${sec.id}"]`);
+      if (!sub) {
+        const base = isSimulatorPage ? `index.html#${sec.id}` : `#${sec.id}`;
+        sub = document.createElement('div');
+        sub.className = 'pc-sidebar-submenu is-open';
+        sub.id = listId;
+        sub.setAttribute('role', 'group');
+        sub.setAttribute('aria-label', `${sec.title} 하위 메뉴`);
+        sub.dataset.parent = sec.id;
+        sub.innerHTML = sec.children.map((child, i) => `
+          <a href="${base}/${child.id}" class="pc-sidebar-subitem" data-parent="${sec.id}" data-sub="${child.id}" title="${child.title}">
+            <span class="pc-sidebar-subitem-num" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+            <span class="pc-sidebar-subitem-text">${child.title}</span>
+            <span class="pc-sidebar-subitem-count">${child.count}</span>
+          </a>
+        `).join('');
+        parent.after(sub);
+      }
+
+      parent.setAttribute('aria-controls', listId);
+      parent.setAttribute('aria-expanded', sub.classList.contains('is-open') ? 'true' : 'false');
+
+      // Dropdown Chevron Indicator guarantee
+      if (!parent.querySelector('.pc-sidebar-chevron')) {
+        const chevron = document.createElement('span');
+        chevron.className = 'pc-sidebar-chevron fi fi-rr-angle-small-down';
+        chevron.setAttribute('aria-hidden', 'true');
+        parent.appendChild(chevron);
+      }
+    });
+  }
+
+  /**
+   * 하위 메뉴 상태를 화면에 반영한다: 범주 필터, 하위 메뉴 펼침·활성 표시.
+   * 3D 페이퍼컷 마스터 UI 컴포넌트 스위트는 탭 형태가 아니라 1페이지로 스크롤 되도록 보장.
+   */
+  function applySubState() {
+    const focusId = activeSubId ? activePageId : '';
+
+    // 메뉴별 독립 보기(page mode)에서만 pc-sub-focus 적용. 전체 연속 스크롤 모드에서는 다른 섹션을 숨기지 않는다.
+    document.body.classList.toggle('pc-sub-focus', isPageMode && !!focusId);
+    document.querySelectorAll('.pc-page-view').forEach(view => {
+      view.classList.toggle('is-focus-page', view.id === focusId);
+    });
+
+    SECTIONS.forEach(s => {
+      if (!s.children) return;
+      const cat = s.id === focusId ? activeSubId : 'all';
+      const sectionEl = document.getElementById(s.id);
+      if (sectionEl && (s.id === focusId || sectionEl.dataset.subFiltered === 'true')) {
+        filterSectionGroups(sectionEl, cat);
+        sectionEl.dataset.subFiltered = cat === 'all' ? 'false' : 'true';
+      }
+    });
+
+    document.querySelectorAll('.pc-sidebar-submenu').forEach(list => {
+      // 드롭다운 하위 메뉴는 기본적으로 사이드바에 펼쳐져(is-open) 표시되며,
+      // 사용자가 상위 버튼을 눌러 명시적으로 접었을 때(userClosed === 'true')에만 숨겨집니다.
+      const open = list.dataset.userClosed !== 'true';
+      list.classList.toggle('is-open', open);
+      const parent = document.querySelector(`.pc-sidebar-item[aria-controls="${list.id}"]`) ||
+                     document.querySelector(`.pc-sidebar-item[data-target="${list.dataset.parent}"]`);
+      if (parent) parent.setAttribute('aria-expanded', open ? 'true' : 'false');
+      list.querySelectorAll('.pc-sidebar-subitem').forEach(item => {
+        const isActive = list.dataset.parent === focusId && item.dataset.sub === activeSubId;
+        item.classList.toggle('is-active', isActive);
+        if (isActive) item.setAttribute('aria-current', 'page');
+        else item.removeAttribute('aria-current');
+      });
+    });
+  }
+
+  // 3D 페이퍼컷 마스터 UI 컴포넌트 스위트는 탭 형태가 아니라 1페이지로 스크롤 되도록 보장:
+  // 모든 컴포넌트 그룹을 항상 표시(display: block) 상태로 유지하며, 알약 버튼 활성 상태만 동기화한다.
+  function filterSectionGroups(sectionEl, cat) {
+    sectionEl.querySelectorAll('.pc-filter-btn[data-target-cat]').forEach(btn => {
+      btn.classList.toggle('is-active', btn.dataset.targetCat === cat);
+    });
+    sectionEl.querySelectorAll('.pc-comp-group').forEach(el => {
+      el.style.display = 'block';
+    });
+  }
+
+  function currentRoute() {
+    return activeSubId ? `${activePageId}/${activeSubId}` : activePageId;
   }
 
   /**
@@ -448,10 +617,41 @@
         }
         e.preventDefault();
         e.stopPropagation();
-        sidebarEl.classList.remove('is-mobile-open');
         const targetId = link.getAttribute('data-target') || (href ? href.replace(/^#/, '') : '');
-        switchPage(targetId, true);
+        const list = sidebarEl.querySelector(`.pc-sidebar-submenu[data-parent="${targetId}"]`);
+        const hasSubmenu = !!list;
+        
+        if (window.innerWidth < 768) {
+          sidebarEl.classList.remove('is-mobile-open');
+        }
+        switchPage(targetId, true, { toggleSub: hasSubmenu });
       });
+    });
+
+    sidebarEl.querySelectorAll('.pc-sidebar-subitem').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (window.innerWidth < 768) {
+          sidebarEl.classList.remove('is-mobile-open');
+        }
+        switchPage(`${link.dataset.parent}/${link.dataset.sub}`, true);
+      });
+    });
+
+    // 섹션 안 범주 알약을 눌렀을 때: 하위 메뉴 및 스크롤을 동기화한다.
+    document.addEventListener('click', (e) => {
+      const pill = e.target.closest('.pc-filter-btn[data-target-cat]');
+      if (!pill) return;
+      const sectionEl = pill.closest('.pc-page-view');
+      if (!sectionEl || sectionEl.id !== 'pc-components') return;
+      const cat = pill.dataset.targetCat;
+      activeSubId = cat === 'all' ? '' : cat;
+      const list = document.querySelector(`.pc-sidebar-submenu[data-parent="pc-components"]`);
+      if (list && activeSubId) delete list.dataset.userClosed;
+      replaceRoute();
+      applySubState();
+      renderPageHeader(SECTIONS.find(s => s.id === activePageId));
     });
 
     // Delegate clicks for internal page jump links across the document
@@ -461,7 +661,8 @@
       if (link.closest('#pc-sidebar-nav')) return; // Ignore sidebar links handled above
       const href = link.getAttribute('href');
       const hash = href.replace(/^#/, '');
-      const match = SECTIONS.find(s => s.id === hash);
+      const base = hash.split('/')[0];
+      const match = SECTIONS.find(s => s.id === base || (s.aliases && s.aliases.includes(base)));
       if (match) {
         e.preventDefault();
         switchPage(hash, true);
@@ -471,7 +672,7 @@
     // Handle browser Back / Forward navigation
     window.addEventListener('hashchange', () => {
       const hash = window.location.hash.replace(/^#/, '');
-      if (hash && hash !== activePageId) {
+      if (hash && hash !== currentRoute()) {
         switchPage(hash, false);
       }
     });
@@ -495,26 +696,79 @@
     switchPage(initHash || 'overview', false);
   }
 
-  function switchPage(pageId, pushState = true) {
-    if (pageId === 'kirigami-components') {
-      pageId = 'pc-components';
-      setTimeout(() => {
-        const btn = document.querySelector('.pc-filter-btn[data-target-cat="cards"]');
-        if (btn && window.PaperCutUI && window.PaperCutUI.filterTab) {
-          window.PaperCutUI.filterTab('cards', btn);
-        }
-      }, 50);
+  function replaceRoute() {
+    if (window.location.protocol === 'file:') return;
+    try {
+      window.history.replaceState(null, '', `#${currentRoute()}`);
+    } catch (err) {
+      // file:// 등 고유 출처 예외는 무시한다
+    }
+  }
+
+  function switchPage(pageId, pushState = true, options = {}) {
+    // 하위 메뉴 경로: "<섹션 id>/<하위 id>"
+    let subId = '';
+    const slash = (pageId || '').indexOf('/');
+    if (slash !== -1) {
+      subId = pageId.slice(slash + 1);
+      pageId = pageId.slice(0, slash);
     }
     const targetSec = SECTIONS.find(s => s.id === pageId || (s.aliases && s.aliases.includes(pageId))) || SECTIONS[0];
+    if (!subId && targetSec.aliasSubs && targetSec.aliasSubs[pageId]) {
+      subId = targetSec.aliasSubs[pageId];
+    }
+    const isSameSection = activePageId === targetSec.id;
     activePageId = targetSec.id;
+    const sub = subId && targetSec.children ? targetSec.children.find(c => c.id === subId) : null;
+    activeSubId = sub ? sub.id : '';
+
+    const list = document.querySelector(`.pc-sidebar-submenu[data-parent="${activePageId}"]`);
+    if (list) {
+      if (options.toggleSub) {
+        // Dropdown toggle: 상위 버튼을 누를 때마다 숨겼다가 나타남 (Toggle open/close)
+        const currentlyOpen = list.classList.contains('is-open') && list.dataset.userClosed !== 'true';
+        if (currentlyOpen) {
+          list.dataset.userClosed = 'true';
+        } else {
+          delete list.dataset.userClosed;
+        }
+      } else if (subId) {
+        // 하위 항목 직접 클릭 또는 하위 주소 진입 시 메뉴 무조건 열림
+        delete list.dataset.userClosed;
+      }
+    }
 
     if (pushState && window.location.protocol !== 'file:') {
       try {
-        window.history.pushState(null, '', `#${activePageId}`);
+        window.history.pushState(null, '', `#${currentRoute()}`);
       } catch (err) {
         // Silently suppress file:// unique security origin exception
       }
     }
+
+    applySubState();
+
+    // 1. Hydrate target section content BEFORE measuring scroll offset
+    const activeEl = document.getElementById(activePageId);
+    if (activeEl) {
+      if (typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(activeEl);
+      }
+      hydrateMountedPlates(activeEl);
+      if (activePageId === 'icon-gallery' && typeof window.renderPapercutIcons === 'function') {
+        window.renderPapercutIcons(true);
+      }
+      if (activePageId === 'bg-library' && typeof window.renderPapercutBackgrounds === 'function') {
+        window.renderPapercutBackgrounds();
+      }
+      if (activePageId === 'pc-blocks-charts' && window.PaperCutUI && window.PaperCutUI.refreshBlocks) {
+        window.PaperCutUI.refreshBlocks();
+      }
+    }
+
+    const stickyHeader = document.getElementById('pc-site-header');
+    const headerHeight = stickyHeader ? stickyHeader.offsetHeight : 64;
+    const headerOffset = headerHeight + 20;
 
     if (isPageMode) {
       document.body.classList.add('pc-page-mode');
@@ -534,9 +788,17 @@
       // Update Bottom Pagination
       renderPagePagination(targetSec);
 
-      window.scrollTo({ top: 0, behavior: 'instant' });
-      requestAnimationFrame(() => window.scrollTo(0, 0));
-      setTimeout(() => window.scrollTo(0, 0), 25);
+      const subTarget = activeSubId ? document.getElementById('pc-suite-' + activeSubId) : null;
+      if (subTarget) {
+        requestAnimationFrame(() => {
+          const topOffset = subTarget.getBoundingClientRect().top + window.scrollY - (headerHeight + 24);
+          window.scrollTo({ top: Math.max(0, topOffset), behavior: 'smooth' });
+        });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        requestAnimationFrame(() => window.scrollTo(0, 0));
+        setTimeout(() => window.scrollTo(0, 0), 25);
+      }
     } else {
       document.body.classList.remove('pc-page-mode');
 
@@ -551,10 +813,21 @@
       // Hide bottom pagination in continuous scroll mode
       renderPagePagination(targetSec);
 
-      const targetEl = document.getElementById(activePageId);
-      if (targetEl && (pushState || activePageId !== 'overview')) {
-        const topOffset = targetEl.getBoundingClientRect().top + window.scrollY - 30;
-        window.scrollTo({ top: topOffset, behavior: 'smooth' });
+      const subTarget = activeSubId ? document.getElementById('pc-suite-' + activeSubId) : null;
+      const scrollTarget = subTarget || document.getElementById(activePageId);
+
+      if (scrollTarget) {
+        if (activePageId === 'overview' && !activeSubId) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          // Double requestAnimationFrame ensures accurate scroll target calculation after DOM layout reflow
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              const targetTop = scrollTarget.getBoundingClientRect().top + window.scrollY - (subTarget ? headerHeight + 36 : headerOffset);
+              window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+            });
+          });
+        }
       }
     }
 
@@ -565,21 +838,6 @@
 
     // Synchronize view mode buttons across header and in-page bar
     syncViewModeButtons();
-
-    // Hydrate active section on page switch (scoped to target element)
-    const targetEl = document.getElementById(activePageId);
-    if (targetEl) {
-      if (typeof window.hydratePapercutIcons === 'function') {
-        window.hydratePapercutIcons(targetEl);
-      }
-      hydrateMountedPlates(targetEl);
-      if (activePageId === 'icon-gallery' && typeof window.renderPapercutIcons === 'function') {
-        window.renderPapercutIcons(true);
-      }
-      if (activePageId === 'bg-library' && typeof window.renderPapercutBackgrounds === 'function') {
-        window.renderPapercutBackgrounds();
-      }
-    }
 
     // Notify components of activation
     notifyPageActivation(activePageId);
@@ -607,6 +865,9 @@
     }
 
     const curIndex = SECTIONS.findIndex(s => s.id === sec.id);
+    const subIndex = activeSubId && sec.children ? sec.children.findIndex(c => c.id === activeSubId) : -1;
+    const subCrumb = subIndex === -1 ? '' :
+      `<span>›</span><span class="pc-page-breadcrumb-sub">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span>`;
 
     bar.innerHTML = `
       <div class="pc-page-breadcrumb">
@@ -617,6 +878,7 @@
         <span>${sec.category}</span>
         <span>›</span>
         <span class="pc-page-breadcrumb-current">${sec.title}</span>
+        ${subCrumb}
       </div>
       <div class="pc-page-nav-actions">
         <span class="pc-badge pc-badge-lavender" style="font-size:11.5px;font-weight:800;">
@@ -769,16 +1031,20 @@
   // Setup ScrollSpy when in continuous scroll mode
   window.addEventListener('scroll', () => {
     if (isSimulatorPage || isPageMode) return;
-    const scrollPos = window.scrollY + 200;
     let currentId = '';
+    let bestTop = -Infinity;
 
-    for (let i = SECTIONS.length - 1; i >= 0; i--) {
-      const sec = document.getElementById(SECTIONS[i].id);
-      if (sec && sec.offsetTop <= scrollPos) {
-        currentId = SECTIONS[i].id;
-        break;
+    // 메뉴 순서와 문서 순서가 다르므로(예: 애니메이션 스튜디오가 컴포넌트보다 위) 화면 기준선(200px)을
+    // 이미 지난 섹션 중 가장 아래에 있는 것을 고른다. 숨겨진 섹션은 건너뛴다.
+    SECTIONS.forEach(s => {
+      const sec = document.getElementById(s.id);
+      if (!sec || sec.offsetParent === null) return;
+      const top = sec.getBoundingClientRect().top;
+      if (top <= 200 && top > bestTop) {
+        bestTop = top;
+        currentId = s.id;
       }
-    }
+    });
 
     if (!currentId && SECTIONS.length > 0) {
       currentId = SECTIONS[0].id;
@@ -796,6 +1062,26 @@
     document.querySelectorAll('.pc-sidebar-item').forEach(item => {
       item.classList.toggle('is-active', item.getAttribute('data-target') === currentId);
     });
+
+    // 1페이지 연속 스크롤 시 #pc-components 하위 6개 스위트 목차 자동 활성화
+    if (currentId === 'pc-components') {
+      const subCategories = (SECTIONS.find(s => s.id === 'pc-components').children || []).map(c => c.id);
+      let activeSub = '';
+      for (let j = subCategories.length - 1; j >= 0; j--) {
+        const subEl = document.getElementById('pc-suite-' + subCategories[j]);
+        // offsetTop은 그리드 기준이라 문서 위치와 다르다. 화면 기준 위치로 비교한다.
+        if (subEl && subEl.offsetParent !== null && subEl.getBoundingClientRect().top <= 260) {
+          activeSub = subCategories[j];
+          break;
+        }
+      }
+      document.querySelectorAll('#pc-components .pc-filter-btn[data-target-cat]').forEach(btn => {
+        btn.classList.toggle('is-active', activeSub ? btn.dataset.targetCat === activeSub : btn.dataset.targetCat === 'all');
+      });
+      document.querySelectorAll('.pc-sidebar-submenu[data-parent="pc-components"] .pc-sidebar-subitem').forEach(item => {
+        item.classList.toggle('is-active', item.dataset.sub === activeSub);
+      });
+    }
   }, { passive: true });
 
   // If sidebar nav already exists in DOM (e.g. script is placed at bottom of body),
@@ -811,9 +1097,11 @@
     setViewMode,
     toggleViewMode,
     syncViewModeButtons,
+    toggleSidebarCollapse,
     getMountedPapercutPlateSvg,
     hydrateMountedPlates,
     get isPageMode() { return isPageMode; },
+    get isCollapsed() { return document.body.classList.contains('is-collapsed'); },
     SECTIONS
   };
 })();
