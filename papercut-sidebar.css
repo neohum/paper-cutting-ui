@@ -32,34 +32,116 @@
 }
 
 /* Collapsed Mode */
-#pc-sidebar-nav.is-collapsed {
-  width: var(--pc-sidebar-collapsed-width);
+#pc-sidebar-nav.is-collapsed,
+body.is-collapsed #pc-sidebar-nav {
+  width: var(--pc-sidebar-collapsed-width) !important;
+  min-width: var(--pc-sidebar-collapsed-width) !important;
+  max-width: var(--pc-sidebar-collapsed-width) !important;
 }
 
-#pc-sidebar-nav.is-collapsed .pc-sidebar-header {
-  padding: 12px 6px;
-  flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
+#pc-sidebar-nav.is-collapsed .pc-sidebar-header,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-header {
+  padding: 12px 6px !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-#pc-sidebar-nav.is-collapsed .pc-sidebar-brand {
+#pc-sidebar-nav.is-collapsed .pc-sidebar-header-lead,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-header-lead {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-brand,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-brand {
   justify-content: center;
   padding: 0;
 }
 
-#pc-sidebar-nav.is-collapsed .pc-sidebar-brand-text {
+#pc-sidebar-nav.is-collapsed .pc-sidebar-brand-text,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-brand-text {
   display: none !important;
 }
 
-#pc-sidebar-nav.is-collapsed .pc-sidebar-toggle-btn {
-  margin: 0 auto;
+#pc-sidebar-nav.is-collapsed .pc-sidebar-toggle-btn,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-toggle-btn {
+  margin: 0 auto !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-category,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-category {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-item {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  margin: 4px auto !important;
+  padding: 5px 0 !important;
+  justify-content: center !important;
+  text-align: center !important;
+  gap: 0 !important;
+  transform: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item:hover,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-item:hover {
+  transform: scale(1.08) !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item.is-active,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-item.is-active {
+  transform: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item::before,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-item::before {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-item-text,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-item-text,
+#pc-sidebar-nav.is-collapsed .pc-sidebar-badge,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-badge,
+#pc-sidebar-nav.is-collapsed .pc-sidebar-chevron,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-chevron,
+#pc-sidebar-nav.is-collapsed .pc-sidebar-submenu,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-submenu {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-sound-widget,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-sound-widget {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-footer,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-footer {
+  padding: 10px 4px !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-top-btn,
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-top-btn {
+  width: 44px !important;
+  min-width: 44px !important;
+  height: 44px !important;
+  padding: 0 !important;
+  justify-content: center !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-top-btn span:not(.pc-inline-icon),
+body.is-collapsed #pc-sidebar-nav .pc-sidebar-top-btn span:not(.pc-inline-icon) {
+  display: none !important;
 }
 
 /* Sidebar Header */
 .pc-sidebar-header {
-  padding: 16px 16px 14px;
+  padding: 14px 14px 12px;
   border-bottom: 1.5px solid #E6DBC9;
   box-shadow: 0 1px 0 #FFFFFF;
   display: flex;
@@ -67,6 +149,33 @@
   justify-content: space-between;
   background: #FFFDF9;
   position: relative;
+  min-height: 56px;
+  box-sizing: border-box;
+}
+
+.pc-sidebar-header-lead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pc-ink, #3D352E);
+  user-select: none;
+}
+
+.pc-sidebar-header-icon {
+  font-size: 16px;
+  color: #275C46;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-sidebar-header-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #3D352E;
+  letter-spacing: -0.2px;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .pc-sidebar-brand {
@@ -139,8 +248,10 @@
   background: #FAF6ED;
   border: 1px solid #EADBCC;
   border-radius: 8px;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,6 +266,261 @@
   border-color: #D2C4EC;
   color: #4E3E75;
   transform: scale(1.05);
+}
+
+/* ==========================================================================
+   SIDEBAR PAPER SOUND CONTROLLER WIDGET (사이드 메뉴 종이 소리 및 질감 제어 스테이션)
+   Handcrafted 3D Paper Station & Tactile Audio Selector
+   ========================================================================== */
+.pc-sidebar-sound-widget {
+  margin: 6px 6px 12px;
+  padding: 10px 10px 12px;
+  background: linear-gradient(180deg, #FFFDF9 0%, #F9F5EC 100%);
+  border: 1.5px solid #E6DBC9;
+  border-radius: 14px;
+  box-shadow: 
+    inset 0 1.5px 0 #FFFFFF,
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9),
+    0 2px 4px rgba(46, 30, 20, 0.10),
+    0 6px 16px rgba(46, 30, 20, 0.08);
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+/* Authentic Papercraft Inset Stitching */
+.pc-sidebar-sound-widget::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px dashed rgba(205, 192, 172, 0.55);
+  border-radius: 11px;
+  pointer-events: none;
+}
+
+.pc-sidebar-sound-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid rgba(74, 58, 42, 0.08);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.pc-sidebar-sound-title-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--pc-ink, #3D352E);
+}
+
+.pc-sidebar-sound-icon {
+  font-size: 13.5px;
+  color: #8C7C6D;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.pc-sidebar-sound-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  color: #5C4B3C;
+  line-height: 1;
+}
+
+/* Master Sound Toggle Switch Button */
+.pc-sidebar-sound-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px 3px 6px;
+  background: #FAF6ED;
+  border: 1px solid #DFD3BF;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: inset 0 1px 2px rgba(46, 30, 20, 0.08), 0 1px 0 #FFFFFF;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #7A6F64;
+  user-select: none;
+  min-height: 24px;
+}
+
+.pc-sidebar-sound-toggle-btn:hover {
+  border-color: #CDBFA8;
+  transform: translateY(-1px);
+}
+
+.pc-sound-toggle-pip {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #C4B6A3;
+  box-shadow: 0 1px 2px rgba(46, 30, 20, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-sidebar-sound-toggle-btn.is-active {
+  background: #FEE396;
+  border-color: #E2BC55;
+  color: #66460D;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1.5px 3px rgba(110, 83, 15, 0.22);
+}
+
+.pc-sidebar-sound-toggle-btn.is-active .pc-sound-toggle-pip {
+  background: #1E5C41;
+  box-shadow: 0 0 6px rgba(30, 92, 65, 0.6);
+}
+
+/* Sound Papers Grid / List */
+.pc-sidebar-sound-papers {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5px;
+}
+
+button.pc-sidebar-paper-btn::before,
+button.pc-sidebar-paper-btn::after,
+.pc-sidebar-sound-toggle-btn::before,
+.pc-sidebar-sound-toggle-btn::after {
+  display: none !important;
+  content: none !important;
+}
+
+button.pc-sidebar-paper-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  width: 100% !important;
+  padding: 5px 9px !important;
+  min-height: 34px !important;
+  background: #FFFDF9 !important;
+  background-image: none !important;
+  border: 1px solid #E6DBC9 !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  text-align: left !important;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #4A3E34 !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 2px rgba(46, 30, 20, 0.06) !important;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease, background 0.14s ease;
+  position: relative;
+  box-sizing: border-box;
+}
+
+button.pc-sidebar-paper-btn:hover {
+  background: #FFFFFF !important;
+  border-color: #C8B9A0 !important;
+  transform: translateX(2.5px) translateY(-0.5px);
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    0 2.5px 5px rgba(46, 30, 20, 0.12) !important;
+}
+
+button.pc-sidebar-paper-btn.is-active {
+  background: #EEF8F1 !important;
+  border-color: #8FC9AE !important;
+  color: #154D34 !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 3px 0 0 #1E5C41,
+    0 1.5px 0 rgba(39, 92, 70, 0.35),
+    0 3px 6px rgba(39, 92, 70, 0.14) !important;
+}
+
+.pc-paper-btn-left {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.pc-paper-emoji {
+  font-size: 12.5px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.pc-paper-name {
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 1.2;
+}
+
+.pc-paper-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #EDE6D8;
+  color: #6E6152;
+  border: 1px solid rgba(46, 30, 20, 0.10);
+  flex-shrink: 0;
+}
+
+.pc-sidebar-paper-btn.is-active .pc-paper-badge {
+  background: #D9EFE3;
+  color: #1A543B;
+  border-color: #A3D8C3;
+}
+
+/* Collapsed Mode Adjustments */
+#pc-sidebar-nav.is-collapsed .pc-sidebar-sound-widget {
+  margin: 6px 3px 10px;
+  padding: 8px 3px;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-sound-header {
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 6px;
+  justify-content: center;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-sound-label {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sound-toggle-text {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-sound-toggle-btn {
+  padding: 4px 6px;
+  justify-content: center;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-paper-name,
+#pc-sidebar-nav.is-collapsed .pc-paper-badge {
+  display: none !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-paper-btn {
+  justify-content: center !important;
+  padding: 6px 0 !important;
+}
+
+#pc-sidebar-nav.is-collapsed .pc-sidebar-paper-btn::before {
+  display: none;
 }
 
 /* Sidebar Scrollable Menu Items */
@@ -350,6 +716,115 @@
 }
 
 /* ==========================================================================
+   하위 드롭다운 메뉴 (.pc-sidebar-submenu) — 상위 버튼 클릭 시 토글되는 드롭다운
+   번호(01~)·제목·개수를 왼쪽 정렬로 놓고, 누를 때마다 부드럽게 펼쳐지고 접힌다.
+   ========================================================================== */
+.pc-sidebar-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 6px 0 20px;
+  padding: 0 0 0 10px;
+  border-left: 2px dashed rgba(39, 92, 70, 0.28);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  visibility: hidden;
+  transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.22s ease,
+              padding 0.22s ease,
+              margin 0.22s ease,
+              visibility 0.3s ease;
+}
+.pc-sidebar-submenu.is-open {
+  max-height: 520px;
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+  margin: 3px 6px 8px 20px;
+  padding: 4px 0 6px 10px;
+}
+
+
+.pc-sidebar-subitem {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 8px;
+  min-height: 44px; /* 터치 대상 44px */
+  padding: 4px 8px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  color: var(--pc-ink-muted, #6B5F55);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease;
+}
+.pc-sidebar-subitem:hover {
+  background: #FFFDF9;
+  border-color: rgba(46, 30, 20, 0.14);
+  color: var(--pc-ink, #3D352E);
+}
+.pc-sidebar-subitem:focus-visible {
+  outline: 2.5px solid #275C46;
+  outline-offset: 1px;
+}
+
+.pc-sidebar-subitem-num {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 22px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  background: #F4EFFC;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 1.5px 0 rgba(46, 30, 20, 0.28);
+  color: #55417F;
+  font-size: 11px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.pc-sidebar-subitem-text {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: keep-all;
+  line-height: 1.3;
+}
+
+.pc-sidebar-subitem-count {
+  flex: 0 0 auto;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--pc-ink-muted, #7A6F64);
+  font-variant-numeric: tabular-nums;
+}
+
+.pc-sidebar-subitem.is-active {
+  background: linear-gradient(180deg, #F2FAF5 0%, #E3F2EB 100%);
+  border-color: #275C46;
+  color: #174E37;
+  font-weight: 800;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 0 rgba(39, 92, 70, 0.45);
+}
+.pc-sidebar-subitem.is-active .pc-sidebar-subitem-num {
+  background: #275C46;
+  border-color: #174E37;
+  color: #FFFDF9;
+}
+
+/* ==========================================================================
    3D Layered Paper-Cut Icon Mount Plate (.pc-sidebar-item-icon)
    130종 3D 페이퍼 컷팅 배경 박스 조형물과 3D 컬러 아이콘의 정교한 결합
    ========================================================================== */
@@ -429,6 +904,12 @@
   vector-effect: non-scaling-stroke;
 }
 
+/* .pc-btn > * 가 라벨을 가운데 정렬 inline-flex로 만들면 긴 라벨이 양쪽으로 잘리고 말줄임표가 생기지 않는다.
+   사이드바 라벨은 왼쪽 정렬 블록으로 되돌린다. */
+.pc-sidebar-item > .pc-sidebar-item-text {
+  display: block !important;
+  text-align: left !important;
+}
 .pc-sidebar-item-text {
   flex: 1 1 0 !important;
   min-width: 0 !important;
@@ -438,7 +919,7 @@
   line-height: 1.3;
 }
 #pc-sidebar-nav.is-collapsed .pc-sidebar-item-text {
-  display: none;
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -482,6 +963,37 @@
     0 2px 2.5px rgba(46, 30, 20, 0.50),
     0 5px 10px rgba(46, 30, 20, 0.22);
 }
+
+/* Dropdown Accordion Chevron Indicator for Items with Submenus */
+.pc-sidebar-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  font-size: 13px;
+  color: #8C7C6D;
+  margin-left: 3px;
+  margin-right: -2px;
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1), color 0.16s ease;
+  pointer-events: none;
+}
+
+.pc-sidebar-item:hover .pc-sidebar-chevron {
+  color: #2E251E;
+}
+
+.pc-sidebar-item.is-active .pc-sidebar-chevron {
+  color: #275C46;
+}
+
+.pc-sidebar-item[aria-expanded="true"] .pc-sidebar-chevron {
+  transform: rotate(180deg);
+  color: #275C46;
+}
+
+
 
 /* 4대 특화 모델 - 사이드바 미니어처 최적화 */
 /* 1. 우표 천공 미니 톱니 (Stamp) */
@@ -898,10 +1410,24 @@
 .pc-page-view {
   position: relative;
   transition: opacity 0.25s ease;
+  scroll-margin-top: 84px;
+}
+
+#overview.pc-page-view {
+  scroll-margin-top: 0;
+}
+
+.pc-comp-group {
+  scroll-margin-top: 96px;
 }
 
 /* When in Page View Mode, only the active page is displayed */
 body.pc-page-mode .pc-page-view {
+  display: none !important;
+}
+
+/* 하위 메뉴 보기: 고른 섹션만 남기고 나머지 섹션은 숨긴다(보기 모드 설정과 무관) */
+body.pc-sub-focus .pc-page-view:not(.is-focus-page) {
   display: none !important;
 }
 
@@ -947,7 +1473,8 @@ body.pc-page-mode .pc-page-view.is-active-page {
   font-weight: 700;
   color: var(--pc-ink-muted, #7A6F64);
 }
-.pc-page-breadcrumb-current {
+.pc-page-breadcrumb-current,
+.pc-page-breadcrumb-sub {
   color: var(--pc-ink, #3D352E);
   font-weight: 800;
 }

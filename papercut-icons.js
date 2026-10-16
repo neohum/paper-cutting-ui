@@ -10407,8 +10407,7 @@
       '#pc-sidebar-nav',
       '.pc-sidebar-floating-toggle',
       '#overview',
-      '.hero-banner',
-      '#knife-cut-buttons'
+      '.hero-banner'
     ];
 
     immediateSelectors.forEach(selector => {
@@ -10481,7 +10480,7 @@
 
       // Also observe any dynamic .pc-page-view or standalone section not yet hydrated
       document.querySelectorAll('.pc-page-view:not([data-hydrated="true"]), section:not([data-hydrated="true"])').forEach(el => {
-        if (el.id !== 'overview' && el.id !== 'knife-cut-buttons') {
+        if (el.id !== 'overview') {
           lazyObserver.observe(el);
         }
       });

@@ -10,7 +10,7 @@
 :root {
   --pc-header-height: 64px;
   --pc-sidebar-width: 295px;
-  --pc-sidebar-collapsed-width: 295px; /* 고정형: 축소 없음 */
+  --pc-sidebar-collapsed-width: 64px;
 }
 
 /* ==========================================================================
@@ -304,9 +304,8 @@ body.is-collapsed {
   left: 0 !important;
   bottom: 0 !important;
   height: calc(100vh - var(--pc-header-height)) !important;
-  width: var(--pc-sidebar-width) !important;
-  min-width: var(--pc-sidebar-width) !important;
-  max-width: var(--pc-sidebar-width) !important;
+  width: var(--pc-sidebar-width);
+  min-width: var(--pc-sidebar-collapsed-width);
   background: rgba(255, 253, 249, 0.96) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -318,23 +317,16 @@ body.is-collapsed {
   display: flex !important;
   flex-direction: column !important;
   transform: none !important;
+  transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s ease !important;
   user-select: none;
 }
 
-/* 접기(Collapse) 기능 완전 비활성화 - 고정형으로 항상 펼쳐진 상태 유지 */
-#pc-sidebar-nav.is-collapsed {
-  width: var(--pc-sidebar-width) !important;
-}
-
-.pc-sidebar-toggle-btn,
-#pc-sidebar-toggle {
-  display: none !important;
-}
-
-.pc-sidebar-brand-text {
-  display: flex !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
+/* Collapsed Mode (접힘 모드: 64px 아이콘 전용 내비게이션) */
+#pc-sidebar-nav.is-collapsed,
+body.is-collapsed #pc-sidebar-nav {
+  width: var(--pc-sidebar-collapsed-width) !important;
+  min-width: var(--pc-sidebar-collapsed-width) !important;
+  max-width: var(--pc-sidebar-collapsed-width) !important;
 }
 
 /* Ensure sidebar items are left-aligned 3D paper buttons per AGENTS.md rule */
@@ -450,18 +442,33 @@ body.is-collapsed {
   padding-top: 24px;
 }
 
-/* 768px 이상(태블릿, 노트북, 데스크톱 전 규격)에서 항시 295px 고정형 사이드바 레이아웃 */
+/* 768px 이상(태블릿, 노트북, 데스크톱 전 규격): 사이드바 및 본문 유연 반응 */
 @media (min-width: 768px) {
   #pc-sidebar-nav {
     transform: none !important;
     visibility: visible !important;
     display: flex !important;
+    width: var(--pc-sidebar-width) !important;
+    transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s ease !important;
+  }
+
+  #pc-sidebar-nav.is-collapsed,
+  body.is-collapsed #pc-sidebar-nav {
+    width: var(--pc-sidebar-collapsed-width) !important;
+    min-width: var(--pc-sidebar-collapsed-width) !important;
+    max-width: var(--pc-sidebar-collapsed-width) !important;
   }
 
   .pc-content-wrapper {
     margin-left: var(--pc-sidebar-width) !important;
     width: calc(100% - var(--pc-sidebar-width)) !important;
     box-sizing: border-box !important;
+    transition: margin-left 0.28s cubic-bezier(0.16, 1, 0.3, 1), width 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  body.is-collapsed .pc-content-wrapper {
+    margin-left: var(--pc-sidebar-collapsed-width) !important;
+    width: calc(100% - var(--pc-sidebar-collapsed-width)) !important;
   }
 
   .pc-site-main,
