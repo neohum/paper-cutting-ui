@@ -2071,12 +2071,25 @@
   gap: 18px;
 }
 
+.pc-chart-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-sizing: border-box;
+}
+
 .pc-chart-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+}
+.pc-compact-header {
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(74, 58, 42, 0.15);
+  margin-bottom: 4px;
 }
 .pc-chart-title-wrap {
   display: flex;
@@ -2224,7 +2237,70 @@
   cursor: pointer;
 }
 .pc-radar-point:hover circle {
-  r: 7;
+  r: 7.5;
+}
+
+/* 07. Heatmap Tile Hover */
+.pc-heatmap-tile {
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), filter 0.18s ease;
+  transform-origin: center;
+}
+.pc-heatmap-tile:hover {
+  transform: scale(1.12);
+  filter: drop-shadow(0 4px 8px rgba(46, 30, 20, 0.28));
+}
+
+/* 08. Candlestick Range Body Hover */
+.pc-candle-body {
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), filter 0.18s ease;
+}
+.pc-candle-body:hover {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 6px 10px rgba(46, 30, 20, 0.25));
+}
+
+/* 09. Confetti Bubble Hover */
+.pc-bubble-circle {
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  transform-origin: center;
+}
+.pc-bubble-circle:hover {
+  transform: scale(1.14);
+  filter: drop-shadow(0 8px 16px rgba(46, 30, 20, 0.28));
+}
+
+/* 10. Pyramid Funnel Slice Hover */
+.pc-funnel-slice {
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  transform-origin: center;
+}
+.pc-funnel-slice:hover {
+  transform: scale(1.02);
+  filter: drop-shadow(0 8px 16px rgba(46, 30, 20, 0.3));
+}
+
+/* 11. Kirigami Treemap Tile Hover */
+.pc-treemap-tile {
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+}
+.pc-treemap-tile:hover {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 8px 14px rgba(46, 30, 20, 0.25));
+}
+
+/* 12. Compass Speedometer Needle Hover */
+.pc-gauge-needle {
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+  transform-origin: center;
+}
+.pc-gauge-needle:hover {
+  filter: drop-shadow(0 8px 14px rgba(46, 30, 20, 0.35));
 }
 
 /* Grid & Reference lines */

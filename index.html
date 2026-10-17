@@ -652,7 +652,7 @@
             <span class="pc-inline-icon is-color is-sm" data-icon="pie-chart-clean"></span>
           </div>
           <span class="pc-sidebar-item-text">3D 페이퍼 벡터 차트</span>
-          <span class="pc-sidebar-badge pc-badge--ticket pc-badge--mint pc-badge-mint pc-swatch-mint">6종 차트</span>
+          <span class="pc-sidebar-badge pc-badge--ticket pc-badge--mint pc-badge-mint pc-swatch-mint">12종 차트</span>
         </a>
 
         <div class="pc-sidebar-category">아이콘 &amp; 배경</div>
@@ -6183,78 +6183,187 @@
     </section>
 
     <!-- =========================================================================
-         PC UI 3D PAPER-CUT VECTOR CHARTS (6 DATA VISUALIZATIONS)
+         PC UI 3D PAPER-CUT VECTOR CHARTS (12 MASTER ARCHEPLATES)
          ========================================================================= -->
     <section class="pc-card pc-card-stacked pc-page-view" id="pc-charts-section">
       <div class="pc-washi-tape pc-washi-tape-lavender"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--ticket pc-badge--lavender">3D Vector Charts</span>
-        <span class="pc-badge pc-badge--stamp pc-badge--mint">Papercraft Data Viz</span>
-        <span class="pc-badge pc-badge--tag pc-badge--peach">6 Interactive Archetypes</span>
+        <span class="pc-badge pc-badge--ticket pc-badge--lavender inline-flex items-center justify-center leading-none">3D Vector Charts</span>
+        <span class="pc-badge pc-badge--stamp pc-badge--mint inline-flex items-center justify-center leading-none">Papercraft Data Viz</span>
+        <span class="pc-badge pc-badge--tag pc-badge--peach inline-flex items-center justify-center leading-none">12 Master Archetypes</span>
       </div>
       <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="star-burst-8" data-icon="pie-chart-clean" data-size="52" title="3D 페이퍼 벡터 차트"></span>
-        <span>3D 페이퍼 컷팅 벡터 차트 (6종 데이터 시각화)</span>
+        <span>3D 페이퍼 컷팅 벡터 차트 (12종 마스터 시각화 스위트)</span>
       </h2>
-      <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
-        기존의 평면 웹 차트를 <strong>3D 색종이 레이어 지형, 칼선 절단면 음영, 오리가미 리본 웨이브, 부채꼴 휠, 호버 인터랙티브 툴팁</strong>으로 재해석한 순수 SVG 데이터 시각화 6종입니다. 마우스를 올리면 각 지점의 수치가 인터랙티브 툴팁으로 표시됩니다.
+      <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6; word-break: keep-all; text-wrap: pretty;">
+        전통 평면 차트를 <strong>3D 색종이 단차 지형, 칼선 절단면 림 라이트, 번트 엄버 2-Tier 접촉 음영, 오리가미 리본 곡선, 호버 인터랙티브 툴팁</strong>으로 완성한 순수 SVG 12종 마스터 차트 스위트입니다. 상단 필터 탭으로 카테고리별 차트를 선별 탐색할 수 있습니다.
       </p>
 
-      <!-- 6 Charts Grid (Auto-Hydrated by papercut-blocks-charts.js) -->
-      <div class="pc-grid-auto" style="--pc-grid-min: 320px; --pc-grid-gap: 24px;">
-        
-        <!-- 1. Area Chart -->
-        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+      <!-- Category Filter Tabs Bar -->
+      <div class="pc-row-scroll pc-filter-pills-row" style="padding-bottom: 8px; margin-bottom: 24px;">
+        <button type="button" class="pc-filter-btn is-active inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="all" onclick="PaperCutUI.filterCharts('all', this)">
+          <i class="fi fi-rr-apps" style="margin-right: 6px;" aria-hidden="true"></i>전체 (All)
+        </button>
+        <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="trends" onclick="PaperCutUI.filterCharts('trends', this)">
+          <i class="fi fi-rr-chart-line-up" style="margin-right: 6px;" aria-hidden="true"></i>추세 및 시계열 (Trends)
+        </button>
+        <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="comparisons" onclick="PaperCutUI.filterCharts('comparisons', this)">
+          <i class="fi fi-rr-chart-histogram" style="margin-right: 6px;" aria-hidden="true"></i>비교 및 비율 (Comparisons)
+        </button>
+        <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="distributions" onclick="PaperCutUI.filterCharts('distributions', this)">
+          <i class="fi fi-rr-chart-scatter" style="margin-right: 6px;" aria-hidden="true"></i>분포 및 상관 (Distributions)
+        </button>
+        <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="gauges" onclick="PaperCutUI.filterCharts('gauges', this)">
+          <i class="fi fi-rr-tachometer-fast" style="margin-right: 6px;" aria-hidden="true"></i>게이지 및 달성도 (Gauges)
+        </button>
+      </div>
+
+      <!-- 12 Master Vector Charts Grid (Auto-Hydrated by papercut-blocks-charts.js) -->
+      <div class="pc-grid-auto" id="pc-charts-grid" style="--pc-grid-min: 340px; --pc-grid-gap: 24px;">
+
+        <!-- 01. Area Chart (Trends) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="trends" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
-            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="mountain"></span> <span>01. Area Chart (페이퍼 산맥 마운틴 지형)</span></span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint">Layered Area</span>
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-area" aria-hidden="true"></i>
+              <span class="break-keep">01. Area Chart (페이퍼 산맥 마운틴 지형)</span>
+            </span>
+            <span class="pc-badge pc-badge--stamp pc-badge--mint inline-flex items-center justify-center leading-none">Layered Area</span>
           </div>
-          <div data-papercut-chart="area" style="min-height: 240px;"></div>
+          <div data-papercut-chart="area" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
 
-        <!-- 2. Bar Chart -->
-        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+        <!-- 02. Bar Chart (Comparisons) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="comparisons" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
-            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="settings"></span> <span>02. Bar Chart (도톰한 종이 기둥 입체 차트)</span></span>
-            <span class="pc-badge pc-badge--ticket pc-badge--peach">Cardstock Columns</span>
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-histogram" aria-hidden="true"></i>
+              <span class="break-keep">02. Bar Chart (도톰한 종이 기둥 입체 차트)</span>
+            </span>
+            <span class="pc-badge pc-badge--ticket pc-badge--peach inline-flex items-center justify-center leading-none">Cardstock Columns</span>
           </div>
-          <div data-papercut-chart="bar" style="min-height: 240px;"></div>
+          <div data-papercut-chart="bar" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
 
-        <!-- 3. Line Chart -->
-        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+        <!-- 03. Line Chart (Trends) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="trends" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
-            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="paper-plane"></span> <span>03. Line Chart (오리가미 종이 리본 웨이브)</span></span>
-            <span class="pc-badge pc-badge--ribbon pc-badge--lavender">Ribbon Curve</span>
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-line-up" aria-hidden="true"></i>
+              <span class="break-keep">03. Line Chart (오리가미 종이 리본 웨이브)</span>
+            </span>
+            <span class="pc-badge pc-badge--ribbon pc-badge--lavender inline-flex items-center justify-center leading-none">Ribbon Curve</span>
           </div>
-          <div data-papercut-chart="line" style="min-height: 240px;"></div>
+          <div data-papercut-chart="line" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
 
-        <!-- 4. Donut / Pie Chart -->
-        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+        <!-- 04. Donut Chart (Comparisons) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="comparisons" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
-            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="palette"></span> <span>04. Donut Chart (부채꼴 색종이 휠)</span></span>
-            <span class="pc-badge pc-badge--tag pc-badge--buttercup">Origami Fan</span>
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-pie" aria-hidden="true"></i>
+              <span class="break-keep">04. Donut Chart (부채꼴 색종이 휠)</span>
+            </span>
+            <span class="pc-badge pc-badge--tag pc-badge--buttercup inline-flex items-center justify-center leading-none">Origami Fan</span>
           </div>
-          <div data-papercut-chart="donut" style="min-height: 240px;"></div>
+          <div data-papercut-chart="donut" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
 
-        <!-- 5. Radar Chart -->
-        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+        <!-- 05. Radar Chart (Gauges) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="gauges" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
-            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>05. Radar Chart (페이퍼 커팅 입체 연 폴리곤)</span></span>
-            <span class="pc-badge pc-badge--ticket pc-badge--sky">Kite Polygon</span>
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-radar" aria-hidden="true"></i>
+              <span class="break-keep">05. Radar Chart (페이퍼 커팅 입체 연 폴리곤)</span>
+            </span>
+            <span class="pc-badge pc-badge--ticket pc-badge--sky inline-flex items-center justify-center leading-none">Kite Polygon</span>
           </div>
-          <div data-papercut-chart="radar" style="min-height: 240px;"></div>
+          <div data-papercut-chart="radar" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
 
-        <!-- 6. Radial Bar Chart -->
-        <div class="pc-card" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12);">
+        <!-- 06. Radial Bar Chart (Gauges) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="gauges" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
-            <span style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="compass"></span> <span>06. Radial Bar Chart (원형 종이 링 게이지)</span></span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint">Paper Gauge</span>
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-dashboard" aria-hidden="true"></i>
+              <span class="break-keep">06. Radial Bar Chart (원형 종이 링 게이지)</span>
+            </span>
+            <span class="pc-badge pc-badge--stamp pc-badge--mint inline-flex items-center justify-center leading-none">Paper Gauge</span>
           </div>
-          <div data-papercut-chart="radial" style="min-height: 240px;"></div>
+          <div data-papercut-chart="radial" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
+        </div>
+
+        <!-- 07. Heatmap Mosaic (Distributions) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="distributions" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
+          <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-grid" aria-hidden="true"></i>
+              <span class="break-keep">07. Heatmap Mosaic (색종이 모자이크 타일 히트맵)</span>
+            </span>
+            <span class="pc-badge pc-badge--tag pc-badge--peach inline-flex items-center justify-center leading-none">Mosaic Grid</span>
+          </div>
+          <div data-papercut-chart="heatmap" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
+        </div>
+
+        <!-- 08. Candlestick Range (Trends) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="trends" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
+          <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-candlestick" aria-hidden="true"></i>
+              <span class="break-keep">08. Candlestick Range (종이 핀셋 캔들스틱 차트)</span>
+            </span>
+            <span class="pc-badge pc-badge--ticket pc-badge--rose inline-flex items-center justify-center leading-none">Craft Tweezers</span>
+          </div>
+          <div data-papercut-chart="candlestick" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
+        </div>
+
+        <!-- 09. Confetti Bubble (Distributions) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="distributions" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
+          <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-scatter" aria-hidden="true"></i>
+              <span class="break-keep">09. Confetti Bubble (공중 부유 콘페티 버블 산점도)</span>
+            </span>
+            <span class="pc-badge pc-badge--stamp pc-badge--lavender inline-flex items-center justify-center leading-none">Confetti Scatter</span>
+          </div>
+          <div data-papercut-chart="bubble" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
+        </div>
+
+        <!-- 10. Pyramid Funnel (Comparisons) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="comparisons" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
+          <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-pyramid" aria-hidden="true"></i>
+              <span class="break-keep">10. Pyramid Funnel (계단식 절단면 퍼널 피라미드)</span>
+            </span>
+            <span class="pc-badge pc-badge--ribbon pc-badge--buttercup inline-flex items-center justify-center leading-none">Cutout Funnel</span>
+          </div>
+          <div data-papercut-chart="funnel" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
+        </div>
+
+        <!-- 11. Kirigami Treemap (Comparisons) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="comparisons" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
+          <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-chart-tree-map" aria-hidden="true"></i>
+              <span class="break-keep">11. Kirigami Treemap (키리가미 바둑판 트리맵)</span>
+            </span>
+            <span class="pc-badge pc-badge--tag pc-badge--sage inline-flex items-center justify-center leading-none">Kirigami Tiles</span>
+          </div>
+          <div data-papercut-chart="treemap" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
+        </div>
+
+        <!-- 12. Compass Gauge (Gauges) -->
+        <div class="pc-card pc-chart-grid-item" data-chart-category="gauges" style="background: var(--pc-paper-white); border-radius: 20px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); min-height: 380px; display: flex; flex-direction: column;">
+          <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
+            <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
+              <i class="fi fi-rr-tachometer-fast" aria-hidden="true"></i>
+              <span class="break-keep">12. Compass Gauge (반원형 종이 나침반 게이지)</span>
+            </span>
+            <span class="pc-badge pc-badge--stamp pc-badge--sky inline-flex items-center justify-center leading-none">Compass Dial</span>
+          </div>
+          <div data-papercut-chart="gauge" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
 
       </div>
@@ -6988,6 +7097,20 @@
         if (target) {
           target.style.display = 'block';
         }
+      },
+      filterCharts(cat, btn) {
+        if (btn && btn.closest) {
+          btn.closest('div').querySelectorAll('.pc-filter-btn').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+        }
+        const cards = document.querySelectorAll('#pc-charts-section .pc-chart-grid-item');
+        cards.forEach(card => {
+          if (cat === 'all' || card.dataset.chartCategory === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
       },
       openDemoModal() {
         if (window.PaperCutModal && window.PaperCutModal.openDialog) {
