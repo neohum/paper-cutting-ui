@@ -1674,7 +1674,7 @@
   z-index: 1;
 }
 
-.pc-hero-content {
+.pc-shadowbox-hero .pc-hero-content {
   position: relative;
   z-index: 2;
   max-width: 580px;

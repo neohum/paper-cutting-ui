@@ -3,8 +3,368 @@
  * Interactive physics calculations for craft light rays, layer elevation, and multi-tier paper shadows.
  */
 
-(function () {
+/**
+ * PaperCut UI - 3D Paper Depth & Shadow Simulator Controller
+ * Interactive physics calculations for craft light rays, layer elevation, and multi-tier paper shadows.
+ */
+
+(function (root, factory) {
+  const lib = factory();
+  if (typeof module === 'object' && module.exports) {
+    module.exports = lib;
+  }
+  if (typeof root !== 'undefined') {
+    Object.assign(root, lib);
+    root.PaperCutUI = Object.assign(root.PaperCutUI || {}, lib);
+  }
+  if (typeof window !== 'undefined' && window !== root) {
+    Object.assign(window, lib);
+    window.PaperCutUI = Object.assign(window.PaperCutUI || {}, lib);
+  }
+})(typeof globalThis !== 'undefined' ? globalThis : (typeof self !== 'undefined' ? self : this), function () {
   'use strict';
+
+  /**
+   * Pure Trigonometric calculation for light angle, distance, and normalized shadow vectors.
+   * Light angle 0° = 12 o'clock (North/top light, shadow points South/down)
+   * Light angle 90° = 3 o'clock (East/right light, shadow points West/left)
+   * Light angle 315° = top-left light (shadow points bottom-right: dx > 0, dy > 0)
+   */
+  function calculateLightTrigonometry(cx, cy, px, py) {
+    const dx = px - cx;
+    const dy = py - cy;
+    const dist = Math.hypot(dx, dy);
+    const rad = Math.atan2(dy, dx);
+    let deg = Math.round(rad * (180 / Math.PI)) + 90;
+    if (deg < 0) deg += 360;
+
+    // Shadow direction vector (points AWAY from the light position)
+    const shadowDx = dist > 0 ? -(dx / dist) : 0;
+    const shadowDy = dist > 0 ? -(dy / dist) : 1;
+
+    return {
+      dx,
+      dy,
+      dist,
+      rad,
+      deg,
+      shadowDx,
+      shadowDy
+    };
+  }
+
+  /**
+   * Linear interpolation (LERP) for smooth damping
+   */
+  function lerp(current, target, factor) {
+    return current + (target - current) * factor;
+  }
+
+  /**
+   * 3-Tier Multi-Layer Physical Shadow Solver
+   * Tier 1: Contact shadow (ultra-tight, sharp, high opacity near paper edge)
+   * Tier 2: Mid-air floating elevation (mid distance, moderate blur, standard body)
+   * Tier 3: Atmospheric ambient floor (wide distance, broad soft Gaussian diffusion)
+   * Tier 4: Knife-cut bevel highlight (1px inset white rim facing toward the light source)
+   */
+  function compute3TierShadow(dx, dy, elevation = 4.5, blur = 10, opacity = 0.48, color = [46, 30, 20], options = {}) {
+    const {
+      enableTier1 = true,
+      enableTier2 = true,
+      enableTier3 = true,
+      enableHighlight = true
+    } = options;
+    const [r, g, b] = color;
+    const elevFactor = elevation / 4.5;
+
+    // Tier 1: Contact shadow
+    const t1Dx = (dx * 0.22 * elevFactor).toFixed(2);
+    const t1Dy = (dy * 0.22 * elevFactor).toFixed(2);
+    const t1Blur = Math.max(0.8, elevation * 0.35).toFixed(2);
+    const t1Op = Math.min(0.60, opacity * 1.35).toFixed(2);
+
+    // Tier 2: Mid-air floating elevation
+    const t2Dx = (dx * 0.75 * elevFactor).toFixed(2);
+    const t2Dy = (dy * 0.75 * elevFactor).toFixed(2);
+    const t2Blur = (blur * elevFactor).toFixed(2);
+    const t2Op = opacity.toFixed(2);
+
+    // Tier 3: Atmospheric ambient floor
+    const t3Dx = (dx * 1.45 * elevFactor).toFixed(2);
+    const t3Dy = (dy * 1.45 * elevFactor).toFixed(2);
+    const t3Blur = (blur * 2.2 * elevFactor).toFixed(2);
+    const t3Op = (opacity * 0.45).toFixed(2);
+
+    // Tier 4: Knife-cut bevel highlight (facing towards the light source: opposite of shadow dx, dy)
+    const dist = Math.hypot(dx, dy) || 1;
+    const hlDx = (-dx / dist * 0.8).toFixed(2);
+    const hlDy = (-dy / dist * 0.8).toFixed(2);
+
+    const parts = [];
+    const filterParts = [];
+    if (enableHighlight) {
+      parts.push(`${hlDx}px ${hlDy}px 0 rgba(255, 255, 255, 0.95) inset`);
+    }
+    if (enableTier1) {
+      const s1 = `${t1Dx}px ${t1Dy}px ${t1Blur}px rgba(${r}, ${g}, ${b}, ${t1Op})`;
+      parts.push(s1);
+      filterParts.push(`drop-shadow(${s1})`);
+    }
+    if (enableTier2) {
+      const s2 = `${t2Dx}px ${t2Dy}px ${t2Blur}px rgba(${r}, ${g}, ${b}, ${t2Op})`;
+      parts.push(s2);
+      filterParts.push(`drop-shadow(${s2})`);
+    }
+    if (enableTier3) {
+      const s3 = `${t3Dx}px ${t3Dy}px ${t3Blur}px rgba(${r}, ${g}, ${b}, ${t3Op})`;
+      parts.push(s3);
+      filterParts.push(`drop-shadow(${s3})`);
+    }
+
+    const cssBoxShadow = parts.length ? parts.join(', ') : 'none';
+    const fullFilter = filterParts.length ? filterParts.join(' ') : 'none';
+
+    const t1Obj = enableTier1 ? {
+      dx: t1Dx,
+      dy: t1Dy,
+      blur: t1Blur,
+      opacity: t1Op,
+      css: `${t1Dx}px ${t1Dy}px ${t1Blur}px rgba(${r}, ${g}, ${b}, ${t1Op})`
+    } : null;
+
+    const t2Obj = enableTier2 ? {
+      dx: t2Dx,
+      dy: t2Dy,
+      blur: t2Blur,
+      opacity: t2Op,
+      css: `${t2Dx}px ${t2Dy}px ${t2Blur}px rgba(${r}, ${g}, ${b}, ${t2Op})`
+    } : null;
+
+    const t3Obj = enableTier3 ? {
+      dx: t3Dx,
+      dy: t3Dy,
+      blur: t3Blur,
+      opacity: t3Op,
+      css: `${t3Dx}px ${t3Dy}px ${t3Blur}px rgba(${r}, ${g}, ${b}, ${t3Op})`
+    } : null;
+
+    const hlObj = enableHighlight ? {
+      dx: hlDx,
+      dy: hlDy,
+      blur: '0.00',
+      opacity: '0.95',
+      css: `${hlDx}px ${hlDy}px 0 rgba(255, 255, 255, 0.95) inset`
+    } : null;
+
+    return {
+      boxShadow: cssBoxShadow,
+      cssBoxShadow,
+      fullFilter,
+      tier1: t1Obj,
+      tier2: t2Obj,
+      tier3: t3Obj,
+      highlight: hlObj,
+      t1Dx: parseFloat(t1Dx),
+      t1Dy: parseFloat(t1Dy),
+      t1Blur: parseFloat(t1Blur),
+      t1Op: parseFloat(t1Op),
+      t2Dx: parseFloat(t2Dx),
+      t2Dy: parseFloat(t2Dy),
+      t2Blur: parseFloat(t2Blur),
+      t2Op: parseFloat(t2Op),
+      t3Dx: parseFloat(t3Dx),
+      t3Dy: parseFloat(t3Dy),
+      t3Blur: parseFloat(t3Blur),
+      t3Op: parseFloat(t3Op),
+      hlDx: parseFloat(hlDx),
+      hlDy: parseFloat(hlDy)
+    };
+  }
+
+  /**
+   * Real-Time Dynamic Light & Shadow Engine with Sleep-on-Settle
+   * - Real-time LERP damping toward cursor light vector
+   * - Injects --pc-light-dx, --pc-light-dy, --pc-shadow-tier* CSS properties
+   * - Automatically invokes cancelAnimationFrame when settled (delta < 0.05px)
+   */
+  const DynamicLightEngine = {
+    state: {
+      currentLightDx: 2.2,
+      currentLightDy: 3.8,
+      currentBlur: 10.0,
+      targetLightDx: 2.2,
+      targetLightDy: 3.8,
+      targetBlur: 10.0,
+      currentAngle: 315,
+      targetAngle: 315,
+      distance: 120,
+      lerpFactor: 0.15,
+      elevation: 4.5,
+      opacity: 0.48,
+      color: [46, 30, 20],
+      isRunning: false,
+      isPointerInside: false,
+      rafId: null,
+      subscribers: new Set()
+    },
+
+    targetElement: null,
+
+    bindTargetElement(el) {
+      this.targetElement = el;
+      if (el) this.state.subscribers.add(el);
+      return this;
+    },
+
+    getState() {
+      return { ...this.state };
+    },
+
+    isLoopRunning() {
+      return this.state.isRunning;
+    },
+
+    setLightSource(dx, dy, blur, angle, distance) {
+      if (dx != null) this.state.targetLightDx = dx;
+      if (dy != null) this.state.targetLightDy = dy;
+      if (blur != null) this.state.targetBlur = blur;
+      if (angle != null) this.state.targetAngle = angle;
+      if (distance != null) this.state.distance = distance;
+      this.startLoop();
+    },
+
+    updateTargetFromCursor(cursorX, cursorY, centerX, centerY, elevation = 4.5) {
+      const trig = calculateLightTrigonometry(centerX, centerY, cursorX, cursorY);
+      const distRatio = Math.min(2.5, Math.max(0.2, trig.dist / 140));
+      // Shadow projects away from the cursor light position
+      const targetDx = trig.shadowDx * distRatio * elevation * 1.5;
+      const targetDy = trig.shadowDy * distRatio * elevation * 1.5;
+      const targetBlur = Math.max(6, Math.min(32, 10 * distRatio));
+
+      this.state.targetLightDx = targetDx;
+      this.state.targetLightDy = targetDy;
+      this.state.targetBlur = targetBlur;
+      this.state.targetAngle = trig.deg;
+      this.state.distance = trig.dist;
+      this.state.isPointerInside = true;
+      this.startLoop();
+
+      return {
+        targetDx,
+        targetDy,
+        targetBlur,
+        angle: trig.deg,
+        distance: trig.dist
+      };
+    },
+
+    resetToRest(restAngle = 315, elevation = 4.5) {
+      const rad = (restAngle - 90) * (Math.PI / 180);
+      const targetDx = Math.cos(rad) * elevation * 1.2;
+      const targetDy = Math.sin(rad) * elevation * 1.2;
+
+      this.state.targetLightDx = targetDx;
+      this.state.targetLightDy = targetDy;
+      this.state.targetBlur = 10;
+      this.state.targetAngle = restAngle;
+      this.state.isPointerInside = false;
+      this.startLoop();
+    },
+
+    startLoop() {
+      if (this.state.isRunning) return;
+      if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        this.settleNow();
+        return;
+      }
+      this.state.isRunning = true;
+      this.tick();
+    },
+
+    stopLoop() {
+      if (!this.state.isRunning) return;
+      if (this.state.rafId != null) {
+        if (typeof cancelAnimationFrame === 'function') {
+          cancelAnimationFrame(this.state.rafId);
+        } else if (typeof clearTimeout === 'function') {
+          clearTimeout(this.state.rafId);
+        }
+        this.state.rafId = null;
+      }
+      this.state.isRunning = false;
+    },
+
+    settleNow() {
+      this.state.currentLightDx = this.state.targetLightDx;
+      this.state.currentLightDy = this.state.targetLightDy;
+      this.state.currentBlur = this.state.targetBlur;
+      this.state.currentAngle = this.state.targetAngle;
+      this.applyStyles(this.state.currentLightDx, this.state.currentLightDy, this.state.currentBlur, this.state.currentAngle);
+      this.stopLoop();
+    },
+
+    tick(timestamp) {
+      if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        this.settleNow();
+        return;
+      }
+      const s = this.state;
+      const factor = s.lerpFactor;
+
+      const diffX = s.targetLightDx - s.currentLightDx;
+      const diffY = s.targetLightDy - s.currentLightDy;
+      const diffBlur = s.targetBlur - s.currentBlur;
+
+      s.currentLightDx = lerp(s.currentLightDx, s.targetLightDx, factor);
+      s.currentLightDy = lerp(s.currentLightDy, s.targetLightDy, factor);
+      s.currentBlur = lerp(s.currentBlur, s.targetBlur, factor);
+      s.currentAngle = lerp(s.currentAngle, s.targetAngle, factor);
+
+      this.applyStyles(s.currentLightDx, s.currentLightDy, s.currentBlur, s.currentAngle);
+
+      // Sleep-on-settle check:
+      // If pointer is outside (or stationary) and difference is below 0.05px epsilon:
+      const velocity = Math.hypot(diffX, diffY);
+      if (!s.isPointerInside && velocity < 0.05 && Math.abs(diffBlur) < 0.05) {
+        this.settleNow();
+        return;
+      }
+
+      const schedule = typeof requestAnimationFrame === 'function' ? requestAnimationFrame : (cb) => setTimeout(cb, 16);
+      s.rafId = schedule((t) => this.tick(t));
+    },
+
+    applyStyles(dx, dy, blur, angle) {
+      const s = this.state;
+      if (dx === undefined) dx = s.currentLightDx;
+      if (dy === undefined) dy = s.currentLightDy;
+      if (blur === undefined) blur = s.currentBlur;
+      if (angle === undefined) angle = s.currentAngle;
+
+      const shadows = compute3TierShadow(dx, dy, s.elevation, blur, s.opacity, s.color);
+
+      const targets = [this.targetElement, typeof document !== 'undefined' ? document.documentElement : null, ...s.subscribers].filter(Boolean);
+      targets.forEach(target => {
+        if (!target || !target.style) return;
+        target.style.setProperty('--pc-light-dx', `${parseFloat(dx).toFixed(2)}px`);
+        target.style.setProperty('--pc-light-dy', `${parseFloat(dy).toFixed(2)}px`);
+        target.style.setProperty('--pc-light-blur', `${parseFloat(blur).toFixed(2)}px`);
+        target.style.setProperty('--pc-light-angle', `${Math.round(angle)}deg`);
+        target.style.setProperty('--pc-light-distance', `${Math.round(s.distance)}px`);
+        if (shadows.tier1) target.style.setProperty('--pc-shadow-tier1', shadows.tier1.css);
+        if (shadows.tier2) target.style.setProperty('--pc-shadow-tier2', shadows.tier2.css);
+        if (shadows.tier3) target.style.setProperty('--pc-shadow-tier3', shadows.tier3.css);
+        if (shadows.highlight) target.style.setProperty('--pc-knife-highlight', shadows.highlight.css);
+      });
+    },
+    subscribe(el) {
+      if (el) this.state.subscribers.add(el);
+    },
+
+    unsubscribe(el) {
+      if (el) this.state.subscribers.delete(el);
+    }
+  };
 
   const PaperShadowStudio = {
     state: {
@@ -21,6 +381,7 @@
     },
 
     init() {
+      if (typeof document === 'undefined' || typeof document.getElementById !== 'function') return;
       const container = document.getElementById('paper-shadow-studio');
       if (!container) return;
 
@@ -39,9 +400,9 @@
         
         <!-- Header -->
         <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 6px; flex-wrap: wrap;">
-          <span class="pc-badge pc-badge-mint">Depth & Physics Lab</span>
-          <span class="pc-badge pc-badge-peach">3D Virtual Craft Lamp</span>
-          <span class="pc-badge pc-badge-lavender">Multi-Tier Shadows</span>
+          <span class="pc-badge pc-badge--stamp pc-badge--mint">Depth & Physics Lab</span>
+          <span class="pc-badge pc-badge--ticket pc-badge--peach">3D Virtual Craft Lamp</span>
+          <span class="pc-badge pc-badge--tag pc-badge--lavender">Multi-Tier Shadows</span>
         </div>
         <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
           <span class="pc-section-plate" data-bg-shape="cloud-puffy" data-icon="sun" data-size="52" title="3D 그림자 스튜디오"></span>
@@ -365,7 +726,7 @@
                 <div class="pc-ui-stack-scene" id="pc-view-ui-stack" style="display:none;">
                   <div class="pc-sample-target-card" id="pc-sim-target-card">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                      <span class="pc-badge pc-badge-mint">Paper UI Card</span>
+                      <span class="pc-badge pc-badge--stamp pc-badge--mint">Paper UI Card</span>
                       <span style="font-size:12px;font-weight:700;color:var(--pc-ink-muted);">3-Tier Shadow Stacking</span>
                     </div>
                     <h3 style="margin:0 0 8px;font-size:18px;font-weight:800;color:var(--pc-ink);">실시간 그림자 물리 반응 카드</h3>
@@ -813,8 +1174,28 @@
       const canvas = container.querySelector('#pc-shadow-stage-canvas');
       if (!well || !canvas) return;
 
+      // Subscribe target card and buttons to dynamic light engine
+      const targetCard = container.querySelector('#pc-sim-target-card');
+      const targetBtn = container.querySelector('#pc-sim-target-btn');
+      if (targetCard) DynamicLightEngine.subscribe(targetCard);
+      if (targetBtn) DynamicLightEngine.subscribe(targetBtn);
+      container.querySelectorAll('.pc-shadow-icon-plate').forEach(plate => {
+        DynamicLightEngine.subscribe(plate);
+      });
+
+      well.addEventListener('mouseenter', () => {
+        DynamicLightEngine.state.isPointerInside = true;
+      });
+
       well.addEventListener('mousemove', (e) => {
         const r = well.getBoundingClientRect();
+        const centerX = r.left + r.width / 2;
+        const centerY = r.top + r.height / 2;
+
+        // 1. Dynamic light computation using relative coordinates (dx, dy)
+        DynamicLightEngine.updateTargetFromCursor(e.clientX, e.clientY, centerX, centerY, this.state.elevation);
+
+        // 2. 3D Canvas tilt (Parallax)
         const x = (e.clientX - r.left) / r.width - 0.5; // -0.5 ~ 0.5
         const y = (e.clientY - r.top) / r.height - 0.5; // -0.5 ~ 0.5
 
@@ -823,12 +1204,21 @@
 
         canvas.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.02)`;
 
-        // Shift layers in 3D parallax
-        container.querySelectorAll('.pc-layer-mount').forEach(m => {
+        // 3. Shift layers in 3D parallax & differential dynamic light drop-shadows
+        const mounts = container.querySelectorAll('.pc-layer-mount');
+        mounts.forEach(m => {
           const tier = parseInt(m.dataset.depthTier, 10) || 1;
           const shiftX = (x * tier * 12).toFixed(1);
           const shiftY = (y * tier * 6).toFixed(1);
           m.style.transform = `translate3d(${shiftX}px, ${shiftY}px, ${tier * 8}px)`;
+
+          const multiplier = tier * 0.75;
+          const lDx = (DynamicLightEngine.state.currentLightDx * multiplier).toFixed(1);
+          const lDy = (DynamicLightEngine.state.currentLightDy * multiplier).toFixed(1);
+          const lBlur = Math.round(DynamicLightEngine.state.currentBlur * multiplier);
+          const lOp = Math.min(0.40, this.state.opacity * multiplier).toFixed(2);
+          const [cr, cg, cb] = this.state.color;
+          m.style.filter = `drop-shadow(${lDx}px ${lDy}px ${lBlur}px rgba(${cr}, ${cg}, ${cb}, ${lOp}))`;
         });
       });
 
@@ -837,16 +1227,26 @@
         container.querySelectorAll('.pc-layer-mount').forEach(m => {
           m.style.transform = 'translate3d(0, 0, 0)';
         });
+        // Settle smoothly to state.angle (rest) and then sleep (cancelAnimationFrame)
+        DynamicLightEngine.resetToRest(this.state.angle, this.state.elevation);
       });
     }
   };
 
   // Auto-init on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => PaperShadowStudio.init());
-  } else {
-    PaperShadowStudio.init();
+  if (typeof document !== 'undefined' && typeof document.getElementById === 'function') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => PaperShadowStudio.init());
+    } else {
+      PaperShadowStudio.init();
+    }
   }
 
-  window.PaperShadowStudio = PaperShadowStudio;
-})();
+  return {
+    PaperShadowStudio,
+    DynamicLightEngine,
+    compute3TierShadow,
+    calculateLightTrigonometry,
+    lerp
+  };
+});

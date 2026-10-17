@@ -18,6 +18,26 @@
    ========================================================================== */
 
 :root {
+  /* ==========================================================================
+     Authentic Layered Paper-Cut Swatches (assets/papercut-hero.jpg)
+     7대 수직 조명 종이 스와치 토큰
+     ========================================================================== */
+  --pc-swatch-cloud: linear-gradient(180deg, #FFFFFF 0%, #FAF6ED 100%);
+  --pc-swatch-mint: linear-gradient(180deg, #BCE4DB 0%, #9FD4C7 100%);
+  --pc-swatch-peach: linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%);
+  --pc-swatch-sand: linear-gradient(180deg, #FDE6B5 0%, #F5CE82 100%);
+  --pc-swatch-lavender: linear-gradient(180deg, #E2D3EE 0%, #C9B3DC 100%);
+  --pc-swatch-sky: linear-gradient(180deg, #D4EDF4 0%, #B4DDE7 100%);
+  --pc-swatch-sage: linear-gradient(180deg, #BFE2CE 0%, #A3D4B6 100%);
+
+  /* 0.8px 나이프 엣지 림 라이트 토큰 */
+  --pc-paper-rim-light: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --pc-paper-rim-subtle: inset 0 0.8px 0 rgba(255, 255, 255, 0.65);
+
+  /* 번트 엄버 2-Tier 종이 접촉 그림자 토큰 */
+  --pc-paper-shadow-contact: 0 1.2px 1.8px rgba(46, 30, 20, 0.20), 0 4px 10px -2px rgba(46, 30, 20, 0.12);
+  --pc-paper-shadow-lifted: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+
   /* Surface Bases (Archival cardstock 200-300gsm) */
   --pc-ui-bg-cream: #FAF7F0;
   --pc-ui-bg-sheet-light: #FFFDF9;
@@ -374,7 +394,7 @@
   inset: 0;
   background: rgba(74, 60, 49, 0.42);
   backdrop-filter: blur(2px);
-  z-index: 1000;
+  z-index: 200000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -567,7 +587,7 @@
 /* ==========================================================================
    6. BADGE (Perforated stamp, scalloped seal, ribbon tag, origami fold)
    ========================================================================== */
-.pc-ui-badge, .pc-ui-badge {
+.pc-ui-badge, .pc-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -579,22 +599,29 @@
   border-radius: var(--pc-ui-radius-pill);
   background: var(--pc-ui-sage-tint);
   color: var(--pc-ui-ink-dark);
-  box-shadow: var(--pc-ui-shadow-1);
-  transition: all var(--pc-ui-dur-quick) ease;
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
   white-space: nowrap;
   vertical-align: middle;
   text-align: center;
 }
-.pc-ui-badge > span, .pc-ui-badge > span {
+.pc-ui-badge > span, .pc-badge > span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
 }
 
-.pc-ui-badge:hover, .pc-ui-badge:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--pc-ui-shadow-2);
+.pc-ui-badge:hover, .pc-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-lifted);
+}
+
+.pc-ui-badge:active, .pc-badge:active {
+  transform: translateY(1px);
+  box-shadow: var(--pc-paper-shadow-contact);
 }
 
 .pc-ui-badge.pc-is-stamp,
@@ -655,67 +682,91 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
-  font-size: 13.5px;
+  gap: 6px;
+  font-size: 13px;
+  user-select: none;
 }
 
 .pc-ui-breadcrumb-list, .pc-ui-breadcrumb-list {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 8px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .pc-ui-breadcrumb-item, .pc-ui-breadcrumb-item {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .pc-ui-breadcrumb-link, .pc-ui-breadcrumb-link {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  background: var(--pc-ui-bg-sheet-light);
-  border-radius: var(--pc-ui-radius-xs);
-  border: 1px solid var(--pc-ui-border-kraft);
-  color: var(--pc-ui-ink-muted);
+  gap: 5px;
+  padding: 4px 11px;
+  min-height: 28px;
+  background: #FFFDF9;
+  border-radius: 8px;
+  border: 1px solid rgba(74, 58, 42, 0.16);
+  color: var(--pc-ui-ink-muted, #6E645A);
   text-decoration: none;
-  font-weight: 600;
-  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.05);
-  transition: all var(--pc-ui-dur-quick) ease;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: 
+    0 1px 2px rgba(46, 30, 20, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .pc-ui-breadcrumb-link:hover, .pc-ui-breadcrumb-link:hover {
-  background: var(--pc-ui-peach-tint);
-  color: var(--pc-ui-ink-dark);
+  background: var(--pc-peach-light, #FFF2EC);
+  color: var(--pc-ui-ink-dark, #2D2926);
+  border-color: rgba(74, 58, 42, 0.26);
   transform: translateY(-1px);
+  box-shadow: 
+    0 2px 5px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 #FFFFFF;
 }
 
 .pc-ui-breadcrumb-page, .pc-ui-breadcrumb-page {
-  padding: 4px 10px;
-  background: var(--pc-ui-sage-tint);
-  border-radius: var(--pc-ui-radius-xs);
-  border: 1px solid var(--pc-ui-sage);
-  color: var(--pc-ui-ink-dark);
-  font-weight: 700;
-  box-shadow: var(--pc-ui-shadow-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  min-height: 28px;
+  background: var(--pc-mint, #A3D8C3);
+  border-radius: 8px;
+  border: 1px solid #FFFFFF;
+  color: #14422E;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12.5px;
+  font-weight: 800;
+  box-shadow: 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.7);
 }
 
 .pc-ui-breadcrumb-separator, .pc-ui-breadcrumb-separator {
-  color: var(--pc-ui-ink-faint);
+  color: rgba(74, 58, 42, 0.38);
+  font-size: 11px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  padding: 0 1px;
 }
 
 
 /* ==========================================================================
    8. FLAT KNIFE-CUT BUTTON (Cardstock stack, pressed-in active state, scallop cut, washi tape)
    ========================================================================== */
-.pc-ui-btn, .pc-ui-button, .pc-ui-button {
+.pc-ui-btn, .pc-ui-button, .pc-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -729,6 +780,7 @@
   line-height: 1;
   border-radius: 8px; /* 기본 사각 다이컷 (8px) */
   border: 1px solid rgba(46, 30, 20, 0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
   background-color: var(--pc-ui-bg-sheet-light);
   color: var(--pc-ui-ink-dark);
   cursor: pointer;
@@ -739,22 +791,19 @@
   overflow: hidden;
   white-space: nowrap;
 
-  /* 1. 완전 플랫한 매트 종이: 유광/그라데이션 전면 배제 */
-  background-image: none !important;
-
-  /* 2. 칼로 정밀하게 자른 종이 단면 두께감과 2-Tier 그림자 */
+  /* 0.8px 나이프 엣지 림 라이트 & 번트 엄버 2-Tier 종이 접촉 그림자 */
   box-shadow: 
-    0 2px 0 rgba(46, 30, 20, 0.38),
-    0 3.5px 6px rgba(46, 30, 20, 0.20);
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-contact);
   transform: translateY(0);
   transition: 
-    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.15s ease,
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.18s ease,
     background-color 0.2s ease;
 }
 
 /* 1장의 종이 표면에 흡수된 유기 섬유 펄프 텍스처 오버레이 */
-.pc-ui-btn::before, .pc-ui-button::before, .pc-ui-button::before {
+.pc-ui-btn::before, .pc-ui-button::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -767,11 +816,11 @@
 }
 
 /* 단일 종이 원칙: 다층 시트 비표시 */
-.pc-ui-btn::after, .pc-ui-button::after, .pc-ui-button::after {
+.pc-ui-btn::after, .pc-ui-button::after {
   display: none !important;
 }
 
-.pc-ui-btn > *, .pc-ui-button > *, .pc-ui-button > * {
+.pc-ui-btn > *, .pc-ui-button > *, .pc-btn > * {
   position: relative;
   z-index: 2;
   display: inline-flex;
@@ -780,19 +829,74 @@
   line-height: 1;
 }
 
-.pc-ui-btn:hover, .pc-ui-button:hover, .pc-ui-button:hover {
-  transform: translateY(-1.5px);
+.pc-ui-btn:hover, .pc-ui-button:hover, .pc-btn:hover {
+  transform: translateY(-2px);
   box-shadow: 
-    0 3px 0 rgba(46, 30, 20, 0.38),
-    0 6px 12px rgba(46, 30, 20, 0.22);
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-lifted);
 }
 
 .pc-ui-btn:active, .pc-ui-btn.pc-is-active, .pc-ui-btn.is-active,
-.pc-ui-button:active, .pc-ui-button.pc-is-active, .pc-ui-button.is-active {
-  transform: translateY(1.5px);
+.pc-ui-button:active, .pc-ui-button.pc-is-active, .pc-ui-button.is-active,
+.pc-btn:active {
+  transform: translateY(1px);
   box-shadow: 
-    0 0.5px 0 rgba(46, 30, 20, 0.40),
-    0 1.5px 3px rgba(46, 30, 20, 0.20);
+    var(--pc-paper-shadow-contact);
+}
+
+/* ==========================================================================
+   BUTTON CRAFT SWATCH VARIANTS (Primary, Secondary, Ghost, Craft)
+   ========================================================================== */
+.pc-btn-primary {
+  background-image: var(--pc-swatch-sand) !important;
+  background-color: var(--pc-ui-buttercup, #FEE396);
+  color: #66460D;
+  border: 1px solid rgba(184, 142, 38, 0.40);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-secondary {
+  background-image: var(--pc-swatch-lavender) !important;
+  background-color: var(--pc-ui-lavender, #D7CBEB);
+  color: #433261;
+  border: 1px solid rgba(71, 59, 107, 0.32);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-ghost {
+  background-image: var(--pc-swatch-cloud) !important;
+  background-color: #FFFDF9;
+  color: var(--pc-ui-ink-body, #3D352E);
+  border: 1px solid rgba(196, 183, 166, 0.65);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-craft {
+  background-image: var(--pc-swatch-sand) !important;
+  background-color: #FDE6B5;
+  color: #5D4314;
+  border: 1px solid rgba(184, 142, 38, 0.40);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-primary:hover,
+.pc-btn-secondary:hover,
+.pc-btn-ghost:hover,
+.pc-btn-craft:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-lifted);
+}
+
+.pc-btn-primary:active,
+.pc-btn-secondary:active,
+.pc-btn-ghost:active,
+.pc-btn-craft:active {
+  transform: translateY(1px);
+  box-shadow: var(--pc-paper-shadow-contact);
 }
 
 /* ==========================================================================
@@ -1478,7 +1582,7 @@
   inset: 0;
   background: rgba(74, 60, 49, 0.45);
   backdrop-filter: blur(2px);
-  z-index: 1000;
+  z-index: 200000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1544,7 +1648,7 @@
   position: fixed;
   inset: 0;
   background: rgba(74, 60, 49, 0.35);
-  z-index: 1000;
+  z-index: 200000;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--pc-ui-dur-norm) ease;
@@ -1564,7 +1668,7 @@
   border-radius: var(--pc-ui-radius-xl) var(--pc-ui-radius-xl) 0 0;
   box-shadow: var(--pc-ui-shadow-5);
   padding: 16px 24px 32px;
-  z-index: 1001;
+  z-index: 200001;
   transform: translateY(100%);
   transition: transform var(--pc-ui-dur-unfold) var(--pc-ui-ease-glide);
 }
@@ -2482,7 +2586,7 @@
   position: fixed;
   inset: 0;
   background: rgba(74, 60, 49, 0.4);
-  z-index: 1000;
+  z-index: 200000;
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--pc-ui-dur-norm) ease;
@@ -2502,7 +2606,7 @@
   border-left: 2px dashed var(--pc-ui-border-kraft);
   box-shadow: var(--pc-ui-shadow-5);
   padding: 28px;
-  z-index: 1001;
+  z-index: 200001;
   transform: translateX(100%);
   transition: transform var(--pc-ui-dur-unfold) var(--pc-ui-ease-glide);
 }
@@ -2853,7 +2957,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  z-index: 2000;
+  z-index: 300000 !important;
   pointer-events: none;
   max-width: 400px;
 }
@@ -2939,34 +3043,70 @@
    ========================================================================== */
 .pc-ui-toggle-group, .pc-ui-toggle-group {
   display: inline-flex;
-  background: var(--pc-ui-bg-recessed);
-  border: 1px solid var(--pc-ui-border-kraft);
-  border-radius: var(--pc-ui-radius-md);
-  padding: 3px;
-  gap: 2px;
-  box-shadow: var(--pc-ui-shadow-inset);
+  align-items: center;
+  background: var(--pc-ui-bg-recessed, #F4EFE6);
+  border: 1px solid rgba(74, 58, 42, 0.16);
+  border-radius: var(--pc-ui-radius-md, 12px);
+  padding: 4px;
+  gap: 4px;
+  box-shadow: inset 0 1.5px 3.5px rgba(46, 30, 20, 0.16);
 }
 
 .pc-ui-toggle-group-item, .pc-ui-toggle-group-item {
-  border: none;
-  background: none;
-  padding: 6px 12px;
-  border-radius: var(--pc-ui-radius-sm);
-  font-size: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 6px 14px;
+  min-height: 32px;
+  border-radius: 8px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12.5px;
   font-weight: 700;
-  color: var(--pc-ui-ink-muted);
+  color: var(--pc-ui-ink-muted, #6E645A);
   cursor: pointer;
-  transition: all var(--pc-ui-dur-quick) ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  user-select: none;
+}
+
+.pc-ui-toggle-group-item .pc-toggle-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #A09485;
+  opacity: 0.45;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
 }
 
 .pc-ui-toggle-group-item:hover, .pc-ui-toggle-group-item:hover {
-  color: var(--pc-ui-ink-dark);
+  color: var(--pc-ui-ink-dark, #2D2926);
+  background: rgba(255, 255, 255, 0.65);
 }
 
-.pc-ui-toggle-group-item[data-state="on"], .pc-ui-toggle-group-item[data-state="on"] {
-  background: var(--pc-ui-bg-sheet-light);
-  color: var(--pc-ui-ink-dark);
-  box-shadow: var(--pc-ui-shadow-1);
+.pc-ui-toggle-group-item[data-state="on"], .pc-ui-toggle-group-item[data-state="on"],
+.pc-ui-toggle-group-item.is-active, .pc-ui-toggle-group-item.is-active {
+  background: var(--pc-mint, #A3D8C3) !important;
+  color: #14422E !important;
+  font-weight: 800 !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.24),
+    0 4px 8px rgba(46, 30, 20, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.8) !important;
+  transform: translateY(-0.5px);
+}
+
+.pc-ui-toggle-group-item[data-state="on"] .pc-toggle-dot,
+.pc-ui-toggle-group-item.is-active .pc-toggle-dot {
+  background: #FFFDF9;
+  opacity: 1;
+  box-shadow: 0 1px 2px rgba(20, 66, 46, 0.4);
 }
 
 
@@ -3144,6 +3284,13 @@
 .pc-ui-select .pc-ui-select-trigger[data-pc-paper], .pc-ui-combobox .pc-ui-combobox-trigger[data-pc-paper] {
   min-height: 44px; gap: 8px; padding: 10px 14px 12px; text-align: left; font-family: inherit; font-weight: 700;
   color: var(--pc-ui-ink-dark, #3D352E); box-sizing: border-box;
+}
+.pc-ui-select-trigger.is-well, .pc-ui-combobox-trigger.is-well {
+  min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 8px 14px;
+  cursor: pointer;
+}
+.pc-ui-select-trigger .pc-trigger-content, .pc-ui-combobox-trigger .pc-trigger-content {
+  display: inline-flex; align-items: center; gap: 8px; min-width: 0;
 }
 .pc-ui-select-value, .pc-ui-combobox-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pc-ui-select-trigger > .pc-inline-icon, .pc-ui-combobox-trigger > .pc-inline-icon { flex: none; }
@@ -3692,9 +3839,9 @@
 .pc-ui-drawer-content.pc-is-paper-hydrated,
 .pc-ui-drawer-content.is-paper-hydrated { bottom: -28px; padding: 16px 27px 60px 24px; --pc-paper-radius: 24px; }
 /* 고정 헤더·사이드바(z-index 높음)까지 어둡게 덮도록 papercut-modals.css 와 같은 층위로 올린다 */
-.pc-ui-dialog-overlay, .pc-ui-alert-dialog-overlay { z-index: 10000; }
-.pc-ui-sheet-overlay, .pc-ui-drawer-overlay { z-index: 10001; }
-.pc-ui-sheet-content, .pc-ui-drawer-content { z-index: 10002; }
+.pc-ui-dialog-overlay, .pc-ui-alert-dialog-overlay { z-index: 200000 !important; }
+.pc-ui-sheet-overlay, .pc-ui-drawer-overlay { z-index: 200001 !important; }
+.pc-ui-sheet-content, .pc-ui-drawer-content { z-index: 200002 !important; }
 .pc-ui-alert-dialog-title { word-break: keep-all; text-wrap: balance; }
 .pc-ui-alert-dialog-title .pc-inline-icon { vertical-align: -3px; margin-right: 4px; }
 .pc-ui-alert-dialog-description { word-break: keep-all; text-wrap: pretty; }
@@ -3822,4 +3969,483 @@
 @media (prefers-reduced-motion: reduce) {
   .pc-ui-carousel-dot[data-pc-paper], .pc-ui-carousel-track, .pc-ui-tooltip-content { transition: none; }
 }
+
+/* ==========================================================================
+   WOOD SHAVING PAPER CURL (대패 말림 3D 원통 나선 롤링 물리 엔진)
+   ========================================================================== */
+.pc-wood-curl-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  perspective: var(--pc-perspective-depth, 1200px);
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+  user-select: none;
+  border-radius: var(--pc-paper-radius, 16px);
+  contain: layout paint;
+}
+
+.pc-wood-curl-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  border-radius: inherit;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.pc-wood-curl-underlayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  border-radius: inherit;
+  transform-origin: center center;
+  transform: scale(calc(0.96 + 0.04 * var(--pc-curl-progress, 0)));
+  opacity: calc(0.4 + 0.6 * var(--pc-curl-progress, 0));
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.pc-wood-curl-peel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border-radius: inherit;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  --pc-curl-progress: 0;
+  --pc-curl-radius: 42px;
+  transform: 
+    translateY(calc(-100% * var(--pc-curl-progress, 0)))
+    rotateX(calc(140deg * var(--pc-curl-progress, 0)))
+    translateZ(calc(var(--pc-curl-radius, 42px) * sin(calc(var(--pc-curl-progress, 0) * 3.14159))))
+    scaleY(calc(1 - 0.28 * var(--pc-curl-progress, 0)));
+  clip-path: inset(0 0 calc(100% * var(--pc-curl-progress, 0)) 0);
+  will-change: transform, clip-path;
+  transition: none;
+}
+
+/* 배면 크래프트 텍스처 (Backface kraft texture) */
+.pc-wood-curl-peel::after,
+.pc-wood-curl-back {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      rgba(139, 102, 65, 0.06) 0px,
+      rgba(139, 102, 65, 0.06) 2px,
+      transparent 2px,
+      transparent 8px
+    ),
+    linear-gradient(135deg, #E6D2B5 0%, #D8BE9B 50%, #C4A47C 100%);
+  transform: rotateX(180deg) translateZ(1px);
+  backface-visibility: visible;
+  pointer-events: none;
+  opacity: calc(var(--pc-curl-progress, 0) * 1.2);
+  box-shadow: inset 0 0 30px rgba(74, 58, 42, 0.22);
+}
+
+/* 크레센트 폐색음영 (Crescent ambient occlusion shadow) */
+.pc-wood-curl-peel::before,
+.pc-wood-curl-crescent-shadow {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(46, 30, 20, 0.45) 0%, rgba(46, 30, 20, 0.12) 60%, transparent 85%);
+  filter: blur(4px);
+  transform: translateY(calc(12px * (1 - var(--pc-curl-progress, 0)))) scaleX(calc(0.9 + 0.2 * var(--pc-curl-progress, 0)));
+  opacity: calc(sin(calc(var(--pc-curl-progress, 0) * 3.14159)) * 0.95);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.pc-wood-curl-peel.is-curling {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   PAPER FLUTTER & SCATTER PARTICLES (바람 흩날림 & 키리가미 파티클)
+   ========================================================================== */
+.pc-flutter-leaf,
+.pc-scatter-particle {
+  position: absolute;
+  width: var(--pc-leaf-w, 12px);
+  height: var(--pc-leaf-h, 16px);
+  pointer-events: none;
+  user-select: none;
+  border-radius: 2px 5px 2px 6px;
+  box-shadow: 
+    0 1px 2px rgba(46, 30, 20, 0.25),
+    0 3px 6px rgba(46, 30, 20, 0.15);
+  backface-visibility: visible;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  z-index: 9999;
+}
+
+.pc-flutter-leaf[data-color="cream"],
+.pc-scatter-particle[data-color="cream"] { background: #FAF7F0; border: 0.5px solid #E4DAC8; }
+.pc-flutter-leaf[data-color="mint"],
+.pc-scatter-particle[data-color="mint"] { background: #C8E6D8; border: 0.5px solid #A8D5BA; }
+.pc-flutter-leaf[data-color="peach"],
+.pc-scatter-particle[data-color="peach"] { background: #FDE2D1; border: 0.5px solid #F7C5A8; }
+.pc-flutter-leaf[data-color="lavender"],
+.pc-scatter-particle[data-color="lavender"] { background: #E3DEFD; border: 0.5px solid #C9C1F8; }
+.pc-flutter-leaf[data-color="buttercup"],
+.pc-scatter-particle[data-color="buttercup"] { background: #FEF3C7; border: 0.5px solid #FDE68A; }
+.pc-flutter-leaf[data-color="sky"],
+.pc-scatter-particle[data-color="sky"] { background: #D9EEF8; border: 0.5px solid #BAE6FD; }
+.pc-flutter-leaf[data-color="kraft"],
+.pc-scatter-particle[data-color="kraft"] { background: #D8BE9B; border: 0.5px solid #B89366; }
+
+/* 퇴장 애니메이션 클래스 (.pc-exit-scatter, .pc-exit-flutter) */
+.pc-exit-scatter {
+  animation: pcExitScatterAnim 0.42s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  pointer-events: none !important;
+}
+
+@keyframes pcExitScatterAnim {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+  40% {
+    opacity: 0.9;
+    transform: scale(1.02) translateY(-4px) rotate(1.2deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.88) translateY(18px) rotate(-3deg);
+    filter: blur(1.5px);
+  }
+}
+
+.pc-exit-flutter {
+  animation: pcExitFlutterAnim 0.55s cubic-bezier(0.2, 0.8, 0.4, 1) forwards !important;
+  pointer-events: none !important;
+  transform-origin: center top;
+}
+
+@keyframes pcExitFlutterAnim {
+  0% {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg) rotateZ(0deg) translateY(0);
+  }
+  35% {
+    opacity: 0.95;
+    transform: perspective(800px) rotateX(-18deg) rotateZ(3deg) translateY(-8px);
+  }
+  70% {
+    opacity: 0.6;
+    transform: perspective(800px) rotateX(32deg) rotateZ(-6deg) translateY(18px);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(800px) rotateX(55deg) rotateZ(8deg) translateY(42px) scale(0.82);
+  }
+}
+
+@keyframes pcWoodCurlRoll {
+  0% {
+    --pc-curl-progress: 0;
+    transform: translateY(0) rotateX(0deg) translateZ(0px) scaleY(1);
+    clip-path: inset(0 0 0 0);
+  }
+  50% {
+    transform: translateY(-50%) rotateX(70deg) translateZ(36px) scaleY(0.85);
+    clip-path: inset(0 0 50% 0);
+  }
+  100% {
+    --pc-curl-progress: 1;
+    transform: translateY(-100%) rotateX(140deg) translateZ(0px) scaleY(0.72);
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* Reduced Motion 접근성 지원 */
+@media (prefers-reduced-motion: reduce) {
+  .pc-wood-curl-card,
+  .pc-wood-curl-peel,
+  .pc-wood-curl-underlayer,
+  .pc-flutter-leaf,
+  .pc-scatter-particle,
+  .pc-exit-scatter,
+  .pc-exit-flutter,
+  .pc-btn,
+  .pc-btn-primary,
+  .pc-btn-secondary,
+  .pc-btn-ghost,
+  .pc-btn-craft,
+  .pc-badge,
+  .pc-ui-btn,
+  .pc-ui-button,
+  .pc-ui-badge {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
+  .pc-btn:hover,
+  .pc-btn-primary:hover,
+  .pc-btn-secondary:hover,
+  .pc-btn-ghost:hover,
+  .pc-btn-craft:hover,
+  .pc-badge:hover,
+  .pc-ui-btn:hover,
+  .pc-ui-button:hover,
+  .pc-ui-badge:hover,
+  .pc-btn:active,
+  .pc-btn-primary:active,
+  .pc-btn-secondary:active,
+  .pc-btn-ghost:active,
+  .pc-btn-craft:active,
+  .pc-badge:active,
+  .pc-ui-btn:active,
+  .pc-ui-button:active,
+  .pc-ui-badge:active {
+    transform: none !important;
+  }
+}
 /* @lane-overlays-end */
+
+/* ==========================================================================
+   Step 2: Shadowbox Craft Components, Wells & Bleed Architecture
+   Authentic Layered Paper-Cut Aesthetic (Matching papercut-hero.jpg)
+   ========================================================================== */
+
+/* 1. Shadowbox Recessed Wells & Matboard Frames (.pc-shadowbox-well, .pc-recessed-mat) */
+.pc-shadowbox-well,
+.pc-recessed-mat {
+  position: relative;
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.12) !important;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 
+    inset 0 3px 8px rgba(46, 30, 20, 0.18), 
+    inset 0 1px 2px rgba(46, 30, 20, 0.22), 
+    0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  box-sizing: border-box;
+}
+
+.pc-shadowbox-well.pc-is-deep,
+.pc-recessed-mat.pc-is-deep {
+  box-shadow: 
+    inset 0 6px 16px rgba(46, 30, 20, 0.24), 
+    inset 0 2px 4px rgba(46, 30, 20, 0.28), 
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 2. Frame Bleed Utilities (.pc-frame-bleed, .pc-bleed-top, .pc-bleed-bottom, etc.) */
+.pc-frame-bleed {
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 10;
+}
+
+.pc-bleed-top {
+  margin-top: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 10px rgba(46, 30, 20, 0.18), 
+    0 1px 2px rgba(46, 30, 20, 0.22);
+}
+
+.pc-bleed-bottom {
+  margin-bottom: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(2px);
+  box-shadow: 
+    0 4px 10px rgba(46, 30, 20, 0.18), 
+    0 1px 2px rgba(46, 30, 20, 0.22);
+}
+
+.pc-bleed-left {
+  margin-left: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+}
+
+.pc-bleed-right {
+  margin-right: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+}
+
+.pc-bleed-badge {
+  position: absolute !important;
+  top: -12px !important;
+  right: 18px !important;
+  z-index: 25 !important;
+  box-shadow: 
+    0 3px 8px rgba(46, 30, 20, 0.24), 
+    0 1px 2px rgba(46, 30, 20, 0.16) !important;
+}
+
+.pc-bleed-tab {
+  position: relative !important;
+  margin-top: -14px !important;
+  z-index: 20 !important;
+  box-shadow: 0 3px 8px rgba(46, 30, 20, 0.22) !important;
+}
+
+/* 3. Craft Details: Masking Washi Tape (.pc-washi-tape) & Fold Score Line (.pc-score-line) */
+.pc-washi-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 100px;
+  height: 26px;
+  background-color: rgba(254, 227, 150, 0.88);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 
+    0 1.5px 0 rgba(46, 30, 20, 0.35),
+    0 3.5px 8px rgba(46, 30, 20, 0.20),
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  z-index: 20;
+  clip-path: polygon(
+    0% 0%, 3% 20%, 0% 40%, 3% 60%, 0% 80%, 3% 100%,
+    97% 100%, 100% 80%, 97% 60%, 100% 40%, 97% 20%, 100% 0%
+  );
+}
+
+.pc-washi-tape::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0.45) 0, 
+    rgba(255, 255, 255, 0.45) 3px, 
+    transparent 3px, 
+    transparent 6px
+  );
+  opacity: 0.6;
+}
+
+.pc-washi-tape.pc-is-mint,
+.pc-washi-tape-mint {
+  background-color: rgba(163, 216, 195, 0.88);
+}
+.pc-washi-tape.pc-is-peach,
+.pc-washi-tape-peach {
+  background-color: rgba(247, 186, 158, 0.88);
+}
+.pc-washi-tape.pc-is-lavender,
+.pc-washi-tape-lavender {
+  background-color: rgba(215, 203, 235, 0.88);
+}
+.pc-washi-tape.pc-is-rose,
+.pc-washi-tape-rose {
+  background-color: rgba(245, 184, 190, 0.88);
+}
+.pc-washi-tape.pc-is-sky,
+.pc-washi-tape-sky {
+  background-color: rgba(189, 224, 234, 0.88);
+}
+.pc-washi-tape.pc-is-sage,
+.pc-washi-tape-sage {
+  background-color: rgba(187, 213, 184, 0.88);
+}
+
+.pc-score-line {
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 16px 0;
+  border: none !important;
+  border-top: 1px dashed rgba(46, 30, 20, 0.20) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  box-sizing: border-box;
+}
+
+.pc-score-line-v,
+.pc-score-line.pc-is-vertical {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  margin: 0 16px;
+  border: none !important;
+  border-left: 1px dashed rgba(46, 30, 20, 0.20) !important;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.85) !important;
+  box-sizing: border-box;
+}
+
+/* 4. Form Control Cutout Inlays (.pc-input-paper, .pc-select-paper, .pc-input, .pc-select) */
+.pc-input-paper,
+.pc-select-paper,
+.pc-input.pc-is-inlay,
+.pc-select.pc-is-inlay {
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.pc-input-paper:hover,
+.pc-select-paper:hover,
+.pc-input.pc-is-inlay:hover,
+.pc-select.pc-is-inlay:hover {
+  border-color: rgba(46, 30, 20, 0.25) !important;
+}
+
+.pc-input-paper:focus,
+.pc-select-paper:focus,
+.pc-input.pc-is-inlay:focus,
+.pc-select.pc-is-inlay:focus {
+  background-color: #FFFFFF !important;
+  border-color: #82C2A8 !important;
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.14),
+    0 0 0 2.5px rgba(163, 216, 195, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 5. Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .pc-card,
+  .pc-card-sheet,
+  .pc-shadowbox-well,
+  .pc-recessed-mat,
+  .pc-frame-bleed,
+  .pc-bleed-top,
+  .pc-bleed-bottom,
+  .pc-bleed-badge,
+  .pc-bleed-tab,
+  .pc-input-paper,
+  .pc-select-paper,
+  .pc-washi-tape {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}
+

@@ -10431,7 +10431,6 @@
       'bg-library',
       'texture-showcase',
       'paper-alerts-toasts',
-      'paper-animation-studio',
       'pc-site-footer'
     ];
 

@@ -388,7 +388,7 @@ function showPaperToast(message, type = 'mint', iconId = 'check') {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      z-index: 10000;
+      z-index: 300000;
       pointer-events: none;
     `;
     document.body.appendChild(toastContainer);

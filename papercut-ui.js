@@ -30,6 +30,7 @@
   // 컴포넌트 init()은 PaperCutUI.init(root)마다 다시 불리므로, 문서 리스너는 (컴포넌트, 이벤트)당 한 번만 건다.
   // 핸들러 소스 문자열을 키로 쓰면 다른 컴포넌트의 같은 모양 핸들러가 합쳐지므로 소유자 이름을 키로 쓴다.
   function onDoc(owner, type, handler) {
+    if (typeof document === 'undefined') return;
     const key = owner + '|' + type;
     if (docListeners.has(key)) return;
     docListeners.add(key);
@@ -37,11 +38,13 @@
   }
 
   // Safe query helpers
-  function $$(selector, context = document) {
+  function $$(selector, context = (typeof document !== 'undefined' ? document : null)) {
+    if (!context || typeof context.querySelectorAll !== 'function') return [];
     return Array.from(context.querySelectorAll(selector));
   }
 
-  function $(selector, context = document) {
+  function $(selector, context = (typeof document !== 'undefined' ? document : null)) {
+    if (!context || typeof context.querySelector !== 'function') return null;
     return context.querySelector(selector);
   }
 
@@ -767,11 +770,20 @@
     choose(combo, item) {
       const label = $('.pc-ui-combobox-label, .pc-ui-combobox-label', combo) ||
                     $('.pc-ui-combobox-trigger span, .pc-ui-combobox-trigger span', combo);
-      const text = (item.querySelector('span') || item).textContent.trim();
+      const text = item.getAttribute('data-value') || (item.querySelector('.pc-ui-item-text') || item.querySelector('span') || item).textContent.trim();
       if (label) label.textContent = text;
+      const itemIcon = item.querySelector('.pc-inline-icon:not(.pc-ui-option-mark)');
+      const triggerIcon = combo.querySelector('.pc-ui-combobox-trigger .pc-trigger-content .pc-inline-icon, .pc-ui-combobox-trigger > .pc-inline-icon');
+      if (itemIcon && triggerIcon) {
+        const iconAttr = itemIcon.getAttribute('data-icon');
+        if (iconAttr) {
+          triggerIcon.setAttribute('data-icon', iconAttr);
+          if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(combo);
+        }
+      }
       $$('.pc-ui-combobox-item', combo).forEach(it => it.setAttribute('aria-selected', it === item ? 'true' : 'false'));
       Combobox.setOpen(combo, false);
-      combo.setAttribute('data-value', item.getAttribute('data-value') || text);
+      combo.setAttribute('data-value', text);
       combo.dispatchEvent(new CustomEvent('combobox-select', {
         bubbles: true,
         detail: { value: combo.getAttribute('data-value') }
@@ -1855,11 +1867,20 @@
     },
     choose(sel, item) {
       const valEl = $('.pc-ui-select-value, .pc-ui-select-value', sel);
-      const text = (item.querySelector('span') || item).textContent.trim();
+      const text = item.getAttribute('data-value') || (item.querySelector('.pc-ui-item-text') || item.querySelector('span') || item).textContent.trim();
       if (valEl) valEl.textContent = text;
+      const itemIcon = item.querySelector('.pc-inline-icon:not(.pc-ui-option-mark)');
+      const triggerIcon = sel.querySelector('.pc-ui-select-trigger .pc-trigger-content .pc-inline-icon, .pc-ui-select-trigger > .pc-inline-icon');
+      if (itemIcon && triggerIcon) {
+        const iconAttr = itemIcon.getAttribute('data-icon');
+        if (iconAttr) {
+          triggerIcon.setAttribute('data-icon', iconAttr);
+          if (typeof window.hydratePapercutIcons === 'function') window.hydratePapercutIcons(sel);
+        }
+      }
       $$('.pc-ui-select-item', sel).forEach(it => it.setAttribute('aria-selected', it === item ? 'true' : 'false'));
       Select.setOpen(sel, false);
-      sel.setAttribute('data-value', item.getAttribute('data-value') || text);
+      sel.setAttribute('data-value', text);
       sel.dispatchEvent(new CustomEvent('change', {
         bubbles: true,
         detail: { value: sel.getAttribute('data-value') }
@@ -2361,13 +2382,18 @@
           $$('.pc-ui-toggle-group-item, .pc-ui-toggle-group-item', group).forEach(it => {
             it.setAttribute('data-state', 'off');
             it.setAttribute('aria-pressed', 'false');
+            it.classList.remove('is-active');
           });
           item.setAttribute('data-state', 'on');
           item.setAttribute('aria-pressed', 'true');
+          item.classList.add('is-active');
         } else {
-          item.setAttribute('data-state', isOn ? 'off' : 'on');
+          const nextState = isOn ? 'off' : 'on';
+          item.setAttribute('data-state', nextState);
           item.setAttribute('aria-pressed', isOn ? 'false' : 'true');
+          item.classList.toggle('is-active', nextState === 'on');
         }
+        item.dispatchEvent(new CustomEvent('change', { bubbles: true, detail: { state: item.getAttribute('data-state') } }));
       });
     }
   };
@@ -2399,9 +2425,544 @@
   };
 
   /* ==========================================================================
+     46. WOOD SHAVING PAPER CURL & PAPER FLUTTER SCATTER (Physics Motion Engine)
+     ========================================================================== */
+
+  /**
+   * 2-Layer Wood Shaving Curl Transition
+   * Replaces flat sliding with 3D cylindrical spiral rolling peel animation.
+   * @param {HTMLElement} curSlide Current slide to roll away
+   * @param {HTMLElement} nextSlide Next slide to reveal underneath
+   * @param {Object} options Duration, radius, onComplete
+   * @returns {Promise<void>}
+   */
+  function transitionWoodShavingCurl(curSlide, nextSlide, options = {}) {
+    return new Promise((resolve) => {
+      if (!curSlide) {
+        if (typeof options.onComplete === 'function') options.onComplete();
+        resolve();
+        return;
+      }
+
+      const duration = options.duration !== undefined ? options.duration : 650;
+      const radius = options.radius !== undefined ? options.radius : 42;
+      const isReduced = typeof window !== 'undefined' && 
+                        window.matchMedia && 
+                        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Reduced motion shortcut (AC-2 compliance)
+      if (isReduced || duration <= 1) {
+        curSlide.style.setProperty('--pc-curl-progress', '1');
+        if (nextSlide) {
+          nextSlide.style.setProperty('--pc-curl-progress', '1');
+        }
+        if (typeof options.onComplete === 'function') options.onComplete();
+        resolve();
+        return;
+      }
+
+      curSlide.classList.add('pc-wood-curl-peel', 'is-curling');
+      if (nextSlide) {
+        nextSlide.classList.add('pc-wood-curl-underlayer');
+      }
+
+      const startTime = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+
+      function step(now) {
+        const elapsed = Math.max(0, now - startTime);
+        const rawT = Math.min(1, elapsed / duration);
+        // Damped cubic transition with realistic paper peel acceleration
+        const progress = rawT < 0.5 
+          ? 4 * rawT * rawT * rawT 
+          : 1 - Math.pow(-2 * rawT + 2, 3) / 2;
+
+        curSlide.style.setProperty('--pc-curl-progress', progress.toFixed(4));
+        const dynamicRadius = radius + Math.sin(progress * Math.PI) * 18;
+        curSlide.style.setProperty('--pc-curl-radius', dynamicRadius.toFixed(1) + 'px');
+
+        if (nextSlide) {
+          nextSlide.style.setProperty('--pc-curl-progress', progress.toFixed(4));
+        }
+
+        if (rawT < 1) {
+          if (typeof requestAnimationFrame === 'function') {
+            requestAnimationFrame(step);
+          } else {
+            setTimeout(() => step((typeof performance !== 'undefined' ? performance.now() : Date.now())), 16);
+          }
+        } else {
+          curSlide.style.setProperty('--pc-curl-progress', '1');
+          curSlide.classList.remove('pc-wood-curl-peel', 'is-curling');
+          if (nextSlide) {
+            nextSlide.classList.remove('pc-wood-curl-underlayer');
+            nextSlide.style.removeProperty('--pc-curl-progress');
+          }
+          if (typeof options.onComplete === 'function') options.onComplete();
+          resolve();
+        }
+      }
+
+      if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(step);
+      } else {
+        step((typeof performance !== 'undefined' ? performance.now() : Date.now()));
+      }
+    });
+  }
+
+  /**
+   * Interactive Pointer/Drag Gesture Handler for Wood Shaving Curl
+   * Scales curl radius and progress in real-time with pointer drag distance and velocity.
+   * On release, settles with spring damped oscillation to 0 or 1.
+   * @param {HTMLElement} container Viewport containing slides
+   * @param {Object} options Gesture config
+   * @returns {{ destroy: Function }}
+   */
+  function attachWoodShavingGesture(container, options = {}) {
+    if (!container) return { destroy: () => {} };
+
+    const threshold = options.threshold !== undefined ? options.threshold : 60;
+    const maxDrag = options.maxDrag !== undefined ? options.maxDrag : 220;
+    const baseRadius = options.radius !== undefined ? options.radius : 42;
+
+    let isDragging = false;
+    let startY = 0;
+    let lastY = 0;
+    let lastTime = 0;
+    let velocityY = 0;
+    let curSlide = null;
+    let nextSlide = null;
+    let animFrameId = null;
+
+    function getSlide() {
+      if (typeof options.getCurrentSlide === 'function') return options.getCurrentSlide();
+      return container.querySelector('.pc-wood-curl-card.is-active, .pc-wood-curl-card:first-child');
+    }
+
+    function getNext() {
+      if (typeof options.getNextSlide === 'function') return options.getNextSlide();
+      const cur = getSlide();
+      return cur ? cur.nextElementSibling : container.querySelector('.pc-wood-curl-card:nth-child(2)');
+    }
+
+    function onPointerDown(e) {
+      if (e.button !== undefined && e.button !== 0) return;
+      isDragging = true;
+      startY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+      lastY = startY;
+      lastTime = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      velocityY = 0;
+
+      curSlide = getSlide();
+      nextSlide = getNext();
+
+      if (curSlide) {
+        curSlide.classList.add('pc-wood-curl-peel');
+      }
+      if (nextSlide) {
+        nextSlide.classList.add('pc-wood-curl-underlayer');
+      }
+
+      if (typeof container.setPointerCapture === 'function' && e.pointerId !== undefined) {
+        try { container.setPointerCapture(e.pointerId); } catch (_) {}
+      }
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const y = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+      const now = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      const dt = Math.max(1, now - lastTime);
+      velocityY = (lastY - y) / dt; // positive = dragging upward
+      lastY = y;
+      lastTime = now;
+
+      const deltaY = startY - y;
+      const progress = Math.min(Math.max(deltaY / maxDrag, 0), 1);
+
+      container.style.setProperty('--pc-curl-progress', progress.toFixed(4));
+      const dynamicRadius = baseRadius + progress * 24;
+      container.style.setProperty('--pc-curl-radius', dynamicRadius.toFixed(1) + 'px');
+
+      if (curSlide) {
+        curSlide.style.setProperty('--pc-curl-progress', progress.toFixed(4));
+        curSlide.style.setProperty('--pc-curl-radius', dynamicRadius.toFixed(1) + 'px');
+      }
+      if (nextSlide) {
+        nextSlide.style.setProperty('--pc-curl-progress', progress.toFixed(4));
+      }
+
+      if (typeof options.onProgress === 'function') {
+        options.onProgress(progress);
+      }
+    }
+
+    function settle(fromProgress, targetProgress, onDone) {
+      const isReduced = typeof window !== 'undefined' && 
+                        window.matchMedia && 
+                        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (isReduced) {
+        container.style.setProperty('--pc-curl-progress', targetProgress.toFixed(4));
+        if (curSlide) curSlide.style.setProperty('--pc-curl-progress', targetProgress.toFixed(4));
+        if (nextSlide) nextSlide.style.setProperty('--pc-curl-progress', targetProgress.toFixed(4));
+        if (onDone) onDone();
+        return;
+      }
+
+      // Spring damped harmonic oscillator simulation (mass = 1, stiffness = 160, damping = 16)
+      let current = fromProgress;
+      let velocity = (targetProgress - fromProgress) * 4 + velocityY * 0.1;
+      const stiffness = 160;
+      const damping = 16;
+      let lastStepTime = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+
+      function stepSpring(now) {
+        const dt = Math.min(0.04, Math.max(0.001, (now - lastStepTime) / 1000));
+        lastStepTime = now;
+
+        const springForce = -stiffness * (current - targetProgress);
+        const dampingForce = -damping * velocity;
+        const acceleration = springForce + dampingForce;
+
+        velocity += acceleration * dt;
+        current += velocity * dt;
+
+        container.style.setProperty('--pc-curl-progress', current.toFixed(4));
+        if (curSlide) curSlide.style.setProperty('--pc-curl-progress', current.toFixed(4));
+        if (nextSlide) nextSlide.style.setProperty('--pc-curl-progress', current.toFixed(4));
+
+        if (typeof options.onProgress === 'function') {
+          options.onProgress(current);
+        }
+
+        if (Math.abs(current - targetProgress) < 0.005 && Math.abs(velocity) < 0.02) {
+          container.style.setProperty('--pc-curl-progress', targetProgress.toFixed(4));
+          if (curSlide) curSlide.style.setProperty('--pc-curl-progress', targetProgress.toFixed(4));
+          if (nextSlide) nextSlide.style.setProperty('--pc-curl-progress', targetProgress.toFixed(4));
+          if (onDone) onDone();
+        } else {
+          if (typeof requestAnimationFrame === 'function') {
+            animFrameId = requestAnimationFrame(stepSpring);
+          } else {
+            setTimeout(() => stepSpring((typeof performance !== 'undefined' ? performance.now() : Date.now())), 16);
+          }
+        }
+      }
+
+      if (typeof requestAnimationFrame === 'function') {
+        animFrameId = requestAnimationFrame(stepSpring);
+      } else {
+        stepSpring((typeof performance !== 'undefined' ? performance.now() : Date.now()));
+      }
+    }
+
+    function onPointerUp(e) {
+      if (!isDragging) return;
+      isDragging = false;
+
+      if (typeof container.releasePointerCapture === 'function' && e.pointerId !== undefined) {
+        try { container.releasePointerCapture(e.pointerId); } catch (_) {}
+      }
+
+      const currentProg = parseFloat(container.style.getPropertyValue('--pc-curl-progress') || '0');
+      const deltaY = startY - lastY;
+      const shouldComplete = currentProg >= 0.35 || deltaY >= threshold || velocityY > 0.38;
+
+      const target = shouldComplete ? 1 : 0;
+
+      settle(currentProg, target, () => {
+        if (target === 1) {
+          if (curSlide) curSlide.classList.remove('pc-wood-curl-peel');
+          if (nextSlide) nextSlide.classList.remove('pc-wood-curl-underlayer');
+          if (typeof options.onSwipeNext === 'function') {
+            options.onSwipeNext();
+          }
+        } else {
+          if (curSlide) curSlide.classList.remove('pc-wood-curl-peel');
+          if (nextSlide) nextSlide.classList.remove('pc-wood-curl-underlayer');
+          if (typeof options.onSwipePrev === 'function' && deltaY < -threshold) {
+            options.onSwipePrev();
+          }
+        }
+      });
+    }
+
+    container.addEventListener('pointerdown', onPointerDown);
+    container.addEventListener('pointermove', onPointerMove);
+    container.addEventListener('pointerup', onPointerUp);
+    container.addEventListener('pointercancel', onPointerUp);
+
+    return {
+      destroy() {
+        if (animFrameId && typeof cancelAnimationFrame === 'function') {
+          cancelAnimationFrame(animFrameId);
+        }
+        container.removeEventListener('pointerdown', onPointerDown);
+        container.removeEventListener('pointermove', onPointerMove);
+        container.removeEventListener('pointerup', onPointerUp);
+        container.removeEventListener('pointercancel', onPointerUp);
+      }
+    };
+  }
+
+  function initWoodShavingCurl(context = (typeof document !== 'undefined' ? document : null)) {
+    if (!context || typeof context.querySelectorAll !== 'function') return [];
+    const viewports = Array.from(context.querySelectorAll('.pc-wood-curl-viewport'));
+    return viewports.map(vp => {
+      if (vp._pcWoodCurlInit) return vp._pcWoodCurlInit;
+      const gesture = attachWoodShavingGesture(vp, {
+        onSwipeNext: () => {
+          const cards = Array.from(vp.querySelectorAll('.pc-wood-curl-card'));
+          if (cards.length > 1) {
+            vp.appendChild(cards[0]);
+            vp.style.setProperty('--pc-curl-progress', '0');
+          }
+        }
+      });
+      vp._pcWoodCurlInit = gesture;
+      return gesture;
+    });
+  }
+
+  /**
+   * Aerodynamic Kirigami Confetti Scraps Burst (Paper Flutter & Scatter)
+   * Simulates lift/drag fluid tumbling of 8~16 authentic paper leaves.
+   * @param {HTMLElement|string} container Container or selector
+   * @param {Object} config Particle count (8-16), origin, colors, duration
+   * @returns {Promise<void>}
+   */
+  function spawnPaperFlutterBurst(container, config = {}) {
+    return new Promise((resolve) => {
+      const parent = typeof container === 'string' 
+        ? (typeof document !== 'undefined' ? document.querySelector(container) : null)
+        : (container || (typeof document !== 'undefined' ? document.body : null));
+
+      if (!parent || typeof document === 'undefined') {
+        if (typeof config.onComplete === 'function') config.onComplete();
+        resolve();
+        return;
+      }
+
+      // AC-1: 8~16 Kirigami confetti scraps
+      const requestedCount = config.count !== undefined ? config.count : 12;
+      const count = Math.min(16, Math.max(8, requestedCount));
+
+      const duration = config.duration !== undefined ? config.duration : 1600;
+      const gravity = config.gravity !== undefined ? config.gravity : 0.35;
+      const drag = config.drag !== undefined ? config.drag : 0.95;
+      const colors = config.colors || ['cream', 'mint', 'peach', 'lavender', 'buttercup', 'sky', 'kraft'];
+
+      let origin = config.origin;
+      if (!origin) {
+        if (typeof parent.getBoundingClientRect === 'function') {
+          const rect = parent.getBoundingClientRect();
+          origin = { x: rect.width / 2, y: rect.height / 2 };
+        } else {
+          origin = { x: 100, y: 100 };
+        }
+      }
+
+      const isReduced = typeof window !== 'undefined' && 
+                        window.matchMedia && 
+                        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (isReduced) {
+        if (typeof config.onComplete === 'function') config.onComplete();
+        resolve();
+        return;
+      }
+
+      const particles = [];
+      for (let i = 0; i < count; i++) {
+        const leaf = document.createElement('div');
+        leaf.className = 'pc-flutter-leaf';
+        const col = colors[i % colors.length];
+        leaf.setAttribute('data-color', col);
+
+        const w = 9 + Math.floor((i * 7) % 7);
+        const h = 12 + Math.floor((i * 11) % 9);
+        leaf.style.setProperty('--pc-leaf-w', w + 'px');
+        leaf.style.setProperty('--pc-leaf-h', h + 'px');
+
+        // Randomized 3D angles and ejection trajectory
+        const angle = (Math.PI * 2 * i) / count + (Math.random() - 0.5) * 0.5;
+        const speed = 3.5 + Math.random() * 4.5;
+
+        const pData = {
+          el: leaf,
+          x: origin.x + (Math.random() - 0.5) * 16,
+          y: origin.y + (Math.random() - 0.5) * 16,
+          z: (Math.random() - 0.5) * 30,
+          vx: Math.cos(angle) * speed,
+          vy: -Math.abs(Math.sin(angle) * speed) - 2.5,
+          vz: (Math.random() - 0.5) * 3,
+          rx: Math.random() * 360,
+          ry: Math.random() * 360,
+          rz: Math.random() * 360,
+          vrx: (Math.random() - 0.5) * 16,
+          vry: (Math.random() - 0.5) * 20,
+          vrz: (Math.random() - 0.5) * 12,
+          flutterPhase: Math.random() * Math.PI * 2,
+          flutterFreq: 0.08 + Math.random() * 0.05,
+          flutterAmp: 0.9 + Math.random() * 1.1
+        };
+
+        leaf.style.transform = `translate3d(${pData.x.toFixed(1)}px, ${pData.y.toFixed(1)}px, ${pData.z.toFixed(1)}px) rotateX(${pData.rx.toFixed(1)}deg) rotateY(${pData.ry.toFixed(1)}deg) rotateZ(${pData.rz.toFixed(1)}deg)`;
+        parent.appendChild(leaf);
+        particles.push(pData);
+      }
+
+      const startTime = (typeof performance !== 'undefined' ? performance.now() : Date.now());
+      let animId = null;
+
+      function cleanup() {
+        // AC-2: Full DOM lifecycle synchronization & zero memory leak
+        for (let i = 0; i < particles.length; i++) {
+          const el = particles[i].el;
+          if (el && el.parentNode) {
+            el.parentNode.removeChild(el);
+          }
+        }
+        particles.length = 0;
+        if (typeof config.onComplete === 'function') config.onComplete();
+        resolve();
+      }
+
+      function step(now) {
+        const elapsed = now - startTime;
+        const normTime = Math.min(1, elapsed / duration);
+
+        if (normTime >= 1) {
+          cleanup();
+          return;
+        }
+
+        const opacity = Math.max(0, 1 - Math.pow(normTime, 1.8));
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.flutterPhase += p.flutterFreq;
+          const lift = Math.sin(p.flutterPhase) * p.flutterAmp;
+
+          p.vx = (p.vx + lift) * drag;
+          p.vy = (p.vy + gravity) * drag;
+          p.vz = p.vz * drag;
+
+          p.x += p.vx;
+          p.y += p.vy;
+          p.z += p.vz;
+
+          p.rx += p.vrx;
+          p.ry += p.vry;
+          p.rz += p.vrz;
+
+          p.el.style.transform = `translate3d(${p.x.toFixed(1)}px, ${p.y.toFixed(1)}px, ${p.z.toFixed(1)}px) rotateX(${p.rx.toFixed(1)}deg) rotateY(${p.ry.toFixed(1)}deg) rotateZ(${p.rz.toFixed(1)}deg)`;
+          p.el.style.opacity = opacity.toFixed(3);
+        }
+
+        if (typeof requestAnimationFrame === 'function') {
+          animId = requestAnimationFrame(step);
+        } else {
+          setTimeout(() => step((typeof performance !== 'undefined' ? performance.now() : Date.now())), 16);
+        }
+      }
+
+      if (typeof requestAnimationFrame === 'function') {
+        animId = requestAnimationFrame(step);
+      } else {
+        step((typeof performance !== 'undefined' ? performance.now() : Date.now()));
+      }
+    });
+  }
+
+  /**
+   * AC-3: Exit transition with kirigami scatter burst
+   */
+  function exitWithScatter(element, options = {}) {
+    return new Promise((resolve) => {
+      if (!element) {
+        if (typeof options.onComplete === 'function') options.onComplete();
+        resolve();
+        return;
+      }
+
+      element.classList.add('pc-exit-scatter');
+
+      let origin = null;
+      if (typeof element.getBoundingClientRect === 'function') {
+        const r = element.getBoundingClientRect();
+        origin = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      }
+
+      const container = options.container || (element.parentElement || (typeof document !== 'undefined' ? document.body : null));
+      const burstPromise = spawnPaperFlutterBurst(container, {
+        origin,
+        count: options.count !== undefined ? options.count : 14,
+        duration: options.burstDuration !== undefined ? options.burstDuration : 1200
+      });
+
+      const exitDuration = options.duration !== undefined ? options.duration : 420;
+      setTimeout(() => {
+        if (options.remove !== false && element.parentNode) {
+          element.parentNode.removeChild(element);
+        } else {
+          element.style.display = 'none';
+        }
+        burstPromise.then(() => {
+          if (typeof options.onComplete === 'function') options.onComplete();
+          resolve();
+        });
+      }, exitDuration);
+    });
+  }
+
+  /**
+   * AC-3: Exit transition with gentle flutter
+   */
+  function exitWithFlutter(element, options = {}) {
+    return new Promise((resolve) => {
+      if (!element) {
+        if (typeof options.onComplete === 'function') options.onComplete();
+        resolve();
+        return;
+      }
+
+      element.classList.add('pc-exit-flutter');
+
+      let origin = null;
+      if (typeof element.getBoundingClientRect === 'function') {
+        const r = element.getBoundingClientRect();
+        origin = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+      }
+
+      const container = options.container || (element.parentElement || (typeof document !== 'undefined' ? document.body : null));
+      const burstPromise = spawnPaperFlutterBurst(container, {
+        origin,
+        count: options.count !== undefined ? options.count : 10,
+        duration: options.burstDuration !== undefined ? options.burstDuration : 1400
+      });
+
+      const exitDuration = options.duration !== undefined ? options.duration : 550;
+      setTimeout(() => {
+        if (options.remove !== false && element.parentNode) {
+          element.parentNode.removeChild(element);
+        } else {
+          element.style.display = 'none';
+        }
+        burstPromise.then(() => {
+          if (typeof options.onComplete === 'function') options.onComplete();
+          resolve();
+        });
+      }, exitDuration);
+    });
+  }
+
+  /* ==========================================================================
      MASTER INITIALIZER
      ========================================================================== */
-  function initAll(context = document) {
+  function initAll(context = (typeof document !== 'undefined' ? document : null)) {
+    if (!context) return;
     Accordion.init(context);
     Alert.init(context);
     AlertDialog.init(context);
@@ -2446,6 +3007,7 @@
     Toggle.init(context);
     ToggleGroup.init(context);
     Tooltip.init(context);
+    initWoodShavingCurl(context);
     paperizeOverlays(context);
     hydrateIcons(context);
   }
@@ -2504,6 +3066,22 @@
     toast: Toast.show,
     toggle: Toggle,
     toggleGroup: ToggleGroup,
-    tooltip: Tooltip
+    tooltip: Tooltip,
+    woodCurl: {
+      transition: transitionWoodShavingCurl,
+      attachGesture: attachWoodShavingGesture,
+      init: initWoodShavingCurl
+    },
+    transitionWoodShavingCurl: transitionWoodShavingCurl,
+    attachWoodShavingGesture: attachWoodShavingGesture,
+    initWoodShavingCurl: initWoodShavingCurl,
+    paperFlutter: {
+      spawn: spawnPaperFlutterBurst,
+      exitWithScatter: exitWithScatter,
+      exitWithFlutter: exitWithFlutter
+    },
+    spawnPaperFlutterBurst: spawnPaperFlutterBurst,
+    exitWithScatter: exitWithScatter,
+    exitWithFlutter: exitWithFlutter
   };
 });

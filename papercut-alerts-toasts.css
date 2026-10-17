@@ -487,8 +487,8 @@
    ========================================================================== */
 
 #pc-toast-container {
-  position: fixed;
-  z-index: 99999;
+  position: fixed !important;
+  z-index: 300000 !important;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -497,34 +497,41 @@
   width: calc(100% - 32px);
   padding: 16px;
   transition: all 0.3s ease;
+  top: calc(var(--pc-header-height, 64px) + 16px);
+  right: 16px;
 }
 
-/* Positions */
+/* Positions - Top offset ensures clearance below fixed header (64px + 16px) with ultra-high z-index */
 #pc-toast-container.pc-pos-top-right,
 #pc-toast-container.pos-top-right {
-  top: 16px;
+  top: calc(var(--pc-header-height, 64px) + 16px) !important;
+  bottom: auto !important;
   right: 16px;
 }
 #pc-toast-container.pc-pos-bottom-right,
 #pc-toast-container.pos-bottom-right {
-  bottom: 16px;
+  top: auto !important;
+  bottom: 16px !important;
   right: 16px;
   flex-direction: column-reverse;
 }
 #pc-toast-container.pc-pos-top-center,
 #pc-toast-container.pos-top-center {
-  top: 16px;
+  top: calc(var(--pc-header-height, 64px) + 16px) !important;
+  bottom: auto !important;
   left: 50%;
   transform: translateX(-50%);
 }
 #pc-toast-container.pc-pos-top-left,
 #pc-toast-container.pos-top-left {
-  top: 16px;
+  top: calc(var(--pc-header-height, 64px) + 16px) !important;
+  bottom: auto !important;
   left: 16px;
 }
 #pc-toast-container.pc-pos-bottom-left,
 #pc-toast-container.pos-bottom-left {
-  bottom: 16px;
+  top: auto !important;
+  bottom: 16px !important;
   left: 16px;
   flex-direction: column-reverse;
 }

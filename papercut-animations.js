@@ -3,8 +3,22 @@
  * Handles live preview simulation, target switching, preset triggers, and CSS code generator.
  */
 
-(function () {
+(function (root) {
   'use strict';
+
+  const TOKENS = {
+    stiffness: 280,
+    damping: 24,
+    mass: 1.0,
+    perspectiveDepth: '1200px',
+    lightDistance: '800px',
+    airDrag: 0.15,
+    curlRadius: '40px',
+    bounce: 0.25,
+    friction: 0.08,
+    shearAngle: '12deg',
+    tearThreshold: '60px'
+  };
 
   const PRESETS = [
     {
@@ -78,8 +92,335 @@
       desc: '부채꼴 색종이나 주름진 종이 서랍이 지그재그로 늘어났다 줄어드는 효과',
       recommended: '아코디언 리스트, 바텀 서랍, 모바일 내비게이션 드로어',
       duration: '0.48s'
+    },
+    {
+      id: 'hinge-spring',
+      name: '09. 팝업북 힌지 스프링 (Hinge Spring)',
+      className: 'pc-anim-hinge-spring',
+      hoverClass: 'pc-hover-hinge-spring',
+      desc: '바닥 힌지선을 축으로 각도 연동형 3D 원근 입체 전개 및 스프링 안착 모션',
+      recommended: '팝업 모달, 다이얼로그, 3D 선물상자 카드, 플로팅 메뉴',
+      duration: '0.72s'
+    },
+    {
+      id: 'wax-slam',
+      name: '10. 왁스 실링 쿵 낙하 & 스쿼시 (Wax Slam)',
+      className: 'pc-anim-wax-slam',
+      hoverClass: 'pc-hover-wax-slam',
+      desc: '공중에서 쿵 낙하하며 실링이 짓눌리고 방사형 림이 팽창하는 임팩트 스쿼시 물리',
+      recommended: '스탬프 승인 버튼, 결제 완료 배지, 봉인 라벨, 확인 모달',
+      duration: '0.58s'
+    },
+    {
+      id: 'snip-split',
+      name: '11. 가위선 전단 절단 (Kirigami Snip Split)',
+      className: 'pc-anim-snip-split',
+      hoverClass: 'pc-hover-snip-split',
+      desc: '절단선 분리 시 발생하는 미세한 고주파 탄성 전단 진동 및 0.15초 잔여 흔들림 연출',
+      recommended: '쿠폰 절취, 삭제 액션, 티켓 분리선, 탭 닫기',
+      duration: '0.5s'
+    },
+    {
+      id: 'deckle-tear',
+      name: '12. 데클 엣지 찢김 (Deckle Edge Tear)',
+      className: 'pc-anim-deckle-tear',
+      hoverClass: 'pc-hover-deckle-tear',
+      desc: '수제 한지 절취선이 당겨지다 분리 임계값 초과 시 입체 파열 햅틱 찢김 모션',
+      recommended: '영수증 뜯기, 스크래치 티켓, 태그 제거, 봉투 개봉',
+      duration: '0.62s'
     }
   ];
+
+  /**
+   * 2nd-Order ODE Spring-Damper Physics Solver
+   * m * a + c * v + k * (x - target) = 0
+   */
+  function createSpringSolver(config = {}) {
+    const stiffness = typeof config.stiffness === 'number' ? config.stiffness : TOKENS.stiffness;
+    const damping = typeof config.damping === 'number' ? config.damping : TOKENS.damping;
+    const mass = typeof config.mass === 'number' ? config.mass : TOKENS.mass;
+    const precision = typeof config.precision === 'number' ? config.precision : 0.001;
+    const velocityThreshold = typeof config.velocityThreshold === 'number' ? config.velocityThreshold : 0.001;
+
+    let target = typeof config.target === 'number' ? config.target : (typeof config.to === 'number' ? config.to : 1.0);
+    let current = typeof config.current === 'number' ? config.current : (typeof config.from === 'number' ? config.from : 0.0);
+    let velocity = typeof config.velocity === 'number' ? config.velocity : (typeof config.initialVelocity === 'number' ? config.initialVelocity : 0.0);
+
+    return {
+      stiffness,
+      damping,
+      mass,
+      precision,
+      velocityThreshold,
+      step(dt = 1 / 60) {
+        if (this.isSettled()) return current;
+        // Clamp dt to avoid numerical instability
+        const clampedDt = Math.min(Math.max(dt, 0.001), 0.064);
+        const springForce = -stiffness * (current - target);
+        const dampingForce = -damping * velocity;
+        const acceleration = (springForce + dampingForce) / mass;
+
+        // Semi-implicit Euler integration
+        velocity += acceleration * clampedDt;
+        current += velocity * clampedDt;
+
+        if (this.isSettled()) {
+          current = target;
+          velocity = 0;
+        }
+        return current;
+      },
+      isSettled() {
+        return Math.abs(current - target) <= precision && Math.abs(velocity) <= velocityThreshold;
+      },
+      getValue() {
+        return current;
+      },
+      getVelocity() {
+        return velocity;
+      },
+      getTarget() {
+        return target;
+      },
+      setTarget(newTarget) {
+        target = newTarget;
+      },
+      reset(newCurrent = 0, newTarget = 1, newVelocity = 0) {
+        current = newCurrent;
+        target = newTarget;
+        velocity = newVelocity;
+      },
+      solveAll(maxSteps = 600, dt = 1 / 60) {
+        const frames = [];
+        let time = 0;
+        for (let i = 0; i < maxSteps; i++) {
+          frames.push({ time, value: current, velocity });
+          if (this.isSettled()) break;
+          this.step(dt);
+          time += dt;
+        }
+        return frames;
+      }
+    };
+  }
+
+  function isReducedMotion() {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+    return false;
+  }
+
+  /**
+   * requestAnimationFrame Sleep-on-Settle Motion Controller
+   * Computes spring physics at 60fps and injects into CSS custom properties or DOM styles.
+   * Cancels rAF immediately upon settle to achieve zero idle CPU/battery consumption.
+   */
+  function animateSpring(targetOrOptions, maybeOptions) {
+    let el = null;
+    let options = {};
+
+    if (targetOrOptions && (targetOrOptions.nodeType || typeof targetOrOptions.style === 'object')) {
+      el = targetOrOptions;
+      options = maybeOptions || {};
+    } else {
+      options = targetOrOptions || {};
+      el = options.target || options.element || null;
+    }
+
+    const {
+      from = 0,
+      to = 1,
+      stiffness = TOKENS.stiffness,
+      damping = TOKENS.damping,
+      mass = TOKENS.mass,
+      cssProperty = null,
+      onUpdate = null,
+      onSettle = null,
+      precision = 0.001,
+      velocityThreshold = 0.001
+    } = options;
+
+    const solver = createSpringSolver({
+      from,
+      target: to,
+      stiffness,
+      damping,
+      mass,
+      precision,
+      velocityThreshold
+    });
+
+    let rafId = null;
+    let isRunning = false;
+    let isSettled = false;
+    let lastTime = null;
+
+    let resolvePromise;
+    let rejectPromise;
+    const promise = new Promise((res, rej) => {
+      resolvePromise = res;
+      rejectPromise = rej;
+    });
+
+    // Immediate settle for reduced motion accessibility
+    if (isReducedMotion()) {
+      isSettled = true;
+      isRunning = false;
+      solver.reset(to, to, 0);
+      if (el && cssProperty && typeof el.style?.setProperty === 'function') {
+        el.style.setProperty(cssProperty, typeof to === 'number' && !cssProperty.endsWith('unit') ? `${to}` : to);
+      }
+      if (typeof onUpdate === 'function') onUpdate(to, 0);
+      if (typeof onSettle === 'function') onSettle(to);
+      resolvePromise(to);
+      return {
+        stop: () => {},
+        cancel: () => {},
+        isRunning: () => false,
+        isSettled: () => true,
+        solver,
+        promise
+      };
+    }
+
+    function tick(timestamp) {
+      if (!isRunning) return;
+
+      if (!lastTime) lastTime = timestamp;
+      const dt = (timestamp - lastTime) / 1000;
+      lastTime = timestamp;
+
+      const val = solver.step(dt);
+      const vel = solver.getVelocity();
+
+      if (el && cssProperty && typeof el.style?.setProperty === 'function') {
+        el.style.setProperty(cssProperty, `${val}`);
+      }
+
+      if (typeof onUpdate === 'function') {
+        onUpdate(val, vel);
+      }
+
+      if (solver.isSettled()) {
+        isRunning = false;
+        isSettled = true;
+        if (el && cssProperty && typeof el.style?.setProperty === 'function') {
+          el.style.setProperty(cssProperty, `${to}`);
+        }
+        if (typeof onSettle === 'function') {
+          onSettle(to);
+        }
+        resolvePromise(to);
+        return;
+      }
+
+      if (typeof requestAnimationFrame !== 'undefined') {
+        rafId = requestAnimationFrame(tick);
+      }
+    }
+
+    isRunning = true;
+    if (typeof requestAnimationFrame !== 'undefined') {
+      rafId = requestAnimationFrame(tick);
+    } else {
+      // Synchronous tick loop for headless / test environments
+      while (!solver.isSettled()) {
+        const val = solver.step(1 / 60);
+        if (el && cssProperty && typeof el.style?.setProperty === 'function') {
+          el.style.setProperty(cssProperty, `${val}`);
+        }
+        if (typeof onUpdate === 'function') onUpdate(val, solver.getVelocity());
+      }
+      isSettled = true;
+      isRunning = false;
+      if (el && cssProperty && typeof el.style?.setProperty === 'function') {
+        el.style.setProperty(cssProperty, `${to}`);
+      }
+      if (typeof onSettle === 'function') onSettle(to);
+      resolvePromise(to);
+    }
+
+    const controller = {
+      stop() {
+        isRunning = false;
+        if (rafId && typeof cancelAnimationFrame !== 'undefined') {
+          cancelAnimationFrame(rafId);
+        }
+      },
+      cancel() {
+        controller.stop();
+        rejectPromise(new Error('Animation cancelled'));
+      },
+      isRunning() {
+        return isRunning;
+      },
+      isSettled() {
+        return isSettled;
+      },
+      solver,
+      promise
+    };
+
+    return controller;
+  }
+
+  /**
+   * Kirigami Interaction Trigger Helper
+   */
+  function triggerInteraction(element, interactionType, options = {}) {
+    if (!element) return;
+    const classMap = {
+      'hinge-spring': 'pc-anim-hinge-spring',
+      'wax-slam': 'pc-anim-wax-slam',
+      'snip-split': 'pc-anim-snip-split',
+      'deckle-tear': 'pc-anim-deckle-tear',
+      'popup': 'pc-anim-popup',
+      'unfold': 'pc-anim-unfold',
+      'flutter': 'pc-anim-flutter',
+      'peel': 'pc-anim-peel',
+      'stamp': 'pc-anim-stamp',
+      'snip': 'pc-anim-snip',
+      'flip': 'pc-anim-flip',
+      'accordion': 'pc-anim-accordion'
+    };
+    const cls = classMap[interactionType] || interactionType;
+    if (element.classList) {
+      element.classList.remove(cls);
+      if (typeof element.offsetWidth === 'number') {
+        void element.offsetWidth; // force reflow
+      }
+      element.classList.add(cls);
+    }
+
+    if (options.haptic && typeof navigator !== 'undefined' && navigator.vibrate) {
+      navigator.vibrate(options.haptic === true ? [15, 30, 20] : options.haptic);
+    }
+
+    if (options.onComplete) {
+      if (typeof element.addEventListener === 'function') {
+        const handler = () => {
+          element.removeEventListener('animationend', handler);
+          options.onComplete();
+        };
+        element.addEventListener('animationend', handler, { once: true });
+      } else if (typeof queueMicrotask === 'function') {
+        queueMicrotask(options.onComplete);
+      } else {
+        setTimeout(options.onComplete, 0);
+      }
+    }
+  }
+
+  const PaperCutMotion = {
+    tokens: TOKENS,
+    PRESETS,
+    createSpringSolver,
+    animate: animateSpring,
+    spring: animateSpring,
+    isReducedMotion,
+    triggerInteraction
+  };
 
   let currentPreset = PRESETS[0];
   let currentTargetType = 'icon';
@@ -232,7 +573,7 @@
       `;
     } else if (currentTargetType === 'badge') {
       html = `
-        <span class="pc-badge pc-badge-lavender" style="font-size: 15px; padding: 8px 18px; font-weight: 800;">
+        <span class="pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 15px; padding: 8px 18px; font-weight: 800;">
           <span class="pc-inline-icon is-sm" data-icon="heart"></span>
           <span>파스텔 크래프트 실링</span>
         </span>
@@ -350,13 +691,15 @@
     codeEl.textContent = code;
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initAnimationStudio);
-  } else {
-    initAnimationStudio();
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAnimationStudio);
+    } else {
+      initAnimationStudio();
+    }
   }
 
-  window.PaperCutAnimationStudio = {
+  const api = {
     init: initAnimationStudio,
     selectPreset: (id) => {
       const p = PRESETS.find(x => x.id === id);
@@ -364,7 +707,40 @@
         currentPreset = p;
         applyAnimation();
       }
+    },
+    presets: PRESETS,
+    PRESETS,
+    spawnPaperFlutterBurst: (container, config) => {
+      if (typeof window !== 'undefined' && window.PaperCutUI && typeof window.PaperCutUI.spawnPaperFlutterBurst === 'function') {
+        return window.PaperCutUI.spawnPaperFlutterBurst(container, config);
+      }
+      return Promise.resolve();
+    },
+    transitionWoodShavingCurl: (cur, next, opts) => {
+      if (typeof window !== 'undefined' && window.PaperCutUI && typeof window.PaperCutUI.transitionWoodShavingCurl === 'function') {
+        return window.PaperCutUI.transitionWoodShavingCurl(cur, next, opts);
+      }
+      return Promise.resolve();
     }
   };
 
-})();
+  PaperCutMotion.spawnPaperFlutterBurst = api.spawnPaperFlutterBurst;
+  PaperCutMotion.transitionWoodShavingCurl = api.transitionWoodShavingCurl;
+
+  if (typeof window !== 'undefined') {
+    window.PaperCutAnimationStudio = api;
+    window.PaperCutMotion = PaperCutMotion;
+  }
+  if (typeof globalThis !== 'undefined') {
+    globalThis.PaperCutAnimationStudio = api;
+    globalThis.PaperCutMotion = PaperCutMotion;
+  }
+  if (typeof module === 'object' && module.exports) {
+    module.exports = {
+      PaperCutMotion,
+      PaperCutAnimationStudio: api,
+      PRESETS
+    };
+  }
+
+})(typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : this);

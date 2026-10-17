@@ -49,11 +49,10 @@ async function testSoundRemovalAndContent() {
   // 3. Verify neighbor menu items are intact
   const textureItem = await page.$('a.pc-sidebar-item[data-target="texture-showcase"]');
   const alertItem = await page.$('a.pc-sidebar-item[data-target="paper-alerts-toasts"]');
-  const animationItem = await page.$('a.pc-sidebar-item[data-target="paper-animation-studio"]');
-  if (!textureItem || !alertItem || !animationItem) {
+  if (!textureItem || !alertItem) {
     throw new Error('❌ Neighbor sidebar menu items are missing!');
   }
-  console.log('✅ Verified: Neighbor sidebar menu items (texture, alert, animation) are present and intact.');
+  console.log('✅ Verified: Neighbor sidebar menu items (texture, alert) are present and intact.');
 
   // 4. Verify Content Section Presence (#paper-sound-studio)
   const studioSection = await page.$('#paper-sound-studio');

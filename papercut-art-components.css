@@ -1,0 +1,290 @@
+/**
+ * papercut-art-components.css
+ * Declarative 2.5D Web Component Styles for Papyrus Papercraft Engine:
+ * - <paper-art-scene> 3D Perspective viewport & responsive container
+ * - <paper-cut-layer> 2.5D multi-plane depth stack & extruded edges
+ * - <paper-light> declarative lighting controller
+ * - ARIA Accessible Focus Rings (44px+ touch target standard)
+ * - Anti-fingernail symmetric borders and Korean typography standards
+ */
+
+:root {
+  --papyrus-perspective: 1200px;
+  --papyrus-exploded-gap: 40px;
+  --papyrus-light-x: 150px;
+  --papyrus-light-y: -150px;
+  --papyrus-light-z: 250px;
+  --papyrus-light-intensity: 1.0;
+  --papyrus-light-color: #ffffff;
+  --papyrus-focus-ring: #d97706;
+  --papyrus-paper-craft-white: #ffffff;
+  --papyrus-paper-creamy-edge: #fdfbf7;
+  --papyrus-paper-shadow-umber: rgba(46, 30, 20, 0.45);
+}
+
+/* ==========================================================================
+   1. <paper-art-scene> Custom Element & Host Styles
+   ========================================================================== */
+
+paper-art-scene,
+:host(paper-art-scene),
+.papyrus-art-scene {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 380px;
+  perspective: var(--papyrus-perspective, 1200px);
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+  overflow: visible;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  contain: layout style;
+  cursor: grab;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+paper-art-scene:active,
+:host(paper-art-scene):active {
+  cursor: grabbing;
+}
+
+/* ARIA Focus Ring & Accessibility */
+paper-art-scene:focus,
+paper-art-scene:focus-visible,
+:host(paper-art-scene):focus-visible {
+  outline: 2px solid var(--papyrus-focus-ring, #d97706);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* Internal Viewport & 3D Transform World */
+.papyrus-scene-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.papyrus-scene-world {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+  transform: rotateX(var(--papyrus-tilt-x, 0deg)) rotateY(var(--papyrus-tilt-y, 0deg));
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* ==========================================================================
+   2. <paper-cut-layer> 2.5D Depth Stacking
+   ========================================================================== */
+
+paper-cut-layer,
+:host(paper-cut-layer),
+.papyrus-cut-layer {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  pointer-events: auto;
+  box-sizing: border-box;
+  transform: translate3d(0, 0, var(--papyrus-layer-z, 0px));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, box-shadow;
+  border-radius: inherit;
+}
+
+/* ARIA Focus ring for interactive layers */
+paper-cut-layer:focus-visible,
+:host(paper-cut-layer):focus-visible {
+  outline: 2px solid var(--papyrus-focus-ring, #d97706);
+  outline-offset: 2px;
+}
+
+/* Micro-bevel specular rim highlight pseudo-element */
+paper-cut-layer::after,
+:host(paper-cut-layer)::after,
+.papyrus-cut-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-sizing: border-box;
+  border: 1px solid var(--papyrus-bevel-rim, rgba(255, 255, 255, 0.65));
+  mix-blend-mode: overlay;
+  opacity: 0.95;
+  transition: border-color 0.12s ease-out;
+}
+
+/* Extruded knife edge thickness simulation (Anti-fingernail symmetric border) */
+.papyrus-layer-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+}
+
+/* ==========================================================================
+   3. <paper-light> Declarative Lighting Node
+   ========================================================================== */
+
+paper-light,
+:host(paper-light) {
+  display: none !important;
+  visibility: hidden;
+  position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   4. Material Presets (Texture & Tone-on-Tone Specularities)
+   ========================================================================== */
+
+/* All-white craft paper aesthetic (LG Gram style) */
+paper-cut-layer[material="white-craft"],
+.papyrus-material-white-craft {
+  background-color: var(--papyrus-paper-craft-white, #ffffff);
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9) 0%, rgba(248, 249, 250, 0.8) 100%),
+    radial-gradient(#e5e7eb 0.75px, transparent 0.75px);
+  background-size: 100% 100%, 8px 8px;
+  color: #1f2937;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+/* Cardstock high-density paper */
+paper-cut-layer[material="cardstock"],
+.papyrus-material-cardstock {
+  background-color: #fafaf9;
+  border: 1px solid rgba(214, 211, 209, 0.9);
+  color: #1c1917;
+}
+
+/* Warm parchment textured paper */
+paper-cut-layer[material="parchment"],
+.papyrus-material-parchment {
+  background-color: #fef3c7;
+  background-image: radial-gradient(#d97706 0.5px, transparent 0.5px);
+  background-size: 6px 6px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #78350f;
+}
+
+/* Translucent vellum tracing paper */
+paper-cut-layer[material="vellum"],
+.papyrus-material-vellum {
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* ==========================================================================
+   5. Interactive UI Helpers & Korean Typography Standards
+   ========================================================================== */
+
+/* Symmetric button & badge centering standards */
+.papyrus-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+.papyrus-btn:hover {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.papyrus-btn:focus-visible {
+  outline: 2px solid var(--papyrus-focus-ring, #d97706);
+  outline-offset: 2px;
+}
+
+.papyrus-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+/* Korean typography text balancing */
+.papyrus-title {
+  word-break: keep-all;
+  text-wrap: balance;
+  line-height: 1.35;
+}
+
+.papyrus-desc {
+  word-break: keep-all;
+  text-wrap: pretty;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   6. Accessibility & Reduced Motion Preferences
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  paper-art-scene,
+  :host(paper-art-scene),
+  .papyrus-art-scene,
+  .papyrus-scene-world,
+  paper-cut-layer,
+  :host(paper-cut-layer),
+  .papyrus-cut-layer,
+  .papyrus-btn {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .papyrus-scene-world {
+    transform: none !important;
+  }
+}
