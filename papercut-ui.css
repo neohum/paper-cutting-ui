@@ -171,10 +171,15 @@
   z-index: 2;
   pointer-events: none;
 }
+.pc-ui-washi-pin.pc-is-sage::before,
 .pc-ui-washi-pin.is-sage::before { background-color: rgba(168, 213, 186, 0.75); }
+.pc-ui-washi-pin.pc-is-lavender::before,
 .pc-ui-washi-pin.is-lavender::before { background-color: rgba(201, 193, 248, 0.75); }
+.pc-ui-washi-pin.pc-is-buttercup::before,
 .pc-ui-washi-pin.is-buttercup::before { background-color: rgba(253, 230, 138, 0.85); }
+.pc-ui-washi-pin.pc-is-sky::before,
 .pc-ui-washi-pin.is-sky::before { background-color: rgba(186, 230, 253, 0.75); }
+.pc-ui-washi-pin.pc-is-rose::before,
 .pc-ui-washi-pin.is-rose::before { background-color: rgba(251, 207, 232, 0.75); }
 
 
@@ -285,6 +290,7 @@
   margin-bottom: 14px;
 }
 
+.pc-ui-alert.pc-is-stamp,
 .pc-ui-alert.is-stamp {
   border: 1px solid var(--pc-ui-border-kraft);
   background-image: 
@@ -299,18 +305,22 @@
   border-bottom: 1px solid var(--pc-ui-border-kraft);
 }
 
+.pc-ui-alert.pc-is-info,
 .pc-ui-alert.is-info {
   border-color: var(--pc-ui-sky);
   background-color: var(--pc-ui-sky-tint);
 }
+.pc-ui-alert.pc-is-success,
 .pc-ui-alert.is-success {
   border-color: var(--pc-ui-sage);
   background-color: var(--pc-ui-sage-tint);
 }
+.pc-ui-alert.pc-is-warning,
 .pc-ui-alert.is-warning {
   border-color: var(--pc-ui-buttercup);
   background-color: var(--pc-ui-buttercup-tint);
 }
+.pc-ui-alert.pc-is-destructive,
 .pc-ui-alert.is-destructive {
   border-color: var(--pc-ui-rose);
   background-color: var(--pc-ui-rose-tint);
@@ -472,21 +482,25 @@
   pointer-events: none;
 }
 
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-top-left,
 .pc-ui-aspect-ratio .pc-ui-corner-mount.top-left {
   top: 0; left: 0;
   background: linear-gradient(135deg, var(--pc-ui-buttercup) 50%, transparent 50%);
   filter: drop-shadow(1px 1px 2px rgba(74, 60, 49, 0.2));
 }
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-top-right,
 .pc-ui-aspect-ratio .pc-ui-corner-mount.top-right {
   top: 0; right: 0;
   background: linear-gradient(225deg, var(--pc-ui-buttercup) 50%, transparent 50%);
   filter: drop-shadow(-1px 1px 2px rgba(74, 60, 49, 0.2));
 }
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-bottom-left,
 .pc-ui-aspect-ratio .pc-ui-corner-mount.bottom-left {
   bottom: 0; left: 0;
   background: linear-gradient(45deg, var(--pc-ui-buttercup) 50%, transparent 50%);
   filter: drop-shadow(1px -1px 2px rgba(74, 60, 49, 0.2));
 }
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-bottom-right,
 .pc-ui-aspect-ratio .pc-ui-corner-mount.bottom-right {
   bottom: 0; right: 0;
   background: linear-gradient(315deg, var(--pc-ui-buttercup) 50%, transparent 50%);
@@ -583,18 +597,21 @@
   box-shadow: var(--pc-ui-shadow-2);
 }
 
+.pc-ui-badge.pc-is-stamp,
 .pc-ui-badge.is-stamp {
   border-radius: 4px;
   border: 1px dashed var(--pc-ui-border-kraft);
   background: var(--pc-ui-bg-sheet-light);
 }
 
+.pc-ui-badge.pc-is-scallop,
 .pc-ui-badge.is-scallop {
   border-radius: var(--pc-ui-radius-md);
   background: var(--pc-ui-buttercup-tint);
   border: 1px solid var(--pc-ui-buttercup);
 }
 
+.pc-ui-badge.pc-is-ribbon,
 .pc-ui-badge.is-ribbon {
   border-radius: 0;
   clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%, 6px 50%);
@@ -602,12 +619,14 @@
   background: var(--pc-ui-lavender);
 }
 
+.pc-ui-badge.pc-is-origami,
 .pc-ui-badge.is-origami {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
   padding-right: 14px;
 }
+.pc-ui-badge.pc-is-origami::after,
 .pc-ui-badge.is-origami::after {
   content: "";
   position: absolute;
@@ -617,10 +636,15 @@
   border-color: transparent var(--pc-ui-peach) transparent transparent;
 }
 
+.pc-ui-badge.pc-is-peach,
 .pc-ui-badge.is-peach { background: var(--pc-ui-peach-tint); }
+.pc-ui-badge.pc-is-lavender,
 .pc-ui-badge.is-lavender { background: var(--pc-ui-lavender-tint); }
+.pc-ui-badge.pc-is-buttercup,
 .pc-ui-badge.is-buttercup { background: var(--pc-ui-buttercup-tint); }
+.pc-ui-badge.pc-is-sky,
 .pc-ui-badge.is-sky { background: var(--pc-ui-sky-tint); }
+.pc-ui-badge.pc-is-rose,
 .pc-ui-badge.is-rose { background: var(--pc-ui-rose-tint); }
 
 
@@ -763,9 +787,8 @@
     0 6px 12px rgba(46, 30, 20, 0.22);
 }
 
-.pc-ui-btn:active, .pc-ui-btn.is-active,
-.pc-ui-button:active, .pc-ui-button.is-active,
-.pc-ui-button:active, .pc-ui-button.is-active {
+.pc-ui-btn:active, .pc-ui-btn.pc-is-active, .pc-ui-btn.is-active,
+.pc-ui-button:active, .pc-ui-button.pc-is-active, .pc-ui-button.is-active {
   transform: translateY(1.5px);
   box-shadow: 
     0 0.5px 0 rgba(46, 30, 20, 0.40),
@@ -819,7 +842,7 @@
 }
 
 /* 단일 두꺼운 카드스톡 변형 (Thick Cardstock Accent Variant) */
-.pc-ui-btn.is-stack, .pc-ui-button.is-stack {
+.pc-ui-btn.pc-is-stack, .pc-ui-btn.is-stack, .pc-ui-button.pc-is-stack, .pc-ui-button.is-stack {
   background-color: var(--pc-ui-sage);
   color: var(--pc-ui-ink-dark);
   border-color: rgba(39, 92, 70, 0.22);
@@ -827,13 +850,13 @@
     0 2px 0 rgba(46, 30, 20, 0.38),
     0 3.5px 6px rgba(46, 30, 20, 0.20);
 }
-.pc-ui-btn.is-stack:hover, .pc-ui-button.is-stack:hover {
+.pc-ui-btn.pc-is-stack:hover, .pc-ui-btn.is-stack:hover, .pc-ui-button.pc-is-stack:hover, .pc-ui-button.is-stack:hover {
   transform: translateY(-1.5px);
   box-shadow: 
     0 3px 0 rgba(46, 30, 20, 0.38),
     0 6px 12px rgba(46, 30, 20, 0.22);
 }
-.pc-ui-btn.is-stack:active, .pc-ui-button.is-stack:active {
+.pc-ui-btn.pc-is-stack:active, .pc-ui-btn.is-stack:active, .pc-ui-button.pc-is-stack:active, .pc-ui-button.is-stack:active {
   transform: translateY(1.5px);
   box-shadow: 
     0 0.5px 0 rgba(46, 30, 20, 0.40),
@@ -841,16 +864,16 @@
 }
 
 /* Pressed-in debossed well variant */
-.pc-ui-btn.is-pressed, .pc-ui-button.is-pressed {
+.pc-ui-btn.pc-is-pressed, .pc-ui-btn.is-pressed, .pc-ui-button.pc-is-pressed, .pc-ui-button.is-pressed {
   background: var(--pc-ui-bg-recessed);
   box-shadow: var(--pc-ui-shadow-inset);
   border-color: var(--pc-ui-border-kraft);
 }
-.pc-ui-btn.is-pressed:hover, .pc-ui-button.is-pressed:hover {
+.pc-ui-btn.pc-is-pressed:hover, .pc-ui-btn.is-pressed:hover, .pc-ui-button.pc-is-pressed:hover, .pc-ui-button.is-pressed:hover {
   background: #EFE9DE;
   transform: none;
 }
-.pc-ui-btn.is-pressed:active, .pc-ui-button.is-pressed:active {
+.pc-ui-btn.pc-is-pressed:active, .pc-ui-btn.is-pressed:active, .pc-ui-button.pc-is-pressed:active, .pc-ui-button.is-pressed:active {
   background: #E8E0D2;
   box-shadow: 
     inset 0 3px 6px rgba(74, 60, 49, 0.18),
@@ -859,7 +882,7 @@
 }
 
 /* Scallop Cut Edge Button */
-.pc-ui-btn.is-scallop, .pc-ui-button.is-scallop {
+.pc-ui-btn.pc-is-scallop, .pc-ui-btn.is-scallop, .pc-ui-button.pc-is-scallop, .pc-ui-button.is-scallop {
   border-radius: var(--pc-ui-radius-lg);
   background: var(--pc-ui-peach);
   border: 1px solid rgba(110, 59, 33, 0.22);
@@ -869,20 +892,20 @@
 }
 
 /* Button Color Variants */
-.pc-ui-btn.is-primary { background: var(--pc-ui-sage); color: var(--pc-ui-sage-dark); border-color: rgba(39, 92, 70, 0.22); }
-.pc-ui-btn.is-secondary { background: var(--pc-ui-peach-tint); color: var(--pc-ui-peach-dark); border-color: rgba(110, 59, 33, 0.22); }
-.pc-ui-btn.is-lavender { background: var(--pc-ui-lavender); color: var(--pc-ui-lavender-dark); border-color: rgba(71, 59, 107, 0.22); }
-.pc-ui-btn.is-buttercup { background: var(--pc-ui-buttercup); color: var(--pc-ui-buttercup-dark); border-color: rgba(110, 83, 15, 0.22); }
-.pc-ui-btn.is-destructive { background: var(--pc-ui-rose); color: var(--pc-ui-rose-dark); border-color: rgba(112, 40, 48, 0.22); }
-.pc-ui-btn.is-outline { background: transparent; border: 1.5px dashed rgba(46, 30, 20, 0.22); box-shadow: none; }
-.pc-ui-btn.is-outline:hover { background: var(--pc-ui-bg-sheet-light); border-style: solid; box-shadow: 0 2px 0 rgba(46, 30, 20, 0.25); }
-.pc-ui-btn.is-ghost { background: transparent; border-color: transparent; box-shadow: none; }
-.pc-ui-btn.is-ghost:hover { background: rgba(46, 30, 20, 0.05); }
+.pc-ui-btn.pc-is-primary, .pc-ui-btn.is-primary { background: var(--pc-ui-sage); color: var(--pc-ui-sage-dark); border-color: rgba(39, 92, 70, 0.22); }
+.pc-ui-btn.pc-is-secondary, .pc-ui-btn.is-secondary { background: var(--pc-ui-peach-tint); color: var(--pc-ui-peach-dark); border-color: rgba(110, 59, 33, 0.22); }
+.pc-ui-btn.pc-is-lavender, .pc-ui-btn.is-lavender { background: var(--pc-ui-lavender); color: var(--pc-ui-lavender-dark); border-color: rgba(71, 59, 107, 0.22); }
+.pc-ui-btn.pc-is-buttercup, .pc-ui-btn.is-buttercup { background: var(--pc-ui-buttercup); color: var(--pc-ui-buttercup-dark); border-color: rgba(110, 83, 15, 0.22); }
+.pc-ui-btn.pc-is-destructive, .pc-ui-btn.is-destructive { background: var(--pc-ui-rose); color: var(--pc-ui-rose-dark); border-color: rgba(112, 40, 48, 0.22); }
+.pc-ui-btn.pc-is-outline, .pc-ui-btn.is-outline { background: transparent; border: 1.5px dashed rgba(46, 30, 20, 0.22); box-shadow: none; }
+.pc-ui-btn.pc-is-outline:hover, .pc-ui-btn.is-outline:hover { background: var(--pc-ui-bg-sheet-light); border-style: solid; box-shadow: 0 2px 0 rgba(46, 30, 20, 0.25); }
+.pc-ui-btn.pc-is-ghost, .pc-ui-btn.is-ghost { background: transparent; border-color: transparent; box-shadow: none; }
+.pc-ui-btn.pc-is-ghost:hover, .pc-ui-btn.is-ghost:hover { background: rgba(46, 30, 20, 0.05); }
 
 /* Button Sizes */
-.pc-ui-btn.is-sm { padding: 6px 12px; font-size: 12.5px; gap: 5px; min-height: 44px; border-radius: 6px; }
-.pc-ui-btn.is-lg { padding: 12px 24px; font-size: 16px; gap: 10px; min-height: 48px; border-radius: 8px; }
-.pc-ui-btn.is-icon { padding: 8px; width: 44px; height: 44px; min-width: 44px; min-height: 44px; border-radius: 8px; }
+.pc-ui-btn.pc-is-sm, .pc-ui-btn.is-sm { padding: 6px 12px; font-size: 12.5px; gap: 5px; min-height: 44px; border-radius: 6px; }
+.pc-ui-btn.pc-is-lg, .pc-ui-btn.is-lg { padding: 12px 24px; font-size: 16px; gap: 10px; min-height: 48px; border-radius: 8px; }
+.pc-ui-btn.pc-is-icon, .pc-ui-btn.is-icon { padding: 8px; width: 44px; height: 44px; min-width: 44px; min-height: 44px; border-radius: 8px; }
 
 
 /* ==========================================================================
@@ -962,16 +985,18 @@
   color: var(--pc-ui-ink-body);
 }
 
-.pc-ui-calendar-day:hover:not(.is-disabled) {
+.pc-ui-calendar-day:hover:not(.pc-is-disabled):not(.is-disabled) {
   background: var(--pc-ui-peach-tint);
   transform: scale(1.08);
 }
 
+.pc-ui-calendar-day.pc-is-today,
 .pc-ui-calendar-day.is-today {
   border: 1.5px solid var(--pc-ui-lavender);
   font-weight: 700;
 }
 
+.pc-ui-calendar-day.pc-is-selected,
 .pc-ui-calendar-day.is-selected {
   background: var(--pc-ui-sage);
   color: var(--pc-ui-ink-dark);
@@ -981,7 +1006,10 @@
     0 2px 4px rgba(74, 60, 49, 0.15);
 }
 
-.pc-ui-calendar-day.is-other-month, .pc-ui-calendar-day.is-disabled {
+.pc-ui-calendar-day.pc-is-other-month,
+.pc-ui-calendar-day.is-other-month,
+.pc-ui-calendar-day.pc-is-disabled,
+.pc-ui-calendar-day.is-disabled {
   opacity: 0.35;
   cursor: default;
 }
@@ -1005,6 +1033,7 @@
   box-shadow: var(--pc-ui-shadow-4);
 }
 
+.pc-ui-card.pc-is-stacked::after,
 .pc-ui-card.is-stacked::after {
   content: "";
   position: absolute;
@@ -1100,7 +1129,7 @@
   transition: all var(--pc-ui-dur-norm) var(--pc-ui-ease-fold);
 }
 
-.pc-ui-carousel-dot.is-active, .pc-ui-carousel-dot.is-active {
+.pc-ui-carousel-dot.pc-is-active, .pc-ui-carousel-dot.is-active {
   width: 24px;
   background: var(--pc-ui-sage);
   box-shadow: 0 1px 3px rgba(74, 60, 49, 0.15);
@@ -1294,8 +1323,7 @@
   transition: background var(--pc-ui-dur-quick) ease;
 }
 
-.pc-ui-combobox-item:hover, .pc-ui-combobox-item.is-highlighted,
-.pc-ui-combobox-item:hover, .pc-ui-combobox-item.is-highlighted {
+.pc-ui-combobox-item:hover, .pc-ui-combobox-item.pc-is-highlighted, .pc-ui-combobox-item.is-highlighted {
   background: var(--pc-ui-lavender-tint);
 }
 
@@ -1715,6 +1743,7 @@
   color: var(--pc-ui-ink-faint);
 }
 
+.pc-ui-input.pc-is-postage,
 .pc-ui-input.is-postage, .pc-ui-input-postage {
   border: 2px dashed var(--pc-ui-peach);
   border-radius: var(--pc-ui-radius-xs);
@@ -1769,6 +1798,7 @@
   color: #55417F;
   transform: translateY(-1px);
 }
+.pc-ui-otp-shape-btn.pc-is-active,
 .pc-ui-otp-shape-btn.is-active {
   background: #E8F6EE;
   color: #1A543B;
@@ -1805,6 +1835,7 @@
   transform: translateY(-2px);
 }
 
+.pc-ui-input-otp-slot-wrap.pc-is-focused,
 .pc-ui-input-otp-slot-wrap.is-focused {
   transform: translateY(-4px) scale(1.04);
 }
@@ -1820,10 +1851,13 @@
   transition: filter 0.2s ease;
 }
 
+.pc-ui-input-otp-slot-wrap.pc-is-focused .pc-ui-otp-bg-svg-layer svg,
 .pc-ui-input-otp-slot-wrap.is-focused .pc-ui-otp-bg-svg-layer svg {
   filter: drop-shadow(0 0 6px rgba(163, 216, 195, 0.75));
 }
 
+.pc-ui-input-otp-slot-wrap.pc-is-filled .pc-ui-otp-bg-svg-layer svg path:first-child,
+.pc-ui-input-otp-slot-wrap.pc-is-filled .pc-ui-otp-bg-svg-layer svg polygon:first-child,
 .pc-ui-input-otp-slot-wrap.is-filled .pc-ui-otp-bg-svg-layer svg path:first-child,
 .pc-ui-input-otp-slot-wrap.is-filled .pc-ui-otp-bg-svg-layer svg polygon:first-child {
   stroke: #A3D8C3;
@@ -1874,7 +1908,7 @@
   line-height: 1;
 }
 
-.pc-ui-label.is-ribbon, .pc-ui-label.is-ribbon {
+.pc-ui-label.pc-is-ribbon, .pc-ui-label.is-ribbon {
   padding: 4px 10px;
   background: var(--pc-ui-peach-tint);
   border-top: 1px dashed var(--pc-ui-peach);
@@ -2020,8 +2054,8 @@
   color: var(--pc-ui-ink-dark);
 }
 
-.pc-ui-navigation-menu-trigger.is-active, .pc-ui-nav-menu-trigger.is-active,
-.pc-ui-navigation-menu-trigger.is-active, .pc-ui-nav-menu-trigger.is-active {
+.pc-ui-navigation-menu-trigger.pc-is-active, .pc-ui-navigation-menu-trigger.is-active,
+.pc-ui-nav-menu-trigger.pc-is-active, .pc-ui-nav-menu-trigger.is-active {
   color: var(--pc-ui-ink-dark);
 }
 
@@ -2104,7 +2138,7 @@
   transform: translateY(-1px);
 }
 
-.pc-ui-pagination-item.is-active, .pc-ui-pagination-item.is-active {
+.pc-ui-pagination-item.pc-is-active, .pc-ui-pagination-item.is-active {
   background: var(--pc-ui-sage);
   border-radius: var(--pc-ui-radius-pill);
   box-shadow: 
@@ -2406,6 +2440,7 @@
 }
 
 .pc-ui-separator[data-orientation="vertical"],
+.pc-ui-separator.pc-is-vertical,
 .pc-ui-separator.is-vertical,
 .pc-ui-separator[data-orientation="vertical"] {
   width: 1px;
@@ -2418,6 +2453,7 @@
   vertical-align: middle;
 }
 
+.pc-ui-separator.pc-is-washi,
 .pc-ui-separator.is-washi, .pc-ui-separator-washi {
   height: 6px;
   border-top: none;
@@ -2425,6 +2461,7 @@
   border-radius: 2px;
 }
 
+.pc-ui-separator.pc-is-deckle,
 .pc-ui-separator.is-deckle, .pc-ui-separator-deckle {
   height: 4px;
   border-top: none;
@@ -2432,6 +2469,7 @@
   background-size: 8px 4px;
 }
 
+.pc-ui-separator.pc-is-perforated,
 .pc-ui-separator.is-perforated, .pc-ui-separator-perforated {
   border-top: 2px dotted var(--pc-ui-border-kraft);
 }
@@ -2978,10 +3016,12 @@
   transform: translateX(-50%) translateY(0);
 }
 
+.pc-ui-tooltip-content.pc-is-bottom,
 .pc-ui-tooltip-content.is-bottom {
   top: calc(100% + 8px);
   bottom: auto;
 }
+.pc-ui-tooltip-content.pc-is-bottom::after,
 .pc-ui-tooltip-content.is-bottom::after {
   bottom: 100%;
   top: auto;
@@ -3019,10 +3059,10 @@
    엔진이 수화하기 전(JS 없음 포함)에는 네이티브 컨트롤이 그대로 보인다. */
 .pc-ui-ctl { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 26px; height: 26px; }
 .pc-ui-ctl-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 2; }
-.pc-ui-ctl:not(.is-paper-hydrated) > .pc-ui-ctl-input,
-.pc-ui-sw:not(.is-paper-hydrated) > .pc-ui-ctl-input { position: static; opacity: 1; width: 20px; height: 20px; }
-.pc-ui-ctl:not(.is-paper-hydrated) .pc-ui-ctl-mark,
-.pc-ui-sw:not(.is-paper-hydrated) .pc-ui-sw-thumb { display: none; }
+.pc-ui-ctl:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) > .pc-ui-ctl-input,
+.pc-ui-sw:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) > .pc-ui-ctl-input { position: static; opacity: 1; width: 20px; height: 20px; }
+.pc-ui-ctl:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-ui-ctl-mark,
+.pc-ui-sw:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-ui-sw-thumb { display: none; }
 .pc-ui-ctl-label { min-height: 44px; align-items: center; cursor: pointer; }
 .pc-ui-ctl-label > span:last-child { min-width: 0; word-break: keep-all; overflow-wrap: break-word; line-height: 1.35; }
 /* CSS 반지름은 엔진이 무시하지만(--pc-paper-radius가 우선) 포커스 링 outline이 이 모양을 따라간다. */
@@ -3050,22 +3090,22 @@
 
 /* 배지 */
 .pc-ui-badge[data-pc-paper], .pc-badge[data-pc-paper] { padding-bottom: 6px; padding-right: 12px; }
-.pc-ui-badge.is-paper-hydrated:hover, .pc-badge.is-paper-hydrated:hover { transform: none; }
-.pc-ui-badge.is-ribbon[data-pc-paper] { --pc-paper-radius: 4px; padding-left: 16px; padding-right: 18px; }
-.pc-ui-badge.is-ribbon.is-paper-hydrated { clip-path: none; border-radius: 0; }
-.pc-ui-badge.is-scallop.is-paper-hydrated, .pc-ui-badge.is-outline.is-paper-hydrated { border-radius: 999px; }
+.pc-ui-badge.pc-is-paper-hydrated:hover, .pc-ui-badge.is-paper-hydrated:hover, .pc-badge.pc-is-paper-hydrated:hover, .pc-badge.is-paper-hydrated:hover { transform: none; }
+.pc-ui-badge.pc-is-ribbon[data-pc-paper], .pc-ui-badge.is-ribbon[data-pc-paper] { --pc-paper-radius: 4px; padding-left: 16px; padding-right: 18px; }
+.pc-ui-badge.pc-is-ribbon.pc-is-paper-hydrated, .pc-ui-badge.is-ribbon.is-paper-hydrated { clip-path: none; border-radius: 0; }
+.pc-ui-badge.pc-is-scallop.pc-is-paper-hydrated, .pc-ui-badge.is-scallop.is-paper-hydrated, .pc-ui-badge.pc-is-outline.pc-is-paper-hydrated, .pc-ui-badge.is-outline.is-paper-hydrated { border-radius: 999px; }
 
 /* 슬라이더 */
 .pc-ui-slider:has(> .pc-ui-slider-track[data-pc-paper]) { padding: 16px 0; }
 .pc-ui-slider-track[data-pc-paper] { height: 14px; }
-.pc-ui-slider-track.is-paper-hydrated { background-image: none; }
+.pc-ui-slider-track.pc-is-paper-hydrated, .pc-ui-slider-track.is-paper-hydrated { background-image: none; }
 .pc-ui-slider-range[data-pc-paper] { top: 1px; bottom: 1px; border-radius: 999px; }
-.pc-ui-slider-range.is-paper-hydrated { border-right: 0; }
-.pc-ui-slider-range.is-paper-hydrated::after { display: none; }
+.pc-ui-slider-range.pc-is-paper-hydrated, .pc-ui-slider-range.is-paper-hydrated { border-right: 0; }
+.pc-ui-slider-range.pc-is-paper-hydrated::after, .pc-ui-slider-range.is-paper-hydrated::after { display: none; }
 .pc-ui-slider-thumb[data-pc-paper] { width: 26px; height: 26px; border-radius: 50%; }
-.pc-ui-slider-thumb.is-paper-hydrated { background-image: none; }
-.pc-ui-slider-thumb.is-paper-hydrated:hover { transform: translate(-50%, -50%) scale(1.08); }
-.pc-ui-slider-thumb.is-paper-hydrated:active { transform: translate(-50%, -50%) scale(1.02); }
+.pc-ui-slider-thumb.pc-is-paper-hydrated, .pc-ui-slider-thumb.is-paper-hydrated { background-image: none; }
+.pc-ui-slider-thumb.pc-is-paper-hydrated:hover, .pc-ui-slider-thumb.is-paper-hydrated:hover { transform: translate(-50%, -50%) scale(1.08); }
+.pc-ui-slider-thumb.pc-is-paper-hydrated:active, .pc-ui-slider-thumb.is-paper-hydrated:active { transform: translate(-50%, -50%) scale(1.02); }
 /* 엔진의 hover/active는 위쪽 색지에 translate를 거는데 요소 자체의 translate(-50%)와 겹치지 않는다(자식 SVG 안쪽 변환). */
 
 /* 토글 */
@@ -3075,7 +3115,7 @@
   min-height: 44px; padding: 8px 20px 10px 18px; font-size: 12.5px; font-weight: 800; line-height: 1;
   white-space: nowrap; border-radius: 999px; cursor: pointer;
 }
-.pc-ui-toggle.is-paper-hydrated[data-state="on"] { transform: none; }
+.pc-ui-toggle.pc-is-paper-hydrated[data-state="on"], .pc-ui-toggle.is-paper-hydrated[data-state="on"] { transform: none; }
 .pc-ui-toggle-group[data-pc-paper] {
   display: inline-flex; max-width: 100%; padding: 4px 4px 5px 4px; gap: 4px; flex-wrap: nowrap;
 }
@@ -3085,13 +3125,17 @@
   min-height: 44px; padding: 6px 12px 8px 10px; font-size: 12px; font-weight: 700; line-height: 1;
   white-space: nowrap; border-radius: 999px; color: var(--pc-ui-ink-muted, #6E645A);
 }
-.pc-ui-toggle-group-item.is-paper-hydrated[data-state="on"] { color: var(--pc-ui-ink-dark, #3D352E); font-weight: 800; }
+.pc-ui-toggle-group-item.pc-is-paper-hydrated[data-state="on"], .pc-ui-toggle-group-item.is-paper-hydrated[data-state="on"] { color: var(--pc-ui-ink-dark, #3D352E); font-weight: 800; }
 
 /* 입력: void 요소라서 래퍼(.pc-ui-field-wrap)가 field를 맡고, 안쪽 input은 맨몸으로 둔다. */
 .pc-ui-field-wrap { position: relative; display: block; }
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-input,
 .pc-ui-field-wrap.is-paper-hydrated > .pc-ui-input,
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-combobox-input,
 .pc-ui-field-wrap.is-paper-hydrated > .pc-ui-combobox-input,
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-input:focus,
 .pc-ui-field-wrap.is-paper-hydrated > .pc-ui-input:focus,
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-combobox-input:focus,
 .pc-ui-field-wrap.is-paper-hydrated > .pc-ui-combobox-input:focus {
   background: transparent; border-color: transparent; box-shadow: none; outline: none;
   min-height: 44px; margin: 0; padding-top: 10px; padding-bottom: 12px; position: relative; z-index: 1;
@@ -3158,7 +3202,7 @@
 }
 
 /* 메뉴·내비게이션 패널이 열린 카드는 다음 카드 위로 올라와야 잘리지 않는다 */
-.pc-comp-group:has(.pc-ui-menubar-menu[data-state="open"], .pc-ui-nav-pill-wrap[data-state="open"], .pc-dropdown-custom.is-open) { z-index: 20; }
+.pc-comp-group:has(.pc-ui-menubar-menu[data-state="open"], .pc-ui-nav-pill-wrap[data-state="open"], .pc-dropdown-custom.pc-is-open, .pc-dropdown-custom.is-open) { z-index: 20; }
 
 /* ---- Accordion / Collapsible: 한 장의 sheet 색지, 열린 항목은 accent로 눌린다 ---- */
 .pc-comp-group .pc-ui-accordion { gap: 12px; }
@@ -3251,6 +3295,7 @@
   box-sizing: border-box;
   --pc-paper-radius: 10px;
 }
+.pc-comp-group .pc-ui-folder-tab.pc-is-active,
 .pc-comp-group .pc-ui-folder-tab.is-active,
 .pc-comp-group .pc-ui-folder-tab[aria-selected="true"] { font-weight: 800; color: var(--pc-ink, #3D352E); }
 .pc-comp-group .pc-ui-folder-panel {
@@ -3286,6 +3331,7 @@
   white-space: nowrap;
   box-sizing: border-box;
 }
+.pc-comp-group .pc-ui-crumb-chip.pc-is-active,
 .pc-comp-group .pc-ui-crumb-chip.is-active { font-weight: 800; color: var(--pc-ink, #3D352E); }
 .pc-comp-group .pc-ui-crumb:hover > .pc-ui-crumb-chip > .pc-ui-paper-layer .pc-paper-top { transform: translate(-1px, -1px); }
 .pc-comp-group .pc-ui-crumb-sep { flex: none; opacity: 0.9; }
@@ -3328,6 +3374,7 @@
   cursor: pointer;
   box-sizing: border-box;
 }
+.pc-comp-group .pc-ui-pagination-btn.pc-is-nav,
 .pc-comp-group .pc-ui-pagination-btn.is-nav { padding: 10px 14px 12px; }
 
 /* ---- Menubar: 바 sheet, 트리거 pill, 열린 메뉴 panel은 menu ---- */
@@ -3424,6 +3471,7 @@
   cursor: pointer;
   box-sizing: border-box;
 }
+.pc-comp-group .pc-ui-nav-pill.pc-is-active,
 .pc-comp-group .pc-ui-nav-pill.is-active,
 .pc-comp-group .pc-ui-nav-pill[data-state="open"] { font-weight: 800; color: var(--pc-ink, #3D352E); }
 .pc-comp-group .pc-ui-nav-pill-wrap { position: relative; }
@@ -3470,7 +3518,7 @@
    받침 색지는 오른쪽·아래로 어긋나므로(sheet/menu/ticket 3px) 불투명한 자식이 색지 밖으로 나가지 않게 패딩을 3px 더한다. */
 
 /* ---- 공통: 카드 그룹과 라이브러리 카드는 overflow를 열어 그림자가 잘리지 않게 ---- */
-.pc-comp-group.is-paper-hydrated, .pc-ui-card.is-paper-hydrated { overflow: visible; }
+.pc-comp-group.pc-is-paper-hydrated, .pc-comp-group.is-paper-hydrated, .pc-ui-card.pc-is-paper-hydrated, .pc-ui-card.is-paper-hydrated { overflow: visible; }
 /* 열린 팝오버·드롭다운·툴팁이 다음 카드 아래로 깔리지 않게 그룹을 위로 올린다 */
 .pc-comp-group:has(.pc-ui-popover[data-state="open"], .pc-ui-dropdown-menu[data-state="open"], .pc-ui-tooltip:hover, .pc-ui-tooltip:focus-within, .pc-ui-hover-card:hover) { z-index: 20; }
 
@@ -3478,23 +3526,23 @@
 .pc-ui-alert-close, .pc-ui-dialog-close, .pc-ui-sheet-close { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
 
 .pc-pill-badge[data-pc-paper] { padding: 5px 14px 7px 12px; box-sizing: border-box; border: 0; }
-.pc-pill-badge.is-paper-hydrated { box-shadow: none; }
+.pc-pill-badge.pc-is-paper-hydrated, .pc-pill-badge.is-paper-hydrated { box-shadow: none; }
 
 /* ---- 드롭다운 데모 패널 (menu) ---- */
 .pc-ui-dd-panel { display: flex; flex-direction: column; gap: 4px; padding: 10px 13px 13px 10px; margin-bottom: 14px; box-sizing: border-box; --pc-paper-radius: 14px; }
 .pc-ui-dd-label { font-size: 11px; font-weight: 800; color: var(--pc-ink-muted, #7A6958); padding: 4px 10px; text-transform: uppercase; letter-spacing: 0.5px; }
-.pc-ui-dd-item, .pc-ui-dropdown-menu-item.is-paper-hydrated, .pc-ui-context-menu-item.is-paper-hydrated {
+.pc-ui-dd-item, .pc-ui-dropdown-menu-item.pc-is-paper-hydrated, .pc-ui-dropdown-menu-item.is-paper-hydrated, .pc-ui-context-menu-item.pc-is-paper-hydrated, .pc-ui-context-menu-item.is-paper-hydrated {
   display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 44px;
   padding: 8px 14px 10px 12px; border: 0; background: transparent; box-sizing: border-box;
   font: inherit; font-size: 12.5px; font-weight: 700; color: var(--pc-ink, #3D352E); text-align: left; cursor: pointer;
   --pc-paper-radius: 10px; transform: none;
 }
-.pc-ui-dd-item.is-danger, .pc-ui-context-menu-item.is-danger { color: #8F2230; }
+.pc-ui-dd-item.pc-is-danger, .pc-ui-dd-item.is-danger, .pc-ui-context-menu-item.pc-is-danger, .pc-ui-context-menu-item.is-danger { color: #8F2230; }
 .pc-ui-dd-item-main { display: inline-flex; align-items: center; gap: 8px; min-width: 0; word-break: keep-all; }
 .pc-ui-dd-kbd { font-size: 10px; flex: none; min-height: 0; }
 .pc-ui-dd-sep, .pc-ui-context-menu-separator { height: 0; border-top: 1px dashed rgba(74, 58, 42, 0.25); margin: 2px 6px; }
 /* 라이브러리 메뉴 패널 */
-.pc-ui-dropdown-menu-content.is-paper-hydrated, .pc-ui-context-menu.is-paper-hydrated { padding: 8px 11px 11px 8px; --pc-paper-radius: 14px; }
+.pc-ui-dropdown-menu-content.pc-is-paper-hydrated, .pc-ui-dropdown-menu-content.is-paper-hydrated, .pc-ui-context-menu.pc-is-paper-hydrated, .pc-ui-context-menu.is-paper-hydrated { padding: 8px 11px 11px 8px; --pc-paper-radius: 14px; }
 
 /* ---- 컨텍스트 메뉴 데모 영역 (field) ---- */
 .pc-ui-ctx-area {
@@ -3503,30 +3551,44 @@
   color: var(--pc-ink, #3D352E); cursor: context-menu; word-break: keep-all; --pc-paper-radius: 12px;
   border: 1.5px dashed rgba(74, 58, 42, 0.18); border-radius: 12px;
 }
+.pc-ui-ctx-area.pc-is-paper-hydrated,
 .pc-ui-ctx-area.is-paper-hydrated { border-width: 1.5px; }
 
 /* ---- 팝오버 · 호버 카드 · 툴팁 (menu) ---- */
 .pc-ui-popover-demo { display: block; }
-.pc-ui-popover-content.is-paper-hydrated, .pc-ui-hover-card-content.is-paper-hydrated { padding: 16px 19px 19px 16px; --pc-paper-radius: 14px; }
+.pc-ui-popover-content.pc-is-paper-hydrated,
+.pc-ui-popover-content.is-paper-hydrated,
+.pc-ui-hover-card-content.pc-is-paper-hydrated,
+.pc-ui-hover-card-content.is-paper-hydrated { padding: 16px 19px 19px 16px; --pc-paper-radius: 14px; }
+.pc-ui-popover-content.pc-is-paper-hydrated .pc-ui-popover-arrow,
 .pc-ui-popover-content.is-paper-hydrated .pc-ui-popover-arrow { display: none; }
 .pc-ui-pop-title { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--pc-ink, #3D352E); }
 .pc-ui-pop-text { margin: 6px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--pc-ink-muted, #7A6958); word-break: keep-all; }
 
+.pc-ui-tooltip-content.pc-is-paper-hydrated,
 .pc-ui-tooltip-content.is-paper-hydrated {
   background: transparent; color: var(--pc-ink, #3D352E); box-shadow: none; font-weight: 700; line-height: 1.45;
   padding: 8px 15px 11px 12px; white-space: normal; width: max-content; max-width: min(240px, calc(100vw - 64px));
   word-break: keep-all; --pc-paper-radius: 10px;
 }
+.pc-ui-tooltip-content.pc-is-paper-hydrated::after,
 .pc-ui-tooltip-content.is-paper-hydrated::after { display: none; }
+.pc-ui-tooltip-content.pc-is-start,
 .pc-ui-tooltip-content.is-start { left: 0; transform: translateY(4px); }
-.pc-ui-tooltip:hover .pc-ui-tooltip-content.is-start, .pc-ui-tooltip-wrapper:hover .pc-ui-tooltip-content.is-start,
+.pc-ui-tooltip:hover .pc-ui-tooltip-content.pc-is-start,
+.pc-ui-tooltip:hover .pc-ui-tooltip-content.is-start,
+.pc-ui-tooltip-wrapper:hover .pc-ui-tooltip-content.pc-is-start,
+.pc-ui-tooltip-wrapper:hover .pc-ui-tooltip-content.is-start,
+.pc-ui-tooltip:focus-within .pc-ui-tooltip-content.pc-is-start,
 .pc-ui-tooltip:focus-within .pc-ui-tooltip-content.is-start { transform: translateY(0); }
 /* 키보드 포커스에서도 열린다 */
 .pc-ui-tooltip:focus-within .pc-ui-tooltip-content, .pc-ui-tooltip-wrapper:focus-within .pc-ui-tooltip-content { opacity: 1; }
-.pc-ui-tooltip:focus-within .pc-ui-tooltip-content:not(.is-start), .pc-ui-tooltip-wrapper:focus-within .pc-ui-tooltip-content:not(.is-start) { transform: translateX(-50%) translateY(0); }
+.pc-ui-tooltip:focus-within .pc-ui-tooltip-content:not(.pc-is-start):not(.is-start),
+.pc-ui-tooltip-wrapper:focus-within .pc-ui-tooltip-content:not(.pc-is-start):not(.is-start) { transform: translateX(-50%) translateY(0); }
 .pc-pill-badge.pc-ui-tip-trigger { min-height: 44px; font-family: inherit; cursor: help; align-items: center; }
 
 /* ---- 알림 (ticket): 톤이 종류를 나타낸다 ---- */
+.pc-ui-alert.pc-is-paper-hydrated,
 .pc-ui-alert.is-paper-hydrated { padding: 14px 20px 17px 20px; gap: 10px; align-items: flex-start; margin-bottom: 0; }
 .pc-ui-alert-stack > .pc-ui-alert { margin-bottom: 0; }
 .pc-ui-alert-title { word-break: keep-all; font-size: 13px; font-weight: 800; }
@@ -3535,31 +3597,54 @@
 
 /* ---- 토스트 (ticket) ---- */
 /* data-state="open"은 엔진에서 "눌림(활성)"으로 읽히므로, 패널로 열려 있는 요소는 평상시 색지로 되돌린다 */
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-top,
 .is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-top { transform: none; }
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-sheet,
 .is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-sheet { fill: var(--pc-paper-fill); }
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-base,
 .is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-base { fill: var(--pc-paper-base); }
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content)[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack,
 .is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content)[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack { filter: url(#pc-paper-sh); }
+.pc-is-paper-hydrated.pc-ui-context-menu[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack,
 .is-paper-hydrated.pc-ui-context-menu[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack { filter: url(#pc-paper-sh-lift); }
+.pc-ui-toast.pc-is-paper-hydrated,
 .pc-ui-toast.is-paper-hydrated { padding: 16px 23px 19px 22px; }
+.pc-ui-toast.pc-is-paper-hydrated::before,
 .pc-ui-toast.is-paper-hydrated::before { display: none; }   /* 마스킹 테이프 조각: 색지 위에서는 중복 */
 .pc-ui-toast-viewport { max-width: min(400px, calc(100vw - 48px)); }   /* 좁은 화면에서 왼쪽 노치가 화면 밖으로 잘리지 않게 */
 .pc-ui-toast-title { word-break: keep-all; }
 .pc-ui-toast-description { word-break: keep-all; line-height: 1.5; }
 .pc-ui-toast-close { margin: -10px -10px -10px 0; }
-.pc-toast-card.is-paper-hydrated, .pc-alert.is-paper-hydrated { overflow: visible; }
+.pc-toast-card.pc-is-paper-hydrated,
+.pc-toast-card.is-paper-hydrated,
+.pc-alert.pc-is-paper-hydrated,
+.pc-alert.is-paper-hydrated { overflow: visible; }
 /* 킬리가미 ticket 의 CSS 원형 노치: ticket 색지가 반원 노치를 직접 그리므로 중복을 끈다 */
-.pc-toast-ticket.is-paper-hydrated::before, .pc-toast-ticket.is-paper-hydrated::after,
-.pc-alert-ticket.is-paper-hydrated::before, .pc-alert-ticket.is-paper-hydrated::after { display: none; }
+.pc-toast-ticket.pc-is-paper-hydrated::before,
+.pc-toast-ticket.is-paper-hydrated::before,
+.pc-toast-ticket.pc-is-paper-hydrated::after,
+.pc-toast-ticket.is-paper-hydrated::after,
+.pc-alert-ticket.pc-is-paper-hydrated::before,
+.pc-alert-ticket.is-paper-hydrated::before,
+.pc-alert-ticket.pc-is-paper-hydrated::after,
+.pc-alert-ticket.is-paper-hydrated::after { display: none; }
 
 /* ---- 모달 대화상자 · 시트 · 드로어 (papercut-modals.js 가 만든 패널) ---- */
+.pc-modal-dialog.pc-is-paper-hydrated,
 .pc-modal-dialog.is-paper-hydrated { padding: 0 3px 3px 0; }
+.pc-modal-dialog.pc-is-paper-hydrated::before,
 .pc-modal-dialog.is-paper-hydrated::before { display: none; }          /* 윗 모서리 하이라이트 선: 색지 림과 중복 */
+.pc-modal-ticket.pc-is-paper-hydrated::after,
 .pc-modal-ticket.is-paper-hydrated::after { display: none; }           /* 어두운 원 노치: ticket 색지의 반원 노치가 대신한다 */
+.pc-modal-dialog.pc-is-paper-hydrated .pc-dialog-footer,
 .pc-modal-dialog.is-paper-hydrated .pc-dialog-footer { border-radius: 0 0 14px 14px; }
 /* 대화상자 안의 입력·셀렉트·강조 상자 */
 .pc-modal-field { border-radius: 10px; }
 .pc-modal-field { position: relative; display: block; }
-.pc-modal-field.is-paper-hydrated > .pc-input, .pc-modal-field.is-paper-hydrated > .pc-modal-select {
+.pc-modal-field.pc-is-paper-hydrated > .pc-input,
+.pc-modal-field.is-paper-hydrated > .pc-input,
+.pc-modal-field.pc-is-paper-hydrated > .pc-modal-select,
+.pc-modal-field.is-paper-hydrated > .pc-modal-select {
   background: transparent; box-shadow: none; border: 0; min-height: 44px; padding: 10px 14px 12px; position: relative; z-index: 1;
 }
 /* 네이티브 select: papercut.js 의 select 자동 변환(.pc-select-wrapper)을 피하려고 전용 클래스를 쓴다 */
@@ -3569,28 +3654,42 @@
   -webkit-appearance: none; appearance: none; cursor: pointer; outline: none;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+.pc-modal-field.pc-is-paper-hydrated > .pc-modal-select,
 .pc-modal-field.is-paper-hydrated > .pc-modal-select { padding-right: 40px; outline: none; }
 .pc-modal-select-caret { position: absolute; right: 14px; top: 50%; transform: translateY(-62%); pointer-events: none; z-index: 2; }
-.pc-modal-field:not(.is-paper-hydrated) .pc-modal-select-caret { display: none; }
+.pc-modal-field:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-modal-select-caret { display: none; }
 .pc-modal-callout { border-radius: 12px; padding: 10px 14px 13px 12px; --pc-paper-radius: 12px; background: #F3ECE1; border: 1px solid #E2D6C3; }
 
 /* 시트: 오른쪽·위·아래 가장자리 밖으로 16px 밀어 둥근 모서리와 어긋난 받침 색지를 화면 밖으로 숨긴다 */
+.pc-modal-sheet.pc-is-paper-hydrated,
 .pc-modal-sheet.is-paper-hydrated { top: -16px; bottom: -16px; right: -16px; padding: 16px 19px 19px 0; --pc-paper-radius: 14px; }
+.pc-modal-sheet.pc-is-paper-hydrated::before,
 .pc-modal-sheet.is-paper-hydrated::before { top: 16px; bottom: 19px; left: 14px; }   /* 노트 제본 스티치 */
 .pc-modal-sheet-item { padding: 14px 17px 17px 14px; --pc-paper-radius: 14px; border-radius: 14px; background: #FFFFFF; border: 1.5px solid #E6DCCB; }
+.pc-modal-sheet-item.pc-is-paper-hydrated,
 .pc-modal-sheet-item.is-paper-hydrated { transform: none; }
 .pc-modal-sheet-summary { padding: 14px 17px 17px 16px; margin-top: 8px; --pc-paper-radius: 14px; border-radius: 14px; background: #F4EFE6; }
 /* 드로어: 아래로 28px 밀어 아래쪽 둥근 모서리를 화면 밖으로 */
+.pc-modal-drawer.pc-is-paper-hydrated,
 .pc-modal-drawer.is-paper-hydrated { overflow: visible; margin-bottom: -28px; padding: 0 3px 31px 0; }
 .pc-drawer-pull-tab[data-pc-paper] { width: 56px; height: 10px; }
 
 /* ---- 라이브러리 대화상자 · 시트 · 드로어 · 알림 대화상자 ---- */
+.pc-ui-alert-dialog-content.pc-is-paper-hydrated,
 .pc-ui-alert-dialog-content.is-paper-hydrated { padding: 28px 33px 31px 30px; --pc-paper-radius: 18px; }
+.pc-ui-alert-dialog-content.pc-is-paper-hydrated::before,
 .pc-ui-alert-dialog-content.is-paper-hydrated::before { display: none; }
+.pc-ui-dialog-content.pc-is-paper-hydrated,
 .pc-ui-dialog-content.is-paper-hydrated { padding: 28px 31px 31px 28px; --pc-paper-radius: 18px; }
+.pc-ui-sheet-content.pc-is-paper-hydrated:not([data-side="left"]):not([data-side="top"]):not([data-side="bottom"]),
 .pc-ui-sheet-content.is-paper-hydrated:not([data-side="left"]):not([data-side="top"]):not([data-side="bottom"]) { top: -16px; bottom: -16px; right: -16px; padding: 44px 47px 47px 28px; --pc-paper-radius: 14px; }
+.pc-ui-sheet-content.pc-is-paper-hydrated[data-side="left"],
 .pc-ui-sheet-content.is-paper-hydrated[data-side="left"] { top: -16px; bottom: -16px; left: -16px; padding: 44px 31px 47px 44px; --pc-paper-radius: 14px; }
-.pc-ui-sheet-content.is-paper-hydrated[data-side="top"], .pc-ui-sheet-content.is-paper-hydrated[data-side="bottom"] { padding: 28px 31px 31px 28px; }
+.pc-ui-sheet-content.pc-is-paper-hydrated[data-side="top"],
+.pc-ui-sheet-content.is-paper-hydrated[data-side="top"],
+.pc-ui-sheet-content.pc-is-paper-hydrated[data-side="bottom"],
+.pc-ui-sheet-content.is-paper-hydrated[data-side="bottom"] { padding: 28px 31px 31px 28px; }
+.pc-ui-drawer-content.pc-is-paper-hydrated,
 .pc-ui-drawer-content.is-paper-hydrated { bottom: -28px; padding: 16px 27px 60px 24px; --pc-paper-radius: 24px; }
 /* 고정 헤더·사이드바(z-index 높음)까지 어둡게 덮도록 papercut-modals.css 와 같은 층위로 올린다 */
 .pc-ui-dialog-overlay, .pc-ui-alert-dialog-overlay { z-index: 10000; }
@@ -3609,17 +3708,25 @@
 .pc-ui-dt tbody tr { background: #FFFFFF; border-bottom: 1px dashed rgba(74, 58, 42, 0.14); }
 .pc-ui-dt tbody tr:nth-child(even) { background: #FAF7F0; }
 .pc-ui-dt tbody tr:last-child { border-bottom: 0; }
-.pc-ui-dt th, .pc-ui-dt td.is-strong, .pc-ui-dt td.is-num { white-space: nowrap; }
+.pc-ui-dt th,
+.pc-ui-dt td.pc-is-strong,
+.pc-ui-dt td.is-strong,
+.pc-ui-dt td.pc-is-num,
+.pc-ui-dt td.is-num { white-space: nowrap; }
 .pc-ui-dt .pc-pill-badge[data-pc-paper] { font-size: 11px; padding: 3px 12px 5px 10px; }
+.pc-ui-dt .pc-is-num,
 .pc-ui-dt .is-num { text-align: right; }
+.pc-ui-dt .pc-is-strong,
 .pc-ui-dt .is-strong { font-weight: 800; }
 [data-selectable] .pc-ui-dt tbody tr { cursor: pointer; }
 [data-selectable] .pc-ui-dt tbody tr:hover td { background: var(--pc-lavender-light, #F4F0FA); }
 [data-selectable] .pc-ui-dt tbody tr[aria-selected="true"] td { background: var(--pc-mint-light, #EAF7F1); font-weight: 800; }
 [data-selectable] .pc-ui-dt tbody tr:focus-visible { outline: 2px solid var(--pc-paper-focus, #6F5BB5); outline-offset: -2px; }
+.pc-ui-table-wrap.pc-is-paper-hydrated,
 .pc-ui-table-wrap.is-paper-hydrated { padding: 9px 12px 12px 9px; overflow: visible; }
 
 /* ---- 캘린더 (sheet) + 날짜 칸 (knob) ---- */
+.pc-ui-calendar.pc-is-paper-hydrated,
 .pc-ui-calendar.is-paper-hydrated { overflow: visible; padding: 18px 21px 21px 18px; box-sizing: border-box; --pc-paper-radius: 14px; }
 .pc-ui-cal-demo { width: 100%; margin-bottom: 0; }
 .pc-ui-cal-demo .pc-ui-calendar-header { margin-bottom: 10px; }
@@ -3633,14 +3740,20 @@
   aspect-ratio: auto; min-height: 44px; min-width: 0; border: 0; padding: 0 0 2px; color: var(--pc-ink, #3D352E);
   font-family: inherit; font-size: 13px; font-weight: 700; --pc-paper-radius: 10px; transition: none;
 }
-.pc-ui-calendar-day.is-paper-hydrated:hover:not(.is-disabled) { background: transparent; transform: none; }
+.pc-ui-calendar-day.pc-is-paper-hydrated:hover:not(.pc-is-disabled):not(.is-disabled),
+.pc-ui-calendar-day.is-paper-hydrated:hover:not(.pc-is-disabled):not(.is-disabled) { background: transparent; transform: none; }
+.pc-ui-calendar-day.pc-is-paper-hydrated.pc-is-selected,
+.pc-ui-calendar-day.pc-is-paper-hydrated.is-selected,
+.pc-ui-calendar-day.is-paper-hydrated.pc-is-selected,
 .pc-ui-calendar-day.is-paper-hydrated.is-selected { color: var(--pc-ink, #3D352E); font-weight: 800; }
+.pc-ui-calendar-day.pc-is-other-month,
 .pc-ui-calendar-day.is-other-month { opacity: 1; }
 .pc-ui-cal-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 12px; font-weight: 800; color: var(--pc-ink, #3D352E); }
 .pc-ui-cal-foot-label { display: inline-flex; align-items: center; gap: 5px; word-break: keep-all; }
 
 /* ---- 카드 · 캐러셀 (sheet 슬라이드 + knob 점) ---- */
 .pc-ui-sample-card { margin-bottom: 14px; padding: 0 3px 3px 0; transition: none; }
+.pc-ui-sample-card.pc-is-paper-hydrated,
 .pc-ui-sample-card.is-paper-hydrated { --pc-paper-radius: 14px; }
 .pc-ui-sample-card .pc-ui-card-header { padding: 16px 18px 6px 18px; }
 .pc-ui-sample-card .pc-ui-card-title { font-size: 14px; word-break: keep-all; text-wrap: balance; }
@@ -3652,17 +3765,23 @@
 .pc-ui-car-slide-title { font-size: 13px; font-weight: 800; color: var(--pc-ink, #3D352E); margin-bottom: 4px; word-break: keep-all; text-wrap: balance; }
 .pc-ui-car-slide-text { font-size: 12px; color: var(--pc-ink-muted, #7A6958); margin: 0; line-height: 1.5; word-break: keep-all; text-wrap: pretty; }
 .pc-ui-carousel-dot[data-pc-paper] { position: relative; width: 14px; height: 14px; border: 0; box-shadow: none; transition: width 0.2s ease; }
+.pc-ui-carousel-dot[data-pc-paper].pc-is-active,
 .pc-ui-carousel-dot[data-pc-paper].is-active { width: 32px; }
 .pc-ui-carousel-dot[data-pc-paper]::after { content: ""; position: absolute; inset: -15px -6px; }   /* 터치 영역 44px */
 .pc-ui-carousel-demo .pc-ui-carousel-dots { gap: 12px; }
 
 /* ---- 리사이저블 (sheet 그룹 + track 홈 + knob 손잡이) ---- */
-.pc-ui-resizable-group.is-paper-hydrated, .pc-ui-resizable-panel-group.is-paper-hydrated { overflow: visible; border: 0; --pc-paper-radius: 14px; }
+.pc-ui-resizable-group.pc-is-paper-hydrated,
+.pc-ui-resizable-group.is-paper-hydrated,
+.pc-ui-resizable-panel-group.pc-is-paper-hydrated,
+.pc-ui-resizable-panel-group.is-paper-hydrated { overflow: visible; border: 0; --pc-paper-radius: 14px; }
 .pc-ui-resizable-demo { height: 116px; margin-bottom: 14px; padding: 6px 9px 9px 6px; box-sizing: border-box; border: 1.5px solid #EADBCC; border-radius: 14px; background: #FAF7F0; }
 .pc-ui-resizable-panel { min-width: 0; overflow: auto; padding: 10px 12px; }
 .pc-ui-rs-title { font-size: 12.5px; font-weight: 800; color: var(--pc-ink, #3D352E); word-break: keep-all; }
 .pc-ui-rs-text { margin: 4px 0 0; font-size: 12px; color: var(--pc-ink-muted, #7A6958); line-height: 1.45; word-break: keep-all; }
+.pc-ui-resizable-handle.pc-is-paper-hydrated,
 .pc-ui-resizable-handle.is-paper-hydrated { position: relative; flex: none; width: 12px; margin: 8px 6px 8px 6px; border: 0; touch-action: none; --pc-paper-radius: 6px; }
+.pc-ui-resizable-handle.pc-is-paper-hydrated::after,
 .pc-ui-resizable-handle.is-paper-hydrated::after { display: none; }       /* ::: 글자 그립은 3D 아이콘 그립으로 대체 */
 .pc-ui-resizable-handle { position: relative; touch-action: none; }   /* ::before 터치 영역의 기준(수화 전에도 필요) */
 .pc-ui-resizable-handle::before { content: ""; position: absolute; inset: 0 -16px; }   /* 터치 영역 44px */
@@ -3670,7 +3789,7 @@
   position: absolute; left: 50%; top: 50%; z-index: 2; width: 24px; height: 36px; margin: -18px 0 0 -12px;
   display: inline-flex; align-items: center; justify-content: center; --pc-paper-radius: 9px; cursor: col-resize; pointer-events: none;
 }
-.pc-ui-resizable-handle:not(.is-paper-hydrated) .pc-ui-resizable-grip { display: none; }
+.pc-ui-resizable-handle:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-ui-resizable-grip { display: none; }
 
 /* PC Comp Group Component Cards (Unified Component Architecture) */
 .pc-comp-group {
@@ -3681,13 +3800,16 @@
   box-sizing: border-box;
   scroll-margin-top: 130px;
 }
+.pc-comp-group.pc-is-suite-header,
 .pc-comp-group.is-suite-header {
   grid-column: 1 / -1;
 }
 
 /* 좁은 화면: 캘린더·리사이저블이 카드 안쪽 폭(약 190px)에 들어가도록 여백을 줄인다 */
 @media (max-width: 480px) {
-  .pc-ui-cal-demo.is-paper-hydrated, .pc-ui-cal-demo { padding: 10px 13px 13px 10px; }
+  .pc-ui-cal-demo.pc-is-paper-hydrated,
+  .pc-ui-cal-demo.is-paper-hydrated,
+  .pc-ui-cal-demo { padding: 10px 13px 13px 10px; }
   .pc-ui-cal-demo .pc-ui-calendar-grid { gap: 2px; }
   .pc-ui-cal-demo .pc-ui-calendar-title { font-size: 13.5px; white-space: nowrap; }
   .pc-ui-cal-demo .pc-ui-calendar-weekday { font-size: 11px; }

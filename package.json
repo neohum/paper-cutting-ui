@@ -1,8 +1,10 @@
 {
   "name": "papercut-ui",
+  "type": "module",
   "private": true,
   "description": "PaperCut UI - zero-runtime Vanilla HTML/CSS/JS UI library (테스트용 devDependency만 포함)",
   "scripts": {
+    "inspect:visual": "node --experimental-strip-types scripts/visual-inspector/inspect-web.ts",
     "test:overflow": "node scripts/ops/verify-overflow.mjs --page && node scripts/ops/verify-overflow.mjs --fixtures"
   },
   "devDependencies": {

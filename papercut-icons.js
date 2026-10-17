@@ -10407,7 +10407,7 @@
       '#pc-sidebar-nav',
       '.pc-sidebar-floating-toggle',
       '#overview',
-      '.hero-banner'
+      '.pc-hero-banner, .hero-banner'
     ];
 
     immediateSelectors.forEach(selector => {

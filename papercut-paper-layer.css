@@ -61,6 +61,7 @@
 
 /* ---------- 수화된 요소: 기존 CSS 상자를 끄고 SVG 색지에 맡긴다 ---------- */
 /* border-color만 투명으로: 두께는 유지해 크기가 튀지 않는다. */
+.pc-is-paper-hydrated,
 .is-paper-hydrated {
   background: transparent !important;
   border-color: transparent !important;
@@ -68,7 +69,7 @@
 }
 /* 낮은 특이도: static일 때만 relative. 이미 absolute/fixed/sticky인 오버레이는 그대로 둔다.
    isolation으로 z-index:-1 레이어가 요소 안에 갇혀 내용 아래, 바깥 배경 위에 놓인다. */
-:where(.is-paper-hydrated) { position: relative; isolation: isolate; }
+:where(.pc-is-paper-hydrated, .is-paper-hydrated) { position: relative; isolation: isolate; }
 
 .pc-ui-paper-layer {
   position: absolute;
@@ -113,63 +114,63 @@
 }
 
 /* hover: 상호작용 요소만 위쪽 색지가 -1px 들리고 그림자가 길어진다. data-pc-hover로 직접 지정도 가능 */
-.is-paper-hydrated:is(button, a[href], summary, label, [role="button"], [role="tab"], [role="menuitem"],
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(button, a[href], summary, label, [role="button"], [role="tab"], [role="menuitem"],
   [role="option"], [role="switch"], [role="checkbox"], [role="radio"], [tabindex], [data-pc-hover]):hover
   > .pc-ui-paper-layer .pc-paper-top { transform: translate(-1px, -1px); }
-.is-paper-hydrated:is(button, a[href], summary, label, [role="button"], [role="tab"], [role="menuitem"],
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(button, a[href], summary, label, [role="button"], [role="tab"], [role="menuitem"],
   [role="option"], [role="switch"], [role="checkbox"], [role="radio"], [tabindex], [data-pc-hover]):hover
   > .pc-ui-paper-layer[data-variant]:not([data-variant="track"]):not([data-variant="field"]) .pc-paper-stack { filter: url(#pc-paper-sh-lift); }
 
 /* 활성: 위쪽 색지가 받침 쪽으로 눌리고 accent 색으로 바뀐다 */
-.is-paper-hydrated:is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
-  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
   :has(> input:checked)) > .pc-ui-paper-layer .pc-paper-top {
   transform: translate(calc(var(--pc-paper-off, 2px) * 0.7), calc(var(--pc-paper-off, 2px) * 0.7));
 }
-.is-paper-hydrated:is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
-  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
   :has(> input:checked)) > .pc-ui-paper-layer :is(.pc-paper-sheet) { fill: var(--pc-paper-accent); }
-.is-paper-hydrated:is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
-  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
   :has(> input:checked)) > .pc-ui-paper-layer .pc-paper-base { fill: var(--pc-paper-accent-base); }
 /* track은 활성이어도 홈 바닥 색을 유지(채움은 자식이 담당) */
-.is-paper-hydrated:is([data-state="checked"], [data-state="on"], [aria-checked="true"], :has(> input:checked))
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="checked"], [data-state="on"], [aria-checked="true"], :has(> input:checked))
   > .pc-ui-paper-layer[data-variant="track"] .pc-paper-sheet { fill: color-mix(in srgb, var(--pc-paper-accent-base) 75%, var(--pc-paper-fill)); }
-.is-paper-hydrated:is([data-state="checked"], [data-state="on"], [aria-checked="true"], :has(> input:checked))
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="checked"], [data-state="on"], [aria-checked="true"], :has(> input:checked))
   > .pc-ui-paper-layer[data-variant="track"] .pc-paper-top { transform: none; }
-.is-paper-hydrated:is([data-state="checked"], [data-state="on"], [aria-checked="true"], :has(> input:checked))
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="checked"], [data-state="on"], [aria-checked="true"], :has(> input:checked))
   > .pc-ui-paper-layer[data-variant="track"] .pc-paper-base { fill: var(--pc-paper-rim); }
-.is-paper-hydrated:is([data-state="open"], [data-state="active"], [data-state="checked"], [data-state="on"],
-  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="open"], [data-state="active"], [data-state="checked"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
   :has(> input:checked)) > .pc-ui-paper-layer .pc-paper-stack { filter: url(#pc-paper-sh-soft); }
-.is-paper-hydrated:is([data-state="open"], [data-state="active"], [data-state="checked"], [data-state="on"],
-  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="open"], [data-state="active"], [data-state="checked"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
   :has(> input:checked)) > .pc-ui-paper-layer[data-variant="track"] .pc-paper-stack { filter: none; }
 
 /* deckle 색: 일반 변형의 활성 규칙보다 뒤에 두고 data-variant로 특이도를 높여 덮는다 */
 .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-base  { fill: var(--pc-paper-deckle); stroke: var(--pc-paper-rim); }
 .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-sheet { fill: var(--pc-paper-inner); stroke: var(--pc-paper-inner-line); }
-.is-paper-hydrated:is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
-  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
-  .is-selected) > .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-base { fill: var(--pc-paper-deckle-active); }
-.is-paper-hydrated:is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
-  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .is-active, .is-on, .is-checked, .is-pressed,
-  .is-selected) > .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-sheet { fill: var(--pc-paper-inner-active); }
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
+  .pc-is-selected, .is-selected) > .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-base { fill: var(--pc-paper-deckle-active); }
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"], .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
+  .pc-is-selected, .is-selected) > .pc-ui-paper-layer[data-variant="deckle"] .pc-paper-sheet { fill: var(--pc-paper-inner-active); }
 
 /* 비활성: 채도를 빼고 그림자를 없앤다 */
-.is-paper-hydrated:is(:disabled, [disabled], [aria-disabled="true"], [data-disabled], .is-disabled,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(:disabled, [disabled], [aria-disabled="true"], [data-disabled], .pc-is-disabled, .is-disabled,
   [data-pc-paper]:has(> :disabled)) > .pc-ui-paper-layer {
   filter: grayscale(0.85);
   opacity: 0.6;
 }
-.is-paper-hydrated:is(:disabled, [disabled], [aria-disabled="true"], [data-disabled], .is-disabled,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(:disabled, [disabled], [aria-disabled="true"], [data-disabled], .pc-is-disabled, .is-disabled,
   [data-pc-paper]:has(> :disabled)) > .pc-ui-paper-layer :is(.pc-paper-stack, .pc-paper-sheet, .pc-paper-well) { filter: none; }
-.is-paper-hydrated:is(:disabled, [disabled], [aria-disabled="true"], [data-disabled], .is-disabled)
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(:disabled, [disabled], [aria-disabled="true"], [data-disabled], .pc-is-disabled, .is-disabled)
   > .pc-ui-paper-layer .pc-paper-top { transform: translate(0, 0); }
 
 /* 포커스 링: 요소 바깥 outline. SVG는 요소 안(z-index:-1)이라 링을 가리지 않는다. */
-.is-paper-hydrated:focus-visible,
-.is-paper-hydrated:is([data-pc-paper="field"], [data-pc-paper="knob"], [data-pc-paper="pill"], [data-pc-paper="track"]):has(:focus-visible) {
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):focus-visible,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-pc-paper="field"], [data-pc-paper="knob"], [data-pc-paper="pill"], [data-pc-paper="track"]):has(:focus-visible) {
   outline: 2px solid var(--pc-paper-focus) !important;
   outline-offset: 2px !important;
 }

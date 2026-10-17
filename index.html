@@ -24,13 +24,12 @@
   <link rel="preload" href="papercut.css" as="style">
   <link rel="preload" href="papercut-layout.css" as="style">
   <link rel="preload" href="papercut-sidebar.css" as="style">
-  <link rel="preload" href="assets/uicons/uicons-regular-rounded.css" as="style">
 
   <!-- 핵심 스타일 (렌더 차단 최소화 우선 로드) -->
-  <link rel="stylesheet" href="assets/uicons/uicons-regular-rounded.css">
   <link rel="stylesheet" href="papercut.css">
   <link rel="stylesheet" href="papercut-layout.css">
   <link rel="stylesheet" href="papercut-sidebar.css">
+  <link rel="stylesheet" href="papercut-diorama.css">
 
   <!-- 보조 스타일 (비동기 렌더 차단 방지 로딩 + noscript 폴백) -->
   <link rel="stylesheet" href="papercut-alerts-toasts.css" media="print" onload="this.media='all'">
@@ -63,48 +62,62 @@
       overflow-wrap: break-word;
     }
 
-    h1, h2, h3, h4, h5, h6, .section-title, .example-title {
+    h1, h2, h3, h4, h5, h6, .pc-section-title, .section-title, .pc-example-title, .example-title {
       word-break: keep-all;
       overflow-wrap: break-word;
       text-wrap: balance;
     }
 
-    p, .example-desc {
+    p, .pc-example-desc, .example-desc {
       word-break: keep-all;
       overflow-wrap: break-word;
       text-wrap: pretty;
     }
 
+    .pc-showcase-container,
     .showcase-container {
       max-width: 1320px;
       margin: 0 auto;
       padding: 40px 24px 100px;
     }
 
-    /* Hero Section - True Paper Diorama */
+    /* Hero Section - True Paper Diorama & Cardstock Sheet */
+    .pc-card-sheet {
+      position: relative !important;
+      background: var(--pc-paper-white, #FFFDF9) !important;
+      border: 1.5px solid #E2D7C5 !important;
+      border-radius: 0 !important;
+      box-shadow: 
+        0 1px 0 rgba(255, 255, 255, 0.98) inset,
+        var(--pc-paper-shadow-lg) !important;
+    }
+
+    .pc-hero-banner,
     .hero-banner {
-      background: var(--pc-paper-white);
-      border: none;
-      border-radius: 32px;
+      background: var(--pc-paper-white, #FFFDF9);
+      border: 1.5px solid #E2D7C5 !important;
+      border-radius: 0 !important;
       padding: 48px;
       box-shadow: 
-        0 1px 0 rgba(255, 255, 255, 0.95) inset,
-        var(--pc-paper-shadow-lg);
+        0 1px 0 rgba(255, 255, 255, 0.98) inset,
+        var(--pc-paper-shadow-lg) !important;
       position: relative;
       margin-bottom: 40px;
       container: hero / inline-size;
     }
 
+    .pc-hero-banner::before,
     .hero-banner::before {
       content: "";
       position: absolute;
       top: 8px; left: 8px; right: -8px; bottom: -8px;
       background: var(--pc-peach-light);
-      border-radius: 32px;
+      border-radius: 0 !important;
       z-index: -1;
       box-shadow: var(--pc-paper-shadow-xs);
     }
 
+    .pc-hero-content,
     .hero-content {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
@@ -116,35 +129,40 @@
 
     /* 히어로 컨테이너 폭이 두 열(800px)을 담을 때만 두 열로 나눈다 - 뷰포트/사이드바 계산 불필요 */
     @container hero (min-width: 800px) {
+      .pc-hero-content,
       .hero-content {
         grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
       }
     }
 
     @container pc-main (max-width: 767px) {
+      .pc-hero-banner,
       .hero-banner {
         padding: 28px;
       }
     }
     @container pc-main (max-width: 479px) {
+      .pc-hero-banner,
       .hero-banner {
         padding: 20px 16px;
       }
     }
 
+    .pc-prompt-box,
     .prompt-box {
-      background: #F4EFE6;
-      border: none;
-      border-radius: 16px;
+      background: #F4EFE6 !important;
+      border: 1.5px solid #E2D7C5 !important;
+      border-radius: 0 !important;
       padding: 16px 20px;
       margin: 20px 0;
       font-size: 13.5px;
       color: var(--pc-lavender-dark);
       line-height: 1.55;
       position: relative;
-      box-shadow: var(--pc-shadow-cutout);
+      box-shadow: var(--pc-shadow-cutout) !important;
     }
 
+    .pc-prompt-box::before,
     .prompt-box::before {
       content: "USER PROMPT AESTHETIC";
       position: absolute;
@@ -155,37 +173,41 @@
       font-size: 10.5px;
       font-weight: 800;
       padding: 2px 10px;
-      border-radius: 20px;
+      border-radius: 0;
       letter-spacing: 0.5px;
       box-shadow: var(--pc-paper-shadow-xs);
     }
 
+    .pc-hero-art-frame,
     .hero-art-frame {
       position: relative;
       background: var(--pc-paper-white);
-      border: none;
-      border-radius: 24px;
+      border: 1.5px solid #E2D7C5;
+      border-radius: 0;
       padding: 14px;
       box-shadow: 
-        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 1px 0 rgba(255, 255, 255, 0.98) inset,
         var(--pc-paper-shadow-lg);
       transform: rotate(1deg);
       transition: transform 0.3s ease;
     }
+    .pc-hero-art-frame:hover,
     .hero-art-frame:hover {
       transform: rotate(0deg) scale(1.02);
     }
 
+    .pc-hero-art-img,
     .hero-art-img {
       width: 100%;
       height: 320px;
       object-fit: cover;
-      border-radius: 16px;
+      border-radius: 0;
       display: block;
       box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
     }
 
     /* Hero & Universal 3D Kirigami SVG Buttons */
+    .pc-hero-action-btn,
     .hero-action-btn,
     .pc-svg-kirigami-btn {
       position: relative;
@@ -208,6 +230,7 @@
       box-sizing: border-box;
       transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
+    .pc-hero-action-btn svg.pc-kirigami-btn-svg,
     .hero-action-btn svg.pc-kirigami-btn-svg,
     .pc-svg-kirigami-btn svg.pc-kirigami-btn-svg {
       display: block;
@@ -217,24 +240,30 @@
       transition: transform 0.15s ease, filter 0.15s ease;
       box-sizing: border-box;
     }
+    .pc-hero-action-btn svg.pc-kirigami-btn-svg,
     .hero-action-btn svg.pc-kirigami-btn-svg {
       max-width: 250px;
       height: 54px;
     }
+    .pc-hero-action-btn:hover,
     .hero-action-btn:hover,
     .pc-svg-kirigami-btn:hover {
       transform: translateY(-1.5px) !important;
     }
+    .pc-hero-action-btn:hover svg.pc-kirigami-btn-svg,
     .hero-action-btn:hover svg.pc-kirigami-btn-svg,
     .pc-svg-kirigami-btn:hover svg.pc-kirigami-btn-svg {
       filter: drop-shadow(0 2.5px 5px rgba(46, 30, 20, 0.18));
     }
+    .pc-hero-action-btn:active,
+    .pc-hero-action-btn.is-pressed,
     .hero-action-btn:active,
     .hero-action-btn.is-pressed,
     .pc-svg-kirigami-btn:active,
     .pc-svg-kirigami-btn.is-pressed {
       transform: translateY(1px) !important;
     }
+    .pc-hero-action-btn:active svg.pc-kirigami-btn-svg,
     .hero-action-btn:active svg.pc-kirigami-btn-svg,
     .pc-svg-kirigami-btn:active svg.pc-kirigami-btn-svg {
       filter: drop-shadow(0 0.8px 1.5px rgba(46, 30, 20, 0.25));
@@ -340,11 +369,13 @@
     }
 
     /* Section Headers */
+    .pc-section-title-wrap,
     .section-title-wrap {
       margin: 60px 0 24px;
       position: relative;
       display: inline-block;
     }
+    .pc-section-title,
     .section-title {
       font-size: 26px;
       font-weight: 800;
@@ -357,7 +388,7 @@
     }
   </style>
 </head>
-<body class="pc-paper-grain texture-cotton has-pc-sidebar">
+<body class="pc-paper-grain pc-texture-cotton texture-cotton pc-has-sidebar has-pc-sidebar">
   <script>
     // 사이드바 접힘 상태 복원 (저장된 접힘 모드 즉시 적용하여 화면 깜빡임 방지)
     try {
@@ -368,7 +399,11 @@
     // 종이 재질 동기화 (저장된 종이 질감 즉시 복원하여 화면 깜빡임 방지)
     try {
       const savedPaper = localStorage.getItem('pc_screen_paper_texture') || localStorage.getItem('pc_paper_sound_type') || 'cotton';
-      ['soft', 'cotton', 'hanji', 'kraft', 'vellum', 'origami', 'cardboard', 'newsprint', 'parchment', 'flat'].forEach(function(t) { document.body.classList.remove('texture-' + t); });
+      ['soft', 'cotton', 'hanji', 'kraft', 'vellum', 'origami', 'cardboard', 'newsprint', 'parchment', 'flat'].forEach(function(t) {
+        document.body.classList.remove('texture-' + t);
+        document.body.classList.remove('pc-texture-' + t);
+      });
+      document.body.classList.add('pc-texture-' + savedPaper);
       document.body.classList.add('texture-' + savedPaper);
       // 뷰 모드 동기화 (저장된 뷰 모드 즉시 적용하여 화면 깜빡임 방지)
       if (localStorage.getItem('pc_view_mode') === 'page') {
@@ -385,9 +420,6 @@
   <header class="pc-site-header" id="pc-site-header">
     <div class="pc-site-header-inner">
       <div class="pc-site-header-left">
-        <button type="button" class="pc-header-toggle-sidebar pc-btn" id="pc-header-sidebar-toggle" title="사이드바 접기/펼치기" aria-label="사이드바 토글">
-          <span class="pc-inline-icon is-sm fi fi-rr-menu-burger" data-icon="menu-burger"></span>
-        </button>
         <a href="#overview" class="pc-site-logo" title="PaperCut UI 홈">
           <div class="pc-site-logo-plate" title="PaperCut UI 로고 (우표 천공 아이콘 배경 플레이트)">
             <svg class="pc-site-logo-svg" viewBox="0 0 40 40" width="44" height="44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -442,7 +474,7 @@
             <circle cx="23" cy="21" r="10" fill="#E8BD65" stroke="#FFFFFF" stroke-width="0.88"/>
             <circle cx="23" cy="21" r="7" fill="#FEE396"/>
             <path d="M 20 18 L 23 18 L 26 15 L 26 27 L 23 24 L 20 24 Z" fill="#66460D"/>
-            <text class="label" x="38" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#66460D" letter-spacing="-0.3">종이 소리: OFF</text>
+            <text class="pc-label label" x="38" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#66460D" letter-spacing="-0.3">종이 소리: OFF</text>
           </svg>
         </button>
         <!-- 2. 뷰 모드 전환 버튼 (민트 노치 티켓 SVG) -->
@@ -463,21 +495,61 @@
               <rect x="0" y="6" width="13" height="4" rx="1.5" fill="#20533C"/>
               <rect x="0" y="12" width="13" height="4" rx="1.5" fill="#20533C"/>
             </g>
-            <text id="header-view-mode-label" class="label" x="42" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#20533C" letter-spacing="-0.3">스크롤뷰: ON</text>
+            <text id="header-view-mode-label" class="pc-label label" x="42" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#20533C" letter-spacing="-0.3">스크롤뷰: ON</text>
           </svg>
         </button>
         <!-- 3. 종이 재질 및 소리 선택 메뉴 (Paper Texture & Sound Selector) -->
         <div class="pc-sound-select-wrapper" style="position: relative; display: inline-flex; align-items: center; margin-left: 2px;">
-          <select id="header-paper-sound-type" class="pc-select" title="종이 질감 및 소리 선택" style="height: 38px; padding: 0 12px; font-family: 'Nanum Square Round', sans-serif; font-size: 12.5px; font-weight: 800; border-radius: 10px; background: #FFFDF9; border: 1.5px solid #EADBCC; color: #4A3A2C; cursor: pointer; box-shadow: var(--pc-paper-shadow-xs);">
-            <option value="cotton" selected>🌿 300g 코튼지</option>
-            <option value="hanji">🎋 닥나무 한지</option>
-            <option value="kraft">📦 크라프트 보드</option>
-            <option value="vellum">📜 실크 벨러지</option>
-            <option value="origami">🎨 오리가미 화지</option>
-            <option value="cardboard">📦 골판지 카톤</option>
-            <option value="newsprint">📰 빈티지 신문지</option>
-            <option value="parchment">📜 고문서 양피지</option>
-          </select>
+          <div class="pc-dropdown-custom pc-header-paper-dropdown" id="pc-header-paper-dropdown" style="position: relative; display: inline-flex;">
+            <button type="button" class="pc-svg-kirigami-btn pc-header-svg-btn pc-dropdown-trigger pc-btn" id="header-paper-dropdown-trigger" aria-haspopup="true" aria-expanded="false" title="종이 질감 및 소리 선택">
+              <svg class="pc-kirigami-btn-svg" viewBox="0 0 160 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 144px; height: 38px; display: block;">
+                <defs>
+                  <filter id="hdr-paper-sh" x="-20%" y="-20%" width="140%" height="150%">
+                    <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.50"/>
+                    <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.25"/>
+                    <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                  </filter>
+                </defs>
+                <!-- Layer 1: Warm Peach Base Plate -->
+                <path d="M 12 6 C 8 6 5 9 5 13 L 5 29 C 5 33 8 36 12 36 L 150 36 C 154 36 157 33 157 29 L 157 13 C 157 9 154 6 150 6 Z" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.88" filter="url(#hdr-paper-sh)"/>
+                <!-- Layer 2: Cream Paper Inlay -->
+                <rect x="9" y="9" width="144" height="24" rx="4" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.75"/>
+                <!-- Layer 3: Icon Plate (Palette/Leaf) -->
+                <circle cx="23" cy="21" r="9" fill="#FDF1EA" stroke="#FFFFFF" stroke-width="0.88"/>
+                <g transform="translate(16, 14) scale(0.65)">
+                  <path d="M 11 3 C 6 3 2 7 2 12 C 2 17 6 21 11 21 C 12.5 21 13.5 20 13.5 18.5 C 13.5 17.8 13.2 17.2 12.8 16.7 C 12.4 16.2 12.2 15.6 12.2 15 C 12.2 13.6 13.3 12.5 14.7 12.5 L 16.5 12.5 C 19 12.5 21 10.5 21 8 C 21 4.5 16.5 3 11 3 Z" fill="#6E3B21"/>
+                  <circle cx="6.5" cy="8.5" r="1.5" fill="#FFFDF9"/>
+                  <circle cx="10.5" cy="6.5" r="1.5" fill="#FFFDF9"/>
+                  <circle cx="15.5" cy="8.5" r="1.5" fill="#FFFDF9"/>
+                </g>
+                <!-- Layer 4: Current Paper Label -->
+                <text id="header-paper-current-label" class="pc-label label" x="38" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#6E3B21" letter-spacing="-0.3">🌿 300g 코튼지</text>
+                <!-- Layer 5: Paper Dropdown Chevron Indicator -->
+                <path d="M 143 19 L 147 24 L 151 19" stroke="#6E3B21" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="pc-dropdown-menu" id="header-paper-dropdown-menu" role="menu" style="min-width: 170px; right: 0; left: auto;">
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost pc-is-active" data-value="cotton">🌿 300g 코튼지</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="hanji">🎋 닥나무 한지</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="kraft">📦 크라프트 보드</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="vellum">📜 실크 벨러지</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="origami">🎨 오리가미 화지</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="cardboard">📦 골판지 카톤</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="newsprint">📰 빈티지 신문지</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="parchment">📜 고문서 양피지</button>
+            </div>
+            <!-- 하위 호환성 및 기존 로직 동기화를 위한 숨김 select 유지 -->
+            <select id="header-paper-sound-type" style="display:none;" aria-hidden="true">
+              <option value="cotton" selected>🌿 300g 코튼지</option>
+              <option value="hanji">🎋 닥나무 한지</option>
+              <option value="kraft">📦 크라프트 보드</option>
+              <option value="vellum">📜 실크 벨러지</option>
+              <option value="origami">🎨 오리가미 화지</option>
+              <option value="cardboard">📦 골판지 카톤</option>
+              <option value="newsprint">📰 빈티지 신문지</option>
+              <option value="parchment">📜 고문서 양피지</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
@@ -492,17 +564,28 @@
     <aside id="pc-sidebar-nav" class="pc-site-sidebar" aria-label="사이드바 메뉴">
       <div class="pc-sidebar-header">
         <div class="pc-sidebar-header-lead">
-          <span class="pc-sidebar-header-icon fi fi-rr-book-alt" aria-hidden="true"></span>
+          <span class="pc-sidebar-header-icon pc-inline-icon is-sm" data-icon="book" aria-hidden="true"></span>
           <span class="pc-sidebar-header-title">목차 네비게이션</span>
         </div>
-        <button type="button" class="pc-sidebar-toggle-btn pc-btn" id="pc-sidebar-toggle" title="사이드바 접기 (Collapse)" aria-label="사이드바 접기">
-          <span class="pc-inline-icon is-color is-xs fi fi-rr-arrow-left" data-icon="arrow-left"></span>
+        <button type="button" class="pc-sidebar-toggle-btn pc-svg-kirigami-btn" id="pc-sidebar-toggle" title="사이드바 접기 (Collapse)" aria-label="사이드바 접기" style="width:34px; height:34px; padding:0; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center;">
+          <svg class="pc-kirigami-btn-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px; height:34px; display:block;">
+            <defs>
+              <filter id="sb-toggle-sh" x="-20%" y="-20%" width="140%" height="150%">
+                <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.40"/>
+                <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#2E1E14" flood-opacity="0.20"/>
+                <feDropShadow dx="0" dy="-0.5" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
+              </filter>
+            </defs>
+            <rect x="3" y="3" width="28" height="28" rx="6" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.88" filter="url(#sb-toggle-sh)"/>
+            <rect x="5.5" y="5.5" width="23" height="23" rx="4.5" fill="#FFFDF9" stroke="#E6DDD1" stroke-width="0.75"/>
+            <path id="sb-toggle-arrow" d="M 20 11 L 14 17 L 20 23" stroke="#4A3A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
       </div>
 
       <div class="pc-sidebar-menu">
         <div class="pc-sidebar-category">기본 정보</div>
-        <a href="#overview" class="pc-sidebar-item pc-btn is-active" role="button" data-target="overview" title="개요 &amp; 히어로">
+        <a href="#overview" class="pc-sidebar-item pc-sidebar-nav-btn pc-btn is-active" role="button" data-target="overview" title="개요 &amp; 히어로">
           <div class="pc-sidebar-item-icon" data-bg-shape="postage-stamp" data-icon="home">
             <div class="pc-sidebar-plate-placeholder" data-bg-shape="postage-stamp" data-icon="home">
               <span class="pc-inline-icon is-color is-sm" data-icon="home"></span>
@@ -512,7 +595,7 @@
           <span class="pc-sidebar-badge pc-badge--stamp pc-badge--peach pc-badge-peach">Hero</span>
         </a>
         <div class="pc-sidebar-category">컴포넌트 컬렉션</div>
-        <a href="#pc-components" class="pc-sidebar-item pc-btn" role="button" data-target="pc-components" aria-controls="pc-sidebar-sub-pc-components" aria-expanded="true" title="3D 페이퍼 UI &amp; 특화 컴포넌트 (클릭 시 하위 메뉴 토글)">
+        <a href="#pc-components" class="pc-sidebar-item pc-sidebar-nav-btn pc-btn" role="button" data-target="pc-components" aria-controls="pc-sidebar-sub-pc-components" aria-expanded="true" title="3D 페이퍼 UI &amp; 특화 컴포넌트 (클릭 시 하위 메뉴 토글)">
           <div class="pc-sidebar-item-icon" data-bg-shape="clover-leaf" data-icon="grid-view">
             <div class="pc-sidebar-plate-placeholder" data-bg-shape="clover-leaf" data-icon="grid-view">
               <span class="pc-inline-icon is-color is-sm" data-icon="grid-view"></span>
@@ -520,7 +603,7 @@
           </div>
           <span class="pc-sidebar-item-text">페이퍼 UI &amp; 특화 컴포넌트</span>
           <span class="pc-sidebar-badge pc-badge--ticket pc-badge--lavender pc-badge-lavender">통합 마스터</span>
-          <span class="pc-sidebar-chevron fi fi-rr-angle-small-down" aria-hidden="true"></span>
+          <span class="pc-sidebar-chevron pc-inline-icon is-xs" data-icon="chevron-down" aria-hidden="true"></span>
         </a>
         <div class="pc-sidebar-submenu is-open" id="pc-sidebar-sub-pc-components" role="group" aria-label="페이퍼 UI &amp; 특화 컴포넌트 하위 메뉴" data-parent="pc-components">
           <a href="#pc-components/buttons" class="pc-sidebar-subitem" data-parent="pc-components" data-sub="buttons" title="3D 페이퍼 커팅 버튼">
@@ -642,7 +725,7 @@
         <div class="pc-sidebar-sound-widget" id="pc-sidebar-sound-widget" aria-label="종이 소리 테스트 제어기">
           <div class="pc-sidebar-sound-header">
             <div class="pc-sidebar-sound-title-group">
-              <span class="pc-sidebar-sound-icon fi fi-rr-volume" id="pc-sidebar-sound-icon" aria-hidden="true"></span>
+              <span class="pc-sidebar-sound-icon pc-inline-icon is-xs" data-icon="volume" id="pc-sidebar-sound-icon" aria-hidden="true"></span>
               <span class="pc-sidebar-sound-label">종이 소리 테스트</span>
             </div>
             <button type="button" class="pc-sidebar-sound-toggle-btn" id="pc-sidebar-sound-toggle" title="종이 소리 바스락 효과음 켜기/끄기" aria-pressed="false">
@@ -722,12 +805,65 @@
 
     <!-- 3. [CONTENT] 중앙/우측 메인 콘텐츠 및 글로벌 푸터 래퍼 영역 -->
     <div class="pc-content-wrapper" id="pc-content-wrapper">
-      <main class="pc-site-main showcase-container" id="main-content">
+      <main class="pc-site-main pc-showcase-container showcase-container" id="main-content">
       
+      <!-- 0. [BREADCRUMB & NAV] 상단 텍스트 네비게이션 (최상단 왼쪽: 기본 정보 > 개요 & 히어로) -->
+      <nav id="pc-page-nav-bar" class="pc-page-nav-bar pc-card pc-card-sheet" aria-label="현재 위치 네비게이션">
+        <div class="pc-breadcrumb" aria-label="현재 위치">
+          <a href="#overview" class="pc-breadcrumb-link pc-svg-kirigami-btn" title="홈" style="display:inline-flex; width:34px; height:34px; padding:0; align-items:center; justify-content:center; border:none; background:transparent;">
+            <svg class="pc-kirigami-btn-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px; height:34px; display:block;">
+              <defs>
+                <filter id="bc-home-sh" x="-20%" y="-20%" width="140%" height="150%">
+                  <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.40"/>
+                  <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#2E1E14" flood-opacity="0.20"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <rect x="3" y="3" width="28" height="28" rx="6" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88" filter="url(#bc-home-sh)"/>
+              <rect x="5.5" y="5.5" width="23" height="23" rx="4.5" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.75"/>
+              <g transform="translate(9, 9)">
+                <path d="M 8 2.5 L 1.5 8.5 L 3.5 8.5 L 3.5 14.5 L 6.5 14.5 L 6.5 10.5 L 9.5 10.5 L 9.5 14.5 L 12.5 14.5 L 12.5 8.5 L 14.5 8.5 Z" fill="#66460D"/>
+              </g>
+            </svg>
+          </a>
+          <span class="pc-breadcrumb-separator">›</span>
+          <span class="pc-breadcrumb-category">기본 정보</span>
+          <span class="pc-breadcrumb-separator">›</span>
+          <span class="pc-breadcrumb-current pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 13px; font-weight: 800;">개요 &amp; 히어로</span>
+        </div>
+        <div class="pc-page-nav-actions">
+          <span class="pc-badge pc-badge--ticket pc-badge--lavender" style="font-size:12px; font-weight:800; padding: 5px 14px;">
+            전체 연속 스크롤
+          </span>
+          <button type="button" class="pc-svg-kirigami-btn pc-page-mode-toggle" id="pc-toggle-page-mode" title="스크롤뷰 모드를 전환합니다" style="padding:0; border:none; background:transparent; display:inline-flex;">
+            <svg class="pc-kirigami-btn-svg" viewBox="0 0 160 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 144px; height: 38px; display: block;">
+              <defs>
+                <filter id="nav-view-sh" x="-20%" y="-20%" width="140%" height="150%">
+                  <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.45"/>
+                  <feDropShadow dx="0" dy="2.8" stdDeviation="1.4" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <!-- Layer 1: Ticket Base -->
+              <path d="M 8 6 H 152 C 154 6 156 8 156 10 V 16 C 152 16 149 18 149 21 C 149 24 152 26 156 26 V 32 C 156 34 154 36 152 36 H 8 C 6 36 4 34 4 32 V 26 C 8 26 11 24 11 21 C 11 18 8 16 4 16 V 10 C 4 8 6 6 8 6 Z" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.88" filter="url(#nav-view-sh)"/>
+              <line x1="34" y1="8" x2="34" y2="34" stroke="#FFFDF9" stroke-width="1.2" stroke-dasharray="2 2"/>
+              <rect x="11" y="10" width="20" height="22" rx="4" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88"/>
+              <!-- Mode Icon -->
+              <g id="nav-mode-icon-list" transform="translate(15, 14)">
+                <rect x="0" y="0" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+                <rect x="0" y="5" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+                <rect x="0" y="10" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+              </g>
+              <text id="nav-toggle-mode-label" class="pc-label" x="44" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#20533C" letter-spacing="-0.3">스크롤뷰: ON</text>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
       <!-- Hero Banner with Subagent Paper-cut Artwork -->
-      <section class="hero-banner pc-page-view" id="overview">
+      <section class="pc-card pc-card-sheet pc-hero-banner hero-banner pc-page-view" id="overview">
       <div class="pc-washi-tape"></div>
-      <div class="hero-content">
+      <div class="pc-hero-content hero-content">
         <div>
           <div style="margin-bottom: 16px;">
             <img src="logo.svg" alt="PaperCut UI - Layered Craft Design System" style="height: 48px; width: auto; max-width: 100%; display: block;">
@@ -740,18 +876,448 @@
           <h1 style="font-size: 38px; font-weight: 900; margin: 10px 0 14px; letter-spacing: -1px; line-height: 1.25;">
             레이어드 페이퍼 아트<br><span style="color: var(--pc-lavender-dark); text-decoration: underline wavy var(--pc-buttercup-shadow);">UI 컴포넌트 라이브러리</span>
           </h1>
-          <p style="font-size: 16px; color: var(--pc-ink-muted); margin-bottom: 12px;">
+          <p style="font-size: 16px; color: var(--pc-ink-muted); margin-bottom: 0; line-height: 1.6;">
             디지털 인터페이스에 손으로 한 땀 한 땀 오려 붙인 종이공예의 따뜻함과 물리적 깊이를 부여합니다.<br>
             <strong>44종 마스터 컴포넌트, 6대 실전 앱 블록, 678종 풀컬러 3D 아이콘</strong>으로 엔터프라이즈급 종이공예 UI를 경험해보세요.
           </p>
+        </div>
 
-          <div class="prompt-box">
-            "Layered paper-cut illustration of [ ], with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling."
+        <div style="position: relative;">
+          <div class="pc-washi-tape pc-washi-tape-mint" style="top: -14px; left: 30%; z-index: 15;"></div>
+          <div class="pc-hero-art-frame hero-art-frame" style="overflow: visible;">
+            <!-- 3D Paper-cut Shadow Box Diorama Component -->
+            <div class="pc-diorama-container" data-pc-diorama data-view-mode="3d">
+              <!-- Diorama Toolbar: View Mode Tabs + Exploded Action -->
+              <div class="pc-diorama-toolbar">
+                <div class="pc-diorama-tabs" role="tablist" aria-label="페이퍼아트 뷰 선택">
+                  <button type="button" class="pc-diorama-tab is-active" data-view-tab="3d" role="tab" aria-selected="true">
+                    <span class="pc-diorama-tab-icon">✨</span> 3D 페이퍼아트 디오라마
+                  </button>
+                  <button type="button" class="pc-diorama-tab" data-view-tab="original" role="tab" aria-selected="false">
+                    <span class="pc-diorama-tab-icon">🖼️</span> 원작 이미지 비교
+                  </button>
+                </div>
+                <div class="pc-diorama-tools">
+                  <button type="button" class="pc-diorama-btn-exploded" data-action="toggle-exploded" aria-pressed="false" title="Z-축 레이어 분해 뷰로 물리적 종이 구조를 살펴봅니다">
+                    <span class="pc-btn-icon">📐</span>
+                    <span class="pc-btn-text">레이어 분해 뷰 (Exploded)</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 3D Interactive Diorama Panel -->
+              <div class="pc-diorama-panel-art">
+                <div class="pc-diorama-viewport">
+                  <div class="pc-diorama-stage">
+                    
+                    <!-- L0: 하늘 & 태양 -->
+                    <div class="pc-diorama-layer pc-diorama-l0" data-layer-label="L0: 하늘 &amp; 태양">
+                      <svg class="pc-diorama-svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <linearGradient id="l0-sky-grad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#CBE5ED"/>
+                            <stop offset="55%" stop-color="#E2F0F5"/>
+                            <stop offset="100%" stop-color="#FDF1E6"/>
+                          </linearGradient>
+                          <radialGradient id="l0-sun-glow" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#FFF9E8" stop-opacity="0.9"/>
+                            <stop offset="50%" stop-color="#FEE396" stop-opacity="0.45"/>
+                            <stop offset="100%" stop-color="#F7BA9E" stop-opacity="0"/>
+                          </radialGradient>
+                          <filter id="l0-paper-sh" x="-10%" y="-10%" width="120%" height="120%">
+                            <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.25"/>
+                            <feDropShadow dx="0" dy="-0.6" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.9"/>
+                          </filter>
+                        </defs>
+                        <!-- Canvas Base Cardstock -->
+                        <rect width="800" height="500" rx="8" fill="url(#l0-sky-grad)"/>
+                        <!-- Sun Rays Soft Petals -->
+                        <g transform="translate(380, 160)" opacity="0.45">
+                          <circle cx="0" cy="0" r="140" fill="url(#l0-sun-glow)"/>
+                          <path d="M 0 -95 L 8 -40 L -8 -40 Z" fill="#FFF8E0"/>
+                          <path d="M 67 -67 L 30 -26 L 20 -38 Z" fill="#FFF8E0"/>
+                          <path d="M 95 0 L 40 8 L 40 -8 Z" fill="#FFF8E0"/>
+                          <path d="M 67 67 L 26 30 L 38 20 Z" fill="#FFF8E0"/>
+                          <path d="M 0 95 L -8 40 L 8 40 Z" fill="#FFF8E0"/>
+                          <path d="M -67 67 L -30 26 L -20 38 Z" fill="#FFF8E0"/>
+                          <path d="M -95 0 L -40 -8 L -40 8 Z" fill="#FFF8E0"/>
+                          <path d="M -67 -67 L -26 -30 L -38 -20 Z" fill="#FFF8E0"/>
+                        </g>
+                        <!-- Sun Concentric Paper Plates -->
+                        <g transform="translate(380, 160)">
+                          <circle cx="0" cy="0" r="54" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l0-paper-sh)"/>
+                          <circle cx="0" cy="0" r="42" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <circle cx="0" cy="0" r="28" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.6"/>
+                        </g>
+                        <!-- High Cirrus Cloud Ribbons -->
+                        <path d="M 80 80 Q 180 65 280 85 Q 380 100 480 80 Q 560 65 640 85 Q 720 95 760 90" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" opacity="0.65"/>
+                        <path d="M 120 115 Q 220 100 320 120 Q 420 135 520 115 Q 600 100 680 120" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/>
+                      </svg>
+                    </div>
+
+                    <!-- L1: 원경 산맥 & 적운 구름 -->
+                    <div class="pc-diorama-layer pc-diorama-l1" data-layer-label="L1: 원경 산맥 &amp; 적운 구름">
+                      <svg class="pc-diorama-svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <filter id="l1-cloud-sh" x="-10%" y="-10%" width="120%" height="130%">
+                            <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.35"/>
+                            <feDropShadow dx="0" dy="4" stdDeviation="2.5" flood-color="#2E1E14" flood-opacity="0.18"/>
+                            <feDropShadow dx="0" dy="-0.8" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                          </filter>
+                          <filter id="l1-mountain-sh" x="-10%" y="-10%" width="120%" height="130%">
+                            <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.40"/>
+                            <feDropShadow dx="0" dy="4.5" stdDeviation="2.2" flood-color="#2E1E14" flood-opacity="0.20"/>
+                            <feDropShadow dx="0" dy="-0.8" stdDeviation="0.35" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                          </filter>
+                        </defs>
+                        <!-- Scalloped Cumulus Clouds Left Bank -->
+                        <path d="M 30 260 C 30 200 90 190 130 220 C 170 170 240 180 280 220 C 320 190 380 210 400 250 C 420 280 400 320 380 340 L 30 340 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l1-cloud-sh)"/>
+                        <!-- Scalloped Cumulus Clouds Right Bank -->
+                        <path d="M 440 240 C 460 170 540 160 590 200 C 630 150 710 160 750 210 C 780 190 820 220 830 260 L 830 350 L 430 350 C 420 300 430 270 440 240 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l1-cloud-sh)"/>
+                        
+                        <!-- Distant Mountain Peaks with Origami Paper Facets -->
+                        <!-- Peak 1 (Left Soft Lavender) -->
+                        <polygon points="90,320 180,180 270,320" fill="#D7CBEB" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l1-mountain-sh)"/>
+                        <polygon points="90,320 180,180 180,320" fill="#B8A6D9"/>
+                        <polygon points="180,180 155,220 170,230 180,215 190,230 205,220" fill="#FFFDF9"/>
+
+                        <!-- Peak 2 (Center Majestic Mountain) -->
+                        <polygon points="230,330 360,135 490,330" fill="#D7CBEB" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l1-mountain-sh)"/>
+                        <polygon points="230,330 360,135 360,330" fill="#A896CB"/>
+                        <polygon points="360,135 320,195 340,210 360,190 380,210 400,195" fill="#FFFDF9"/>
+
+                        <!-- Peak 3 (Right Rose-Peach Mountain) -->
+                        <polygon points="440,330 550,170 660,330" fill="#F5B8BE" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l1-mountain-sh)"/>
+                        <polygon points="440,330 550,170 550,330" fill="#DE939B"/>
+                        <polygon points="550,170 525,215 540,225 550,210 560,225 575,215" fill="#FFFDF9"/>
+
+                        <!-- Peak 4 (Far Right Soft Sage) -->
+                        <polygon points="620,330 710,210 800,330" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l1-mountain-sh)"/>
+                        <polygon points="620,330 710,210 710,330" fill="#9EC09A"/>
+                        <polygon points="710,210 690,245 705,255 710,240 725,250" fill="#FFFDF9"/>
+                      </svg>
+                    </div>
+
+                    <!-- L2: 중경 파스텔 구릉 & 오솔길 -->
+                    <div class="pc-diorama-layer pc-diorama-l2" data-layer-label="L2: 파스텔 구릉 &amp; 오솔길">
+                      <svg class="pc-diorama-svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <filter id="l2-hill-sh" x="-10%" y="-10%" width="120%" height="135%">
+                            <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                            <feDropShadow dx="0" dy="5" stdDeviation="2.8" flood-color="#2E1E14" flood-opacity="0.22"/>
+                            <feDropShadow dx="0" dy="-0.8" stdDeviation="0.35" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                          </filter>
+                        </defs>
+                        <!-- Hill 1: Deep Pastel Buttercup/Peach Slope -->
+                        <path d="M 0 350 Q 220 250 480 320 Q 640 360 800 310 L 800 440 L 0 440 Z" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l2-hill-sh)"/>
+                        
+                        <!-- Hill 2: Soft Sage Green Undulating Ridge -->
+                        <path d="M 0 320 Q 180 370 380 300 Q 580 240 800 340 L 800 450 L 0 450 Z" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l2-hill-sh)"/>
+
+                        <!-- Winding Countryside Trail Cutout -->
+                        <path d="M 120 420 C 160 380 200 370 260 350 C 320 330 360 340 420 315 C 460 300 490 290 510 290" stroke="#FFFDF9" stroke-width="9" stroke-linecap="round" fill="none"/>
+                        <path d="M 120 420 C 160 380 200 370 260 350 C 320 330 360 340 420 315 C 460 300 490 290 510 290" stroke="#E2D7C5" stroke-width="1.2" stroke-dasharray="3 3" stroke-linecap="round" fill="none"/>
+
+                        <!-- Midground Tree Groves -->
+                        <g transform="translate(140, 270) scale(0.75)">
+                          <polygon points="30,10 15,35 45,35" fill="#5A8F76" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <polygon points="30,22 10,50 50,50" fill="#4B7B65" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <rect x="27" y="50" width="6" height="12" fill="#6E3B21"/>
+                        </g>
+                        <g transform="translate(170, 280) scale(0.65)">
+                          <polygon points="30,10 15,35 45,35" fill="#82C2A8" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <polygon points="30,22 10,50 50,50" fill="#5A8F76" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <rect x="27" y="50" width="6" height="12" fill="#6E3B21"/>
+                        </g>
+                        <g transform="translate(620, 260) scale(0.8)">
+                          <rect x="28" y="42" width="6" height="18" fill="#6E3B21"/>
+                          <circle cx="31" cy="28" r="20" fill="#F5B8BE" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l2-hill-sh)"/>
+                          <circle cx="25" cy="22" r="5" fill="#FFFDF9"/>
+                          <circle cx="37" cy="26" r="4" fill="#FFFDF9"/>
+                        </g>
+                        <g transform="translate(660, 275) scale(0.7)">
+                          <rect x="28" y="42" width="6" height="18" fill="#6E3B21"/>
+                          <circle cx="31" cy="28" r="18" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l2-hill-sh)"/>
+                          <circle cx="28" cy="22" r="4" fill="#FFFDF9"/>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <!-- L3: 스트라이프 열기구 & 교회 마을 & 굴뚝 연기 오두막 -->
+                    <div class="pc-diorama-layer pc-diorama-l3" data-layer-label="L3: 스트라이프 열기구 &amp; 교회 마을">
+                      <svg class="pc-diorama-svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <filter id="l3-balloon-sh" x="-20%" y="-20%" width="140%" height="150%">
+                            <feDropShadow dx="0" dy="1.5" stdDeviation="1" flood-color="#2E1E14" flood-opacity="0.48"/>
+                            <feDropShadow dx="0" dy="6" stdDeviation="3.5" flood-color="#2E1E14" flood-opacity="0.25"/>
+                            <feDropShadow dx="0" dy="16" stdDeviation="8" flood-color="#2E1E14" flood-opacity="0.12"/>
+                            <feDropShadow dx="0" dy="-0.8" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                          </filter>
+                          <filter id="l3-village-sh" x="-15%" y="-15%" width="130%" height="140%">
+                            <feDropShadow dx="0" dy="1.2" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                            <feDropShadow dx="0" dy="5" stdDeviation="2.5" flood-color="#2E1E14" flood-opacity="0.22"/>
+                            <feDropShadow dx="0" dy="-0.8" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                          </filter>
+                        </defs>
+
+                        <!-- Centerpiece Striped Hot Air Balloon -->
+                        <g transform="translate(485, 75)" filter="url(#l3-balloon-sh)">
+                          <!-- 7 Symmetrical Pastel Color Stripes -->
+                          <path d="M 70 12 C 30 12 12 45 12 75 C 12 105 35 128 50 148 L 56 146 C 44 126 28 102 28 75 C 28 48 44 20 70 12 Z" fill="#D7CBEB" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 70 12 C 44 20 28 48 28 75 C 28 102 44 126 56 146 L 63 145 C 52 124 40 100 40 75 C 40 45 54 20 70 12 Z" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 70 12 C 54 20 40 45 40 75 C 40 100 52 124 63 145 L 70 144 C 62 122 55 98 55 75 C 55 46 64 20 70 12 Z" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 70 12 C 64 20 55 46 55 75 C 55 98 62 122 70 144 C 78 122 85 98 85 75 C 85 46 76 20 70 12 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 70 12 C 76 20 85 46 85 75 C 85 98 78 122 70 144 L 77 145 C 88 124 100 100 100 75 C 100 45 86 20 70 12 Z" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 70 12 C 86 20 100 45 100 75 C 100 100 88 124 77 145 L 84 146 C 96 126 112 102 112 75 C 112 48 96 20 70 12 Z" fill="#F5B8BE" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 70 12 C 96 20 112 48 112 75 C 112 102 96 126 84 146 L 90 148 C 105 128 128 105 128 75 C 128 45 110 12 70 12 Z" fill="#BDE0EA" stroke="#FFFFFF" stroke-width="0.8"/>
+                          
+                          <!-- Balloon Lower Scallop Skirt -->
+                          <path d="M 48 147 Q 54 153 60 147 Q 66 153 72 147 Q 78 153 84 147 Q 90 153 92 147 L 91 152 L 49 152 Z" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.6"/>
+                          <circle cx="54" cy="150" r="1.5" fill="#FEE396"/>
+                          <circle cx="66" cy="150" r="1.5" fill="#FEE396"/>
+                          <circle cx="78" cy="150" r="1.5" fill="#FEE396"/>
+                          <circle cx="87" cy="150" r="1.5" fill="#FEE396"/>
+
+                          <!-- Rigging Lines -->
+                          <line x1="53" y1="152" x2="57" y2="170" stroke="#6E3B21" stroke-width="1.2"/>
+                          <line x1="63" y1="152" x2="62" y2="170" stroke="#6E3B21" stroke-width="1.2"/>
+                          <line x1="77" y1="152" x2="78" y2="170" stroke="#6E3B21" stroke-width="1.2"/>
+                          <line x1="87" y1="152" x2="83" y2="170" stroke="#6E3B21" stroke-width="1.2"/>
+
+                          <!-- Woven Wicker Basket -->
+                          <rect x="55" y="170" width="30" height="22" rx="4" fill="#C49A6C" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <rect x="58" y="173" width="24" height="16" rx="2" fill="#A87A4A"/>
+                          <line x1="58" y1="178" x2="82" y2="178" stroke="#8F6236" stroke-width="1"/>
+                          <line x1="58" y1="184" x2="82" y2="184" stroke="#8F6236" stroke-width="1"/>
+                          <line x1="64" y1="173" x2="64" y2="189" stroke="#8F6236" stroke-width="1"/>
+                          <line x1="70" y1="173" x2="70" y2="189" stroke="#8F6236" stroke-width="1"/>
+                          <line x1="76" y1="173" x2="76" y2="189" stroke="#8F6236" stroke-width="1"/>
+
+                          <!-- Character in Basket Waving! -->
+                          <circle cx="70" cy="166" r="6" fill="#FDECE0" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <circle cx="67.5" cy="167" r="1.2" fill="#F5B8BE"/>
+                          <circle cx="72.5" cy="167" r="1.2" fill="#F5B8BE"/>
+                          <circle cx="68" cy="165" r="0.75" fill="#3D352E"/>
+                          <circle cx="72" cy="165" r="0.75" fill="#3D352E"/>
+                          <path d="M 64 163 C 65 158 75 158 76 163 Z" fill="#DE939B"/>
+                          <circle cx="82" cy="163" r="2.2" fill="#FDECE0"/>
+                          <path d="M 66 170 Q 60 171 58 174 Q 63 173 68 171 Z" fill="#82C2A8"/>
+                        </g>
+
+                        <!-- Little Drifting Cloud -->
+                        <path d="M 450 165 C 450 155 460 150 470 154 C 475 145 490 148 495 155 C 505 155 510 162 505 170 L 450 170 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.8" filter="url(#l3-village-sh)" opacity="0.95"/>
+
+                        <!-- Village Church & Smoking Cottages -->
+                        <g transform="translate(180, 260)" filter="url(#l3-village-sh)">
+                          <!-- Church Nave Body -->
+                          <rect x="50" y="55" width="55" height="35" rx="3" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <!-- Church Nave Roof -->
+                          <polygon points="45,55 77,32 110,55" fill="#DE939B" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <!-- Church Arched Windows -->
+                          <path d="M 62 65 C 62 60 68 60 68 65 L 68 76 L 62 76 Z" fill="#BDE0EA" stroke="#6E3B21" stroke-width="0.6"/>
+                          <path d="M 74 65 C 74 60 80 60 80 65 L 80 76 L 74 76 Z" fill="#BDE0EA" stroke="#6E3B21" stroke-width="0.6"/>
+                          <path d="M 86 65 C 86 60 92 60 92 65 L 92 76 L 86 76 Z" fill="#BDE0EA" stroke="#6E3B21" stroke-width="0.6"/>
+                          
+                          <!-- Church Bell Tower & Spire -->
+                          <rect x="24" y="32" width="28" height="58" rx="2" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 33 42 C 33 37 43 37 43 42 L 43 52 L 33 52 Z" fill="#544B42"/>
+                          <circle cx="38" cy="46" r="3" fill="#FEE396"/>
+                          <polygon points="20,32 38,-4 56,32" fill="#473B6B" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <!-- Golden Cross -->
+                          <line x1="38" y1="-12" x2="38" y2="-4" stroke="#FEE396" stroke-width="2" stroke-linecap="round"/>
+                          <line x1="34" y1="-8" x2="42" y2="-8" stroke="#FEE396" stroke-width="2" stroke-linecap="round"/>
+                          <path d="M 32 72 C 32 67 44 67 44 72 L 44 90 L 32 90 Z" fill="#6E3B21"/>
+
+                          <!-- Cottage 1 (with Chimney & Spiral Smoke) -->
+                          <g transform="translate(-55, 20)">
+                            <rect x="10" y="35" width="36" height="28" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="6,35 28,15 50,35" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <rect x="22" y="44" width="8" height="10" fill="#FEE396" stroke="#6E3B21" stroke-width="0.6"/>
+                            <rect x="36" y="10" width="6" height="16" fill="#A896CB"/>
+                            <!-- Layered Circular Papercut Smoke Plumes -->
+                            <circle cx="39" cy="4" r="5" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.6" opacity="0.95"/>
+                            <circle cx="43" cy="-6" r="7" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.6" opacity="0.9"/>
+                            <circle cx="48" cy="-18" r="9" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.6" opacity="0.85"/>
+                            <circle cx="56" cy="-32" r="11" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.6" opacity="0.75"/>
+                          </g>
+
+                          <!-- Cottage 2 -->
+                          <g transform="translate(125, 24)">
+                            <rect x="8" y="32" width="38" height="26" fill="#F4EFE6" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="4,32 27,14 50,32" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <rect x="22" y="42" width="10" height="16" fill="#6E3B21"/>
+                            <rect x="12" y="38" width="7" height="8" fill="#FEE396"/>
+                            <rect x="15" y="8" width="5" height="15" fill="#9EC09A"/>
+                            <circle cx="17.5" cy="3" r="4.5" fill="#FFFDF9" opacity="0.9"/>
+                            <circle cx="21" cy="-7" r="6.5" fill="#FFFDF9" opacity="0.85"/>
+                            <circle cx="26" cy="-18" r="8" fill="#FFFDF9" opacity="0.75"/>
+                          </g>
+                        </g>
+                      </svg>
+                    </div>
+
+                    <!-- L4: 마트보드 음각 프레임 -->
+                    <div class="pc-diorama-layer pc-diorama-l4" data-layer-label="L4: 마트보드 음각 섀도우 박스">
+                      <svg class="pc-diorama-svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <filter id="l4-matte-sh" x="-10%" y="-10%" width="120%" height="120%">
+                            <feDropShadow dx="0" dy="2" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.48"/>
+                            <feDropShadow dx="0" dy="7" stdDeviation="4" flood-color="#2E1E14" flood-opacity="0.24"/>
+                            <feDropShadow dx="0" dy="20" stdDeviation="10" flood-color="#2E1E14" flood-opacity="0.12"/>
+                            <feDropShadow dx="0" dy="-0.8" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.98"/>
+                          </filter>
+                        </defs>
+                        <!-- Evenodd Aperture Window Cutout -->
+                        <path d="M 0 0 H 800 V 500 H 0 Z M 50 35 H 750 C 760 35 768 43 768 53 V 405 C 768 415 760 423 750 423 H 50 C 40 423 32 415 32 405 V 53 C 32 43 40 35 50 35 Z" fill="#FFFDF9" fill-rule="evenodd" filter="url(#l4-matte-sh)"/>
+                        
+                        <!-- 0.8px Beveled Inner White Rim Light -->
+                        <rect x="32" y="35" width="736" height="388" rx="18" fill="none" stroke="#FFFFFF" stroke-width="1.2"/>
+                        <rect x="33.5" y="36.5" width="733" height="385" rx="17" fill="none" stroke="#EADBCC" stroke-width="0.75"/>
+
+                        <!-- Debossed French Groove Lines -->
+                        <rect x="18" y="18" width="764" height="464" rx="10" fill="none" stroke="#EAE1D5" stroke-width="1"/>
+                        <rect x="23" y="23" width="754" height="454" rx="8" fill="none" stroke="#F0E8DC" stroke-width="0.75" stroke-dasharray="8 6"/>
+
+                        <!-- Decorative Corner Markers -->
+                        <circle cx="23" cy="23" r="3" fill="#D7CBEB"/>
+                        <circle cx="777" cy="23" r="3" fill="#D7CBEB"/>
+                        <circle cx="23" cy="477" r="3" fill="#D7CBEB"/>
+                        <circle cx="777" cy="477" r="3" fill="#D7CBEB"/>
+                      </svg>
+                    </div>
+
+                    <!-- L5: 프레임 팝아웃 전경 구릉 & 수목 & 하우스 (Breaking past frame) -->
+                    <div class="pc-diorama-layer pc-diorama-l5" data-layer-label="L5: 프레임 팝아웃 전경 구릉 &amp; 수목">
+                      <svg class="pc-diorama-svg" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <filter id="l5-popout-sh" x="-15%" y="-15%" width="130%" height="145%">
+                            <feDropShadow dx="0" dy="2" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.48"/>
+                            <feDropShadow dx="0" dy="8" stdDeviation="4.5" flood-color="#2E1E14" flood-opacity="0.25"/>
+                            <feDropShadow dx="0" dy="24" stdDeviation="12" flood-color="#2E1E14" flood-opacity="0.14"/>
+                            <feDropShadow dx="0" dy="-0.8" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                          </filter>
+                        </defs>
+
+                        <!-- Foreground Hillocks spilling out OVER the bottom frame edge -->
+                        <g filter="url(#l5-popout-sh)">
+                          <path d="M 20 450 Q 160 380 340 400 Q 520 420 780 385 L 780 500 L 20 500 Z" fill="#82C2A8" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 0 435 Q 220 395 440 430 Q 640 405 800 440 L 800 500 L 0 500 Z" fill="#5A8F76" stroke="#FFFFFF" stroke-width="0.8"/>
+                        </g>
+
+                        <!-- Pop-Out Fairy-tale Cottage -->
+                        <g transform="translate(565, 345)" filter="url(#l5-popout-sh)">
+                          <rect x="15" y="45" width="58" height="42" rx="4" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <rect x="18" y="48" width="52" height="36" fill="#FFFDF9"/>
+                          <polygon points="8,45 44,12 80,45" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <path d="M 20 34 Q 28 38 36 34 Q 44 38 52 34 Q 60 38 68 34" stroke="#DE939B" stroke-width="1.2" fill="none"/>
+                          <circle cx="44" cy="28" r="6" fill="#FEE396" stroke="#6E3B21" stroke-width="0.8"/>
+                          <line x1="44" y1="22" x2="44" y2="34" stroke="#6E3B21" stroke-width="0.6"/>
+                          <line x1="38" y1="28" x2="50" y2="28" stroke="#6E3B21" stroke-width="0.6"/>
+                          <rect x="25" y="56" width="14" height="15" rx="2" fill="#FEE396" stroke="#6E3B21" stroke-width="0.8"/>
+                          <line x1="32" y1="56" x2="32" y2="71" stroke="#6E3B21" stroke-width="0.6"/>
+                          <line x1="25" y1="63.5" x2="39" y2="63.5" stroke="#6E3B21" stroke-width="0.6"/>
+                          <rect x="47" y="58" width="16" height="29" rx="2" fill="#6E3B21" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <circle cx="60" cy="74" r="1.5" fill="#FEE396"/>
+                          <rect x="58" y="12" width="10" height="22" fill="#B9A58C" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <circle cx="63" cy="4" r="6" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <circle cx="68" cy="-8" r="8" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.8"/>
+                        </g>
+
+                        <!-- Pop-Out Evergreen Pine Grove (Left Front Edge) -->
+                        <g transform="translate(40, 310)" filter="url(#l5-popout-sh)">
+                          <g transform="translate(15, 0)">
+                            <rect x="31" y="110" width="8" height="24" fill="#6E3B21"/>
+                            <polygon points="35,20 10,55 60,55" fill="#2E5A44" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="35,42 5,82 65,82" fill="#275C46" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="35,68 0,115 70,115" fill="#1F4736" stroke="#FFFFFF" stroke-width="0.8"/>
+                          </g>
+                          <g transform="translate(60, 40) scale(0.85)">
+                            <rect x="31" y="95" width="8" height="22" fill="#6E3B21"/>
+                            <polygon points="35,20 10,50 60,50" fill="#4B7B65" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="35,38 5,75 65,75" fill="#3D6853" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="35,60 0,100 70,100" fill="#2E5A44" stroke="#FFFFFF" stroke-width="0.8"/>
+                          </g>
+                        </g>
+
+                        <!-- Pop-Out Blossom Trees & Pine on Right Front Corner -->
+                        <g transform="translate(680, 335)" filter="url(#l5-popout-sh)">
+                          <rect x="36" y="60" width="8" height="35" fill="#6E3B21"/>
+                          <circle cx="40" cy="42" r="28" fill="#F5B8BE" stroke="#FFFFFF" stroke-width="0.8"/>
+                          <circle cx="30" cy="34" r="8" fill="#FFFDF9"/>
+                          <circle cx="50" cy="38" r="7" fill="#FEE396"/>
+                          <circle cx="42" cy="50" r="6" fill="#FFFDF9"/>
+                          <g transform="translate(-25, 45) scale(0.75)">
+                            <rect x="31" y="80" width="8" height="20" fill="#6E3B21"/>
+                            <polygon points="35,15 10,45 60,45" fill="#5A8F76" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="35,35 5,70 65,70" fill="#406E58" stroke="#FFFFFF" stroke-width="0.8"/>
+                            <polygon points="35,55 0,90 70,90" fill="#2E5A44" stroke="#FFFFFF" stroke-width="0.8"/>
+                          </g>
+                        </g>
+
+                        <!-- Foreground Wooden Picket Fence & Wildflowers -->
+                        <g transform="translate(240, 410)" filter="url(#l5-popout-sh)">
+                          <rect x="0" y="32" width="180" height="4" rx="2" fill="#FFFDF9" stroke="#E2D7C5" stroke-width="0.6"/>
+                          <rect x="0" y="44" width="180" height="4" rx="2" fill="#FFFDF9" stroke="#E2D7C5" stroke-width="0.6"/>
+                          <path d="M 10 56 L 10 24 L 14 18 L 18 24 L 18 56 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <path d="M 35 56 L 35 24 L 39 18 L 43 24 L 43 56 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <path d="M 60 56 L 60 24 L 64 18 L 68 24 L 68 56 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <path d="M 85 56 L 85 24 L 89 18 L 93 24 L 93 56 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <path d="M 110 56 L 110 24 L 114 18 L 118 24 L 118 56 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <path d="M 135 56 L 135 24 L 139 18 L 143 24 L 143 56 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <path d="M 160 56 L 160 24 L 164 18 L 168 24 L 168 56 Z" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.6"/>
+
+                          <circle cx="22" cy="52" r="3.5" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <circle cx="22" cy="52" r="1.5" fill="#F7BA9E"/>
+                          <circle cx="48" cy="54" r="4" fill="#F5B8BE" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <circle cx="48" cy="54" r="1.5" fill="#DE939B"/>
+                          <circle cx="75" cy="50" r="3.5" fill="#BDE0EA" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <circle cx="98" cy="53" r="4" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <circle cx="125" cy="51" r="3.5" fill="#F5B8BE" stroke="#FFFFFF" stroke-width="0.6"/>
+                          <circle cx="150" cy="54" r="4" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.6"/>
+                        </g>
+                      </svg>
+                    </div>
+
+                  </div><!-- /.pc-diorama-stage -->
+
+                  <!-- Tactile Paper Pulp Grain Overlay -->
+                  <div class="pc-diorama-pulp-overlay" aria-hidden="true"></div>
+                </div><!-- /.pc-diorama-viewport -->
+              </div><!-- /.pc-diorama-panel-art -->
+
+              <!-- Comparison Panel: Original Reference Artwork -->
+              <div class="pc-diorama-panel-original" aria-hidden="true">
+                <img src="assets/papercut-hero.jpg" alt="원작 2D 레퍼런스 페이퍼아트 일러스트" class="pc-hero-art-img hero-art-img" style="height: auto; max-height: 480px;">
+              </div>
+            </div><!-- /.pc-diorama-container -->
+
+            <div class="pc-row-wrap" style="--pc-gap: 8px; margin-top: 12px; justify-content: space-between; align-items: center;">
+              <span style="font-family: 'Gaegu', cursive; font-size: 16px; font-weight: 700; color: var(--pc-ink-muted);">
+                <span class="pc-inline-icon is-sm" data-icon="sparkles"></span> 3D 페이퍼아트 섀도우 박스 디오라마 (마우스 틸트 &amp; 레이어 패럴랙스)
+              </span>
+              <div class="pc-row-wrap" style="--pc-gap: 6px;">
+                <span class="pc-badge pc-badge--stamp pc-badge--peach">6-Tier Shadow Box</span>
+                <span class="pc-badge pc-badge--stamp pc-badge--mint">Pop-out Kirigami</span>
+              </div>
+            </div>
           </div>
+        </div>
+      </div>
 
-          <div class="pc-row-wrap hero-actions-deck" style="--pc-gap: 10px;">
+      <!-- 2. Middle Section: Full-Width AI Prompt Box -->
+      <div class="pc-prompt-box prompt-box pc-card-well pc-cutout-well" style="margin: 28px 0 24px; width: 100%; box-sizing: border-box; position: relative !important; overflow: visible !important;">
+        "Layered paper-cut illustration of [ ], with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling."
+      </div>
+
+      <!-- 3. Bottom Section: Full-Width 10-Action Buttons Deck -->
+      <div class="pc-hero-actions-container" style="margin-top: 20px;">
+        <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px dashed #E5DCD1;">
+          <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">Quick Jump Decks</span>
+          <h3 style="font-size: 16.5px; font-weight: 800; margin: 0; color: var(--pc-ink);">핵심 쇼케이스 바로가기 3D 페이퍼 커팅 버튼 덱</h3>
+        </div>
+        <div class="pc-hero-actions-grid hero-actions-deck" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; width: 100%;">
             <!-- 01. 우표 천공형: 44종 컴포넌트 키트 -->
-            <a href="#pc-components" class="pc-svg-kirigami-btn hero-action-btn" title="44종 페이퍼 UI 마스터 컴포넌트 키트 이동">
+            <a href="#pc-components" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="44종 페이퍼 UI 마스터 컴포넌트 키트 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-stamp" x="-15%" y="-15%" width="130%" height="135%">
@@ -778,7 +1344,7 @@
             </a>
 
             <!-- 02. 시네마 티켓형: 3D 페이퍼 커팅 버튼 (12종) -->
-            <a href="#pc-components/buttons" class="pc-svg-kirigami-btn hero-action-btn" title="3D 레이어드 페이퍼 커팅 버튼 12종 컬렉션 보기">
+            <a href="#pc-components/buttons" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="3D 레이어드 페이퍼 커팅 버튼 12종 컬렉션 보기">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-ticket" x="-15%" y="-15%" width="130%" height="135%">
@@ -797,7 +1363,7 @@
             </a>
 
             <!-- 03. 앤틱 왁스 실링형: 종이 소리 토글 버튼 -->
-            <button type="button" id="toggle-paper-sound" class="pc-svg-kirigami-btn hero-action-btn" title="종이 소리 바스락 효과음 켜기/끄기">
+            <button type="button" id="toggle-paper-sound" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="종이 소리 바스락 효과음 켜기/끄기">
               <span class="pc-inline-icon is-sm" data-icon="mute" style="display:none;"></span>
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -829,13 +1395,13 @@
                   <path d="M 14 9 C 15.5 10.5 15.5 13.5 14 15" stroke="#8A4822" stroke-width="2" stroke-linecap="round" fill="none"/>
                   <path d="M 17 6 C 19.5 8.5 19.5 15.5 17 18" stroke="#8A4822" stroke-width="1.8" stroke-linecap="round" fill="none"/>
                 </g>
-                <text x="56" y="32" class="label" font-family="'Nanum Square Round', sans-serif" font-size="14.5" font-weight="800" fill="#3D352E" letter-spacing="-0.3">종이 소리: OFF</text>
+                <text x="56" y="32" class="pc-label label" font-family="'Nanum Square Round', sans-serif" font-size="14.5" font-weight="800" fill="#3D352E" letter-spacing="-0.3">종이 소리: OFF</text>
               </svg>
             </button>
 
 
             <!-- 06. 크라프트 타공 태그형: 배경 플레이트 (130종) -->
-            <a href="#bg-library" class="pc-svg-kirigami-btn hero-action-btn" title="130종 3D 아이콘 배경 플레이트 라이브러리 이동">
+            <a href="#bg-library" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="130종 3D 아이콘 배경 플레이트 라이브러리 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-tag" x="-15%" y="-15%" width="130%" height="135%">
@@ -861,7 +1427,7 @@
             </a>
 
             <!-- 07. 수제 한지 데클 엣지형: 매트 크림 3D 질감 원리 -->
-            <a href="#texture-showcase" class="pc-svg-kirigami-btn hero-action-btn" title="매트 크림 3D 질감 원리 쇼케이스 이동">
+            <a href="#texture-showcase" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="매트 크림 3D 질감 원리 쇼케이스 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-deckle" x="-15%" y="-15%" width="130%" height="135%">
@@ -884,7 +1450,7 @@
 
 
             <!-- 09. 마스킹 테이프 메모형: 페이퍼 애니메이션 스튜디오 (8종) -->
-            <a href="#paper-animation-studio" class="pc-svg-kirigami-btn hero-action-btn" title="페이퍼 애니메이션 스튜디오 8종 이동">
+            <a href="#paper-animation-studio" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="페이퍼 애니메이션 스튜디오 8종 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-washi" x="-15%" y="-15%" width="130%" height="135%">
@@ -907,7 +1473,7 @@
             </a>
 
             <!-- 10. 삼각 플랩 편지 봉투형: 알림 & 토스트 시스템 -->
-            <a href="#paper-alerts-toasts" class="pc-svg-kirigami-btn hero-action-btn" title="알림 & 토스트 시스템 이동">
+            <a href="#paper-alerts-toasts" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="알림 & 토스트 시스템 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-pocket" x="-15%" y="-15%" width="130%" height="135%">
@@ -928,7 +1494,7 @@
 
 
             <!-- 12. 제비꼬리 리본 배너형: 페이퍼 애플리케이션 블록 (6선) -->
-            <a href="#pc-blocks-charts" class="pc-svg-kirigami-btn hero-action-btn" title="페이퍼 애플리케이션 블록 6선 이동">
+            <a href="#pc-blocks-charts" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="페이퍼 애플리케이션 블록 6선 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-banner" x="-15%" y="-15%" width="130%" height="135%">
@@ -951,7 +1517,7 @@
             </a>
 
             <!-- 13. 우표 천공형 (스카이): 스탠드얼론 아이콘 (678종) -->
-            <a href="#icon-gallery" class="pc-svg-kirigami-btn hero-action-btn" title="678종 스탠드얼론 아이콘 갤러리 이동">
+            <a href="#icon-gallery" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="678종 스탠드얼론 아이콘 갤러리 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-stamp-sky" x="-15%" y="-15%" width="130%" height="135%">
@@ -973,7 +1539,7 @@
             </a>
 
             <!-- 14. 시네마 티켓형 (로즈): 3D 페이퍼 차트 (6종) -->
-            <a href="#pc-charts-section" class="pc-svg-kirigami-btn hero-action-btn" title="3D 페이퍼 벡터 차트 6종 이동">
+            <a href="#pc-charts-section" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="3D 페이퍼 벡터 차트 6종 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-ticket-rose" x="-15%" y="-15%" width="130%" height="135%">
@@ -994,20 +1560,6 @@
                 <text x="52" y="32" font-family="'Nanum Square Round', sans-serif" font-size="14" font-weight="800" fill="#702830" letter-spacing="-0.3">3D 페이퍼 차트 (6종)</text>
               </svg>
             </a>
-          </div>
-        </div>
-
-        <div style="position: relative;">
-          <div class="pc-washi-tape pc-washi-tape-mint" style="top: -14px; left: 30%;"></div>
-          <div class="hero-art-frame">
-            <img src="assets/papercut-hero.jpg" alt="Layered Paper-cut Hero Illustration" class="hero-art-img">
-            <div class="pc-row-wrap" style="--pc-gap: 8px; margin-top: 10px; justify-content: space-between;">
-              <span style="font-family: 'Gaegu', cursive; font-size: 16px; font-weight: 700; color: var(--pc-ink-muted);">
-                <span class="pc-inline-icon is-sm" data-icon="sparkles"></span> AI Agent Generated Paper-cut Art
-              </span>
-              <span class="pc-badge pc-badge--stamp pc-badge--peach">Matte Cream 3D Art</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1019,13 +1571,13 @@
          MATTE CREAM 3D ART SURFACE TEXTURE SHOWCASE
          Explaining & Demonstrating Pure CSS/SVG Pulp Shader Realism
          ========================================================================= -->
-    <section class="pc-matte-showcase pc-page-view" id="texture-showcase">
+    <section class="pc-card pc-card-sheet pc-matte-showcase pc-page-view" id="texture-showcase">
       <div class="pc-washi-tape pc-washi-tape-buttercup"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge-peach">Deep Technical Insight</span>
-        <span class="pc-badge pc-badge-mint">Pure CSS + SVG Pulp Shader</span>
+        <span class="pc-badge pc-badge--stamp pc-badge--peach pc-badge-peach">Deep Technical Insight</span>
+        <span class="pc-badge pc-badge--ticket pc-badge--mint pc-badge-mint">Pure CSS + SVG Pulp Shader</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="pebble-organic" data-icon="palette" data-size="52" title="종이 표면 질감"></span>
         <span>"Matte Cream 3D Art" 종이 표면 질감의 순수 CSS/SVG 구현 원리</span>
       </h2>
@@ -1036,11 +1588,11 @@
 
       <div class="pc-matte-stage">
         <!-- Interactive Paper Sheet Canvas -->
-        <div class="pc-stack pc-card" id="texture-sim" style="padding: 24px; background: var(--pc-bg-cream); justify-content: space-between;">
+        <div class="pc-card pc-card-sheet pc-stack" id="texture-sim" style="padding: 24px; background: var(--pc-bg-cream); justify-content: space-between;">
           <div>
             <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 14px;">
               <h4 style="margin: 0; font-size: 16px; font-weight: 800;">실시간 3D 종이 질감 인터랙티브 시뮬레이터</h4>
-              <span class="pc-badge pc-badge-lavender">Live Shader</span>
+              <span class="pc-badge pc-badge--stamp pc-badge--lavender pc-badge-lavender">Live Shader</span>
             </div>
 
             <!-- Paper Sheet Display -->
@@ -1067,8 +1619,8 @@
               <!-- Artwork Sample in Canvas -->
               <div class="pc-matte-art-preview">
                 <div class="pc-row-wrap" style="--pc-gap: 8px;">
-                  <span class="pc-badge pc-badge-mint">300g Heavyweight</span>
-                  <span class="pc-badge pc-badge-peach">Cotton Cold-Press</span>
+                  <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint">300g Heavyweight</span>
+                  <span class="pc-badge pc-badge--ticket pc-badge--peach pc-badge-peach">Cotton Cold-Press</span>
                 </div>
                 <div style="font-size: 26px; font-weight: 800; color: var(--pc-ink); letter-spacing: -0.5px;">
                   Handcrafted Matte Texture
@@ -1147,13 +1699,13 @@
       </div>
 
       <!-- Universal UI Texture Application Live Demonstration -->
-      <div class="pc-card" style="margin-top: 28px; padding: 26px 28px; background: #FFFDF9; border-radius: 20px; border: 1.5px dashed rgba(163, 216, 195, 0.7); box-shadow: var(--pc-paper-shadow-sm);">
+      <div class="pc-card pc-card-sheet" style="margin-top: 28px; padding: 26px 28px; background: #FFFDF9; border-radius: 0; border: 1.5px dashed rgba(163, 216, 195, 0.7); box-shadow: var(--pc-paper-shadow-sm);">
         <div class="pc-row-wrap" style="--pc-gap: 14px; justify-content: space-between; margin-bottom: 20px;">
           <div>
             <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 4px;">
-              <span class="pc-badge pc-badge-mint">Universal UI Extension</span>
-              <span class="pc-badge pc-badge-peach">.pc-texture-paper</span>
-              <span class="pc-badge pc-badge-lavender">0-Byte SVG Data-URI</span>
+              <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint">Universal UI Extension</span>
+              <span class="pc-badge pc-badge--tag pc-badge--peach pc-badge-peach">.pc-texture-paper</span>
+              <span class="pc-badge pc-badge--ticket pc-badge--lavender pc-badge-lavender">0-Byte SVG Data-URI</span>
             </div>
             <h3 style="margin: 0; font-size: 19px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-md" data-icon="sprout"></span> 다른 UI 컴포넌트(버튼·인풋·카드·아이콘 배지)에 3D 종이 질감 실시간 적용하기
@@ -1173,7 +1725,7 @@
           <!-- 1. Button with Texture -->
           <div class="pc-stack" style="--pc-gap: 10px; background: var(--pc-bg-cream); padding: 18px; border-radius: 16px; align-items: center; text-align: center;">
             <span style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink-muted);">1. 질감 적용 액션 버튼</span>
-            <button type="button" class="pc-btn pc-btn-mint pc-btn-lg pc-texture-paper ui-textured-sample" style="width: 100%;">
+            <button type="button" class="pc-btn pc-btn-mint pc-btn-lg pc-texture-paper pc-ui-textured-sample ui-textured-sample" style="width: 100%;">
               <span class="pc-btn-icon-plate"><span class="pc-inline-icon is-sm" data-icon="file"></span></span> <span>300g 코튼 버튼</span>
             </button>
             <span style="font-size: 11px; color: var(--pc-ink-muted);">클래스: <code>.pc-btn.pc-texture-paper</code></span>
@@ -1183,7 +1735,7 @@
           <div class="pc-stack" style="--pc-gap: 10px; background: var(--pc-bg-cream); padding: 18px; border-radius: 16px; align-items: center; text-align: center;">
             <span style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink-muted);">2. 닥나무 한지결 인풋창</span>
             <div style="width: 100%;">
-              <input type="text" class="pc-input pc-texture-paper ui-textured-sample" value="수제 스케치북 종이결 입력창" style="width: 100%; text-align: center; font-weight: 700;">
+              <input type="text" class="pc-input pc-texture-paper pc-ui-textured-sample ui-textured-sample" value="수제 스케치북 종이결 입력창" style="width: 100%; text-align: center; font-weight: 700;">
             </div>
             <span style="font-size: 11px; color: var(--pc-ink-muted);">클래스: <code>.pc-input.pc-texture-paper</code></span>
           </div>
@@ -1191,7 +1743,7 @@
           <!-- 3. Mini Card with Texture -->
           <div class="pc-stack" style="--pc-gap: 10px; background: var(--pc-bg-cream); padding: 18px; border-radius: 16px; align-items: center; text-align: center;">
             <span style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink-muted);">3. 수제 카드스톡 패널</span>
-            <div class="pc-card pc-texture-paper ui-textured-sample" style="width: 100%; padding: 14px; background: #FFFDF9; border-radius: 14px;">
+            <div class="pc-card pc-texture-paper pc-ui-textured-sample ui-textured-sample" style="width: 100%; padding: 14px; background: #FFFDF9; border-radius: 14px;">
               <div style="font-size: 13px; font-weight: 800; color: var(--pc-ink); display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-sm" data-icon="file"></span> <span>도톰한 350g 매트 보드</span></div>
               <div style="font-size: 11px; color: var(--pc-ink-muted); margin-top: 3px;">표면에 빛이 산란되어 깊이감 형성</div>
             </div>
@@ -1201,7 +1753,7 @@
           <!-- 4. Icon Badge with Texture -->
           <div class="pc-stack" style="--pc-gap: 10px; background: var(--pc-bg-cream); padding: 18px; border-radius: 16px; align-items: center; text-align: center;">
             <span style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink-muted);">4. 펄프 질감 조약돌 배지</span>
-            <div class="pc-icon-badge pc-badge-shape-pebble pc-texture-paper ui-textured-sample" style="background: #A3D8C3; width: 68px; height: 68px;">
+            <div class="pc-icon-badge pc-badge-shape-pebble pc-texture-paper pc-ui-textured-sample ui-textured-sample" style="background: #A3D8C3; width: 68px; height: 68px;">
               <span class="pc-inline-icon is-badge-icon" data-icon="coffee" style="z-index: 5;"></span>
             </div>
             <span style="font-size: 11px; color: var(--pc-ink-muted);">클래스: <code>.pc-icon-badge.pc-texture-paper</code></span>
@@ -1214,17 +1766,17 @@
     <!-- [SECTION] 종이 사운드 & 햅틱 랩 (Paper Sound & Haptic Studio)              -->
     <!-- 8종 종이 물리 음향 합성 체험 및 인터랙티브 촉각 ASMR 랩                   -->
     <!-- ========================================================================= -->
-    <section class="pc-card pc-card-stacked pc-page-view" id="paper-sound-studio">
+    <section class="pc-card pc-card-sheet pc-card-stacked pc-page-view" id="paper-sound-studio">
       <div class="pc-washi-tape pc-washi-tape-buttercup"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge-buttercup"><span class="pc-inline-icon is-color is-xs" data-icon="volume"></span> Web Audio API Physical Synthesis</span>
-        <span class="pc-badge pc-badge-mint">0ms Zero Latency</span>
-        <span class="pc-badge pc-badge-lavender">8종 맞춤형 촉각 사운드</span>
+        <span class="pc-badge pc-badge--stamp pc-badge--buttercup pc-badge-buttercup"><span class="pc-inline-icon is-color is-xs" data-icon="volume"></span> Web Audio API Physical Synthesis</span>
+        <span class="pc-badge pc-badge--ticket pc-badge--mint pc-badge-mint">0ms Zero Latency</span>
+        <span class="pc-badge pc-badge--tag pc-badge--lavender pc-badge-lavender">8종 맞춤형 촉각 사운드</span>
       </div>
 
       <div class="pc-sound-studio-header-wrap" style="display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 24px;">
         <div>
-          <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+          <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
             <span class="pc-section-plate" data-bg-shape="wax-seal" data-icon="volume" data-size="52" title="종이 사운드"></span>
             <span>종이 사운드 &amp; 촉각 햅틱 ASMR 인터랙티브 랩</span>
           </h2>
@@ -1241,7 +1793,7 @@
             <span id="studio-current-paper-name" style="font-size: 13.5px; font-weight: 800; color: #1E5C41;">🌿 300g 수제 코튼지 활성</span>
           </div>
           <button type="button" class="pc-btn pc-btn-buttercup pc-btn-sm pc-btn-pill" id="studio-sound-master-toggle">
-            <span class="fi fi-rr-volume" id="studio-master-icon" style="font-size: 13px;"></span>
+            <span class="pc-inline-icon is-xs" data-icon="volume" id="studio-master-icon"></span>
             <span id="studio-master-text">효과음: ON</span>
           </button>
         </div>
@@ -1271,7 +1823,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="cotton" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1279,11 +1831,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="cotton">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="cotton">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1310,7 +1862,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="hanji" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1318,11 +1870,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="hanji">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="hanji">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1349,7 +1901,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="kraft" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1357,11 +1909,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="kraft">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="kraft">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1388,7 +1940,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="vellum" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1396,11 +1948,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="vellum">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="vellum">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1427,7 +1979,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="origami" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1435,11 +1987,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="origami">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="origami">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1466,7 +2018,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="cardboard" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1474,11 +2026,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="cardboard">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="cardboard">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1505,7 +2057,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="newsprint" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1513,11 +2065,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="newsprint">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="newsprint">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1544,7 +2096,7 @@
             <!-- 촉각 터치 & 스크래치 패드 -->
             <div class="pc-sound-scratch-pad" data-paper="parchment" title="마우스를 올리거나 클릭하여 소리를 들어보세요">
               <div style="font-size: 12px; font-weight: 800; color: #7A6855; display: inline-flex; align-items: center; gap: 6px;">
-                <span class="fi fi-rr-hand-pointer"></span>
+                <span class="pc-inline-icon is-xs" data-icon="cursor-pointer"></span>
                 <span>터치 &amp; 문지르기 (촉각 ASMR)</span>
               </div>
               <div style="font-size: 10.5px; color: #9E8E7D; margin-top: 2px;">클릭 또는 드래그 시 마찰음 재생</div>
@@ -1552,11 +2104,11 @@
           </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-btn pc-btn-play-sound" data-paper="parchment">
-              <span class="fi fi-rr-play-alt" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="play"></span>
               <span>소리 듣기</span>
             </button>
             <button type="button" class="pc-btn pc-btn-apply-paper" data-paper="parchment">
-              <span class="fi fi-rr-check" style="font-size: 11px;"></span>
+              <span class="pc-inline-icon is-xs" data-icon="check"></span>
               <span>적용</span>
             </button>
           </div>
@@ -1586,14 +2138,14 @@
     <!-- =========================================================================
          3D PAPERCRAFT ANIMATION STUDIO & RECOMMENDATIONS (애니메이션 스튜디오 & 시뮬레이터)
          ========================================================================= -->
-    <section class="pc-card pc-card-stacked pc-page-view" id="paper-animation-studio">
+    <section class="pc-card pc-card-sheet pc-card-stacked pc-page-view" id="paper-animation-studio">
       <div class="pc-washi-tape pc-washi-tape-mint"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge-sky">Motion Studio</span>
-        <span class="pc-badge pc-badge-lavender">8 Papercraft Styles</span>
-        <span class="pc-badge pc-badge-peach">Live Simulator & Generator</span>
+        <span class="pc-badge pc-badge--stamp pc-badge--sky pc-badge-sky">Motion Studio</span>
+        <span class="pc-badge pc-badge--ticket pc-badge--lavender pc-badge-lavender">8 Papercraft Styles</span>
+        <span class="pc-badge pc-badge--tag pc-badge--peach pc-badge-peach">Live Simulator & Generator</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="scallop-sunburst" data-icon="sparkles-double" data-size="52" title="페이퍼 애니메이션"></span>
         <span>3D 페이퍼크래프트 애니메이션 스튜디오 &amp; 추천 시뮬레이터</span>
       </h2>
@@ -1607,12 +2159,12 @@
           <h3 class="pc-row-wrap" style="--pc-gap: 8px; font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink);">
             <span class="pc-inline-icon is-sm" data-icon="bookmark"></span> 페이퍼 UI 컴포넌트별 모션 추천 가이드라인
           </h3>
-          <span class="pc-badge pc-badge-mint" style="font-size: 11px;">Best Practices</span>
+          <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint" style="font-size: 11px;">Best Practices</span>
         </div>
 
         <div class="pc-grid-auto" style="--pc-grid-min: 260px; --pc-grid-gap: 16px;">
           <!-- Card 1: Icons -->
-          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0; border: none;">
+          <div class="pc-card pc-card-sheet" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0;">
             <div class="pc-row-wrap" style="--pc-gap: 10px; margin-bottom: 8px;">
               <div class="pc-row-wrap" style="width: 32px; height: 32px; background: #E8F6EE; border-radius: 8px; justify-content: center;">
                 <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
@@ -1623,13 +2175,13 @@
               첫 렌더링 시 <strong>팝업북 스프링(Pop-up)</strong>으로 통통 튀어오르게 하거나, 마우스 호버 시 <strong>공중 부유(Flutter)</strong> 또는 <strong>가위질(Snip)</strong>로 반응성을 극대화합니다.
             </p>
             <div class="pc-row-wrap" style="--pc-gap: 6px;">
-              <span class="pc-badge pc-badge-mint" style="font-size: 10.5px;">.pc-anim-popup</span>
-              <span class="pc-badge pc-badge-sky" style="font-size: 10.5px;">.pc-hover-flutter</span>
+              <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint" style="font-size: 10.5px;">.pc-anim-popup</span>
+              <span class="pc-badge pc-badge--ticket pc-badge--sky pc-badge-sky" style="font-size: 10.5px;">.pc-hover-flutter</span>
             </div>
           </div>
 
           <!-- Card 2: Buttons -->
-          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0; border: none;">
+          <div class="pc-card pc-card-sheet" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0;">
             <div class="pc-row-wrap" style="--pc-gap: 10px; margin-bottom: 8px;">
               <div class="pc-row-wrap" style="width: 32px; height: 32px; background: #FDEFE6; border-radius: 8px; justify-content: center;">
                 <span class="pc-inline-icon is-xs" data-icon="scissors"></span>
@@ -1640,13 +2192,13 @@
               마우스를 올렸을 때 스티커 모서리가 들뜨는 <strong>스티커 필오프(Peel)</strong>를, 클릭 순간에는 도장을 꾹 누르는 <strong>스탬프 프레스(Stamp)</strong>로 물리적 타건감을 부여합니다.
             </p>
             <div class="pc-row-wrap" style="--pc-gap: 6px;">
-              <span class="pc-badge pc-badge-peach" style="font-size: 10.5px;">.pc-hover-peel</span>
-              <span class="pc-badge pc-badge-lavender" style="font-size: 10.5px;">.pc-active-stamp</span>
+              <span class="pc-badge pc-badge--stamp pc-badge--peach pc-badge-peach" style="font-size: 10.5px;">.pc-hover-peel</span>
+              <span class="pc-badge pc-badge--tag pc-badge--lavender pc-badge-lavender" style="font-size: 10.5px;">.pc-active-stamp</span>
             </div>
           </div>
 
           <!-- Card 3: Modals -->
-          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0; border: none;">
+          <div class="pc-card pc-card-sheet" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0;">
             <div class="pc-row-wrap" style="--pc-gap: 10px; margin-bottom: 8px;">
               <div class="pc-row-wrap" style="width: 32px; height: 32px; background: #F3EEFD; border-radius: 8px; justify-content: center;">
                 <span class="pc-inline-icon is-xs" data-icon="book"></span>
@@ -1657,13 +2209,13 @@
               다이얼로그나 메뉴가 나타날 때 접힌 편지가 펴지듯 <strong>오리가미 언폴드(Unfold)</strong>를 사용하고, 서랍 트레이는 <strong>아코디언 주름(Accordion)</strong>으로 확장합니다.
             </p>
             <div class="pc-row-wrap" style="--pc-gap: 6px;">
-              <span class="pc-badge pc-badge-lavender" style="font-size: 10.5px;">.pc-anim-unfold</span>
-              <span class="pc-badge pc-badge-buttercup" style="font-size: 10.5px;">.pc-anim-accordion</span>
+              <span class="pc-badge pc-badge--stamp pc-badge--lavender pc-badge-lavender" style="font-size: 10.5px;">.pc-anim-unfold</span>
+              <span class="pc-badge pc-badge--ticket pc-badge--buttercup pc-badge-buttercup" style="font-size: 10.5px;">.pc-anim-accordion</span>
             </div>
           </div>
 
           <!-- Card 4: Toasts -->
-          <div class="pc-card" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0; border: none;">
+          <div class="pc-card pc-card-sheet" style="padding: 18px 20px; background: #FAF7F0; border-radius: 0;">
             <div class="pc-row-wrap" style="--pc-gap: 10px; margin-bottom: 8px;">
               <div class="pc-row-wrap" style="width: 32px; height: 32px; background: #FEF8E3; border-radius: 8px; justify-content: center;">
                 <span class="pc-inline-icon is-xs" data-icon="bell"></span>
@@ -1674,8 +2226,8 @@
               화면 우측에서 날아올 때 <strong>팝업북 스프링</strong>으로 시선을 사로잡고, 상태 전환 및 페이지 전환에는 <strong>3D 책장 넘김(Flip)</strong>을 추천합니다.
             </p>
             <div class="pc-row-wrap" style="--pc-gap: 6px;">
-              <span class="pc-badge pc-badge-mint" style="font-size: 10.5px;">.pc-anim-popup</span>
-              <span class="pc-badge pc-badge-rose" style="font-size: 10.5px;">.pc-anim-flip</span>
+              <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint" style="font-size: 10.5px;">.pc-anim-popup</span>
+              <span class="pc-badge pc-badge--tag pc-badge--rose pc-badge-rose" style="font-size: 10.5px;">.pc-anim-flip</span>
             </div>
           </div>
         </div>
@@ -1905,14 +2457,14 @@
          PAPER ALERTS & TOAST NOTIFICATION SYSTEM (알림 & 토스트 컴포넌트 시스템)
          Handcrafted 3D Layered Paper-Cut Alerts, Memo Slips, and Toast Notifications
          ========================================================================= -->
-    <section class="pc-card pc-card-stacked pc-page-view" id="paper-alerts-toasts">
+    <section class="pc-card pc-card-sheet pc-card-stacked pc-page-view" id="paper-alerts-toasts">
       <div class="pc-washi-tape pc-washi-tape-lavender"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge-mint">Notification Center</span>
-        <span class="pc-badge pc-badge-peach">4 Semantic Types</span>
-        <span class="pc-badge pc-badge-sky">Interactive Toast Studio</span>
+        <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint">Notification Center</span>
+        <span class="pc-badge pc-badge--ticket pc-badge--peach pc-badge-peach">4 Semantic Types</span>
+        <span class="pc-badge pc-badge--tag pc-badge--sky pc-badge-sky">Interactive Toast Studio</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="notched-ticket" data-icon="bell-ring" data-size="52" title="알림 &amp; 토스트"></span>
         <span>페이퍼컷 알림(Alert) &amp; 토스트(Toast) 시스템</span>
       </h2>
@@ -1927,7 +2479,7 @@
             <h3 style="font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink);">
               <span class="pc-inline-icon is-sm" data-icon="bookmark"></span> 페이퍼 알림 슬립 (Alert Variants)
             </h3>
-            <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">4가지 상태 규격</span>
+            <span class="pc-badge pc-badge--stamp pc-badge--lavender pc-badge-lavender" style="font-size: 11px;">4가지 상태 규격</span>
           </div>
 
           <div class="pc-alert-suite">
@@ -2283,7 +2835,7 @@
                 <circle cx="28" cy="27" r="13" fill="#F7BA9E" data-layer="mid"/>
                 <circle cx="28" cy="27" r="9" fill="#FAF6ED" data-layer="top"/>
                 <path d="M 28 23 C 26 20 23 21.5 23 24.5 C 23 28 28 30.5 28 32 C 28 30.5 33 28 33 24.5 C 33 21.5 30 20 28 23 Z" fill="#F5B8BE"/>
-                <text x="56" y="32" class="label" font-family="'Nanum Square Round', sans-serif" font-size="14" font-weight="800" fill="#3D352E" letter-spacing="-0.3">앤틱 왁스 실링 인장 토스트 (Wax Seal Toast)</text>
+                <text x="56" y="32" class="pc-label label" font-family="'Nanum Square Round', sans-serif" font-size="14" font-weight="800" fill="#3D352E" letter-spacing="-0.3">앤틱 왁스 실링 인장 토스트 (Wax Seal Toast)</text>
               </svg>
             </button>
           </div>
@@ -2303,7 +2855,7 @@
         <span class="pc-badge pc-badge-buttercup">Pure Paper-Cut Art</span>
         <span class="pc-badge pc-badge-mint">Click to Copy SVG</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="cog-seal" data-icon="star-cluster" data-size="52" title="아이콘 갤러리"></span>
         <span>3D 페이퍼 컷 정밀 아이콘 갤러리 (배경 박스 없는 순수 레이어드 페이퍼 아트 · 659종)</span>
       </h2>
@@ -2360,7 +2912,7 @@
         <span class="pc-badge pc-badge-mint">130 Curated Shapes</span>
         <span class="pc-badge pc-badge-lavender">Multi-Layered Paper-Cut</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="shield-crest" data-icon="shield-star" data-size="52" title="3D 배경 플레이트"></span>
         <span>3D 페이퍼 컷팅 아이콘 배경 박스 컬렉션 (130가지 모양 &amp; 파스텔 컬러)</span>
       </h2>
@@ -2428,7 +2980,7 @@
         <span class="pc-badge pc-badge--ticket pc-badge--peach">100% Pure SVG 다층 페이퍼아트</span>
         <span class="pc-badge pc-badge--ticket pc-badge--lavender" style="font-size: 11px;">버튼 · 특화 카드 · 배지 · 폼 &amp; 44종 통합</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="clover-leaf" data-icon="grid-view" data-size="52" title="페이퍼 UI 컴포넌트"></span>
         <span>3D 페이퍼컷 마스터 UI 컴포넌트 스위트 (버튼 · 특화 카드 · 배지 · 폼 &amp; 44종 통합)</span>
       </h2>
@@ -4242,11 +4794,11 @@
                 <div class="pc-select-wrapper is-enhanced">
                   <div class="pc-dropdown-custom is-well" data-linked-select="pc-select-well-demo">
                     <button type="button" class="pc-dropdown-trigger is-well" aria-haspopup="listbox" aria-expanded="false">
-                      <span class="trigger-content">
+                      <span class="pc-trigger-content trigger-content">
                         <span class="pc-inline-icon is-sm" data-icon="sprout"></span>
-                        <span class="trigger-text">민트 색지 (Mint Paper)</span>
+                        <span class="pc-trigger-text trigger-text">민트 색지 (Mint Paper)</span>
                       </span>
-                      <span class="arrow-icon fi fi-rr-angle-small-down" aria-hidden="true"></span>
+                      <span class="pc-arrow-icon arrow-icon pc-inline-icon is-xs" data-icon="chevron-down" aria-hidden="true"></span>
                     </button>
                     <!-- 얇은 종이 밑 판 (Thin Paper Base Plate) -->
                     <div class="pc-dropdown-menu" role="listbox">
@@ -5939,7 +6491,7 @@
         <span class="pc-badge pc-badge-peach">6 Core Scenarios</span>
         <span class="pc-badge pc-badge-lavender" style="font-size: 11px;">참고: shadcn/ui 블록 아키텍처</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="polaroid-frame" data-icon="contacts-book" data-size="52" title="실전 애플리케이션 블록"></span>
         <span>페이퍼크래프트 실전 애플리케이션 블록 (6대 핵심 시나리오)</span>
       </h2>
@@ -5978,7 +6530,7 @@
         <span class="pc-badge pc-badge-mint">Papercraft Data Viz</span>
         <span class="pc-badge pc-badge-peach">6 Interactive Archetypes</span>
       </div>
-      <h2 class="section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="star-burst-8" data-icon="pie-chart-clean" data-size="52" title="3D 페이퍼 벡터 차트"></span>
         <span>3D 페이퍼 컷팅 벡터 차트 (6종 데이터 시각화)</span>
       </h2>
@@ -6140,7 +6692,7 @@
 
         <div class="pc-grid-auto pc-grid-fill pc-book-grid" id="demo-book-grid" style="--pc-grid-min: 280px; --pc-grid-gap: 24px;">
           <!-- Book Card 1: Data-Intensive Applications -->
-          <div class="pc-book-card theme-mint status-completed format-pdf">
+          <div class="pc-book-card pc-theme-mint theme-mint pc-status-completed status-completed pc-format-pdf format-pdf">
             <div class="pc-book-spine"></div>
             <div class="pc-book-cover">
               <div class="pc-book-header">
@@ -6202,7 +6754,7 @@
           </div>
 
           <!-- Book Card 2: Clean Architecture -->
-          <div class="pc-book-card theme-lavender status-completed format-pdf">
+          <div class="pc-book-card pc-theme-lavender theme-lavender pc-status-completed status-completed pc-format-pdf format-pdf">
             <div class="pc-book-spine"></div>
             <div class="pc-book-cover">
               <div class="pc-book-header">
@@ -6263,7 +6815,7 @@
           </div>
 
           <!-- Book Card 3: High-Performance Go -->
-          <div class="pc-book-card theme-sky status-processing format-epub">
+          <div class="pc-book-card pc-theme-sky theme-sky pc-status-processing status-processing pc-format-epub format-epub">
             <div class="pc-book-spine"></div>
             <div class="pc-book-cover">
               <div class="pc-book-header">
@@ -6323,7 +6875,7 @@
           </div>
 
           <!-- Book Card 4: Rust Official Guide -->
-          <div class="pc-book-card theme-buttercup status-queued format-pdf">
+          <div class="pc-book-card pc-theme-buttercup theme-buttercup pc-status-queued status-queued pc-format-pdf format-pdf">
             <div class="pc-book-spine"></div>
             <div class="pc-book-cover">
               <div class="pc-book-header">
@@ -6472,7 +7024,7 @@
         </p>
 
         <!-- Live Split Reader Demo -->
-        <div class="pc-reader-split mode-two-up" id="demo-split-reader">
+        <div class="pc-reader-split pc-mode-two-up mode-two-up" id="demo-split-reader">
           <div class="pc-reader-toolbar">
             <div class="pc-reader-toolbar-left">
               <span class="pc-reader-book-title">클린 아키텍처 · 로버트 C. 마틴</span>
@@ -6639,14 +7191,14 @@
             수제 종이공예의 따스한 질감과 물리적 입체감을 디지털 인터페이스로 완벽히 구현한 레이어드 페이퍼 아트 디자인 시스템입니다.
           </p>
           <div class="pc-footer-pills">
-            <span class="pc-badge pc-badge-peach"><span class="pc-inline-icon is-color is-xs" data-icon="scissors"></span> <span>B 표준: 2-Tier 48% Stacking</span></span>
-            <span class="pc-badge pc-badge-mint">Pure CSS + Vanilla JS</span>
-            <span class="pc-badge pc-badge-buttercup">WCAG 2.1 AA 44px+</span>
+            <span class="pc-badge pc-badge--stamp pc-badge--peach"><span class="pc-inline-icon is-color is-xs" data-icon="scissors"></span> <span>2-Tier 48% Stacking</span></span>
+            <span class="pc-badge pc-badge--stamp pc-badge--mint">Pure CSS + Vanilla JS</span>
+            <span class="pc-badge pc-badge--stamp pc-badge--buttercup">WCAG 2.1 AA 44px+</span>
           </div>
         </div>
 
         <!-- 시그니처 & 페이퍼컷 링크 -->
-        <div>
+        <div class="pc-footer-col-mint">
           <h4 class="pc-footer-col-title">
             <span class="pc-inline-icon is-color is-xs" data-icon="scissors"></span>
             <span>시그니처 &amp; 페이퍼컷</span>
@@ -6659,7 +7211,7 @@
         </div>
 
         <!-- 디자인 시스템 링크 -->
-        <div>
+        <div class="pc-footer-col-peach">
           <h4 class="pc-footer-col-title">
             <span class="pc-inline-icon is-color is-xs" data-icon="palette"></span>
             <span>디자인 시스템</span>
@@ -6672,7 +7224,7 @@
         </div>
 
         <!-- 컴포넌트 & 아이콘 시스템 -->
-        <div>
+        <div class="pc-footer-col-buttercup">
           <h4 class="pc-footer-col-title">
             <span class="pc-inline-icon is-color is-xs" data-icon="grid-view"></span>
             <span>아이콘 &amp; 키트</span>
@@ -6730,6 +7282,7 @@
   <script src="papercut-paper-layer.js" defer></script>
   <script src="papercut-blocks-charts.js" defer></script>
   <script src="papercut-reader.js" defer></script>
+  <script src="papercut-diorama.js" defer></script>
 
   <script>
     window.PaperCutUI = Object.assign(window.PaperCutUI || {}, {

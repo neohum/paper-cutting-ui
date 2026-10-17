@@ -131,59 +131,69 @@
 }
 
 /* Texture modes (5대 종이 표면 질감 물리 셰이더 - 색상·모양 100% 유지) */
+body.pc-texture-cotton.pc-paper-grain::before,
 body.texture-cotton.pc-paper-grain::before {
   opacity: 0.088;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_cotton'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.045' numOctaves='5' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23F8F4EC' surfaceScale='2.2' result='light'%3E%3CfeDistantLight azimuth='45' elevation='60'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_cotton)' fill='%236B5945'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-hanji.pc-paper-grain::before,
 body.texture-hanji.pc-paper-grain::before {
   opacity: 0.098;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_hanji'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035 0.7' numOctaves='4' result='fiber'/%3E%3CfeDiffuseLighting in='fiber' lighting-color='%23F8F4EC' surfaceScale='2.2' result='light'%3E%3CfeDistantLight azimuth='60' elevation='40'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_hanji)' fill='%236B5945'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-kraft.pc-paper-grain::before,
 body.texture-kraft.pc-paper-grain::before {
   opacity: 0.105;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_kraft'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.075' numOctaves='4' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23F4EAD4' surfaceScale='2.4' result='light'%3E%3CfeDistantLight azimuth='50' elevation='52'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_kraft)' fill='%23634F3A'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-vellum.pc-paper-grain::before,
 body.texture-vellum.pc-paper-grain::before {
   opacity: 0.065;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_vellum'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.12' numOctaves='3' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23FAF8F5' surfaceScale='1.2' result='light'%3E%3CfeDistantLight azimuth='45' elevation='65'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_vellum)' fill='%237D7165'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-origami.pc-paper-grain::before,
 body.texture-origami.pc-paper-grain::before {
   opacity: 0.088;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_origami'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.025 0.065' numOctaves='5' result='fiber'/%3E%3CfeDiffuseLighting in='fiber' lighting-color='%23FDFBF7' surfaceScale='2.0' result='light'%3E%3CfeDistantLight azimuth='55' elevation='48'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_origami)' fill='%235C4B3D'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-cardboard.pc-paper-grain::before,
 body.texture-cardboard.pc-paper-grain::before {
   opacity: 0.115;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_cardboard'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.09' numOctaves='4' result='fiber'/%3E%3CfeDiffuseLighting in='fiber' lighting-color='%23F4E9D0' surfaceScale='2.8' result='light'%3E%3CfeDistantLight azimuth='45' elevation='45'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_cardboard)' fill='%235A4632'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-newsprint.pc-paper-grain::before,
 body.texture-newsprint.pc-paper-grain::before {
   opacity: 0.075;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_newsprint'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.085' numOctaves='3' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23FAF6EE' surfaceScale='1.6' result='light'%3E%3CfeDistantLight azimuth='60' elevation='55'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_newsprint)' fill='%23635547'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-parchment.pc-paper-grain::before,
 body.texture-parchment.pc-paper-grain::before {
   opacity: 0.095;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_parchment'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.018 0.035' numOctaves='5' result='fiber'/%3E%3CfeDiffuseLighting in='fiber' lighting-color='%23F7EEDC' surfaceScale='2.5' result='light'%3E%3CfeDistantLight azimuth='40' elevation='50'/%3E%3C/feDiffuseLighting%3E%3CfeBlend mode='multiply' in='SourceGraphic' in2='light'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f_parchment)' fill='%23544331'/%3E%3C/svg%3E");
 }
 
+body.pc-texture-soft.pc-paper-grain::before,
 body.texture-soft.pc-paper-grain::before {
   opacity: 0.055;
   mix-blend-mode: multiply;
 }
 
+body.pc-texture-flat.pc-paper-grain::before,
 body.texture-flat.pc-paper-grain::before {
   opacity: 0 !important;
   display: none !important;
@@ -201,13 +211,18 @@ body, [lang="ko"] {
 }
 
 h1, h2, h3, h4, h5, h6,
-.section-title, .example-title {
+.pc-section-title,
+.section-title,
+.pc-example-title,
+.example-title {
   word-break: keep-all;
   overflow-wrap: break-word;
   text-wrap: balance;
 }
 
-p, .example-desc {
+p,
+.pc-example-desc,
+.example-desc {
   word-break: keep-all;
   overflow-wrap: break-word;
   text-wrap: pretty;
@@ -447,6 +462,7 @@ p, .example-desc {
 }
 
 .pc-btn:active,
+.pc-btn.pc-is-pressed,
 .pc-btn.is-pressed {
   transform: translateY(1.5px);
   box-shadow: 
@@ -814,15 +830,19 @@ p, .example-desc {
 }
 
 /* Wavy Deckle Paper Outer Frame Colorways (배면 요철 색지 프리셋) */
+.pc-input-deckle-frame.pc-is-mint,
 .pc-input-deckle-frame.is-mint {
   background-color: var(--pc-mint, #A3D8C3);
 }
+.pc-input-deckle-frame.pc-is-peach,
 .pc-input-deckle-frame.is-peach {
   background-color: var(--pc-peach, #F7BA9E);
 }
+.pc-input-deckle-frame.pc-is-lavender,
 .pc-input-deckle-frame.is-lavender {
   background-color: var(--pc-lavender, #D7CBEB);
 }
+.pc-input-deckle-frame.pc-is-buttercup,
 .pc-input-deckle-frame.is-buttercup {
   background-color: var(--pc-buttercup, #FEE396);
 }
@@ -842,6 +862,7 @@ p, .example-desc {
    - 종이를 칼로 음각으로 파내어 생기는 베이지 음영 홈 (#EDE8DE)
    - 2-Tier 45° 번트 엄버 인셋 그림자 + 하단 1px 화이트 반사 림
    ========================================================================== */
+.pc-input.pc-is-well,
 .pc-input.is-well,
 .pc-input-well,
 .pc-input--well {
@@ -854,6 +875,7 @@ p, .example-desc {
     0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 
+.pc-input.pc-is-well:focus,
 .pc-input.is-well:focus,
 .pc-input-well:focus,
 .pc-input--well:focus {
@@ -1091,6 +1113,7 @@ p, .example-desc {
   flex-direction: column;
   gap: 12px;
 }
+.pc-radio-group.pc-is-horizontal,
 .pc-radio-group.is-horizontal {
   flex-direction: row;
   flex-wrap: wrap;
@@ -1453,6 +1476,7 @@ p, .example-desc {
     0 6px 12px rgba(46, 30, 20, 0.22);
 }
 
+.pc-toggle-btn.pc-is-active,
 .pc-toggle-btn.is-active,
 .pc-toggle-btn[aria-pressed="true"] {
   background-color: var(--pc-mint);
@@ -1473,18 +1497,29 @@ p, .example-desc {
   --pc-paper-inner-active: #EAF7F1;
   padding: 12px 22px;
 }
+.pc-toggle-btn.pc-is-paper-hydrated,
 .pc-toggle-btn.is-paper-hydrated,
+.pc-toggle-btn.pc-is-paper-hydrated:hover,
 .pc-toggle-btn.is-paper-hydrated:hover,
+.pc-toggle-btn.pc-is-paper-hydrated.pc-is-active,
+.pc-toggle-btn.pc-is-paper-hydrated.is-active,
+.pc-toggle-btn.is-paper-hydrated.pc-is-active,
 .pc-toggle-btn.is-paper-hydrated.is-active,
+.pc-toggle-btn.pc-is-paper-hydrated[aria-pressed="true"],
 .pc-toggle-btn.is-paper-hydrated[aria-pressed="true"] {
   background: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }
+.pc-toggle-btn.pc-is-paper-hydrated.pc-is-active,
+.pc-toggle-btn.pc-is-paper-hydrated.is-active,
+.pc-toggle-btn.is-paper-hydrated.pc-is-active,
 .pc-toggle-btn.is-paper-hydrated.is-active,
+.pc-toggle-btn.pc-is-paper-hydrated[aria-pressed="true"],
 .pc-toggle-btn.is-paper-hydrated[aria-pressed="true"] {
   color: var(--pc-mint-dark, #275C46);
 }
+.pc-toggle-btn.pc-is-paper-hydrated:focus-visible,
 .pc-toggle-btn.is-paper-hydrated:focus-visible {
   outline: 2.5px solid var(--pc-mint-dark, #275C46);
   outline-offset: 2px;
@@ -1532,6 +1567,7 @@ p, .example-desc {
 }
 
 /* Carved Paper Well Depth Select Variant (이전 방식: 음각 종이 드롭다운 셀렉트) */
+.pc-select.pc-is-well,
 .pc-select.is-well,
 .pc-select-well,
 .pc-select--well {
@@ -1543,6 +1579,7 @@ p, .example-desc {
     inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
     0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
+.pc-select.pc-is-well:focus,
 .pc-select.is-well:focus,
 .pc-select-well:focus,
 .pc-select--well:focus {
@@ -1576,6 +1613,7 @@ p, .example-desc {
   position: relative;
   width: 100%;
 }
+.pc-dropdown-custom.pc-is-open,
 .pc-dropdown-custom.is-open {
   z-index: 50;
 }
@@ -1612,7 +1650,9 @@ p, .example-desc {
 }
 
 /* Carved Paper Well Trigger (.pc-dropdown-trigger.is-well) */
+.pc-dropdown-trigger.pc-is-well,
 .pc-dropdown-trigger.is-well,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger,
 .pc-dropdown-custom.is-well .pc-dropdown-trigger {
   background-color: #EDE8DE !important;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f_well_p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23FFFDF9' surfaceScale='1.3' result='l'%3E%3CfeDistantLight azimuth='45' elevation='55'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23EDE8DE' filter='url(%23f_well_p)'/%3E%3C/svg%3E") !important;
@@ -1625,7 +1665,9 @@ p, .example-desc {
     0 1px 0 rgba(255, 255, 255, 0.95) !important;
 }
 
+.pc-dropdown-trigger.pc-is-well:hover,
 .pc-dropdown-trigger.is-well:hover,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger:hover,
 .pc-dropdown-custom.is-well .pc-dropdown-trigger:hover {
   background-color: #E8E2D6 !important;
   transform: translateY(-1px);
@@ -1635,7 +1677,11 @@ p, .example-desc {
     0 1px 0 rgba(255, 255, 255, 1) !important;
 }
 
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.pc-is-well,
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.is-well,
+.pc-dropdown-custom.is-open .pc-dropdown-trigger.pc-is-well,
 .pc-dropdown-custom.is-open .pc-dropdown-trigger.is-well,
+.pc-dropdown-trigger.pc-is-well:focus,
 .pc-dropdown-trigger.is-well:focus {
   background-color: #E5DFD2 !important;
   box-shadow: 
@@ -1644,6 +1690,7 @@ p, .example-desc {
     0 0 0 2.5px var(--pc-mint),
     0 1px 0 #FFFFFF !important;
 }
+.pc-dropdown-trigger .pc-trigger-content,
 .pc-dropdown-trigger .trigger-content {
   display: inline-flex;
   align-items: center;
@@ -1651,12 +1698,17 @@ p, .example-desc {
   line-height: 1;
   text-align: left;
 }
+.pc-dropdown-trigger .pc-trigger-content .pc-trigger-text,
+.pc-dropdown-trigger .pc-trigger-content .trigger-text,
+.pc-dropdown-trigger .trigger-content .pc-trigger-text,
 .pc-dropdown-trigger .trigger-content .trigger-text,
+.pc-dropdown-trigger .pc-trigger-content > span:not(.pc-inline-icon),
 .pc-dropdown-trigger .trigger-content > span:not(.pc-inline-icon) {
   display: inline-flex;
   align-items: center;
   line-height: 1;
 }
+.pc-dropdown-trigger .pc-arrow-icon,
 .pc-dropdown-trigger .arrow-icon {
   display: inline-flex;
   align-items: center;
@@ -1666,6 +1718,9 @@ p, .example-desc {
   color: var(--pc-ink-muted, #7A6958);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger .pc-arrow-icon,
+.pc-dropdown-custom.is-open .pc-dropdown-trigger .pc-arrow-icon,
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger .arrow-icon,
 .pc-dropdown-custom.is-open .pc-dropdown-trigger .arrow-icon {
   transform: rotate(180deg);
 }
@@ -1716,6 +1771,7 @@ p, .example-desc {
   border-radius: 999px;
 }
 
+.pc-dropdown-custom.pc-is-open .pc-dropdown-menu,
 .pc-dropdown-custom.is-open .pc-dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -1831,6 +1887,7 @@ p, .example-desc {
 }
 
 /* Selected state: 밑에 살짝 넓은 민트 배면 색지 + 그 위에 올라간 연민트 표면 종이 */
+.pc-dropdown-item.pc-is-selected,
 .pc-dropdown-item.is-selected {
   background-color: #EAF7F0 !important; /* 표면 연민트 색지 */
   border-color: #70B896 !important;
@@ -1843,6 +1900,7 @@ p, .example-desc {
     0 3.5px 7px rgba(27, 77, 54, 0.10) !important;
 }
 
+.pc-dropdown-item.pc-is-selected::before,
 .pc-dropdown-item.is-selected::before {
   background-color: #BDE4D3 !important; /* 밑에 살짝 넓은 민트 배면 색지 */
   border-color: #6BB591 !important;
@@ -1855,32 +1913,64 @@ p, .example-desc {
 /* 데클 종이 셀렉트 (.pc-dropdown-custom.is-well + 페이퍼 레이어 엔진)
    트리거·메뉴·항목이 모두 .pc-svg-input-frame-wrap과 같은 물결 외곽 색지 + 흰 속지 SVG로 그려진다.
    CSS 상자(배경·테두리·그림자·밑종이 ::before)는 끈다. 선택된 항목은 민트 외곽 + 연민트 속지. */
+.pc-dropdown-custom .pc-dropdown-trigger.pc-is-paper-hydrated,
 .pc-dropdown-custom .pc-dropdown-trigger.is-paper-hydrated,
+.pc-dropdown-custom .pc-dropdown-trigger.pc-is-paper-hydrated:hover,
 .pc-dropdown-custom .pc-dropdown-trigger.is-paper-hydrated:hover,
+.pc-dropdown-custom .pc-dropdown-trigger.pc-is-paper-hydrated:focus,
 .pc-dropdown-custom .pc-dropdown-trigger.is-paper-hydrated:focus,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger.pc-is-paper-hydrated,
+.pc-dropdown-custom.is-well .pc-dropdown-trigger.pc-is-paper-hydrated,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger.is-paper-hydrated,
 .pc-dropdown-custom.is-well .pc-dropdown-trigger.is-paper-hydrated,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger.pc-is-paper-hydrated:hover,
+.pc-dropdown-custom.is-well .pc-dropdown-trigger.pc-is-paper-hydrated:hover,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger.is-paper-hydrated:hover,
 .pc-dropdown-custom.is-well .pc-dropdown-trigger.is-paper-hydrated:hover,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger.pc-is-paper-hydrated:focus,
+.pc-dropdown-custom.is-well .pc-dropdown-trigger.pc-is-paper-hydrated:focus,
+.pc-dropdown-custom.pc-is-well .pc-dropdown-trigger.is-paper-hydrated:focus,
 .pc-dropdown-custom.is-well .pc-dropdown-trigger.is-paper-hydrated:focus,
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.pc-is-well.pc-is-paper-hydrated,
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.is-well.pc-is-paper-hydrated,
+.pc-dropdown-custom.is-open .pc-dropdown-trigger.pc-is-well.pc-is-paper-hydrated,
+.pc-dropdown-custom.is-open .pc-dropdown-trigger.is-well.pc-is-paper-hydrated,
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.pc-is-well.is-paper-hydrated,
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.is-well.is-paper-hydrated,
+.pc-dropdown-custom.is-open .pc-dropdown-trigger.pc-is-well.is-paper-hydrated,
 .pc-dropdown-custom.is-open .pc-dropdown-trigger.is-well.is-paper-hydrated,
+.pc-dropdown-menu.pc-is-paper-hydrated,
 .pc-dropdown-menu.is-paper-hydrated,
+.pc-dropdown-item.pc-is-paper-hydrated,
 .pc-dropdown-item.is-paper-hydrated,
+.pc-dropdown-item.pc-is-paper-hydrated:hover,
 .pc-dropdown-item.is-paper-hydrated:hover,
+.pc-dropdown-item.pc-is-paper-hydrated:active,
 .pc-dropdown-item.is-paper-hydrated:active,
+.pc-dropdown-item.pc-is-paper-hydrated.pc-is-selected,
+.pc-dropdown-item.pc-is-paper-hydrated.is-selected,
+.pc-dropdown-item.is-paper-hydrated.pc-is-selected,
 .pc-dropdown-item.is-paper-hydrated.is-selected {
   background: transparent !important;
   border-color: transparent !important;
   box-shadow: none !important;
 }
+.pc-dropdown-trigger.pc-is-paper-hydrated,
 .pc-dropdown-trigger.is-paper-hydrated {
   min-height: 48px;
   padding: 12px 20px;
   gap: 10px;
 }
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.pc-is-paper-hydrated:focus-visible,
+.pc-dropdown-custom.is-open .pc-dropdown-trigger.pc-is-paper-hydrated:focus-visible,
+.pc-dropdown-custom.pc-is-open .pc-dropdown-trigger.is-paper-hydrated:focus-visible,
 .pc-dropdown-custom.is-open .pc-dropdown-trigger.is-paper-hydrated:focus-visible,
+.pc-dropdown-trigger.pc-is-paper-hydrated:focus-visible,
 .pc-dropdown-trigger.is-paper-hydrated:focus-visible {
   outline: 2.5px solid var(--pc-mint-dark, #275C46);
   outline-offset: 2px;
 }
+.pc-dropdown-menu.pc-is-paper-hydrated,
 .pc-dropdown-menu.is-paper-hydrated {
   padding: 12px;
   gap: 6px;
@@ -1894,13 +1984,18 @@ p, .example-desc {
   white-space: normal;
 }
 /* 좁은 화면에서 말줄임으로 잘리지 않게 줄바꿈한다(한국어는 어절 단위). SVG는 늘어난 높이로 다시 그려진다. */
+.pc-dropdown-item.pc-is-paper-hydrated .pc-dropdown-text,
 .pc-dropdown-item.is-paper-hydrated .pc-dropdown-text,
+.pc-dropdown-trigger.pc-is-paper-hydrated .pc-trigger-text,
+.pc-dropdown-trigger.pc-is-paper-hydrated .trigger-text,
+.pc-dropdown-trigger.is-paper-hydrated .pc-trigger-text,
 .pc-dropdown-trigger.is-paper-hydrated .trigger-text {
   white-space: normal;
   word-break: keep-all;
   overflow-wrap: anywhere;
   line-height: 1.3;
 }
+.pc-dropdown-item.pc-is-paper-hydrated::before,
 .pc-dropdown-item.is-paper-hydrated::before {
   display: none;
 }
@@ -1930,6 +2025,7 @@ p, .example-desc {
 }
 
 /* Hover preview of checkmark */
+.pc-dropdown-item:hover:not(.pc-is-selected) .pc-dropdown-check,
 .pc-dropdown-item:hover:not(.is-selected) .pc-dropdown-check {
   opacity: 0.50;
   transform: scale(0.96);
@@ -1937,6 +2033,7 @@ p, .example-desc {
 }
 
 /* Selected state: 배경에 민트 종이 패치 + 그 위에 얹힌 유선형 V 체크 종이 */
+.pc-dropdown-item.pc-is-selected .pc-dropdown-check,
 .pc-dropdown-item.is-selected .pc-dropdown-check {
   opacity: 1 !important;
   transform: scale(1.05);
@@ -2001,6 +2098,29 @@ p, .example-desc {
     2px 2.6px 0 rgba(46, 30, 20, 0.38),
     3px 4px 6px rgba(46, 30, 20, 0.09) !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+}
+
+/* PC Card Sheet - 220g Fine Cardstock Sheet Standard (1.5px Kraft Bevel + 2-Tier 48% Deep Shadow) */
+.pc-card-sheet {
+  position: relative !important;
+  background: var(--pc-paper-white, #FFFDF9) !important;
+  border: 1.5px solid #E2D7C5 !important;
+  border-radius: 0 !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    var(--pc-paper-shadow-lg) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+}
+
+.pc-card-sheet:hover {
+  transform: translateY(-2.2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    1px 1px 0 #D8CAB8,
+    1.8px 2px 0 #B9A58C,
+    2.6px 3px 0 rgba(46, 30, 20, 0.42),
+    3.8px 4.5px 1.5px rgba(46, 30, 20, 0.22),
+    6.5px 9px 14px rgba(46, 30, 20, 0.14) !important;
 }
 
 /* 마우스를 올리면 종이두께(약 2.2px)만큼 떠오르고 아랫쪽 절단면 밑에 45도 명확한 그림자 투영 */
@@ -2293,14 +2413,17 @@ p, .example-desc {
 .pc-card-washi:hover::before {
   transform: translateX(-50%) rotate(-1deg) scale(1.05);
 }
+.pc-card-washi.pc-is-peach::before,
 .pc-card-washi.is-peach::before,
 .pc-card-washi-peach::before {
   background-color: rgba(247, 186, 158, 0.90);
 }
+.pc-card-washi.pc-is-buttercup::before,
 .pc-card-washi.is-buttercup::before,
 .pc-card-washi-buttercup::before {
   background-color: rgba(254, 227, 150, 0.90);
 }
+.pc-card-washi.pc-is-lavender::before,
 .pc-card-washi.is-lavender::before,
 .pc-card-washi-lavender::before {
   background-color: rgba(215, 203, 235, 0.90);
@@ -2453,15 +2576,18 @@ p, .example-desc {
    ========================================================================== */
 
 /* 1. 기본 카드, 버튼 쇼케이스, 패널, 플레이트 둥근 모서리 */
+.pc-card.pc-is-rounded,
 .pc-card.is-rounded,
 .pc-card.pc-rounded,
 .pc-card-rounded,
 .pc-card.pc-card--rounded,
+.pc-button-showcase-card.pc-is-rounded,
 .pc-button-showcase-card.is-rounded,
 .pc-button-showcase-card.pc-rounded {
   border-radius: 22px !important;
 }
 
+.pc-panel.pc-is-rounded,
 .pc-panel.is-rounded,
 .pc-panel.pc-rounded,
 .pc-panel--rounded,
@@ -2469,6 +2595,7 @@ p, .example-desc {
   border-radius: 20px !important;
 }
 
+.pc-plate.pc-is-rounded,
 .pc-plate.is-rounded,
 .pc-plate.pc-rounded,
 .pc-plate--rounded,
@@ -2479,12 +2606,14 @@ p, .example-desc {
 /* 2. 페이퍼 커팅 4대 특화 카드 둥근 모서리 다이컷 에디션 */
 
 /* 01. Dog-ear 둥근 카드: 우측 상단 45° 접힘 플랩과 조화를 이루는 다이컷 라운딩 (좌상, 좌하, 우하 22px) */
+.pc-card-dogear.pc-is-rounded,
 .pc-card-dogear.is-rounded,
 .pc-card-dogear.pc-rounded,
 .pc-card-dogear--rounded,
 .pc-card-dogear-rounded {
   border-radius: 22px 0 22px 22px !important;
 }
+.pc-card-dogear.pc-is-rounded::before,
 .pc-card-dogear.is-rounded::before,
 .pc-card-dogear.pc-rounded::before,
 .pc-card-dogear--rounded::before,
@@ -2493,12 +2622,14 @@ p, .example-desc {
 }
 
 /* 02. Washi Tape 둥근 메모 카드: 22px 다이컷 라운드 메모 패드 + 24px 회전 피치 배면 시트 */
+.pc-card-washi.pc-is-rounded,
 .pc-card-washi.is-rounded,
 .pc-card-washi.pc-rounded,
 .pc-card-washi--rounded,
 .pc-card-washi-rounded {
   border-radius: 22px !important;
 }
+.pc-card-washi.pc-is-rounded::after,
 .pc-card-washi.is-rounded::after,
 .pc-card-washi.pc-rounded::after,
 .pc-card-washi--rounded::after,
@@ -2507,12 +2638,14 @@ p, .example-desc {
 }
 
 /* 03. Deckle Edge 둥근 수제 한지 카드: 22px 본체 라운드 + 14px 내부 골드 헤어라인 인레이 링 */
+.pc-card-deckle.pc-is-rounded,
 .pc-card-deckle.is-rounded,
 .pc-card-deckle.pc-rounded,
 .pc-card-deckle--rounded,
 .pc-card-deckle-rounded {
   border-radius: 22px !important;
 }
+.pc-card-deckle.pc-is-rounded::after,
 .pc-card-deckle.is-rounded::after,
 .pc-card-deckle.pc-rounded::after,
 .pc-card-deckle--rounded::after,
@@ -2521,12 +2654,14 @@ p, .example-desc {
 }
 
 /* 04. Notched Ticket 둥근 다이컷 시네마 티켓: 4모서리 22px 라운드 + 양측 반원 노치 다이컷 */
+.pc-card-ticket.pc-is-rounded,
 .pc-card-ticket.is-rounded,
 .pc-card-ticket.pc-rounded,
 .pc-card-ticket--rounded,
 .pc-card-ticket-rounded {
   border-radius: 22px !important;
 }
+.pc-card-ticket.pc-is-rounded::before,
 .pc-card-ticket.is-rounded::before,
 .pc-card-ticket.pc-rounded::before,
 .pc-card-ticket--rounded::before,
@@ -3204,7 +3339,9 @@ p, .example-desc {
   z-index: 2;
 }
 
+.pc-badge--sound.pc-is-inlay,
 .pc-badge--sound.is-inlay,
+.pc-badge-sound.pc-is-inlay,
 .pc-badge-sound.is-inlay {
   background-color: #FFFBF0;
   border: 1.2px solid #FEE396 !important;
@@ -3229,19 +3366,21 @@ p, .example-desc {
     0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
 }
 
-/* Paper Cutout Stage/Well inside cards */
+/* Paper Cutout Stage/Well inside cards (Authentic Carved Paper Well) */
+.pc-card-well,
 .pc-cutout-well {
-  background-color: #EDE8DE;
-  border: none;
-  border-radius: var(--pc-radius-md);
+  background-color: #F4EFE6 !important;
+  border: 1.5px solid #E2D7C5 !important;
+  border-radius: var(--pc-radius-md, 0px) !important;
   padding: 18px;
-  box-shadow: var(--pc-shadow-cutout);
+  box-shadow: var(--pc-shadow-cutout) !important;
 }
 
 /* ==========================================================================
    CARD INTERNAL CONFINEMENT & OVERFLOW SHIELD (상위 컴포넌트 이탈 방지)
    ========================================================================== */
 .pc-card,
+.pc-example-item,
 .example-item,
 .pc-panel,
 .pc-plate {
@@ -3250,12 +3389,14 @@ p, .example-desc {
 }
 
 .pc-card *,
+.pc-example-item *,
 .example-item *,
 .pc-panel * {
   box-sizing: border-box;
 }
 
 /* Demo stages & wells */
+.pc-demo-stage,
 .demo-stage,
 .pc-cutout-well,
 .pc-demo-stage,
@@ -3267,7 +3408,9 @@ p, .example-desc {
 }
 
 /* Code blocks & snippet pre tags */
+.pc-code-block,
 .code-block,
+pre.pc-code-block,
 pre.code-block,
 .pc-code-block,
 .pc-code-snippet,
@@ -3279,9 +3422,11 @@ pre code {
 }
 
 /* Tables & wide flex rows */
+.pc-demo-stage table,
 .demo-stage table,
 .pc-table,
 .pc-table-wrap,
+.pc-table-responsive,
 .table-responsive {
   max-width: 100% !important;
   box-sizing: border-box !important;
@@ -3289,17 +3434,24 @@ pre code {
   -webkit-overflow-scrolling: touch;
 }
 
+.pc-demo-stage > div,
 .demo-stage > div,
+.pc-demo-stage form,
 .demo-stage form,
+.pc-demo-stage .pc-toggle-row,
 .demo-stage .pc-toggle-row,
+.pc-demo-stage .pc-checkbox-row,
 .demo-stage .pc-checkbox-row,
+.pc-demo-stage .pc-radio-row,
 .demo-stage .pc-radio-row {
   max-width: 100%;
   box-sizing: border-box;
 }
 
 /* SVG Buttons inside demo stage must never exceed parent container */
+.pc-demo-stage .pc-svg-kirigami-btn,
 .demo-stage .pc-svg-kirigami-btn,
+.pc-demo-stage svg.pc-kirigami-btn-svg,
 .demo-stage svg.pc-kirigami-btn-svg {
   max-width: 100%;
   box-sizing: border-box;
@@ -3307,28 +3459,36 @@ pre code {
 }
 
 /* Custom smooth paper scrollbar */
+.pc-demo-stage::-webkit-scrollbar,
 .demo-stage::-webkit-scrollbar,
+.pc-code-block::-webkit-scrollbar,
 .code-block::-webkit-scrollbar,
 .pc-code-block::-webkit-scrollbar,
 .pc-table-wrap::-webkit-scrollbar {
   height: 6px;
   width: 6px;
 }
+.pc-demo-stage::-webkit-scrollbar-track,
 .demo-stage::-webkit-scrollbar-track,
+.pc-code-block::-webkit-scrollbar-track,
 .code-block::-webkit-scrollbar-track,
 .pc-code-block::-webkit-scrollbar-track,
 .pc-table-wrap::-webkit-scrollbar-track {
   background: rgba(46, 30, 20, 0.06);
   border-radius: 999px;
 }
+.pc-demo-stage::-webkit-scrollbar-thumb,
 .demo-stage::-webkit-scrollbar-thumb,
+.pc-code-block::-webkit-scrollbar-thumb,
 .code-block::-webkit-scrollbar-thumb,
 .pc-code-block::-webkit-scrollbar-thumb,
 .pc-table-wrap::-webkit-scrollbar-thumb {
   background: rgba(46, 30, 20, 0.22);
   border-radius: 999px;
 }
+.pc-demo-stage::-webkit-scrollbar-thumb:hover,
 .demo-stage::-webkit-scrollbar-thumb:hover,
+.pc-code-block::-webkit-scrollbar-thumb:hover,
 .code-block::-webkit-scrollbar-thumb:hover,
 .pc-code-block::-webkit-scrollbar-thumb:hover,
 .pc-table-wrap::-webkit-scrollbar-thumb:hover {
@@ -3361,88 +3521,130 @@ pre code {
    6. 14 PLAYGROUND PASTEL THEME PRESETS (14가지 파스텔 테마 색지 프리셋)
    ========================================================================== */
 
+#playground-preview-box.pc-theme-cream,
 #playground-preview-box.theme-cream {
   background-color: #FFFFFF !important;
 }
+#playground-preview-box.pc-theme-cream::before,
 #playground-preview-box.theme-cream::before { background-color: var(--pc-mint) !important; }
+#playground-preview-box.pc-theme-cream::after,
 #playground-preview-box.theme-cream::after { background-color: var(--pc-buttercup) !important; }
 
+#playground-preview-box.pc-theme-peach,
 #playground-preview-box.theme-peach {
   background-color: #FFFDF9 !important;
 }
+#playground-preview-box.pc-theme-peach::before,
 #playground-preview-box.theme-peach::before { background-color: var(--pc-peach) !important; }
+#playground-preview-box.pc-theme-peach::after,
 #playground-preview-box.theme-peach::after { background-color: var(--pc-buttercup) !important; }
 
+#playground-preview-box.pc-theme-lavender,
 #playground-preview-box.theme-lavender {
   background-color: #FAF8FE !important;
 }
+#playground-preview-box.pc-theme-lavender::before,
 #playground-preview-box.theme-lavender::before { background-color: var(--pc-lavender) !important; }
+#playground-preview-box.pc-theme-lavender::after,
 #playground-preview-box.theme-lavender::after { background-color: var(--pc-sky) !important; }
 
+#playground-preview-box.pc-theme-buttercup,
 #playground-preview-box.theme-buttercup {
   background-color: #FFFDF5 !important;
 }
+#playground-preview-box.pc-theme-buttercup::before,
 #playground-preview-box.theme-buttercup::before { background-color: var(--pc-buttercup) !important; }
+#playground-preview-box.pc-theme-buttercup::after,
 #playground-preview-box.theme-buttercup::after { background-color: var(--pc-mint) !important; }
 
+#playground-preview-box.pc-theme-sky,
 #playground-preview-box.theme-sky {
   background-color: #F6FBFE !important;
 }
+#playground-preview-box.pc-theme-sky::before,
 #playground-preview-box.theme-sky::before { background-color: var(--pc-sky) !important; }
+#playground-preview-box.pc-theme-sky::after,
 #playground-preview-box.theme-sky::after { background-color: var(--pc-mint) !important; }
 
+#playground-preview-box.pc-theme-cherry,
 #playground-preview-box.theme-cherry {
   background-color: #FEF7F8 !important;
 }
+#playground-preview-box.pc-theme-cherry::before,
 #playground-preview-box.theme-cherry::before { background-color: var(--pc-rose) !important; }
+#playground-preview-box.pc-theme-cherry::after,
 #playground-preview-box.theme-cherry::after { background-color: var(--pc-peach) !important; }
 
+#playground-preview-box.pc-theme-matcha,
 #playground-preview-box.theme-matcha {
   background-color: #F8FAF6 !important;
 }
+#playground-preview-box.pc-theme-matcha::before,
 #playground-preview-box.theme-matcha::before { background-color: var(--pc-sage) !important; }
+#playground-preview-box.pc-theme-matcha::after,
 #playground-preview-box.theme-matcha::after { background-color: var(--pc-buttercup) !important; }
 
+#playground-preview-box.pc-theme-cotton-candy,
 #playground-preview-box.theme-cotton-candy {
   background-color: #FDF9FD !important;
 }
+#playground-preview-box.pc-theme-cotton-candy::before,
 #playground-preview-box.theme-cotton-candy::before { background-color: #F5B8BE !important; }
+#playground-preview-box.pc-theme-cotton-candy::after,
 #playground-preview-box.theme-cotton-candy::after { background-color: #BDE0EA !important; }
 
+#playground-preview-box.pc-theme-lemon,
 #playground-preview-box.theme-lemon {
   background-color: #FFFEF7 !important;
 }
+#playground-preview-box.pc-theme-lemon::before,
 #playground-preview-box.theme-lemon::before { background-color: #FFF099 !important; }
+#playground-preview-box.pc-theme-lemon::after,
 #playground-preview-box.theme-lemon::after { background-color: #C8E8D5 !important; }
 
+#playground-preview-box.pc-theme-twilight,
 #playground-preview-box.theme-twilight {
   background-color: #F6F4FA !important;
 }
+#playground-preview-box.pc-theme-twilight::before,
 #playground-preview-box.theme-twilight::before { background-color: #C8B8E8 !important; }
+#playground-preview-box.pc-theme-twilight::after,
 #playground-preview-box.theme-twilight::after { background-color: #FEE396 !important; }
 
+#playground-preview-box.pc-theme-apricot,
 #playground-preview-box.theme-apricot {
   background-color: #FFF9F5 !important;
 }
+#playground-preview-box.pc-theme-apricot::before,
 #playground-preview-box.theme-apricot::before { background-color: #F8C39E !important; }
+#playground-preview-box.pc-theme-apricot::after,
 #playground-preview-box.theme-apricot::after { background-color: #F5A8B2 !important; }
 
+#playground-preview-box.pc-theme-eucalyptus,
 #playground-preview-box.theme-eucalyptus {
   background-color: #F5F9F6 !important;
 }
+#playground-preview-box.pc-theme-eucalyptus::before,
 #playground-preview-box.theme-eucalyptus::before { background-color: #A3CCA0 !important; }
+#playground-preview-box.pc-theme-eucalyptus::after,
 #playground-preview-box.theme-eucalyptus::after { background-color: #C8B8E8 !important; }
 
+#playground-preview-box.pc-theme-berry,
 #playground-preview-box.theme-berry {
   background-color: #FAF5F8 !important;
 }
+#playground-preview-box.pc-theme-berry::before,
 #playground-preview-box.theme-berry::before { background-color: #E8A8C2 !important; }
+#playground-preview-box.pc-theme-berry::after,
 #playground-preview-box.theme-berry::after { background-color: #BDE0EA !important; }
 
+#playground-preview-box.pc-theme-teddy,
 #playground-preview-box.theme-teddy {
   background-color: #FAF6F0 !important;
 }
+#playground-preview-box.pc-theme-teddy::before,
 #playground-preview-box.theme-teddy::before { background-color: #E2CCA8 !important; }
+#playground-preview-box.pc-theme-teddy::after,
 #playground-preview-box.theme-teddy::after { background-color: #F7BA9E !important; }
 
 
@@ -3630,6 +3832,7 @@ pre code {
   box-shadow: 0 2.5px 0 rgba(46, 30, 20, 0.38), 0 5px 10px rgba(46, 30, 20, 0.22);
 }
 
+.pc-icon-cat-btn.pc-is-active,
 .pc-icon-cat-btn.is-active {
   background-color: var(--pc-mint);
   color: var(--pc-mint-dark);
@@ -3775,6 +3978,7 @@ pre code {
   border-color: #D2C4AE;
 }
 
+.pc-sound-card.pc-is-active,
 .pc-sound-card.is-active {
   border-color: #8FD1B3 !important;
   background: #F7FCF9 !important;
@@ -4041,6 +4245,7 @@ pre code {
   box-shadow: 0 2.5px 0 rgba(46, 30, 20, 0.38), 0 5px 10px rgba(46, 30, 20, 0.22);
 }
 
+.pc-bg-cat-btn.pc-is-active,
 .pc-bg-cat-btn.is-active {
   background-color: var(--pc-peach);
   color: var(--pc-peach-dark);
@@ -4282,9 +4487,9 @@ pre code {
   background-image: none !important;
 }
 
-/* Ensure contents stay above base background texture layer */
-[class*="pc-texture-"] > *:not(.pc-texture-underlay),
-.pc-surface-cotton > *:not(.pc-texture-underlay) {
+/* Ensure contents stay above base background texture layer (excluding fixed overlays) */
+[class*="pc-texture-"] > *:not(.pc-texture-underlay):not([class*="modal"]):not([class*="backdrop"]):not([class*="toast"]):not(.pc-site-header),
+.pc-surface-cotton > *:not(.pc-texture-underlay):not([class*="modal"]):not([class*="backdrop"]):not([class*="toast"]):not(.pc-site-header) {
   position: relative;
   z-index: 3;
 }
@@ -4556,6 +4761,7 @@ pre code {
 }
 
 /* Live Design Lab Interactive Playground UI */
+.pc-pg-texture-chips,
 .pg-texture-chips {
   display: flex;
   flex-wrap: wrap;
@@ -4563,6 +4769,7 @@ pre code {
   margin-top: 10px;
   max-width: 100%;
 }
+.pc-pg-texture-chip,
 .pg-texture-chip {
   width: auto !important;
   min-width: 0;
@@ -4587,16 +4794,21 @@ pre code {
   text-align: center;
   white-space: normal;
 }
+.pc-pg-texture-chip > span,
 .pg-texture-chip > span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
 }
+.pc-pg-texture-chip:hover,
 .pg-texture-chip:hover {
   background: #F5EEDB;
   transform: translateY(-1px);
 }
+.pc-pg-texture-chip.pc-is-active,
+.pc-pg-texture-chip.is-active,
+.pg-texture-chip.pc-is-active,
 .pg-texture-chip.is-active {
   background: var(--pc-mint-layer);
   border-color: rgba(74, 58, 42, 0.35);
@@ -4604,14 +4816,17 @@ pre code {
   box-shadow: 0 2px 0 rgba(74, 58, 42, 0.14);
 }
 
+.pc-pg-dual-icon-grid,
 .pg-dual-icon-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 14px;
   margin-top: 10px;
 }
+.pc-pg-dual-icon-grid > *,
 .pg-dual-icon-grid > * { min-width: 0; }
 
+.pc-pg-icon-display-box,
 .pg-icon-display-box {
   background: #FAF7F0;
   border: 2px dashed rgba(74, 58, 42, 0.18);
@@ -4627,11 +4842,13 @@ pre code {
   min-height: 140px;
   transition: all 0.25s ease;
 }
+.pc-pg-icon-display-box .pc-layered-paper-icon,
 .pg-icon-display-box .pc-layered-paper-icon {
   width: 68px;
   height: 68px;
 }
 
+.pc-pg-spec-card,
 .pg-spec-card {
   background: #FFFDF9;
   border: 1.5px solid rgba(74, 58, 42, 0.15);
@@ -4640,24 +4857,28 @@ pre code {
   margin-top: 14px;
   box-shadow: 0 2px 0 rgba(74, 58, 42, 0.08);
 }
+.pc-pg-spec-card-grid,
 .pg-spec-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(130px, 100%), 1fr));
   gap: 8px;
   margin-top: 8px;
 }
+.pc-pg-spec-item,
 .pg-spec-item {
   background: var(--pc-bg-cream);
   padding: 8px 10px;
   border-radius: 8px;
   font-size: 11.5px;
 }
+.pc-pg-spec-item-label,
 .pg-spec-item-label {
   color: var(--pc-ink-muted);
   font-size: 10.5px;
   font-weight: 700;
   margin-bottom: 2px;
 }
+.pc-pg-spec-item-value,
 .pg-spec-item-value {
   font-weight: 800;
   color: var(--pc-ink);
@@ -4698,30 +4919,35 @@ pre code {
 }
 
 /* Sizing Modifiers */
+.pc-inline-icon.pc-is-xs,
 .pc-inline-icon.is-xs {
   width: 1.15em;
   height: 1.15em;
   vertical-align: middle;
 }
 
+.pc-inline-icon.pc-is-sm,
 .pc-inline-icon.is-sm {
   width: 1.35em;
   height: 1.35em;
   vertical-align: middle;
 }
 
+.pc-inline-icon.pc-is-md,
 .pc-inline-icon.is-md {
   width: 1.85em;
   height: 1.85em;
   vertical-align: middle;
 }
 
+.pc-inline-icon.pc-is-lg,
 .pc-inline-icon.is-lg {
   width: 2.4em;
   height: 2.4em;
   vertical-align: middle;
 }
 
+.pc-inline-icon.pc-is-xl,
 .pc-inline-icon.is-xl {
   width: 3.2em;
   height: 3.2em;
@@ -4729,6 +4955,7 @@ pre code {
 }
 
 /* Badge Icon Context (Generous 76% fill for prominent, crisp silhouettes) */
+.pc-inline-icon.pc-is-badge-icon,
 .pc-inline-icon.is-badge-icon {
   width: 76%;
   height: 76%;
@@ -4738,6 +4965,7 @@ pre code {
 }
 
 /* Form Input & Label Contexts */
+.pc-inline-icon.pc-is-input-icon,
 .pc-inline-icon.is-input-icon {
   width: 24px;
   height: 24px;
@@ -5066,19 +5294,25 @@ textarea.pc-input.pc-texture-paper,
 }
 
 /* Component Texture Studio Controls & Targets */
+.pc-pg-comp-chip,
 .pg-comp-chip {
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+.pc-pg-comp-chip:hover,
 .pg-comp-chip:hover {
   transform: translateY(-1px);
 }
+.pc-pg-comp-chip.pc-is-active,
+.pc-pg-comp-chip.is-active,
+.pg-comp-chip.pc-is-active,
 .pg-comp-chip.is-active {
   background: var(--pc-mint);
   color: var(--pc-mint-dark);
   box-shadow: var(--pc-paper-shadow-xs);
 }
 
+.pc-pg-comp-target,
 .pg-comp-target {
   transition: background-image 0.25s ease, box-shadow 0.2s ease;
 }
@@ -5157,6 +5391,7 @@ textarea.pc-input.pc-texture-paper,
   box-shadow: 0 3px 6px rgba(74, 58, 42, 0.25);
 }
 
+.pc-stroke-swatch.pc-is-active,
 .pc-stroke-swatch.is-active {
   border-color: var(--pc-ink);
   transform: scale(1.15);
@@ -5187,6 +5422,7 @@ textarea.pc-input.pc-texture-paper,
   border-color: var(--pc-mint);
 }
 
+.pc-thickness-chip.pc-is-active,
 .pc-thickness-chip.is-active {
   background: var(--pc-ink);
   color: #FFFDF9;
@@ -5208,15 +5444,19 @@ textarea.pc-input.pc-texture-paper,
   border: 1.5px dashed rgba(74, 58, 42, 0.18);
 }
 
+.pc-studio-stage.pc-bg-cream,
 .pc-studio-stage.bg-cream {
   background: #FAF7F0;
 }
+.pc-studio-stage.pc-bg-white,
 .pc-studio-stage.bg-white {
   background: #FFFFFF;
 }
+.pc-studio-stage.pc-bg-dark,
 .pc-studio-stage.bg-dark {
   background: #25201C;
 }
+.pc-studio-stage.pc-bg-grid,
 .pc-studio-stage.bg-grid {
   background-color: #FAF7F0;
   background-image: 
@@ -5329,23 +5569,34 @@ textarea.pc-input.pc-texture-paper,
    -------------------------------------------------------------------------- */
 
 /* Explicit Opt-in Only */
+.pc-layered-paper-icon.pc-force-firr,
 .pc-layered-paper-icon.force-firr,
+.pc-inline-icon.pc-is-firr svg,
 .pc-inline-icon.is-firr svg {
   max-width: 28px !important;
   max-height: 28px !important;
 }
 
+.pc-firr-style.pc-force-firr,
 .pc-firr-style.force-firr,
+.pc-firr-style.pc-force-firr *,
 .pc-firr-style.force-firr * {
   filter: none !important;
 }
 
+.pc-firr-style.pc-force-firr path,
 .pc-firr-style.force-firr path,
+.pc-firr-style.pc-force-firr rect,
 .pc-firr-style.force-firr rect,
+.pc-firr-style.pc-force-firr circle,
 .pc-firr-style.force-firr circle,
+.pc-firr-style.pc-force-firr ellipse,
 .pc-firr-style.force-firr ellipse,
+.pc-firr-style.pc-force-firr polygon,
 .pc-firr-style.force-firr polygon,
+.pc-firr-style.pc-force-firr line,
 .pc-firr-style.force-firr line,
+.pc-firr-style.pc-force-firr polyline,
 .pc-firr-style.force-firr polyline {
   stroke: var(--pc-icon-stroke-color, #423D39) !important;
   stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
@@ -5357,10 +5608,15 @@ textarea.pc-input.pc-texture-paper,
   vector-effect: non-scaling-stroke !important;
 }
 
+.pc-firr-style.pc-force-firr path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
 .pc-firr-style.force-firr path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.pc-force-firr rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
 .pc-firr-style.force-firr rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.pc-force-firr circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
 .pc-firr-style.force-firr circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.pc-force-firr ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
 .pc-firr-style.force-firr ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-firr-style.pc-force-firr polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
 .pc-firr-style.force-firr polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
   fill: none !important;
   fill-opacity: 0 !important;

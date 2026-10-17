@@ -344,6 +344,7 @@
   transform: translateY(1.5px);
   box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), inset 0 1px 2px rgba(46, 30, 20, 0.15);
 }
+.pc-anim-preset-chip.pc-is-active,
 .pc-anim-preset-chip.is-active {
   background: var(--pc-mint, #A3D8C3);
   border-color: rgba(30, 90, 60, 0.28);
@@ -390,6 +391,7 @@
   transform: translateY(1px);
   box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.4), inset 0 1px 2px rgba(46, 30, 20, 0.15);
 }
+.pc-anim-speed-btn.pc-is-active,
 .pc-anim-speed-btn.is-active {
   background: #A3D8C3;
   color: #1A4D38;
@@ -417,6 +419,7 @@
   cursor: pointer;
   transition: all 0.15s ease;
 }
+.pc-anim-target-tab.pc-is-active,
 .pc-anim-target-tab.is-active {
   background: #D7CBEB;
   border-color: #8C78B8;
