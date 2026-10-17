@@ -9,13 +9,14 @@
 
 :root {
   --pc-header-height: 64px;
-  --pc-sidebar-width: 295px;
+  --pc-sidebar-width: 310px;
   --pc-sidebar-collapsed-width: 64px;
 }
 
 /* ==========================================================================
    0. Body & Layout Reset for Full-Width Header & Fixed Sidebar
    ========================================================================== */
+body.pc-has-sidebar,
 body.has-pc-sidebar {
   padding-left: 0 !important;
   margin: 0;
@@ -23,6 +24,7 @@ body.has-pc-sidebar {
   background-color: rgba(255, 253, 249, 0.96);
 }
 
+body.pc-is-collapsed,
 body.is-collapsed {
   padding-left: 0 !important;
 }
@@ -32,48 +34,52 @@ body.is-collapsed {
   min-height: calc(100vh - var(--pc-header-height));
   position: relative;
   width: 100%;
+  padding-top: var(--pc-header-height, 64px) !important;
   background-color: rgba(255, 253, 249, 0.96);
+  z-index: 1 !important;
 }
 
 /* ==========================================================================
    1. Global Top Header (상단 고정 헤더)
    ========================================================================== */
 .pc-site-header {
-  position: sticky;
+  position: fixed !important;
   top: 0;
   left: 0;
   right: 0;
   width: 100%;
-  height: var(--pc-header-height);
-  background: rgba(255, 253, 249, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  height: var(--pc-header-height, 64px);
+  background: rgba(255, 253, 249, 0.98);
   border-bottom: 1.5px solid #E6DBC9;
   box-shadow: 
     0 1px 0 rgba(255, 255, 255, 0.95) inset,
     0 2px 8px rgba(46, 30, 20, 0.08);
-  z-index: 10000;
+  z-index: 100000 !important;
+  overflow: visible !important;
   font-family: var(--pc-font, 'Nanum Square Round', -apple-system, sans-serif);
   user-select: none;
 }
 
 .pc-site-header-inner {
-  max-width: 1600px;
+  width: 100% !important;
+  max-width: 100% !important;
   height: 100%;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin: 0 !important;
+  padding: 0 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
   gap: 16px;
 }
 
 /* Header Left: Sidebar Indicator, Logo, Badge */
 .pc-site-header-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-shrink: 0;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex-shrink: 0 !important;
 }
 
 .pc-header-toggle-sidebar {
@@ -214,6 +220,7 @@ body.is-collapsed {
   transform: translateY(-1px);
 }
 
+.pc-header-nav-link.pc-is-active,
 .pc-header-nav-link.is-active {
   background: var(--pc-mint-light, #E8F5EE);
   color: var(--pc-mint-dark, #275C46);
@@ -223,10 +230,28 @@ body.is-collapsed {
 
 /* Header Right: Quick Actions */
 .pc-site-header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-left: auto !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+}
+
+.pc-site-header-right button,
+.pc-site-header-right .pc-dropdown-trigger {
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.pc-sound-select-wrapper {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+  z-index: 100001 !important;
 }
 
 .pc-header-action-btn {
@@ -272,6 +297,118 @@ body.is-collapsed {
     0 1.5px 3px rgba(46, 30, 20, 0.12) !important;
 }
 
+/* Header Paper Dropdown (우측 끝 종이 질감·소리 드롭다운) */
+.pc-header-paper-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pc-header-paper-dropdown .pc-dropdown-trigger.pc-svg-kirigami-btn {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  width: auto;
+  height: auto;
+  display: inline-flex;
+  align-items: center;
+}
+.pc-header-paper-dropdown .pc-dropdown-trigger.pc-svg-kirigami-btn::before {
+  display: none !important;
+}
+
+.pc-header-paper-dropdown .pc-dropdown-trigger:not(.pc-svg-kirigami-btn) {
+  width: auto;
+  min-height: 38px;
+  height: 38px;
+  padding: 0 12px;
+  font-family: 'Nanum Square Round', -apple-system, sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  gap: 8px;
+  white-space: nowrap;
+  background-color: #FFFDF9;
+  border-radius: 10px;
+  border: 1.5px solid #EADBCC;
+  color: #4A3A2C;
+  box-shadow: var(--pc-paper-shadow-xs, 0 1px 3px rgba(46, 30, 20, 0.08));
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.pc-header-paper-dropdown .pc-dropdown-trigger:hover {
+  background-color: #FAF4E8;
+  border-color: #DFCFBB;
+  transform: translateY(-1px);
+  box-shadow: var(--pc-paper-shadow-sm, 0 2px 6px rgba(46, 30, 20, 0.12));
+}
+
+.pc-header-paper-dropdown .pc-dropdown-trigger:active,
+.pc-header-paper-dropdown.pc-is-open .pc-dropdown-trigger {
+  transform: translateY(1px);
+  background-color: #F6EDE0;
+  box-shadow: inset 0 1px 2px rgba(46, 30, 20, 0.15);
+}
+
+.pc-header-paper-dropdown .pc-dropdown-menu {
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  right: 0 !important;
+  left: auto !important;
+  min-width: 185px !important;
+  padding: 8px !important;
+  gap: 4px !important;
+  z-index: 100005 !important;
+  background-color: #FFFDF9 !important;
+  border: 1.5px solid #D5C8B4 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 12px 32px rgba(46, 30, 20, 0.28), 0 2px 8px rgba(46, 30, 20, 0.12), inset 0 1px 0 #FFFFFF !important;
+  overflow-y: auto !important;
+  max-height: 420px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transform: translateY(-6px) scale(0.98) !important;
+  transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease !important;
+}
+
+.pc-header-paper-dropdown.pc-is-open .pc-dropdown-menu,
+.pc-header-paper-dropdown.is-open .pc-dropdown-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  display: flex !important;
+  transform: translateY(0) scale(1) !important;
+}
+
+.pc-header-paper-dropdown .pc-dropdown-item {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  justify-content: flex-start;
+  border-radius: 8px;
+  color: #4A3A2C;
+  transition: background-color 0.12s ease, transform 0.12s ease;
+  white-space: nowrap;
+}
+
+.pc-header-paper-dropdown .pc-dropdown-item:hover {
+  background-color: #F5EFE6;
+  color: #2E1E14;
+}
+
+.pc-header-paper-dropdown .pc-dropdown-item.pc-is-active,
+.pc-header-paper-dropdown .pc-dropdown-item.is-selected {
+  background-color: #EBF5F0;
+  color: #1E5C41;
+  font-weight: 800;
+}
+
 /* Responsive Header */
 @media (max-width: 1023px) {
   .pc-site-header-nav {
@@ -287,6 +424,7 @@ body.is-collapsed {
   .pc-header-version-badge {
     display: none;
   }
+  .pc-header-action-btn .pc-label,
   .pc-header-action-btn .label {
     display: none;
   }
@@ -322,7 +460,9 @@ body.is-collapsed {
 }
 
 /* Collapsed Mode (접힘 모드: 64px 아이콘 전용 내비게이션) */
+#pc-sidebar-nav.pc-is-collapsed,
 #pc-sidebar-nav.is-collapsed,
+body.pc-is-collapsed #pc-sidebar-nav,
 body.is-collapsed #pc-sidebar-nav {
   width: var(--pc-sidebar-collapsed-width) !important;
   min-width: var(--pc-sidebar-collapsed-width) !important;
@@ -438,6 +578,7 @@ body.is-collapsed #pc-sidebar-nav {
   background: #9E8D76;
 }
 
+.pc-site-main.pc-showcase-container,
 .pc-site-main.showcase-container {
   padding-top: 24px;
 }
@@ -452,7 +593,9 @@ body.is-collapsed #pc-sidebar-nav {
     transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s ease !important;
   }
 
+  #pc-sidebar-nav.pc-is-collapsed,
   #pc-sidebar-nav.is-collapsed,
+  body.pc-is-collapsed #pc-sidebar-nav,
   body.is-collapsed #pc-sidebar-nav {
     width: var(--pc-sidebar-collapsed-width) !important;
     min-width: var(--pc-sidebar-collapsed-width) !important;
@@ -466,6 +609,7 @@ body.is-collapsed #pc-sidebar-nav {
     transition: margin-left 0.28s cubic-bezier(0.16, 1, 0.3, 1), width 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
+  body.pc-is-collapsed .pc-content-wrapper,
   body.is-collapsed .pc-content-wrapper {
     margin-left: var(--pc-sidebar-collapsed-width) !important;
     width: calc(100% - var(--pc-sidebar-collapsed-width)) !important;
@@ -490,6 +634,7 @@ body.is-collapsed #pc-sidebar-nav {
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
     box-shadow: 6px 0 24px rgba(46, 30, 20, 0.25) !important;
   }
+  #pc-sidebar-nav.pc-is-mobile-open,
   #pc-sidebar-nav.is-mobile-open {
     transform: translateX(0) !important;
   }
@@ -595,70 +740,100 @@ body.is-collapsed #pc-sidebar-nav {
 }
 
 .pc-footer-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 14px;
-  font-size: 13px;
-  font-weight: 800;
-  color: #3D352E;
-  text-decoration: none;
-  background: #FFFDF9;
-  border: 1px solid rgba(46, 30, 20, 0.14);
-  border-radius: 8px;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-height: 44px !important;
+  padding: 10px 18px 10px 14px !important;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  color: #37281E !important;
+  text-decoration: none !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF5EB 100%) !important;
+  border: 1.5px solid #D5C8B4 !important;
+  border-radius: 9px !important;
+  /* 0.88px White Knife-Edge Bevel + 2-Tier 48% Burnt Umber Shadow */
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0 1.2px 0 rgba(46, 30, 20, 0.35),
-    0 2.5px 5px rgba(46, 30, 20, 0.12);
+    inset 0 1.2px 0 #FFFFFF,
+    0 1.5px 0 rgba(46, 30, 20, 0.40),
+    0 3.5px 7px rgba(46, 30, 20, 0.15) !important;
   width: fit-content;
   max-width: 100%;
   box-sizing: border-box;
   word-break: keep-all;
   white-space: nowrap;
-  line-height: 1.4;
-  position: relative;
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background 0.15s, color 0.15s;
+  line-height: 1.2 !important;
+  position: relative !important;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease !important;
+  user-select: none;
 }
 
+/* Internal 3D Paper Inset Stitching */
+.pc-footer-link::after {
+  content: "";
+  position: absolute;
+  inset: 2.5px;
+  border: 1px dashed rgba(195, 178, 158, 0.55);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+/* 3D Paper Tab Punch Marker */
 .pc-footer-link::before {
   content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--pc-mint-layer, #82C2A8);
-  box-shadow: 0 0.5px 1px rgba(46, 30, 20, 0.3);
-  flex-shrink: 0;
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  display: inline-block !important;
+  width: 7px !important;
+  height: 14px !important;
+  border-radius: 3px !important;
+  background: var(--pc-mint-layer, #82C2A8) !important;
+  border: 0.88px solid #FFFFFF !important;
+  box-shadow: 0 1px 2px rgba(46, 30, 20, 0.35) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.16s ease, background-color 0.16s ease !important;
 }
 
+/* Column Theme Punches */
+.pc-footer-col-mint .pc-footer-link::before {
+  background: #7FBFA4 !important;
+}
+
+.pc-footer-col-peach .pc-footer-link::before {
+  background: #E89A7B !important;
+}
+
+.pc-footer-col-buttercup .pc-footer-link::before {
+  background: #E8C162 !important;
+}
+
+/* Hover & Active Micro-interactions */
 .pc-footer-link:hover {
-  background: #FAF7F0;
-  color: #3D352E;
-  border-color: rgba(46, 30, 20, 0.22);
-  transform: translateY(-1.5px);
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5EFE3 100%) !important;
+  color: #1E140C !important;
+  transform: translateY(-2px) !important;
+  border-color: #C5B69F !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0 2.2px 0 rgba(46, 30, 20, 0.38),
-    0 4.5px 9px rgba(46, 30, 20, 0.18);
+    inset 0 1.5px 0 #FFFFFF,
+    0 3px 0 rgba(46, 30, 20, 0.45),
+    0 6px 14px rgba(46, 30, 20, 0.20) !important;
 }
 
 .pc-footer-link:hover::before {
-  transform: scale(1.3);
-  background: var(--pc-peach-layer, #E69D7B);
+  transform: scaleY(1.18);
 }
 
 .pc-footer-link:active {
-  transform: translateY(1px);
+  transform: translateY(1.5px) !important;
+  background: #EFE8DA !important;
+  border-color: #B8A890 !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0.5px 0 rgba(46, 30, 20, 0.35),
-    0 1px 2px rgba(46, 30, 20, 0.1);
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.20),
+    0 0.5px 0 rgba(46, 30, 20, 0.35) !important;
 }
 
 /* Footer Bottom Bar */
 .pc-footer-bottom-bar {
-  border-top: 1px solid rgba(74, 58, 42, 0.10);
+  border-top: 1.5px dashed #D9CEBC;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset;
   padding-top: 24px;
   display: flex;
@@ -673,6 +848,7 @@ body.is-collapsed #pc-sidebar-nav {
   color: var(--pc-ink-muted, #7A6F64);
   line-height: 1.5;
   margin: 0;
+  font-weight: 600;
 }
 
 .pc-footer-actions {
@@ -681,34 +857,44 @@ body.is-collapsed #pc-sidebar-nav {
   gap: 12px;
 }
 
-.pc-scroll-top-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-weight: 700;
-  background: #FFFDF9;
-  border: 1px solid rgba(46, 30, 20, 0.16);
-  border-radius: 999px;
-  cursor: pointer;
-  color: var(--pc-ink, #3D352E);
-  box-shadow: 0 2px 0 rgba(46, 30, 20, 0.35), 0 3px 6px rgba(46, 30, 20, 0.15);
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
-  line-height: 1;
+/* Standalone SVG Kirigami Scroll-To-Top Button */
+.pc-scroll-top-btn.pc-svg-kirigami-btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  min-height: 44px !important;
+  min-width: 44px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.pc-scroll-top-btn.pc-svg-kirigami-btn:hover {
+  transform: translateY(-2.5px) !important;
+}
+.pc-scroll-top-btn.pc-svg-kirigami-btn:active {
+  transform: translateY(1.5px) !important;
 }
 
-.pc-scroll-top-btn:hover {
-  transform: translateY(-1.5px);
-  background: var(--pc-buttercup-light, #FFF9E6);
-  box-shadow: 0 3px 0 rgba(46, 30, 20, 0.38), 0 5px 10px rgba(46, 30, 20, 0.20);
-}
-
-.pc-scroll-top-btn:active {
-  transform: translateY(1.5px);
-  box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), 0 1px 3px rgba(46, 30, 20, 0.15);
+/* Ribbon Banner Craft Elevation */
+.pc-ribbon-banner {
+  background: linear-gradient(180deg, #FFF0C2 0%, #FDE08A 100%) !important;
+  border: 1.5px solid #E6BF52 !important;
+  color: #5C4505 !important;
+  font-weight: 800 !important;
+  padding: 8px 18px !important;
+  border-radius: 8px !important;
+  box-shadow: 
+    inset 0 1.2px 0 #FFFFFF,
+    0 1.5px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 7px rgba(46, 30, 20, 0.14) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  letter-spacing: -0.2px !important;
+  line-height: 1 !important;
 }
 
 /* ==========================================================================
@@ -765,6 +951,7 @@ body.is-collapsed #pc-sidebar-nav {
 }
 
 .pc-svg-kirigami-btn:active,
+.pc-svg-kirigami-btn.pc-is-pressed,
 .pc-svg-kirigami-btn.is-pressed {
   transform: translateY(1.5px);
 }
@@ -936,6 +1123,7 @@ body.is-collapsed #pc-sidebar-nav {
   overflow: visible !important;
 }
 
+.pc-section-title,
 .section-title {
   display: flex !important;
   align-items: center !important;
@@ -989,6 +1177,7 @@ body.is-collapsed #pc-sidebar-nav {
 }
 
 /* Header View Mode Active State */
+#header-view-mode-btn.pc-is-page-mode-active,
 #header-view-mode-btn.is-page-mode-active {
   filter: drop-shadow(0 0 8px rgba(254, 227, 150, 0.65)) drop-shadow(0 3px 6px rgba(46, 30, 20, 0.25)) !important;
 }
@@ -1035,7 +1224,9 @@ body.is-collapsed #pc-sidebar-nav {
 .pc-row > *,
 .pc-row-wrap > *,
 .pc-stack > *,
+.pc-examples-grid > *,
 .examples-grid > *,
+.pc-hero-content > *,
 .hero-content > *,
 .pc-footer-top-grid > *,
 .pc-matte-stage > *,
@@ -1044,6 +1235,7 @@ body.is-collapsed #pc-sidebar-nav {
   min-width: 0;
 }
 
+.pc-card-meta,
 .card-meta,
 .pc-page-nav-actions,
 .pc-worker-status,
@@ -1062,6 +1254,7 @@ body.is-collapsed #pc-sidebar-nav {
   max-width: 100%;
 }
 
+.pc-comp-pill,
 .comp-pill {
   max-width: 100%;
   white-space: normal;
@@ -1101,14 +1294,13 @@ body.is-collapsed #pc-sidebar-nav {
   .pc-header-version-badge {
     display: none !important;
   }
-  /* 헤더 빠른 동작은 줄이지 않고 한 줄 가로 스와이프 스트립으로 둔다 */
+  /* 헤더 빠른 동작은 줄이지 않고 우측 정렬하며 드롭다운이 가려지지 않도록 overflow: visible 유지 */
   .pc-site-header-right {
-    flex-shrink: 1;
+    flex-shrink: 0;
     min-width: 0;
     gap: 8px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scrollbar-width: none;
+    margin-left: auto !important;
+    overflow: visible !important;
     padding: 6px 2px;
   }
   .pc-site-header-right::-webkit-scrollbar {
@@ -1117,6 +1309,7 @@ body.is-collapsed #pc-sidebar-nav {
   .pc-site-header-right > * {
     flex-shrink: 0;
   }
+  .pc-hero-content h1,
   .hero-content h1 {
     font-size: clamp(26px, 7.5vw, 38px) !important;
   }
@@ -1148,3 +1341,86 @@ body.is-collapsed #pc-sidebar-nav {
 .pc-row-scroll > * {
   flex-shrink: 0;
 }
+
+/* ==========================================================================
+   Hero Banner & Card Sheet Component Standards (.pc-card-sheet, .pc-hero-banner)
+   ========================================================================== */
+.pc-card-sheet {
+  background: var(--pc-paper-white, #FFFDF9) !important;
+  border: 1.5px solid #E2D7C5 !important;
+  border-radius: 0 !important;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.98) inset,
+    var(--pc-paper-shadow-lg) !important;
+  position: relative !important;
+}
+
+.pc-hero-banner,
+.hero-banner {
+  background: var(--pc-paper-white, #FFFDF9) !important;
+  border: 1.5px solid #E2D7C5 !important;
+  border-radius: 0 !important;
+  padding: 48px;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.98) inset,
+    var(--pc-paper-shadow-lg) !important;
+  position: relative;
+  margin-bottom: 40px;
+  container: hero / inline-size;
+}
+
+.pc-hero-banner::before,
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  top: 8px; left: 8px; right: -8px; bottom: -8px;
+  background: var(--pc-peach-light);
+  border-radius: 0 !important;
+  z-index: -1;
+  box-shadow: var(--pc-paper-shadow-xs);
+}
+
+/* AI Prompt Box - Authentic Cutout Well Depth & 3D Paper Bandage Tag */
+.pc-prompt-box,
+.prompt-box {
+  background: #F4EFE6 !important;
+  border: 1.5px solid #E2D7C5 !important;
+  border-radius: var(--pc-radius-md, 8px) !important;
+  padding: 24px 24px 20px 24px !important;
+  margin: 30px 0 24px 0 !important;
+  font-size: 13.5px;
+  color: var(--pc-lavender-dark, #4A3E6D);
+  line-height: 1.6;
+  position: relative !important;
+  overflow: visible !important; /* 상단 밴디지가 잘리지 않고 인풋박스 위로 온전히 올라오도록 보장 */
+  box-shadow: var(--pc-shadow-cutout, inset 0 2px 5px rgba(46, 30, 20, 0.12), inset 0 0 0 1px rgba(46, 30, 20, 0.05)) !important;
+}
+
+.pc-prompt-box::before,
+.prompt-box::before {
+  content: "USER PROMPT AESTHETIC";
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  z-index: 25 !important; /* 인풋 박스 테두리와 그림자 위로 확실하게 올라오도록 높은 z-index */
+  background: var(--pc-lavender, #D4CEE8) !important;
+  color: #3B2E5C !important;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 14px;
+  border-radius: 4px;
+  letter-spacing: 0.6px;
+  border: 1.2px solid #B8AFD4;
+  /* 3D 종이공예 밴디지 테이프 음영 및 반사광 */
+  box-shadow: 
+    0 2.5px 6px rgba(46, 30, 20, 0.26),
+    0 0.5px 1px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  pointer-events: none;
+}
+

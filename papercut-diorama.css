@@ -1,0 +1,386 @@
+/**
+ * PaperCut UI — 3D Paper-cut Shadow Box Diorama (페이퍼아트 섀도우 박스 디오라마)
+ *
+ * Implements 6-Tier 3D Kirigami/Shadow-box physical paper mechanics:
+ * - 3D Perspective Viewport (perspective: 1200px)
+ * - Stage with preserve-3d and rAF Lerp tilt physics
+ * - 6 Discrete Physical Paper Plates (L0 Sky/Sun ~ L5 Frame Pop-out Scenery)
+ * - 3-Tier Layered Shadows (Tier 1 48% contact, Tier 2 24% depth, Tier 3 12% ambient)
+ * - 0.8px Beveled White Rim Lights (#FFF)
+ * - Paper Pulp Tactile Overlays
+ * - Exploded Z-axis Architecture Inspection Mode (.is-exploded)
+ */
+
+:root {
+  --pc-diorama-aspect: 16 / 10;
+  --pc-diorama-radius: 12px;
+  --pc-diorama-tilt-max: 18deg;
+  --pc-diorama-z-step: 20px;
+  --pc-diorama-exploded-step: 75px;
+}
+
+/* ==========================================================================
+   1. 3D Viewport & Master Container
+   ========================================================================== */
+.pc-diorama-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+/* Mode Switcher Toolbar (Above or integrated with Frame) */
+.pc-diorama-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding: 6px 8px;
+  background: rgba(255, 253, 249, 0.85);
+  border: 1.5px solid #EADBCC;
+  border-radius: 8px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 1px 3px rgba(46, 30, 20, 0.05);
+}
+
+.pc-diorama-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #FAF6ED;
+  padding: 3px;
+  border-radius: 6px;
+  border: 1px solid #E5DCD1;
+}
+
+.pc-diorama-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pc-ink-muted, #544B42);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.pc-diorama-tab:hover {
+  color: var(--pc-ink, #3D352E);
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.pc-diorama-tab.is-active {
+  color: var(--pc-peach-dark, #6E3B21);
+  background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(46, 30, 20, 0.12), inset 0 1px 0 #FFFFFF;
+}
+
+.pc-diorama-tab-icon {
+  font-size: 14px;
+}
+
+.pc-diorama-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-diorama-btn-exploded {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12px;
+  font-weight: 800;
+  color: #324D2E;
+  background: #F0F6EE;
+  border: 1.2px solid #BBD5B8;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(46, 30, 20, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-diorama-btn-exploded:hover {
+  background: #E2EFE0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(46, 30, 20, 0.14);
+}
+
+.pc-diorama-btn-exploded.is-active {
+  background: #BBD5B8;
+  color: #1F381B;
+  border-color: #9EC09A;
+  box-shadow: inset 0 1.5px 3px rgba(46, 30, 20, 0.2);
+}
+
+/* 3D Viewport */
+.pc-diorama-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 320px;
+  max-height: 480px;
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  overflow: visible; /* Required so L5 pop-out scenery can breach boundaries */
+  border-radius: 6px;
+  transform: translateZ(0); /* Hardware composite */
+}
+
+/* 3D Stage (The physics engine tilts this group in 3D space) */
+.pc-diorama-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg) translateZ(0);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* When mouse moves, transition is eased by JS rAF lerp */
+.pc-diorama-viewport.is-tilting .pc-diorama-stage {
+  transition: transform 0.08s ease-out;
+}
+
+/* ==========================================================================
+   2. 6-Tier Physical Papercut Layers (L0 ~ L5)
+   ========================================================================== */
+.pc-diorama-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.pc-diorama-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Layer Base Z-Distances in Normal Assembled Mode */
+.pc-diorama-l0 {
+  transform: translate3d(0, 0, 0px);
+  z-index: 1;
+}
+
+.pc-diorama-l1 {
+  transform: translate3d(0, 0, 18px);
+  z-index: 2;
+}
+
+.pc-diorama-l2 {
+  transform: translate3d(0, 0, 36px);
+  z-index: 3;
+}
+
+.pc-diorama-l3 {
+  transform: translate3d(0, 0, 56px);
+  z-index: 4;
+}
+
+.pc-diorama-l4 {
+  transform: translate3d(0, 0, 76px);
+  z-index: 5;
+}
+
+.pc-diorama-l5 {
+  transform: translate3d(0, 0, 98px);
+  z-index: 6;
+  overflow: visible;
+}
+
+/* ==========================================================================
+   3. Exploded Architecture View (.is-exploded)
+   ========================================================================== */
+.pc-diorama-viewport.is-exploded .pc-diorama-stage {
+  transform: rotateY(-28deg) rotateX(15deg) translateZ(-40px);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-l0 {
+  transform: translate3d(-30px, 0, 0px);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-l1 {
+  transform: translate3d(-18px, 0, 70px);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-l2 {
+  transform: translate3d(-6px, 0, 140px);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-l3 {
+  transform: translate3d(6px, 0, 215px);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-l4 {
+  transform: translate3d(18px, 0, 295px);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-l5 {
+  transform: translate3d(30px, 0, 380px);
+}
+
+/* Exploded Layer Elevation Guides & Physical Spacers */
+.pc-diorama-layer::after {
+  content: attr(data-layer-label);
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 10px;
+  font-weight: 800;
+  color: #3D352E;
+  background: rgba(255, 253, 249, 0.95);
+  border: 1px solid #D8CAB8;
+  padding: 3px 8px;
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateZ(4px) scale(0.9);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+  box-shadow: 0 2px 6px rgba(46, 30, 20, 0.15);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-layer::after {
+  opacity: 1;
+  transform: translateZ(4px) scale(1);
+}
+
+.pc-diorama-viewport.is-exploded .pc-diorama-layer {
+  /* Give paper sheets visible edges in 3D exploded view */
+  filter: drop-shadow(0 12px 24px rgba(46, 30, 20, 0.22));
+}
+
+/* ==========================================================================
+   4. Authentic 3-Tier Layered Shadows & Bevel Lighting
+   ========================================================================== */
+/* Tier 1: 0 1.2px 2px rgba(46, 30, 20, 0.48) - Sharp contact razor cut definition */
+/* Tier 2: 0 5px 12px rgba(46, 30, 20, 0.24) - Physical cardstock sheet elevation */
+/* Tier 3: 0 16px 32px rgba(46, 30, 20, 0.12) - Ambient deep shadow box tunnel depth */
+
+.pc-diorama-shadow-tier1 {
+  filter: drop-shadow(0 1.2px 2px rgba(46, 30, 20, 0.48));
+}
+
+.pc-diorama-shadow-tier2 {
+  filter: drop-shadow(0 1.2px 2px rgba(46, 30, 20, 0.48))
+          drop-shadow(0 5px 12px rgba(46, 30, 20, 0.24));
+}
+
+.pc-diorama-shadow-tier3 {
+  filter: drop-shadow(0 1.2px 2px rgba(46, 30, 20, 0.48))
+          drop-shadow(0 5px 12px rgba(46, 30, 20, 0.24))
+          drop-shadow(0 16px 32px rgba(46, 30, 20, 0.12));
+}
+
+/* 0.8px White Rim Light (#FFF Bevel Light) */
+.pc-diorama-rim-light {
+  stroke: #FFFFFF;
+  stroke-width: 0.8px;
+  stroke-linejoin: round;
+}
+
+/* Tactile Paper Pulp Grain Overlay */
+.pc-diorama-pulp-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(rgba(244, 239, 230, 0.15) 1px, transparent 0),
+    radial-gradient(rgba(74, 58, 42, 0.03) 1px, transparent 0);
+  background-size: 12px 12px, 8px 8px;
+  background-position: 0 0, 4px 4px;
+  opacity: 0.7;
+  mix-blend-mode: multiply;
+  z-index: 10;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   5. Comparison View (Original Image vs 3D Diorama)
+   ========================================================================== */
+.pc-diorama-panel-art,
+.pc-diorama-panel-original {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.pc-diorama-panel-original {
+  display: none;
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pc-diorama-panel-original img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+}
+
+.pc-diorama-container[data-view-mode="original"] .pc-diorama-panel-art {
+  display: none;
+}
+
+.pc-diorama-container[data-view-mode="original"] .pc-diorama-panel-original {
+  display: block;
+}
+
+/* ==========================================================================
+   6. Accessibility & prefers-reduced-motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .pc-diorama-stage,
+  .pc-diorama-layer,
+  .pc-diorama-btn-exploded {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  .pc-diorama-viewport.is-exploded .pc-diorama-stage {
+    transform: none !important;
+  }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .pc-diorama-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pc-diorama-tabs,
+  .pc-diorama-tools {
+    width: 100%;
+    justify-content: center;
+  }
+  .pc-diorama-viewport {
+    aspect-ratio: 4 / 3;
+    min-height: 280px;
+  }
+}

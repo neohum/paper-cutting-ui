@@ -89,8 +89,10 @@ export function generateHtmlReport(result: InspectionResult, title = "Visual Gri
     `);
   }
 
-  // Elements inventory rows
-  const elementRows = result.elements.map((el) => `
+  // Elements inventory rows (safely capped to top 120 elements)
+  const maxElementsToShow = 120;
+  const elementsSubset = result.elements.slice(0, maxElementsToShow);
+  const elementRows = elementsSubset.map((el) => `
     <tr style="border-bottom: 1px solid #334155;">
       <td style="padding: 8px 12px; font-family: monospace; color: #38bdf8;">${escapeHtml(el.id)}</td>
       <td style="padding: 8px 12px; color: #94a3b8;">${escapeHtml(el.tag || "-")}</td>
@@ -253,7 +255,7 @@ export function generateHtmlReport(result: InspectionResult, title = "Visual Gri
 
     <!-- Section: Defect Breakdown Table -->
     <div class="card">
-      <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #f1f5f9;">결함 상세 내역 (${summary.totalViolations}건)</h2>
+      <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #f1f5f9;">결함 상세 내역 (${summary.totalViolations}건${defectRows.length > 150 ? ` - 상위 150건 표시` : ""})</h2>
       ${
         defectRows.length > 0
           ? `
@@ -270,7 +272,7 @@ export function generateHtmlReport(result: InspectionResult, title = "Visual Gri
               </tr>
             </thead>
             <tbody>
-              ${defectRows.join("\n")}
+              ${defectRows.slice(0, 150).join("\n")}
             </tbody>
           </table>
         </div>
@@ -281,7 +283,7 @@ export function generateHtmlReport(result: InspectionResult, title = "Visual Gri
 
     <!-- Section: Elements Inventory -->
     <div class="card">
-      <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #f1f5f9;">검사 대상 요소 목록 (${result.elements.length}개)</h2>
+      <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #f1f5f9;">검사 대상 요소 목록 (${result.elements.length}개${result.elements.length > maxElementsToShow ? ` - 상위 ${maxElementsToShow}개 표시` : ""})</h2>
       <div class="table-container">
         <table>
           <thead>

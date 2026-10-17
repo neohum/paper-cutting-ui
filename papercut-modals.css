@@ -8,63 +8,69 @@
    1. BACKDROP OVERLAYS
    ========================================================================== */
 .pc-modal-backdrop {
-  position: fixed;
-  inset: 0;
+  position: fixed !important;
+  inset: 0 !important;
   background: rgba(45, 34, 24, 0.45);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  z-index: 10000;
+  z-index: 10000 !important;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none !important;
   transition: opacity 0.28s ease, visibility 0.28s ease;
   padding: 16px;
 }
+.pc-modal-backdrop.pc-is-active,
 .pc-modal-backdrop.is-active {
   opacity: 1;
   visibility: visible;
-  /* papercut-reader.css의 같은 이름 `.pc-modal-backdrop { pointer-events: none }`이 .is-open일 때만 풀리므로,
-     .is-active를 쓰는 이 대화상자는 클릭이 막혔다. 열린 상태에서는 반드시 클릭을 받는다. */
-  pointer-events: auto;
+  pointer-events: auto !important;
 }
 
 /* Side Sheet Backdrop */
 .pc-modal-sheet-backdrop {
-  position: fixed;
-  inset: 0;
+  position: fixed !important;
+  inset: 0 !important;
   background: rgba(45, 34, 24, 0.42);
   backdrop-filter: blur(3.5px);
   -webkit-backdrop-filter: blur(3.5px);
-  z-index: 10001;
+  z-index: 10001 !important;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none !important;
   transition: opacity 0.28s ease, visibility 0.28s ease;
 }
+.pc-modal-sheet-backdrop.pc-is-active,
 .pc-modal-sheet-backdrop.is-active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto !important;
 }
 
 /* Bottom Drawer Backdrop */
 .pc-modal-drawer-backdrop {
-  position: fixed;
-  inset: 0;
+  position: fixed !important;
+  inset: 0 !important;
   background: rgba(45, 34, 24, 0.42);
   backdrop-filter: blur(3.5px);
   -webkit-backdrop-filter: blur(3.5px);
-  z-index: 10001;
+  z-index: 10001 !important;
   display: flex;
   align-items: flex-end;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none !important;
   transition: opacity 0.28s ease, visibility 0.28s ease;
 }
+.pc-modal-drawer-backdrop.pc-is-active,
 .pc-modal-drawer-backdrop.is-active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto !important;
 }
 
 /* ==========================================================================
@@ -113,6 +119,8 @@
   z-index: 10;
 }
 
+.pc-modal-backdrop.pc-is-active .pc-modal-dialog,
+.pc-modal-backdrop.pc-is-active .pc-modal-content,
 .pc-modal-backdrop.is-active .pc-modal-dialog,
 .pc-modal-backdrop.is-active .pc-modal-content {
   transform: perspective(800px) scale(1) translateY(0) rotateX(0deg);
@@ -159,14 +167,19 @@
   pointer-events: none;
 }
 /* Washi Tape Color Varieties */
+.pc-variant-peach .pc-dialog-washi,
 .variant-peach .pc-dialog-washi,
 .pc-modal-washi-peach { background: rgba(247, 186, 158, 0.90); }
+.pc-variant-lavender .pc-dialog-washi,
 .variant-lavender .pc-dialog-washi,
 .pc-modal-washi-lavender { background: rgba(215, 203, 235, 0.90); }
+.pc-variant-buttercup .pc-dialog-washi,
 .variant-buttercup .pc-dialog-washi,
 .pc-modal-washi-buttercup { background: rgba(254, 227, 150, 0.90); }
+.pc-variant-sky .pc-dialog-washi,
 .variant-sky .pc-dialog-washi,
 .pc-modal-washi-sky { background: rgba(189, 224, 234, 0.90); }
+.pc-variant-rose .pc-dialog-washi,
 .variant-rose .pc-dialog-washi,
 .pc-modal-washi-rose { background: rgba(245, 184, 190, 0.90); }
 
@@ -396,31 +409,51 @@
 /* ==========================================================================
    4. 7 PASTEL COLOR PAPER THEMES FOR MODALS
    ========================================================================== */
+.pc-variant-mint .pc-dialog-header,
 .variant-mint .pc-dialog-header { border-bottom-color: rgba(163, 216, 195, 0.6); }
+.pc-variant-mint .pc-dialog-footer,
 .variant-mint .pc-dialog-footer { background: #F0F9F5; }
+.pc-variant-mint .pc-modal-dogear-flap,
 .variant-mint .pc-modal-dogear-flap { background: #A3D8C3; }
 
+.pc-variant-peach .pc-dialog-header,
 .variant-peach .pc-dialog-header { border-bottom-color: rgba(247, 186, 158, 0.6); }
+.pc-variant-peach .pc-dialog-footer,
 .variant-peach .pc-dialog-footer { background: #FDF5F0; }
+.pc-variant-peach .pc-modal-dogear-flap,
 .variant-peach .pc-modal-dogear-flap { background: #F7BA9E; }
 
+.pc-variant-lavender .pc-dialog-header,
 .variant-lavender .pc-dialog-header { border-bottom-color: rgba(215, 203, 235, 0.6); }
+.pc-variant-lavender .pc-dialog-footer,
 .variant-lavender .pc-dialog-footer { background: #F6F2FC; }
+.pc-variant-lavender .pc-modal-dogear-flap,
 .variant-lavender .pc-modal-dogear-flap { background: #D7CBEB; }
 
+.pc-variant-buttercup .pc-dialog-header,
 .variant-buttercup .pc-dialog-header { border-bottom-color: rgba(254, 227, 150, 0.6); }
+.pc-variant-buttercup .pc-dialog-footer,
 .variant-buttercup .pc-dialog-footer { background: #FEFBF0; }
+.pc-variant-buttercup .pc-modal-dogear-flap,
 .variant-buttercup .pc-modal-dogear-flap { background: #FEE396; }
 
+.pc-variant-sky .pc-dialog-header,
 .variant-sky .pc-dialog-header { border-bottom-color: rgba(189, 224, 234, 0.6); }
+.pc-variant-sky .pc-dialog-footer,
 .variant-sky .pc-dialog-footer { background: #F2F9FC; }
+.pc-variant-sky .pc-modal-dogear-flap,
 .variant-sky .pc-modal-dogear-flap { background: #BDE0EA; }
 
+.pc-variant-rose .pc-dialog-header,
 .variant-rose .pc-dialog-header { border-bottom-color: rgba(245, 184, 190, 0.6); }
+.pc-variant-rose .pc-dialog-footer,
 .variant-rose .pc-dialog-footer { background: #FDF2F4; }
+.pc-variant-rose .pc-modal-dogear-flap,
 .variant-rose .pc-modal-dogear-flap { background: #F5B8BE; }
 
+.pc-variant-cream .pc-dialog-header,
 .variant-cream .pc-dialog-header { border-bottom-color: #E6DBCB; }
+.pc-variant-cream .pc-dialog-footer,
 .variant-cream .pc-dialog-footer { background: #F7F3EA; }
 
 /* ==========================================================================
@@ -527,6 +560,7 @@
 }
 
 /* Wax Seal Close Button Variant */
+.pc-dialog-close.pc-is-wax,
 .pc-dialog-close.is-wax {
   border-radius: 50%;
   background: #F5B8BE;
@@ -537,12 +571,14 @@
     0 2px 0 rgba(46, 30, 20, 0.42),
     0 4px 8px rgba(46, 30, 20, 0.22);
 }
+.pc-dialog-close.pc-is-wax:hover,
 .pc-dialog-close.is-wax:hover {
   background: #F7BA9E;
   color: #6E3B21;
 }
 
 /* Stamp Perforated Close Button Variant */
+.pc-dialog-close.pc-is-stamp,
 .pc-dialog-close.is-stamp {
   border-radius: 8px;
   border: 1.5px dashed #D8CEBD;
@@ -718,6 +754,7 @@
   pointer-events: none;
 }
 
+.pc-modal-sheet-backdrop.pc-is-active .pc-modal-sheet,
 .pc-modal-sheet-backdrop.is-active .pc-modal-sheet {
   transform: translateX(0);
 }
@@ -776,6 +813,7 @@
   color: var(--pc-ink, #3D352E);
 }
 
+.pc-modal-drawer-backdrop.pc-is-active .pc-modal-drawer,
 .pc-modal-drawer-backdrop.is-active .pc-modal-drawer {
   transform: translateY(0);
 }

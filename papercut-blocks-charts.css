@@ -168,9 +168,13 @@
   z-index: 10;
   clip-path: polygon(3% 0%, 97% 0%, 100% 50%, 97% 100%, 3% 100%, 0% 50%);
 }
+.pc-washi-tape-strip.pc-is-mint,
 .pc-washi-tape-strip.is-mint { background-color: rgba(163, 216, 195, 0.8); transform: translateX(-50%) rotate(1.2deg); }
+.pc-washi-tape-strip.pc-is-peach,
 .pc-washi-tape-strip.is-peach { background-color: rgba(247, 186, 158, 0.8); transform: translateX(-50%) rotate(-2deg); }
+.pc-washi-tape-strip.pc-is-lavender,
 .pc-washi-tape-strip.is-lavender { background-color: rgba(215, 203, 235, 0.8); transform: translateX(-50%) rotate(1.8deg); }
+.pc-washi-tape-strip.pc-is-rose,
 .pc-washi-tape-strip.is-rose { background-color: rgba(245, 184, 190, 0.8); transform: translateX(-50%) rotate(-1deg); }
 
 /* Paper Pill Badge */
@@ -187,11 +191,17 @@
   color: var(--pc-ink);
   white-space: nowrap;
 }
+.pc-pill-badge.pc-is-mint,
 .pc-pill-badge.is-mint { background: var(--pc-mint-light); color: var(--pc-mint-dark); }
+.pc-pill-badge.pc-is-peach,
 .pc-pill-badge.is-peach { background: var(--pc-peach-light); color: var(--pc-peach-dark); }
+.pc-pill-badge.pc-is-lavender,
 .pc-pill-badge.is-lavender { background: var(--pc-lavender-light); color: var(--pc-lavender-dark); }
+.pc-pill-badge.pc-is-buttercup,
 .pc-pill-badge.is-buttercup { background: var(--pc-buttercup-light); color: var(--pc-buttercup-dark); }
+.pc-pill-badge.pc-is-sky,
 .pc-pill-badge.is-sky { background: var(--pc-sky-light); color: var(--pc-sky-dark); }
+.pc-pill-badge.pc-is-rose,
 .pc-pill-badge.is-rose { background: var(--pc-rose-light); color: var(--pc-rose-dark); }
 
 /* Papercut Mini Icon Circle */
@@ -489,9 +499,13 @@
   background: var(--pc-mint);
   border-radius: var(--pc-radius-lg) var(--pc-radius-lg) 0 0;
 }
+.pc-metric-card.pc-is-peach::before,
 .pc-metric-card.is-peach::before { background: var(--pc-peach); }
+.pc-metric-card.pc-is-lavender::before,
 .pc-metric-card.is-lavender::before { background: var(--pc-lavender); }
+.pc-metric-card.pc-is-buttercup::before,
 .pc-metric-card.is-buttercup::before { background: var(--pc-buttercup); }
+.pc-metric-card.pc-is-sky::before,
 .pc-metric-card.is-sky::before { background: var(--pc-sky); }
 
 .pc-metric-card:hover {
@@ -805,6 +819,7 @@
   border-radius: 12px;
   transition: all 0.18s ease;
 }
+.pc-auth-tab.pc-is-active,
 .pc-auth-tab.is-active {
   background: var(--pc-paper-white);
   color: var(--pc-ink);
@@ -1109,6 +1124,7 @@
   transform: translateX(4px);
   box-shadow: var(--pc-paper-shadow-sm);
 }
+.pc-folder-tab-btn.pc-is-active,
 .pc-folder-tab-btn.is-active {
   background: var(--pc-paper-white);
   color: var(--pc-ink);
@@ -1406,6 +1422,7 @@
 .pc-product-favorite-btn:hover {
   transform: scale(1.1);
 }
+.pc-product-favorite-btn.pc-is-active svg,
 .pc-product-favorite-btn.is-active svg {
   fill: var(--pc-rose-dark);
   color: var(--pc-rose-dark);
@@ -1496,6 +1513,7 @@
   pointer-events: none;
   transition: opacity 0.25s ease;
 }
+.pc-cart-drawer-backdrop.pc-is-open,
 .pc-cart-drawer-backdrop.is-open {
   opacity: 1;
   pointer-events: auto;
@@ -1517,6 +1535,7 @@
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   padding: 24px;
 }
+.pc-cart-drawer-backdrop.pc-is-open .pc-cart-drawer,
 .pc-cart-drawer-backdrop.is-open .pc-cart-drawer {
   transform: translateX(0);
 }
@@ -1647,6 +1666,7 @@
   font-size: 13px;
   color: var(--pc-ink-muted);
 }
+.pc-summary-row.pc-is-total,
 .pc-summary-row.is-total {
   font-size: 16px;
   font-weight: 800;
@@ -1747,6 +1767,7 @@
 }
 
 /* '가장 인기있는' Pro Card Highlighted */
+.pc-pricing-tier-card.pc-is-popular,
 .pc-pricing-tier-card.is-popular {
   background: #FFFFFD;
   box-shadow: 
@@ -1757,6 +1778,7 @@
   transform: scale(1.02);
   z-index: 2;
 }
+.pc-pricing-tier-card.pc-is-popular:hover,
 .pc-pricing-tier-card.is-popular:hover {
   transform: scale(1.02) translateY(-4px);
 }
@@ -1788,8 +1810,11 @@
   align-self: flex-start;
   margin-bottom: 8px;
 }
+.pc-tier-badge.pc-is-starter,
 .pc-tier-badge.is-starter { background: var(--pc-sage-light); color: var(--pc-sage-dark); }
+.pc-tier-badge.pc-is-pro,
 .pc-tier-badge.is-pro { background: var(--pc-mint-light); color: var(--pc-mint-dark); }
+.pc-tier-badge.pc-is-enterprise,
 .pc-tier-badge.is-enterprise { background: var(--pc-lavender-light); color: var(--pc-lavender-dark); }
 
 .pc-tier-price-row {
@@ -1874,6 +1899,7 @@
   box-shadow: inset 0 2px 6px rgba(var(--pc-shadow-tint), 0.05);
 }
 .pc-cardboard-dropzone:hover,
+.pc-cardboard-dropzone.pc-is-dragover,
 .pc-cardboard-dropzone.is-dragover {
   background: #EFE8DC;
   border-color: var(--pc-mint-layer);
@@ -2121,6 +2147,7 @@
   border-right: 6px solid transparent;
   border-top: 6px solid var(--pc-paper-white);
 }
+.pc-chart-tooltip.pc-is-visible,
 .pc-chart-tooltip.is-visible {
   opacity: 1;
 }
@@ -2148,6 +2175,7 @@
 .pc-legend-item:hover {
   transform: translateY(-1px);
 }
+.pc-legend-item.pc-is-dimmed,
 .pc-legend-item.is-dimmed {
   opacity: 0.35;
   text-decoration: line-through;
@@ -2220,6 +2248,7 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(74, 58, 42, 0.08);
 }
+.pc-stock-card.pc-is-active,
 .pc-stock-card.is-active {
   border: 2px solid var(--pc-mint) !important;
   box-shadow: 0 3px 8px rgba(44, 107, 80, 0.15);

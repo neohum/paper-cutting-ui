@@ -25,6 +25,7 @@ function initDropdowns() {
   autoEnhanceSelectsToPaperDropdowns();
   applyPaperDeckle();
   initToggleButtons();
+  initHeaderPaperDropdown();
 
   document.addEventListener('click', (e) => {
     const trigger = e.target.closest('.pc-dropdown-trigger');
@@ -32,17 +33,24 @@ function initDropdowns() {
 
     if (trigger) {
       const parent = trigger.closest('.pc-dropdown-custom');
-      const wasOpen = parent.classList.contains('is-open');
+      const wasOpen = parent.classList.contains('is-open') || parent.classList.contains('pc-is-open');
       
       // Close other dropdowns
       allCustomDropdowns.forEach(d => {
-        if (d !== parent) d.classList.remove('is-open');
+        if (d !== parent) {
+          d.classList.remove('is-open', 'pc-is-open');
+          const t = d.querySelector('.pc-dropdown-trigger');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        }
       });
 
-      parent.classList.toggle('is-open', !wasOpen);
+      const willOpen = !wasOpen;
+      parent.classList.toggle('is-open', willOpen);
+      parent.classList.toggle('pc-is-open', willOpen);
+      trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
 
       // Lazy hydrate menu icons on first open to avoid main-thread freeze
-      if (!wasOpen && typeof window.hydratePapercutIcons === 'function') {
+      if (willOpen && typeof window.hydratePapercutIcons === 'function') {
         const menu = parent.querySelector('.pc-dropdown-menu');
         if (menu && menu.querySelector('[data-icon]:not([data-hydrated="true"])')) {
           window.hydratePapercutIcons(menu);
@@ -54,8 +62,47 @@ function initDropdowns() {
     const item = e.target.closest('.pc-dropdown-item');
     if (item) {
       const parent = item.closest('.pc-dropdown-custom');
-      const trigger = parent.querySelector('.pc-dropdown-trigger');
-      const triggerContent = trigger ? trigger.querySelector('.trigger-content') : null;
+      const trigger = parent ? parent.querySelector('.pc-dropdown-trigger') : null;
+
+      // 헤더 종이 질감 및 소리 드롭다운 특화 처리
+      if (parent && (parent.classList.contains('pc-header-paper-dropdown') || parent.id === 'pc-header-paper-dropdown')) {
+        const val = item.getAttribute('data-value');
+        if (!val) return;
+
+        // 라벨 갱신
+        const labelEl = document.getElementById('header-paper-current-label');
+        if (labelEl) {
+          labelEl.textContent = item.textContent.trim();
+        }
+
+        // 아이템 활성 상태 동기화
+        parent.querySelectorAll('.pc-dropdown-item').forEach(i => {
+          i.classList.remove('pc-is-active', 'is-selected');
+        });
+        item.classList.add('pc-is-active', 'is-selected');
+
+        // 드롭다운 닫기 & 접근성 속성 갱신
+        parent.classList.remove('is-open', 'pc-is-open');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+
+        // 숨김 select 동기화 및 change 이벤트 발송
+        const hiddenSelect = document.getElementById('header-paper-sound-type');
+        if (hiddenSelect) {
+          hiddenSelect.value = val;
+          hiddenSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+
+        // 본문 질감 클래스 교체 및 종이 효과음 재생
+        if (typeof applyScreenPaperTexture === 'function') {
+          applyScreenPaperTexture(val, true);
+        }
+        if (typeof playPaperSound === 'function') {
+          playPaperSound(val);
+        }
+        return;
+      }
+
+      const triggerContent = trigger ? trigger.querySelector('.pc-trigger-content, .trigger-content') : null;
       const itemIcon = item.querySelector('.pc-dropdown-item-main .pc-inline-icon') || item.querySelector('.pc-inline-icon:not([data-icon="check"])');
       const itemText = item.querySelector('.pc-dropdown-text') || item.querySelector('.pc-dropdown-item-main') || item;
       const cleanText = (itemText.textContent || item.textContent).replace(/[\u2713\u2714\u2705]/g, '').trim();
@@ -63,15 +110,15 @@ function initDropdowns() {
       if (triggerContent) {
         if (itemIcon) {
           const iconId = itemIcon.getAttribute('data-icon');
-          triggerContent.innerHTML = `<span class="pc-inline-icon is-sm" data-icon="${iconId}"></span> <span class="trigger-text">${cleanText}</span>`;
+          triggerContent.innerHTML = `<span class="pc-inline-icon is-sm" data-icon="${iconId}"></span> <span class="pc-trigger-text trigger-text">${cleanText}</span>`;
           if (typeof window.hydratePapercutIcons === 'function') {
             window.hydratePapercutIcons(triggerContent);
           }
         } else {
-          triggerContent.innerHTML = `<span class="trigger-text">${cleanText}</span>`;
+          triggerContent.innerHTML = `<span class="pc-trigger-text trigger-text">${cleanText}</span>`;
         }
       } else if (trigger) {
-        const triggerSpan = trigger.querySelector('.trigger-text') || trigger.querySelector('span');
+        const triggerSpan = trigger.querySelector('.pc-trigger-text, .trigger-text') || trigger.querySelector('span');
         if (triggerSpan) triggerSpan.textContent = cleanText;
       }
 
@@ -81,7 +128,8 @@ function initDropdowns() {
       });
       item.classList.add('is-selected');
       item.setAttribute('aria-selected', 'true');
-      parent.classList.remove('is-open');
+      parent.classList.remove('is-open', 'pc-is-open');
+      if (trigger) trigger.setAttribute('aria-expanded', 'false');
 
       // Sync with linked hidden select if present
       const selectId = parent.dataset.linkedSelect;
@@ -101,10 +149,59 @@ function initDropdowns() {
 
     // Click outside closes all
     if (!e.target.closest('.pc-dropdown-custom')) {
-      allCustomDropdowns.forEach(d => d.classList.remove('is-open'));
+      allCustomDropdowns.forEach(d => {
+        d.classList.remove('is-open', 'pc-is-open');
+        const trg = d.querySelector('.pc-dropdown-trigger');
+        if (trg) trg.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  // ESC 키로 열려있는 모든 드롭다운 닫기
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const openDropdowns = document.querySelectorAll('.pc-dropdown-custom.is-open, .pc-dropdown-custom.pc-is-open');
+      openDropdowns.forEach(d => {
+        d.classList.remove('is-open', 'pc-is-open');
+        const trg = d.querySelector('.pc-dropdown-trigger');
+        if (trg) trg.setAttribute('aria-expanded', 'false');
+      });
     }
   });
 }
+
+/**
+ * 헤더 종이 질감 및 소리 드롭다운 동기화 & 초기화
+ */
+function initHeaderPaperDropdown() {
+  const currentTexture = localStorage.getItem('pc_screen_paper_texture') || localStorage.getItem('pc_paper_sound_type') || 'cotton';
+  syncHeaderPaperDropdown(currentTexture);
+}
+window.initHeaderPaperDropdown = initHeaderPaperDropdown;
+
+function syncHeaderPaperDropdown(paperType) {
+  const dropdown = document.getElementById('pc-header-paper-dropdown');
+  if (!dropdown) return;
+
+  const targetType = paperType || localStorage.getItem('pc_screen_paper_texture') || localStorage.getItem('pc_paper_sound_type') || 'cotton';
+  const items = dropdown.querySelectorAll('.pc-dropdown-item');
+  const currentLabel = document.getElementById('header-paper-current-label');
+  const hiddenSelect = document.getElementById('header-paper-sound-type');
+
+  items.forEach(btn => {
+    const isTarget = (btn.getAttribute('data-value') === targetType);
+    btn.classList.toggle('pc-is-active', isTarget);
+    btn.classList.toggle('is-selected', isTarget);
+    if (isTarget && currentLabel) {
+      currentLabel.textContent = btn.textContent.trim();
+    }
+  });
+
+  if (hiddenSelect && hiddenSelect.value !== targetType) {
+    hiddenSelect.value = targetType;
+  }
+}
+window.syncHeaderPaperDropdown = syncHeaderPaperDropdown;
 
 /**
  * 데클 종이 모양 연결: 음각 셀렉트(.pc-dropdown-custom.is-well)의 트리거·메뉴·항목과 .pc-toggle-btn에
@@ -219,9 +316,9 @@ function autoEnhanceSelectsToPaperDropdowns(root = document) {
     trigger.setAttribute('aria-haspopup', 'listbox');
     trigger.setAttribute('aria-expanded', 'false');
     trigger.innerHTML = `
-      <span class="trigger-content">
+      <span class="pc-trigger-content trigger-content">
         ${initialExtracted.iconId ? `<span class="pc-inline-icon is-sm" data-icon="${initialExtracted.iconId}"></span>` : ''}
-        <span class="trigger-text">${initialExtracted.label}</span>
+        <span class="pc-trigger-text trigger-text">${initialExtracted.label}</span>
       </span>
       <span class="arrow-icon fi fi-rr-angle-small-down" aria-hidden="true"></span>
     `;
@@ -382,7 +479,7 @@ function initCopyCodeButtons() {
 function initCategoryFilters() {
   const filterButtons = document.querySelectorAll('.pc-filter-btn[data-filter]');
   if (!filterButtons.length) return;
-  const exampleCards = document.querySelectorAll('.example-item');
+  const exampleCards = document.querySelectorAll('.pc-example-item, .example-item');
 
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -419,12 +516,12 @@ function initSearch() {
 
   searchInput.addEventListener('input', (e) => {
     const query = e.target.value.toLowerCase().trim();
-    const exampleCards = document.querySelectorAll('.example-item');
+    const exampleCards = document.querySelectorAll('.pc-example-item, .example-item');
     let count = 0;
 
     exampleCards.forEach(card => {
-      const title = card.querySelector('.example-title')?.textContent.toLowerCase() || '';
-      const desc = card.querySelector('.example-desc')?.textContent.toLowerCase() || '';
+      const title = card.querySelector('.pc-example-title, .example-title')?.textContent.toLowerCase() || '';
+      const desc = card.querySelector('.pc-example-desc, .example-desc')?.textContent.toLowerCase() || '';
       const tags = card.dataset.tags?.toLowerCase() || '';
 
       if (title.includes(query) || desc.includes(query) || tags.includes(query)) {
@@ -1072,7 +1169,7 @@ function initPlayground() {
       }
       const customDropdown = textureSelector.closest('.pc-select-wrapper')?.querySelector('.pc-dropdown-custom');
       if (customDropdown) {
-        const triggerText = customDropdown.querySelector('.trigger-text');
+        const triggerText = customDropdown.querySelector('.pc-trigger-text, .trigger-text');
         if (triggerText) {
           triggerText.textContent = spec.name;
         }
@@ -1701,7 +1798,7 @@ function initPlayground() {
    // Tactile sound event listener for all paper interactive elements
    document.addEventListener('click', (e) => {
      if (!soundEnabled) return;
-     if (e.target.closest('#header-paper-sound-btn, #toggle-paper-sound, #header-paper-sound-type, #pc-sidebar-sound-toggle, .pc-sidebar-paper-btn, .pc-btn-play-sound, .pc-btn-apply-paper, .pc-sound-scratch-pad, #studio-sound-master-toggle')) return;
+     if (e.target.closest('#header-paper-sound-btn, #toggle-paper-sound, #header-paper-sound-type, #pc-header-paper-dropdown, #pc-sidebar-sound-toggle, .pc-sidebar-paper-btn, .pc-btn-play-sound, .pc-btn-apply-paper, .pc-sound-scratch-pad, #studio-sound-master-toggle')) return;
      if (e.target.closest('.pc-btn, .pc-svg-kirigami-btn, .pc-sidebar-item, .pc-header-nav-link, .pc-checkbox-label, .pc-dropdown-trigger, .pc-dropdown-item, .pc-filter-btn, .pc-ui-toggle, .pc-anim-speed-btn, button, a[href^="#"]')) {
        playPaperSound(currentSoundType);
      }
@@ -1751,6 +1848,9 @@ function initPlayground() {
      if (typeSelect.querySelector(`option[value="${target}"]`)) {
        typeSelect.value = target;
      }
+   }
+   if (typeof syncHeaderPaperDropdown === 'function') {
+     syncHeaderPaperDropdown(target);
    }
 
    // 4. Sync sidebar paper button states
@@ -1881,7 +1981,7 @@ function initMatteTextureShowcase() {
     let isUniversalActive = true;
     universalToggle.addEventListener('click', () => {
       isUniversalActive = !isUniversalActive;
-      const samples = document.querySelectorAll('.ui-textured-sample');
+      const samples = document.querySelectorAll('.pc-ui-textured-sample, .ui-textured-sample');
       samples.forEach(el => {
         el.classList.toggle('pc-texture-paper', isUniversalActive);
       });
@@ -2079,14 +2179,14 @@ function initIconOutlineStudio() {
     const parent = document.querySelector(`.pc-dropdown-custom[data-linked-select="${sel.id}"]`);
     if (!parent) return;
     const trigger = parent.querySelector('.pc-dropdown-trigger');
-    const triggerContent = trigger ? trigger.querySelector('.trigger-content') : null;
+    const triggerContent = trigger ? trigger.querySelector('.pc-trigger-content, .trigger-content') : null;
     const selectedOpt = sel.options[sel.selectedIndex];
     if (!selectedOpt) return;
     const extracted = extractOptionIcon(selectedOpt);
     if (triggerContent) {
       triggerContent.innerHTML = `
         ${extracted.iconId ? `<span class="pc-inline-icon is-sm" data-icon="${extracted.iconId}"></span>` : ''}
-        <span class="trigger-text">${extracted.label}</span>
+        <span class="pc-trigger-text trigger-text">${extracted.label}</span>
       `;
       if (typeof window.hydratePapercutIcons === 'function') {
         window.hydratePapercutIcons(triggerContent);

@@ -248,7 +248,7 @@
         const ariaControlsAttr = hasChildren ? ` aria-controls="pc-sidebar-sub-${sec.id}" aria-expanded="true"` : '';
 
         menuHtml += `
-          <a href="${itemHref}" class="pc-sidebar-item pc-btn" role="button" data-target="${sec.id}"${ariaControlsAttr} title="${sec.title}">
+          <a href="${itemHref}" class="pc-sidebar-item pc-sidebar-nav-btn pc-btn" role="button" data-target="${sec.id}"${ariaControlsAttr} title="${sec.title}">
             <div class="pc-sidebar-item-icon" data-bg-shape="${sec.bgShape}" data-icon="${sec.icon}">
               ${plateSvg}
             </div>
@@ -319,8 +319,19 @@
             <span class="pc-sidebar-header-icon fi fi-rr-book-alt" aria-hidden="true"></span>
             <span class="pc-sidebar-header-title">목차 네비게이션</span>
           </div>
-          <button type="button" class="pc-sidebar-toggle-btn pc-btn" id="pc-sidebar-toggle" title="${toggleTitle}" aria-label="${toggleTitle}">
-            <span class="pc-inline-icon is-color is-xs fi fi-rr-${toggleIcon}" data-icon="${toggleIcon}"></span>
+          <button type="button" class="pc-sidebar-toggle-btn pc-svg-kirigami-btn" id="pc-sidebar-toggle" title="${toggleTitle}" aria-label="${toggleTitle}" style="width:34px; height:34px; padding:0; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center;">
+            <svg class="pc-kirigami-btn-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px; height:34px; display:block;">
+              <defs>
+                <filter id="sb-toggle-sh-js" x="-20%" y="-20%" width="140%" height="150%">
+                  <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.40"/>
+                  <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#2E1E14" flood-opacity="0.20"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <rect x="3" y="3" width="28" height="28" rx="6" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.88" filter="url(#sb-toggle-sh-js)"/>
+              <rect x="5.5" y="5.5" width="23" height="23" rx="4.5" fill="#FFFDF9" stroke="#E6DDD1" stroke-width="0.75"/>
+              <path id="sb-toggle-arrow" d="${isCollapsed ? 'M 14 11 L 20 17 L 14 23' : 'M 20 11 L 14 17 L 20 23'}" stroke="#4A3A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
         </div>
 
@@ -391,18 +402,13 @@
       const toggleBtn = document.getElementById('pc-sidebar-toggle');
       const headerToggleBtn = document.getElementById('pc-header-sidebar-toggle');
       const title = collapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
-      const icon = collapsed ? 'arrow-right' : 'arrow-left';
 
       if (toggleBtn) {
         toggleBtn.title = title;
         toggleBtn.setAttribute('aria-label', title);
-        const iconSpan = toggleBtn.querySelector('.pc-inline-icon');
-        if (iconSpan) {
-          iconSpan.setAttribute('data-icon', icon);
-          iconSpan.className = `pc-inline-icon is-color is-xs fi fi-rr-${icon}`;
-          if (typeof window.hydratePapercutIcons === 'function') {
-            window.hydratePapercutIcons(toggleBtn);
-          }
+        const arrowPath = toggleBtn.querySelector('#sb-toggle-arrow') || toggleBtn.querySelector('path[id="sb-toggle-arrow"]') || toggleBtn.querySelector('svg path:last-of-type');
+        if (arrowPath) {
+          arrowPath.setAttribute('d', collapsed ? 'M 14 11 L 20 17 L 14 23' : 'M 20 11 L 14 17 L 20 23');
         }
       }
 
@@ -591,7 +597,9 @@
       const mode = explicitMode || (hash.includes('mode=paper3d') ? 'paper3d' : 'firr');
       const activeTarget = mode === 'paper3d' ? 'icon-simulator-paper3d' : 'icon-simulator-firr';
       sidebarEl.querySelectorAll('.pc-sidebar-item').forEach(item => {
-        item.classList.toggle('is-active', item.getAttribute('data-target') === activeTarget);
+        const isActive = item.getAttribute('data-target') === activeTarget;
+        item.classList.toggle('is-active', isActive);
+        item.classList.toggle('pc-is-active', isActive);
       });
     }
 
@@ -833,7 +841,9 @@
 
     // Highlight active sidebar item
     document.querySelectorAll('.pc-sidebar-item').forEach(item => {
-      item.classList.toggle('is-active', item.getAttribute('data-target') === activePageId);
+      const isActive = item.getAttribute('data-target') === activePageId;
+      item.classList.toggle('is-active', isActive);
+      item.classList.toggle('pc-is-active', isActive);
     });
 
     // Synchronize view mode buttons across header and in-page bar
@@ -854,39 +864,77 @@
 
   function renderPageHeader(sec) {
     let bar = document.getElementById('pc-page-nav-bar');
-    const container = document.querySelector('.showcase-container');
+    const container = document.querySelector('.pc-showcase-container, .showcase-container');
     if (!container) return;
 
     if (!bar) {
       bar = document.createElement('div');
       bar.id = 'pc-page-nav-bar';
-      bar.className = 'pc-page-nav-bar';
       container.prepend(bar);
     }
+    bar.className = 'pc-page-nav-bar pc-card pc-card-sheet';
 
     const curIndex = SECTIONS.findIndex(s => s.id === sec.id);
     const subIndex = activeSubId && sec.children ? sec.children.findIndex(c => c.id === activeSubId) : -1;
     const subCrumb = subIndex === -1 ? '' :
-      `<span>›</span><span class="pc-page-breadcrumb-sub">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span>`;
+      `<span class="pc-breadcrumb-separator">›</span><span class="pc-breadcrumb-sub pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 12px; font-weight: 800;">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span>`;
 
     bar.innerHTML = `
-      <div class="pc-page-breadcrumb">
-        <a href="#overview" style="text-decoration:none;color:inherit;display:inline-flex;align-items:center;">
-          <span class="pc-inline-icon is-xs" data-icon="home"></span>
+      <nav class="pc-breadcrumb" aria-label="현재 위치">
+        <a href="#overview" class="pc-breadcrumb-link pc-svg-kirigami-btn" title="홈" style="display:inline-flex; width:34px; height:34px; padding:0; align-items:center; justify-content:center; border:none; background:transparent;">
+          <svg class="pc-kirigami-btn-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px; height:34px; display:block;">
+            <defs>
+              <filter id="bc-home-sh-js" x="-20%" y="-20%" width="140%" height="150%">
+                <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.40"/>
+                <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#2E1E14" flood-opacity="0.20"/>
+                <feDropShadow dx="0" dy="-0.5" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
+              </filter>
+            </defs>
+            <rect x="3" y="3" width="28" height="28" rx="6" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88" filter="url(#bc-home-sh-js)"/>
+            <rect x="5.5" y="5.5" width="23" height="23" rx="4.5" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.75"/>
+            <g transform="translate(9, 9)">
+              <path d="M 8 2.5 L 1.5 8.5 L 3.5 8.5 L 3.5 14.5 L 6.5 14.5 L 6.5 10.5 L 9.5 10.5 L 9.5 14.5 L 12.5 14.5 L 12.5 8.5 L 14.5 8.5 Z" fill="#66460D"/>
+            </g>
+          </svg>
         </a>
-        <span>›</span>
-        <span>${sec.category}</span>
-        <span>›</span>
-        <span class="pc-page-breadcrumb-current">${sec.title}</span>
+        <span class="pc-breadcrumb-separator">›</span>
+        <span class="pc-breadcrumb-category">${sec.category}</span>
+        <span class="pc-breadcrumb-separator">›</span>
+        <span class="pc-breadcrumb-current pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 13px; font-weight: 800;">${sec.title}</span>
         ${subCrumb}
-      </div>
+      </nav>
       <div class="pc-page-nav-actions">
-        <span class="pc-badge pc-badge-lavender" style="font-size:11.5px;font-weight:800;">
+        <span class="pc-badge pc-badge--ticket pc-badge--lavender" style="font-size:12px; font-weight:800; padding: 5px 14px;">
           ${isPageMode ? `페이지 ${curIndex + 1} / ${SECTIONS.length}` : '전체 연속 스크롤'}
         </span>
-        <button type="button" class="pc-page-mode-toggle" id="pc-toggle-page-mode" title="스크롤뷰 모드를 전환합니다 (ON: 전체 스크롤, OFF: 메뉴별 보기)">
-          <span class="pc-inline-icon is-xs" data-icon="${isPageMode ? 'file' : 'layout-list'}"></span>
-          <span>${isPageMode ? '스크롤뷰: OFF (메뉴별 보기)' : '스크롤뷰: ON (전체 스크롤)'}</span>
+        <button type="button" class="pc-svg-kirigami-btn pc-page-mode-toggle" id="pc-toggle-page-mode" title="${isPageMode ? '전체 연속 스크롤 모드로 전환합니다' : '메뉴별 독립 보기 모드로 전환합니다'}" style="padding:0; border:none; background:transparent; display:inline-flex;">
+          <svg class="pc-kirigami-btn-svg" viewBox="0 0 160 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 144px; height: 38px; display: block;">
+            <defs>
+              <filter id="nav-view-sh-js" x="-20%" y="-20%" width="140%" height="150%">
+                <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.45"/>
+                <feDropShadow dx="0" dy="2.8" stdDeviation="1.4" flood-color="#2E1E14" flood-opacity="0.22"/>
+                <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+              </filter>
+            </defs>
+            <path id="nav-toggle-bg" d="M 8 6 H 152 C 154 6 156 8 156 10 V 16 C 152 16 149 18 149 21 C 149 24 152 26 156 26 V 32 C 156 34 154 36 152 36 H 8 C 6 36 4 34 4 32 V 26 C 8 26 11 24 11 21 C 11 18 8 16 4 16 V 10 C 4 8 6 6 8 6 Z" fill="${isPageMode ? '#FEE396' : '#BBD5B8'}" stroke="#FFFFFF" stroke-width="0.88" filter="url(#nav-view-sh-js)"/>
+            <line x1="34" y1="8" x2="34" y2="34" stroke="#FFFDF9" stroke-width="1.2" stroke-dasharray="2 2"/>
+            <rect x="11" y="10" width="20" height="22" rx="4" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88"/>
+            <g id="nav-mode-icon-group" transform="translate(15, 14)">
+              ${isPageMode ? `
+                <rect x="0" y="0" width="12" height="14" rx="2" fill="#66460D"/>
+                <line x1="2.5" y1="3.5" x2="9.5" y2="3.5" stroke="#FFFDF9" stroke-width="1.2"/>
+                <line x1="2.5" y1="7" x2="9.5" y2="7" stroke="#FFFDF9" stroke-width="1.2"/>
+                <line x1="2.5" y1="10.5" x2="7.5" y2="10.5" stroke="#FFFDF9" stroke-width="1.2"/>
+              ` : `
+                <rect x="0" y="0" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+                <rect x="0" y="5" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+                <rect x="0" y="10" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+              `}
+            </g>
+            <text id="nav-toggle-mode-label" class="pc-label" x="44" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="${isPageMode ? '#66460D' : '#20533C'}" letter-spacing="-0.3">
+              ${isPageMode ? '스크롤뷰: OFF' : '스크롤뷰: ON'}
+            </text>
+          </svg>
         </button>
       </div>
     `;
@@ -964,13 +1012,33 @@
     const pageToggle = document.getElementById('pc-toggle-page-mode');
     if (pageToggle) {
       pageToggle.title = isPageMode ? '전체 연속 스크롤 모드로 전환합니다 (스크롤뷰: ON)' : '메뉴별 독립 보기 모드로 전환합니다 (스크롤뷰: OFF)';
-      pageToggle.innerHTML = `
-        <span class="pc-inline-icon is-xs" data-icon="${isPageMode ? 'file' : 'layout-list'}"></span>
-        <span>${isPageMode ? '스크롤뷰: OFF (메뉴별 보기)' : '스크롤뷰: ON (전체 스크롤)'}</span>
-      `;
-      if (typeof window.hydratePapercutIcons === 'function') {
-        window.hydratePapercutIcons(pageToggle);
+      const labelEl = pageToggle.querySelector('#nav-toggle-mode-label') || pageToggle.querySelector('.pc-label') || pageToggle.querySelector('text');
+      const bgPath = pageToggle.querySelector('#nav-toggle-bg') || pageToggle.querySelector('path[d*="H 152"]') || pageToggle.querySelector('path');
+      const iconGroup = pageToggle.querySelector('#nav-mode-icon-group') || pageToggle.querySelector('g[transform*="15"]');
+
+      if (labelEl && bgPath) {
+        labelEl.textContent = isPageMode ? '스크롤뷰: OFF' : '스크롤뷰: ON';
+        labelEl.setAttribute('fill', isPageMode ? '#66460D' : '#20533C');
+        bgPath.setAttribute('fill', isPageMode ? '#FEE396' : '#BBD5B8');
+        if (iconGroup) {
+          iconGroup.innerHTML = isPageMode ? `
+            <rect x="0" y="0" width="12" height="14" rx="2" fill="#66460D"/>
+            <line x1="2.5" y1="3.5" x2="9.5" y2="3.5" stroke="#FFFDF9" stroke-width="1.2"/>
+            <line x1="2.5" y1="7" x2="9.5" y2="7" stroke="#FFFDF9" stroke-width="1.2"/>
+            <line x1="2.5" y1="10.5" x2="7.5" y2="10.5" stroke="#FFFDF9" stroke-width="1.2"/>
+          ` : `
+            <rect x="0" y="0" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+            <rect x="0" y="5" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+            <rect x="0" y="10" width="12" height="3.5" rx="1.2" fill="#20533C"/>
+          `;
+        }
       }
+    }
+
+    const pageBadge = document.querySelector('#pc-page-nav-bar .pc-page-nav-actions .pc-badge');
+    if (pageBadge) {
+      const curIndex = SECTIONS.findIndex(s => s.id === activePageId);
+      pageBadge.textContent = isPageMode ? `페이지 ${curIndex + 1} / ${SECTIONS.length}` : '전체 연속 스크롤';
     }
   }
 
@@ -1054,13 +1122,17 @@
       activePageId = currentId;
       const targetSec = SECTIONS.find(s => s.id === currentId);
       if (targetSec) {
-        const curLabel = document.querySelector('.pc-page-breadcrumb-current');
+        const curLabel = document.querySelector('.pc-breadcrumb-current, .pc-page-breadcrumb-current');
         if (curLabel) curLabel.textContent = targetSec.title;
+        const catLabel = document.querySelector('.pc-breadcrumb-category');
+        if (catLabel) catLabel.textContent = targetSec.category;
       }
     }
 
     document.querySelectorAll('.pc-sidebar-item').forEach(item => {
-      item.classList.toggle('is-active', item.getAttribute('data-target') === currentId);
+      const isActive = item.getAttribute('data-target') === currentId;
+      item.classList.toggle('is-active', isActive);
+      item.classList.toggle('pc-is-active', isActive);
     });
 
     // 1페이지 연속 스크롤 시 #pc-components 하위 6개 스위트 목차 자동 활성화
