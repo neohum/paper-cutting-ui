@@ -633,6 +633,13 @@
           <span class="pc-sidebar-item-text">페이퍼 UI &amp; 특화 컴포넌트</span>
           <span class="pc-sidebar-badge pc-badge--ticket pc-badge--lavender pc-badge-lavender pc-swatch-lavender">통합 마스터</span>
         </a>
+        <a href="#papercut-stacking-studio" class="pc-sidebar-item pc-sidebar-nav-btn pc-btn" role="button" data-target="papercut-stacking-studio" title="레이어드 스택 &amp; 겹침">
+          <div class="pc-sidebar-item-icon" data-icon="layers">
+            <span class="pc-inline-icon is-color is-sm" data-icon="layers"></span>
+          </div>
+          <span class="pc-sidebar-item-text">레이어드 스택 &amp; 겹침</span>
+          <span class="pc-sidebar-badge pc-badge--stamp pc-badge--peach pc-badge-peach pc-swatch-peach">NEW STACK</span>
+        </a>
         <a href="#pc-blocks-charts" class="pc-sidebar-item pc-btn" role="button" data-target="pc-blocks-charts" title="실전 애플리케이션 블록">
           <div class="pc-sidebar-item-icon" data-icon="contacts-book">
             <span class="pc-inline-icon is-color is-sm" data-icon="contacts-book"></span>
@@ -868,12 +875,26 @@
           </div>
 
           <!-- Master Papercut Art: Full-width Grand Matte-board Gallery Frame -->
-          <div class="pc-hero-art-frame hero-art-frame pc-recessed-mat pc-frame-bleed" style="position: relative;">
+          <div class="pc-hero-art-frame hero-art-frame pc-recessed-mat pc-frame-bleed pc-has-photo-corners" style="position: relative; overflow: visible;">
             <div class="pc-washi-tape pc-washi-tape-mint" aria-hidden="true"></div>
             <span class="pc-badge pc-bleed-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none">
               <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> Master Artwork
             </span>
+            <!-- 4대 크래프트 포토 코너 마운트 -->
+            <div class="pc-photo-corner pc-is-top-left pc-is-sand" aria-hidden="true"></div>
+            <div class="pc-photo-corner pc-is-top-right pc-is-sand" aria-hidden="true"></div>
+            <div class="pc-photo-corner pc-is-bottom-left pc-is-peach" aria-hidden="true"></div>
+            <div class="pc-photo-corner pc-is-bottom-right pc-is-peach" aria-hidden="true"></div>
+
             <img src="assets/papercut-hero.jpg" alt="PaperCut UI 레이어드 페이퍼 아트 원작 일러스트" class="pc-hero-art-img hero-art-img" width="1200" height="675" loading="eager">
+
+            <!-- 크래프트 벨리 밴드 마운트 -->
+            <div class="pc-belly-band pc-is-bottom pc-is-peach" style="bottom: 52px;">
+              <span class="inline-flex items-center justify-center leading-none break-keep" style="font-size: 12px; font-weight: 800; letter-spacing: 0.05em; color: var(--pc-ink);">
+                <i class="fi fi-rr-layers mr-1" aria-hidden="true"></i> 3D STRATA &amp; INTERLOCKING CRAFT EDITION
+              </span>
+            </div>
+
             <div class="pc-row-wrap" style="--pc-gap: 8px; margin-top: 14px; justify-content: space-between; align-items: center; width: 100%;">
               <span class="break-keep" style="font-family: 'Gaegu', cursive; font-size: 16px; font-weight: 700; color: var(--pc-ink-muted);">
                 <i class="fi fi-rr-sparkles" aria-hidden="true"></i> 3D 레이어드 페이퍼 아트 핸드크래프트 원작 (Master Artwork)
@@ -883,6 +904,28 @@
                 <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none">16:9 Cinema View</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- 원작 조형 연계: 유기적 다층 종이 언덕 스트라타 (Organic Strata Hills Panorama) -->
+        <div class="pc-strata-hills pc-card-well" style="height: 130px; margin-top: 24px; margin-bottom: 8px; width: 100%; border-radius: 14px; position: relative; overflow: hidden; isolation: isolate; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 3px 10px rgba(46, 30, 20, 0.12);">
+          <svg class="pc-strata-svg" viewBox="0 0 1200 130" preserveAspectRatio="none" aria-hidden="true" style="width: 100%; height: 100%; display: block;">
+            <!-- Tier 1: 스카이 파스텔 언덕 (최심층 백그라운드) -->
+            <path class="pc-strata-layer pc-swatch-sky" d="M 0,130 L 0,35 Q 300,10 600,40 T 1200,25 L 1200,130 Z" style="fill: var(--pc-swatch-sky, #B4DDE7);"></path>
+            <!-- Tier 2: 라벤더 파스텔 언덕 (미드 레이어) -->
+            <path class="pc-strata-layer pc-swatch-lavender" d="M 0,130 L 0,60 Q 280,35 560,70 T 1200,50 L 1200,130 Z" style="fill: var(--pc-swatch-lavender, #C9B3DC);"></path>
+            <!-- Tier 3: 민트 파스텔 언덕 (포어그라운드 베이스) -->
+            <path class="pc-strata-layer pc-swatch-mint" d="M 0,130 L 0,85 Q 340,60 680,95 T 1200,75 L 1200,130 Z" style="fill: var(--pc-swatch-mint, #9FD4C7);"></path>
+            <!-- Tier 4: 샌드 크림 언덕 (최상단 접촉면) -->
+            <path class="pc-strata-layer pc-swatch-sand" d="M 0,130 L 0,105 Q 400,85 750,115 T 1200,98 L 1200,130 Z" style="fill: var(--pc-swatch-sand, #F5CE82);"></path>
+          </svg>
+          <div class="pc-strata-slot pc-slot-foreground" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; position: absolute; bottom: 10px; left: 0; right: 0; z-index: 5;">
+            <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11.5px; font-weight: 800;">
+              <i class="fi fi-rr-mountains mr-1" aria-hidden="true"></i> 유기적 다층 종이 언덕 스트라타
+            </span>
+            <span class="break-keep" style="font-size: 12px; font-weight: 700; color: #4A3A2C;">
+              샌드 · 민트 · 라벤더 · 스카이 4단 파스텔 종이 언덕 겹침 단차
+            </span>
           </div>
         </div>
 
@@ -1119,7 +1162,274 @@
                 <text x="52" y="32" font-family="'Nanum Square Round', sans-serif" font-size="14" font-weight="800" fill="#702830" letter-spacing="-0.3">3D 페이퍼 차트 (6종)</text>
               </svg>
             </a>
+
+            <!-- 15. 우표 천공형 (피치): 레이어드 스택 & 겹침 스튜디오 (NEW) -->
+            <a href="#papercut-stacking-studio" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="레이어드 스택 & 겹침 스튜디오 바로가기">
+              <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id="hero-btn-sh-stacking" x="-15%" y="-15%" width="130%" height="135%">
+                    <feDropShadow dx="0" dy="0.8" stdDeviation="0.45" flood-color="#2E1E14" flood-opacity="0.38"/>
+                    <feDropShadow dx="0" dy="1.8" stdDeviation="0.9" flood-color="#2E1E14" flood-opacity="0.16"/>
+                    <feDropShadow dx="0" dy="-0.4" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                  </filter>
+                </defs>
+                <path d="M 8 6 Q 14 9 20 6 Q 26 9 32 6 Q 38 9 44 6 Q 50 9 56 6 Q 62 9 68 6 Q 74 9 80 6 Q 86 9 92 6 Q 98 9 104 6 Q 110 9 116 6 Q 122 9 128 6 Q 134 9 140 6 Q 146 9 152 6 Q 158 9 164 6 Q 170 9 176 6 Q 182 9 188 6 Q 194 9 200 6 Q 206 9 212 6 Q 215 12 212 18 Q 215 24 212 30 Q 215 36 212 42 Q 215 48 212 48 Q 206 45 200 48 Q 194 45 188 48 Q 182 45 176 48 Q 170 45 164 48 Q 158 45 152 48 Q 146 45 140 48 Q 134 45 128 48 Q 122 45 116 48 Q 110 45 104 48 Q 98 45 92 48 Q 86 45 80 48 Q 74 45 68 48 Q 62 45 56 48 Q 50 45 44 48 Q 38 45 32 48 Q 26 45 20 48 Q 14 45 8 48 Q 5 42 8 36 Q 5 30 8 24 Q 5 18 8 12 Z" fill="#F8B49B" stroke="#FFFFFF" stroke-width="0.88" filter="url(#hero-btn-sh-stacking)" data-layer="base"/>
+                <rect x="14" y="10" width="192" height="34" rx="4" fill="#FFFDF9" data-layer="mid"/>
+                <rect x="18" y="13" width="184" height="28" rx="2" fill="none" stroke="#E6CCA8" stroke-width="1.2" stroke-dasharray="3 3"/>
+                <circle cx="34" cy="27" r="14" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.88"/>
+                <g transform="translate(26, 17) scale(0.68)">
+                  <polygon points="12,2 22,7 12,12 2,7" fill="#F8B49B"/>
+                  <polygon points="12,8 22,13 12,18 2,13" fill="#BCE4DB"/>
+                  <polygon points="12,14 22,19 12,24 2,19" fill="#FDE6B5"/>
+                </g>
+                <text x="56" y="32" font-family="'Nanum Square Round', sans-serif" font-size="14" font-weight="800" fill="#6E3B21" letter-spacing="-0.3">스택 &amp; 겹침 스튜디오 (NEW)</text>
+              </svg>
+            </a>
         </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         PAPERCRAFT MULTI-LAYER STACKING & INTERLOCKING STUDIO
+         Showcasing 5 Core Paper Stacking & Interlocking Systems
+         ========================================================================= -->
+    <section class="pc-card pc-card-sheet pc-page-view" id="papercut-stacking-studio" style="margin-top: 40px; margin-bottom: 40px; position: relative;">
+      <div class="pc-washi-tape pc-washi-tape-mint" aria-hidden="true"></div>
+      
+      <!-- 섹션 헤더 -->
+      <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 8px; align-items: center;">
+        <span class="pc-badge pc-badge--stamp pc-badge--peach pc-swatch-peach inline-flex items-center justify-center leading-none">
+          <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> 5대 물리적 조형 시스템
+        </span>
+        <span class="pc-badge pc-badge--ticket pc-badge--mint pc-swatch-mint inline-flex items-center justify-center leading-none">
+          <i class="fi fi-rr-layers mr-1" aria-hidden="true"></i> Stacking &amp; Interlocking
+        </span>
+        <span class="pc-badge pc-badge--tag pc-badge--lavender pc-swatch-lavender inline-flex items-center justify-center leading-none">
+          Pure CSS · 0-Runtime
+        </span>
+      </div>
+
+      <h2 class="pc-section-title section-title break-keep text-balance" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+        <span class="pc-section-plate" data-bg-shape="postage-stamp" data-icon="layers" data-size="52" title="레이어드 스택 &amp; 겹침"></span>
+        <span>Papercraft Multi-Layer Stacking &amp; Interlocking Studio</span>
+      </h2>
+
+      <p class="break-keep" style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 28px; line-height: 1.65;">
+        원작 일러스트(<code style="font-size: 13px; background: rgba(46,30,20,0.06); padding: 2px 6px; border-radius: 4px;">assets/papercut-hero.jpg</code>)의 핵심 조형미인 <strong>'물리적 겹침(Overlapping), 쌓임(Stacking), 슬릿 끼움(Interlocking)'</strong>을 집대성한 인터랙티브 스튜디오입니다.<br>
+        상위 카드를 덮는 부채꼴/계단식 스택, 칼선 틈새로 꽂히는 슬릿 인서트, 기와형 슁글 덱, 유기적 언덕 스트라타, 크래프트 포토 코너 마운트의 5대 기법을 직접 체험해보세요.
+      </p>
+
+      <!-- 4대 인터랙티브 쇼케이스 그리드 -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px; width: 100%; box-sizing: border-box;">
+
+        <!-- (1) 부채꼴 & 계단식 종이 묶음 스택 (Cascading Paper Deck & Fan Stack) -->
+        <div class="pc-card pc-card-well pc-shadowbox-well" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
+          <div>
+            <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">01. Paper Stack</span>
+              <span class="pc-badge pc-badge--ticket pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px;">부채꼴 &amp; 계단식</span>
+            </div>
+            <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
+              <i class="fi fi-rr-copy-alt mr-1" aria-hidden="true"></i> 부채꼴 &amp; 계단식 종이 스택
+            </h3>
+            <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
+              카드 아래 2~3장의 파스텔 색지가 오프셋되어 겹치며, 마우스 호버 시 부채처럼 탄성감 있게 펼쳐집니다.
+            </p>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 24px; align-items: center; padding: 16px 8px;">
+            <!-- 부채꼴 스택 카드 (.pc-stack-fanned) -->
+            <div class="pc-card pc-stack-fanned" tabindex="0" role="region" aria-label="부채꼴 펼침 카드" style="width: 100%; max-width: 280px; padding: 20px; background: #FFFDF9; border: 1px solid rgba(46, 30, 20, 0.14); border-radius: 14px; cursor: pointer; text-align: left;">
+              <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Fanned Deck</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                <i class="fi fi-rr-magic-wand mr-1" aria-hidden="true"></i> 부채꼴 팝아웃 스택
+              </h4>
+              <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
+                마우스를 올리면 뒤편 피치(-5°)와 민트(+4°) 색지가 좌우로 부채처럼 활짝 펼쳐집니다.
+              </p>
+            </div>
+
+            <!-- 계단식 캐스케이드 카드 (.pc-stack-cascade) -->
+            <div class="pc-card pc-stack-cascade" tabindex="0" role="region" aria-label="계단식 슬라이드 카드" style="width: 100%; max-width: 280px; padding: 20px; background: #FFFDF9; border: 1px solid rgba(46, 30, 20, 0.14); border-radius: 14px; cursor: pointer; text-align: left;">
+              <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--ticket pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Cascade Deck</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                <i class="fi fi-rr-apps-add mr-1" aria-hidden="true"></i> 계단식 슬라이딩 스택
+              </h4>
+              <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
+                호버 시 하단의 샌드(22px)와 피치(12px) 색지가 계단식으로 밀려나와 단차 입체감을 만듭니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- (2) 칼선 슬릿 인터로킹 (Slot-and-Tab Interlocking) -->
+        <div class="pc-card pc-card-well pc-shadowbox-well" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
+          <div>
+            <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">02. Interlocking</span>
+              <span class="pc-badge pc-badge--ticket pc-swatch-sky inline-flex items-center justify-center leading-none" style="font-size: 11px;">칼선 슬릿 꽂힘</span>
+            </div>
+            <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
+              <i class="fi fi-rr-cut mr-1" aria-hidden="true"></i> 칼선 슬릿 인터로킹
+            </h3>
+            <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
+              조각칼로 정밀하게 낸 도화지 틈새(.pc-slot-slit) 속으로 인서트(.pc-slot-insert)가 실제로 꽂혀 들어갑니다.
+            </p>
+          </div>
+
+          <div class="pc-slot-pocket" style="background: #FFFDF9; border: 1px solid rgba(46, 30, 20, 0.14); border-radius: 14px; padding: 20px; position: relative;">
+            <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="break-keep" style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">
+                <i class="fi fi-rr-ticket mr-1" aria-hidden="true"></i> 공예 전시 VIP 입장 티켓
+              </span>
+              <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 10px;">Slot Pocket</span>
+            </div>
+
+            <!-- 정밀 칼선 슬릿 (.pc-slot-slit) -->
+            <div class="pc-slot-slit" aria-hidden="true"></div>
+
+            <!-- 슬릿 틈새로 꽂혀 나온 티켓 인서트 (.pc-slot-insert) -->
+            <div class="pc-slot-insert pc-card" tabindex="0" role="button" aria-label="슬릿 인서트 티켓" style="background: #FFFBF0; border: 1px dashed rgba(46, 30, 20, 0.22); border-radius: 10px; padding: 14px 16px; margin-top: 14px; cursor: pointer;">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
+                <div style="text-align: left;">
+                  <span class="break-keep" style="font-size: 13.5px; font-weight: 800; color: #855C08;">
+                    <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> NO. 2026-PC-VIP
+                  </span>
+                  <div class="break-keep" style="font-size: 11.5px; color: var(--pc-ink-muted); margin-top: 2px;">
+                    호버/포커스 시 슬릿에서 12px 솟아오릅니다.
+                  </div>
+                </div>
+                <span class="pc-badge pc-badge--ticket pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">
+                  클릭 / 인출
+                </span>
+              </div>
+            </div>
+
+            <!-- 하단 보조 슬릿 꽂힘 버튼 데모 -->
+            <div class="pc-slot-slit" style="margin-top: 24px;" aria-hidden="true"></div>
+            <div class="pc-slot-insert" style="text-align: center; margin-top: 10px;">
+              <button type="button" class="pc-btn pc-btn-peach inline-flex items-center justify-center leading-none break-keep" style="padding: 10px 20px; font-size: 13px; font-weight: 800; border-radius: 8px;">
+                <i class="fi fi-rr-check mr-1" aria-hidden="true"></i> 슬릿 잠금 확인 완료
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- (3) 기와형 계단식 슁글 덱 (Cascading Shingle Deck) -->
+        <div class="pc-card pc-card-well pc-shadowbox-well" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box;">
+          <div>
+            <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px;">03. Shingle Deck</span>
+              <span class="pc-badge pc-badge--ticket pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 11px;">기와형 겹침 (-24px)</span>
+            </div>
+            <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
+              <i class="fi fi-rr-layers mr-1" aria-hidden="true"></i> 기와형 계단식 슁글 덱
+            </h3>
+            <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
+              위 카드가 아래 카드를 24px씩 덮으며 포개어지고, 호버 시 틈새에서 쏙 솟아오릅니다.
+            </p>
+          </div>
+
+          <!-- 기와형 슁글 덱 컨테이너 (.pc-shingle-deck) -->
+          <div class="pc-shingle-deck" role="list" aria-label="기와형 카드 목록">
+            <div class="pc-shingle-card" role="listitem" tabindex="0">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
+                <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
+                  <i class="fi fi-rr-document mr-1" aria-hidden="true"></i> 1단: 300g 수제 코튼지 스펙
+                </span>
+                <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 1</span>
+              </div>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 6px 0 0;">
+                부드러운 면 펄프 섬유와 0.88px 화이트 림 라이트 마감
+              </p>
+            </div>
+
+            <div class="pc-shingle-card" role="listitem" tabindex="0">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
+                <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
+                  <i class="fi fi-rr-palette mr-1" aria-hidden="true"></i> 2단: 닥나무 전통 한지 팔레트
+                </span>
+                <span class="pc-badge pc-badge--ticket pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 2</span>
+              </div>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 6px 0 0;">
+                맑고 투명한 결감과 자연스러운 비정형 섬유 텍스처
+              </p>
+            </div>
+
+            <div class="pc-shingle-card" role="listitem" tabindex="0">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
+                <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
+                  <i class="fi fi-rr-box-alt mr-1" aria-hidden="true"></i> 3단: 350g 크라프트 패키징 보드
+                </span>
+                <span class="pc-badge pc-badge--tag pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 3</span>
+              </div>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 6px 0 0;">
+                단단한 내구성과 2-Tier 번트 엄버 접촉 그림자 시스템
+              </p>
+            </div>
+
+            <div class="pc-shingle-card" role="listitem" tabindex="0">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
+                <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
+                  <i class="fi fi-rr-diploma mr-1" aria-hidden="true"></i> 4단: 반투명 실크 벨러지 인증서
+                </span>
+                <span class="pc-badge pc-badge--stamp pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 4</span>
+              </div>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 6px 0 0;">
+                반투명 오버레이로 레이어 간 깊이감(Depth)을 극대화
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- (4) 크래프트 포토 코너 & 벨리 밴드 마운트 -->
+        <div class="pc-card pc-card-well pc-shadowbox-well" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
+          <div>
+            <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge--stamp pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 11px;">04. Craft Mounts</span>
+              <span class="pc-badge pc-badge--ticket pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">포토 코너 &amp; 밴드</span>
+            </div>
+            <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
+              <i class="fi fi-rr-bookmark mr-1" aria-hidden="true"></i> 포토 코너 &amp; 벨리 밴드 마운트
+            </h3>
+            <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
+              빈티지 사진 앨범의 4귀퉁이 포켓과 고급 크래프트 노트를 감싸는 종이 띠 장식입니다.
+            </p>
+          </div>
+
+          <!-- 포토 코너 & 벨리 밴드가 적용된 마운트 카드 데모 -->
+          <div class="pc-card pc-has-photo-corners" style="position: relative; overflow: visible; background: #FFFDF9; border: 1px solid rgba(46, 30, 20, 0.14); border-radius: 14px; padding: 36px 24px; text-align: center;">
+            <!-- 4대 포토 코너 -->
+            <div class="pc-photo-corner pc-is-top-left pc-is-sand" aria-hidden="true"></div>
+            <div class="pc-photo-corner pc-is-top-right pc-is-sand" aria-hidden="true"></div>
+            <div class="pc-photo-corner pc-is-bottom-left pc-is-mint" aria-hidden="true"></div>
+            <div class="pc-photo-corner pc-is-bottom-right pc-is-mint" aria-hidden="true"></div>
+
+            <!-- 중앙 벨리 밴드 -->
+            <div class="pc-belly-band pc-is-mint" style="top: 50%;">
+              <span class="inline-flex items-center justify-center leading-none break-keep" style="font-size: 11px; font-weight: 800; color: #275C46;">
+                <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> LIMITED HANDMADE EDITION
+              </span>
+            </div>
+
+            <div style="padding: 20px 0;">
+              <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px; margin-bottom: 8px;">
+                Handmade Stationery
+              </span>
+              <h4 class="break-keep" style="font-size: 16px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
+                아날로그 감성의 크래프트 마운트
+              </h4>
+              <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
+                삼각 포켓과 텍스처 밴드로 디지털 화면에 만져질 듯한 종이 질감을 전합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 

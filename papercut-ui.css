@@ -4442,10 +4442,492 @@
   .pc-bleed-tab,
   .pc-input-paper,
   .pc-select-paper,
-  .pc-washi-tape {
+  .pc-washi-tape,
+  .pc-stack-fanned,
+  .pc-stack-cascade,
+  .pc-stack-fanned::before,
+  .pc-stack-fanned::after,
+  .pc-stack-cascade::before,
+  .pc-stack-cascade::after,
+  .pc-stack-underlay,
+  .pc-slot-slit,
+  .pc-slot-insert,
+  .pc-photo-corner,
+  .pc-belly-band {
     transition: none !important;
     animation: none !important;
     transform: none !important;
   }
+
+  .pc-stack-fanned:hover::before {
+    transform: rotate(-3deg) translate(-4px, 2px) !important;
+  }
+  .pc-stack-fanned:hover::after {
+    transform: rotate(2deg) translate(4px, 1px) !important;
+  }
+  .pc-stack-cascade:hover::before {
+    transform: translate(16px, 16px) !important;
+  }
+  .pc-stack-cascade:hover::after {
+    transform: translate(8px, 8px) !important;
+  }
 }
+
+/* ==========================================================================
+   Step 1: Multi-Layer Stacking, Interlocking Core & Craft Mounts
+   ========================================================================== */
+
+/* 1.1 Fanned & Cascading Paper Stacks (.pc-stack-fanned, .pc-stack-cascade, .pc-stack-underlay) */
+.pc-stack-fanned,
+.pc-stack-cascade {
+  position: relative !important;
+  z-index: 2;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+/* Pseudo-element underlays for multi-layer pastel sheets */
+.pc-stack-fanned::before,
+.pc-stack-fanned::after,
+.pc-stack-cascade::before,
+.pc-stack-cascade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+  box-sizing: border-box;
+}
+
+/* Fanned Stack Defaults: Peach (-3deg) & Mint (+2deg) with Burnt Umber Contact Shadow */
+.pc-stack-fanned::before {
+  z-index: -2;
+  background: var(--pc-swatch-peach, linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%));
+  transform: rotate(-3deg) translate(-4px, 2px);
+  transform-origin: bottom center;
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.pc-stack-fanned::after {
+  z-index: -1;
+  background: var(--pc-swatch-mint, linear-gradient(180deg, #BCE4DB 0%, #9FD4C7 100%));
+  transform: rotate(2deg) translate(4px, 1px);
+  transform-origin: bottom center;
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* Fanned Stack Hover: Elastic expansion */
+.pc-stack-fanned:hover::before {
+  transform: rotate(-5deg) translate(-10px, -4px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-fanned:hover::after {
+  transform: rotate(4deg) translate(8px, -2px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-fanned:hover {
+  transform: translateY(-2px);
+}
+
+/* Cascading Stack Defaults: Stepped offsets (8px, 16px) with Sand & Peach */
+.pc-stack-cascade::before {
+  z-index: -2;
+  background: var(--pc-swatch-sand, linear-gradient(180deg, #FDE6B5 0%, #F5CE82 100%));
+  transform: translate(16px, 16px);
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.pc-stack-cascade::after {
+  z-index: -1;
+  background: var(--pc-swatch-peach, linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%));
+  transform: translate(8px, 8px);
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* Cascading Stack Hover: Smooth sliding fan-out */
+.pc-stack-cascade:hover::before {
+  transform: translate(22px, 22px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-cascade:hover::after {
+  transform: translate(12px, 12px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-cascade:hover {
+  transform: translateY(-2px);
+}
+
+/* Sub-layer Support: .pc-stack-underlay for custom or 3+ colored paper sheets */
+.pc-stack-underlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+  box-sizing: border-box;
+}
+
+.pc-stack-fanned > .pc-stack-underlay:nth-of-type(1) {
+  z-index: -3;
+  transform: rotate(-4deg) translate(-6px, 3px);
+  transform-origin: bottom center;
+}
+.pc-stack-fanned > .pc-stack-underlay:nth-of-type(2) {
+  z-index: -2;
+  transform: rotate(-2deg) translate(-3px, 1px);
+  transform-origin: bottom center;
+}
+.pc-stack-fanned > .pc-stack-underlay:nth-of-type(3) {
+  z-index: -1;
+  transform: rotate(3deg) translate(5px, 2px);
+  transform-origin: bottom center;
+}
+
+.pc-stack-fanned:hover > .pc-stack-underlay:nth-of-type(1) {
+  transform: rotate(-7deg) translate(-14px, -5px);
+  box-shadow: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+}
+.pc-stack-fanned:hover > .pc-stack-underlay:nth-of-type(2) {
+  transform: rotate(-4deg) translate(-8px, -3px);
+  box-shadow: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+}
+.pc-stack-fanned:hover > .pc-stack-underlay:nth-of-type(3) {
+  transform: rotate(6deg) translate(12px, -3px);
+  box-shadow: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+}
+
+.pc-stack-cascade > .pc-stack-underlay:nth-of-type(1) {
+  z-index: -3;
+  transform: translate(16px, 16px);
+}
+.pc-stack-cascade > .pc-stack-underlay:nth-of-type(2) {
+  z-index: -2;
+  transform: translate(10px, 10px);
+}
+.pc-stack-cascade > .pc-stack-underlay:nth-of-type(3) {
+  z-index: -1;
+  transform: translate(5px, 5px);
+}
+
+.pc-stack-cascade:hover > .pc-stack-underlay:nth-of-type(1) {
+  transform: translate(24px, 24px);
+}
+.pc-stack-cascade:hover > .pc-stack-underlay:nth-of-type(2) {
+  transform: translate(15px, 15px);
+}
+.pc-stack-cascade:hover > .pc-stack-underlay:nth-of-type(3) {
+  transform: translate(7px, 7px);
+}
+
+/* Palette Swatches for .pc-stack-underlay */
+.pc-stack-underlay.pc-is-peach {
+  background: var(--pc-swatch-peach, linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%));
+}
+.pc-stack-underlay.pc-is-mint {
+  background: var(--pc-swatch-mint, linear-gradient(180deg, #BCE4DB 0%, #9FD4C7 100%));
+}
+.pc-stack-underlay.pc-is-sand {
+  background: var(--pc-swatch-sand, linear-gradient(180deg, #FDE6B5 0%, #F5CE82 100%));
+}
+.pc-stack-underlay.pc-is-lavender {
+  background: var(--pc-swatch-lavender, linear-gradient(180deg, #E2D3EE 0%, #C9B3DC 100%));
+}
+.pc-stack-underlay.pc-is-sky {
+  background: var(--pc-swatch-sky, linear-gradient(180deg, #D4EDF4 0%, #B4DDE7 100%));
+}
+.pc-stack-underlay.pc-is-sage {
+  background: var(--pc-swatch-sage, linear-gradient(180deg, #BFE2CE 0%, #A3D4B6 100%));
+}
+
+.pc-stack-fanned:has(.pc-stack-underlay)::before,
+.pc-stack-fanned:has(.pc-stack-underlay)::after,
+.pc-stack-cascade:has(.pc-stack-underlay)::before,
+.pc-stack-cascade:has(.pc-stack-underlay)::after {
+  display: none !important;
+}
+
+/* 1.2 Knife-Cut Slit Interlocking (.pc-slot-slit, .pc-slot-insert) */
+.pc-slot-slit {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 6px;
+  margin: 12px 0;
+  background-color: rgba(46, 30, 20, 0.16);
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  border-radius: 3px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 3px 6px rgba(46, 30, 20, 0.24),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* Precision carved slit rim line */
+.pc-slot-slit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95);
+  pointer-events: none;
+}
+
+/* Slit Insert: Elements slotted into or emerging through the cut slit */
+.pc-slot-insert {
+  position: relative;
+  z-index: 2;
+  transform: translateY(-6px) rotate(-1deg);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20),
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-slot-insert:hover,
+.pc-slot-insert:focus-within {
+  transform: translateY(-12px) rotate(0deg);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22),
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Interlocking slot pocket wrapper */
+.pc-slot-pocket {
+  position: relative;
+  overflow: visible;
+}
+
+.pc-slot-pocket > .pc-slot-slit {
+  position: relative;
+  z-index: 3;
+}
+
+.pc-slot-pocket > .pc-slot-insert {
+  margin-top: -16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 1.3 Photo Corners (.pc-photo-corner) */
+.pc-photo-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #FAF7F0;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    0 1.5px 3px rgba(46, 30, 20, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Default top-left if no positioning class */
+.pc-photo-corner:not([class*="pc-is-"]) {
+  top: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.pc-photo-corner.pc-is-top-left {
+  top: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.pc-photo-corner.pc-is-top-right {
+  top: -1px;
+  right: -1px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.pc-photo-corner.pc-is-bottom-left {
+  bottom: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+.pc-photo-corner.pc-is-bottom-right {
+  bottom: -1px;
+  right: -1px;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+/* Colorways for photo corner pockets */
+.pc-photo-corner.pc-is-peach {
+  background: var(--pc-swatch-peach, #F8B49B);
+}
+.pc-photo-corner.pc-is-mint {
+  background: var(--pc-swatch-mint, #BCE4DB);
+}
+.pc-photo-corner.pc-is-sand {
+  background: var(--pc-swatch-sand, #FDE6B5);
+}
+.pc-photo-corner.pc-is-kraft {
+  background: #E8DECE;
+}
+
+/* Container automatic photo-corners via pseudo-elements */
+.pc-has-photo-corners {
+  position: relative;
+}
+
+.pc-has-photo-corners::before,
+.pc-has-photo-corners::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background-color: #FAF7F0;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    0 1.5px 3px rgba(46, 30, 20, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.pc-has-photo-corners::before {
+  top: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.pc-has-photo-corners::after {
+  bottom: -1px;
+  right: -1px;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+/* 1.4 Craft Belly Band (.pc-belly-band) */
+.pc-belly-band {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  right: -8px;
+  transform: translateY(-50%);
+  height: 38px;
+  background-color: rgba(248, 180, 155, 0.88);
+  border-top: 1px solid rgba(46, 30, 20, 0.14);
+  border-bottom: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    0 2px 6px rgba(46, 30, 20, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  color: var(--pc-ink, #3D352E);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Washi/stripe paper texture overlay on belly band */
+.pc-belly-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.22) 0,
+    rgba(255, 255, 255, 0.22) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Vertical belly band */
+.pc-belly-band.pc-is-vertical,
+.pc-belly-band-v {
+  top: -8px;
+  bottom: -8px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 38px;
+  height: auto;
+  border-top: none;
+  border-bottom: none;
+  border-left: 1px solid rgba(46, 30, 20, 0.14);
+  border-right: 1px solid rgba(46, 30, 20, 0.14);
+}
+
+/* Position modifiers */
+.pc-belly-band.pc-is-top {
+  top: 24px;
+  transform: none;
+}
+.pc-belly-band.pc-is-bottom {
+  top: auto;
+  bottom: 24px;
+  transform: none;
+}
+
+/* Pastel color variants for belly band */
+.pc-belly-band.pc-is-mint {
+  background-color: rgba(163, 216, 195, 0.88);
+}
+.pc-belly-band.pc-is-peach {
+  background-color: rgba(247, 186, 158, 0.88);
+}
+.pc-belly-band.pc-is-sand {
+  background-color: rgba(254, 227, 150, 0.88);
+}
+.pc-belly-band.pc-is-lavender {
+  background-color: rgba(215, 203, 235, 0.88);
+}
+.pc-belly-band.pc-is-sky {
+  background-color: rgba(189, 224, 234, 0.88);
+}
+.pc-belly-band.pc-is-sage {
+  background-color: rgba(187, 213, 184, 0.88);
+}
+
 
