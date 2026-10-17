@@ -17,7 +17,7 @@
     },
     { id: 'papercut-stacking-studio', title: '레이어드 스택 & 겹침', badge: 'NEW STACK', badgeStyle: 'stamp', icon: 'layers', bgShape: 'postage-stamp', bgTheme: 'peach', category: '마스터 UI 키트' },
     { id: 'pc-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
-    { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
+    { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '12종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
     // 에셋 & 배경 시스템
     { id: 'icon-gallery', title: '3D 페이퍼컷 아이콘', badge: '678종', icon: 'star-cluster', bgShape: 'cog-seal', bgTheme: 'sky', category: '에셋 & 배경 시스템' },
