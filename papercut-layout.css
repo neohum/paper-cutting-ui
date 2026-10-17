@@ -863,6 +863,7 @@ body.is-collapsed #pc-sidebar-nav {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
+  margin: 0 !important;
   min-height: 44px !important;
   min-width: 44px !important;
   cursor: pointer !important;
@@ -895,6 +896,29 @@ body.is-collapsed #pc-sidebar-nav {
   gap: 8px !important;
   letter-spacing: -0.2px !important;
   line-height: 1 !important;
+}
+
+/* Footer Actions Perfect Alignment (Adjacent Controls Gate)
+   - Eliminates margin-bottom bias from .pc-ribbon-banner
+   - Normalizes height to 44px (WCAG touch target & baseline alignment)
+   - Matches Center-Y and bottom baseline exactly with #pc-scroll-top */
+.pc-footer-actions .pc-ribbon-banner {
+  margin: 0 !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  box-sizing: border-box !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 10px 20px !important;
+  border-radius: 7px !important;
+}
+
+.pc-footer-actions .pc-scroll-top-btn {
+  margin: 0 !important;
+  min-height: 44px !important;
+  height: 44px !important;
+  box-sizing: border-box !important;
 }
 
 /* ==========================================================================
