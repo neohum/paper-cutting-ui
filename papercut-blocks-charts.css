@@ -2441,10 +2441,9 @@
 .pc-chart-svg-wrap {
   width: 100%;
   max-width: 100%;
-  overflow-x: auto;
+  overflow: visible;
   box-sizing: border-box;
   min-width: 0;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Button & Typography Containment Guarantee */
