@@ -251,10 +251,10 @@
       <!-- Section Header -->
       <div class="pc-sim-header">
         <div class="pc-sim-badges">
-          <span class="pc-badge pc-badge-peach">3px ~ 16px Micro Scale Matrix</span>
-          <span class="pc-badge pc-badge-mint">14 Exact Pixel Sizes (3px~16px)</span>
-          <span class="pc-badge pc-badge-lavender">Strict Physical Dimensions</span>
-          <span class="pc-badge pc-badge-sky">Loupe Zoom Inspector</span>
+          <span class="pc-badge pc-badge--stamp pc-badge--peach">3px ~ 16px Micro Scale Matrix</span>
+          <span class="pc-badge pc-badge--ticket pc-badge--mint">14 Exact Pixel Sizes (3px~16px)</span>
+          <span class="pc-badge pc-badge--tag pc-badge--lavender">Strict Physical Dimensions</span>
+          <span class="pc-badge pc-badge--stamp pc-badge--sky">Loupe Zoom Inspector</span>
         </div>
         <h2 class="pc-sim-title">
           <span class="pc-inline-icon is-md" data-icon="scissors"></span> 아이콘 크기별 외곽선(Stroke) 시뮬레이션 매트릭스 (3px ~ 16px)
@@ -275,7 +275,7 @@
                 <span class="pc-inline-icon is-xs" data-icon="search"></span>
                 <span>테스트 아이콘 선택 (529종)</span>
               </div>
-              <span class="pc-badge pc-badge-mint" id="sim-active-icon-badge" style="font-size: 11px;">${state.selectedIconId}</span>
+              <span class="pc-badge pc-badge--stamp pc-badge--mint" id="sim-active-icon-badge" style="font-size: 11px;">${state.selectedIconId}</span>
             </div>
 
             <!-- Search Input with Dropdown -->
@@ -327,7 +327,7 @@
                 <span class="pc-inline-icon is-xs" data-icon="scissors"></span>
                 <span>외곽선 모드 (Mode)</span>
               </div>
-              <span class="pc-badge pc-badge-peach" id="sim-mode-badge" style="font-size: 11px;">다이컷 스티커</span>
+              <span class="pc-badge pc-badge--ticket pc-badge--peach" id="sim-mode-badge" style="font-size: 11px;">다이컷 스티커</span>
             </div>
 
             <div class="pc-sim-segmented">
@@ -368,7 +368,7 @@
                 <span class="pc-inline-icon is-xs" data-icon="settings"></span>
                 <span>아이콘 가로·세로 크기 (3px ~ 16px)</span>
               </div>
-              <span id="sim-master-size-display" class="pc-badge pc-badge-mint" style="font-size: 12px; font-weight: 800;">
+              <span id="sim-master-size-display" class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 12px; font-weight: 800;">
                 ${state.activeFilterSize === 'all' ? '전체 (3~16px)' : `${state.activeFilterSize}px × ${state.activeFilterSize}px`}
               </span>
             </div>
@@ -452,7 +452,7 @@
       <div class="pc-sim-export-panel" id="sim-export-panel">
         <div class="pc-sim-export-top">
           <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <span class="pc-badge pc-badge-buttercup">Live Code Export</span>
+            <span class="pc-badge pc-badge--ticket pc-badge--buttercup">Live Code Export</span>
             <span style="font-size: 15px; font-weight: 800; color: var(--pc-ink);">마이크로 규격(3px~16px) 코드 생성기</span>
             <div style="display: flex; align-items: center; gap: 6px;">
               <span style="font-size: 12px; font-weight: 700; color: var(--pc-ink-muted);">가로×세로 규격:</span>

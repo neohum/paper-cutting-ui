@@ -2123,7 +2123,7 @@
         <div class="pc-bg-card-info">
           <div class="pc-bg-card-header">
             <span class="pc-bg-num">#${(idx + 1).toString().padStart(2, '0')}</span>
-            <span class="pc-badge pc-badge-${item.category === 'classic' ? 'peach' : item.category === 'nature' ? 'mint' : item.category === 'geo' ? 'lavender' : item.category === 'craft' ? 'buttercup' : 'sky'}" style="font-size: 11px; padding: 2px 8px;">
+            <span class="pc-badge pc-badge--stamp pc-badge-${item.category === 'classic' ? 'peach' : item.category === 'nature' ? 'mint' : item.category === 'geo' ? 'lavender' : item.category === 'craft' ? 'buttercup' : 'sky'}" style="font-size: 11px; padding: 2px 8px;">
               ${item.category === 'classic' ? '우표·인장' : item.category === 'nature' ? '자연·조약돌' : item.category === 'geo' ? '아치·다면체' : item.category === 'craft' ? '접지·문구' : '동화·페이퍼 커팅'}
             </span>
           </div>

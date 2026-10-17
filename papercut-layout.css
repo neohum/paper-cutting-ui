@@ -1369,24 +1369,40 @@ body.is-collapsed #pc-sidebar-nav {
 /* ==========================================================================
    Hero Banner & Card Sheet Component Standards (.pc-card-sheet, .pc-hero-banner)
    ========================================================================== */
+.pc-card,
 .pc-card-sheet {
   background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1.5px solid #E2D7C5 !important;
-  border-radius: 0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.10) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 16px !important;
   box-shadow: 
     0 1px 0 rgba(255, 255, 255, 0.98) inset,
+    0 0 0 0.88px rgba(255, 255, 255, 0.95) inset,
     var(--pc-paper-shadow-lg) !important;
   position: relative !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+}
+
+.pc-card:hover,
+.pc-card-sheet:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 1) inset,
+    0 0 0 0.88px rgba(255, 255, 255, 0.96) inset,
+    0 2.5px 4px rgba(46, 30, 20, 0.32),
+    0 8px 18px rgba(46, 30, 20, 0.18),
+    0 18px 36px rgba(46, 30, 20, 0.10) !important;
 }
 
 .pc-hero-banner,
 .hero-banner {
   background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1.5px solid #E2D7C5 !important;
-  border-radius: 0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.10) !important;
+  border-radius: 16px !important;
   padding: 48px;
   box-shadow: 
     0 1px 0 rgba(255, 255, 255, 0.98) inset,
+    0 0 0 0.88px rgba(255, 255, 255, 0.95) inset,
     var(--pc-paper-shadow-lg) !important;
   position: relative;
   margin-bottom: 40px;
@@ -1399,7 +1415,7 @@ body.is-collapsed #pc-sidebar-nav {
   position: absolute;
   top: 8px; left: 8px; right: -8px; bottom: -8px;
   background: var(--pc-peach-light);
-  border-radius: 0 !important;
+  border-radius: 16px !important;
   z-index: -1;
   box-shadow: var(--pc-paper-shadow-xs);
 }
@@ -1446,5 +1462,241 @@ body.is-collapsed #pc-sidebar-nav {
   justify-content: center;
   line-height: 1;
   pointer-events: none;
+}
+
+/* ==========================================================================
+   Step 2: Shadowbox Craft Components, Wells & Bleed Architecture
+   Authentic Layered Paper-Cut Aesthetic (Matching papercut-hero.jpg)
+   ========================================================================== */
+
+/* 1. Shadowbox Recessed Wells & Matboard Frames (.pc-shadowbox-well, .pc-recessed-mat) */
+.pc-shadowbox-well,
+.pc-recessed-mat {
+  position: relative;
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.12) !important;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 
+    inset 0 3px 8px rgba(46, 30, 20, 0.18), 
+    inset 0 1px 2px rgba(46, 30, 20, 0.22), 
+    0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  box-sizing: border-box;
+}
+
+.pc-shadowbox-well.pc-is-deep,
+.pc-recessed-mat.pc-is-deep {
+  box-shadow: 
+    inset 0 6px 16px rgba(46, 30, 20, 0.24), 
+    inset 0 2px 4px rgba(46, 30, 20, 0.28), 
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 2. Frame Bleed Utilities (.pc-frame-bleed, .pc-bleed-top, .pc-bleed-bottom, etc.) */
+.pc-frame-bleed {
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 10;
+}
+
+.pc-bleed-top {
+  margin-top: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 10px rgba(46, 30, 20, 0.18), 
+    0 1px 2px rgba(46, 30, 20, 0.22);
+}
+
+.pc-bleed-bottom {
+  margin-bottom: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(2px);
+  box-shadow: 
+    0 4px 10px rgba(46, 30, 20, 0.18), 
+    0 1px 2px rgba(46, 30, 20, 0.22);
+}
+
+.pc-bleed-left {
+  margin-left: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+}
+
+.pc-bleed-right {
+  margin-right: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+}
+
+.pc-bleed-badge {
+  position: absolute !important;
+  top: -12px !important;
+  right: 18px !important;
+  z-index: 25 !important;
+  box-shadow: 
+    0 3px 8px rgba(46, 30, 20, 0.24), 
+    0 1px 2px rgba(46, 30, 20, 0.16) !important;
+}
+
+.pc-bleed-tab {
+  position: relative !important;
+  margin-top: -14px !important;
+  z-index: 20 !important;
+  box-shadow: 0 3px 8px rgba(46, 30, 20, 0.22) !important;
+}
+
+/* 3. Craft Details: Masking Washi Tape (.pc-washi-tape) & Fold Score Line (.pc-score-line) */
+.pc-washi-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 100px;
+  height: 26px;
+  background-color: rgba(254, 227, 150, 0.88);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 
+    0 1.5px 0 rgba(46, 30, 20, 0.35),
+    0 3.5px 8px rgba(46, 30, 20, 0.20),
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  z-index: 20;
+  clip-path: polygon(
+    0% 0%, 3% 20%, 0% 40%, 3% 60%, 0% 80%, 3% 100%,
+    97% 100%, 100% 80%, 97% 60%, 100% 40%, 97% 20%, 100% 0%
+  );
+}
+
+.pc-washi-tape::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0.45) 0, 
+    rgba(255, 255, 255, 0.45) 3px, 
+    transparent 3px, 
+    transparent 6px
+  );
+  opacity: 0.6;
+}
+
+.pc-washi-tape.pc-is-mint,
+.pc-washi-tape-mint {
+  background-color: rgba(163, 216, 195, 0.88);
+}
+.pc-washi-tape.pc-is-peach,
+.pc-washi-tape-peach {
+  background-color: rgba(247, 186, 158, 0.88);
+}
+.pc-washi-tape.pc-is-lavender,
+.pc-washi-tape-lavender {
+  background-color: rgba(215, 203, 235, 0.88);
+}
+.pc-washi-tape.pc-is-rose,
+.pc-washi-tape-rose {
+  background-color: rgba(245, 184, 190, 0.88);
+}
+.pc-washi-tape.pc-is-sky,
+.pc-washi-tape-sky {
+  background-color: rgba(189, 224, 234, 0.88);
+}
+.pc-washi-tape.pc-is-sage,
+.pc-washi-tape-sage {
+  background-color: rgba(187, 213, 184, 0.88);
+}
+
+.pc-score-line {
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 16px 0;
+  border: none !important;
+  border-top: 1px dashed rgba(46, 30, 20, 0.20) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  box-sizing: border-box;
+}
+
+.pc-score-line-v,
+.pc-score-line.pc-is-vertical {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  margin: 0 16px;
+  border: none !important;
+  border-left: 1px dashed rgba(46, 30, 20, 0.20) !important;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.85) !important;
+  box-sizing: border-box;
+}
+
+/* 4. Form Control Cutout Inlays (.pc-input-paper, .pc-select-paper, .pc-input, .pc-select) */
+.pc-input-paper,
+.pc-select-paper,
+.pc-input.pc-is-inlay,
+.pc-select.pc-is-inlay {
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.pc-input-paper:hover,
+.pc-select-paper:hover,
+.pc-input.pc-is-inlay:hover,
+.pc-select.pc-is-inlay:hover {
+  border-color: rgba(46, 30, 20, 0.25) !important;
+}
+
+.pc-input-paper:focus,
+.pc-select-paper:focus,
+.pc-input.pc-is-inlay:focus,
+.pc-select.pc-is-inlay:focus {
+  background-color: #FFFFFF !important;
+  border-color: #82C2A8 !important;
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.14),
+    0 0 0 2.5px rgba(163, 216, 195, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Inlay effect applied to standard form controls */
+.pc-input,
+.pc-select {
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* 5. Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .pc-card,
+  .pc-card-sheet,
+  .pc-shadowbox-well,
+  .pc-recessed-mat,
+  .pc-frame-bleed,
+  .pc-bleed-top,
+  .pc-bleed-bottom,
+  .pc-bleed-badge,
+  .pc-bleed-tab,
+  .pc-input-paper,
+  .pc-select-paper,
+  .pc-washi-tape {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
 }
 

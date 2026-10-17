@@ -11,19 +11,10 @@
     { id: 'overview', title: '개요 & 히어로', badge: 'Hero', icon: 'home', bgShape: 'postage-stamp', bgTheme: 'peach', category: '기본 정보' },
     
     // 마스터 UI 키트 (PC 표준)
-    { id: 'pc-components', title: '페이퍼 UI & 특화 컴포넌트', badge: '통합 마스터', icon: 'grid-view', bgShape: 'clover-leaf', bgTheme: 'lavender', category: '마스터 UI 키트', aliases: ['kirigami-components', 'knife-cut-buttons'],
-      // 예전 섹션 주소를 하위 범주로 잇는다 (#knife-cut-buttons → #pc-components/buttons)
-      aliasSubs: { 'kirigami-components': 'cards', 'knife-cut-buttons': 'buttons' },
-      // 하위 메뉴: 1페이지 연속 스크롤 앵커 (#pc-components/<id>)
-      children: [
-        { id: 'buttons', title: '3D 페이퍼 커팅 버튼', count: 24 },
-        { id: 'cards', title: '특화 카드 & 패널', count: 10 },
-        { id: 'badges', title: '특화 배지 & 7대 색지', count: 16 },
-        { id: 'forms', title: '폼 컨트롤 & 음각 셀렉트', count: 8 },
-        { id: 'nav', title: '내비게이션 & 메뉴', count: 7 },
-        { id: 'overlays', title: '오버레이 & 피드백', count: 14 },
-        { id: 'data', title: '데이터 & 레이아웃', count: 13 }
-      ] },
+    { id: 'pc-components', title: '페이퍼 UI & 특화 컴포넌트', badge: '통합 마스터', icon: 'grid-view', bgTheme: 'lavender', category: '마스터 UI 키트', aliases: ['kirigami-components', 'knife-cut-buttons'],
+      // 예전 섹션 주소를 하위 범주로 잇는다 (#knife-cut-buttons → #pc-components)
+      aliasSubs: { 'kirigami-components': 'cards', 'knife-cut-buttons': 'buttons' }
+    },
     { id: 'pc-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
     { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '6종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
@@ -33,7 +24,6 @@
     
     { id: 'texture-showcase', title: '16종 종이 질감 & 토큰', badge: '16 Stocks', icon: 'palette', bgShape: 'pebble-organic', bgTheme: 'sage', category: '디자인 시스템 & 피드백' },
     { id: 'paper-alerts-toasts', title: '알림 & 토스트 시스템', badge: 'NEW', icon: 'bell-ring', bgShape: 'notched-ticket', bgTheme: 'buttercup', category: '디자인 시스템 & 피드백' },
-    { id: 'paper-animation-studio', title: '페이퍼 애니메이션 & 모션', badge: '8종 모션', icon: 'sparkles-double', bgShape: 'scallop-sunburst', bgTheme: 'lavender', category: '디자인 시스템 & 피드백' },
 
     // 사운드 & 햅틱 (사이드바 제일 하단 메뉴)
     { id: 'paper-sound-studio', title: '종이 소리 & 햅틱 랩', badge: '8종 ASMR', icon: 'volume', bgShape: 'wax-seal', bgTheme: 'buttercup', category: '사운드 & 인터랙션' }
@@ -184,6 +174,40 @@
   window.getMountedPapercutPlateTemplate = getMountedPapercutPlateTemplate;
   window.hydrateMountedPlates = hydrateMountedPlates;
 
+  // Synchronize toggle button states (Header & Sidebar)
+  function updateToggleButtons(collapsed) {
+    const toggleBtn = document.getElementById('pc-sidebar-toggle');
+    const headerToggleBtn = document.getElementById('pc-header-sidebar-toggle');
+    const title = collapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
+
+    if (toggleBtn) {
+      toggleBtn.title = title;
+      toggleBtn.setAttribute('aria-label', title);
+      const arrowPath = toggleBtn.querySelector('#sb-toggle-arrow') || toggleBtn.querySelector('path[id="sb-toggle-arrow"]') || toggleBtn.querySelector('svg path:last-of-type');
+      if (arrowPath) {
+        arrowPath.setAttribute('d', collapsed ? 'M 14 11 L 20 17 L 14 23' : 'M 20 11 L 14 17 L 20 23');
+      }
+    }
+
+    if (headerToggleBtn) {
+      headerToggleBtn.title = collapsed ? '사이드바 펼치기' : '사이드바 접기';
+      headerToggleBtn.setAttribute('aria-label', collapsed ? '사이드바 펼치기' : '사이드바 접기');
+    }
+  }
+
+  function toggleSidebarCollapse() {
+    const sidebarEl = document.getElementById('pc-sidebar-nav');
+    if (!sidebarEl) return;
+    if (window.innerWidth < 768) {
+      sidebarEl.classList.toggle('is-mobile-open');
+    } else {
+      const nowCollapsed = sidebarEl.classList.toggle('is-collapsed');
+      document.body.classList.toggle('is-collapsed', nowCollapsed);
+      localStorage.setItem('pc_sidebar_collapsed', nowCollapsed ? 'true' : 'false');
+      updateToggleButtons(nowCollapsed);
+    }
+  }
+
   function renderSidebar() {
     let sidebarEl = document.getElementById('pc-sidebar-nav');
     if (!sidebarEl) {
@@ -229,7 +253,7 @@
           itemHref = sec.url || ('#' + sec.id);
         }
 
-        const plateSvg = getSidebarMountedPlateSvg(sec.bgShape, sec.icon);
+        const iconHtml = `<span class="pc-inline-icon is-color is-sm" data-icon="${sec.icon}"></span>`;
 
         // Map section to specialized papercut badge model (stamp, wax, ticket, tag)
         let badgeStyle = 'ticket';
@@ -249,8 +273,8 @@
 
         menuHtml += `
           <a href="${itemHref}" class="pc-sidebar-item pc-sidebar-nav-btn pc-btn" role="button" data-target="${sec.id}"${ariaControlsAttr} title="${sec.title}">
-            <div class="pc-sidebar-item-icon" data-bg-shape="${sec.bgShape}" data-icon="${sec.icon}">
-              ${plateSvg}
+            <div class="pc-sidebar-item-icon" data-icon="${sec.icon}">
+              ${iconHtml}
             </div>
             <span class="pc-sidebar-item-text">${sec.title}</span>
             <span class="pc-sidebar-badge pc-badge--${badgeStyle} pc-badge--${sec.bgTheme || 'lavender'} pc-badge-${sec.bgTheme || 'lavender'}">${sec.badge}</span>
@@ -372,22 +396,18 @@
       });
     }
 
-    // Hydrate icons & 3D plates in sidebar (scoped strictly to sidebar to prevent main-thread freeze)
+    // Hydrate icons in sidebar (pure freestanding icons, no background plate)
     function hydrateIcons() {
-      if (typeof window.getPapercutIconSvg === 'function' && window.PAPERCUT_BACKGROUNDS) {
-        sidebarEl.querySelectorAll('.pc-sidebar-item-icon').forEach(iconContainer => {
-          const bgShape = iconContainer.getAttribute('data-bg-shape');
-          const iconId = iconContainer.getAttribute('data-icon');
-          if (bgShape && iconId && !iconContainer.querySelector('.pc-mounted-plate-svg')) {
-            iconContainer.innerHTML = getSidebarMountedPlateSvg(bgShape, iconId);
-          }
-        });
-      }
+      sidebarEl.querySelectorAll('.pc-sidebar-item-icon').forEach(iconContainer => {
+        const iconId = iconContainer.getAttribute('data-icon');
+        if (iconId && !iconContainer.querySelector('.pc-inline-icon, .pc-layered-paper-icon, svg')) {
+          iconContainer.innerHTML = `<span class="pc-inline-icon is-color is-sm" data-icon="${iconId}"></span>`;
+        }
+      });
       if (typeof window.hydratePapercutIcons === 'function') {
         window.hydratePapercutIcons(sidebarEl);
         if (floatBtn) window.hydratePapercutIcons(floatBtn);
       }
-      hydrateMountedPlates(sidebarEl);
     }
     hydrateIcons();
     window.addEventListener('load', () => {
@@ -397,38 +417,7 @@
       document.addEventListener('DOMContentLoaded', hydrateIcons);
     }
 
-    // Synchronize toggle button states (Header & Sidebar)
-    function updateToggleButtons(collapsed) {
-      const toggleBtn = document.getElementById('pc-sidebar-toggle');
-      const headerToggleBtn = document.getElementById('pc-header-sidebar-toggle');
-      const title = collapsed ? '사이드바 펼치기 (Expand)' : '사이드바 접기 (Collapse)';
-
-      if (toggleBtn) {
-        toggleBtn.title = title;
-        toggleBtn.setAttribute('aria-label', title);
-        const arrowPath = toggleBtn.querySelector('#sb-toggle-arrow') || toggleBtn.querySelector('path[id="sb-toggle-arrow"]') || toggleBtn.querySelector('svg path:last-of-type');
-        if (arrowPath) {
-          arrowPath.setAttribute('d', collapsed ? 'M 14 11 L 20 17 L 14 23' : 'M 20 11 L 14 17 L 20 23');
-        }
-      }
-
-      if (headerToggleBtn) {
-        headerToggleBtn.title = collapsed ? '사이드바 펼치기' : '사이드바 접기';
-        headerToggleBtn.setAttribute('aria-label', collapsed ? '사이드바 펼치기' : '사이드바 접기');
-      }
-    }
-
-    function toggleSidebarCollapse() {
-      if (window.innerWidth < 768) {
-        sidebarEl.classList.toggle('is-mobile-open');
-      } else {
-        const nowCollapsed = sidebarEl.classList.toggle('is-collapsed');
-        document.body.classList.toggle('is-collapsed', nowCollapsed);
-        localStorage.setItem('pc_sidebar_collapsed', nowCollapsed ? 'true' : 'false');
-        updateToggleButtons(nowCollapsed);
-      }
-    }
-
+    // Synchronize initial toggle button states (Header & Sidebar)
     updateToggleButtons(isCollapsed);
 
     // Toggle Collapse Button in Sidebar Header
@@ -877,31 +866,27 @@
     const curIndex = SECTIONS.findIndex(s => s.id === sec.id);
     const subIndex = activeSubId && sec.children ? sec.children.findIndex(c => c.id === activeSubId) : -1;
     const subCrumb = subIndex === -1 ? '' :
-      `<span class="pc-breadcrumb-separator">›</span><span class="pc-breadcrumb-sub pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 12px; font-weight: 800;">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span>`;
+      `<li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li><li class="pc-ui-breadcrumb-item"><span class="pc-ui-breadcrumb-page pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 12px; font-weight: 800;">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span></li>`;
 
     bar.innerHTML = `
-      <nav class="pc-breadcrumb" aria-label="현재 위치">
-        <a href="#overview" class="pc-breadcrumb-link pc-svg-kirigami-btn" title="홈" style="display:inline-flex; width:34px; height:34px; padding:0; align-items:center; justify-content:center; border:none; background:transparent;">
-          <svg class="pc-kirigami-btn-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px; height:34px; display:block;">
-            <defs>
-              <filter id="bc-home-sh-js" x="-20%" y="-20%" width="140%" height="150%">
-                <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.40"/>
-                <feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#2E1E14" flood-opacity="0.20"/>
-                <feDropShadow dx="0" dy="-0.5" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
-              </filter>
-            </defs>
-            <rect x="3" y="3" width="28" height="28" rx="6" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88" filter="url(#bc-home-sh-js)"/>
-            <rect x="5.5" y="5.5" width="23" height="23" rx="4.5" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.75"/>
-            <g transform="translate(9, 9)">
-              <path d="M 8 2.5 L 1.5 8.5 L 3.5 8.5 L 3.5 14.5 L 6.5 14.5 L 6.5 10.5 L 9.5 10.5 L 9.5 14.5 L 12.5 14.5 L 12.5 8.5 L 14.5 8.5 Z" fill="#66460D"/>
-            </g>
-          </svg>
-        </a>
-        <span class="pc-breadcrumb-separator">›</span>
-        <span class="pc-breadcrumb-category">${sec.category}</span>
-        <span class="pc-breadcrumb-separator">›</span>
-        <span class="pc-breadcrumb-current pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 13px; font-weight: 800;">${sec.title}</span>
-        ${subCrumb}
+      <nav class="pc-ui-breadcrumb" aria-label="현재 위치">
+        <ol class="pc-ui-breadcrumb-list">
+          <li class="pc-ui-breadcrumb-item">
+            <a href="#overview" class="pc-ui-breadcrumb-link" title="홈">
+              <span class="pc-inline-icon is-xs" data-icon="home"></span>
+              <span>홈</span>
+            </a>
+          </li>
+          <li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li>
+          <li class="pc-ui-breadcrumb-item">
+            <span class="pc-ui-breadcrumb-link pc-breadcrumb-category" style="cursor: default;">${sec.category}</span>
+          </li>
+          <li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li>
+          <li class="pc-ui-breadcrumb-item">
+            <span class="pc-ui-breadcrumb-page pc-breadcrumb-current">${sec.title}</span>
+          </li>
+          ${subCrumb}
+        </ol>
       </nav>
       <div class="pc-page-nav-actions">
         <span class="pc-badge pc-badge--ticket pc-badge--lavender" style="font-size:12px; font-weight:800; padding: 5px 14px;">

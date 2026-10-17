@@ -155,8 +155,8 @@
           <div class="pc-sheet-header">
             <div>
               <div style="display: flex; gap: 6px; margin-bottom: 4px;">
-                <span class="pc-badge pc-badge-peach" data-pc-paper="pill" data-pc-tone="peach" style="font-size: 11px;">Slide-Over Sheet</span>
-                <span class="pc-badge pc-badge-lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-size: 11px;">사이드 패널</span>
+                <span class="pc-badge pc-badge--ticket pc-badge--peach" data-pc-paper="pill" data-pc-tone="peach" style="font-size: 11px;">Slide-Over Sheet</span>
+                <span class="pc-badge pc-badge--stamp pc-badge--lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-size: 11px;">사이드 패널</span>
               </div>
               <h3 style="margin: 0; font-size: 20px; font-weight: 800; color: #37281E; display: flex; align-items: center; gap: 8px;">
                 <span class="pc-inline-icon is-sm" data-icon="book"></span>
@@ -181,7 +181,7 @@
                       <div style="font-size: 12px; color: #8A7A6A;">300g 미색 코튼 보드지</div>
                     </div>
                   </div>
-                  <span class="pc-badge pc-badge-mint" data-pc-paper="pill" data-pc-tone="mint" style="font-weight: 800;">₩18,500</span>
+                  <span class="pc-badge pc-badge--stamp pc-badge--mint" data-pc-paper="pill" data-pc-tone="mint" style="font-weight: 800;">₩18,500</span>
                 </div>
               </div>
 
@@ -197,7 +197,7 @@
                       <div style="font-size: 12px; color: #8A7A6A;">15mm 폭 반투명 와시 테이프</div>
                     </div>
                   </div>
-                  <span class="pc-badge pc-badge-peach" data-pc-paper="pill" data-pc-tone="peach" style="font-weight: 800;">₩12,000</span>
+                  <span class="pc-badge pc-badge--ticket pc-badge--peach" data-pc-paper="pill" data-pc-tone="peach" style="font-weight: 800;">₩12,000</span>
                 </div>
               </div>
 
@@ -213,7 +213,7 @@
                       <div style="font-size: 12px; color: #8A7A6A;">30도 각도 미세 칼날 10매 포함</div>
                     </div>
                   </div>
-                  <span class="pc-badge pc-badge-lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-weight: 800;">₩9,800</span>
+                  <span class="pc-badge pc-badge--tag pc-badge--lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-weight: 800;">₩9,800</span>
                 </div>
               </div>
 

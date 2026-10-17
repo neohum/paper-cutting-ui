@@ -9,6 +9,26 @@
  */
 
 :root {
+  /* ==========================================================================
+     Authentic Layered Paper-Cut Swatches (assets/papercut-hero.jpg)
+     7대 수직 조명 종이 스와치 토큰
+     ========================================================================== */
+  --pc-swatch-cloud: linear-gradient(180deg, #FFFFFF 0%, #FAF6ED 100%);
+  --pc-swatch-mint: linear-gradient(180deg, #BCE4DB 0%, #9FD4C7 100%);
+  --pc-swatch-peach: linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%);
+  --pc-swatch-sand: linear-gradient(180deg, #FDE6B5 0%, #F5CE82 100%);
+  --pc-swatch-lavender: linear-gradient(180deg, #E2D3EE 0%, #C9B3DC 100%);
+  --pc-swatch-sky: linear-gradient(180deg, #D4EDF4 0%, #B4DDE7 100%);
+  --pc-swatch-sage: linear-gradient(180deg, #BFE2CE 0%, #A3D4B6 100%);
+
+  /* 0.8px 나이프 엣지 림 라이트 토큰 */
+  --pc-paper-rim-light: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --pc-paper-rim-subtle: inset 0 0.8px 0 rgba(255, 255, 255, 0.65);
+
+  /* 번트 엄버 2-Tier 종이 접촉 그림자 토큰 */
+  --pc-paper-shadow-contact: 0 1.2px 1.8px rgba(46, 30, 20, 0.20), 0 4px 10px -2px rgba(46, 30, 20, 0.12);
+  --pc-paper-shadow-lifted: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+
   /* Matte Cream Canvas & Papers (Exact tones from AI Paper-cut Artwork & Header) */
   --pc-bg-cream: rgba(255, 253, 249, 0.96);
   --pc-bg-canvas: rgba(255, 253, 249, 0.96);
@@ -104,11 +124,11 @@
     inset 0 4.5px 12px rgba(var(--pc-shadow-tint), 0.22),
     0 1px 0 rgba(255, 255, 255, 0.9);
 
-  /* Knife-Cut Paper Geometry: Sharp, 90-degree razor knife cuts, zero roundness */
-  --pc-radius-sm: 0px;
-  --pc-radius-md: 0px;
-  --pc-radius-lg: 0px;
-  --pc-radius-xl: 0px;
+  /* Authentic Die-Cut Paper Geometry: Smooth handcrafted curves and die-cut radii */
+  --pc-radius-sm: 6px;
+  --pc-radius-md: 10px;
+  --pc-radius-lg: 14px;
+  --pc-radius-xl: 18px;
   --pc-radius-pill: 999px;
   --pc-font: 'Nanum Square Round', -apple-system, sans-serif;
   --pc-font-hand: 'Gaegu', cursive, sans-serif;
@@ -283,15 +303,14 @@ p,
   background-color: var(--pc-buttercup, #FEE396);
   color: var(--pc-buttercup-dark, #66460D);
   border: 1px solid rgba(184, 142, 38, 0.40);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 8px;
   background-image: none !important;
 
-  /* 2. 칼선 단면 0.88px 순백 나이프 엣지 림 & 밑의 색지 밑판에 밀착되는 2-Tier 접촉 그림자 */
+  /* 2. 칼선 단면 0.8px 나이프 엣지 림 & 번트 엄버 2-Tier 접촉 그림자 */
   box-shadow: 
-    inset 0 1.2px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.70),
-    0 1.5px 2.5px rgba(46, 30, 20, 0.32),
-    0 3px 6px rgba(46, 30, 20, 0.12);
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-contact);
 
   transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 0.16s ease, 
@@ -446,12 +465,10 @@ p,
    - Active: 윗종이가 밑의 흰 종이에 밀착되며 안착
    ========================================================================== */
 .pc-btn:hover {
-  transform: translateY(-2.5px);
+  transform: translateY(-2px);
   box-shadow: 
-    inset 0 1.2px 0 rgba(255, 255, 255, 1),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
-    0 2.5px 4.5px rgba(46, 30, 20, 0.35),
-    0 5px 12px rgba(46, 30, 20, 0.16);
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-lifted);
 }
 .pc-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn):hover::before {
   top: -1.5px;
@@ -468,10 +485,10 @@ p,
 .pc-btn:active,
 .pc-btn.pc-is-pressed,
 .pc-btn.is-pressed {
-  transform: translateY(1.5px);
+  transform: translateY(1px);
   box-shadow: 
-    inset 0 1.5px 3px rgba(46, 30, 20, 0.28),
-    0 0.5px 1px rgba(46, 30, 20, 0.20);
+    var(--pc-paper-rim-subtle),
+    var(--pc-paper-shadow-contact);
 }
 .pc-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn):active::before {
   box-shadow: 
@@ -485,12 +502,15 @@ p,
    색이 있는 딥톤 종이 밑판 위에 파스텔 유색 종이가 얹혀진 2단 이상의 종이 적층 시스템
    ========================================================================== */
 
-/* 1. Buttercup Yellow (딥 골든 밑종이 위에 버터컵 노란색 종이) */
+/* 1. Buttercup Yellow (Primary) */
 .pc-btn-buttercup,
 .pc-btn-primary {
+  background-image: var(--pc-swatch-sand) !important;
   background-color: var(--pc-buttercup, #FEE396);
   color: var(--pc-buttercup-dark, #66460D);
-  border-color: rgba(184, 142, 38, 0.40);
+  border: 1px solid rgba(184, 142, 38, 0.40);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
 }
 .pc-btn-buttercup:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
 .pc-btn-primary:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
@@ -520,12 +540,15 @@ p,
   border-color: rgba(110, 59, 33, 0.40) !important;
 }
 
-/* 4. Lavender (오키드 바이올렛 밑종이 위에 라벤더 퍼플 색지) */
+/* 4. Lavender (Secondary) */
 .pc-btn-lavender,
 .pc-btn-secondary {
+  background-image: var(--pc-swatch-lavender) !important;
   background-color: var(--pc-lavender, #D7CBEB);
   color: var(--pc-lavender-dark, #433261);
-  border-color: rgba(71, 59, 107, 0.32);
+  border: 1px solid rgba(71, 59, 107, 0.32);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
 }
 .pc-btn-lavender:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
 .pc-btn-secondary:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
@@ -568,24 +591,47 @@ p,
   border-color: rgba(50, 77, 46, 0.40) !important;
 }
 
-/* 8. Kraft (딥 웜 크래프트 밑종이 위에 샌드 크래프트 색지) */
+/* 8. Kraft / Craft (Authentic Handcrafted Sand Swatch) */
+.pc-btn-craft,
 .pc-btn-kraft {
+  background-image: var(--pc-swatch-sand) !important;
   background-color: #E2CCA8;
   color: #4A3A2C;
-  border-color: rgba(74, 58, 44, 0.32);
+  border: 1px solid rgba(74, 58, 44, 0.32);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
 }
 .pc-btn-kraft:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
   background-color: #DFC49D !important;
   border-color: rgba(74, 58, 44, 0.40) !important;
 }
 
-/* 9. Ghost / Cream / White Paper Button (딥 웜 크래프트 밑종이 위에 백색 종이) */
+/* 9. Ghost / Cream / White Paper Button (Cloud White Swatch) */
 .pc-btn-ghost,
 .pc-btn-cream,
 .pc-btn-white {
+  background-image: var(--pc-swatch-cloud) !important;
   background-color: #FFFDF9;
   color: var(--pc-ink, #3D352E);
-  border-color: rgba(196, 183, 166, 0.65);
+  border: 1px solid rgba(196, 183, 166, 0.65);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-primary:hover,
+.pc-btn-secondary:hover,
+.pc-btn-ghost:hover,
+.pc-btn-craft:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-lifted);
+}
+
+.pc-btn-primary:active,
+.pc-btn-secondary:active,
+.pc-btn-ghost:active,
+.pc-btn-craft:active {
+  transform: translateY(1px);
+  box-shadow: var(--pc-paper-rim-subtle), var(--pc-paper-shadow-contact);
 }
 .pc-btn-ghost:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
 .pc-btn-cream:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
@@ -2075,72 +2121,72 @@ p,
    - Tactile 3D Paper Lift on Hover with Caliper Expansion (-2.2px translateY) */
 .pc-card {
   position: relative !important;
-  background: #FFFDF9 !important;
-  border: none !important;
-  border-radius: 0 !important;
+  background: var(--pc-paper-white, #FFFDF9) !important;
+  border: 1px solid rgba(46, 30, 20, 0.08) !important;
+  border-radius: 14px !important;
   padding: 32px !important;
-  /* 220g Fine Cardstock 90° Sharp Solid Caliper Drop */
+  /* 300g Fine Cardstock 3-Tier Layered Burnt Umber Shadow + 0.88px Knife Rim */
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0.8px 1px 0 #D8CAB8,
-    1.5px 2px 0 #B9A58C,
-    2px 2.6px 0 rgba(46, 30, 20, 0.38),
-    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 2.5px rgba(46, 30, 20, 0.28),
+    0 4px 10px rgba(46, 30, 20, 0.14),
+    0 12px 24px rgba(46, 30, 20, 0.08) !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
 .pc-card.pc-page-view {
   position: relative !important;
-  background: #FFFDF9 !important;
-  border: none !important;
-  border-radius: 0 !important;
+  background: var(--pc-paper-white, #FFFDF9) !important;
+  border: 1px solid rgba(46, 30, 20, 0.08) !important;
+  border-radius: 16px !important;
   margin-top: 50px;
   margin-bottom: 50px;
   padding: 36px 32px !important;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0.8px 1px 0 #D8CAB8,
-    1.5px 2px 0 #B9A58C,
-    2px 2.6px 0 rgba(46, 30, 20, 0.38),
-    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 2.5px rgba(46, 30, 20, 0.28),
+    0 4px 10px rgba(46, 30, 20, 0.14),
+    0 12px 24px rgba(46, 30, 20, 0.08) !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
-/* PC Card Sheet - 220g Fine Cardstock Sheet Standard (1.5px Kraft Bevel + 2-Tier 48% Deep Shadow) */
+/* PC Card Sheet - 220g Fine Cardstock Sheet Standard (0.88px Knife-cut Bevel Rim + 3-Tier Deep Shadow) */
 .pc-card-sheet {
   position: relative !important;
   background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1.5px solid #E2D7C5 !important;
-  border-radius: 0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.09) !important;
+  border-radius: 16px !important;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    var(--pc-paper-shadow-lg) !important;
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 2.5px rgba(46, 30, 20, 0.28),
+    0 5px 12px rgba(46, 30, 20, 0.15),
+    0 14px 28px rgba(46, 30, 20, 0.08) !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
 .pc-card-sheet:hover {
-  transform: translateY(-2.2px) !important;
+  transform: translateY(-3px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    1px 1px 0 #D8CAB8,
-    1.8px 2px 0 #B9A58C,
-    2.6px 3px 0 rgba(46, 30, 20, 0.42),
-    3.8px 4.5px 1.5px rgba(46, 30, 20, 0.22),
-    6.5px 9px 14px rgba(46, 30, 20, 0.14) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.96),
+    0 2.5px 4px rgba(46, 30, 20, 0.32),
+    0 8px 18px rgba(46, 30, 20, 0.18),
+    0 18px 36px rgba(46, 30, 20, 0.10) !important;
 }
 
-/* 마우스를 올리면 종이두께(약 2.2px)만큼 떠오르고 아랫쪽 절단면 밑에 45도 명확한 그림자 투영 */
+/* 마우스를 올리면 종이두께만큼 떠오르고 아랫쪽 절단면 밑에 부드러운 다층 그림자 확장 */
 .pc-card:hover,
 .pc-card.pc-page-view:hover {
-  transform: translateY(-2.2px) !important;
+  transform: translateY(-3px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0.8px 1px 0 #D8CAB8,
-    1.5px 2px 0 #B9A58C,
-    2.2px 3px 0 rgba(46, 30, 20, 0.42),
-    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
-    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
-    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.96),
+    0 2.5px 4px rgba(46, 30, 20, 0.32),
+    0 8px 18px rgba(46, 30, 20, 0.18),
+    0 18px 36px rgba(46, 30, 20, 0.10) !important;
 }
 
 /* 12종 버튼 쇼케이스 및 컴포넌트 프리뷰 컨테이너 박스 (종이 커팅 패널) */
@@ -2150,15 +2196,15 @@ p,
 #pc-suite-buttons .pc-stack[style*="background:#FAF7F0"],
 #pc-suite-buttons .pc-stack[style*="border-radius: 20px"],
 #pc-suite-buttons .pc-stack[style*="border-radius:20px"] {
-  background: #FFFDF9 !important;
-  border-radius: 0 !important;
-  border: none !important;
+  background: var(--pc-paper-white, #FFFDF9) !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(46, 30, 20, 0.08) !important;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0.8px 1px 0 #D8CAB8,
-    1.5px 2px 0 #B9A58C,
-    2px 2.6px 0 rgba(46, 30, 20, 0.38),
-    3px 4px 6px rgba(46, 30, 20, 0.09) !important;
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 2.5px rgba(46, 30, 20, 0.28),
+    0 4px 10px rgba(46, 30, 20, 0.14),
+    0 12px 24px rgba(46, 30, 20, 0.08) !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
@@ -2168,42 +2214,38 @@ p,
 #pc-suite-buttons .pc-stack[style*="background:#FAF7F0"]:hover,
 #pc-suite-buttons .pc-stack[style*="border-radius: 20px"]:hover,
 #pc-suite-buttons .pc-stack[style*="border-radius:20px"]:hover {
-  transform: translateY(-2.2px) !important;
+  transform: translateY(-3px) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0.8px 1px 0 #D8CAB8,
-    1.5px 2px 0 #B9A58C,
-    2.2px 3px 0 rgba(46, 30, 20, 0.42),
-    3.2px 4.5px 0 rgba(46, 30, 20, 0.28),
-    4.5px 6.5px 1.5px rgba(46, 30, 20, 0.18),
-    6.5px 9px 12px rgba(46, 30, 20, 0.11) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.96),
+    0 2.5px 4px rgba(46, 30, 20, 0.32),
+    0 8px 18px rgba(46, 30, 20, 0.18),
+    0 18px 36px rgba(46, 30, 20, 0.10) !important;
 }
 
 /* Tactile Structural Paper Panel (.pc-panel) */
 .pc-panel {
   position: relative;
   background: var(--pc-paper-white, #FFFDF9);
-  border: none !important;
-  border-radius: 0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.08) !important;
+  border-radius: 14px !important;
   padding: 24px;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0.8px 1px 0 #D8CAB8,
-    1.5px 2px 0 #B9A58C,
-    2px 2.6px 0 rgba(var(--pc-shadow-tint), 0.38),
-    3px 4px 6px rgba(var(--pc-shadow-tint), 0.09);
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 2.5px rgba(var(--pc-shadow-tint), 0.28),
+    0 4px 10px rgba(var(--pc-shadow-tint), 0.14),
+    0 12px 24px rgba(var(--pc-shadow-tint), 0.08);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
 }
 .pc-panel:hover {
-  transform: translateY(-2.2px);
+  transform: translateY(-3px);
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.98),
-    0.8px 1px 0 #D8CAB8,
-    1.5px 2px 0 #B9A58C,
-    2.2px 3px 0 rgba(var(--pc-shadow-tint), 0.42),
-    3.2px 4.5px 0 rgba(var(--pc-shadow-tint), 0.28),
-    4.5px 6.5px 1.5px rgba(var(--pc-shadow-tint), 0.18),
-    6.5px 9px 12px rgba(var(--pc-shadow-tint), 0.11);
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.96),
+    0 2.5px 4px rgba(var(--pc-shadow-tint), 0.32),
+    0 8px 18px rgba(var(--pc-shadow-tint), 0.18),
+    0 18px 36px rgba(var(--pc-shadow-tint), 0.10);
 }
 
 /* Flat Decorative Paper Display Plate (.pc-plate) */
@@ -2230,7 +2272,47 @@ p,
     2px 2.8px 0 rgba(var(--pc-shadow-tint), 0.38),
     3px 4px 0 rgba(var(--pc-shadow-tint), 0.24),
     4px 5.5px 1.5px rgba(var(--pc-shadow-tint), 0.16),
-    5.5px 8px 10px rgba(var(--pc-shadow-tint), 0.10);
+}
+
+/* ==========================================================================
+   AUTHENTIC PASTEL PAPER-CUT CARD MODIFIERS (파스텔 색지 카드 변형)
+   - 'papercut-hero.jpg' 원작의 7대 파스텔 카드스톡 층위 재현
+   - 0.88px 순백 칼선 림 + 해당 색상에 조화되는 번트 엄버 다층 접촉 그림자
+   ========================================================================== */
+.pc-card--mint,
+.pc-card.pc-is-mint {
+  background: var(--pc-mint-light, #EAF7F1) !important;
+  border-color: rgba(163, 216, 195, 0.45) !important;
+}
+.pc-card--peach,
+.pc-card.pc-is-peach {
+  background: var(--pc-peach-light, #FDF1EA) !important;
+  border-color: rgba(247, 186, 158, 0.45) !important;
+}
+.pc-card--lavender,
+.pc-card.pc-is-lavender {
+  background: var(--pc-lavender-light, #F4F0FA) !important;
+  border-color: rgba(215, 203, 235, 0.45) !important;
+}
+.pc-card--buttercup,
+.pc-card.pc-is-buttercup {
+  background: var(--pc-buttercup-light, #FFF9E8) !important;
+  border-color: rgba(254, 227, 150, 0.45) !important;
+}
+.pc-card--sky,
+.pc-card.pc-is-sky {
+  background: var(--pc-sky-light, #EDF7FA) !important;
+  border-color: rgba(189, 224, 234, 0.45) !important;
+}
+.pc-card--rose,
+.pc-card.pc-is-rose {
+  background: var(--pc-rose-light, #FDF0F1) !important;
+  border-color: rgba(245, 184, 190, 0.45) !important;
+}
+.pc-card--cream,
+.pc-card.pc-is-cream {
+  background: var(--pc-paper-cream, #FAF6ED) !important;
+  border-color: rgba(226, 215, 197, 0.50) !important;
 }
 
 /* ==========================================================================
@@ -2778,37 +2860,32 @@ p,
   vertical-align: middle;
   text-align: center;
   position: relative;
-  border-radius: 0 !important; /* 90도 직각 나이프 엣지 종이 절단면 (둥근 비닐 스티커 외형 제거) */
-  border: none !important;
+  border-radius: 4px;
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
   
   /* 비닐 광택 림 제거 ➔ 매트 코튼 색지 90° 직각 솔리드 단면 두께 (~1.6px Solid Caliper Drop) */
   background-color: var(--pc-badge-bg, var(--pc-mint, #A3D8C3));
   background-image: none !important;
   color: var(--pc-badge-ink, var(--pc-mint-dark, #1A533C));
   box-shadow: 
-    inset 0 0.8px 0 rgba(255, 255, 255, 0.70),
-    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
-    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
-    1.8px 2.4px 3px rgba(46, 30, 20, 0.10) !important;
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-contact);
   
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, filter 0.15s ease;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, filter 0.18s ease;
 }
 
 .pc-badge:hover {
-  transform: translateY(-1.2px) !important;
+  transform: translateY(-2px) !important;
   box-shadow: 
-    inset 0 0.8px 0 rgba(255, 255, 255, 0.80),
-    0.6px 0.8px 0 rgba(46, 30, 20, 0.22),
-    1.2px 1.6px 0 rgba(46, 30, 20, 0.36),
-    1.8px 2.4px 0 rgba(46, 30, 20, 0.28),
-    2.6px 3.6px 4.5px rgba(46, 30, 20, 0.14) !important;
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-lifted) !important;
 }
 
 .pc-badge:active {
-  transform: translateY(0.5px) !important;
+  transform: translateY(1px) !important;
   box-shadow: 
-    inset 0 0.5px 0 rgba(255, 255, 255, 0.50),
-    0.6px 0.8px 0 rgba(46, 30, 20, 0.30) !important;
+    var(--pc-paper-shadow-contact) !important;
 }
 
 .pc-badge > span,
@@ -5824,4 +5901,50 @@ textarea.pc-input.pc-texture-paper,
   user-select: none;
   pointer-events: none;
 }
+
+/* ==========================================================================
+   AUTHENTIC 7 PAPER SWATCH UTILITY CLASSES (papercut-hero.jpg)
+   ========================================================================== */
+.pc-swatch-cloud { background-image: var(--pc-swatch-cloud) !important; }
+.pc-swatch-mint { background-image: var(--pc-swatch-mint) !important; }
+.pc-swatch-peach { background-image: var(--pc-swatch-peach) !important; }
+.pc-swatch-sand { background-image: var(--pc-swatch-sand) !important; }
+.pc-swatch-lavender { background-image: var(--pc-swatch-lavender) !important; }
+.pc-swatch-sky { background-image: var(--pc-swatch-sky) !important; }
+.pc-swatch-sage { background-image: var(--pc-swatch-sage) !important; }
+
+/* ==========================================================================
+   ACCESSIBILITY: PREFERS-REDUCED-MOTION
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .pc-btn,
+  .pc-btn-primary,
+  .pc-btn-secondary,
+  .pc-btn-ghost,
+  .pc-btn-craft,
+  .pc-badge,
+  .pc-tag,
+  .pc-card,
+  .pc-panel {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transform: none !important;
+  }
+  .pc-btn:hover,
+  .pc-btn-primary:hover,
+  .pc-btn-secondary:hover,
+  .pc-btn-ghost:hover,
+  .pc-btn-craft:hover,
+  .pc-badge:hover,
+  .pc-btn:active,
+  .pc-btn-primary:active,
+  .pc-btn-secondary:active,
+  .pc-btn-ghost:active,
+  .pc-btn-craft:active,
+  .pc-badge:active {
+    transform: none !important;
+  }
+}
+
 
