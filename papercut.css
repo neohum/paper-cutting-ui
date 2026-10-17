@@ -2219,8 +2219,8 @@ p,
    - 카드의 바닥면에 두꺼운 350g 크래프트/코튼 마운트 보드가 사방 1px, 하단 5px 돌출
    - 2-Tier 48% 번트 엄버 접촉 그림자와 데스크 위 앰비언트 섀도우를 실제 물리적으로 투영
    ========================================================================== */
-.pc-card:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade)::before,
-.pc-card-sheet:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade)::before,
+.pc-card:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade):not(.pc-card-nested):not(.is-nested)::before,
+.pc-card-sheet:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade):not(.pc-card-nested):not(.is-nested)::before,
 .pc-card-showcase::before,
 .pc-button-showcase-card::before {
   content: "" !important;
@@ -2243,8 +2243,8 @@ p,
    LAYER 2: 수공예 미싱선 스티칭 프레임 (Handcrafted Craft Stitching Inset via ::after)
    - 카드 안쪽 8px에 섬세하게 박음질된 1px 점선 테두리로 수공예 질감 극대화
    ========================================================================== */
-.pc-card:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade)::after,
-.pc-card-sheet:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade)::after,
+.pc-card:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade):not(.pc-card-nested):not(.is-nested)::after,
+.pc-card-sheet:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade):not(.pc-card-nested):not(.is-nested)::after,
 .pc-card-showcase::after,
 .pc-button-showcase-card::after {
   content: "" !important;
@@ -2288,13 +2288,11 @@ p,
     0 18px 36px rgba(46, 30, 20, 0.14) !important;
 }
 
-.pc-card:hover::after,
-.pc-card-sheet:hover::after,
+.pc-card:not(.pc-card-nested):not(.is-nested):hover::after,
+.pc-card-sheet:not(.pc-card-nested):not(.is-nested):hover::after,
 .pc-card-showcase:hover::after,
 .pc-button-showcase-card:hover::after {
   border-color: rgba(74, 58, 42, 0.24) !important;
-}
-    0 18px 36px rgba(46, 30, 20, 0.10) !important;
 }
 
 /* Tactile Structural Paper Panel (.pc-panel) */
