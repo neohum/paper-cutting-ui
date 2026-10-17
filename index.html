@@ -910,14 +910,32 @@
         <!-- 원작 조형 연계: 유기적 다층 종이 언덕 스트라타 (Organic Strata Hills Panorama) -->
         <div class="pc-strata-hills pc-card-well" style="height: 130px; margin-top: 24px; margin-bottom: 8px; width: 100%; border-radius: 14px; position: relative; overflow: hidden; isolation: isolate; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 3px 10px rgba(46, 30, 20, 0.12);">
           <svg class="pc-strata-svg" viewBox="0 0 1200 130" preserveAspectRatio="none" aria-hidden="true" style="width: 100%; height: 100%; display: block;">
+            <defs>
+              <linearGradient id="pc-strata-grad-sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#D4EDF4" />
+                <stop offset="100%" stop-color="#B4DDE7" />
+              </linearGradient>
+              <linearGradient id="pc-strata-grad-lavender" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#E2D3EE" />
+                <stop offset="100%" stop-color="#C9B3DC" />
+              </linearGradient>
+              <linearGradient id="pc-strata-grad-mint" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#BCE4DB" />
+                <stop offset="100%" stop-color="#9FD4C7" />
+              </linearGradient>
+              <linearGradient id="pc-strata-grad-sand" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FDE6B5" />
+                <stop offset="100%" stop-color="#F5CE82" />
+              </linearGradient>
+            </defs>
             <!-- Tier 1: 스카이 파스텔 언덕 (최심층 백그라운드) -->
-            <path class="pc-strata-layer pc-swatch-sky" d="M 0,130 L 0,35 Q 300,10 600,40 T 1200,25 L 1200,130 Z" style="fill: var(--pc-swatch-sky, #B4DDE7);"></path>
+            <path class="pc-strata-layer pc-swatch-sky" d="M 0,130 L 0,35 Q 300,10 600,40 T 1200,25 L 1200,130 Z" fill="url(#pc-strata-grad-sky)" style="fill: url(#pc-strata-grad-sky);"></path>
             <!-- Tier 2: 라벤더 파스텔 언덕 (미드 레이어) -->
-            <path class="pc-strata-layer pc-swatch-lavender" d="M 0,130 L 0,60 Q 280,35 560,70 T 1200,50 L 1200,130 Z" style="fill: var(--pc-swatch-lavender, #C9B3DC);"></path>
+            <path class="pc-strata-layer pc-swatch-lavender" d="M 0,130 L 0,60 Q 280,35 560,70 T 1200,50 L 1200,130 Z" fill="url(#pc-strata-grad-lavender)" style="fill: url(#pc-strata-grad-lavender);"></path>
             <!-- Tier 3: 민트 파스텔 언덕 (포어그라운드 베이스) -->
-            <path class="pc-strata-layer pc-swatch-mint" d="M 0,130 L 0,85 Q 340,60 680,95 T 1200,75 L 1200,130 Z" style="fill: var(--pc-swatch-mint, #9FD4C7);"></path>
+            <path class="pc-strata-layer pc-swatch-mint" d="M 0,130 L 0,85 Q 340,60 680,95 T 1200,75 L 1200,130 Z" fill="url(#pc-strata-grad-mint)" style="fill: url(#pc-strata-grad-mint);"></path>
             <!-- Tier 4: 샌드 크림 언덕 (최상단 접촉면) -->
-            <path class="pc-strata-layer pc-swatch-sand" d="M 0,130 L 0,105 Q 400,85 750,115 T 1200,98 L 1200,130 Z" style="fill: var(--pc-swatch-sand, #F5CE82);"></path>
+            <path class="pc-strata-layer pc-swatch-sand" d="M 0,130 L 0,105 Q 400,85 750,115 T 1200,98 L 1200,130 Z" fill="url(#pc-strata-grad-sand)" style="fill: url(#pc-strata-grad-sand);"></path>
           </svg>
           <div class="pc-strata-slot pc-slot-foreground" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; position: absolute; bottom: 10px; left: 0; right: 0; z-index: 5;">
             <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11.5px; font-weight: 800;">
