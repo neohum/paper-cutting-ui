@@ -1368,30 +1368,125 @@ body.is-collapsed #pc-sidebar-nav {
 
 /* ==========================================================================
    Hero Banner & Card Sheet Component Standards (.pc-card-sheet, .pc-hero-banner)
+   Authentic Two-Sheet Nested Paper Card Stacking (Framed Matboard Underlay)
    ========================================================================== */
+:root {
+  --pc-card-underlay-bg: #F3ECE1;
+}
+
 .pc-card,
-.pc-card-sheet {
+.pc-card-sheet,
+.pc-card-stacked,
+.pc-card-nested {
   background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1px solid rgba(46, 30, 20, 0.10) !important;
+  border: 1px solid rgba(46, 30, 20, 0.12) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
   border-radius: 16px !important;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.98) inset,
-    0 0 0 0.88px rgba(255, 255, 255, 0.95) inset,
-    var(--pc-paper-shadow-lg) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 3.5px rgba(46, 30, 20, 0.14) !important;
   position: relative !important;
+  isolation: auto !important;
+  z-index: auto !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
-.pc-card:hover,
-.pc-card-sheet:hover {
-  transform: translateY(-3px) !important;
+/* 뒷 종이 (Underlay Backing Sheet: 사방 6px 균일 확장 둘레 매트보드) */
+.pc-card::after,
+.pc-card-sheet::after,
+.pc-card-stacked::after,
+.pc-card-nested::after,
+.pc-card-underlay {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: calc(16px + 4px) !important;
+  background: var(--pc-card-underlay-bg, #F3ECE1) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 1) inset,
-    0 0 0 0.88px rgba(255, 255, 255, 0.96) inset,
-    0 2.5px 4px rgba(46, 30, 20, 0.32),
-    0 8px 18px rgba(46, 30, 20, 0.18),
-    0 18px 36px rgba(46, 30, 20, 0.10) !important;
+    0 4px 14px -2px rgba(46, 30, 20, 0.16), 
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+/* 호버 인터랙션: 앞 종이 리프트 및 그림자 확장 */
+.pc-card:hover,
+.pc-card-sheet:hover,
+.pc-card-stacked:hover,
+.pc-card-nested:hover {
+  transform: translateY(-2px) !important;
+  /* 3D paper elevation lift fallback: transform: translateY(-3px) */
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 3px 8px rgba(46, 30, 20, 0.18) !important;
+}
+
+/* 호버 인터랙션: 뒷 종이 부유 감쇠 그림자 */
+.pc-card:hover::after,
+.pc-card-sheet:hover::after,
+.pc-card-stacked:hover::after,
+.pc-card-nested:hover::after,
+.pc-card:hover .pc-card-underlay,
+.pc-card-sheet:hover .pc-card-underlay,
+.pc-card-stacked:hover .pc-card-underlay,
+.pc-card-nested:hover .pc-card-underlay {
+  box-shadow: 
+    0 8px 22px -3px rgba(46, 30, 20, 0.20), 
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
+}
+
+/* Underlay Swatches (톤온톤 파스텔 색지 & 웜 크래프트 베이스) */
+.pc-underlay-peach {
+  --pc-card-underlay-bg: #FDE8DE !important;
+}
+.pc-underlay-mint {
+  --pc-card-underlay-bg: #E4F4ED !important;
+}
+.pc-underlay-lavender {
+  --pc-card-underlay-bg: #EFEAF8 !important;
+}
+.pc-underlay-sand {
+  --pc-card-underlay-bg: #FDF4DE !important;
+}
+.pc-underlay-sky {
+  --pc-card-underlay-bg: #E6F4FA !important;
+}
+.pc-underlay-sage {
+  --pc-card-underlay-bg: #E2F2E9 !important;
+}
+.pc-underlay-cloud {
+  --pc-card-underlay-bg: #FAF7F0 !important;
+}
+.pc-underlay-rose {
+  --pc-card-underlay-bg: #FCE8F3 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-card,
+  .pc-card-sheet,
+  .pc-card-stacked,
+  .pc-card-nested {
+    transform: none !important;
+    transition: none !important;
+  }
+  .pc-card:hover,
+  .pc-card-sheet:hover,
+  .pc-card-stacked:hover,
+  .pc-card-nested:hover {
+    transform: none !important;
+  }
+  .pc-card::after,
+  .pc-card-sheet::after,
+  .pc-card-stacked::after,
+  .pc-card-nested::after,
+  .pc-card-underlay {
+    transition: none !important;
+  }
 }
 
 .pc-hero-banner,
