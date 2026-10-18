@@ -2544,7 +2544,14 @@ path.pc-strata-layer {
   .pc-slot-slit,
   .pc-slot-insert,
   .pc-photo-corner,
-  .pc-belly-band {
+  .pc-belly-band,
+  .pc-cutout-window,
+  .pc-aperture-header,
+  .pc-diecut-ticket,
+  .pc-diecut-stamp,
+  .pc-diecut-scallop,
+  .pc-paper-flap,
+  .pc-paper-patch {
     transition: none !important;
     animation: none !important;
     transform: none !important;
@@ -2562,5 +2569,245 @@ path.pc-strata-layer {
   .pc-stack-cascade:hover::after {
     transform: translate(8px, 8px) !important;
   }
+}
+
+/* ==========================================================================
+   7. Universal Paper-Cut Craft: Apertures, Die-Cut Silhouettes & Paper Patches
+   (Applied to all Components EXCEPT icons and icon background plates)
+   ========================================================================== */
+
+/* 7.1 Aperture / Cutout Window & Header (.pc-cutout-window, .pc-aperture-header, .pc-slit-aperture) */
+.pc-cutout-window,
+.pc-aperture-header {
+  position: relative;
+  background: var(--pc-cutout-bg, #FAF6ED);
+  border-radius: 12px;
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    inset 0 3px 6px rgba(46, 30, 20, 0.18),
+    inset 0 1px 2px rgba(46, 30, 20, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Through-cut Window (투명 투공: 뒷면 언더레이 색지가 직접 들여다보이는 창문) */
+.pc-cutout-window.is-transparent,
+.pc-aperture-header.is-transparent {
+  background: transparent !important;
+  box-shadow: 
+    inset 0 4px 8px rgba(46, 30, 20, 0.24),
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.28),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* 파스텔 톤 컷아웃 인레이 */
+.pc-cutout-window.pc-swatch-mint,
+.pc-aperture-header.pc-swatch-mint {
+  background: linear-gradient(180deg, #E6F5F0 0%, #D1EFE7 100%);
+  border-color: rgba(39, 92, 70, 0.18);
+}
+.pc-cutout-window.pc-swatch-peach,
+.pc-aperture-header.pc-swatch-peach {
+  background: linear-gradient(180deg, #FDECE5 0%, #FBD9CE 100%);
+  border-color: rgba(138, 72, 34, 0.18);
+}
+.pc-cutout-window.pc-swatch-lavender,
+.pc-aperture-header.pc-swatch-lavender {
+  background: linear-gradient(180deg, #F4EFF9 0%, #E6DCF3 100%);
+  border-color: rgba(75, 58, 110, 0.18);
+}
+.pc-cutout-window.pc-swatch-sand,
+.pc-aperture-header.pc-swatch-sand {
+  background: linear-gradient(180deg, #FEF9EB 0%, #FDF0D2 100%);
+  border-color: rgba(110, 83, 15, 0.18);
+}
+.pc-cutout-window.pc-swatch-sky,
+.pc-aperture-header.pc-swatch-sky {
+  background: linear-gradient(180deg, #EEF8FA 0%, #D8F0F5 100%);
+  border-color: rgba(30, 80, 110, 0.18);
+}
+
+/* 미세 칼선 슬릿 투공 */
+.pc-slit-aperture {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  border-radius: 3px;
+  background: rgba(46, 30, 20, 0.08);
+  box-shadow: inset 0 1.5px 3px rgba(46, 30, 20, 0.28), 0 1px 0 rgba(255, 255, 255, 0.95);
+  margin: 14px 0;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+}
+
+/* 7.2 Die-Cut Silhouettes (.pc-diecut-ticket, .pc-diecut-stamp, .pc-diecut-scallop, .pc-paper-flap) */
+
+/* (1) 티켓 노치 다이컷: 양쪽 세로변 중앙에 반원형 절취 홈이 파인 종이 실루엣 */
+.pc-diecut-ticket {
+  position: relative;
+}
+.pc-diecut-ticket::before,
+.pc-diecut-ticket::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 24px;
+  transform: translateY(-50%);
+  background: var(--pc-desk-bg, #F3ECE1);
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: inset 0 2px 4px rgba(46, 30, 20, 0.16);
+  z-index: 3;
+  pointer-events: none;
+}
+.pc-diecut-ticket::before {
+  left: -8px;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-left: none;
+}
+.pc-diecut-ticket::after {
+  right: -8px;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+  border-right: none;
+}
+
+/* (2) 우표 톱니 다이컷: 상단에 규칙적인 반원형 펀칭 톱니 천공 */
+.pc-diecut-stamp {
+  position: relative;
+}
+.pc-diecut-stamp::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 12px;
+  right: 12px;
+  height: 6px;
+  background-image: radial-gradient(circle at 6px 0, transparent 3.5px, var(--pc-paper-bg, #FFFDF9) 4px);
+  background-size: 12px 6px;
+  background-repeat: repeat-x;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* (3) 스캘럽 물결 다이컷: 조개껍질 모양의 완만한 곡선 파도 칼선 */
+.pc-diecut-scallop {
+  position: relative;
+}
+.pc-diecut-scallop::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 8px;
+  right: 8px;
+  height: 6px;
+  background-image: radial-gradient(circle at 8px 0, var(--pc-paper-bg, #FFFDF9) 5px, transparent 5.5px);
+  background-size: 16px 6px;
+  background-repeat: repeat-x;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* (4) 종이 접힘 플랩: 카드의 상단 모서리가 접혀 내려온 듯한 공예 플랩 */
+.pc-paper-flap {
+  position: relative;
+  overflow: visible;
+}
+.pc-paper-flap-corner {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, transparent 50%, var(--pc-flap-shadow, rgba(46, 30, 20, 0.16)) 51%, var(--pc-flap-bg, #FAF6ED) 53%);
+  border-bottom-left-radius: 8px;
+  border-left: 1px solid rgba(46, 30, 20, 0.12);
+  border-bottom: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: -2px 2px 4px rgba(46, 30, 20, 0.12);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* 7.3 Multi-Layer Paper Patch Deck (.pc-paper-patch, .pc-patch-*) */
+.pc-paper-patch {
+  position: relative;
+  background: var(--pc-patch-bg, #FAF6ED);
+  border: 1px solid rgba(46, 30, 20, 0.10);
+  border-top: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.12),
+    0 0.88px 1.5px rgba(46, 30, 20, 0.08);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 12px 0;
+  box-sizing: border-box;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
+}
+.pc-paper-patch:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 3px 7px rgba(46, 30, 20, 0.14),
+    0 1.2px 2.5px rgba(46, 30, 20, 0.09);
+}
+
+/* 파스텔 종이 패치 변형 */
+.pc-paper-patch.pc-patch-mint {
+  background: #E8F6F2;
+  border-color: rgba(39, 92, 70, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.95);
+}
+.pc-paper-patch.pc-patch-peach {
+  background: #FCEEE8;
+  border-color: rgba(138, 72, 34, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.95);
+}
+.pc-paper-patch.pc-patch-lavender {
+  background: #F5F0FA;
+  border-color: rgba(75, 58, 110, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.95);
+}
+.pc-paper-patch.pc-patch-sand {
+  background: #FDF7E7;
+  border-color: rgba(110, 83, 15, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.95);
+}
+.pc-paper-patch.pc-patch-sky {
+  background: #EDF7F9;
+  border-color: rgba(30, 80, 110, 0.14);
+  border-top-color: rgba(255, 255, 255, 0.95);
+}
+
+/* 7.4 Micro Knife-Edge Rim Light & Contact Shadow Universal Integration */
+/* 모달, 팝오버, 드롭다운, 컨텍스트 메뉴 */
+.pc-modal-content,
+.pc-ui-dialog,
+.pc-ui-popover,
+.pc-popover-content,
+.pc-ui-dropdown-menu,
+.pc-ui-context-menu {
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+  box-shadow: 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.18),
+    0 8px 24px -4px rgba(46, 30, 20, 0.18) !important;
+}
+
+/* 폼 인풋 및 셀렉트: 도화지 음각 홈 스타일 완비 */
+.pc-input,
+.pc-select,
+.pc-textarea,
+.pc-ui-input {
+  border-top: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.90) !important;
+  box-shadow: inset 0 2px 4px rgba(46, 30, 20, 0.12), 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+}
+.pc-input:focus,
+.pc-select:focus,
+.pc-textarea:focus,
+.pc-ui-input:focus {
+  box-shadow: inset 0 2px 4px rgba(46, 30, 20, 0.16), 0 0 0 2px rgba(188, 228, 219, 0.6) !important;
 }
 
