@@ -5109,4 +5109,250 @@
   background-color: rgba(187, 213, 184, 0.88);
 }
 
+/* ==========================================================================
+   LANE C: INTERACTIVE UI ELEMENTS PAPERCRAFT SYSTEM (SVG & DATA-PC-PAPER SUITE)
+   Authentic 3D Multi-Layer Kirigami Geometry matching 130 Icon Background Plates:
+   - Layer 1 Base Paper (0.88px knife-edge rim + 3-Tier burnt umber drop shadow)
+   - Layer 2 Cream Inlay (#FFFDF9 / #FAF7F0 flush contact sheet)
+   - Layer 3 Dashed Perforation / Stitches (roulette punch & knife scores)
+   - 3-Tier Burnt Umber #2E1E14 drop shadows & debossed well cutouts
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. BUTTONS (Pill & Ticket Data Paper Architecture)
+   -------------------------------------------------------------------------- */
+[data-pc-paper="pill"],
+[data-pc-paper="ticket"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-family: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  box-sizing: border-box;
+  outline: none;
+  /* Top 0.88px pure white knife-edge rim light & 3-Tier burnt umber drop shadow */
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 1.8px rgba(46, 30, 20, 0.48),
+    0 3.5px 7px rgba(46, 30, 20, 0.25);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, filter 0.16s ease;
+}
+
+/* Pill Button Geometry: Rounded capsule cardstock */
+[data-pc-paper="pill"] {
+  border-radius: 9999px;
+  padding: 10px 22px;
+}
+
+/* Ticket Button Geometry: Double notched punch & perforation */
+[data-pc-paper="ticket"] {
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+/* Hover Lift */
+[data-pc-paper="pill"]:hover,
+[data-pc-paper="ticket"]:hover,
+.pc-btn[data-pc-paper]:hover,
+.pc-ui-btn[data-pc-paper]:hover,
+.pc-svg-kirigami-btn[data-pc-paper]:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 2px 3px rgba(46, 30, 20, 0.48),
+    0 6px 14px rgba(46, 30, 20, 0.26);
+}
+
+/* Haptic Press Feedback */
+[data-pc-paper="pill"]:active,
+[data-pc-paper="ticket"]:active,
+.pc-btn[data-pc-paper]:active,
+.pc-ui-btn[data-pc-paper]:active,
+.pc-svg-kirigami-btn[data-pc-paper]:active {
+  transform: translateY(1.5px) !important;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.85),
+    0 0.8px 1.5px rgba(46, 30, 20, 0.38) !important;
+}
+
+/* SVG Kirigami Buttons filter integration */
+.pc-svg-kirigami-btn[data-pc-paper] svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 1.2px 0.6px rgba(46, 30, 20, 0.48)) drop-shadow(0 3.5px 1.8px rgba(46, 30, 20, 0.25)) drop-shadow(0 -0.5px 0.3px rgba(255, 255, 255, 0.95));
+}
+.pc-svg-kirigami-btn[data-pc-paper]:hover svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 2px 1px rgba(46, 30, 20, 0.48)) drop-shadow(0 5px 2.5px rgba(46, 30, 20, 0.26)) drop-shadow(0 -0.6px 0.3px rgba(255, 255, 255, 0.98));
+}
+.pc-svg-kirigami-btn[data-pc-paper]:active svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 0.8px 0.4px rgba(46, 30, 20, 0.40)) drop-shadow(0 1.5px 1px rgba(46, 30, 20, 0.20));
+}
+
+/* --------------------------------------------------------------------------
+   2. BADGES & TAGS (Stamp, Ticket, Pill Centered Pure Paper Geometry)
+   -------------------------------------------------------------------------- */
+.pc-badge,
+.pc-ui-badge,
+[data-pc-paper="stamp"],
+.pc-badge[data-pc-paper="stamp"],
+.pc-badge[data-pc-paper="ticket"],
+.pc-badge[data-pc-paper="pill"] {
+  display: inline-flex !important;
+  align-items: center !important; /* items-center */
+  justify-content: center !important;
+  line-height: 1 !important; /* leading-none */
+  font-family: inherit;
+  font-weight: 800;
+  white-space: nowrap;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+/* Stamp Perforation Badge */
+[data-pc-paper="stamp"],
+.pc-badge--stamp,
+.pc-badge[data-pc-paper="stamp"] {
+  border-radius: 4px;
+  border: 1px dashed rgba(46, 30, 20, 0.25);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(46, 30, 20, 0.22);
+}
+
+/* Ticket Notch Badge */
+[data-pc-paper="ticket"].pc-badge,
+.pc-badge--ticket,
+.pc-badge[data-pc-paper="ticket"] {
+  border-radius: 6px;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(46, 30, 20, 0.22);
+}
+
+/* Pill Rounded Capsule Badge */
+[data-pc-paper="pill"].pc-badge,
+.pc-badge[data-pc-paper="pill"] {
+  border-radius: 9999px;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(46, 30, 20, 0.20);
+}
+
+/* --------------------------------------------------------------------------
+   3. FORM CONTROLS (Debossed Well Cutout Inset Architecture)
+   -------------------------------------------------------------------------- */
+[data-pc-paper="field"],
+.pc-input[data-pc-paper="field"],
+.pc-select[data-pc-paper="field"],
+.pc-textarea[data-pc-paper="field"],
+.pc-input-wrapper[data-pc-paper="field"] input,
+.pc-input-wrapper[data-pc-paper="field"] select,
+.pc-ui-field-wrap[data-pc-paper="field"] input {
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-radius: 8px;
+  color: var(--pc-ink, #3D352E);
+  /* Debossed well cutout shadow matching pc-paper-sh-inset filter */
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.28),
+    inset 0 3px 8px rgba(46, 30, 20, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  box-sizing: border-box;
+}
+
+[data-pc-paper="field"]:focus,
+.pc-input[data-pc-paper="field"]:focus,
+.pc-select[data-pc-paper="field"]:focus,
+.pc-textarea[data-pc-paper="field"]:focus,
+.pc-input-wrapper[data-pc-paper="field"] input:focus,
+.pc-input-wrapper[data-pc-paper="field"] select:focus,
+.pc-ui-field-wrap[data-pc-paper="field"] input:focus {
+  background-color: #FFFDF9 !important;
+  border-color: #82C2A8 !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(46, 30, 20, 0.18),
+    0 0 0 3px rgba(163, 216, 195, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. TABS & MENUS (Category Tabs & Deep Lifted Overlays)
+   -------------------------------------------------------------------------- */
+/* Category Tab Bar (.pc-chart-tab, .pc-bg-cat-btn, .pc-filter-btn) */
+[data-pc-paper="tab"],
+.pc-chart-tab,
+.pc-bg-cat-btn,
+.pc-filter-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  background-color: #FFFDF9;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 3px rgba(46, 30, 20, 0.22);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background-color 0.16s ease;
+  box-sizing: border-box;
+}
+
+[data-pc-paper="tab"]:hover,
+.pc-chart-tab:hover,
+.pc-bg-cat-btn:hover,
+.pc-filter-btn:hover {
+  transform: translateY(-1.5px);
+  background-color: #FEF3C7;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 3px 6px rgba(46, 30, 20, 0.25);
+}
+
+[data-pc-paper="tab"].is-active,
+.pc-chart-tab.is-active,
+.pc-bg-cat-btn.is-active,
+.pc-filter-btn.is-active {
+  background-color: #A3D8C3;
+  color: #1C4835;
+  border-color: rgba(28, 72, 53, 0.25);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 2.5px 5px rgba(46, 30, 20, 0.28);
+}
+
+[data-pc-paper="tab"]:active,
+.pc-chart-tab:active,
+.pc-bg-cat-btn:active,
+.pc-filter-btn:active {
+  transform: translateY(1px);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.85),
+    0 0.8px 1.5px rgba(46, 30, 20, 0.35);
+}
+
+/* Modals & Popovers ([data-pc-paper="menu"], .pc-modal-content, .pc-ui-dialog, .pc-ui-popover) */
+[data-pc-paper="menu"],
+.pc-modal-content,
+.pc-ui-dialog-content,
+.pc-ui-popover-content {
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 2.5px 3.5px rgba(46, 30, 20, 0.48),
+    0 12px 28px rgba(46, 30, 20, 0.30),
+    0 28px 60px -10px rgba(46, 30, 20, 0.35) !important;
+}
+
+
 

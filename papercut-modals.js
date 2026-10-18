@@ -57,7 +57,7 @@
       dialogBackdrop.id = 'pc-modal-dialog-backdrop';
       dialogBackdrop.className = 'pc-modal-backdrop';
       dialogBackdrop.innerHTML = `
-        <div class="pc-modal-dialog pc-modal-washi variant-mint" id="pc-active-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dialog-title" data-pc-paper="sheet" data-pc-tone="mint">
+        <div class="pc-modal-dialog pc-modal-content pc-modal-washi variant-mint" id="pc-active-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pc-dialog-title" data-pc-paper="menu" data-pc-tone="mint">
           <!-- Kirigami Ornamentation Mounts -->
           <div class="pc-dialog-washi" id="pc-dialog-washi-tape"></div>
           <div class="pc-modal-wax-seal" id="pc-dialog-wax-mount" style="display: none;">${WAX_SEAL_SVG}</div>
@@ -120,8 +120,8 @@
             </div>
 
             <div class="pc-dialog-footer" id="pc-dialog-footer">
-              <button type="button" class="pc-btn pc-btn-ghost" id="pc-dialog-btn-cancel">취소</button>
-              <button type="button" class="pc-btn pc-btn-mint" id="pc-dialog-btn-confirm">
+              <button type="button" class="pc-btn pc-btn-ghost inline-flex items-center justify-center leading-none" data-pc-paper="ticket" id="pc-dialog-btn-cancel">취소</button>
+              <button type="button" class="pc-btn pc-btn-mint inline-flex items-center justify-center leading-none" data-pc-paper="ticket" id="pc-dialog-btn-confirm">
                 <span class="pc-inline-icon is-xs" data-icon="check"></span>
                 <span>설정 저장하기</span>
               </button>
@@ -151,7 +151,7 @@
       sheetBackdrop.id = 'pc-modal-sheet-backdrop';
       sheetBackdrop.className = 'pc-modal-sheet-backdrop';
       sheetBackdrop.innerHTML = `
-        <div class="pc-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="pc-sheet-title" data-pc-paper="sheet" data-pc-tone="cream">
+        <div class="pc-modal-sheet pc-modal-content" role="dialog" aria-modal="true" aria-labelledby="pc-sheet-title" data-pc-paper="menu" data-pc-tone="cream">
           <div class="pc-sheet-header">
             <div>
               <div style="display: flex; gap: 6px; margin-bottom: 4px;">
@@ -235,8 +235,8 @@
             </div>
           </div>
           <div class="pc-sheet-footer">
-            <button type="button" class="pc-btn pc-btn-ghost" id="pc-sheet-btn-cancel">닫기</button>
-            <button type="button" class="pc-btn pc-btn-peach" id="pc-sheet-btn-order">
+            <button type="button" class="pc-btn pc-btn-ghost inline-flex items-center justify-center leading-none" data-pc-paper="ticket" id="pc-sheet-btn-cancel">닫기</button>
+            <button type="button" class="pc-btn pc-btn-peach inline-flex items-center justify-center leading-none" data-pc-paper="ticket" id="pc-sheet-btn-order">
               <span class="pc-inline-icon is-xs" data-icon="cart"></span>
               <span>주문서 작성하기</span>
             </button>
@@ -264,7 +264,7 @@
       drawerBackdrop.id = 'pc-modal-drawer-backdrop';
       drawerBackdrop.className = 'pc-modal-drawer-backdrop';
       drawerBackdrop.innerHTML = `
-        <div class="pc-modal-drawer" role="dialog" aria-modal="true" aria-labelledby="pc-drawer-title" data-pc-paper="sheet" data-pc-tone="lavender" style="--pc-paper-radius: 24px;">
+        <div class="pc-modal-drawer pc-modal-content" role="dialog" aria-modal="true" aria-labelledby="pc-drawer-title" data-pc-paper="menu" data-pc-tone="lavender" style="--pc-paper-radius: 24px;">
           <div class="pc-drawer-pull-tab" id="pc-drawer-tab" data-pc-paper="track" data-pc-tone="cream" title="아래로 스와이프하여 닫기"></div>
           <div class="pc-drawer-header">
             <div>
