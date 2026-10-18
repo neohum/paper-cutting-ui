@@ -2215,28 +2215,15 @@ p,
 }
 
 /* ==========================================================================
-   LAYER 0: 350g 밑판 마운트 보드 (Base Mat Board Sheet via ::before)
-   - 카드의 바닥면에 두꺼운 350g 크래프트/코튼 마운트 보드가 사방 1px, 하단 5px 돌출
-   - 2-Tier 48% 번트 엄버 접촉 그림자와 데스크 위 앰비언트 섀도우를 실제 물리적으로 투영
+   LAYER 0: 셋째 종이 삭제 (Third Sheet Elimination: 2-Sheet 구조 단일화)
+   - 카드의 바닥면에 중복 돌출되던 3번째 종이 레이어(::before)를 영구 삭제
+   - 오직 앞 종이(본문 카드) + 뒷 종이(사방 6px 균일 확장 ::after) 2단 구성 유지
    ========================================================================== */
-.pc-card:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade):not(.pc-card-nested):not(.is-nested)::before,
-.pc-card-sheet:not(.pc-page-view):not(.pc-card-dogear):not(.pc-card-washi):not(.pc-card-deckle):not(.pc-card-ticket):not(.pc-card-well):not(.pc-shadowbox-well):not(.pc-stack-fanned):not(.pc-stack-cascade):not(.pc-card-nested):not(.is-nested)::before,
+.pc-card:not(.pc-card-dogear):not(.pc-slot-slit)::before,
+.pc-card-sheet:not(.pc-card-dogear):not(.pc-slot-slit)::before,
 .pc-card-showcase::before,
 .pc-button-showcase-card::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0px !important;
-  bottom: -5px !important;
-  background: var(--pc-card-mat-bg, #EFE7DA) !important;
-  border-radius: inherit !important;
-  border: 1px solid rgba(46, 30, 20, 0.15) !important;
-  border-bottom: 2px solid rgba(46, 30, 20, 0.28) !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-  box-shadow: 
-    0 4px 10px rgba(46, 30, 20, 0.16),
-    0 12px 26px rgba(46, 30, 20, 0.10) !important;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease, bottom 0.22s ease !important;
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -2850,53 +2837,36 @@ p,
   display: none !important;
 }
 
-/* 개별 컴포넌트 레벨 스택 카드: 2~3장의 서로 다른 파스텔 색종이가 비틀려 겹쳐지는 3D 다층 종이 적층 */
+/* 2-Sheet 정갈한 사방 균일 적층: 셋째 종이 완전 삭제 및 사방 6px 균일 확장 뒷 종이 단일화 */
 .pc-card-stacked:not(.pc-page-view)::before {
-  content: "";
-  position: absolute;
-  top: 5px; left: 4px; right: -5px; bottom: -5px;
-  background: var(--pc-card-stack-bg1, var(--pc-peach-light, #FDF1EA));
-  border: 1px solid rgba(247, 186, 158, 0.65);
-  border-radius: inherit;
-  z-index: -1;
-  pointer-events: none;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 1.5px 3px rgba(46, 30, 20, 0.28),
-    0 5px 12px rgba(46, 30, 20, 0.14);
-  transform: rotate(0.5deg);
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+  display: none !important;
 }
 .pc-card-stacked:not(.pc-page-view)::after {
-  content: "";
-  position: absolute;
-  top: 10px; left: 8px; right: -9px; bottom: -10px;
-  background: var(--pc-card-stack-bg2, var(--pc-mint-light, #EAF7F1));
-  border: 1px solid rgba(163, 216, 195, 0.65);
-  border-radius: inherit;
-  z-index: -2;
-  pointer-events: none;
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  background: var(--pc-card-stack-bg1, var(--pc-card-underlay-bg, #F3ECE1)) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  border-radius: calc(16px + 4px) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    0 2px 4px rgba(46, 30, 20, 0.30),
-    0 8px 18px rgba(46, 30, 20, 0.14);
-  transform: rotate(-0.7deg);
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease;
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.16),
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+  transform: none !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
 }
 
 .pc-card-stacked:not(.pc-page-view):hover::before {
-  transform: translate(2px, 3px) rotate(1deg);
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 2.5px 5px rgba(46, 30, 20, 0.32),
-    0 8px 16px rgba(46, 30, 20, 0.18);
+  display: none !important;
 }
 .pc-card-stacked:not(.pc-page-view):hover::after {
-  transform: translate(5px, 6px) rotate(-1.4deg);
+  transform: none !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 3px 6px rgba(46, 30, 20, 0.35),
-    0 12px 24px rgba(46, 30, 20, 0.16);
+    0 8px 22px -3px rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
 }
 
 /* Washi Tape Strip (Translucent paper tape with deckle edge & contact shadow) */

@@ -1392,6 +1392,14 @@ body.is-collapsed #pc-sidebar-nav {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 
+/* 셋째 종이 삭제 (Third Sheet Elimination: 2-Sheet 구조 단일화) */
+.pc-card:not(.pc-card-dogear):not(.pc-slot-slit)::before,
+.pc-card-sheet:not(.pc-card-dogear):not(.pc-slot-slit)::before,
+.pc-card-stacked::before,
+.pc-card-nested::before {
+  display: none !important;
+}
+
 /* 뒷 종이 (Underlay Backing Sheet: 사방 6px 균일 확장 둘레 매트보드) */
 .pc-card::after,
 .pc-card-sheet::after,
@@ -1506,13 +1514,16 @@ body.is-collapsed #pc-sidebar-nav {
 
 .pc-hero-banner::before,
 .hero-banner::before {
-  content: "";
-  position: absolute;
-  top: 8px; left: 8px; right: -8px; bottom: -8px;
-  background: var(--pc-peach-light);
-  border-radius: 16px !important;
-  z-index: -1;
-  box-shadow: var(--pc-paper-shadow-xs);
+  content: "" !important;
+  position: absolute !important;
+  inset: -8px !important;
+  background: var(--pc-peach-light) !important;
+  border-radius: calc(16px + 4px) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  box-shadow: var(--pc-paper-shadow-xs) !important;
 }
 
 /* AI Prompt Box - Authentic Cutout Well Depth & 3D Paper Bandage Tag */
