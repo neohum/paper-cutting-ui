@@ -117,13 +117,16 @@
 
     .pc-hero-banner::before,
     .hero-banner::before {
-      content: "";
-      position: absolute;
-      top: 8px; left: 8px; right: -8px; bottom: -8px;
-      background: var(--pc-peach-light);
-      border-radius: 16px !important;
-      z-index: -1;
-      box-shadow: var(--pc-paper-shadow-xs);
+      content: "" !important;
+      position: absolute !important;
+      inset: -8px !important;
+      background: var(--pc-peach-light) !important;
+      border-radius: calc(16px + 4px) !important;
+      border: 1px solid rgba(46, 30, 20, 0.14) !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+      z-index: -1 !important;
+      pointer-events: none !important;
+      box-shadow: var(--pc-paper-shadow-xs) !important;
     }
 
     /* ==========================================================================

@@ -1266,22 +1266,13 @@
     0 18px 36px rgba(46, 30, 20, 0.10) !important;
 }
 
-/* 350g 밑판 마운트 보드 (Base Mat Board Sheet via ::before) */
-.pc-ui-card:not(.pc-is-stacked):not(.is-stacked)::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0px !important;
-  bottom: -4.5px !important;
-  background: #EFE7DA !important;
-  border-radius: inherit !important;
-  border: 1px solid rgba(46, 30, 20, 0.14) !important;
-  border-bottom: 2px solid rgba(46, 30, 20, 0.24) !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-  box-shadow: 
-    0 3.5px 8px rgba(46, 30, 20, 0.14),
-    0 10px 22px rgba(46, 30, 20, 0.08) !important;
-  transition: transform var(--pc-ui-dur-norm) cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--pc-ui-dur-norm) ease, bottom var(--pc-ui-dur-norm) ease !important;
+/* 셋째 종이 완전 삭제 (Third Sheet Elimination: 2-Sheet 구조 단일화) */
+.pc-ui-card::before,
+.pc-ui-card:not(.pc-is-stacked):not(.is-stacked)::before,
+.pc-ui-card:not(.pc-is-stacked):not(.is-stacked):hover::before,
+.pc-ui-card.pc-is-stacked::before,
+.pc-ui-card.is-stacked::before {
+  display: none !important;
 }
 
 /* 수공예 미싱선 스티칭 프레임 (Handcrafted Craft Stitching Inset via ::after) */
@@ -1296,49 +1287,36 @@
   transition: border-color var(--pc-ui-dur-norm) ease !important;
 }
 
-.pc-ui-card:not(.pc-is-stacked):not(.is-stacked):hover::before {
-  bottom: -7px !important;
-  box-shadow: 
-    0 5px 12px rgba(46, 30, 20, 0.18),
-    0 16px 32px rgba(46, 30, 20, 0.12) !important;
-}
-
 .pc-ui-card:not(.pc-card-nested):not(.is-nested):hover::after {
   border-color: rgba(74, 58, 42, 0.22) !important;
 }
 
-.pc-ui-card.pc-is-stacked::before,
-.pc-ui-card.is-stacked::before {
-  content: "";
-  position: absolute;
-  top: 5px; left: 4px; right: -5px; bottom: -5px;
-  background: var(--pc-ui-peach-tint, #FDF1EA);
-  border: 1px solid rgba(247, 186, 158, 0.65);
-  border-radius: inherit;
-  z-index: -1;
-  pointer-events: none;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 1.5px 3px rgba(46, 30, 20, 0.28),
-    0 5px 12px rgba(46, 30, 20, 0.14);
-  transform: rotate(0.5deg);
-}
-
+/* 2-Sheet 정갈한 사방 균일 적층: pc-ui-card 스택 에디션 */
 .pc-ui-card.pc-is-stacked::after,
 .pc-ui-card.is-stacked::after {
-  content: "";
-  position: absolute;
-  top: 10px; left: 8px; right: -9px; bottom: -10px;
-  background: var(--pc-ui-mint-tint, #EAF7F1);
-  border: 1px solid rgba(163, 216, 195, 0.65);
-  border-radius: inherit;
-  z-index: -2;
-  pointer-events: none;
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  background: var(--pc-ui-peach-tint, var(--pc-card-underlay-bg, #F3ECE1)) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  border-radius: calc(16px + 4px) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    0 2px 4px rgba(46, 30, 20, 0.30),
-    0 8px 18px rgba(46, 30, 20, 0.14);
-  transform: rotate(-0.7deg);
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.16),
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+  transform: none !important;
+  transition: transform var(--pc-ui-dur-norm) cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--pc-ui-dur-norm) ease !important;
+}
+
+.pc-ui-card.pc-is-stacked:hover::after,
+.pc-ui-card.is-stacked:hover::after {
+  transform: none !important;
+  box-shadow: 
+    0 8px 22px -3px rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
 }
 
 .pc-ui-card-header, .pc-ui-card-header {

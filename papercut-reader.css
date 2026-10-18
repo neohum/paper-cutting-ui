@@ -1703,32 +1703,35 @@
     0 24px 52px rgba(74, 58, 42, 0.16);
 }
 
-/* Multi-sheet colored cardstocks visibly peeking behind */
+/* 2-Sheet Authentic Paper Stack (사방 6px 균일 확장 뒷 종이 & 셋째 종이 완전 삭제) */
 .pc-book-diorama-card::before {
-  content: "";
-  position: absolute;
-  top: 6px; left: 6px; right: -6px; bottom: -6px;
-  background: #F7BA9E; /* Warm Peach layer */
-  border-radius: 20px;
-  z-index: -1;
-  box-shadow: 0 4px 10px rgba(74, 58, 42, 0.08);
-  transition: transform 0.28s ease;
+  display: none !important;
 }
 .pc-book-diorama-card::after {
-  content: "";
-  position: absolute;
-  top: 12px; left: 12px; right: -12px; bottom: -12px;
-  background: #A3D8C3; /* Mint layer */
-  border-radius: 20px;
-  z-index: -2;
-  box-shadow: 0 6px 16px rgba(74, 58, 42, 0.06);
-  transition: transform 0.28s ease;
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  background: var(--pc-card-underlay-bg, #F3ECE1) !important;
+  border-radius: calc(20px + 4px) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.16),
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+  transform: none !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
 }
 .pc-book-diorama-card:hover::before {
-  transform: translate(2px, 2px) rotate(0.6deg);
+  display: none !important;
 }
 .pc-book-diorama-card:hover::after {
-  transform: translate(4px, 4px) rotate(1.2deg);
+  transform: none !important;
+  box-shadow: 
+    0 8px 22px -3px rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
 }
 
 /* Scalloped Cloud Badge */
@@ -2150,75 +2153,60 @@
     0 32px 64px -8px rgba(70, 45, 25, 0.08);
 }
 
-/* 3-Layer Decoupage Paper Sheets Peeking Out Behind (Overlapping Shapes in Soft Pastel Colors) */
-/* Layer 1: Colored Cardstock Sheet (우하단 14px 오프셋 + 2deg 회전) */
+/* 2-Sheet Authentic Paper Stack (사방 6px 균일 확장 뒷 종이 & 셋째 종이 완전 삭제) */
 .pc-papercut-card::before {
-  content: "";
-  position: absolute;
-  top: 10px; left: -6px; right: -16px; bottom: -14px;
-  background-color: #FEE3D2;
-  background-image: url("paper-texture.png");
-  background-size: 256px 256px;
-  background-blend-mode: multiply;
-  border-radius: 24px 16px 22px 18px;
-  z-index: -1;
-  border: none;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 2.5px 0 #E5956A,
-    0 6px 16px rgba(120, 60, 20, 0.14);
-  transition: transform 0.24s ease;
-  transform: rotate(2deg);
+  display: none !important;
 }
 
-/* Layer 2: Pastel Cardstock Sheet (하단 20px 오프셋 - 2.2deg 회전) */
 .pc-papercut-card::after {
-  content: "";
-  position: absolute;
-  top: 14px; left: 8px; right: -8px; bottom: -20px;
-  background-color: #D8F3DC;
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  background-color: #FEE3D2 !important;
   background-image: url("paper-texture.png");
   background-size: 256px 256px;
   background-blend-mode: multiply;
-  border-radius: 18px 24px 16px 26px;
-  z-index: -2;
-  border: none;
+  border-radius: calc(20px + 4px) !important;
+  z-index: -1 !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    0 2.5px 0 #68B88E,
-    0 8px 24px rgba(40, 100, 60, 0.12);
-  transition: transform 0.24s ease;
-  transform: rotate(-2.2deg);
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.16),
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+  transform: none !important;
 }
 
 /* Card Color Variants */
 .pc-papercut-card.pc-is-variant-lavender::before,
 .pc-papercut-card.is-variant-lavender::before {
-  background-color: #EDE4F9;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #A884D6, 0 6px 16px rgba(80, 40, 120, 0.14);
+  display: none !important;
 }
 .pc-papercut-card.pc-is-variant-lavender::after,
 .pc-papercut-card.is-variant-lavender::after {
-  background-color: #FFF3CD;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #E6C35C, 0 8px 24px rgba(120, 90, 10, 0.12);
+  background-color: #EDE4F9 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.92), 0 4px 14px -2px rgba(80, 40, 120, 0.16), 0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
 }
 
 .pc-papercut-card.pc-is-variant-sky::before,
 .pc-papercut-card.is-variant-sky::before {
-  background-color: #DBEEF9;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #71B2D8, 0 6px 16px rgba(30, 90, 130, 0.14);
+  display: none !important;
 }
 .pc-papercut-card.pc-is-variant-sky::after,
 .pc-papercut-card.is-variant-sky::after {
-  background-color: #FDE2E4;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2.5px 0 #E892A8, 0 8px 24px rgba(140, 40, 60, 0.12);
+  background-color: #DBEEF9 !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.92), 0 4px 14px -2px rgba(30, 90, 130, 0.16), 0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
 }
 
 .pc-papercut-card:hover::before {
-  transform: translate(3px, 4px) rotate(2.8deg);
+  display: none !important;
 }
 .pc-papercut-card:hover::after {
-  transform: translate(6px, 6px) rotate(-3.2deg);
+  transform: none !important;
+  box-shadow: 
+    0 8px 22px -3px rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
 }
 
 /* Authentic Torn Washi Tape (찢긴 일본 마스킹 테이프 장식) */
