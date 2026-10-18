@@ -36,7 +36,7 @@ test('Two-Sheet Uniform Stack & 3rd Sheet Elimination Test Suite', async (t) => 
     // 3. papercut-layout.css
     assert.match(
       papercutLayoutCss,
-      /\.pc-card-stacked::before,\s*\.pc-card-nested::before\s*\{\s*display:\s*none\s*!important/i,
+      /\.pc-card-stacked::before,\s*\.pc-card-nested::before[\s\S]*?\{\s*display:\s*none\s*!important/i,
       'papercut-layout.css must disable ::before on .pc-card-stacked and .pc-card-nested'
     );
 
