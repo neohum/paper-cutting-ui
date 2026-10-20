@@ -156,7 +156,7 @@
             <div>
               <div style="display: flex; gap: 6px; margin-bottom: 4px;">
                 <span class="pc-badge pc-badge--ticket pc-badge--peach" data-pc-paper="pill" data-pc-tone="peach" style="font-size: 11px;">Slide-Over Sheet</span>
-                <span class="pc-badge pc-badge--stamp pc-badge--lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-size: 11px;">사이드 패널</span>
+                <span class="pc-badge pc-badge--lavender" data-pc-paper="pill" data-pc-tone="lavender" style="font-size: 11px;">사이드 패널</span>
               </div>
               <h3 style="margin: 0; font-size: 20px; font-weight: 800; color: #37281E; display: flex; align-items: center; gap: 8px;">
                 <span class="pc-inline-icon is-sm" data-icon="book"></span>
@@ -181,7 +181,7 @@
                       <div style="font-size: 12px; color: #8A7A6A;">300g 미색 코튼 보드지</div>
                     </div>
                   </div>
-                  <span class="pc-badge pc-badge--stamp pc-badge--mint" data-pc-paper="pill" data-pc-tone="mint" style="font-weight: 800;">₩18,500</span>
+                  <span class="pc-badge pc-badge--mint" data-pc-paper="pill" data-pc-tone="mint" style="font-weight: 800;">₩18,500</span>
                 </div>
               </div>
 

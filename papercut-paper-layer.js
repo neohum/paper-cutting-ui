@@ -33,7 +33,7 @@
     ticket: 3,
     pebble: 2.5,
     deckle: 2,
-    sheet: 3,
+    sheet: 6,
     field: 1.5,
     pill: 2,
     tab: 2,
@@ -463,16 +463,16 @@
       n = Math.min(8, (uh - 2 * r) / 2 - 1);
       if (n < 2.5) n = Math.min(6, uh * 0.25);
     }
-    var baseD = outline(variant, o, o, w, h, r, n);
-    var sheetD = outline(variant, ux0, uy0, ux1, uy1, r, n);
+    var baseD = (variant === 'sheet') ? outline(variant, 0, 0, w, h, r, n) : outline(variant, o, o, w, h, r, n);
+    var sheetD = (variant === 'sheet') ? outline(variant, o, o, w - o, h - o, Math.max(r - o, 2), n) : outline(variant, ux0, uy0, ux1, uy1, r, n);
     var deco = '';
     var accent = '';
 
-    if (variant === 'sheet' && uw > 44 && uh > 36) {
+    if (variant === 'sheet' && (w - 2 * o) > 44 && (h - 2 * o) > 36) {
       // 14px 둥근 모서리 + 점선 스티칭 + 상단 림
-      var sr = Math.max(r - 4, 2);
-      deco = '<path class="pc-paper-deco pc-paper-stitch" d="' + rr(ux0 + 5, uy0 + 5, ux1 - 5, uy1 - 5, sr, sr, sr, sr) + '" fill="none" stroke="var(--pc-paper-stitch, #D8CEBD)" stroke-width="1.2" stroke-dasharray="3 3"/>';
-      accent = '<path class="pc-paper-hair" d="' + rr(ux0 + 2, uy0 + 2, ux1 - 2, uy1 - 2, Math.max(r - 2, 2), Math.max(r - 2, 2), Math.max(r - 2, 2), Math.max(r - 2, 2)) + '" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.85"/>';
+      var sr = Math.max(r - o - 3, 2);
+      deco = '<path class="pc-paper-deco pc-paper-stitch" d="' + rr(o + 5, o + 5, w - o - 5, h - o - 5, sr, sr, sr, sr) + '" fill="none" stroke="var(--pc-paper-stitch, #D8CEBD)" stroke-width="1.2" stroke-dasharray="3 3"/>';
+      accent = '<path class="pc-paper-hair" d="' + rr(o + 2, o + 2, w - o - 2, h - o - 2, Math.max(r - o - 1, 2), Math.max(r - o - 1, 2), Math.max(r - o - 1, 2), Math.max(r - o - 1, 2)) + '" fill="none" stroke="#FFFFFF" stroke-width="0.8" opacity="0.85"/>';
     } else if (variant === 'menu' && uw > 16 && uh > 16) {
       var mr = Math.max(r - 3, 2);
       deco = '<path class="pc-paper-hair" d="' + rr(ux0 + 3, uy0 + 3, ux1 - 3, uy1 - 3, mr, mr, mr, mr) + '" fill="none" stroke="#FFFFFF" stroke-width="0.7"/>';
@@ -596,12 +596,17 @@
       }
       return null;
     }
-    // 엄격한 예외 보장 (Strict Exclusion): 아이콘 및 배경 라이브러리는 전역 엔진 주입 제외
+    // 엄격한 예외 보장 (Strict Exclusion): 아이콘 및 배경 라이브러리, 순수 SVG 키리가미 버튼/카드는 전역 엔진 주입 제외
     if (
       el.classList.contains('pc-layered-paper-icon') ||
       el.classList.contains('pc-inline-icon') ||
       el.classList.contains('pc-mounted-plate-svg') ||
-      (el.closest && el.closest('#icon-gallery, #bg-library, #icon-simulator'))
+      el.classList.contains('pc-svg-kirigami-btn') ||
+      el.classList.contains('pc-header-svg-btn') ||
+      el.classList.contains('hero-action-btn') ||
+      el.classList.contains('pc-hero-action-btn') ||
+      el.classList.contains('pc-svg-card-frame-wrap') ||
+      (el.closest && el.closest('#icon-gallery, #bg-library, #icon-simulator, .pc-site-header-right'))
     ) {
       return null;
     }
