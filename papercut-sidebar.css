@@ -1113,29 +1113,26 @@ button.pc-sidebar-paper-btn.is-active {
 
 
 
-/* 4대 특화 모델 - 사이드바 미니어처 최적화 */
-/* 1. 우표 천공 미니 톱니 (Stamp) */
-.pc-sidebar-badge.pc-badge--stamp {
-  padding: 3px 7px;
-  border-radius: 2px;
-  outline: 1px dashed rgba(255, 255, 255, 0.90);
-  outline-offset: -2.5px;
+/* 사이드바 배지 기본화: 특화 모델(티켓 노치, 태그 타공, 우표 천공 밴디지)을 깔끔한 기본 3D 페이퍼 배지로 통일 */
+.pc-sidebar-badge.pc-badge--stamp,
+.pc-sidebar-badge.pc-badge--ticket,
+.pc-sidebar-badge.pc-badge--tag {
+  padding: 3px 8px !important;
+  border-radius: 4px !important;
+  outline: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  clip-path: none !important;
 }
-.pc-sidebar-badge.pc-badge--stamp::after {
-  content: "";
-  position: absolute;
-  top: -1px;
-  bottom: -1px;
-  left: 2px;
-  right: 2px;
-  background-image: 
-    radial-gradient(circle 1.2px at 2.5px 0px, rgba(46, 30, 20, 0.30) 1.1px, transparent 1.3px),
-    radial-gradient(circle 1.2px at 2.5px 100%, rgba(46, 30, 20, 0.30) 1.1px, transparent 1.3px);
-  background-size: 5px 100%;
-  background-repeat: repeat-x;
-  pointer-events: none;
-  z-index: 2;
-  opacity: 0.8;
+
+.pc-sidebar-badge.pc-badge--stamp::before,
+.pc-sidebar-badge.pc-badge--stamp::after,
+.pc-sidebar-badge.pc-badge--ticket::before,
+.pc-sidebar-badge.pc-badge--ticket::after,
+.pc-sidebar-badge.pc-badge--tag::before,
+.pc-sidebar-badge.pc-badge--tag::after {
+  display: none !important;
+  content: none !important;
 }
 
 /* 2. 앤틱 왁스 실링 인장 (Wax) */
@@ -1625,6 +1622,7 @@ body.pc-page-mode .pc-page-view.is-active-page {
   flex-wrap: wrap;
   gap: 14px;
   position: relative;
+  isolation: isolate;
   font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
   box-sizing: border-box;
 }

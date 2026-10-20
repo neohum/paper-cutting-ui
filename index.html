@@ -39,8 +39,6 @@
   <link rel="stylesheet" href="papercut-ui.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="papercut-paper-layer.css" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="papercut-blocks-charts.css" media="print" onload="this.media='all'">
-  <!-- Flaticon UIcons Standard -->
-  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <noscript>
     <link rel="stylesheet" href="papercut-alerts-toasts.css">
     <link rel="stylesheet" href="papercut-modals.css">
@@ -677,14 +675,14 @@
             <span class="pc-site-logo-sub">Layered Craft System</span>
           </div>
         </a>
-        <span class="pc-badge pc-badge--stamp pc-badge--peach pc-header-version-badge"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>v0.4.47</span></span>
+        <span class="pc-header-version pc-header-version-badge"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>v0.4.47</span></span>
       </div>
 
 
 
       <div class="pc-site-header-right">
         <!-- 1. 종이 소리 토글 버튼 (앤틱 왁스 실링 버터컵 SVG) -->
-        <button type="button" id="header-paper-sound-btn" class="pc-svg-kirigami-btn pc-header-svg-btn pc-btn" data-pc-paper="ticket" title="종이 바스락 효과음 켜기/끄기">
+        <button type="button" id="header-paper-sound-btn" class="pc-svg-kirigami-btn pc-header-svg-btn" title="종이 바스락 효과음 켜기/끄기">
           <svg class="pc-kirigami-btn-svg" viewBox="0 0 162 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 145px; height: 38px; display: block;">
             <defs>
               <filter id="hdr-sound-sh" x="-20%" y="-20%" width="140%" height="150%">
@@ -702,7 +700,7 @@
           </svg>
         </button>
         <!-- 2. 뷰 모드 전환 버튼 (민트 노치 티켓 SVG) -->
-        <button type="button" id="header-view-mode-btn" class="pc-svg-kirigami-btn pc-header-svg-btn pc-btn" data-pc-paper="ticket" title="스크롤뷰: ON (전체 스크롤 모드) — 클릭 시 메뉴별 보기로 전환">
+        <button type="button" id="header-view-mode-btn" class="pc-svg-kirigami-btn pc-header-svg-btn" title="스크롤뷰: ON (전체 스크롤 모드) — 클릭 시 메뉴별 보기로 전환">
           <svg class="pc-kirigami-btn-svg" viewBox="0 0 148 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 132px; height: 38px; display: block;">
             <defs>
               <filter id="hdr-view-sh" x="-20%" y="-20%" width="140%" height="150%">
@@ -725,7 +723,7 @@
         <!-- 3. 종이 재질 및 소리 선택 메뉴 (Paper Texture & Sound Selector) -->
         <div class="pc-sound-select-wrapper" style="position: relative; display: inline-flex; align-items: center; margin-left: 2px;">
           <div class="pc-dropdown-custom pc-header-paper-dropdown" id="pc-header-paper-dropdown" style="position: relative; display: inline-flex;">
-            <button type="button" class="pc-svg-kirigami-btn pc-header-svg-btn pc-dropdown-trigger pc-btn" id="header-paper-dropdown-trigger" data-pc-paper="ticket" aria-haspopup="true" aria-expanded="false" title="종이 질감 및 소리 선택">
+            <button type="button" class="pc-svg-kirigami-btn pc-header-svg-btn pc-dropdown-trigger" id="header-paper-dropdown-trigger" aria-haspopup="true" aria-expanded="false" title="종이 질감 및 소리 선택">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 160 42" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 144px; height: 38px; display: block;">
                 <defs>
                   <filter id="hdr-paper-sh" x="-20%" y="-20%" width="140%" height="150%">
@@ -747,31 +745,31 @@
                   <circle cx="15.5" cy="8.5" r="1.5" fill="#FFFDF9"/>
                 </g>
                 <!-- Layer 4: Current Paper Label -->
-                <text id="header-paper-current-label" class="pc-label label" x="38" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#6E3B21" letter-spacing="-0.3">🌿 300g 코튼지</text>
+                <text id="header-paper-current-label" class="pc-label label" x="38" y="25" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#6E3B21" letter-spacing="-0.3">300g 코튼지</text>
                 <!-- Layer 5: Paper Dropdown Chevron Indicator -->
                 <path d="M 143 19 L 147 24 L 151 19" stroke="#6E3B21" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
             <div class="pc-dropdown-menu" id="header-paper-dropdown-menu" role="menu" data-pc-paper="menu" style="min-width: 170px; right: 0; left: auto;">
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost pc-is-active" data-value="cotton">🌿 300g 코튼지</button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="hanji">🎋 닥나무 한지</button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="kraft">📦 크라프트 보드</button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="vellum">📜 실크 벨러지</button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="origami">🎨 오리가미 화지</button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="cardboard">📦 골판지 카톤</button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="newsprint">📰 빈티지 신문지</button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="parchment">📜 고문서 양피지</button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost pc-is-active" data-value="cotton"><span class="pc-inline-icon is-xs" data-icon="leaf"></span> <span class="pc-dropdown-item-label">300g 코튼지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="hanji"><span class="pc-inline-icon is-xs" data-icon="bamboo"></span> <span class="pc-dropdown-item-label">닥나무 한지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="kraft"><span class="pc-inline-icon is-xs" data-icon="package"></span> <span class="pc-dropdown-item-label">크라프트 보드</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="vellum"><span class="pc-inline-icon is-xs" data-icon="scroll"></span> <span class="pc-dropdown-item-label">실크 벨러지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="origami"><span class="pc-inline-icon is-xs" data-icon="palette"></span> <span class="pc-dropdown-item-label">오리가미 화지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="cardboard"><span class="pc-inline-icon is-xs" data-icon="package"></span> <span class="pc-dropdown-item-label">골판지 카톤</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="newsprint"><span class="pc-inline-icon is-xs" data-icon="book"></span> <span class="pc-dropdown-item-label">빈티지 신문지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="parchment"><span class="pc-inline-icon is-xs" data-icon="scroll"></span> <span class="pc-dropdown-item-label">고문서 양피지</span></button>
             </div>
             <!-- 하위 호환성 및 기존 로직 동기화를 위한 숨김 select 유지 -->
             <select id="header-paper-sound-type" style="display:none;" aria-hidden="true">
-              <option value="cotton" selected>🌿 300g 코튼지</option>
-              <option value="hanji">🎋 닥나무 한지</option>
-              <option value="kraft">📦 크라프트 보드</option>
-              <option value="vellum">📜 실크 벨러지</option>
-              <option value="origami">🎨 오리가미 화지</option>
-              <option value="cardboard">📦 골판지 카톤</option>
-              <option value="newsprint">📰 빈티지 신문지</option>
-              <option value="parchment">📜 고문서 양피지</option>
+              <option value="cotton" selected data-icon="leaf">300g 코튼지</option>
+              <option value="hanji" data-icon="bamboo">닥나무 한지</option>
+              <option value="kraft" data-icon="package">크라프트 보드</option>
+              <option value="vellum" data-icon="scroll">실크 벨러지</option>
+              <option value="origami" data-icon="palette">오리가미 화지</option>
+              <option value="cardboard" data-icon="package">골판지 카톤</option>
+              <option value="newsprint" data-icon="book">빈티지 신문지</option>
+              <option value="parchment" data-icon="scroll">고문서 양피지</option>
             </select>
           </div>
         </div>
@@ -791,7 +789,7 @@
           <span class="pc-sidebar-header-icon pc-inline-icon is-sm" data-icon="book" aria-hidden="true"></span>
           <span class="pc-sidebar-header-title">목차 네비게이션</span>
         </div>
-        <button type="button" class="pc-sidebar-toggle-btn pc-svg-kirigami-btn" id="pc-sidebar-toggle" data-pc-paper="ticket" title="사이드바 접기 (Collapse)" aria-label="사이드바 접기" style="width:34px; height:34px; padding:0; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center;">
+        <button type="button" class="pc-sidebar-toggle-btn pc-svg-kirigami-btn" id="pc-sidebar-toggle" title="사이드바 접기 (Collapse)" aria-label="사이드바 접기" style="width:34px; height:34px; padding:0; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center;">
           <svg class="pc-kirigami-btn-svg" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:34px; height:34px; display:block;">
             <defs>
               <filter id="sb-toggle-sh" x="-20%" y="-20%" width="140%" height="150%">
@@ -814,7 +812,7 @@
             <span class="pc-inline-icon is-color is-sm" data-icon="home"></span>
           </div>
           <span class="pc-sidebar-item-text">개요 &amp; 히어로</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--stamp pc-badge--peach pc-badge-peach pc-swatch-peach inline-flex items-center justify-center leading-none" data-pc-paper="stamp">Hero</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--peach pc-badge-peach pc-swatch-peach inline-flex items-center justify-center leading-none">Hero</span>
         </a>
 
         <div class="pc-sidebar-category">컴포넌트 컬렉션</div>
@@ -823,28 +821,28 @@
             <span class="pc-inline-icon is-color is-sm" data-icon="grid-view"></span>
           </div>
           <span class="pc-sidebar-item-text">페이퍼 UI &amp; 특화 컴포넌트</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--ticket pc-badge--lavender pc-badge-lavender pc-swatch-lavender inline-flex items-center justify-center leading-none" data-pc-paper="ticket">통합 마스터</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--lavender pc-badge-lavender pc-swatch-lavender inline-flex items-center justify-center leading-none">통합 마스터</span>
         </a>
         <a href="#papercut-stacking-studio" class="pc-sidebar-item pc-sidebar-nav-btn pc-btn" role="button" data-target="papercut-stacking-studio" title="레이어드 스택 &amp; 겹침">
           <div class="pc-sidebar-item-icon" data-icon="layers">
             <span class="pc-inline-icon is-color is-sm" data-icon="layers"></span>
           </div>
           <span class="pc-sidebar-item-text">레이어드 스택 &amp; 겹침</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--stamp pc-badge--peach pc-badge-peach pc-swatch-peach inline-flex items-center justify-center leading-none" data-pc-paper="stamp">NEW STACK</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--peach pc-badge-peach pc-swatch-peach inline-flex items-center justify-center leading-none">NEW STACK</span>
         </a>
         <a href="#pc-blocks-charts" class="pc-sidebar-item pc-btn" role="button" data-target="pc-blocks-charts" title="실전 애플리케이션 블록">
           <div class="pc-sidebar-item-icon" data-icon="contacts-book">
             <span class="pc-inline-icon is-color is-sm" data-icon="contacts-book"></span>
           </div>
           <span class="pc-sidebar-item-text">실전 애플리케이션 블록</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--tag pc-badge--coral pc-badge-coral pc-swatch-peach inline-flex items-center justify-center leading-none" data-pc-paper="ticket">6대 블록</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--coral pc-badge-coral pc-swatch-peach inline-flex items-center justify-center leading-none">6대 블록</span>
         </a>
         <a href="#pc-charts-section" class="pc-sidebar-item pc-btn" role="button" data-target="pc-charts-section" title="3D 페이퍼 벡터 차트">
           <div class="pc-sidebar-item-icon" data-icon="pie-chart-clean">
             <span class="pc-inline-icon is-color is-sm" data-icon="pie-chart-clean"></span>
           </div>
           <span class="pc-sidebar-item-text">3D 페이퍼 벡터 차트</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--ticket pc-badge--mint pc-badge-mint pc-swatch-mint inline-flex items-center justify-center leading-none" data-pc-paper="ticket">12종 차트</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--mint pc-badge-mint pc-swatch-mint inline-flex items-center justify-center leading-none">12종 차트</span>
         </a>
 
         <div class="pc-sidebar-category">아이콘 &amp; 배경</div>
@@ -853,14 +851,14 @@
             <span class="pc-inline-icon is-color is-sm" data-icon="star-cluster"></span>
           </div>
           <span class="pc-sidebar-item-text">페이퍼컷 아이콘 라이브러리</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--stamp pc-badge--sky pc-badge-sky pc-swatch-sky inline-flex items-center justify-center leading-none" data-pc-paper="stamp">678종</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--sky pc-badge-sky pc-swatch-sky inline-flex items-center justify-center leading-none">678종</span>
         </a>
         <a href="#bg-library" class="pc-sidebar-item pc-btn" role="button" data-target="bg-library" title="3D 아이콘 배경 플레이트">
           <div class="pc-sidebar-item-icon" data-icon="shield-star">
             <span class="pc-inline-icon is-color is-sm" data-icon="shield-star"></span>
           </div>
           <span class="pc-sidebar-item-text">3D 아이콘 배경 플레이트</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--tag pc-badge--rose pc-badge-rose pc-swatch-peach inline-flex items-center justify-center leading-none" data-pc-paper="ticket">130종</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--rose pc-badge-rose pc-swatch-peach inline-flex items-center justify-center leading-none">130종</span>
         </a>
 
         <div class="pc-sidebar-category">디자인 시스템</div>
@@ -869,14 +867,14 @@
             <span class="pc-inline-icon is-color is-sm" data-icon="palette"></span>
           </div>
           <span class="pc-sidebar-item-text">16종 종이 질감</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--stamp pc-badge--sage pc-badge-sage pc-swatch-sage inline-flex items-center justify-center leading-none" data-pc-paper="stamp">16 Stocks</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--sage pc-badge-sage pc-swatch-sage inline-flex items-center justify-center leading-none">16 Stocks</span>
         </a>
         <a href="#paper-alerts-toasts" class="pc-sidebar-item pc-btn" role="button" data-target="paper-alerts-toasts" title="알림 &amp; 토스트 시스템">
           <div class="pc-sidebar-item-icon" data-icon="bell-ring">
             <span class="pc-inline-icon is-color is-sm" data-icon="bell-ring"></span>
           </div>
           <span class="pc-sidebar-item-text">알림 &amp; 토스트 시스템</span>
-          <span class="pc-sidebar-badge pc-badge pc-badge--ticket pc-badge--buttercup pc-badge-buttercup pc-swatch-sand inline-flex items-center justify-center leading-none" data-pc-paper="ticket">NEW</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--buttercup pc-badge-buttercup pc-swatch-sand inline-flex items-center justify-center leading-none">NEW</span>
         </a>
 
         <div class="pc-sidebar-category">사운드 &amp; 인터랙션</div>
@@ -885,7 +883,7 @@
             <span class="pc-inline-icon is-color is-sm" data-icon="volume"></span>
           </div>
           <span class="pc-sidebar-item-text">종이 소리 &amp; 햅틱 랩</span>
-          <span class="pc-badge pc-badge--stamp pc-badge--buttercup pc-badge-buttercup pc-swatch-sand inline-flex items-center justify-center leading-none" data-pc-paper="stamp">8종 ASMR</span>
+          <span class="pc-sidebar-badge pc-badge pc-badge--buttercup pc-badge-buttercup pc-swatch-sand inline-flex items-center justify-center leading-none">8종 ASMR</span>
         </a>
 
         <!-- [SIDEBAR SOUND TESTER] 종이 소리 테스트 스테이션 -->
@@ -1034,7 +1032,7 @@
       </nav>
 
       <!-- Hero Banner: Full-Width Master Paper-cut Artwork Showcase -->
-      <section class="pc-card pc-card-sheet pc-hero-banner hero-banner pc-page-view" id="overview" data-pc-paper="sheet" data-pc-tone="peach">
+      <section class="pc-card pc-card-sheet pc-hero-banner hero-banner pc-page-view" id="overview">
         <!-- SVG Papercraft Plate Decoration with Perforated Stamp Teeth & Dashed Stitching Line -->
         <svg class="pc-hero-papercraft-plate" viewBox="0 0 1200 32" preserveAspectRatio="none" aria-hidden="true" style="width: 100%; height: 24px; display: block; margin-bottom: 16px; pointer-events: none;">
           <defs>
@@ -1058,9 +1056,9 @@
               <img src="logo.svg" alt="PaperCut UI - Layered Craft Design System" style="height: 48px; width: auto; max-width: 100%; display: block;">
             </div>
             <div class="pc-row-wrap" style="--pc-gap: 8px; justify-content: flex-start; margin-bottom: 12px;">
-              <span class="pc-badge pc-badge--ticket pc-swatch-peach inline-flex items-center justify-center leading-none"><i class="fi fi-rr-scissors mr-1" aria-hidden="true"></i> <span>Paper-Cut UI Library</span></span>
-              <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none"><i class="fi fi-rr-magic-wand mr-1" aria-hidden="true"></i> <span>Pure CSS + Vanilla JS</span></span>
-              <span class="pc-badge pc-badge--tag pc-swatch-lavender inline-flex items-center justify-center leading-none"><i class="fi fi-rr-apps mr-1" aria-hidden="true"></i> <span>44 Master UI Components</span></span>
+              <span class="pc-badge pc-badge--ticket pc-swatch-peach inline-flex items-center justify-center leading-none"><span class="pc-inline-icon is-xs mr-1" data-icon="scissors"></span> <span>Paper-Cut UI Library</span></span>
+              <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none"><span class="pc-inline-icon is-xs mr-1" data-icon="wand-magic"></span> <span>Pure CSS + Vanilla JS</span></span>
+              <span class="pc-badge pc-badge--tag pc-swatch-lavender inline-flex items-center justify-center leading-none"><span class="pc-inline-icon is-xs mr-1" data-icon="apps"></span> <span>44 Master UI Components</span></span>
             </div>
             <h1 class="break-keep text-balance" style="font-size: 38px; font-weight: 900; margin: 6px 0 16px; letter-spacing: -1px; line-height: 1.25; text-align: left;">
               레이어드 페이퍼 아트<br><span style="color: var(--pc-lavender-dark); text-decoration: underline wavy var(--pc-buttercup-shadow);">UI 컴포넌트 라이브러리</span>
@@ -1101,8 +1099,8 @@
               <rect x="14" y="14" width="1172" height="647" rx="6" fill="none" stroke="#D8CEBD" stroke-width="1.2" stroke-dasharray="3 3"/>
             </svg>
             <div class="pc-washi-tape pc-washi-tape-mint" aria-hidden="true"></div>
-            <span class="pc-badge pc-bleed-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none">
-              <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> Master Artwork
+            <span class="pc-badge pc-bleed-badge pc-badge--peach inline-flex items-center justify-center leading-none">
+              <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span> Master Artwork
             </span>
             <!-- 4대 크래프트 포토 코너 마운트 -->
             <div class="pc-photo-corner pc-is-top-left pc-is-sand" aria-hidden="true"></div>
@@ -1115,17 +1113,17 @@
             <!-- 크래프트 벨리 밴드 마운트 -->
             <div class="pc-belly-band pc-is-bottom pc-is-peach" style="bottom: 52px;">
               <span class="inline-flex items-center justify-center leading-none break-keep" style="font-size: 12px; font-weight: 800; letter-spacing: 0.05em; color: var(--pc-ink);">
-                <i class="fi fi-rr-layers mr-1" aria-hidden="true"></i> 3D STRATA &amp; INTERLOCKING CRAFT EDITION
+                <span class="pc-inline-icon is-xs mr-1" data-icon="layers"></span> 3D STRATA &amp; INTERLOCKING CRAFT EDITION
               </span>
             </div>
 
             <div class="pc-row-wrap" style="--pc-gap: 8px; margin-top: 14px; justify-content: space-between; align-items: center; width: 100%;">
               <span class="break-keep" style="font-family: 'Gaegu', cursive; font-size: 16px; font-weight: 700; color: var(--pc-ink-muted);">
-                <i class="fi fi-rr-picture mr-1" aria-hidden="true"></i> 3D 레이어드 페이퍼 아트 핸드크래프트 원작 (Master Artwork)
+                <span class="pc-inline-icon is-xs mr-1" data-icon="image"></span> 3D 레이어드 페이퍼 아트 핸드크래프트 원작 (Master Artwork)
               </span>
               <div class="pc-row-wrap" style="--pc-gap: 6px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none">Master Paper Artwork</span>
-                <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none">16:9 Cinema View</span>
+                <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none">Master Paper Artwork</span>
+                <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">16:9 Cinema View</span>
               </div>
             </div>
           </div>
@@ -1162,8 +1160,8 @@
             <path class="pc-strata-layer pc-swatch-sand" d="M 0,130 L 0,105 Q 400,85 750,115 T 1200,98 L 1200,130 Z" fill="url(#pc-strata-grad-sand)" style="fill: url(#pc-strata-grad-sand);"></path>
           </svg>
           <div class="pc-strata-slot pc-slot-foreground" style="display: flex; align-items: center; justify-content: space-between; padding: 0 18px; position: absolute; bottom: 10px; left: 0; right: 0; z-index: 5;">
-            <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11.5px; font-weight: 800;">
-              <i class="fi fi-rr-mountains mr-1" aria-hidden="true"></i> 유기적 다층 종이 언덕 스트라타
+            <span class="pc-badge pc-badge--buttercup inline-flex items-center justify-center leading-none" style="font-size: 11.5px; font-weight: 800;">
+              <span class="pc-inline-icon is-xs mr-1" data-icon="mountain"></span> 유기적 다층 종이 언덕 스트라타
             </span>
             <span class="break-keep" style="font-size: 12px; font-weight: 700; color: #4A3A2C;">
               샌드 · 민트 · 라벤더 · 스카이 4단 파스텔 종이 언덕 겹침 단차
@@ -1180,12 +1178,12 @@
       <!-- 3. Bottom Section: Full-Width 10-Action Buttons Deck -->
       <div class="pc-hero-actions-container" style="margin-top: 20px;">
         <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px dashed #E5DCD1;">
-          <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">Quick Jump Decks</span>
+          <span class="pc-badge pc-badge--mint" style="font-size: 11px;">Quick Jump Decks</span>
           <h3 style="font-size: 16.5px; font-weight: 800; margin: 0; color: var(--pc-ink);">핵심 쇼케이스 바로가기 3D 페이퍼 커팅 버튼 덱</h3>
         </div>
         <div class="pc-hero-actions-grid hero-actions-deck" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; width: 100%;">
             <!-- 01. 우표 천공형: 44종 컴포넌트 키트 -->
-            <a href="#pc-components" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="44종 페이퍼 UI 마스터 컴포넌트 키트 이동">
+            <a href="#pc-components" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="44종 페이퍼 UI 마스터 컴포넌트 키트 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-stamp" x="-15%" y="-15%" width="130%" height="135%">
@@ -1212,7 +1210,7 @@
             </a>
 
             <!-- 02. 시네마 티켓형: 3D 페이퍼 커팅 버튼 (12종) -->
-            <a href="#pc-components/buttons" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="3D 레이어드 페이퍼 커팅 버튼 12종 컬렉션 보기">
+            <a href="#pc-components/buttons" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="3D 레이어드 페이퍼 커팅 버튼 12종 컬렉션 보기">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-ticket" x="-15%" y="-15%" width="130%" height="135%">
@@ -1231,7 +1229,7 @@
             </a>
 
             <!-- 03. 앤틱 왁스 실링형: 종이 소리 토글 버튼 -->
-            <button type="button" id="toggle-paper-sound" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="pill" title="종이 소리 바스락 효과음 켜기/끄기">
+            <button type="button" id="toggle-paper-sound" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="종이 소리 바스락 효과음 켜기/끄기">
               <span class="pc-inline-icon is-sm" data-icon="mute" style="display:none;"></span>
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -1269,7 +1267,7 @@
 
 
             <!-- 06. 크라프트 타공 태그형: 배경 플레이트 (130종) -->
-            <a href="#bg-library" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="130종 3D 아이콘 배경 플레이트 라이브러리 이동">
+            <a href="#bg-library" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="130종 3D 아이콘 배경 플레이트 라이브러리 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-tag" x="-15%" y="-15%" width="130%" height="135%">
@@ -1295,7 +1293,7 @@
             </a>
 
             <!-- 07. 수제 한지 데클 엣지형: 매트 크림 3D 질감 원리 -->
-            <a href="#texture-showcase" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="매트 크림 3D 질감 원리 쇼케이스 이동">
+            <a href="#texture-showcase" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="매트 크림 3D 질감 원리 쇼케이스 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-deckle" x="-15%" y="-15%" width="130%" height="135%">
@@ -1317,7 +1315,7 @@
             </a>
 
             <!-- 10. 삼각 플랩 편지 봉투형: 알림 & 토스트 시스템 -->
-            <a href="#paper-alerts-toasts" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="알림 & 토스트 시스템 이동">
+            <a href="#paper-alerts-toasts" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="알림 & 토스트 시스템 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-pocket" x="-15%" y="-15%" width="130%" height="135%">
@@ -1338,7 +1336,7 @@
 
 
             <!-- 12. 제비꼬리 리본 배너형: 페이퍼 애플리케이션 블록 (6선) -->
-            <a href="#pc-blocks-charts" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="페이퍼 애플리케이션 블록 6선 이동">
+            <a href="#pc-blocks-charts" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="페이퍼 애플리케이션 블록 6선 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-banner" x="-15%" y="-15%" width="130%" height="135%">
@@ -1361,7 +1359,7 @@
             </a>
 
             <!-- 13. 우표 천공형 (스카이): 스탠드얼론 아이콘 (678종) -->
-            <a href="#icon-gallery" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="678종 스탠드얼론 아이콘 갤러리 이동">
+            <a href="#icon-gallery" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="678종 스탠드얼론 아이콘 갤러리 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-stamp-sky" x="-15%" y="-15%" width="130%" height="135%">
@@ -1383,7 +1381,7 @@
             </a>
 
             <!-- 14. 시네마 티켓형 (로즈): 3D 페이퍼 차트 (12종) -->
-            <a href="#pc-charts-section" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="3D 페이퍼 벡터 차트 12종 이동">
+            <a href="#pc-charts-section" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="3D 페이퍼 벡터 차트 12종 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-ticket-rose" x="-15%" y="-15%" width="130%" height="135%">
@@ -1406,7 +1404,7 @@
             </a>
 
             <!-- 15. 우표 천공형 (피치): 레이어드 스택 & 겹침 스튜디오 (NEW) -->
-            <a href="#papercut-stacking-studio" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="레이어드 스택 & 겹침 스튜디오 바로가기">
+            <a href="#papercut-stacking-studio" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" title="레이어드 스택 & 겹침 스튜디오 바로가기">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="hero-btn-sh-stacking" x="-15%" y="-15%" width="130%" height="135%">
@@ -1457,11 +1455,11 @@
       
       <!-- 섹션 헤더 -->
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 8px; align-items: center;">
-        <span class="pc-badge pc-badge--stamp pc-badge--peach pc-swatch-peach inline-flex items-center justify-center leading-none">
-          <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> 5대 물리적 조형 시스템
+        <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none">
+          <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span> 5대 물리적 조형 시스템
         </span>
         <span class="pc-badge pc-badge--ticket pc-badge--mint pc-swatch-mint inline-flex items-center justify-center leading-none">
-          <i class="fi fi-rr-copy-alt mr-1" aria-hidden="true"></i> Stacking &amp; Interlocking
+          <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span> Stacking &amp; Interlocking
         </span>
         <span class="pc-badge pc-badge--tag pc-badge--lavender pc-swatch-lavender inline-flex items-center justify-center leading-none">
           Pure CSS · 0-Runtime
@@ -1485,11 +1483,11 @@
         <div class="pc-card pc-card-well pc-shadowbox-well" data-pc-paper="sheet" data-pc-tone="cream" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
           <div>
             <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">01. Paper Stack</span>
+              <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">01. Paper Stack</span>
               <span class="pc-badge pc-badge--ticket pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px;">부채꼴 &amp; 계단식</span>
             </div>
             <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-              <i class="fi fi-rr-copy-alt mr-1" aria-hidden="true"></i> 부채꼴 &amp; 계단식 종이 스택
+              <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span> 부채꼴 &amp; 계단식 종이 스택
             </h3>
             <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
               카드 아래 2~3장의 파스텔 색지가 오프셋되어 겹치며, 마우스 호버 시 부채처럼 탄성감 있게 펼쳐집니다.
@@ -1500,10 +1498,10 @@
             <!-- 부채꼴 스택 카드 (.pc-stack-fanned) -->
             <div class="pc-card pc-stack-fanned" data-pc-paper="ticket" data-pc-tone="mint" tabindex="0" role="region" aria-label="부채꼴 펼침 카드" style="width: 100%; max-width: 280px; padding: 20px; background: #FFFDF9; border: 1px solid rgba(46, 30, 20, 0.14); border-radius: 14px; cursor: pointer; text-align: left;">
               <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Fanned Deck</span>
+                <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Fanned Deck</span>
               </div>
               <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
-                <i class="fi fi-rr-magic-wand mr-1" aria-hidden="true"></i> 부채꼴 팝아웃 스택
+                <span class="pc-inline-icon is-xs mr-1" data-icon="wand-magic"></span> 부채꼴 팝아웃 스택
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
                 마우스를 올리면 뒤편 피치(-5°)와 민트(+4°) 색지가 좌우로 부채처럼 활짝 펼쳐집니다.
@@ -1516,7 +1514,7 @@
                 <span class="pc-badge pc-badge--ticket pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Cascade Deck</span>
               </div>
               <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
-                <i class="fi fi-rr-apps-add mr-1" aria-hidden="true"></i> 계단식 슬라이딩 스택
+                <span class="pc-inline-icon is-xs mr-1" data-icon="apps"></span> 계단식 슬라이딩 스택
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
                 호버 시 하단의 샌드(22px)와 피치(12px) 색지가 계단식으로 밀려나와 단차 입체감을 만듭니다.
@@ -1529,11 +1527,11 @@
         <div class="pc-card pc-card-well pc-shadowbox-well" data-pc-paper="sheet" data-pc-tone="cream" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
           <div>
             <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">02. Interlocking</span>
+              <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">02. Interlocking</span>
               <span class="pc-badge pc-badge--ticket pc-swatch-sky inline-flex items-center justify-center leading-none" style="font-size: 11px;">칼선 슬릿 꽂힘</span>
             </div>
             <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-              <i class="fi fi-rr-cut mr-1" aria-hidden="true"></i> 칼선 슬릿 인터로킹
+              <span class="pc-inline-icon is-xs mr-1" data-icon="scissors"></span> 칼선 슬릿 인터로킹
             </h3>
             <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
               조각칼로 정밀하게 낸 도화지 틈새(.pc-slot-slit) 속으로 인서트(.pc-slot-insert)가 실제로 꽂혀 들어갑니다.
@@ -1543,9 +1541,9 @@
           <div class="pc-slot-pocket" data-pc-paper="sheet" data-pc-tone="cream" style="background: #FFFDF9; border: 1px solid rgba(46, 30, 20, 0.14); border-radius: 14px; padding: 20px; position: relative;">
             <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <span class="break-keep" style="font-size: 13px; font-weight: 800; color: var(--pc-ink);">
-                <i class="fi fi-rr-ticket mr-1" aria-hidden="true"></i> 공예 전시 VIP 입장 티켓
+                <span class="pc-inline-icon is-xs mr-1" data-icon="ticket"></span> 공예 전시 VIP 입장 티켓
               </span>
-              <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 10px;">Slot Pocket</span>
+              <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none" style="font-size: 10px;">Slot Pocket</span>
             </div>
 
             <!-- 정밀 칼선 슬릿 (.pc-slot-slit) -->
@@ -1556,7 +1554,7 @@
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
                 <div style="text-align: left;">
                   <span class="break-keep" style="font-size: 13.5px; font-weight: 800; color: #855C08;">
-                    <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> NO. 2026-PC-VIP
+                    <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span> NO. 2026-PC-VIP
                   </span>
                   <div class="break-keep" style="font-size: 11.5px; color: var(--pc-ink-muted); margin-top: 2px;">
                     호버/포커스 시 슬릿에서 12px 솟아오릅니다.
@@ -1572,7 +1570,7 @@
             <div class="pc-slot-slit" style="margin-top: 24px;" aria-hidden="true"></div>
             <div class="pc-slot-insert" style="text-align: center; margin-top: 10px;">
               <button type="button" class="pc-btn pc-btn-peach inline-flex items-center justify-center leading-none break-keep" style="padding: 10px 20px; font-size: 13px; font-weight: 800; border-radius: 8px;">
-                <i class="fi fi-rr-check mr-1" aria-hidden="true"></i> 슬릿 잠금 확인 완료
+                <span class="pc-inline-icon is-xs mr-1" data-icon="check"></span> 슬릿 잠금 확인 완료
               </button>
             </div>
           </div>
@@ -1582,11 +1580,11 @@
         <div class="pc-card pc-card-well pc-shadowbox-well" data-pc-paper="sheet" data-pc-tone="cream" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 16px; box-sizing: border-box;">
           <div>
             <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px;">03. Shingle Deck</span>
+              <span class="pc-badge pc-badge--buttercup inline-flex items-center justify-center leading-none" style="font-size: 11px;">03. Shingle Deck</span>
               <span class="pc-badge pc-badge--ticket pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 11px;">기와형 겹침 (-24px)</span>
             </div>
             <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-              <i class="fi fi-rr-bars-sort mr-1" aria-hidden="true"></i> 기와형 계단식 슁글 덱
+              <span class="pc-inline-icon is-xs mr-1" data-icon="layout-list"></span> 기와형 계단식 슁글 덱
             </h3>
             <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
               위 카드가 아래 카드를 24px씩 덮으며 포개어지고, 호버 시 틈새에서 쏙 솟아오릅니다.
@@ -1598,9 +1596,9 @@
             <div class="pc-shingle-card" data-pc-paper="sheet" data-pc-tone="peach" role="listitem" tabindex="0">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
                 <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
-                  <i class="fi fi-rr-document mr-1" aria-hidden="true"></i> 1단: 300g 수제 코튼지 스펙
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span> 1단: 300g 수제 코튼지 스펙
                 </span>
-                <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 1</span>
+                <span class="pc-badge pc-badge--rose inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 1</span>
               </div>
               <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 6px 0 0;">
                 부드러운 면 펄프 섬유와 0.88px 화이트 림 라이트 마감
@@ -1610,7 +1608,7 @@
             <div class="pc-shingle-card" data-pc-paper="ticket" data-pc-tone="mint" role="listitem" tabindex="0">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
                 <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
-                  <i class="fi fi-rr-palette mr-1" aria-hidden="true"></i> 2단: 닥나무 전통 한지 팔레트
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="palette"></span> 2단: 닥나무 전통 한지 팔레트
                 </span>
                 <span class="pc-badge pc-badge--ticket pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 2</span>
               </div>
@@ -1622,7 +1620,7 @@
             <div class="pc-shingle-card" data-pc-paper="stamp" data-pc-tone="sand" role="listitem" tabindex="0">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
                 <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
-                  <i class="fi fi-rr-box-alt mr-1" aria-hidden="true"></i> 3단: 350g 크라프트 패키징 보드
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="package"></span> 3단: 350g 크라프트 패키징 보드
                 </span>
                 <span class="pc-badge pc-badge--tag pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 3</span>
               </div>
@@ -1634,9 +1632,9 @@
             <div class="pc-shingle-card" data-pc-paper="sheet" data-pc-tone="lavender" role="listitem" tabindex="0">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center;">
                 <span class="break-keep" style="font-size: 14px; font-weight: 800; color: var(--pc-ink);">
-                  <i class="fi fi-rr-diploma mr-1" aria-hidden="true"></i> 4단: 반투명 실크 벨러지 인증서
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="ribbon"></span> 4단: 반투명 실크 벨러지 인증서
                 </span>
-                <span class="pc-badge pc-badge--stamp pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 4</span>
+                <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none" style="font-size: 10px;">Layer 4</span>
               </div>
               <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 6px 0 0;">
                 반투명 오버레이로 레이어 간 깊이감(Depth)을 극대화
@@ -1649,11 +1647,11 @@
         <div class="pc-card pc-card-well pc-shadowbox-well" data-pc-paper="sheet" data-pc-tone="cream" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
           <div>
             <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 11px;">04. Craft Mounts</span>
+              <span class="pc-badge pc-badge--sky inline-flex items-center justify-center leading-none" style="font-size: 11px;">04. Craft Mounts</span>
               <span class="pc-badge pc-badge--ticket pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">포토 코너 &amp; 밴드</span>
             </div>
             <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-              <i class="fi fi-rr-bookmark mr-1" aria-hidden="true"></i> 포토 코너 &amp; 벨리 밴드 마운트
+              <span class="pc-inline-icon is-xs mr-1" data-icon="bookmark"></span> 포토 코너 &amp; 벨리 밴드 마운트
             </h3>
             <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
               빈티지 사진 앨범의 4귀퉁이 포켓과 고급 크래프트 노트를 감싸는 종이 띠 장식입니다.
@@ -1671,12 +1669,12 @@
             <!-- 중앙 벨리 밴드 -->
             <div class="pc-belly-band pc-is-mint" style="top: 50%;">
               <span class="inline-flex items-center justify-center leading-none break-keep" style="font-size: 11px; font-weight: 800; color: #275C46;">
-                <i class="fi fi-rr-sparkles mr-1" aria-hidden="true"></i> LIMITED HANDMADE EDITION
+                <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span> LIMITED HANDMADE EDITION
               </span>
             </div>
 
             <div style="padding: 20px 0;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px; margin-bottom: 8px;">
+              <span class="pc-badge pc-badge--buttercup inline-flex items-center justify-center leading-none" style="font-size: 11px; margin-bottom: 8px;">
                 Handmade Stationery
               </span>
               <h4 class="break-keep" style="font-size: 16px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
@@ -1693,11 +1691,11 @@
         <div class="pc-card pc-card-well pc-shadowbox-well" data-pc-paper="sheet" data-pc-tone="cream" style="padding: 24px; border-radius: 16px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box;">
           <div>
             <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px;">05. Nested Sheets</span>
+              <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">05. Nested Sheets</span>
               <span class="pc-badge pc-badge--ticket pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">2-Sheet 정갈한 중첩 스택</span>
             </div>
             <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-              <i class="fi fi-rr-copy mr-1" aria-hidden="true"></i> 2-Sheet 정갈한 중첩 스택 (.pc-card-nested)
+              <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span> 2-Sheet 정갈한 중첩 스택 (.pc-card-nested)
             </h3>
             <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
               상단 크림 본문 카드 뒤편으로 6px 균일하게 확장된 파스텔 백킹 색지가 겹쳐져, 단단한 2단 종이 공예 프레임을 형성합니다.
@@ -1708,11 +1706,11 @@
             <!-- 2-Sheet 내스티드 카드 1 (Kraft / Buttercup Underlay) -->
             <div class="pc-card pc-card-nested pc-underlay-kraft" data-pc-paper="stamp" data-pc-tone="sand" tabindex="0" role="region" aria-label="크라프트 백킹 2-Sheet 중첩 카드" style="width: 100%; max-width: 280px; padding: 20px; border-radius: 14px; cursor: pointer; text-align: left;">
               <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Kraft Underlay</span>
+                <span class="pc-badge pc-badge--buttercup inline-flex items-center justify-center leading-none" style="font-size: 10px;">Kraft Underlay</span>
                 <span class="pc-badge pc-badge--ticket pc-swatch-buttercup inline-flex items-center justify-center leading-none" style="font-size: 10px;">6px Offset</span>
               </div>
               <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
-                <i class="fi fi-rr-box mr-1" aria-hidden="true"></i> 크라프트 2-Sheet 스택
+                <span class="pc-inline-icon is-xs mr-1" data-icon="package"></span> 크라프트 2-Sheet 스택
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
                 0.88px 나이프 엣지 림 라이트와 2-Tier 번트 엄버 그림자로 정교한 2단 수제 종이 프레임을 구현합니다.
@@ -1722,11 +1720,11 @@
             <!-- 2-Sheet 내스티드 카드 2 (Mint Underlay) -->
             <div class="pc-card pc-card-nested pc-underlay-mint" data-pc-paper="ticket" data-pc-tone="mint" tabindex="0" role="region" aria-label="민트 백킹 2-Sheet 중첩 카드" style="width: 100%; max-width: 280px; padding: 20px; border-radius: 14px; cursor: pointer; text-align: left;">
               <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 8px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Mint Underlay</span>
+                <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Mint Underlay</span>
                 <span class="pc-badge pc-badge--ticket pc-swatch-sky inline-flex items-center justify-center leading-none" style="font-size: 10px;">Dual Rim</span>
               </div>
               <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
-                <i class="fi fi-rr-leaf mr-1" aria-hidden="true"></i> 민트 파스텔 2-Sheet 스택
+                <span class="pc-inline-icon is-xs mr-1" data-icon="leaf"></span> 민트 파스텔 2-Sheet 스택
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
                 호버 시 본문 카드와 백킹 시트가 미세하게 동기 부유하며 단차 그림자가 부드럽게 깊어집니다.
@@ -1748,7 +1746,7 @@
     <section class="pc-card pc-card-sheet pc-matte-showcase pc-page-view" id="texture-showcase">
       <div class="pc-washi-tape pc-washi-tape-buttercup"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--stamp pc-badge--peach pc-badge-peach">Deep Technical Insight</span>
+        <span class="pc-badge pc-badge--peach">Deep Technical Insight</span>
         <span class="pc-badge pc-badge--ticket pc-badge--mint pc-badge-mint">Pure CSS + SVG Pulp Shader</span>
       </div>
       <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
@@ -1766,7 +1764,7 @@
           <div>
             <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 14px;">
               <h4 style="margin: 0; font-size: 16px; font-weight: 800;">실시간 3D 종이 질감 인터랙티브 시뮬레이터</h4>
-              <span class="pc-badge pc-badge--stamp pc-badge--lavender pc-badge-lavender">Live Shader</span>
+              <span class="pc-badge pc-badge--lavender">Live Shader</span>
             </div>
 
             <!-- Paper Sheet Display -->
@@ -1793,7 +1791,7 @@
               <!-- Artwork Sample in Canvas -->
               <div class="pc-matte-art-preview">
                 <div class="pc-row-wrap" style="--pc-gap: 8px;">
-                  <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint">300g Heavyweight</span>
+                  <span class="pc-badge pc-badge--mint">300g Heavyweight</span>
                   <span class="pc-badge pc-badge--ticket pc-badge--peach pc-badge-peach">Cotton Cold-Press</span>
                 </div>
                 <div style="font-size: 26px; font-weight: 800; color: var(--pc-ink); letter-spacing: -0.5px;">
@@ -1877,7 +1875,7 @@
         <div class="pc-row-wrap" style="--pc-gap: 14px; justify-content: space-between; margin-bottom: 20px;">
           <div>
             <div class="pc-row-wrap" style="--pc-gap: 6px; margin-bottom: 4px;">
-              <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint">Universal UI Extension</span>
+              <span class="pc-badge pc-badge--mint">Universal UI Extension</span>
               <span class="pc-badge pc-badge--tag pc-badge--peach pc-badge-peach">.pc-texture-paper</span>
               <span class="pc-badge pc-badge--ticket pc-badge--lavender pc-badge-lavender">0-Byte SVG Data-URI</span>
             </div>
@@ -1943,7 +1941,7 @@
     <section class="pc-card pc-card-sheet pc-card-stacked pc-page-view" id="paper-sound-studio">
       <div class="pc-washi-tape pc-washi-tape-buttercup"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--stamp pc-badge--buttercup pc-badge-buttercup"><span class="pc-inline-icon is-color is-xs" data-icon="volume"></span> Web Audio API Physical Synthesis</span>
+        <span class="pc-badge pc-badge--buttercup"><span class="pc-inline-icon is-color is-xs" data-icon="volume"></span> Web Audio API Physical Synthesis</span>
         <span class="pc-badge pc-badge--ticket pc-badge--mint pc-badge-mint">0ms Zero Latency</span>
         <span class="pc-badge pc-badge--tag pc-badge--lavender pc-badge-lavender">8종 맞춤형 촉각 사운드</span>
       </div>
@@ -1984,7 +1982,7 @@
                 <span style="font-size: 20px;">🌿</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">300g 수제 코튼지</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 10px;">300gsm</span>
+              <span class="pc-badge pc-badge--mint" style="font-size: 10px;">300gsm</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               100% 코튼 펄프의 부드러운 쿠션감과 묵직한 두께감. 귀를 간지럽히는 포근하고 부드러운 벨벳 섬유질 서걱임.
@@ -2023,7 +2021,7 @@
                 <span style="font-size: 20px;">🎋</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">닥나무 전통 한지</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--sage" style="font-size: 10px;">한지</span>
+              <span class="pc-badge pc-badge--sage" style="font-size: 10px;">한지</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               길고 질긴 닥나무 껍질 섬유가 결대로 스치는 맑고 찰랑이는 사각거림. 비단처럼 부드럽고 산뜻한 고주파 마찰 결.
@@ -2062,7 +2060,7 @@
                 <span style="font-size: 20px;">📦</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">350g 크라프트 보드</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--coral" style="font-size: 10px;">350gsm</span>
+              <span class="pc-badge pc-badge--peach" style="font-size: 10px;">350gsm</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               단단하고 빳빳한 하드보드가 부딪히는 묵직한 바디 울림. 140Hz 감쇠 정현파 공명과 거친 브라운 노이즈의 둔탁음.
@@ -2101,7 +2099,7 @@
                 <span style="font-size: 20px;">📜</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">반투명 실크 벨러지</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--sky" style="font-size: 10px;">벨럼</span>
+              <span class="pc-badge pc-badge--sky" style="font-size: 10px;">벨럼</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               매끄럽고 빳빳한 반투명 트레이싱지 특유의 찰랑이는 바삭바삭함. 5800Hz 초고역 밴드패스와 듀얼 마이크로 크래클.
@@ -2140,7 +2138,7 @@
                 <span style="font-size: 20px;">🎨</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">오리가미 화지</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 10px;">색종이</span>
+              <span class="pc-badge pc-badge--lavender" style="font-size: 10px;">색종이</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               색종이를 반듯하게 접을 때 손끝에 전해지는 경쾌한 스냅. 1500Hz 숏 톤 접힘 임펄스로 명쾌한 폴딩 타격감 연출.
@@ -2179,7 +2177,7 @@
                 <span style="font-size: 20px;">📦</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">골판지 카톤</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--buttercup" style="font-size: 10px;">골판지</span>
+              <span class="pc-badge pc-badge--buttercup" style="font-size: 10px;">골판지</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               3중 박스 요철 골(Flute)을 손톱이나 칼로 스칠 때 나는 자르륵-드르륵 리듬. 52Hz 사각파 게이트 변조와 180Hz 바디 울림.
@@ -2218,7 +2216,7 @@
                 <span style="font-size: 20px;">📰</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">빈티지 신문지</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--rose" style="font-size: 10px;">신문지</span>
+              <span class="pc-badge pc-badge--rose" style="font-size: 10px;">신문지</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               45gsm 초경량지의 얇고 건조한 파스락거림. 3단계 다단 펄럭임(Flutter) 엔벨로프로 신문을 넘기거나 구길 때의 가벼운 잔향.
@@ -2257,7 +2255,7 @@
                 <span style="font-size: 20px;">📜</span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">고문서 양피지</span>
               </div>
-              <span class="pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 10px;">양피지</span>
+              <span class="pc-badge pc-badge--peach" style="font-size: 10px;">양피지</span>
             </div>
             <p style="font-size: 13px; color: #665C54; line-height: 1.5; margin: 0 0 12px; word-break: keep-all;">
               바싹 마른 중세 양피지의 건조하고 바삭한 크리스피 크랙클. 3800Hz 피킹 필터와 4개의 불규칙 파열음이 만드는 앤틱 사운드.
@@ -2316,7 +2314,7 @@
     <section class="pc-card pc-card-sheet pc-card-stacked pc-page-view" id="paper-alerts-toasts">
       <div class="pc-washi-tape pc-washi-tape-lavender"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--stamp pc-badge--mint pc-badge-mint">Notification Center</span>
+        <span class="pc-badge pc-badge--mint">Notification Center</span>
         <span class="pc-badge pc-badge--ticket pc-badge--peach pc-badge-peach">4 Semantic Types</span>
         <span class="pc-badge pc-badge--tag pc-badge--sky pc-badge-sky">Interactive Toast Studio</span>
       </div>
@@ -2335,7 +2333,7 @@
             <h3 style="font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink);">
               <span class="pc-inline-icon is-sm" data-icon="bookmark"></span> 페이퍼 알림 슬립 (Alert Variants)
             </h3>
-            <span class="pc-badge pc-badge--stamp pc-badge--lavender pc-badge-lavender" style="font-size: 11px;">4가지 상태 규격</span>
+            <span class="pc-badge pc-badge--lavender" style="font-size: 11px;">4가지 상태 규격</span>
           </div>
 
           <div class="pc-alert-suite">
@@ -2707,7 +2705,7 @@
     <section class="pc-card pc-card-stacked pc-page-view" id="icon-gallery">
       <div class="pc-washi-tape pc-washi-tape-peach"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--stamp pc-badge--sky">No Background Box</span>
+        <span class="pc-badge pc-badge--sky">No Background Box</span>
         <span class="pc-badge pc-badge--ticket pc-badge--buttercup">Pure Paper-Cut Art</span>
         <span class="pc-badge pc-badge--tag pc-badge--mint">Click to Copy SVG</span>
       </div>
@@ -2727,7 +2725,7 @@
             <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
             <input type="text" id="icon-search-input" class="pc-input" data-pc-paper="field" placeholder="아이콘 이름, 숫자(0-9), 기호(#, &), 영문/태그 검색 (예: 0, 7, #, &, 체크, coffee, check, mail...)" style="padding-left: 44px; width: 100%; border-radius: 999px; height: 44px;">
           </div>
-          <span class="pc-badge pc-badge--stamp pc-badge--mint" id="icon-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">659개 아이콘</span>
+          <span class="pc-badge pc-badge--mint" id="icon-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">659개 아이콘</span>
           <span style="font-size: 13px; color: var(--pc-ink-muted); display: inline-flex; align-items: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>아이콘 카드를 클릭하면 인라인 SVG 코드가 클립보드에 즉시 복사됩니다.</span></span>
         </div>
 
@@ -2764,7 +2762,7 @@
     <section class="pc-card pc-card-stacked pc-page-view" id="bg-library" data-alias="icon-backgrounds">
       <div class="pc-washi-tape pc-washi-tape-mint"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--stamp pc-badge--peach">Icon Plate System</span>
+        <span class="pc-badge pc-badge--peach">Icon Plate System</span>
         <span class="pc-badge pc-badge--ticket pc-badge--mint">130 Curated Shapes</span>
         <span class="pc-badge pc-badge--tag pc-badge--lavender">Multi-Layered Paper-Cut</span>
       </div>
@@ -2803,7 +2801,7 @@
           </div>
 
           <div class="pc-row-wrap" style="--pc-gap: 10px;">
-            <span class="pc-badge pc-badge--stamp pc-badge--peach" id="bg-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">130개 배경 모양</span>
+            <span class="pc-badge pc-badge--peach" id="bg-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">130개 배경 모양</span>
             <span style="font-size: 13px; color: var(--pc-ink-muted); display: inline-flex; align-items: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>카드의 버튼을 누르면 인라인 SVG 또는 CSS 클래스가 즉시 복사됩니다.</span></span>
           </div>
         </div>
@@ -2832,7 +2830,7 @@
       <div id="kirigami-components" data-alias="pc-components" style="position: absolute; top: -60px; left: 0;"></div>
       <div class="pc-washi-tape pc-washi-tape-peach"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--stamp pc-badge--mint">Paper UI Master Suite</span>
+        <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Paper UI Master Suite</span>
         <span class="pc-badge pc-badge--ticket pc-badge--peach">100% Pure SVG 다층 페이퍼아트</span>
         <span class="pc-badge pc-badge--ticket pc-badge--lavender" style="font-size: 11px;">버튼 · 특화 카드 · 배지 · 폼 &amp; 44종 통합</span>
       </div>
@@ -2847,8 +2845,8 @@
       <!-- 7.0 Universal Papercraft Die-Cut & Aperture Showcase Banner -->
       <div class="pc-aperture-header pc-swatch-mint" style="margin-bottom: 28px; padding: 22px 24px; border-radius: 16px;">
         <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 8px; align-items: center;">
-          <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none">
-            <i class="fi fi-rr-cut mr-1" aria-hidden="true"></i> Handcrafted Die-Cut Architecture
+          <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">
+            <span class="pc-inline-icon is-xs mr-1" data-icon="scissors"></span> Handcrafted Die-Cut Architecture
           </span>
           <span class="pc-badge pc-badge--ticket pc-swatch-peach inline-flex items-center justify-center leading-none">
             Aperture Window &amp; Paper Patch
@@ -2875,19 +2873,26 @@
           </div>
 
           <!-- 데모 2: 티켓 노치 다이컷 (Ticket Notch) -->
-          <div class="pc-card pc-diecut-ticket" style="padding: 14px 18px; border-radius: 12px;">
+          <div class="pc-card pc-diecut-ticket" style="padding: 26px 18px 14px; border-radius: 12px; position: relative;">
+            <div class="pc-ticket-punch-strip" aria-hidden="true">
+              <span class="pc-ticket-punch-slot"></span>
+              <span class="pc-ticket-punch-slot"></span>
+              <span class="pc-ticket-punch-slot"></span>
+              <span class="pc-ticket-punch-slot"></span>
+              <span class="pc-ticket-punch-slot"></span>
+            </div>
             <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 6px;">
               <span class="pc-badge pc-badge--ticket pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Ticket Notch</span>
               <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #275C46;">.pc-diecut-ticket</span>
             </div>
-            <div class="break-keep" style="font-size: 13px; font-weight: 800; color: var(--pc-ink); margin-bottom: 4px;">양옆 절취 홈 노치 엣지</div>
-            <div class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted);">티켓 반원형 칼선으로 디지털 박스감 탈피</div>
+            <div class="break-keep" style="font-size: 13px; font-weight: 800; color: var(--pc-ink); margin-bottom: 4px;">상단 펀치 슬롯 &amp; 양옆 절취 홈 노치</div>
+            <div class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted);">티켓 펀칭 구멍과 반원형 칼선으로 리얼한 종이 티켓 구현</div>
           </div>
 
           <!-- 데모 3: 우표 톱니 다이컷 (Stamp Perforation) -->
           <div class="pc-card pc-diecut-stamp" style="padding: 14px 18px; border-radius: 12px;">
             <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Stamp Perforation</span>
+              <span class="pc-badge pc-badge--buttercup inline-flex items-center justify-center leading-none" style="font-size: 10px;">Stamp Perforation</span>
               <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #6E530F;">.pc-diecut-stamp</span>
             </div>
             <div class="break-keep" style="font-size: 13px; font-weight: 800; color: var(--pc-ink); margin-bottom: 4px;">상단 우표 톱니 천공 칼선</div>
@@ -2919,38 +2924,38 @@
               <span class="pc-inline-icon is-xs" data-icon="scissors"></span>
               <span>01. 3D 레이어드 SVG 페이퍼 커팅 버튼 (시그니처 12 · 7대 색지 7 · 형태 5)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint">Pure SVG Knife-Cut</span>
+            <span class="pc-badge pc-badge--mint">Pure SVG Knife-Cut</span>
           </div>
 
           <!-- Pure CSS 7 Swatches Knife-Edge Button Palette -->
           <div class="pc-shadowbox-well" style="margin-bottom: 24px; padding: 16px; border-radius: 14px;">
             <div class="pc-row-wrap" style="--pc-gap: 8px; justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <span class="break-keep" style="font-size: 13.5px; font-weight: 800; color: var(--pc-ink);">
-                <i class="fi fi-rr-palette mr-1" aria-hidden="true"></i> 원작 7대 색지 순수 CSS 나이프 엣지 림 라이트 버튼 갤러리 (.pc-btn-primary.pc-swatch-*)
+                <span class="pc-inline-icon is-xs mr-1" data-icon="palette"></span> 원작 7대 색지 순수 CSS 나이프 엣지 림 라이트 버튼 갤러리 (.pc-btn-primary.pc-swatch-*)
               </span>
-              <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">0.8px Rim Light</span>
+              <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">0.8px Rim Light</span>
             </div>
             <div class="pc-row-wrap" style="--pc-gap: 10px; align-items: center; flex-wrap: wrap;">
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-cloud inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
-                <i class="fi fi-rr-cloud mr-1" aria-hidden="true"></i> Cloud White
+                <span class="pc-inline-icon is-xs mr-1" data-icon="cloud-sun"></span> Cloud White
               </button>
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-mint inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
-                <i class="fi fi-rr-leaf mr-1" aria-hidden="true"></i> Mint Cotton
+                <span class="pc-inline-icon is-xs mr-1" data-icon="leaf"></span> Mint Cotton
               </button>
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-peach inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
-                <i class="fi fi-rr-heart mr-1" aria-hidden="true"></i> Peach Warm
+                <span class="pc-inline-icon is-xs mr-1" data-icon="heart"></span> Peach Warm
               </button>
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-sand inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
-                <i class="fi fi-rr-sun mr-1" aria-hidden="true"></i> Sand Yellow
+                <span class="pc-inline-icon is-xs mr-1" data-icon="sun"></span> Sand Yellow
               </button>
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-lavender inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
-                <i class="fi fi-rr-bell mr-1" aria-hidden="true"></i> Lavender Purple
+                <span class="pc-inline-icon is-xs mr-1" data-icon="bell"></span> Lavender Purple
               </button>
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-sky inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
-                <i class="fi fi-rr-paper-plane mr-1" aria-hidden="true"></i> Sky Blue
+                <span class="pc-inline-icon is-xs mr-1" data-icon="paper-plane"></span> Sky Blue
               </button>
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-sage inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
-                <i class="fi fi-rr-sprout mr-1" aria-hidden="true"></i> Sage Green
+                <span class="pc-inline-icon is-xs mr-1" data-icon="sprout"></span> Sage Green
               </button>
             </div>
           </div>
@@ -2968,14 +2973,14 @@
           <div class="pc-stack pc-button-showcase-card" style="--pc-gap: 14px; padding: 22px; justify-content: space-between;">
             <div>
               <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 6px;">
-                <span class="pc-badge pc-badge--stamp pc-badge--mint">01. 빈티지 우표 천공형</span>
+                <span class="pc-badge pc-badge--mint">01. 빈티지 우표 천공형</span>
                 <span style="font-size: 11.5px; font-weight: 800; color: #275C46;">Perforated Stamp</span>
               </div>
               <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.5; margin: 0;">
                 초슬림 세이지 우표 톱니 테두리 + 밀착 매트 크림 인레이 + 점선 절취선 + 3D 가위
               </p>
             </div>
-            <button type="button" class="pc-svg-kirigami-btn" data-pc-paper="ticket" title="빈티지 우표 천공 SVG 버튼" onclick="showPaperToast('01. 빈티지 우표 천공 페이퍼 커팅 버튼!', 'mint', 'scissors')">
+            <button type="button" class="pc-svg-kirigami-btn" title="빈티지 우표 천공 SVG 버튼" onclick="showPaperToast('01. 빈티지 우표 천공 페이퍼 커팅 버튼!', 'mint', 'scissors')">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-btn-sh-stamp" x="-15%" y="-15%" width="130%" height="135%">
@@ -3014,14 +3019,14 @@
           <div class="pc-stack pc-button-showcase-card" style="--pc-gap: 14px; padding: 22px; justify-content: space-between;">
             <div>
               <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 6px;">
-                <span class="pc-badge pc-badge--stamp pc-badge--peach">02. 앤틱 왁스 실링형</span>
+                <span class="pc-badge pc-badge--peach">02. 앤틱 왁스 실링형</span>
                 <span style="font-size: 11.5px; font-weight: 800; color: #8A4822;">Wax Seal Action</span>
               </div>
               <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.5; margin: 0;">
                 녹아내린 유기적 왁스 웅덩이 + 피치 왁스 림 + 양각 하트 엠보싱 인장
               </p>
             </div>
-            <button type="button" class="pc-svg-kirigami-btn" data-pc-paper="pill" title="앤틱 왁스 실링 인장 SVG 버튼" onclick="showPaperToast('02. 앤틱 왁스 실링 인장 페이퍼 커팅 버튼!', 'rose', 'heart')">
+            <button type="button" class="pc-svg-kirigami-btn" title="앤틱 왁스 실링 인장 SVG 버튼" onclick="showPaperToast('02. 앤틱 왁스 실링 인장 페이퍼 커팅 버튼!', 'rose', 'heart')">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-btn-sh-wax" x="-15%" y="-15%" width="130%" height="135%">
@@ -3065,7 +3070,7 @@
                 양측 반원 노치 홈 + 크림 화이트 인레이 + 보라색 점선 절취선 + 스타 스탬프
               </p>
             </div>
-            <button type="button" class="pc-svg-kirigami-btn" data-pc-paper="ticket" title="노치 시네마 티켓 SVG 버튼" onclick="showPaperToast('03. 노치 시네마 티켓 페이퍼 커팅 버튼!', 'buttercup', 'star')">
+            <button type="button" class="pc-svg-kirigami-btn" title="노치 시네마 티켓 SVG 버튼" onclick="showPaperToast('03. 노치 시네마 티켓 페이퍼 커팅 버튼!', 'buttercup', 'star')">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-btn-sh-ticket" x="-15%" y="-15%" width="130%" height="135%">
@@ -3093,14 +3098,14 @@
           <div class="pc-stack pc-button-showcase-card" style="--pc-gap: 14px; padding: 22px; justify-content: space-between;">
             <div>
               <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 6px;">
-                <span class="pc-badge pc-badge--stamp pc-badge--sky">04. 2단 투톤 색지 적층형</span>
+                <span class="pc-badge pc-badge--sky">04. 2단 투톤 색지 적층형</span>
                 <span style="font-size: 11.5px; font-weight: 800; color: #204C5A;">Two-Tone Layered</span>
               </div>
               <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.5; margin: 0;">
                 하단 딥 마린 색지(#82C6D8) + 상단 파스텔 스카이 색지(#BEE1E6) 2단 적층 나이프 컷
               </p>
             </div>
-            <button type="button" class="pc-svg-kirigami-btn" data-pc-paper="pill" title="2단 투톤 색지 적층 SVG 나이프 버튼" onclick="showPaperToast('04. 2단 투톤 색지 적층 페이퍼 커팅 버튼!', 'sky', 'paper-plane')">
+            <button type="button" class="pc-svg-kirigami-btn" title="2단 투톤 색지 적층 SVG 나이프 버튼" onclick="showPaperToast('04. 2단 투톤 색지 적층 페이퍼 커팅 버튼!', 'sky', 'paper-plane')">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-btn-sh-thin" x="-15%" y="-15%" width="130%" height="135%">
@@ -3133,7 +3138,7 @@
       <!-- Part 2: 7대 파스텔 색지 & 형태별 순수 SVG 페이퍼 커팅 버튼 컬렉션 -->
       <div style="margin-top: 36px; padding-top: 24px; border-top: 1.5px dashed #E5DCD1;">
         <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1.5px dashed #E5DCD1;">
-          <span class="pc-badge pc-badge--stamp pc-badge--buttercup">Pure SVG 7 Pastels</span>
+          <span class="pc-badge pc-badge--buttercup">Pure SVG 7 Pastels</span>
           <h3 style="font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink);">7대 파스텔 색지 &amp; 형태별 순수 SVG 다층 페이퍼 커팅 버튼 시스템</h3>
         </div>
         <p style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0 0 20px; line-height: 1.6;">
@@ -3146,7 +3151,7 @@
           <div class="pc-row-wrap" style="--pc-gap: 12px; align-items: center;">
 
             <!-- Buttercup -->
-            <button type="button" class="pc-svg-kirigami-btn" data-pc-paper="ticket" title="버터컵 노란색 종이 버튼" onclick="showPaperToast('기본 버터컵 노란색 종이 버튼 클릭!', 'buttercup', 'sparkles')">
+            <button type="button" class="pc-svg-kirigami-btn" title="버터컵 노란색 종이 버튼" onclick="showPaperToast('기본 버터컵 노란색 종이 버튼 클릭!', 'buttercup', 'sparkles')">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 176 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 176px; height: 44px;">
                 <defs>
                   <filter id="svg-btn-sh-p2-buttercup" x="-15%" y="-15%" width="130%" height="135%">
@@ -3165,7 +3170,7 @@
             </button>
 
             <!-- Mint -->
-            <button type="button" class="pc-svg-kirigami-btn" data-pc-paper="ticket" title="민트 색지 버튼" onclick="showPaperToast('민트 색지 버튼 클릭!', 'mint', 'leaf')">
+            <button type="button" class="pc-svg-kirigami-btn" title="민트 색지 버튼" onclick="showPaperToast('민트 색지 버튼 클릭!', 'mint', 'leaf')">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 176 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 176px; height: 44px;">
                 <defs>
                   <filter id="svg-btn-sh-p2-mint" x="-15%" y="-15%" width="130%" height="135%">
@@ -3185,7 +3190,7 @@
             </button>
 
             <!-- Peach -->
-            <button type="button" class="pc-svg-kirigami-btn" data-pc-paper="ticket" title="피치 색지 버튼" onclick="showPaperToast('피치 색지 버튼 클릭!', 'peach', 'heart')">
+            <button type="button" class="pc-svg-kirigami-btn" title="피치 색지 버튼" onclick="showPaperToast('피치 색지 버튼 클릭!', 'peach', 'heart')">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 176 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 176px; height: 44px;">
                 <defs>
                   <filter id="svg-btn-sh-p2-peach" x="-15%" y="-15%" width="130%" height="135%">
@@ -3445,7 +3450,7 @@
           <div class="pc-stack pc-button-showcase-card" style="--pc-gap: 14px; padding: 22px; justify-content: space-between;">
             <div>
               <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 6px;">
-                <span class="pc-badge pc-badge--stamp pc-badge--mint">06. 도그이어 접힌 모서리</span>
+                <span class="pc-badge pc-badge--mint">06. 도그이어 접힌 모서리</span>
                 <span style="font-size: 11.5px; font-weight: 800; color: #275C46;">Dog-ear Folded Card</span>
               </div>
               <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.5; margin: 0;">
@@ -3487,7 +3492,7 @@
           <div class="pc-stack pc-button-showcase-card" style="--pc-gap: 14px; padding: 22px; justify-content: space-between;">
             <div>
               <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 6px;">
-                <span class="pc-badge pc-badge--stamp pc-badge--mint">07. 마스킹 테이프 메모</span>
+                <span class="pc-badge pc-badge--mint">07. 마스킹 테이프 메모</span>
                 <span style="font-size: 11.5px; font-weight: 800; color: #275C46;">Washi-Tape Note</span>
               </div>
               <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.5; margin: 0;">
@@ -3643,7 +3648,7 @@
           <div class="pc-stack pc-button-showcase-card" style="--pc-gap: 14px; padding: 22px; justify-content: space-between;">
             <div>
               <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 6px;">
-                <span class="pc-badge pc-badge--stamp pc-badge--peach">11. 삼각 플랩 봉투 포켓</span>
+                <span class="pc-badge pc-badge--peach">11. 삼각 플랩 봉투 포켓</span>
                 <span style="font-size: 11.5px; font-weight: 800; color: #8A4822;">Pocket Envelope</span>
               </div>
               <p style="font-size: 13px; color: var(--pc-ink-muted); line-height: 1.5; margin: 0;">
@@ -3725,18 +3730,18 @@
               <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
               <span>02. 4대 특화 페이퍼 커팅 카드 &amp; 패널 (Pure SVG Multi-Layered Art)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint">Pure SVG 2-Tier Shadow</span>
+            <span class="pc-badge pc-badge--mint">Pure SVG 2-Tier Shadow</span>
           </div>
 
           <!-- Shadowbox Recessed Well & Frame Bleed Demonstration -->
           <div class="pc-shadowbox-well pc-frame-bleed" style="margin-bottom: 24px; padding: 20px; border-radius: 14px; position: relative;">
             <div class="pc-washi-tape pc-washi-tape-peach" aria-hidden="true"></div>
-            <span class="pc-badge pc-bleed-badge pc-badge--stamp pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 11px;">
-              <i class="fi fi-rr-layers mr-1" aria-hidden="true"></i> Recessed Depth
+            <span class="pc-badge pc-bleed-badge pc-badge--lavender inline-flex items-center justify-center leading-none" style="font-size: 11px;">
+              <span class="pc-inline-icon is-xs mr-1" data-icon="layers"></span>Recessed Depth
             </span>
             <div class="pc-row-wrap" style="--pc-gap: 8px; justify-content: space-between; align-items: center; margin-bottom: 10px;">
               <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0; color: var(--pc-ink);">
-                <i class="fi fi-rr-box mr-1" aria-hidden="true"></i> 섀도우박스 음각 웰 (.pc-shadowbox-well) &amp; 마트보드 액자 (.pc-recessed-mat)
+                <span class="pc-inline-icon is-xs mr-1" data-icon="package"></span>섀도우박스 음각 웰 (.pc-shadowbox-well) &amp; 마트보드 액자 (.pc-recessed-mat)
               </h4>
               <span class="pc-badge pc-badge--ticket pc-swatch-sage inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Step 2 Components</span>
             </div>
@@ -3752,9 +3757,16 @@
                 <div style="font-size: 12.5px; font-weight: 800; color: #1C4835; margin-bottom: 4px;">.pc-shadowbox-well.pc-is-deep</div>
                 <div style="font-size: 11.5px; color: var(--pc-ink-muted);">깊은 음각 섀도우 웰 &amp; 다층 페이퍼 안착</div>
               </div>
-              <div class="pc-card pc-diecut-ticket" style="padding: 16px; border-radius: 10px; background: #FFFDF9;">
+              <div class="pc-card pc-diecut-ticket" style="padding: 26px 16px 14px; border-radius: 10px; background: #FFFDF9; position: relative;">
+                <div class="pc-ticket-punch-strip" aria-hidden="true">
+                  <span class="pc-ticket-punch-slot"></span>
+                  <span class="pc-ticket-punch-slot"></span>
+                  <span class="pc-ticket-punch-slot"></span>
+                  <span class="pc-ticket-punch-slot"></span>
+                  <span class="pc-ticket-punch-slot"></span>
+                </div>
                 <div style="font-size: 12.5px; font-weight: 800; color: #8A4822; margin-bottom: 4px;">.pc-diecut-ticket</div>
-                <div style="font-size: 11.5px; color: var(--pc-ink-muted);">양옆 반원 노치 절취선 &amp; 티켓 실루엣</div>
+                <div style="font-size: 11.5px; color: var(--pc-ink-muted);">상단 천공 펀치 슬롯 &amp; 양옆 노치 절취선</div>
               </div>
               <div class="pc-card pc-card-nested pc-underlay-mint" style="padding: 16px; border-radius: 10px; background: #FFFDF9;">
                 <div style="font-size: 12.5px; font-weight: 800; color: #275C46; margin-bottom: 4px;">.pc-card-nested.pc-underlay-mint</div>
@@ -3921,6 +3933,14 @@
                 <path d="M 6 6 L 374 6 L 374 95 A 15 15 0 0 0 374 125 L 374 214 L 6 214 L 6 125 A 15 15 0 0 0 6 95 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88" filter="url(#svg-card-sh-ticket)"/>
                 <!-- Inner Cream Inlay & Perforation -->
                 <path d="M 12 12 L 368 12 L 368 97 A 12 12 0 0 0 368 123 L 368 208 L 12 208 L 12 123 A 12 12 0 0 0 12 97 Z" fill="#FAF6ED" stroke="#BDE0EA" stroke-width="0.75" stroke-dasharray="3 3"/>
+                <!-- Top-Left Sprocket Punch Slots -->
+                <g class="pc-svg-ticket-punches" fill="#D4C6B0">
+                  <rect x="24" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="34" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="44" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="54" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="64" y="20" width="5" height="14" rx="2.5"/>
+                </g>
                 <line x1="280" y1="12" x2="280" y2="208" stroke="#D7CBEB" stroke-width="1.2" stroke-dasharray="3 3"/>
               </svg>
               <div class="pc-svg-card-content">
@@ -4005,7 +4025,7 @@
           <!-- B. 둥근 다이컷 에디션 카드 그리드 (.is-rounded) -->
           <div style="margin-bottom: 14px; padding-top: 18px; border-top: 1.5px dashed #E5DCD1;">
             <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-              <span class="pc-badge pc-badge--stamp pc-badge--peach">Die-Cut Rounded</span>
+              <span class="pc-badge pc-badge--peach">Die-Cut Rounded</span>
               <h4 style="font-size: 16px; font-weight: 800; margin: 0; color: var(--pc-ink);">모서리가 둥근 페이퍼 커팅 카드 &amp; 패널 에디션 (.is-rounded)</h4>
             </div>
             <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 0 0 16px; line-height: 1.55;">
@@ -4016,7 +4036,7 @@
           <div class="pc-kirigami-card-grid">
 
             <!-- 01-R. 둥근 도그이어 접힌 카드 -->
-            <div class="pc-svg-card-frame-wrap" data-pc-paper="sheet" data-pc-tone="mint">
+            <div class="pc-svg-card-frame-wrap">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-dogear-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -4063,7 +4083,7 @@
             </div>
 
             <!-- 02-R. 둥근 마스킹 테이프 메모 카드 -->
-            <div class="pc-svg-card-frame-wrap" data-pc-paper="sheet" data-pc-tone="peach">
+            <div class="pc-svg-card-frame-wrap">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-washi-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -4104,7 +4124,7 @@
             </div>
 
             <!-- 03-R. 둥근 수제 한지 데클 엣지 카드 -->
-            <div class="pc-svg-card-frame-wrap" data-pc-paper="sheet" data-pc-tone="buttercup">
+            <div class="pc-svg-card-frame-wrap">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-deckle-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -4141,7 +4161,7 @@
             </div>
 
             <!-- 04-R. 둥근 노치 시네마 티켓 카드 -->
-            <div class="pc-svg-card-frame-wrap" data-pc-paper="ticket" data-pc-tone="sky">
+            <div class="pc-svg-card-frame-wrap">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-ticket-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -4153,7 +4173,14 @@
                 <path d="M 22 6 L 358 6 Q 374 6 374 22 L 374 95 A 15 15 0 0 0 374 125 L 374 198 Q 374 214 358 214 L 22 214 Q 6 214 6 198 L 6 125 A 15 15 0 0 0 6 95 L 6 22 Q 6 6 22 6 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88" filter="url(#svg-card-sh-ticket-rnd)"/>
                 <!-- Inner Cream Inlay & Perforation -->
                 <path d="M 22 12 L 358 12 Q 368 12 368 22 L 368 97 A 12 12 0 0 0 368 123 L 368 198 Q 368 208 358 208 L 22 208 Q 12 208 12 198 L 12 123 A 12 12 0 0 0 12 97 L 12 22 Q 12 12 22 12 Z" fill="#FAF6ED" stroke="#BDE0EA" stroke-width="0.75" stroke-dasharray="3 3"/>
-                <line x1="280" y1="12" x2="280" y2="208" stroke="#D7CBEB" stroke-width="1.2" stroke-dasharray="3 3"/>
+                <!-- Top-Left Sprocket Punch Slots -->
+                <g class="pc-svg-ticket-punches" fill="#D4C6B0">
+                  <rect x="28" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="38" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="48" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="58" y="20" width="5" height="14" rx="2.5"/>
+                  <rect x="68" y="20" width="5" height="14" rx="2.5"/>
+                </g>
               </svg>
               <div class="pc-svg-card-content">
                 <div>
@@ -4216,9 +4243,9 @@
           <!-- C. 2-Sheet 정갈한 중첩 스택 카드 에디션 (.pc-card-nested) -->
           <div style="margin-top: 24px; margin-bottom: 14px; padding-top: 18px; border-top: 1.5px dashed #E5DCD1;">
             <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-              <span class="pc-badge pc-badge--stamp pc-swatch-sand inline-flex items-center justify-center leading-none">2-Sheet Nested Stack</span>
+              <span class="pc-badge pc-badge--buttercup inline-flex items-center justify-center leading-none">2-Sheet Nested Stack</span>
               <h4 class="break-keep" style="font-size: 16px; font-weight: 800; margin: 0; color: var(--pc-ink);">
-                <i class="fi fi-rr-copy mr-1" aria-hidden="true"></i> 2-Sheet 정갈한 중첩 스택 카드 에디션 (.pc-card-nested)
+                <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span>2-Sheet 정갈한 중첩 스택 카드 에디션 (.pc-card-nested)
               </h4>
             </div>
             <p class="break-keep" style="font-size: 13px; color: var(--pc-ink-muted); margin: 0 0 16px; line-height: 1.55;">
@@ -4230,11 +4257,11 @@
             <!-- C-01. Mint Underlay -->
             <div class="pc-card pc-card-nested pc-underlay-mint" style="padding: 22px; border-radius: 14px;">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Mint Backing</span>
+                <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Mint Backing</span>
                 <span class="break-keep" style="font-size: 11.5px; font-weight: 800; color: #275C46;">.pc-underlay-mint</span>
               </div>
               <h4 class="break-keep" style="font-size: 15.5px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-                <i class="fi fi-rr-leaf mr-1" aria-hidden="true"></i> 세이지 민트 2-Sheet 카드
+                <span class="pc-inline-icon is-xs mr-1" data-icon="leaf"></span>세이지 민트 2-Sheet 카드
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0 0 12px; line-height: 1.5;">
                 싱그러운 민트 색지가 본문 뒤로 6px 돌출되어 산뜻한 윤곽선을 형성합니다.
@@ -4248,11 +4275,11 @@
             <!-- C-02. Peach Underlay -->
             <div class="pc-card pc-card-nested pc-underlay-peach" style="padding: 22px; border-radius: 14px;">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Peach Backing</span>
+                <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Peach Backing</span>
                 <span class="break-keep" style="font-size: 11.5px; font-weight: 800; color: #8A4822;">.pc-underlay-peach</span>
               </div>
               <h4 class="break-keep" style="font-size: 15.5px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-                <i class="fi fi-rr-heart mr-1" aria-hidden="true"></i> 살구 피치 2-Sheet 카드
+                <span class="pc-inline-icon is-xs mr-1" data-icon="heart"></span>살구 피치 2-Sheet 카드
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0 0 12px; line-height: 1.5;">
                 따스한 피치 톤의 백킹 시트가 본문 카드를 포근하게 감싸는 공예 카드입니다.
@@ -4266,11 +4293,11 @@
             <!-- C-03. Lavender Underlay -->
             <div class="pc-card pc-card-nested pc-underlay-lavender" style="padding: 22px; border-radius: 14px;">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Lavender Backing</span>
+                <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Lavender Backing</span>
                 <span class="break-keep" style="font-size: 11.5px; font-weight: 800; color: #4B3A6E;">.pc-underlay-lavender</span>
               </div>
               <h4 class="break-keep" style="font-size: 15.5px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-                <i class="fi fi-rr-diploma mr-1" aria-hidden="true"></i> 라벤더 퍼플 2-Sheet 카드
+                <span class="pc-inline-icon is-xs mr-1" data-icon="ribbon"></span>라벤더 퍼플 2-Sheet 카드
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0 0 12px; line-height: 1.5;">
                 차분하고 우아한 연보라 백킹 시트로 인증서 및 프리미엄 안내에 적합합니다.
@@ -4284,11 +4311,11 @@
             <!-- C-04. Sky Underlay -->
             <div class="pc-card pc-card-nested pc-underlay-sky" style="padding: 22px; border-radius: 14px;">
               <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <span class="pc-badge pc-badge--stamp pc-swatch-sky inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Sky Backing</span>
+                <span class="pc-badge pc-badge--sky inline-flex items-center justify-center leading-none" style="font-size: 10.5px;">Sky Backing</span>
                 <span class="break-keep" style="font-size: 11.5px; font-weight: 800; color: #204C5A;">.pc-underlay-sky</span>
               </div>
               <h4 class="break-keep" style="font-size: 15.5px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-                <i class="fi fi-rr-cloud mr-1" aria-hidden="true"></i> 스카이 블루 2-Sheet 카드
+                <span class="pc-inline-icon is-xs mr-1" data-icon="cloud-sun"></span>스카이 블루 2-Sheet 카드
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0 0 12px; line-height: 1.5;">
                 맑고 청량한 파스텔 하늘색 백킹 시트가 본문 카드에 시원한 입체감을 더합니다.
@@ -4310,38 +4337,38 @@
               <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
               <span>03. 6대 특화 페이퍼 커팅 배지 모델 &amp; 7대 색지 시스템 (Pure SVG Badges)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--peach">6 Models &amp; 7 Pastels</span>
+            <span class="pc-badge pc-badge--peach">6 Models &amp; 7 Pastels</span>
           </div>
 
           <!-- Pure CSS 7 Swatches Knife-Edge Badges Demonstration -->
           <div class="pc-shadowbox-well" style="margin-bottom: 24px; padding: 16px; border-radius: 14px;">
             <div class="pc-row-wrap" style="--pc-gap: 8px; justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <span class="break-keep" style="font-size: 13.5px; font-weight: 800; color: var(--pc-ink);">
-                <i class="fi fi-rr-badge-percent mr-1" aria-hidden="true"></i> 원작 7대 색지 순수 CSS 칼선 림 라이트 배지 시스템 (.pc-swatch-*)
+                <span class="pc-inline-icon is-xs mr-1" data-icon="award-star"></span>원작 7대 색지 순수 CSS 칼선 림 라이트 배지 시스템 (.pc-swatch-*)
               </span>
-              <span class="pc-badge pc-badge--stamp pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">7 Swatches</span>
+              <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">7 Swatches</span>
             </div>
             <div class="pc-row-wrap" style="--pc-gap: 8px; align-items: center; flex-wrap: wrap;">
               <span class="pc-badge pc-swatch-cloud inline-flex items-center justify-center leading-none">
-                <i class="fi fi-rr-cloud mr-1" aria-hidden="true"></i> Cloud White
+                <span class="pc-inline-icon is-xs mr-1" data-icon="cloud-sun"></span>Cloud White
               </span>
               <span class="pc-badge pc-swatch-mint inline-flex items-center justify-center leading-none">
-                <i class="fi fi-rr-leaf mr-1" aria-hidden="true"></i> Mint Cotton
+                <span class="pc-inline-icon is-xs mr-1" data-icon="leaf"></span>Mint Cotton
               </span>
               <span class="pc-badge pc-swatch-peach inline-flex items-center justify-center leading-none">
-                <i class="fi fi-rr-heart mr-1" aria-hidden="true"></i> Peach Warm
+                <span class="pc-inline-icon is-xs mr-1" data-icon="heart"></span>Peach Warm
               </span>
               <span class="pc-badge pc-swatch-sand inline-flex items-center justify-center leading-none">
-                <i class="fi fi-rr-sun mr-1" aria-hidden="true"></i> Sand Yellow
+                <span class="pc-inline-icon is-xs mr-1" data-icon="sun"></span>Sand Yellow
               </span>
               <span class="pc-badge pc-swatch-lavender inline-flex items-center justify-center leading-none">
-                <i class="fi fi-rr-bell mr-1" aria-hidden="true"></i> Lavender Purple
+                <span class="pc-inline-icon is-xs mr-1" data-icon="bell"></span>Lavender Purple
               </span>
               <span class="pc-badge pc-swatch-sky inline-flex items-center justify-center leading-none">
-                <i class="fi fi-rr-paper-plane mr-1" aria-hidden="true"></i> Sky Blue
+                <span class="pc-inline-icon is-xs mr-1" data-icon="paper-plane"></span>Sky Blue
               </span>
               <span class="pc-badge pc-swatch-sage inline-flex items-center justify-center leading-none">
-                <i class="fi fi-rr-sprout mr-1" aria-hidden="true"></i> Sage Green
+                <span class="pc-inline-icon is-xs mr-1" data-icon="sprout"></span>Sage Green
               </span>
             </div>
           </div>
@@ -4639,7 +4666,7 @@
           <div style="background: #FAF7F0; border-radius: 14px; padding: 22px; border: 1.5px solid rgba(74, 58, 42, 0.12); box-shadow: inset 0 1px 0 #FFFFFF, 0 2px 6px rgba(46, 30, 20, 0.08); margin-bottom: 24px;">
             <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 14px;">
               <span style="font-size: 13.5px; font-weight: 800; color: var(--pc-ink);">7대 파스텔 색지 기본 컬러웨이 (100% Pure SVG 다층 배지)</span>
-              <span class="pc-badge pc-badge--stamp pc-badge--cream">7 Core Pastels</span>
+              <span class="pc-badge pc-badge--cream">7 Core Pastels</span>
             </div>
             <div class="pc-row-wrap" style="--pc-gap: 12px; align-items: center;">
               
@@ -4826,16 +4853,16 @@
               <span class="pc-inline-icon is-xs" data-icon="edit"></span>
               <span>04. 폼 컨트롤 &amp; 음각 드롭다운 셀렉트 (Pure SVG Hand-Cut Frames &amp; Layered Select)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--buttercup">Form Controls &amp; Select</span>
+            <span class="pc-badge pc-badge--buttercup">Form Controls &amp; Select</span>
           </div>
 
           <!-- Pure CSS Form Controls Inlays (.pc-input-paper, .pc-select-paper) -->
           <div class="pc-shadowbox-well" style="margin-bottom: 24px; padding: 18px; border-radius: 14px;">
             <div class="pc-row-wrap" style="--pc-gap: 8px; justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <span class="break-keep" style="font-size: 13.5px; font-weight: 800; color: var(--pc-ink);">
-                <i class="fi fi-rr-edit mr-1" aria-hidden="true"></i> 순수 CSS 도화지 음각 인레이 폼 컨트롤 (.pc-input-paper, .pc-select-paper)
+                <span class="pc-inline-icon is-xs mr-1" data-icon="edit"></span>순수 CSS 도화지 음각 인레이 폼 컨트롤 (.pc-input-paper, .pc-select-paper)
               </span>
-              <span class="pc-badge pc-badge--stamp pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">Cutout Well</span>
+              <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">Cutout Well</span>
             </div>
             <div class="pc-grid-cols" style="--pc-cols: 2; --pc-grid-gap: 14px;">
               <div>
@@ -4921,7 +4948,7 @@
                 <label class="pc-label" for="pc-input-well-demo">
                   <span class="pc-inline-icon is-xs" data-icon="edit"></span>
                   <span>칼로 파낸 종이 음각 인풋 (.pc-input.is-well)</span>
-                  <span class="pc-badge pc-badge--stamp pc-badge--peach">이전 음각 방식</span>
+                  <span class="pc-badge pc-badge--peach">이전 음각 방식</span>
                 </label>
                 <input type="text" id="pc-input-well-demo" class="pc-input is-well" data-pc-paper="field" placeholder="칼로 종이를 음각으로 파낸 깊이감 (하단 1px 반사 림)" value="칼선 음각 깊이감 + 하단 1px 화이트 림">
               </div>
@@ -4931,7 +4958,7 @@
                 <label class="pc-label" for="pc-select-well-demo">
                   <span class="pc-inline-icon is-xs" data-icon="palette"></span>
                   <span>데클 종이 드롭다운 셀렉트 (.pc-select.is-well)</span>
-                  <span class="pc-badge pc-badge--stamp pc-badge--mint">데클 프레임 버튼 + 데클 메뉴</span>
+                  <span class="pc-badge pc-badge--mint">데클 프레임 버튼 + 데클 메뉴</span>
                 </label>
                 <div class="pc-select-wrapper is-enhanced">
                   <div class="pc-dropdown-custom is-well" data-linked-select="pc-select-well-demo">
@@ -5114,7 +5141,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> Badges, Sliders &amp; Toggles (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">Pure SVG Layers</span>
+            <span class="pc-badge pc-badge--mint" style="font-size: 11px;">Pure SVG Layers</span>
           </div>
 
           <!-- Badges Row: 5대 100% Pure SVG 다층 페이퍼 배지 -->
@@ -5348,7 +5375,7 @@
               <span class="pc-btn-icon-plate pc-btn-icon-plate--mint"><span class="pc-inline-icon is-xs" data-icon="edit"></span></span>
               <span>Input, Select, Combobox &amp; OTP (Pure SVG &amp; Deckle)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 11px;">Carved Inset</span>
+            <span class="pc-badge pc-badge--peach" style="font-size: 11px;">Carved Inset</span>
           </div>
 
           <!-- Carved Input with Icon: Pure SVG Wavy Deckle Frame & Writing Slot -->
@@ -5395,7 +5422,7 @@
               <span class="pc-ui-label" id="pc-forms-select-label" style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 800; margin-bottom: 6px;">
                 <span class="pc-btn-icon-plate pc-btn-icon-plate--mint" style="width: 20px; height: 20px;"><span class="pc-inline-icon is-xs" data-icon="palette"></span></span>
                 <span>Select 셀렉트</span>
-                <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 10px; padding: 1px 6px;">데클 코튼지</span>
+                <span class="pc-badge pc-badge--mint" style="font-size: 10px; padding: 1px 6px;">데클 코튼지</span>
               </span>
               <div class="pc-ui-select" data-state="closed" data-value="300g 수제 코튼지" style="position: relative;">
                 <button type="button" class="pc-ui-select-trigger is-well" data-pc-paper="deckle" data-pc-tone="mint" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="pc-forms-select-label pc-forms-select-value">
@@ -5431,7 +5458,7 @@
               <span class="pc-ui-label" id="pc-forms-combo-label" style="display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 800; margin-bottom: 6px;">
                 <span class="pc-btn-icon-plate pc-btn-icon-plate--peach" style="width: 20px; height: 20px;"><span class="pc-inline-icon is-xs" data-icon="search"></span></span>
                 <span>Combobox 검색</span>
-                <span class="pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 10px; padding: 1px 6px;">데클 검색</span>
+                <span class="pc-badge pc-badge--peach" style="font-size: 10px; padding: 1px 6px;">데클 검색</span>
               </span>
               <div class="pc-ui-combobox" data-state="closed" style="position: relative;">
                 <button type="button" class="pc-ui-combobox-trigger is-well" data-pc-paper="deckle" data-pc-tone="peach" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="pc-forms-combo-label pc-forms-combo-value">
@@ -5475,7 +5502,7 @@
           <div class="pc-ui-otp-wrapper">
             <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 6px;">
               <label class="pc-ui-label" style="font-size: 11.5px; font-weight: 800; margin-bottom: 0;">Input OTP (3D 페이퍼컷 배경 플레이트 인증코드)</label>
-              <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 10px; padding: 2px 8px;">6종 배경 전환</span>
+              <span class="pc-badge pc-badge--mint" style="font-size: 10px; padding: 2px 8px;">6종 배경 전환</span>
             </div>
 
             <!-- Shape Switcher Toolbar -->
@@ -5531,7 +5558,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="check"></span> Checkbox, Radio &amp; Switch (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 11px;">Tactile Controls</span>
+            <span class="pc-badge pc-badge--lavender" style="font-size: 11px;">Tactile Controls</span>
           </div>
 
           <!-- Origami Checkboxes with Pure SVG 3D Streamline V Checkmark -->
@@ -5644,7 +5671,7 @@
               <span class="pc-inline-icon is-xs" data-icon="bookmark"></span>
               <span>05. 내비게이션 &amp; 메뉴 시스템 (Folder Tabs, Menubar, Breadcrumb &amp; Pagination)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--sky">Navigation &amp; Menus</span>
+            <span class="pc-badge pc-badge--sky">Navigation &amp; Menus</span>
           </div>
           <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 8px 0 0; line-height: 1.5;">
             3겹 서류철 탭, 리본 스타일 메뉴바, 브레드크럼 및 티켓 페이지네이션으로 구성된 모던 페이퍼 내비게이션 스위트입니다.
@@ -5657,7 +5684,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="bookmark"></span> Tabs, Breadcrumb &amp; Pagination (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--sky" style="font-size: 11px;">Folder Tabs</span>
+            <span class="pc-badge pc-badge--sky" style="font-size: 11px;">Folder Tabs</span>
           </div>
 
           <!-- 3D Manila Folder Tabs Component (Pure SVG 45° Chamfered Ears) -->
@@ -5857,7 +5884,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="layout-list"></span> Menubar &amp; Navigation Menu (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 11px;">Paper Ribbons</span>
+            <span class="pc-badge pc-badge--lavender" style="font-size: 11px;">Paper Ribbons</span>
           </div>
 
           <!-- 3D Paper Menubar Component with Pure SVG Cardstock Bar -->
@@ -5966,7 +5993,7 @@
               <span class="pc-inline-icon is-xs" data-icon="sliders"></span>
               <span>06. 오버레이 &amp; 피드백 시스템 (Shadowbox Modals, Dialogs, Accordion, Dropdown, Alerts &amp; Toasts)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--peach">Overlays &amp; Feedback</span>
+            <span class="pc-badge pc-badge--peach">Overlays &amp; Feedback</span>
           </div>
           <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 8px 0 0; line-height: 1.5;">
             4대 특화 모달(마스킹 테이프, 앤틱 왁스, 시네마 티켓, 도그이어 접힌 카드)과 3D 아코디언, 드롭다운 메뉴, 4단 얼럿 시스템입니다.
@@ -5979,7 +6006,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="file"></span> Accordion &amp; Collapsible (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">Pleated Folds</span>
+            <span class="pc-badge pc-badge--mint" style="font-size: 11px;">Pleated Folds</span>
           </div>
 
           <div class="pc-ui-accordion pc-stack" data-type="single" style="--pc-gap: 12px;">
@@ -6065,7 +6092,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="eye"></span> Overlays & Shadowbox Modals
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 11px;">Shadow Box</span>
+            <span class="pc-badge pc-badge--peach" style="font-size: 11px;">Shadow Box</span>
           </div>
 
           <p style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0 0 14px; line-height: 1.5;">
@@ -6198,7 +6225,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="sliders"></span> Dropdown, Context Menu &amp; Popover (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 11px;">Folded Overlays</span>
+            <span class="pc-badge pc-badge--peach" style="font-size: 11px;">Folded Overlays</span>
           </div>
 
           <!-- Floating 3D Paper Dropdown Menu (Pure SVG Cardstock Panel with Dog-ear Flap) -->
@@ -6282,7 +6309,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="bell"></span> Alert, Alert Dialog &amp; Toast (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--rose" style="font-size: 11px;">Warning Seals</span>
+            <span class="pc-badge pc-badge--rose" style="font-size: 11px;">Warning Seals</span>
           </div>
 
           <!-- 4-Tier Pure SVG Ticket Notch Alert Slips -->
@@ -6403,7 +6430,7 @@
               <span class="pc-inline-icon is-xs" data-icon="file"></span>
               <span>07. 데이터 &amp; 레이아웃 시스템 (Ruled Ledger Data Table, Calendar, Carousel &amp; Resizable)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint">Data &amp; Layout</span>
+            <span class="pc-badge pc-badge--mint">Data &amp; Layout</span>
           </div>
           <p style="font-size: 13px; color: var(--pc-ink-muted); margin: 8px 0 0; line-height: 1.5;">
             장부선(Ruled Ledger) 데이터 테이블, 다이얼로그 캘린더, 3D 다이오라마 캐러셀, 리사이저블 스플릿 패널 및 툴팁입니다.
@@ -6416,7 +6443,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="file"></span> Data Table &amp; Calendar (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">Ruled Ledger</span>
+            <span class="pc-badge pc-badge--mint" style="font-size: 11px;">Ruled Ledger</span>
           </div>
 
           <!-- Ruled Ledger Data Table with Pure SVG Brass Clip Pin & Ruled Lines -->
@@ -6442,7 +6469,7 @@
                     <td class="is-strong" style="padding: 10px 12px; font-weight: 800; color: #1C4835;">#PC-842</td>
                     <td style="padding: 10px 12px; font-size: 12.5px;">350g 코튼 매트보드</td>
                     <td style="padding: 10px 12px;">
-                      <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">완료</span>
+                      <span class="pc-badge pc-badge--mint" style="font-size: 11px;">완료</span>
                     </td>
                     <td class="is-num is-strong" style="padding: 10px 12px; text-align: right; font-weight: 800; color: #1C4835;">₩28,000</td>
                   </tr>
@@ -6502,7 +6529,7 @@
             <span class="pc-row-wrap" style="--pc-gap: 6px; font-size: 14px; font-weight: 800; color: var(--pc-ink);">
               <span class="pc-inline-icon is-xs" data-icon="sparkles"></span> Card, Carousel &amp; Tooltip (Pure SVG)
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--buttercup" style="font-size: 11px;">3D Diorama &amp; Cards</span>
+            <span class="pc-badge pc-badge--buttercup" style="font-size: 11px;">3D Diorama &amp; Cards</span>
           </div>
 
           <!-- Handmade Card: Pure SVG Shadowbox Diorama Frame -->
@@ -6513,7 +6540,7 @@
             </div>
             <div class="pc-ui-card-content" style="display: flex; gap: 8px; flex-wrap: wrap;">
               <span class="pc-badge pc-badge--tag pc-badge--peach" style="font-size: 11px;">350g</span>
-              <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">코튼</span>
+              <span class="pc-badge pc-badge--mint" style="font-size: 11px;">코튼</span>
               <span class="pc-badge pc-badge--ticket pc-badge--sky" style="font-size: 11px;">무광</span>
             </div>
           </div>
@@ -6587,7 +6614,7 @@
                 색지를 겹겹이 쌓아 만든 3D 종이 말풍선입니다.
               </span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 11px;">44종 전 스위트 Pure SVG 완비</span>
+            <span class="pc-badge pc-badge--mint" style="font-size: 11px;">44종 전 스위트 Pure SVG 완비</span>
           </div>
         </div>
 
@@ -6600,7 +6627,7 @@
     <section class="pc-card pc-card-stacked pc-page-view" id="pc-blocks-charts" data-pc-paper="sheet" data-pc-tone="cream">
       <div class="pc-washi-tape pc-washi-tape-mint"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--stamp pc-badge--mint">Paper-Cut Blocks</span>
+        <span class="pc-badge pc-badge--mint">Paper-Cut Blocks</span>
         <span class="pc-badge pc-badge--ticket pc-badge--peach">6 Core Scenarios</span>
         <span class="pc-badge pc-badge--tag pc-badge--lavender" style="font-size: 11px;">참고: shadcn/ui 블록 아키텍처</span>
       </div>
@@ -6640,7 +6667,7 @@
       <div class="pc-washi-tape pc-washi-tape-lavender"></div>
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
         <span class="pc-badge pc-badge--ticket pc-badge--lavender inline-flex items-center justify-center leading-none">3D Vector Charts</span>
-        <span class="pc-badge pc-badge--stamp pc-badge--mint inline-flex items-center justify-center leading-none">Papercraft Data Viz</span>
+        <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Papercraft Data Viz</span>
         <span class="pc-badge pc-badge--tag pc-badge--peach inline-flex items-center justify-center leading-none">12 Master Archetypes</span>
       </div>
       <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
@@ -6654,19 +6681,19 @@
       <!-- Category Filter Tabs Bar -->
       <div class="pc-row-scroll pc-filter-pills-row" style="padding-bottom: 8px; margin-bottom: 24px;">
         <button type="button" class="pc-filter-btn is-active inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="all" onclick="PaperCutUI.filterCharts('all', this)">
-          <i class="fi fi-rr-apps" style="margin-right: 6px;" aria-hidden="true"></i>전체 (All)
+          <span class="pc-inline-icon is-xs mr-1" data-icon="apps"></span>전체 (All)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="trends" onclick="PaperCutUI.filterCharts('trends', this)">
-          <i class="fi fi-rr-chart-line-up" style="margin-right: 6px;" aria-hidden="true"></i>추세 및 시계열 (Trends)
+          <span class="pc-inline-icon is-xs mr-1" data-icon="activity"></span>추세 및 시계열 (Trends)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="comparisons" onclick="PaperCutUI.filterCharts('comparisons', this)">
-          <i class="fi fi-rr-chart-histogram" style="margin-right: 6px;" aria-hidden="true"></i>비교 및 비율 (Comparisons)
+          <span class="pc-inline-icon is-xs mr-1" data-icon="sort-asc"></span>비교 및 비율 (Comparisons)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="distributions" onclick="PaperCutUI.filterCharts('distributions', this)">
-          <i class="fi fi-rr-chart-scatter" style="margin-right: 6px;" aria-hidden="true"></i>분포 및 상관 (Distributions)
+          <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span>분포 및 상관 (Distributions)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="gauges" onclick="PaperCutUI.filterCharts('gauges', this)">
-          <i class="fi fi-rr-tachometer-fast" style="margin-right: 6px;" aria-hidden="true"></i>게이지 및 달성도 (Gauges)
+          <span class="pc-inline-icon is-xs mr-1" data-icon="gauge"></span>게이지 및 달성도 (Gauges)
         </button>
       </div>
 
@@ -6681,10 +6708,10 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-area" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="mountain"></span>
               <span class="break-keep">01. Area Chart (페이퍼 산맥 마운틴 지형)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint inline-flex items-center justify-center leading-none">Layered Area</span>
+            <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Layered Area</span>
           </div>
           <div data-papercut-chart="area" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
@@ -6697,7 +6724,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-histogram" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="sort-asc"></span>
               <span class="break-keep">02. Bar Chart (도톰한 종이 기둥 입체 차트)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--peach inline-flex items-center justify-center leading-none">Cardstock Columns</span>
@@ -6713,7 +6740,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-line-up" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="activity"></span>
               <span class="break-keep">03. Line Chart (오리가미 종이 리본 웨이브)</span>
             </span>
             <span class="pc-badge pc-badge--ribbon pc-badge--lavender inline-flex items-center justify-center leading-none">Ribbon Curve</span>
@@ -6729,7 +6756,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-pie" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="pie-chart-clean"></span>
               <span class="break-keep">04. Donut Chart (부채꼴 색종이 휠)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--buttercup inline-flex items-center justify-center leading-none">Origami Fan</span>
@@ -6745,7 +6772,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-radar" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="shield-check"></span>
               <span class="break-keep">05. Radar Chart (페이퍼 커팅 입체 연 폴리곤)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--sky inline-flex items-center justify-center leading-none">Kite Polygon</span>
@@ -6761,10 +6788,10 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-dashboard" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="dashboard"></span>
               <span class="break-keep">06. Radial Bar Chart (원형 종이 링 게이지)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint inline-flex items-center justify-center leading-none">Paper Gauge</span>
+            <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Paper Gauge</span>
           </div>
           <div data-papercut-chart="radial" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
@@ -6777,7 +6804,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-grid" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="grid-view"></span>
               <span class="break-keep">07. Heatmap Mosaic (색종이 모자이크 타일 히트맵)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--peach inline-flex items-center justify-center leading-none">Mosaic Grid</span>
@@ -6793,7 +6820,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-candlestick" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="award-star"></span>
               <span class="break-keep">08. Candlestick Range (종이 핀셋 캔들스틱 차트)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--rose inline-flex items-center justify-center leading-none">Craft Tweezers</span>
@@ -6809,10 +6836,10 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-scatter" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span>
               <span class="break-keep">09. Confetti Bubble (공중 부유 콘페티 버블 산점도)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--lavender inline-flex items-center justify-center leading-none">Confetti Scatter</span>
+            <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none">Confetti Scatter</span>
           </div>
           <div data-papercut-chart="bubble" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
@@ -6825,7 +6852,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-pyramid" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="mountain"></span>
               <span class="break-keep">10. Pyramid Funnel (계단식 절단면 퍼널 피라미드)</span>
             </span>
             <span class="pc-badge pc-badge--ribbon pc-badge--buttercup inline-flex items-center justify-center leading-none">Cutout Funnel</span>
@@ -6841,7 +6868,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-chart-tree-map" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="grid-view"></span>
               <span class="break-keep">11. Kirigami Treemap (키리가미 바둑판 트리맵)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--sage inline-flex items-center justify-center leading-none">Kirigami Tiles</span>
@@ -6857,10 +6884,10 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <i class="fi fi-rr-tachometer-fast" aria-hidden="true"></i>
+              <span class="pc-inline-icon is-xs mr-1" data-icon="gauge"></span>
               <span class="break-keep">12. Compass Gauge (반원형 종이 나침반 게이지)</span>
             </span>
-            <span class="pc-badge pc-badge--stamp pc-badge--sky inline-flex items-center justify-center leading-none">Compass Dial</span>
+            <span class="pc-badge pc-badge--sky inline-flex items-center justify-center leading-none">Compass Dial</span>
           </div>
           <div data-papercut-chart="gauge" style="flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 280px; width: 100%;"></div>
         </div>
@@ -6888,9 +6915,9 @@
             수제 종이공예의 따스한 질감과 물리적 입체감을 디지털 인터페이스로 완벽히 구현한 레이어드 페이퍼 아트 디자인 시스템입니다.
           </p>
           <div class="pc-footer-pills">
-            <span class="pc-badge pc-badge--stamp pc-badge--peach"><span class="pc-inline-icon is-color is-xs" data-icon="scissors"></span> <span>2-Tier 48% Stacking</span></span>
-            <span class="pc-badge pc-badge--stamp pc-badge--mint">Pure CSS + Vanilla JS</span>
-            <span class="pc-badge pc-badge--stamp pc-badge--buttercup">WCAG 2.1 AA 44px+</span>
+            <span class="pc-badge pc-badge--peach"><span class="pc-inline-icon is-color is-xs" data-icon="scissors"></span> <span>2-Tier 48% Stacking</span></span>
+            <span class="pc-badge pc-badge--mint">Pure CSS + Vanilla JS</span>
+            <span class="pc-badge pc-badge--buttercup">WCAG 2.1 AA 44px+</span>
           </div>
         </div>
 

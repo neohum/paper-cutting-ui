@@ -10231,7 +10231,48 @@
     "pie-chart-clean": "pie-chart-clean",
     "layout-list": "layout-list",
     "bolt": "lightning",
-    "document": "file"
+    "document": "file",
+
+    // Flaticon (fi fi-rr) Migration & Component Suite Mappings
+    "cut": "scissors",
+    "scissors": "scissors",
+    "sparkles": "sparkles",
+    "magic-wand": "wand-magic",
+    "wand-magic": "wand-magic",
+    "cloud": "cloud-sun",
+    "cloud-sun": "cloud-sun",
+    "cloud-rain": "cloud-rain",
+    "mountains": "mountain",
+    "mountain": "mountain",
+    "picture": "image",
+    "image": "image",
+    "copy": "file",
+    "copy-alt": "file",
+    "apps-add": "apps",
+    "ticket": "ticket",
+    "bars-sort": "layout-list",
+    "box": "package",
+    "box-alt": "package",
+    "diploma": "ribbon",
+    "badge-percent": "award-star",
+    "chart-line": "activity",
+    "chart-line-up": "activity",
+    "chart-histogram": "sort-asc",
+    "chart-bar": "sort-asc",
+    "chart-scatter": "sparkles",
+    "tachometer-fast": "gauge",
+    "gauge": "gauge",
+    "dashboard": "dashboard",
+    "chart-area": "mountain",
+    "chart-pie": "pie-chart-clean",
+    "chart-radar": "shield-check",
+    "grid": "grid-view",
+    "grid-view": "grid-view",
+    "chart-candlestick": "award-star",
+    "candle": "award-star",
+    "chart-pyramid": "mountain",
+    "pyramid": "mountain",
+    "chart-tree-map": "grid-view"
   };
 
   function getIconMap() {
@@ -10242,8 +10283,18 @@
       });
       // Register aliases
       for (const [alias, realId] of Object.entries(ICON_ALIASES)) {
-        if (!iconLookupMap.has(alias) && iconLookupMap.has(realId)) {
-          iconLookupMap.set(alias, iconLookupMap.get(realId));
+        if (!iconLookupMap.has(alias)) {
+          if (iconLookupMap.has(realId)) {
+            iconLookupMap.set(alias, iconLookupMap.get(realId));
+          } else {
+            // Tag-based resolution fallback
+            for (const icon of iconLookupMap.values()) {
+              if (icon.tags && icon.tags.includes(alias)) {
+                iconLookupMap.set(alias, icon);
+                break;
+              }
+            }
+          }
         }
       }
     }

@@ -72,7 +72,9 @@ function initDropdowns() {
         // 라벨 갱신
         const labelEl = document.getElementById('header-paper-current-label');
         if (labelEl) {
-          labelEl.textContent = item.textContent.trim();
+          const labelSpan = item.querySelector('.pc-dropdown-item-label');
+          const cleanText = labelSpan ? labelSpan.textContent.trim() : item.textContent.replace(/^[\p{Extended_Pictographic}\uFE0F\s]+/u, '').trim();
+          labelEl.textContent = cleanText;
         }
 
         // 아이템 활성 상태 동기화
@@ -193,7 +195,9 @@ function syncHeaderPaperDropdown(paperType) {
     btn.classList.toggle('pc-is-active', isTarget);
     btn.classList.toggle('is-selected', isTarget);
     if (isTarget && currentLabel) {
-      currentLabel.textContent = btn.textContent.trim();
+      const labelSpan = btn.querySelector('.pc-dropdown-item-label');
+      const cleanText = labelSpan ? labelSpan.textContent.trim() : btn.textContent.replace(/^[\p{Extended_Pictographic}\uFE0F\s]+/u, '').trim();
+      currentLabel.textContent = cleanText;
     }
   });
 

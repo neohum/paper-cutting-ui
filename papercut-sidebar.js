@@ -15,7 +15,7 @@
       // 예전 섹션 주소를 하위 범주로 잇는다 (#knife-cut-buttons → #pc-components)
       aliasSubs: { 'kirigami-components': 'cards', 'knife-cut-buttons': 'buttons' }
     },
-    { id: 'papercut-stacking-studio', title: '레이어드 스택 & 겹침', badge: 'NEW STACK', badgeStyle: 'stamp', icon: 'layers', bgShape: 'postage-stamp', bgTheme: 'peach', category: '마스터 UI 키트' },
+    { id: 'papercut-stacking-studio', title: '레이어드 스택 & 겹침', badge: 'NEW STACK', badgeStyle: 'ticket', icon: 'layers', bgShape: 'postage-stamp', bgTheme: 'peach', category: '마스터 UI 키트' },
     { id: 'pc-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
     { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '12종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
@@ -256,16 +256,14 @@
 
         const iconHtml = `<span class="pc-inline-icon is-color is-sm" data-icon="${sec.icon}"></span>`;
 
-        // Map section to specialized papercut badge model (stamp, wax, ticket, tag)
+        // Map section to specialized papercut badge model (ticket, tag) - stamp/bandage removed
         let badgeStyle = 'ticket';
-        if (sec.badgeStyle) {
+        if (sec.badgeStyle && sec.badgeStyle !== 'stamp') {
           badgeStyle = sec.badgeStyle;
-        } else if (sec.bgShape === 'postage-stamp' || sec.badge === 'Hero' || sec.badge === '659종' || sec.badge === '16 Stocks' || sec.badge === '8종 모션') {
-          badgeStyle = 'stamp';
-        } else if (sec.bgShape === 'wax-seal' || sec.badge === 'HOT' || sec.badge === 'DEPTH LAB' || sec.badge === '16~256px' || sec.badge === 'Playground') {
-          badgeStyle = 'ticket';
         } else if (sec.bgShape === 'hanging-tag' || sec.bgShape === 'shield-crest' || sec.badge === '16~28px' || sec.badge === '6대 블록' || sec.badge === '130종') {
           badgeStyle = 'tag';
+        } else {
+          badgeStyle = 'ticket';
         }
 
         const hasChildren = !!(sec.children && sec.children.length);
@@ -278,7 +276,7 @@
               ${iconHtml}
             </div>
             <span class="pc-sidebar-item-text">${sec.title}</span>
-            <span class="pc-sidebar-badge pc-badge--${badgeStyle} pc-badge--${sec.bgTheme || 'lavender'} pc-badge-${sec.bgTheme || 'lavender'}">${sec.badge}</span>
+            <span class="pc-sidebar-badge pc-badge pc-badge--${sec.bgTheme || 'lavender'} pc-badge-${sec.bgTheme || 'lavender'} inline-flex items-center justify-center leading-none">${sec.badge}</span>
             ${chevronHtml}
           </a>
         `;
@@ -867,7 +865,7 @@
     const curIndex = SECTIONS.findIndex(s => s.id === sec.id);
     const subIndex = activeSubId && sec.children ? sec.children.findIndex(c => c.id === activeSubId) : -1;
     const subCrumb = subIndex === -1 ? '' :
-      `<li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li><li class="pc-ui-breadcrumb-item"><span class="pc-ui-breadcrumb-page pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 12px; font-weight: 800;">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span></li>`;
+      `<li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li><li class="pc-ui-breadcrumb-item"><span class="pc-ui-breadcrumb-page pc-badge pc-badge--lavender" style="font-size: 12px; font-weight: 800;">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span></li>`;
 
     bar.innerHTML = `
       <nav class="pc-ui-breadcrumb" aria-label="현재 위치">
