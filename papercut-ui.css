@@ -1501,6 +1501,59 @@
   transform: scale(1) rotate(0deg);
 }
 
+/* 12.1 ANIMATED DIE-CUT PAPER CHECKBOX, RADIO & SWITCH (.pc-checkbox-cut, .pc-radio-cut, .pc-switch-cut) */
+.pc-checkbox-cut,
+.pc-radio-cut,
+.pc-switch-cut,
+.pc-ui-checkbox[data-pc-cut="animated"],
+.pc-ui-radio-item[data-pc-cut="animated"],
+.pc-ui-switch[data-pc-cut="animated"] {
+  --pc-cut-progress: 0;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  word-break: keep-all;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-checkbox-cut[data-state="checked"],
+.pc-radio-cut[data-state="checked"],
+.pc-switch-cut[data-state="checked"],
+[data-pc-cut="animated"][data-state="checked"] {
+  --pc-cut-progress: 1;
+}
+
+.pc-checkbox-cut .pc-cut-blade-path,
+[data-pc-cut="animated"] .pc-cut-blade-path {
+  stroke-dasharray: 28;
+  stroke-dashoffset: calc(28 * (1 - var(--pc-cut-progress, 0)));
+  transition: stroke-dashoffset 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-checkbox-cut .pc-cut-carved-well,
+.pc-radio-cut .pc-cut-carved-well {
+  filter: url(#pc-paper-sh-inset);
+}
+
+.pc-checkbox-cut .pc-cut-scrap-flap,
+.pc-radio-cut .pc-cut-scrap-flap,
+.pc-switch-cut .pc-cut-scrap-flap {
+  filter: url(#pc-paper-sh-lift);
+}
+
+.pc-checkbox-cut:focus-visible,
+.pc-radio-cut:focus-visible,
+.pc-switch-cut:focus-visible,
+.pc-ui-checkbox:focus-visible,
+.pc-ui-radio-item:focus-visible,
+.pc-ui-switch:focus-visible {
+  outline: 2px solid #2B6E4D;
+  outline-offset: 2px;
+}
+
 
 /* ==========================================================================
    13. COLLAPSIBLE (Sliding matchbox paper drawer)

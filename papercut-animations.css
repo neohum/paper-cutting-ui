@@ -894,6 +894,87 @@
   animation: pcShinglePop 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* ==========================================================================
+   ANIMATED PAPER-CUTTING CHECKBOX, RADIO & SWITCH PHYSICS (pcCutSnipCarve)
+   ========================================================================== */
+
+/* 1.15 Scissors Cut & Carve Shear Vibration (체크박스/라디오/스위치 칼선 전단 절취 모션 - 360ms 이내) */
+@keyframes pcCutSnipCarve {
+  0% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1) skewX(0deg) translateZ(0);
+  }
+  25% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1.04, 0.96) skewX(calc(var(--pc-paper-shear-angle, 12deg) * 0.45)) rotate(-2deg);
+    filter: drop-shadow(0 1.5px 2.5px rgba(46, 30, 20, 0.48)) drop-shadow(0 4px 8px rgba(46, 30, 20, 0.25));
+  }
+  55% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(0.97, 1.04) skewX(calc(var(--pc-paper-shear-angle, 12deg) * -0.35)) rotate(1.5deg);
+    filter: drop-shadow(0 2px 3.5px rgba(46, 30, 20, 0.48)) drop-shadow(0 5px 10px rgba(46, 30, 20, 0.26));
+  }
+  80% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1.015, 0.99) skewX(2deg) rotate(-0.5deg);
+  }
+  100% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1) skewX(0deg) rotate(0deg) translateZ(0);
+  }
+}
+
+.pc-anim-cut-carve {
+  animation: pcCutSnipCarve 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Cutout Scrap 3D Lift & Reseal Spring */
+.pc-checkbox-cut .pc-cut-scrap-flap,
+[data-pc-cut="animated"] .pc-cut-scrap-flap {
+  transform-origin: center top;
+  transform-box: fill-box;
+  transition: transform 0.34s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.28s ease;
+}
+
+.pc-checkbox-cut[data-state="checked"] .pc-cut-scrap-flap,
+[data-pc-cut="animated"][data-state="checked"] .pc-cut-scrap-flap,
+.pc-checkbox-cut .pc-checkbox-input:checked ~ .pc-checkbox-box .pc-cut-scrap-flap,
+.pc-checkbox-cut .pc-checkbox-input:checked + .pc-checkbox-box .pc-cut-scrap-flap {
+  transform: perspective(400px) rotateX(28deg) translateZ(4px) translateY(-2.5px) scale(0.92);
+  opacity: 0;
+  filter: url(#pc-paper-sh-lift);
+}
+
+.pc-checkbox-cut[data-state="unchecked"] .pc-cut-scrap-flap,
+[data-pc-cut="animated"][data-state="unchecked"] .pc-cut-scrap-flap {
+  transform: perspective(400px) rotateX(0deg) translateZ(0px) translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Radio Circular Die-Cut Punch Rotation & Scrap Pop */
+.pc-radio-cut .pc-cut-blade-path {
+  transform-origin: 13.4px 13.4px;
+  transition: stroke-dashoffset 0.34s cubic-bezier(0.16, 1, 0.3, 1), transform 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pc-radio-cut[data-state="checked"] .pc-cut-blade-path,
+.pc-radio-cut .pc-radio-input:checked + .pc-radio-box .pc-cut-blade-path {
+  stroke-dashoffset: 0 !important;
+  transform: rotate(90deg);
+}
+.pc-radio-cut[data-state="checked"] .pc-cut-scrap-flap,
+.pc-radio-cut .pc-radio-input:checked + .pc-radio-box .pc-cut-scrap-flap {
+  transform: perspective(400px) rotateX(28deg) translateZ(4px) scale(0.25);
+  opacity: 0;
+}
+
+/* Switch Slit-Cut Track & Knob Carve */
+.pc-switch-cut .pc-switch-cut-knob {
+  transition: transform 0.34s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pc-switch-cut[data-state="checked"] .pc-switch-slit-cut,
+.pc-switch-cut .pc-toggle-input:checked ~ .pc-toggle-track .pc-switch-slit-cut {
+  stroke-dashoffset: 0 !important;
+}
+.pc-switch-cut[data-state="checked"] .pc-switch-cut-knob,
+.pc-switch-cut .pc-toggle-input:checked ~ .pc-toggle-track .pc-switch-cut-knob {
+  transform: translateX(22px) rotateX(28deg) translateZ(4px);
+}
+
 /* -----------------------------------------------------------------------------
    5. ACCESSIBILITY: REDUCED MOTION DOWNGRADE
    ----------------------------------------------------------------------------- */
@@ -921,6 +1002,7 @@
   .pc-anim-wax-slam,
   .pc-anim-snip-split,
   .pc-anim-deckle-tear,
+  .pc-anim-cut-carve,
   .pc-anim-loop,
   .pc-anim-strata-breeze,
   .pc-anim-shingle-lift,
@@ -945,6 +1027,23 @@
     filter: none !important;
     will-change: auto !important;
     box-shadow: 0 1px 2px rgba(74, 58, 42, 0.12) !important;
+  }
+
+  /* Reduced motion: skip blade path & scrap motion and jump immediately to completed die-cut state */
+  .pc-checkbox-cut[data-state="checked"],
+  .pc-radio-cut[data-state="checked"],
+  .pc-switch-cut[data-state="checked"],
+  [data-pc-cut="animated"][data-state="checked"] {
+    --pc-cut-progress: 1 !important;
+  }
+  .pc-checkbox-cut .pc-cut-blade-path,
+  .pc-checkbox-cut .pc-cut-scrap-flap,
+  .pc-radio-cut .pc-cut-blade-path,
+  .pc-radio-cut .pc-cut-scrap-flap,
+  .pc-switch-cut .pc-cut-blade-path,
+  .pc-switch-cut .pc-switch-cut-knob {
+    transition: none !important;
+    animation: none !important;
   }
 
   .pc-hover-flutter:hover,

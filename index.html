@@ -20,6 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Square+Round:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
 
   <!-- 핵심 스타일시트 Preload -->
   <link rel="preload" href="papercut.css" as="style">
@@ -1032,7 +1033,7 @@
       </nav>
 
       <!-- Hero Banner: Full-Width Master Paper-cut Artwork Showcase -->
-      <section class="pc-card pc-card-sheet pc-hero-banner hero-banner pc-page-view" id="overview">
+      <section class="pc-card pc-card-sheet pc-hero-banner hero-banner pc-page-view" id="overview" data-pc-paper="sheet" data-pc-tone="peach">
         <!-- SVG Papercraft Plate Decoration with Perforated Stamp Teeth & Dashed Stitching Line -->
         <svg class="pc-hero-papercraft-plate" viewBox="0 0 1200 32" preserveAspectRatio="none" aria-hidden="true" style="width: 100%; height: 24px; display: block; margin-bottom: 16px; pointer-events: none;">
           <defs>
@@ -1455,14 +1456,14 @@
       
       <!-- 섹션 헤더 -->
       <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 8px; align-items: center;">
-        <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span> 5대 물리적 조형 시스템
+        <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none" data-pc-paper="stamp">
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-sparkles" data-icon="sparkles"></span> 5대 물리적 조형 시스템
         </span>
-        <span class="pc-badge pc-badge--ticket pc-badge--mint pc-swatch-mint inline-flex items-center justify-center leading-none">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span> Stacking &amp; Interlocking
+        <span class="pc-badge pc-badge--ticket pc-badge--mint pc-swatch-mint inline-flex items-center justify-center leading-none" data-pc-paper="ticket">
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-file" data-icon="file"></span> Stacking &amp; Interlocking
         </span>
-        <span class="pc-badge pc-badge--tag pc-badge--lavender pc-swatch-lavender inline-flex items-center justify-center leading-none">
-          Pure CSS · 0-Runtime
+        <span class="pc-badge pc-badge--tag pc-badge--lavender pc-swatch-lavender inline-flex items-center justify-center leading-none" data-pc-paper="pill">
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-layers" data-icon="layers"></span> Pure CSS · 0-Runtime
         </span>
       </div>
 
@@ -1487,7 +1488,7 @@
               <span class="pc-badge pc-badge--ticket pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 11px;">부채꼴 &amp; 계단식</span>
             </div>
             <h3 class="break-keep text-balance" style="font-size: 18px; font-weight: 800; margin: 0 0 6px; color: var(--pc-ink);">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span> 부채꼴 &amp; 계단식 종이 스택
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-copy" data-icon="file"></span> 부채꼴 &amp; 계단식 종이 스택
             </h3>
             <p class="break-keep" style="font-size: 13.5px; color: var(--pc-ink-muted); margin: 0;">
               카드 아래 2~3장의 파스텔 색지가 오프셋되어 겹치며, 마우스 호버 시 부채처럼 탄성감 있게 펼쳐집니다.
@@ -1501,7 +1502,7 @@
                 <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Fanned Deck</span>
               </div>
               <h4 class="break-keep" style="font-size: 15px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
-                <span class="pc-inline-icon is-xs mr-1" data-icon="wand-magic"></span> 부채꼴 팝아웃 스택
+                <span class="pc-inline-icon is-xs mr-1 fi fi-rr-magic-wand" data-icon="wand-magic"></span> 부채꼴 팝아웃 스택
               </h4>
               <p class="break-keep" style="font-size: 12.5px; color: var(--pc-ink-muted); margin: 0;">
                 마우스를 올리면 뒤편 피치(-5°)와 민트(+4°) 색지가 좌우로 부채처럼 활짝 펼쳐집니다.
@@ -2846,7 +2847,7 @@
       <div class="pc-aperture-header pc-swatch-mint" style="margin-bottom: 28px; padding: 22px 24px; border-radius: 16px;">
         <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 8px; align-items: center;">
           <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">
-            <span class="pc-inline-icon is-xs mr-1" data-icon="scissors"></span> Handcrafted Die-Cut Architecture
+            <span class="pc-inline-icon is-xs mr-1 fi fi-rr-cut" data-icon="scissors"></span> Handcrafted Die-Cut Architecture
           </span>
           <span class="pc-badge pc-badge--ticket pc-swatch-peach inline-flex items-center justify-center leading-none">
             Aperture Window &amp; Paper Patch
@@ -4036,7 +4037,7 @@
           <div class="pc-kirigami-card-grid">
 
             <!-- 01-R. 둥근 도그이어 접힌 카드 -->
-            <div class="pc-svg-card-frame-wrap">
+            <div class="pc-svg-card-frame-wrap" data-pc-paper="sheet" data-pc-tone="mint">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-dogear-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -4083,7 +4084,7 @@
             </div>
 
             <!-- 02-R. 둥근 마스킹 테이프 메모 카드 -->
-            <div class="pc-svg-card-frame-wrap">
+            <div class="pc-svg-card-frame-wrap" data-pc-paper="sheet" data-pc-tone="peach">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-washi-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -4124,7 +4125,7 @@
             </div>
 
             <!-- 03-R. 둥근 수제 한지 데클 엣지 카드 -->
-            <div class="pc-svg-card-frame-wrap">
+            <div class="pc-svg-card-frame-wrap" data-pc-paper="sheet" data-pc-tone="buttercup">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-deckle-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -4161,7 +4162,7 @@
             </div>
 
             <!-- 04-R. 둥근 노치 시네마 티켓 카드 -->
-            <div class="pc-svg-card-frame-wrap">
+            <div class="pc-svg-card-frame-wrap" data-pc-paper="ticket" data-pc-tone="sky">
               <svg class="pc-svg-card-art" viewBox="0 0 380 220" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <filter id="svg-card-sh-ticket-rnd" x="-20%" y="-20%" width="140%" height="150%">
@@ -5118,6 +5119,35 @@
                     <span>노치 다이컷 림</span>
                   </label>
                 </div>
+
+                <!-- Animated Paper-Cutting Checkbox / Radio / Switch Showcase (4-Layer SVG Snip-Carve) -->
+                <div class="pc-cut-showcase-panel" data-pc-paper="ticket" data-pc-tone="cream" style="margin-top: 14px; padding: 14px 16px; border-radius: 14px; border: 1px dashed rgba(74,58,42,0.22); background: rgba(255,253,249,0.78);">
+                  <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 10px;">
+                    <span style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink); display: inline-flex; align-items: center; gap: 6px; word-break: keep-all;">
+                      <i class="fi fi-rr-scissors" aria-hidden="true"></i>
+                      <span>애니메이션 페이퍼 커팅 체크박스 &amp; 폼 컨트롤 (Snip-Carve 4-Layer SVG)</span>
+                    </span>
+                    <span class="pc-badge pc-badge--peach" style="font-size: 10.5px;"><i class="fi fi-rr-check" aria-hidden="true"></i> <span>4-Layer Cutout</span></span>
+                  </div>
+                  <div class="pc-row-wrap" style="--pc-gap: 14px; flex-wrap: wrap; align-items: center;">
+                    <label class="pc-checkbox-cut is-checked" data-pc-cut="animated" data-pc-tone="mint" role="checkbox" aria-checked="true" tabindex="0">
+                      <input type="checkbox" class="pc-checkbox-input" checked>
+                      <span class="pc-checkbox-cut-label">가위 칼선 V-컷 체크 (체크됨)</span>
+                    </label>
+                    <label class="pc-checkbox-cut" data-pc-cut="animated" data-pc-tone="peach" role="checkbox" aria-checked="false" tabindex="0">
+                      <input type="checkbox" class="pc-checkbox-input">
+                      <span class="pc-checkbox-cut-label">종이 조각 플랩 들림 (미체크)</span>
+                    </label>
+                    <label class="pc-radio-cut is-checked" data-pc-cut="animated" data-pc-tone="lavender" role="radio" aria-checked="true" tabindex="0">
+                      <input type="radio" name="pc-cut-radio-demo" class="pc-radio-input" checked>
+                      <span class="pc-radio-cut-label">원형 칼선 다이컷 인장</span>
+                    </label>
+                    <label class="pc-switch-cut is-checked" data-pc-cut="animated" data-pc-tone="mint" role="switch" aria-checked="true" tabindex="0">
+                      <input type="checkbox" class="pc-switch-input" checked>
+                      <span class="pc-switch-cut-label">슬릿 커팅 스위치</span>
+                    </label>
+                  </div>
+                </div>
               </div>
 
               <!-- Standalone Button Toggle -->
@@ -5329,7 +5359,7 @@
           <!-- Toggle & Toggle Group: Pure SVG Origami Folds & Connected Ticket Group -->
           <div class="pc-row-wrap" style="--pc-gap: 12px; justify-content: space-between; align-items: center; flex-wrap: wrap;">
             <!-- Standalone Origami Fold Toggle Button -->
-            <button type="button" class="pc-ui-toggle pc-svg-kirigami-btn" data-state="on" aria-pressed="true" title="북마크 찜 오리가미 토글">
+            <button type="button" class="pc-ui-toggle pc-svg-kirigami-btn" data-pc-paper="pill" data-pc-tone="mint" data-state="on" aria-pressed="true" title="북마크 찜 오리가미 토글">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 134 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: 38px; width: 134px;">
                 <defs>
                   <filter id="svg-tgl-btn-sh" x="-15%" y="-20%" width="135%" height="150%">
@@ -6681,19 +6711,19 @@
       <!-- Category Filter Tabs Bar -->
       <div class="pc-row-scroll pc-filter-pills-row" style="padding-bottom: 8px; margin-bottom: 24px;">
         <button type="button" class="pc-filter-btn is-active inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="all" onclick="PaperCutUI.filterCharts('all', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="apps"></span>전체 (All)
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-apps" data-icon="apps"></span>전체 (All)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="trends" onclick="PaperCutUI.filterCharts('trends', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="activity"></span>추세 및 시계열 (Trends)
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-chart-line-up" data-icon="activity"></span>추세 및 시계열 (Trends)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="comparisons" onclick="PaperCutUI.filterCharts('comparisons', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="sort-asc"></span>비교 및 비율 (Comparisons)
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-stats" data-icon="sort-asc"></span>비교 및 비율 (Comparisons)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="distributions" onclick="PaperCutUI.filterCharts('distributions', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span>분포 및 상관 (Distributions)
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-sparkles" data-icon="sparkles"></span>분포 및 상관 (Distributions)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="gauges" onclick="PaperCutUI.filterCharts('gauges', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="gauge"></span>게이지 및 달성도 (Gauges)
+          <span class="pc-inline-icon is-xs mr-1 fi fi-rr-dashboard" data-icon="gauge"></span>게이지 및 달성도 (Gauges)
         </button>
       </div>
 
@@ -6708,7 +6738,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="mountain"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-mountains" data-icon="mountain"></span>
               <span class="break-keep">01. Area Chart (페이퍼 산맥 마운틴 지형)</span>
             </span>
             <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Layered Area</span>
@@ -6724,7 +6754,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="sort-asc"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-stats" data-icon="sort-asc"></span>
               <span class="break-keep">02. Bar Chart (도톰한 종이 기둥 입체 차트)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--peach inline-flex items-center justify-center leading-none">Cardstock Columns</span>
@@ -6740,7 +6770,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="activity"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-chart-line-up" data-icon="activity"></span>
               <span class="break-keep">03. Line Chart (오리가미 종이 리본 웨이브)</span>
             </span>
             <span class="pc-badge pc-badge--ribbon pc-badge--lavender inline-flex items-center justify-center leading-none">Ribbon Curve</span>
@@ -6756,7 +6786,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="pie-chart-clean"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-chart-pie-alt" data-icon="pie-chart-clean"></span>
               <span class="break-keep">04. Donut Chart (부채꼴 색종이 휠)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--buttercup inline-flex items-center justify-center leading-none">Origami Fan</span>
@@ -6772,7 +6802,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="shield-check"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-shield-check" data-icon="shield-check"></span>
               <span class="break-keep">05. Radar Chart (페이퍼 커팅 입체 연 폴리곤)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--sky inline-flex items-center justify-center leading-none">Kite Polygon</span>
@@ -6788,7 +6818,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="dashboard"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-dashboard" data-icon="dashboard"></span>
               <span class="break-keep">06. Radial Bar Chart (원형 종이 링 게이지)</span>
             </span>
             <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Paper Gauge</span>
@@ -6804,7 +6834,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="grid-view"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-apps" data-icon="grid-view"></span>
               <span class="break-keep">07. Heatmap Mosaic (색종이 모자이크 타일 히트맵)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--peach inline-flex items-center justify-center leading-none">Mosaic Grid</span>
@@ -6820,7 +6850,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="award-star"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-chart-candlestick" data-icon="award-star"></span>
               <span class="break-keep">08. Candlestick Range (종이 핀셋 캔들스틱 차트)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--rose inline-flex items-center justify-center leading-none">Craft Tweezers</span>
@@ -6836,7 +6866,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-chart-scatter" data-icon="sparkles"></span>
               <span class="break-keep">09. Confetti Bubble (공중 부유 콘페티 버블 산점도)</span>
             </span>
             <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none">Confetti Scatter</span>
@@ -6852,7 +6882,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="mountain"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-chart-pyramid" data-icon="mountain"></span>
               <span class="break-keep">10. Pyramid Funnel (계단식 절단면 퍼널 피라미드)</span>
             </span>
             <span class="pc-badge pc-badge--ribbon pc-badge--buttercup inline-flex items-center justify-center leading-none">Cutout Funnel</span>
@@ -6868,7 +6898,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="grid-view"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-chart-tree-map" data-icon="grid-view"></span>
               <span class="break-keep">11. Kirigami Treemap (키리가미 바둑판 트리맵)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--sage inline-flex items-center justify-center leading-none">Kirigami Tiles</span>
@@ -6884,7 +6914,7 @@
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="gauge"></span>
+              <span class="pc-inline-icon is-xs mr-1 fi fi-rr-compass-alt" data-icon="gauge"></span>
               <span class="break-keep">12. Compass Gauge (반원형 종이 나침반 게이지)</span>
             </span>
             <span class="pc-badge pc-badge--sky inline-flex items-center justify-center leading-none">Compass Dial</span>

@@ -412,6 +412,105 @@
     }
   }
 
+  /**
+   * Animated Paper-Cutting Checkbox / Radio / Switch Trigger (pcCutSnipCarve)
+   * Synchronizes blade cut progress (--pc-cut-progress), shear vibration,
+   * 3D scrap flap lift, Web Audio snip sound, and haptic feedback.
+   */
+  function playPaperSound(type = 'snip') {
+    const extFn = (typeof window !== 'undefined' && typeof window.playPaperSound === 'function' && window.playPaperSound) ||
+                  (typeof globalThis !== 'undefined' && typeof globalThis.playPaperSound === 'function' && globalThis.playPaperSound);
+    if (extFn && extFn !== playPaperSound) {
+      try { extFn(type); } catch (_) {}
+    }
+  }
+
+  function triggerCutCheck(element, options = {}) {
+    if (!element) {
+      const empty = Promise.resolve(false);
+      empty.cancel = () => {};
+      return empty;
+    }
+    const checked = options.checked !== undefined
+      ? Boolean(options.checked)
+      : (element.getAttribute && (element.getAttribute('data-state') === 'checked' || element.getAttribute('aria-checked') === 'true'));
+    const fromVal = checked ? 0 : 1;
+    const toVal = checked ? 1 : 0;
+    const duration = typeof options.duration === 'number' ? options.duration : 360;
+
+    // Web Audio paper scissors snip sound & haptic feedback
+    if (options.sound !== false) {
+      playPaperSound('snip');
+    }
+    if (options.haptic !== false && typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+      try {
+        navigator.vibrate(Array.isArray(options.haptic) ? options.haptic : [12, 20, 15]);
+      } catch (_) {}
+    }
+
+    const box = (element.querySelector && element.querySelector('.pc-checkbox-box, .pc-radio-box, .pc-toggle-track')) || element;
+
+    if (isReducedMotion() || duration <= 1) {
+      if (element.style && typeof element.style.setProperty === 'function') {
+        element.style.setProperty('--pc-cut-progress', String(toVal));
+      }
+      if (box !== element && box.style && typeof box.style.setProperty === 'function') {
+        box.style.setProperty('--pc-cut-progress', String(toVal));
+      }
+      if (element.classList) {
+        element.classList.remove('pc-anim-cut-carve');
+        element.classList.toggle('is-cut-complete', checked);
+      }
+      if (typeof options.onComplete === 'function') options.onComplete(checked);
+      const immediate = Promise.resolve(checked);
+      immediate.cancel = () => {};
+      return immediate;
+    }
+
+    if (element.classList) {
+      element.classList.remove('pc-anim-cut-carve');
+      if (typeof element.offsetWidth === 'number') void element.offsetWidth;
+      element.classList.add('pc-anim-cut-carve');
+      element.classList.toggle('is-cutting', checked);
+      element.classList.toggle('is-resealing', !checked);
+    }
+
+    const ctrl = animateSpring(element, {
+      from: fromVal,
+      to: toVal,
+      stiffness: 320,
+      damping: 26,
+      mass: 0.9,
+      cssProperty: '--pc-cut-progress',
+      onUpdate(val) {
+        const clamped = Math.max(0, Math.min(1, val));
+        if (element.style && typeof element.style.setProperty === 'function') {
+          element.style.setProperty('--pc-cut-progress', clamped.toFixed(4));
+        }
+        if (box !== element && box.style && typeof box.style.setProperty === 'function') {
+          box.style.setProperty('--pc-cut-progress', clamped.toFixed(4));
+        }
+      },
+      onSettle() {
+        if (element.style && typeof element.style.setProperty === 'function') {
+          element.style.setProperty('--pc-cut-progress', String(toVal));
+        }
+        if (box !== element && box.style && typeof box.style.setProperty === 'function') {
+          box.style.setProperty('--pc-cut-progress', String(toVal));
+        }
+        if (element.classList) {
+          element.classList.remove('pc-anim-cut-carve');
+          element.classList.toggle('is-cut-complete', checked);
+        }
+        if (typeof options.onComplete === 'function') options.onComplete(checked);
+      }
+    });
+
+    const resPromise = ctrl.promise.then(() => checked);
+    resPromise.cancel = () => ctrl.cancel();
+    return resPromise;
+  }
+
   const PaperCutMotion = {
     tokens: TOKENS,
     PRESETS,
@@ -419,7 +518,8 @@
     animate: animateSpring,
     spring: animateSpring,
     isReducedMotion,
-    triggerInteraction
+    triggerInteraction,
+    triggerCutCheck
   };
 
   let currentPreset = PRESETS[0];

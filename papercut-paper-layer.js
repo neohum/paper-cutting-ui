@@ -679,6 +679,112 @@
     return list.length;
   }
 
+  /* ---------- 다이컷 체크박스 / 라디오 / 스위치 4층 SVG 마크업 생성기 ---------- */
+  var CUT_TONE_COLORS = {
+    mint: { base: '#A3D8C3', stroke: '#1C4835', deep: '#76BE9B' },
+    peach: { base: '#F7BA9E', stroke: '#6E3B21', deep: '#DF784E' },
+    lavender: { base: '#D7CBEB', stroke: '#352654', deep: '#9C88C9' },
+    buttercup: { base: '#FEE396', stroke: '#6E530F', deep: '#E8BD65' },
+    rose: { base: '#F5B8BE', stroke: '#6B2028', deep: '#E27B88' },
+    sky: { base: '#C3E5F0', stroke: '#1C4B5A', deep: '#7BBCD1' },
+    sand: { base: '#E8DEC9', stroke: '#5E4528', deep: '#C4B090' },
+    cream: { base: '#FAF7F0', stroke: '#4A3A2C', deep: '#DED4C3' }
+  };
+
+  var cutUidCounter = 0;
+
+  function cutCheckMarkup(tone, isChecked, uid) {
+    var t = CUT_TONE_COLORS[tone] || CUT_TONE_COLORS.mint;
+    var id = uid || ('pc-cut-chk-' + (++cutUidCounter));
+    var maskId = id + '-mask';
+    var clipId = id + '-clip';
+    var dashOffset = isChecked ? '0' : '1';
+    return (
+      '<svg class="pc-cut-svg pc-checkbox-cut-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+      '<defs>' +
+      '<clipPath id="' + clipId + '">' +
+      '<rect x="2" y="2" width="24" height="24" rx="6"/>' +
+      '</clipPath>' +
+      '<mask id="' + maskId + '">' +
+      '<rect x="0" y="0" width="28" height="28" fill="#FFFFFF"/>' +
+      '<path class="pc-cut-mask-hole" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="#000000" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</mask>' +
+      '</defs>' +
+      // Layer 1: 하단 파스텔 베이스 색지 + 음각 우물 홈 (#pc-paper-sh-inset)
+      '<g class="pc-cut-layer-base" data-layer="1">' +
+      '<rect class="pc-paper-base pc-cut-base-sheet" x="3.2" y="3.2" width="22.8" height="22.8" rx="6" fill="' + t.base + '" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-plate)"/>' +
+      '<path class="pc-cut-carved-well" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="' + t.stroke + '" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#pc-paper-sh-inset)"/>' +
+      '</g>' +
+      // Layer 2: 상단 커팅 마스크 크림 도화지 (#FAF7F0) + 미세 칼선 점선 가이드
+      '<g class="pc-cut-layer-top" data-layer="2">' +
+      '<rect class="pc-paper-sheet pc-cut-top-sheet" x="2" y="2" width="22.8" height="22.8" rx="6" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88" mask="url(#' + maskId + ')"/>' +
+      '<path class="pc-cut-guide-path" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="#D2C2AD" stroke-width="1.1" stroke-dasharray="2 2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</g>' +
+      // Layer 3: 가위질 칼선 진행 궤적 (stroke-dashoffset 애니메이션)
+      '<g class="pc-cut-layer-blade" data-layer="3">' +
+      '<path class="pc-cut-blade-path" pathLength="1" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="' + t.stroke + '" stroke-width="1.8" stroke-dasharray="1" stroke-dashoffset="' + dashOffset + '" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</g>' +
+      // Layer 4: 오려지며 들려 올라가는 종이 조각 (Cutout Scrap Flap + #pc-paper-sh-lift)
+      '<g class="pc-cut-layer-scrap" data-layer="4">' +
+      '<path class="pc-cut-scrap-flap" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="#FAF7F0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#pc-paper-sh-lift)"/>' +
+      '</g>' +
+      '</svg>'
+    );
+  }
+
+  function cutRadioMarkup(tone, isChecked, uid) {
+    var t = CUT_TONE_COLORS[tone] || CUT_TONE_COLORS.mint;
+    var id = uid || ('pc-cut-rad-' + (++cutUidCounter));
+    var maskId = id + '-mask';
+    var dashOffset = isChecked ? '0' : '1';
+    return (
+      '<svg class="pc-cut-svg pc-radio-cut-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+      '<defs>' +
+      '<mask id="' + maskId + '">' +
+      '<rect x="0" y="0" width="28" height="28" fill="#FFFFFF"/>' +
+      '<circle class="pc-cut-mask-hole" cx="13.4" cy="13.4" r="5.4" fill="#000000"/>' +
+      '</mask>' +
+      '</defs>' +
+      '<g class="pc-cut-layer-base" data-layer="1">' +
+      '<circle class="pc-paper-base pc-cut-base-sheet" cx="14.6" cy="14.6" r="11" fill="' + t.base + '" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-plate)"/>' +
+      '<circle class="pc-cut-carved-well" cx="13.4" cy="13.4" r="5.2" fill="' + t.base + '" stroke="' + t.stroke + '" stroke-width="1.2" filter="url(#pc-paper-sh-inset)"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-top" data-layer="2">' +
+      '<circle class="pc-paper-sheet pc-cut-top-sheet" cx="13.4" cy="13.4" r="11" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88" mask="url(#' + maskId + ')"/>' +
+      '<circle class="pc-cut-guide-path" cx="13.4" cy="13.4" r="5.4" stroke="#D2C2AD" stroke-width="1.1" stroke-dasharray="2 2"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-blade" data-layer="3">' +
+      '<circle class="pc-cut-blade-path" pathLength="1" cx="13.4" cy="13.4" r="5.4" stroke="' + t.stroke + '" stroke-width="1.6" stroke-dasharray="1" stroke-dashoffset="' + dashOffset + '" stroke-linecap="round"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-scrap" data-layer="4">' +
+      '<circle class="pc-cut-scrap-flap" cx="13.4" cy="13.4" r="4.8" fill="#FAF7F0" stroke="#EDE4D4" stroke-width="0.8" filter="url(#pc-paper-sh-lift)"/>' +
+      '</g>' +
+      '</svg>'
+    );
+  }
+
+  function cutSwitchMarkup(tone, isChecked) {
+    var t = CUT_TONE_COLORS[tone] || CUT_TONE_COLORS.mint;
+    var dashOffset = isChecked ? '0' : '1';
+    return (
+      '<svg class="pc-cut-svg pc-switch-cut-svg" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+      '<g class="pc-cut-layer-base" data-layer="1">' +
+      '<rect class="pc-paper-base pc-cut-base-sheet" x="2.5" y="2.5" width="47" height="23" rx="11.5" fill="' + t.base + '" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-plate)"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-top" data-layer="2">' +
+      '<rect class="pc-paper-sheet pc-cut-top-sheet" x="1.5" y="1.5" width="47" height="23" rx="11.5" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88"/>' +
+      '<line class="pc-cut-guide-path pc-switch-slit-guide" x1="14" y1="13" x2="36" y2="13" stroke="#D2C2AD" stroke-width="1.4" stroke-dasharray="2.5 2.5" stroke-linecap="round"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-blade" data-layer="3">' +
+      '<line class="pc-cut-blade-path pc-switch-slit-cut" pathLength="1" x1="14" y1="13" x2="36" y2="13" stroke="' + t.stroke + '" stroke-width="2.2" stroke-dasharray="1" stroke-dashoffset="' + dashOffset + '" stroke-linecap="round" filter="url(#pc-paper-sh-inset)"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-scrap" data-layer="4">' +
+      '<circle class="pc-cut-scrap-flap pc-switch-cut-knob" cx="14" cy="13" r="8.5" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-lift)"/>' +
+      '</g>' +
+      '</svg>'
+    );
+  }
+
   /* ---------- 공개 API ---------- */
   function hydrate(rootEl) { collect(rootEl || document, true, true); }
 
@@ -698,6 +804,9 @@
       refresh: refresh,
       destroy: destroy,
       markup: markup,
+      cutCheckMarkup: cutCheckMarkup,
+      cutRadioMarkup: cutRadioMarkup,
+      cutSwitchMarkup: cutSwitchMarkup,
       getDefsContent: getDefsContent,
       variants: VARIANTS.slice(),
       tones: TONES.slice()
@@ -750,6 +859,9 @@
 
   // 모듈 내보내기 & 전역 바인딩
   root.PaperCutUI = Object.assign(root.PaperCutUI || {}, api);
+  if (typeof globalThis !== 'undefined' && globalThis !== root) {
+    globalThis.PaperCutUI = Object.assign(globalThis.PaperCutUI || {}, api);
+  }
 
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = api;
