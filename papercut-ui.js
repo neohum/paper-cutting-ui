@@ -11,7 +11,12 @@
  */
 
 (function (root, factory) {
-  const api = factory();
+  const existing = Object.assign(
+    {},
+    (typeof root !== 'undefined' && root.PaperCutUI) || {},
+    (typeof window !== 'undefined' && window.PaperCutUI) || {}
+  );
+  const api = Object.assign(existing, factory());
   if (typeof module === 'object' && module.exports) {
     module.exports = api;
   }
@@ -666,37 +671,208 @@
   };
 
   /* ==========================================================================
-     12. CHECKBOX (Origami corner fold with paper stamp checkmark)
+     12. CHECKBOX & PAPERCUT CHECKBOX (Origami corner fold + Animated Die-Cut Scissors Engine)
      ========================================================================== */
-  const Checkbox = {
-    toggle(cb) {
-      const isChecked = cb.getAttribute('data-state') === 'checked';
-      const newState = isChecked ? 'unchecked' : 'checked';
-      cb.setAttribute('data-state', newState);
+  const CUT_TONE_PALETTE = {
+    mint: { base: '#A3D8C3', stroke: '#1C4835' },
+    peach: { base: '#F7BA9E', stroke: '#6E3B21' },
+    lavender: { base: '#D7CBEB', stroke: '#352654' },
+    buttercup: { base: '#FEE396', stroke: '#6E530F' },
+    rose: { base: '#F5B8BE', stroke: '#6B2028' },
+    sky: { base: '#C3E5F0', stroke: '#1C4B5A' },
+    sand: { base: '#E8DEC9', stroke: '#5E4528' },
+    cream: { base: '#FAF7F0', stroke: '#4A3A2C' }
+  };
+  let cutCheckboxUid = 0;
 
-      const input = cb.querySelector('input[type="checkbox"]');
-      if (input) {
-        input.checked = (newState === 'checked');
-        input.dispatchEvent(new Event('change', { bubbles: true }));
+  function buildCutCheckSvg(tone = 'mint', uid = '') {
+    if (typeof window !== 'undefined' && window.PaperCutUI && window.PaperCutUI.paper && typeof window.PaperCutUI.paper.cutCheckMarkup === 'function') {
+      return window.PaperCutUI.paper.cutCheckMarkup(tone, false, uid);
+    }
+    const t = CUT_TONE_PALETTE[tone] || CUT_TONE_PALETTE.mint;
+    const id = uid || ('pc-cut-chk-' + (++cutCheckboxUid));
+    const maskId = id + '-mask';
+    const clipId = id + '-clip';
+    return (
+      '<svg class="pc-cut-svg pc-checkbox-cut-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+      '<defs>' +
+      '<clipPath id="' + clipId + '"><rect x="2" y="2" width="24" height="24" rx="6"/></clipPath>' +
+      '<mask id="' + maskId + '">' +
+      '<rect x="0" y="0" width="28" height="28" fill="#FFFFFF"/>' +
+      '<path class="pc-cut-mask-hole" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="#000000" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</mask>' +
+      '</defs>' +
+      '<g class="pc-cut-layer-base" data-layer="1">' +
+      '<rect class="pc-paper-base pc-cut-base-sheet" x="3.2" y="3.2" width="22.8" height="22.8" rx="6" fill="' + t.base + '" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-plate)"/>' +
+      '<path class="pc-cut-carved-well" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="' + t.stroke + '" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#pc-paper-sh-inset)"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-top" data-layer="2">' +
+      '<rect class="pc-paper-sheet pc-cut-top-sheet" x="2" y="2" width="22.8" height="22.8" rx="6" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88" mask="url(#' + maskId + ')"/>' +
+      '<path class="pc-cut-guide-path" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="#D2C2AD" stroke-width="1.1" stroke-dasharray="2 2" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-blade" data-layer="3">' +
+      '<path class="pc-cut-blade-path" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="' + t.stroke + '" stroke-width="1.8" stroke-dasharray="28" stroke-dashoffset="28" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-scrap" data-layer="4">' +
+      '<path class="pc-cut-scrap-flap" d="M 7.5 14.5 L 12 19 L 20.5 9.5" stroke="#FAF7F0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" filter="url(#pc-paper-sh-lift)"/>' +
+      '</g>' +
+      '</svg>'
+    );
+  }
+
+  const Checkbox = {
+    hydrateCut(el) {
+      if (!el) return null;
+      const tone = el.getAttribute('data-pc-tone') || (el.closest && el.closest('[data-pc-tone]') ? el.closest('[data-pc-tone]').getAttribute('data-pc-tone') : null) || 'mint';
+      const box = el.classList && el.classList.contains('pc-checkbox-box')
+        ? el
+        : ((el.querySelector && el.querySelector('.pc-checkbox-box')) || el);
+
+      if (!box.querySelector || !box.querySelector('.pc-checkbox-cut-svg')) {
+        const svgHtml = buildCutCheckSvg(tone);
+        if (typeof box.insertAdjacentHTML === 'function') {
+          box.insertAdjacentHTML('beforeend', svgHtml);
+        } else {
+          box.innerHTML = (box.innerHTML || '') + svgHtml;
+        }
+      }
+      box.classList && box.classList.add('is-cut-hydrated');
+      el.classList && el.classList.add('is-cut-hydrated');
+
+      const input = (el.querySelector && el.querySelector('input[type="checkbox"]')) ||
+                    (el.closest && el.closest('label') ? el.closest('label').querySelector('input[type="checkbox"]') : null);
+      const isChecked = Boolean(
+        (input && input.checked) ||
+        (el.classList && el.classList.contains('is-checked')) ||
+        el.getAttribute('data-state') === 'checked' ||
+        el.getAttribute('aria-checked') === 'true'
+      );
+
+      const stateStr = isChecked ? 'checked' : 'unchecked';
+      el.setAttribute('data-state', stateStr);
+      if (!el.hasAttribute('role')) {
+        el.setAttribute('role', 'checkbox');
+      }
+      el.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      if (el.classList) {
+        el.classList.toggle('is-checked', isChecked);
+      }
+      if (!el.hasAttribute('tabindex')) {
+        el.setAttribute('tabindex', '0');
+      }
+      if (el.style && typeof el.style.setProperty === 'function') {
+        el.style.setProperty('--pc-cut-progress', isChecked ? '1' : '0');
+      }
+      if (box !== el && box.style && typeof box.style.setProperty === 'function') {
+        box.style.setProperty('--pc-cut-progress', isChecked ? '1' : '0');
       }
 
-      cb.dispatchEvent(new CustomEvent('change', {
-        bubbles: true,
-        detail: { checked: newState === 'checked' }
-      }));
+      if (!el._pcCutBound && typeof el.addEventListener === 'function') {
+        el._pcCutBound = true;
+        el.addEventListener('keydown', (e) => {
+          if (e.key === ' ' || e.key === 'Enter') {
+            if (typeof e.preventDefault === 'function') e.preventDefault();
+            Checkbox.toggle(el);
+          }
+        });
+        el.addEventListener('click', (e) => {
+          if (e && e.target && e.target.tagName === 'INPUT') return;
+          if (typeof e.preventDefault === 'function') e.preventDefault();
+          Checkbox.toggle(el);
+        });
+      }
+      return box;
     },
-    init(context = document) {
+    syncCutState(target, checked) {
+      if (!target) return;
+      const newState = checked ? 'checked' : 'unchecked';
+      target.setAttribute('data-state', newState);
+      target.setAttribute('aria-checked', checked ? 'true' : 'false');
+      const box = (target.querySelector && target.querySelector('.pc-checkbox-box')) || target;
+      if (target.classList) {
+        target.classList.toggle('is-checked', checked);
+        target.classList.toggle('is-cutting', checked);
+        target.classList.toggle('is-resealing', !checked);
+      }
+      if (box && box !== target && box.classList) {
+        box.classList.toggle('is-checked', checked);
+        box.classList.toggle('is-cutting', checked);
+        box.classList.toggle('is-resealing', !checked);
+      }
+      if (typeof globalThis !== 'undefined' && globalThis.PaperCutMotion && typeof globalThis.PaperCutMotion.triggerCutCheck === 'function') {
+        globalThis.PaperCutMotion.triggerCutCheck(target, { checked });
+      } else {
+        if (target.style && typeof target.style.setProperty === 'function') {
+          target.style.setProperty('--pc-cut-progress', checked ? '1' : '0');
+        }
+        if (box && box !== target && box.style && typeof box.style.setProperty === 'function') {
+          box.style.setProperty('--pc-cut-progress', checked ? '1' : '0');
+        }
+      }
+    },
+    toggle(cb) {
+      if (!cb) return;
+      const input = cb.querySelector ? cb.querySelector('input[type="checkbox"]') : null;
+      const isChecked = cb.getAttribute('data-state') === 'checked' ||
+                        cb.getAttribute('aria-checked') === 'true' ||
+                        (cb.classList && cb.classList.contains('is-checked')) ||
+                        (input && input.checked && !cb.hasAttribute('data-state'));
+      const nextChecked = !isChecked;
+      const newState = nextChecked ? 'checked' : 'unchecked';
+      cb.setAttribute('data-state', newState);
+      cb.setAttribute('aria-checked', nextChecked ? 'true' : 'false');
+      if (cb.classList) {
+        cb.classList.toggle('is-checked', nextChecked);
+      }
+
+      if (input) {
+        input.checked = nextChecked;
+        if (typeof Event === 'function') {
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+
+      if (
+        (cb.classList && (cb.classList.contains('pc-checkbox-cut') || cb.classList.contains('is-cut-hydrated'))) ||
+        cb.getAttribute('data-pc-cut') === 'animated'
+      ) {
+        Checkbox.syncCutState(cb, nextChecked);
+      }
+
+      if (typeof CustomEvent === 'function') {
+        cb.dispatchEvent(new CustomEvent('change', {
+          bubbles: true,
+          detail: { checked: nextChecked }
+        }));
+      }
+    },
+    init(context = (typeof document !== 'undefined' ? document : null)) {
+      if (context) {
+        $$('.pc-checkbox-cut, [data-pc-cut="animated"].pc-ui-checkbox, [data-pc-cut="animated"].pc-checkbox-label', context).forEach(el => {
+          Checkbox.hydrateCut(el);
+        });
+      }
+
+      onDoc('Checkbox', 'change', (e) => {
+        const input = e.target && e.target.closest ? e.target.closest('input[type="checkbox"]') : null;
+        if (!input) return;
+        const label = input.closest('.pc-checkbox-cut, [data-pc-cut="animated"]');
+        if (label) {
+          Checkbox.syncCutState(label, !!input.checked);
+        }
+      });
+
       onDoc('Checkbox', 'click', (e) => {
-        const cb = e.target.closest('.pc-ui-checkbox, .pc-ui-checkbox');
-        if (cb) {
+        const cb = e.target.closest('.pc-ui-checkbox, [role="checkbox"].pc-checkbox-cut');
+        if (cb && !e.target.closest('input[type="checkbox"]')) {
           e.preventDefault();
           Checkbox.toggle(cb);
           return;
         }
 
-        const wrapper = e.target.closest('.pc-ui-checkbox-wrapper, .pc-ui-checkbox-wrapper');
-        if (wrapper && !e.target.closest('.pc-ui-checkbox, .pc-ui-checkbox')) {
-          const innerCb = $('.pc-ui-checkbox, .pc-ui-checkbox', wrapper);
+        const wrapper = e.target.closest('.pc-ui-checkbox-wrapper');
+        if (wrapper && !e.target.closest('.pc-ui-checkbox')) {
+          const innerCb = $('.pc-ui-checkbox', wrapper);
           if (innerCb) {
             e.preventDefault();
             Checkbox.toggle(innerCb);
@@ -705,9 +881,9 @@
       });
 
       onDoc('Checkbox', 'keydown', (e) => {
-        if (e.key === ' ' || e.key === 'Spacebar') {
-          const focused = document.activeElement;
-          if (focused && (focused.classList.contains('pc-ui-checkbox') || focused.classList.contains('pc-ui-checkbox'))) {
+        if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') {
+          const focused = typeof document !== 'undefined' ? document.activeElement : null;
+          if (focused && (focused.classList.contains('pc-ui-checkbox') || focused.getAttribute('role') === 'checkbox')) {
             e.preventDefault();
             Checkbox.toggle(focused);
           }
@@ -1737,28 +1913,136 @@
   };
 
   /* ==========================================================================
-     30. RADIO GROUP (Concentric paper target discs with pastel dot center)
+     30. RADIO GROUP (Concentric paper target discs + Animated Circular Die-Cut Punch)
      ========================================================================== */
+  function buildCutRadioSvg(tone = 'mint', uid = '') {
+    if (typeof window !== 'undefined' && window.PaperCutUI && window.PaperCutUI.paper && typeof window.PaperCutUI.paper.cutRadioMarkup === 'function') {
+      return window.PaperCutUI.paper.cutRadioMarkup(tone, false, uid);
+    }
+    const t = CUT_TONE_PALETTE[tone] || CUT_TONE_PALETTE.mint;
+    const id = uid || ('pc-cut-rad-' + (++cutCheckboxUid));
+    const maskId = id + '-mask';
+    return (
+      '<svg class="pc-cut-svg pc-radio-cut-svg" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+      '<defs><mask id="' + maskId + '">' +
+      '<rect x="0" y="0" width="28" height="28" fill="#FFFFFF"/>' +
+      '<circle class="pc-cut-mask-hole" cx="13.4" cy="13.4" r="5.4" fill="#000000"/>' +
+      '</mask></defs>' +
+      '<g class="pc-cut-layer-base" data-layer="1">' +
+      '<circle class="pc-paper-base pc-cut-base-sheet" cx="14.6" cy="14.6" r="11" fill="' + t.base + '" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-plate)"/>' +
+      '<circle class="pc-cut-carved-well" cx="13.4" cy="13.4" r="5.2" fill="' + t.base + '" stroke="' + t.stroke + '" stroke-width="1.2" filter="url(#pc-paper-sh-inset)"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-top" data-layer="2">' +
+      '<circle class="pc-paper-sheet pc-cut-top-sheet" cx="13.4" cy="13.4" r="11" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88" mask="url(#' + maskId + ')"/>' +
+      '<circle class="pc-cut-guide-path" cx="13.4" cy="13.4" r="5.4" stroke="#D2C2AD" stroke-width="1.1" stroke-dasharray="2 2"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-blade" data-layer="3">' +
+      '<circle class="pc-cut-blade-path" cx="13.4" cy="13.4" r="5.4" stroke="' + t.stroke + '" stroke-width="1.6" stroke-dasharray="34" stroke-dashoffset="34" stroke-linecap="round"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-scrap" data-layer="4">' +
+      '<circle class="pc-cut-scrap-flap" cx="13.4" cy="13.4" r="4.8" fill="#FAF7F0" stroke="#EDE4D4" stroke-width="0.8" filter="url(#pc-paper-sh-lift)"/>' +
+      '</g>' +
+      '</svg>'
+    );
+  }
+
   const RadioGroup = {
-    select(item) {
-      const group = item.closest('.pc-ui-radio-group, .pc-ui-radio-group');
-      if (!group) return;
+    hydrateCut(el) {
+      if (!el) return null;
+      if (el.classList && !el.classList.contains('pc-radio-cut') && !el.classList.contains('pc-radio-box') && el.querySelectorAll) {
+        const items = $$('.pc-radio-cut', el);
+        if (items.length > 0) {
+          items.forEach(item => RadioGroup.hydrateCut(item));
+          return el;
+        }
+      }
+      const tone = el.getAttribute('data-pc-tone') || 'mint';
+      const box = el.classList && el.classList.contains('pc-radio-box')
+        ? el
+        : ((el.querySelector && el.querySelector('.pc-radio-box, .pc-ui-radio-circle')) || el);
+      if (!box.querySelector || !box.querySelector('.pc-radio-cut-svg')) {
+        const svgHtml = buildCutRadioSvg(tone);
+        if (typeof box.insertAdjacentHTML === 'function') {
+          box.insertAdjacentHTML('beforeend', svgHtml);
+        } else {
+          box.innerHTML = (box.innerHTML || '') + svgHtml;
+        }
+      }
+      box.classList && box.classList.add('is-cut-hydrated');
+      el.classList && el.classList.add('is-cut-hydrated');
+      const input = el.querySelector ? el.querySelector('input[type="radio"]') : null;
+      const isChecked = Boolean(
+        (input && input.checked) ||
+        (el.classList && el.classList.contains('is-checked')) ||
+        el.getAttribute('data-state') === 'checked' ||
+        el.getAttribute('aria-checked') === 'true'
+      );
+      el.setAttribute('data-state', isChecked ? 'checked' : 'unchecked');
+      if (!el.hasAttribute('role')) el.setAttribute('role', 'radio');
+      el.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      if (el.classList) el.classList.toggle('is-checked', isChecked);
+      if (el.style && typeof el.style.setProperty === 'function') {
+        el.style.setProperty('--pc-cut-progress', isChecked ? '1' : '0');
+      }
+      if (box !== el && box.style && typeof box.style.setProperty === 'function') {
+        box.style.setProperty('--pc-cut-progress', isChecked ? '1' : '0');
+      }
+      return box;
+    },
+    selectCut(item, groupOverride) {
+      return RadioGroup.select(item, groupOverride);
+    },
+    select(item, groupOverride) {
+      const group = groupOverride || (item.closest ? item.closest('.pc-ui-radio-group, .pc-radio-group') : null) || item.parentNode;
+      const siblings = group
+        ? $$('.pc-ui-radio-item, .pc-radio-cut', group)
+        : [item];
 
-      $$('.pc-ui-radio-item, .pc-ui-radio-item', group).forEach(it => it.setAttribute('data-state', 'unchecked'));
-      item.setAttribute('data-state', 'checked');
+      siblings.forEach(it => {
+        const active = it === item;
+        it.setAttribute('data-state', active ? 'checked' : 'unchecked');
+        it.setAttribute('aria-checked', active ? 'true' : 'false');
+        if (it.classList) it.classList.toggle('is-checked', active);
+        const inp = it.querySelector ? it.querySelector('input[type="radio"]') : null;
+        if (inp) inp.checked = active;
+        if (it.style && typeof it.style.setProperty === 'function') {
+          it.style.setProperty('--pc-cut-progress', active ? '1' : '0');
+        }
+        const box = it.querySelector && it.querySelector('.pc-radio-box, .pc-ui-radio-circle');
+        if (box && box.style && typeof box.style.setProperty === 'function') {
+          box.style.setProperty('--pc-cut-progress', active ? '1' : '0');
+        }
+        if (active && typeof globalThis !== 'undefined' && globalThis.PaperCutMotion && typeof globalThis.PaperCutMotion.triggerCutCheck === 'function') {
+          globalThis.PaperCutMotion.triggerCutCheck(it, { checked: true });
+        }
+      });
 
+      if (!group || typeof group.setAttribute !== 'function') return;
       const val = item.getAttribute('data-value') || '';
       group.setAttribute('data-value', val);
 
-      group.dispatchEvent(new CustomEvent('change', {
-        bubbles: true,
-        detail: { value: val }
-      }));
+      if (typeof CustomEvent === 'function' && typeof group.dispatchEvent === 'function') {
+        group.dispatchEvent(new CustomEvent('change', {
+          bubbles: true,
+          detail: { value: val }
+        }));
+      }
     },
-    init(context = document) {
+    init(context = (typeof document !== 'undefined' ? document : null)) {
+      if (context) {
+        $$('.pc-radio-cut, [data-pc-cut="animated"].pc-ui-radio-item, [data-pc-cut="animated"].pc-radio-label', context).forEach(el => {
+          RadioGroup.hydrateCut(el);
+        });
+      }
+      onDoc('RadioGroup', 'change', (e) => {
+        const input = e.target && e.target.closest ? e.target.closest('input[type="radio"]') : null;
+        if (!input) return;
+        const label = input.closest('.pc-radio-cut, [data-pc-cut="animated"]');
+        if (label) RadioGroup.select(label);
+      });
       onDoc('RadioGroup', 'click', (e) => {
-        const item = e.target.closest('.pc-ui-radio-item, .pc-ui-radio-item');
-        if (item) RadioGroup.select(item);
+        const item = e.target.closest('.pc-ui-radio-item, [role="radio"].pc-radio-cut');
+        if (item && !e.target.closest('input[type="radio"]')) RadioGroup.select(item);
       });
     }
   };
@@ -2114,22 +2398,107 @@
   };
 
   /* ==========================================================================
-     38. SWITCH (Paper rocker pill toggle with sliding circular paper disc)
+     38. SWITCH (Paper rocker pill toggle + Animated Slit-Cut Track Engine)
      ========================================================================== */
-  const Switch = {
-    toggle(sw) {
-      const isChecked = sw.getAttribute('data-state') === 'checked';
-      const newState = isChecked ? 'unchecked' : 'checked';
-      sw.setAttribute('data-state', newState);
+  function buildCutSwitchSvg(tone = 'mint') {
+    if (typeof window !== 'undefined' && window.PaperCutUI && window.PaperCutUI.paper && typeof window.PaperCutUI.paper.cutSwitchMarkup === 'function') {
+      return window.PaperCutUI.paper.cutSwitchMarkup(tone, false);
+    }
+    const t = CUT_TONE_PALETTE[tone] || CUT_TONE_PALETTE.mint;
+    return (
+      '<svg class="pc-cut-svg pc-switch-cut-svg" viewBox="0 0 52 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">' +
+      '<g class="pc-cut-layer-base" data-layer="1">' +
+      '<rect class="pc-paper-base pc-cut-base-sheet" x="2.5" y="2.5" width="47" height="23" rx="11.5" fill="' + t.base + '" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-plate)"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-top" data-layer="2">' +
+      '<rect class="pc-paper-sheet pc-cut-top-sheet" x="1.5" y="1.5" width="47" height="23" rx="11.5" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88"/>' +
+      '<line class="pc-cut-guide-path pc-switch-slit-guide" x1="14" y1="13" x2="36" y2="13" stroke="#D2C2AD" stroke-width="1.4" stroke-dasharray="2.5 2.5" stroke-linecap="round"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-blade" data-layer="3">' +
+      '<line class="pc-cut-blade-path pc-switch-slit-cut" x1="14" y1="13" x2="36" y2="13" stroke="' + t.stroke + '" stroke-width="2.2" stroke-dasharray="24" stroke-dashoffset="24" stroke-linecap="round" filter="url(#pc-paper-sh-inset)"/>' +
+      '</g>' +
+      '<g class="pc-cut-layer-scrap" data-layer="4">' +
+      '<circle class="pc-cut-scrap-flap pc-switch-cut-knob" cx="14" cy="13" r="8.5" fill="#FAF7F0" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-paper-sh-lift)"/>' +
+      '</g>' +
+      '</svg>'
+    );
+  }
 
-      sw.dispatchEvent(new CustomEvent('change', {
-        bubbles: true,
-        detail: { checked: newState === 'checked' }
-      }));
+  const Switch = {
+    hydrateCut(el) {
+      if (!el) return null;
+      const tone = el.getAttribute('data-pc-tone') || 'mint';
+      const track = el.classList && el.classList.contains('pc-toggle-track')
+        ? el
+        : ((el.querySelector && el.querySelector('.pc-toggle-track')) || el);
+      if (!track.querySelector || !track.querySelector('.pc-switch-cut-svg')) {
+        const svgHtml = buildCutSwitchSvg(tone);
+        if (typeof track.insertAdjacentHTML === 'function') {
+          track.insertAdjacentHTML('beforeend', svgHtml);
+        } else {
+          track.innerHTML = (track.innerHTML || '') + svgHtml;
+        }
+      }
+      track.classList && track.classList.add('is-cut-hydrated');
+      el.classList && el.classList.add('is-cut-hydrated');
+      const input = el.querySelector ? el.querySelector('input[type="checkbox"]') : null;
+      const isChecked = Boolean(
+        (input && input.checked) ||
+        (el.classList && el.classList.contains('is-checked')) ||
+        el.getAttribute('data-state') === 'checked' ||
+        el.getAttribute('aria-checked') === 'true'
+      );
+      el.setAttribute('data-state', isChecked ? 'checked' : 'unchecked');
+      if (!el.hasAttribute('role')) el.setAttribute('role', 'switch');
+      el.setAttribute('aria-checked', isChecked ? 'true' : 'false');
+      if (el.classList) el.classList.toggle('is-checked', isChecked);
+      if (!el.hasAttribute('tabindex') && !input) el.setAttribute('tabindex', '0');
+      if (el.style && typeof el.style.setProperty === 'function') {
+        el.style.setProperty('--pc-cut-progress', isChecked ? '1' : '0');
+      }
+      return track;
     },
-    init(context = document) {
+    toggleCut(sw) {
+      return Switch.toggle(sw);
+    },
+    toggle(sw) {
+      const isChecked = sw.getAttribute('data-state') === 'checked' ||
+                        sw.getAttribute('aria-checked') === 'true' ||
+                        (sw.classList && sw.classList.contains('is-checked'));
+      const nextChecked = !isChecked;
+      const newState = nextChecked ? 'checked' : 'unchecked';
+      sw.setAttribute('data-state', newState);
+      sw.setAttribute('aria-checked', nextChecked ? 'true' : 'false');
+      if (sw.classList) sw.classList.toggle('is-checked', nextChecked);
+      const input = sw.querySelector ? sw.querySelector('input[type="checkbox"]') : null;
+      if (input) input.checked = nextChecked;
+      if (sw.style && typeof sw.style.setProperty === 'function') {
+        sw.style.setProperty('--pc-cut-progress', nextChecked ? '1' : '0');
+      }
+      if (
+        (sw.classList && (sw.classList.contains('pc-switch-cut') || sw.classList.contains('is-cut-hydrated'))) ||
+        sw.getAttribute('data-pc-cut') === 'animated'
+      ) {
+        if (typeof globalThis !== 'undefined' && globalThis.PaperCutMotion && typeof globalThis.PaperCutMotion.triggerCutCheck === 'function') {
+          globalThis.PaperCutMotion.triggerCutCheck(sw, { checked: nextChecked });
+        }
+      }
+
+      if (typeof CustomEvent === 'function') {
+        sw.dispatchEvent(new CustomEvent('change', {
+          bubbles: true,
+          detail: { checked: nextChecked }
+        }));
+      }
+    },
+    init(context = (typeof document !== 'undefined' ? document : null)) {
+      if (context) {
+        $$('.pc-switch-cut, [data-pc-cut="animated"].pc-ui-switch, [data-pc-cut="animated"].pc-toggle', context).forEach(el => {
+          Switch.hydrateCut(el);
+        });
+      }
       onDoc('Switch', 'click', (e) => {
-        const sw = e.target.closest('.pc-ui-switch, .pc-ui-switch');
+        const sw = e.target.closest('.pc-ui-switch, [role="switch"].pc-switch-cut');
         if (sw) {
           e.preventDefault();
           Switch.toggle(sw);
@@ -2138,8 +2507,8 @@
 
       onDoc('Switch', 'keydown', (e) => {
         if (e.key === ' ' || e.key === 'Enter') {
-          const focused = document.activeElement;
-          if (focused && (focused.classList.contains('pc-ui-switch') || focused.classList.contains('pc-ui-switch'))) {
+          const focused = typeof document !== 'undefined' ? document.activeElement : null;
+          if (focused && (focused.classList.contains('pc-ui-switch') || focused.getAttribute('role') === 'switch')) {
             e.preventDefault();
             Switch.toggle(focused);
           }
@@ -3030,6 +3399,10 @@
     }
   }
 
+  if (typeof globalThis !== 'undefined') {
+    globalThis.PaperCutCheckbox = Checkbox;
+  }
+
   return {
     init: initAll,
     accordion: Accordion,
@@ -3044,6 +3417,8 @@
     card: Card,
     carousel: Carousel,
     checkbox: Checkbox,
+    Checkbox: Checkbox,
+    PaperCutCheckbox: Checkbox,
     collapsible: Collapsible,
     combobox: Combobox,
     command: Command,
@@ -3062,6 +3437,7 @@
     popover: Popover,
     progress: Progress,
     radioGroup: RadioGroup,
+    RadioGroup: RadioGroup,
     resizable: Resizable,
     scrollArea: ScrollArea,
     select: Select,
@@ -3070,6 +3446,7 @@
     skeleton: Skeleton,
     slider: Slider,
     switch: Switch,
+    Switch: Switch,
     table: Table,
     tabs: Tabs,
     textarea: Textarea,

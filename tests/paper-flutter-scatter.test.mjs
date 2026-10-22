@@ -12,6 +12,7 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 // --- Lightweight DOM Mock for Node.js Environment ---
 class MockClassList {
@@ -114,7 +115,7 @@ globalThis.requestAnimationFrame = (cb) => {
 globalThis.cancelAnimationFrame = (id) => clearTimeout(id);
 
 // Import PaperCutUI
-const imported = await import(join(rootDir, 'papercut-ui.js'));
+const imported = await import(pathToFileURL(join(rootDir, 'papercut-ui.js')).href);
 const PaperCutUI = imported.default || imported.PaperCutUI || globalThis.PaperCutUI || imported;
 
 describe('Paper Flutter & Scatter Engine (Step 3)', () => {

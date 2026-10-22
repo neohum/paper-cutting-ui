@@ -1205,6 +1205,82 @@ p,
   transform: translateY(0.5px);
 }
 
+/* Animated Die-Cut Scissors Paper Checkbox (.pc-checkbox-cut & [data-pc-cut="animated"]) */
+.pc-checkbox-cut,
+.pc-radio-cut,
+.pc-switch-cut {
+  --pc-cut-progress: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  user-select: none;
+  word-break: keep-all;
+  position: relative;
+}
+
+.pc-checkbox-cut .pc-checkbox-box.is-cut-hydrated,
+.pc-radio-cut .pc-radio-box.is-cut-hydrated {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+}
+
+.pc-checkbox-cut .pc-checkbox-box.is-cut-hydrated::after,
+.pc-checkbox-cut .pc-checkbox-box.is-cut-hydrated::before,
+.pc-radio-cut .pc-radio-box.is-cut-hydrated::after {
+  display: none !important;
+}
+
+.pc-cut-svg {
+  width: 28px;
+  height: 28px;
+  display: block;
+  overflow: visible;
+}
+
+.pc-switch-cut-svg {
+  width: 52px;
+  height: 28px;
+  display: block;
+  overflow: visible;
+}
+
+.pc-checkbox-cut .pc-cut-blade-path,
+[data-pc-cut="animated"] .pc-cut-blade-path {
+  stroke-dasharray: 28;
+  stroke-dashoffset: calc(28 * (1 - var(--pc-cut-progress, 0)));
+  transition: stroke-dashoffset 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-checkbox-cut .pc-cut-mask-hole,
+[data-pc-cut="animated"] .pc-cut-mask-hole {
+  opacity: var(--pc-cut-progress, 0);
+  transition: opacity 0.28s ease;
+}
+
+.pc-checkbox-cut[data-state="checked"],
+[data-pc-cut="animated"][data-state="checked"],
+.pc-radio-cut[data-state="checked"],
+.pc-switch-cut[data-state="checked"] {
+  --pc-cut-progress: 1;
+}
+
+.pc-checkbox-cut:focus-visible,
+.pc-radio-cut:focus-visible,
+.pc-switch-cut:focus-visible,
+.pc-checkbox-cut .pc-checkbox-input:focus-visible + .pc-checkbox-box,
+.pc-radio-cut .pc-radio-input:focus-visible + .pc-radio-box {
+  outline: 2px solid #2B6E4D;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
 /* 3.2 AUTHENTIC PAPERCUT RADIO BUTTONS */
 .pc-radio-group {
   display: flex;
