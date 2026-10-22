@@ -1,10 +1,49 @@
 /**
  * PaperCut UI - 3D Papercraft Animation Engine
- * 8 Authentic Handcrafted Kirigami, Origami, and Pop-Up Animations
+ * 12 Authentic Handcrafted Kirigami, Origami, and Pop-Up Physics Animations
  */
 
 /* -----------------------------------------------------------------------------
-   1. KEYFRAMES FOR 8 AUTHENTIC PAPERCRAFT ANIMATIONS
+   0. CORE PAPER PHYSICS TOKENS & GPU ACCELERATION
+   ----------------------------------------------------------------------------- */
+
+:root {
+  /* Paper Material Physics Tokens */
+  --pc-paper-stiffness: 280;          /* 스프링 복원 강성 계수 (N/m) */
+  --pc-paper-damping: 24;             /* 유체/공기 감쇠 계수 */
+  --pc-paper-mass: 1.0;               /* 종이 단위 평량 질량 (g/m²) */
+  --pc-perspective-depth: 1200px;     /* 3D 뷰포트 원근감 거리 */
+  --pc-light-distance: 800px;         /* 3차원 가상 광원 거리 */
+  --pc-paper-air-drag: 0.15;          /* 공기 저항 계수 */
+  --pc-paper-curl-radius: 40px;       /* 롤링 컬 기준 반경 */
+  --pc-paper-bounce: 0.25;            /* 종이 탄성 바운스 반발 계수 */
+  --pc-paper-friction: 0.08;          /* 표면 마찰 계수 */
+  --pc-paper-shear-angle: 12deg;      /* 전단 절단 각도 */
+  --pc-paper-tear-threshold: 60px;    /* 데클 엣지 파열 임계치 */
+}
+
+/* GPU Hardware Acceleration & Smooth Compositing Promotion */
+.pc-anim-unfold,
+.pc-anim-popup,
+.pc-anim-flutter,
+.pc-anim-peel,
+.pc-anim-stamp,
+.pc-anim-snip,
+.pc-anim-flip,
+.pc-anim-accordion,
+.pc-anim-hinge-spring,
+.pc-anim-wax-slam,
+.pc-anim-snip-split,
+.pc-anim-deckle-tear,
+[class*="pc-anim-"] {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* -----------------------------------------------------------------------------
+   1. KEYFRAMES FOR 12 AUTHENTIC PAPERCRAFT & KIRIGAMI ANIMATIONS
    ----------------------------------------------------------------------------- */
 
 /* 1.1 Origami Unfold (오리가미 3D 접힘 펼침) */
@@ -179,6 +218,142 @@
   }
 }
 
+/* 1.9 Pop-Up Book Hinge Spring (3D 팝업북 각도 연동 힌지 회전 및 입체 전개) */
+@keyframes pcHingeSpring {
+  0% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) rotateX(-85deg) translateY(36px) scale(0.65) translateZ(0);
+    transform-origin: bottom center;
+    opacity: 0;
+    filter: drop-shadow(0 0 0 rgba(74, 58, 42, 0));
+  }
+  38% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) rotateX(24deg) translateY(-10px) scale(1.08) translateZ(20px);
+    transform-origin: bottom center;
+    opacity: 1;
+    filter: drop-shadow(0 16px 20px rgba(74, 58, 42, 0.28));
+  }
+  62% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) rotateX(-10deg) translateY(4px) scale(0.97) translateZ(0);
+    transform-origin: bottom center;
+    filter: drop-shadow(0 8px 12px rgba(74, 58, 42, 0.20));
+  }
+  80% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) rotateX(4deg) translateY(-2px) scale(1.02) translateZ(5px);
+    transform-origin: bottom center;
+  }
+  92% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) rotateX(-1deg) translateY(0.5px) scale(0.995) translateZ(0);
+    transform-origin: bottom center;
+  }
+  100% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) rotateX(0deg) translateY(0) scale(1) translateZ(0);
+    transform-origin: bottom center;
+    opacity: 1;
+    filter: drop-shadow(0 6px 12px rgba(74, 58, 42, 0.16));
+  }
+}
+
+/* 1.10 Wax Stamp Slam & Squash (왁스 실링 쿵 낙하 & 방사형 스쿼시) */
+@keyframes pcWaxSlam {
+  0% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) translateY(-90px) scale(1.35, 0.75) translateZ(80px);
+    opacity: 0;
+    box-shadow: 0 40px 30px rgba(74, 58, 42, 0.05);
+  }
+  32% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) translateY(0px) scale(0.72, 1.32) translateZ(10px);
+    opacity: 1;
+    box-shadow: 0 20px 24px rgba(74, 58, 42, 0.35);
+  }
+  48% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) translateY(6px) scale(1.28, 0.76) translateZ(0);
+    box-shadow: 
+      0 1px 3px rgba(74, 58, 42, 0.45),
+      0 0 0 4px rgba(163, 216, 195, 0.35),
+      inset 0 3px 8px rgba(74, 58, 42, 0.35);
+  }
+  68% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) translateY(-6px) scale(0.94, 1.08) translateZ(15px);
+    box-shadow: 0 12px 20px rgba(74, 58, 42, 0.24);
+  }
+  84% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) translateY(2px) scale(1.03, 0.97) translateZ(0);
+    box-shadow: 0 4px 8px rgba(74, 58, 42, 0.20);
+  }
+  100% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) translateY(0) scale(1, 1) translateZ(0);
+    opacity: 1;
+    box-shadow: 
+      0 4px 10px rgba(74, 58, 42, 0.16),
+      0 0 0 2px rgba(163, 216, 195, 0.20);
+  }
+}
+
+/* 1.11 Scissors Snip Split & Shear Vibration (가위선 절단 전단 고주파 진동 및 분리) */
+@keyframes pcSnipSplit {
+  0% {
+    transform: scale(1) skewX(0deg) translateZ(0);
+  }
+  14% {
+    transform: scale(1.05, 0.94) skewX(var(--pc-paper-shear-angle, 12deg)) rotate(-4deg);
+    filter: drop-shadow(-2px 4px 6px rgba(74, 58, 42, 0.25));
+  }
+  28% {
+    transform: scale(0.95, 1.06) skewX(calc(-1 * var(--pc-paper-shear-angle, 12deg))) rotate(4deg);
+    filter: drop-shadow(2px 3px 5px rgba(74, 58, 42, 0.22));
+  }
+  44% {
+    transform: scale(1.03, 0.97) skewX(6deg) rotate(-2deg);
+  }
+  60% {
+    transform: scale(0.98, 1.02) skewX(-3deg) rotate(1deg);
+  }
+  75% {
+    transform: scale(1.01, 0.995) skewX(1.5deg) rotate(-0.5deg);
+  }
+  90% {
+    transform: scale(0.998, 1.002) skewX(-0.5deg);
+  }
+  100% {
+    transform: scale(1) skewX(0deg) rotate(0deg) translateZ(0);
+    filter: none;
+  }
+}
+
+/* 1.12 Deckle Edge Tear & Perforation Snap (데클 엣지 수제 한지 찢김 및 입체 파열) */
+@keyframes pcDeckleTear {
+  0% {
+    transform: rotate(0deg) scale(1) translate(0, 0);
+    transform-origin: top left;
+  }
+  20% {
+    transform: rotate(-3.5deg) scale(1.03, 0.97) translate(-4px, -2px) skewY(-2deg);
+    box-shadow: 0 4px 10px rgba(74, 58, 42, 0.15);
+  }
+  42% {
+    transform: rotate(-8deg) scale(1.06, 0.94) translate(-10px, -5px) skewY(-5deg);
+    box-shadow: 0 16px 26px rgba(74, 58, 42, 0.28);
+    filter: contrast(1.05);
+  }
+  56% {
+    transform: rotate(5deg) scale(0.95, 1.05) translate(3px, 1px) skewY(3deg);
+    box-shadow: 0 3px 8px rgba(74, 58, 42, 0.35);
+    filter: contrast(1.12);
+  }
+  72% {
+    transform: rotate(-2.5deg) scale(1.015, 0.985) translate(-1.5px, 0) skewY(-1deg);
+  }
+  86% {
+    transform: rotate(1deg) scale(0.995, 1.005) translate(0.5px, 0);
+  }
+  100% {
+    transform: rotate(0deg) scale(1) translate(0, 0);
+    opacity: 1;
+    filter: none;
+    box-shadow: 0 2px 6px rgba(74, 58, 42, 0.12);
+  }
+}
+
 
 /* -----------------------------------------------------------------------------
    2. ONE-SHOT & LOOP RUNNER CLASSES
@@ -208,6 +383,20 @@
 .pc-anim-accordion {
   animation: pcAccordionPleat 0.48s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+.pc-anim-hinge-spring {
+  animation: pcHingeSpring 0.72s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  transform-origin: bottom center;
+}
+.pc-anim-wax-slam {
+  animation: pcWaxSlam 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.pc-anim-snip-split {
+  animation: pcSnipSplit 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.pc-anim-deckle-tear {
+  animation: pcDeckleTear 0.62s cubic-bezier(0.18, 0.89, 0.32, 1.28) both;
+  transform-origin: top left;
+}
 
 /* Infinite Loop Modifier */
 .pc-anim-loop.pc-anim-unfold { animation-iteration-count: infinite; animation-direction: alternate; animation-duration: 1.4s; }
@@ -218,6 +407,10 @@
 .pc-anim-loop.pc-anim-snip { animation-iteration-count: infinite; animation-duration: 1.2s; }
 .pc-anim-loop.pc-anim-flip { animation-iteration-count: infinite; animation-duration: 2.2s; }
 .pc-anim-loop.pc-anim-accordion { animation-iteration-count: infinite; animation-direction: alternate; animation-duration: 1.5s; }
+.pc-anim-loop.pc-anim-hinge-spring { animation-iteration-count: infinite; animation-duration: 1.8s; }
+.pc-anim-loop.pc-anim-wax-slam { animation-iteration-count: infinite; animation-duration: 1.5s; }
+.pc-anim-loop.pc-anim-snip-split { animation-iteration-count: infinite; animation-duration: 1.3s; }
+.pc-anim-loop.pc-anim-deckle-tear { animation-iteration-count: infinite; animation-duration: 1.6s; }
 
 
 /* -----------------------------------------------------------------------------
@@ -241,6 +434,20 @@
 }
 .pc-hover-unfold:hover {
   animation: pcOrigamiUnfold 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.pc-hover-hinge-spring:hover {
+  animation: pcHingeSpring 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  transform-origin: bottom center;
+}
+.pc-hover-wax-slam:hover {
+  animation: pcWaxSlam 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.pc-hover-snip-split:hover {
+  animation: pcSnipSplit 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.pc-hover-deckle-tear:hover {
+  animation: pcDeckleTear 0.52s cubic-bezier(0.18, 0.89, 0.32, 1.28) both;
+  transform-origin: top left;
 }
 
 .pc-active-stamp:active {
@@ -276,35 +483,140 @@
   pointer-events: none;
 }
 
-.pc-anim-preset-chip {
-  padding: 8px 14px;
+/* Preset Chips Container with Horizontal Scroll Protection */
+#anim-preset-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  width: 100%;
+  padding-bottom: 8px;
+  padding-top: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #D5C8B4 transparent;
+}
+#anim-preset-chips::-webkit-scrollbar {
+  height: 6px;
+}
+#anim-preset-chips::-webkit-scrollbar-track {
+  background: transparent;
+}
+#anim-preset-chips::-webkit-scrollbar-thumb {
+  background: #D5C8B4;
   border-radius: 999px;
-  border: 1.5px solid #E6DBCB;
-  background: #FFFFFF;
+}
+
+.pc-anim-preset-chip {
+  padding: 8px 16px;
+  min-height: 38px;
+  border-radius: 8px;
+  border: 1px solid rgba(46, 30, 20, 0.15);
+  background: #FFFDF9;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
   font-size: 13px;
-  font-weight: 700;
-  color: #4A3A2C;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pc-ink, #4A3A2C);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  transition: all 0.18s ease;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.90),
+    0 1.5px 0 rgba(46, 30, 20, 0.35),
+    0 3px 6px rgba(46, 30, 20, 0.15);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease;
   user-select: none;
+  white-space: nowrap;
+  word-break: keep-all;
+  width: auto !important;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 .pc-anim-preset-chip:hover {
-  transform: translateY(-1px);
-  border-color: #CDBEAA;
-  box-shadow: 0 2px 6px rgba(74, 58, 42, 0.12);
+  transform: translateY(-1.5px);
+  background-color: var(--pc-buttercup-light, #FFF9E6);
+  border-color: rgba(46, 30, 20, 0.22);
+  box-shadow: 0 2.5px 0 rgba(46, 30, 20, 0.38), 0 5px 10px rgba(46, 30, 20, 0.20);
 }
+.pc-anim-preset-chip:active {
+  transform: translateY(1.5px);
+  box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.40), inset 0 1px 2px rgba(46, 30, 20, 0.15);
+}
+.pc-anim-preset-chip.pc-is-active,
 .pc-anim-preset-chip.is-active {
+  background: var(--pc-mint, #A3D8C3);
+  border-color: rgba(30, 90, 60, 0.28);
+  color: var(--pc-mint-dark, #1A4D38);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 4px 8px rgba(30, 90, 60, 0.22);
+}
+
+/* Speed Quick Preset Buttons */
+.pc-anim-speed-presets {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+.pc-anim-speed-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 4px 9px;
+  font-size: 11.5px;
+  font-weight: 800;
+  border-radius: 6px;
+  background: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.15);
+  color: var(--pc-ink, #3D352E);
+  cursor: pointer;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 1px 0 rgba(46, 30, 20, 0.3),
+    0 2px 4px rgba(46, 30, 20, 0.12);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+.pc-anim-speed-btn:hover {
+  transform: translateY(-1px);
+  background: #F4FAF7;
+  box-shadow: 0 2px 0 rgba(46, 30, 20, 0.35), 0 3px 6px rgba(46, 30, 20, 0.18);
+}
+.pc-anim-speed-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 0.5px 0 rgba(46, 30, 20, 0.4), inset 0 1px 2px rgba(46, 30, 20, 0.15);
+}
+.pc-anim-speed-btn.pc-is-active,
+.pc-anim-speed-btn.is-active {
   background: #A3D8C3;
-  border-color: #5BAF8E;
   color: #1A4D38;
-  box-shadow: 0 2px 6px rgba(30, 90, 60, 0.2);
+  border-color: #5BAF8E;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 1px 0 rgba(46, 30, 20, 0.35),
+    0 2px 4px rgba(30, 90, 60, 0.2);
 }
 
 .pc-anim-target-tab {
-  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 6px 14px;
   border-radius: 8px;
   border: 1.5px solid #E6DBCB;
   background: #FFFFFF;
@@ -314,6 +626,7 @@
   cursor: pointer;
   transition: all 0.15s ease;
 }
+.pc-anim-target-tab.pc-is-active,
 .pc-anim-target-tab.is-active {
   background: #D7CBEB;
   border-color: #8C78B8;
@@ -331,3 +644,424 @@
   overflow-x: auto;
   border: 1px solid #483A2F;
 }
+
+/* ==========================================================================
+   WOOD SHAVING PAPER CURL & PAPER FLUTTER SCATTER (Physics Extensions)
+   ========================================================================== */
+
+/* 1.9 Wood Shaving Curl (목공 대패 말림 3D 원통 나선 롤링) */
+@keyframes pcWoodCurlRoll {
+  0% {
+    --pc-curl-progress: 0;
+    transform: translateY(0) rotateX(0deg) translateZ(0px) scaleY(1);
+    clip-path: inset(0 0 0 0);
+  }
+  50% {
+    transform: translateY(-50%) rotateX(70deg) translateZ(36px) scaleY(0.85);
+    clip-path: inset(0 0 50% 0);
+  }
+  100% {
+    --pc-curl-progress: 1;
+    transform: translateY(-100%) rotateX(140deg) translateZ(0px) scaleY(0.72);
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+.pc-wood-curl-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  perspective: var(--pc-perspective-depth, 1200px);
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+  user-select: none;
+  border-radius: var(--pc-paper-radius, 16px);
+  contain: layout paint;
+}
+
+.pc-wood-curl-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  border-radius: inherit;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.pc-wood-curl-underlayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  border-radius: inherit;
+  transform-origin: center center;
+  transform: scale(calc(0.96 + 0.04 * var(--pc-curl-progress, 0)));
+  opacity: calc(0.4 + 0.6 * var(--pc-curl-progress, 0));
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.pc-wood-curl-peel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border-radius: inherit;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  --pc-curl-progress: 0;
+  --pc-curl-radius: 42px;
+  transform: 
+    translateY(calc(-100% * var(--pc-curl-progress, 0)))
+    rotateX(calc(140deg * var(--pc-curl-progress, 0)))
+    translateZ(calc(var(--pc-curl-radius, 42px) * sin(calc(var(--pc-curl-progress, 0) * 3.14159))))
+    scaleY(calc(1 - 0.28 * var(--pc-curl-progress, 0)));
+  clip-path: inset(0 0 calc(100% * var(--pc-curl-progress, 0)) 0);
+  will-change: transform, clip-path;
+  transition: none;
+}
+
+.pc-wood-curl-peel::after,
+.pc-wood-curl-back {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      rgba(139, 102, 65, 0.06) 0px,
+      rgba(139, 102, 65, 0.06) 2px,
+      transparent 2px,
+      transparent 8px
+    ),
+    linear-gradient(135deg, #E6D2B5 0%, #D8BE9B 50%, #C4A47C 100%);
+  transform: rotateX(180deg) translateZ(1px);
+  backface-visibility: visible;
+  pointer-events: none;
+  opacity: calc(var(--pc-curl-progress, 0) * 1.2);
+  box-shadow: inset 0 0 30px rgba(74, 58, 42, 0.22);
+}
+
+.pc-wood-curl-peel::before,
+.pc-wood-curl-crescent-shadow {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(46, 30, 20, 0.45) 0%, rgba(46, 30, 20, 0.12) 60%, transparent 85%);
+  filter: blur(4px);
+  transform: translateY(calc(12px * (1 - var(--pc-curl-progress, 0)))) scaleX(calc(0.9 + 0.2 * var(--pc-curl-progress, 0)));
+  opacity: calc(sin(calc(var(--pc-curl-progress, 0) * 3.14159)) * 0.95);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.pc-wood-curl-peel.is-curling {
+  pointer-events: none;
+}
+
+/* 1.10 Paper Flutter Leaf & Scatter Particles */
+.pc-flutter-leaf,
+.pc-scatter-particle {
+  position: absolute;
+  width: var(--pc-leaf-w, 12px);
+  height: var(--pc-leaf-h, 16px);
+  pointer-events: none;
+  user-select: none;
+  border-radius: 2px 5px 2px 6px;
+  box-shadow: 
+    0 1px 2px rgba(46, 30, 20, 0.25),
+    0 3px 6px rgba(46, 30, 20, 0.15);
+  backface-visibility: visible;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  z-index: 9999;
+}
+
+.pc-flutter-leaf[data-color="cream"],
+.pc-scatter-particle[data-color="cream"] { background: #FAF7F0; border: 0.5px solid #E4DAC8; }
+.pc-flutter-leaf[data-color="mint"],
+.pc-scatter-particle[data-color="mint"] { background: #C8E6D8; border: 0.5px solid #A8D5BA; }
+.pc-flutter-leaf[data-color="peach"],
+.pc-scatter-particle[data-color="peach"] { background: #FDE2D1; border: 0.5px solid #F7C5A8; }
+.pc-flutter-leaf[data-color="lavender"],
+.pc-scatter-particle[data-color="lavender"] { background: #E3DEFD; border: 0.5px solid #C9C1F8; }
+.pc-flutter-leaf[data-color="buttercup"],
+.pc-scatter-particle[data-color="buttercup"] { background: #FEF3C7; border: 0.5px solid #FDE68A; }
+.pc-flutter-leaf[data-color="sky"],
+.pc-scatter-particle[data-color="sky"] { background: #D9EEF8; border: 0.5px solid #BAE6FD; }
+.pc-flutter-leaf[data-color="kraft"],
+.pc-scatter-particle[data-color="kraft"] { background: #D8BE9B; border: 0.5px solid #B89366; }
+
+.pc-exit-scatter {
+  animation: pcExitScatterAnim 0.42s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  pointer-events: none !important;
+}
+
+@keyframes pcExitScatterAnim {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+  40% {
+    opacity: 0.9;
+    transform: scale(1.02) translateY(-4px) rotate(1.2deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.88) translateY(18px) rotate(-3deg);
+    filter: blur(1.5px);
+  }
+}
+
+.pc-exit-flutter {
+  animation: pcExitFlutterAnim 0.55s cubic-bezier(0.2, 0.8, 0.4, 1) forwards !important;
+  pointer-events: none !important;
+  transform-origin: center top;
+}
+
+@keyframes pcExitFlutterAnim {
+  0% {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg) rotateZ(0deg) translateY(0);
+  }
+  35% {
+    opacity: 0.95;
+    transform: perspective(800px) rotateX(-18deg) rotateZ(3deg) translateY(-8px);
+  }
+  70% {
+    opacity: 0.6;
+    transform: perspective(800px) rotateX(32deg) rotateZ(-6deg) translateY(18px);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(800px) rotateX(55deg) rotateZ(8deg) translateY(42px) scale(0.82);
+  }
+}
+
+/* ==========================================================================
+   MULTI-LAYER STACKING & STRATA OSCILLATION (Step 2)
+   ========================================================================== */
+
+/* 1.13 Strata Wave Breeze Oscillation (다층 종이 언덕 미풍 호흡 파동) */
+@keyframes pcStrataBreeze {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  50% {
+    transform: translateY(-3.5px) scaleY(1.01);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+/* 1.14 Shingle Card Tactile Pop (슁글 카드 틈새 솟아오름 팝업 스프링) */
+@keyframes pcShinglePop {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  60% {
+    transform: translateY(-16px) scale(1.025);
+  }
+  100% {
+    transform: translateY(-14px) scale(1.02);
+  }
+}
+
+/* Strata & Shingle Animation Classes */
+.pc-anim-strata-breeze {
+  animation: pcStrataBreeze 6s ease-in-out infinite both;
+}
+
+.pc-anim-shingle-lift {
+  animation: pcShinglePop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pc-hover-strata-breeze:hover {
+  animation: pcStrataBreeze 4s ease-in-out infinite both;
+}
+
+.pc-hover-shingle-lift:hover {
+  animation: pcShinglePop 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   ANIMATED PAPER-CUTTING CHECKBOX, RADIO & SWITCH PHYSICS (pcCutSnipCarve)
+   ========================================================================== */
+
+/* 1.15 Scissors Cut & Carve Shear Vibration (체크박스/라디오/스위치 칼선 전단 절취 모션 - 360ms 이내) */
+@keyframes pcCutSnipCarve {
+  0% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1) skewX(0deg) translateZ(0);
+  }
+  25% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1.04, 0.96) skewX(calc(var(--pc-paper-shear-angle, 12deg) * 0.45)) rotate(-2deg);
+    filter: drop-shadow(0 1.5px 2.5px rgba(46, 30, 20, 0.48)) drop-shadow(0 4px 8px rgba(46, 30, 20, 0.25));
+  }
+  55% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(0.97, 1.04) skewX(calc(var(--pc-paper-shear-angle, 12deg) * -0.35)) rotate(1.5deg);
+    filter: drop-shadow(0 2px 3.5px rgba(46, 30, 20, 0.48)) drop-shadow(0 5px 10px rgba(46, 30, 20, 0.26));
+  }
+  80% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1.015, 0.99) skewX(2deg) rotate(-0.5deg);
+  }
+  100% {
+    transform: perspective(var(--pc-perspective-depth, 1200px)) scale(1) skewX(0deg) rotate(0deg) translateZ(0);
+  }
+}
+
+.pc-anim-cut-carve {
+  animation: pcCutSnipCarve 0.36s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Cutout Scrap 3D Lift & Reseal Spring */
+.pc-checkbox-cut .pc-cut-scrap-flap,
+[data-pc-cut="animated"] .pc-cut-scrap-flap {
+  transform-origin: center top;
+  transform-box: fill-box;
+  transition: transform 0.34s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.28s ease;
+}
+
+.pc-checkbox-cut[data-state="checked"] .pc-cut-scrap-flap,
+[data-pc-cut="animated"][data-state="checked"] .pc-cut-scrap-flap,
+.pc-checkbox-cut .pc-checkbox-input:checked ~ .pc-checkbox-box .pc-cut-scrap-flap,
+.pc-checkbox-cut .pc-checkbox-input:checked + .pc-checkbox-box .pc-cut-scrap-flap {
+  transform: perspective(400px) rotateX(28deg) translateZ(4px) translateY(-2.5px) scale(0.92);
+  opacity: 0;
+  filter: url(#pc-paper-sh-lift);
+}
+
+.pc-checkbox-cut[data-state="unchecked"] .pc-cut-scrap-flap,
+[data-pc-cut="animated"][data-state="unchecked"] .pc-cut-scrap-flap {
+  transform: perspective(400px) rotateX(0deg) translateZ(0px) translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Radio Circular Die-Cut Punch Rotation & Scrap Pop */
+.pc-radio-cut .pc-cut-blade-path {
+  transform-origin: 13.4px 13.4px;
+  transition: stroke-dashoffset 0.34s cubic-bezier(0.16, 1, 0.3, 1), transform 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pc-radio-cut[data-state="checked"] .pc-cut-blade-path,
+.pc-radio-cut .pc-radio-input:checked + .pc-radio-box .pc-cut-blade-path {
+  stroke-dashoffset: 0 !important;
+  transform: rotate(90deg);
+}
+.pc-radio-cut[data-state="checked"] .pc-cut-scrap-flap,
+.pc-radio-cut .pc-radio-input:checked + .pc-radio-box .pc-cut-scrap-flap {
+  transform: perspective(400px) rotateX(28deg) translateZ(4px) scale(0.25);
+  opacity: 0;
+}
+
+/* Switch Slit-Cut Track & Knob Carve */
+.pc-switch-cut .pc-switch-cut-knob {
+  transition: transform 0.34s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pc-switch-cut[data-state="checked"] .pc-switch-slit-cut,
+.pc-switch-cut .pc-toggle-input:checked ~ .pc-toggle-track .pc-switch-slit-cut {
+  stroke-dashoffset: 0 !important;
+}
+.pc-switch-cut[data-state="checked"] .pc-switch-cut-knob,
+.pc-switch-cut .pc-toggle-input:checked ~ .pc-toggle-track .pc-switch-cut-knob {
+  transform: translateX(22px) rotateX(28deg) translateZ(4px);
+}
+
+/* -----------------------------------------------------------------------------
+   5. ACCESSIBILITY: REDUCED MOTION DOWNGRADE
+   ----------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    /* 무한 애니메이션 정지 및 재생 시간 0.01ms 즉시 완료 */
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* 모든 3D 회전/말림/진동을 opacity 페이드 및 1px 엘리베이션으로 우아하게 다운그레이드 */
+  .pc-anim-unfold,
+  .pc-anim-popup,
+  .pc-anim-flutter,
+  .pc-anim-peel,
+  .pc-anim-stamp,
+  .pc-anim-snip,
+  .pc-anim-flip,
+  .pc-anim-accordion,
+  .pc-anim-hinge-spring,
+  .pc-anim-wax-slam,
+  .pc-anim-snip-split,
+  .pc-anim-deckle-tear,
+  .pc-anim-cut-carve,
+  .pc-anim-loop,
+  .pc-anim-strata-breeze,
+  .pc-anim-shingle-lift,
+  .pc-strata-hills,
+  .pc-strata-layer,
+  .pc-strata-slot,
+  .pc-shingle-deck,
+  .pc-shingle-card,
+  .pc-wood-curl-card,
+  .pc-wood-curl-peel,
+  .pc-wood-curl-underlayer,
+  .pc-flutter-leaf,
+  .pc-scatter-particle,
+  .pc-exit-scatter,
+  .pc-exit-flutter,
+  [class*="pc-anim-"] {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-name: none !important;
+    transform: translateZ(0) translateY(-1px) !important;
+    opacity: 1 !important;
+    filter: none !important;
+    will-change: auto !important;
+    box-shadow: 0 1px 2px rgba(74, 58, 42, 0.12) !important;
+  }
+
+  /* Reduced motion: skip blade path & scrap motion and jump immediately to completed die-cut state */
+  .pc-checkbox-cut[data-state="checked"],
+  .pc-radio-cut[data-state="checked"],
+  .pc-switch-cut[data-state="checked"],
+  [data-pc-cut="animated"][data-state="checked"] {
+    --pc-cut-progress: 1 !important;
+  }
+  .pc-checkbox-cut .pc-cut-blade-path,
+  .pc-checkbox-cut .pc-cut-scrap-flap,
+  .pc-radio-cut .pc-cut-blade-path,
+  .pc-radio-cut .pc-cut-scrap-flap,
+  .pc-switch-cut .pc-cut-blade-path,
+  .pc-switch-cut .pc-switch-cut-knob {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .pc-hover-flutter:hover,
+  .pc-hover-peel:hover,
+  .pc-hover-popup:hover,
+  .pc-hover-stamp:hover,
+  .pc-hover-snip:hover,
+  .pc-hover-unfold:hover,
+  .pc-hover-hinge-spring:hover,
+  .pc-hover-wax-slam:hover,
+  .pc-hover-snip-split:hover,
+  .pc-hover-deckle-tear:hover,
+  .pc-hover-strata-breeze:hover,
+  .pc-hover-shingle-lift:hover {
+    animation: none !important;
+    transform: translateY(-1px) !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+}
+

@@ -1,74 +1,464 @@
 /**
- * PaperCut UI - 3D Papercraft Modals & Overlays
- * Real Dialog (Shadowbox Modal), Side Sheet (Slide-over Panel), and Bottom Drawer (Craft Tray)
+ * PaperCut UI - 3D Papercraft Modals, Dialogs, Sheets & Drawers
+ * Authentic 12 Kirigami Archetypes (Stamp, Wax, Ticket, Thin, Tag, Dogear, Washi, Gem, Deckle, Ribbon, Envelope, Voucher)
+ * 2-Tier 48% Burnt Umber Deep Shadows & 0.88px White Knife-Edge Rim
  */
 
-/* 1. Backdrop Overlay */
+/* ==========================================================================
+   1. BACKDROP OVERLAYS
+   ========================================================================== */
 .pc-modal-backdrop {
-  position: fixed;
-  inset: 0;
+  position: fixed !important;
+  inset: 0 !important;
   background: rgba(45, 34, 24, 0.45);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  z-index: 10000;
+  z-index: 200000 !important;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none !important;
   transition: opacity 0.28s ease, visibility 0.28s ease;
+  padding: 16px;
 }
+.pc-modal-backdrop.pc-is-active,
 .pc-modal-backdrop.is-active {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto !important;
 }
 
-/* 2. 3D Papercraft Dialog (Shadowbox Modal) */
-.pc-modal-dialog {
+/* Side Sheet Backdrop */
+.pc-modal-sheet-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(45, 34, 24, 0.42);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  z-index: 200001 !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none !important;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+.pc-modal-sheet-backdrop.pc-is-active,
+.pc-modal-sheet-backdrop.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto !important;
+}
+
+/* Bottom Drawer Backdrop */
+.pc-modal-drawer-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(45, 34, 24, 0.42);
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  z-index: 200001 !important;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none !important;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+.pc-modal-drawer-backdrop.pc-is-active,
+.pc-modal-drawer-backdrop.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto !important;
+}
+
+/* ==========================================================================
+   2. 3D PAPERCRAFT DIALOG CONTAINER (.pc-modal-dialog / .pc-modal-content)
+   Standard 2-Tier 48% Burnt Umber Shadow & 0.88px Knife-Edge Rim
+   ========================================================================== */
+.pc-modal-dialog,
+.pc-modal-content {
   position: relative;
   width: 520px;
-  max-width: calc(100vw - 32px);
+  max-width: min(calc(100vw - 32px), 100%);
   max-height: calc(100vh - 48px);
   background-color: #FAF7F0;
   background-image: 
     linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 100%),
-    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.8), transparent 70%);
-  border: 2px solid #E6DCCB;
-  border-radius: 20px;
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.9), transparent 70%);
+  border: 1.5px solid #E6DCCB;
+  border-radius: var(--pc-radius-lg, 24px);
   box-shadow: 
-    0 25px 60px -15px rgba(50, 38, 26, 0.38),
-    0 10px 24px -5px rgba(50, 38, 26, 0.2),
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 3px rgba(74, 58, 42, 0.08);
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1px 0 rgba(74, 58, 42, 0.05),
+    0 2.5px 3.5px rgba(46, 30, 20, 0.52),
+    0 12px 28px rgba(46, 30, 20, 0.30),
+    0 30px 65px -10px rgba(46, 30, 20, 0.35);
   display: flex;
   flex-direction: column;
   transform: perspective(800px) scale(0.92) translateY(24px) rotateX(6deg);
   opacity: 0;
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.28s ease;
-  overflow: hidden;
+  overflow: visible;
+  color: var(--pc-ink, #3D352E);
+  font-family: var(--pc-font, 'Nanum Square Round', -apple-system, sans-serif);
 }
 
-.pc-modal-backdrop.is-active .pc-modal-dialog {
+/* Top Knife Edge Rim Reflection Line */
+.pc-modal-dialog::before,
+.pc-modal-content::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  left: 20px;
+  right: 20px;
+  height: 0.88px;
+  background: rgba(255, 255, 255, 0.95);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.pc-modal-backdrop.pc-is-active .pc-modal-dialog,
+.pc-modal-backdrop.pc-is-active .pc-modal-content,
+.pc-modal-backdrop.is-active .pc-modal-dialog,
+.pc-modal-backdrop.is-active .pc-modal-content {
   transform: perspective(800px) scale(1) translateY(0) rotateX(0deg);
   opacity: 1;
 }
 
-/* Washi Tape Header Seal */
-.pc-dialog-washi {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-  width: 140px;
-  height: 22px;
-  background: rgba(163, 216, 195, 0.85);
-  border-left: 2px dashed rgba(255,255,255,0.7);
-  border-right: 2px dashed rgba(255,255,255,0.7);
-  box-shadow: 0 2px 5px rgba(50, 40, 30, 0.15);
-  z-index: 5;
-  pointer-events: none;
+/* Inner scroll container */
+.pc-dialog-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
 }
 
+/* ==========================================================================
+   3. 12 KIRIGAMI MODAL ARCHETYPES
+   ========================================================================== */
+
+/* --- 01. Washi Tape Masking Note Modal (.pc-modal-washi) --- */
+.pc-modal-dialog.pc-modal-washi,
+.pc-modal-content.pc-modal-washi {
+  border-radius: 18px;
+}
+.pc-dialog-washi,
+.pc-modal-washi-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 140px;
+  height: 26px;
+  background: rgba(163, 216, 195, 0.90);
+  clip-path: polygon(
+    0% 0%, 3px 25%, 0% 50%, 3px 75%, 0% 100%,
+    100% 100%, calc(100% - 3px) 75%, 100% 50%, calc(100% - 3px) 25%, 100% 0%
+  );
+  box-shadow: 
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 3.5px 8px rgba(46, 30, 20, 0.20);
+  border-top: 1.5px dashed rgba(255, 255, 255, 0.75);
+  border-bottom: 1.5px dashed rgba(255, 255, 255, 0.75);
+  z-index: 20;
+  pointer-events: none;
+}
+/* Washi Tape Color Varieties */
+.pc-variant-peach .pc-dialog-washi,
+.variant-peach .pc-dialog-washi,
+.pc-modal-washi-peach { background: rgba(247, 186, 158, 0.90); }
+.pc-variant-lavender .pc-dialog-washi,
+.variant-lavender .pc-dialog-washi,
+.pc-modal-washi-lavender { background: rgba(215, 203, 235, 0.90); }
+.pc-variant-buttercup .pc-dialog-washi,
+.variant-buttercup .pc-dialog-washi,
+.pc-modal-washi-buttercup { background: rgba(254, 227, 150, 0.90); }
+.pc-variant-sky .pc-dialog-washi,
+.variant-sky .pc-dialog-washi,
+.pc-modal-washi-sky { background: rgba(189, 224, 234, 0.90); }
+.pc-variant-rose .pc-dialog-washi,
+.variant-rose .pc-dialog-washi,
+.pc-modal-washi-rose { background: rgba(245, 184, 190, 0.90); }
+
+/* --- 02. Antique Wax Seal Modal (.pc-modal-wax) --- */
+.pc-modal-dialog.pc-modal-wax,
+.pc-modal-content.pc-modal-wax {
+  border: 2px solid #E4D8C5;
+  border-radius: 22px;
+}
+.pc-modal-wax-seal {
+  position: absolute;
+  top: -18px;
+  left: 28px;
+  width: 44px;
+  height: 44px;
+  z-index: 20;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(46, 30, 20, 0.45));
+}
+.pc-modal-wax-seal svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* --- 03. Notched Cinema Ticket Modal (.pc-modal-ticket) --- */
+.pc-modal-dialog.pc-modal-ticket,
+.pc-modal-content.pc-modal-ticket {
+  border-radius: 18px;
+  border-left: 2px dashed #E6DBCB;
+  border-right: 2px dashed #E6DBCB;
+}
+/* Side Notches cut into left/right rims */
+.pc-modal-ticket::after,
+.pc-modal-ticket::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  background: rgba(45, 34, 24, 0.45);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 15;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+.pc-modal-ticket::before { left: -11px; }
+.pc-modal-ticket::after { right: -11px; }
+
+/* Ticket Perforation divider */
+.pc-modal-ticket-tear {
+  border-top: 2px dashed #D7CBEB;
+  margin: 0;
+  position: relative;
+}
+.pc-modal-ticket-tear::before,
+.pc-modal-ticket-tear::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  width: 14px;
+  height: 14px;
+  background: #FAF7F0;
+  border-radius: 50%;
+}
+.pc-modal-ticket-tear::before { left: -7px; }
+.pc-modal-ticket-tear::after { right: -7px; }
+
+/* --- 04. Ultra-Thin Crisp Paper Modal (.pc-modal-thin) --- */
+.pc-modal-dialog.pc-modal-thin,
+.pc-modal-content.pc-modal-thin {
+  border: 0.88px solid #FFFFFF;
+  outline: 1px solid rgba(74, 58, 42, 0.12);
+  border-radius: 12px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 8px 22px rgba(46, 30, 20, 0.22);
+}
+
+/* --- 05. Hanging Craft Tag Modal (.pc-modal-tag) --- */
+.pc-modal-dialog.pc-modal-tag,
+.pc-modal-content.pc-modal-tag {
+  clip-path: polygon(36px 0, 100% 0, 100% 100%, 0 100%, 0 36px);
+  border-radius: 0 20px 20px 0;
+}
+.pc-modal-tag-eyelet {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #FAF7F0;
+  border: 3.5px solid #FEE396;
+  box-shadow: 
+    0 1.5px 3px rgba(46, 30, 20, 0.45),
+    inset 0 1px 2px rgba(46, 30, 20, 0.35);
+  z-index: 15;
+}
+
+/* --- 06. Dog-ear Folded Corner Modal (.pc-modal-dogear) --- */
+.pc-modal-dialog.pc-modal-dogear,
+.pc-modal-content.pc-modal-dogear {
+  clip-path: polygon(0 0, calc(100% - 32px) 0, 100% 32px, 100% 100%, 0 100%);
+  border-radius: 20px 0 20px 20px;
+}
+.pc-modal-dogear-flap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--pc-mint, #A3D8C3);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  box-shadow: 
+    -2px 2px 4px rgba(46, 30, 20, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 20;
+  pointer-events: none;
+}
+.pc-modal-dogear-crease {
+  position: absolute;
+  top: 0;
+  right: 32px;
+  width: 1px;
+  height: 32px;
+  transform: rotate(45deg);
+  transform-origin: top right;
+  background: rgba(74, 58, 42, 0.25);
+  z-index: 21;
+}
+
+/* --- 07. Emerald Cut Octagon Gem Modal (.pc-modal-gem) --- */
+.pc-modal-dialog.pc-modal-gem,
+.pc-modal-content.pc-modal-gem {
+  clip-path: polygon(24px 0, calc(100% - 24px) 0, 100% 24px, 100% calc(100% - 24px), calc(100% - 24px) 100%, 24px 100%, 0 calc(100% - 24px), 0 24px);
+  border-radius: 0;
+  border: 1px solid #FFFFFF;
+}
+
+/* --- 08. Perforated Postage Stamp Modal (.pc-modal-stamp) --- */
+.pc-modal-dialog.pc-modal-stamp,
+.pc-modal-content.pc-modal-stamp {
+  border: 3px solid #E6DBCB;
+  border-radius: 12px;
+  padding: 8px;
+}
+.pc-modal-stamp-inner {
+  border: 1.5px dashed #D8CEBD;
+  border-radius: 8px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- 09. Handcrafted Deckle Edge Modal (.pc-modal-deckle) --- */
+.pc-modal-dialog.pc-modal-deckle,
+.pc-modal-content.pc-modal-deckle {
+  border: 2px solid #E0D4C3;
+  border-radius: 20px;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 0 0 4px #FAF6ED,
+    0 2.5px 3.5px rgba(46, 30, 20, 0.52),
+    0 12px 28px rgba(46, 30, 20, 0.30),
+    0 30px 65px -10px rgba(46, 30, 20, 0.35);
+}
+
+/* --- 10. Swallowtail Ribbon Header Modal (.pc-modal-ribbon) --- */
+.pc-modal-ribbon-badge {
+  position: absolute;
+  top: -14px;
+  left: 32px;
+  padding: 6px 20px 6px 16px;
+  background: var(--pc-sky, #BDE0EA);
+  color: var(--pc-sky-dark, #204C5A);
+  font-size: 12px;
+  font-weight: 800;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+  border-top: 1px dashed rgba(255, 255, 255, 0.7);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.7);
+  box-shadow: 0 2px 4px rgba(46, 30, 20, 0.35);
+  z-index: 15;
+}
+
+/* --- 11. Triangle Flap Pocket Envelope Modal (.pc-modal-envelope) --- */
+.pc-modal-dialog.pc-modal-envelope,
+.pc-modal-content.pc-modal-envelope {
+  border-radius: 20px;
+}
+.pc-modal-envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: #F4EFE4;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-bottom: 1px solid #E0D4C3;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(46, 30, 20, 0.15);
+  pointer-events: none;
+}
+.pc-modal-envelope-flap::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 22px;
+  background: var(--pc-rose, #F5B8BE);
+  border-radius: 50%;
+  box-shadow: 0 1.5px 3px rgba(46, 30, 20, 0.35);
+}
+
+/* --- 12. Double-Notch Voucher Modal (.pc-modal-voucher) --- */
+.pc-modal-dialog.pc-modal-voucher,
+.pc-modal-content.pc-modal-voucher {
+  border-radius: 16px;
+  border-top: 2px solid #EADBCC;
+  border-bottom: 2px solid #EADBCC;
+}
+
+/* ==========================================================================
+   4. 7 PASTEL COLOR PAPER THEMES FOR MODALS
+   ========================================================================== */
+.pc-variant-mint .pc-dialog-header,
+.variant-mint .pc-dialog-header { border-bottom-color: rgba(163, 216, 195, 0.6); }
+.pc-variant-mint .pc-dialog-footer,
+.variant-mint .pc-dialog-footer { background: #F0F9F5; }
+.pc-variant-mint .pc-modal-dogear-flap,
+.variant-mint .pc-modal-dogear-flap { background: #A3D8C3; }
+
+.pc-variant-peach .pc-dialog-header,
+.variant-peach .pc-dialog-header { border-bottom-color: rgba(247, 186, 158, 0.6); }
+.pc-variant-peach .pc-dialog-footer,
+.variant-peach .pc-dialog-footer { background: #FDF5F0; }
+.pc-variant-peach .pc-modal-dogear-flap,
+.variant-peach .pc-modal-dogear-flap { background: #F7BA9E; }
+
+.pc-variant-lavender .pc-dialog-header,
+.variant-lavender .pc-dialog-header { border-bottom-color: rgba(215, 203, 235, 0.6); }
+.pc-variant-lavender .pc-dialog-footer,
+.variant-lavender .pc-dialog-footer { background: #F6F2FC; }
+.pc-variant-lavender .pc-modal-dogear-flap,
+.variant-lavender .pc-modal-dogear-flap { background: #D7CBEB; }
+
+.pc-variant-buttercup .pc-dialog-header,
+.variant-buttercup .pc-dialog-header { border-bottom-color: rgba(254, 227, 150, 0.6); }
+.pc-variant-buttercup .pc-dialog-footer,
+.variant-buttercup .pc-dialog-footer { background: #FEFBF0; }
+.pc-variant-buttercup .pc-modal-dogear-flap,
+.variant-buttercup .pc-modal-dogear-flap { background: #FEE396; }
+
+.pc-variant-sky .pc-dialog-header,
+.variant-sky .pc-dialog-header { border-bottom-color: rgba(189, 224, 234, 0.6); }
+.pc-variant-sky .pc-dialog-footer,
+.variant-sky .pc-dialog-footer { background: #F2F9FC; }
+.pc-variant-sky .pc-modal-dogear-flap,
+.variant-sky .pc-modal-dogear-flap { background: #BDE0EA; }
+
+.pc-variant-rose .pc-dialog-header,
+.variant-rose .pc-dialog-header { border-bottom-color: rgba(245, 184, 190, 0.6); }
+.pc-variant-rose .pc-dialog-footer,
+.variant-rose .pc-dialog-footer { background: #FDF2F4; }
+.pc-variant-rose .pc-modal-dogear-flap,
+.variant-rose .pc-modal-dogear-flap { background: #F5B8BE; }
+
+.pc-variant-cream .pc-dialog-header,
+.variant-cream .pc-dialog-header { border-bottom-color: #E6DBCB; }
+.pc-variant-cream .pc-dialog-footer,
+.variant-cream .pc-dialog-footer { background: #F7F3EA; }
+
+/* ==========================================================================
+   5. HEADER, BODY & FOOTER
+   ========================================================================== */
 .pc-dialog-header {
   padding: 24px 26px 16px;
   border-bottom: 1.5px dashed #E6DBCB;
@@ -76,6 +466,8 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
+  position: relative;
+  z-index: 5;
 }
 
 .pc-dialog-title-wrap {
@@ -100,28 +492,6 @@
   line-height: 1.5;
 }
 
-.pc-dialog-close {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1.5px solid #E6DBCB;
-  background: #FFFFFF;
-  color: #5A4738;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(74, 58, 42, 0.1), inset 0 1px 0 #FFFFFF;
-  transition: all 0.18s ease;
-  flex-shrink: 0;
-}
-.pc-dialog-close:hover {
-  background: #FFF0EB;
-  color: #C74E38;
-  border-color: #F7B8A8;
-  transform: scale(1.06) rotate(90deg);
-}
-
 .pc-dialog-body {
   padding: 22px 26px;
   overflow-y: auto;
@@ -139,61 +509,258 @@
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+  border-radius: 0 0 inherit inherit;
 }
 
-/* 3. Side Sheet (Slide-over Panel from Right) */
-.pc-modal-sheet-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(45, 34, 24, 0.42);
-  backdrop-filter: blur(3.5px);
-  -webkit-backdrop-filter: blur(3.5px);
-  z-index: 10001;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.28s ease, visibility 0.28s ease;
-}
-.pc-modal-sheet-backdrop.is-active {
-  opacity: 1;
-  visibility: visible;
+/* ==========================================================================
+   6. 3D KIRIGAMI CLOSE BUTTONS (.pc-dialog-close / .pc-modal-close)
+   Multi-Layer Paper Embossing & 2-Tier Umber Contact Shadow
+   ========================================================================== */
+.pc-dialog-close,
+.pc-modal-close {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  background-color: #FFFFFF;
+  background-image: linear-gradient(180deg, #FFFFFF 0%, #FAF6ED 100%);
+  color: #5A4738;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background 0.15s ease;
+  flex-shrink: 0;
+  padding: 0;
 }
 
+.pc-dialog-close:hover,
+.pc-modal-close:hover {
+  background: #FFF0EB;
+  color: #C74E38;
+  transform: translateY(-1.5px) rotate(90deg);
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.24);
+}
+
+.pc-dialog-close:active,
+.pc-modal-close:active {
+  transform: translateY(1.5px) rotate(90deg);
+  box-shadow: 
+    inset 0 1px 2px rgba(46, 30, 20, 0.25),
+    0 0.5px 0 rgba(46, 30, 20, 0.40);
+}
+
+/* Wax Seal Close Button Variant */
+.pc-dialog-close.pc-is-wax,
+.pc-dialog-close.is-wax {
+  border-radius: 50%;
+  background: #F5B8BE;
+  color: #702830;
+  border: 1px solid #DE939B;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 2px 0 rgba(46, 30, 20, 0.42),
+    0 4px 8px rgba(46, 30, 20, 0.22);
+}
+.pc-dialog-close.pc-is-wax:hover,
+.pc-dialog-close.is-wax:hover {
+  background: #F7BA9E;
+  color: #6E3B21;
+}
+
+/* Stamp Perforated Close Button Variant */
+.pc-dialog-close.pc-is-stamp,
+.pc-dialog-close.is-stamp {
+  border-radius: 8px;
+  border: 1.5px dashed #D8CEBD;
+  background: #FFFDF9;
+}
+
+/* ==========================================================================
+   7. 12 KIRIGAMI EMBOSSED ACTION BUTTONS (FOR FOOTERS & DIALOG ACTIONS)
+   ========================================================================== */
+.pc-btn-kirigami {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+.pc-btn-kirigami:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.24);
+}
+.pc-btn-kirigami:active {
+  transform: translateY(1.5px);
+  box-shadow: 
+    inset 0 1.5px 2px rgba(46, 30, 20, 0.30),
+    0 0.5px 0 rgba(46, 30, 20, 0.40);
+}
+
+/* 01. Stamp Button */
+.pc-btn-kirigami-stamp {
+  border-radius: 8px;
+  background: #FAF6ED;
+  border: 1.5px dashed #C4E5D4;
+  color: #275C46;
+}
+
+/* 02. Wax Seal Button */
+.pc-btn-kirigami-wax {
+  border-radius: 999px;
+  background: #F5B8BE;
+  color: #702830;
+  border-color: #DE939B;
+}
+
+/* 03. Notched Ticket Button */
+.pc-btn-kirigami-ticket {
+  border-radius: 8px;
+  background: #FFFDF9;
+  border: 1.5px dashed #D7CBEB;
+  color: #855C08;
+}
+
+/* 04. Ultra-Thin Button */
+.pc-btn-kirigami-thin {
+  border-radius: 6px;
+  background: #BEE1E6;
+  border: 0.88px solid #FFFFFF;
+  color: #204C5A;
+}
+
+/* 05. Tag Button */
+.pc-btn-kirigami-tag {
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%, 0 14px);
+  background: #F7BA9E;
+  color: #5C2C16;
+}
+
+/* 06. Dog-ear Button */
+.pc-btn-kirigami-dogear {
+  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 0 100%);
+  background: #FFFDF9;
+  color: #2E1E14;
+}
+
+/* 07. Washi Button */
+.pc-btn-kirigami-washi {
+  border-radius: 6px;
+  background: #A3D8C3;
+  color: #275C46;
+  border-top: 1.5px dashed rgba(255, 255, 255, 0.7);
+  border-bottom: 1.5px dashed rgba(255, 255, 255, 0.7);
+}
+
+/* 08. Gem Button */
+.pc-btn-kirigami-gem {
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% calc(100% - 10px), calc(100% - 10px) 100%, 10px 100%, 0 calc(100% - 10px), 0 10px);
+  background: #D7CBEB;
+  color: #433261;
+}
+
+/* 09. Deckle Button */
+.pc-btn-kirigami-deckle {
+  border-radius: 10px;
+  background: #FAF6ED;
+  border: 1px solid #C4B7A6;
+  color: #4A3F33;
+}
+
+/* 10. Ribbon Button */
+.pc-btn-kirigami-ribbon {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%);
+  background: #BDE0EA;
+  color: #1C4B59;
+  padding-right: 24px;
+}
+
+/* 11. Envelope Button */
+.pc-btn-kirigami-envelope {
+  border-radius: 8px;
+  background: #FDF1EA;
+  color: #6E3B21;
+}
+
+/* 12. Voucher Button */
+.pc-btn-kirigami-voucher {
+  border-radius: 8px;
+  background: #FEE396;
+  color: #855C08;
+  border: 1.5px dashed #E6DBCB;
+}
+
+/* ==========================================================================
+   8. SIDE SHEET (SLIDE-OVER PANEL)
+   ========================================================================== */
 .pc-modal-sheet {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 440px;
-  max-width: 90vw;
+  width: 460px;
+  max-width: 92vw;
   background-color: #FAF7F0;
-  background-image: linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 100%);
-  border-left: 3px solid #E4D8C5;
+  background-image: 
+    linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 100%),
+    radial-gradient(circle at 100% 0%, rgba(255,255,255,0.8), transparent 70%);
+  border-left: 1.5px solid #E4D8C5;
   box-shadow: 
-    -18px 0 45px rgba(45, 34, 24, 0.32),
-    inset 2px 0 0 rgba(255, 255, 255, 0.9);
+    inset 0.88px 0 0 rgba(255, 255, 255, 0.98),
+    -3px 0 6px rgba(46, 30, 20, 0.42),
+    -18px 0 45px rgba(46, 30, 20, 0.30),
+    -35px 0 80px rgba(46, 30, 20, 0.20);
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 10002;
+  z-index: 200002 !important;
+  color: var(--pc-ink, #3D352E);
 }
 
 /* Stitched Notebook Binding Edge on Left Margin */
 .pc-modal-sheet::before {
   content: "";
   position: absolute;
-  top: 0; bottom: 0; left: 10px;
+  top: 0;
+  bottom: 0;
+  left: 12px;
   width: 2px;
   border-left: 2px dashed rgba(160, 135, 110, 0.45);
   pointer-events: none;
 }
 
+.pc-modal-sheet-backdrop.pc-is-active .pc-modal-sheet,
 .pc-modal-sheet-backdrop.is-active .pc-modal-sheet {
   transform: translateX(0);
 }
 
 .pc-sheet-header {
-  padding: 24px 28px 18px 32px;
+  padding: 24px 28px 18px 34px;
   border-bottom: 1.5px dashed #E6DBCB;
   display: flex;
   align-items: flex-start;
@@ -202,13 +769,13 @@
 }
 
 .pc-sheet-body {
-  padding: 24px 28px 24px 32px;
+  padding: 24px 28px 24px 34px;
   overflow-y: auto;
   flex: 1;
 }
 
 .pc-sheet-footer {
-  padding: 18px 28px 22px 32px;
+  padding: 18px 28px 22px 34px;
   border-top: 1.5px dashed #E6DBCB;
   background: #F7F3EA;
   display: flex;
@@ -217,60 +784,56 @@
   gap: 10px;
 }
 
-/* 4. Bottom Drawer (Slide-up Craft Tray) */
-.pc-modal-drawer-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(45, 34, 24, 0.42);
-  backdrop-filter: blur(3.5px);
-  -webkit-backdrop-filter: blur(3.5px);
-  z-index: 10001;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.28s ease, visibility 0.28s ease;
-}
-.pc-modal-drawer-backdrop.is-active {
-  opacity: 1;
-  visibility: visible;
-}
-
+/* ==========================================================================
+   9. BOTTOM DRAWER (SLIDE-UP CRAFT TRAY)
+   ========================================================================== */
 .pc-modal-drawer {
-  width: 680px;
+  width: 720px;
   max-width: 100vw;
-  max-height: 82vh;
+  max-height: 84vh;
   background-color: #FAF7F0;
-  background-image: linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 100%);
+  background-image: 
+    linear-gradient(180deg, #FFFFFF 0%, #FAF7F0 100%),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,0.9), transparent 70%);
   border-top: 2.5px solid #E4D8C5;
   border-left: 2px solid #E6DCCB;
   border-right: 2px solid #E6DCCB;
-  border-radius: 24px 24px 0 0;
+  border-radius: 28px 28px 0 0;
   box-shadow: 
-    0 -18px 45px rgba(45, 34, 24, 0.32),
-    inset 0 2px 0 rgba(255, 255, 255, 0.95);
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 -3px 6px rgba(46, 30, 20, 0.42),
+    0 -18px 45px rgba(46, 30, 20, 0.30),
+    0 -35px 80px rgba(46, 30, 20, 0.20);
   display: flex;
   flex-direction: column;
   transform: translateY(100%);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
   position: relative;
+  color: var(--pc-ink, #3D352E);
 }
 
+.pc-modal-drawer-backdrop.pc-is-active .pc-modal-drawer,
 .pc-modal-drawer-backdrop.is-active .pc-modal-drawer {
   transform: translateY(0);
 }
 
 /* Pull-Tab Cardstock Handle */
 .pc-drawer-pull-tab {
-  width: 52px;
+  width: 56px;
   height: 6px;
   background: #D8CBB7;
   border-radius: 999px;
   margin: 12px auto 6px;
-  box-shadow: inset 0 1px 2px rgba(74, 58, 42, 0.25), 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    inset 0 1px 2px rgba(74, 58, 42, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.8);
   cursor: grab;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.pc-drawer-pull-tab:hover {
+  background: #BFAFA0;
+  transform: scaleX(1.15);
 }
 
 .pc-drawer-header {
@@ -295,4 +858,11 @@
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+}
+
+/* 푸터 액션 줄은 좁은 컨테이너에서 줄바꿈한다 (넘침 방지) */
+.pc-dialog-footer,
+.pc-sheet-footer,
+.pc-drawer-footer {
+  flex-wrap: wrap;
 }

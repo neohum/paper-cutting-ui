@@ -1,0 +1,49 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="ocean_clownfish" data-category="ocean">
+  <defs>
+    
+    <filter id="ps-ocean_clownfish-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-ocean_clownfish-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-ocean_clownfish-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-ocean_clownfish" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-ocean_clownfish)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-ocean_clownfish-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#F97316" opacity="0.18" filter="url(#ps-ocean_clownfish-base)"/>
+  
+        <!-- Ocean Wave & Bubble Cutouts -->
+        <path d="M 16 68 Q 30 60 44 68 T 72 68 T 88 68 L 88 88 L 16 88 Z" fill="#BDE0EA" opacity="0.65"/>
+        <circle cx="26" cy="36" r="3.5" fill="#FFFDF9" opacity="0.7"/>
+        <circle cx="76" cy="30" r="2.5" fill="#FFFDF9" opacity="0.6"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Clownfish Oval Body -->
+      <ellipse cx="50" cy="52" rx="22" ry="16" fill="#F97316" filter="url(#ps-ocean_clownfish-mid)"/>
+      <!-- Iconic White Paper Stripes with Black Borders -->
+      <path d="M 44 38 Q 42 52 44 66 L 40 65 Q 38 52 40 39 Z" fill="#FFFDF9" stroke="#1F2937" stroke-width="1" filter="url(#ps-ocean_clownfish-top)"/>
+      <path d="M 58 39 Q 56 52 58 65 L 54 64 Q 52 52 54 40 Z" fill="#FFFDF9" stroke="#1F2937" stroke-width="1" filter="url(#ps-ocean_clownfish-top)"/>
+      <circle cx="65" cy="48" r="2.8" fill="#1F2937" filter="url(#ps-ocean_clownfish-top)"/>
+      <circle cx="64" cy="47" r="1" fill="#FFFDF9"/>
+    
+</svg>

@@ -117,3 +117,5 @@ export interface GenerativeWidgetPayload<T = Record<string, unknown>> {
 3. **레이아웃 시프트(CLS) 유발:** 스켈레톤 높이 예약 없이 컴포넌트가 갑자기 팽창해 페이지 스크롤을 튀게 만드는 행위 금지.
 4. **비대칭 테두리:** 생성된 카드에 `border-l-4 rounded-*` 형태의 손톱 왜곡 디자인 적용 금지.
 5. **불완전 JSON 크래시:** 스트리밍 도중 잘린 JSON 토큰으로 인해 React 앱 런타임이 중단되는 파싱 예외 방치 금지.
+6. **한국어 음절 분절 슬롭:** 생성된 컴포넌트나 카드 내 한국어 텍스트에 `word-break: break-all` (`break-all`) 사용 금지 (`break-keep`, `text-balance` 적용 필수).
+

@@ -1,10 +1,12 @@
 /**
  * PaperCut UI - Alerts & Toasts Notification System
- * Authentic 3D Layered Paper-Cut Aesthetic (Cardstock, Washi Tape, Deckle Slips)
+ * 12 Kirigami Papercraft Archetypes (Stamp, Wax, Ticket, Thin, Tag, Dogear, Washi, Gem, Deckle, Ribbon, Envelope, Voucher)
+ * 2-Tier 48% Burnt Umber Deep Shadows & 0.88px White Knife-Edge Rim
+ * 100% Anti-Fingernail Compliant (Full Symmetric Borders, No Asymmetric Stripes)
  */
 
 /* ==========================================================================
-   1. ALERT NOTIFICATION COMPONENTS (.pc-alert)
+   1. ALERT NOTIFICATION SYSTEM (.pc-alert)
    ========================================================================== */
 
 .pc-alert-suite {
@@ -24,31 +26,26 @@
   background: #FFFDF9;
   border: 1.5px solid #EADBCC;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 4px 12px rgba(74, 58, 42, 0.08),
-    0 1px 3px rgba(74, 58, 42, 0.05);
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4.5px 12px rgba(46, 30, 20, 0.24);
   font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
   color: var(--pc-ink, #3D352E);
-  transition: all 0.2s ease;
-  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  overflow: visible;
 }
 
 .pc-alert:hover {
   transform: translateY(-2px);
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 8px 20px rgba(74, 58, 42, 0.12),
-    0 2px 5px rgba(74, 58, 42, 0.06);
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 2px 3px rgba(46, 30, 20, 0.50),
+    0 8px 20px rgba(46, 30, 20, 0.28);
 }
 
-/* Left Accent Color Strip (Folded Paper Edge) */
+/* Anti-Fingernail Standard: Symmetric full borders & tinted cardstock (no asymmetric left strip) */
 .pc-alert::before {
-  content: "";
-  position: absolute;
-  top: 0; bottom: 0; left: 0;
-  width: 6px;
-  background: var(--pc-mint, #A3D8C3);
-  border-radius: var(--pc-radius-md, 16px) 0 0 var(--pc-radius-md, 16px);
+  display: none;
 }
 
 .pc-alert-icon-box {
@@ -60,13 +57,19 @@
   align-items: center;
   justify-content: center;
   background: #FFFDF9;
-  border: 1px solid rgba(74, 58, 42, 0.10);
-  box-shadow: 0 2px 5px rgba(74, 58, 42, 0.06);
+  border: 1px solid rgba(74, 58, 42, 0.12);
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    0 1.5px 2px rgba(46, 30, 20, 0.35);
+  position: relative;
+  z-index: 2;
 }
 
 .pc-alert-content {
   flex: 1;
   min-width: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .pc-alert-title {
@@ -77,6 +80,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  color: #37281E;
 }
 
 .pc-alert-desc {
@@ -93,126 +97,398 @@
   margin-top: 12px;
 }
 
+/* 3D Papercut Alert Close Button */
 .pc-alert-close {
   flex-shrink: 0;
-  background: transparent;
-  border: none;
+  background: #FFFDF9;
+  border: 1px solid rgba(46, 30, 20, 0.12);
   cursor: pointer;
-  padding: 4px;
-  border-radius: 8px;
+  padding: 0;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 50%;
   color: var(--pc-ink-muted, #7A6F64);
-  transition: all 0.15s ease;
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    0 1.5px 2px rgba(46, 30, 20, 0.32);
+  transition: transform 0.18s ease, color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
 .pc-alert-close:hover {
-  background: rgba(74, 58, 42, 0.08);
-  color: var(--pc-ink, #3D352E);
-  transform: rotate(90deg);
+  background: #FFF0EB;
+  color: #C74E38;
+  transform: translateY(-1px) rotate(90deg);
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    0 2.5px 5px rgba(46, 30, 20, 0.30);
 }
 
-/* 4 Semantic Variants */
-/* Success */
+.pc-alert-close:active {
+  transform: translateY(1px) rotate(90deg);
+  box-shadow: 
+    inset 0 1px 2px rgba(46, 30, 20, 0.25),
+    0 0.5px 0 rgba(46, 30, 20, 0.35);
+}
+
+/* ==========================================================================
+   2. 12 KIRIGAMI ALERT STYLES
+   ========================================================================== */
+
+/* --- 01. Washi Tape Memo Alert (.pc-alert-washi / .pc-alert-memo) --- */
+.pc-alert-washi,
+.pc-alert-memo {
+  background: #FFFDF8;
+  border: 1.5px dashed #DCCFBC;
+  border-radius: 14px;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 2px 3px rgba(46, 30, 20, 0.45),
+    0 6px 16px rgba(46, 30, 20, 0.20);
+  padding-top: 26px;
+}
+.pc-alert-washi .pc-washi-tape-pin,
+.pc-alert-memo .pc-washi-tape-pin {
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 110px;
+  height: 24px;
+  background: rgba(247, 186, 158, 0.90);
+  box-shadow: 
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 3.5px 8px rgba(46, 30, 20, 0.18);
+  clip-path: polygon(
+    0% 0%, 3px 25%, 0% 50%, 3px 75%, 0% 100%,
+    100% 100%, calc(100% - 3px) 75%, 100% 50%, calc(100% - 3px) 25%, 100% 0%
+  );
+  border-top: 1.5px dashed rgba(255, 255, 255, 0.75);
+  border-bottom: 1.5px dashed rgba(255, 255, 255, 0.75);
+  z-index: 10;
+  pointer-events: none;
+}
+.pc-alert-washi.pc-variant-mint .pc-washi-tape-pin,
+.pc-alert-washi.variant-mint .pc-washi-tape-pin { background: rgba(163, 216, 195, 0.90); }
+.pc-alert-washi.pc-variant-lavender .pc-washi-tape-pin,
+.pc-alert-washi.variant-lavender .pc-washi-tape-pin { background: rgba(215, 203, 235, 0.90); }
+.pc-alert-washi.pc-variant-buttercup .pc-washi-tape-pin,
+.pc-alert-washi.variant-buttercup .pc-washi-tape-pin { background: rgba(254, 227, 150, 0.90); }
+.pc-alert-washi.pc-variant-sky .pc-washi-tape-pin,
+.pc-alert-washi.variant-sky .pc-washi-tape-pin { background: rgba(189, 224, 234, 0.90); }
+.pc-alert-washi.pc-variant-rose .pc-washi-tape-pin,
+.pc-alert-washi.variant-rose .pc-washi-tape-pin { background: rgba(245, 184, 190, 0.90); }
+
+/* --- 02. Swallowtail Ribbon Banner Alert (.pc-alert-ribbon) --- */
+.pc-alert-ribbon {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 50%, 100% 100%, 0 100%);
+  border-radius: 12px 0 0 12px;
+  border-top: 2px dashed rgba(46, 30, 20, 0.15);
+  border-bottom: 2px dashed rgba(46, 30, 20, 0.15);
+  padding-right: 36px;
+}
+
+/* --- 03. Perforated Postage Stamp Alert (.pc-alert-stamp) --- */
+.pc-alert-stamp {
+  border: 2.5px solid #E6DBCB;
+  border-radius: 12px;
+  outline: 2px dashed #D8CEBD;
+  outline-offset: -6px;
+  background: #FFFDF9;
+}
+
+/* --- 04. Notched Cinema Ticket Alert (.pc-alert-ticket) --- */
+.pc-alert-ticket {
+  border-radius: 14px;
+  border-left: 2px dashed #E6DBCB;
+  border-right: 2px dashed #E6DBCB;
+  position: relative;
+}
+.pc-alert-ticket::after,
+.pc-alert-ticket::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  background: var(--pc-bg-cream, #FAF7F0);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  box-shadow: inset 0 1.5px 3px rgba(46, 30, 20, 0.35);
+  pointer-events: none;
+}
+.pc-alert-ticket::before { left: -9px; }
+.pc-alert-ticket::after { right: -9px; }
+
+/* Perforation Divider Line inside Ticket Alert */
+.pc-alert-ticket-tear {
+  width: 2px;
+  height: 100%;
+  border-left: 2px dashed #D7CBEB;
+  margin: 0 4px;
+}
+
+/* --- 05. Dog-ear Folded Corner Alert (.pc-alert-dogear) --- */
+.pc-alert-dogear {
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 0 100%);
+  border-radius: 14px 0 14px 14px;
+}
+.pc-alert-dogear-flap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--pc-mint, #A3D8C3);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  box-shadow: 
+    -2px 2px 4px rgba(46, 30, 20, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 10;
+  pointer-events: none;
+}
+.pc-variant-peach .pc-alert-dogear-flap,
+.variant-peach .pc-alert-dogear-flap { background: #F7BA9E; }
+.pc-variant-lavender .pc-alert-dogear-flap,
+.variant-lavender .pc-alert-dogear-flap { background: #D7CBEB; }
+.pc-variant-buttercup .pc-alert-dogear-flap,
+.variant-buttercup .pc-alert-dogear-flap { background: #FEE396; }
+.pc-variant-sky .pc-alert-dogear-flap,
+.variant-sky .pc-alert-dogear-flap { background: #BDE0EA; }
+.pc-variant-rose .pc-alert-dogear-flap,
+.variant-rose .pc-alert-dogear-flap { background: #F5B8BE; }
+
+/* --- 06. Antique Wax Seal Alert (.pc-alert-wax) --- */
+.pc-alert-wax {
+  border: 1.5px solid #E6DBCB;
+  border-radius: 16px;
+  position: relative;
+}
+.pc-alert-wax-seal {
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  width: 32px;
+  height: 32px;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 1.5px 3px rgba(46, 30, 20, 0.40));
+}
+.pc-alert-wax-seal svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* --- 07. Emerald Cut Octagon Gem Alert (.pc-alert-gem) --- */
+.pc-alert-gem {
+  clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px);
+  border-radius: 0;
+  border: 1px solid #FFFFFF;
+}
+
+/* --- 08. Handcrafted Deckle Edge Alert (.pc-alert-deckle) --- */
+.pc-alert-deckle {
+  border: 1.5px solid #D8CBB7;
+  border-radius: 16px;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 0 0 3px #FAF6ED,
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 4.5px 12px rgba(46, 30, 20, 0.24);
+}
+
+/* --- 09. Hanging Craft Tag Alert (.pc-alert-tag) --- */
+.pc-alert-tag {
+  clip-path: polygon(24px 0, 100% 0, 100% 100%, 0 100%, 0 24px);
+  border-radius: 0 14px 14px 0;
+}
+.pc-alert-tag-eyelet {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #FAF7F0;
+  border: 2.5px solid #FEE396;
+  box-shadow: 
+    0 1px 2px rgba(46, 30, 20, 0.40),
+    inset 0 1px 1px rgba(46, 30, 20, 0.30);
+  z-index: 10;
+}
+
+/* --- 10. Double-Notch Voucher Alert (.pc-alert-voucher) --- */
+.pc-alert-voucher {
+  border-radius: 12px;
+  border-top: 1.5px solid #EADBCC;
+  border-bottom: 1.5px solid #EADBCC;
+}
+
+/* --- 11. Envelope Pocket Alert (.pc-alert-envelope) --- */
+.pc-alert-envelope {
+  border-radius: 14px;
+}
+.pc-alert-envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: #F4EFE4;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  border-bottom: 1px solid #E0D4C3;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* --- 12. Ultra-Thin Crisp Paper Alert (.pc-alert-thin) --- */
+.pc-alert-thin {
+  border: 0.88px solid #FFFFFF;
+  outline: 1px solid rgba(74, 58, 42, 0.12);
+  border-radius: 10px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 1.2px 2px rgba(46, 30, 20, 0.45),
+    0 4px 10px rgba(46, 30, 20, 0.18);
+}
+
+/* ==========================================================================
+   3. 7 PASTEL COLOR PAPER THEMES & SEMANTIC ALERTS
+   ========================================================================== */
+
+/* Mint / Success */
+.pc-alert-mint,
 .pc-alert-success {
   background: #F4FAF6;
-  border-color: #BBE5CE;
+  border-color: #A3D8C3;
 }
-.pc-alert-success::before {
-  background: #4DA778;
-}
+.pc-alert-mint .pc-alert-title,
 .pc-alert-success .pc-alert-title {
   color: #1E5C41;
 }
+.pc-alert-mint .pc-alert-icon-box,
 .pc-alert-success .pc-alert-icon-box {
   background: #E4F5EB;
   border-color: #A3D8C3;
+  color: #1E5C41;
 }
 
-/* Info */
+/* Sky / Info */
+.pc-alert-sky,
 .pc-alert-info {
   background: #F2F8FC;
   border-color: #BDE0EA;
 }
-.pc-alert-info::before {
-  background: #3B82A6;
-}
+.pc-alert-sky .pc-alert-title,
 .pc-alert-info .pc-alert-title {
   color: #1B4D66;
 }
+.pc-alert-sky .pc-alert-icon-box,
 .pc-alert-info .pc-alert-icon-box {
   background: #E2F0F7;
   border-color: #BDE0EA;
+  color: #1B4D66;
 }
 
-/* Warning */
+/* Buttercup / Warning */
+.pc-alert-buttercup,
 .pc-alert-warning {
   background: #FEFBF0;
   border-color: #FEE396;
 }
-.pc-alert-warning::before {
-  background: #D9A01C;
-}
+.pc-alert-buttercup .pc-alert-title,
 .pc-alert-warning .pc-alert-title {
   color: #7A5812;
 }
+.pc-alert-buttercup .pc-alert-icon-box,
 .pc-alert-warning .pc-alert-icon-box {
   background: #FEF4D5;
   border-color: #FEE396;
+  color: #7A5812;
 }
 
-/* Destructive / Error */
+/* Rose / Error / Destructive */
+.pc-alert-rose,
 .pc-alert-destructive,
 .pc-alert-error {
   background: #FDF3F4;
-  border-color: #F7BAC2;
+  border-color: #F5B8BE;
 }
-.pc-alert-destructive::before,
-.pc-alert-error::before {
-  background: #C94A5C;
-}
+.pc-alert-rose .pc-alert-title,
 .pc-alert-destructive .pc-alert-title,
 .pc-alert-error .pc-alert-title {
   color: #8C2D3B;
 }
+.pc-alert-rose .pc-alert-icon-box,
 .pc-alert-destructive .pc-alert-icon-box,
 .pc-alert-error .pc-alert-icon-box {
   background: #FCE6E9;
   border-color: #F5B8BE;
+  color: #8C2D3B;
 }
 
-/* Special Variant: Pinned Memo Slip with Washi Tape */
-.pc-alert-memo {
-  background: #FFFDF8;
-  border: 1.5px dashed #DCCFBC;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(74, 58, 42, 0.08);
-  padding-top: 24px;
+/* Peach */
+.pc-alert-peach {
+  background: #FFF6F0;
+  border-color: #F7BA9E;
 }
-.pc-alert-memo::before {
-  display: none;
+.pc-alert-peach .pc-alert-title { color: #6E3B21; }
+.pc-alert-peach .pc-alert-icon-box {
+  background: #FDEFE6;
+  border-color: #F7BA9E;
+  color: #6E3B21;
 }
-.pc-alert-memo .pc-washi-tape-pin {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-  width: 90px;
-  height: 22px;
-  background: rgba(247, 186, 158, 0.85);
-  box-shadow: 0 2px 4px rgba(74, 58, 42, 0.12);
-  border-left: 2px dashed rgba(255, 255, 255, 0.5);
-  border-right: 2px dashed rgba(255, 255, 255, 0.5);
+
+/* Lavender */
+.pc-alert-lavender {
+  background: #FAF7FE;
+  border-color: #D7CBEB;
+}
+.pc-alert-lavender .pc-alert-title { color: #473B6B; }
+.pc-alert-lavender .pc-alert-icon-box {
+  background: #F3EEFD;
+  border-color: #D7CBEB;
+  color: #473B6B;
+}
+
+/* Cream / Neutral */
+.pc-alert-cream {
+  background: #FFFDF9;
+  border-color: #E6DBCB;
+}
+.pc-alert-cream .pc-alert-title { color: #3D352E; }
+.pc-alert-cream .pc-alert-icon-box {
+  background: #FAF6ED;
+  border-color: #E6DBCB;
+  color: #3D352E;
+}
+
+/* Sage */
+.pc-alert-sage {
+  background: #F5F9F4;
+  border-color: #BBD5B8;
+}
+.pc-alert-sage .pc-alert-title { color: #324D2E; }
+.pc-alert-sage .pc-alert-icon-box {
+  background: #EAF3E9;
+  border-color: #BBD5B8;
+  color: #324D2E;
 }
 
 /* ==========================================================================
-   2. TOAST NOTIFICATION CONTAINER & TOAST CARDS
+   4. TOAST NOTIFICATION CONTAINER & TOAST CARDS
    ========================================================================== */
 
 #pc-toast-container {
-  position: fixed;
-  z-index: 99999;
+  position: fixed !important;
+  z-index: 300000 !important;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -221,45 +497,69 @@
   width: calc(100% - 32px);
   padding: 16px;
   transition: all 0.3s ease;
-}
-
-/* Positions */
-#pc-toast-container.pos-top-right {
-  top: 16px;
+  top: calc(var(--pc-header-height, 64px) + 16px);
   right: 16px;
 }
+
+/* Positions - Top offset ensures clearance below fixed header (64px + 16px) with ultra-high z-index */
+#pc-toast-container.pc-pos-top-right,
+#pc-toast-container.pos-top-right {
+  top: calc(var(--pc-header-height, 64px) + 16px) !important;
+  bottom: auto !important;
+  right: 16px;
+}
+#pc-toast-container.pc-pos-bottom-right,
 #pc-toast-container.pos-bottom-right {
-  bottom: 16px;
+  top: auto !important;
+  bottom: 16px !important;
   right: 16px;
   flex-direction: column-reverse;
 }
+#pc-toast-container.pc-pos-top-center,
 #pc-toast-container.pos-top-center {
-  top: 16px;
+  top: calc(var(--pc-header-height, 64px) + 16px) !important;
+  bottom: auto !important;
   left: 50%;
   transform: translateX(-50%);
 }
+#pc-toast-container.pc-pos-top-left,
+#pc-toast-container.pos-top-left {
+  top: calc(var(--pc-header-height, 64px) + 16px) !important;
+  bottom: auto !important;
+  left: 16px;
+}
+#pc-toast-container.pc-pos-bottom-left,
+#pc-toast-container.pos-bottom-left {
+  top: auto !important;
+  bottom: 16px !important;
+  left: 16px;
+  flex-direction: column-reverse;
+}
 
+/* Base Toast Card: 2-Tier 48% Burnt Umber Shadow & 0.88px Knife Rim */
 .pc-toast-card {
   pointer-events: auto;
   position: relative;
   background: #FFFDF9;
   border: 1.5px solid #E6DBC9;
-  border-radius: 16px;
+  border-radius: var(--pc-radius-md, 16px);
   padding: 16px 18px 18px;
   box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.95) inset,
-    0 14px 35px rgba(74, 58, 42, 0.18),
-    0 3px 8px rgba(74, 58, 42, 0.08);
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 2px 3px rgba(46, 30, 20, 0.48),
+    0 12px 28px rgba(46, 30, 20, 0.26),
+    0 3px 8px rgba(46, 30, 20, 0.12);
   font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
   color: var(--pc-ink, #3D352E);
   display: flex;
   align-items: flex-start;
   gap: 14px;
-  overflow: hidden;
+  overflow: visible;
   animation: pcToastEnter 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+.pc-toast-card.pc-is-leaving,
 .pc-toast-card.is-leaving {
   animation: pcToastExit 0.28s cubic-bezier(0.7, 0, 0.84, 0) forwards;
 }
@@ -286,38 +586,170 @@
   }
 }
 
-/* Washi Tape Corner Stamp */
+/* ==========================================================================
+   5. KIRIGAMI TOAST STYLES
+   ========================================================================== */
+
+/* --- 01. Notched Cinema Ticket Toast (.pc-toast-ticket) --- */
+.pc-toast-card.pc-toast-ticket {
+  border-radius: 12px;
+  border-left: 2px dashed #E6DBCB;
+  border-right: 2px dashed #E6DBCB;
+}
+.pc-toast-ticket::before,
+.pc-toast-ticket::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: var(--pc-bg-cream, #FAF7F0);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  box-shadow: inset 0 1.5px 3px rgba(46, 30, 20, 0.35);
+  pointer-events: none;
+}
+.pc-toast-ticket::before { left: -8px; }
+.pc-toast-ticket::after { right: -8px; }
+
+/* --- 02. Dog-ear Folded Corner Toast (.pc-toast-dogear) --- */
+.pc-toast-card.pc-toast-dogear {
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+  border-radius: 14px 0 14px 14px;
+}
+.pc-toast-dogear-flap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: var(--pc-mint, #A3D8C3);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  box-shadow: 
+    -1.5px 1.5px 3px rgba(46, 30, 20, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  z-index: 10;
+  pointer-events: none;
+}
+.pc-variant-peach .pc-toast-dogear-flap,
+.variant-peach .pc-toast-dogear-flap { background: #F7BA9E; }
+.pc-variant-lavender .pc-toast-dogear-flap,
+.variant-lavender .pc-toast-dogear-flap { background: #D7CBEB; }
+.pc-variant-buttercup .pc-toast-dogear-flap,
+.variant-buttercup .pc-toast-dogear-flap { background: #FEE396; }
+.pc-variant-sky .pc-toast-dogear-flap,
+.variant-sky .pc-toast-dogear-flap { background: #BDE0EA; }
+.pc-variant-rose .pc-toast-dogear-flap,
+.variant-rose .pc-toast-dogear-flap { background: #F5B8BE; }
+
+/* --- 03. Washi Tape Pinned Toast (.pc-toast-washi) --- */
+.pc-toast-card.pc-toast-washi {
+  padding-top: 20px;
+}
 .pc-toast-tape {
   position: absolute;
   top: -8px;
   right: 24px;
-  width: 50px;
-  height: 16px;
-  background: rgba(163, 216, 195, 0.85);
-  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.12);
+  width: 56px;
+  height: 18px;
+  background: rgba(163, 216, 195, 0.90);
+  box-shadow: 0 1.5px 3px rgba(46, 30, 20, 0.35);
   transform: rotate(2deg);
+  clip-path: polygon(
+    0% 0%, 2px 25%, 0% 50%, 2px 75%, 0% 100%,
+    100% 100%, calc(100% - 2px) 75%, 100% 50%, calc(100% - 2px) 25%, 100% 0%
+  );
+  border-top: 1px dashed rgba(255, 255, 255, 0.7);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.7);
+  z-index: 10;
 }
-.pc-toast-card.variant-peach .pc-toast-tape { background: rgba(247, 186, 158, 0.85); }
-.pc-toast-card.variant-lavender .pc-toast-tape { background: rgba(215, 203, 235, 0.85); }
-.pc-toast-card.variant-buttercup .pc-toast-tape { background: rgba(254, 227, 150, 0.85); }
-.pc-toast-card.variant-rose .pc-toast-tape { background: rgba(245, 184, 190, 0.85); }
+.pc-toast-card.pc-variant-peach .pc-toast-tape,
+.pc-toast-card.variant-peach .pc-toast-tape { background: rgba(247, 186, 158, 0.90); }
+.pc-toast-card.pc-variant-lavender .pc-toast-tape,
+.pc-toast-card.variant-lavender .pc-toast-tape { background: rgba(215, 203, 235, 0.90); }
+.pc-toast-card.pc-variant-buttercup .pc-toast-tape,
+.pc-toast-card.variant-buttercup .pc-toast-tape { background: rgba(254, 227, 150, 0.90); }
+.pc-toast-card.pc-variant-rose .pc-toast-tape,
+.pc-toast-card.variant-rose .pc-toast-tape { background: rgba(245, 184, 190, 0.90); }
+.pc-toast-card.pc-variant-sky .pc-toast-tape,
+.pc-toast-card.variant-sky .pc-toast-tape { background: rgba(189, 224, 234, 0.90); }
+
+/* --- 04. Perforated Stamp Toast (.pc-toast-stamp) --- */
+.pc-toast-card.pc-toast-stamp {
+  border: 2px solid #E6DBCB;
+  outline: 1.5px dashed #D8CEBD;
+  outline-offset: -5px;
+  border-radius: 10px;
+}
+
+/* --- 05. Antique Wax Seal Toast (.pc-toast-wax) --- */
+.pc-toast-card.pc-toast-wax {
+  border-radius: 16px;
+  position: relative;
+}
+.pc-toast-wax-seal {
+  position: absolute;
+  top: -10px;
+  left: 18px;
+  width: 28px;
+  height: 28px;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 1.5px 3px rgba(46, 30, 20, 0.40));
+}
+.pc-toast-wax-seal svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* --- 06. Swallowtail Ribbon Toast (.pc-toast-ribbon) --- */
+.pc-toast-card.pc-toast-ribbon {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 14px) 50%, 100% 100%, 0 100%);
+  border-radius: 12px 0 0 12px;
+  padding-right: 28px;
+}
+
+/* --- 07. Emerald Gem Toast (.pc-toast-gem) --- */
+.pc-toast-card.pc-toast-gem {
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  border-radius: 0;
+  border: 1px solid #FFFFFF;
+}
+
+/* --- 08. Double-Notch Voucher Toast (.pc-toast-voucher) --- */
+.pc-toast-card.pc-toast-voucher {
+  border-radius: 10px;
+  border-top: 1.5px solid #EADBCC;
+  border-bottom: 1.5px solid #EADBCC;
+}
+
+/* ==========================================================================
+   6. TOAST INNER ELEMENTS & PROGRESS BAR
+   ========================================================================== */
 
 .pc-toast-icon-wrap {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
   background: #FAF6ED;
   border: 1px solid #EADBCC;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 1px 3px rgba(74, 58, 42, 0.06);
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    0 1.5px 2px rgba(46, 30, 20, 0.28);
+  position: relative;
+  z-index: 2;
 }
 
 .pc-toast-body {
   flex: 1;
   min-width: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .pc-toast-title {
@@ -337,20 +769,25 @@
 
 .pc-toast-action-btn {
   margin-top: 8px;
-  padding: 5px 12px;
+  padding: 6px 14px;
   font-size: 12px;
   font-weight: 700;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #3D352E;
   color: #FFFDF9;
-  border: none;
+  border: 1px solid rgba(46, 30, 20, 0.2);
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(74, 58, 42, 0.15);
-  transition: all 0.15s ease;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1.5px 2px rgba(46, 30, 20, 0.38);
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background 0.15s ease;
 }
 .pc-toast-action-btn:hover {
   background: #231E1A;
   transform: translateY(-1px);
+}
+.pc-toast-action-btn:active {
+  transform: translateY(1px);
 }
 
 .pc-toast-close-btn {
@@ -358,17 +795,22 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 2px;
+  padding: 8px;
+  min-width: 36px;
+  min-height: 36px;
   color: var(--pc-ink-muted, #7A6F64);
-  border-radius: 6px;
-  transition: all 0.15s ease;
+  border-radius: 8px;
+  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 .pc-toast-close-btn:hover {
   background: rgba(74, 58, 42, 0.08);
   color: var(--pc-ink, #3D352E);
+  transform: rotate(90deg);
 }
 
 /* Progress Countdown Bar */
@@ -376,12 +818,27 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 3px;
+  height: 3.5px;
   background: var(--pc-mint, #A3D8C3);
   width: 100%;
   transform-origin: left;
+  border-radius: 0 0 16px 16px;
+  z-index: 1;
 }
+.pc-toast-card.pc-variant-peach .pc-toast-progress-bar,
 .pc-toast-card.variant-peach .pc-toast-progress-bar { background: var(--pc-peach, #F7BA9E); }
+.pc-toast-card.pc-variant-lavender .pc-toast-progress-bar,
 .pc-toast-card.variant-lavender .pc-toast-progress-bar { background: var(--pc-lavender, #D7CBEB); }
+.pc-toast-card.pc-variant-buttercup .pc-toast-progress-bar,
 .pc-toast-card.variant-buttercup .pc-toast-progress-bar { background: var(--pc-buttercup, #FEE396); }
+.pc-toast-card.pc-variant-rose .pc-toast-progress-bar,
 .pc-toast-card.variant-rose .pc-toast-progress-bar { background: var(--pc-rose, #F5B8BE); }
+.pc-toast-card.pc-variant-sky .pc-toast-progress-bar,
+.pc-toast-card.variant-sky .pc-toast-progress-bar { background: var(--pc-sky, #BDE0EA); }
+.pc-toast-card.pc-variant-sage .pc-toast-progress-bar,
+.pc-toast-card.variant-sage .pc-toast-progress-bar { background: var(--pc-sage, #BBD5B8); }
+
+/* 알림 액션 줄은 좁은 컨테이너에서 줄바꿈한다 (넘침 방지) */
+.pc-alert-actions {
+  flex-wrap: wrap;
+}

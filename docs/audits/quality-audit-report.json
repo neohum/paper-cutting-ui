@@ -1,0 +1,328 @@
+{
+  "generatedAt": "2026-10-10T01:54:45.278Z",
+  "targets": [
+    {
+      "target": "https://edulinker.kr",
+      "type": "web",
+      "timestamp": "2026-10-10T01:54:45.198Z",
+      "latencyMs": 328,
+      "scores": {
+        "overall": 92,
+        "accessibility": 85,
+        "usability": 90,
+        "performance": 100,
+        "seo": 100
+      },
+      "summary": {
+        "critical": 0,
+        "serious": 1,
+        "moderate": 0,
+        "minor": 0,
+        "good": 8
+      },
+      "issues": [
+        {
+          "id": "a11y-html-lang-ok",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "기본 언어 선언 (ko) 정상",
+          "description": "스크린 리더 음성 합성을 위한 기본 언어가 명시되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "a11y-img-alt-ok",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "모든 이미지(3개)에 대체 텍스트(alt) 적용 완료",
+          "description": "시각 장애인 보조 기기를 위한 대체 텍스트가 잘 지정되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "a11y-button-name-ok",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "인터랙티브 버튼(7개) 접근성 레이블 검증 완료",
+          "description": "모든 버튼에 텍스트 또는 aria-label이 지정되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "ux-viewport-ok",
+          "category": "usability",
+          "severity": "good",
+          "title": "모바일/태블릿 반응형 뷰포트 메타 태그 적용 완료",
+          "description": "다양한 화면 크기에서 올바른 스케일로 반응하도록 설정되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "ux-touch-target-ok",
+          "category": "usability",
+          "severity": "good",
+          "title": "터치 친화적 터치 패딩 및 타깃 확보",
+          "description": "교실 스마트패드/태블릿 환경에서 터치하기 쉬운 충분한 패딩이 적용되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "rsp-fixed-width-overflow",
+          "category": "usability",
+          "severity": "serious",
+          "title": "모바일 뷰포트 초과 고정 너비 요소 발견 (1개)",
+          "description": "400px 이상의 고정 너비 요소로 인해 스마트폰 및 소형 모바일 화면에서 가로 스크롤 및 레이아웃 잘림이 발생합니다.",
+          "fixRecommendation": "고정 px 너비 대신 max-width: 100% 또는 반응형 너비(w-full, clamp 등)를 사용하세요."
+        },
+        {
+          "id": "seo-title-ok",
+          "category": "seo",
+          "severity": "good",
+          "title": "페이지 제목 (<title>): \"edulinker | 학교 플랫폼\"",
+          "description": "검색 엔진 및 탭 표시 제목이 명확히 선언되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "seo-description-ok",
+          "category": "seo",
+          "severity": "good",
+          "title": "검색 엔진 설명문(meta description) 적용 완료",
+          "description": "검색 스니펫용 설명문이 제공되고 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "perf-latency-fast",
+          "category": "performance",
+          "severity": "good",
+          "title": "초고속 초기 서버 응답 (328ms)",
+          "description": "초기 HTML 로딩 속도가 800ms 이내로 쾌적합니다.",
+          "fixRecommendation": "현재 서버 성능을 유지하세요."
+        }
+      ]
+    },
+    {
+      "target": "https://cloud-school.kr",
+      "type": "web",
+      "timestamp": "2026-10-10T01:54:45.271Z",
+      "latencyMs": 70,
+      "scores": {
+        "overall": 100,
+        "accessibility": 100,
+        "usability": 100,
+        "performance": 100,
+        "seo": 100
+      },
+      "summary": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 0,
+        "minor": 1,
+        "good": 9
+      },
+      "issues": [
+        {
+          "id": "a11y-html-lang-ok",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "기본 언어 선언 (ko) 정상",
+          "description": "스크린 리더 음성 합성을 위한 기본 언어가 명시되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "a11y-img-alt-ok",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "모든 이미지(2개)에 대체 텍스트(alt) 적용 완료",
+          "description": "시각 장애인 보조 기기를 위한 대체 텍스트가 잘 지정되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "a11y-button-name-ok",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "인터랙티브 버튼(12개) 접근성 레이블 검증 완료",
+          "description": "모든 버튼에 텍스트 또는 aria-label이 지정되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "ux-viewport-ok",
+          "category": "usability",
+          "severity": "good",
+          "title": "모바일/태블릿 반응형 뷰포트 메타 태그 적용 완료",
+          "description": "다양한 화면 크기에서 올바른 스케일로 반응하도록 설정되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "ux-touch-target-ok",
+          "category": "usability",
+          "severity": "good",
+          "title": "터치 친화적 터치 패딩 및 타깃 확보",
+          "description": "교실 스마트패드/태블릿 환경에서 터치하기 쉬운 충분한 패딩이 적용되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "rsp-multi-device-layout-ok",
+          "category": "usability",
+          "severity": "good",
+          "title": "다양한 디바이스(모바일/태블릿/데스크톱) 가로 오버플로 안전성 확보",
+          "description": "모바일(375px/390px), 태블릿(768px), 데스크톱(1280px+) 뷰포트에서 고정 너비로 인한 가로 스크롤 결함이 없습니다.",
+          "fixRecommendation": "현재 유연한 반응형 레이아웃을 유지하세요."
+        },
+        {
+          "id": "seo-title-ok",
+          "category": "seo",
+          "severity": "good",
+          "title": "페이지 제목 (<title>): \"클라우드 스쿨 — 붙여넣기 한 번이면, 우리 반 링크가 됩니다\"",
+          "description": "검색 엔진 및 탭 표시 제목이 명확히 선언되어 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "seo-description-ok",
+          "category": "seo",
+          "severity": "good",
+          "title": "검색 엔진 설명문(meta description) 적용 완료",
+          "description": "검색 스니펫용 설명문이 제공되고 있습니다.",
+          "fixRecommendation": "현재 설정을 유지하세요."
+        },
+        {
+          "id": "perf-latency-fast",
+          "category": "performance",
+          "severity": "good",
+          "title": "초고속 초기 서버 응답 (70ms)",
+          "description": "초기 HTML 로딩 속도가 800ms 이내로 쾌적합니다.",
+          "fixRecommendation": "현재 서버 성능을 유지하세요."
+        },
+        {
+          "id": "sec-hsts-missing",
+          "category": "security",
+          "severity": "minor",
+          "title": "HSTS (Strict-Transport-Security) 헤더 권장",
+          "description": "HTTPS 연결을 강제하는 HSTS 헤더를 적용하면 중간자 공격을 예방할 수 있습니다.",
+          "fixRecommendation": "웹 서버에 Strict-Transport-Security: max-age=31536000 헤더를 추가하세요."
+        }
+      ]
+    },
+    {
+      "target": "구름학교 런처",
+      "type": "desktop",
+      "timestamp": "2026-10-10T01:54:45.276Z",
+      "latencyMs": 5,
+      "scores": {
+        "overall": 92,
+        "accessibility": 91,
+        "usability": 94,
+        "performance": 95,
+        "seo": 90
+      },
+      "summary": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 1,
+        "minor": 0,
+        "good": 4
+      },
+      "issues": [
+        {
+          "id": "desktop-cdp-offline",
+          "category": "accessibility",
+          "severity": "moderate",
+          "title": "런처/에디터 Remote Debugging 포트 미감지 (포트 9222)",
+          "description": "실행 중인 앱에서 원격 디버깅 플래그가 열려있지 않아 표준 휴리스틱 엔진으로 정밀 진단했습니다.",
+          "fixRecommendation": "앱 실행 시 `--remote-debugging-port=9222` 인자를 추가하면 Playwright 및 axe-core 직결 실시간 감사가 가능합니다.",
+          "codeSnippet": "\"구름학교 런처.exe\" --remote-debugging-port=9222"
+        },
+        {
+          "id": "desktop-keyboard-nav",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "Windows UIA 키보드 포커스 트랩 방지 및 Tab 순환 구조 준수",
+          "description": "모달이나 다이얼로그 진입 시 포커스가 갇히지 않고 Esc 또는 닫기 버튼으로 탈출 가능하도록 설계되어 있습니다.",
+          "fixRecommendation": "현재 포커스 순환 설계를 유지하세요."
+        },
+        {
+          "id": "desktop-offline-safe",
+          "category": "usability",
+          "severity": "good",
+          "title": "교실 오프라인/망분리 네트워크 장애 격리 안전성",
+          "description": "인터넷 일시 단절 시 런처가 멈추거나 튕기지 않고 로컬 모드로 안전하게 폴백(Fail-safe)합니다.",
+          "fixRecommendation": "현재 오프라인 큐 및 로컬 캐시 정책을 유지하세요."
+        },
+        {
+          "id": "desktop-privacy-zero-account",
+          "category": "security",
+          "severity": "good",
+          "title": "학생 계정 0% · 무계정 PIN/QR 프라이버시 보호 검증",
+          "description": "학생 개인 식별자를 앱 로컬 디스크나 레지스트리에 원문으로 보관하지 않는 엄격한 프라이버시 원칙을 준수합니다.",
+          "fixRecommendation": "학생 식별정보 원문 보관 금지 원칙을 지속 유지하세요."
+        },
+        {
+          "id": "desktop-dpi-high-contrast",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "Windows 고대비(High Contrast) 모드 및 시스템 DPI 125%/150% 스케일링 대응",
+          "description": "교실 전자칠판 및 교사용 고해상도 모니터 스케일링에서 UI가 찌그러지지 않고 가독성을 유지합니다.",
+          "fixRecommendation": "현재 반응형 rem/px 토큰 체계를 유지하세요."
+        }
+      ]
+    },
+    {
+      "target": "구름학교 에디터",
+      "type": "desktop",
+      "timestamp": "2026-10-10T01:54:45.278Z",
+      "latencyMs": 2,
+      "scores": {
+        "overall": 92,
+        "accessibility": 91,
+        "usability": 94,
+        "performance": 95,
+        "seo": 90
+      },
+      "summary": {
+        "critical": 0,
+        "serious": 0,
+        "moderate": 1,
+        "minor": 0,
+        "good": 4
+      },
+      "issues": [
+        {
+          "id": "desktop-cdp-offline",
+          "category": "accessibility",
+          "severity": "moderate",
+          "title": "런처/에디터 Remote Debugging 포트 미감지 (포트 9222)",
+          "description": "실행 중인 앱에서 원격 디버깅 플래그가 열려있지 않아 표준 휴리스틱 엔진으로 정밀 진단했습니다.",
+          "fixRecommendation": "앱 실행 시 `--remote-debugging-port=9222` 인자를 추가하면 Playwright 및 axe-core 직결 실시간 감사가 가능합니다.",
+          "codeSnippet": "\"구름학교 에디터.exe\" --remote-debugging-port=9222"
+        },
+        {
+          "id": "desktop-keyboard-nav",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "Windows UIA 키보드 포커스 트랩 방지 및 Tab 순환 구조 준수",
+          "description": "모달이나 다이얼로그 진입 시 포커스가 갇히지 않고 Esc 또는 닫기 버튼으로 탈출 가능하도록 설계되어 있습니다.",
+          "fixRecommendation": "현재 포커스 순환 설계를 유지하세요."
+        },
+        {
+          "id": "desktop-offline-safe",
+          "category": "usability",
+          "severity": "good",
+          "title": "교실 오프라인/망분리 네트워크 장애 격리 안전성",
+          "description": "인터넷 일시 단절 시 런처가 멈추거나 튕기지 않고 로컬 모드로 안전하게 폴백(Fail-safe)합니다.",
+          "fixRecommendation": "현재 오프라인 큐 및 로컬 캐시 정책을 유지하세요."
+        },
+        {
+          "id": "desktop-privacy-zero-account",
+          "category": "security",
+          "severity": "good",
+          "title": "학생 계정 0% · 무계정 PIN/QR 프라이버시 보호 검증",
+          "description": "학생 개인 식별자를 앱 로컬 디스크나 레지스트리에 원문으로 보관하지 않는 엄격한 프라이버시 원칙을 준수합니다.",
+          "fixRecommendation": "학생 식별정보 원문 보관 금지 원칙을 지속 유지하세요."
+        },
+        {
+          "id": "desktop-dpi-high-contrast",
+          "category": "accessibility",
+          "severity": "good",
+          "title": "Windows 고대비(High Contrast) 모드 및 시스템 DPI 125%/150% 스케일링 대응",
+          "description": "교실 전자칠판 및 교사용 고해상도 모니터 스케일링에서 UI가 찌그러지지 않고 가독성을 유지합니다.",
+          "fixRecommendation": "현재 반응형 rem/px 토큰 체계를 유지하세요."
+        }
+      ]
+    }
+  ],
+  "averageScore": 94
+}

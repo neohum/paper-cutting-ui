@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>통합 웹 & 앱 품질·접근성·편의성 진단 보고서</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --indigo: #6366f1;
+      --sky: #0ea5e9;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Pretendard', sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px; line-height: 1.6; word-break: keep-all; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header { margin-bottom: 32px; border-bottom: 1px solid var(--border); padding-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; }
+    h1 { font-size: 26px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 9999px; font-size: 12px; font-weight: 700; }
+    .badge-primary { background: rgba(99,102,241,0.2); color: #818cf8; border: 1px solid rgba(99,102,241,0.4); }
+    .badge-emerald { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(16,185,129,0.4); }
+    .badge-amber { background: rgba(245,158,11,0.2); color: #fbbf24; border: 1px solid rgba(245,158,11,0.4); }
+    .badge-rose { background: rgba(244,63,94,0.2); color: #fb7185; border: 1px solid rgba(244,63,94,0.4); }
+    
+    .grid-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; transition: transform 0.2s; }
+    .card:hover { transform: translateY(-2px); }
+    .score-circle { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 900; }
+    .score-high { background: rgba(16,185,129,0.15); color: #34d399; border: 3px solid #10b981; }
+    .score-mid { background: rgba(245,158,11,0.15); color: #fbbf24; border: 3px solid #f59e0b; }
+    .score-low { background: rgba(244,63,94,0.15); color: #fb7185; border: 3px solid #f43f5e; }
+
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 8px; overflow-x: auto; }
+    .tab-btn { background: transparent; border: none; color: var(--text-muted); padding: 8px 16px; font-size: 14px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+    .tab-btn.active { background: var(--indigo); color: #fff; }
+
+    .issue-card { background: #182234; border: 1px solid var(--border); border-radius: 12px; padding: 18px; margin-bottom: 14px; }
+    .issue-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .issue-title { font-size: 15px; font-weight: 700; color: #f1f5f9; display: flex; align-items: center; gap: 8px; }
+    .issue-desc { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; line-height: 1.5; }
+    .issue-fix { background: #0f172a; border-left: 3px solid var(--indigo); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: 13px; color: #cbd5e1; }
+    .code-box { background: #0b0f19; border: 1px solid #1e293b; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 12px; color: #a5b4fc; margin-top: 8px; overflow-x: auto; }
+
+    .filter-bar { display: flex; gap: 10px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+    .filter-btn { background: #1e293b; border: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+    .filter-btn.active { background: #334155; color: #fff; border-color: #64748b; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 8px;">
+          <span class="badge badge-primary">AGENT HARNESS QUALITY AUDIT</span>
+          <span class="badge badge-emerald">WCAG 2.1 AA / KWCAG 2.2</span>
+        </div>
+        <h1>웹 & 앱 품질·접근성·편의성 진단 보고서</h1>
+      </div>
+      <div style="text-align: right; color: var(--text-muted); font-size: 13px;">
+        <p>생성 일시: <strong>2026. 10. 10. 오전 10:54:45</strong></p>
+        <p>평균 점수: <strong style="color: #34d399; font-size: 16px;">94점</strong> / 100점</p>
+      </div>
+    </header>
+
+    <!-- 스코어 요약 카드 -->
+    <div class="grid-summary" id="summary-cards">
+      
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div>
+              <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">🌐 WEB TARGET</span>
+              <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin-top: 2px;">https://edulinker.kr</h3>
+            </div>
+            <div class="score-circle score-high">92</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; margin-top: 12px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; font-size: 11px;">
+            <div><span style="color: var(--text-muted); display: block;">접근성</span><strong style="color: #818cf8;">85</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">사용성</span><strong style="color: #38bdf8;">90</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">성능</span><strong style="color: #34d399;">100</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">SEO</span><strong style="color: #fbbf24;">100</strong></div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px; font-size: 12px;">
+            
+            <span class="badge badge-amber">경고 1</span>
+            <span class="badge badge-emerald">우수 8</span>
+          </div>
+        </div>
+      
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div>
+              <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">🌐 WEB TARGET</span>
+              <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin-top: 2px;">https://cloud-school.kr</h3>
+            </div>
+            <div class="score-circle score-high">100</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; margin-top: 12px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; font-size: 11px;">
+            <div><span style="color: var(--text-muted); display: block;">접근성</span><strong style="color: #818cf8;">100</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">사용성</span><strong style="color: #38bdf8;">100</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">성능</span><strong style="color: #34d399;">100</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">SEO</span><strong style="color: #fbbf24;">100</strong></div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px; font-size: 12px;">
+            
+            
+            <span class="badge badge-emerald">우수 9</span>
+          </div>
+        </div>
+      
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div>
+              <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">💻 DESKTOP TARGET</span>
+              <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin-top: 2px;">구름학교 런처</h3>
+            </div>
+            <div class="score-circle score-high">92</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; margin-top: 12px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; font-size: 11px;">
+            <div><span style="color: var(--text-muted); display: block;">접근성</span><strong style="color: #818cf8;">91</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">사용성</span><strong style="color: #38bdf8;">94</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">성능</span><strong style="color: #34d399;">95</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">SEO</span><strong style="color: #fbbf24;">90</strong></div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px; font-size: 12px;">
+            
+            
+            <span class="badge badge-emerald">우수 4</span>
+          </div>
+        </div>
+      
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div>
+              <span style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">💻 DESKTOP TARGET</span>
+              <h3 style="font-size: 17px; font-weight: 800; color: #fff; margin-top: 2px;">구름학교 에디터</h3>
+            </div>
+            <div class="score-circle score-high">92</div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; text-align: center; margin-top: 12px; background: rgba(0,0,0,0.2); padding: 8px; border-radius: 8px; font-size: 11px;">
+            <div><span style="color: var(--text-muted); display: block;">접근성</span><strong style="color: #818cf8;">91</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">사용성</span><strong style="color: #38bdf8;">94</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">성능</span><strong style="color: #34d399;">95</strong></div>
+            <div><span style="color: var(--text-muted); display: block;">SEO</span><strong style="color: #fbbf24;">90</strong></div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px; font-size: 12px;">
+            
+            
+            <span class="badge badge-emerald">우수 4</span>
+          </div>
+        </div>
+      
+    </div>
+
+    <!-- 탭 전환 바 -->
+    <div class="tabs" id="target-tabs">
+      
+        <button type="button" class="tab-btn active" onclick="selectTarget(0)">
+          🌐 https://edulinker.kr
+        </button>
+      
+        <button type="button" class="tab-btn " onclick="selectTarget(1)">
+          🌐 https://cloud-school.kr
+        </button>
+      
+        <button type="button" class="tab-btn " onclick="selectTarget(2)">
+          💻 구름학교 런처
+        </button>
+      
+        <button type="button" class="tab-btn " onclick="selectTarget(3)">
+          💻 구름학교 에디터
+        </button>
+      
+    </div>
+
+    <!-- 필터 바 -->
+    <div class="filter-bar">
+      <span style="font-size: 12px; color: var(--text-muted);">심각도 필터:</span>
+      <button type="button" class="filter-btn active" onclick="filterIssues('all')">전체 보기</button>
+      <button type="button" class="filter-btn" onclick="filterIssues('critical')">심각(Critical)</button>
+      <button type="button" class="filter-btn" onclick="filterIssues('serious')">경고(Serious)</button>
+      <button type="button" class="filter-btn" onclick="filterIssues('moderate')">개선 권장(Moderate)</button>
+      <button type="button" class="filter-btn" onclick="filterIssues('good')">통과(Good)</button>
+    </div>
+
+    <!-- 이슈 세부 목록 -->
+    <div id="issues-container"></div>
+  </div>
+
+  <script>
+    const reportData = {"generatedAt":"2026-10-10T01:54:45.278Z","targets":[{"target":"https://edulinker.kr","type":"web","timestamp":"2026-10-10T01:54:45.198Z","latencyMs":328,"scores":{"overall":92,"accessibility":85,"usability":90,"performance":100,"seo":100},"summary":{"critical":0,"serious":1,"moderate":0,"minor":0,"good":8},"issues":[{"id":"a11y-html-lang-ok","category":"accessibility","severity":"good","title":"기본 언어 선언 (ko) 정상","description":"스크린 리더 음성 합성을 위한 기본 언어가 명시되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"a11y-img-alt-ok","category":"accessibility","severity":"good","title":"모든 이미지(3개)에 대체 텍스트(alt) 적용 완료","description":"시각 장애인 보조 기기를 위한 대체 텍스트가 잘 지정되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"a11y-button-name-ok","category":"accessibility","severity":"good","title":"인터랙티브 버튼(7개) 접근성 레이블 검증 완료","description":"모든 버튼에 텍스트 또는 aria-label이 지정되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"ux-viewport-ok","category":"usability","severity":"good","title":"모바일/태블릿 반응형 뷰포트 메타 태그 적용 완료","description":"다양한 화면 크기에서 올바른 스케일로 반응하도록 설정되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"ux-touch-target-ok","category":"usability","severity":"good","title":"터치 친화적 터치 패딩 및 타깃 확보","description":"교실 스마트패드/태블릿 환경에서 터치하기 쉬운 충분한 패딩이 적용되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"rsp-fixed-width-overflow","category":"usability","severity":"serious","title":"모바일 뷰포트 초과 고정 너비 요소 발견 (1개)","description":"400px 이상의 고정 너비 요소로 인해 스마트폰 및 소형 모바일 화면에서 가로 스크롤 및 레이아웃 잘림이 발생합니다.","fixRecommendation":"고정 px 너비 대신 max-width: 100% 또는 반응형 너비(w-full, clamp 등)를 사용하세요."},{"id":"seo-title-ok","category":"seo","severity":"good","title":"페이지 제목 (\u003ctitle>): \"edulinker | 학교 플랫폼\"","description":"검색 엔진 및 탭 표시 제목이 명확히 선언되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"seo-description-ok","category":"seo","severity":"good","title":"검색 엔진 설명문(meta description) 적용 완료","description":"검색 스니펫용 설명문이 제공되고 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"perf-latency-fast","category":"performance","severity":"good","title":"초고속 초기 서버 응답 (328ms)","description":"초기 HTML 로딩 속도가 800ms 이내로 쾌적합니다.","fixRecommendation":"현재 서버 성능을 유지하세요."}]},{"target":"https://cloud-school.kr","type":"web","timestamp":"2026-10-10T01:54:45.271Z","latencyMs":70,"scores":{"overall":100,"accessibility":100,"usability":100,"performance":100,"seo":100},"summary":{"critical":0,"serious":0,"moderate":0,"minor":1,"good":9},"issues":[{"id":"a11y-html-lang-ok","category":"accessibility","severity":"good","title":"기본 언어 선언 (ko) 정상","description":"스크린 리더 음성 합성을 위한 기본 언어가 명시되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"a11y-img-alt-ok","category":"accessibility","severity":"good","title":"모든 이미지(2개)에 대체 텍스트(alt) 적용 완료","description":"시각 장애인 보조 기기를 위한 대체 텍스트가 잘 지정되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"a11y-button-name-ok","category":"accessibility","severity":"good","title":"인터랙티브 버튼(12개) 접근성 레이블 검증 완료","description":"모든 버튼에 텍스트 또는 aria-label이 지정되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"ux-viewport-ok","category":"usability","severity":"good","title":"모바일/태블릿 반응형 뷰포트 메타 태그 적용 완료","description":"다양한 화면 크기에서 올바른 스케일로 반응하도록 설정되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"ux-touch-target-ok","category":"usability","severity":"good","title":"터치 친화적 터치 패딩 및 타깃 확보","description":"교실 스마트패드/태블릿 환경에서 터치하기 쉬운 충분한 패딩이 적용되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"rsp-multi-device-layout-ok","category":"usability","severity":"good","title":"다양한 디바이스(모바일/태블릿/데스크톱) 가로 오버플로 안전성 확보","description":"모바일(375px/390px), 태블릿(768px), 데스크톱(1280px+) 뷰포트에서 고정 너비로 인한 가로 스크롤 결함이 없습니다.","fixRecommendation":"현재 유연한 반응형 레이아웃을 유지하세요."},{"id":"seo-title-ok","category":"seo","severity":"good","title":"페이지 제목 (\u003ctitle>): \"클라우드 스쿨 — 붙여넣기 한 번이면, 우리 반 링크가 됩니다\"","description":"검색 엔진 및 탭 표시 제목이 명확히 선언되어 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"seo-description-ok","category":"seo","severity":"good","title":"검색 엔진 설명문(meta description) 적용 완료","description":"검색 스니펫용 설명문이 제공되고 있습니다.","fixRecommendation":"현재 설정을 유지하세요."},{"id":"perf-latency-fast","category":"performance","severity":"good","title":"초고속 초기 서버 응답 (70ms)","description":"초기 HTML 로딩 속도가 800ms 이내로 쾌적합니다.","fixRecommendation":"현재 서버 성능을 유지하세요."},{"id":"sec-hsts-missing","category":"security","severity":"minor","title":"HSTS (Strict-Transport-Security) 헤더 권장","description":"HTTPS 연결을 강제하는 HSTS 헤더를 적용하면 중간자 공격을 예방할 수 있습니다.","fixRecommendation":"웹 서버에 Strict-Transport-Security: max-age=31536000 헤더를 추가하세요."}]},{"target":"구름학교 런처","type":"desktop","timestamp":"2026-10-10T01:54:45.276Z","latencyMs":5,"scores":{"overall":92,"accessibility":91,"usability":94,"performance":95,"seo":90},"summary":{"critical":0,"serious":0,"moderate":1,"minor":0,"good":4},"issues":[{"id":"desktop-cdp-offline","category":"accessibility","severity":"moderate","title":"런처/에디터 Remote Debugging 포트 미감지 (포트 9222)","description":"실행 중인 앱에서 원격 디버깅 플래그가 열려있지 않아 표준 휴리스틱 엔진으로 정밀 진단했습니다.","fixRecommendation":"앱 실행 시 `--remote-debugging-port=9222` 인자를 추가하면 Playwright 및 axe-core 직결 실시간 감사가 가능합니다.","codeSnippet":"\"구름학교 런처.exe\" --remote-debugging-port=9222"},{"id":"desktop-keyboard-nav","category":"accessibility","severity":"good","title":"Windows UIA 키보드 포커스 트랩 방지 및 Tab 순환 구조 준수","description":"모달이나 다이얼로그 진입 시 포커스가 갇히지 않고 Esc 또는 닫기 버튼으로 탈출 가능하도록 설계되어 있습니다.","fixRecommendation":"현재 포커스 순환 설계를 유지하세요."},{"id":"desktop-offline-safe","category":"usability","severity":"good","title":"교실 오프라인/망분리 네트워크 장애 격리 안전성","description":"인터넷 일시 단절 시 런처가 멈추거나 튕기지 않고 로컬 모드로 안전하게 폴백(Fail-safe)합니다.","fixRecommendation":"현재 오프라인 큐 및 로컬 캐시 정책을 유지하세요."},{"id":"desktop-privacy-zero-account","category":"security","severity":"good","title":"학생 계정 0% · 무계정 PIN/QR 프라이버시 보호 검증","description":"학생 개인 식별자를 앱 로컬 디스크나 레지스트리에 원문으로 보관하지 않는 엄격한 프라이버시 원칙을 준수합니다.","fixRecommendation":"학생 식별정보 원문 보관 금지 원칙을 지속 유지하세요."},{"id":"desktop-dpi-high-contrast","category":"accessibility","severity":"good","title":"Windows 고대비(High Contrast) 모드 및 시스템 DPI 125%/150% 스케일링 대응","description":"교실 전자칠판 및 교사용 고해상도 모니터 스케일링에서 UI가 찌그러지지 않고 가독성을 유지합니다.","fixRecommendation":"현재 반응형 rem/px 토큰 체계를 유지하세요."}]},{"target":"구름학교 에디터","type":"desktop","timestamp":"2026-10-10T01:54:45.278Z","latencyMs":2,"scores":{"overall":92,"accessibility":91,"usability":94,"performance":95,"seo":90},"summary":{"critical":0,"serious":0,"moderate":1,"minor":0,"good":4},"issues":[{"id":"desktop-cdp-offline","category":"accessibility","severity":"moderate","title":"런처/에디터 Remote Debugging 포트 미감지 (포트 9222)","description":"실행 중인 앱에서 원격 디버깅 플래그가 열려있지 않아 표준 휴리스틱 엔진으로 정밀 진단했습니다.","fixRecommendation":"앱 실행 시 `--remote-debugging-port=9222` 인자를 추가하면 Playwright 및 axe-core 직결 실시간 감사가 가능합니다.","codeSnippet":"\"구름학교 에디터.exe\" --remote-debugging-port=9222"},{"id":"desktop-keyboard-nav","category":"accessibility","severity":"good","title":"Windows UIA 키보드 포커스 트랩 방지 및 Tab 순환 구조 준수","description":"모달이나 다이얼로그 진입 시 포커스가 갇히지 않고 Esc 또는 닫기 버튼으로 탈출 가능하도록 설계되어 있습니다.","fixRecommendation":"현재 포커스 순환 설계를 유지하세요."},{"id":"desktop-offline-safe","category":"usability","severity":"good","title":"교실 오프라인/망분리 네트워크 장애 격리 안전성","description":"인터넷 일시 단절 시 런처가 멈추거나 튕기지 않고 로컬 모드로 안전하게 폴백(Fail-safe)합니다.","fixRecommendation":"현재 오프라인 큐 및 로컬 캐시 정책을 유지하세요."},{"id":"desktop-privacy-zero-account","category":"security","severity":"good","title":"학생 계정 0% · 무계정 PIN/QR 프라이버시 보호 검증","description":"학생 개인 식별자를 앱 로컬 디스크나 레지스트리에 원문으로 보관하지 않는 엄격한 프라이버시 원칙을 준수합니다.","fixRecommendation":"학생 식별정보 원문 보관 금지 원칙을 지속 유지하세요."},{"id":"desktop-dpi-high-contrast","category":"accessibility","severity":"good","title":"Windows 고대비(High Contrast) 모드 및 시스템 DPI 125%/150% 스케일링 대응","description":"교실 전자칠판 및 교사용 고해상도 모니터 스케일링에서 UI가 찌그러지지 않고 가독성을 유지합니다.","fixRecommendation":"현재 반응형 rem/px 토큰 체계를 유지하세요."}]}],"averageScore":94};
+    let currentTargetIdx = 0;
+    let currentFilter = 'all';
+
+    function selectTarget(idx) {
+      currentTargetIdx = idx;
+      document.querySelectorAll('.tab-btn').forEach((b, i) => {
+        b.classList.toggle('active', i === idx);
+      });
+      renderIssues();
+    }
+
+    function filterIssues(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach((b) => {
+        b.classList.toggle('active', b.textContent.toLowerCase().includes(filter) || (filter === 'all' && b.textContent.includes('전체')));
+      });
+      renderIssues();
+    }
+
+    function renderIssues() {
+      const target = reportData.targets[currentTargetIdx];
+      const container = document.getElementById('issues-container');
+      if (!target) return;
+
+      const filtered = target.issues.filter((iss) => {
+        if (currentFilter === 'all') return true;
+        return iss.severity === currentFilter;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="card" style="text-align: center; color: var(--text-muted); padding: 40px;">해당 조건의 진단 항목이 없습니다.</div>';
+        return;
+      }
+
+      container.innerHTML = filtered.map((iss) => {
+        const sevBadges = {
+          critical: '<span class="badge badge-rose">CRITICAL · 심각</span>',
+          serious: '<span class="badge badge-amber">SERIOUS · 경고</span>',
+          moderate: '<span class="badge" style="background: rgba(148,163,184,0.2); color: #cbd5e1;">MODERATE · 권장</span>',
+          minor: '<span class="badge" style="background: rgba(148,163,184,0.1); color: #94a3b8;">INFO · 참고</span>',
+          good: '<span class="badge badge-emerald">PASS · 통과</span>',
+        }[iss.severity];
+
+        return `
+          <div class="issue-card">
+            <div class="issue-header">
+              <div class="issue-title">
+                ${sevBadges}
+                <span>${iss.title}</span>
+              </div>
+              <span style="font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700;">${iss.category}</span>
+            </div>
+            <p class="issue-desc">${iss.description}</p>
+            ${iss.fixRecommendation ? `
+              <div class="issue-fix">
+                <strong>💡 권장 개선 방향:</strong> ${iss.fixRecommendation}
+                ${iss.codeSnippet ? `<div class="code-box">${escapeHtml(iss.codeSnippet)}</div>` : ''}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    renderIssues();
+  </script>
+</body>
+</html>

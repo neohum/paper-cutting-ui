@@ -1,9 +1,9 @@
 /**
- * PaperCut UI - Shadcn Blocks & Charts Engine
+ * PaperCut UI - PC Blocks & Charts Engine
  * Authentic 3D Layered Paper-Cut Design System
  * 
- * Part 1: Shadcn Blocks (Admin Dashboard, Auth, Settings, E-Commerce, Pricing, Dropzone)
- * Part 2: Shadcn Charts (Area, Bar, Line, Donut, Radar, Radial Bar, Tooltip & Legend)
+ * Part 1: PC Blocks (Admin Dashboard, Auth, Settings, E-Commerce, Pricing, Dropzone)
+ * Part 2: PC Charts (Area, Bar, Line, Donut, Radar, Radial Bar, Tooltip & Legend)
  */
 
 (function (global) {
@@ -42,23 +42,44 @@
     fileText: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M16 10 H38 L48 20 V54 H16 Z" fill="#FAF6ED" stroke="#DCD1BF" stroke-width="1.5"/><polygon points="38,10 38,20 48,20" fill="#E8DEC9"/><line x1="22" y1="28" x2="42" y2="28" stroke="#3D352E" stroke-width="2"/><line x1="22" y1="36" x2="42" y2="36" stroke="#3D352E" stroke-width="2"/></svg>`,
     paperPlane: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M10 30 L54 10 L34 54 L28 36 Z" fill="#BDE0EA" stroke="#3D352E" stroke-width="2"/><path d="M28 36 L54 10" stroke="#3D352E" stroke-width="2"/></svg>`,
     tag: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M14 12 H36 L52 28 L36 44 H14 Z" fill="#FEE396"/><circle cx="22" cy="28" r="3.5" fill="#FAF6ED"/></svg>`,
-    trash: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M18 20 H46 L42 54 H22 Z" fill="#D7CBEB"/><path d="M14 16 H50 L46 12 H18 Z" fill="#FAF6ED"/><line x1="28" y1="26" x2="28" y2="46" stroke="#3D352E" stroke-width="2"/><line x1="36" y1="26" x2="36" y2="46" stroke="#3D352E" stroke-width="2"/></svg>`
+    trash: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M18 20 H46 L42 54 H22 Z" fill="#D7CBEB"/><path d="M14 16 H50 L46 12 H18 Z" fill="#FAF6ED"/><line x1="28" y1="26" x2="28" y2="46" stroke="#3D352E" stroke-width="2"/><line x1="36" y1="26" x2="36" y2="46" stroke="#3D352E" stroke-width="2"/></svg>`,
+    calendar: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><rect x="10" y="14" width="44" height="40" rx="6" fill="#FAF6ED" stroke="#DCD1BF" stroke-width="2"/><rect x="10" y="14" width="44" height="12" rx="4" fill="#F7BA9E"/><rect x="18" y="8" width="6" height="10" rx="2" fill="#3D352E"/><rect x="40" y="8" width="6" height="10" rx="2" fill="#3D352E"/><circle cx="22" cy="36" r="3" fill="#A3D8C3"/><circle cx="32" cy="36" r="3" fill="#BDE0EA"/><circle cx="42" cy="36" r="3" fill="#D7CBEB"/><circle cx="22" cy="46" r="3" fill="#FEE396"/><circle cx="32" cy="46" r="3" fill="#F5B8BE"/></svg>`,
+    clock: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><circle cx="32" cy="32" r="22" fill="#FAF6ED" stroke="#DCD1BF" stroke-width="2"/><circle cx="32" cy="32" r="18" fill="#BDE0EA" opacity="0.45"/><circle cx="32" cy="32" r="4" fill="#3D352E"/><line x1="32" y1="32" x2="32" y2="18" stroke="#3D352E" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="32" x2="42" y2="32" stroke="#F7BA9E" stroke-width="3" stroke-linecap="round"/></svg>`,
+    history: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 12 A20 20 0 1 0 52 32 H44 A12 12 0 1 1 32 20 V26 L42 16 L32 6 Z" fill="#D7CBEB" stroke="#3D352E" stroke-width="1.5"/><circle cx="32" cy="32" r="3" fill="#3D352E"/><line x1="32" y1="32" x2="32" y2="24" stroke="#3D352E" stroke-width="2.5" stroke-linecap="round"/><line x1="32" y1="32" x2="38" y2="32" stroke="#3D352E" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+    sparkles: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 8 Q32 24 48 24 Q32 24 32 40 Q32 24 16 24 Q32 24 32 8 Z" fill="#FEE396" stroke="#3D352E" stroke-width="1.5"/><path d="M46 36 Q46 44 54 44 Q46 44 46 52 Q46 44 38 44 Q46 44 46 36 Z" fill="#A3D8C3"/><circle cx="18" cy="46" r="3.5" fill="#F5B8BE"/></svg>`,
+    sprout: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 54 V30" stroke="#38986B" stroke-width="4" stroke-linecap="round"/><path d="M32 34 C32 20 18 16 14 26 C12 34 26 36 32 34 Z" fill="#A3D8C3" stroke="#2D7A53" stroke-width="1.5"/><path d="M32 30 C32 16 48 14 50 24 C52 32 38 32 32 30 Z" fill="#BBD5B8" stroke="#2D7A53" stroke-width="1.5"/></svg>`,
+    ticket: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M10 20 H54 V44 H10 Z" fill="#BDE0EA" stroke="#3D352E" stroke-width="2"/><circle cx="10" cy="32" r="5" fill="#FAF6ED"/><circle cx="54" cy="32" r="5" fill="#FAF6ED"/><line x1="28" y1="20" x2="28" y2="44" stroke="#3D352E" stroke-width="2" stroke-dasharray="3 3"/><circle cx="41" cy="32" r="4" fill="#FEE396"/></svg>`,
+    lightning: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><polygon points="36,6 16,34 32,34 28,58 48,30 32,30" fill="#FEE396" stroke="#3D352E" stroke-width="2" stroke-linejoin="round"/></svg>`,
+    shield: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M32 8 L50 16 V32 C50 45 42 53 32 58 C22 53 14 45 14 32 V16 Z" fill="#D7CBEB" stroke="#3D352E" stroke-width="2"/><path d="M32 14 L44 20 V32 C44 41 38 47 32 51 Z" fill="#FAF6ED" opacity="0.6"/></svg>`,
+    kanban: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><rect x="10" y="12" width="12" height="40" rx="3" fill="#A3D8C3" stroke="#3D352E" stroke-width="1.5"/><rect x="26" y="12" width="12" height="28" rx="3" fill="#FEE396" stroke="#3D352E" stroke-width="1.5"/><rect x="42" y="12" width="12" height="34" rx="3" fill="#BDE0EA" stroke="#3D352E" stroke-width="1.5"/></svg>`,
+    arrowLeft: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M38 18 L24 32 L38 46" stroke="#3D352E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+    arrowRight: `<svg class="pc-layered-paper-icon" viewBox="0 0 64 64" fill="none"><path d="M26 18 L40 32 L26 46" stroke="#3D352E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`
   };
 
   const SVG_ICONS = new Proxy(RAW_PAPERCUT_SVGS, {
     get(target, prop) {
-      if (typeof window !== 'undefined' && Array.isArray(window.PAPERCUT_ICONS)) {
+      if (typeof window !== 'undefined') {
         const idMap = {
           shoppingBag: 'shopping-bag', cart: 'cart', heart: 'heart', scissors: 'scissors',
           trash: 'trash', plus: 'symbol-plus', minus: 'symbol-minus', download: 'download',
           cloudUpload: 'cloud-upload', check: 'check-mark', creditCard: 'credit-card',
           user: 'user', users: 'users', bell: 'bell', shield: 'shield', fileText: 'file',
           paperPlane: 'paper-plane', sliders: 'sliders', wallet: 'wallet', activity: 'activity',
-          eye: 'eye', eyeOff: 'eye-off', tag: 'price-tag'
+          eye: 'eye', eyeOff: 'eye-off', tag: 'price-tag',
+          calendar: 'calendar', clock: 'clock', history: 'history', sparkles: 'sparkles',
+          sprout: 'sprout', ticket: 'ticket', lightning: 'lightning', printer: 'printer',
+          arrowUp: 'arrow-up', arrowDown: 'arrow-down', arrowLeft: 'arrow-left', arrowRight: 'arrow-right',
+          kanban: 'layout-list'
         };
         const iconId = idMap[prop] || prop;
-        const found = window.PAPERCUT_ICONS.find(i => i.id === iconId);
-        if (found && found.svg) return found.svg;
+        if (typeof window.getPapercutIconSvg === 'function') {
+          const s = window.getPapercutIconSvg(iconId);
+          if (s) return s;
+        }
+        if (Array.isArray(window.PAPERCUT_ICONS)) {
+          const found = window.PAPERCUT_ICONS.find(i => i.id === iconId);
+          if (found && found.svg) return found.svg;
+        }
       }
       return target[prop] || '';
     }
@@ -70,42 +91,67 @@
   function createPapercutChartDefs() {
     return `
       <defs>
-        <!-- Warm Burnt Umber Soft Drop Shadow for Overlapping Paper Sheets -->
+        <!-- Authentic 2-Tier Burnt Umber Soft Drop Shadow for Overlapping Paper Sheets -->
         <filter id="pc-shadow-paper-soft" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="4" stdDeviation="3.5" flood-color="#37281E" flood-opacity="0.12" />
-          <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#37281E" flood-opacity="0.08" />
+          <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.22" />
+          <feDropShadow dx="0" dy="5" stdDeviation="5.5" flood-color="#2E1E14" flood-opacity="0.10" />
         </filter>
         
-        <!-- Deeper Shadow for Elevated Elements -->
-        <filter id="pc-shadow-paper-deep" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#37281E" flood-opacity="0.16" />
-          <feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#37281E" flood-opacity="0.1" />
+        <!-- Deeper 2-Tier Shadow for Elevated Elements (Needles, Pins, Top Slices) -->
+        <filter id="pc-shadow-paper-deep" x="-25%" y="-25%" width="150%" height="150%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="1.8" flood-color="#2E1E14" flood-opacity="0.28" />
+          <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#2E1E14" flood-opacity="0.14" />
         </filter>
 
-        <!-- Pastel Mountain Gradients -->
+        <!-- Inner Groove Carved Cut Filter for Wells and Recessed Tracks -->
+        <filter id="pc-shadow-paper-cut" x="-10%" y="-10%" width="120%" height="120%">
+          <feOffset dx="0" dy="1.5"/>
+          <feGaussianBlur stdDeviation="1" result="offset-blur"/>
+          <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+          <feFlood flood-color="#2E1E14" flood-opacity="0.26" result="color"/>
+          <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+          <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+        </filter>
+
+        <!-- 7 Master Pastel Gradients -->
         <linearGradient id="pc-grad-mint" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#A3D8C3" stop-opacity="0.95" />
-          <stop offset="100%" stop-color="#EAF7F1" stop-opacity="0.7" />
+          <stop offset="100%" stop-color="#EAF7F1" stop-opacity="0.75" />
         </linearGradient>
 
         <linearGradient id="pc-grad-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#BDE0EA" stop-opacity="0.95" />
-          <stop offset="100%" stop-color="#EDF7FA" stop-opacity="0.65" />
+          <stop offset="100%" stop-color="#EDF7FA" stop-opacity="0.7" />
         </linearGradient>
 
         <linearGradient id="pc-grad-lavender" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#D7CBEB" stop-opacity="0.95" />
-          <stop offset="100%" stop-color="#F4F0FA" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="#F4F0FA" stop-opacity="0.65" />
         </linearGradient>
 
         <linearGradient id="pc-grad-peach" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#F7BA9E" stop-opacity="0.95" />
-          <stop offset="100%" stop-color="#FDF1EA" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="#FDF1EA" stop-opacity="0.65" />
         </linearGradient>
 
         <linearGradient id="pc-grad-buttercup" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="#FEE396" stop-opacity="0.95" />
-          <stop offset="100%" stop-color="#FFF9E8" stop-opacity="0.6" />
+          <stop offset="100%" stop-color="#FFF9E8" stop-opacity="0.65" />
+        </linearGradient>
+
+        <linearGradient id="pc-grad-sand" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#EADCC7" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#F7F2EA" stop-opacity="0.7" />
+        </linearGradient>
+
+        <linearGradient id="pc-grad-sage" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#BBD5B8" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#EDF5EC" stop-opacity="0.7" />
+        </linearGradient>
+
+        <linearGradient id="pc-grad-rose" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F5B8BE" stop-opacity="0.95" />
+          <stop offset="100%" stop-color="#FDECEE" stop-opacity="0.65" />
         </linearGradient>
       </defs>
     `;
@@ -138,7 +184,7 @@
 
 
   // =========================================================================
-  // 2. PART 1: SHADCN BLOCKS ENGINE
+  // 2. PART 1: PC BLOCKS ENGINE
   // =========================================================================
 
   const PapercutBlocks = {
@@ -237,8 +283,8 @@
                   <span class="pc-chart-subtitle">3겹 오버래핑 파스텔 종이 마운틴 지형 차트</span>
                 </div>
                 <div style="display:flex;gap:6px;">
-                  <button class="pc-pill-badge is-mint pc-period-btn" data-period="monthly">월간</button>
-                  <button class="pc-pill-badge pc-period-btn" data-period="weekly">주간</button>
+                  <button class="pc-pill-badge is-mint pc-period-btn" data-period="monthly" style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><span style="width:14px;height:14px;display:inline-flex;">${SVG_ICONS.calendar}</span><span>월간</span></button>
+                  <button class="pc-pill-badge pc-period-btn" data-period="weekly" style="display:inline-flex;align-items:center;gap:5px;cursor:pointer;"><span style="width:14px;height:14px;display:inline-flex;">${SVG_ICONS.clock}</span><span>주간</span></button>
                 </div>
               </div>
               <div class="pc-chart-mount-area" style="min-height:260px;"></div>
@@ -297,6 +343,95 @@
               </div>
             </div>
           </div>
+
+          <!-- Bottom: Interactive Paper Task Board Widget -->
+          <div class="pc-block-card pc-admin-tasks-card" style="margin-top: 24px;">
+            <div class="pc-admin-ledger-header">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span style="color:var(--pc-mint-dark);width:20px;height:20px;display:flex;">${SVG_ICONS.kanban}</span>
+                <span class="pc-admin-ledger-title">공예 프로젝트 보드 (Craft Task Board)</span>
+              </div>
+              <span class="pc-pill-badge is-mint" style="font-size:11px;">실시간 칸반</span>
+            </div>
+            <div class="pc-task-board">
+              <!-- Col 1: 할 일 -->
+              <div class="pc-task-column">
+                <div class="pc-task-column-header">
+                  <span class="pc-task-column-title">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--pc-peach-dark);"></span>
+                    대기 작업 (To Do)
+                  </span>
+                  <span class="pc-pill-badge is-peach" style="font-size:10.5px;">2</span>
+                </div>
+                <div class="pc-task-cards-list">
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">350g 코튼지 수채 명함 커팅</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-peach" style="font-size:10px;">스튜디오</span>
+                      <span style="color:var(--pc-ink-muted);">D-2</span>
+                    </div>
+                  </div>
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">실링 왁스 황동 인장 검수</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-lavender" style="font-size:10px;">패키징</span>
+                      <span style="color:var(--pc-ink-muted);">D-4</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="pc-task-add-btn" data-col="대기 작업">+ 새 작업 카드 추가</button>
+              </div>
+
+              <!-- Col 2: 진행 중 -->
+              <div class="pc-task-column">
+                <div class="pc-task-column-header">
+                  <span class="pc-task-column-title">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--pc-mint-dark);"></span>
+                    제작 진행중 (In Progress)
+                  </span>
+                  <span class="pc-pill-badge is-mint" style="font-size:10.5px;">2</span>
+                </div>
+                <div class="pc-task-cards-list">
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">오리가미 입체 리본 차트 제작</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-mint" style="font-size:10px;">3D 벡터</span>
+                      <span style="color:var(--pc-mint-dark);font-weight:700;">진행 85%</span>
+                    </div>
+                  </div>
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">섀도우박스 5단 다이오라마 조립</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-sky" style="font-size:10px;">조립</span>
+                      <span style="color:var(--pc-sky-dark);font-weight:700;">진행 60%</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="pc-task-add-btn" data-col="제작 진행중">+ 새 작업 카드 추가</button>
+              </div>
+
+              <!-- Col 3: 완료 -->
+              <div class="pc-task-column">
+                <div class="pc-task-column-header">
+                  <span class="pc-task-column-title">
+                    <span style="width:8px;height:8px;border-radius:50%;background:var(--pc-buttercup-dark);"></span>
+                    완료 및 출하 (Completed)
+                  </span>
+                  <span class="pc-pill-badge is-buttercup" style="font-size:10.5px;">1</span>
+                </div>
+                <div class="pc-task-cards-list">
+                  <div class="pc-task-card">
+                    <div class="pc-task-card-title">핸드메이드 마스킹 테이프 5종 출고</div>
+                    <div class="pc-task-card-meta">
+                      <span class="pc-pill-badge is-mint" style="font-size:10px;">배송완료</span>
+                      <span style="color:var(--pc-ink-muted);">오늘</span>
+                    </div>
+                  </div>
+                </div>
+                <button class="pc-task-add-btn" data-col="완료 및 출하">+ 새 작업 카드 추가</button>
+              </div>
+            </div>
+          </div>
         </div>
       `;
 
@@ -334,6 +469,19 @@
           });
         });
       }
+
+      // Task board add button event bindings
+      container.querySelectorAll('.pc-task-add-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const colName = btn.dataset.col || '작업';
+          showPaperToast(`[${colName}] 컬럼에 새 공예 작업 카드가 추가되었습니다.`, 'mint');
+        });
+      });
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     /**
@@ -359,8 +507,14 @@
 
             <!-- Tabs: 로그인 / 회원가입 -->
             <div class="pc-auth-tabs">
-              <button class="pc-auth-tab is-active" data-mode="signin">로그인 (Sign In)</button>
-              <button class="pc-auth-tab" data-mode="signup">회원가입 (Sign Up)</button>
+              <button class="pc-auth-tab is-active" data-mode="signin" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+                <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.user}</span>
+                <span>로그인 (Sign In)</span>
+              </button>
+              <button class="pc-auth-tab" data-mode="signup" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;">
+                <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.sparkles}</span>
+                <span>회원가입 (Sign Up)</span>
+              </button>
             </div>
 
             <!-- Social Login Buttons -->
@@ -406,8 +560,9 @@
                 </label>
               </div>
 
-              <button type="button" class="pc-btn-block-action" id="pc-auth-submit-btn">
-                로그인 완료 (Enter Studio)
+              <button type="button" class="pc-btn-block-action" id="pc-auth-submit-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.check}</span>
+                <span>로그인 완료 (Enter Studio)</span>
               </button>
             </form>
           </div>
@@ -433,13 +588,13 @@
           if (isSignUp) {
             titleText.textContent = "회원가입 (Sign Up)";
             subText.textContent = "종이 질감의 아름다운 디자인 시스템 멤버십을 시작하세요.";
-            submitBtn.textContent = "새 계정 생성하기 (Create Account)";
+            submitBtn.innerHTML = `<span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.sparkles}</span><span>새 계정 생성하기 (Create Account)</span>`;
             signupFields.forEach(el => el.style.display = 'flex');
             signinFields.forEach(el => el.style.display = 'none');
           } else {
             titleText.textContent = "로그인 (Sign In)";
             subText.textContent = "손으로 빚어낸 종이 공예 감성의 워크스페이스에 오신 것을 환영합니다.";
-            submitBtn.textContent = "로그인 완료 (Enter Studio)";
+            submitBtn.innerHTML = `<span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.check}</span><span>로그인 완료 (Enter Studio)</span>`;
             signupFields.forEach(el => el.style.display = 'none');
             signinFields.forEach(el => el.style.display = '');
           }
@@ -464,6 +619,11 @@
           const isSignUp = container.querySelector('.pc-auth-tab.is-active').dataset.mode === 'signup';
           showPaperToast(isSignUp ? "회원가입이 성공적으로 완료되었습니다!" : "반갑습니다! 스튜디오에 접속했습니다.", 'mint');
         });
+      }
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
       }
     },
 
@@ -520,7 +680,7 @@
 
           <div class="pc-form-group">
             <label class="pc-form-label">소개 및 바이오 (Bio - Ruled Paper Ledger)</label>
-            <textarea class="pc-carved-textarea" rows="3">핸드메이드 350g 코튼지와 키리가미 기법을 결합한 인터페이스를 탐구합니다. 디지털 공간에서도 종이 공예의 따스한 촉각과 깊이를 구현하는 것을 지향합니다.</textarea>
+            <textarea class="pc-carved-textarea" rows="3">핸드메이드 350g 코튼지와 페이퍼 커팅 기법을 결합한 인터페이스를 탐구합니다. 디지털 공간에서도 종이 공예의 따스한 촉각과 깊이를 구현하는 것을 지향합니다.</textarea>
           </div>
 
           <div class="pc-form-group">
@@ -528,14 +688,15 @@
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
               <span class="pc-pill-badge is-mint">오리가미 입체설계</span>
               <span class="pc-pill-badge is-peach">350g 카드스톡</span>
-              <span class="pc-pill-badge is-lavender">키리가미 UI</span>
+              <span class="pc-pill-badge is-lavender">페이퍼 커팅 UI</span>
               <span class="pc-pill-badge is-buttercup">양피지 질감 셰이더</span>
             </div>
           </div>
 
           <div style="display:flex;justify-content:flex-end;margin-top:18px;">
-            <button type="button" class="pc-btn-block-action" id="pc-settings-save-btn" style="width:auto;padding:10px 24px;display:inline-flex;align-items:center;gap:8px;">
-              <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.check}</span> 프로필 변경사항 저장
+            <button type="button" class="pc-btn-block-action" id="pc-settings-save-btn" style="width:auto;padding:10px 24px;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+              <span style="width:16px;height:16px;display:inline-flex;">${SVG_ICONS.check}</span>
+              <span>프로필 변경사항 저장</span>
             </button>
           </div>
         `,
@@ -972,12 +1133,20 @@
           if (TAB_TEMPLATES[tab] && panel) {
             panel.innerHTML = TAB_TEMPLATES[tab];
             bindTabEvents(tab);
+            if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+              window.hydratePapercutIcons(panel);
+            }
             if (typeof window.showPaperToast === 'function') {
               window.showPaperToast(`${btn.querySelector('span:last-child').textContent} 화면으로 전환되었습니다.`, 'lavender');
             }
           }
         });
       });
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     renderEcommerceBlock(container, customData = {}) {
@@ -1005,7 +1174,7 @@
         },
         {
           id: 3,
-          name: "키리가미 3D 페이퍼 조명 키트 (Shadowbox)",
+          name: "페이퍼 커팅 3D 페이퍼 조명 키트 (Shadowbox)",
           category: "DIY 공예 키트",
           price: 42000,
           originalPrice: 48000,
@@ -1109,8 +1278,8 @@
                   <span>총 결제 예상금액</span>
                   <span id="pc-cart-total" style="color:var(--pc-mint-dark);">₩0</span>
                 </div>
-                <button type="button" class="pc-btn-block-action" id="pc-checkout-btn" style="margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px;">
-                  <span style="width:18px;height:18px;display:flex;">${SVG_ICONS.creditCard}</span>
+                <button type="button" class="pc-btn-block-action" id="pc-checkout-btn" style="margin-top:10px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+                  <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.creditCard}</span>
                   <span>주문서 작성 및 결제하기</span>
                 </button>
               </div>
@@ -1237,6 +1406,11 @@
       });
 
       updateCartUI();
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     /**
@@ -1296,8 +1470,9 @@
                 </div>
               </div>
 
-              <button class="pc-btn-block-action" style="background:var(--pc-paper-cream);color:var(--pc-ink);" data-plan="starter">
-                무료로 시작하기
+              <button class="pc-btn-block-action" style="background:var(--pc-paper-cream);color:var(--pc-ink);display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;" data-plan="starter">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.sprout}</span>
+                <span>무료로 시작하기</span>
               </button>
             </div>
 
@@ -1334,8 +1509,9 @@
                 </div>
               </div>
 
-              <button class="pc-btn-block-action" data-plan="pro">
-                프로 플랜 시작하기
+              <button class="pc-btn-block-action" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;" data-plan="pro">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.sparkles}</span>
+                <span>프로 플랜 시작하기</span>
               </button>
             </div>
 
@@ -1369,8 +1545,9 @@
                 </div>
               </div>
 
-              <button class="pc-btn-block-action" style="background:var(--pc-lavender);color:var(--pc-lavender-dark);" data-plan="enterprise">
-                영업팀 문의하기
+              <button class="pc-btn-block-action" style="background:var(--pc-lavender);color:var(--pc-lavender-dark);display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;" data-plan="enterprise">
+                <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.mail}</span>
+                <span>영업팀 문의하기</span>
               </button>
             </div>
           </div>
@@ -1404,6 +1581,11 @@
           showPaperToast(`[${btn.dataset.plan.toUpperCase()}] 플랜 신청 절차로 이동합니다.`, 'mint');
         });
       });
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     },
 
     /**
@@ -1444,6 +1626,12 @@
 
           <!-- Uploaded Files List -->
           <div class="pc-uploaded-files-list" id="pc-uploaded-files-container"></div>
+
+          <!-- Batch Process Action CTA -->
+          <button type="button" class="pc-btn-block-action" id="pc-dropzone-process-btn" style="margin-top:16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;word-break:keep-all;">
+            <span style="width:18px;height:18px;display:inline-flex;">${SVG_ICONS.lightning}</span>
+            <span>업로드 파일 일괄 3D 종이 공예 변환 실행</span>
+          </button>
         </div>
       `;
 
@@ -1537,31 +1725,43 @@
       });
 
       renderFilesList();
+
+      const processBtn = container.querySelector('#pc-dropzone-process-btn');
+      if (processBtn) {
+        processBtn.addEventListener('click', () => {
+          showPaperToast(`${uploadedFiles.length}건의 디자인 파일이 3D 페이퍼 레이어로 변환되었습니다!`, 'mint');
+        });
+      }
+
+      // Hydrate all papercut icons in container
+      if (typeof window !== 'undefined' && typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(container);
+      }
     }
   };
 
 
   // =========================================================================
-  // 3. PART 2: SHADCN CHARTS ENGINE (3D Paper-Cut Vector Craft SVG)
+  // 3. PART 2: PC CHARTS ENGINE (3D Paper-Cut Vector Craft SVG - 12 Archetypes)
   // =========================================================================
 
   const PapercutCharts = {
     /**
      * Chart 1: Area Chart (Pastel Paper Mountain Terrain)
-     * 3 overlapping mountain silhouettes in mint, sky, and lavender
+     * 3 overlapping mountain silhouettes in lavender, sky, and mint with 0.88px cutline rims
      */
     renderAreaChart(container, options = {}) {
       if (!container) return;
       const width = options.width || 700;
-      const height = options.height || 280;
-      const padding = { top: 30, right: 30, bottom: 40, left: 50 };
+      const height = options.height || 320;
+      const padding = { top: 35, right: 35, bottom: 45, left: 55 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
 
       const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월"];
-      // Series data: mint, sky, lavender
       const series = [
-        { name: "Mint 산맥 (순이익)", color: "mint", grad: "pc-grad-mint", stroke: "#275C46", data: [35, 52, 45, 68, 60, 82, 95] },
-        { name: "Sky 구릉 (총매출)", color: "sky", grad: "pc-grad-sky", stroke: "#204C5A", data: [55, 65, 58, 80, 75, 92, 110] },
-        { name: "Lavender 언덕 (방문자)", color: "lavender", grad: "pc-grad-lavender", stroke: "#473B6B", data: [20, 32, 28, 44, 40, 56, 68] }
+        { name: "Mint 산맥 (순이익)", color: "mint", grad: "pc-grad-mint", stroke: "#275C46", data: [38, 56, 48, 72, 65, 88, 102] },
+        { name: "Sky 구릉 (총매출)", color: "sky", grad: "pc-grad-sky", stroke: "#204C5A", data: [60, 72, 64, 86, 80, 98, 115] },
+        { name: "Lavender 언덕 (방문자)", color: "lavender", grad: "pc-grad-lavender", stroke: "#473B6B", data: [22, 35, 30, 48, 44, 60, 75] }
       ];
 
       const maxVal = 120;
@@ -1575,7 +1775,6 @@
         return padding.top + chartH - (val / maxVal) * chartH;
       }
 
-      // Smooth Bezier path generator
       function makeSmoothArea(data) {
         const pts = data.map((v, i) => ({ x: getX(i), y: getY(v) }));
         let path = `M ${pts[0].x} ${pts[0].y}`;
@@ -1594,54 +1793,62 @@
       }
 
       const svgHtml = `
-        <div class="pc-chart-svg-wrap">
-          <div class="pc-chart-tooltip" id="pc-area-tooltip"></div>
-          <svg viewBox="0 0 ${width} ${height}">
-            ${createPapercutChartDefs()}
-
-            <!-- Dotted hairline horizontal grid -->
-            ${[0, 30, 60, 90, 120].map(val => {
-              const y = getY(val);
-              return `
-                <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" class="pc-chart-grid-line" />
-                <text x="${padding.left - 10}" y="${y + 4}" text-anchor="end" class="pc-chart-axis-text">${val}</text>
-              `;
-            }).join('')}
-
-            <!-- X-axis Labels -->
-            ${months.map((m, i) => `
-              <text x="${getX(i)}" y="${height - 12}" text-anchor="middle" class="pc-chart-axis-text">${m}</text>
-            `).join('')}
-
-            <!-- 3 Overlapping Mountain Silhouette Layers (Lavender -> Sky -> Mint) -->
-            ${series.slice().reverse().map((s) => `
-              <path d="${makeSmoothArea(s.data)}" fill="url(#${s.grad})" filter="url(#pc-shadow-paper-soft)" class="pc-mountain-layer" data-series="${s.name}" />
-            `).join('')}
-
-            <!-- Interactive Circular Paper Node Markers for the top Mint series -->
-            ${series[0].data.map((val, i) => `
-              <circle cx="${getX(i)}" cy="${getY(val)}" r="5.5" fill="#FFFDF9" stroke="#275C46" stroke-width="2.5" filter="url(#pc-shadow-paper-soft)" class="pc-chart-node-circle" data-month="${months[i]}" data-val="${val}" />
-            `).join('')}
-          </svg>
-          <div class="pc-chart-legend">
-            ${series.map(s => `
-              <div class="pc-legend-item" data-legend="${s.name}">
-                <span class="pc-legend-chip" style="background:var(--pc-${s.color});"></span>
-                <span>${s.name}</span>
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '월별 실적 지형 (Layered Mountain Terrain)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '다층 파스텔 색종이 산맥과 순백 0.88px 칼선'}</span>
               </div>
-            `).join('')}
+            </div>
+          ` : ''}
+          <div class="pc-chart-svg-wrap">
+            <div class="pc-chart-tooltip" id="pc-area-tooltip"></div>
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
+              ${createPapercutChartDefs()}
+
+              <!-- Dotted hairline horizontal grid -->
+              ${[0, 30, 60, 90, 120].map(val => {
+                const y = getY(val);
+                return `
+                  <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" class="pc-chart-grid-line" />
+                  <text x="${padding.left - 10}" y="${y + 4}" text-anchor="end" class="pc-chart-axis-text">${val}</text>
+                `;
+              }).join('')}
+
+              <!-- X-axis Labels -->
+              ${months.map((m, i) => `
+                <text x="${getX(i)}" y="${height - 14}" text-anchor="middle" class="pc-chart-axis-text">${m}</text>
+              `).join('')}
+
+              <!-- 3 Overlapping Mountain Silhouette Layers (Lavender -> Sky -> Mint) with 0.88px cut rim -->
+              ${series.slice().reverse().map((s) => `
+                <path d="${makeSmoothArea(s.data)}" fill="url(#${s.grad})" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" class="pc-mountain-layer" data-series="${s.name}" />
+              `).join('')}
+
+              <!-- Interactive Circular Paper Node Markers for the top Mint series -->
+              ${series[0].data.map((val, i) => `
+                <circle cx="${getX(i)}" cy="${getY(val)}" r="6" fill="#FFFDF9" stroke="#275C46" stroke-width="2.5" filter="url(#pc-shadow-paper-soft)" class="pc-chart-node-circle" data-month="${months[i]}" data-val="${val}" />
+              `).join('')}
+            </svg>
+            <div class="pc-chart-legend">
+              ${series.map(s => `
+                <div class="pc-legend-item" data-legend="${s.name}">
+                  <span class="pc-legend-chip" style="background:var(--pc-${s.color});"></span>
+                  <span>${s.name}</span>
+                </div>
+              `).join('')}
+            </div>
           </div>
         </div>
       `;
 
       container.innerHTML = svgHtml;
 
-      // Tooltip interaction
       const tooltip = container.querySelector('#pc-area-tooltip');
       const nodes = container.querySelectorAll('.pc-chart-node-circle');
       nodes.forEach(node => {
-        node.addEventListener('mouseenter', (e) => {
-          const rect = container.getBoundingClientRect();
+        node.addEventListener('mouseenter', () => {
           const cx = parseFloat(node.getAttribute('cx'));
           const cy = parseFloat(node.getAttribute('cy'));
           const month = node.dataset.month;
@@ -1662,37 +1869,40 @@
      */
     renderBarChart(container, options = {}) {
       if (!container) return;
-      const width = options.width || 680;
-      const height = options.height || 280;
-      const padding = { top: 30, right: 30, bottom: 40, left: 45 };
+      const width = options.width || 700;
+      const height = options.height || 320;
+      const padding = { top: 35, right: 35, bottom: 45, left: 55 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
 
       const days = ["월", "화", "수", "목", "금", "토", "일"];
-      const primaryData = [45, 62, 78, 55, 88, 96, 70];
-      const secondaryData = [25, 38, 42, 30, 52, 60, 40];
-      const maxVal = 100;
+      const primaryData = [48, 65, 82, 58, 92, 105, 76];
+      const secondaryData = [28, 40, 46, 32, 56, 68, 44];
+      const maxVal = 120;
 
       const chartW = width - padding.left - padding.right;
       const chartH = height - padding.top - padding.bottom;
-      const colWidth = 26;
+      const colWidth = 28;
       const gap = chartW / days.length;
 
       const svgHtml = `
-        <div class="pc-chart-card">
-          <div class="pc-chart-header">
-            <div class="pc-chart-title-wrap">
-              <span class="pc-chart-title">주간 이용 통계 (Stacked Paper Columns)</span>
-              <span class="pc-chart-subtitle">라운드 캡과 입체 레이어 그림자가 적용된 7일 칼럼 차트</span>
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '주간 이용 통계 (Stacked Paper Columns)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '라운드 캡과 입체 레이어 그림자가 적용된 7일 칼럼 차트'}</span>
+              </div>
+              <div class="pc-pill-badge is-buttercup">주간 합계: 526K</div>
             </div>
-            <div class="pc-pill-badge is-buttercup">주간 합계: 494K</div>
-          </div>
+          ` : ''}
 
           <div class="pc-chart-svg-wrap">
             <div class="pc-chart-tooltip" id="pc-bar-tooltip"></div>
-            <svg viewBox="0 0 ${width} ${height}">
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
               ${createPapercutChartDefs()}
 
               <!-- Baseline & Guides -->
-              ${[0, 25, 50, 75, 100].map(val => {
+              ${[0, 30, 60, 90, 120].map(val => {
                 const y = padding.top + chartH - (val / maxVal) * chartH;
                 return `
                   <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" class="pc-chart-grid-line" />
@@ -1717,14 +1927,14 @@
                     <!-- Shadow Base Sheet for 3D paper cut elevation -->
                     <rect x="${centerX - colWidth / 2 + 2}" y="${pY + 3}" width="${colWidth}" height="${pHeight}" rx="7" fill="#EADCC7" opacity="0.65" />
 
-                    <!-- Primary Bar (Mint) -->
-                    <rect x="${centerX - colWidth / 2}" y="${pY}" width="${colWidth}" height="${pHeight}" rx="7" fill="#A3D8C3" filter="url(#pc-shadow-paper-soft)" class="pc-chart-bar-rect" />
+                    <!-- Primary Bar (Mint) with 0.88px cutline rim -->
+                    <rect x="${centerX - colWidth / 2}" y="${pY}" width="${colWidth}" height="${pHeight}" rx="7" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" class="pc-chart-bar-rect" />
 
-                    <!-- Stacked Overlay Secondary Sheet (Peach) -->
-                    <rect x="${centerX - colWidth / 2}" y="${sY}" width="${colWidth}" height="${sHeight}" rx="7" fill="#F7BA9E" filter="url(#pc-shadow-paper-soft)" class="pc-chart-bar-rect" />
+                    <!-- Stacked Overlay Secondary Sheet (Peach) with 0.88px cutline rim -->
+                    <rect x="${centerX - colWidth / 2}" y="${sY}" width="${colWidth}" height="${sHeight}" rx="7" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" class="pc-chart-bar-rect" />
 
                     <!-- Day Label -->
-                    <text x="${centerX}" y="${height - 12}" text-anchor="middle" class="pc-chart-axis-text">${day}</text>
+                    <text x="${centerX}" y="${height - 14}" text-anchor="middle" class="pc-chart-axis-text">${day}</text>
                   </g>
                 `;
               }).join('')}
@@ -1733,11 +1943,11 @@
             <div class="pc-chart-legend">
               <div class="pc-legend-item">
                 <span class="pc-legend-chip" style="background:var(--pc-mint);"></span>
-                <span>신규 방문자 (Primary)</span>
+                <span>신규 방문자 (Primary Mint)</span>
               </div>
               <div class="pc-legend-item">
                 <span class="pc-legend-chip" style="background:var(--pc-peach);"></span>
-                <span>재방문 고객 (Recurring)</span>
+                <span>재방문 고객 (Recurring Peach)</span>
               </div>
             </div>
           </div>
@@ -1753,9 +1963,9 @@
           const day = g.dataset.day;
           const p = g.dataset.primary;
           const s = g.dataset.secondary;
-          const primaryRect = g.querySelectorAll('rect')[1];
-          const x = parseFloat(primaryRect.getAttribute('x')) + colWidth / 2;
-          const y = parseFloat(primaryRect.getAttribute('y'));
+          const primaryRect = (g.querySelectorAll('rect') && g.querySelectorAll('rect')[1]) || g.querySelector('rect');
+          const x = primaryRect ? parseFloat(primaryRect.getAttribute('x') || 0) + colWidth / 2 : 50;
+          const y = primaryRect ? parseFloat(primaryRect.getAttribute('y') || 0) : 50;
 
           tooltip.innerHTML = `<strong>${day}</strong><br/>신규: ${p}K · 재방문: ${s}K`;
           tooltip.style.left = `${(x / width) * 100}%`;
@@ -1772,14 +1982,15 @@
      */
     renderLineChart(container, options = {}) {
       if (!container) return;
-      const width = options.width || 680;
-      const height = options.height || 280;
-      const padding = { top: 35, right: 35, bottom: 40, left: 45 };
+      const width = options.width || 700;
+      const height = options.height || 320;
+      const padding = { top: 40, right: 40, bottom: 45, left: 55 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
 
       const labels = ["09시", "11시", "13시", "15시", "17시", "19시", "21시"];
-      const lineData1 = [32, 45, 68, 54, 85, 76, 92]; // Mint ribbon
-      const lineData2 = [20, 30, 48, 42, 60, 58, 70]; // Lavender ribbon
-      const maxVal = 100;
+      const lineData1 = [35, 48, 72, 58, 88, 82, 98]; // Mint ribbon
+      const lineData2 = [22, 32, 52, 45, 64, 62, 74]; // Lavender ribbon
+      const maxVal = 110;
 
       const chartW = width - padding.left - padding.right;
       const chartH = height - padding.top - padding.bottom;
@@ -1802,22 +2013,24 @@
         return path;
       }
 
-      const targetVal = 80;
+      const targetVal = 85;
       const targetY = getY(targetVal);
 
       const svgHtml = `
-        <div class="pc-chart-card">
-          <div class="pc-chart-header">
-            <div class="pc-chart-title-wrap">
-              <span class="pc-chart-title">시간대별 트래픽 (Origami Ribbon Wave)</span>
-              <span class="pc-chart-subtitle">부드러운 곡선 종이 리본과 기준 목표선이 조화된 라인 차트</span>
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '시간대별 트래픽 (Origami Ribbon Wave)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '부드러운 곡선 종이 리본과 기준 목표선이 조화된 라인 차트'}</span>
+              </div>
+              <div class="pc-pill-badge is-mint">목표 달성률 115%</div>
             </div>
-            <div class="pc-pill-badge is-mint">목표 달성률 115%</div>
-          </div>
+          ` : ''}
 
           <div class="pc-chart-svg-wrap">
             <div class="pc-chart-tooltip" id="pc-line-tooltip"></div>
-            <svg viewBox="0 0 ${width} ${height}">
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
               ${createPapercutChartDefs()}
 
               <!-- Dotted Grid Lines -->
@@ -1829,25 +2042,25 @@
                 `;
               }).join('')}
 
-              <!-- Dashed Reference Target Line (Goal: 80%) -->
+              <!-- Dashed Reference Target Line (Goal: 85%) -->
               <line x1="${padding.left}" y1="${targetY}" x2="${width - padding.right}" y2="${targetY}" stroke="#E69D7B" stroke-width="1.8" stroke-dasharray="5 4" />
-              <rect x="${width - padding.right - 95}" y="${targetY - 11}" width="95" height="20" rx="4" fill="#F7BA9E" filter="url(#pc-shadow-paper-soft)" />
-              <text x="${width - padding.right - 48}" y="${targetY + 3}" text-anchor="middle" font-size="11" font-weight="700" fill="#6E3B21">목표선 (80%)</text>
+              <rect x="${width - padding.right - 95}" y="${targetY - 11}" width="95" height="20" rx="4" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" />
+              <text x="${width - padding.right - 48}" y="${targetY + 3}" text-anchor="middle" font-size="11" font-weight="700" fill="#6E3B21">목표선 (85%)</text>
 
               <!-- X Labels -->
               ${labels.map((l, i) => `
-                <text x="${getX(i)}" y="${height - 12}" text-anchor="middle" class="pc-chart-axis-text">${l}</text>
+                <text x="${getX(i)}" y="${height - 14}" text-anchor="middle" class="pc-chart-axis-text">${l}</text>
               `).join('')}
 
               <!-- Secondary Ribbon Shadow & Stroke (Lavender) -->
               <path d="${makeSmoothLine(lineData2)}" fill="none" stroke="#D7CBEB" stroke-width="5" stroke-linecap="round" filter="url(#pc-shadow-paper-soft)" />
               
-              <!-- Primary Ribbon Shadow & Stroke (Mint) -->
+              <!-- Primary Ribbon Shadow & Stroke (Mint) with 0.88px cut highlight -->
               <path d="${makeSmoothLine(lineData1)}" fill="none" stroke="#A3D8C3" stroke-width="6" stroke-linecap="round" filter="url(#pc-shadow-paper-soft)" />
 
               <!-- Nodes for Primary Series -->
               ${lineData1.map((v, i) => `
-                <circle cx="${getX(i)}" cy="${getY(v)}" r="6" fill="#FFFDF9" stroke="#275C46" stroke-width="3" filter="url(#pc-shadow-paper-soft)" class="pc-chart-node-circle" data-label="${labels[i]}" data-val="${v}" />
+                <circle cx="${getX(i)}" cy="${getY(v)}" r="6.5" fill="#FFFDF9" stroke="#275C46" stroke-width="2.8" filter="url(#pc-shadow-paper-soft)" class="pc-chart-node-circle" data-label="${labels[i]}" data-val="${v}" />
               `).join('')}
             </svg>
 
@@ -1891,11 +2104,13 @@
      */
     renderDonutChart(container, options = {}) {
       if (!container) return;
-      const size = options.size || 360;
-      const cx = size / 2;
-      const cy = size / 2;
-      const outerR = size * 0.42;
-      const innerR = size * 0.24;
+      const width = options.width || 400;
+      const height = options.height || 340;
+      const cx = width / 2;
+      const cy = (height - 30) / 2;
+      const outerR = Math.min(width, height) * 0.40;
+      const innerR = Math.min(width, height) * 0.23;
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
 
       const sectors = [
         { label: "직접 유입 (Direct)", value: 38, color: "#A3D8C3", dark: "#275C46" },
@@ -1907,7 +2122,6 @@
       let currentAngle = -Math.PI / 2;
       const total = sectors.reduce((acc, s) => acc + s.value, 0);
 
-      // Arc path generator
       function describeArc(startAngle, endAngle) {
         const x1 = cx + outerR * Math.cos(startAngle);
         const y1 = cy + outerR * Math.sin(startAngle);
@@ -1925,7 +2139,7 @@
       }
 
       const paths = sectors.map(s => {
-        const sweep = (s.value / total) * 2 * Math.PI - 0.04; // tiny gap
+        const sweep = (s.value / total) * 2 * Math.PI - 0.04;
         const start = currentAngle;
         const end = currentAngle + sweep;
         currentAngle += (s.value / total) * 2 * Math.PI;
@@ -1938,31 +2152,33 @@
       });
 
       const svgHtml = `
-        <div class="pc-chart-card" style="align-items:center;">
-          <div class="pc-chart-header" style="width:100%;">
-            <div class="pc-chart-title-wrap">
-              <span class="pc-chart-title">방문자 유입 경로 (Folded Paper Fan Wheel)</span>
-              <span class="pc-chart-subtitle">종이 부채살처럼 겹쳐진 파스텔 도넛 차트와 중앙 카운트 뱃지</span>
+        <div class="pc-chart-box" style="align-items:center;">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header" style="width:100%;">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '방문자 유입 경로 (Folded Paper Fan Wheel)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '종이 부채살처럼 겹쳐진 파스텔 도넛 차트'}</span>
+              </div>
             </div>
-          </div>
+          ` : ''}
 
-          <div class="pc-chart-svg-wrap" style="max-width:${size}px;">
+          <div class="pc-chart-svg-wrap" style="max-width:${width}px;">
             <div class="pc-chart-tooltip" id="pc-donut-tooltip"></div>
-            <svg viewBox="0 0 ${size} ${size}">
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
               ${createPapercutChartDefs()}
 
               <!-- Deep Carved Well Base Circle (Inner Hole) -->
-              <circle cx="${cx}" cy="${cy}" r="${innerR + 3}" fill="#EDE8DE" filter="url(#pc-shadow-paper-soft)" />
+              <circle cx="${cx}" cy="${cy}" r="${innerR + 3}" fill="#EDE8DE" filter="url(#pc-shadow-paper-cut)" />
 
-              <!-- Donut Slices -->
+              <!-- Donut Slices with 0.88px cutline rim -->
               ${paths.map(p => `
-                <path d="${p.path}" fill="${p.color}" filter="url(#pc-shadow-paper-soft)" class="pc-donut-sector" data-label="${p.label}" data-val="${p.value}%" />
+                <path d="${p.path}" fill="${p.color}" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" class="pc-donut-sector" data-label="${p.label}" data-val="${p.value}%" />
               `).join('')}
 
               <!-- Center Paper Stamp Well Badge -->
-              <circle cx="${cx}" cy="${cy}" r="${innerR - 6}" fill="#FFFDF9" filter="url(#pc-shadow-paper-deep)" />
+              <circle cx="${cx}" cy="${cy}" r="${innerR - 6}" fill="#FFFDF9" stroke="#E2DAC8" stroke-width="1.2" filter="url(#pc-shadow-paper-deep)" />
               <text x="${cx}" y="${cy - 6}" text-anchor="middle" font-size="11" font-weight="700" fill="#7D7368">총 유입량</text>
-              <text x="${cx}" y="${cy + 16}" text-anchor="middle" font-size="17" font-weight="800" fill="#3D352E">12,480건</text>
+              <text x="${cx}" y="${cy + 16}" text-anchor="middle" font-size="17" font-weight="800" fill="#3D352E">14,820건</text>
             </svg>
 
             <div class="pc-chart-legend">
@@ -1982,12 +2198,12 @@
       const tooltip = container.querySelector('#pc-donut-tooltip');
       const slices = container.querySelectorAll('.pc-donut-sector');
       slices.forEach(slice => {
-        slice.addEventListener('mouseenter', (e) => {
+        slice.addEventListener('mouseenter', () => {
           const label = slice.dataset.label;
           const val = slice.dataset.val;
           tooltip.innerHTML = `<strong>${label}</strong>: ${val}`;
           tooltip.style.left = '50%';
-          tooltip.style.top = '30%';
+          tooltip.style.top = '28%';
           tooltip.classList.add('is-visible');
         });
         slice.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
@@ -2000,17 +2216,19 @@
      */
     renderRadarChart(container, options = {}) {
       if (!container) return;
-      const size = options.size || 380;
-      const cx = size / 2;
-      const cy = size / 2;
-      const maxR = size * 0.38;
+      const width = options.width || 400;
+      const height = options.height || 340;
+      const cx = width / 2;
+      const cy = (height - 30) / 2;
+      const maxR = Math.min(width, height) * 0.36;
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
 
       const metrics = [
         { label: "성능 (Performance)", score: 92 },
         { label: "사용성 (Usability)", score: 96 },
         { label: "신뢰도 (Reliability)", score: 88 },
         { label: "디자인 (Design)", score: 98 },
-        { label: "가치 (Value)", score: 85 },
+        { label: "가치 (Value)", score: 86 },
         { label: "확장성 (Scalability)", score: 90 }
       ];
 
@@ -2024,7 +2242,6 @@
         };
       }
 
-      // Generate concentric hexagonal rings
       const rings = [0.2, 0.4, 0.6, 0.8, 1.0].map(ratio => {
         return metrics.map((_, i) => {
           const pt = getCoord(100 * ratio, i);
@@ -2032,25 +2249,26 @@
         }).join(' ');
       });
 
-      // Polygon points
       const polygonPoints = metrics.map((m, i) => {
         const pt = getCoord(m.score, i);
         return `${pt.x},${pt.y}`;
       }).join(' ');
 
       const svgHtml = `
-        <div class="pc-chart-card" style="align-items:center;">
-          <div class="pc-chart-header" style="width:100%;">
-            <div class="pc-chart-title-wrap">
-              <span class="pc-chart-title">시스템 밸런스 지수 (Origami Kite Polygon)</span>
-              <span class="pc-chart-subtitle">정육각형 방사형 크리스 그리드와 꼭짓점 리벳 실링</span>
+        <div class="pc-chart-box" style="align-items:center;">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header" style="width:100%;">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '시스템 밸런스 지수 (Origami Kite Polygon)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '정육각형 방사형 크리스 그리드와 꼭짓점 리벳 실링'}</span>
+              </div>
+              <div class="pc-pill-badge is-mint">종합 평가: 95점</div>
             </div>
-            <div class="pc-pill-badge is-mint">종합 평가: 94점</div>
-          </div>
+          ` : ''}
 
-          <div class="pc-chart-svg-wrap" style="max-width:${size}px;">
+          <div class="pc-chart-svg-wrap" style="max-width:${width}px;">
             <div class="pc-chart-tooltip" id="pc-radar-tooltip"></div>
-            <svg viewBox="0 0 ${size} ${size}">
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
               ${createPapercutChartDefs()}
 
               <!-- Concentric Spider Web Hexagons -->
@@ -2064,16 +2282,16 @@
                 return `<line x1="${cx}" y1="${cy}" x2="${pt.x}" y2="${pt.y}" stroke="#DDD5C7" stroke-width="1.2" />`;
               }).join('')}
 
-              <!-- Translucent Paper Kite Polygon -->
-              <polygon points="${polygonPoints}" fill="#A3D8C3" fill-opacity="0.65" stroke="#275C46" stroke-width="2.5" filter="url(#pc-shadow-paper-soft)" />
+              <!-- Translucent Paper Kite Polygon with 0.88px cutline rim -->
+              <polygon points="${polygonPoints}" fill="#A3D8C3" fill-opacity="0.65" stroke="#2D7A53" stroke-width="2.5" filter="url(#pc-shadow-paper-soft)" />
 
               <!-- Vertex Pin Seals (Rivets) & Labels -->
               ${metrics.map((m, i) => {
                 const pt = getCoord(m.score, i);
-                const labelPt = getCoord(116, i);
+                const labelPt = getCoord(118, i);
                 return `
                   <g class="pc-radar-point" data-label="${m.label}" data-score="${m.score}">
-                    <circle cx="${pt.x}" cy="${pt.y}" r="5.5" fill="#FFFDF9" stroke="#275C46" stroke-width="2.5" filter="url(#pc-shadow-paper-soft)" />
+                    <circle cx="${pt.x}" cy="${pt.y}" r="6" fill="#FFFDF9" stroke="#2D7A53" stroke-width="2.5" filter="url(#pc-shadow-paper-soft)" />
                     <text x="${labelPt.x}" y="${labelPt.y + 4}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#3D352E">
                       ${m.label.split(' ')[0]}
                     </text>
@@ -2100,12 +2318,12 @@
           const label = p.dataset.label;
           const score = p.dataset.score;
           const circle = p.querySelector('circle');
-          const x = parseFloat(circle.getAttribute('cx'));
-          const y = parseFloat(circle.getAttribute('cy'));
+          const x = circle ? parseFloat(circle.getAttribute('cx') || 0) : 50;
+          const y = circle ? parseFloat(circle.getAttribute('cy') || 0) : 50;
 
           tooltip.innerHTML = `<strong>${label}</strong>: ${score}점`;
-          tooltip.style.left = `${(x / size) * 100}%`;
-          tooltip.style.top = `${(y / size) * 100}%`;
+          tooltip.style.left = `${(x / width) * 100}%`;
+          tooltip.style.top = `${(y / height) * 100}%`;
           tooltip.classList.add('is-visible');
         });
         p.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
@@ -2118,30 +2336,34 @@
      */
     renderRadialChart(container, options = {}) {
       if (!container) return;
-      const size = options.size || 340;
-      const cx = size / 2;
-      const cy = size / 2;
+      const width = options.width || 400;
+      const height = options.height || 340;
+      const cx = width / 2;
+      const cy = (height - 30) / 2;
       const strokeWidth = 14;
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
 
       const rings = [
         { label: "저장 공간 (Storage)", percent: 84, color: "#A3D8C3", r: 120 },
-        { label: "메모리 사용률 (Memory)", percent: 68, color: "#BDE0EA", r: 100 },
-        { label: "CPU 로드 (Compute)", percent: 52, color: "#F7BA9E", r: 80 },
-        { label: "네트워크 I/O (Traffic)", percent: 35, color: "#D7CBEB", r: 60 }
+        { label: "메모리 사용률 (Memory)", percent: 68, color: "#BDE0EA", r: 98 },
+        { label: "CPU 로드 (Compute)", percent: 52, color: "#F7BA9E", r: 76 },
+        { label: "네트워크 I/O (Traffic)", percent: 36, color: "#D7CBEB", r: 54 }
       ];
 
       const svgHtml = `
-        <div class="pc-chart-card" style="align-items:center;">
-          <div class="pc-chart-header" style="width:100%;">
-            <div class="pc-chart-title-wrap">
-              <span class="pc-chart-title">시스템 자원 소비율 (Concentric Craft Gauge)</span>
-              <span class="pc-chart-subtitle">나무 크림 베이스 트랙과 4중 동심원 종이 링 게이지</span>
+        <div class="pc-chart-box" style="align-items:center;">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header" style="width:100%;">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '시스템 자원 소비율 (Concentric Craft Gauge)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '나무 크림 베이스 트랙과 4중 동심원 종이 링 게이지'}</span>
+              </div>
             </div>
-          </div>
+          ` : ''}
 
-          <div class="pc-chart-svg-wrap" style="max-width:${size}px;">
+          <div class="pc-chart-svg-wrap" style="max-width:${width}px;">
             <div class="pc-chart-tooltip" id="pc-radial-tooltip"></div>
-            <svg viewBox="0 0 ${size} ${size}">
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
               ${createPapercutChartDefs()}
 
               ${rings.map(ring => {
@@ -2151,13 +2373,13 @@
                   <!-- Background Track -->
                   <circle cx="${cx}" cy="${cy}" r="${ring.r}" fill="none" stroke="#EDE8DE" stroke-width="${strokeWidth}" />
 
-                  <!-- Active Pastel Arc -->
+                  <!-- Active Pastel Arc with 2-tier shadow -->
                   <circle cx="${cx}" cy="${cy}" r="${ring.r}" fill="none" stroke="${ring.color}" stroke-width="${strokeWidth}" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${offset}" transform="rotate(-90 ${cx} ${cy})" filter="url(#pc-shadow-paper-soft)" class="pc-radial-arc" data-label="${ring.label}" data-pct="${ring.percent}%" style="cursor:pointer;transition:stroke-width 0.2s ease;" />
                 `;
               }).join('')}
 
               <!-- Center Summary Disc -->
-              <circle cx="${cx}" cy="${cy}" r="40" fill="#FFFDF9" filter="url(#pc-shadow-paper-soft)" />
+              <circle cx="${cx}" cy="${cy}" r="38" fill="#FFFDF9" stroke="#E2DAC8" stroke-width="1.2" filter="url(#pc-shadow-paper-soft)" />
               <text x="${cx}" y="${cy - 4}" text-anchor="middle" font-size="10" font-weight="700" fill="#7D7368">평균 가동률</text>
               <text x="${cx}" y="${cy + 15}" text-anchor="middle" font-size="16" font-weight="800" fill="#3D352E">60%</text>
             </svg>
@@ -2195,30 +2417,783 @@
     },
 
     /**
-     * Auto-init all charts and blocks found on the page
+     * Chart 7: Heatmap Chart (Paper Mosaic Activity Matrix)
+     * 7x10 pastel paper tile grid with 4 activity elevation levels & hover popups
+     */
+    renderHeatmapChart(container, options = {}) {
+      if (!container) return;
+      const width = options.width || 700;
+      const height = options.height || 320;
+      const padding = { top: 40, right: 35, bottom: 45, left: 55 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
+
+      const days = ["월", "화", "수", "목", "금", "토", "일"];
+      const weeks = ["W01", "W02", "W03", "W04", "W05", "W06", "W07", "W08", "W09", "W10"];
+
+      // Activity levels 0..4 (0: cream, 1: light mint, 2: mint, 3: rich mint, 4: deep sage)
+      const levelColors = ["#F4EFE6", "#D8F3E8", "#A3D8C3", "#52B788", "#2D7A53"];
+      const matrix = [
+        [1, 3, 2, 4, 1, 0, 3, 2, 4, 3], // 월
+        [2, 4, 3, 2, 3, 1, 4, 3, 2, 4], // 화
+        [3, 2, 4, 3, 4, 2, 1, 4, 3, 2], // 수
+        [1, 3, 2, 4, 2, 3, 4, 2, 4, 3], // 목
+        [4, 3, 4, 1, 3, 2, 3, 4, 2, 4], // 금
+        [0, 1, 2, 0, 1, 2, 1, 0, 2, 1], // 토
+        [0, 0, 1, 1, 0, 1, 0, 1, 0, 1]  // 일
+      ];
+
+      const chartW = width - padding.left - padding.right;
+      const chartH = height - padding.top - padding.bottom;
+      const colW = (chartW - (weeks.length - 1) * 8) / weeks.length;
+      const rowH = (chartH - (days.length - 1) * 6) / days.length;
+
+      const svgHtml = `
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '주간 활동 히트맵 (Paper Mosaic Activity Matrix)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '색종이 모자이크 타일과 4단 파스텔 종이 단차'}</span>
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="pc-chart-svg-wrap">
+            <div class="pc-chart-tooltip" id="pc-heatmap-tooltip"></div>
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
+              ${createPapercutChartDefs()}
+
+              <!-- Week Column Labels (Top) -->
+              ${weeks.map((w, col) => {
+                const x = padding.left + col * (colW + 8) + colW / 2;
+                return `<text x="${x}" y="${padding.top - 12}" text-anchor="middle" class="pc-chart-axis-text">${w}</text>`;
+              }).join('')}
+
+              <!-- Day Row Labels (Left) -->
+              ${days.map((d, row) => {
+                const y = padding.top + row * (rowH + 6) + rowH / 2 + 4;
+                return `<text x="${padding.left - 12}" y="${y}" text-anchor="end" class="pc-chart-axis-text">${d}</text>`;
+              }).join('')}
+
+              <!-- 7x10 Mosaic Paper Cut Tiles with 0.88px rim & shadow -->
+              ${matrix.map((rowArr, row) => {
+                const y = padding.top + row * (rowH + 6);
+                return rowArr.map((lvl, col) => {
+                  const x = padding.left + col * (colW + 8);
+                  const color = levelColors[lvl];
+                  const count = lvl === 0 ? 0 : lvl * 5 + ((row + col) % 4);
+                  return `
+                    <rect x="${x}" y="${y}" width="${colW}" height="${rowH}" rx="4"
+                      fill="${color}" stroke="#FFFFFF" stroke-width="0.88"
+                      filter="url(#pc-shadow-paper-soft)" class="pc-heatmap-tile"
+                      data-day="${days[row]}" data-week="${weeks[col]}" data-level="${lvl}" data-count="${count}" />
+                  `;
+                }).join('');
+              }).join('')}
+            </svg>
+
+            <!-- Legend: Activity Level Scale -->
+            <div class="pc-chart-legend">
+              <span style="font-size:12px;font-weight:700;color:var(--pc-ink-muted);margin-right:4px;">활동 빈도: 적음</span>
+              ${levelColors.map((c, i) => `
+                <div class="pc-legend-item" style="gap:4px;">
+                  <span class="pc-legend-chip" style="background:${c};"></span>
+                  <span style="font-size:11px;">Lv.${i}</span>
+                </div>
+              `).join('')}
+              <span style="font-size:12px;font-weight:700;color:var(--pc-ink-muted);margin-left:4px;">많음</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = svgHtml;
+
+      const tooltip = container.querySelector('#pc-heatmap-tooltip');
+      container.querySelectorAll('.pc-heatmap-tile').forEach(tile => {
+        tile.addEventListener('mouseenter', () => {
+          const x = parseFloat(tile.getAttribute('x')) + colW / 2;
+          const y = parseFloat(tile.getAttribute('y'));
+          const day = tile.dataset.day;
+          const week = tile.dataset.week;
+          const count = tile.dataset.count;
+          const level = tile.dataset.level;
+
+          tooltip.innerHTML = `<strong>${day}요일 (${week})</strong><br/>커밋/활동: ${count}건 · 강도 Lv.${level}`;
+          tooltip.style.left = `${(x / width) * 100}%`;
+          tooltip.style.top = `${(y / height) * 100}%`;
+          tooltip.classList.add('is-visible');
+        });
+        tile.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+      });
+    },
+
+    /**
+     * Chart 8: Candlestick Chart (Cardstock Range & Wicks)
+     * Thick paper cut tweezers columns and wick lines with Mint(up) and Peach(down)
+     */
+    renderCandlestickChart(container, options = {}) {
+      if (!container) return;
+      const width = options.width || 700;
+      const height = options.height || 320;
+      const padding = { top: 40, right: 35, bottom: 45, left: 55 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
+
+      const items = [
+        { time: "09시", open: 55, close: 72, high: 82, low: 48 }, // Mint (상승)
+        { time: "11시", open: 72, close: 62, high: 78, low: 56 }, // Peach (하락)
+        { time: "13시", open: 62, close: 88, high: 96, low: 58 }, // Mint
+        { time: "15시", open: 88, close: 80, high: 92, low: 74 }, // Peach
+        { time: "17시", open: 80, close: 104, high: 112, low: 78 }, // Mint
+        { time: "19시", open: 104, close: 95, high: 108, low: 90 }, // Peach
+        { time: "21시", open: 95, close: 110, high: 118, low: 92 }  // Mint
+      ];
+
+      const maxVal = 130;
+      const chartW = width - padding.left - padding.right;
+      const chartH = height - padding.top - padding.bottom;
+      const colW = 28;
+      const gap = chartW / items.length;
+
+      function getY(val) {
+        return padding.top + chartH - (val / maxVal) * chartH;
+      }
+
+      const svgHtml = `
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '거래 시세 레인지 (Cardstock Range & Wicks)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '도톰한 종이 핀셋 봉과 심지 라인, 상승/하락 칼선 음영'}</span>
+              </div>
+              <div class="pc-pill-badge is-mint">실시간 등락율 +14.2%</div>
+            </div>
+          ` : ''}
+
+          <div class="pc-chart-svg-wrap">
+            <div class="pc-chart-tooltip" id="pc-candlestick-tooltip"></div>
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
+              ${createPapercutChartDefs()}
+
+              <!-- Horizontal Grid Lines -->
+              ${[0, 30, 60, 90, 120].map(val => {
+                const y = getY(val);
+                return `
+                  <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" class="pc-chart-grid-line" />
+                  <text x="${padding.left - 10}" y="${y + 4}" text-anchor="end" class="pc-chart-axis-text">₩${val}K</text>
+                `;
+              }).join('')}
+
+              <!-- 7 Candlesticks -->
+              ${items.map((item, i) => {
+                const cx = padding.left + i * gap + gap / 2;
+                const isUp = item.close >= item.open;
+                const topBody = Math.max(item.open, item.close);
+                const botBody = Math.min(item.open, item.close);
+                const bodyY = getY(topBody);
+                const bodyH = Math.max(getY(botBody) - bodyY, 6);
+                const highY = getY(item.high);
+                const lowY = getY(item.low);
+                const bodyFill = isUp ? "#A3D8C3" : "#F7BA9E";
+                const strokeColor = isUp ? "#275C46" : "#A04828";
+
+                return `
+                  <g class="pc-candlestick-group" data-time="${item.time}" data-open="${item.open}" data-close="${item.close}" data-high="${item.high}" data-low="${item.low}" data-up="${isUp}">
+                    <!-- Wick Line (Vertical Cut String) -->
+                    <line x1="${cx}" y1="${highY}" x2="${cx}" y2="${lowY}" stroke="#5D5043" stroke-width="2.2" stroke-linecap="round" filter="url(#pc-shadow-paper-soft)" />
+
+                    <!-- Wick Top/Bottom Mini Studs -->
+                    <circle cx="${cx}" cy="${highY}" r="2" fill="#5D5043" />
+                    <circle cx="${cx}" cy="${lowY}" r="2" fill="#5D5043" />
+
+                    <!-- 3D Paper Body Rect with 0.88px cutline rim -->
+                    <rect x="${cx - colW / 2}" y="${bodyY}" width="${colW}" height="${bodyH}" rx="5"
+                      fill="${bodyFill}" stroke="#FFFFFF" stroke-width="0.88"
+                      filter="url(#pc-shadow-paper-soft)" class="pc-candle-body" />
+
+                    <!-- Inner Groove Cut Line on Candle Face -->
+                    <line x1="${cx - colW / 2 + 5}" y1="${bodyY + bodyH / 2}" x2="${cx + colW / 2 - 5}" y2="${bodyY + bodyH / 2}" stroke="${strokeColor}" stroke-width="1.2" opacity="0.6" />
+
+                    <!-- Time Axis Label -->
+                    <text x="${cx}" y="${height - 14}" text-anchor="middle" class="pc-chart-axis-text">${item.time}</text>
+                  </g>
+                `;
+              }).join('')}
+            </svg>
+
+            <div class="pc-chart-legend">
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-mint);"></span>
+                <span>상승 양봉 (Bullish Mint)</span>
+              </div>
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-peach);"></span>
+                <span>하락 음봉 (Bearish Peach)</span>
+              </div>
+              <div class="pc-legend-item">
+                <span style="display:inline-block;width:14px;height:3px;background:#5D5043;border-radius:2px;"></span>
+                <span>고가/저가 심지 라인 (Cardstock Wick)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = svgHtml;
+
+      const tooltip = container.querySelector('#pc-candlestick-tooltip');
+      container.querySelectorAll('.pc-candlestick-group').forEach(g => {
+        g.addEventListener('mouseenter', () => {
+          const time = g.dataset.time;
+          const open = g.dataset.open;
+          const close = g.dataset.close;
+          const high = g.dataset.high;
+          const low = g.dataset.low;
+          const isUp = g.dataset.up === 'true';
+          const rect = g.querySelector('.pc-candle-body') || g.querySelector('rect');
+          const cx = rect ? parseFloat(rect.getAttribute('x') || 0) + colW / 2 : 50;
+          const y = rect ? parseFloat(rect.getAttribute('y') || 0) : 50;
+
+          tooltip.innerHTML = `
+            <strong>${time} 거래 지표</strong> (${isUp ? '<span style="color:#275C46;">상승 ↑</span>' : '<span style="color:#A04828;">하락 ↓</span>'})<br/>
+            시가: ₩${open}K · 종가: ₩${close}K<br/>
+            고가: ₩${high}K · 저가: ₩${low}K
+          `;
+          tooltip.style.left = `${(cx / width) * 100}%`;
+          tooltip.style.top = `${(y / height) * 100}%`;
+          tooltip.classList.add('is-visible');
+        });
+        g.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+      });
+    },
+
+    /**
+     * Chart 9: Bubble Chart (Confetti Scatter Float)
+     * Suspended paper confetti circles with multi-variable sizing & pastel layering
+     */
+    renderBubbleChart(container, options = {}) {
+      if (!container) return;
+      const width = options.width || 700;
+      const height = options.height || 320;
+      const padding = { top: 40, right: 40, bottom: 45, left: 55 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
+
+      const bubbles = [
+        { name: "알파 공예", x: 20, y: 75, r: 24, color: "#A3D8C3", border: "#275C46" },
+        { name: "베타 스튜디오", x: 38, y: 40, r: 18, color: "#F7BA9E", border: "#A04828" },
+        { name: "감마 디자인", x: 60, y: 88, r: 30, color: "#D7CBEB", border: "#473B6B" },
+        { name: "델타 키리가미", x: 80, y: 55, r: 22, color: "#BDE0EA", border: "#204C5A" },
+        { name: "오메가 랩", x: 48, y: 60, r: 26, color: "#FEE396", border: "#7D6012" },
+        { name: "에타 펄프", x: 68, y: 32, r: 16, color: "#BBD5B8", border: "#2D7A53" },
+        { name: "제타 크래프트", x: 15, y: 30, r: 20, color: "#EADCC7", border: "#6B583E" },
+        { name: "카파 디오라마", x: 88, y: 82, r: 25, color: "#A3D8C3", border: "#275C46" },
+        { name: "세타 컷팅", x: 32, y: 90, r: 22, color: "#F5B8BE", border: "#883E48" }
+      ];
+
+      const chartW = width - padding.left - padding.right;
+      const chartH = height - padding.top - padding.bottom;
+
+      function getX(val) { return padding.left + (val / 100) * chartW; }
+      function getY(val) { return padding.top + chartH - (val / 100) * chartH; }
+
+      const svgHtml = `
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '콘페티 부유 산점도 (Confetti Scatter Float)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '공중 부유 색종이 콘페티와 다변량 중첩 파스텔 원형 버블'}</span>
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="pc-chart-svg-wrap">
+            <div class="pc-chart-tooltip" id="pc-bubble-tooltip"></div>
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
+              ${createPapercutChartDefs()}
+
+              <!-- Dotted Grid Lines -->
+              ${[0, 25, 50, 75, 100].map(v => {
+                const y = getY(v);
+                return `
+                  <line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}" class="pc-chart-grid-line" />
+                  <text x="${padding.left - 10}" y="${y + 4}" text-anchor="end" class="pc-chart-axis-text">${v}%</text>
+                `;
+              }).join('')}
+
+              ${[20, 40, 60, 80, 100].map(v => {
+                const x = getX(v);
+                return `
+                  <line x1="${x}" y1="${padding.top}" x2="${x}" y2="${height - padding.bottom}" class="pc-chart-grid-line" />
+                  <text x="${x}" y="${height - 14}" text-anchor="middle" class="pc-chart-axis-text">${v}</text>
+                `;
+              }).join('')}
+
+              <!-- Floating Paper Confetti Bubbles with 0.88px cutline rim -->
+              ${bubbles.map(b => {
+                const cx = getX(b.x);
+                const cy = getY(b.y);
+                return `
+                  <g class="pc-bubble-group" data-name="${b.name}" data-x="${b.x}" data-y="${b.y}" data-r="${b.r}">
+                    <!-- Outer Cast Shadow Circle -->
+                    <circle cx="${cx}" cy="${cy}" r="${b.r}"
+                      fill="${b.color}" fill-opacity="0.85" stroke="#FFFFFF" stroke-width="0.88"
+                      filter="url(#pc-shadow-paper-soft)" class="pc-bubble-circle" />
+
+                    <!-- Inner White Highlight Ring for 3D Specular Curvature -->
+                    <circle cx="${cx - b.r * 0.3}" cy="${cy - b.r * 0.3}" r="${b.r * 0.25}" fill="#FFFDF9" fill-opacity="0.6" />
+
+                    ${b.r >= 22 ? `
+                      <text x="${cx}" y="${cy + 4}" text-anchor="middle" font-size="10" font-weight="800" fill="#3D352E" pointer-events="none">
+                        ${b.name.split(' ')[0]}
+                      </text>
+                    ` : ''}
+                  </g>
+                `;
+              }).join('')}
+            </svg>
+
+            <div class="pc-chart-legend">
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-mint);"></span>
+                <span>공예 라인 (Mint)</span>
+              </div>
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-peach);"></span>
+                <span>디자인 스튜디오 (Peach)</span>
+              </div>
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-lavender);"></span>
+                <span>연구소 (Lavender)</span>
+              </div>
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-buttercup);"></span>
+                <span>실험실 (Buttercup)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = svgHtml;
+
+      const tooltip = container.querySelector('#pc-bubble-tooltip');
+      container.querySelectorAll('.pc-bubble-group').forEach(g => {
+        g.addEventListener('mouseenter', () => {
+          const circle = g.querySelector('.pc-bubble-circle') || g.querySelector('circle');
+          const cx = circle ? parseFloat(circle.getAttribute('cx') || 0) : 50;
+          const cy = circle ? parseFloat(circle.getAttribute('cy') || 0) : 50;
+          const name = g.dataset.name;
+          const xVal = g.dataset.x;
+          const yVal = g.dataset.y;
+          const rVal = g.dataset.r;
+
+          tooltip.innerHTML = `<strong>${name}</strong><br/>만족도: ${yVal}% · 난이도: ${xVal}<br/>물량 규모: ${parseInt(rVal, 10) * 12}건`;
+          tooltip.style.left = `${(cx / width) * 100}%`;
+          tooltip.style.top = `${(cy / height) * 100}%`;
+          tooltip.classList.add('is-visible');
+        });
+        g.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+      });
+    },
+
+    /**
+     * Chart 10: Funnel Chart (Pyramid Stepped Slices)
+     * Step-cut sliced paper pyramid layers descending from broad entry to narrow exit
+     */
+    renderFunnelChart(container, options = {}) {
+      if (!container) return;
+      const width = options.width || 700;
+      const height = options.height || 320;
+      const padding = { top: 30, right: 60, bottom: 40, left: 60 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
+
+      const stages = [
+        { label: "1단계: 웹 방문 유입", percent: 100, count: "15,200명", color: "#BDE0EA", dark: "#204C5A" },
+        { label: "2단계: 템플릿 탐색", percent: 76, count: "11,550명", color: "#A3D8C3", dark: "#275C46" },
+        { label: "3단계: 커스텀 도안 제작", percent: 52, count: "7,900명", color: "#FEE396", dark: "#6E530F" },
+        { label: "4단계: 견적 및 패키징", percent: 34, count: "5,160명", color: "#F7BA9E", dark: "#6E3B21" },
+        { label: "5단계: 최종 주문/배송", percent: 21, count: "3,190명", color: "#D7CBEB", dark: "#473B6B" }
+      ];
+
+      const chartW = width - padding.left - padding.right;
+      const chartH = height - padding.top - padding.bottom;
+      const sliceH = chartH / stages.length;
+      const cx = padding.left + chartW / 2;
+
+      // Calculate slice widths
+      const sliceWidths = [
+        { topW: chartW * 0.95, botW: chartW * 0.80 },
+        { topW: chartW * 0.80, botW: chartW * 0.65 },
+        { topW: chartW * 0.65, botW: chartW * 0.50 },
+        { topW: chartW * 0.50, botW: chartW * 0.36 },
+        { topW: chartW * 0.36, botW: chartW * 0.24 }
+      ];
+
+      const svgHtml = `
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '전환 퍼널 피라미드 (Pyramid Stepped Slices)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '상단에서 하단으로 갈수록 좁아지는 5단 종이 슬라이스 계단'}</span>
+              </div>
+              <div class="pc-pill-badge is-mint">전체 전환율: 21.0%</div>
+            </div>
+          ` : ''}
+
+          <div class="pc-chart-svg-wrap">
+            <div class="pc-chart-tooltip" id="pc-funnel-tooltip"></div>
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
+              ${createPapercutChartDefs()}
+
+              <!-- 5 Stacked Trapezoid Paper Slices with 0.88px cutline rims -->
+              ${stages.map((st, i) => {
+                const y1 = padding.top + i * sliceH;
+                const y2 = y1 + sliceH - 4; // 4px step cut gap
+                const tw = sliceWidths[i].topW;
+                const bw = sliceWidths[i].botW;
+                const p1 = `${cx - tw / 2},${y1}`;
+                const p2 = `${cx + tw / 2},${y1}`;
+                const p3 = `${cx + bw / 2},${y2}`;
+                const p4 = `${cx - bw / 2},${y2}`;
+
+                return `
+                  <g class="pc-funnel-group" data-label="${st.label}" data-percent="${st.percent}" data-count="${st.count}" data-drop="${100 - st.percent}%">
+                    <!-- Trapezoid Paper Sheet -->
+                    <polygon points="${p1} ${p2} ${p3} ${p4}"
+                      fill="${st.color}" stroke="#FFFFFF" stroke-width="0.88"
+                      filter="url(#pc-shadow-paper-deep)" class="pc-funnel-slice" />
+
+                    <!-- Centered Label & Badges -->
+                    <text x="${cx}" y="${(y1 + y2) / 2 + 5}" text-anchor="middle" font-size="12.5" font-weight="800" fill="${st.dark}" pointer-events="none">
+                      ${st.label} · ${st.percent}% (${st.count})
+                    </text>
+                  </g>
+                `;
+              }).join('')}
+            </svg>
+
+            <div class="pc-chart-legend">
+              ${stages.map(st => `
+                <div class="pc-legend-item">
+                  <span class="pc-legend-chip" style="background:${st.color};"></span>
+                  <span>${st.label.split(':')[0]} (${st.percent}%)</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = svgHtml;
+
+      const tooltip = container.querySelector('#pc-funnel-tooltip');
+      container.querySelectorAll('.pc-funnel-group').forEach((g, idx) => {
+        g.addEventListener('mouseenter', () => {
+          const label = g.dataset.label;
+          const pct = g.dataset.percent;
+          const count = g.dataset.count;
+          const y1 = padding.top + idx * sliceH;
+
+          tooltip.innerHTML = `<strong>${label}</strong><br/>전환율: ${pct}% · 모객: ${count}`;
+          tooltip.style.left = '50%';
+          tooltip.style.top = `${((y1 + sliceH / 2) / height) * 100}%`;
+          tooltip.classList.add('is-visible');
+        });
+        g.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+      });
+    },
+
+    /**
+     * Chart 11: Treemap Chart (Kirigami Partitioned Mosaic)
+     * Hierarchical rectangular paper tiles partitioned with grooved cutlines
+     */
+    renderTreemapChart(container, options = {}) {
+      if (!container) return;
+      const width = options.width || 700;
+      const height = options.height || 320;
+      const padding = { top: 25, right: 25, bottom: 40, left: 25 };
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
+
+      const items = [
+        { name: "UI 컴포넌트 키트", share: 34, color: "#A3D8C3", dark: "#275C46", sub: "버튼·입력창·모달" },
+        { name: "3D 벡터 그래픽 엔진", share: 26, color: "#BDE0EA", dark: "#204C5A", sub: "SVG 레이어드 렌더러" },
+        { name: "오리가미 아이콘 팩", share: 18, color: "#FEE396", dark: "#6E530F", sub: "36종 페이퍼컷 아이콘" },
+        { name: "모바일 최적화 레이아웃", share: 12, color: "#F7BA9E", dark: "#6E3B21", sub: "반응형 터치 서랍" },
+        { name: "접근성 & 테스팅 스위트", share: 10, color: "#D7CBEB", dark: "#473B6B", sub: "ARIA & TDD 게이트" }
+      ];
+
+      const chartW = width - padding.left - padding.right;
+      const chartH = height - padding.top - padding.bottom;
+      const gap = 8;
+
+      // 2-Column Tessellation Layout:
+      // Left Col (58% width): Box 0 (Top 60%), Box 1 (Bottom 40%)
+      // Right Col (42% width): Box 2 (Top 46%), Box 3 & 4 (Bottom 54% split 50/50)
+      const leftW = chartW * 0.58 - gap / 2;
+      const rightW = chartW * 0.42 - gap / 2;
+      const leftX = padding.left;
+      const rightX = leftX + leftW + gap;
+
+      const leftTopH = chartH * 0.60 - gap / 2;
+      const leftBotH = chartH * 0.40 - gap / 2;
+
+      const rightTopH = chartH * 0.46 - gap / 2;
+      const rightBotH = chartH * 0.54 - gap / 2;
+      const rightSubW = rightW * 0.50 - gap / 4;
+
+      const rects = [
+        { item: items[0], x: leftX, y: padding.top, w: leftW, h: leftTopH },
+        { item: items[1], x: leftX, y: padding.top + leftTopH + gap, w: leftW, h: leftBotH },
+        { item: items[2], x: rightX, y: padding.top, w: rightW, h: rightTopH },
+        { item: items[3], x: rightX, y: padding.top + rightTopH + gap, w: rightSubW, h: rightBotH },
+        { item: items[4], x: rightX + rightSubW + gap / 2, y: padding.top + rightTopH + gap, w: rightSubW, h: rightBotH }
+      ];
+
+      const svgHtml = `
+        <div class="pc-chart-box">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '다층 키리가미 분할 트리맵 (Kirigami Partitioned Mosaic)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '비중에 따라 사각형 종이를 바둑판 칼선으로 분할 배치'}</span>
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="pc-chart-svg-wrap">
+            <div class="pc-chart-tooltip" id="pc-treemap-tooltip"></div>
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
+              ${createPapercutChartDefs()}
+
+              <!-- Partitioned Paper Rectangles with 0.88px cutline rims -->
+              ${rects.map(r => `
+                <g class="pc-treemap-group" data-name="${r.item.name}" data-share="${r.item.share}%" data-sub="${r.item.sub}">
+                  <!-- Base Plate Sheet -->
+                  <rect x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" rx="8"
+                    fill="${r.item.color}" stroke="#FFFFFF" stroke-width="0.88"
+                    filter="url(#pc-shadow-paper-soft)" class="pc-treemap-tile" />
+
+                  <!-- Text Labels inside Tile -->
+                  <text x="${r.x + 14}" y="${r.y + 24}" font-size="13" font-weight="800" fill="${r.item.dark}" pointer-events="none">
+                    ${r.item.name}
+                  </text>
+                  <text x="${r.x + 14}" y="${r.y + 44}" font-size="16" font-weight="900" fill="#3D352E" pointer-events="none">
+                    ${r.item.share}%
+                  </text>
+                  ${r.h > 80 ? `
+                    <text x="${r.x + 14}" y="${r.y + r.h - 12}" font-size="11" font-weight="600" fill="${r.item.dark}" opacity="0.8" pointer-events="none">
+                      ${r.item.sub}
+                    </text>
+                  ` : ''}
+                </g>
+              `).join('')}
+            </svg>
+
+            <div class="pc-chart-legend">
+              ${items.map(it => `
+                <div class="pc-legend-item">
+                  <span class="pc-legend-chip" style="background:${it.color};"></span>
+                  <span>${it.name.split(' ')[0]} (${it.share}%)</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = svgHtml;
+
+      const tooltip = container.querySelector('#pc-treemap-tooltip');
+      container.querySelectorAll('.pc-treemap-group').forEach(g => {
+        g.addEventListener('mouseenter', () => {
+          const rect = g.querySelector('rect');
+          const x = rect ? parseFloat(rect.getAttribute('x') || 0) + parseFloat(rect.getAttribute('width') || 0) / 2 : 50;
+          const y = rect ? parseFloat(rect.getAttribute('y') || 0) : 50;
+          const name = g.dataset.name;
+          const share = g.dataset.share;
+          const sub = g.dataset.sub;
+
+          tooltip.innerHTML = `<strong>${name}</strong>: ${share}<br/>구성: ${sub}`;
+          tooltip.style.left = `${(x / width) * 100}%`;
+          tooltip.style.top = `${(y / height) * 100}%`;
+          tooltip.classList.add('is-visible');
+        });
+        g.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+      });
+    },
+
+    /**
+     * Chart 12: Gauge Chart (Paper Compass Speedometer)
+     * Semi-circular paper arc with carved groove track and 3D origami pointer needle
+     */
+    renderGaugeChart(container, options = {}) {
+      if (!container) return;
+      const width = options.width || 420;
+      const height = options.height || 340;
+      const cx = width / 2;
+      const cy = 205;
+      const outerR = 142;
+      const innerR = 108;
+      const strokeW = outerR - innerR;
+      const midR = (outerR + innerR) / 2;
+      const showHeader = options.showHeader === true || (Boolean(options.title) && options.showHeader !== false);
+
+      const val = options.value !== undefined ? options.value : 84.5;
+      const maxVal = 100;
+
+      // Arc spans from -Math.PI (-180deg) to 0 (0deg)
+      const startAngle = -Math.PI;
+      const endAngle = 0;
+      const needleAngle = startAngle + (val / maxVal) * (endAngle - startAngle);
+
+      function polarToCart(radius, angle) {
+        return {
+          x: cx + radius * Math.cos(angle),
+          y: cy + radius * Math.sin(angle)
+        };
+      }
+
+      function describeGaugeArc(a1, a2) {
+        const p1 = polarToCart(outerR, a1);
+        const p2 = polarToCart(outerR, a2);
+        const ip1 = polarToCart(innerR, a2);
+        const ip2 = polarToCart(innerR, a1);
+        return `M ${p1.x} ${p1.y} A ${outerR} ${outerR} 0 0 1 ${p2.x} ${p2.y} L ${ip1.x} ${ip1.y} A ${innerR} ${innerR} 0 0 0 ${ip2.x} ${ip2.y} Z`;
+      }
+
+      // 3 Zones: Safe (0..60%), Warning (60..85%), Critical (85..100%)
+      const angle60 = startAngle + 0.60 * Math.PI;
+      const angle85 = startAngle + 0.85 * Math.PI;
+
+      const arc1 = describeGaugeArc(startAngle, angle60 - 0.02);
+      const arc2 = describeGaugeArc(angle60, angle85 - 0.02);
+      const arc3 = describeGaugeArc(angle85, endAngle);
+
+      // 3D Origami Needle Polygon
+      const needleLen = outerR - 12;
+      const tip = polarToCart(needleLen, needleAngle);
+      const leftBase = polarToCart(14, needleAngle - Math.PI / 2);
+      const rightBase = polarToCart(14, needleAngle + Math.PI / 2);
+      const tail = polarToCart(18, needleAngle + Math.PI);
+
+      const needlePath = `M ${tip.x} ${tip.y} L ${rightBase.x} ${rightBase.y} L ${tail.x} ${tail.y} L ${leftBase.x} ${leftBase.y} Z`;
+
+      const svgHtml = `
+        <div class="pc-chart-box" style="align-items:center;">
+          ${showHeader ? `
+            <div class="pc-chart-header pc-compact-header" style="width:100%;">
+              <div class="pc-chart-title-wrap">
+                <span class="pc-chart-title">${options.title || '종이 나침반 게이지 (Paper Compass Speedometer)'}</span>
+                <span class="pc-chart-subtitle">${options.subtitle || '호(Arc) 게이지와 3D 종이 바늘 핀셋'}</span>
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="pc-chart-svg-wrap" style="max-width:${width}px;">
+            <div class="pc-chart-tooltip" id="pc-gauge-tooltip"></div>
+            <svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" class="pc-chart-svg">
+              ${createPapercutChartDefs()}
+
+              <!-- Deep Recessed Background Track -->
+              <path d="${describeGaugeArc(startAngle, endAngle)}" fill="#EDE8DE" filter="url(#pc-shadow-paper-cut)" />
+
+              <!-- 3 Sliced Color Zones with 0.88px cutline rims -->
+              <path d="${arc1}" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" />
+              <path d="${arc2}" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" />
+              <path d="${arc3}" fill="#F7BA9E" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-soft)" />
+
+              <!-- Metric Graduation Ticks around Outer Rim -->
+              ${[0, 25, 50, 75, 100].map(pct => {
+                const a = startAngle + (pct / 100) * Math.PI;
+                const pOuter = polarToCart(outerR + 5, a);
+                const pLabel = polarToCart(outerR + 18, a);
+                return `
+                  <line x1="${polarToCart(outerR, a).x}" y1="${polarToCart(outerR, a).y}" x2="${pOuter.x}" y2="${pOuter.y}" stroke="#8A7761" stroke-width="1.8" />
+                  <text x="${pLabel.x}" y="${pLabel.y + 4}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#7D7368">${pct}%</text>
+                `;
+              }).join('')}
+
+              <!-- 3D Origami Needle Pointer with Deep Elevation Shadow -->
+              <path d="${needlePath}" fill="#3D352E" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pc-shadow-paper-deep)" class="pc-gauge-needle" />
+
+              <!-- Center Paper Rivet Pin Seal -->
+              <circle cx="${cx}" cy="${cy}" r="17" fill="#FFFDF9" stroke="#E2DAC8" stroke-width="1.5" filter="url(#pc-shadow-paper-deep)" />
+              <circle cx="${cx}" cy="${cy}" r="7" fill="#A3D8C3" stroke="#275C46" stroke-width="1.2" />
+
+              <!-- Center Value Stamp Badge -->
+              <rect x="${cx - 60}" y="${cy + 24}" width="120" height="28" rx="7" fill="#FFFDF9" stroke="#DCD1BF" stroke-width="1" filter="url(#pc-shadow-paper-soft)" />
+              <text x="${cx}" y="${cy + 43}" text-anchor="middle" font-size="14.5" font-weight="900" fill="#204A38">${val}% · 안정 가동</text>
+            </svg>
+
+            <div class="pc-chart-legend">
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-mint);"></span>
+                <span>정상 (0~60%)</span>
+              </div>
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-buttercup);"></span>
+                <span>주의 (60~85%)</span>
+              </div>
+              <div class="pc-legend-item">
+                <span class="pc-legend-chip" style="background:var(--pc-peach);"></span>
+                <span>피크 (85~100%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      container.innerHTML = svgHtml;
+
+      const tooltip = container.querySelector('#pc-gauge-tooltip');
+      const needle = container.querySelector('.pc-gauge-needle');
+      if (needle) {
+        needle.addEventListener('mouseenter', () => {
+          tooltip.innerHTML = `<strong>실시간 게이지</strong>: ${val}% (안정 최적 상태)`;
+          tooltip.style.left = '50%';
+          tooltip.style.top = '30%';
+          tooltip.classList.add('is-visible');
+        });
+        needle.addEventListener('mouseleave', () => tooltip.classList.remove('is-visible'));
+      }
+    },
+
+    /**
+     * Auto-init all 12 charts and blocks found on the page
      */
     init() {
       // Auto-hydrate elements with data-papercut-block
-      document.querySelectorAll('[data-papercut-block]').forEach(el => {
-        const type = el.dataset.papercutBlock;
-        if (type === 'admin-dashboard') PapercutBlocks.renderAdminDashboard(el);
-        else if (type === 'auth') PapercutBlocks.renderAuthBlock(el);
-        else if (type === 'settings') PapercutBlocks.renderSettingsBlock(el);
-        else if (type === 'ecommerce') PapercutBlocks.renderEcommerceBlock(el);
-        else if (type === 'pricing') PapercutBlocks.renderPricingBlock(el);
-        else if (type === 'dropzone') PapercutBlocks.renderDropzoneBlock(el);
-      });
+      if (typeof document !== 'undefined') {
+        document.querySelectorAll('[data-papercut-block]').forEach(el => {
+          const type = el.dataset.papercutBlock;
+          if (type === 'admin-dashboard' && typeof PapercutBlocks.renderAdminDashboard === 'function') PapercutBlocks.renderAdminDashboard(el);
+          else if (type === 'auth' && typeof PapercutBlocks.renderAuthBlock === 'function') PapercutBlocks.renderAuthBlock(el);
+          else if (type === 'settings' && typeof PapercutBlocks.renderSettingsBlock === 'function') PapercutBlocks.renderSettingsBlock(el);
+          else if (type === 'ecommerce' && typeof PapercutBlocks.renderEcommerceBlock === 'function') PapercutBlocks.renderEcommerceBlock(el);
+          else if (type === 'pricing' && typeof PapercutBlocks.renderPricingBlock === 'function') PapercutBlocks.renderPricingBlock(el);
+          else if (type === 'dropzone' && typeof PapercutBlocks.renderDropzoneBlock === 'function') PapercutBlocks.renderDropzoneBlock(el);
+        });
 
-      // Auto-hydrate elements with data-papercut-chart
-      document.querySelectorAll('[data-papercut-chart]').forEach(el => {
-        const type = el.dataset.papercutChart;
-        if (type === 'area') PapercutCharts.renderAreaChart(el);
-        else if (type === 'bar') PapercutCharts.renderBarChart(el);
-        else if (type === 'line') PapercutCharts.renderLineChart(el);
-        else if (type === 'donut') PapercutCharts.renderDonutChart(el);
-        else if (type === 'radar') PapercutCharts.renderRadarChart(el);
-        else if (type === 'radial') PapercutCharts.renderRadialChart(el);
-      });
+        // Auto-hydrate elements with data-papercut-chart (12 Master Archetypes)
+        document.querySelectorAll('[data-papercut-chart]').forEach(el => {
+          const type = el.dataset.papercutChart;
+          if (type === 'area') PapercutCharts.renderAreaChart(el);
+          else if (type === 'bar') PapercutCharts.renderBarChart(el);
+          else if (type === 'line') PapercutCharts.renderLineChart(el);
+          else if (type === 'donut') PapercutCharts.renderDonutChart(el);
+          else if (type === 'radar') PapercutCharts.renderRadarChart(el);
+          else if (type === 'radial') PapercutCharts.renderRadialChart(el);
+          else if (type === 'heatmap') PapercutCharts.renderHeatmapChart(el);
+          else if (type === 'candlestick') PapercutCharts.renderCandlestickChart(el);
+          else if (type === 'bubble') PapercutCharts.renderBubbleChart(el);
+          else if (type === 'funnel') PapercutCharts.renderFunnelChart(el);
+          else if (type === 'treemap') PapercutCharts.renderTreemapChart(el);
+          else if (type === 'gauge') PapercutCharts.renderGaugeChart(el);
+        });
+      }
     }
   };
 
@@ -2239,4 +3214,4 @@
     }
   }
 
-})(typeof window !== 'undefined' ? window : this);
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

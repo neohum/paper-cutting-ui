@@ -11,25 +11,46 @@
 
 ```text
 paper-cutting-ui/
-├── index.html                  # 30가지 추천 예제 & 실시간 플레이그라운드 쇼케이스
-├── papercut.css                # 페이퍼 아트 UI 전용 독립 CSS 라이브러리
-├── papercut.js                 # 드롭다운, 토스트, 복사, 오디오 합성, 인터랙션 스크립트
-├── DESIGN_SYSTEM.md            # 디자인 시스템 명세서 (색상 토큰, 고도 시스템, 원형 명세)
+├── index.html                  # 메인 종합 쇼케이스 (30개 실전 예제, 45개 PC 컴포넌트, 6대 벡터 차트, 678 아이콘 갤러리)
+├── icon-simulator.html         # 아이콘 규격별 듀얼 디자인 시뮬레이션 스튜디오 (16~28px fi-rr 라인 vs 32~256px 3D 페이퍼)
+├── papercut.css                # 페이퍼 아트 UI 전용 독립 CSS 라이브러리 (B 표준: 2-Tier · 4.5px · 48% Stacking 적용)
+├── papercut.js                 # 기본 인터랙션, 드롭다운, 토스트, 복사, 오디오 합성 스크립트
+├── papercut-icons.js           # 678종 스탠드얼론 레이어드 페이퍼 컷팅 아이콘 시스템 (659개 SVG + 19개 별칭) & 동적 스케일 엔진
+├── papercut-shadow-studio.css  # 3D 페이퍼 입체감 & 다층 그림자 시뮬레이터 스타일
+├── papercut-shadow-studio.js   # 3D 가상 크래프트 조명 (360°) & 다층 그림자 물리 연산 스크립트
+├── papercut-ui.css / .js      # 45개 PC UI 페이퍼컷 컴포넌트 라이브러리 (shadcn/ui 참고, THIRD_PARTY_NOTICES.md)
+├── papercut-paper-layer.css / .js  # 컴포넌트를 칼선 버튼처럼 그리는 SVG 색지 레이어 엔진 (data-pc-paper)
+├── papercut-blocks-charts.css / .js # 6대 프로덕션 블록 & 6대 3D 페이퍼 벡터 차트
+├── papercut-alerts-toasts.css / .js # 3D 페이퍼 알림 & 플로팅 토스트 스튜디오
+├── papercut-sidebar.css / .js  # 반응형 사이드바 내비게이션
+├── DESIGN_SYSTEM.md            # 마스터 디자인 시스템 명세서 (색상 토큰, 고도 시스템, 원형 명세, 30개 앱 명세)
+├── DESIGN.md                   # UI/UX 시스템 & 컴포넌트 계약 (SSOT)
 └── assets/
     ├── papercut-hero.jpg       # AI 에이전트 협업 생성: 열기구와 마을 페이퍼 컷팅 아트
-    └── papercut-botanical.jpg  # AI 에이전트 협업 생성: 보태니컬 온실 페이퍼 컷팅 아트
+    ├── papercut-botanical.jpg  # AI 에이전트 협업 생성: 보태니컬 온실 페이퍼 컷팅 아트
+    └── uicons/                 # Flaticon Regular Rounded UI 아이콘 폰트
 ```
 
 ---
 
 ## 🎨 주요 디자인 특징
 
-1. **마테 크림 캔버스 (`#FAF7F0`)**: 차가운 흰색 대신 따스한 크림/아이보리 톤 배경과 미세한 페이퍼 노이즈 텍스처.
-2. **소프트 파스텔 팔레트**: 민트, 피치, 라벤더, 버터컵, 스카이, 로즈, 세이지 7가지 천연 색지 컬러웨이.
-3. **물리적 레이어링 & 온화한 그림자**: 차가운 검은색 그림자 대신 웜 엄버(Warm Umber) 계열의 다층 소프트 섀도우 적용.
-4. **햅틱 프레스 인터랙션**: 버튼 클릭 시 실제로 두꺼운 종이가 눌리는 듯한 3px 물리적 깊이 모션.
-5. **음각 프레스 카빙 인풋**: 종이 표면을 조각도로 파낸 듯한 은은한 안쪽 그림자(Inset Shadow).
-6. **오리가미 & 데클 엣지 디테일**: 모서리가 접히는 체크박스, 우표 천공지, 스캘럽 레이저 컷팅, 책갈피 드롭다운.
+1. **마테 크림 캔버스 (`#F8F4EC`)**: 차가운 흰색 대신 따스한 크림/아이보리 톤 배경과 미세한 페이퍼 노이즈 텍스처.
+2. **소프트 파스텔 팔레트**: 민트(`--pc-mint`), 피치(`--pc-peach`), 라벤더(`--pc-lavender`), 버터컵(`--pc-buttercup`), 스카이(`--pc-sky`), 로즈(`--pc-rose`), 세이지(`--pc-sage`) 7가지 천연 색지 컬러웨이.
+3. **'B. 양각 위로 쌓기 (2-Tier · 4.5px · 48% Stacking)' 물리 표준**:
+   - 315° 탑레프트 사광 조명 (3200K 크래프트 데스크 램프)
+   - Tier 1: 0.88px 칼선 직하 60% 번트 엄버(`rgba(46, 30, 20, 0.60)`) 접촉 그림자(Contact Edge)
+   - Tier 2: 4.5px 단차 높이 48% 부유 그림자(Mid-air Float)로 층간 분리감 구현
+   - 1px 칼선 화이트 반사 림(Knife Bevel Highlight)으로 종이 두께감 형성
+   - 내부 다층 적층: `base ➔ mid ➔ top ➔ steam` 각 층이 하부 층으로 독립 그림자를 투사하여 완벽한 입체감(양각) 연출
+4. **678종 스탠드얼론 아이콘 & 듀얼 스튜디오 아키텍처**:
+   - **16~28px fi fi-rr 정밀 라인 스튜디오**: 0.88px 진회색(#423D39) 극세선, 3D 그림자 차단(Shadow OFF), 8% 파스텔 워시로 마이크로 버튼·인풋·태그의 또렷한 가독성 확보.
+   - **32~256px 3D 레이어드 페이퍼 아트 스튜디오**: 배경 박스 없는 순수 다층 색지와 2-Tier 48% 입체 그림자로 카드·모달·쇼케이스의 예술적 공간감 연출.
+   - 659개 마스터크래프트 Kirigami SVG + 19개 호환 별칭 = 678개 아이콘 토큰.
+5. **130가지 종이 배경 플레이트 컬렉션**: 클래식 우표, 실링 왁스, 유기적 조약돌, 로마네스크 아치, 접지 공예 등 5개 아키타입 배경 플레이트.
+6. **45개 PC UI 페이퍼컷 컴포넌트 & 6대 프로덕션 블록 & 6대 3D 벡터 차트**: 아코디언부터 툴팁까지 전체 UI 컴포넌트 및 SaaS 대시보드, 인증, 이커머스, 인터랙티브 벡터 차트 완비.
+7. **햅틱 프레스 인터랙션**: 버튼 클릭 시 실제로 두꺼운 종이가 눌리는 듯한 물리적 깊이 모션과 최상위 면판 기준 기하학적 정렬(`dy=0, dx=0`).
+8. **음각 프레스 카빙 인풋**: 종이 표면을 조각도로 파낸 듯한 은은한 안쪽 그림자(Inset Shadow).
 
 ---
 
@@ -44,6 +65,18 @@ start index.html
 # 옵션 2: Python 간이 서버 실행
 python -m http.server 8000
 # 브라우저에서 http://localhost:8000 접속
+```
+
+---
+
+## 📱 반응형
+
+폭 280px 이상의 어떤 컨테이너에서도 컴포넌트가 부모를 벗어나지 않습니다. 브레이크포인트는 `480 / 768 / 1024 / 1280px` 네 단계이고, 블록 컴포넌트는 컨테이너 쿼리로 놓인 자리의 폭에 반응합니다. 레이아웃 유틸리티(`.pc-grid-auto` 등)와 검사 방법은 [`docs/responsive.md`](docs/responsive.md)를 보세요.
+
+```bash
+npm install
+node scripts/ops/verify-overflow.mjs --page      # 320~1920px 실측
+node scripts/ops/verify-overflow.mjs --fixtures  # 컴포넌트 280/360/480px 실측
 ```
 
 ---
@@ -94,4 +127,6 @@ python -m http.server 8000
 ## 📄 라이선스 (License)
 
 본 프로젝트는 [MIT License](LICENSE)에 따라 배포됩니다.
+
+PC 컴포넌트는 [shadcn/ui](https://github.com/shadcn-ui/ui)(MIT)의 컴포넌트 구성과 명세를 참고했습니다. 고지 전문은 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)에 있습니다.
 

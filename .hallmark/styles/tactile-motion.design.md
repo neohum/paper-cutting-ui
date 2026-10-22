@@ -106,3 +106,5 @@ export const TACTILE_SPRING_PRESETS = {
 3. **`prefers-reduced-motion` 누락:** 전정기관 장애가 있는 사용자를 위한 무감속 폴백 누락 금지.
 4. **비대칭 테두리 모핑:** 손톱 모서리 왜곡 테두리가 포함된 컨테이너 사용 금지.
 5. **터치 타깃 미달:** $44\text{px}$ 미만으로 축소되어 오터치를 유발하는 슬라이더 핸들 금지.
+6. **한국어 음절 분절 슬롭:** 한국어 제목이나 본문에 `word-break: break-all` (`break-all`) 사용 금지 (`break-keep`, `text-balance` 적용 필수).
+

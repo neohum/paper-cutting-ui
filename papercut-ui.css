@@ -1,0 +1,5411 @@
+/**
+ * PaperCut UI - PC Components Edition (papercut-ui.css)
+ * Design reference: shadcn/ui (MIT License) — see THIRD_PARTY_NOTICES.md
+ * 
+ * Reimagining the complete suite of PC UI components (all 45 components)
+ * in authentic 3D Layered Paper-Cut aesthetics:
+ * - Matte cream & cardstock base (#FAF7F0, #FFFDF9)
+ * - Soft pastel palette (Mint, Peach, Lavender, Buttercup, Sky, Rose, Sage)
+ * - Tactile knife-cut edges (zero harsh cartoon borders)
+ * - Warm paper drop shadows with organic wood-pulp umber tones
+ * - 3D paper folds, concertina pleats, matchbox drawers, and origami dogears
+ * - Washi tape pins, deckle torn edges, perforated roulette punches
+ * - Seamless integration with the 529 PaperCut SVG icon system
+ */
+
+/* ==========================================================================
+   0. DESIGN TOKENS & SYSTEM FOUNDATIONS
+   ========================================================================== */
+
+:root {
+  /* ==========================================================================
+     Authentic Layered Paper-Cut Swatches (assets/papercut-hero.jpg)
+     7대 수직 조명 종이 스와치 토큰
+     ========================================================================== */
+  --pc-swatch-cloud: linear-gradient(180deg, #FFFFFF 0%, #FAF6ED 100%);
+  --pc-swatch-mint: linear-gradient(180deg, #BCE4DB 0%, #9FD4C7 100%);
+  --pc-swatch-peach: linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%);
+  --pc-swatch-sand: linear-gradient(180deg, #FDE6B5 0%, #F5CE82 100%);
+  --pc-swatch-lavender: linear-gradient(180deg, #E2D3EE 0%, #C9B3DC 100%);
+  --pc-swatch-sky: linear-gradient(180deg, #D4EDF4 0%, #B4DDE7 100%);
+  --pc-swatch-sage: linear-gradient(180deg, #BFE2CE 0%, #A3D4B6 100%);
+
+  /* 0.8px 나이프 엣지 림 라이트 토큰 */
+  --pc-paper-rim-light: inset 0 1px 0 rgba(255, 255, 255, 0.85);
+  --pc-paper-rim-subtle: inset 0 0.8px 0 rgba(255, 255, 255, 0.65);
+
+  /* 번트 엄버 2-Tier 종이 접촉 그림자 토큰 */
+  --pc-paper-shadow-contact: 0 1.2px 1.8px rgba(46, 30, 20, 0.20), 0 4px 10px -2px rgba(46, 30, 20, 0.12);
+  --pc-paper-shadow-lifted: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+
+  /* Surface Bases (Archival cardstock 200-300gsm) */
+  --pc-ui-bg-cream: #FAF7F0;
+  --pc-ui-bg-sheet-light: #FFFDF9;
+  --pc-ui-bg-sheet-card: #FFFFFF;
+  --pc-ui-bg-recessed: #F3EFE6;
+  --pc-ui-border-kraft: #E2DAC8;
+  --pc-ui-border-faint: rgba(var(--pc-ui-shadow-tint, 46, 30, 20), 0.12);
+
+  /* Primary Typography (Warm craft ink) */
+  --pc-ui-ink-dark: #2D2926;
+  --pc-ui-ink-body: #3D352E;
+  --pc-ui-ink-muted: #6E645A;
+  --pc-ui-ink-faint: #9E948A;
+
+  /* Pastel Palette Primaries & Tints */
+  --pc-ui-sage: #A8D5BA;
+  --pc-ui-sage-tint: #D2E8D4;
+  --pc-ui-sage-dark: #275C46;
+
+  --pc-ui-peach: #F7C5A8;
+  --pc-ui-peach-tint: #FDE2D1;
+  --pc-ui-peach-dark: #6E3B21;
+
+  --pc-ui-lavender: #C9C1F8;
+  --pc-ui-lavender-tint: #E3DEFD;
+  --pc-ui-lavender-dark: #473B6B;
+
+  --pc-ui-buttercup: #FDE68A;
+  --pc-ui-buttercup-tint: #FEF3C7;
+  --pc-ui-buttercup-dark: #6E530F;
+
+  --pc-ui-sky: #BAE6FD;
+  --pc-ui-sky-tint: #D9EEF8;
+  --pc-ui-sky-dark: #204C5A;
+
+  --pc-ui-rose: #FBCFE8;
+  --pc-ui-rose-tint: #FCE7F3;
+  --pc-ui-rose-dark: #702830;
+
+  /* PC Semantic Mapping */
+  --pc-ui-primary: var(--pc-ui-sage);
+  --pc-ui-primary-foreground: var(--pc-ui-ink-dark);
+  --pc-ui-secondary: var(--pc-ui-peach-tint);
+  --pc-ui-secondary-foreground: var(--pc-ui-ink-dark);
+  --pc-ui-destructive: var(--pc-ui-rose);
+  --pc-ui-destructive-foreground: var(--pc-ui-rose-dark);
+  --pc-ui-muted: var(--pc-ui-bg-recessed);
+  --pc-ui-muted-foreground: var(--pc-ui-ink-muted);
+  --pc-ui-accent: var(--pc-ui-lavender-tint);
+  --pc-ui-accent-foreground: var(--pc-ui-ink-dark);
+
+  /* Multi-stop Deep Burnt Umber Paper Shadows (#2E1E14 - B Standard: 2-Tier · 4.5px · 48% Stacking) */
+  --pc-ui-shadow-tint: 46, 30, 20;
+  
+  --pc-ui-shadow-1: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 1.5px 0 rgba(var(--pc-ui-shadow-tint), 0.45),
+    0 2.5px 6px -1px rgba(var(--pc-ui-shadow-tint), 0.20);
+
+  --pc-ui-shadow-2: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 2px 0 rgba(var(--pc-ui-shadow-tint), 0.48),
+    0 4.5px 10px -2px rgba(var(--pc-ui-shadow-tint), 0.26);
+
+  --pc-ui-shadow-3: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 3px 0 rgba(var(--pc-ui-shadow-tint), 0.50),
+    0 8px 18px -3px rgba(var(--pc-ui-shadow-tint), 0.28);
+
+  --pc-ui-shadow-4: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 2.5px 3.5px 0 rgba(var(--pc-ui-shadow-tint), 0.52),
+    0 14px 28px -4px rgba(var(--pc-ui-shadow-tint), 0.30);
+
+  --pc-ui-shadow-5: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 3px 4px 0 rgba(var(--pc-ui-shadow-tint), 0.55),
+    0 22px 48px -6px rgba(var(--pc-ui-shadow-tint), 0.32);
+
+  --pc-ui-shadow-inset: 
+    inset 0 2px 4px 0 rgba(var(--pc-ui-shadow-tint), 0.18),
+    inset 0 1px 2px 0 rgba(var(--pc-ui-shadow-tint), 0.12),
+    0 1px 0 0 rgba(255, 255, 255, 0.85);
+
+  --pc-ui-shadow-cutout: 
+    inset 0 1.5px 2.5px rgba(var(--pc-ui-shadow-tint), 0.48),
+    inset 0 4.5px 12px rgba(var(--pc-ui-shadow-tint), 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.9);
+
+  /* Corner Radii - Razor-Sharp Knife-Cut Paper Geometry */
+  --pc-ui-radius-xs: 0px;
+  --pc-ui-radius-sm: 0px;
+  --pc-ui-radius-md: 0px;
+  --pc-ui-radius-lg: 0px;
+  --pc-ui-radius-xl: 0px;
+  --pc-ui-radius-pill: 9999px;
+
+  /* Physics & Durations */
+  --pc-ui-ease-fold: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --pc-ui-ease-glide: cubic-bezier(0.25, 1, 0.5, 1);
+  --pc-ui-dur-quick: 140ms;
+  --pc-ui-dur-norm: 220ms;
+  --pc-ui-dur-unfold: 340ms;
+}
+
+/* Base resets & typography within PC components */
+.pc-ui-root, [class*="pc-ui-"], [class*="pc-ui-"] {
+  box-sizing: border-box;
+  font-family: inherit;
+  color: var(--pc-ui-ink-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+[class*="pc-ui-"] *, [class*="pc-ui-"] *::before, [class*="pc-ui-"] *::after,
+[class*="pc-ui-"] *, [class*="pc-ui-"] *::before, [class*="pc-ui-"] *::after {
+  box-sizing: border-box;
+}
+
+/* Inline icon sizing in PC context */
+.pc-ui-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35em;
+  height: 1.35em;
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+  line-height: 1;
+}
+.pc-ui-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Washi Tape Pin Accent Utility */
+.pc-ui-washi-pin {
+  position: relative;
+}
+.pc-ui-washi-pin::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 58px;
+  height: 18px;
+  background-color: rgba(247, 197, 168, 0.75);
+  box-shadow: 0 1px 3px rgba(74, 60, 49, 0.15);
+  clip-path: polygon(4px 0, 100% 1px, calc(100% - 3px) 100%, 0 calc(100% - 2px));
+  z-index: 2;
+  pointer-events: none;
+}
+.pc-ui-washi-pin.pc-is-sage::before,
+.pc-ui-washi-pin.is-sage::before { background-color: rgba(168, 213, 186, 0.75); }
+.pc-ui-washi-pin.pc-is-lavender::before,
+.pc-ui-washi-pin.is-lavender::before { background-color: rgba(201, 193, 248, 0.75); }
+.pc-ui-washi-pin.pc-is-buttercup::before,
+.pc-ui-washi-pin.is-buttercup::before { background-color: rgba(253, 230, 138, 0.85); }
+.pc-ui-washi-pin.pc-is-sky::before,
+.pc-ui-washi-pin.is-sky::before { background-color: rgba(186, 230, 253, 0.75); }
+.pc-ui-washi-pin.pc-is-rose::before,
+.pc-ui-washi-pin.is-rose::before { background-color: rgba(251, 207, 232, 0.75); }
+
+
+/* ==========================================================================
+   1. ACCORDION (Concertina pleated paper fold with chevron cutline)
+   ========================================================================== */
+.pc-ui-accordion, .pc-ui-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.pc-ui-accordion-item, .pc-ui-accordion-item {
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-1);
+  overflow: hidden;
+  transition: all var(--pc-ui-dur-norm) var(--pc-ui-ease-glide);
+}
+
+.pc-ui-accordion-item[data-state="open"], .pc-ui-accordion-item[data-state="open"] {
+  box-shadow: var(--pc-ui-shadow-2);
+  border-color: var(--pc-ui-lavender);
+  background: #FFFDFB;
+}
+
+.pc-ui-accordion-trigger, .pc-ui-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-dark);
+  text-align: left;
+  transition: background-color var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-accordion-trigger:hover, .pc-ui-accordion-trigger:hover {
+  background: var(--pc-ui-bg-recessed);
+}
+
+.pc-ui-accordion-chevron, .pc-ui-accordion-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--pc-ui-radius-pill);
+  background: var(--pc-ui-lavender-tint);
+  color: var(--pc-ui-lavender-dark);
+  transition: transform var(--pc-ui-dur-norm) var(--pc-ui-ease-fold), background-color var(--pc-ui-dur-quick) ease;
+  box-shadow: 0 1px 3px rgba(var(--pc-ui-shadow-tint), 0.08);
+}
+
+.pc-ui-accordion-item[data-state="open"] .pc-ui-accordion-chevron,
+.pc-ui-accordion-item[data-state="open"] .pc-ui-accordion-chevron {
+  transform: rotate(180deg);
+  background: var(--pc-ui-lavender);
+}
+
+.pc-ui-accordion-content, .pc-ui-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--pc-ui-dur-norm) var(--pc-ui-ease-glide);
+}
+
+.pc-ui-accordion-item[data-state="open"] .pc-ui-accordion-content,
+.pc-ui-accordion-item[data-state="open"] .pc-ui-accordion-content {
+  grid-template-rows: 1fr;
+}
+
+.pc-ui-accordion-body, .pc-ui-accordion-body {
+  overflow: hidden;
+}
+
+.pc-ui-accordion-inner, .pc-ui-accordion-inner {
+  padding: 0 20px 18px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--pc-ui-ink-muted);
+  border-top: 1px dashed var(--pc-ui-border-kraft);
+  margin-top: 2px;
+  padding-top: 14px;
+  background: linear-gradient(180deg, rgba(201, 193, 248, 0.08) 0%, transparent 24px);
+}
+
+
+/* ==========================================================================
+   2. ALERT (Postage stamp deckle badge with ribbon border)
+   ========================================================================== */
+.pc-ui-alert, .pc-ui-alert {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--pc-ui-bg-sheet-light);
+  border-radius: var(--pc-ui-radius-md);
+  border: 1.5px solid var(--pc-ui-lavender);
+  box-shadow: var(--pc-ui-shadow-2);
+  margin-bottom: 14px;
+}
+
+.pc-ui-alert.pc-is-stamp,
+.pc-ui-alert.is-stamp {
+  border: 1px solid var(--pc-ui-border-kraft);
+  background-image: 
+    radial-gradient(circle at 0 50%, transparent 6px, var(--pc-ui-bg-sheet-light) 7px),
+    radial-gradient(circle at 100% 50%, transparent 6px, var(--pc-ui-bg-sheet-light) 7px);
+  background-size: 100% 20px;
+  background-position: left center, right center;
+  background-repeat: repeat-y;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-top: 1px solid var(--pc-ui-border-kraft);
+  border-bottom: 1px solid var(--pc-ui-border-kraft);
+}
+
+.pc-ui-alert.pc-is-info,
+.pc-ui-alert.is-info {
+  border-color: var(--pc-ui-sky);
+  background-color: var(--pc-ui-sky-tint);
+}
+.pc-ui-alert.pc-is-success,
+.pc-ui-alert.is-success {
+  border-color: var(--pc-ui-sage);
+  background-color: var(--pc-ui-sage-tint);
+}
+.pc-ui-alert.pc-is-warning,
+.pc-ui-alert.is-warning {
+  border-color: var(--pc-ui-buttercup);
+  background-color: var(--pc-ui-buttercup-tint);
+}
+.pc-ui-alert.pc-is-destructive,
+.pc-ui-alert.is-destructive {
+  border-color: var(--pc-ui-rose);
+  background-color: var(--pc-ui-rose-tint);
+}
+
+.pc-ui-alert-icon, .pc-ui-alert-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  width: 22px;
+  height: 22px;
+}
+
+.pc-ui-alert-body, .pc-ui-alert-body {
+  flex: 1;
+}
+
+.pc-ui-alert-title, .pc-ui-alert-title {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-alert-description, .pc-ui-alert-description {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--pc-ui-ink-muted);
+}
+
+.pc-ui-alert-close, .pc-ui-alert-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  color: var(--pc-ui-ink-faint);
+  border-radius: var(--pc-ui-radius-xs);
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+.pc-ui-alert-close:hover {
+  color: var(--pc-ui-ink-dark);
+  background: rgba(74, 60, 49, 0.08);
+}
+
+
+/* ==========================================================================
+   3. ALERT DIALOG (Layered shadowbox modal with deckle edge and paper buttons)
+   ========================================================================== */
+.pc-ui-alert-dialog-overlay, .pc-ui-alert-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.42);
+  backdrop-filter: blur(2px);
+  z-index: 200000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--pc-ui-dur-norm) ease, visibility var(--pc-ui-dur-norm) ease;
+}
+
+.pc-ui-alert-dialog-overlay[data-state="open"], .pc-ui-alert-dialog-overlay[data-state="open"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.pc-ui-alert-dialog-content, .pc-ui-alert-dialog-content {
+  position: relative;
+  background: var(--pc-ui-bg-sheet-light);
+  border-radius: var(--pc-ui-radius-lg);
+  border: 1px solid var(--pc-ui-border-kraft);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-ui-shadow-5);
+  max-width: 520px;
+  width: 100%;
+  padding: 28px 30px;
+  transform: scale(0.94) translateY(8px);
+  transition: transform var(--pc-ui-dur-norm) var(--pc-ui-ease-fold);
+}
+
+.pc-ui-alert-dialog-overlay[data-state="open"] .pc-ui-alert-dialog-content,
+.pc-ui-alert-dialog-overlay[data-state="open"] .pc-ui-alert-dialog-content {
+  transform: scale(1) translateY(0);
+}
+
+.pc-ui-alert-dialog-content::before {
+  content: "";
+  position: absolute;
+  inset: -6px -6px 6px 6px;
+  background: var(--pc-ui-peach-tint);
+  border-radius: calc(var(--pc-ui-radius-lg) + 2px);
+  z-index: -1;
+  box-shadow: var(--pc-ui-shadow-1);
+}
+
+.pc-ui-alert-dialog-header, .pc-ui-alert-dialog-header {
+  margin-bottom: 16px;
+}
+
+.pc-ui-alert-dialog-title, .pc-ui-alert-dialog-title {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-alert-dialog-description, .pc-ui-alert-dialog-description {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--pc-ui-ink-muted);
+}
+
+.pc-ui-alert-dialog-footer, .pc-ui-alert-dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+
+/* ==========================================================================
+   4. ASPECT RATIO (Cardstock picture frame with photo corner mounts)
+   ========================================================================== */
+.pc-ui-aspect-ratio, .pc-ui-aspect-ratio {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--pc-ui-radius-md);
+  background: var(--pc-ui-bg-recessed);
+  box-shadow: var(--pc-ui-shadow-inset);
+  border: 1px solid var(--pc-ui-border-kraft);
+}
+
+.pc-ui-aspect-ratio-inner, .pc-ui-aspect-ratio-inner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pc-ui-aspect-ratio-inner img,
+.pc-ui-aspect-ratio-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pc-ui-aspect-ratio .pc-ui-corner-mount,
+.pc-ui-aspect-ratio .pc-ui-corner-mount {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-top-left,
+.pc-ui-aspect-ratio .pc-ui-corner-mount.top-left {
+  top: 0; left: 0;
+  background: linear-gradient(135deg, var(--pc-ui-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(1px 1px 2px rgba(74, 60, 49, 0.2));
+}
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-top-right,
+.pc-ui-aspect-ratio .pc-ui-corner-mount.top-right {
+  top: 0; right: 0;
+  background: linear-gradient(225deg, var(--pc-ui-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(-1px 1px 2px rgba(74, 60, 49, 0.2));
+}
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-bottom-left,
+.pc-ui-aspect-ratio .pc-ui-corner-mount.bottom-left {
+  bottom: 0; left: 0;
+  background: linear-gradient(45deg, var(--pc-ui-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(1px -1px 2px rgba(74, 60, 49, 0.2));
+}
+.pc-ui-aspect-ratio .pc-ui-corner-mount.pc-bottom-right,
+.pc-ui-aspect-ratio .pc-ui-corner-mount.bottom-right {
+  bottom: 0; right: 0;
+  background: linear-gradient(315deg, var(--pc-ui-buttercup) 50%, transparent 50%);
+  filter: drop-shadow(-1px -1px 2px rgba(74, 60, 49, 0.2));
+}
+
+
+/* ==========================================================================
+   5. AVATAR (Circular layered paper silhouette with dual pastel rings)
+   ========================================================================== */
+.pc-ui-avatar, .pc-ui-avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--pc-ui-radius-pill);
+  background: var(--pc-ui-bg-sheet-light);
+  box-shadow: 
+    0 0 0 2px var(--pc-ui-bg-sheet-light),
+    0 0 0 4px var(--pc-ui-lavender),
+    0 0 0 6px var(--pc-ui-buttercup-tint),
+    var(--pc-ui-shadow-2);
+  overflow: visible;
+  user-select: none;
+  vertical-align: middle;
+}
+
+.pc-ui-avatar-image, .pc-ui-avatar-image {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--pc-ui-radius-pill);
+  object-fit: cover;
+  display: block;
+}
+
+.pc-ui-avatar-fallback, .pc-ui-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--pc-ui-radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--pc-ui-ink-dark);
+  background: var(--pc-ui-peach-tint);
+}
+
+.pc-ui-avatar-indicator, .pc-ui-avatar-indicator {
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 13px;
+  height: 13px;
+  border-radius: var(--pc-ui-radius-pill);
+  background: var(--pc-ui-sage);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.18);
+}
+
+
+/* ==========================================================================
+   6. BADGE (Perforated stamp, scalloped seal, ribbon tag, origami fold)
+   ========================================================================== */
+.pc-ui-badge, .pc-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: var(--pc-ui-radius-pill);
+  background: var(--pc-ui-sage-tint);
+  color: var(--pc-ui-ink-dark);
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-align: center;
+}
+.pc-ui-badge > span, .pc-badge > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-ui-badge:hover, .pc-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-lifted);
+}
+
+.pc-ui-badge:active, .pc-badge:active {
+  transform: translateY(1px);
+  box-shadow: var(--pc-paper-shadow-contact);
+}
+
+.pc-ui-badge.pc-is-stamp,
+.pc-ui-badge.is-stamp {
+  border-radius: 4px;
+  border: 1px dashed var(--pc-ui-border-kraft);
+  background: var(--pc-ui-bg-sheet-light);
+}
+
+.pc-ui-badge.pc-is-scallop,
+.pc-ui-badge.is-scallop {
+  border-radius: var(--pc-ui-radius-md);
+  background: var(--pc-ui-buttercup-tint);
+  border: 1px solid var(--pc-ui-buttercup);
+}
+
+.pc-ui-badge.pc-is-ribbon,
+.pc-ui-badge.is-ribbon {
+  border-radius: 0;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 0 100%, 6px 50%);
+  padding: 5px 14px;
+  background: var(--pc-ui-lavender);
+}
+
+.pc-ui-badge.pc-is-origami,
+.pc-ui-badge.is-origami {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-right: 14px;
+}
+.pc-ui-badge.pc-is-origami::after,
+.pc-ui-badge.is-origami::after {
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  border-width: 0 8px 8px 0;
+  border-style: solid;
+  border-color: transparent var(--pc-ui-peach) transparent transparent;
+}
+
+.pc-ui-badge.pc-is-peach,
+.pc-ui-badge.is-peach { background: var(--pc-ui-peach-tint); }
+.pc-ui-badge.pc-is-lavender,
+.pc-ui-badge.is-lavender { background: var(--pc-ui-lavender-tint); }
+.pc-ui-badge.pc-is-buttercup,
+.pc-ui-badge.is-buttercup { background: var(--pc-ui-buttercup-tint); }
+.pc-ui-badge.pc-is-sky,
+.pc-ui-badge.is-sky { background: var(--pc-ui-sky-tint); }
+.pc-ui-badge.pc-is-rose,
+.pc-ui-badge.is-rose { background: var(--pc-ui-rose-tint); }
+
+
+/* ==========================================================================
+   7. BREADCRUMB (Pencil-cut paper arrows connecting craft tags)
+   ========================================================================== */
+.pc-ui-breadcrumb, .pc-ui-breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 13px;
+  user-select: none;
+}
+
+.pc-ui-breadcrumb-list, .pc-ui-breadcrumb-list {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.pc-ui-breadcrumb-item, .pc-ui-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pc-ui-breadcrumb-link, .pc-ui-breadcrumb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  min-height: 28px;
+  background: #FFFDF9;
+  border-radius: 8px;
+  border: 1px solid rgba(74, 58, 42, 0.16);
+  color: var(--pc-ui-ink-muted, #6E645A);
+  text-decoration: none;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: 
+    0 1px 2px rgba(46, 30, 20, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-ui-breadcrumb-link:hover, .pc-ui-breadcrumb-link:hover {
+  background: var(--pc-peach-light, #FFF2EC);
+  color: var(--pc-ui-ink-dark, #2D2926);
+  border-color: rgba(74, 58, 42, 0.26);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 2px 5px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 #FFFFFF;
+}
+
+.pc-ui-breadcrumb-page, .pc-ui-breadcrumb-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  min-height: 28px;
+  background: var(--pc-mint, #A3D8C3);
+  border-radius: 8px;
+  border: 1px solid #FFFFFF;
+  color: #14422E;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12.5px;
+  font-weight: 800;
+  box-shadow: 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.7);
+}
+
+.pc-ui-breadcrumb-separator, .pc-ui-breadcrumb-separator {
+  color: rgba(74, 58, 42, 0.38);
+  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1px;
+}
+
+
+/* ==========================================================================
+   8. FLAT KNIFE-CUT BUTTON (Cardstock stack, pressed-in active state, scallop cut, washi tape)
+   ========================================================================== */
+.pc-ui-btn, .pc-ui-button, .pc-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 20px;
+  min-height: 44px; /* WCAG 2.1 44px+ touch target */
+  min-width: 44px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  border-radius: 8px; /* 기본 사각 다이컷 (8px) */
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  background-color: var(--pc-ui-bg-sheet-light);
+  color: var(--pc-ui-ink-dark);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  vertical-align: middle;
+  text-align: center;
+  overflow: visible;
+  white-space: nowrap;
+
+  /* 0.8px 나이프 엣지 림 라이트 & 번트 엄버 2-Tier 종이 접촉 그림자 */
+  box-shadow: 
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-contact);
+  transform: translateY(0);
+  transition: 
+    transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.18s ease,
+    background-color 0.2s ease;
+}
+
+/* 2-Sheet 기본 적층: 버튼 바닥면에 도톰하게 깔린 카드스톡 베이스 종이 시트 */
+.pc-ui-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before,
+.pc-ui-button:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn)::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -3px !important;
+  border-radius: calc(8px + 2px) !important;
+  background-color: var(--pc-btn-base-bg, #EADBCA) !important;
+  border: 1px solid rgba(46, 30, 20, 0.20) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 1.5px 3.5px rgba(46, 30, 20, 0.18),
+    0 4px 10px rgba(46, 30, 20, 0.10) !important;
+  pointer-events: none !important;
+  z-index: -1 !important;
+  display: block !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease !important;
+}
+
+.pc-ui-btn::after, .pc-ui-button::after {
+  display: none !important;
+}
+
+.pc-ui-btn > *, .pc-ui-button > *, .pc-btn > * {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-ui-btn:hover, .pc-ui-button:hover, .pc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    var(--pc-paper-rim-light),
+    var(--pc-paper-shadow-lifted);
+}
+
+.pc-ui-btn:active, .pc-ui-btn.pc-is-active, .pc-ui-btn.is-active,
+.pc-ui-button:active, .pc-ui-button.pc-is-active, .pc-ui-button.is-active,
+.pc-btn:active {
+  transform: translateY(1px);
+  box-shadow: 
+    var(--pc-paper-shadow-contact);
+}
+
+/* ==========================================================================
+   BUTTON CRAFT SWATCH VARIANTS (Primary, Secondary, Ghost, Craft)
+   ========================================================================== */
+.pc-btn-primary {
+  background-image: var(--pc-swatch-sand) !important;
+  background-color: var(--pc-ui-buttercup, #FEE396);
+  color: #66460D;
+  border: 1px solid rgba(184, 142, 38, 0.40);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-secondary {
+  background-image: var(--pc-swatch-lavender) !important;
+  background-color: var(--pc-ui-lavender, #D7CBEB);
+  color: #433261;
+  border: 1px solid rgba(71, 59, 107, 0.32);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-ghost {
+  background-image: var(--pc-swatch-cloud) !important;
+  background-color: #FFFDF9;
+  color: var(--pc-ui-ink-body, #3D352E);
+  border: 1px solid rgba(196, 183, 166, 0.65);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-craft {
+  background-image: var(--pc-swatch-sand) !important;
+  background-color: #FDE6B5;
+  color: #5D4314;
+  border: 1px solid rgba(184, 142, 38, 0.40);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-contact);
+}
+
+.pc-btn-primary:hover,
+.pc-btn-secondary:hover,
+.pc-btn-ghost:hover,
+.pc-btn-craft:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--pc-paper-rim-light), var(--pc-paper-shadow-lifted);
+}
+
+.pc-btn-primary:active,
+.pc-btn-secondary:active,
+.pc-btn-ghost:active,
+.pc-btn-craft:active {
+  transform: translateY(1px);
+  box-shadow: var(--pc-paper-shadow-contact);
+}
+
+/* ==========================================================================
+   사각 종이 버튼 (Rectangular Paper Button)
+   ========================================================================== */
+.pc-ui-btn-rect, .pc-ui-btn-square {
+  border-radius: 8px;
+}
+.pc-ui-btn-rect-sharp {
+  border-radius: 4px;
+}
+.pc-ui-btn-square {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 8px;
+}
+
+/* ==========================================================================
+   원형 종이 버튼 (Circular Paper Button)
+   ========================================================================== */
+.pc-ui-btn-circle, .pc-ui-btn-round {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1;
+  box-shadow: 
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+}
+.pc-ui-btn-circle:hover, .pc-ui-btn-round:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.22);
+}
+.pc-ui-btn-circle:active, .pc-ui-btn-round:active {
+  transform: translateY(1.5px);
+  box-shadow: 
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.20);
+}
+
+/* 단일 두꺼운 카드스톡 변형 (Thick Cardstock Accent Variant) */
+.pc-ui-btn.pc-is-stack, .pc-ui-btn.is-stack, .pc-ui-button.pc-is-stack, .pc-ui-button.is-stack {
+  background-color: var(--pc-ui-sage);
+  color: var(--pc-ui-ink-dark);
+  border-color: rgba(39, 92, 70, 0.22);
+  box-shadow: 
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+}
+.pc-ui-btn.pc-is-stack:hover, .pc-ui-btn.is-stack:hover, .pc-ui-button.pc-is-stack:hover, .pc-ui-button.is-stack:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 
+    0 3px 0 rgba(46, 30, 20, 0.38),
+    0 6px 12px rgba(46, 30, 20, 0.22);
+}
+.pc-ui-btn.pc-is-stack:active, .pc-ui-btn.is-stack:active, .pc-ui-button.pc-is-stack:active, .pc-ui-button.is-stack:active {
+  transform: translateY(1.5px);
+  box-shadow: 
+    0 0.5px 0 rgba(46, 30, 20, 0.40),
+    0 1.5px 3px rgba(46, 30, 20, 0.20);
+}
+
+/* Pressed-in debossed well variant */
+.pc-ui-btn.pc-is-pressed, .pc-ui-btn.is-pressed, .pc-ui-button.pc-is-pressed, .pc-ui-button.is-pressed {
+  background: var(--pc-ui-bg-recessed);
+  box-shadow: var(--pc-ui-shadow-inset);
+  border-color: var(--pc-ui-border-kraft);
+}
+.pc-ui-btn.pc-is-pressed:hover, .pc-ui-btn.is-pressed:hover, .pc-ui-button.pc-is-pressed:hover, .pc-ui-button.is-pressed:hover {
+  background: #EFE9DE;
+  transform: none;
+}
+.pc-ui-btn.pc-is-pressed:active, .pc-ui-btn.is-pressed:active, .pc-ui-button.pc-is-pressed:active, .pc-ui-button.is-pressed:active {
+  background: #E8E0D2;
+  box-shadow: 
+    inset 0 3px 6px rgba(74, 60, 49, 0.18),
+    inset 0 1px 2px rgba(74, 60, 49, 0.12);
+  transform: translateY(1px);
+}
+
+/* Scallop Cut Edge Button */
+.pc-ui-btn.pc-is-scallop, .pc-ui-btn.is-scallop, .pc-ui-button.pc-is-scallop, .pc-ui-button.is-scallop {
+  border-radius: var(--pc-ui-radius-lg);
+  background: var(--pc-ui-peach);
+  border: 1px solid rgba(110, 59, 33, 0.22);
+  box-shadow: 
+    0 2px 0 rgba(46, 30, 20, 0.38),
+    0 3.5px 6px rgba(46, 30, 20, 0.20);
+}
+
+/* Button Color Variants */
+.pc-ui-btn.pc-is-primary, .pc-ui-btn.is-primary { background: var(--pc-ui-sage); color: var(--pc-ui-sage-dark); border-color: rgba(39, 92, 70, 0.22); }
+.pc-ui-btn.pc-is-secondary, .pc-ui-btn.is-secondary { background: var(--pc-ui-peach-tint); color: var(--pc-ui-peach-dark); border-color: rgba(110, 59, 33, 0.22); }
+.pc-ui-btn.pc-is-lavender, .pc-ui-btn.is-lavender { background: var(--pc-ui-lavender); color: var(--pc-ui-lavender-dark); border-color: rgba(71, 59, 107, 0.22); }
+.pc-ui-btn.pc-is-buttercup, .pc-ui-btn.is-buttercup { background: var(--pc-ui-buttercup); color: var(--pc-ui-buttercup-dark); border-color: rgba(110, 83, 15, 0.22); }
+.pc-ui-btn.pc-is-destructive, .pc-ui-btn.is-destructive { background: var(--pc-ui-rose); color: var(--pc-ui-rose-dark); border-color: rgba(112, 40, 48, 0.22); }
+.pc-ui-btn.pc-is-outline, .pc-ui-btn.is-outline { background: transparent; border: 1.5px dashed rgba(46, 30, 20, 0.22); box-shadow: none; }
+.pc-ui-btn.pc-is-outline:hover, .pc-ui-btn.is-outline:hover { background: var(--pc-ui-bg-sheet-light); border-style: solid; box-shadow: 0 2px 0 rgba(46, 30, 20, 0.25); }
+.pc-ui-btn.pc-is-ghost, .pc-ui-btn.is-ghost { background: transparent; border-color: transparent; box-shadow: none; }
+.pc-ui-btn.pc-is-ghost:hover, .pc-ui-btn.is-ghost:hover { background: rgba(46, 30, 20, 0.05); }
+
+/* Button Sizes */
+.pc-ui-btn.pc-is-sm, .pc-ui-btn.is-sm { padding: 6px 12px; font-size: 12.5px; gap: 5px; min-height: 44px; border-radius: 6px; }
+.pc-ui-btn.pc-is-lg, .pc-ui-btn.is-lg { padding: 12px 24px; font-size: 16px; gap: 10px; min-height: 48px; border-radius: 8px; }
+.pc-ui-btn.pc-is-icon, .pc-ui-btn.is-icon { padding: 8px; width: 44px; height: 44px; min-width: 44px; min-height: 44px; border-radius: 8px; }
+
+
+/* ==========================================================================
+   9. CALENDAR (Tear-off desk calendar with ring binder cuts & marked day seals)
+   ========================================================================== */
+.pc-ui-calendar, .pc-ui-calendar {
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-lg);
+  box-shadow: var(--pc-ui-shadow-3);
+  padding: 20px;
+  width: 320px;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-ui-calendar-binder {
+  display: flex;
+  justify-content: space-around;
+  margin: -20px -20px 14px;
+  padding: 8px 12px;
+  background: var(--pc-ui-bg-recessed);
+  border-bottom: 2px dashed var(--pc-ui-border-kraft);
+}
+
+.pc-ui-calendar-ring {
+  width: 12px;
+  height: 18px;
+  background: #FFFDF9;
+  border-radius: 4px;
+  border: 1px solid var(--pc-ui-border-kraft);
+  box-shadow: 
+    inset 0 1px 2px rgba(74, 60, 49, 0.15),
+    0 2px 4px rgba(74, 60, 49, 0.08);
+}
+
+.pc-ui-calendar-header, .pc-ui-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.pc-ui-calendar-title, .pc-ui-calendar-title {
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-calendar-grid, .pc-ui-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+
+.pc-ui-calendar-weekday, .pc-ui-calendar-weekday {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-muted);
+  padding: 6px 0;
+}
+
+.pc-ui-calendar-day, .pc-ui-calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: var(--pc-ui-radius-pill);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  transition: all var(--pc-ui-dur-quick) ease;
+  color: var(--pc-ui-ink-body);
+}
+
+.pc-ui-calendar-day:hover:not(.pc-is-disabled):not(.is-disabled) {
+  background: var(--pc-ui-peach-tint);
+  transform: scale(1.08);
+}
+
+.pc-ui-calendar-day.pc-is-today,
+.pc-ui-calendar-day.is-today {
+  border: 1.5px solid var(--pc-ui-lavender);
+  font-weight: 700;
+}
+
+.pc-ui-calendar-day.pc-is-selected,
+.pc-ui-calendar-day.is-selected {
+  background: var(--pc-ui-sage);
+  color: var(--pc-ui-ink-dark);
+  font-weight: 800;
+  box-shadow: 
+    0 0 0 2px var(--pc-ui-bg-sheet-light),
+    0 2px 4px rgba(74, 60, 49, 0.15);
+}
+
+.pc-ui-calendar-day.pc-is-other-month,
+.pc-ui-calendar-day.is-other-month,
+.pc-ui-calendar-day.pc-is-disabled,
+.pc-ui-calendar-day.is-disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+
+/* ==========================================================================
+   10. CARD (Authentic Two-Sheet Nested Paper Card Stacking)
+   ========================================================================== */
+.pc-card,
+.pc-card-sheet,
+.pc-card-stacked,
+.pc-card-nested {
+  background: var(--pc-paper-white, #FFFDF9) !important;
+  border: 1px solid rgba(46, 30, 20, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: 16px !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 3.5px rgba(46, 30, 20, 0.14) !important;
+  position: relative !important;
+  overflow: visible;
+  isolation: auto !important;
+  z-index: auto !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+}
+
+/* 뒷 종이 (Underlay Backing Sheet: 사방 6px 균일 확장 둘레 매트보드) */
+.pc-card::after,
+.pc-card-sheet::after,
+.pc-card-stacked::after,
+.pc-card-nested::after,
+.pc-card-underlay {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: calc(16px + 4px) !important;
+  background: var(--pc-card-underlay-bg, #F3ECE1) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 
+    0 4px 14px -2px rgba(46, 30, 20, 0.16), 
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background 0.2s ease !important;
+}
+
+/* 호버 인터랙션: 앞 종이 리프트 및 그림자 확장 */
+.pc-card:hover,
+.pc-card-sheet:hover,
+.pc-card-stacked:hover,
+.pc-card-nested:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 3px 8px rgba(46, 30, 20, 0.18) !important;
+}
+
+/* 호버 인터랙션: 뒷 종이 부유 감쇠 그림자 */
+.pc-card:hover::after,
+.pc-card-sheet:hover::after,
+.pc-card-stacked:hover::after,
+.pc-card-nested:hover::after,
+.pc-card:hover .pc-card-underlay,
+.pc-card-sheet:hover .pc-card-underlay,
+.pc-card-stacked:hover .pc-card-underlay,
+.pc-card-nested:hover .pc-card-underlay {
+  box-shadow: 
+    0 8px 22px -3px rgba(46, 30, 20, 0.20), 
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
+}
+
+/* Underlay Swatches (톤온톤 파스텔 색지 & 웜 크래프트 베이스) */
+.pc-underlay-peach {
+  --pc-card-underlay-bg: #FDE8DE !important;
+}
+.pc-underlay-mint {
+  --pc-card-underlay-bg: #E4F4ED !important;
+}
+.pc-underlay-lavender {
+  --pc-card-underlay-bg: #EFEAF8 !important;
+}
+.pc-underlay-sand {
+  --pc-card-underlay-bg: #FDF4DE !important;
+}
+.pc-underlay-sky {
+  --pc-card-underlay-bg: #E6F4FA !important;
+}
+.pc-underlay-sage {
+  --pc-card-underlay-bg: #E2F2E9 !important;
+}
+.pc-underlay-cloud {
+  --pc-card-underlay-bg: #FAF7F0 !important;
+}
+.pc-underlay-rose {
+  --pc-card-underlay-bg: #FCE8F3 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-card,
+  .pc-card-sheet,
+  .pc-card-stacked,
+  .pc-card-nested {
+    transform: none !important;
+    transition: none !important;
+  }
+  .pc-card:hover,
+  .pc-card-sheet:hover,
+  .pc-card-stacked:hover,
+  .pc-card-nested:hover {
+    transform: none !important;
+  }
+  .pc-card::after,
+  .pc-card-sheet::after,
+  .pc-card-stacked::after,
+  .pc-card-nested::after,
+  .pc-card-underlay {
+    transition: none !important;
+  }
+}
+
+.pc-ui-card, .pc-ui-card {
+  position: relative !important;
+  isolation: isolate;
+  background: var(--pc-ui-bg-sheet-light, #FFFDF9) !important;
+  border: 1px solid var(--pc-ui-border-kraft, rgba(46, 30, 20, 0.10)) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: var(--pc-ui-radius-lg, 16px) !important;
+  box-shadow: 
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 0 rgba(46, 30, 20, 0.28),
+    0 3.5px 8px rgba(46, 30, 20, 0.14),
+    0 12px 24px rgba(46, 30, 20, 0.08) !important;
+  overflow: visible;
+  transition: transform var(--pc-ui-dur-norm) cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--pc-ui-dur-norm) ease !important;
+}
+
+.pc-ui-card:hover, .pc-ui-card:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 
+    inset 0 1.5px 0 #FFFFFF,
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.98),
+    0 2.5px 0 rgba(46, 30, 20, 0.32),
+    0 6px 14px rgba(46, 30, 20, 0.18),
+    0 18px 36px rgba(46, 30, 20, 0.10) !important;
+}
+
+/* 셋째 종이 완전 삭제 (Third Sheet Elimination: 2-Sheet 구조 단일화) */
+.pc-ui-card::before,
+.pc-ui-card:not(.pc-is-stacked):not(.is-stacked)::before,
+.pc-ui-card:not(.pc-is-stacked):not(.is-stacked):hover::before,
+.pc-ui-card.pc-is-stacked::before,
+.pc-ui-card.is-stacked::before {
+  display: none !important;
+}
+
+/* 수공예 미싱선 스티칭 프레임 (Handcrafted Craft Stitching Inset via ::after) */
+.pc-ui-card:not(.pc-is-stacked):not(.is-stacked):not(.pc-card-nested):not(.is-nested)::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 7px !important;
+  border: 1px dashed rgba(74, 58, 42, 0.13) !important;
+  border-radius: calc(16px - 5px) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  transition: border-color var(--pc-ui-dur-norm) ease !important;
+}
+
+.pc-ui-card:not(.pc-card-nested):not(.is-nested):hover::after {
+  border-color: rgba(74, 58, 42, 0.22) !important;
+}
+
+/* 2-Sheet 정갈한 사방 균일 적층: pc-ui-card 스택 에디션 */
+.pc-ui-card.pc-is-stacked::after,
+.pc-ui-card.is-stacked::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  background: var(--pc-ui-peach-tint, var(--pc-card-underlay-bg, #F3ECE1)) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  border-radius: calc(16px + 4px) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.16),
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+  transform: none !important;
+  transition: transform var(--pc-ui-dur-norm) cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--pc-ui-dur-norm) ease !important;
+}
+
+.pc-ui-card.pc-is-stacked:hover::after,
+.pc-ui-card.is-stacked:hover::after {
+  transform: none !important;
+  box-shadow: 
+    0 8px 22px -3px rgba(46, 30, 20, 0.20),
+    0 3px 6px rgba(46, 30, 20, 0.12) !important;
+}
+
+.pc-ui-card-header, .pc-ui-card-header {
+  padding: 24px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pc-ui-card-title, .pc-ui-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-card-description, .pc-ui-card-description {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--pc-ui-ink-muted);
+  line-height: 1.5;
+}
+
+.pc-ui-card-content, .pc-ui-card-content {
+  padding: 0 24px 24px;
+}
+
+.pc-ui-card-footer, .pc-ui-card-footer {
+  padding: 16px 24px;
+  background: var(--pc-ui-bg-recessed);
+  border-top: 1px dashed var(--pc-ui-border-kraft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+/* ==========================================================================
+   11. CAROUSEL (Cardboard sliding slide deck with paper pagination dots)
+   ========================================================================== */
+.pc-ui-carousel, .pc-ui-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.pc-ui-carousel-viewport, .pc-ui-carousel-viewport {
+  overflow: hidden;
+  border-radius: var(--pc-ui-radius-lg);
+}
+
+.pc-ui-carousel-track, .pc-ui-carousel-track {
+  display: flex;
+  transition: transform var(--pc-ui-dur-unfold) var(--pc-ui-ease-glide);
+}
+
+.pc-ui-carousel-item, .pc-ui-carousel-item {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: 10px;
+}
+
+.pc-ui-carousel-controls, .pc-ui-carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+
+.pc-ui-carousel-dots, .pc-ui-carousel-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pc-ui-carousel-dot, .pc-ui-carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--pc-ui-radius-pill);
+  background: var(--pc-ui-border-kraft);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all var(--pc-ui-dur-norm) var(--pc-ui-ease-fold);
+}
+
+.pc-ui-carousel-dot.pc-is-active, .pc-ui-carousel-dot.is-active {
+  width: 24px;
+  background: var(--pc-ui-sage);
+  box-shadow: 0 1px 3px rgba(74, 60, 49, 0.15);
+}
+
+
+/* ==========================================================================
+   12. CHECKBOX (Origami corner fold with paper stamp checkmark)
+   ========================================================================== */
+.pc-ui-checkbox-wrapper, .pc-ui-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-ui-checkbox, .pc-ui-checkbox {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #FAF7F0;
+  background-image: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(240,233,220,0.5) 100%);
+  border: 1.5px solid #DED4C3;
+  border-radius: var(--pc-ui-radius-xs);
+  box-shadow: 
+    0 2px 4px rgba(74, 58, 42, 0.12),
+    0 1px 2px rgba(74, 58, 42, 0.08),
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(74, 58, 42, 0.06);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: visible;
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-checkbox:hover, .pc-ui-checkbox:hover {
+  border-color: #D2C2AD;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(74, 58, 42, 0.16);
+}
+
+.pc-ui-checkbox::after, .pc-ui-checkbox::after {
+  content: "";
+  position: absolute;
+  top: -1px; right: -1px;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 0 0 0;
+  border-color: transparent var(--pc-ui-sage) transparent transparent;
+  transition: border-width var(--pc-ui-dur-quick) var(--pc-ui-ease-fold);
+  box-shadow: -1px 1px 2px rgba(74, 60, 49, 0.15);
+  pointer-events: none;
+}
+
+.pc-ui-checkbox[data-state="checked"], .pc-ui-checkbox[data-state="checked"] {
+  background-color: #E8F6EE;
+  background-image: linear-gradient(135deg, #F0FAF4 0%, #DCF2E5 100%);
+  border-color: #83C9A6;
+  box-shadow: 
+    0 1px 3px rgba(74, 58, 42, 0.14),
+    inset 0 2px 4px rgba(45, 100, 75, 0.12);
+  transform: translateY(0.5px);
+}
+
+.pc-ui-checkbox[data-state="checked"]::after, .pc-ui-checkbox[data-state="checked"]::after {
+  border-width: 0 8px 8px 0;
+}
+
+.pc-ui-checkbox-icon, .pc-ui-checkbox-icon {
+  opacity: 0;
+  transform: scale(0.4) rotate(-15deg);
+  transition: all 0.24s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 1.5px 1.5px rgba(25, 75, 50, 0.3));
+}
+
+.pc-ui-checkbox[data-state="checked"] .pc-ui-checkbox-icon,
+.pc-ui-checkbox[data-state="checked"] .pc-ui-checkbox-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.pc-ui-checkbox[data-state="checked"] .pc-ui-checkbox-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* 12.1 ANIMATED DIE-CUT PAPER CHECKBOX, RADIO & SWITCH (.pc-checkbox-cut, .pc-radio-cut, .pc-switch-cut) */
+.pc-checkbox-cut,
+.pc-radio-cut,
+.pc-switch-cut,
+.pc-ui-checkbox[data-pc-cut="animated"],
+.pc-ui-radio-item[data-pc-cut="animated"],
+.pc-ui-switch[data-pc-cut="animated"] {
+  --pc-cut-progress: 0;
+  min-height: 44px;
+  min-width: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  word-break: keep-all;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-checkbox-cut[data-state="checked"],
+.pc-radio-cut[data-state="checked"],
+.pc-switch-cut[data-state="checked"],
+[data-pc-cut="animated"][data-state="checked"] {
+  --pc-cut-progress: 1;
+}
+
+.pc-checkbox-cut .pc-cut-blade-path,
+[data-pc-cut="animated"] .pc-cut-blade-path {
+  stroke-dasharray: 28;
+  stroke-dashoffset: calc(28 * (1 - var(--pc-cut-progress, 0)));
+  transition: stroke-dashoffset 0.34s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-checkbox-cut .pc-cut-carved-well,
+.pc-radio-cut .pc-cut-carved-well {
+  filter: url(#pc-paper-sh-inset);
+}
+
+.pc-checkbox-cut .pc-cut-scrap-flap,
+.pc-radio-cut .pc-cut-scrap-flap,
+.pc-switch-cut .pc-cut-scrap-flap {
+  filter: url(#pc-paper-sh-lift);
+}
+
+.pc-checkbox-cut:focus-visible,
+.pc-radio-cut:focus-visible,
+.pc-switch-cut:focus-visible,
+.pc-ui-checkbox:focus-visible,
+.pc-ui-radio-item:focus-visible,
+.pc-ui-switch:focus-visible {
+  outline: 2px solid #2B6E4D;
+  outline-offset: 2px;
+}
+
+
+/* ==========================================================================
+   13. COLLAPSIBLE (Sliding matchbox paper drawer)
+   ========================================================================== */
+.pc-ui-collapsible, .pc-ui-collapsible {
+  width: 100%;
+  border-radius: var(--pc-ui-radius-md);
+  border: 1px solid var(--pc-ui-border-kraft);
+  background: var(--pc-ui-bg-sheet-light);
+  box-shadow: var(--pc-ui-shadow-1);
+  overflow: hidden;
+}
+
+.pc-ui-collapsible-trigger-bar, .pc-ui-collapsible-trigger-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  cursor: pointer;
+  background: var(--pc-ui-bg-sheet-light);
+}
+
+.pc-ui-collapsible-content, .pc-ui-collapsible-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--pc-ui-dur-norm) var(--pc-ui-ease-glide);
+  background: var(--pc-ui-bg-recessed);
+}
+
+.pc-ui-collapsible[data-state="open"] .pc-ui-collapsible-content,
+.pc-ui-collapsible[data-state="open"] .pc-ui-collapsible-content {
+  grid-template-rows: 1fr;
+}
+
+.pc-ui-collapsible-inner, .pc-ui-collapsible-inner {
+  overflow: hidden;
+  padding: 0 18px 16px;
+  box-shadow: var(--pc-ui-shadow-cutout);
+}
+
+
+/* ==========================================================================
+   14. COMBOBOX (Deckle search input with fan-out bookmark suggestions)
+   ========================================================================== */
+.pc-ui-combobox, .pc-ui-combobox {
+  position: relative;
+  width: 100%;
+}
+
+.pc-ui-combobox-trigger, .pc-ui-combobox-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-inset);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pc-ui-combobox-dropdown, .pc-ui-combobox-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 8px;
+  z-index: 100;
+  display: none;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.pc-ui-combobox[data-state="open"] .pc-ui-combobox-dropdown,
+.pc-ui-combobox[data-state="open"] .pc-ui-combobox-dropdown {
+  display: block;
+}
+
+.pc-ui-combobox-input, .pc-ui-combobox-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-sm);
+  background: var(--pc-ui-bg-recessed);
+  margin-bottom: 6px;
+  font-size: 13.5px;
+  outline: none;
+}
+
+.pc-ui-combobox-item, .pc-ui-combobox-item {
+  padding: 8px 12px;
+  border-radius: var(--pc-ui-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  transition: background var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-combobox-item:hover, .pc-ui-combobox-item.pc-is-highlighted, .pc-ui-combobox-item.is-highlighted {
+  background: var(--pc-ui-lavender-tint);
+}
+
+
+/* ==========================================================================
+   15. COMMAND (Carved command palette popup with category tabs & shortcut badges)
+   ========================================================================== */
+.pc-ui-command-dialog, .pc-ui-command-dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.4);
+  backdrop-filter: blur(3px);
+  z-index: 1100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 80px 20px 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-ui-dur-norm) ease;
+}
+
+.pc-ui-command-dialog[data-state="open"], .pc-ui-command-dialog[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-ui-command, .pc-ui-command {
+  width: 100%;
+  max-width: 600px;
+  background: var(--pc-ui-bg-sheet-light);
+  border-radius: var(--pc-ui-radius-lg);
+  border: 1px solid var(--pc-ui-border-kraft);
+  box-shadow: var(--pc-ui-shadow-5);
+  overflow: hidden;
+  transform: translateY(-10px) scale(0.96);
+  transition: transform var(--pc-ui-dur-norm) var(--pc-ui-ease-fold);
+}
+
+.pc-ui-command-dialog[data-state="open"] .pc-ui-command,
+.pc-ui-command-dialog[data-state="open"] .pc-ui-command {
+  transform: translateY(0) scale(1);
+}
+
+.pc-ui-command-input-wrap, .pc-ui-command-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--pc-ui-border-kraft);
+  background: var(--pc-ui-bg-recessed);
+}
+
+.pc-ui-command-input, .pc-ui-command-input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 15px;
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-command-list, .pc-ui-command-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.pc-ui-command-group-title, .pc-ui-command-group-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--pc-ui-ink-faint);
+  padding: 8px 12px 4px;
+}
+
+.pc-ui-command-item, .pc-ui-command-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 14px;
+  border-radius: var(--pc-ui-radius-md);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-command-item:hover, .pc-ui-command-item[data-selected="true"],
+.pc-ui-command-item:hover, .pc-ui-command-item[data-selected="true"] {
+  background: var(--pc-ui-lavender-tint);
+}
+
+.pc-ui-command-shortcut, .pc-ui-command-shortcut {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-xs);
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.08);
+}
+
+
+/* ==========================================================================
+   16. CONTEXT MENU (Floating craft card menu with knife-cut dividers)
+   ========================================================================== */
+.pc-ui-context-menu, .pc-ui-context-menu {
+  position: fixed;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 6px;
+  min-width: 190px;
+  max-width: calc(100vw - 32px);
+  z-index: 1200;
+  display: none;
+}
+
+.pc-ui-context-menu[data-state="open"], .pc-ui-context-menu[data-state="open"] {
+  display: block;
+}
+
+.pc-ui-context-menu-item, .pc-ui-context-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: var(--pc-ui-radius-sm);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-context-menu-item:hover, .pc-ui-context-menu-item:hover {
+  background: var(--pc-ui-peach-tint);
+}
+
+.pc-ui-context-menu-separator, .pc-ui-context-menu-separator {
+  height: 1px;
+  border-top: 1px dashed var(--pc-ui-border-kraft);
+  margin: 5px 0;
+}
+
+
+/* ==========================================================================
+   17. DIALOG (Layered paper shadowbox modal overlay)
+   ========================================================================== */
+.pc-ui-dialog-overlay, .pc-ui-dialog-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 200000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-ui-dur-norm) ease;
+}
+
+.pc-ui-dialog-overlay[data-state="open"], .pc-ui-dialog-overlay[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-ui-dialog-content, .pc-ui-dialog-content {
+  position: relative;
+  background: var(--pc-ui-bg-sheet-light);
+  border-radius: var(--pc-ui-radius-lg);
+  border: 1px solid var(--pc-ui-border-kraft);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    var(--pc-ui-shadow-5);
+  max-width: 540px;
+  width: 100%;
+  padding: 28px;
+  transform: translateY(12px) scale(0.95);
+  transition: transform var(--pc-ui-dur-norm) var(--pc-ui-ease-fold);
+}
+
+.pc-ui-dialog-overlay[data-state="open"] .pc-ui-dialog-content,
+.pc-ui-dialog-overlay[data-state="open"] .pc-ui-dialog-content {
+  transform: translateY(0) scale(1);
+}
+
+.pc-ui-dialog-header, .pc-ui-dialog-header { margin-bottom: 16px; }
+.pc-ui-dialog-title, .pc-ui-dialog-title { margin: 0 0 8px; font-size: 19px; font-weight: 800; color: var(--pc-ui-ink-dark); }
+.pc-ui-dialog-description, .pc-ui-dialog-description { margin: 0; font-size: 14px; line-height: 1.6; color: var(--pc-ui-ink-muted); }
+.pc-ui-dialog-footer, .pc-ui-dialog-footer { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
+
+.pc-ui-dialog-close, .pc-ui-dialog-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--pc-ui-radius-pill);
+  color: var(--pc-ui-ink-muted);
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-dialog-close:hover, .pc-ui-dialog-close:hover {
+  background: var(--pc-ui-rose-tint);
+  color: var(--pc-ui-rose-dark);
+}
+
+
+/* ==========================================================================
+   18. DRAWER (Bottom/side sliding craft tray with pull tab)
+   ========================================================================== */
+.pc-ui-drawer-overlay, .pc-ui-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.35);
+  z-index: 200000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-ui-dur-norm) ease;
+}
+
+.pc-ui-drawer-overlay[data-state="open"], .pc-ui-drawer-overlay[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-ui-drawer-content, .pc-ui-drawer-content {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  max-height: 80vh;
+  background: var(--pc-ui-bg-sheet-light);
+  border-top: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-xl) var(--pc-ui-radius-xl) 0 0;
+  box-shadow: var(--pc-ui-shadow-5);
+  padding: 16px 24px 32px;
+  z-index: 200001;
+  transform: translateY(100%);
+  transition: transform var(--pc-ui-dur-unfold) var(--pc-ui-ease-glide);
+}
+
+.pc-ui-drawer-overlay[data-state="open"] ~ .pc-ui-drawer-content,
+.pc-ui-drawer-content[data-state="open"],
+.pc-ui-drawer-overlay[data-state="open"] ~ .pc-ui-drawer-content,
+.pc-ui-drawer-content[data-state="open"] {
+  transform: translateY(0);
+}
+
+.pc-ui-drawer-handle, .pc-ui-drawer-handle {
+  width: 48px;
+  height: 6px;
+  background: var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-pill);
+  margin: 0 auto 16px;
+  cursor: grab;
+}
+
+
+/* ==========================================================================
+   19. DROPDOWN MENU (Fanning bookmark strip menu with paper hover state)
+   ========================================================================== */
+.pc-ui-dropdown-menu, .pc-ui-dropdown-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-ui-dropdown-menu-content, .pc-ui-dropdown-menu-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  max-width: calc(100vw - 32px);
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 6px;
+  z-index: 900;
+  display: none;
+  transform-origin: top left;
+}
+
+.pc-ui-dropdown-menu[data-state="open"] .pc-ui-dropdown-menu-content,
+.pc-ui-dropdown-menu[data-state="open"] .pc-ui-dropdown-menu-content {
+  display: block;
+  animation: pc-ui-fan-in var(--pc-ui-dur-norm) var(--pc-ui-ease-fold);
+}
+
+@keyframes pc-ui-fan-in {
+  from { opacity: 0; transform: scale(0.95) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.pc-ui-dropdown-menu-item, .pc-ui-dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--pc-ui-radius-sm);
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: background var(--pc-ui-dur-quick) ease, transform var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-dropdown-menu-item:hover, .pc-ui-dropdown-menu-item:hover {
+  background: var(--pc-ui-buttercup-tint);
+  transform: translateX(2px);
+}
+
+
+/* ==========================================================================
+   20. FORM (Carved input fields with floating craft labels & error paper tags)
+   ========================================================================== */
+.pc-ui-form, .pc-ui-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.pc-ui-form-item, .pc-ui-form-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.pc-ui-form-label, .pc-ui-form-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pc-ui-form-description, .pc-ui-form-description {
+  font-size: 12.5px;
+  color: var(--pc-ui-ink-muted);
+}
+
+.pc-ui-form-message, .pc-ui-form-message {
+  font-size: 12px;
+  color: var(--pc-ui-rose-dark);
+  background: var(--pc-ui-rose-tint);
+  padding: 4px 8px;
+  border-radius: var(--pc-ui-radius-xs);
+  display: inline-block;
+  align-self: flex-start;
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.08);
+}
+
+
+/* ==========================================================================
+   21. HOVER CARD (Peeking craft memo slip that lifts on hover)
+   ========================================================================== */
+.pc-ui-hover-card, .pc-ui-hover-card {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-ui-hover-card-content, .pc-ui-hover-card-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  width: 280px;
+  max-width: calc(100vw - 32px);
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 16px;
+  z-index: 800;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--pc-ui-dur-norm) var(--pc-ui-ease-glide);
+}
+
+.pc-ui-hover-card:hover .pc-ui-hover-card-content,
+.pc-ui-hover-card[data-state="open"] .pc-ui-hover-card-content,
+.pc-ui-hover-card:hover .pc-ui-hover-card-content,
+.pc-ui-hover-card[data-state="open"] .pc-ui-hover-card-content {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+
+/* ==========================================================================
+   22. INPUT (Carved inset well with fine craft knife bevels)
+   ========================================================================== */
+.pc-ui-input, .pc-ui-input, .pc-ui-input-well {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--pc-ui-ink-dark);
+  background: var(--pc-ui-bg-recessed);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-inset);
+  outline: none;
+  transition: all var(--pc-ui-dur-norm) ease;
+}
+
+.pc-ui-input:focus, .pc-ui-input:focus, .pc-ui-input-well:focus {
+  background: #FFFDF9;
+  border-color: var(--pc-ui-lavender);
+  box-shadow: 
+    inset 0 1px 2px rgba(74, 60, 49, 0.06),
+    0 0 0 3px var(--pc-ui-lavender-tint);
+}
+
+.pc-ui-input::placeholder, .pc-ui-input::placeholder, .pc-ui-input-well::placeholder {
+  color: var(--pc-ui-ink-faint);
+}
+
+.pc-ui-input.pc-is-postage,
+.pc-ui-input.is-postage, .pc-ui-input-postage {
+  border: 2px dashed var(--pc-ui-peach);
+  border-radius: var(--pc-ui-radius-xs);
+  background: var(--pc-ui-bg-sheet-light);
+}
+
+
+/* ==========================================================================
+   23. INPUT OTP (3D Layered Paper-Cut Background Plate Digit Boxes)
+   ========================================================================== */
+.pc-ui-otp-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Shape Picker Toolbar */
+.pc-ui-otp-shape-picker {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #FFFDF9;
+  border: 1.5px solid #EAE0D2;
+  border-radius: 10px;
+  box-shadow: 0 1.5px 0 #DDD2C0, 0 3px 6px rgba(74, 58, 42, 0.05);
+}
+
+.pc-ui-otp-picker-label {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #7A6C5F;
+  margin-right: 4px;
+}
+
+.pc-ui-otp-shape-btn {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 6px;
+  background: #FAF6ED;
+  color: var(--pc-ink, #3D352E);
+  border: 1px solid #DCD1BF;
+  box-shadow: 0 1px 0 #D0C3AF;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pc-ui-otp-shape-btn:hover {
+  background: #F3EEFB;
+  border-color: #CBBDE6;
+  color: #55417F;
+  transform: translateY(-1px);
+}
+.pc-ui-otp-shape-btn.pc-is-active,
+.pc-ui-otp-shape-btn.is-active {
+  background: #E8F6EE;
+  color: #1A543B;
+  border-color: #8FC4A3;
+  box-shadow: 0 1.5px 0 #7AB892, 0 2px 4px rgba(44, 107, 80, 0.15);
+  font-weight: 800;
+  transform: translateY(-1px);
+}
+
+/* OTP Slots Container */
+.pc-ui-input-otp, .pc-ui-input-otp {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-ui-input-otp-group, .pc-ui-input-otp-group {
+  display: flex;
+  gap: 6px;
+}
+
+/* 3D Papercut Background Plate Slot Wrap */
+.pc-ui-input-otp-slot-wrap {
+  position: relative;
+  width: 48px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.pc-ui-input-otp-slot-wrap:hover {
+  transform: translateY(-2px);
+}
+
+.pc-ui-input-otp-slot-wrap.pc-is-focused,
+.pc-ui-input-otp-slot-wrap.is-focused {
+  transform: translateY(-4px) scale(1.04);
+}
+
+/* Background Plate SVG */
+.pc-ui-otp-bg-svg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transition: filter 0.2s ease;
+}
+
+.pc-ui-input-otp-slot-wrap.pc-is-focused .pc-ui-otp-bg-svg-layer svg,
+.pc-ui-input-otp-slot-wrap.is-focused .pc-ui-otp-bg-svg-layer svg {
+  filter: drop-shadow(0 0 6px rgba(163, 216, 195, 0.75));
+}
+
+.pc-ui-input-otp-slot-wrap.pc-is-filled .pc-ui-otp-bg-svg-layer svg path:first-child,
+.pc-ui-input-otp-slot-wrap.pc-is-filled .pc-ui-otp-bg-svg-layer svg polygon:first-child,
+.pc-ui-input-otp-slot-wrap.is-filled .pc-ui-otp-bg-svg-layer svg path:first-child,
+.pc-ui-input-otp-slot-wrap.is-filled .pc-ui-otp-bg-svg-layer svg polygon:first-child {
+  stroke: #A3D8C3;
+}
+
+/* Text Input sitting on top of Background Plate */
+.pc-ui-input-otp-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--pc-ink, #3D352E);
+  background: transparent;
+  border: none;
+  outline: none;
+  caret-color: #38986B;
+}
+
+/* Separator Ribbon */
+.pc-ui-input-otp-separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 3px;
+  background: #D5C7B2;
+  border-radius: 2px;
+  box-shadow: 0 1px 0 #FFF;
+  margin: 0 4px;
+}
+
+
+/* ==========================================================================
+   24. LABEL (Craft ribbon label with stitched hairline border)
+   ========================================================================== */
+.pc-ui-label, .pc-ui-label {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-dark);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.pc-ui-label.pc-is-ribbon, .pc-ui-label.is-ribbon {
+  padding: 4px 10px;
+  background: var(--pc-ui-peach-tint);
+  border-top: 1px dashed var(--pc-ui-peach);
+  border-bottom: 1px dashed var(--pc-ui-peach);
+  border-radius: 2px;
+}
+
+
+/* ==========================================================================
+   25. MENUBAR (Stationery desktop menu bar with foldout sheets)
+   ========================================================================== */
+.pc-ui-menubar, .pc-ui-menubar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-1);
+}
+
+.pc-ui-menubar-menu, .pc-ui-menubar-menu {
+  position: relative;
+}
+
+.pc-ui-menubar-trigger, .pc-ui-menubar-trigger {
+  padding: 6px 12px;
+  border-radius: var(--pc-ui-radius-xs);
+  border: none;
+  background: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-menubar-trigger:hover, .pc-ui-menubar-trigger[data-state="open"],
+.pc-ui-menubar-trigger:hover, .pc-ui-menubar-trigger[data-state="open"] {
+  background: var(--pc-ui-lavender-tint);
+}
+
+.pc-ui-menubar-content, .pc-ui-menubar-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 200px;
+  max-width: calc(100vw - 32px);
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 6px;
+  z-index: 1050;
+  display: none;
+}
+
+.pc-ui-menubar-menu[data-state="open"] .pc-ui-menubar-content,
+.pc-ui-menubar-menu[data-state="open"] .pc-ui-menubar-content {
+  display: block;
+  animation: pc-ui-fan-in var(--pc-ui-dur-norm) var(--pc-ui-ease-fold);
+}
+
+.pc-ui-menubar-item, .pc-ui-menubar-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 12px;
+  font-size: 13.5px;
+  border-radius: var(--pc-ui-radius-sm);
+  cursor: pointer;
+  color: var(--pc-ui-ink-body);
+  transition: background var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-menubar-item:hover, .pc-ui-menubar-item:hover {
+  background: var(--pc-ui-lavender-tint);
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-menubar-separator, .pc-ui-menubar-separator {
+  height: 1px;
+  border-top: 1px dashed var(--pc-ui-border-kraft);
+  margin: 4px 0;
+}
+
+.pc-ui-menubar-shortcut, .pc-ui-menubar-shortcut {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-faint);
+  margin-left: auto;
+  padding-left: 16px;
+}
+
+
+/* ==========================================================================
+   26. NAVIGATION MENU (Horizontal craft tabs with sliding pastel underlay)
+   ========================================================================== */
+.pc-ui-navigation-menu, .pc-ui-nav-menu,
+.pc-ui-navigation-menu, .pc-ui-nav-menu {
+  position: relative;
+  display: inline-flex;
+}
+
+.pc-ui-navigation-menu-list, .pc-ui-nav-menu-list,
+.pc-ui-navigation-menu-list, .pc-ui-nav-menu-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  background: var(--pc-ui-bg-recessed);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-inset);
+  gap: 4px;
+  position: relative;
+}
+
+.pc-ui-navigation-menu-item, .pc-ui-nav-menu-item,
+.pc-ui-navigation-menu-item, .pc-ui-nav-menu-item {
+  position: relative;
+}
+
+.pc-ui-navigation-menu-trigger, .pc-ui-nav-menu-trigger,
+.pc-ui-navigation-menu-trigger, .pc-ui-nav-menu-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-muted);
+  border: none;
+  background: none;
+  border-radius: var(--pc-ui-radius-sm);
+  cursor: pointer;
+  transition: all var(--pc-ui-dur-quick) ease;
+  position: relative;
+  z-index: 2;
+}
+
+.pc-ui-navigation-menu-trigger:hover, .pc-ui-nav-menu-trigger:hover,
+.pc-ui-navigation-menu-trigger:hover, .pc-ui-nav-menu-trigger:hover {
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-navigation-menu-trigger.pc-is-active, .pc-ui-navigation-menu-trigger.is-active,
+.pc-ui-nav-menu-trigger.pc-is-active, .pc-ui-nav-menu-trigger.is-active {
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-navigation-menu-indicator, .pc-ui-nav-menu-indicator,
+.pc-ui-navigation-menu-indicator, .pc-ui-nav-menu-indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  background: var(--pc-ui-bg-sheet-light);
+  border-radius: var(--pc-ui-radius-sm);
+  box-shadow: var(--pc-ui-shadow-1);
+  transition: all var(--pc-ui-dur-norm) var(--pc-ui-ease-glide);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.pc-ui-navigation-menu-content, .pc-ui-nav-menu-content,
+.pc-ui-navigation-menu-content, .pc-ui-nav-menu-content {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 16px;
+  min-width: 320px;
+  max-width: calc(100vw - 32px);
+  z-index: 950;
+  display: none;
+}
+
+.pc-ui-navigation-menu-item[data-state="open"] .pc-ui-navigation-menu-content,
+.pc-ui-nav-menu-item[data-state="open"] .pc-ui-nav-menu-content,
+.pc-ui-navigation-menu-item[data-state="open"] .pc-ui-navigation-menu-content,
+.pc-ui-nav-menu-item[data-state="open"] .pc-ui-nav-menu-content {
+  display: block;
+}
+
+
+/* ==========================================================================
+   27. PAGINATION (Perforated ticket stub page numbers with active wax seal)
+   ========================================================================== */
+.pc-ui-pagination, .pc-ui-pagination {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pc-ui-pagination-content, .pc-ui-pagination-content {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pc-ui-pagination-item, .pc-ui-pagination-item {
+  min-width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-sm);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-dark);
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.08);
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-pagination-item:hover, .pc-ui-pagination-item:hover {
+  background: var(--pc-ui-peach-tint);
+  transform: translateY(-1px);
+}
+
+.pc-ui-pagination-item.pc-is-active, .pc-ui-pagination-item.is-active {
+  background: var(--pc-ui-sage);
+  border-radius: var(--pc-ui-radius-pill);
+  box-shadow: 
+    0 0 0 2px var(--pc-ui-bg-sheet-light),
+    var(--pc-ui-shadow-2);
+}
+
+.pc-ui-pagination-ellipsis, .pc-ui-pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  color: var(--pc-ui-ink-faint);
+}
+
+
+/* ==========================================================================
+   28. POPOVER (Pop-up book flap with triangular paper arrow)
+   ========================================================================== */
+.pc-ui-popover, .pc-ui-popover {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-ui-popover-content, .pc-ui-popover-content {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 16px;
+  width: 260px;
+  max-width: calc(100vw - 32px);
+  z-index: 850;
+  display: none;
+}
+
+.pc-ui-popover[data-state="open"] .pc-ui-popover-content,
+.pc-ui-popover[data-state="open"] .pc-ui-popover-content {
+  display: block;
+}
+
+.pc-ui-popover-arrow, .pc-ui-popover-arrow {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: var(--pc-ui-bg-sheet-light);
+  border-top: 1px solid var(--pc-ui-border-kraft);
+  border-left: 1px solid var(--pc-ui-border-kraft);
+}
+
+
+/* ==========================================================================
+   29. PROGRESS (Layered pastel paper fill bar moving along an inset track)
+   ========================================================================== */
+.pc-ui-progress, .pc-ui-progress {
+  position: relative;
+  width: 100%;
+  height: 14px;
+  background: var(--pc-ui-bg-recessed);
+  border-radius: var(--pc-ui-radius-pill);
+  box-shadow: var(--pc-ui-shadow-inset);
+  border: 1px solid var(--pc-ui-border-kraft);
+  overflow: hidden;
+}
+
+.pc-ui-progress-indicator, .pc-ui-progress-indicator {
+  height: 100%;
+  background: linear-gradient(90deg, var(--pc-ui-sage), var(--pc-ui-sage-tint));
+  border-radius: var(--pc-ui-radius-pill);
+  box-shadow: 
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    1px 0 2px rgba(74, 60, 49, 0.15);
+  transition: width var(--pc-ui-dur-norm) var(--pc-ui-ease-glide);
+}
+
+
+/* ==========================================================================
+   30. RADIO GROUP (Concentric paper target discs with pastel dot center)
+   ========================================================================== */
+.pc-ui-radio-group, .pc-ui-radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pc-ui-radio-item, .pc-ui-radio-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pc-ui-radio-circle, .pc-ui-radio-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--pc-ui-radius-pill);
+  background-color: #FAF7F0;
+  background-image: radial-gradient(circle at 45% 45%, #FFFFFF 0%, #EDE4D4 100%);
+  border: 2px solid #DED4C3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 2px 4px rgba(74, 58, 42, 0.12),
+    inset 0 2.5px 4px rgba(74, 58, 42, 0.16),
+    inset 0 -1px 1px rgba(255, 255, 255, 0.85);
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-radio-item:hover .pc-ui-radio-circle,
+.pc-ui-radio-item:hover .pc-ui-radio-circle {
+  border-color: #D2C2AD;
+  transform: translateY(-1px);
+  box-shadow: 
+    0 3px 8px rgba(74, 58, 42, 0.16),
+    inset 0 2px 4px rgba(74, 58, 42, 0.14);
+}
+
+.pc-ui-radio-dot, .pc-ui-radio-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: var(--pc-ui-radius-pill);
+  background: radial-gradient(circle at 35% 35%, #A3D8C3 0%, #4FA981 100%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transform: scale(0);
+  transition: transform 0.24s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 
+    0 2px 4px rgba(35, 80, 55, 0.35),
+    0 1px 1px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+.pc-ui-radio-item[data-state="checked"] .pc-ui-radio-circle,
+.pc-ui-radio-item[data-state="checked"] .pc-ui-radio-circle {
+  border-color: #83C9A6;
+  background-color: #E8F6EE;
+  background-image: radial-gradient(circle at 50% 50%, #EBF7F1 0%, #D8EFE3 100%);
+  box-shadow: 
+    0 1px 3px rgba(74, 58, 42, 0.15),
+    inset 0 2px 4px rgba(45, 100, 75, 0.2);
+}
+
+.pc-ui-radio-item[data-state="checked"] .pc-ui-radio-dot,
+.pc-ui-radio-item[data-state="checked"] .pc-ui-radio-dot {
+  transform: scale(1);
+}
+
+
+/* ==========================================================================
+   31. RESIZABLE (Paper fold crease splitter with grip dots)
+   ========================================================================== */
+.pc-ui-resizable-group, .pc-ui-resizable-group,
+.pc-ui-resizable-panel-group, .pc-ui-resizable-panel-group {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  overflow: hidden;
+  background: var(--pc-ui-bg-sheet-light);
+}
+
+.pc-ui-resizable-panel, .pc-ui-resizable-panel {
+  overflow: auto;
+  padding: 16px;
+}
+
+.pc-ui-resizable-handle, .pc-ui-resizable-handle {
+  width: 10px;
+  background: var(--pc-ui-bg-recessed);
+  border-left: 1px dashed var(--pc-ui-border-kraft);
+  border-right: 1px dashed var(--pc-ui-border-kraft);
+  cursor: col-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.pc-ui-resizable-handle::after, .pc-ui-resizable-handle::after {
+  content: ":::";
+  font-size: 10px;
+  letter-spacing: -1px;
+  color: var(--pc-ui-ink-faint);
+  transform: rotate(90deg);
+}
+
+
+/* ==========================================================================
+   32. SCROLL AREA (Parchment scroll well with custom paper thumb bar)
+   ========================================================================== */
+.pc-ui-scroll-area, .pc-ui-scroll-area {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--pc-ui-radius-md);
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+}
+
+.pc-ui-scroll-viewport, .pc-ui-scroll-viewport,
+.pc-ui-scroll-area-viewport, .pc-ui-scroll-area-viewport {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pc-ui-border-kraft) transparent;
+}
+
+.pc-ui-scroll-viewport::-webkit-scrollbar,
+.pc-ui-scroll-area-viewport::-webkit-scrollbar {
+  width: 8px;
+}
+.pc-ui-scroll-viewport::-webkit-scrollbar-thumb,
+.pc-ui-scroll-area-viewport::-webkit-scrollbar-thumb {
+  background: var(--pc-ui-peach-tint);
+  border-radius: 4px;
+  border: 1px solid var(--pc-ui-border-kraft);
+}
+
+
+/* ==========================================================================
+   33. SELECT (Bookmark trigger with pop-out paper option tray)
+   ========================================================================== */
+.pc-ui-select, .pc-ui-select {
+  position: relative;
+  width: 100%;
+}
+
+.pc-ui-select-trigger, .pc-ui-select-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-1);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-select-trigger:hover, .pc-ui-select-trigger:hover {
+  background: var(--pc-ui-peach-tint);
+}
+
+.pc-ui-select-content, .pc-ui-select-content {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 6px;
+  z-index: 950;
+  display: none;
+}
+
+.pc-ui-select[data-state="open"] .pc-ui-select-content,
+.pc-ui-select[data-state="open"] .pc-ui-select-content {
+  display: block;
+}
+
+.pc-ui-select-item, .pc-ui-select-item {
+  padding: 8px 12px;
+  border-radius: var(--pc-ui-radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13.5px;
+  transition: background var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-select-item:hover, .pc-ui-select-item:hover {
+  background: var(--pc-ui-lavender-tint);
+}
+
+
+/* ==========================================================================
+   34. SEPARATOR (Perforated dashed cutline, deckle tear line, washi tape)
+   ========================================================================== */
+.pc-ui-separator, .pc-ui-separator {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  border-top: 1px dashed var(--pc-ui-border-kraft);
+  margin: 16px 0;
+}
+
+.pc-ui-separator[data-orientation="vertical"],
+.pc-ui-separator.pc-is-vertical,
+.pc-ui-separator.is-vertical,
+.pc-ui-separator[data-orientation="vertical"] {
+  width: 1px;
+  height: 100%;
+  min-height: 24px;
+  border-top: none;
+  border-left: 1px dashed var(--pc-ui-border-kraft);
+  margin: 0 16px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.pc-ui-separator.pc-is-washi,
+.pc-ui-separator.is-washi, .pc-ui-separator-washi {
+  height: 6px;
+  border-top: none;
+  background: rgba(247, 197, 168, 0.45);
+  border-radius: 2px;
+}
+
+.pc-ui-separator.pc-is-deckle,
+.pc-ui-separator.is-deckle, .pc-ui-separator-deckle {
+  height: 4px;
+  border-top: none;
+  background-image: radial-gradient(circle at 4px 2px, var(--pc-ui-border-kraft) 1px, transparent 1px);
+  background-size: 8px 4px;
+}
+
+.pc-ui-separator.pc-is-perforated,
+.pc-ui-separator.is-perforated, .pc-ui-separator-perforated {
+  border-top: 2px dotted var(--pc-ui-border-kraft);
+}
+
+
+/* ==========================================================================
+   35. SHEET (Slide-over side craft panel with stitched edge)
+   ========================================================================== */
+.pc-ui-sheet-overlay, .pc-ui-sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(74, 60, 49, 0.4);
+  z-index: 200000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--pc-ui-dur-norm) ease;
+}
+
+.pc-ui-sheet-overlay[data-state="open"], .pc-ui-sheet-overlay[data-state="open"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pc-ui-sheet-content, .pc-ui-sheet-content {
+  position: fixed;
+  top: 0; bottom: 0; right: 0;
+  width: 380px;
+  max-width: 100%;
+  background: var(--pc-ui-bg-sheet-light);
+  border-left: 2px dashed var(--pc-ui-border-kraft);
+  box-shadow: var(--pc-ui-shadow-5);
+  padding: 28px;
+  z-index: 200001;
+  transform: translateX(100%);
+  transition: transform var(--pc-ui-dur-unfold) var(--pc-ui-ease-glide);
+}
+
+.pc-ui-sheet-content[data-side="left"], .pc-ui-sheet-content[data-side="left"] {
+  left: 0; right: auto;
+  border-left: none;
+  border-right: 2px dashed var(--pc-ui-border-kraft);
+  transform: translateX(-100%);
+}
+
+.pc-ui-sheet-content[data-side="top"], .pc-ui-sheet-content[data-side="top"] {
+  top: 0; bottom: auto; left: 0; right: 0;
+  width: 100%;
+  border-bottom: 2px dashed var(--pc-ui-border-kraft);
+  border-left: none;
+  transform: translateY(-100%);
+}
+
+.pc-ui-sheet-content[data-side="bottom"], .pc-ui-sheet-content[data-side="bottom"] {
+  top: auto; bottom: 0; left: 0; right: 0;
+  width: 100%;
+  border-top: 2px dashed var(--pc-ui-border-kraft);
+  border-left: none;
+  transform: translateY(100%);
+}
+
+.pc-ui-sheet-content[data-state="open"], .pc-ui-sheet-content[data-state="open"] {
+  transform: translate(0, 0) !important;
+}
+
+.pc-ui-sheet-header, .pc-ui-sheet-header { margin-bottom: 20px; }
+.pc-ui-sheet-title, .pc-ui-sheet-title { margin: 0 0 6px; font-size: 18px; font-weight: 800; color: var(--pc-ui-ink-dark); }
+.pc-ui-sheet-description, .pc-ui-sheet-description { margin: 0; font-size: 13.5px; color: var(--pc-ui-ink-muted); line-height: 1.5; }
+.pc-ui-sheet-footer, .pc-ui-sheet-footer { margin-top: 24px; display: flex; justify-content: flex-end; gap: 12px; }
+
+
+/* ==========================================================================
+   36. SKELETON (Pulsing paper pulp shimmer placeholder)
+   ========================================================================== */
+.pc-ui-skeleton, .pc-ui-skeleton {
+  background: var(--pc-ui-bg-recessed);
+  border-radius: var(--pc-ui-radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-ui-skeleton::after, .pc-ui-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transform: translateX(-100%);
+  animation: pc-ui-shimmer 1.8s infinite;
+}
+
+@keyframes pc-ui-shimmer {
+  100% { transform: translateX(100%); }
+}
+
+
+/* ==========================================================================
+   37. SLIDER (Paper ruler track with folded origami triangular thumb)
+   ========================================================================== */
+.pc-ui-slider, .pc-ui-slider {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.pc-ui-slider-track, .pc-ui-slider-track {
+  position: relative;
+  flex: 1;
+  height: 12px;
+  background: #E8E1D0;
+  border-radius: 999px;
+  border: 1px solid rgba(74, 58, 42, 0.12);
+  box-shadow: 
+    inset 1.5px 2px 4px rgba(74, 58, 42, 0.22),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(74, 58, 42, 0.12) 0px,
+    rgba(74, 58, 42, 0.12) 1px,
+    transparent 1px,
+    transparent 12px
+  );
+  overflow: visible;
+}
+
+/* Active Range: Lifted, rounded knife-cut paper strip */
+.pc-ui-slider-range, .pc-ui-slider-range {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0;
+  background: linear-gradient(180deg, #BCE4CF 0%, #8CCAA9 100%);
+  border-radius: 999px 4px 4px 999px;
+  box-shadow: 
+    0 3.5px 7px rgba(74, 58, 42, 0.22),
+    0 1.5px 2px rgba(74, 58, 42, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  border-right: 2.5px solid rgba(255, 255, 255, 0.95);
+  transition: width 0.05s ease-out;
+}
+
+/* Paper curl / lift at the terminal cut edge */
+.pc-ui-slider-range::after, .pc-ui-slider-range::after {
+  content: "";
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  bottom: -3px;
+  width: 10px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, #C4EDD8 60%, #9DD0B8 100%);
+  border-radius: 0 5px 5px 0;
+  box-shadow: 
+    3px 2px 6px rgba(74, 58, 42, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: rotate(3.5deg) skewY(2deg);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Thumb Bookmark Pin */
+.pc-ui-slider-thumb, .pc-ui-slider-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 26px;
+  background: linear-gradient(135deg, #FFFDF9 0%, #EDE6D8 100%);
+  border: 1.5px solid #C4B59D;
+  border-radius: 6px;
+  box-shadow: 
+    0 4px 10px rgba(74, 58, 42, 0.28),
+    0 1px 0 #FFFFFF inset,
+    0 -1px 0 rgba(74, 58, 42, 0.1) inset;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 3px,
+    rgba(74, 58, 42, 0.16) 3px,
+    rgba(74, 58, 42, 0.16) 4.5px
+  );
+  cursor: grab;
+  z-index: 5;
+  transition: transform var(--pc-ui-dur-quick) ease, box-shadow var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-slider-thumb:hover, .pc-ui-slider-thumb:hover {
+  transform: translate(-50%, -50%) scale(1.15) rotate(-2deg);
+  box-shadow: 
+    0 6px 14px rgba(74, 58, 42, 0.32),
+    0 1px 0 #FFFFFF inset;
+}
+
+.pc-ui-slider-thumb:active, .pc-ui-slider-thumb:active {
+  cursor: grabbing;
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 
+    0 2px 5px rgba(74, 58, 42, 0.25),
+    0 1px 0 #FFFFFF inset;
+}
+
+
+/* ==========================================================================
+   38. SWITCH (Paper rocker pill toggle with sliding circular paper disc)
+   ========================================================================== */
+.pc-ui-switch, .pc-ui-switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  background: var(--pc-ui-bg-recessed);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-pill);
+  box-shadow: var(--pc-ui-shadow-inset);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 2px;
+  transition: background var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-switch[data-state="checked"], .pc-ui-switch[data-state="checked"] {
+  background: var(--pc-ui-sage);
+  border-color: var(--pc-ui-sage-dark);
+}
+
+.pc-ui-switch-thumb, .pc-ui-switch-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--pc-ui-bg-sheet-light);
+  border-radius: var(--pc-ui-radius-pill);
+  box-shadow: 0 1px 3px rgba(74, 60, 49, 0.2);
+  transform: translateX(0);
+  transition: transform var(--pc-ui-dur-quick) var(--pc-ui-ease-fold);
+}
+
+.pc-ui-switch[data-state="checked"] .pc-ui-switch-thumb,
+.pc-ui-switch[data-state="checked"] .pc-ui-switch-thumb {
+  transform: translateX(20px);
+}
+
+
+/* ==========================================================================
+   39. TABLE (Accounting ledger paper table with alternating tint bands)
+   ========================================================================== */
+.pc-ui-table, .pc-ui-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  overflow: hidden;
+  box-shadow: var(--pc-ui-shadow-2);
+  font-size: 13.5px;
+}
+
+.pc-ui-table th, .pc-ui-table th,
+.pc-ui-table-head, .pc-ui-table-head {
+  background: var(--pc-ui-bg-recessed);
+  color: var(--pc-ui-ink-dark);
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--pc-ui-border-kraft);
+}
+
+.pc-ui-table td, .pc-ui-table td,
+.pc-ui-table-cell, .pc-ui-table-cell {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--pc-ui-border-kraft);
+  color: var(--pc-ui-ink-body);
+}
+
+.pc-ui-table tr:last-child td, .pc-ui-table tr:last-child td {
+  border-bottom: none;
+}
+
+.pc-ui-table tbody tr:nth-child(even), .pc-ui-table tbody tr:nth-child(even) {
+  background: rgba(253, 226, 209, 0.25);
+}
+
+.pc-ui-table tbody tr:hover, .pc-ui-table tbody tr:hover {
+  background: var(--pc-ui-lavender-tint);
+}
+
+
+/* ==========================================================================
+   40. TABS (Layered file folder tabs with active raised cardstock state)
+   ========================================================================== */
+.pc-ui-tabs, .pc-ui-tabs {
+  width: 100%;
+}
+
+.pc-ui-tabs-list, .pc-ui-tabs-list {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 4px;
+  border-bottom: 2px solid var(--pc-ui-border-kraft);
+  width: 100%;
+  padding-left: 8px;
+}
+
+.pc-ui-tabs-trigger, .pc-ui-tabs-trigger {
+  padding: 9px 18px;
+  background: var(--pc-ui-bg-recessed);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-bottom: none;
+  border-radius: var(--pc-ui-radius-sm) var(--pc-ui-radius-sm) 0 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-muted);
+  cursor: pointer;
+  position: relative;
+  bottom: -2px;
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-tabs-trigger:hover, .pc-ui-tabs-trigger:hover {
+  background: var(--pc-ui-buttercup-tint);
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-tabs-trigger[data-state="active"], .pc-ui-tabs-trigger[data-state="active"] {
+  background: var(--pc-ui-bg-sheet-light);
+  color: var(--pc-ui-ink-dark);
+  border-bottom: 2px solid var(--pc-ui-bg-sheet-light);
+  transform: translateY(-2px);
+  box-shadow: 0 -2px 6px rgba(74, 60, 49, 0.08);
+}
+
+.pc-ui-tabs-content, .pc-ui-tabs-content {
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-top: none;
+  border-radius: 0 0 var(--pc-ui-radius-md) var(--pc-ui-radius-md);
+  padding: 20px;
+  box-shadow: var(--pc-ui-shadow-2);
+  display: none;
+}
+
+.pc-ui-tabs-content[data-state="active"], .pc-ui-tabs-content[data-state="active"] {
+  display: block;
+}
+
+
+/* ==========================================================================
+   41. TEXTAREA (Lined notebook paper well with ruled hairlines)
+   ========================================================================== */
+.pc-ui-textarea, .pc-ui-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--pc-ui-ink-dark);
+  background-color: var(--pc-ui-bg-recessed);
+  background-image: linear-gradient(rgba(226, 218, 200, 0.6) 1px, transparent 1px);
+  background-size: 100% 24px;
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-inset);
+  outline: none;
+  resize: vertical;
+}
+
+.pc-ui-textarea:focus, .pc-ui-textarea:focus {
+  background-color: #FFFDF9;
+  border-color: var(--pc-ui-lavender);
+}
+
+
+/* ==========================================================================
+   42. TOAST (Parchment envelope memo slip sliding in with paper rustle)
+   ========================================================================== */
+.pc-ui-toast-viewport, .pc-ui-toast-viewport {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 300000 !important;
+  pointer-events: none;
+  max-width: 400px;
+}
+
+.pc-ui-toast, .pc-ui-toast {
+  pointer-events: auto;
+  position: relative;
+  background: var(--pc-ui-bg-sheet-light);
+  border: 1px solid var(--pc-ui-border-kraft);
+  border-radius: var(--pc-ui-radius-md);
+  box-shadow: var(--pc-ui-shadow-4);
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transform: translateX(120%);
+  transition: transform var(--pc-ui-dur-unfold) var(--pc-ui-ease-fold);
+}
+
+.pc-ui-toast[data-state="open"], .pc-ui-toast[data-state="open"] {
+  transform: translateX(0);
+}
+
+.pc-ui-toast::before, .pc-ui-toast::before {
+  content: "";
+  position: absolute;
+  top: -6px; left: 24px;
+  width: 44px; height: 14px;
+  background: rgba(247, 197, 168, 0.7);
+  box-shadow: 0 1px 2px rgba(74, 60, 49, 0.12);
+  transform: rotate(-2deg);
+}
+
+.pc-ui-toast-content, .pc-ui-toast-content {
+  flex: 1;
+}
+
+.pc-ui-toast-title, .pc-ui-toast-title {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--pc-ui-ink-dark);
+}
+
+.pc-ui-toast-description, .pc-ui-toast-description {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--pc-ui-ink-muted);
+}
+
+
+/* ==========================================================================
+   43. TOGGLE (Pressed craft button with pressed-in shadow depth)
+   ========================================================================== */
+.pc-ui-toggle, .pc-ui-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: var(--pc-ui-radius-md);
+  border: 1px solid var(--pc-ui-border-kraft);
+  background: var(--pc-ui-bg-sheet-light);
+  color: var(--pc-ui-ink-dark);
+  cursor: pointer;
+  box-shadow: var(--pc-ui-shadow-1);
+  transition: all var(--pc-ui-dur-quick) ease;
+}
+
+.pc-ui-toggle:hover, .pc-ui-toggle:hover {
+  background: var(--pc-ui-peach-tint);
+}
+
+.pc-ui-toggle[data-state="on"], .pc-ui-toggle[data-state="on"] {
+  background: var(--pc-ui-sage-tint);
+  border-color: var(--pc-ui-sage);
+  box-shadow: var(--pc-ui-shadow-inset);
+  transform: translateY(1px);
+}
+
+
+/* ==========================================================================
+   44. TOGGLE GROUP (Interlocking paper puzzle button strip)
+   ========================================================================== */
+.pc-ui-toggle-group, .pc-ui-toggle-group {
+  display: inline-flex;
+  align-items: center;
+  background: var(--pc-ui-bg-recessed, #F4EFE6);
+  border: 1px solid rgba(74, 58, 42, 0.16);
+  border-radius: var(--pc-ui-radius-md, 12px);
+  padding: 4px;
+  gap: 4px;
+  box-shadow: inset 0 1.5px 3.5px rgba(46, 30, 20, 0.16);
+}
+
+.pc-ui-toggle-group-item, .pc-ui-toggle-group-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 6px 14px;
+  min-height: 32px;
+  border-radius: 8px;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pc-ui-ink-muted, #6E645A);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  user-select: none;
+}
+
+.pc-ui-toggle-group-item .pc-toggle-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #A09485;
+  opacity: 0.45;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.pc-ui-toggle-group-item:hover, .pc-ui-toggle-group-item:hover {
+  color: var(--pc-ui-ink-dark, #2D2926);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.pc-ui-toggle-group-item[data-state="on"], .pc-ui-toggle-group-item[data-state="on"],
+.pc-ui-toggle-group-item.is-active, .pc-ui-toggle-group-item.is-active {
+  background: var(--pc-mint, #A3D8C3) !important;
+  color: #14422E !important;
+  font-weight: 800 !important;
+  border-color: #FFFFFF !important;
+  box-shadow: 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.24),
+    0 4px 8px rgba(46, 30, 20, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.8) !important;
+  transform: translateY(-0.5px);
+}
+
+.pc-ui-toggle-group-item[data-state="on"] .pc-toggle-dot,
+.pc-ui-toggle-group-item.is-active .pc-toggle-dot {
+  background: #FFFDF9;
+  opacity: 1;
+  box-shadow: 0 1px 2px rgba(20, 66, 46, 0.4);
+}
+
+
+/* ==========================================================================
+   45. TOOLTIP (Floating paper tag with 3D shadow and triangular notch)
+   ========================================================================== */
+.pc-ui-tooltip-wrapper, .pc-ui-tooltip-wrapper,
+.pc-ui-tooltip, .pc-ui-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-ui-tooltip-content, .pc-ui-tooltip-content {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  padding: 6px 12px;
+  background: var(--pc-ui-ink-dark);
+  color: #FFFDF9;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--pc-ui-radius-xs);
+  box-shadow: var(--pc-ui-shadow-3);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all var(--pc-ui-dur-quick) ease;
+  z-index: 1000;
+}
+
+.pc-ui-tooltip-content::after, .pc-ui-tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%; left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px 5px 0;
+  border-style: solid;
+  border-color: var(--pc-ui-ink-dark) transparent transparent;
+}
+
+.pc-ui-tooltip-wrapper:hover .pc-ui-tooltip-content,
+.pc-ui-tooltip:hover .pc-ui-tooltip-content,
+.pc-ui-tooltip-wrapper:hover .pc-ui-tooltip-content,
+.pc-ui-tooltip:hover .pc-ui-tooltip-content {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.pc-ui-tooltip-content.pc-is-bottom,
+.pc-ui-tooltip-content.is-bottom {
+  top: calc(100% + 8px);
+  bottom: auto;
+}
+.pc-ui-tooltip-content.pc-is-bottom::after,
+.pc-ui-tooltip-content.is-bottom::after {
+  bottom: 100%;
+  top: auto;
+  border-width: 0 5px 5px;
+  border-color: transparent transparent var(--pc-ui-ink-dark) transparent;
+}
+
+/* ==========================================================================
+   FOLDER TABS (인라인 마크업용 컨테인먼트 기본값 — 좁은 컨테이너에서 탭이 줄바꿈된다)
+   ========================================================================== */
+.pc-ui-folder-tabs {
+  flex-wrap: wrap;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.pc-ui-folder-tab {
+  min-width: 0;
+  max-width: 100%;
+  word-break: keep-all;
+}
+
+/* 푸터/액션 줄은 좁은 컨테이너에서 줄바꿈한다 (넘침 방지) */
+.pc-ui-alert-dialog-footer, .pc-ui-alert-dialog-footer,
+.pc-ui-card-footer, .pc-ui-card-footer,
+.pc-ui-dialog-footer, .pc-ui-dialog-footer,
+.pc-ui-sheet-footer, .pc-ui-sheet-footer {
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   PAPER LAYER — LANE: FORMS (Card 1~3: 배지·슬라이더·토글, 입력·셀렉트·콤보박스·OTP, 체크박스·라디오·스위치)
+   ========================================================================== */
+/* @lane-forms-start */
+/* 공통: 네이티브 input은 접근성/키보드 담당으로 남기고, 눈에 보이는 면은 data-pc-paper 래퍼가 그린다.
+   엔진이 수화하기 전(JS 없음 포함)에는 네이티브 컨트롤이 그대로 보인다. */
+.pc-ui-ctl { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 26px; height: 26px; }
+.pc-ui-ctl-input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 2; }
+.pc-ui-ctl:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) > .pc-ui-ctl-input,
+.pc-ui-sw:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) > .pc-ui-ctl-input { position: static; opacity: 1; width: 20px; height: 20px; }
+.pc-ui-ctl:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-ui-ctl-mark,
+.pc-ui-sw:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-ui-sw-thumb { display: none; }
+.pc-ui-ctl-label { min-height: 44px; align-items: center; cursor: pointer; }
+.pc-ui-ctl-label > span:last-child { min-width: 0; word-break: keep-all; overflow-wrap: break-word; line-height: 1.35; }
+/* CSS 반지름은 엔진이 무시하지만(--pc-paper-radius가 우선) 포커스 링 outline이 이 모양을 따라간다. */
+.pc-ui-ctl-check { --pc-paper-radius: 7px; border-radius: 8px; }
+.pc-ui-ctl-radio, .pc-ui-sw-thumb { border-radius: 50%; }
+.pc-ui-sw { border-radius: 999px; }
+.pc-ui-field-wrap { border-radius: 10px; }
+
+/* 체크·라디오 표식: 3D 컬러 아이콘. 켜지면 위쪽 색지가 받침 쪽으로 눌리므로 아이콘도 같이 밀어 준다. */
+.pc-ui-ctl-mark {
+  position: relative; z-index: 1; pointer-events: none; font-size: 15px; line-height: 1;
+  opacity: 0; transform: scale(0.4) rotate(-15deg);
+  transition: opacity 0.16s ease, transform 0.24s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pc-ui-ctl:has(> input:checked) .pc-ui-ctl-mark { opacity: 1; transform: translate(1px, 1px) scale(1) rotate(0deg); }
+
+/* 스위치: 트랙 + 손잡이 */
+.pc-ui-switch-label { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; }
+.pc-ui-sw { position: relative; display: inline-block; flex: none; width: 52px; height: 28px; }
+.pc-ui-sw-thumb {
+  position: absolute; top: 2px; left: 2px; width: 24px; height: 24px; pointer-events: none;
+  transition: left 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.pc-ui-sw:has(> input:checked) .pc-ui-sw-thumb { left: 26px; }
+
+/* 배지 */
+.pc-ui-badge[data-pc-paper], .pc-badge[data-pc-paper] { padding-bottom: 6px; padding-right: 12px; }
+.pc-ui-badge.pc-is-paper-hydrated:hover, .pc-ui-badge.is-paper-hydrated:hover, .pc-badge.pc-is-paper-hydrated:hover, .pc-badge.is-paper-hydrated:hover { transform: none; }
+.pc-ui-badge.pc-is-ribbon[data-pc-paper], .pc-ui-badge.is-ribbon[data-pc-paper] { --pc-paper-radius: 4px; padding-left: 16px; padding-right: 18px; }
+.pc-ui-badge.pc-is-ribbon.pc-is-paper-hydrated, .pc-ui-badge.is-ribbon.is-paper-hydrated { clip-path: none; border-radius: 0; }
+.pc-ui-badge.pc-is-scallop.pc-is-paper-hydrated, .pc-ui-badge.is-scallop.is-paper-hydrated, .pc-ui-badge.pc-is-outline.pc-is-paper-hydrated, .pc-ui-badge.is-outline.is-paper-hydrated { border-radius: 999px; }
+
+/* 슬라이더 */
+.pc-ui-slider:has(> .pc-ui-slider-track[data-pc-paper]) { padding: 16px 0; }
+.pc-ui-slider-track[data-pc-paper] { height: 14px; }
+.pc-ui-slider-track.pc-is-paper-hydrated, .pc-ui-slider-track.is-paper-hydrated { background-image: none; }
+.pc-ui-slider-range[data-pc-paper] { top: 1px; bottom: 1px; border-radius: 999px; }
+.pc-ui-slider-range.pc-is-paper-hydrated, .pc-ui-slider-range.is-paper-hydrated { border-right: 0; }
+.pc-ui-slider-range.pc-is-paper-hydrated::after, .pc-ui-slider-range.is-paper-hydrated::after { display: none; }
+.pc-ui-slider-thumb[data-pc-paper] { width: 26px; height: 26px; border-radius: 50%; }
+.pc-ui-slider-thumb.pc-is-paper-hydrated, .pc-ui-slider-thumb.is-paper-hydrated { background-image: none; }
+.pc-ui-slider-thumb.pc-is-paper-hydrated:hover, .pc-ui-slider-thumb.is-paper-hydrated:hover { transform: translate(-50%, -50%) scale(1.08); }
+.pc-ui-slider-thumb.pc-is-paper-hydrated:active, .pc-ui-slider-thumb.is-paper-hydrated:active { transform: translate(-50%, -50%) scale(1.02); }
+/* 엔진의 hover/active는 위쪽 색지에 translate를 거는데 요소 자체의 translate(-50%)와 겹치지 않는다(자식 SVG 안쪽 변환). */
+
+/* 토글 */
+.pc-ui-toggle[data-pc-paper] {
+  --pc-paper-accent: var(--pc-rose, #F5B8BE); --pc-paper-accent-base: var(--pc-rose-layer, #DE939B);
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 8px 20px 10px 18px; font-size: 12.5px; font-weight: 800; line-height: 1;
+  white-space: nowrap; border-radius: 999px; cursor: pointer;
+}
+.pc-ui-toggle.pc-is-paper-hydrated[data-state="on"], .pc-ui-toggle.is-paper-hydrated[data-state="on"] { transform: none; }
+.pc-ui-toggle-group[data-pc-paper] {
+  display: inline-flex; max-width: 100%; padding: 4px 4px 5px 4px; gap: 4px; flex-wrap: nowrap;
+}
+.pc-ui-toggle-group-item[data-pc-paper] {
+  --pc-paper-accent: var(--pc-mint, #A3D8C3); --pc-paper-accent-base: var(--pc-mint-layer, #82C2A8);
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px; flex: 1 1 auto; min-width: 0;
+  min-height: 44px; padding: 6px 12px 8px 10px; font-size: 12px; font-weight: 700; line-height: 1;
+  white-space: nowrap; border-radius: 999px; color: var(--pc-ui-ink-muted, #6E645A);
+}
+.pc-ui-toggle-group-item.pc-is-paper-hydrated[data-state="on"], .pc-ui-toggle-group-item.is-paper-hydrated[data-state="on"] { color: var(--pc-ui-ink-dark, #3D352E); font-weight: 800; }
+
+/* 입력: void 요소라서 래퍼(.pc-ui-field-wrap)가 field를 맡고, 안쪽 input은 맨몸으로 둔다. */
+.pc-ui-field-wrap { position: relative; display: block; }
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-input,
+.pc-ui-field-wrap.is-paper-hydrated > .pc-ui-input,
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-combobox-input,
+.pc-ui-field-wrap.is-paper-hydrated > .pc-ui-combobox-input,
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-input:focus,
+.pc-ui-field-wrap.is-paper-hydrated > .pc-ui-input:focus,
+.pc-ui-field-wrap.pc-is-paper-hydrated > .pc-ui-combobox-input:focus,
+.pc-ui-field-wrap.is-paper-hydrated > .pc-ui-combobox-input:focus {
+  background: transparent; border-color: transparent; box-shadow: none; outline: none;
+  min-height: 44px; margin: 0; padding-top: 10px; padding-bottom: 12px; position: relative; z-index: 1;
+}
+.pc-ui-field-wrap > .pc-ui-combobox-input { width: 100%; box-sizing: border-box; }
+.pc-ui-select .pc-ui-select-trigger[data-pc-paper], .pc-ui-combobox .pc-ui-combobox-trigger[data-pc-paper] {
+  min-height: 44px; gap: 8px; padding: 10px 14px 12px; text-align: left; font-family: inherit; font-weight: 700;
+  color: var(--pc-ui-ink-dark, #3D352E); box-sizing: border-box;
+}
+.pc-ui-select-trigger.is-well, .pc-ui-combobox-trigger.is-well {
+  min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 8px 14px;
+  cursor: pointer;
+}
+.pc-ui-select-trigger .pc-trigger-content, .pc-ui-combobox-trigger .pc-trigger-content {
+  display: inline-flex; align-items: center; gap: 8px; min-width: 0;
+}
+.pc-ui-select-value, .pc-ui-combobox-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pc-ui-select-trigger > .pc-inline-icon, .pc-ui-combobox-trigger > .pc-inline-icon { flex: none; }
+.pc-ui-chevron { transition: transform 0.18s ease; }
+.pc-ui-select[data-state="open"] .pc-ui-chevron { transform: rotate(180deg); }
+/* 열림: 우물 색지가 라벤더로 바뀐다 */
+.pc-ui-select[data-state="open"] > .pc-ui-select-trigger,
+.pc-ui-combobox[data-state="open"] > .pc-ui-combobox-trigger {
+  --pc-paper-fill: var(--pc-lavender-light, #F4F0FA); --pc-paper-base: var(--pc-lavender, #D7CBEB);
+}
+/* 메뉴 패널: overflow를 열어 두어야 받침 색지와 그림자가 잘리지 않는다 */
+.pc-ui-select-content[data-pc-paper], .pc-ui-combobox-dropdown[data-pc-paper] {
+  overflow: visible; max-height: none; padding: 10px 13px 13px 10px;
+}
+/* 옵션 문구가 열 너비보다 길어도 한 줄로 두고, 패널이 내용에 맞게 넓어진다 */
+.pc-ui-select-content[data-pc-paper] { right: auto; min-width: 100%; width: max-content; max-width: min(320px, 86vw); }
+.pc-ui-select-item { white-space: nowrap; }
+.pc-ui-combobox-dropdown[data-pc-paper] > .pc-ui-field-wrap { margin-bottom: 6px; }
+.pc-ui-select-item, .pc-ui-combobox-item {
+  min-height: 40px; gap: 8px; box-sizing: border-box; position: relative; z-index: 1;
+}
+.pc-ui-select-item[aria-selected="true"], .pc-ui-combobox-item[aria-selected="true"] {
+  background: var(--pc-mint-light, #EAF7F1); font-weight: 800;
+}
+.pc-ui-option-mark { flex: none; opacity: 0; transition: opacity 0.14s ease; }
+[aria-selected="true"] > .pc-ui-option-mark { opacity: 1; }
+.pc-ui-select-item:focus-visible, .pc-ui-combobox-item:focus-visible {
+  outline: 2px solid var(--pc-paper-focus, #6F5BB5); outline-offset: -2px;
+}
+.pc-ui-select-item:hover, .pc-ui-combobox-item:hover { background: var(--pc-lavender-light, #F4F0FA); }
+.pc-ui-select-trigger:focus-visible, .pc-ui-combobox-trigger:focus-visible { outline: 2px solid var(--pc-paper-focus, #6F5BB5); outline-offset: 2px; }
+
+/* 셀렉트·콤보박스 2열: 열이 170px보다 좁아지면 값이 잘리므로 1열로 쌓는다 */
+.pc-grid-cols:has(> div > .pc-ui-select) { grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr)); }
+
+/* 라디오 묶음 트레이 */
+.pc-ui-radio-tray[data-pc-paper] { border-radius: 12px; padding: 10px 12px 13px 10px !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-ui-ctl-mark, .pc-ui-sw-thumb, .pc-ui-chevron, .pc-ui-option-mark { transition: none; }
+}
+/* @lane-forms-end */
+
+/* ==========================================================================
+   PAPER LAYER — LANE: NAVIGATION (Card 4·6·7: 아코디언, 탭·브레드크럼·페이지네이션·진행 막대, 메뉴바·내비게이션 메뉴)
+   ========================================================================== */
+/* @lane-nav-start */
+/* 공통: 포커스 링 색은 엔진과 같은 --pc-paper-focus 계열 */
+.pc-comp-group .pc-ui-accordion-trigger:focus-visible,
+.pc-comp-group .pc-ui-collapsible-trigger-bar:focus-visible,
+.pc-comp-group .pc-ui-crumb:focus-visible,
+.pc-comp-group .pc-ui-menubar-item:focus-visible,
+.pc-comp-group .pc-ui-nav-link:focus-visible {
+  outline: 2px solid #6F5BB5;
+  outline-offset: 2px;
+}
+
+/* 메뉴·내비게이션 패널이 열린 카드는 다음 카드 위로 올라와야 잘리지 않는다 */
+.pc-comp-group:has(.pc-ui-menubar-menu[data-state="open"], .pc-ui-nav-pill-wrap[data-state="open"], .pc-dropdown-custom.pc-is-open, .pc-dropdown-custom.is-open) { z-index: 20; }
+
+/* ---- Accordion / Collapsible: 한 장의 sheet 색지, 열린 항목은 accent로 눌린다 ---- */
+.pc-comp-group .pc-ui-accordion { gap: 12px; }
+.pc-comp-group .pc-ui-accordion-item,
+.pc-comp-group .pc-ui-collapsible {
+  overflow: visible;                 /* 색지 그림자가 잘리지 않게 */
+  padding: 2px 5px 6px 2px;          /* 받침 색지가 보이는 오른쪽·아래 여백 */
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-collapsible { width: auto; margin-top: 14px; }
+.pc-comp-group .pc-ui-accordion-trigger,
+.pc-comp-group .pc-ui-collapsible-trigger-bar {
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 14px;
+  gap: 10px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--pc-ink, #3D352E);
+  text-align: left;
+  justify-content: space-between;
+  word-break: keep-all;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-accordion-trigger:hover { background: transparent; }
+.pc-ui-accordion-label { display: inline-flex; align-items: center; gap: 10px; min-width: 0; }
+.pc-comp-group .pc-ui-accordion-item .pc-mini-icon-disc {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-chevron { flex: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .pc-comp-group .pc-ui-chevron { transition: transform 0.2s ease; }
+}
+.pc-comp-group .pc-ui-accordion-item[data-state="open"] .pc-ui-chevron,
+.pc-comp-group .pc-ui-collapsible[data-state="open"] .pc-ui-chevron,
+.pc-comp-group .pc-ui-nav-pill-wrap[data-state="open"] .pc-ui-chevron { transform: rotate(180deg); }
+.pc-comp-group .pc-ui-accordion-inner {
+  margin: 0;
+  padding: 0 16px 12px 52px;
+  border-top: 0;
+  background: none;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--pc-ink-muted, #6B5E50);
+  word-break: keep-all;
+}
+.pc-comp-group .pc-ui-accordion-item[data-state="open"] .pc-ui-accordion-inner { color: var(--pc-ink, #3D352E); }
+.pc-comp-group .pc-ui-collapsible-content { background: transparent; }
+.pc-comp-group .pc-ui-collapsible-inner {
+  padding: 0 16px;
+  box-shadow: none;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--pc-ink-muted, #6B5E50);
+  word-break: keep-all;
+}
+/* 닫힌 서랍에 패딩이 남지 않도록 열릴 때만 아래 여백을 준다 */
+.pc-comp-group .pc-ui-collapsible[data-state="open"] .pc-ui-collapsible-inner { padding-bottom: 12px; }
+
+/* ---- Folder tabs: tab 변형 + 아래 sheet 패널 ---- */
+.pc-comp-group .pc-ui-folder-tabs { align-items: flex-end; padding: 0 6px; }
+.pc-comp-group .pc-ui-folder-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px 11px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--pc-ink-muted, #6B5E50);
+  cursor: pointer;
+  box-sizing: border-box;
+  --pc-paper-radius: 10px;
+}
+.pc-comp-group .pc-ui-folder-tab.pc-is-active,
+.pc-comp-group .pc-ui-folder-tab.is-active,
+.pc-comp-group .pc-ui-folder-tab[aria-selected="true"] { font-weight: 800; color: var(--pc-ink, #3D352E); }
+.pc-comp-group .pc-ui-folder-panel {
+  margin: 4px 5px 6px 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--pc-ink-muted, #6B5E50);
+  word-break: keep-all;
+  box-sizing: border-box;
+}
+
+/* ---- Breadcrumb: 작은 pill 칩 + 3D 화살표 구분자, 링크의 터치 영역은 44px ---- */
+.pc-comp-group .pc-ui-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; }
+.pc-comp-group .pc-ui-crumb {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  text-decoration: none;
+  border-radius: 14px;
+}
+.pc-comp-group .pc-ui-crumb-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 28px;
+  padding: 3px 12px 5px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pc-ink-muted, #6B5E50);
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-crumb-chip.pc-is-active,
+.pc-comp-group .pc-ui-crumb-chip.is-active { font-weight: 800; color: var(--pc-ink, #3D352E); }
+.pc-comp-group .pc-ui-crumb:hover > .pc-ui-crumb-chip > .pc-ui-paper-layer .pc-paper-top { transform: translate(-1px, -1px); }
+.pc-comp-group .pc-ui-crumb-sep { flex: none; opacity: 0.9; }
+
+/* ---- Progress: 파인 홈 track 위에 accent 톤 track이 width만큼 채워진다 ---- */
+.pc-comp-group .pc-ui-progress {
+  display: block;
+  height: 14px;
+  border: 0;
+  overflow: visible;
+  box-shadow: none;
+  background: none;
+}
+.pc-comp-group .pc-ui-progress-indicator {
+  height: 100%;
+  min-width: 14px;
+  max-width: 100%;
+  border: 0;
+  box-shadow: none;
+  background: none;
+}
+
+/* ---- Pagination: pill 색지, 둥근 모서리는 --pc-paper-radius로 정사각 느낌 ---- */
+.pc-comp-group .pc-ui-pagination-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px 12px 12px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pc-ink, #3D352E);
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-pagination-btn.pc-is-nav,
+.pc-comp-group .pc-ui-pagination-btn.is-nav { padding: 10px 14px 12px; }
+
+/* ---- Menubar: 바 sheet, 트리거 pill, 열린 메뉴 panel은 menu ---- */
+.pc-comp-group .pc-ui-menubar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 5px 8px 8px 5px;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-menubar:has(.pc-ui-menubar-menu[data-state="open"]) { z-index: 30; }
+.pc-comp-group .pc-ui-menubar-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 6px 14px 8px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pc-ink-muted, #6B5E50);
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-menubar-trigger[data-state="open"] { font-weight: 800; color: var(--pc-ink, #3D352E); }
+.pc-comp-group .pc-ui-menubar-content,
+.pc-comp-group .pc-ui-nav-pill-panel {
+  min-width: 200px;
+  max-width: calc(100vw - 24px);
+  padding: 8px 10px 11px 8px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-menubar-content { top: calc(100% + 4px); }
+.pc-comp-group .pc-ui-menubar-item,
+.pc-comp-group .pc-ui-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pc-ink, #3D352E);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-nav-link { justify-content: flex-start; gap: 8px; }
+.pc-comp-group .pc-ui-menubar-item:hover,
+.pc-comp-group .pc-ui-nav-link:hover { background: rgba(215, 203, 235, 0.45); }
+.pc-ui-menubar-label { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.pc-comp-group .pc-ui-menubar-shortcut { white-space: nowrap; }
+
+/* ---- Navigation menu: 리본 pill + 열리는 menu 패널 ---- */
+.pc-comp-group .pc-ui-nav-pills { position: relative; }
+.pc-comp-group .pc-ui-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 14px 10px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--pc-ink-muted, #6B5E50);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-nav-pill.pc-is-active,
+.pc-comp-group .pc-ui-nav-pill.is-active,
+.pc-comp-group .pc-ui-nav-pill[data-state="open"] { font-weight: 800; color: var(--pc-ink, #3D352E); }
+.pc-comp-group .pc-ui-nav-pill-wrap { position: relative; }
+.pc-comp-group .pc-ui-nav-pill-panel {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+}
+.pc-comp-group .pc-ui-nav-pill-panel[hidden] { display: none; }
+
+/* ---- Command hint: ticket 색지 + keycap pill ---- */
+.pc-comp-group .pc-ui-command-hint {
+  padding: 10px 24px 14px 22px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  box-sizing: border-box;
+}
+.pc-comp-group .pc-ui-keycap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  min-height: 26px;
+  padding: 3px 9px 5px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--pc-ink, #3D352E);
+  box-sizing: border-box;
+  --pc-paper-radius: 8px;
+}
+/* @lane-nav-end */
+
+/* ==========================================================================
+   PAPER LAYER — LANE: OVERLAYS & DATA (Card 5·8·9·10·11: 오버레이, 메뉴, 알림·토스트, 테이블·캘린더, 카드·캐러셀·툴팁)
+   ========================================================================== */
+/* @lane-overlays-start */
+/* 규칙: 수화 전(JS 없음 포함)에는 기존 CSS 모양이 그대로 남도록, 새 규칙은 .is-paper-hydrated 또는 데모 전용 클래스에만 건다.
+   받침 색지는 오른쪽·아래로 어긋나므로(sheet/menu/ticket 3px) 불투명한 자식이 색지 밖으로 나가지 않게 패딩을 3px 더한다. */
+
+/* ---- 공통: 카드 그룹과 라이브러리 카드는 overflow를 열어 그림자가 잘리지 않게 ---- */
+.pc-comp-group.pc-is-paper-hydrated, .pc-comp-group.is-paper-hydrated, .pc-ui-card.pc-is-paper-hydrated, .pc-ui-card.is-paper-hydrated { overflow: visible; }
+/* 열린 팝오버·드롭다운·툴팁이 다음 카드 아래로 깔리지 않게 그룹을 위로 올린다 */
+.pc-comp-group:has(.pc-ui-popover[data-state="open"], .pc-ui-dropdown-menu[data-state="open"], .pc-ui-tooltip:hover, .pc-ui-tooltip:focus-within, .pc-ui-hover-card:hover) { z-index: 20; }
+
+/* 닫기 버튼 터치 영역 44px */
+.pc-ui-alert-close, .pc-ui-dialog-close, .pc-ui-sheet-close { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+
+.pc-pill-badge[data-pc-paper] { padding: 5px 14px 7px 12px; box-sizing: border-box; border: 0; }
+.pc-pill-badge.pc-is-paper-hydrated, .pc-pill-badge.is-paper-hydrated { box-shadow: none; }
+
+/* ---- 드롭다운 데모 패널 (menu) ---- */
+.pc-ui-dd-panel { display: flex; flex-direction: column; gap: 4px; padding: 10px 13px 13px 10px; margin-bottom: 14px; box-sizing: border-box; --pc-paper-radius: 14px; }
+.pc-ui-dd-label { font-size: 11px; font-weight: 800; color: var(--pc-ink-muted, #7A6958); padding: 4px 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+.pc-ui-dd-item, .pc-ui-dropdown-menu-item.pc-is-paper-hydrated, .pc-ui-dropdown-menu-item.is-paper-hydrated, .pc-ui-context-menu-item.pc-is-paper-hydrated, .pc-ui-context-menu-item.is-paper-hydrated {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 44px;
+  padding: 8px 14px 10px 12px; border: 0; background: transparent; box-sizing: border-box;
+  font: inherit; font-size: 12.5px; font-weight: 700; color: var(--pc-ink, #3D352E); text-align: left; cursor: pointer;
+  --pc-paper-radius: 10px; transform: none;
+}
+.pc-ui-dd-item.pc-is-danger, .pc-ui-dd-item.is-danger, .pc-ui-context-menu-item.pc-is-danger, .pc-ui-context-menu-item.is-danger { color: #8F2230; }
+.pc-ui-dd-item-main { display: inline-flex; align-items: center; gap: 8px; min-width: 0; word-break: keep-all; }
+.pc-ui-dd-kbd { font-size: 10px; flex: none; min-height: 0; }
+.pc-ui-dd-sep, .pc-ui-context-menu-separator { height: 0; border-top: 1px dashed rgba(74, 58, 42, 0.25); margin: 2px 6px; }
+/* 라이브러리 메뉴 패널 */
+.pc-ui-dropdown-menu-content.pc-is-paper-hydrated, .pc-ui-dropdown-menu-content.is-paper-hydrated, .pc-ui-context-menu.pc-is-paper-hydrated, .pc-ui-context-menu.is-paper-hydrated { padding: 8px 11px 11px 8px; --pc-paper-radius: 14px; }
+
+/* ---- 컨텍스트 메뉴 데모 영역 (field) ---- */
+.pc-ui-ctx-area {
+  display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 56px; margin-bottom: 14px;
+  padding: 12px 15px 15px 12px; box-sizing: border-box; font-size: 12.5px; font-weight: 700; text-align: center;
+  color: var(--pc-ink, #3D352E); cursor: context-menu; word-break: keep-all; --pc-paper-radius: 12px;
+  border: 1.5px dashed rgba(74, 58, 42, 0.18); border-radius: 12px;
+}
+.pc-ui-ctx-area.pc-is-paper-hydrated,
+.pc-ui-ctx-area.is-paper-hydrated { border-width: 1.5px; }
+
+/* ---- 팝오버 · 호버 카드 · 툴팁 (menu) ---- */
+.pc-ui-popover-demo { display: block; }
+.pc-ui-popover-content.pc-is-paper-hydrated,
+.pc-ui-popover-content.is-paper-hydrated,
+.pc-ui-hover-card-content.pc-is-paper-hydrated,
+.pc-ui-hover-card-content.is-paper-hydrated { padding: 16px 19px 19px 16px; --pc-paper-radius: 14px; }
+.pc-ui-popover-content.pc-is-paper-hydrated .pc-ui-popover-arrow,
+.pc-ui-popover-content.is-paper-hydrated .pc-ui-popover-arrow { display: none; }
+.pc-ui-pop-title { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--pc-ink, #3D352E); }
+.pc-ui-pop-text { margin: 6px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--pc-ink-muted, #7A6958); word-break: keep-all; }
+
+.pc-ui-tooltip-content.pc-is-paper-hydrated,
+.pc-ui-tooltip-content.is-paper-hydrated {
+  background: transparent; color: var(--pc-ink, #3D352E); box-shadow: none; font-weight: 700; line-height: 1.45;
+  padding: 8px 15px 11px 12px; white-space: normal; width: max-content; max-width: min(240px, calc(100vw - 64px));
+  word-break: keep-all; --pc-paper-radius: 10px;
+}
+.pc-ui-tooltip-content.pc-is-paper-hydrated::after,
+.pc-ui-tooltip-content.is-paper-hydrated::after { display: none; }
+.pc-ui-tooltip-content.pc-is-start,
+.pc-ui-tooltip-content.is-start { left: 0; transform: translateY(4px); }
+.pc-ui-tooltip:hover .pc-ui-tooltip-content.pc-is-start,
+.pc-ui-tooltip:hover .pc-ui-tooltip-content.is-start,
+.pc-ui-tooltip-wrapper:hover .pc-ui-tooltip-content.pc-is-start,
+.pc-ui-tooltip-wrapper:hover .pc-ui-tooltip-content.is-start,
+.pc-ui-tooltip:focus-within .pc-ui-tooltip-content.pc-is-start,
+.pc-ui-tooltip:focus-within .pc-ui-tooltip-content.is-start { transform: translateY(0); }
+/* 키보드 포커스에서도 열린다 */
+.pc-ui-tooltip:focus-within .pc-ui-tooltip-content, .pc-ui-tooltip-wrapper:focus-within .pc-ui-tooltip-content { opacity: 1; }
+.pc-ui-tooltip:focus-within .pc-ui-tooltip-content:not(.pc-is-start):not(.is-start),
+.pc-ui-tooltip-wrapper:focus-within .pc-ui-tooltip-content:not(.pc-is-start):not(.is-start) { transform: translateX(-50%) translateY(0); }
+.pc-pill-badge.pc-ui-tip-trigger { min-height: 44px; font-family: inherit; cursor: help; align-items: center; }
+
+/* ---- 알림 (ticket): 톤이 종류를 나타낸다 ---- */
+.pc-ui-alert.pc-is-paper-hydrated,
+.pc-ui-alert.is-paper-hydrated { padding: 14px 20px 17px 20px; gap: 10px; align-items: flex-start; margin-bottom: 0; }
+.pc-ui-alert-stack > .pc-ui-alert { margin-bottom: 0; }
+.pc-ui-alert-title { word-break: keep-all; font-size: 13px; font-weight: 800; }
+.pc-ui-alert-description { word-break: keep-all; font-size: 12px; line-height: 1.5; }
+.pc-ui-alert .pc-ui-alert-icon { margin-top: 1px; }
+
+/* ---- 토스트 (ticket) ---- */
+/* data-state="open"은 엔진에서 "눌림(활성)"으로 읽히므로, 패널로 열려 있는 요소는 평상시 색지로 되돌린다 */
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-top,
+.is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-top { transform: none; }
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-sheet,
+.is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-sheet { fill: var(--pc-paper-fill); }
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-base,
+.is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content, .pc-ui-context-menu)[data-state="open"] > .pc-ui-paper-layer .pc-paper-base { fill: var(--pc-paper-base); }
+.pc-is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content)[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack,
+.is-paper-hydrated:is(.pc-ui-toast, .pc-ui-sheet-content, .pc-ui-drawer-content)[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack { filter: url(#pc-paper-sh); }
+.pc-is-paper-hydrated.pc-ui-context-menu[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack,
+.is-paper-hydrated.pc-ui-context-menu[data-state="open"] > .pc-ui-paper-layer .pc-paper-stack { filter: url(#pc-paper-sh-lift); }
+.pc-ui-toast.pc-is-paper-hydrated,
+.pc-ui-toast.is-paper-hydrated { padding: 16px 23px 19px 22px; }
+.pc-ui-toast.pc-is-paper-hydrated::before,
+.pc-ui-toast.is-paper-hydrated::before { display: none; }   /* 마스킹 테이프 조각: 색지 위에서는 중복 */
+.pc-ui-toast-viewport { max-width: min(400px, calc(100vw - 48px)); }   /* 좁은 화면에서 왼쪽 노치가 화면 밖으로 잘리지 않게 */
+.pc-ui-toast-title { word-break: keep-all; }
+.pc-ui-toast-description { word-break: keep-all; line-height: 1.5; }
+.pc-ui-toast-close { margin: -10px -10px -10px 0; }
+.pc-toast-card.pc-is-paper-hydrated,
+.pc-toast-card.is-paper-hydrated,
+.pc-alert.pc-is-paper-hydrated,
+.pc-alert.is-paper-hydrated { overflow: visible; }
+/* 킬리가미 ticket 의 CSS 원형 노치: ticket 색지가 반원 노치를 직접 그리므로 중복을 끈다 */
+.pc-toast-ticket.pc-is-paper-hydrated::before,
+.pc-toast-ticket.is-paper-hydrated::before,
+.pc-toast-ticket.pc-is-paper-hydrated::after,
+.pc-toast-ticket.is-paper-hydrated::after,
+.pc-alert-ticket.pc-is-paper-hydrated::before,
+.pc-alert-ticket.is-paper-hydrated::before,
+.pc-alert-ticket.pc-is-paper-hydrated::after,
+.pc-alert-ticket.is-paper-hydrated::after { display: none; }
+
+/* ---- 모달 대화상자 · 시트 · 드로어 (papercut-modals.js 가 만든 패널) ---- */
+.pc-modal-dialog.pc-is-paper-hydrated,
+.pc-modal-dialog.is-paper-hydrated { padding: 0 3px 3px 0; }
+.pc-modal-dialog.pc-is-paper-hydrated::before,
+.pc-modal-dialog.is-paper-hydrated::before { display: none; }          /* 윗 모서리 하이라이트 선: 색지 림과 중복 */
+.pc-modal-ticket.pc-is-paper-hydrated::after,
+.pc-modal-ticket.is-paper-hydrated::after { display: none; }           /* 어두운 원 노치: ticket 색지의 반원 노치가 대신한다 */
+.pc-modal-dialog.pc-is-paper-hydrated .pc-dialog-footer,
+.pc-modal-dialog.is-paper-hydrated .pc-dialog-footer { border-radius: 0 0 14px 14px; }
+/* 대화상자 안의 입력·셀렉트·강조 상자 */
+.pc-modal-field { border-radius: 10px; }
+.pc-modal-field { position: relative; display: block; }
+.pc-modal-field.pc-is-paper-hydrated > .pc-input,
+.pc-modal-field.is-paper-hydrated > .pc-input,
+.pc-modal-field.pc-is-paper-hydrated > .pc-modal-select,
+.pc-modal-field.is-paper-hydrated > .pc-modal-select {
+  background: transparent; box-shadow: none; border: 0; min-height: 44px; padding: 10px 14px 12px; position: relative; z-index: 1;
+}
+/* 네이티브 select: papercut.js 의 select 자동 변환(.pc-select-wrapper)을 피하려고 전용 클래스를 쓴다 */
+.pc-modal-select {
+  width: 100%; box-sizing: border-box; min-height: 44px; padding: 10px 40px 12px 14px; border: 1px solid #E2D6C3; border-radius: 10px;
+  background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 700; color: var(--pc-ink, #3D352E);
+  -webkit-appearance: none; appearance: none; cursor: pointer; outline: none;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.pc-modal-field.pc-is-paper-hydrated > .pc-modal-select,
+.pc-modal-field.is-paper-hydrated > .pc-modal-select { padding-right: 40px; outline: none; }
+.pc-modal-select-caret { position: absolute; right: 14px; top: 50%; transform: translateY(-62%); pointer-events: none; z-index: 2; }
+.pc-modal-field:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-modal-select-caret { display: none; }
+.pc-modal-callout { border-radius: 12px; padding: 10px 14px 13px 12px; --pc-paper-radius: 12px; background: #F3ECE1; border: 1px solid #E2D6C3; }
+
+/* 시트: 오른쪽·위·아래 가장자리 밖으로 16px 밀어 둥근 모서리와 어긋난 받침 색지를 화면 밖으로 숨긴다 */
+.pc-modal-sheet.pc-is-paper-hydrated,
+.pc-modal-sheet.is-paper-hydrated { top: -16px; bottom: -16px; right: -16px; padding: 16px 19px 19px 0; --pc-paper-radius: 14px; }
+.pc-modal-sheet.pc-is-paper-hydrated::before,
+.pc-modal-sheet.is-paper-hydrated::before { top: 16px; bottom: 19px; left: 14px; }   /* 노트 제본 스티치 */
+.pc-modal-sheet-item { padding: 14px 17px 17px 14px; --pc-paper-radius: 14px; border-radius: 14px; background: #FFFFFF; border: 1.5px solid #E6DCCB; }
+.pc-modal-sheet-item.pc-is-paper-hydrated,
+.pc-modal-sheet-item.is-paper-hydrated { transform: none; }
+.pc-modal-sheet-summary { padding: 14px 17px 17px 16px; margin-top: 8px; --pc-paper-radius: 14px; border-radius: 14px; background: #F4EFE6; }
+/* 드로어: 아래로 28px 밀어 아래쪽 둥근 모서리를 화면 밖으로 */
+.pc-modal-drawer.pc-is-paper-hydrated,
+.pc-modal-drawer.is-paper-hydrated { overflow: visible; margin-bottom: -28px; padding: 0 3px 31px 0; }
+.pc-drawer-pull-tab[data-pc-paper] { width: 56px; height: 10px; }
+
+/* ---- 라이브러리 대화상자 · 시트 · 드로어 · 알림 대화상자 ---- */
+.pc-ui-alert-dialog-content.pc-is-paper-hydrated,
+.pc-ui-alert-dialog-content.is-paper-hydrated { padding: 28px 33px 31px 30px; --pc-paper-radius: 18px; }
+.pc-ui-alert-dialog-content.pc-is-paper-hydrated::before,
+.pc-ui-alert-dialog-content.is-paper-hydrated::before { display: none; }
+.pc-ui-dialog-content.pc-is-paper-hydrated,
+.pc-ui-dialog-content.is-paper-hydrated { padding: 28px 31px 31px 28px; --pc-paper-radius: 18px; }
+.pc-ui-sheet-content.pc-is-paper-hydrated:not([data-side="left"]):not([data-side="top"]):not([data-side="bottom"]),
+.pc-ui-sheet-content.is-paper-hydrated:not([data-side="left"]):not([data-side="top"]):not([data-side="bottom"]) { top: -16px; bottom: -16px; right: -16px; padding: 44px 47px 47px 28px; --pc-paper-radius: 14px; }
+.pc-ui-sheet-content.pc-is-paper-hydrated[data-side="left"],
+.pc-ui-sheet-content.is-paper-hydrated[data-side="left"] { top: -16px; bottom: -16px; left: -16px; padding: 44px 31px 47px 44px; --pc-paper-radius: 14px; }
+.pc-ui-sheet-content.pc-is-paper-hydrated[data-side="top"],
+.pc-ui-sheet-content.is-paper-hydrated[data-side="top"],
+.pc-ui-sheet-content.pc-is-paper-hydrated[data-side="bottom"],
+.pc-ui-sheet-content.is-paper-hydrated[data-side="bottom"] { padding: 28px 31px 31px 28px; }
+.pc-ui-drawer-content.pc-is-paper-hydrated,
+.pc-ui-drawer-content.is-paper-hydrated { bottom: -28px; padding: 16px 27px 60px 24px; --pc-paper-radius: 24px; }
+/* 고정 헤더·사이드바(z-index 높음)까지 어둡게 덮도록 papercut-modals.css 와 같은 층위로 올린다 */
+.pc-ui-dialog-overlay, .pc-ui-alert-dialog-overlay { z-index: 200000 !important; }
+.pc-ui-sheet-overlay, .pc-ui-drawer-overlay { z-index: 200001 !important; }
+.pc-ui-sheet-content, .pc-ui-drawer-content { z-index: 200002 !important; }
+.pc-ui-alert-dialog-title { word-break: keep-all; text-wrap: balance; }
+.pc-ui-alert-dialog-title .pc-inline-icon { vertical-align: -3px; margin-right: 4px; }
+.pc-ui-alert-dialog-description { word-break: keep-all; text-wrap: pretty; }
+
+/* ---- 데이터 테이블 (바깥 sheet + 안쪽 스크롤) ---- */
+.pc-ui-dt-sheet { padding: 9px 12px 12px 9px; margin-bottom: 16px; box-sizing: border-box; --pc-paper-radius: 14px; border: 1.5px solid #EADBCC; border-radius: 14px; background: #FAF7F0; }
+.pc-ui-dt-scroll { overflow-x: auto; max-width: 100%; border-radius: 8px; background: #FFFFFF; -webkit-overflow-scrolling: touch; }
+.pc-ui-dt { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+.pc-ui-dt th, .pc-ui-dt td { padding: 11px 10px; word-break: keep-all; vertical-align: middle; }
+.pc-ui-dt-head th { background: #F0EAE1; font-weight: 800; color: var(--pc-ink, #3D352E); border-bottom: 1.5px dashed #D3C3AB; }
+.pc-ui-dt tbody tr { background: #FFFFFF; border-bottom: 1px dashed rgba(74, 58, 42, 0.14); }
+.pc-ui-dt tbody tr:nth-child(even) { background: #FAF7F0; }
+.pc-ui-dt tbody tr:last-child { border-bottom: 0; }
+.pc-ui-dt th,
+.pc-ui-dt td.pc-is-strong,
+.pc-ui-dt td.is-strong,
+.pc-ui-dt td.pc-is-num,
+.pc-ui-dt td.is-num { white-space: nowrap; }
+.pc-ui-dt .pc-pill-badge[data-pc-paper] { font-size: 11px; padding: 3px 12px 5px 10px; }
+.pc-ui-dt .pc-is-num,
+.pc-ui-dt .is-num { text-align: right; }
+.pc-ui-dt .pc-is-strong,
+.pc-ui-dt .is-strong { font-weight: 800; }
+[data-selectable] .pc-ui-dt tbody tr { cursor: pointer; }
+[data-selectable] .pc-ui-dt tbody tr:hover td { background: var(--pc-lavender-light, #F4F0FA); }
+[data-selectable] .pc-ui-dt tbody tr[aria-selected="true"] td { background: var(--pc-mint-light, #EAF7F1); font-weight: 800; }
+[data-selectable] .pc-ui-dt tbody tr:focus-visible { outline: 2px solid var(--pc-paper-focus, #6F5BB5); outline-offset: -2px; }
+.pc-ui-table-wrap.pc-is-paper-hydrated,
+.pc-ui-table-wrap.is-paper-hydrated { padding: 9px 12px 12px 9px; overflow: visible; }
+
+/* ---- 캘린더 (sheet) + 날짜 칸 (knob) ---- */
+.pc-ui-calendar.pc-is-paper-hydrated,
+.pc-ui-calendar.is-paper-hydrated { overflow: visible; padding: 18px 21px 21px 18px; box-sizing: border-box; --pc-paper-radius: 14px; }
+.pc-ui-cal-demo { width: 100%; margin-bottom: 0; }
+.pc-ui-cal-demo .pc-ui-calendar-header { margin-bottom: 10px; }
+.pc-ui-calendar-title { word-break: keep-all; }
+.pc-ui-cal-nav, .pc-ui-car-btn {
+  width: 44px; height: 44px; min-width: 44px; min-height: 44px; padding: 0; margin: 0; border: 0; background: transparent;
+  display: inline-flex; align-items: center; justify-content: center; cursor: pointer; --pc-paper-radius: 12px; color: var(--pc-ink, #3D352E);
+}
+.pc-ui-calendar-weekday { font-size: 11.5px; }
+.pc-ui-calendar-day[data-pc-paper] {
+  aspect-ratio: auto; min-height: 44px; min-width: 0; border: 0; padding: 0 0 2px; color: var(--pc-ink, #3D352E);
+  font-family: inherit; font-size: 13px; font-weight: 700; --pc-paper-radius: 10px; transition: none;
+}
+.pc-ui-calendar-day.pc-is-paper-hydrated:hover:not(.pc-is-disabled):not(.is-disabled),
+.pc-ui-calendar-day.is-paper-hydrated:hover:not(.pc-is-disabled):not(.is-disabled) { background: transparent; transform: none; }
+.pc-ui-calendar-day.pc-is-paper-hydrated.pc-is-selected,
+.pc-ui-calendar-day.pc-is-paper-hydrated.is-selected,
+.pc-ui-calendar-day.is-paper-hydrated.pc-is-selected,
+.pc-ui-calendar-day.is-paper-hydrated.is-selected { color: var(--pc-ink, #3D352E); font-weight: 800; }
+.pc-ui-calendar-day.pc-is-other-month,
+.pc-ui-calendar-day.is-other-month { opacity: 1; }
+.pc-ui-cal-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 12px; font-weight: 800; color: var(--pc-ink, #3D352E); }
+.pc-ui-cal-foot-label { display: inline-flex; align-items: center; gap: 5px; word-break: keep-all; }
+
+/* ---- 카드 · 캐러셀 (sheet 슬라이드 + knob 점) ---- */
+.pc-ui-sample-card { margin-bottom: 14px; padding: 0 3px 3px 0; transition: none; }
+.pc-ui-sample-card.pc-is-paper-hydrated,
+.pc-ui-sample-card.is-paper-hydrated { --pc-paper-radius: 14px; }
+.pc-ui-sample-card .pc-ui-card-header { padding: 16px 18px 6px 18px; }
+.pc-ui-sample-card .pc-ui-card-title { font-size: 14px; word-break: keep-all; text-wrap: balance; }
+.pc-ui-sample-card .pc-ui-card-description { font-size: 12px; word-break: keep-all; text-wrap: pretty; }
+.pc-ui-sample-card .pc-ui-card-content { padding: 6px 18px 18px; display: flex; flex-wrap: wrap; gap: 6px; }
+.pc-ui-carousel-demo { margin-bottom: 14px; padding: 0; }
+.pc-ui-carousel-demo .pc-ui-carousel-item { padding: 6px 8px 10px 4px; }
+.pc-ui-car-slide { padding: 14px 18px 18px 14px; --pc-paper-radius: 14px; box-sizing: border-box; border-radius: 14px; border: 1.5px solid #EADBCC; background: #FAF7F0; }
+.pc-ui-car-slide-title { font-size: 13px; font-weight: 800; color: var(--pc-ink, #3D352E); margin-bottom: 4px; word-break: keep-all; text-wrap: balance; }
+.pc-ui-car-slide-text { font-size: 12px; color: var(--pc-ink-muted, #7A6958); margin: 0; line-height: 1.5; word-break: keep-all; text-wrap: pretty; }
+.pc-ui-carousel-dot[data-pc-paper] { position: relative; width: 14px; height: 14px; border: 0; box-shadow: none; transition: width 0.2s ease; }
+.pc-ui-carousel-dot[data-pc-paper].pc-is-active,
+.pc-ui-carousel-dot[data-pc-paper].is-active { width: 32px; }
+.pc-ui-carousel-dot[data-pc-paper]::after { content: ""; position: absolute; inset: -15px -6px; }   /* 터치 영역 44px */
+.pc-ui-carousel-demo .pc-ui-carousel-dots { gap: 12px; }
+
+/* ---- 리사이저블 (sheet 그룹 + track 홈 + knob 손잡이) ---- */
+.pc-ui-resizable-group.pc-is-paper-hydrated,
+.pc-ui-resizable-group.is-paper-hydrated,
+.pc-ui-resizable-panel-group.pc-is-paper-hydrated,
+.pc-ui-resizable-panel-group.is-paper-hydrated { overflow: visible; border: 0; --pc-paper-radius: 14px; }
+.pc-ui-resizable-demo { height: 116px; margin-bottom: 14px; padding: 6px 9px 9px 6px; box-sizing: border-box; border: 1.5px solid #EADBCC; border-radius: 14px; background: #FAF7F0; }
+.pc-ui-resizable-panel { min-width: 0; overflow: auto; padding: 10px 12px; }
+.pc-ui-rs-title { font-size: 12.5px; font-weight: 800; color: var(--pc-ink, #3D352E); word-break: keep-all; }
+.pc-ui-rs-text { margin: 4px 0 0; font-size: 12px; color: var(--pc-ink-muted, #7A6958); line-height: 1.45; word-break: keep-all; }
+.pc-ui-resizable-handle.pc-is-paper-hydrated,
+.pc-ui-resizable-handle.is-paper-hydrated { position: relative; flex: none; width: 12px; margin: 8px 6px 8px 6px; border: 0; touch-action: none; --pc-paper-radius: 6px; }
+.pc-ui-resizable-handle.pc-is-paper-hydrated::after,
+.pc-ui-resizable-handle.is-paper-hydrated::after { display: none; }       /* ::: 글자 그립은 3D 아이콘 그립으로 대체 */
+.pc-ui-resizable-handle { position: relative; touch-action: none; }   /* ::before 터치 영역의 기준(수화 전에도 필요) */
+.pc-ui-resizable-handle::before { content: ""; position: absolute; inset: 0 -16px; }   /* 터치 영역 44px */
+.pc-ui-resizable-grip {
+  position: absolute; left: 50%; top: 50%; z-index: 2; width: 24px; height: 36px; margin: -18px 0 0 -12px;
+  display: inline-flex; align-items: center; justify-content: center; --pc-paper-radius: 9px; cursor: col-resize; pointer-events: none;
+}
+.pc-ui-resizable-handle:not(.pc-is-paper-hydrated):not(.is-paper-hydrated) .pc-ui-resizable-grip { display: none; }
+
+/* PC Comp Group Component Cards (Unified Component Architecture) */
+.pc-comp-group {
+  background: var(--pc-paper-white);
+  border-radius: 20px;
+  padding: 24px;
+  border: 1.5px solid rgba(74, 58, 42, 0.12);
+  box-sizing: border-box;
+  scroll-margin-top: 130px;
+}
+.pc-comp-group.pc-is-suite-header,
+.pc-comp-group.is-suite-header {
+  grid-column: 1 / -1;
+}
+
+/* 좁은 화면: 캘린더·리사이저블이 카드 안쪽 폭(약 190px)에 들어가도록 여백을 줄인다 */
+@media (max-width: 480px) {
+  .pc-ui-cal-demo.pc-is-paper-hydrated,
+  .pc-ui-cal-demo.is-paper-hydrated,
+  .pc-ui-cal-demo { padding: 10px 13px 13px 10px; }
+  .pc-ui-cal-demo .pc-ui-calendar-grid { gap: 2px; }
+  .pc-ui-cal-demo .pc-ui-calendar-title { font-size: 13.5px; white-space: nowrap; }
+  .pc-ui-cal-demo .pc-ui-calendar-weekday { font-size: 11px; }
+  .pc-ui-cal-demo .pc-ui-calendar-day[data-pc-paper] { font-size: 12px; --pc-paper-radius: 8px; }
+  .pc-ui-cal-demo .pc-ui-cal-nav { width: 40px; min-width: 40px; }
+  .pc-ui-resizable-demo { height: auto; min-height: 116px; }
+}
+
+/* 움직임 줄이기: 이 레인이 만든 전환을 끈다 */
+@media (prefers-reduced-motion: reduce) {
+  .pc-ui-carousel-dot[data-pc-paper], .pc-ui-carousel-track, .pc-ui-tooltip-content { transition: none; }
+}
+
+/* ==========================================================================
+   WOOD SHAVING PAPER CURL (대패 말림 3D 원통 나선 롤링 물리 엔진)
+   ========================================================================== */
+.pc-wood-curl-viewport {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  perspective: var(--pc-perspective-depth, 1200px);
+  transform-style: preserve-3d;
+  touch-action: pan-y;
+  user-select: none;
+  border-radius: var(--pc-paper-radius, 16px);
+  contain: layout paint;
+}
+
+.pc-wood-curl-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  border-radius: inherit;
+  transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.pc-wood-curl-underlayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  border-radius: inherit;
+  transform-origin: center center;
+  transform: scale(calc(0.96 + 0.04 * var(--pc-curl-progress, 0)));
+  opacity: calc(0.4 + 0.6 * var(--pc-curl-progress, 0));
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.pc-wood-curl-peel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  border-radius: inherit;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  --pc-curl-progress: 0;
+  --pc-curl-radius: 42px;
+  transform: 
+    translateY(calc(-100% * var(--pc-curl-progress, 0)))
+    rotateX(calc(140deg * var(--pc-curl-progress, 0)))
+    translateZ(calc(var(--pc-curl-radius, 42px) * sin(calc(var(--pc-curl-progress, 0) * 3.14159))))
+    scaleY(calc(1 - 0.28 * var(--pc-curl-progress, 0)));
+  clip-path: inset(0 0 calc(100% * var(--pc-curl-progress, 0)) 0);
+  will-change: transform, clip-path;
+  transition: none;
+}
+
+/* 배면 크래프트 텍스처 (Backface kraft texture) */
+.pc-wood-curl-peel::after,
+.pc-wood-curl-back {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      rgba(139, 102, 65, 0.06) 0px,
+      rgba(139, 102, 65, 0.06) 2px,
+      transparent 2px,
+      transparent 8px
+    ),
+    linear-gradient(135deg, #E6D2B5 0%, #D8BE9B 50%, #C4A47C 100%);
+  transform: rotateX(180deg) translateZ(1px);
+  backface-visibility: visible;
+  pointer-events: none;
+  opacity: calc(var(--pc-curl-progress, 0) * 1.2);
+  box-shadow: inset 0 0 30px rgba(74, 58, 42, 0.22);
+}
+
+/* 크레센트 폐색음영 (Crescent ambient occlusion shadow) */
+.pc-wood-curl-peel::before,
+.pc-wood-curl-crescent-shadow {
+  content: "";
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 0;
+  height: 28px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(46, 30, 20, 0.45) 0%, rgba(46, 30, 20, 0.12) 60%, transparent 85%);
+  filter: blur(4px);
+  transform: translateY(calc(12px * (1 - var(--pc-curl-progress, 0)))) scaleX(calc(0.9 + 0.2 * var(--pc-curl-progress, 0)));
+  opacity: calc(sin(calc(var(--pc-curl-progress, 0) * 3.14159)) * 0.95);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.pc-wood-curl-peel.is-curling {
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   PAPER FLUTTER & SCATTER PARTICLES (바람 흩날림 & 키리가미 파티클)
+   ========================================================================== */
+.pc-flutter-leaf,
+.pc-scatter-particle {
+  position: absolute;
+  width: var(--pc-leaf-w, 12px);
+  height: var(--pc-leaf-h, 16px);
+  pointer-events: none;
+  user-select: none;
+  border-radius: 2px 5px 2px 6px;
+  box-shadow: 
+    0 1px 2px rgba(46, 30, 20, 0.25),
+    0 3px 6px rgba(46, 30, 20, 0.15);
+  backface-visibility: visible;
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  z-index: 9999;
+}
+
+.pc-flutter-leaf[data-color="cream"],
+.pc-scatter-particle[data-color="cream"] { background: #FAF7F0; border: 0.5px solid #E4DAC8; }
+.pc-flutter-leaf[data-color="mint"],
+.pc-scatter-particle[data-color="mint"] { background: #C8E6D8; border: 0.5px solid #A8D5BA; }
+.pc-flutter-leaf[data-color="peach"],
+.pc-scatter-particle[data-color="peach"] { background: #FDE2D1; border: 0.5px solid #F7C5A8; }
+.pc-flutter-leaf[data-color="lavender"],
+.pc-scatter-particle[data-color="lavender"] { background: #E3DEFD; border: 0.5px solid #C9C1F8; }
+.pc-flutter-leaf[data-color="buttercup"],
+.pc-scatter-particle[data-color="buttercup"] { background: #FEF3C7; border: 0.5px solid #FDE68A; }
+.pc-flutter-leaf[data-color="sky"],
+.pc-scatter-particle[data-color="sky"] { background: #D9EEF8; border: 0.5px solid #BAE6FD; }
+.pc-flutter-leaf[data-color="kraft"],
+.pc-scatter-particle[data-color="kraft"] { background: #D8BE9B; border: 0.5px solid #B89366; }
+
+/* 퇴장 애니메이션 클래스 (.pc-exit-scatter, .pc-exit-flutter) */
+.pc-exit-scatter {
+  animation: pcExitScatterAnim 0.42s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+  pointer-events: none !important;
+}
+
+@keyframes pcExitScatterAnim {
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+  40% {
+    opacity: 0.9;
+    transform: scale(1.02) translateY(-4px) rotate(1.2deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.88) translateY(18px) rotate(-3deg);
+    filter: blur(1.5px);
+  }
+}
+
+.pc-exit-flutter {
+  animation: pcExitFlutterAnim 0.55s cubic-bezier(0.2, 0.8, 0.4, 1) forwards !important;
+  pointer-events: none !important;
+  transform-origin: center top;
+}
+
+@keyframes pcExitFlutterAnim {
+  0% {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg) rotateZ(0deg) translateY(0);
+  }
+  35% {
+    opacity: 0.95;
+    transform: perspective(800px) rotateX(-18deg) rotateZ(3deg) translateY(-8px);
+  }
+  70% {
+    opacity: 0.6;
+    transform: perspective(800px) rotateX(32deg) rotateZ(-6deg) translateY(18px);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(800px) rotateX(55deg) rotateZ(8deg) translateY(42px) scale(0.82);
+  }
+}
+
+@keyframes pcWoodCurlRoll {
+  0% {
+    --pc-curl-progress: 0;
+    transform: translateY(0) rotateX(0deg) translateZ(0px) scaleY(1);
+    clip-path: inset(0 0 0 0);
+  }
+  50% {
+    transform: translateY(-50%) rotateX(70deg) translateZ(36px) scaleY(0.85);
+    clip-path: inset(0 0 50% 0);
+  }
+  100% {
+    --pc-curl-progress: 1;
+    transform: translateY(-100%) rotateX(140deg) translateZ(0px) scaleY(0.72);
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+/* Reduced Motion 접근성 지원 */
+@media (prefers-reduced-motion: reduce) {
+  .pc-wood-curl-card,
+  .pc-wood-curl-peel,
+  .pc-wood-curl-underlayer,
+  .pc-flutter-leaf,
+  .pc-scatter-particle,
+  .pc-exit-scatter,
+  .pc-exit-flutter,
+  .pc-btn,
+  .pc-btn-primary,
+  .pc-btn-secondary,
+  .pc-btn-ghost,
+  .pc-btn-craft,
+  .pc-badge,
+  .pc-ui-btn,
+  .pc-ui-button,
+  .pc-ui-badge {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
+  .pc-btn:hover,
+  .pc-btn-primary:hover,
+  .pc-btn-secondary:hover,
+  .pc-btn-ghost:hover,
+  .pc-btn-craft:hover,
+  .pc-badge:hover,
+  .pc-ui-btn:hover,
+  .pc-ui-button:hover,
+  .pc-ui-badge:hover,
+  .pc-btn:active,
+  .pc-btn-primary:active,
+  .pc-btn-secondary:active,
+  .pc-btn-ghost:active,
+  .pc-btn-craft:active,
+  .pc-badge:active,
+  .pc-ui-btn:active,
+  .pc-ui-button:active,
+  .pc-ui-badge:active {
+    transform: none !important;
+  }
+}
+/* @lane-overlays-end */
+
+/* ==========================================================================
+   Step 2: Shadowbox Craft Components, Wells & Bleed Architecture
+   Authentic Layered Paper-Cut Aesthetic (Matching papercut-hero.jpg)
+   ========================================================================== */
+
+/* 1. Shadowbox Recessed Wells & Matboard Frames (.pc-shadowbox-well, .pc-recessed-mat) */
+.pc-shadowbox-well,
+.pc-recessed-mat {
+  position: relative;
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.12) !important;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 
+    inset 0 3px 8px rgba(46, 30, 20, 0.18), 
+    inset 0 1px 2px rgba(46, 30, 20, 0.22), 
+    0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  box-sizing: border-box;
+}
+
+.pc-shadowbox-well.pc-is-deep,
+.pc-recessed-mat.pc-is-deep {
+  box-shadow: 
+    inset 0 6px 16px rgba(46, 30, 20, 0.24), 
+    inset 0 2px 4px rgba(46, 30, 20, 0.28), 
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 2. Frame Bleed Utilities (.pc-frame-bleed, .pc-bleed-top, .pc-bleed-bottom, etc.) */
+.pc-frame-bleed {
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 10;
+}
+
+.pc-bleed-top {
+  margin-top: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(-2px);
+  box-shadow: 
+    0 4px 10px rgba(46, 30, 20, 0.18), 
+    0 1px 2px rgba(46, 30, 20, 0.22);
+}
+
+.pc-bleed-bottom {
+  margin-bottom: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+  transform: translateY(2px);
+  box-shadow: 
+    0 4px 10px rgba(46, 30, 20, 0.18), 
+    0 1px 2px rgba(46, 30, 20, 0.22);
+}
+
+.pc-bleed-left {
+  margin-left: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+}
+
+.pc-bleed-right {
+  margin-right: -12px !important;
+  position: relative !important;
+  z-index: 15 !important;
+}
+
+.pc-bleed-badge {
+  position: absolute !important;
+  top: -12px !important;
+  right: 18px !important;
+  z-index: 25 !important;
+  box-shadow: 
+    0 3px 8px rgba(46, 30, 20, 0.24), 
+    0 1px 2px rgba(46, 30, 20, 0.16) !important;
+}
+
+.pc-bleed-tab {
+  position: relative !important;
+  margin-top: -14px !important;
+  z-index: 20 !important;
+  box-shadow: 0 3px 8px rgba(46, 30, 20, 0.22) !important;
+}
+
+/* 3. Craft Details: Masking Washi Tape (.pc-washi-tape) & Fold Score Line (.pc-score-line) */
+.pc-washi-tape {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 100px;
+  height: 26px;
+  background-color: rgba(254, 227, 150, 0.88);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  box-shadow: 
+    0 1.5px 0 rgba(46, 30, 20, 0.35),
+    0 3.5px 8px rgba(46, 30, 20, 0.20),
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+  z-index: 20;
+  clip-path: polygon(
+    0% 0%, 3% 20%, 0% 40%, 3% 60%, 0% 80%, 3% 100%,
+    97% 100%, 100% 80%, 97% 60%, 100% 40%, 97% 20%, 100% 0%
+  );
+}
+
+.pc-washi-tape::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 0.45) 0, 
+    rgba(255, 255, 255, 0.45) 3px, 
+    transparent 3px, 
+    transparent 6px
+  );
+  opacity: 0.6;
+}
+
+.pc-washi-tape.pc-is-mint,
+.pc-washi-tape-mint {
+  background-color: rgba(163, 216, 195, 0.88);
+}
+.pc-washi-tape.pc-is-peach,
+.pc-washi-tape-peach {
+  background-color: rgba(247, 186, 158, 0.88);
+}
+.pc-washi-tape.pc-is-lavender,
+.pc-washi-tape-lavender {
+  background-color: rgba(215, 203, 235, 0.88);
+}
+.pc-washi-tape.pc-is-rose,
+.pc-washi-tape-rose {
+  background-color: rgba(245, 184, 190, 0.88);
+}
+.pc-washi-tape.pc-is-sky,
+.pc-washi-tape-sky {
+  background-color: rgba(189, 224, 234, 0.88);
+}
+.pc-washi-tape.pc-is-sage,
+.pc-washi-tape-sage {
+  background-color: rgba(187, 213, 184, 0.88);
+}
+
+.pc-score-line {
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 16px 0;
+  border: none !important;
+  border-top: 1px dashed rgba(46, 30, 20, 0.20) !important;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.85) !important;
+  box-sizing: border-box;
+}
+
+.pc-score-line-v,
+.pc-score-line.pc-is-vertical {
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  margin: 0 16px;
+  border: none !important;
+  border-left: 1px dashed rgba(46, 30, 20, 0.20) !important;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.85) !important;
+  box-sizing: border-box;
+}
+
+/* 4. Form Control Cutout Inlays (.pc-input-paper, .pc-select-paper, .pc-input, .pc-select) */
+.pc-input-paper,
+.pc-select-paper,
+.pc-input.pc-is-inlay,
+.pc-select.pc-is-inlay {
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.pc-input-paper:hover,
+.pc-select-paper:hover,
+.pc-input.pc-is-inlay:hover,
+.pc-select.pc-is-inlay:hover {
+  border-color: rgba(46, 30, 20, 0.25) !important;
+}
+
+.pc-input-paper:focus,
+.pc-select-paper:focus,
+.pc-input.pc-is-inlay:focus,
+.pc-select.pc-is-inlay:focus {
+  background-color: #FFFFFF !important;
+  border-color: #82C2A8 !important;
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.14),
+    0 0 0 2.5px rgba(163, 216, 195, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* 5. Accessibility: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .pc-card,
+  .pc-card-sheet,
+  .pc-shadowbox-well,
+  .pc-recessed-mat,
+  .pc-frame-bleed,
+  .pc-bleed-top,
+  .pc-bleed-bottom,
+  .pc-bleed-badge,
+  .pc-bleed-tab,
+  .pc-input-paper,
+  .pc-select-paper,
+  .pc-washi-tape,
+  .pc-stack-fanned,
+  .pc-stack-cascade,
+  .pc-stack-fanned::before,
+  .pc-stack-fanned::after,
+  .pc-stack-cascade::before,
+  .pc-stack-cascade::after,
+  .pc-stack-underlay,
+  .pc-slot-slit,
+  .pc-slot-insert,
+  .pc-photo-corner,
+  .pc-belly-band {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .pc-stack-fanned:hover::before {
+    transform: rotate(-3deg) translate(-4px, 2px) !important;
+  }
+  .pc-stack-fanned:hover::after {
+    transform: rotate(2deg) translate(4px, 1px) !important;
+  }
+  .pc-stack-cascade:hover::before {
+    transform: translate(16px, 16px) !important;
+  }
+  .pc-stack-cascade:hover::after {
+    transform: translate(8px, 8px) !important;
+  }
+}
+
+/* ==========================================================================
+   Step 1: Multi-Layer Stacking, Interlocking Core & Craft Mounts
+   ========================================================================== */
+
+/* 1.1 Fanned & Cascading Paper Stacks (.pc-stack-fanned, .pc-stack-cascade, .pc-stack-underlay) */
+.pc-stack-fanned,
+.pc-stack-cascade {
+  position: relative !important;
+  z-index: 2;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+}
+
+/* Pseudo-element underlays for multi-layer pastel sheets */
+.pc-stack-fanned::before,
+.pc-stack-fanned::after,
+.pc-stack-cascade::before,
+.pc-stack-cascade::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+  box-sizing: border-box;
+}
+
+/* Fanned Stack Defaults: Peach (-3deg) & Mint (+2deg) with Burnt Umber Contact Shadow */
+.pc-stack-fanned::before {
+  z-index: -2;
+  background: var(--pc-swatch-peach, linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%));
+  transform: rotate(-3deg) translate(-4px, 2px);
+  transform-origin: bottom center;
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.pc-stack-fanned::after {
+  z-index: -1;
+  background: var(--pc-swatch-mint, linear-gradient(180deg, #BCE4DB 0%, #9FD4C7 100%));
+  transform: rotate(2deg) translate(4px, 1px);
+  transform-origin: bottom center;
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* Fanned Stack Hover: Elastic expansion */
+.pc-stack-fanned:hover::before {
+  transform: rotate(-5deg) translate(-10px, -4px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-fanned:hover::after {
+  transform: rotate(4deg) translate(8px, -2px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-fanned:hover {
+  transform: translateY(-2px);
+}
+
+/* Cascading Stack Defaults: Stepped offsets (8px, 16px) with Sand & Peach */
+.pc-stack-cascade::before {
+  z-index: -2;
+  background: var(--pc-swatch-sand, linear-gradient(180deg, #FDE6B5 0%, #F5CE82 100%));
+  transform: translate(16px, 16px);
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+.pc-stack-cascade::after {
+  z-index: -1;
+  background: var(--pc-swatch-peach, linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%));
+  transform: translate(8px, 8px);
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20), 
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85);
+}
+
+/* Cascading Stack Hover: Smooth sliding fan-out */
+.pc-stack-cascade:hover::before {
+  transform: translate(22px, 22px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-cascade:hover::after {
+  transform: translate(12px, 12px);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22), 
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-stack-cascade:hover {
+  transform: translateY(-2px);
+}
+
+/* Sub-layer Support: .pc-stack-underlay for custom or 3+ colored paper sheets */
+.pc-stack-underlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(46, 30, 20, 0.12);
+  pointer-events: none;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease;
+  box-sizing: border-box;
+}
+
+.pc-stack-fanned > .pc-stack-underlay:nth-of-type(1) {
+  z-index: -3;
+  transform: rotate(-4deg) translate(-6px, 3px);
+  transform-origin: bottom center;
+}
+.pc-stack-fanned > .pc-stack-underlay:nth-of-type(2) {
+  z-index: -2;
+  transform: rotate(-2deg) translate(-3px, 1px);
+  transform-origin: bottom center;
+}
+.pc-stack-fanned > .pc-stack-underlay:nth-of-type(3) {
+  z-index: -1;
+  transform: rotate(3deg) translate(5px, 2px);
+  transform-origin: bottom center;
+}
+
+.pc-stack-fanned:hover > .pc-stack-underlay:nth-of-type(1) {
+  transform: rotate(-7deg) translate(-14px, -5px);
+  box-shadow: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+}
+.pc-stack-fanned:hover > .pc-stack-underlay:nth-of-type(2) {
+  transform: rotate(-4deg) translate(-8px, -3px);
+  box-shadow: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+}
+.pc-stack-fanned:hover > .pc-stack-underlay:nth-of-type(3) {
+  transform: rotate(6deg) translate(12px, -3px);
+  box-shadow: 0 2px 2.5px rgba(46, 30, 20, 0.22), 0 8px 18px -3px rgba(46, 30, 20, 0.16);
+}
+
+.pc-stack-cascade > .pc-stack-underlay:nth-of-type(1) {
+  z-index: -3;
+  transform: translate(16px, 16px);
+}
+.pc-stack-cascade > .pc-stack-underlay:nth-of-type(2) {
+  z-index: -2;
+  transform: translate(10px, 10px);
+}
+.pc-stack-cascade > .pc-stack-underlay:nth-of-type(3) {
+  z-index: -1;
+  transform: translate(5px, 5px);
+}
+
+.pc-stack-cascade:hover > .pc-stack-underlay:nth-of-type(1) {
+  transform: translate(24px, 24px);
+}
+.pc-stack-cascade:hover > .pc-stack-underlay:nth-of-type(2) {
+  transform: translate(15px, 15px);
+}
+.pc-stack-cascade:hover > .pc-stack-underlay:nth-of-type(3) {
+  transform: translate(7px, 7px);
+}
+
+/* Palette Swatches for .pc-stack-underlay */
+.pc-stack-underlay.pc-is-peach {
+  background: var(--pc-swatch-peach, linear-gradient(180deg, #F8B49B 0%, #EE8F72 100%));
+}
+.pc-stack-underlay.pc-is-mint {
+  background: var(--pc-swatch-mint, linear-gradient(180deg, #BCE4DB 0%, #9FD4C7 100%));
+}
+.pc-stack-underlay.pc-is-sand {
+  background: var(--pc-swatch-sand, linear-gradient(180deg, #FDE6B5 0%, #F5CE82 100%));
+}
+.pc-stack-underlay.pc-is-lavender {
+  background: var(--pc-swatch-lavender, linear-gradient(180deg, #E2D3EE 0%, #C9B3DC 100%));
+}
+.pc-stack-underlay.pc-is-sky {
+  background: var(--pc-swatch-sky, linear-gradient(180deg, #D4EDF4 0%, #B4DDE7 100%));
+}
+.pc-stack-underlay.pc-is-sage {
+  background: var(--pc-swatch-sage, linear-gradient(180deg, #BFE2CE 0%, #A3D4B6 100%));
+}
+
+.pc-stack-fanned:has(.pc-stack-underlay)::before,
+.pc-stack-fanned:has(.pc-stack-underlay)::after,
+.pc-stack-cascade:has(.pc-stack-underlay)::before,
+.pc-stack-cascade:has(.pc-stack-underlay)::after {
+  display: none !important;
+}
+
+/* 1.2 Knife-Cut Slit Interlocking (.pc-slot-slit, .pc-slot-insert) */
+.pc-slot-slit {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 6px;
+  margin: 12px 0;
+  background-color: rgba(46, 30, 20, 0.16);
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  border-radius: 3px;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 3px 6px rgba(46, 30, 20, 0.24),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* Precision carved slit rim line */
+.pc-slot-slit::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95);
+  pointer-events: none;
+}
+
+/* Slit Insert: Elements slotted into or emerging through the cut slit */
+.pc-slot-insert {
+  position: relative;
+  z-index: 2;
+  transform: translateY(-6px) rotate(-1deg);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  box-shadow: 
+    0 1.2px 1.8px rgba(46, 30, 20, 0.20),
+    0 4px 10px -2px rgba(46, 30, 20, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.pc-slot-insert:hover,
+.pc-slot-insert:focus-within {
+  transform: translateY(-12px) rotate(0deg);
+  box-shadow: 
+    0 2px 2.5px rgba(46, 30, 20, 0.22),
+    0 8px 18px -3px rgba(46, 30, 20, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+/* Interlocking slot pocket wrapper */
+.pc-slot-pocket {
+  position: relative;
+  overflow: visible;
+}
+
+.pc-slot-pocket > .pc-slot-slit {
+  position: relative;
+  z-index: 3;
+}
+
+.pc-slot-pocket > .pc-slot-insert {
+  margin-top: -16px;
+  position: relative;
+  z-index: 1;
+}
+
+/* 1.3 Photo Corners (.pc-photo-corner) */
+.pc-photo-corner {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: #FAF7F0;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    0 1.5px 3px rgba(46, 30, 20, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Default top-left if no positioning class */
+.pc-photo-corner:not([class*="pc-is-"]) {
+  top: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.pc-photo-corner.pc-is-top-left {
+  top: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.pc-photo-corner.pc-is-top-right {
+  top: -1px;
+  right: -1px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.pc-photo-corner.pc-is-bottom-left {
+  bottom: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+}
+
+.pc-photo-corner.pc-is-bottom-right {
+  bottom: -1px;
+  right: -1px;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+/* Colorways for photo corner pockets */
+.pc-photo-corner.pc-is-peach {
+  background: var(--pc-swatch-peach, #F8B49B);
+}
+.pc-photo-corner.pc-is-mint {
+  background: var(--pc-swatch-mint, #BCE4DB);
+}
+.pc-photo-corner.pc-is-sand {
+  background: var(--pc-swatch-sand, #FDE6B5);
+}
+.pc-photo-corner.pc-is-kraft {
+  background: #E8DECE;
+}
+
+/* Container automatic photo-corners via pseudo-elements */
+.pc-has-photo-corners {
+  position: relative;
+}
+
+.pc-has-photo-corners::before,
+.pc-has-photo-corners::after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background-color: #FAF7F0;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    0 1.5px 3px rgba(46, 30, 20, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  z-index: 10;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.pc-has-photo-corners::before {
+  top: -1px;
+  left: -1px;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.pc-has-photo-corners::after {
+  bottom: -1px;
+  right: -1px;
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+/* 1.4 Craft Belly Band (.pc-belly-band) */
+.pc-belly-band {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  right: -8px;
+  transform: translateY(-50%);
+  height: 38px;
+  background-color: rgba(248, 180, 155, 0.88);
+  border-top: 1px solid rgba(46, 30, 20, 0.14);
+  border-bottom: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    0 2px 6px rgba(46, 30, 20, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(1.5px);
+  -webkit-backdrop-filter: blur(1.5px);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  color: var(--pc-ink, #3D352E);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+/* Washi/stripe paper texture overlay on belly band */
+.pc-belly-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.22) 0,
+    rgba(255, 255, 255, 0.22) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Vertical belly band */
+.pc-belly-band.pc-is-vertical,
+.pc-belly-band-v {
+  top: -8px;
+  bottom: -8px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: 38px;
+  height: auto;
+  border-top: none;
+  border-bottom: none;
+  border-left: 1px solid rgba(46, 30, 20, 0.14);
+  border-right: 1px solid rgba(46, 30, 20, 0.14);
+}
+
+/* Position modifiers */
+.pc-belly-band.pc-is-top {
+  top: 24px;
+  transform: none;
+}
+.pc-belly-band.pc-is-bottom {
+  top: auto;
+  bottom: 24px;
+  transform: none;
+}
+
+/* Pastel color variants for belly band */
+.pc-belly-band.pc-is-mint {
+  background-color: rgba(163, 216, 195, 0.88);
+}
+.pc-belly-band.pc-is-peach {
+  background-color: rgba(247, 186, 158, 0.88);
+}
+.pc-belly-band.pc-is-sand {
+  background-color: rgba(254, 227, 150, 0.88);
+}
+.pc-belly-band.pc-is-lavender {
+  background-color: rgba(215, 203, 235, 0.88);
+}
+.pc-belly-band.pc-is-sky {
+  background-color: rgba(189, 224, 234, 0.88);
+}
+.pc-belly-band.pc-is-sage {
+  background-color: rgba(187, 213, 184, 0.88);
+}
+
+/* ==========================================================================
+   LANE C: INTERACTIVE UI ELEMENTS PAPERCRAFT SYSTEM (SVG & DATA-PC-PAPER SUITE)
+   Authentic 3D Multi-Layer Kirigami Geometry matching 130 Icon Background Plates:
+   - Layer 1 Base Paper (0.88px knife-edge rim + 3-Tier burnt umber drop shadow)
+   - Layer 2 Cream Inlay (#FFFDF9 / #FAF7F0 flush contact sheet)
+   - Layer 3 Dashed Perforation / Stitches (roulette punch & knife scores)
+   - 3-Tier Burnt Umber #2E1E14 drop shadows & debossed well cutouts
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. BUTTONS (Pill & Ticket Data Paper Architecture)
+   -------------------------------------------------------------------------- */
+[data-pc-paper="pill"],
+[data-pc-paper="ticket"] {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-family: inherit;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  box-sizing: border-box;
+  outline: none;
+  /* Top 0.88px pure white knife-edge rim light & 3-Tier burnt umber drop shadow */
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 1.8px rgba(46, 30, 20, 0.48),
+    0 3.5px 7px rgba(46, 30, 20, 0.25);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, filter 0.16s ease;
+}
+
+/* Pill Button Geometry: Rounded capsule cardstock */
+[data-pc-paper="pill"] {
+  border-radius: 9999px;
+  padding: 10px 22px;
+}
+
+/* Ticket Button Geometry: Double notched punch & perforation */
+[data-pc-paper="ticket"] {
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+/* Hover Lift */
+[data-pc-paper="pill"]:hover,
+[data-pc-paper="ticket"]:hover,
+.pc-btn[data-pc-paper]:hover,
+.pc-ui-btn[data-pc-paper]:hover,
+.pc-svg-kirigami-btn[data-pc-paper]:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 2px 3px rgba(46, 30, 20, 0.48),
+    0 6px 14px rgba(46, 30, 20, 0.26);
+}
+
+/* Haptic Press Feedback */
+[data-pc-paper="pill"]:active,
+[data-pc-paper="ticket"]:active,
+.pc-btn[data-pc-paper]:active,
+.pc-ui-btn[data-pc-paper]:active,
+.pc-svg-kirigami-btn[data-pc-paper]:active {
+  transform: translateY(1.5px) !important;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.85),
+    0 0.8px 1.5px rgba(46, 30, 20, 0.38) !important;
+}
+
+/* SVG Kirigami Buttons filter integration */
+.pc-svg-kirigami-btn[data-pc-paper] svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 1.2px 0.6px rgba(46, 30, 20, 0.48)) drop-shadow(0 3.5px 1.8px rgba(46, 30, 20, 0.25)) drop-shadow(0 -0.5px 0.3px rgba(255, 255, 255, 0.95));
+}
+.pc-svg-kirigami-btn[data-pc-paper]:hover svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 2px 1px rgba(46, 30, 20, 0.48)) drop-shadow(0 5px 2.5px rgba(46, 30, 20, 0.26)) drop-shadow(0 -0.6px 0.3px rgba(255, 255, 255, 0.98));
+}
+.pc-svg-kirigami-btn[data-pc-paper]:active svg.pc-kirigami-btn-svg {
+  filter: drop-shadow(0 0.8px 0.4px rgba(46, 30, 20, 0.40)) drop-shadow(0 1.5px 1px rgba(46, 30, 20, 0.20));
+}
+
+/* --------------------------------------------------------------------------
+   2. BADGES & TAGS (Stamp, Ticket, Pill Centered Pure Paper Geometry)
+   -------------------------------------------------------------------------- */
+.pc-badge,
+.pc-ui-badge,
+[data-pc-paper="stamp"],
+.pc-badge[data-pc-paper="stamp"],
+.pc-badge[data-pc-paper="ticket"],
+.pc-badge[data-pc-paper="pill"] {
+  display: inline-flex !important;
+  align-items: center !important; /* items-center */
+  justify-content: center !important;
+  line-height: 1 !important; /* leading-none */
+  font-family: inherit;
+  font-weight: 800;
+  white-space: nowrap;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+/* Stamp Perforation Badge */
+[data-pc-paper="stamp"],
+.pc-badge--stamp,
+.pc-badge[data-pc-paper="stamp"] {
+  border-radius: 4px;
+  border: 1px dashed rgba(46, 30, 20, 0.25);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(46, 30, 20, 0.22);
+}
+
+/* Ticket Notch Badge */
+[data-pc-paper="ticket"].pc-badge,
+.pc-badge--ticket,
+.pc-badge[data-pc-paper="ticket"] {
+  border-radius: 6px;
+  border: 1px solid rgba(46, 30, 20, 0.16);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(46, 30, 20, 0.22);
+}
+
+/* Pill Rounded Capsule Badge */
+[data-pc-paper="pill"].pc-badge,
+.pc-badge[data-pc-paper="pill"] {
+  border-radius: 9999px;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(46, 30, 20, 0.20);
+}
+
+/* --------------------------------------------------------------------------
+   3. FORM CONTROLS (Debossed Well Cutout Inset Architecture)
+   -------------------------------------------------------------------------- */
+[data-pc-paper="field"],
+.pc-input[data-pc-paper="field"],
+.pc-select[data-pc-paper="field"],
+.pc-textarea[data-pc-paper="field"],
+.pc-input-wrapper[data-pc-paper="field"] input,
+.pc-input-wrapper[data-pc-paper="field"] select,
+.pc-ui-field-wrap[data-pc-paper="field"] input {
+  background-color: #FAF7F0 !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-radius: 8px;
+  color: var(--pc-ink, #3D352E);
+  /* Debossed well cutout shadow matching pc-paper-sh-inset filter */
+  box-shadow: 
+    inset 0 1.5px 3px rgba(46, 30, 20, 0.28),
+    inset 0 3px 8px rgba(46, 30, 20, 0.14),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  box-sizing: border-box;
+}
+
+[data-pc-paper="field"]:focus,
+.pc-input[data-pc-paper="field"]:focus,
+.pc-select[data-pc-paper="field"]:focus,
+.pc-textarea[data-pc-paper="field"]:focus,
+.pc-input-wrapper[data-pc-paper="field"] input:focus,
+.pc-input-wrapper[data-pc-paper="field"] select:focus,
+.pc-ui-field-wrap[data-pc-paper="field"] input:focus {
+  background-color: #FFFDF9 !important;
+  border-color: #82C2A8 !important;
+  box-shadow: 
+    inset 0 1.5px 2px rgba(46, 30, 20, 0.18),
+    0 0 0 3px rgba(163, 216, 195, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.95) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. TABS & MENUS (Category Tabs & Deep Lifted Overlays)
+   -------------------------------------------------------------------------- */
+/* Category Tab Bar (.pc-chart-tab, .pc-bg-cat-btn, .pc-filter-btn) */
+[data-pc-paper="tab"],
+.pc-chart-tab,
+.pc-bg-cat-btn,
+.pc-filter-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  font-family: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 8px;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  background-color: #FFFDF9;
+  color: var(--pc-ink, #3D352E);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 3px rgba(46, 30, 20, 0.22);
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background-color 0.16s ease;
+  box-sizing: border-box;
+}
+
+[data-pc-paper="tab"]:hover,
+.pc-chart-tab:hover,
+.pc-bg-cat-btn:hover,
+.pc-filter-btn:hover {
+  transform: translateY(-1.5px);
+  background-color: #FEF3C7;
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 3px 6px rgba(46, 30, 20, 0.25);
+}
+
+[data-pc-paper="tab"].is-active,
+.pc-chart-tab.is-active,
+.pc-bg-cat-btn.is-active,
+.pc-filter-btn.is-active {
+  background-color: #A3D8C3;
+  color: #1C4835;
+  border-color: rgba(28, 72, 53, 0.25);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.95),
+    0 2.5px 5px rgba(46, 30, 20, 0.28);
+}
+
+[data-pc-paper="tab"]:active,
+.pc-chart-tab:active,
+.pc-bg-cat-btn:active,
+.pc-filter-btn:active {
+  transform: translateY(1px);
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.85),
+    0 0.8px 1.5px rgba(46, 30, 20, 0.35);
+}
+
+/* Modals & Popovers ([data-pc-paper="menu"], .pc-modal-content, .pc-ui-dialog, .pc-ui-popover) */
+[data-pc-paper="menu"],
+.pc-modal-content,
+.pc-ui-dialog-content,
+.pc-ui-popover-content {
+  box-shadow: 
+    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
+    0 2.5px 3.5px rgba(46, 30, 20, 0.48),
+    0 12px 28px rgba(46, 30, 20, 0.30),
+    0 28px 60px -10px rgba(46, 30, 20, 0.35) !important;
+}
+
+
+

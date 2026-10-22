@@ -1,0 +1,293 @@
+/**
+ * PaperCut UI - Universal Paper Layer Engine Styles (Harness v0.4.49)
+ * 130종 아이콘 배경 플레이트(papercut-backgrounds.js)의 물리적 다층 종이 미학을
+ * 전역 컴포넌트(svg.pc-ui-paper-layer)에 바인딩하는 CSS 엔진.
+ *
+ * 기본값은 모두 :where()로 감싸 특이도 0이다:
+ * .my-card { --pc-paper-fill: #FFFDF9; --pc-paper-base: #BBD5B8; }
+ */
+
+/* ---------- 8대 파스텔 톤온톤 (cream이 기본값) ---------- */
+:where([data-pc-paper]) {
+  --pc-paper-fill: var(--pc-paper-cream, #FAF6ED);   /* 위쪽 본문 크림 색지 */
+  --pc-paper-base: #E2D3BD;                          /* 하단 받침 색지 */
+  --pc-paper-rim: #FFFFFF;                           /* 0.88px 흰 림 하이라이트 */
+  --pc-paper-stitch: #D8CEBD;                        /* 점선 스티칭/천공선 */
+  --pc-paper-accent: #F3E6CB;                        /* 활성(체크·선택·열림) 색지 */
+  --pc-paper-accent-base: #D9C6A5;                   /* 활성 받침 색지 */
+  --pc-paper-focus: #6F5BB5;                         /* 포커스 링 색상 */
+}
+
+:where([data-pc-paper][data-pc-tone="cream"]) {
+  --pc-paper-fill: var(--pc-paper-cream, #FAF6ED);
+  --pc-paper-base: #E2D3BD;
+  --pc-paper-stitch: #D8CEBD;
+  --pc-paper-accent: #F3E6CB;
+  --pc-paper-accent-base: #D9C6A5;
+}
+
+:where([data-pc-paper][data-pc-tone="mint"]) {
+  --pc-paper-fill: var(--pc-mint-light, #EAF7F1);
+  --pc-paper-base: var(--pc-mint, #A3D8C3);
+  --pc-paper-stitch: var(--pc-mint-layer, #82C2A8);
+  --pc-paper-accent: var(--pc-mint, #A3D8C3);
+  --pc-paper-accent-base: var(--pc-mint-layer, #82C2A8);
+}
+
+:where([data-pc-paper][data-pc-tone="peach"]) {
+  --pc-paper-fill: var(--pc-peach-light, #FDF1EA);
+  --pc-paper-base: var(--pc-peach, #F7BA9E);
+  --pc-paper-stitch: var(--pc-peach-layer, #E69D7B);
+  --pc-paper-accent: var(--pc-peach, #F7BA9E);
+  --pc-paper-accent-base: var(--pc-peach-layer, #E69D7B);
+}
+
+:where([data-pc-paper][data-pc-tone="lavender"]) {
+  --pc-paper-fill: var(--pc-lavender-light, #F4F0FA);
+  --pc-paper-base: var(--pc-lavender, #D7CBEB);
+  --pc-paper-stitch: var(--pc-lavender-layer, #B8A6D9);
+  --pc-paper-accent: var(--pc-lavender, #D7CBEB);
+  --pc-paper-accent-base: var(--pc-lavender-layer, #B8A6D9);
+}
+
+:where([data-pc-paper][data-pc-tone="buttercup"]) {
+  --pc-paper-fill: var(--pc-buttercup-light, #FFF9E8);
+  --pc-paper-base: var(--pc-buttercup, #FEE396);
+  --pc-paper-stitch: var(--pc-buttercup-layer, #EDC96C);
+  --pc-paper-accent: var(--pc-buttercup, #FEE396);
+  --pc-paper-accent-base: var(--pc-buttercup-layer, #EDC96C);
+}
+
+:where([data-pc-paper][data-pc-tone="sky"]) {
+  --pc-paper-fill: var(--pc-sky-light, #EDF7FA);
+  --pc-paper-base: var(--pc-sky, #BDE0EA);
+  --pc-paper-stitch: var(--pc-sky-layer, #98C8D6);
+  --pc-paper-accent: var(--pc-sky, #BDE0EA);
+  --pc-paper-accent-base: var(--pc-sky-layer, #98C8D6);
+}
+
+:where([data-pc-paper][data-pc-tone="sand"]) {
+  --pc-paper-fill: var(--pc-sand-light, #FFF8EA);
+  --pc-paper-base: var(--pc-sand, #F5CE82);
+  --pc-paper-stitch: #D8CEBD;
+  --pc-paper-accent: var(--pc-sand, #F5CE82);
+  --pc-paper-accent-base: var(--pc-sand-layer, #D4A85A);
+}
+
+:where([data-pc-paper][data-pc-tone="rose"]) {
+  --pc-paper-fill: var(--pc-rose-light, #FDF0F1);
+  --pc-paper-base: var(--pc-rose, #F5B8BE);
+  --pc-paper-stitch: var(--pc-rose-layer, #DE939B);
+  --pc-paper-accent: var(--pc-rose, #F5B8BE);
+  --pc-paper-accent-base: var(--pc-rose-layer, #DE939B);
+}
+
+/* ---------- 5대 아키타입별 특수 변수 바인딩 ---------- */
+:where([data-pc-paper="deckle"]) {
+  --pc-paper-deckle: var(--pc-paper-base);
+  --pc-paper-inner: #FFFDF9;
+  --pc-paper-inner-line: color-mix(in srgb, var(--pc-paper-deckle) 55%, #C9B8A4);
+  --pc-paper-deckle-active: var(--pc-paper-accent-base);
+  --pc-paper-inner-active: color-mix(in srgb, var(--pc-paper-deckle-active) 22%, #FFFDF9);
+}
+:where([data-pc-paper="deckle"]:not([data-pc-tone]), [data-pc-paper="deckle"][data-pc-tone="cream"]) {
+  --pc-paper-deckle: #F4EEE3;
+  --pc-paper-inner-line: #EADBCC;
+}
+
+:where([data-pc-paper="wax"]) {
+  --pc-paper-crescent: #FFFFFF;
+}
+
+/* ---------- 수화된 요소: 기존 CSS 박스 투명화 및 레이어 고정 ---------- */
+.pc-is-paper-hydrated,
+.is-paper-hydrated {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+:where(.pc-is-paper-hydrated, .is-paper-hydrated) {
+  position: relative;
+  isolation: isolate;
+}
+
+/* 마스터 SVG 레이어 컨테이너 (절대 배치, z-index: -1, 포인터 이벤트 없음, overflow: visible) */
+.pc-ui-paper-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+  forced-color-adjust: none;
+}
+
+/* ---------- 다층 SVG 부위별 스타일링 ---------- */
+.pc-paper-base {
+  fill: var(--pc-paper-base, #BBD5B8);
+}
+
+.pc-paper-sheet {
+  fill: var(--pc-paper-fill, #FFFDF9);
+  stroke: var(--pc-paper-rim, #FFFFFF);
+  stroke-width: 0.88px;
+}
+
+.pc-paper-deco,
+.pc-paper-stitch {
+  fill: none;
+  stroke: var(--pc-paper-stitch, #D8CEBD);
+  opacity: 0.9;
+}
+
+.pc-paper-hair {
+  fill: none;
+  stroke: var(--pc-paper-rim, #FFFFFF);
+  opacity: 0.85;
+}
+
+.pc-paper-well {
+  fill: color-mix(in srgb, var(--pc-paper-base, #BBD5B8) 24%, var(--pc-paper-fill, #FFFDF9));
+  filter: url(#pc-paper-sh-inset);
+}
+
+.pc-paper-crescent {
+  fill: var(--pc-paper-crescent, #FFFFFF);
+  opacity: 0.65;
+}
+
+.pc-paper-accent {
+  opacity: 0.85;
+}
+
+/* ---------- 3-Tier 광원 필터 바인딩 ---------- */
+.pc-paper-stack {
+  filter: url(#pc-paper-sh-plate);
+}
+
+/* 필드 인풋: 얕은 접촉 그림자 */
+.pc-ui-paper-layer[data-variant="field"] .pc-paper-stack {
+  filter: url(#pc-paper-sh-soft);
+}
+
+/* 팝업/메뉴/노브: 공중 들림 그림자 */
+.pc-ui-paper-layer[data-variant="knob"] .pc-paper-stack,
+.pc-ui-paper-layer[data-variant="menu"] .pc-paper-stack {
+  filter: url(#pc-paper-sh-lift);
+}
+
+/* 슬라이더 트랙: 내부 음각 전용 */
+.pc-ui-paper-layer[data-variant="track"] .pc-paper-stack {
+  filter: none;
+}
+.pc-ui-paper-layer[data-variant="track"] .pc-paper-base {
+  fill: var(--pc-paper-rim, #FFFFFF);
+}
+.pc-ui-paper-layer[data-variant="track"] .pc-paper-sheet {
+  fill: color-mix(in srgb, var(--pc-paper-base, #BBD5B8) 70%, var(--pc-paper-fill, #FFFDF9));
+  stroke: none;
+  filter: url(#pc-paper-sh-inset);
+}
+
+/* 데클 엣지 수제 속지 스타일 */
+.pc-ui-paper-layer[data-variant="deckle"] .pc-paper-base {
+  fill: var(--pc-paper-deckle);
+  stroke: var(--pc-paper-rim, #FFFFFF);
+}
+.pc-ui-paper-layer[data-variant="deckle"] .pc-paper-sheet {
+  fill: var(--pc-paper-inner);
+  stroke: var(--pc-paper-inner-line);
+}
+
+/* ---------- 상호작용 및 물리적 모션 ---------- */
+.pc-paper-top {
+  transform: translate(0, 0);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pc-paper-top   { transition: transform 0.14s cubic-bezier(0.2, 0, 0.2, 1); }
+  .pc-paper-sheet { transition: fill 0.14s ease, stroke 0.14s ease; }
+  .pc-paper-base  { transition: fill 0.14s ease; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-paper-top,
+  .pc-paper-sheet,
+  .pc-paper-base {
+    transition: none !important;
+  }
+}
+
+/* 호버: 상위 인터랙티브 요소 호버 시 위쪽 색지가 1px 들리며 그림자 확장 */
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  button, a[href], summary, label, [role="button"], [role="tab"], [role="menuitem"],
+  [role="option"], [role="switch"], [role="checkbox"], [role="radio"], [tabindex], [data-pc-hover]
+):hover > .pc-ui-paper-layer .pc-paper-top {
+  transform: translate(-1px, -1px);
+}
+
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  button, a[href], summary, label, [role="button"], [role="tab"], [role="menuitem"],
+  [role="option"], [role="switch"], [role="checkbox"], [role="radio"], [tabindex], [data-pc-hover]
+):hover > .pc-ui-paper-layer[data-variant]:not([data-variant="track"]):not([data-variant="field"]) .pc-paper-stack {
+  filter: url(#pc-paper-sh-lift);
+}
+
+/* 활성(Active / Checked / Pressed): 상단 색지가 물리적으로 눌리며 틴트 전이 */
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  [data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"],
+  .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
+  :has(> input:checked)
+) > .pc-ui-paper-layer .pc-paper-top {
+  transform: translate(calc(var(--pc-paper-off, 2px) * 0.7), calc(var(--pc-paper-off, 2px) * 0.7));
+}
+
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  [data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"],
+  .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
+  :has(> input:checked)
+) > .pc-ui-paper-layer :is(.pc-paper-sheet) {
+  fill: var(--pc-paper-accent);
+}
+
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  [data-state="open"], [data-state="checked"], [data-state="active"], [data-state="on"],
+  [aria-selected="true"], [aria-checked="true"], [aria-pressed="true"],
+  .pc-is-active, .is-active, .pc-is-on, .is-on, .pc-is-checked, .is-checked, .pc-is-pressed, .is-pressed,
+  :has(> input:checked)
+) > .pc-ui-paper-layer .pc-paper-base {
+  fill: var(--pc-paper-accent-base);
+}
+
+/* 비활성 (Disabled) */
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  :disabled, [disabled], [aria-disabled="true"], [data-disabled], .pc-is-disabled, .is-disabled,
+  [data-pc-paper]:has(> :disabled)
+) > .pc-ui-paper-layer {
+  filter: grayscale(0.85);
+  opacity: 0.6;
+}
+
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  :disabled, [disabled], [aria-disabled="true"], [data-disabled], .pc-is-disabled, .is-disabled,
+  [data-pc-paper]:has(> :disabled)
+) > .pc-ui-paper-layer :is(.pc-paper-stack, .pc-paper-sheet, .pc-paper-well) {
+  filter: none;
+}
+
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is(
+  :disabled, [disabled], [aria-disabled="true"], [data-disabled], .pc-is-disabled, .is-disabled
+) > .pc-ui-paper-layer .pc-paper-top {
+  transform: translate(0, 0);
+}
+
+/* 포커스 링 (접근성 WCAG 2.2 AA) */
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):focus-visible,
+:is(.pc-is-paper-hydrated, .is-paper-hydrated):is([data-pc-paper="field"], [data-pc-paper="knob"], [data-pc-paper="pill"], [data-pc-paper="track"]):has(:focus-visible) {
+  outline: 2px solid var(--pc-paper-focus) !important;
+  outline-offset: 2px !important;
+}

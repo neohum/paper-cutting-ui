@@ -1396,8 +1396,8 @@ To solve legibility and contrast across varying backgrounds and scales, the libr
 A dedicated micro-scale simulation component (`papercut-icon-sim.js` & `papercut-icon-sim.css`) designed specifically for micro-resolutions strictly ranging from **3px to 16px** (`3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12px, 13px, 14px, 15px, 16px`). All larger resolutions (>16px) are eliminated to focus exclusively on subpixel clarity, anti-aliasing behavior, and stroke choking prevention in high-density UI contexts.
 
 1. **Dynamic Icon Selection & Quick Chips:**
-   - Universal search and selector across all 529 standalone layered kirigami icons (`window.PAPERCUT_ICONS`).
-   - 12 instant sample chips: `coffee`, `home`, `camera`, `gift`, `heart`, `sun`, `sparkles`, `mail`, `scissors`, `cart`, `shield`, `bell`.
+   - Universal search and selector across all 678 standalone layered kirigami icons (`window.PAPERCUT_ICONS`: 659 mastercrafted SVGs + 19 compatibility aliases across 16 categories).
+   - 16 curated sample chips: `coffee`, `home`, `search`, `scissors`, `gift`, `camera`, `mail`, `heart`, `sun`, `sparkles`, `cart`, `shield`, `bell`, `book`, `settings`, `check`.
 
 2. **14 Micro-Pixel Physical Dimensions (3px ~ 16px strictly):**
    - **3px**: Nano Dot Pixel (Rec: `0.1 ~ 0.3px`, Choke limit: `0.6px`)
@@ -1438,12 +1438,12 @@ A dedicated micro-scale simulation component (`papercut-icon-sim.js` & `papercut
    - Per-size independent fine-tuning drawer with sync restoration.
    - One-click standalone SVG serialization and CSS class generation.
 
-### 8.9 shadcn/ui Paper-Cut Component Library (45 Interactive Components)
-The complete official suite of **45 shadcn/ui components** has been reimagined in authentic **3D Layered Paper-Cut Aesthetics**:
+### 8.9 PC UI Paper-Cut Component Library (45 Interactive Components)
+The complete official suite of **45 PC UI components** has been reimagined in authentic **3D Layered Paper-Cut Aesthetics**:
 - **Design Foundations:**
   - Base Cardstock: High-bulk matte cream (`#FAF7F0`, `#FFFDF9`, `#F3EFE6`).
   - Warm Umber Shadows: Multi-tier wood-pulp drop shadows (`rgba(74, 60, 49, 0.08 - 0.22)`) across elevations E-1 through E-5, plus carved debossed well shadows.
-  - Tactile Embellishments: Washi tape pins (`.pc-sd-washi-pin`), deckle edges, postage stamp roulette perforations, scallop cuts, origami dogear corner folds, and concertina pleats.
+  - Tactile Embellishments: Washi tape pins (`.pc-ui-washi-pin`), deckle edges, postage stamp roulette perforations, scallop cuts, origami dogear corner folds, and concertina pleats.
 - **Component Catalog (45 Components):**
   1. *Accordion*: Concertina pleated paper fold with rotating chevron cutline.
   2. *Alert*: Postage stamp deckle edge badge with ribbon border & pastel status tints.
@@ -1493,7 +1493,7 @@ The complete official suite of **45 shadcn/ui components** has been reimagined i
 
 ---
 
-### 8.10 shadcn/ui Production Blocks (6 Core Scenarios)
+### 8.10 PC UI Production Blocks (6 Core Scenarios)
 1. **Admin & SaaS Analytics Dashboard Block (`admin-dashboard`)**:
    - Header with search well, notification bell with red indicator badge, user avatar seal, and washi tape accent.
    - 4 Metric Cards (Revenue, Subscriptions, Active Now, Sales) with pastel badges, percentage pill tags, and mini icon discs.
@@ -1539,6 +1539,40 @@ The complete official suite of **45 shadcn/ui components** has been reimagined i
 7. **Interactive Chart Tooltip & Legend**:
    - Floating paper speech bubble tooltip with triangular pointer and warm burnt umber drop shadow.
    - Legend items with matching pastel square paper chips and hover highlights.
+
+---
+
+### 8.12 Full-Color 3D Paper-Cut Icon System & 'B. 양각 위로 쌓기' (2-Tier · 4.5px · 48% Stacking) Specification
+
+PaperCut UI의 아이콘 시스템은 AI Agent Generated Paper-cut Art 및 Matte Cream 3D Art 미학에 따라 **전 UI 전역 풀컬러 3D 페이퍼 커팅(Full-Color 3D Paper-Cut Art)**와 **B. 양각 위로 쌓기 물리 표준**을 단일 표준으로 채택합니다.
+
+#### 1. 유니버설 풀컬러 3D 페이퍼 커팅 표준 (Full-Color 3D Paper-Cut Art)
+- **전역 풀컬러 렌더링 (16px ~ 256px 전역):**
+  - 모노크롬 철선(wireframe)을 전면 배제하고, 모든 아이콘이 원본 파스텔 색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Sage, Cream)의 풍부한 층위와 3D 입체 그림자를 기본으로 표시합니다.
+  - 버튼(`.pc-btn`), 배지(`.pc-pill-badge`), 인풋 접두사(`.pc-input-icon`), 드롭다운 트리거/항목, 모바일 내비게이션 등 소형 UI부터 대형 카드 쇼케이스까지 동일한 따뜻한 종이 공예의 질감과 컬러를 제공합니다.
+- **예외적 라인 모드:** 오직 개발/시뮬레이션 전용 클래스(`.force-firr`)가 명시된 경우에만 단색 벡터 라인 모드로 전환됩니다.
+
+#### 2. 'B. 양각 위로 쌓기 (2-Tier · 4.5px · 48% Stacking)' 물리 명세
+- **가상 크래프트 광원:** 315° 탑레프트 사광 (따스한 3200K 독서등 조명).
+- **그림자 색상 (Patina):** 딥 번트 엄버 `#2E1E14` (`rgb(46, 30, 20)`).
+- **Multi-Tier Composite Filter 수식:**
+  1. *Tier 1 (Contact Edge Shadow):* 칼선 직하 밀착 그림자
+     - `dx: 1.11px, dy: 1.11px, stdDeviation: 0.54px, flood-color: #2E1E14, flood-opacity: 0.60`
+  2. *Tier 2 (Mid-air Float Shadow):* 4.5px 단차 높이의 부유 그림자
+     - `dx: 3.18px, dy: 3.18px, stdDeviation: 1.20px, flood-color: #2E1E14, flood-opacity: 0.48`
+  3. *Tier 3 (Knife-cut Bevel Highlight):* 칼선 화이트 반사 림
+     - `dx: -0.51px, dy: -0.51px, stdDeviation: 0.32px, flood-color: #FFFFFF, flood-opacity: 0.85`
+- **종이 내부 다층 적층 (Cascading Stacking):**
+  - `data-layer="base"`: 바닥 대지 위의 바탕 실루엣 (Base Filter: 4.5px 단차, 48% 농도)
+  - `data-layer="mid"`: 중간 종이 조각 (Mid Filter: 베이스 위에 0.89px 밀착 그림자 투사)
+  - `data-layer="top"`: 최상위 장식 조각 (Top Filter: 중간 종이 위에 0.70px/0.65 농도 직하 접촉 그림자 투사)
+  - `data-layer="steam"`: 공중에 떠 있는 연기/바람 가닥 (Steam Filter: 2.39px 부유 그림자 투사)
+
+#### 3. 678 아이콘 시스템 레지스트리 구성
+- 659개 마스터크래프트 독립형 Kirigami SVG (`PAPERCUT_ICONS`)
+- 19개 호환 별칭 정규화 (`ICON_ALIASES`: `paper-plane-fly` ➔ `paper-plane`, `tag-single` ➔ `price-tag` 등)
+- 16대 카테고리: 숫자/기호(40), UI/시스템(125), 커뮤니케이션(58), 유저/소셜(56), 커머스(46), 금융(41), 푸드(35), 미디어(34), IT디바이스(29), 보태니컬(28), 여행(25), 라이프스타일(11), 날씨(5), 시간(4), 문서(3), 툴바/기타.
+- 동적 주입: `hydratePapercutIcons(root)` 실행 시 고유 시퀀스 접미사(`ps-{id}-inst-{n}`)를 부여하여 복수 인스턴스 간 SVG 필터 충돌(Filter ID Collision)을 원천 방지.
 
 ---
 

@@ -116,6 +116,13 @@
 ### 4.3 터치 타깃 규격 (Touch Target Rule)
 - 모바일 뷰포트에서 상호작용 가능한 모든 요소(버튼, 링크, 체크박스 등)는 최소 $44\text{px} \times 44\text{px}$의 클릭/터치 영역을 보장합니다.
 
+### 4.4 한국어 줄바꿈 및 타이포그래피 표준 (Korean Line-Break Rule)
+- **어절 단위 줄바꿈 후보:** 한국어 텍스트는 `word-break: keep-all` (`break-keep`)을 적용하여 단어가 음절 중간에서 분절되지 않도록 합니다.
+- **제목 줄바꿈 균형:** 카드 제목 및 헤더(`h1`~`h6`)에 `text-wrap: balance` (`text-balance`)를 적용해 줄 길이를 고르게 맞춥니다.
+- **본문 외톨이 단어 방지:** 문단(`p`)에 `text-wrap: pretty` (`text-pretty`)를 적용하여 마지막 줄에 외톨이 단어가 남지 않도록 합니다.
+- **긴 단어/URL 넘침 방지:** `overflow-wrap: break-word` (`break-words`)를 적용하여 긴 전문 용어나 URL이 컨테이너를 뚫고 나가지 않게 제어합니다.
+- **버튼 단일 행 유지:** 버튼, 배지, 칩 라벨에 `white-space: nowrap` (`whitespace-nowrap`)을 적용합니다.
+
 ---
 
 ## 5. 안티패턴 금지 목록 (Strict Banned Patterns)
@@ -125,3 +132,5 @@
 3. **버튼 줄바꿈 미적용 액션 행:** `flex flex-nowrap`으로 좁은 카드에서 버튼이 밖으로 삐져나가는 배치 금지 (`flex-wrap` 필수).
 4. **저대비 텍스트:** 배경 대비 명도비 4.5:1 미만의 회색조 텍스트 금지.
 5. **무거운 서드파티 그리드 라이브러리:** Framer나 복잡한 외부 번들 의존 금지 (순수 CSS Grid 및 Tailwind 준수).
+6. **한국어 음절 분절 슬롭:** 한국어 제목이나 본문에 `word-break: break-all` (`break-all`) 사용 금지 (`break-keep` 필수).
+

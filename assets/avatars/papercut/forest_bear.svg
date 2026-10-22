@@ -1,0 +1,61 @@
+<svg class="pc-layered-paper-avatar" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" data-avatar-id="forest_bear" data-category="forest">
+  <defs>
+    
+    <filter id="ps-forest_bear-base" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="1.11" dy="1.11" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="3.18" dy="3.18" stdDeviation="1.20" flood-color="#2E1E14" flood-opacity="0.38"/>
+      <feDropShadow dx="-0.51" dy="-0.51" stdDeviation="0.32" flood-color="#FFFFFF" flood-opacity="0.85"/>
+    </filter>
+    <filter id="ps-forest_bear-mid" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.89" dy="0.89" stdDeviation="0.54" flood-color="#2E1E14" flood-opacity="0.50"/>
+      <feDropShadow dx="2.07" dy="2.07" stdDeviation="1.02" flood-color="#2E1E14" flood-opacity="0.32"/>
+      <feDropShadow dx="-0.38" dy="-0.38" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.90"/>
+    </filter>
+    <filter id="ps-forest_bear-top" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0.70" dy="0.70" stdDeviation="0.46" flood-color="#2E1E14" flood-opacity="0.55"/>
+      <feDropShadow dx="1.59" dy="1.59" stdDeviation="0.78" flood-color="#2E1E14" flood-opacity="0.28"/>
+      <feDropShadow dx="-0.32" dy="-0.32" stdDeviation="0.22" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+  
+    <linearGradient id="bg-grad-forest_bear" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFDF9"/>
+      <stop offset="100%" stop-color="#F8F4EC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Layer 0: Physical Paper Substrate & Perforated Rim -->
+  <circle cx="50" cy="50" r="47" fill="url(#bg-grad-forest_bear)" stroke="#E8E1D5" stroke-width="1.5" filter="url(#ps-forest_bear-base)"/>
+  <circle cx="50" cy="50" r="43" fill="none" stroke="#DCD3C5" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Layer 1: Category Themed Pastel Cardstock Plate -->
+  <circle cx="50" cy="50" r="39" fill="#78350F" opacity="0.18" filter="url(#ps-forest_bear-base)"/>
+  
+        <!-- Forest Pine/Leaf Cutouts -->
+        <path d="M 22 75 L 30 55 L 38 75 Z" fill="#A3D8C3" opacity="0.6"/>
+        <path d="M 64 78 L 72 58 L 80 78 Z" fill="#A3D8C3" opacity="0.6"/>
+        <circle cx="50" cy="22" r="6" fill="#F7BA9E" opacity="0.4"/>
+      
+
+  <!-- Layer 2 & 3: Character Paper-Cut Silhouettes & Details -->
+  
+      <!-- Bear Ears -->
+      <circle cx="34" cy="36" r="8" fill="#78350F" filter="url(#ps-forest_bear-mid)"/>
+      <circle cx="66" cy="36" r="8" fill="#78350F" filter="url(#ps-forest_bear-mid)"/>
+      <circle cx="34" cy="36" r="4.5" fill="#F7BA9E"/>
+      <circle cx="66" cy="36" r="4.5" fill="#F7BA9E"/>
+      <!-- Bear Head -->
+      <ellipse cx="50" cy="52" rx="20" ry="18" fill="#78350F" filter="url(#ps-forest_bear-mid)"/>
+      <!-- Muzzle -->
+      <ellipse cx="50" cy="58" rx="10" ry="8" fill="#FFFDF9" filter="url(#ps-forest_bear-top)"/>
+      <ellipse cx="50" cy="55" rx="4" ry="2.5" fill="#3D352E"/>
+      <path d="M 50 57.5 L 50 61 M 47 61 Q 50 63 53 61" stroke="#3D352E" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      
+    <circle cx="43" cy="49" r="2.5" fill="#3D352E" filter="url(#ps-forest_bear-top)"/>
+    <circle cx="57" cy="49" r="2.5" fill="#3D352E" filter="url(#ps-forest_bear-top)"/>
+    <circle cx="42" cy="48" r="1" fill="#FFFDF9"/>
+    <circle cx="56" cy="48" r="1" fill="#FFFDF9"/>
+    <circle cx="38" cy="54" r="3" fill="#F7BA9E" opacity="0.7"/>
+    <circle cx="62" cy="54" r="3" fill="#F7BA9E" opacity="0.7"/>
+  
+    
+</svg>

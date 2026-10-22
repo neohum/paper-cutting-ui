@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 120" width="512" height="120">
+  <defs>
+    <!-- PaperCut Multi-Tier Soft Umber 3D Shadows: 2-Tier 48% Burnt Umber Standard -->
+    <filter id="pc-shadow-stamp" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="1.6" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.48"/>
+      <feDropShadow dx="0" dy="4.8" stdDeviation="2.4" flood-color="#2E1E14" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="-0.6" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+    <filter id="pc-shadow-scissors" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1.0" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.42"/>
+      <feDropShadow dx="0.6" dy="2.6" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.25"/>
+      <feDropShadow dx="-0.4" dy="-0.4" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+    <filter id="pc-shadow-mid" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.2" stdDeviation="1.5" flood-color="#2E1E14" flood-opacity="0.16"/>
+    </filter>
+    <filter id="pc-shadow-text" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.18"/>
+    </filter>
+    <filter id="pc-shadow-badge" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="3.5" stdDeviation="2.0" flood-color="#2E1E14" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+
+    <!-- Linear Gradients for Soft Paper Cardstock -->
+    <linearGradient id="pc-grad-ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#483F37"/>
+      <stop offset="100%" stop-color="#332B24"/>
+    </linearGradient>
+    <linearGradient id="pc-grad-badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#BBD5B8"/>
+      <stop offset="100%" stop-color="#8DCDB3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ============================================================== -->
+  <!-- 1. LEFT EMBLEM: 3D Postage Stamp + Craft Scissors (100% Unified) -->
+  <!-- ============================================================== -->
+  <g id="pc-logo-emblem" transform="translate(17, 15) scale(2.25)">
+    <!-- Layer 1: Postage Stamp Perforated Icon Background Plate Base (Mint Pastel #BBD5B8) -->
+    <path d="M 6 4 Q 8 6 10 4 Q 12 6 14 4 Q 16 6 18 4 Q 20 6 22 4 Q 24 6 26 4 Q 28 6 30 4 Q 32 6 34 4 Q 36 6 38 4 Q 37 6 37 8 Q 39 10 37 12 Q 39 14 37 16 Q 39 18 37 20 Q 39 22 37 24 Q 39 26 37 28 Q 39 30 37 32 Q 39 34 37 36 Q 36 34 34 36 Q 32 34 30 36 Q 28 34 26 36 Q 24 34 22 36 Q 20 34 18 36 Q 16 34 14 36 Q 12 34 10 36 Q 8 34 6 36 Q 4 34 2 36 Q 3 34 3 32 Q 1 30 3 28 Q 1 26 3 24 Q 1 22 3 20 Q 1 18 3 16 Q 1 14 3 12 Q 1 10 3 8 Q 1 6 3 4 Z" fill="#BBD5B8" filter="url(#pc-shadow-stamp)"/>
+    <!-- Layer 2: Inner Cream Paper Inlay Sheet -->
+    <rect x="6.5" y="6.5" width="27" height="27" rx="3" fill="#FFFDF9"/>
+    <!-- Layer 3: Dashed Perforation Ring -->
+    <rect x="8.5" y="8.5" width="23" height="23" rx="2" fill="none" stroke="#D8CEBD" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <!-- Layer 4: 3D Paper-Cut Scissors Craft Motif -->
+    <g transform="translate(10.5, 10.5) scale(0.29)" filter="url(#pc-shadow-scissors)">
+      <circle cx="16" cy="18" r="9" fill="#F7BA9E"/>
+      <circle cx="16" cy="18" r="5" fill="#FFFDF9"/>
+      <circle cx="16" cy="46" r="9" fill="#F7BA9E"/>
+      <circle cx="16" cy="46" r="5" fill="#FFFDF9"/>
+      <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#FFFDF9" stroke-width="6" stroke-linecap="round"/>
+      <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#A3D8C3" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="34" cy="32" r="3.2" fill="#FEE396"/>
+    </g>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- 2. RIGHT TYPOGRAPHY: 'PaperCut' Pure Vector Paths              -->
+  <!-- ============================================================== -->
+  <g id="pc-logo-wordmark" fill="url(#pc-grad-ink)" filter="url(#pc-shadow-text)">
+    <!-- Letter P -->
+    <path fill-rule="evenodd" d="
+      M 136, 64 L 136, 24 L 154, 24 
+      C 163, 24, 169, 30, 169, 38 
+      C 169, 46, 163, 52, 154, 52 
+      L 144.5, 52 L 144.5, 64 Z 
+      M 144.5, 31.5 L 144.5, 44.5 L 153.5, 44.5 
+      C 157.5, 44.5, 160.5, 41.8, 160.5, 38 
+      C 160.5, 34.2, 157.5, 31.5, 153.5, 31.5 Z
+    " />
+
+    <!-- Letter a -->
+    <path fill-rule="evenodd" d="
+      M 200, 43.5 L 193, 43.5 
+      C 190.5, 39.5, 185.5, 38, 181, 38 
+      C 171.5, 38, 165, 44.5, 165, 51.5 
+      C 165, 58.5, 171.5, 65, 181, 65 
+      C 185.5, 65, 190.5, 63, 193, 59 
+      L 193, 64 L 200, 64 Z 
+      M 182, 44.5 
+      C 186.5, 44.5, 190, 47, 191.5, 50 
+      C 192.5, 52, 192.5, 54, 191.5, 56 
+      C 190, 59, 186.5, 61, 182, 61 
+      C 176.5, 61, 172.5, 57, 172.5, 51.5 
+      C 172.5, 46, 176.5, 44.5, 182, 44.5 Z
+    " />
+
+    <!-- Letter p -->
+    <path fill-rule="evenodd" d="
+      M 207, 39 L 214, 39 L 214, 42 
+      C 217, 39.5, 221.5, 38, 226.5, 38 
+      C 235.5, 38, 241.5, 44.5, 241.5, 51.5 
+      C 241.5, 58.5, 235.5, 65, 226.5, 65 
+      C 221.5, 65, 217, 63.5, 214, 60.5 
+      L 214, 75 L 207, 75 Z 
+      M 225, 44.5 
+      C 229.5, 44.5, 233.5, 47.5, 233.5, 51.5 
+      C 233.5, 55.5, 229.5, 58.5, 225, 58.5 
+      C 220.5, 58.5, 217, 55.5, 215, 52.5 
+      C 214.2, 51, 214.2, 49, 215, 47.5 
+      C 217, 45.5, 220.5, 44.5, 225, 44.5 Z
+    " />
+
+    <!-- Letter e -->
+    <path fill-rule="evenodd" d="
+      M 273, 53 L 253, 53 
+      C 253.5, 57.5, 257, 59.5, 261, 59.5 
+      C 265, 59.5, 268, 57.5, 270, 55 
+      L 275.5, 58 
+      C 272.5, 62.5, 267.5, 65, 261, 65 
+      C 251, 65, 245, 58.5, 245, 51.5 
+      C 245, 44.5, 251, 38, 261, 38 
+      C 269.5, 38, 275.5, 44, 275.5, 51.5 
+      C 275.5, 52.2, 275, 53, 273, 53 Z 
+      M 261, 43.5 
+      C 256.5, 43.5, 253.5, 46, 252.8, 49 
+      L 268.2, 49 
+      C 267.5, 46, 265, 43.5, 261, 43.5 Z
+    " />
+
+    <!-- Letter r -->
+    <path d="
+      M 281, 39 L 288, 39 L 288, 45 
+      C 290.5, 40.5, 295, 38, 300, 38 
+      L 300, 45.5 
+      C 295.5, 45.5, 291.5, 48, 288, 51 
+      L 288, 64 L 281, 64 Z
+    " />
+
+    <!-- Letter C (Uppercase with Crafted Paper Arc) -->
+    <path d="
+      M 338, 33.5 L 332, 38 
+      C 328.5, 33, 324, 30, 318, 30 
+      C 309, 30, 303, 36.5, 303, 44 
+      C 303, 51.5, 309, 58, 318, 58 
+      C 324, 58, 328.5, 55, 332, 49.5 
+      L 338, 54 
+      C 333.5, 61, 327, 65, 318, 65 
+      C 305, 65, 295, 55.5, 295, 44 
+      C 295, 32.5, 305, 23, 318, 23 
+      C 327, 23, 333.5, 27, 338, 33.5 Z
+    " />
+
+    <!-- Letter u -->
+    <path d="
+      M 346, 39 L 353, 39 L 353, 54 
+      C 353, 57.5, 355.5, 59.5, 359.5, 59.5 
+      C 363.5, 59.5, 366, 57.5, 366, 54 
+      L 366, 39 L 373, 39 L 373, 64 L 366, 64 L 366, 58 
+      C 363.5, 62, 359, 65, 354, 65 
+      C 347, 65, 346, 59.5, 346, 53.5 Z
+    " />
+
+    <!-- Letter t (With Kirigami Angled Cut on Crossbar) -->
+    <path d="
+      M 383, 30 L 388, 25 L 388, 39 L 398, 39 L 398, 44.5 L 388, 44.5 
+      L 388, 56.5 C 388, 59.5, 390, 60.5, 393, 60.5 C 395.5, 60.5, 397, 60, 398, 59 
+      L 398, 64 C 395.5, 64.8, 392.5, 65.5, 389, 65.5 
+      C 383.5, 65.5, 381, 62, 381, 56 L 381, 44.5 L 376, 44.5 L 376, 39 L 381, 39 L 381, 30 Z
+    " />
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- 3. 'UI' 3D LAYERED CARDSTOCK PILL BADGE                       -->
+  <!-- ============================================================== -->
+  <g id="pc-logo-badge" filter="url(#pc-shadow-badge)">
+    <!-- Bottom Paper Layer (Peach 3D Offset) -->
+    <rect x="412" y="27" width="68" height="37" rx="14" fill="#F7BA9E" />
+    
+    <!-- Top Paper Layer (Mint Pastel Cardstock) -->
+    <rect x="410" y="25" width="68" height="37" rx="14" fill="url(#pc-grad-badge)" stroke="#FAF6ED" stroke-width="1.2" />
+    
+    <!-- Delicate Perforated / Cut Stitched Border -->
+    <rect x="413.5" y="28.5" width="61" height="30" rx="10.5" 
+          fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="3 2" opacity="0.75" />
+
+    <!-- Pure White Cardstock Letters 'UI' -->
+    <g fill="#FFFFFF" filter="url(#pc-shadow-text)">
+      <!-- Letter U -->
+      <path d="
+        M 421, 33 L 427, 33 L 427, 44.5 
+        C 427, 48, 429.5, 50, 433.5, 50 
+        C 437.5, 50, 440, 48, 440, 44.5 
+        L 440, 33 L 446, 33 L 446, 45 
+        C 446, 51, 440.5, 54.5, 433.5, 54.5 
+        C 426.5, 54.5, 421, 51, 421, 45 Z
+      " />
+      
+      <!-- Letter I -->
+      <path d="
+        M 452, 33 L 458, 33 L 458, 54 L 452, 54 Z
+      " />
+    </g>
+  </g>
+
+  <!-- ============================================================== -->
+  <!-- 4. SUBTITLE & CRAFT DIVIDER: 'Layered Craft Design System'     -->
+  <!-- ============================================================== -->
+  <g id="pc-logo-subtitle">
+    <!-- Palette Swatch Studs (Mint, Peach, Lavender, Buttercup) -->
+    <g transform="translate(136, 88)">
+      <rect x="0" y="-4" width="7" height="7" rx="2" fill="#BBD5B8" transform="rotate(45 3.5 -0.5)" filter="url(#pc-shadow-mid)" />
+      <rect x="14" y="-4" width="7" height="7" rx="2" fill="#F7BA9E" transform="rotate(45 17.5 -0.5)" filter="url(#pc-shadow-mid)" />
+      <rect x="28" y="-4" width="7" height="7" rx="2" fill="#D7CBEB" transform="rotate(45 31.5 -0.5)" filter="url(#pc-shadow-mid)" />
+      <rect x="42" y="-4" width="7" height="7" rx="2" fill="#FEE396" transform="rotate(45 45.5 -0.5)" filter="url(#pc-shadow-mid)" />
+    </g>
+
+    <!-- Subtitle Text -->
+    <text x="194" y="91" 
+          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Nanum Square Round', sans-serif" 
+          font-size="11.5" font-weight="800" letter-spacing="3.2" fill="#7D7368">
+      LAYERED CRAFT DESIGN SYSTEM
+    </text>
+
+    <!-- Subtle End Divider Dash Line -->
+    <line x1="472" y1="88" x2="494" y2="88" stroke="#D8CEBE" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 3" />
+  </g>
+</svg>
