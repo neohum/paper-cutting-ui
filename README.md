@@ -69,9 +69,8 @@ HTML 파일 하나만 만들고 아래 코드를 그대로 붙여넣으면 즉�
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My PaperCut App</title>
   
-  <!-- PaperCut 핵심 스타일시트 -->
-  <link rel="stylesheet" href="./papercut.css">
-  <link rel="stylesheet" href="./papercut-svg-primitives.css">
+  <!-- PaperCut 핵심 스타일시트 (글로벌 CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css">
 </head>
 <body style="background: #FAF7F0; padding: 40px 20px; font-family: sans-serif;">
   <div style="max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
@@ -90,10 +89,9 @@ HTML 파일 하나만 만들고 아래 코드를 그대로 붙여넣으면 즉�
     </div>
   </div>
 
-  <!-- PaperCut 핵심 스크립트 -->
-  <script src="./papercut-icons.js"></script>
-  <script src="./papercut-svg-primitives.js"></script>
-  <script src="./papercut.js"></script>
+  <!-- PaperCut 678종 3D 아이콘 & 핵심 스크립트 (글로벌 CDN) -->
+  <script src="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut-icons.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.js"></script>
 </body>
 </html>
 ```

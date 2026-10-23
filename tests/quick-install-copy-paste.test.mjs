@@ -80,6 +80,8 @@ describe('PaperCut UI: Quick Installation & Copy-Paste Workflow', () => {
       assert.ok(indexHtml.includes('id="pc-starter-template-code"'), 'Must have starter template element');
       assert.ok(indexHtml.includes('data-copy-target="pc-starter-template-code"'), 'Must have copy button for starter template');
       assert.ok(indexHtml.includes('전체 HTML 템플릿 복사'), 'Must have Korean copy label');
+      assert.ok(indexHtml.includes('https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css'), 'Must provide jsDelivr CDN CSS link in starter');
+      assert.ok(indexHtml.includes('CDN 태그 복사'), 'Must have CDN tag copy button');
     });
 
     it('should contain copy cards for core primitives', () => {
