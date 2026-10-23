@@ -110,36 +110,63 @@
     wrap.setAttribute('tabindex', '0');
     wrap.setAttribute('aria-label', ariaLabel || label);
 
-    const width = 160;
-    const height = 46;
+    const width = opts.width || 170;
+    const height = opts.height || 46;
 
-    wrap.innerHTML = `
-      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-        <!-- Layer 0: 350g 밑판 마운트 보드 (Base Kraft Mat) -->
+    let shapeContent = '';
+    if (variant === 'stamp') {
+      shapeContent = `
+        <rect x="2" y="4" width="${width - 4}" height="${height - 7}" rx="4"
+              fill="${pal.dark}" filter="url(#pc-filter-contact-shadow)" />
+        <rect x="2" y="2" width="${width - 4}" height="${height - 7}" rx="4"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" />
+        <circle cx="10" cy="2" r="2" fill="#FAF7F0"/><circle cx="28" cy="2" r="2" fill="#FAF7F0"/><circle cx="46" cy="2" r="2" fill="#FAF7F0"/><circle cx="64" cy="2" r="2" fill="#FAF7F0"/><circle cx="82" cy="2" r="2" fill="#FAF7F0"/><circle cx="100" cy="2" r="2" fill="#FAF7F0"/><circle cx="118" cy="2" r="2" fill="#FAF7F0"/><circle cx="136" cy="2" r="2" fill="#FAF7F0"/><circle cx="154" cy="2" r="2" fill="#FAF7F0"/>
+        <circle cx="10" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="28" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="46" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="64" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="82" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="100" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="118" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="136" cy="${height - 5}" r="2" fill="#FAF7F0"/><circle cx="154" cy="${height - 5}" r="2" fill="#FAF7F0"/>
+        <rect x="10" y="7" width="${width - 20}" height="${height - 17}" rx="2"
+              fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.75" />
+      `;
+    } else if (variant === 'ticket') {
+      shapeContent = `
+        <path d="M 3 5 H ${width - 3} V 15 A 5 5 0 0 0 ${width - 3} 27 V 39 H 3 V 27 A 5 5 0 0 0 3 15 Z"
+              fill="${pal.dark}" filter="url(#pc-filter-contact-shadow)" />
+        <path d="M 3 2 H ${width - 3} V 13 A 5 5 0 0 0 ${width - 3} 25 V 37 H 3 V 25 A 5 5 0 0 0 3 13 Z"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" />
+        <line x1="32" y1="4" x2="32" y2="36" stroke="${pal.border}" stroke-width="1.2" stroke-dasharray="3 2" opacity="0.6"/>
+      `;
+    } else if (variant === 'pill') {
+      const radius = (height - 8) / 2;
+      shapeContent = `
+        <rect x="2" y="5" width="${width - 4}" height="${height - 8}" rx="${radius}"
+              fill="${pal.dark}" stroke="${pal.border}" stroke-width="1.2"
+              filter="url(#pc-filter-contact-shadow)" />
+        <rect x="2" y="2" width="${width - 4}" height="${height - 8}" rx="${radius}"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" />
+        <line x1="${radius + 4}" y1="3" x2="${width - radius - 4}" y2="3" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+      `;
+    } else {
+      shapeContent = `
         <rect x="2" y="5" width="${width - 4}" height="${height - 8}" rx="12"
               fill="${pal.dark}" stroke="${pal.border}" stroke-width="1.2"
               filter="url(#pc-filter-contact-shadow)" />
-        
-        <!-- Layer 1: 상단 컷아웃 카드스톡 (Face Paper Sheet) -->
         <g class="pc-svg-layer-top">
           <rect x="2" y="2" width="${width - 4}" height="${height - 8}" rx="12"
                 fill="${variant === 'solid' ? pal.bg : '#FFFDF9'}"
                 stroke="${pal.border}" stroke-width="1" />
-          
-          <!-- 0.88px 상단 순백 나이프 엣지 칼선 림 라이트 (Knife Rim) -->
           <path d="M 14 3 L ${width - 14} 3" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
-          
-          <!-- 수공예 미싱선 스티칭 (Craft Stitching Rim) -->
           <rect x="6" y="6" width="${width - 12}" height="${height - 16}" rx="8"
                 fill="none" stroke="rgba(46,30,20,0.18)" stroke-width="1" stroke-dasharray="3 2.5" />
-          
-          <!-- 레이블 텍스트 & 아이콘 -->
+        </g>
+      `;
+    }
+
+    wrap.innerHTML = `
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+        ${shapeContent}
+        <g class="pc-svg-layer-top">
           <text x="${width / 2}" y="${height / 2 + 1}" text-anchor="middle" dominant-baseline="central"
-                fill="${pal.ink}" font-size="14" font-weight="700" letter-spacing="-0.2px">
+                fill="${pal.ink}" font-size="13.5" font-weight="700" letter-spacing="-0.2px">
             ${label}
           </text>
-
-          <!-- 접근성 포커스 링 (Focus Ring) -->
           <rect class="pc-svg-focus-ring" x="1" y="1" width="${width - 2}" height="${height - 6}" rx="13"
                 fill="none" stroke="transparent" stroke-width="1.5" opacity="0" />
         </g>
@@ -899,7 +926,17 @@
     });
 
     document.body.appendChild(backdrop);
-    return { open, close, element: backdrop };
+    const triggerBtn = createButton({
+      label: opts.triggerLabel || '모달 다이얼로그 열기',
+      tone: tone,
+      variant: 'ticket',
+      width: 160,
+      onClick: open
+    });
+    triggerBtn.open = open;
+    triggerBtn.close = close;
+    triggerBtn.element = backdrop;
+    return triggerBtn;
   }
 
   // -------------------------------------------------------------------------
@@ -947,7 +984,9 @@
       if (bar) bar.setAttribute('width', String((width - 4) * r));
     }
 
-    return { element: wrap, setValue };
+    wrap.setValue = setValue;
+    wrap.element = wrap;
+    return wrap;
   }
 
   // -------------------------------------------------------------------------
@@ -1110,22 +1149,392 @@
   }
 
   // -------------------------------------------------------------------------
+  // 13. BADGE (Pure SVG Multi-Layer Die-Cut Paper Badge)
+  // -------------------------------------------------------------------------
+  function createBadge(opts = {}) {
+    ensureMasterDefs();
+    const {
+      label = '종이 배지',
+      tone = 'mint',
+      variant = 'stamp', // 'stamp', 'ticket', 'pill', 'scallop', 'ribbon', 'deckle'
+      icon = null
+    } = opts;
+    const pal = getPalette(tone);
+    const wrap = document.createElement('span');
+    wrap.className = `pc-svg-component pc-svg-badge pc-svg-badge--${tone} pc-svg-badge--${variant}`;
+    wrap.setAttribute('role', 'status');
+
+    const width = Math.max(92, label.length * 12 + 36);
+    const height = 28;
+
+    let shapeMarkup = '';
+    if (variant === 'ticket') {
+      shapeMarkup = `
+        <path d="M 3 3 H ${width - 3} V 9 A 3.5 3.5 0 0 0 ${width - 3} 19 V 25 H 3 V 19 A 3.5 3.5 0 0 0 3 9 Z"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" filter="url(#pc-filter-contact-shadow)"/>
+        <line x1="20" y1="4" x2="20" y2="24" stroke="${pal.border}" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+      `;
+    } else if (variant === 'pill') {
+      shapeMarkup = `
+        <rect x="2" y="3" width="${width - 4}" height="${height - 6}" rx="${(height - 6) / 2}"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" filter="url(#pc-filter-contact-shadow)"/>
+      `;
+    } else if (variant === 'ribbon') {
+      shapeMarkup = `
+        <polygon points="10,3 ${width - 3},3 ${width - 8},14 ${width - 3},25 10,25 3,17 3,11"
+                 fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" filter="url(#pc-filter-contact-shadow)"/>
+        <circle cx="8" cy="14" r="2" fill="${pal.dark}"/>
+      `;
+    } else if (variant === 'scallop') {
+      shapeMarkup = `
+        <rect x="2" y="3" width="${width - 4}" height="${height - 6}" rx="8"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" filter="url(#pc-filter-contact-shadow)"/>
+        <circle cx="12" cy="14" r="5" fill="${pal.dark}" stroke="#FFFFFF" stroke-width="0.8"/>
+      `;
+    } else {
+      shapeMarkup = `
+        <rect x="2" y="4" width="${width - 4}" height="${height - 7}" rx="4"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1" filter="url(#pc-filter-contact-shadow)"/>
+        <circle cx="10" cy="4" r="1.5" fill="#FAF7F0"/><circle cx="25" cy="4" r="1.5" fill="#FAF7F0"/>
+        <circle cx="40" cy="4" r="1.5" fill="#FAF7F0"/><circle cx="55" cy="4" r="1.5" fill="#FAF7F0"/>
+        <circle cx="${width - 10}" cy="4" r="1.5" fill="#FAF7F0"/><circle cx="${width - 25}" cy="4" r="1.5" fill="#FAF7F0"/>
+        <circle cx="10" cy="25" r="1.5" fill="#FAF7F0"/><circle cx="25" cy="25" r="1.5" fill="#FAF7F0"/>
+        <circle cx="${width - 10}" cy="25" r="1.5" fill="#FAF7F0"/>
+      `;
+    }
+
+    wrap.innerHTML = `
+      <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+        ${shapeMarkup}
+        <line x1="8" y1="4.5" x2="${width - 8}" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.9"/>
+        <text x="${width / 2}" y="${height / 2 + 1}" text-anchor="middle" dominant-baseline="central"
+              fill="${pal.ink}" font-size="11.5" font-weight="800">
+          ${label}
+        </text>
+      </svg>
+    `;
+    return wrap;
+  }
+
+  // -------------------------------------------------------------------------
+  // 14. INPUT (Wavy Deckle & Ticket Notch Pure SVG Inset Input)
+  // -------------------------------------------------------------------------
+  function createInput(opts = {}) {
+    ensureMasterDefs();
+    const {
+      placeholder = '종이 위에 기록할 내용...',
+      value = '',
+      tone = 'mint',
+      variant = 'wavy', // 'wavy', 'ticket', 'well'
+      type = 'text',
+      ariaLabel = '입력 필드',
+      onChange = null
+    } = opts;
+    const pal = getPalette(tone);
+    const wrap = document.createElement('div');
+    wrap.className = `pc-svg-component pc-svg-input-wrap pc-svg-input--${tone}`;
+    wrap.style.position = 'relative';
+    wrap.style.display = 'inline-block';
+    wrap.style.width = '100%';
+    wrap.style.maxWidth = opts.maxWidth || '400px';
+
+    const width = 380;
+    const height = 48;
+
+    let bgPath = '';
+    if (variant === 'ticket') {
+      bgPath = `
+        <path d="M 4 4 H ${width - 4} V 18 A 6 6 0 0 0 ${width - 4} 30 V 44 H 4 V 30 A 6 6 0 0 0 4 18 Z"
+              fill="${pal.bg}" stroke="${pal.border}" stroke-width="1.2" filter="url(#pc-filter-contact-shadow)"/>
+        <rect x="12" y="7" width="${width - 24}" height="34" rx="4" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.8"/>
+        <line x1="68" y1="8" x2="68" y2="40" stroke="${pal.border}" stroke-width="1" stroke-dasharray="2.5 2.5"/>
+      `;
+    } else {
+      bgPath = `
+        <path d="M 6 5 Q 30 3 60 6 Q 100 4 140 6 Q 180 3 220 6 Q 270 4 320 6 Q 350 4 ${width - 6} 5 Q ${width - 4} 14 ${width - 6} 24 Q ${width - 4} 34 ${width - 6} 43 Q 320 42 220 42 Q 140 42 60 42 Q 30 45 6 43 Q 4 34 6 24 Q 4 14 6 5 Z"
+              fill="${variant === 'wavy' ? pal.bg : '#F4EEE3'}" stroke="${pal.border}" stroke-width="1.2" filter="url(#pc-filter-contact-shadow)"/>
+        <rect x="10" y="7" width="${width - 20}" height="34" rx="4" fill="#FFFDF9" stroke="#EADBCC" stroke-width="0.8"/>
+      `;
+    }
+
+    wrap.innerHTML = `
+      <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" style="display: block; width: 100%; height: 48px;">
+        ${bgPath}
+        <line x1="14" y1="8.5" x2="${width - 14}" y2="8.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+      </svg>
+      <input type="${type}" class="pc-svg-input-field" placeholder="${placeholder}" value="${value}" aria-label="${ariaLabel}"
+             style="position: absolute; left: ${variant === 'ticket' ? '76px' : '16px'}; right: 16px; top: 8px; height: 32px; background: transparent; border: none; outline: none; font-size: 13.5px; font-weight: 600; color: #2E1E14; font-family: inherit;">
+    `;
+
+    const inputEl = wrap.querySelector('input');
+    if (typeof onChange === 'function') {
+      inputEl.addEventListener('input', (e) => onChange(e.target.value));
+    }
+    return wrap;
+  }
+
+  // -------------------------------------------------------------------------
+  // 15. AVATAR (Layered Paper Disk Avatar)
+  // -------------------------------------------------------------------------
+  function createAvatar(opts = {}) {
+    ensureMasterDefs();
+    const {
+      initials = 'PC',
+      tone = 'peach',
+      size = 44,
+      ariaLabel = '사용자 아바타'
+    } = opts;
+    const pal = getPalette(tone);
+    const wrap = document.createElement('div');
+    wrap.className = `pc-svg-component pc-svg-avatar pc-svg-avatar--${tone}`;
+    wrap.setAttribute('role', 'img');
+    wrap.setAttribute('aria-label', ariaLabel);
+
+    wrap.innerHTML = `
+      <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+        <circle cx="${size / 2}" cy="${size / 2 + 1.5}" r="${size / 2 - 2}"
+                fill="${pal.dark}" filter="url(#pc-filter-contact-shadow)"/>
+        <circle cx="${size / 2}" cy="${size / 2}" r="${size / 2 - 2}"
+                fill="${pal.bg}" stroke="${pal.border}" stroke-width="1"/>
+        <path d="M ${size * 0.2} ${size * 0.2} A ${size * 0.35} ${size * 0.35} 0 0 1 ${size * 0.8} ${size * 0.2}"
+              stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="${size / 2}" cy="${size / 2}" r="${size / 2 - 5}"
+                fill="#FFFDF9" stroke="#E6DDD1" stroke-width="0.8"/>
+        <text x="${size / 2}" y="${size / 2 + 1}" text-anchor="middle" dominant-baseline="central"
+              fill="${pal.ink}" font-size="${size * 0.34}" font-weight="800">
+          ${initials}
+        </text>
+      </svg>
+    `;
+    return wrap;
+  }
+
+  // -------------------------------------------------------------------------
+  // 16. BREADCRUMB (Multi-Piece Paper Arrow Breadcrumb)
+  // -------------------------------------------------------------------------
+  function createBreadcrumb(opts = {}) {
+    ensureMasterDefs();
+    const {
+      items = [{ label: '홈' }, { label: '컴포넌트' }, { label: '버튼' }],
+      tone = 'sand'
+    } = opts;
+    const pal = getPalette(tone);
+    const nav = document.createElement('nav');
+    nav.className = 'pc-svg-component pc-svg-breadcrumb';
+    nav.setAttribute('aria-label', 'Breadcrumb');
+
+    const ol = document.createElement('ol');
+    ol.style.cssText = 'display: inline-flex; align-items: center; gap: 6px; list-style: none; margin: 0; padding: 0;';
+
+    items.forEach((it, idx) => {
+      const isLast = idx === items.length - 1;
+      const li = document.createElement('li');
+      li.style.cssText = 'display: inline-flex; align-items: center; gap: 6px;';
+
+      const tag = document.createElement('span');
+      tag.className = 'pc-svg-breadcrumb-item';
+      tag.style.cssText = `background: ${isLast ? '#FFFDF9' : pal.bg}; border: 1px solid ${pal.border}; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: ${isLast ? '800' : '600'}; color: ${isLast ? '#2E1E14' : pal.ink}; box-shadow: 0 1px 2px rgba(46,30,20,0.12), inset 0 1px 0 #FFFFFF;`;
+      tag.textContent = it.label;
+      if (isLast) tag.setAttribute('aria-current', 'page');
+      li.appendChild(tag);
+
+      if (!isLast) {
+        const sep = document.createElement('span');
+        sep.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" style="display:block;"><path d="M 4 2 L 8 6 L 4 10" stroke="#7A695A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+        sep.setAttribute('aria-hidden', 'true');
+        li.appendChild(sep);
+      }
+      ol.appendChild(li);
+    });
+
+    nav.appendChild(ol);
+    return nav;
+  }
+
+  // -------------------------------------------------------------------------
+  // 17. PAGINATION (Ticket Paper Number Blocks)
+  // -------------------------------------------------------------------------
+  function createPagination(opts = {}) {
+    ensureMasterDefs();
+    const {
+      current = 1,
+      total = 5,
+      onPageChange = null,
+      tone = 'mint'
+    } = opts;
+    const pal = getPalette(tone);
+    const nav = document.createElement('nav');
+    nav.className = 'pc-svg-component pc-svg-pagination';
+    nav.setAttribute('aria-label', 'Pagination');
+
+    let stateCurrent = current;
+    function render() {
+      nav.innerHTML = '';
+      const group = document.createElement('div');
+      group.style.cssText = 'display: inline-flex; align-items: center; gap: 6px;';
+
+      for (let i = 1; i <= total; i++) {
+        const isAct = i === stateCurrent;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.style.cssText = `width: 36px; height: 36px; border-radius: 8px; border: 1px solid ${isAct ? pal.border : 'rgba(46,30,20,0.15)'}; background: ${isAct ? pal.bg : '#FFFDF9'}; color: ${isAct ? pal.ink : '#554433'}; font-weight: 800; font-size: 13px; cursor: pointer; box-shadow: ${isAct ? '0 2px 4px rgba(46,30,20,0.18), inset 0 1px 0 #FFFFFF' : '0 1px 2px rgba(46,30,20,0.08)'};`;
+        btn.textContent = String(i);
+        btn.setAttribute('aria-label', `페이지 ${i}`);
+        if (isAct) btn.setAttribute('aria-current', 'page');
+
+        btn.addEventListener('click', () => {
+          stateCurrent = i;
+          render();
+          if (typeof onPageChange === 'function') onPageChange(stateCurrent);
+        });
+        group.appendChild(btn);
+      }
+      nav.appendChild(group);
+    }
+    render();
+    return nav;
+  }
+
+  // -------------------------------------------------------------------------
+  // 18. TOAST (Washi-Tape Layered Paper Toast Alert)
+  // -------------------------------------------------------------------------
+  function createToast(opts = {}) {
+    ensureMasterDefs();
+    const message = typeof opts === 'string' ? opts : (opts.message || '알림 메시지');
+    const tone = (typeof opts === 'object' && opts.tone) || 'mint';
+    const pal = getPalette(tone);
+
+    let container = document.getElementById('pc-svg-toast-container');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'pc-svg-toast-container';
+      container.style.cssText = 'position: fixed; bottom: 24px; right: 24px; display: flex; flex-direction: column; gap: 10px; z-index: 9999; pointer-events: none;';
+      document.body.appendChild(container);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `pc-svg-toast pc-svg-toast--${tone}`;
+    toast.setAttribute('role', 'status');
+    toast.style.cssText = `pointer-events: auto; background: #FFFDF9; border: 1px solid ${pal.border}; border-radius: 12px; padding: 14px 20px; box-shadow: 0 8px 24px rgba(46,30,20,0.22), inset 0 1px 0 #FFFFFF; position: relative; min-width: 240px; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: translateY(20px); opacity: 0;`;
+
+    toast.innerHTML = `
+      <div style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 64px; height: 16px; background: ${pal.bg}; opacity: 0.85; border-radius: 2px; box-shadow: 0 1px 2px rgba(46,30,20,0.15);"></div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: ${pal.bg}; color: ${pal.ink}; font-weight: 800; font-size: 12px;">✓</span>
+        <span style="font-size: 13.5px; font-weight: 700; color: #2E1E14;">${message}</span>
+      </div>
+    `;
+
+    container.appendChild(toast);
+    requestAnimationFrame(() => {
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity = '1';
+    });
+
+    setTimeout(() => {
+      toast.style.transform = 'translateY(10px)';
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 350);
+    }, 3200);
+
+    return toast;
+  }
+
+  // -------------------------------------------------------------------------
+  // 19. STEPPER (Connected Stitched Paper Disks)
+  // -------------------------------------------------------------------------
+  function createStepper(opts = {}) {
+    ensureMasterDefs();
+    const {
+      steps = ['기본 정보', '상세 설정', '검토 및 완료'],
+      active = 1,
+      tone = 'mint'
+    } = opts;
+    const pal = getPalette(tone);
+    const wrap = document.createElement('div');
+    wrap.className = 'pc-svg-component pc-svg-stepper';
+    wrap.setAttribute('role', 'navigation');
+    wrap.setAttribute('aria-label', 'Progress Steps');
+
+    const container = document.createElement('div');
+    container.style.cssText = 'display: inline-flex; align-items: center; gap: 12px;';
+
+    steps.forEach((step, idx) => {
+      const isCompleted = idx < active;
+      const isCurrent = idx === active;
+
+      const item = document.createElement('div');
+      item.style.cssText = 'display: inline-flex; align-items: center; gap: 8px;';
+
+      const circle = document.createElement('div');
+      circle.style.cssText = `width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; border: 1px solid ${isCurrent || isCompleted ? pal.border : 'rgba(46,30,20,0.18)'}; background: ${isCompleted ? pal.bg : (isCurrent ? '#FFFDF9' : '#F6EFE3')}; color: ${isCurrent ? '#2E1E14' : pal.ink}; box-shadow: ${isCurrent ? '0 2px 4px rgba(46,30,20,0.18), inset 0 1px 0 #FFFFFF' : 'none'};`;
+      circle.textContent = isCompleted ? '✓' : String(idx + 1);
+
+      const title = document.createElement('span');
+      title.style.cssText = `font-size: 12.5px; font-weight: ${isCurrent ? '800' : '600'}; color: ${isCurrent ? '#2E1E14' : '#7A695A'};`;
+      title.textContent = step;
+
+      item.appendChild(circle);
+      item.appendChild(title);
+      container.appendChild(item);
+
+      if (idx < steps.length - 1) {
+        const line = document.createElement('div');
+        line.style.cssText = `width: 32px; height: 2px; background: ${idx < active ? pal.bg : '#E6DDD1'}; border-top: 1px dashed rgba(46,30,20,0.2);`;
+        container.appendChild(line);
+      }
+    });
+
+    wrap.appendChild(container);
+    return wrap;
+  }
+
+  // -------------------------------------------------------------------------
   // Automatic Declarative Hydration: PaperCutSVG.init(root)
   // -------------------------------------------------------------------------
   function init(root = (typeof document !== 'undefined' ? document : null)) {
     if (!root) return;
     ensureMasterDefs();
 
-    // Declarative Buttons: <div data-pc-svg="button" data-label="..." data-tone="...">
+    // Declarative Buttons: <div data-pc-svg="button" data-label="..." data-tone="..." data-variant="...">
     root.querySelectorAll('[data-pc-svg="button"]').forEach(el => {
       if (el.dataset.pcHydrated) return;
       el.dataset.pcHydrated = 'true';
       const btn = createButton({
         label: el.dataset.label || el.textContent.trim() || '버튼',
-        tone: el.dataset.tone || 'mint'
+        tone: el.dataset.tone || 'mint',
+        variant: el.dataset.variant || 'solid',
+        width: parseInt(el.dataset.width || 170, 10)
       });
       el.innerHTML = '';
       el.appendChild(btn);
+    });
+
+    // Declarative Badges: <div data-pc-svg="badge" data-label="..." data-tone="..." data-variant="...">
+    root.querySelectorAll('[data-pc-svg="badge"]').forEach(el => {
+      if (el.dataset.pcHydrated) return;
+      el.dataset.pcHydrated = 'true';
+      const bdg = createBadge({
+        label: el.dataset.label || el.textContent.trim() || '배지',
+        tone: el.dataset.tone || 'mint',
+        variant: el.dataset.variant || 'stamp'
+      });
+      el.innerHTML = '';
+      el.appendChild(bdg);
+    });
+
+    // Declarative Inputs: <div data-pc-svg="input" data-placeholder="..." data-tone="..." data-variant="...">
+    root.querySelectorAll('[data-pc-svg="input"]').forEach(el => {
+      if (el.dataset.pcHydrated) return;
+      el.dataset.pcHydrated = 'true';
+      const inp = createInput({
+        placeholder: el.dataset.placeholder || '입력...',
+        value: el.dataset.value || '',
+        tone: el.dataset.tone || 'mint',
+        variant: el.dataset.variant || 'wavy'
+      });
+      el.innerHTML = '';
+      el.appendChild(inp);
     });
 
     // Declarative Switches: <div data-pc-svg="switch" data-checked="true" data-tone="...">
@@ -1153,6 +1562,43 @@
       el.innerHTML = '';
       el.appendChild(cb);
     });
+
+    // Declarative Sliders: <div data-pc-svg="slider" data-value="50" data-tone="...">
+    root.querySelectorAll('[data-pc-svg="slider"]').forEach(el => {
+      if (el.dataset.pcHydrated) return;
+      el.dataset.pcHydrated = 'true';
+      const sld = createSlider({
+        value: parseInt(el.dataset.value || 50, 10),
+        tone: el.dataset.tone || 'mint'
+      });
+      el.innerHTML = '';
+      el.appendChild(sld);
+    });
+
+    // Declarative Progress: <div data-pc-svg="progress" data-value="75" data-tone="...">
+    root.querySelectorAll('[data-pc-svg="progress"]').forEach(el => {
+      if (el.dataset.pcHydrated) return;
+      el.dataset.pcHydrated = 'true';
+      const prog = createProgress({
+        value: parseInt(el.dataset.value || 75, 10),
+        tone: el.dataset.tone || 'mint'
+      });
+      el.innerHTML = '';
+      el.appendChild(prog);
+    });
+
+    // Declarative Avatars: <div data-pc-svg="avatar" data-initials="PC" data-tone="...">
+    root.querySelectorAll('[data-pc-svg="avatar"]').forEach(el => {
+      if (el.dataset.pcHydrated) return;
+      el.dataset.pcHydrated = 'true';
+      const av = createAvatar({
+        initials: el.dataset.initials || 'PC',
+        tone: el.dataset.tone || 'peach',
+        size: parseInt(el.dataset.size || 44, 10)
+      });
+      el.innerHTML = '';
+      el.appendChild(av);
+    });
   }
 
   // Auto-init on DOMContentLoaded
@@ -1165,7 +1611,7 @@
   }
 
   return {
-    version: '1.0.0',
+    version: '1.1.0',
     palettes: PALETTES,
     init,
     createButton,
@@ -1179,6 +1625,13 @@
     createDialog,
     createProgress,
     createTooltip,
-    createSelect
+    createSelect,
+    createBadge,
+    createInput,
+    createAvatar,
+    createBreadcrumb,
+    createPagination,
+    createToast,
+    createStepper
   };
 });

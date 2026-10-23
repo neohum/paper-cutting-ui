@@ -29,7 +29,14 @@ describe('Full SVG UI Library: PaperCut SVG Primitives', () => {
         'createDialog',
         'createProgress',
         'createTooltip',
-        'createSelect'
+        'createSelect',
+        'createBadge',
+        'createInput',
+        'createAvatar',
+        'createBreadcrumb',
+        'createPagination',
+        'createToast',
+        'createStepper'
       ];
 
       for (const fnName of requiredFactories) {

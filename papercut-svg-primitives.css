@@ -363,6 +363,61 @@
 }
 
 /* ==========================================================================
+   13. BADGE, INPUT, AVATAR, BREADCRUMB, PAGINATION, TOAST & STEPPER
+   ========================================================================== */
+.pc-svg-badge {
+  display: inline-flex;
+  vertical-align: middle;
+  transition: transform 0.16s ease;
+}
+
+.pc-svg-badge:hover {
+  transform: translateY(-1px);
+}
+
+.pc-svg-input-wrap {
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.16s ease;
+}
+
+.pc-svg-input-wrap:focus-within {
+  transform: translateY(-1px);
+}
+
+.pc-svg-avatar {
+  border-radius: 50%;
+  display: inline-flex;
+  transition: transform 0.18s ease;
+}
+
+.pc-svg-avatar:hover {
+  transform: scale(1.05);
+}
+
+.pc-svg-breadcrumb ol {
+  margin: 0;
+  padding: 0;
+}
+
+.pc-svg-pagination button {
+  font-family: inherit;
+  transition: all 0.18s ease;
+}
+
+.pc-svg-pagination button:hover {
+  transform: translateY(-1.5px);
+}
+
+.pc-svg-toast {
+  box-sizing: border-box;
+}
+
+.pc-svg-stepper {
+  user-select: none;
+}
+
+/* ==========================================================================
    Accessibility & Reduced Motion
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {

@@ -33,6 +33,8 @@
   <link rel="stylesheet" href="papercut-layout.css">
   <link rel="stylesheet" href="papercut-sidebar.css">
   <link rel="stylesheet" href="papercut-diorama.css">
+  <!-- Radix UI Full SVG Primitives 핵심 스타일 -->
+  <link rel="stylesheet" href="papercut-svg-primitives.css">
 
   <!-- 보조 스타일 (비동기 렌더 차단 방지 로딩 + noscript 폴백) -->
   <link rel="stylesheet" href="papercut-alerts-toasts.css" media="print" onload="this.media='all'">
@@ -2775,6 +2777,109 @@
       <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;" class="break-keep">
         기존 CSS 흉내내기 방식을 전면 배제하고, <strong>678종 papercut-icons &amp; 130종 배경 플레이트 제작 방식과 100% 동일한 순수 SVG 다층 벡터 아트(Pure SVG Paper-Cut Layers)</strong> 표준으로 제작된 24종 페이퍼 커팅 버튼, 4대 특화 카드/패널, 6대 특화 배지/7대 색지, 폼 컨트롤 및 44종 모던 UI 컴포넌트 전체를 단일 마스터 페이지로 통합했습니다.
       </p>
+
+      <!-- ===================================================================
+           RADIX UI FULL SVG PRIMITIVES MASTER SHOWCASE
+           100% Pure SVG Vector Architecture & WAI-ARIA Accessible Primitives
+           =================================================================== -->
+      <div class="pc-card-sheet" style="margin-bottom: 32px; padding: 28px 24px; border-radius: 16px; background: #FAF7F0; border: 1.5px solid rgba(46, 30, 20, 0.12); box-shadow: 0 4px 16px rgba(46, 30, 20, 0.10);">
+        <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 12px; align-items: center;">
+          <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">
+            <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span> Radix UI Reference
+          </span>
+          <span class="pc-badge pc-badge--ticket pc-badge--peach inline-flex items-center justify-center leading-none" style="font-size: 11px;">
+            100% Pure SVG Primitives
+          </span>
+          <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none" style="font-size: 11px;">
+            WAI-ARIA Accessibility
+          </span>
+        </div>
+
+        <h3 class="break-keep text-balance" style="font-size: 22px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
+          Radix UI 스타일 무상태 프리미티브 &amp; 3D 다층 페이퍼아트 마스터 스위트
+        </h3>
+
+        <!-- 사용자 프롬프트 원문 카드 -->
+        <div style="background: #FFFDF9; border: 1px dashed rgba(46, 30, 20, 0.20); border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 12.5px; color: #554433; line-height: 1.5;">
+          <strong style="color: #2E1E14;">🎨 Visual Core Prompt:</strong>
+          <em>"Layered paper-cut illustration, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling."</em>
+        </div>
+
+        <!-- 12대 컴포넌트 실물 프리뷰 컨테이너 (JS 자동 바인딩 마운트 지점) -->
+        <div id="pc-radix-primitives-live-deck" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px;">
+          <!-- Card 1: Buttons & Toggles -->
+          <div style="background: #FFFDF9; border: 1px solid rgba(46,30,20,0.12); border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(46,30,20,0.08);">
+            <div style="font-size: 13.5px; font-weight: 800; color: #2E1E14; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span>01. Button &amp; Switch (버튼 &amp; 스위치)</span>
+              <span class="pc-badge pc-badge--mint" style="font-size: 10px;">Tactile</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;" id="pc-live-btn-slot"></div>
+              <div style="display: flex; align-items: center; justify-content: space-between;" id="pc-live-switch-slot"></div>
+            </div>
+          </div>
+
+          <!-- Card 2: Checkbox & Radio -->
+          <div style="background: #FFFDF9; border: 1px solid rgba(46,30,20,0.12); border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(46,30,20,0.08);">
+            <div style="font-size: 13.5px; font-weight: 800; color: #2E1E14; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span>02. Checkbox &amp; Radio (체크 &amp; 라디오)</span>
+              <span class="pc-badge pc-badge--peach" style="font-size: 10px;">WAI-ARIA</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div id="pc-live-chk-slot"></div>
+              <div id="pc-live-rad-slot"></div>
+            </div>
+          </div>
+
+          <!-- Card 3: Slider & Progress -->
+          <div style="background: #FFFDF9; border: 1px solid rgba(46,30,20,0.12); border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(46,30,20,0.08);">
+            <div style="font-size: 13.5px; font-weight: 800; color: #2E1E14; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span>03. Slider &amp; Progress (슬라이더 &amp; 진행바)</span>
+              <span class="pc-badge pc-badge--sand" style="font-size: 10px;">Drag &amp; Keys</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div id="pc-live-slider-slot"></div>
+              <div id="pc-live-progress-slot"></div>
+            </div>
+          </div>
+
+          <!-- Card 4: Select & Badges -->
+          <div style="background: #FFFDF9; border: 1px solid rgba(46,30,20,0.12); border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(46,30,20,0.08);">
+            <div style="font-size: 13.5px; font-weight: 800; color: #2E1E14; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span>04. Select &amp; Badges (드롭다운 &amp; 배지)</span>
+              <span class="pc-badge pc-badge--lavender" style="font-size: 10px;">Popover</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div id="pc-live-select-slot"></div>
+              <div id="pc-live-badge-slot" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+            </div>
+          </div>
+
+          <!-- Card 5: Tabs & Stepper -->
+          <div style="background: #FFFDF9; border: 1px solid rgba(46,30,20,0.12); border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(46,30,20,0.08);">
+            <div style="font-size: 13.5px; font-weight: 800; color: #2E1E14; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span>05. Tabs &amp; Stepper (서류철 탭 &amp; 스텝)</span>
+              <span class="pc-badge pc-badge--sky" style="font-size: 10px;">Navigation</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div id="pc-live-tabs-slot"></div>
+              <div id="pc-live-stepper-slot"></div>
+            </div>
+          </div>
+
+          <!-- Card 6: Accordion & Dialog Trigger -->
+          <div style="background: #FFFDF9; border: 1px solid rgba(46,30,20,0.12); border-radius: 12px; padding: 18px; box-shadow: 0 2px 8px rgba(46,30,20,0.08);">
+            <div style="font-size: 13.5px; font-weight: 800; color: #2E1E14; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span>06. Accordion &amp; Dialog (아코디언 &amp; 모달)</span>
+              <span class="pc-badge pc-badge--rose" style="font-size: 10px;">Overlay</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+              <div id="pc-live-accordion-slot"></div>
+              <div id="pc-live-dialog-slot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- 7.0 Universal Papercraft Die-Cut & Aperture Showcase Banner -->
       <div class="pc-aperture-header pc-swatch-mint" style="margin-bottom: 28px; padding: 22px 24px; border-radius: 16px;">
@@ -7468,6 +7573,145 @@
     } else {
       initLayoutController();
     }
+  </script>
+
+  <!-- Radix UI Full SVG Primitives 엔진 및 통합 하이드레이션 -->
+  <script src="papercut-svg-primitives.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (window.PaperCutSVG) {
+        console.log('[PaperCutSVG] Initializing Radix Full SVG Primitives...');
+        window.PaperCutSVG.init(document);
+
+        // Toast 알림 전역 래퍼
+        window.showPaperToast = function(msg, tone, icon) {
+          if (window.PaperCutSVG && window.PaperCutSVG.createToast) {
+            window.PaperCutSVG.createToast({ message: msg, tone: tone || 'mint', icon: icon || 'bell' });
+          }
+        };
+
+        // 기존 SVG 버튼들에 토스트 피드백 연결
+        document.querySelectorAll('.pc-svg-kirigami-btn, .pc-svg-btn, .pc-button-showcase-card button').forEach(function(btn) {
+          if (!btn.dataset.hasToastBound) {
+            btn.dataset.hasToastBound = 'true';
+            btn.addEventListener('click', function(e) {
+              const label = btn.getAttribute('title') || btn.textContent.trim() || '페이퍼아트 컴포넌트';
+              window.showPaperToast(label + ' 선택됨!', 'mint', 'check');
+            });
+          }
+        });
+
+        // 12대 Radix Primitives 실물 슬롯 마운트
+        const P = window.PaperCutSVG;
+        const btnSlot = document.getElementById('pc-live-btn-slot');
+        if (btnSlot && P.createButton) {
+          btnSlot.appendChild(P.createButton({ label: '민트 솔리드', tone: 'mint', variant: 'solid', width: 140 }));
+          btnSlot.appendChild(P.createButton({ label: '피치 티켓', tone: 'peach', variant: 'ticket', width: 140 }));
+        }
+
+        const switchSlot = document.getElementById('pc-live-switch-slot');
+        if (switchSlot && P.createSwitch) {
+          switchSlot.appendChild(P.createSwitch({ checked: true, tone: 'mint', label: '종이 셔터 스위치' }));
+        }
+
+        const chkSlot = document.getElementById('pc-live-chk-slot');
+        if (chkSlot && P.createCheckbox) {
+          chkSlot.appendChild(P.createCheckbox({ checked: true, tone: 'mint', label: '3D 페이퍼 V 체크박스' }));
+          chkSlot.appendChild(P.createCheckbox({ checked: false, tone: 'peach', label: '수공예 펄프 텍스처' }));
+        }
+
+        const radSlot = document.getElementById('pc-live-rad-slot');
+        if (radSlot && P.createRadioGroup) {
+          radSlot.appendChild(P.createRadioGroup({
+            tone: 'sand',
+            options: [
+              { value: 'standard', label: '일반 배송 (파스텔 종이 포장)' },
+              { value: 'express', label: '특급 배송 (실링 왁스 봉인함)' }
+            ]
+          }));
+        }
+
+        const sldSlot = document.getElementById('pc-live-slider-slot');
+        if (sldSlot && P.createSlider) {
+          sldSlot.appendChild(P.createSlider({ value: 65, tone: 'sand' }));
+        }
+
+        const progSlot = document.getElementById('pc-live-progress-slot');
+        if (progSlot && P.createProgress) {
+          progSlot.appendChild(P.createProgress({ value: 72, tone: 'mint' }));
+        }
+
+        const selSlot = document.getElementById('pc-live-select-slot');
+        if (selSlot && P.createSelect) {
+          selSlot.appendChild(P.createSelect({
+            tone: 'lavender',
+            options: [
+              { value: 'cotton', label: '🌿 300g 수제 코튼지' },
+              { value: 'hanji', label: '🎋 닥나무 전통 한지' },
+              { value: 'kraft', label: '📦 350g 크라프트 보드' }
+            ]
+          }));
+        }
+
+        const bdgSlot = document.getElementById('pc-live-badge-slot');
+        if (bdgSlot && P.createBadge) {
+          bdgSlot.appendChild(P.createBadge({ label: '우표 천공', tone: 'mint', variant: 'stamp' }));
+          bdgSlot.appendChild(P.createBadge({ label: '시네마 티켓', tone: 'sky', variant: 'ticket' }));
+          bdgSlot.appendChild(P.createBadge({ label: '조개 인장', tone: 'sand', variant: 'scallop' }));
+          bdgSlot.appendChild(P.createBadge({ label: '리본 태그', tone: 'lavender', variant: 'ribbon' }));
+        }
+
+        const tabsSlot = document.getElementById('pc-live-tabs-slot');
+        if (tabsSlot && P.createTabs) {
+          tabsSlot.appendChild(P.createTabs({
+            tone: 'sky',
+            tabs: [
+              { id: 'tab-overview', label: '개요', content: '<p style="margin:0; font-size:12.5px; color:#554433;">Radix UI 접근성 사양과 순수 SVG 다층 벡터가 결합된 폴더 탭입니다.</p>' },
+              { id: 'tab-specs', label: '사양', content: '<p style="margin:0; font-size:12.5px; color:#554433;">WAI-ARIA role="tablist", 0.88px 칼선 림 라이트, 2-Tier 그림자 지원.</p>' }
+            ]
+          }));
+        }
+
+        const stepSlot = document.getElementById('pc-live-stepper-slot');
+        if (stepSlot && P.createStepper) {
+          stepSlot.appendChild(P.createStepper({
+            tone: 'sky',
+            steps: ['도안 작성', '칼선 재단', '종이 적층'],
+            active: 1
+          }));
+        }
+
+        const accSlot = document.getElementById('pc-live-accordion-slot');
+        if (accSlot && P.createAccordion) {
+          accSlot.appendChild(P.createAccordion({
+            tone: 'rose',
+            items: [
+              {
+                id: 'acc-1',
+                title: '순수 SVG 다층 페이퍼아트의 장점은?',
+                content: '<p style="margin:0; font-size:12px; color:#554433;">CSS box-shadow의 평면적 한계를 벗어나 조각칼로 오려낸 물리적 단차를 재현합니다.</p>'
+              },
+              {
+                id: 'acc-2',
+                title: 'Radix UI 표준을 어떻게 따르나요?',
+                content: '<p style="margin:0; font-size:12px; color:#554433;">WAI-ARIA role, aria-expanded, 키보드 네비게이션을 엄격히 준수합니다.</p>'
+              }
+            ]
+          }));
+        }
+
+        const dlgSlot = document.getElementById('pc-live-dialog-slot');
+        if (dlgSlot && P.createDialog) {
+          const dlg = P.createDialog({
+            tone: 'peach',
+            title: '페이퍼아트 모달 다이얼로그',
+            description: '손으로 오려낸 매트보드 카드스톡 위에 띄워진 순수 SVG 모달 팝업입니다.',
+            onConfirm: () => window.showPaperToast('모달 확인 완료!', 'peach', 'check')
+          });
+          dlgSlot.appendChild(dlg);
+        }
+      }
+    });
   </script>
 
   <!-- Live-Reload Client (Auto-connects to hot-reload server when available) -->
