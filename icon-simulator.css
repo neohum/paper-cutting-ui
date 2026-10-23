@@ -65,7 +65,7 @@
 }
 
 /* ==========================================================================
-   Studio Mode Switcher (16~28px fi fi-rr Line Lab vs 32~256px 3D Paper Lab)
+   Studio Mode Switcher (16~28px Micro Line Lab vs 32~256px 3D Paper Lab)
    Pure 3D Layered Kirigami SVG Tab Buttons
    ========================================================================== */
 .sim-studio-switcher-wrap {
@@ -265,7 +265,7 @@
 
 /* ==========================================================================
    Dual Real-Time Dynamic Scaling Canvases Layout
-   1. Canvas 1: <= 28px fi-rr Style
+   1. Canvas 1: <= 28px Micro Line Style
    2. Canvas 2: >= 32px 3D Paper Cut Style
    ========================================================================== */
 .sim-dual-canvases-grid {
@@ -945,14 +945,13 @@
 }
 
 /* ==========================================================================
-   fi fi-rr Slim & Razor-Sharp Vector Line Art Style for 16px ~ 28px in Simulator
+   Micro Line Art Style for 16px ~ 28px in Simulator
    (10px ~ 14px are officially unsupported below clarity threshold)
    ========================================================================== */
-.pc-firr-style,
-.sim-scaler-title .pc-firr-style,
-.sim-studio-tab-icon .pc-firr-style,
-.pc-layered-paper-icon.pc-firr-style,
-.pc-layered-paper-icon[data-style="fi-rr"],
+.pc-monochrome-style,
+.sim-scaler-title .pc-monochrome-style,
+.sim-studio-tab-icon .pc-monochrome-style,
+.pc-layered-paper-icon.pc-monochrome-style,
 .pc-layered-paper-icon.pc-stroke-active-layer {
   max-width: 28px !important;
   max-height: 28px !important;
@@ -968,12 +967,12 @@
   shape-rendering: geometricPrecision;
 }
 
-/* Explicit fi fi-rr Line Mode Testing (Opt-in only via .force-firr) */
-.force-firr.pc-firr-style path,
-.force-firr.pc-firr-style rect,
-.force-firr.pc-firr-style circle,
-.force-firr.pc-firr-style ellipse,
-.force-firr.pc-firr-style polygon {
+/* Explicit Monochrome Line Mode Testing (Opt-in only via .force-monochrome) */
+.force-monochrome.pc-monochrome-style path,
+.force-monochrome.pc-monochrome-style rect,
+.force-monochrome.pc-monochrome-style circle,
+.force-monochrome.pc-monochrome-style ellipse,
+.force-monochrome.pc-monochrome-style polygon {
   stroke: var(--pc-icon-stroke-color, #423D39) !important;
   stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
   stroke-linecap: round !important;
@@ -983,23 +982,23 @@
   vector-effect: non-scaling-stroke !important;
 }
 
-.force-firr.pc-firr-style *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]):not([fill="black"]) {
+.force-monochrome.pc-monochrome-style *:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]):not([fill="black"]) {
   fill: none !important;
   fill-opacity: 0 !important;
 }
 
 /* Solid Dark Accents (Eyes, knobs, pupils keep solid dark grey fill) */
-.pc-firr-style [fill="#3D352E"],
-.pc-firr-style [fill="#2B2623"],
-.pc-firr-style [fill="#423D39"],
+.pc-monochrome-style [fill="#3D352E"],
+.pc-monochrome-style [fill="#2B2623"],
+.pc-monochrome-style [fill="#423D39"],
 .sim-matrix-card[data-size="16"] svg [fill="#3D352E"],
 .sim-matrix-card[data-size="18"] svg [fill="#3D352E"],
 .sim-matrix-card[data-size="20"] svg [fill="#3D352E"],
 .sim-matrix-card[data-size="24"] svg [fill="#3D352E"],
 .sim-matrix-card[data-size="28"] svg [fill="#3D352E"],
-#canvas-scaler-firr svg [fill="#3D352E"],
-#sim-vessel-firr svg [fill="#3D352E"],
-#sim-loupe-box-firr svg [fill="#3D352E"] {
+#canvas-scaler-micro svg [fill="#3D352E"],
+#sim-vessel-micro svg [fill="#3D352E"],
+#sim-loupe-box-micro svg [fill="#3D352E"] {
   fill-opacity: 1 !important;
   fill: var(--pc-icon-stroke-color, #423D39) !important;
   stroke: var(--pc-icon-stroke-color, #423D39) !important;

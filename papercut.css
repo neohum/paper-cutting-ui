@@ -368,24 +368,164 @@ p,
     0 1px 2px rgba(46, 30, 20, 0.20) !important;
 }
 
-/* 종이 모서리를 따라 섬세하게 박힌 수공예 스티칭/미싱선 점선 테두리 (Handcrafted Stitching Perforation) */
+/* 종이 모서리를 따라 섬세하게 박힌 수공예 입체 천공 스티칭/미싱선 (Handcrafted 3D Embossed Perforation)
+   - 단순 그림선이 아닌, 바늘로 뚫은 구멍 음각 섀도우 + 순백 림 하이라이트의 입체 타공선
+*/
 .pc-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn):not(.pc-btn-plain):not(.pc-btn-circle):not(.pc-btn-round)::after {
   content: "";
   position: absolute;
   inset: 3px;
-  border: 1px dashed var(--pc-btn-stitch-color, rgba(102, 70, 13, 0.28));
+  border: 1.2px dashed var(--pc-btn-stitch-color, rgba(46, 30, 20, 0.35));
   border-radius: 6px;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) drop-shadow(0 -0.5px 0 rgba(46, 30, 20, 0.12));
   pointer-events: none;
   z-index: 1;
   transition: border-color 0.16s ease;
 }
 
-/* 사이드바 메뉴 및 순수 SVG 버튼은 밑종이 의사요소 예외 처리 */
-.pc-sidebar-item.pc-btn::before,
-.pc-sidebar-top-btn.pc-btn::before,
+/* 순수 SVG 버튼만 밑종이 의사요소 예외 처리 (사이드바 버튼은 아래 전용 2-Sheet 적용) */
 .pc-svg-kirigami-btn::before,
 .pc-header-svg-btn::before {
   display: none !important;
+}
+
+/* ==========================================================================
+   사이드바 내비게이션 메뉴 버튼 3D 레이어드 페이퍼아트 표준 (.pc-sidebar-item)
+   - 바닥면에 사방 3px 확장된 도톰한 파스텔 매트보드 밑종이 (2-Sheet Stacking)
+   - 윗종이는 크림 카드스톡 + 좌측 정렬 + 0.88px 나이프 엣지 림
+   - 활성 상태 시 소프트 민트 색지 밑판 돌출 및 3D 입체 북마크 탭
+   ========================================================================== */
+.pc-sidebar-item.pc-btn,
+.pc-sidebar-nav-btn.pc-btn,
+.pc-sidebar-item {
+  position: relative !important;
+  isolation: isolate !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important; /* AGENTS.md 사이드바 좌측 정렬 규칙 */
+  text-align: left !important;
+  gap: 10px !important;
+  width: calc(100% - 16px) !important;
+  margin: 4px 8px !important;
+  padding: 8px 12px !important;
+  min-height: 44px !important; /* WCAG 2.1 터치 타겟 규격 */
+  box-sizing: border-box !important;
+  border-radius: 8px !important;
+  background-color: #FFFDF9 !important;
+  background-image: none !important;
+  border: 1px solid rgba(46, 30, 20, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  color: var(--pc-ink, #3D352E) !important;
+  text-decoration: none !important;
+  overflow: visible !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.88),
+    0 1px 2px rgba(46, 30, 20, 0.10) !important;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background-color 0.18s ease !important;
+}
+
+/* 사이드바 버튼 2-Sheet 바닥 종이 (사방 3px 균일 확장 매트보드) */
+.pc-sidebar-item.pc-btn::before,
+.pc-sidebar-nav-btn.pc-btn::before,
+.pc-sidebar-item::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -3px !important;
+  border-radius: calc(8px + 3px) !important;
+  background: var(--pc-sidebar-item-base, #EDE4D4) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 2px 5px rgba(46, 30, 20, 0.14) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
+  transform: none !important;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background 0.18s ease !important;
+}
+
+/* 사이드바 버튼 호버 리프트 */
+.pc-sidebar-item:hover {
+  transform: translateY(-1.5px) !important;
+  background-color: #FAF6ED !important;
+  color: var(--pc-ink-dark, #271E18) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 2px 5px rgba(46, 30, 20, 0.14) !important;
+}
+.pc-sidebar-item:hover::before {
+  box-shadow: 
+    0 4px 10px rgba(46, 30, 20, 0.18),
+    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+}
+
+/* 사이드바 버튼 활성 (is-active): 소프트 민트 색지 밑판 돌출 및 3D 안착 */
+.pc-sidebar-item.is-active,
+.pc-sidebar-item.pc-is-active {
+  background-color: #F2F9F5 !important;
+  border-color: rgba(39, 92, 70, 0.25) !important;
+  color: #1E5C41 !important;
+  font-weight: 800 !important;
+  transform: translateY(0.5px) !important;
+  box-shadow: 
+    inset 0 1px 2px rgba(39, 92, 70, 0.15),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92) !important;
+}
+.pc-sidebar-item.is-active::before,
+.pc-sidebar-item.pc-is-active::before {
+  background: var(--pc-mint, #A3D8C3) !important; /* 민트 파스텔 색지 밑판 */
+  border-color: rgba(39, 92, 70, 0.35) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 6px rgba(39, 92, 70, 0.28) !important;
+}
+
+/* 사이드바 아이콘 미니 색지 플레이트 (30x30px 입체 종이 마운트) */
+.pc-sidebar-item-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  min-width: 30px !important;
+  min-height: 30px !important;
+  border-radius: 6px !important;
+  background-color: #FAF5EB !important;
+  border: 1px solid rgba(46, 30, 20, 0.12) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1px 2.5px rgba(46, 30, 20, 0.12) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.16s ease, background-color 0.16s ease !important;
+}
+.pc-sidebar-item.is-active .pc-sidebar-item-icon {
+  background-color: #E2F3EB !important;
+  border-color: rgba(39, 92, 70, 0.25) !important;
+}
+
+/* 사이드바 아이콘 크기: 기존 14~16px에서 20px로 확대하여 다층 페이퍼아트 가시성 확보 */
+.pc-sidebar-item-icon .pc-inline-icon {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+}
+
+/* ==========================================================================
+   전역 입체 종이공예 천공 & 타공선 표준 (3D Tactile Perforation & Roulette Punches)
+   ========================================================================== */
+.pc-perforated-border,
+.pc-stitch-frame,
+.pc-ticket-dashed,
+.pc-diecut-dashed,
+.pc-perforation-line,
+[class*="-dashed"],
+[class*="-perforated"] {
+  border-style: dashed !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) drop-shadow(0 -0.5px 0 rgba(46, 30, 20, 0.12));
 }
 
 /* 3D Paper-Cut Icon Mount Plate inside Button (0.88px Knife Rim + 2-Tier 48% Shadow) */
@@ -2358,6 +2498,15 @@ p,
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background 0.2s ease !important;
 }
 
+/* 사각 카드 (위 카드가 사각형이면 아래 카드도 완벽히 상하좌우가 더 큰 사각형) */
+.pc-card-rect::after,
+.pc-card-square::after,
+.pc-card-sharp::after,
+.pc-card[data-shape="rect"]::after,
+.pc-card.is-sharp::after {
+  border-radius: 0 !important;
+}
+
 /* ==========================================================================
    개요 & 히어로 상단 메인 카드 2-Sheet 언더레이 페이퍼 표준 (Uniform 4-Sided Underlay)
    - 상하좌우 정확히 8px 균일 두께로 밑에 깔린 한 장의 종이(피치 파스텔 색지) 노출
@@ -4153,9 +4302,7 @@ pre code {
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Global Guard: fi fi-rr style and compact micro-icons must NEVER exceed 28px */
-.pc-layered-paper-icon.pc-firr-style,
-.pc-layered-paper-icon[data-style="fi-rr"],
+/* Global Guard: Compact micro-icons must NEVER exceed 28px */
 .pc-layered-paper-icon.pc-stroke-active-layer {
   width: var(--pc-icon-size, 24px) !important;
   height: var(--pc-icon-size, 24px) !important;
@@ -6096,46 +6243,34 @@ textarea.pc-input.pc-texture-paper,
 
 :root {
   --pc-icon-stroke-color: #423D39;      /* Sophisticated Dark Charcoal Grey for clean, refined contrast */
-  --pc-icon-stroke-width: 0.88px;       /* 16px ~ 28px: Ultra-slim, delicate & crisp fi fi-rr vector stroke */
+  --pc-icon-stroke-width: 0.88px;       /* 16px ~ 28px: Ultra-slim, delicate & crisp vector stroke */
 }
 
 /* --------------------------------------------------------------------------
-   RULE 1: EXPLICIT MONOCHROME LINE STYLE (Strictly Opt-in via .force-firr)
+   RULE 1: EXPLICIT MONOCHROME LINE STYLE (Strictly Opt-in via .pc-monochrome-style)
    By default across PaperCut UI, all icons render in full vibrant pastel colors
-   with authentic layered drop shadows. Only elements with .force-firr or .is-firr
-   switch to single-color vector strokes.
+   with authentic layered drop shadows.
    -------------------------------------------------------------------------- */
 
 /* Explicit Opt-in Only */
-.pc-layered-paper-icon.pc-force-firr,
-.pc-layered-paper-icon.force-firr,
-.pc-inline-icon.pc-is-firr svg,
-.pc-inline-icon.is-firr svg {
+.pc-layered-paper-icon.pc-monochrome-style,
+.pc-inline-icon.pc-monochrome-style svg {
   max-width: 28px !important;
   max-height: 28px !important;
 }
 
-.pc-firr-style.pc-force-firr,
-.pc-firr-style.force-firr,
-.pc-firr-style.pc-force-firr *,
-.pc-firr-style.force-firr * {
+.pc-monochrome-style,
+.pc-monochrome-style * {
   filter: none !important;
 }
 
-.pc-firr-style.pc-force-firr path,
-.pc-firr-style.force-firr path,
-.pc-firr-style.pc-force-firr rect,
-.pc-firr-style.force-firr rect,
-.pc-firr-style.pc-force-firr circle,
-.pc-firr-style.force-firr circle,
-.pc-firr-style.pc-force-firr ellipse,
-.pc-firr-style.force-firr ellipse,
-.pc-firr-style.pc-force-firr polygon,
-.pc-firr-style.force-firr polygon,
-.pc-firr-style.pc-force-firr line,
-.pc-firr-style.force-firr line,
-.pc-firr-style.pc-force-firr polyline,
-.pc-firr-style.force-firr polyline {
+.pc-monochrome-style path,
+.pc-monochrome-style rect,
+.pc-monochrome-style circle,
+.pc-monochrome-style ellipse,
+.pc-monochrome-style polygon,
+.pc-monochrome-style line,
+.pc-monochrome-style polyline {
   stroke: var(--pc-icon-stroke-color, #423D39) !important;
   stroke-width: var(--pc-icon-stroke-width, 0.88px) !important;
   stroke-linejoin: round !important;
@@ -6146,16 +6281,11 @@ textarea.pc-input.pc-texture-paper,
   vector-effect: non-scaling-stroke !important;
 }
 
-.pc-firr-style.pc-force-firr path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.force-firr path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.pc-force-firr rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.force-firr rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.pc-force-firr circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.force-firr circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.pc-force-firr ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.force-firr ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.pc-force-firr polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
-.pc-firr-style.force-firr polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
+.pc-monochrome-style path:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-monochrome-style rect:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-monochrome-style circle:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-monochrome-style ellipse:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]),
+.pc-monochrome-style polygon:not([fill="#3D352E"]):not([fill="#2B2623"]):not([fill="#423D39"]) {
   fill: none !important;
   fill-opacity: 0 !important;
 }
@@ -6270,15 +6400,27 @@ textarea.pc-input.pc-texture-paper,
 }
 
 /* 2. Pure SVG Multi-Layer Badges & Tags */
-.pc-svg-badge {
+.pc-svg-badge,
+.pc-svg-badge[class*="pc-swatch-"],
+.pc-svg-badge.pc-swatch-cloud,
+.pc-svg-badge.pc-swatch-mint,
+.pc-svg-badge.pc-swatch-peach,
+.pc-svg-badge.pc-swatch-sand,
+.pc-svg-badge.pc-swatch-lavender,
+.pc-svg-badge.pc-swatch-sky,
+.pc-svg-badge.pc-swatch-sage {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   vertical-align: middle;
   cursor: pointer;
-  background: transparent;
-  border: none;
-  padding: 0;
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0 !important;
   margin: 2px;
   text-decoration: none;
   transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
@@ -6507,12 +6649,12 @@ textarea.pc-input.pc-texture-paper,
 /* Ticket Top-Left Sprocket Punch Strip (카드 왼쪽 위 천공 홈 스트립) */
 .pc-ticket-punch-strip {
   position: absolute;
-  top: 8px;
-  left: 14px;
+  top: 3px;
+  left: 18px;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  z-index: 4;
+  gap: 4.5px;
+  z-index: 10;
   pointer-events: none;
 }
 
@@ -6520,11 +6662,11 @@ textarea.pc-input.pc-texture-paper,
 .pc-ticket-punch-slot {
   display: inline-block;
   width: 5px;
-  height: 14px;
-  border-radius: 2.5px;
+  height: 7.5px;
+  border-radius: 2px;
   background: linear-gradient(180deg, #D4C6B0 0%, #E8DFC8 100%);
   box-shadow: 
-    inset 0 1.5px 2px rgba(46, 30, 20, 0.45),
+    inset 0 1.2px 1.8px rgba(46, 30, 20, 0.45),
     inset 0 -0.5px 1px rgba(255, 255, 255, 0.50),
     0 0.88px 0 rgba(255, 255, 255, 0.95);
   flex-shrink: 0;
@@ -6538,6 +6680,71 @@ textarea.pc-input.pc-texture-paper,
 /* Utility Margin for inline icons */
 .mr-1 {
   margin-right: 0.25rem !important;
+}
+
+/* ==========================================================================
+   PC Inline Icon Sizing & Layered Paper-Cut Visibility Standards
+   - 아이콘 크기를 상향하여 다층 색지 레이어, 0.88px 칼선 림, 2-Tier 그림자가 선명하게 드러남
+   ========================================================================== */
+.pc-inline-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  transition: transform 0.16s ease !important;
+}
+
+.pc-inline-icon svg,
+.pc-inline-icon .pc-layered-paper-icon {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+/* 크기 계층 최적화: 미니어처 뭉개짐 방지 (최소 16px ~ 44px) */
+.pc-inline-icon.is-xs,
+.pc-inline-icon.pc-is-xs {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+}
+
+.pc-inline-icon.is-sm,
+.pc-inline-icon.pc-is-sm {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+}
+
+.pc-inline-icon.is-md,
+.pc-inline-icon.pc-is-md,
+.pc-inline-icon:not(.is-xs):not(.is-sm):not(.is-lg):not(.is-xl) {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+}
+
+.pc-inline-icon.is-lg,
+.pc-inline-icon.pc-is-lg {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+}
+
+.pc-inline-icon.is-xl,
+.pc-inline-icon.pc-is-xl {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
 }
 
 

@@ -88,73 +88,13 @@ describe('Step 2: Strata Hills & Cascading Shingle Deck', () => {
   });
 
   // -------------------------------------------------------------------------
-  // AC-5: Cascading Shingle Deck (.pc-shingle-deck, .pc-shingle-card)
+  // Purged: Cascading Shingle Deck (.pc-shingle-deck, .pc-shingle-card)
   // -------------------------------------------------------------------------
-  describe('AC-5: Cascading Shingle Deck (.pc-shingle-deck, .pc-shingle-card)', () => {
-    it('should define .pc-shingle-deck with 20~28px overlapping offset stack (default -24px)', () => {
-      assert.ok(layoutCss.includes('.pc-shingle-deck'), '.pc-shingle-deck must be declared');
-      assert.ok(
-        layoutCss.includes('margin-top: var(--pc-shingle-overlap, -24px);') ||
-        layoutCss.includes('-24px'),
-        'Shingle deck must feature negative margin-top between 20-28px (default -24px)'
-      );
-    });
-
-    it('should provide cascading descending z-index stacking order for shingle cards', () => {
-      assert.ok(
-        layoutCss.includes('.pc-shingle-deck > .pc-shingle-card:nth-child(1) { z-index: 20; }') &&
-        layoutCss.includes('.pc-shingle-deck > .pc-shingle-card:nth-child(2) { z-index: 19; }'),
-        'Upper cards must cover lower cards with descending z-index'
-      );
-      assert.ok(
-        layoutCss.includes('.pc-shingle-deck.pc-shingle-reverse'),
-        'Reverse ascending shingle stacking must be supported'
-      );
-    });
-
-    it('should define .pc-shingle-card with 2-Tier burnt umber contact shadow and 0.88px knife-edge rim light', () => {
-      assert.ok(layoutCss.includes('.pc-shingle-card'), '.pc-shingle-card must be declared');
-      assert.ok(
-        layoutCss.includes('0 1.2px 1.8px rgba(46, 30, 20, 0.20)') ||
-        layoutCss.includes('var(--pc-paper-shadow-contact'),
-        'Shingle card must feature 2-Tier burnt umber contact shadow'
-      );
-      assert.ok(
-        layoutCss.includes('inset 0 0 0 0.88px rgba(255, 255, 255, 0.88)'),
-        'Shingle card must feature 0.88px pure white knife-edge rim light'
-      );
-      assert.ok(
-        layoutCss.includes('border: 1px solid rgba(46, 30, 20, 0.12);'),
-        'Shingle card must strictly follow symmetrical anti-fingernail border standards'
-      );
-    });
-
-    it('should lift card from the deck on hover or focus-within with translateY(-14px), scale(1.02), z-index: 50', () => {
-      assert.ok(
-        layoutCss.includes('.pc-shingle-card:hover') &&
-        layoutCss.includes('transform: translateY(-14px) scale(1.02);') &&
-        layoutCss.includes('z-index: 50 !important;'),
-        'Hovered shingle card must lift up smoothly: translateY(-14px) scale(1.02) with high z-index: 50'
-      );
-      assert.ok(
-        layoutCss.includes('var(--pc-paper-shadow-lifted'),
-        'Lifted card must feature lifted paper shadow token'
-      );
-      assert.ok(
-        layoutCss.includes('.pc-shingle-card:focus-within'),
-        'Focus-within accessibility must lift card for keyboard navigation'
-      );
-    });
-
-    it('should support horizontal shingle mode (.pc-shingle-deck.pc-is-horizontal)', () => {
-      assert.ok(
-        layoutCss.includes('.pc-shingle-deck.pc-is-horizontal'),
-        'Horizontal shingle deck mode must be supported'
-      );
-      assert.ok(
-        layoutCss.includes('margin-left: var(--pc-shingle-overlap-h, -24px);'),
-        'Horizontal shingle mode must overlap horizontally'
-      );
+  describe('Purged: Cascading Shingle Deck (.pc-shingle-deck, .pc-shingle-card)', () => {
+    it('should confirm .pc-shingle-deck and .pc-shingle-card are completely removed', () => {
+      assert.ok(!layoutCss.includes('.pc-shingle-deck'), '.pc-shingle-deck must not be declared');
+      assert.ok(!layoutCss.includes('.pc-shingle-card'), '.pc-shingle-card must not be declared');
+      assert.ok(!animCss.includes('pcShinglePop'), 'pcShinglePop must not be declared');
     });
   });
 
@@ -162,11 +102,10 @@ describe('Step 2: Strata Hills & Cascading Shingle Deck', () => {
   // AC-6: prefers-reduced-motion Accessibility & Animation Downgrade
   // -------------------------------------------------------------------------
   describe('AC-6: prefers-reduced-motion Accessibility & Animation Downgrade', () => {
-    it('should downgrade strata hills and shingle card hover in papercut-layout.css under prefers-reduced-motion', () => {
+    it('should downgrade strata hills hover in papercut-layout.css under prefers-reduced-motion', () => {
       const reducedMotionSection = layoutCss.slice(layoutCss.lastIndexOf('@media (prefers-reduced-motion: reduce)'));
       assert.ok(reducedMotionSection.includes('.pc-strata-hills'), 'prefers-reduced-motion must target .pc-strata-hills');
       assert.ok(reducedMotionSection.includes('.pc-strata-layer'), 'prefers-reduced-motion must target .pc-strata-layer');
-      assert.ok(reducedMotionSection.includes('.pc-shingle-card'), 'prefers-reduced-motion must target .pc-shingle-card');
       assert.ok(
         reducedMotionSection.includes('transform: none !important;') &&
         reducedMotionSection.includes('animation: none !important;'),
@@ -174,23 +113,19 @@ describe('Step 2: Strata Hills & Cascading Shingle Deck', () => {
       );
     });
 
-    it('should define organic strata breeze and shingle pop keyframes in papercut-animations.css', () => {
+    it('should define organic strata breeze in papercut-animations.css', () => {
       assert.ok(animCss.includes('@keyframes pcStrataBreeze'), 'pcStrataBreeze keyframes must be declared');
-      assert.ok(animCss.includes('@keyframes pcShinglePop'), 'pcShinglePop keyframes must be declared');
       assert.ok(animCss.includes('.pc-anim-strata-breeze'), '.pc-anim-strata-breeze class must be declared');
-      assert.ok(animCss.includes('.pc-anim-shingle-lift'), '.pc-anim-shingle-lift class must be declared');
     });
 
-    it('should downgrade strata and shingle animations in papercut-animations.css under prefers-reduced-motion', () => {
+    it('should downgrade strata animations in papercut-animations.css under prefers-reduced-motion', () => {
       const animReduced = animCss.slice(animCss.lastIndexOf('@media (prefers-reduced-motion: reduce)'));
       assert.ok(animReduced.includes('.pc-anim-strata-breeze'), 'prefers-reduced-motion must downgrade .pc-anim-strata-breeze');
-      assert.ok(animReduced.includes('.pc-anim-shingle-lift'), 'prefers-reduced-motion must downgrade .pc-anim-shingle-lift');
       assert.ok(animReduced.includes('.pc-strata-hills'), 'prefers-reduced-motion must downgrade .pc-strata-hills');
-      assert.ok(animReduced.includes('.pc-shingle-card'), 'prefers-reduced-motion must downgrade .pc-shingle-card');
     });
 
     it('should enforce zero horizontal overflow design constraints', () => {
-      assert.ok(layoutCss.includes('max-width: 100%'), 'Shingle deck & card must respect max-width: 100%');
+      assert.ok(layoutCss.includes('max-width: 100%'), 'Elements must respect max-width: 100%');
       assert.ok(layoutCss.includes('box-sizing: border-box;'), 'Elements must enforce box-sizing: border-box');
       assert.ok(layoutCss.includes('word-break: keep-all;'), 'Card copy must enforce Korean break-keep typography standard');
     });

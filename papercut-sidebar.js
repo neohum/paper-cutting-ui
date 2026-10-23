@@ -15,7 +15,6 @@
       // 예전 섹션 주소를 하위 범주로 잇는다 (#knife-cut-buttons → #pc-components)
       aliasSubs: { 'kirigami-components': 'cards', 'knife-cut-buttons': 'buttons' }
     },
-    { id: 'papercut-stacking-studio', title: '레이어드 스택 & 겹침', badge: 'NEW STACK', badgeStyle: 'ticket', icon: 'layers', bgShape: 'postage-stamp', bgTheme: 'peach', category: '마스터 UI 키트' },
     { id: 'pc-blocks-charts', title: '실전 애플리케이션 블록', badge: '6대 블록', icon: 'contacts-book', bgShape: 'polaroid-frame', bgTheme: 'coral', category: '마스터 UI 키트' },
     { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '12종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
@@ -254,7 +253,7 @@
           itemHref = sec.url || ('#' + sec.id);
         }
 
-        const iconHtml = `<span class="pc-inline-icon is-color is-sm" data-icon="${sec.icon}"></span>`;
+        const iconHtml = `<span class="pc-inline-icon is-color is-lg" data-icon="${sec.icon}"></span>`;
 
         // Map section to specialized papercut badge model (ticket, tag) - stamp/bandage removed
         let badgeStyle = 'ticket';
@@ -267,7 +266,7 @@
         }
 
         const hasChildren = !!(sec.children && sec.children.length);
-        const chevronHtml = hasChildren ? `<span class="pc-sidebar-chevron fi fi-rr-angle-small-down" aria-hidden="true"></span>` : '';
+        const chevronHtml = hasChildren ? `<span class="pc-sidebar-chevron" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>` : '';
         const ariaControlsAttr = hasChildren ? ` aria-controls="pc-sidebar-sub-${sec.id}" aria-expanded="true"` : '';
 
         menuHtml += `
@@ -287,7 +286,7 @@
         <div class="pc-sidebar-sound-widget" id="pc-sidebar-sound-widget" aria-label="종이 소리 테스트 제어기">
           <div class="pc-sidebar-sound-header">
             <div class="pc-sidebar-sound-title-group">
-              <span class="pc-sidebar-sound-icon fi fi-rr-volume" id="pc-sidebar-sound-icon" aria-hidden="true"></span>
+              <span class="pc-sidebar-sound-icon pc-inline-icon is-xs" data-icon="volume" id="pc-sidebar-sound-icon" aria-hidden="true"></span>
               <span class="pc-sidebar-sound-label">종이 소리 테스트</span>
             </div>
             <button type="button" class="pc-sidebar-sound-toggle-btn" id="pc-sidebar-sound-toggle" title="종이 소리 바스락 효과음 켜기/끄기" aria-pressed="false">
@@ -339,7 +338,7 @@
       sidebarEl.innerHTML = `
         <div class="pc-sidebar-header">
           <div class="pc-sidebar-header-lead">
-            <span class="pc-sidebar-header-icon fi fi-rr-book-alt" aria-hidden="true"></span>
+            <span class="pc-sidebar-header-icon pc-inline-icon is-sm" data-icon="book" aria-hidden="true"></span>
             <span class="pc-sidebar-header-title">목차 네비게이션</span>
           </div>
           <button type="button" class="pc-sidebar-toggle-btn pc-svg-kirigami-btn" id="pc-sidebar-toggle" title="${toggleTitle}" aria-label="${toggleTitle}" style="width:34px; height:34px; padding:0; border:none; background:transparent; display:inline-flex; align-items:center; justify-content:center;">
@@ -400,7 +399,7 @@
       sidebarEl.querySelectorAll('.pc-sidebar-item-icon').forEach(iconContainer => {
         const iconId = iconContainer.getAttribute('data-icon');
         if (iconId && !iconContainer.querySelector('.pc-inline-icon, .pc-layered-paper-icon, svg')) {
-          iconContainer.innerHTML = `<span class="pc-inline-icon is-color is-sm" data-icon="${iconId}"></span>`;
+          iconContainer.innerHTML = `<span class="pc-inline-icon is-color is-lg" data-icon="${iconId}"></span>`;
         }
       });
       if (typeof window.hydratePapercutIcons === 'function') {
@@ -488,8 +487,9 @@
       // Dropdown Chevron Indicator guarantee
       if (!parent.querySelector('.pc-sidebar-chevron')) {
         const chevron = document.createElement('span');
-        chevron.className = 'pc-sidebar-chevron fi fi-rr-angle-small-down';
+        chevron.className = 'pc-sidebar-chevron';
         chevron.setAttribute('aria-hidden', 'true');
+        chevron.innerHTML = '<svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>';
         parent.appendChild(chevron);
       }
     });

@@ -1172,6 +1172,48 @@
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background 0.2s ease !important;
 }
 
+/* 사각 카드 (위 카드가 사각형이면 아래 카드도 완벽히 상하좌우가 더 큰 직각 사각형) */
+.pc-card-rect,
+.pc-card-square,
+.pc-card-sharp,
+.pc-card[data-shape="rect"],
+.pc-card.is-sharp,
+.pc-card.is-rect,
+.pc-ui-card-sharp,
+.pc-ui-card-rect,
+.pc-card-nested.pc-card-rect,
+.pc-card-nested.pc-card-sharp,
+.pc-card-nested.pc-card-square,
+[style*="border-radius: 0"],
+[style*="border-radius:0"],
+[style*="border-radius: 0px"],
+[style*="border-radius:0px"] {
+  border-radius: 0 !important;
+}
+.pc-card-rect::after,
+.pc-card-square::after,
+.pc-card-sharp::after,
+.pc-card[data-shape="rect"]::after,
+.pc-card.is-sharp::after,
+.pc-card.is-rect::after,
+.pc-ui-card-sharp::after,
+.pc-ui-card-rect::after,
+.pc-card-nested.pc-card-rect::after,
+.pc-card-nested.pc-card-sharp::after,
+.pc-card-nested.pc-card-square::after,
+.pc-card-rect .pc-card-underlay,
+.pc-card-square .pc-card-underlay,
+.pc-card-sharp .pc-card-underlay,
+.pc-card[data-shape="rect"] .pc-card-underlay,
+.pc-card.is-sharp .pc-card-underlay,
+.pc-card.is-rect .pc-card-underlay,
+[style*="border-radius: 0"]::after,
+[style*="border-radius:0"]::after,
+[style*="border-radius: 0px"]::after,
+[style*="border-radius:0px"]::after {
+  border-radius: 0 !important;
+}
+
 /* 호버 인터랙션: 앞 종이 리프트 및 그림자 확장 */
 .pc-card:hover,
 .pc-card-sheet:hover,
@@ -1274,57 +1316,70 @@
     0 18px 36px rgba(46, 30, 20, 0.10) !important;
 }
 
-/* 셋째 종이 완전 삭제 (Third Sheet Elimination: 2-Sheet 구조 단일화) */
-.pc-ui-card::before,
-.pc-ui-card:not(.pc-is-stacked):not(.is-stacked)::before,
-.pc-ui-card:not(.pc-is-stacked):not(.is-stacked):hover::before,
-.pc-ui-card.pc-is-stacked::before,
-.pc-ui-card.is-stacked::before {
-  display: none !important;
-}
-
-/* 수공예 미싱선 스티칭 프레임 (Handcrafted Craft Stitching Inset via ::after) */
-.pc-ui-card:not(.pc-is-stacked):not(.is-stacked):not(.pc-card-nested):not(.is-nested)::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: 7px !important;
-  border: 1px dashed rgba(74, 58, 42, 0.13) !important;
-  border-radius: calc(16px - 5px) !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
-  transition: border-color var(--pc-ui-dur-norm) ease !important;
-}
-
-.pc-ui-card:not(.pc-card-nested):not(.is-nested):hover::after {
-  border-color: rgba(74, 58, 42, 0.22) !important;
-}
-
-/* 2-Sheet 정갈한 사방 균일 적층: pc-ui-card 스택 에디션 */
-.pc-ui-card.pc-is-stacked::after,
-.pc-ui-card.is-stacked::after {
+/* 2-Sheet 정갈한 사방 균일 적층: 모든 pc-ui-card에 기본 적용 (위 카드가 사각형이면 아래도 사각형) */
+.pc-ui-card::after {
   content: "" !important;
   position: absolute !important;
   inset: -6px !important;
-  background: var(--pc-ui-peach-tint, var(--pc-card-underlay-bg, #F3ECE1)) !important;
-  border: 1px solid rgba(46, 30, 20, 0.14) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
-  border-radius: calc(16px + 4px) !important;
+  background: var(--pc-ui-peach-tint, var(--pc-card-underlay-bg, #EDE4D4)) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border-radius: calc(var(--pc-ui-radius-lg, 16px) + 6px) !important;
   z-index: -1 !important;
   pointer-events: none !important;
+  display: block !important;
   box-shadow: 
     inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    0 4px 14px -2px rgba(46, 30, 20, 0.16),
-    0 1.5px 3px rgba(46, 30, 20, 0.10) !important;
+    0 4px 14px -2px rgba(46, 30, 20, 0.20),
+    0 1.5px 3.5px rgba(46, 30, 20, 0.12) !important;
   transform: none !important;
   transition: transform var(--pc-ui-dur-norm) cubic-bezier(0.16, 1, 0.3, 1), box-shadow var(--pc-ui-dur-norm) ease !important;
 }
 
-.pc-ui-card.pc-is-stacked:hover::after,
-.pc-ui-card.is-stacked:hover::after {
-  transform: none !important;
+/* 사각 pc-ui-card: 위가 직각 사각형이면 아래도 완벽한 직각 사각형 */
+.pc-ui-card.pc-ui-card-sharp,
+.pc-ui-card.pc-ui-card-rect,
+.pc-ui-card.is-sharp,
+.pc-ui-card[data-shape="rect"] {
+  border-radius: 0 !important;
+}
+.pc-ui-card.pc-ui-card-sharp::after,
+.pc-ui-card.pc-ui-card-rect::after,
+.pc-ui-card.is-sharp::after,
+.pc-ui-card[data-shape="rect"]::after {
+  border-radius: 0 !important;
+}
+
+/* 호버 시 2-Sheet 입체 부유 */
+.pc-ui-card:hover::after {
   box-shadow: 
-    0 8px 22px -3px rgba(46, 30, 20, 0.20),
-    0 3px 6px rgba(46, 30, 20, 0.12) !important;
+    0 8px 22px -3px rgba(46, 30, 20, 0.22),
+    0 3px 6px rgba(46, 30, 20, 0.14) !important;
+}
+
+/* 수공예 미싱선 천공 스티칭 프레임 (Handcrafted 3D Embossed Perforation via ::before)
+   - 단순 그림선이 아닌, 바늘로 뚫은 구멍 음각 섀도우 + 순백 림 하이라이트의 입체 타공선
+*/
+.pc-ui-card::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 7px !important;
+  border: 1px dashed rgba(46, 30, 20, 0.25) !important;
+  border-radius: calc(var(--pc-ui-radius-lg, 16px) - 5px) !important;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  display: block !important;
+  transition: border-color var(--pc-ui-dur-norm) ease !important;
+}
+
+.pc-ui-card.pc-ui-card-sharp::before,
+.pc-ui-card.pc-ui-card-rect::before {
+  border-radius: 0 !important;
+}
+
+.pc-ui-card:hover::before {
+  border-color: rgba(46, 30, 20, 0.38) !important;
 }
 
 .pc-ui-card-header, .pc-ui-card-header {
@@ -5406,6 +5461,152 @@
     0 12px 28px rgba(46, 30, 20, 0.30),
     0 28px 60px -10px rgba(46, 30, 20, 0.35) !important;
 }
+
+/* ==========================================================================
+   PC Inline Icon Sizing & Layered Paper-Cut Visibility Standards (UI Kit Sync)
+   ========================================================================== */
+.pc-inline-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  transition: transform 0.16s ease !important;
+}
+
+.pc-inline-icon svg,
+.pc-inline-icon .pc-layered-paper-icon {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+.pc-inline-icon.is-xs,
+.pc-inline-icon.pc-is-xs {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+}
+
+.pc-inline-icon.is-sm,
+.pc-inline-icon.pc-is-sm {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+}
+
+.pc-inline-icon.is-md,
+.pc-inline-icon.pc-is-md,
+.pc-inline-icon:not(.is-xs):not(.is-sm):not(.is-lg):not(.is-xl) {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+}
+
+.pc-inline-icon.is-lg,
+.pc-inline-icon.pc-is-lg {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+}
+
+.pc-inline-icon.is-xl,
+.pc-inline-icon.pc-is-xl {
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+}
+
+/* 3D Papercraft Perforation & Slit Standards */
+.pc-ui-card::before,
+.pc-perforated-border,
+.pc-stitch-frame,
+.pc-ticket-dashed,
+.pc-diecut-dashed,
+.pc-perforation-line,
+[class*="-dashed"],
+[class*="-perforated"] {
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95)) drop-shadow(0 -0.5px 0 rgba(46, 30, 20, 0.12));
+}
+
+/* 4. Pure SVG Multi-Layer Badges & Swatch Badge System */
+.pc-svg-badge,
+.pc-svg-badge[class*="pc-swatch-"],
+.pc-svg-badge.pc-swatch-cloud,
+.pc-svg-badge.pc-swatch-mint,
+.pc-svg-badge.pc-swatch-peach,
+.pc-svg-badge.pc-swatch-sand,
+.pc-svg-badge.pc-swatch-lavender,
+.pc-svg-badge.pc-swatch-sky,
+.pc-svg-badge.pc-swatch-sage {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 2px;
+  text-decoration: none;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1;
+}
+.pc-svg-badge:hover {
+  transform: translateY(-1.5px) scale(1.02);
+}
+.pc-svg-badge:active {
+  transform: translateY(1px);
+}
+.pc-kirigami-badge-svg {
+  display: block;
+  height: 32px;
+  width: auto;
+  overflow: visible;
+}
+.pc-kirigami-badge-svg text {
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Ticket Top-Left Sprocket Punch Strip (카드 왼쪽 위 천공 홈 스트립) */
+.pc-ticket-punch-strip {
+  position: absolute;
+  top: 3px;
+  left: 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4.5px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* Individual Vertically Elongated Rounded Rectangular Cutout Slot (아래로 긴 둥근 사각형 홈) */
+.pc-ticket-punch-slot {
+  display: inline-block;
+  width: 5px;
+  height: 7.5px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #D4C6B0 0%, #E8DFC8 100%);
+  box-shadow: 
+    inset 0 1.2px 1.8px rgba(46, 30, 20, 0.45),
+    inset 0 -0.5px 1px rgba(255, 255, 255, 0.50),
+    0 0.88px 0 rgba(255, 255, 255, 0.95);
+  flex-shrink: 0;
+}
+
 
 
 

@@ -19,7 +19,7 @@ PaperCut UI 프로젝트에 관심을 가져주셔서 감사합니다! 기여를
 ## 🎨 2. 디자인 및 코드 스타일
 
 - **디자인 철학 준수**: [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md)에 정의된 페이퍼 아트 철학(따뜻한 크림 배경, 다층 파스텔 색지, 웜 엄버 소프트 그림자, 물리적 프레스 모션)을 준수합니다.
-- **아이콘 단일 표준**: 모든 UI 아이콘은 **Flaticon UIcons Regular Rounded (`fi fi-rr-*`)** 또는 `papercut-icons.js` 내장 벡터 심볼을 단일 표준으로 사용합니다.
+- **아이콘 단일 표준**: 모든 UI 아이콘은 **PaperCut 3D 다층 벡터 아이콘(`pc-inline-icon` 및 Pure SVG)**을 단일 표준으로 사용합니다.
 - **독립성 유지**: 외부 무거운 프레임워크 의존성을 추가하지 않고 Vanilla CSS/JS의 가볍고 직관적인 설계를 우선합니다.
 
 ---

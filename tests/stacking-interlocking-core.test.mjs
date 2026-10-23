@@ -115,61 +115,13 @@ describe('Step 1: Stacking & Interlocking Core Architecture', () => {
   });
 
   // -------------------------------------------------------------------------
-  // AC-2: Knife-Cut Slit Interlocking (.pc-slot-slit, .pc-slot-insert)
+  // AC-2: Knife-Cut Slit Interlocking Purged Verification
   // -------------------------------------------------------------------------
-  describe('AC-2: .pc-slot-slit & .pc-slot-insert knife-cut interlocking', () => {
-    it('should define .pc-slot-slit with pure white knife-edge rim light and deep recessed shadow', () => {
-      for (const [name, css] of [['papercut-layout.css', layoutCss], ['papercut-ui.css', uiCss]]) {
-        assert.ok(css.includes('.pc-slot-slit'), `${name} must declare .pc-slot-slit`);
-        assert.ok(
-          css.includes('inset 0 1px 0 rgba(255, 255, 255, 0.95)') ||
-          css.includes('inset 0 1px 0 rgba(255,255,255,0.95)'),
-          `${name} must feature pure white knife-edge top rim light on slot slit`
-        );
-        assert.ok(
-          css.includes('inset 0 3px 6px rgba(46, 30, 20, 0.24)') ||
-          css.includes('inset 0 3px 6px rgba(46,30,20,0.24)'),
-          `${name} must feature deep recessed shadow on slot slit`
-        );
-      }
-    });
-
-    it('should define .pc-slot-slit::before precision carved rim line', () => {
-      for (const [name, css] of [['papercut-layout.css', layoutCss], ['papercut-ui.css', uiCss]]) {
-        assert.ok(
-          css.includes('.pc-slot-slit::before'),
-          `${name} must declare .pc-slot-slit::before for carved rim line`
-        );
-        assert.ok(
-          css.includes('rgba(255, 255, 255, 0.95)'),
-          `${name} must use white highlight rim for slit line`
-        );
-      }
-    });
-
-    it('should define .pc-slot-insert with angled tuck transform and hover lift interaction', () => {
-      for (const [name, css] of [['papercut-layout.css', layoutCss], ['papercut-ui.css', uiCss]]) {
-        assert.ok(css.includes('.pc-slot-insert'), `${name} must declare .pc-slot-insert`);
-        assert.ok(
-          css.includes('translateY(-6px) rotate(-1deg)'),
-          `${name} must feature angled insertion tuck on .pc-slot-insert`
-        );
-        assert.ok(
-          css.includes('.pc-slot-insert:hover') && css.includes('translateY(-12px) rotate(0deg)'),
-          `${name} must lift slot insert on hover/focus`
-        );
-      }
-    });
-
-    it('should define .pc-slot-pocket wrapper for seamless interlocking layering', () => {
-      for (const [name, css] of [['papercut-layout.css', layoutCss], ['papercut-ui.css', uiCss]]) {
-        assert.ok(css.includes('.pc-slot-pocket'), `${name} must declare .pc-slot-pocket`);
-        assert.ok(
-          css.includes('.pc-slot-pocket > .pc-slot-slit') &&
-          css.includes('.pc-slot-pocket > .pc-slot-insert'),
-          `${name} must establish z-index layering between slit and inserted element`
-        );
-      }
+  describe('AC-2: Knife-Cut Slit Interlocking Purged Verification', () => {
+    it('should confirm .pc-slot-slit, .pc-slot-insert, and .pc-slot-pocket are purged from layout CSS', () => {
+      assert.ok(!layoutCss.includes('.pc-slot-slit'), 'papercut-layout.css must not contain .pc-slot-slit');
+      assert.ok(!layoutCss.includes('.pc-slot-insert'), 'papercut-layout.css must not contain .pc-slot-insert');
+      assert.ok(!layoutCss.includes('.pc-slot-pocket'), 'papercut-layout.css must not contain .pc-slot-pocket');
     });
   });
 
@@ -253,8 +205,6 @@ describe('Step 1: Stacking & Interlocking Core Architecture', () => {
         assert.ok(
           css.includes('.pc-stack-fanned') &&
           css.includes('.pc-stack-cascade') &&
-          css.includes('.pc-slot-slit') &&
-          css.includes('.pc-slot-insert') &&
           css.includes('.pc-photo-corner') &&
           css.includes('.pc-belly-band'),
           `${name} must cover all Step 1 components under prefers-reduced-motion`
