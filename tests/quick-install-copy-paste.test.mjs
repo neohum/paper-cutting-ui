@@ -94,6 +94,11 @@ describe('PaperCut UI: Quick Installation & Copy-Paste Workflow', () => {
     it('should have a navigation link to #quick-start in sidebar', () => {
       assert.ok(indexHtml.includes('href="#quick-start"'), 'Sidebar must link to #quick-start');
     });
+
+    it('should register quick-start in papercut-sidebar.js SECTIONS array for multi-page router', () => {
+      const sidebarJs = fs.readFileSync(path.join(rootDir, 'papercut-sidebar.js'), 'utf8');
+      assert.ok(sidebarJs.includes("id: 'quick-start'"), 'papercut-sidebar.js SECTIONS must include quick-start');
+    });
   });
 
   describe('4. Dedicated Primitives Showcase (papercut-svg-primitives.html)', () => {
