@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PaperCut SVG UI Library — Radix UI Primitives Edition</title>
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="papercut-svg-primitives.css">
+  <style>
+    /* -----------------------------------------------------------------------
+       Showcase Layout Styles (Centered on Matte Cream Background)
+       ----------------------------------------------------------------------- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--pc-svg-canvas, #FAF7F0);
+      color: var(--pc-svg-ink, #2E1E14);
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 상단 장식용 마스킹 와시 테이프 */
+    .pc-showcase-washi-tape {
+      width: 140px;
+      height: 28px;
+      margin: 0 auto -14px auto;
+      background-color: rgba(254, 227, 150, 0.85);
+      border-left: 2px dashed rgba(212, 169, 73, 0.5);
+      border-right: 2px dashed rgba(212, 169, 73, 0.5);
+      box-shadow: 0 2px 5px rgba(46, 30, 20, 0.12);
+      transform: rotate(-1deg);
+      position: relative;
+      z-index: 10;
+    }
+
+    .pc-container {
+      max-width: 1140px;
+      margin: 32px auto 80px auto;
+      padding: 0 24px;
+    }
+
+    /* 메인 히어로 배너 (350g Mat Board Frame) */
+    .pc-hero-frame {
+      background: var(--pc-svg-surface, #FFFDF9);
+      border: 1.5px solid var(--pc-svg-border-kraft, #D5C7B4);
+      border-radius: 24px;
+      padding: 44px 40px;
+      box-shadow: 
+        inset 0 1.5px 0 #FFFFFF,
+        0 4px 12px rgba(46, 30, 20, 0.08),
+        0 14px 32px rgba(46, 30, 20, 0.06);
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .pc-hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: #EAF7F1;
+      border: 1px solid rgba(108, 174, 151, 0.6);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #1B4738;
+      margin-bottom: 16px;
+    }
+
+    .pc-hero-title {
+      font-size: 32px;
+      font-weight: 900;
+      margin: 0 0 12px 0;
+      color: var(--pc-svg-ink, #2E1E14);
+      letter-spacing: -0.5px;
+      word-break: keep-all;
+    }
+
+    .pc-hero-desc {
+      font-size: 16px;
+      color: var(--pc-svg-ink-muted, #7A695A);
+      margin: 0 0 24px 0;
+      max-width: 760px;
+      word-break: keep-all;
+    }
+
+    /* 프롬프트 인용구 인레이 웰 (Prompt Quotation Box) */
+    .pc-prompt-box {
+      background: #F4EFE6;
+      border: 1px dashed rgba(46, 30, 20, 0.22);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      color: #5C4331;
+      line-height: 1.5;
+      box-shadow: inset 0 2px 4px rgba(46, 30, 20, 0.06);
+    }
+
+    /* 12대 컴포넌트 쇼케이스 그리드 */
+    .pc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+      gap: 28px;
+      margin-top: 32px;
+    }
+
+    .pc-section-card {
+      background: var(--pc-svg-surface, #FFFDF9);
+      border: 1.5px solid var(--pc-svg-border-kraft, #D5C7B4);
+      border-radius: 20px;
+      padding: 28px 24px;
+      box-shadow: 
+        inset 0 1.5px 0 #FFFFFF,
+        0 4px 10px rgba(46, 30, 20, 0.08),
+        0 12px 24px rgba(46, 30, 20, 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+
+    .pc-card-header-tag {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px dashed rgba(46, 30, 20, 0.14);
+      padding-bottom: 12px;
+    }
+
+    .pc-card-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--pc-svg-ink, #2E1E14);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .pc-primitive-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      background: #FDF1EA;
+      border: 1px solid rgba(226, 148, 114, 0.5);
+      border-radius: 6px;
+      color: #5C2D18;
+    }
+
+    .pc-component-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 20px 16px;
+      background: #FBF8F2;
+      border: 1px solid rgba(46, 30, 20, 0.08);
+      border-radius: 14px;
+      min-height: 120px;
+      box-shadow: inset 0 1.5px 3px rgba(46, 30, 20, 0.04);
+    }
+
+    .pc-interactive-log {
+      margin-top: 36px;
+      padding: 18px 24px;
+      background: #FFFDF9;
+      border: 1.5px solid #D5C7B4;
+      border-radius: 16px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1B4738;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(46, 30, 20, 0.08);
+    }
+
+    .pc-footer {
+      text-align: center;
+      margin-top: 60px;
+      font-size: 13px;
+      color: var(--pc-svg-ink-muted, #7A695A);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="pc-showcase-washi-tape"></div>
+
+  <main class="pc-container">
+    <!-- 메인 헤더 배너 -->
+    <header class="pc-hero-frame">
+      <div class="pc-hero-badge">
+        <i class="fi fi-rr-vector-alt" aria-hidden="true"></i>
+        <span>100% PURE SVG VECTOR ARCHITECTURE</span>
+      </div>
+
+      <h1 class="pc-hero-title">PaperCut SVG UI Library</h1>
+      <p class="pc-hero-desc">
+        Radix UI의 엄격한 WAI-ARIA 접근성 프리미티브를 100% 순수 SVG 다층 페이퍼아트 벡터 그래픽으로 재창조한 차세대 UI 컴포넌트 라이브러리입니다.
+        단순한 CSS 박스가 아닌, 실제 조각칼로 정밀 절단한 색종이 레이어와 수공예 미싱선, 2-Tier 번트 엄버 그림자가 살아 숨쉽니다.
+      </p>
+
+      <div class="pc-prompt-box">
+        <strong>🎨 Creative Aesthetic Prompt:</strong><br>
+        &ldquo;Layered paper-cut illustration of [Radix UI Primitives], with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.&rdquo;
+      </div>
+    </header>
+
+    <!-- 인터랙션 상태 피드백 바 -->
+    <div id="pc-event-logger" class="pc-interactive-log">
+      <span><i class="fi fi-rr-magic-wand mr-1" aria-hidden="true"></i> <strong>실시간 피드백:</strong> 컴포넌트를 클릭하거나 조작해보세요.</span>
+      <span id="pc-log-message" style="color: #E29472;">대기 중...</span>
+    </div>
+
+    <!-- 12대 Radix UI Primitive 그리드 -->
+    <div class="pc-grid">
+
+      <!-- 1. BUTTON (다층 종이 버튼) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-cursor-finger" aria-hidden="true"></i> 01. Button &amp; Toggle</h2>
+          <span class="pc-primitive-badge">Primitive: Button</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          350g 밑판 마운트 보드와 상단 0.88px 순백 칼선 림, 클릭 시 3D 단차 압축 피직스를 제공합니다.
+        </p>
+        <div class="pc-component-stage" style="flex-direction: row; flex-wrap: wrap;">
+          <div id="btn-container-1"></div>
+          <div id="btn-container-2"></div>
+        </div>
+      </section>
+
+      <!-- 2. SWITCH (종이 슬라이딩 셔터) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-toggle-on" aria-hidden="true"></i> 02. Switch</h2>
+          <span class="pc-primitive-badge">Primitive: Switch</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          음각 도화지 트랙 안에서 수제 종이 셔터가 스프링 탄성으로 좌우 슬라이딩하며 파스텔 색지를 드러냅니다.
+        </p>
+        <div class="pc-component-stage" style="flex-direction: row; gap: 24px;">
+          <div id="switch-container-1"></div>
+          <div id="switch-container-2"></div>
+        </div>
+      </section>
+
+      <!-- 3. CHECKBOX (우표 인장 스탬프) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-check-box" aria-hidden="true"></i> 03. Checkbox</h2>
+          <span class="pc-primitive-badge">Primitive: Checkbox</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          우표 천공 톱니 테두리 위에 나이프 컷 V자 체크마크가 도장처럼 쾅 찍히는 벡터 스탬프입니다.
+        </p>
+        <div class="pc-component-stage" style="flex-direction: row; gap: 24px;">
+          <div id="checkbox-container-1"></div>
+          <div id="checkbox-container-2"></div>
+        </div>
+      </section>
+
+      <!-- 4. RADIO GROUP (접힌 종이 딱지 디스크) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-bullet" aria-hidden="true"></i> 04. Radio Group</h2>
+          <span class="pc-primitive-badge">Primitive: RadioGroup</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          원형 종이 인장 디스크와 방향키(ArrowUp/Down) 키보드 탐색을 완벽히 지원합니다.
+        </p>
+        <div class="pc-component-stage" style="align-items: flex-start;">
+          <div id="radio-group-container"></div>
+        </div>
+      </section>
+
+      <!-- 5. SLIDER (음각 슬릿 트랙 & 썸) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-sliders-h" aria-hidden="true"></i> 05. Slider</h2>
+          <span class="pc-primitive-badge">Primitive: Slider</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          조각칼로 파낸 도화지 슬릿 홈을 따라 3D 종이 썸을 마우스/터치로 부드럽게 드래그합니다.
+        </p>
+        <div class="pc-component-stage">
+          <div id="slider-container"></div>
+          <span id="slider-val-label" style="font-size: 12px; font-weight: 800; color: #7A695A;">값: 50%</span>
+        </div>
+      </section>
+
+      <!-- 6. PROGRESS (파낸 홈 색지 게이지) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-loading" aria-hidden="true"></i> 06. Progress</h2>
+          <span class="pc-primitive-badge">Primitive: Progress</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          음각 트렌치 안에서 부드럽게 차오르는 파스텔 색지 스트립 게이지입니다.
+        </p>
+        <div class="pc-component-stage">
+          <div id="progress-container"></div>
+          <button type="button" id="btn-progress-random" style="padding: 6px 14px; background: #FFFDF9; border: 1px solid #D5C7B4; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">
+            게이지 변경
+          </button>
+        </div>
+      </section>
+
+      <!-- 7. ACCORDION (도화지 접힘 플랩) -->
+      <section class="pc-section-card" style="grid-column: 1 / -1;">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-menu-burger" aria-hidden="true"></i> 07. Accordion (Paper Flap)</h2>
+          <span class="pc-primitive-badge">Primitive: Accordion</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          접는 선(Crease Line)을 따라 헤더 플랩이 부드럽게 열리며 내부 종이 공예 내용을 노출합니다.
+        </p>
+        <div class="pc-component-stage" style="align-items: stretch;">
+          <div id="accordion-container"></div>
+        </div>
+      </section>
+
+      <!-- 8. TABS (서류철 마닐라 인덱스 탭) -->
+      <section class="pc-section-card" style="grid-column: 1 / -1;">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-folders" aria-hidden="true"></i> 08. Tabs (Manila Index)</h2>
+          <span class="pc-primitive-badge">Primitive: Tabs</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          선택된 서류철 인덱스 탭이 앞쪽 레이어로 솟아오르고 비활성 탭은 뒤로 숨겨지는 물리적 겹침을 제공합니다.
+        </p>
+        <div class="pc-component-stage" style="align-items: stretch;">
+          <div id="tabs-container"></div>
+        </div>
+      </section>
+
+      <!-- 9. CARD (다이컷 티켓 & 노치 카드) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-portrait" aria-hidden="true"></i> 09. Card (Die-Cut Ticket)</h2>
+          <span class="pc-primitive-badge">Primitive: Card</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          양옆에 반원형 노치가 파인 다이컷 티켓 실루엣과 수공예 미싱선 스티칭을 갖춘 순수 SVG 카드입니다.
+        </p>
+        <div class="pc-component-stage">
+          <div id="card-container"></div>
+        </div>
+      </section>
+
+      <!-- 10. DIALOG (섀도우박스 모달) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-layers" aria-hidden="true"></i> 10. Dialog &amp; Modal</h2>
+          <span class="pc-primitive-badge">Primitive: Dialog</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          도화지를 창문 모양으로 오려낸 다층 섀도우박스 액자 모달을 띄웁니다.
+        </p>
+        <div class="pc-component-stage">
+          <div id="dialog-trigger-container"></div>
+        </div>
+      </section>
+
+      <!-- 11. TOOLTIP (종이 꼬리표 태그) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-comment-alt" aria-hidden="true"></i> 11. Tooltip &amp; Popover</h2>
+          <span class="pc-primitive-badge">Primitive: Tooltip</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          마우스를 올리거나 포커스를 맞추면 꼬리표가 오려진 파스텔 종이 태그가 부드럽게 솟아납니다.
+        </p>
+        <div class="pc-component-stage">
+          <div class="pc-svg-tooltip-wrapper">
+            <button type="button" style="padding: 10px 20px; background: #FFFDF9; border: 1.5px solid #D5C7B4; border-radius: 10px; font-weight: 800; color: #2E1E14; cursor: pointer; box-shadow: 0 2px 6px rgba(46,30,20,0.1);">
+              마우스를 올려보세요
+            </button>
+            <div id="tooltip-container"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. SELECT (부채꼴 색지 드롭다운) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><i class="fi fi-rr-angle-down" aria-hidden="true"></i> 12. Select &amp; Dropdown</h2>
+          <span class="pc-primitive-badge">Primitive: Select</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          클릭 시 파스텔 색종이 목록이 펼쳐지는 WAI-ARIA combobox 셀렉트입니다.
+        </p>
+        <div class="pc-component-stage" style="overflow: visible;">
+          <div id="select-container"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="pc-footer">
+      <p>PaperCut SVG UI Library &bull; Pure SVG Vector Architecture inspired by Radix UI &bull; 2026</p>
+    </footer>
+  </main>
+
+  <script src="papercut-svg-primitives.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const logEl = document.getElementById('pc-log-message');
+      function log(msg) {
+        if (logEl) logEl.textContent = msg;
+      }
+
+      // 1. Buttons
+      const btn1 = PaperCutSVG.createButton({
+        label: '민트 액션 버튼',
+        tone: 'mint',
+        onClick: () => log('Button: 민트 버튼 클릭됨!')
+      });
+      document.getElementById('btn-container-1').appendChild(btn1);
+
+      const btn2 = PaperCutSVG.createButton({
+        label: '피치 크래프트 버튼',
+        tone: 'peach',
+        onClick: () => log('Button: 피치 버튼 클릭됨!')
+      });
+      document.getElementById('btn-container-2').appendChild(btn2);
+
+      // 2. Switches
+      const sw1 = PaperCutSVG.createSwitch({
+        checked: true,
+        tone: 'mint',
+        label: '민트 셔터 스위치',
+        onChange: (v) => log(`Switch: 민트 셔터 상태 -> ${v ? 'ON' : 'OFF'}`)
+      });
+      document.getElementById('switch-container-1').appendChild(sw1);
+
+      const sw2 = PaperCutSVG.createSwitch({
+        checked: false,
+        tone: 'peach',
+        label: '피치 셔터 스위치',
+        onChange: (v) => log(`Switch: 피치 셔터 상태 -> ${v ? 'ON' : 'OFF'}`)
+      });
+      document.getElementById('switch-container-2').appendChild(sw2);
+
+      // 3. Checkboxes
+      const cb1 = PaperCutSVG.createCheckbox({
+        checked: true,
+        tone: 'mint',
+        label: '민트 스탬프',
+        onChange: (v) => log(`Checkbox: 민트 스탬프 -> ${v ? '체크됨' : '해제됨'}`)
+      });
+      document.getElementById('checkbox-container-1').appendChild(cb1);
+
+      const cb2 = PaperCutSVG.createCheckbox({
+        checked: false,
+        tone: 'sand',
+        label: '샌드 스탬프',
+        onChange: (v) => log(`Checkbox: 샌드 스탬프 -> ${v ? '체크됨' : '해제됨'}`)
+      });
+      document.getElementById('checkbox-container-2').appendChild(cb2);
+
+      // 4. Radio Group
+      const radio = PaperCutSVG.createRadioGroup({
+        name: 'paper-sample-radio',
+        tone: 'peach',
+        value: 'option1',
+        onChange: (v) => log(`Radio: 선택된 종이 재질 -> ${v}`)
+      });
+      document.getElementById('radio-group-container').appendChild(radio);
+
+      // 5. Slider
+      const sliderValLabel = document.getElementById('slider-val-label');
+      const slider = PaperCutSVG.createSlider({
+        min: 0,
+        max: 100,
+        value: 50,
+        tone: 'sand',
+        width: 260,
+        onChange: (v) => {
+          if (sliderValLabel) sliderValLabel.textContent = `값: ${v}%`;
+          log(`Slider: 슬라이더 값 변경 -> ${v}%`);
+        }
+      });
+      document.getElementById('slider-container').appendChild(slider);
+
+      // 6. Progress
+      const progress = PaperCutSVG.createProgress({
+        value: 65,
+        max: 100,
+        tone: 'mint',
+        width: 260
+      });
+      document.getElementById('progress-container').appendChild(progress.element);
+      document.getElementById('btn-progress-random').addEventListener('click', () => {
+        const rand = Math.floor(Math.random() * 85) + 15;
+        progress.setValue(rand);
+        log(`Progress: 게이지 업데이트 -> ${rand}%`);
+      });
+
+      // 7. Accordion
+      const accordion = PaperCutSVG.createAccordion({
+        tone: 'lavender'
+      });
+      document.getElementById('accordion-container').appendChild(accordion);
+
+      // 8. Tabs
+      const tabs = PaperCutSVG.createTabs({
+        tone: 'sky'
+      });
+      document.getElementById('tabs-container').appendChild(tabs);
+
+      // 9. Card
+      const card = PaperCutSVG.createCard({
+        title: '티켓 노치 다이컷 카드',
+        subtitle: '300g COTTON',
+        content: '조각칼로 정밀 절단한 양측 반원 노치와 은은한 미싱 점선이 조화를 이룹니다.',
+        tone: 'mint',
+        diecut: 'ticket',
+        width: 300,
+        height: 190
+      });
+      document.getElementById('card-container').appendChild(card);
+
+      // 10. Dialog
+      const dialog = PaperCutSVG.createDialog({
+        title: '섀도우박스 모달 창문',
+        description: '도화지를 깊숙이 오려내어 아래쪽 레이어가 들여다보이는 종이 공예 창문입니다. Escape 키 또는 취소 버튼으로 닫을 수 있습니다.',
+        confirmText: '확인완료',
+        cancelText: '닫기',
+        tone: 'peach',
+        onConfirm: () => log('Dialog: 확인 버튼이 눌렸습니다!')
+      });
+
+      const dialogBtn = PaperCutSVG.createButton({
+        label: '모달 열기',
+        tone: 'peach',
+        onClick: () => {
+          dialog.open();
+          log('Dialog: 섀도우박스 모달 열림');
+        }
+      });
+      document.getElementById('dialog-trigger-container').appendChild(dialogBtn);
+
+      // 11. Tooltip
+      const tooltip = PaperCutSVG.createTooltip({
+        text: '300g 수제 종이 태그!',
+        tone: 'peach'
+      });
+      document.getElementById('tooltip-container').appendChild(tooltip);
+
+      // 12. Select
+      const select = PaperCutSVG.createSelect({
+        options: [
+          { value: '300g-cotton', label: '300g 수제 코튼지' },
+          { value: '250g-hanji', label: '250g 닥나무 전통 한지' },
+          { value: '350g-kraft', label: '350g 크래프트 패키징' }
+        ],
+        value: '300g-cotton',
+        tone: 'sand',
+        width: 220,
+        onChange: (v) => log(`Select: 선택된 종이 스펙 -> ${v}`)
+      });
+      document.getElementById('select-container').appendChild(select);
+    });
+  </script>
+</body>
+</html>
