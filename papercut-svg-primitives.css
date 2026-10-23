@@ -1,0 +1,381 @@
+/**
+ * PaperCut SVG UI Primitives (papercut-svg-primitives.css)
+ * 
+ * 100% Pure SVG Vector Architecture inspired by Radix UI Primitives & Layered Paper-Cut Art:
+ * "Layered paper-cut illustration of [ ], with overlapping shapes in soft pastel colors,
+ *  handcrafted textures, subtle shadows between layers, clean vector edges,
+ *  centered on a matte cream background, whimsical and modern visual storytelling."
+ */
+
+:root {
+  /* 캔버스 및 베이스 도화지 */
+  --pc-svg-canvas: #FAF7F0;
+  --pc-svg-surface: #FFFDF9;
+  --pc-svg-surface-subtle: #F6EFE3;
+  --pc-svg-ink: #2E1E14;
+  --pc-svg-ink-muted: #7A695A;
+  --pc-svg-border-kraft: #D5C7B4;
+  --pc-svg-border-subtle: rgba(46, 30, 20, 0.12);
+
+  /* 7대 파스텔 색지 (Soft Pastel Palette) */
+  --pc-svg-cloud: #FFFDF9;
+  --pc-svg-mint: #A3D8C3;
+  --pc-svg-mint-dark: #6CAE97;
+  --pc-svg-peach: #F7BA9E;
+  --pc-svg-peach-dark: #E29472;
+  --pc-svg-sand: #F3D082;
+  --pc-svg-sand-dark: #D4A949;
+  --pc-svg-lavender: #D7CBEB;
+  --pc-svg-lavender-dark: #A492C9;
+  --pc-svg-sky: #BDE0EA;
+  --pc-svg-sky-dark: #80B8C8;
+  --pc-svg-sage: #A3CCA0;
+  --pc-svg-sage-dark: #70A06D;
+  --pc-svg-rose: #F5B8BE;
+  --pc-svg-rose-dark: #D9828C;
+  --pc-svg-kraft: #E2D5C3;
+  --pc-svg-kraft-dark: #B8A58D;
+
+  /* 칼날 절단면 및 물리 접촉 그림자 */
+  --pc-svg-knife-rim: rgba(255, 255, 255, 0.95);
+  --pc-svg-contact-shadow: rgba(46, 30, 20, 0.28);
+  --pc-svg-ambient-shadow: rgba(46, 30, 20, 0.12);
+  --pc-svg-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --pc-svg-ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   Global SVG Primitive Wrapper Standard
+   ========================================================================== */
+.pc-svg-component {
+  display: inline-flex;
+  position: relative;
+  vertical-align: middle;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.pc-svg-component svg {
+  display: block;
+  overflow: visible;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  pointer-events: none;
+}
+
+/* WAI-ARIA Accessible Keyboard Focus Outline */
+.pc-svg-component:focus-visible {
+  outline: none;
+}
+
+.pc-svg-component:focus-visible .pc-svg-focus-ring {
+  opacity: 1 !important;
+  stroke: var(--pc-svg-ink) !important;
+  stroke-dasharray: 4 3 !important;
+  stroke-width: 1.5px !important;
+  animation: pc-svg-focus-dash 1.2s linear infinite;
+}
+
+@keyframes pc-svg-focus-dash {
+  to { stroke-dashoffset: -14; }
+}
+
+/* ==========================================================================
+   1. BUTTON (PaperCut SVG Button)
+   ========================================================================== */
+.pc-svg-btn {
+  cursor: pointer;
+  transition: transform 0.18s var(--pc-svg-ease-smooth);
+}
+
+.pc-svg-btn:hover {
+  transform: translateY(-2.5px);
+}
+
+.pc-svg-btn:active {
+  transform: translateY(1.5px);
+}
+
+.pc-svg-btn .pc-svg-layer-top {
+  transition: transform 0.18s var(--pc-svg-ease-smooth);
+}
+
+.pc-svg-btn:active .pc-svg-layer-top {
+  transform: translateY(2px);
+}
+
+/* ==========================================================================
+   2. SWITCH (Sliding Paper Shutter)
+   ========================================================================== */
+.pc-svg-switch {
+  cursor: pointer;
+}
+
+.pc-svg-switch .pc-svg-switch-shutter {
+  transition: transform 0.24s var(--pc-svg-ease-spring);
+}
+
+.pc-svg-switch[aria-checked="true"] .pc-svg-switch-shutter {
+  transform: translateX(24px);
+}
+
+.pc-svg-switch .pc-svg-switch-active-bg {
+  transition: opacity 0.2s ease;
+  opacity: 0;
+}
+
+.pc-svg-switch[aria-checked="true"] .pc-svg-switch-active-bg {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   3. CHECKBOX (Paper Stamp Seal)
+   ========================================================================== */
+.pc-svg-checkbox {
+  cursor: pointer;
+}
+
+.pc-svg-checkbox .pc-svg-check-mark {
+  transform-origin: center;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.22s var(--pc-svg-ease-spring), opacity 0.18s ease;
+}
+
+.pc-svg-checkbox[aria-checked="true"] .pc-svg-check-mark {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   4. RADIO GROUP & ITEM (Folded Disc Tile)
+   ========================================================================== */
+.pc-svg-radio-item {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pc-svg-radio-item .pc-svg-radio-pip {
+  transform-origin: center;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.22s var(--pc-svg-ease-spring), opacity 0.18s ease;
+}
+
+.pc-svg-radio-item[aria-checked="true"] .pc-svg-radio-pip {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   5. SLIDER (Carved Paper Slit Track & Thumb)
+   ========================================================================== */
+.pc-svg-slider {
+  cursor: pointer;
+  touch-action: none;
+}
+
+.pc-svg-slider .pc-svg-slider-thumb {
+  transition: transform 0.08s linear;
+  cursor: grab;
+}
+
+.pc-svg-slider.is-dragging .pc-svg-slider-thumb {
+  cursor: grabbing;
+}
+
+/* ==========================================================================
+   6. ACCORDION (Creased Folded Paper Flap)
+   ========================================================================== */
+.pc-svg-accordion-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pc-svg-accordion-trigger {
+  cursor: pointer;
+  width: 100%;
+}
+
+.pc-svg-accordion-trigger .pc-svg-chevron {
+  transform-origin: center;
+  transition: transform 0.26s var(--pc-svg-ease-smooth);
+}
+
+.pc-svg-accordion-item[data-state="open"] .pc-svg-accordion-trigger .pc-svg-chevron {
+  transform: rotate(180deg);
+}
+
+.pc-svg-accordion-content {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: max-height 0.3s var(--pc-svg-ease-smooth), opacity 0.24s ease, transform 0.24s ease;
+}
+
+.pc-svg-accordion-item[data-state="open"] .pc-svg-accordion-content {
+  max-height: 400px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   7. TABS (File Folder Manila Index Tabs)
+   ========================================================================== */
+.pc-svg-tabs-list {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.pc-svg-tab-trigger {
+  cursor: pointer;
+  transition: transform 0.2s var(--pc-svg-ease-smooth);
+}
+
+.pc-svg-tab-trigger:hover {
+  transform: translateY(-3px);
+}
+
+.pc-svg-tab-trigger[aria-selected="true"] {
+  transform: translateY(-6px);
+  z-index: 5;
+}
+
+.pc-svg-tab-panel {
+  display: none;
+}
+
+.pc-svg-tab-panel[data-state="active"] {
+  display: block;
+}
+
+/* ==========================================================================
+   8. DIALOG / MODAL (Layered Shadowbox Aperture)
+   ========================================================================== */
+.pc-svg-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(46, 30, 20, 0.45);
+  backdrop-filter: blur(3px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.24s ease, visibility 0.24s ease;
+}
+
+.pc-svg-dialog-backdrop[data-state="open"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pc-svg-dialog-content {
+  position: relative;
+  transform: scale(0.92) translateY(12px);
+  transition: transform 0.28s var(--pc-svg-ease-spring);
+}
+
+.pc-svg-dialog-backdrop[data-state="open"] .pc-svg-dialog-content {
+  transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   9. PROGRESS (Recessed Trench Gauge)
+   ========================================================================== */
+.pc-svg-progress-bar {
+  transition: width 0.35s var(--pc-svg-ease-smooth);
+}
+
+/* ==========================================================================
+   10. TOOLTIP & POPOVER (Cutout Paper Tag with Tail)
+   ========================================================================== */
+.pc-svg-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.pc-svg-tooltip-bubble {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s var(--pc-svg-ease-smooth), visibility 0.2s ease;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.pc-svg-tooltip-wrapper:hover .pc-svg-tooltip-bubble,
+.pc-svg-tooltip-wrapper:focus-within .pc-svg-tooltip-bubble {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   11. SELECT / DROPDOWN (Fanned Paper Swatch Menu)
+   ========================================================================== */
+.pc-svg-select {
+  position: relative;
+}
+
+.pc-svg-select-trigger {
+  cursor: pointer;
+}
+
+.pc-svg-select-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.22s var(--pc-svg-ease-smooth), visibility 0.2s ease;
+}
+
+.pc-svg-select[data-state="open"] .pc-svg-select-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.pc-svg-select-option {
+  cursor: pointer;
+  transition: background 0.16s ease;
+}
+
+.pc-svg-select-option:hover {
+  background: var(--pc-svg-surface-subtle);
+}
+
+/* ==========================================================================
+   Accessibility & Reduced Motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .pc-svg-btn,
+  .pc-svg-switch .pc-svg-switch-shutter,
+  .pc-svg-checkbox .pc-svg-check-mark,
+  .pc-svg-radio-item .pc-svg-radio-pip,
+  .pc-svg-accordion-content,
+  .pc-svg-tab-trigger,
+  .pc-svg-dialog-content,
+  .pc-svg-tooltip-bubble,
+  .pc-svg-select-dropdown {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
