@@ -41,12 +41,14 @@ async function main() {
   await soundStudio.screenshot({ path: `${OUT_DIR}/sound-studio-enlarged-paper-cards.png` });
   console.log('Captured sound studio cards.');
 
-  // 4. Scroll to Radix Primitives live deck in index.html
-  await page.locator('#pc-radix-primitives-live-deck').scrollIntoViewIfNeeded();
-  await page.waitForTimeout(800);
-  const primitivesDeck = page.locator('#pc-radix-primitives-live-deck');
-  await primitivesDeck.screenshot({ path: `${OUT_DIR}/radix-primitives-in-index.png` });
-  console.log('Captured radix primitives deck in index.html.');
+  // 4. Scroll to Radix Primitives live deck in index.html (if present)
+  if (await page.locator('#pc-radix-primitives-live-deck').count() > 0) {
+    await page.locator('#pc-radix-primitives-live-deck').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(800);
+    const primitivesDeck = page.locator('#pc-radix-primitives-live-deck');
+    await primitivesDeck.screenshot({ path: `${OUT_DIR}/radix-primitives-in-index.png` });
+    console.log('Captured radix primitives deck in index.html.');
+  }
 
   // 5. Navigate to papercut-svg-primitives.html and capture pure SVG primitives library
   console.log('Navigating to http://127.0.0.1:3333/papercut-svg-primitives.html...');

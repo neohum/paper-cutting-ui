@@ -27,15 +27,19 @@ describe('Revitalize Index.html with Radix UI Pure SVG Primitives', () => {
       );
     });
 
-    it('should declare the Radix UI Full SVG Primitives master deck', () => {
+    it('should have deleted the Radix UI master suite deck from index.html per user request', () => {
       assert.ok(
-        indexHtml.includes('id="pc-radix-primitives-live-deck"'),
-        'index.html must include pc-radix-primitives-live-deck container'
+        !indexHtml.includes('id="pc-radix-primitives-live-deck"'),
+        'index.html must not include pc-radix-primitives-live-deck container'
+      );
+      assert.ok(
+        !indexHtml.includes('Radix UI 스타일 무상태 프리미티브'),
+        'index.html must not include Radix UI master suite heading'
       );
     });
 
-    it('should provide mount slots for buttons, switch, checkbox, radio, slider, progress, select, badges, tabs, stepper, accordion, dialog', () => {
-      const requiredSlots = [
+    it('should cleanly remove the deleted live slots from index.html', () => {
+      const removedSlots = [
         'pc-live-btn-slot',
         'pc-live-switch-slot',
         'pc-live-chk-slot',
@@ -50,10 +54,10 @@ describe('Revitalize Index.html with Radix UI Pure SVG Primitives', () => {
         'pc-live-dialog-slot'
       ];
 
-      for (const slotId of requiredSlots) {
+      for (const slotId of removedSlots) {
         assert.ok(
-          indexHtml.includes(`id="${slotId}"`),
-          `index.html must contain mount slot ${slotId}`
+          !indexHtml.includes(`id="${slotId}"`),
+          `index.html must not contain mount slot ${slotId}`
         );
       }
     });
