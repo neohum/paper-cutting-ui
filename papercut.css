@@ -5576,8 +5576,10 @@ pre code {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.55em;
-  height: 1.55em;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   line-height: 1;
   flex-shrink: 0;
   vertical-align: middle;
@@ -5606,36 +5608,46 @@ pre code {
 /* Sizing Modifiers */
 .pc-inline-icon.pc-is-xs,
 .pc-inline-icon.is-xs {
-  width: 1.15em;
-  height: 1.15em;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
   vertical-align: middle;
 }
 
 .pc-inline-icon.pc-is-sm,
 .pc-inline-icon.is-sm {
-  width: 1.35em;
-  height: 1.35em;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
   vertical-align: middle;
 }
 
 .pc-inline-icon.pc-is-md,
 .pc-inline-icon.is-md {
-  width: 1.85em;
-  height: 1.85em;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
   vertical-align: middle;
 }
 
 .pc-inline-icon.pc-is-lg,
 .pc-inline-icon.is-lg {
-  width: 2.4em;
-  height: 2.4em;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
   vertical-align: middle;
 }
 
 .pc-inline-icon.pc-is-xl,
 .pc-inline-icon.is-xl {
-  width: 3.2em;
-  height: 3.2em;
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  min-height: 58px !important;
   vertical-align: middle;
 }
 

@@ -1,0 +1,1501 @@
+{
+ "generated": "2026-10-24",
+ "partA_js_libraries": {
+  "checked_on": "2026-10-24 (npm registry + jsdelivr HTTP 200 + cdnjs API)",
+  "version_rule": "Pinned version = newest stable published before 2026-10-10 (>=2 weeks old). Where npm latest is newer, both are noted.",
+  "libraries": [
+   {
+    "name": "SVG.js",
+    "npm": "@svgdotjs/svg.js",
+    "version": "3.2.8",
+    "published": "2026-08-04",
+    "license": "MIT",
+    "min_gzip_kb": 29.5,
+    "use": "Build/transform layered paper-cut SVG pieces (groups, transforms, rotate around center for clock hands, fraction pies)",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.2.8/svg.min.js",
+     "https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3.2.8/dist/svg.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Only if hand-written DOM SVG code gets verbose; native SVG DOM + Radix may suffice."
+   },
+   {
+    "name": "svg.draggable.js",
+    "npm": "@svgdotjs/svg.draggable.js",
+    "version": "3.0.7",
+    "published": "2026-09-15",
+    "license": "MIT",
+    "min_gzip_kb": 1.1,
+    "use": "Drag SVG.js elements (pointer events)",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/@svgdotjs/svg.draggable.js@3.0.7/dist/svg.draggable.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Linear drag only; rotation dragging (clock hands) needs custom atan2 math anyway."
+   },
+   {
+    "name": "svg.filter.js",
+    "npm": "@svgdotjs/svg.filter.js",
+    "version": "3.0.10",
+    "published": "2026-09-15",
+    "license": "MIT",
+    "min_gzip_kb": 2.2,
+    "use": "Programmatic feDropShadow/feTurbulence for paper depth/texture",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/@svgdotjs/svg.filter.js@3.0.10/dist/svg.filter.min.js"
+    ],
+    "tier": "not-needed",
+    "notes": "Static <filter> defs in markup are enough; heavy filters cost GPU on low-end Chromebooks."
+   },
+   {
+    "name": "GSAP core",
+    "npm": "gsap",
+    "version": "3.15.0",
+    "published": "2026-04-13",
+    "license": "GSAP Standard 'no charge' license (https://gsap.com/standard-license) - NOT OSI open source",
+    "min_gzip_kb": 27.7,
+    "use": "Timeline animation of paper layers (pop-up, unfold, stagger)",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/gsap.min.js",
+     "https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"
+    ],
+    "tier": "core",
+    "notes": "Since GSAP 3.13 (Apr/May 2025, after Webflow acquisition) ALL plugins incl. former Club bonus plugins (MorphSVG, SplitText, InertiaPlugin, DrawSVG...) are free incl. commercial use, in the public 'gsap' npm package. gsap-trial is deprecated. License forbids use in tools competing with Webflow's visual builder - irrelevant here. Check license text before redistribution in an open-source repo."
+   },
+   {
+    "name": "GSAP Draggable",
+    "npm": "gsap (gsap/Draggable)",
+    "version": "3.15.0",
+    "published": "2026-04-13",
+    "license": "GSAP Standard license",
+    "min_gzip_kb": 13.2,
+    "use": "type:'rotation' drag for clock hands, protractor, dials; bounds; snap (liveSnap to 5-min / 30deg)",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/Draggable.min.js",
+     "https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Draggable.min.js"
+    ],
+    "tier": "core",
+    "notes": "Draggable{type:'rotation'} is the single best fit for the draggable analog clock. Uses pointer events, touch-action handling built in."
+   },
+   {
+    "name": "GSAP InertiaPlugin",
+    "npm": "gsap (gsap/InertiaPlugin)",
+    "version": "3.15.0",
+    "published": "2026-04-13",
+    "license": "GSAP Standard license",
+    "min_gzip_kb": 3.2,
+    "use": "Flick momentum + snapping for Draggable",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/InertiaPlugin.min.js",
+     "https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/InertiaPlugin.min.js"
+    ],
+    "tier": "optional",
+    "notes": ""
+   },
+   {
+    "name": "GSAP MorphSVGPlugin",
+    "npm": "gsap (gsap/MorphSVGPlugin)",
+    "version": "3.15.0",
+    "published": "2026-04-13",
+    "license": "GSAP Standard license",
+    "min_gzip_kb": 9.3,
+    "use": "Shape morphing (moon phases, metamorphosis, shape transformations in 수학 도형)",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.15.0/MorphSVGPlugin.min.js",
+     "https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/MorphSVGPlugin.min.js"
+    ],
+    "tier": "optional",
+    "notes": ""
+   },
+   {
+    "name": "interact.js",
+    "npm": "interactjs",
+    "version": "1.10.28",
+    "published": "2026-08-01",
+    "license": "MIT",
+    "min_gzip_kb": 28.3,
+    "use": "Drag/drop with dropzones, resize, multi-touch gesture (sorting cards, matching worksheets)",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.28/interact.min.js",
+     "https://cdn.jsdelivr.net/npm/interactjs@1.10.28/dist/interact.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Choose either interact.js OR GSAP Draggable, not both. interact.js stronger for drop-zone sorting activities."
+   },
+   {
+    "name": "Rough.js",
+    "npm": "roughjs",
+    "version": "4.6.6",
+    "published": "2023-11-20",
+    "license": "MIT",
+    "min_gzip_kb": 8.7,
+    "use": "Hand-drawn/sketchy strokes (cut-edge irregularity)",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/roughjs@4.6.6/bundled/rough.js"
+    ],
+    "tier": "optional",
+    "notes": "Not on cdnjs. Stable but no release since 2023. Paper-cut look usually better via pre-authored jagged paths + drop shadows."
+   },
+   {
+    "name": "Paper.js",
+    "npm": "paper",
+    "version": "0.12.18",
+    "published": "2024-07-17",
+    "license": "MIT",
+    "min_gzip_kb": 69,
+    "use": "Vector boolean ops on canvas (cutting shapes, 대칭 종이접기 시뮬)",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/paper@0.12.18/dist/paper-core.min.js"
+    ],
+    "tier": "not-needed",
+    "notes": "Canvas-based (conflicts with SVG DOM/a11y). npm shows a burst 0.12.19->0.16.0 on 2026-10-18..21 (<2 weeks, unusual) - pin 0.12.18 if used. cdnjs carries 0.13.0 (too new)."
+   },
+   {
+    "name": "Konva",
+    "npm": "konva",
+    "version": "10.7.1",
+    "published": "2026-10-05",
+    "license": "MIT",
+    "min_gzip_kb": 56.4,
+    "use": "Canvas scene graph with drag/transform",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/konva@10.7.1/konva.min.js"
+    ],
+    "tier": "not-needed",
+    "notes": "Latest 10.9.0 (2026-10-15) is <2 weeks old; use 10.7.1. Canvas => worse a11y than SVG; skip."
+   },
+   {
+    "name": "D3 (full)",
+    "npm": "d3",
+    "version": "7.9.0",
+    "published": "2024-03-12",
+    "license": "ISC",
+    "min_gzip_kb": 90.5,
+    "use": "Charts for 수학 자료와 가능성, 사회 통계",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js",
+     "https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"
+    ],
+    "tier": "not-needed",
+    "notes": "Import only modules below instead of the full bundle."
+   },
+   {
+    "name": "d3-drag",
+    "npm": "d3-drag",
+    "version": "3.0.0",
+    "published": "2021-06-09",
+    "license": "ISC",
+    "min_gzip_kb": 1.6,
+    "use": "Lightweight drag",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/d3-drag@3.0.0/dist/d3-drag.min.js"
+    ],
+    "tier": "not-needed",
+    "notes": "Native Pointer Events + setPointerCapture is equivalent."
+   },
+   {
+    "name": "d3-scale",
+    "npm": "d3-scale",
+    "version": "4.0.2",
+    "published": "2021-09-24",
+    "license": "ISC",
+    "min_gzip_kb": 4.8,
+    "use": "Number lines, bar-graph scales, map value->angle",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/d3-scale@4.0.2/dist/d3-scale.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Requires d3-array/d3-interpolate/d3-format/d3-time deps when loading UMD; use ESM (+esm) on jsdelivr."
+   },
+   {
+    "name": "JSXGraph",
+    "npm": "jsxgraph",
+    "version": "1.14.0",
+    "published": "2026-10-05",
+    "license": "MIT OR LGPL-3.0-or-later",
+    "min_gzip_kb": 253,
+    "use": "Interactive geometry (각도기, 도형, 좌표, 대칭) for grades 3-6 수학",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/jsxgraph/1.14.0/jsxgraphcore.js",
+     "https://cdn.jsdelivr.net/npm/jsxgraph@1.14.0/distrib/jsxgraphcore.js"
+    ],
+    "tier": "optional",
+    "notes": "1.14.1 (2026-10-21) too new. Heavy (~250KB gz); load lazily on geometry lessons only. Renders SVG, styleable to pastel."
+   },
+   {
+    "name": "KaTeX",
+    "npm": "katex",
+    "version": "0.19.0",
+    "published": "2026-10-01",
+    "license": "MIT",
+    "min_gzip_kb": 75,
+    "use": "Fractions/equations rendering in packages & worksheets",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.19.0/katex.min.js",
+     "https://cdn.jsdelivr.net/npm/katex@0.19.0/dist/katex.min.js"
+    ],
+    "tier": "optional",
+    "notes": "0.19.1 (2026-10-23) too new. Elementary math rarely needs TeX; plain SVG fraction component may suffice. Also needs katex.min.css + fonts."
+   },
+   {
+    "name": "Tone.js",
+    "npm": "tone",
+    "version": "15.1.22",
+    "published": "2025-04-27",
+    "license": "MIT",
+    "min_gzip_kb": 78,
+    "use": "Synth/metronome/rhythm & scale games for 음악",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/tone@15.1.22/build/Tone.js"
+    ],
+    "tier": "optional",
+    "notes": "npm 'next' tag 15.5.x; cdnjs lists 15.5.56 - stick with npm latest 15.1.22. Audio requires a user gesture to start (Chrome autoplay)."
+   },
+   {
+    "name": "abcjs",
+    "npm": "abcjs",
+    "version": "6.7.1",
+    "published": "2026-09-21",
+    "license": "MIT",
+    "min_gzip_kb": 145,
+    "use": "Render 악보 from ABC notation + playback; 가락 만들기",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/abcjs@6.7.1/dist/abcjs-basic-min.js"
+    ],
+    "tier": "optional",
+    "notes": "6.7.2 (2026-10-16) too new. Has its own synth; may make Tone.js unnecessary."
+   },
+   {
+    "name": "Matter.js",
+    "npm": "matter-js",
+    "version": "0.20.0",
+    "published": "2024-06-23",
+    "license": "MIT",
+    "min_gzip_kb": 25.3,
+    "use": "Physics sims (힘과 운동, 지레, 경사면) for 과학",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js",
+     "https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Canvas renderer by default; can drive SVG transforms from bodies."
+   },
+   {
+    "name": "lottie-web (light)",
+    "npm": "lottie-web",
+    "version": "5.13.0",
+    "published": "2025-05-21",
+    "license": "MIT",
+    "min_gzip_kb": 45.6,
+    "use": "Play pre-made After Effects animations (SVG renderer)",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.13.0/lottie_light.min.js",
+     "https://cdn.jsdelivr.net/npm/lottie-web@5.13.0/build/player/lottie_light.min.js"
+    ],
+    "tier": "not-needed",
+    "notes": "Prefer GSAP on our own paper-cut SVG to keep a single visual system."
+   },
+   {
+    "name": "dotLottie web",
+    "npm": "@lottiefiles/dotlottie-web",
+    "version": "0.81.0",
+    "published": "2026-10-06",
+    "license": "MIT",
+    "min_gzip_kb": 33,
+    "use": "Play .lottie files (WASM canvas)",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/@lottiefiles/dotlottie-web@0.81.0/+esm"
+    ],
+    "tier": "not-needed",
+    "notes": "0.x API churn; loads extra WASM."
+   },
+   {
+    "name": "Rive (canvas)",
+    "npm": "@rive-app/canvas",
+    "version": "2.44.1",
+    "published": "2026-10-09",
+    "license": "MIT (runtime)",
+    "min_gzip_kb": 123,
+    "use": "State-machine character animations",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/@rive-app/canvas@2.44.1/rive.js"
+    ],
+    "tier": "not-needed",
+    "notes": "2.45.1 (2026-10-22) too new. Requires Rive editor-authored assets + WASM; overkill."
+   },
+   {
+    "name": "perfect-freehand",
+    "npm": "perfect-freehand",
+    "version": "1.2.3",
+    "published": "2026-02-01",
+    "license": "MIT",
+    "min_gzip_kb": 2.2,
+    "use": "Pressure-sensitive freehand strokes as SVG paths (따라쓰기, 미술 드로잉, annotation)",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/perfect-freehand@1.2.3/+esm"
+    ],
+    "tier": "core",
+    "notes": "Tiny; outputs outline points -> SVG path. Use PointerEvent.pressure (stylus Chromebooks)."
+   },
+   {
+    "name": "Hammer.js",
+    "npm": "hammerjs",
+    "version": "2.0.8",
+    "published": "2016-04-22",
+    "license": "MIT",
+    "min_gzip_kb": 7,
+    "use": "Gestures",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"
+    ],
+    "tier": "not-needed",
+    "notes": "Unmaintained since 2016. Use native Pointer Events (pointerdown/move/up + setPointerCapture + touch-action:none) for drag/rotate; 2-pointer pinch is ~40 lines."
+   },
+   {
+    "name": "Floating UI",
+    "npm": "@floating-ui/dom",
+    "version": "1.8.0",
+    "published": "2026-07-11",
+    "license": "MIT",
+    "min_gzip_kb": 4,
+    "use": "Tooltip/popover positioning (hint bubbles)",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.8.0/dist/floating-ui.dom.umd.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Radix Popover/Tooltip already bundle Floating UI internally (via @radix-ui/react-popper); only needed for non-React pages. Also consider native Popover API + CSS anchor positioning (Chrome 125+)."
+   },
+   {
+    "name": "Radix UI primitives",
+    "npm": "@radix-ui/react-* (e.g. react-slider)",
+    "version": "1.5.0 (react-slider)",
+    "published": "2026-10-05",
+    "license": "MIT",
+    "min_gzip_kb": null,
+    "use": "Accessible slider/dialog/tabs/toggle around SVG visuals",
+    "cdn": [],
+    "tier": "core (already used)",
+    "notes": "react-slider latest 1.6.1 (2026-10-12) too new -> pin 1.5.0; pin each @radix-ui/* package individually by publish date. Radix Slider gives keyboard/ARIA for dial-like controls - pair with clock hands for a11y."
+   },
+   {
+    "name": "html-to-image",
+    "npm": "html-to-image",
+    "version": "1.11.13",
+    "published": "2025-02-14",
+    "license": "MIT",
+    "min_gzip_kb": 6.6,
+    "use": "Snapshot a finished tool state/worksheet to PNG",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.13/html-to-image.js",
+     "https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js"
+    ],
+    "tier": "optional",
+    "notes": "Cross-origin fonts/images must be CORS-enabled or inlined."
+   },
+   {
+    "name": "Paged.js",
+    "npm": "pagedjs",
+    "version": "0.4.3",
+    "published": "2023-07-06",
+    "license": "MIT",
+    "min_gzip_kb": 95,
+    "use": "CSS Paged Media polyfill for A4 worksheet pagination, running headers, page counters",
+    "cdn": [
+     "https://cdn.jsdelivr.net/npm/pagedjs@0.4.3/dist/paged.polyfill.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Last release 2023. For single-page A4 worksheets, plain @page {size:A4; margin} + window.print() in Chrome is enough -> recommended default."
+   },
+   {
+    "name": "pdf-lib",
+    "npm": "pdf-lib",
+    "version": "1.17.1",
+    "published": "2021-11-06",
+    "license": "MIT",
+    "min_gzip_kb": 201,
+    "use": "Assemble/download PDF worksheets client-side, embed SVG paths & Korean font",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js",
+     "https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"
+    ],
+    "tier": "optional",
+    "notes": "Unmaintained since 2021 but stable. Korean text needs @pdf-lib/fontkit + a subset Korean font (Pretendard/Noto Sans KR) - big payload. Prefer browser print-to-PDF."
+   },
+   {
+    "name": "Leaflet",
+    "npm": "leaflet",
+    "version": "1.9.4",
+    "published": "2023-05-18",
+    "license": "BSD-2-Clause",
+    "min_gzip_kb": 41.7,
+    "use": "Maps for 사회 (우리 고장, 지도 읽기); tiles from VWorld/OSM",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js",
+     "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+    ],
+    "tier": "optional",
+    "notes": "2.0 is alpha only - stay on 1.9.4. Tile providers: OSM tile usage policy forbids heavy use; VWorld(vworld.kr) API key required for Korean base maps. For stylised maps, a static pastel SVG map of Korea may be better."
+   },
+   {
+    "name": "Three.js",
+    "npm": "three",
+    "version": "0.186.1",
+    "published": "2026-09-24",
+    "license": "MIT",
+    "min_gzip_kb": 88,
+    "use": "3D (지구와 달, 입체도형 전개도)",
+    "cdn": [
+     "https://cdnjs.cloudflare.com/ajax/libs/three.js/0.186.1/three.module.min.js",
+     "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.min.js"
+    ],
+    "tier": "optional",
+    "notes": "WebGL on low-end Chromebooks can be slow; use only for 3D-essential lessons (전개도, 태양계)."
+   }
+  ],
+  "recommended_stack": {
+   "core": [
+    "Native SVG + CSS (layers, filters, transforms, prefers-reduced-motion)",
+    "Native Pointer Events (setPointerCapture, touch-action:none) for drag/rotate",
+    "GSAP 3.15.0 core + Draggable (rotation type) [+ InertiaPlugin]",
+    "perfect-freehand 1.2.3",
+    "Radix UI (already used) for accessible controls",
+    "CSS @page A4 + window.print() for worksheets"
+   ],
+   "per_subject_optional": {
+    "수학": [
+     "JSXGraph 1.14.0 (geometry)",
+     "d3-scale (graphs)",
+     "KaTeX 0.19.0 (only if needed)"
+    ],
+    "음악": [
+     "abcjs 6.7.1",
+     "Tone.js 15.1.22"
+    ],
+    "과학": [
+     "Matter.js 0.20.0",
+     "GSAP MorphSVG",
+     "Three.js 0.186.1 (rare)"
+    ],
+    "사회": [
+     "Leaflet 1.9.4"
+    ],
+    "PDF": [
+     "pdf-lib 1.17.1 + @pdf-lib/fontkit",
+     "Paged.js 0.4.3",
+     "html-to-image 1.11.13"
+    ]
+   },
+   "not_needed": [
+    "Hammer.js",
+    "d3-drag",
+    "full d3 bundle",
+    "svg.filter.js",
+    "Konva",
+    "Paper.js",
+    "lottie-web",
+    "dotLottie",
+    "Rive",
+    "Floating UI (Radix covers it)",
+    "SVG.js + svg.draggable (only if team prefers wrapper API)"
+   ]
+  },
+  "chromebook_touch_a11y_notes": [
+   "Many school Chromebooks are low-end (Celeron/MediaTek, 4GB RAM): keep SVG filter count low (one shared feDropShadow), avoid animating filters; animate transform/opacity only.",
+   "Touch: set touch-action:none on draggable SVG elements, use setPointerCapture, hit targets >=44px (enlarge with transparent stroke on clock hands).",
+   "Stylus Chromebooks expose PointerEvent.pressure for perfect-freehand.",
+   "Rotation drag: angle = atan2(dy,dx) relative to center via getScreenCTM(); snap minute hand 6deg, hour hand linked (0.5deg/min).",
+   "A11y: each draggable must also be operable by keyboard (Radix Slider or role=slider with aria-valuenow/aria-valuetext e.g. '3시 30분'); provide <title>/<desc> in SVG; respect prefers-reduced-motion.",
+   "Audio (Tone.js/abcjs) must start from a user gesture.",
+   "Managed Chromebooks may block some CDNs via admin policy - self-host vendored copies as fallback; GSAP license allows bundling.",
+   "Korean fonts: subset/woff2 to keep offline-ish performance; print uses same font."
+  ]
+ },
+ "partB_websites": {
+  "sites": [
+   {
+    "name": "에듀넷·티-클리어",
+    "url": "https://www.edunet.net",
+    "operator": "교육부·KERIS",
+    "cost": "free",
+    "login": "optional (교사 인증 for some)",
+    "chromebook": true,
+    "subjects": "all",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "e학습터",
+    "url": "https://cls.edunet.net",
+    "operator": "KERIS",
+    "cost": "free",
+    "login": "yes",
+    "chromebook": true,
+    "subjects": "all",
+    "grades": "1-6",
+    "status": "SERVICE ENDED 2026-02-28 per KERIS notice (search snippet); host no longer resolves. Do NOT link."
+   },
+   {
+    "name": "학습데이터 분석 활용 포털 (구 AI·디지털 교육자료 포털, aidtbook.kr)",
+    "url": "https://edupath.kr",
+    "operator": "교육부/KERIS (unverified operator)",
+    "cost": "free",
+    "login": "yes (school accounts)",
+    "chromebook": true,
+    "subjects": "AIDT-based subjects (영어·수학·정보 etc.)",
+    "grades": "3-6",
+    "status": "verified: aidtbook.kr shows 'domain changed -> edupath.kr'"
+   },
+   {
+    "name": "디지털교과서 (dtbook)",
+    "url": "https://dtbook.edunet.net",
+    "operator": "KERIS",
+    "cost": "free",
+    "login": "yes",
+    "chromebook": true,
+    "subjects": "사회·과학·영어 등 (legacy digital textbooks)",
+    "grades": "3-6",
+    "status": "responds 200; digitaltextbook.kr does not resolve; current role unverified"
+   },
+   {
+    "name": "EBS 초등",
+    "url": "https://primary.ebs.co.kr",
+    "operator": "EBS",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "all (만점왕 강의 등)",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "EBS 클립뱅크",
+    "url": "https://clipbank.ebs.co.kr",
+    "operator": "EBS",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "과학·사회·국어 short clips",
+    "grades": "1-6",
+    "status": "responds (no title parsed) - unverified content"
+   },
+   {
+    "name": "EBSMath",
+    "url": "https://www.ebsmath.co.kr",
+    "operator": "EBS",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "수학",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "EBSe (영어)",
+    "url": "https://www.ebse.co.kr",
+    "operator": "EBS",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "영어",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "AI 펭톡 (now under EBS AI 서비스 'DANCHOO+')",
+    "url": "https://ai.ebs.co.kr",
+    "operator": "교육부·EBS",
+    "cost": "free",
+    "login": "yes (EBS 계정/학교)",
+    "chromebook": "web+app (unverified for web)",
+    "subjects": "영어 말하기",
+    "grades": "3-6",
+    "status": "ai.ebs.co.kr redirects to ai-plus.ebs.co.kr 'EBS 인공지능 DANCHOO+'; direct 펭톡 web URL unverified"
+   },
+   {
+    "name": "이솦 (EBS SW·AI 교육)",
+    "url": "https://www.ebssw.kr",
+    "operator": "EBS",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "실과(정보)",
+    "grades": "5-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "똑똑! 수학탐험대",
+    "url": "https://www.toctocmath.kr",
+    "operator": "교육부·KOSAC(한국과학창의재단)",
+    "cost": "free",
+    "login": "yes for class use",
+    "chromebook": true,
+    "subjects": "수학",
+    "grades": "1-4 (originally 1-4; check)",
+    "status": "verified 200"
+   },
+   {
+    "name": "사이언스레벨업",
+    "url": "https://www.sciencelevelup.kr",
+    "operator": "한국과학창의재단",
+    "cost": "free",
+    "login": "yes",
+    "chromebook": true,
+    "subjects": "과학",
+    "grades": "3-6",
+    "status": "UNVERIFIED - host does not resolve (2026-10-24); KOFAC renamed KOSAC (kosac.re.kr). Use 사이언스올 instead."
+   },
+   {
+    "name": "사이언스올",
+    "url": "https://www.scienceall.com",
+    "operator": "한국과학창의재단(KOSAC)",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "과학",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "한국과학창의재단 (KOSAC, 구 KOFAC)",
+    "url": "https://www.kosac.re.kr",
+    "operator": "KOSAC",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "과학·수학·SW",
+    "grades": "all",
+    "status": "verified 200; kofac.re.kr no longer resolves"
+   },
+   {
+    "name": "국립중앙과학관",
+    "url": "https://www.science.go.kr",
+    "operator": "과학기술정보통신부",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "과학",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "엔트리",
+    "url": "https://playentry.org",
+    "operator": "NAVER Connect 재단",
+    "cost": "free",
+    "login": "optional (학급 기능 login)",
+    "chromebook": true,
+    "subjects": "실과(정보), 수학 융합",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "소프트웨어야 놀자 / SW 중심사회",
+    "url": "https://www.software.kr",
+    "operator": "과기정통부·KOSAC (unverified current scope)",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "실과(정보)",
+    "grades": "3-6",
+    "status": "responds 200"
+   },
+   {
+    "name": "AI·SW 교육 (에듀넷)",
+    "url": "https://ai.edunet.net",
+    "operator": "KERIS",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "실과(정보)",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "Code.org",
+    "url": "https://code.org",
+    "operator": "Code.org (US nonprofit)",
+    "cost": "free",
+    "login": "optional (studio.code.org for classes)",
+    "chromebook": true,
+    "subjects": "실과(정보)",
+    "grades": "1-6 (Korean UI available)",
+    "status": "verified 200"
+   },
+   {
+    "name": "띵커벨",
+    "url": "https://www.tkbell.co.kr",
+    "operator": "아이스크림미디어",
+    "cost": "free basic / paid premium",
+    "login": "teacher yes, students via code",
+    "chromebook": true,
+    "subjects": "all (quiz/board)",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "클래스카드",
+    "url": "https://www.classcard.net",
+    "operator": "클래스카드",
+    "cost": "free basic / paid",
+    "login": "teacher yes",
+    "chromebook": true,
+    "subjects": "영어, 국어 어휘",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "우리말샘",
+    "url": "https://opendict.korean.go.kr",
+    "operator": "국립국어원",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "국어",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "표준국어대사전",
+    "url": "https://stdict.korean.go.kr",
+    "operator": "국립국어원",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "국어",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "국립국어원",
+    "url": "https://www.korean.go.kr",
+    "operator": "국립국어원",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "국어",
+    "grades": "all",
+    "status": "verified 200"
+   },
+   {
+    "name": "국립어린이청소년도서관",
+    "url": "https://www.nlcy.go.kr",
+    "operator": "국립중앙도서관",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "국어(독서), all",
+    "grades": "1-6",
+    "status": "verified 200 (name is 국립어린이청소년도서관)"
+   },
+   {
+    "name": "국토정보플랫폼 (지도)",
+    "url": "https://map.ngii.go.kr",
+    "operator": "국토지리정보원",
+    "cost": "free",
+    "login": "no for viewing",
+    "chromebook": true,
+    "subjects": "사회",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "국토지리정보원 어린이",
+    "url": "https://www.ngii.go.kr/child/main.do",
+    "operator": "국토지리정보원",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "사회(지도 읽기)",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "우리역사넷",
+    "url": "https://contents.history.go.kr",
+    "operator": "국사편찬위원회",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "사회(역사)",
+    "grades": "5-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "국가기록원",
+    "url": "https://www.archives.go.kr",
+    "operator": "행정안전부 국가기록원",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "사회(역사), 도덕",
+    "grades": "5-6",
+    "status": "main verified 200; dedicated 어린이 page URL unverified (/next/kids/main.do is 404)"
+   },
+   {
+    "name": "국립중앙박물관",
+    "url": "https://www.museum.go.kr",
+    "operator": "문화체육관광부",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "사회(역사), 미술",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "e뮤지엄",
+    "url": "https://www.emuseum.go.kr",
+    "operator": "국립중앙박물관",
+    "cost": "free (공공누리 licensed images)",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "사회, 미술",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "한국민족문화대백과사전",
+    "url": "https://encykorea.aks.ac.kr",
+    "operator": "한국학중앙연구원",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "사회, 국어 (teacher ref)",
+    "grades": "5-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "Chrome Music Lab",
+    "url": "https://musiclab.chromeexperiments.com",
+    "operator": "Google",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "음악",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "국립국악원",
+    "url": "https://www.gugak.go.kr",
+    "operator": "문화체육관광부",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "음악(국악)",
+    "grades": "3-6",
+    "status": "verified 200; specific '국악 배우기' sub-URL unverified"
+   },
+   {
+    "name": "AutoDraw",
+    "url": "https://www.autodraw.com",
+    "operator": "Google",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "미술, 실과(AI)",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "Quick, Draw!",
+    "url": "https://quickdraw.withgoogle.com",
+    "operator": "Google",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "실과(AI), 미술",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "국립현대미술관(MMCA)",
+    "url": "https://www.mmca.go.kr",
+    "operator": "문화체육관광부",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "미술",
+    "grades": "1-6",
+    "status": "verified 200; education subpage unverified"
+   },
+   {
+    "name": "Google Arts & Culture",
+    "url": "https://artsandculture.google.com",
+    "operator": "Google",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "미술, 사회",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "GeoGebra",
+    "url": "https://www.geogebra.org",
+    "operator": "GeoGebra GmbH",
+    "cost": "free",
+    "login": "optional (classroom)",
+    "chromebook": true,
+    "subjects": "수학",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "알지오매스",
+    "url": "https://www.algeomath.kr",
+    "operator": "KOSAC(한국과학창의재단)",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "수학",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "PhET (한국어)",
+    "url": "https://phet.colorado.edu/ko/",
+    "operator": "University of Colorado Boulder",
+    "cost": "free (CC-BY)",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "과학, 수학",
+    "grades": "3-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "Khan Academy 한국어",
+    "url": "https://ko.khanacademy.org",
+    "operator": "Khan Academy",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "수학",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "국가건강정보포털",
+    "url": "https://health.kdca.go.kr",
+    "operator": "질병관리청",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "체육(건강), 실과",
+    "grades": "3-6",
+    "status": "responds 200"
+   },
+   {
+    "name": "스포츠안전재단",
+    "url": "https://www.sportsafety.or.kr",
+    "operator": "스포츠안전재단",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "체육(안전)",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "학교체육 포털 (schoolsports.or.kr)",
+    "url": "https://www.schoolsports.or.kr",
+    "operator": "unverified",
+    "cost": "free",
+    "login": "unknown",
+    "chromebook": true,
+    "subjects": "체육",
+    "grades": "1-6",
+    "status": "UNVERIFIED - host does not resolve"
+   },
+   {
+    "name": "학교안전정보센터 / 학교안전지원시스템",
+    "url": "https://www.schoolsafe24.or.kr",
+    "operator": "교육부·학교안전공제중앙회 (unverified)",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "안전한 생활(통합), 체육, 실과",
+    "grades": "1-6",
+    "status": "verified 200 (title '학교안전지원시스템')"
+   },
+   {
+    "name": "안전Dream (아동·여성·장애인 경찰지원센터)",
+    "url": "https://www.safe182.go.kr",
+    "operator": "경찰청",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "안전교육, 도덕",
+    "grades": "1-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "커리어넷",
+    "url": "https://www.career.go.kr",
+    "operator": "KRIVET(한국직업능력연구원)",
+    "cost": "free",
+    "login": "optional",
+    "chromebook": true,
+    "subjects": "실과(진로), 도덕",
+    "grades": "5-6",
+    "status": "verified 200"
+   },
+   {
+    "name": "공공누리",
+    "url": "https://www.kogl.or.kr",
+    "operator": "문화체육관광부",
+    "cost": "free",
+    "login": "no",
+    "chromebook": true,
+    "subjects": "licensing reference for public images",
+    "grades": "n/a",
+    "status": "verified 200"
+   }
+  ],
+  "subject_map": {
+   "국어": [
+    "에듀넷·티-클리어",
+    "EBS 초등",
+    "우리말샘",
+    "표준국어대사전",
+    "국립국어원",
+    "국립어린이청소년도서관",
+    "띵커벨",
+    "클래스카드"
+   ],
+   "수학": [
+    "똑똑! 수학탐험대",
+    "EBSMath",
+    "알지오매스",
+    "GeoGebra",
+    "Khan Academy 한국어",
+    "PhET (한국어)",
+    "EBS 초등"
+   ],
+   "사회": [
+    "국토정보플랫폼 (지도)",
+    "국토지리정보원 어린이",
+    "우리역사넷",
+    "국가기록원",
+    "국립중앙박물관",
+    "e뮤지엄",
+    "한국민족문화대백과사전",
+    "Google Arts & Culture"
+   ],
+   "과학": [
+    "사이언스올",
+    "국립중앙과학관",
+    "PhET (한국어)",
+    "EBS 클립뱅크",
+    "한국과학창의재단 (KOSAC, 구 KOFAC)"
+   ],
+   "도덕": [
+    "에듀넷·티-클리어",
+    "EBS 초등",
+    "안전Dream (아동·여성·장애인 경찰지원센터)",
+    "국가기록원",
+    "커리어넷",
+    "(도덕-specific portal unverified: use 에듀넷 도덕 자료)"
+   ],
+   "영어": [
+    "EBSe (영어)",
+    "AI 펭톡 (now under EBS AI 서비스 'DANCHOO+')",
+    "클래스카드",
+    "학습데이터 분석 활용 포털 (구 AI·디지털 교육자료 포털, aidtbook.kr)"
+   ],
+   "실과(정보)": [
+    "엔트리",
+    "이솦 (EBS SW·AI 교육)",
+    "Code.org",
+    "AI·SW 교육 (에듀넷)",
+    "소프트웨어야 놀자 / SW 중심사회",
+    "Quick, Draw!",
+    "AutoDraw"
+   ],
+   "실과(기술·가정)": [
+    "국가건강정보포털",
+    "커리어넷",
+    "학교안전정보센터 / 학교안전지원시스템",
+    "에듀넷·티-클리어"
+   ],
+   "통합교과(바른·슬기로운·즐거운 생활) 1-2학년": [
+    "EBS 초등",
+    "Chrome Music Lab",
+    "AutoDraw",
+    "국립어린이청소년도서관",
+    "학교안전정보센터 / 학교안전지원시스템",
+    "띵커벨"
+   ],
+   "음악": [
+    "Chrome Music Lab",
+    "국립국악원",
+    "EBS 초등"
+   ],
+   "미술": [
+    "국립현대미술관(MMCA)",
+    "Google Arts & Culture",
+    "e뮤지엄",
+    "AutoDraw",
+    "국립중앙박물관"
+   ],
+   "체육": [
+    "스포츠안전재단",
+    "국가건강정보포털",
+    "학교안전정보센터 / 학교안전지원시스템"
+   ],
+   "cross": [
+    "에듀넷·티-클리어",
+    "EBS 초등",
+    "띵커벨",
+    "공공누리"
+   ]
+  },
+  "notes": [
+   "URL checks done with curl from a non-Korean network; DNS failures (sciencelevelup.kr, schoolsports.or.kr, kofac.re.kr, digitaltextbook.kr, cls.edunet.net) were re-checked with 1.1.1.1 DoH and still failed.",
+   "Login requirements and grade ranges are from general knowledge unless marked verified - treat as unverified."
+  ]
+ },
+ "partC_youtube": {
+  "channels": [
+   {
+    "name": "EBS 키즈",
+    "url": "https://www.youtube.com/@EBSKids",
+    "channel_id": "UCx_dzPI6efSohgtOkAG43-A",
+    "subjects": "통합교과, 국어, 영어(저학년)",
+    "verification": "handle resolves; matches EBS"
+   },
+   {
+    "name": "EBS Learning",
+    "url": "https://www.youtube.com/@EBSLearning",
+    "channel_id": "UCCq9w9rG51vZxWPxLNB04mQ",
+    "subjects": "all (EBS 강의)",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "EBS ENGLISH (EBSe)",
+    "url": "https://www.youtube.com/@EBSe",
+    "channel_id": "UCZFcNlpKXzs2b5ROtjLnB9A",
+    "subjects": "영어",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "EBSMath",
+    "url": "https://www.youtube.com/@EBS_Math",
+    "channel_id": "UCP7KQPL8aAvMnRI_rGLwONA",
+    "subjects": "수학",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "EBS 컬렉션 - 사이언스",
+    "url": "https://www.youtube.com/@ebs.science",
+    "channel_id": "UCiFYUP4_TI70yCkkVJAlxoA",
+    "subjects": "과학",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "EBS Clipbank (EBS 클립뱅크)",
+    "url": "https://www.youtube.com/@EBSClipbank",
+    "channel_id": "UCRcrvIT9Hq9jsLbDiY-nQrg",
+    "subjects": "과학, 사회, 국어",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "EBS 지식채널e",
+    "url": "https://www.youtube.com/@ebs_jisike",
+    "channel_id": "UCL44YGs2BXxtM4GZRH-wnrQ",
+    "subjects": "도덕, 사회 (5-6, teacher preview)",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "EBSDocumentary (EBS 다큐)",
+    "url": "https://www.youtube.com/@EBSDocumentary",
+    "channel_id": "",
+    "subjects": "과학, 사회 (teacher preview)",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "EBS 초등 (dedicated channel)",
+    "url": "",
+    "channel_id": "",
+    "subjects": "",
+    "verification": "UNVERIFIED - no dedicated 'EBS 초등' YouTube channel found; use primary.ebs.co.kr"
+   },
+   {
+    "name": "자이언트 펭TV",
+    "url": "https://www.youtube.com/@giantpengtv",
+    "channel_id": "UCtckgmUcpzqGnzcs7xEqMzQ",
+    "subjects": "통합교과, 도덕 (entertainment; teacher judgment)",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "교육부",
+    "url": "https://www.youtube.com/@%EA%B5%90%EC%9C%A1%EB%B6%80",
+    "channel_id": "UCexUyFaq9YH7XJfCQzVR_jg",
+    "subjects": "teacher/policy, 안전",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "한국교육학술정보원(KERIS)",
+    "url": "https://www.youtube.com/@keris_in",
+    "channel_id": "UCygQeI6WHN8JuSfIc5S7YyA",
+    "subjects": "teacher (에듀넷 tutorials)",
+    "verification": "search match"
+   },
+   {
+    "name": "국립국어원",
+    "url": "https://www.youtube.com/channel/UCQEUCVtOyPAozp76V1_Aw0A",
+    "channel_id": "UCQEUCVtOyPAozp76V1_Aw0A",
+    "subjects": "국어",
+    "verification": "linked from korean.go.kr"
+   },
+   {
+    "name": "국립한글박물관",
+    "url": "https://www.youtube.com/@National_Hangeul_Museum",
+    "channel_id": "UCkhi9ZGyfs-G1-6FFLWS1LA",
+    "subjects": "국어",
+    "verification": "search match"
+   },
+   {
+    "name": "국립어린이청소년도서관",
+    "url": "https://www.youtube.com/@nlcy2006",
+    "channel_id": "UCYDVdOVPcvPDPAe9MIyBvtw",
+    "subjects": "국어(독서)",
+    "verification": "linked from nlcy.go.kr"
+   },
+   {
+    "name": "어린이수학동아X어린이과학동아",
+    "url": "https://www.youtube.com/@dongascience",
+    "channel_id": "UCkOf2vSIKN9aoqmYnrjwrKA",
+    "subjects": "수학, 과학",
+    "verification": "search match (official status likely, not confirmed from site)"
+   },
+   {
+    "name": "국립중앙과학관",
+    "url": "https://www.youtube.com/@sciencemuseumtv",
+    "channel_id": "UCvkcbYWKDNuWozyPK-IW7vA",
+    "subjects": "과학",
+    "verification": "search match"
+   },
+   {
+    "name": "국립과천과학관",
+    "url": "https://www.youtube.com/@gnsmscience",
+    "channel_id": "UCWnC1rQyetvJ29Qjt2mQpoA",
+    "subjects": "과학",
+    "verification": "search match"
+   },
+   {
+    "name": "국립어린이과학관",
+    "url": "https://www.youtube.com/@2017scijoy",
+    "channel_id": "UCsr_ycWprzNRllNDus-XpOA",
+    "subjects": "과학(저학년)",
+    "verification": "search match"
+   },
+   {
+    "name": "한국과학창의재단(KOSAC)",
+    "url": "https://www.youtube.com/@kosac.offcial",
+    "channel_id": "UCCLHe4hSUWohb8k7v8sBHdA",
+    "subjects": "과학, 수학",
+    "verification": "linked from kosac.re.kr (handle spelled 'offcial')"
+   },
+   {
+    "name": "YTN 사이언스",
+    "url": "https://www.youtube.com/@YTNSC",
+    "channel_id": "UCZdBJIbJz0P9xyFipgOj1fA",
+    "subjects": "과학 (teacher preview)",
+    "verification": "search match"
+   },
+   {
+    "name": "ScienceTV",
+    "url": "https://www.youtube.com/@ScienceTV",
+    "channel_id": "",
+    "subjects": "과학",
+    "verification": "handle resolves; operator unverified"
+   },
+   {
+    "name": "국립중앙박물관",
+    "url": "https://www.youtube.com/@nationalmuseumofkorea",
+    "channel_id": "",
+    "subjects": "사회(역사), 미술",
+    "verification": "linked from museum.go.kr"
+   },
+   {
+    "name": "국립민속박물관",
+    "url": "https://www.youtube.com/@tnfmk",
+    "channel_id": "UCjXHIWPMZPyU3jWN4iz2JEA",
+    "subjects": "사회, 통합교과",
+    "verification": "search match"
+   },
+   {
+    "name": "국립민속박물관 어린이박물관",
+    "url": "https://www.youtube.com/@nfmk_kids",
+    "channel_id": "UCNAyysJBAuujCNDI5VLLksg",
+    "subjects": "통합교과, 사회",
+    "verification": "search match"
+   },
+   {
+    "name": "국사편찬위원회",
+    "url": "https://www.youtube.com/@nationalinstituteofkoreanh6654",
+    "channel_id": "UCFGT4YC0Kzg3yAMAfgJXOxQ",
+    "subjects": "사회(역사)",
+    "verification": "search match"
+   },
+   {
+    "name": "국가기록원 기록온",
+    "url": "https://www.youtube.com/@NAK.archiveson",
+    "channel_id": "",
+    "subjects": "사회(역사)",
+    "verification": "linked from archives.go.kr"
+   },
+   {
+    "name": "국토지리정보원",
+    "url": "https://www.youtube.com/channel/UCfDAwZchZ6yXGOsMj8gPfXQ",
+    "channel_id": "UCfDAwZchZ6yXGOsMj8gPfXQ",
+    "subjects": "사회(지도)",
+    "verification": "linked from ngii.go.kr"
+   },
+   {
+    "name": "국립국악원 National Gugak Center",
+    "url": "https://www.youtube.com/@gugak1951",
+    "channel_id": "UCmN4xFSlmWw-_d2riM-ep0A",
+    "subjects": "음악(국악)",
+    "verification": "search match"
+   },
+   {
+    "name": "국악방송 TV",
+    "url": "https://www.youtube.com/@gugakTV",
+    "channel_id": "",
+    "subjects": "음악(국악)",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "국립현대미술관 MMCA",
+    "url": "https://www.youtube.com/@mmcakorea",
+    "channel_id": "",
+    "subjects": "미술",
+    "verification": "linked from mmca.go.kr"
+   },
+   {
+    "name": "Google Arts & Culture",
+    "url": "https://www.youtube.com/@googlearts",
+    "channel_id": "",
+    "subjects": "미술",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "핑크퐁 (인기 동요・동화)",
+    "url": "https://www.youtube.com/@%ED%95%91%ED%81%AC%ED%90%81",
+    "channel_id": "",
+    "subjects": "통합교과, 음악(저학년)",
+    "verification": "linked from pinkfong.com"
+   },
+   {
+    "name": "Pinkfong Baby Shark - Kids' Songs & Stories",
+    "url": "https://www.youtube.com/@Pinkfong",
+    "channel_id": "UCcdwLMPsaU2ezNSJU1nFoBQ",
+    "subjects": "영어(3-4)",
+    "verification": "search match"
+   },
+   {
+    "name": "Super Simple Songs",
+    "url": "https://www.youtube.com/@SuperSimpleSongs",
+    "channel_id": "UCLsooMJoIpl_7ux2jvdPB-Q",
+    "subjects": "영어(3-4)",
+    "verification": "search match"
+   },
+   {
+    "name": "Crash Course Kids",
+    "url": "https://www.youtube.com/@crashcoursekids",
+    "channel_id": "UCONtPx56PSebXJOxbFv-2jQ",
+    "subjects": "과학(영어 자막)",
+    "verification": "search match"
+   },
+   {
+    "name": "SciShow Kids",
+    "url": "https://www.youtube.com/@SciShowKids",
+    "channel_id": "UCRFIPG2u1DxKLNuE3y2SjHA",
+    "subjects": "과학/영어",
+    "verification": "search match"
+   },
+   {
+    "name": "Nat Geo Kids",
+    "url": "https://www.youtube.com/@natgeokids",
+    "channel_id": "UCXVCgDuD_QCkI7gTKU7-tpg",
+    "subjects": "과학, 사회",
+    "verification": "search match"
+   },
+   {
+    "name": "엔트리 공식 채널",
+    "url": "https://www.youtube.com/@playentry",
+    "channel_id": "UC2HKxdD4IQKPYOkyJj68eXQ",
+    "subjects": "실과(정보)",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "Khan Academy Korean",
+    "url": "https://www.youtube.com/@KhanAcademyKorean",
+    "channel_id": "",
+    "subjects": "수학",
+    "verification": "handle resolves"
+   },
+   {
+    "name": "질병관리청 아프지마TV",
+    "url": "https://www.youtube.com/@KDCAkorea",
+    "channel_id": "UCa7-3Zvxg-5Rfxgu3RQY_gw",
+    "subjects": "체육(건강), 실과",
+    "verification": "search match"
+   },
+   {
+    "name": "스포츠안전재단",
+    "url": "https://www.youtube.com/channel/UCY9gN3a_NnjdGy1tSJvPMFQ",
+    "channel_id": "UCY9gN3a_NnjdGy1tSJvPMFQ",
+    "subjects": "체육",
+    "verification": "linked from sportsafety.or.kr"
+   },
+   {
+    "name": "행정안전부 안전한TV",
+    "url": "https://www.youtube.com/@safeppy",
+    "channel_id": "UCbylW3LBcOLKL-3A6zIN32w",
+    "subjects": "안전한 생활, 실과",
+    "verification": "search match"
+   },
+   {
+    "name": "저작권TV (한국저작권위원회)",
+    "url": "https://www.youtube.com/@koreacopyright",
+    "channel_id": "UCIiTJae_d0azhad7rtvi3FQ",
+    "subjects": "도덕, 실과(정보윤리)",
+    "verification": "search match"
+   }
+  ],
+  "search_url_format": "https://www.youtube.com/results?search_query=<URL-encoded query>  (e.g. encodeURIComponent('초등 3학년 과학 자석의 성질')). Verified working 2026-10-24.",
+  "channel_search_url": "https://www.youtube.com/@<handle>/search?query=<encoded>  (search within a curated channel - recommended for per-lesson links)",
+  "channel_only_filter": "append &sp=EgIQAg%253D%253D to results URL to list channels only",
+  "embedding_notes": [
+   "Privacy-enhanced embed: https://www.youtube-nocookie.com/embed/<VIDEO_ID> (no tracking cookies until play). Since we don't store video IDs, link out instead of embedding search results (search pages cannot be embedded).",
+   "Google Workspace for Education admins usually enforce YouTube Restricted Mode (Strict/Moderate) on managed Chromebooks; non-approved videos may be hidden for students. Teachers can approve videos for their OU. Search links still work but results are filtered.",
+   "Videos marked 'made for kids' disable comments/notifications; embedding may be disabled per video by uploader.",
+   "Prefer opening on teacher screen (TV) rather than student devices for 1-2학년; add target=_blank rel=noopener.",
+   "Search results change over time - label links '검색 결과(변동 가능)'."
+  ]
+ },
+ "partD_aidt": {
+  "legal_status": "AIDT was downgraded from 교과서 to 교육자료 by 초·중등교육법 amendment passed by the National Assembly (Aug 2025), effective on promulgation; one source says the provision is effective until 2027-12-31 (unverified). 2026학년도 AIDT 검·인정 was halted (Aug 2025).",
+  "adoption": "Schools choose and pay from school budget. Usage per MOE data reported by 경향신문 (2026-09-21): 2025 1학기 4,095 schools (34.2%) -> 2025 2학기 ~1,481-1,686 -> 2026 1학기 622 schools (5.2%); Daegu outlier (68.8%) vs 2.7% elsewhere.",
+  "portal": "AI·디지털 교육자료 포털 (aidtbook.kr) renamed '학습데이터 분석 활용 포털' at https://edupath.kr (verified redirect notice 2026-10-24).",
+  "e_hakseupteo": "e학습터 (cls.edunet.net) service ended 2026-02-28 per KERIS notice surfaced in search; domain no longer resolves. Successor service unverified.",
+  "implications": [
+   "Do not assume students have AIDT accounts; treat AIDT as optional link only.",
+   "AIDT content is publisher-owned, login-gated, subscription-based: link to portal landing only; do not deep-link, frame, or copy content.",
+   "Public institution content: check 공공누리 (KOGL) type 1-4 per item before reusing images in worksheets; type 1 allows commercial reuse with attribution, types 2/4 forbid commercial use, 3/4 forbid modification.",
+   "Linking (plain hyperlink) to public pages generally needs no permission; embedding/iframing third-party sites may be blocked by X-Frame-Options - open in new tab."
+  ],
+  "sources": [
+   "https://www.khan.co.kr/article/202609211632001/",
+   "http://nsp.nanet.go.kr/trend/latest/detail.do?latestTrendControlNo=TREN0000003387&listChk=list",
+   "https://www.kyobit.com/news/articleView.html?idxno=3879",
+   "https://news.unn.net/news/articleView.html?idxno=585404",
+   "https://cls.edunet.net/ (notice via search snippet)",
+   "https://aidtbook.kr -> https://edupath.kr"
+  ]
+ },
+ "gsap_license_source": "https://gsap.com/blog/3-13/"
+}

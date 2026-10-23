@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PaperCut SVG UI Library — Radix UI Primitives Edition</title>
-  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="papercut.css">
   <link rel="stylesheet" href="papercut-svg-primitives.css">
   <style>
     /* -----------------------------------------------------------------------
@@ -198,7 +198,7 @@
     <!-- 메인 헤더 배너 -->
     <header class="pc-hero-frame">
       <div class="pc-hero-badge">
-        <i class="fi fi-rr-vector-alt" aria-hidden="true"></i>
+        <span class="pc-inline-icon is-xs" data-icon="shapes" aria-hidden="true"></span>
         <span>100% PURE SVG VECTOR ARCHITECTURE</span>
       </div>
 
@@ -209,14 +209,14 @@
       </p>
 
       <div class="pc-prompt-box">
-        <strong>🎨 Creative Aesthetic Prompt:</strong><br>
+        <strong style="display: inline-flex; align-items: center; gap: 6px;"><span class="pc-inline-icon is-xs" data-icon="palette"></span> Creative Aesthetic Prompt:</strong><br>
         &ldquo;Layered paper-cut illustration of [Radix UI Primitives], with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.&rdquo;
       </div>
     </header>
 
     <!-- 인터랙션 상태 피드백 바 -->
     <div id="pc-event-logger" class="pc-interactive-log">
-      <span><i class="fi fi-rr-magic-wand mr-1" aria-hidden="true"></i> <strong>실시간 피드백:</strong> 컴포넌트를 클릭하거나 조작해보세요.</span>
+      <span><span class="pc-inline-icon is-xs mr-1" data-icon="sparkles" aria-hidden="true"></span> <strong>실시간 피드백:</strong> 컴포넌트를 클릭하거나 조작해보세요.</span>
       <span id="pc-log-message" style="color: #E29472;">대기 중...</span>
     </div>
 
@@ -226,7 +226,7 @@
       <!-- 1. BUTTON (다층 종이 버튼) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-cursor-finger" aria-hidden="true"></i> 01. Button &amp; Toggle</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="cursor-pointer" aria-hidden="true"></span> 01. Button &amp; Toggle</h2>
           <span class="pc-primitive-badge">Primitive: Button</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -241,7 +241,7 @@
       <!-- 2. SWITCH (종이 슬라이딩 셔터) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-toggle-on" aria-hidden="true"></i> 02. Switch</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="toggle-right" aria-hidden="true"></span> 02. Switch</h2>
           <span class="pc-primitive-badge">Primitive: Switch</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -256,7 +256,7 @@
       <!-- 3. CHECKBOX (우표 인장 스탬프) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-check-box" aria-hidden="true"></i> 03. Checkbox</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="check-circle" aria-hidden="true"></span> 03. Checkbox</h2>
           <span class="pc-primitive-badge">Primitive: Checkbox</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -271,7 +271,7 @@
       <!-- 4. RADIO GROUP (접힌 종이 딱지 디스크) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-bullet" aria-hidden="true"></i> 04. Radio Group</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="disc" aria-hidden="true"></span> 04. Radio Group</h2>
           <span class="pc-primitive-badge">Primitive: RadioGroup</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -285,7 +285,7 @@
       <!-- 5. SLIDER (음각 슬릿 트랙 & 썸) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-sliders-h" aria-hidden="true"></i> 05. Slider</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="sliders" aria-hidden="true"></span> 05. Slider</h2>
           <span class="pc-primitive-badge">Primitive: Slider</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -300,7 +300,7 @@
       <!-- 6. PROGRESS (파낸 홈 색지 게이지) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-loading" aria-hidden="true"></i> 06. Progress</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="refresh" aria-hidden="true"></span> 06. Progress</h2>
           <span class="pc-primitive-badge">Primitive: Progress</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -317,7 +317,7 @@
       <!-- 7. ACCORDION (도화지 접힘 플랩) -->
       <section class="pc-section-card" style="grid-column: 1 / -1;">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-menu-burger" aria-hidden="true"></i> 07. Accordion (Paper Flap)</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="menu" aria-hidden="true"></span> 07. Accordion (Paper Flap)</h2>
           <span class="pc-primitive-badge">Primitive: Accordion</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -331,7 +331,7 @@
       <!-- 8. TABS (서류철 마닐라 인덱스 탭) -->
       <section class="pc-section-card" style="grid-column: 1 / -1;">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-folders" aria-hidden="true"></i> 08. Tabs (Manila Index)</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="folders" aria-hidden="true"></span> 08. Tabs (Manila Index)</h2>
           <span class="pc-primitive-badge">Primitive: Tabs</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -345,7 +345,7 @@
       <!-- 9. CARD (다이컷 티켓 & 노치 카드) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-portrait" aria-hidden="true"></i> 09. Card (Die-Cut Ticket)</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="user" aria-hidden="true"></span> 09. Card (Die-Cut Ticket)</h2>
           <span class="pc-primitive-badge">Primitive: Card</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -359,7 +359,7 @@
       <!-- 10. DIALOG (섀도우박스 모달) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-layers" aria-hidden="true"></i> 10. Dialog &amp; Modal</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="layers" aria-hidden="true"></span> 10. Dialog &amp; Modal</h2>
           <span class="pc-primitive-badge">Primitive: Dialog</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -373,7 +373,7 @@
       <!-- 11. TOOLTIP (종이 꼬리표 태그) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-comment-alt" aria-hidden="true"></i> 11. Tooltip &amp; Popover</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="chat" aria-hidden="true"></span> 11. Tooltip &amp; Popover</h2>
           <span class="pc-primitive-badge">Primitive: Tooltip</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -392,7 +392,7 @@
       <!-- 12. SELECT (부채꼴 색지 드롭다운) -->
       <section class="pc-section-card">
         <div class="pc-card-header-tag">
-          <h2 class="pc-card-title"><i class="fi fi-rr-angle-down" aria-hidden="true"></i> 12. Select &amp; Dropdown</h2>
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="arrow-down" aria-hidden="true"></span> 12. Select &amp; Dropdown</h2>
           <span class="pc-primitive-badge">Primitive: Select</span>
         </div>
         <p style="margin: 0; font-size: 13px; color: #7A695A;">
@@ -410,9 +410,13 @@
     </footer>
   </main>
 
+  <script src="papercut-icons.js"></script>
   <script src="papercut-svg-primitives.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      if (typeof window.hydratePapercutIcons === 'function') {
+        window.hydratePapercutIcons(document.body);
+      }
       const logEl = document.getElementById('pc-log-message');
       function log(msg) {
         if (logEl) logEl.textContent = msg;

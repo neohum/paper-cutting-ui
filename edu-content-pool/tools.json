@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "note": "페이퍼커팅 디지털 수업 도구 카탈로그. match는 세부 주제 이름에 대한 정규식이며, 차시에 도구를 연결할 때 쓴다. 구현 상태는 모두 planned.",
+    "style": "paper-cutting-ui 파스텔 레이어드 SVG (svg.js 3.2 + Pointer Events)"
+  },
+  "tools": [
+    { "id": "clock", "name": "종이 아날로그 시계", "subjects": ["수학"], "match": "시각|시간|시계|몇 시", "interaction": "시침·분침 회전 드래그, 분침 6° 스냅·시침 연동, 디지털 표기 토글, 퀴즈 모드", "layers": 5 },
+    { "id": "tenframe", "name": "십칸·수 모형 보드", "subjects": ["수학"], "match": "수의|자리|모으기|가르기|네 자리|세 자리|두 자리|덧셈|뺄셈|받아", "interaction": "수 모형(1·10·100) 끌어 놓기, 묶기/풀기 애니메이션", "layers": 3 },
+    { "id": "numberline", "name": "종이 수직선", "subjects": ["수학"], "match": "수직선|어림|소수|분수의 크기|크기 비교|자연수", "interaction": "눈금 확대, 점 끌기, 뛰어 세기 화살표", "layers": 3 },
+    { "id": "fraction", "name": "분수 피자·띠 조각", "subjects": ["수학"], "match": "분수|등분|비율|백분율", "interaction": "원·띠 등분 조각 드래그, 동치분수 겹쳐 보기", "layers": 4 },
+    { "id": "multiply", "name": "곱셈 배열 판", "subjects": ["수학"], "match": "곱셈|나눗셈|묶음|배수|약수|구구", "interaction": "배열 행·열 드래그, 묶어 세기", "layers": 3 },
+    { "id": "shapes", "name": "도형 칠교·지오보드", "subjects": ["수학"], "match": "도형|삼각형|사각형|원|각|입체|직육면체|대칭|합동|넓이|둘레|부피|쌓기", "interaction": "칠교 조각 회전·뒤집기, 지오보드 고무줄, 전개도 접기", "layers": 4 },
+    { "id": "measure", "name": "종이 자·저울·들이 실험대", "subjects": ["수학", "과학"], "match": "길이|무게|들이|측정|단위|cm|양의 비교", "interaction": "자 대고 재기, 저울 기울기, 비커 물 높이", "layers": 4 },
+    { "id": "chart", "name": "그래프 만들기 판", "subjects": ["수학", "사회", "과학"], "match": "자료|그래프|표|가능성|평균|통계", "interaction": "그림그래프·막대·원그래프 조각 쌓기", "layers": 3 },
+    { "id": "pattern", "name": "규칙 띠 만들기", "subjects": ["수학"], "match": "규칙|대응|패턴", "interaction": "색종이 조각 반복 배열, 다음 조각 예측", "layers": 2 },
+    { "id": "hangul", "name": "한글 자모 조립판", "subjects": ["국어"], "match": "글자|낱말|받침|자음|모음|소리|읽기 유창|맞춤법|띄어", "interaction": "자음·모음 조각 끼워 글자 만들기, 소리 듣기(TTS)", "layers": 3 },
+    { "id": "story", "name": "이야기 장면 순서판", "subjects": ["국어", "도덕", "영어"], "match": "이야기|순서|사건|인물|장면|문학|감상|극", "interaction": "장면 카드 정렬, 말풍선 쓰기", "layers": 3 },
+    { "id": "mindmap", "name": "종이 생각그물", "subjects": ["국어", "사회", "도덕", "실과"], "match": "생각|의견|주장|토의|토론|요약|중심|글쓰기|설명", "interaction": "가지 종이 끌어 붙이기, 근거 카드 연결", "layers": 2 },
+    { "id": "map", "name": "레이어드 종이 지도", "subjects": ["사회", "슬기로운 생활"], "match": "지도|고장|지역|위치|국토|기후|지형|마을|우리나라|세계", "interaction": "등고선 종이 층 쌓기, 방위표 회전, 장소 핀", "layers": 6 },
+    { "id": "timeline", "name": "역사 연표 접이판", "subjects": ["사회"], "match": "역사|시대|문화유산|조상|옛날|인물|나라", "interaction": "연표 접기·펼치기, 사건 카드 배치", "layers": 3 },
+    { "id": "economy", "name": "시장·가게 놀이판", "subjects": ["사회", "실과"], "match": "경제|시장|생산|소비|선택|돈|금융", "interaction": "물건·동전 카드 교환, 예산 막대", "layers": 3 },
+    { "id": "lifecycle", "name": "생물 한살이 회전판", "subjects": ["과학", "슬기로운 생활"], "match": "한살이|동물|식물|생물|씨|곤충|생태", "interaction": "단계 판 회전, 확대 관찰", "layers": 5 },
+    { "id": "earth", "name": "태양·지구·달 모형", "subjects": ["과학"], "match": "달|지구|태양|계절|낮과 밤|별|행성|그림자", "interaction": "공전·자전 궤도 드래그, 위상 변화", "layers": 5 },
+    { "id": "circuit", "name": "종이 전기 회로판", "subjects": ["과학", "실과"], "match": "전기|회로|전구|전지|자석|에너지", "interaction": "도선 조각 연결, 전구 켜짐 판정", "layers": 3 },
+    { "id": "matter", "name": "물질 상태 입자 상자", "subjects": ["과학"], "match": "물질|상태|증발|용해|혼합|기체|액체|고체|물의|온도|열", "interaction": "온도 슬라이더로 입자 움직임 변화", "layers": 3 },
+    { "id": "force", "name": "힘과 운동 경사판", "subjects": ["과학"], "match": "힘|운동|속력|무게|빛|소리|거울|렌즈", "interaction": "경사·질량 슬라이더, 그림자·반사 각도", "layers": 3 },
+    { "id": "body", "name": "몸 레이어 탐험판", "subjects": ["과학", "바른 생활", "체육"], "match": "몸|소화|호흡|순환|감각|건강|뼈", "interaction": "기관 종이 층 벗기기", "layers": 6 },
+    { "id": "keyboard", "name": "종이 건반·리듬 블록", "subjects": ["음악", "즐거운 생활"], "match": "가락|리듬|박|노래|연주|악기|음|소리|박자|국악", "interaction": "건반·장구 장단 탭, 리듬 블록 배열 재생(Tone.js)", "layers": 3 },
+    { "id": "collage", "name": "디지털 종이 콜라주", "subjects": ["미술", "즐거운 생활"], "match": "표현|만들기|색|조형|디자인|감상|미술|작품|재료", "interaction": "색종이 자르기·겹치기·회전, 작품 저장", "layers": 4 },
+    { "id": "timer", "name": "종이 모래시계 타이머", "subjects": ["체육", "공통"], "match": "운동|체력|경쟁|도전|안전|움직임|놀이|건강 활동", "interaction": "구간 타이머, 순서 카드, 기록판", "layers": 2 },
+    { "id": "emotion", "name": "마음 날씨 카드", "subjects": ["도덕", "바른 생활"], "match": "마음|감정|배려|존중|가족|친구|약속|규칙|공동체|정직|생명", "interaction": "감정 카드 고르기, 상황 판단 분기", "layers": 2 },
+    { "id": "wordcards", "name": "영어 낱말 플립 카드", "subjects": ["영어"], "match": ".", "interaction": "앞뒤 뒤집기, 발음 듣기(TTS), 짝 맞추기", "layers": 2 },
+    { "id": "block-coding", "name": "종이 블록 코딩판", "subjects": ["실과"], "match": "프로그래밍|알고리즘|코딩|정보|컴퓨팅|소프트웨어|데이터|인공지능", "interaction": "명령 블록 조각 조립, 로봇 경로 실행", "layers": 3 },
+    { "id": "kitchen", "name": "생활 설계 보드", "subjects": ["실과"], "match": "식생활|옷|주거|가정|생활|자원|발명|재배|동물 돌보기", "interaction": "식단·일과 카드 배치, 체크리스트", "layers": 3 }
+  ]
+}

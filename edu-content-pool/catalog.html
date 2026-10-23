@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>초등 수업 콘텐츠 풀</title>
+  <meta name="description" content="초1~초6 전 교과 학년·과목·단원·차시별 40분 수업 패키지, 활동지, 교육 사이트, 영상 카탈로그">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="catalog.css" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="catalog.css">
+  <link rel="stylesheet" href="vendor/classroom-ui/exam.css">
+  <link rel="stylesheet" href="vendor/classroom-ui/print.css">
+</head>
+<body>
+  <a class="skip" href="#units">본문으로 건너뛰기</a>
+  <div class="app no-print">
+    <header class="top pc-sheet pc-sheet--lavender">
+      <div class="top__brand">
+        <img src="../logo.svg" alt="" width="40" height="40">
+        <div>
+          <h1>초등 수업 콘텐츠 풀</h1>
+          <p class="muted">초1~초6 전 교과 · 40분 수업 패키지 · 활동지 · 교육 사이트 · 영상 — <span id="generated"></span> 생성</p>
+        </div>
+      </div>
+      <div class="stats" id="stats" aria-label="카탈로그 현황"></div>
+    </header>
+
+    <nav class="grades pc-sheet" aria-label="학년">
+      <div role="tablist" id="grade-tabs" class="grade-tabs"></div>
+    </nav>
+
+    <div class="body">
+      <aside class="side pc-sheet pc-sheet--cream" aria-label="과목">
+        <h2 class="side__title"><i class="fi fi-rr-book-alt" aria-hidden="true"></i> 과목</h2>
+        <ul id="subject-list" class="subject-list"></ul>
+        <div class="legend">
+          <p><span class="chip chip--mint">단원 확인</span> 교과서 단원과 대조함</p>
+          <p><span class="chip chip--butter">추정 배정</span> 성취기준에서 자동 배정 — 검수 필요</p>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="toolbar pc-sheet">
+          <h2 id="crumb" class="toolbar__crumb"></h2>
+          <label class="field">
+            <span class="sr-only">차시 검색</span>
+            <i class="fi fi-rr-search" aria-hidden="true"></i>
+            <input id="search" type="search" placeholder="단원·차시 이름 검색" autocomplete="off">
+          </label>
+          <label class="field field--select">
+            <span class="sr-only">학기</span>
+            <select id="sem">
+              <option value="all">전체 학기</option>
+              <option value="1학기">1학기</option>
+              <option value="2학기">2학기</option>
+            </select>
+          </label>
+        </div>
+        <div id="units" class="units" tabindex="-1"></div>
+      </main>
+    </div>
+  </div>
+
+  <section id="detail" class="detail pc-sheet no-print" role="dialog" aria-modal="false" aria-label="차시 수업 패키지" tabindex="-1" hidden></section>
+
+  <!-- 인쇄 시에만 보이는 종이 활동지(생태계 classroom-ui 양식) -->
+  <div id="worksheet" class="print-only" aria-hidden="true"></div>
+
+  <script src="catalog-data.js"></script>
+  <script src="catalog.js"></script>
+</body>
+</html>

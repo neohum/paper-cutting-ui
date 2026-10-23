@@ -1,0 +1,3854 @@
+{
+ "hours": {
+  "1-2": {
+   "국어": 482,
+   "수학": 256,
+   "바른 생활": 144,
+   "슬기로운 생활": 224,
+   "즐거운 생활": 400,
+   "교과 소계": 1506,
+   "창의적 체험활동": 238,
+   "총 수업 시간 수": 1744
+  },
+  "3-4": {
+   "국어": 408,
+   "사회/도덕": 272,
+   "수학": 272,
+   "과학/실과": 204,
+   "체육": 204,
+   "예술(음악/미술)": 272,
+   "영어": 136,
+   "교과 소계": 1768,
+   "창의적 체험활동": 204,
+   "총 수업 시간 수": 1972
+  },
+  "5-6": {
+   "국어": 408,
+   "사회/도덕": 272,
+   "수학": 272,
+   "과학/실과": 340,
+   "체육": 204,
+   "예술(음악/미술)": 272,
+   "영어": 204,
+   "교과 소계": 1972,
+   "창의적 체험활동": 204,
+   "총 수업 시간 수": 2176
+  },
+  "source": "https://att.pmg.co.kr/FileData/CO/345~356%EC%AA%BD%20%EA%B0%9C%EC%A0%95%EC%82%AC%ED%95%AD(2022%20%EA%B0%9C%EC%A0%95%20%EA%B5%90%EC%9C%A1%EA%B3%BC%EC%A0%95)(1).pdf",
+  "verified": true,
+  "typical_split_per_year": {
+   "3-4": {
+    "사회": 68,
+    "도덕": 34,
+    "과학": 102,
+    "실과": 0,
+    "음악": 68,
+    "미술": 68,
+    "영어": 68,
+    "국어": 204,
+    "수학": 136,
+    "체육": 102,
+    "창체": 102,
+    "note": "사회/도덕 272 → 사회 204 + 도덕 68 (연 102+34), 과학/실과 204는 3~4학년 전부 과학(실과는 5~6학년만), 예술 272 → 음악·미술 각 136"
+   },
+   "5-6": {
+    "사회": 102,
+    "도덕": 34,
+    "과학": 102,
+    "실과": 68,
+    "음악": 68,
+    "미술": 68,
+    "영어": 102,
+    "국어": 204,
+    "수학": 136,
+    "체육": 102,
+    "창체": 102,
+    "note": "과학/실과 340 → 과학 204 + 실과 136. 화정초 2026 5학년 편제표에서 사회102·도덕34·과학102·실과68 확인(학교 증감 ±20% 허용, 학교자율시간 학기당 1주분 확보로 교과별 차시 감소)"
+   },
+   "split_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+   "split_verified": "관행(교육청 편성 예시·학교 편제표) — 총론은 교과군 합계만 규정"
+  }
+ },
+ "grades": {
+  "1": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "0",
+      "title": "한글 놀이",
+      "standards": [
+       "[2국01-03]",
+       "[2국02-05]",
+       "[2국04-01]"
+      ],
+      "lessons": 34,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 1,
+      "title": "글자를 만들어요",
+      "standards": [
+       "[2국02-01]",
+       "[2국02-05]",
+       "[2국04-01]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 2,
+      "title": "받침이 있는 글자를 읽어요",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-01]",
+       "[2국04-01]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 3,
+      "title": "낱말과 친해져요",
+      "standards": [
+       "[2국02-01]",
+       "[2국03-01]",
+       "[2국04-01]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 4,
+      "title": "여러 가지 낱말을 익혀요",
+      "standards": [
+       "[2국02-01]",
+       "[2국05-01]",
+       "[2국06-01]"
+      ],
+      "lessons": 14,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 5,
+      "title": "반갑게 인사해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-05]",
+       "[2국02-05]",
+       "[2국04-02]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 6,
+      "title": "또박또박 읽어요",
+      "standards": [
+       "[2국02-02]",
+       "[2국04-03]",
+       "[2국05-02]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 7,
+      "title": "알맞은 낱말을 찾아요",
+      "standards": [
+       "[2국03-02]",
+       "[2국04-03]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "기분을 말해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국03-02]",
+       "[2국05-01]"
+      ],
+      "lessons": 14,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 2,
+      "title": "낱말을 정확하게 읽어요",
+      "standards": [
+       "[2국02-01]",
+       "[2국02-03]",
+       "[2국03-01]",
+       "[2국04-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 3,
+      "title": "그림일기를 써요",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-04]",
+       "[2국06-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 4,
+      "title": "감동을 나누어요",
+      "standards": [
+       "[2국01-01]",
+       "[2국05-02]",
+       "[2국06-01]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 5,
+      "title": "생각을 키워요",
+      "standards": [
+       "[2국02-05]",
+       "[2국04-02]",
+       "[2국05-02]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 6,
+      "title": "문장을 읽고 써요",
+      "standards": [
+       "[2국02-02]",
+       "[2국03-02]",
+       "[2국04-03]",
+       "[2국05-04]"
+      ],
+      "lessons": 16,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 7,
+      "title": "무엇이 중요할까요",
+      "standards": [
+       "[2국01-01]",
+       "[2국02-03]",
+       "[2국03-04]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 8,
+      "title": "느끼고 표현해요",
+      "standards": [
+       "[2국05-02]",
+       "[2국05-03]",
+       "[2국05-04]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf",
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "9까지의 수",
+      "standards": [
+       "[2수01-01]",
+       "[2수01-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 2,
+      "title": "여러 가지 모양",
+      "standards": [
+       "[2수03-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 3,
+      "title": "덧셈과 뺄셈",
+      "standards": [
+       "[2수01-05]",
+       "[2수01-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 4,
+      "title": "비교하기",
+      "standards": [
+       "[2수03-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 5,
+      "title": "50까지의 수",
+      "standards": [
+       "[2수01-01]",
+       "[2수01-03]",
+       "[2수01-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "100까지의 수",
+      "standards": [
+       "[2수01-01]",
+       "[2수01-03]",
+       "[2수01-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 2,
+      "title": "덧셈과 뺄셈(1)",
+      "standards": [
+       "[2수01-05]",
+       "[2수01-08]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 3,
+      "title": "모양과 시각",
+      "standards": [
+       "[2수03-03]",
+       "[2수03-07]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 4,
+      "title": "덧셈과 뺄셈(2)",
+      "standards": [
+       "[2수01-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 5,
+      "title": "규칙 찾기",
+      "standards": [
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 6,
+      "title": "덧셈과 뺄셈(3)",
+      "standards": [
+       "[2수01-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     }
+    ]
+   },
+   "통합교과(바른 생활·슬기로운 생활·즐거운 생활)": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "학교",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 2,
+      "title": "사람들",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 3,
+      "title": "우리나라",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 4,
+      "title": "탐험",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "하루",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 6,
+      "title": "약속",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 7,
+      "title": "상상",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 8,
+      "title": "이야기",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     }
+    ]
+   }
+  },
+  "2": {
+   "국어": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "만나서 반가워요!",
+      "standards": [
+       "[2국01-03]",
+       "[2국01-04]",
+       "[2국03-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 2,
+      "title": "말의 재미가 솔솔",
+      "standards": [
+       "[2국02-05]",
+       "[2국03-02]",
+       "[2국05-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 3,
+      "title": "겪은 일을 나타내요",
+      "standards": [
+       "[2국03-02]",
+       "[2국03-04]",
+       "[2국04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 4,
+      "title": "분위기를 살려 읽어요",
+      "standards": [
+       "[2국02-02]",
+       "[2국04-02]",
+       "[2국05-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 5,
+      "title": "마음을 짐작해요",
+      "standards": [
+       "[2국02-02]",
+       "[2국02-04]",
+       "[2국04-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 6,
+      "title": "자신의 생각을 표현해요",
+      "standards": [
+       "[2국02-03]",
+       "[2국02-04]",
+       "[2국05-02]",
+       "[2국06-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 7,
+      "title": "마음을 담아서 말해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-04]",
+       "[2국01-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 8,
+      "title": "다양한 작품을 감상해요",
+      "standards": [
+       "[2국01-05]",
+       "[2국05-02]",
+       "[2국05-03]",
+       "[2국06-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "장면을 상상하며",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-02]",
+       "[2국05-01]",
+       "[2국05-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 2,
+      "title": "서로 존중해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-03]",
+       "[2국02-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 3,
+      "title": "내용을 살펴요",
+      "standards": [
+       "[2국02-03]",
+       "[2국03-03]",
+       "[2국03-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 4,
+      "title": "마음을 전해요",
+      "standards": [
+       "[2국01-04]",
+       "[2국04-03]",
+       "[2국05-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 5,
+      "title": "바른 말로 이야기 나누어요",
+      "standards": [
+       "[2국01-01]",
+       "[2국01-02]",
+       "[2국02-03]",
+       "[2국04-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 6,
+      "title": "매체를 경험해요",
+      "standards": [
+       "[2국03-04]",
+       "[2국06-01]",
+       "[2국06-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 7,
+      "title": "내 생각은 이래요",
+      "standards": [
+       "[2국01-04]",
+       "[2국02-03]",
+       "[2국03-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     },
+     {
+      "no": 8,
+      "title": "나도 작가",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-02]",
+       "[2국05-02]",
+       "[2국06-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "1~2학년 국어 482시간 → 연 241, 학기 약 120; 1학년은 화정초 실측"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "세 자리 수",
+      "standards": [
+       "[2수01-02]",
+       "[2수01-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 2,
+      "title": "여러 가지 도형",
+      "standards": [
+       "[2수03-02]",
+       "[2수03-03]",
+       "[2수03-04]",
+       "[2수03-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 3,
+      "title": "덧셈과 뺄셈",
+      "standards": [
+       "[2수01-05]",
+       "[2수01-06]",
+       "[2수01-07]",
+       "[2수01-08]",
+       "[2수01-09]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 4,
+      "title": "길이 재기",
+      "standards": [
+       "[2수03-06]",
+       "[2수03-10]",
+       "[2수03-12]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 5,
+      "title": "분류하기",
+      "standards": [
+       "[2수04-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 6,
+      "title": "곱셈",
+      "standards": [
+       "[2수01-10]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "네 자리 수",
+      "standards": [
+       "[2수01-02]",
+       "[2수01-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 2,
+      "title": "곱셈구구",
+      "standards": [
+       "[2수01-11]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 3,
+      "title": "길이 재기",
+      "standards": [
+       "[2수03-10]",
+       "[2수03-11]",
+       "[2수03-12]",
+       "[2수03-13]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 4,
+      "title": "시각과 시간",
+      "standards": [
+       "[2수03-07]",
+       "[2수03-08]",
+       "[2수03-09]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "2022 개정 수학에서 시각 읽기는 1-2 \"3. 모양과 시각\"([2수03-07] 도입), 본격 단원은 2-2 \"4. 시각과 시간\"([2수03-07]~[2수03-09]); 초 단위는 3-1 \"5. 길이와 시간\"([4수03-16])"
+     },
+     {
+      "no": 5,
+      "title": "표와 그래프",
+      "standards": [
+       "[2수04-02]",
+       "[2수04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     },
+     {
+      "no": 6,
+      "title": "규칙 찾기",
+      "standards": [
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true
+     }
+    ]
+   },
+   "통합교과(바른 생활·슬기로운 생활·즐거운 생활)": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "나",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 2,
+      "title": "자연",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 3,
+      "title": "마을",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 4,
+      "title": "세계",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "계절",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 6,
+      "title": "인물",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 7,
+      "title": "물건",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     },
+     {
+      "no": 8,
+      "title": "기억",
+      "standards": [],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "note": "주제별 교과서(국정) 1권 = 바른·슬기·즐거운 생활 통합. 성취기준 [2바/2슬/2즐 0X-0X]는 영역(우리는 누구로/어디서/지금 어떻게/무엇을 하며 살아갈까) 단위로 연결되며 주제-코드 1:1 대응은 확인하지 못함",
+      "lessons_estimate": "약 48차시/주제 (바른 144+슬기 224+즐거운 400=768시간 ÷ 16주제; 학교자율시간 반영 시 감소). 화정초 1학년 바른생활 주제별 6~9차시"
+     }
+    ]
+   }
+  },
+  "3": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 읽은 책을 소개해요",
+      "standards": [
+       "[4국01-05]",
+       "[4국02-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 1,
+      "title": "생생하게 표현해요",
+      "standards": [
+       "[4국01-03]",
+       "[4국01-04]",
+       "[4국05-04]",
+       "[4국05-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 2,
+      "title": "분명하고 유창하게",
+      "standards": [
+       "[4국01-03]",
+       "[4국02-01]",
+       "[4국04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 3,
+      "title": "짜임새 있는 글, 재미와 감동이 있는 글",
+      "standards": [
+       "[4국03-01]",
+       "[4국05-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 서로 배려하며 소통해요",
+      "standards": [
+       "[4국01-04]",
+       "[4국06-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 4,
+      "title": "중요한 내용을 찾아요",
+      "standards": [
+       "[4국01-01]",
+       "[4국02-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 5,
+      "title": "인물에게 마음을 전해요",
+      "standards": [
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국05-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 6,
+      "title": "자신 있게 읽고 써요",
+      "standards": [
+       "[4국02-04]",
+       "[4국03-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 계획대로 차근차근 읽어요",
+      "standards": [
+       "[4국02-02]",
+       "[4국02-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 1,
+      "title": "경험과 관련지으며 이해해요",
+      "standards": [
+       "[4국01-01]",
+       "[4국05-02]",
+       "[4국05-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 2,
+      "title": "유창하게 읽고 발표해요",
+      "standards": [
+       "[4국01-05]",
+       "[4국02-01]",
+       "[4국06-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 3,
+      "title": "정확하게 글을 써요",
+      "standards": [
+       "[4국02-05]",
+       "[4국03-02]",
+       "[4국04-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 온라인 상황에서 글을 써요",
+      "standards": [
+       "[4국03-04]",
+       "[4국06-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 4,
+      "title": "서로 존중하며 대화해요",
+      "standards": [
+       "[4국01-04]",
+       "[4국04-04]",
+       "[4국04-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 5,
+      "title": "사전으로 여는 세상",
+      "standards": [
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국04-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     },
+     {
+      "no": 6,
+      "title": "감상과 표현의 즐거움",
+      "standards": [
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국05-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_estimate": "독서·매체 단원 약 8~10, 본 단원 약 12~14 (3~4학년 국어 408시간 → 연 204, 학기 약 100)"
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "나를 찾아 떠나는 여행",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 2,
+      "title": "성실하게 사는 삶",
+      "standards": [
+       "[4도01-03]"
+      ],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)"
+     },
+     {
+      "no": 3,
+      "title": "함께하는 우리 가족",
+      "standards": [
+       "[4도02-01]"
+      ],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)"
+     },
+     {
+      "no": 4,
+      "title": "인공지능 로봇 연구소에 가요!",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "너와 나의 공감",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 6,
+      "title": "함께 가는 공정의 길",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 7,
+      "title": "생명을 소중히 여기는 우리",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 8,
+      "title": "더 나은 세상을 위한 탐구",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "우리가 사는 곳",
+      "standards": [
+       "[4사01-01]",
+       "[4사01-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")",
+      "lessons_estimate": "3학년 사회 약 102시간/년 → 단원당 약 22~30차시(대청초 3학년 단원 1/22·1/27·1/30 확인)"
+     },
+     {
+      "no": 2,
+      "title": "일상에서 만나는 과거",
+      "standards": [
+       "[4사02-01]",
+       "[4사02-02]",
+       "[4사02-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")",
+      "lessons_estimate": "3학년 사회 약 102시간/년 → 단원당 약 22~30차시(대청초 3학년 단원 1/22·1/27·1/30 확인)"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "사회 변화와 다양한 문화",
+      "standards": [
+       "[4사03-01]",
+       "[4사03-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")",
+      "lessons_estimate": "3학년 사회 약 102시간/년 → 단원당 약 22~30차시(대청초 3학년 단원 1/22·1/27·1/30 확인)"
+     },
+     {
+      "no": 2,
+      "title": "옛날과 오늘날의 생활 모습",
+      "standards": [
+       "[4사04-01]",
+       "[4사04-02]",
+       "[4사04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")",
+      "lessons_estimate": "3학년 사회 약 102시간/년 → 단원당 약 22~30차시(대청초 3학년 단원 1/22·1/27·1/30 확인)"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "덧셈과 뺄셈",
+      "standards": [
+       "[4수01-03]",
+       "[4수01-08]"
+      ],
+      "lessons": 9,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 2,
+      "title": "평면도형",
+      "standards": [
+       "[4수03-01]",
+       "[4수03-02]",
+       "[4수03-09]",
+       "[4수03-10]"
+      ],
+      "lessons": 10,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 3,
+      "title": "나눗셈",
+      "standards": [
+       "[4수01-05]",
+       "[4수01-06]"
+      ],
+      "lessons": 8,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 4,
+      "title": "곱셈",
+      "standards": [
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 8,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 5,
+      "title": "길이와 시간",
+      "standards": [
+       "[4수03-13]",
+       "[4수03-14]",
+       "[4수03-15]",
+       "[4수03-16]"
+      ],
+      "lessons": 10,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ],
+      "note": "3-1 \"5. 길이와 시간\": 1mm·1km, 1분·1초, 시간의 덧셈·뺄셈 ([4수03-16]) — 2022 개정에서 \"시간\"은 3-1 5단원"
+     },
+     {
+      "no": 6,
+      "title": "분수와 소수",
+      "standards": [
+       "[4수01-09]",
+       "[4수01-10]",
+       "[4수01-11]",
+       "[4수01-12]",
+       "[4수01-14]"
+      ],
+      "lessons": 11,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "곱셈",
+      "standards": [
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 10,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 2,
+      "title": "나눗셈",
+      "standards": [
+       "[4수01-05]",
+       "[4수01-06]",
+       "[4수01-08]"
+      ],
+      "lessons": 11,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 3,
+      "title": "원",
+      "standards": [
+       "[4수03-06]",
+       "[4수03-07]"
+      ],
+      "lessons": 7,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 4,
+      "title": "분수와 소수 (경기 예시: 분수)",
+      "standards": [
+       "[4수01-09]",
+       "[4수01-10]",
+       "[4수01-11]",
+       "[4수01-12]",
+       "[4수01-14]"
+      ],
+      "lessons": 11,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ],
+      "note": "비상 3-2 \"4. 분수와 소수\"([4수01-14] 포함), 경기 연결표는 \"4. 분수\""
+     },
+     {
+      "no": 5,
+      "title": "들이와 무게",
+      "standards": [
+       "[4수03-17]",
+       "[4수03-18]",
+       "[4수03-19]",
+       "[4수03-20]",
+       "[4수03-21]",
+       "[4수03-22]",
+       "[4수03-23]"
+      ],
+      "lessons": 10,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     },
+     {
+      "no": 6,
+      "title": "그림그래프",
+      "standards": [
+       "[4수04-01]"
+      ],
+      "lessons": 7,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf",
+      "verified": true,
+      "lessons_source": "비상(비바샘) 학기별 지도 계획 — 학기 64차시(학교자율시간 4차시 제외) 기준, 수학을 잇기 2차시×3 별도",
+      "confirmed_by": [
+       "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+      ]
+     }
+    ]
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "힘과 우리 생활",
+      "standards": [
+       "[4과01-01]",
+       "[4과01-02]",
+       "[4과01-03]",
+       "[4과01-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "동물의 생활",
+      "standards": [
+       "[4과02-01]",
+       "[4과02-02]",
+       "[4과02-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "식물의 생활",
+      "standards": [
+       "[4과03-01]",
+       "[4과03-02]",
+       "[4과03-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "생물의 한살이",
+      "standards": [
+       "[4과04-01]",
+       "[4과04-02]",
+       "[4과04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "물체와 물질",
+      "standards": [
+       "[4과05-01]",
+       "[4과05-02]",
+       "[4과05-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "지구와 바다",
+      "standards": [
+       "[4과06-01]",
+       "[4과06-02]",
+       "[4과06-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "소리의 성질",
+      "standards": [
+       "[4과07-01]",
+       "[4과07-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "감염병과 건강한 생활",
+      "standards": [
+       "[4과08-01]",
+       "[4과08-02]",
+       "[4과08-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ],
+    "note": "대청초 3학년 실측 단원 차시 약 11~13"
+   },
+   "영어·음악·미술·체육·실과": {
+    "note": "검정 교과서로 출판사마다 단원명·순서가 완전히 다름(공통 단원 목록 없음). 성취기준만 공통. 예: 화정초 5학년 영어 1학기 1 I’m from Spain ~ 6 What Time Do You Get Up?(단원당 6차시), 6학년 영어 12단원 체제; 5학년 실과 1학기 1 건강한 발달을 위한 실천, 2 동식물과 함께하는 생활, 3 스스로 실천하는 식생활과 의생활(출판사 미확인); 3학년 영어 1 Hello, ABC! ~ 11 It’s Snowing(대청초). 출판사 확정 후 별도 수집 필요",
+    "verified": false
+   }
+  },
+  "4": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 질문을 만들며 책을 읽어요",
+      "standards": [
+       "[4국02-01]",
+       "[4국02-03]"
+      ],
+      "lessons": 9,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 1,
+      "title": "깊이 있게 읽어요",
+      "standards": [
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국05-01]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 2,
+      "title": "서로 다른 의견",
+      "standards": [
+       "[4국01-04]",
+       "[4국01-06]",
+       "[4국02-04]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 3,
+      "title": "자세하게 살펴요",
+      "standards": [
+       "[4국03-02]",
+       "[4국03-05]",
+       "[4국04-01]",
+       "[4국04-02]"
+      ],
+      "lessons": 14,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 인터넷에서 자료를 찾아요",
+      "standards": [
+       "[4국01-05]",
+       "[4국06-02]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 4,
+      "title": "뜻을 파악하며 읽어요",
+      "standards": [
+       "[4국04-03]",
+       "[4국05-03]",
+       "[4국05-04]"
+      ],
+      "lessons": 14,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 5,
+      "title": "말과 글로 전하는 생각",
+      "standards": [
+       "[4국01-04]",
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국04-05]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 6,
+      "title": "경험을 표현해요",
+      "standards": [
+       "[4국01-02]",
+       "[4국02-03]",
+       "[4국05-01]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 생각을 나누며 책을 읽어요",
+      "standards": [
+       "[4국01-06]",
+       "[4국02-04]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 1,
+      "title": "비교하며 읽어요",
+      "standards": [
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4국05-02]",
+       "[4국05-05]"
+      ],
+      "lessons": 14,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 2,
+      "title": "우리말 우리글",
+      "standards": [
+       "[4국02-02]",
+       "[4국03-02]",
+       "[4국04-05]",
+       "[4국06-01]"
+      ],
+      "lessons": 14,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 3,
+      "title": "의견을 모아서",
+      "standards": [
+       "[4국01-06]",
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국04-03]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 자료를 활용하여 발표해요",
+      "standards": [
+       "[4국01-05]",
+       "[4국06-02]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 4,
+      "title": "책 속의 길을 따라",
+      "standards": [
+       "[4국02-03]",
+       "[4국05-03]",
+       "[4국05-05]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 5,
+      "title": "오가는 마음",
+      "standards": [
+       "[4국01-04]",
+       "[4국01-05]",
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국04-05]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     },
+     {
+      "no": 6,
+      "title": "상상의 날개",
+      "standards": [
+       "[4국01-02]",
+       "[4국02-03]",
+       "[4국05-01]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf",
+      "lessons_verified": true
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "바르고 곧은 길",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 2,
+      "title": "도덕적인 나",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 3,
+      "title": "배려하는 우리",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 4,
+      "title": "도덕적인 생활을 위한 탐구",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "바람직한 디지털 사회",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 6,
+      "title": "통일로 가는 한 걸음",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 7,
+      "title": "자연은 소중해요",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 8,
+      "title": "비무장 지대, 평화와 생명의 땅을 지켜요!",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "지도로 만나는 우리 지역",
+      "standards": [
+       "[4사05-01]",
+       "[4사05-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 2,
+      "title": "우리 지역의 국가유산",
+      "standards": [
+       "[4사06-01]",
+       "[4사06-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 3,
+      "title": "경제활동과 지역 간 교류",
+      "standards": [
+       "[4사07-01]",
+       "[4사07-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "민주주의와 자치",
+      "standards": [
+       "[4사08-01]",
+       "[4사08-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 2,
+      "title": "지역문제를 해결하고 지역을 알리는 노력",
+      "standards": [
+       "[4사09-01]",
+       "[4사09-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 3,
+      "title": "다양한 환경과 삶의 모습",
+      "standards": [
+       "[4사10-01]",
+       "[4사10-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "큰 수",
+      "standards": [
+       "[4수01-01]",
+       "[4수01-02]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 2,
+      "title": "각도",
+      "standards": [
+       "[4수03-02]",
+       "[4수03-24]",
+       "[4수03-25]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 3,
+      "title": "곱셈과 나눗셈",
+      "standards": [
+       "[4수01-04]",
+       "[4수01-05]",
+       "[4수01-07]",
+       "[4수01-08]"
+      ],
+      "lessons": 9,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 4,
+      "title": "평면도형의 이동",
+      "standards": [
+       "[4수03-04]",
+       "[4수03-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 5,
+      "title": "막대그래프",
+      "standards": [
+       "[4수04-01]",
+       "[4수04-03]"
+      ],
+      "lessons": 9,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 6,
+      "title": "규칙 찾기",
+      "standards": [
+       "[4수02-01]",
+       "[4수02-02]",
+       "[4수02-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "분수의 덧셈과 뺄셈",
+      "standards": [
+       "[4수01-15]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 2,
+      "title": "삼각형",
+      "standards": [
+       "[4수03-08]",
+       "[4수03-09]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 3,
+      "title": "소수의 덧셈과 뺄셈",
+      "standards": [
+       "[4수01-13]",
+       "[4수01-14]",
+       "[4수01-16]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 4,
+      "title": "사각형",
+      "standards": [
+       "[4수03-03]",
+       "[4수03-10]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 5,
+      "title": "꺾은선그래프",
+      "standards": [
+       "[4수04-02]",
+       "[4수04-03]"
+      ],
+      "lessons": 9,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     },
+     {
+      "no": 6,
+      "title": "다각형",
+      "standards": [
+       "[4수03-11]",
+       "[4수03-12]"
+      ],
+      "lessons": 9,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "lessons_source": "비상 4-1/4-2 학기별 지도 계획 (같은 단원 있을 때만)",
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+      ]
+     }
+    ],
+    "note": "출판사별 순서 차이 큼: 비상 4-1 = 1 큰 수, 2 각도, 3 곱셈과 나눗셈, 4 삼각형, 5 막대그래프, 6 관계와 규칙 / 4-2 = 1 분수의 덧셈과 뺄셈, 2 사각형, 3 소수의 덧셈과 뺄셈, 4 다각형, 5 꺾은선그래프, 6 평면도형의 이동. 화정초(다른 출판사) 4-1 = 1 각도, 2 큰 수, 3 평면도형의 이동, 4 곱셈과 나눗셈, 5 규칙 찾기, 6 막대그래프 / 4-2 = 1 삼각형, 2 분수의 덧셈과 뺄셈, 3 사각형, 4 소수의 덧셈과 뺄셈, 5 다각형, 6 꺾은선그래프. 위 목록은 경기 연결표·대청초 공통 순서"
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "자석의 이용",
+      "standards": [
+       "[4과09-01]",
+       "[4과09-02]",
+       "[4과09-03]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "물의 상태 변화",
+      "standards": [
+       "[4과10-01]",
+       "[4과10-02]",
+       "[4과10-03]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "땅의 변화",
+      "standards": [
+       "[4과11-01]",
+       "[4과11-02]",
+       "[4과11-03]",
+       "[4과11-04]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "다양한 생물과 우리 생활",
+      "standards": [
+       "[4과12-01]",
+       "[4과12-02]",
+       "[4과12-03]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "밤하늘 관찰",
+      "standards": [
+       "[4과13-01]",
+       "[4과13-02]",
+       "[4과13-03]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "생물과 환경",
+      "standards": [
+       "[4과14-01]",
+       "[4과14-02]",
+       "[4과14-03]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "여러 가지 기체",
+      "standards": [
+       "[4과15-01]",
+       "[4과15-02]",
+       "[4과15-03]",
+       "[4과15-04]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "기후 변화와 우리 생활",
+      "standards": [
+       "[4과16-01]",
+       "[4과16-02]",
+       "[4과16-03]"
+      ],
+      "lessons": 11,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ]
+   },
+   "영어·음악·미술·체육·실과": {
+    "note": "검정 교과서로 출판사마다 단원명·순서가 완전히 다름(공통 단원 목록 없음). 성취기준만 공통. 예: 화정초 5학년 영어 1학기 1 I’m from Spain ~ 6 What Time Do You Get Up?(단원당 6차시), 6학년 영어 12단원 체제; 5학년 실과 1학기 1 건강한 발달을 위한 실천, 2 동식물과 함께하는 생활, 3 스스로 실천하는 식생활과 의생활(출판사 미확인); 3학년 영어 1 Hello, ABC! ~ 11 It’s Snowing(대청초). 출판사 확정 후 별도 수집 필요",
+    "verified": false
+   }
+  },
+  "5": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 책을 읽고 함께 이야기해요",
+      "standards": [
+       "[6국02-01]",
+       "[6국02-05]",
+       "[6국05-04]"
+      ],
+      "lessons": 10,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": null,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "경기도교육청 연결표"
+     },
+     {
+      "no": 1,
+      "title": "대화를 나누어요",
+      "standards": [
+       "[6국01-01]",
+       "[6국01-03]"
+      ],
+      "lessons": 13,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": "짐작하며 대화해요",
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "표준 코드는 경기도교육청 연결표(초안 단원명 기준) — 단원 번호 대응으로 매핑, 단원 6은 단원명이 달라 검증 필요"
+     },
+     {
+      "no": 2,
+      "title": "체험한 일을 글로 써요",
+      "standards": [
+       "[6국03-03]",
+       "[6국04-05]"
+      ],
+      "lessons": 14,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": "체험한 일을 써요",
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "표준 코드는 경기도교육청 연결표(초안 단원명 기준) — 단원 번호 대응으로 매핑, 단원 6은 단원명이 달라 검증 필요"
+     },
+     {
+      "no": 3,
+      "title": "발표하고 질문해요",
+      "standards": [
+       "[6국01-03]",
+       "[6국01-05]",
+       "[6국06-01]"
+      ],
+      "lessons": 13,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": "매체로 발표해요",
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "표준 코드는 경기도교육청 연결표(초안 단원명 기준) — 단원 번호 대응으로 매핑, 단원 6은 단원명이 달라 검증 필요"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 필요한 정보를 찾아요",
+      "standards": [
+       "[6국03-02]",
+       "[6국06-01]"
+      ],
+      "lessons": 10,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": null,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "경기도교육청 연결표"
+     },
+     {
+      "no": 4,
+      "title": "대상을 설명해요",
+      "standards": [
+       "[6국02-01]",
+       "[6국03-01]"
+      ],
+      "lessons": 14,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": null,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "경기도교육청 연결표"
+     },
+     {
+      "no": 5,
+      "title": "의논하며 토의해요",
+      "standards": [
+       "[6국01-06]",
+       "[6국02-04]"
+      ],
+      "lessons": 14,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": null,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "경기도교육청 연결표"
+     },
+     {
+      "no": 6,
+      "title": "작품을 즐겨요",
+      "standards": [
+       "[6국05-02]",
+       "[6국05-04]"
+      ],
+      "lessons": 14,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "gyeonggi_draft_title": "빗대어 표현해요",
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "standards_note": "표준 코드는 경기도교육청 연결표(초안 단원명 기준) — 단원 번호 대응으로 매핑, 단원 6은 단원명이 달라 검증 필요",
+      "standards_verified": false
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 여러 가지 형태의 책을 읽어요",
+      "standards": [
+       "[6국02-05]",
+       "[6국06-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 1,
+      "title": "작품에 대한 생각을 나누어요",
+      "standards": [
+       "[6국01-06]",
+       "[6국05-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 2,
+      "title": "올바른 문장으로 글을 써요",
+      "standards": [
+       "[6국03-04]",
+       "[6국04-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 3,
+      "title": "추론하며 읽어요",
+      "standards": [
+       "[6국02-01]",
+       "[6국02-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 평가하며 이용해요",
+      "standards": [
+       "[6국02-03]",
+       "[6국06-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 4,
+      "title": "표준어와 방언을 알아봐요",
+      "standards": [
+       "[6국02-05]",
+       "[6국04-02]",
+       "[6국05-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 5,
+      "title": "의견을 조정하며 문제를 해결해요",
+      "standards": [
+       "[6국01-01]",
+       "[6국01-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 6,
+      "title": "작품을 감상해요",
+      "standards": [
+       "[6국02-02]",
+       "[6국05-03]",
+       "[6국05-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명. 5-1에서 예시자료 단원명과 실제 교과서 단원명이 일부 달랐으므로 실제 5-2 교과서로 재확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "내 삶의 주인이 되는 나",
+      "standards": [
+       "[6도01-01]"
+      ],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 2,
+      "title": "반성과 성찰로 성장하는 나",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 3,
+      "title": "함께 사는 세상, 봉사하는 우리",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 4,
+      "title": "우리 스스로 만드는 따뜻한 세상",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "모두에게 인권을",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 6,
+      "title": "공동체를 정의롭게",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 7,
+      "title": "지구의 내일을 심는 우리",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 8,
+      "title": "우리들의 인공지능 로봇 이야기",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "우리나라 국토 여행",
+      "standards": [
+       "[6사01-01]",
+       "[6사01-02]"
+      ],
+      "lessons": 14,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 2,
+      "title": "우리나라 지리 탐구",
+      "standards": [
+       "[6사02-01]",
+       "[6사02-02]"
+      ],
+      "lessons": 16,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 3,
+      "title": "법과 인권의 보장",
+      "standards": [
+       "[6사03-01]",
+       "[6사03-02]"
+      ],
+      "lessons": 15,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "유적과 유물로 살펴본 옛 사람들의 생활",
+      "standards": [
+       "[6사04-01]",
+       "[6사04-02]",
+       "[6사04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 2,
+      "title": "달라지는 시대, 변화하는 생활 모습",
+      "standards": [
+       "[6사05-01]",
+       "[6사05-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 3,
+      "title": "식민 통치와 저항, 전쟁이 바꾼 사회와 생활",
+      "standards": [
+       "[6사06-01]",
+       "[6사06-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "자연수의 혼합 계산",
+      "standards": [
+       "[6수01-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 2,
+      "title": "약수와 배수",
+      "standards": [
+       "[6수01-04]",
+       "[6수01-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 3,
+      "title": "대응 관계",
+      "standards": [
+       "[6수02-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 4,
+      "title": "약분과 통분",
+      "standards": [
+       "[6수01-06]",
+       "[6수01-07]",
+       "[6수01-12]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 5,
+      "title": "분수의 덧셈과 뺄셈",
+      "standards": [
+       "[6수01-08]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 6,
+      "title": "다각형의 둘레와 넓이",
+      "standards": [
+       "[6수03-11]",
+       "[6수03-12]",
+       "[6수03-13]",
+       "[6수03-14]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "수의 범위와 올림, 버림, 반올림",
+      "standards": [
+       "[6수01-02]",
+       "[6수01-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 2,
+      "title": "분수의 곱셈",
+      "standards": [
+       "[6수01-09]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 3,
+      "title": "합동과 대칭",
+      "standards": [
+       "[6수03-01]",
+       "[6수03-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 4,
+      "title": "소수의 곱셈",
+      "standards": [
+       "[6수01-13]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 5,
+      "title": "직육면체와 정육면체",
+      "standards": [
+       "[6수03-03]",
+       "[6수03-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 6,
+      "title": "평균과 가능성",
+      "standards": [
+       "[6수04-01]",
+       "[6수04-04]",
+       "[6수04-05]",
+       "[6수04-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     }
+    ]
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "지층과 화석",
+      "standards": [
+       "[6과01-01]",
+       "[6과01-02]",
+       "[6과01-03]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "빛의 성질",
+      "standards": [
+       "[6과02-01]",
+       "[6과02-02]",
+       "[6과02-03]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "용해와 용액",
+      "standards": [
+       "[6과03-01]",
+       "[6과03-02]",
+       "[6과03-03]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "우리 몸의 구조와 기능",
+      "standards": [
+       "[6과04-01]",
+       "[6과04-02]",
+       "[6과04-03]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "혼합물의 분리",
+      "standards": [
+       "[6과05-01]",
+       "[6과05-02]",
+       "[6과05-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "날씨와 우리 생활",
+      "standards": [
+       "[6과06-01]",
+       "[6과06-02]",
+       "[6과06-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "열과 우리 생활",
+      "standards": [
+       "[6과07-01]",
+       "[6과07-02]",
+       "[6과07-03]",
+       "[6과07-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "자원과 에너지",
+      "standards": [
+       "[6과08-01]",
+       "[6과08-02]",
+       "[6과08-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ]
+   },
+   "영어·음악·미술·체육·실과": {
+    "note": "검정 교과서로 출판사마다 단원명·순서가 완전히 다름(공통 단원 목록 없음). 성취기준만 공통. 예: 화정초 5학년 영어 1학기 1 I’m from Spain ~ 6 What Time Do You Get Up?(단원당 6차시), 6학년 영어 12단원 체제; 5학년 실과 1학기 1 건강한 발달을 위한 실천, 2 동식물과 함께하는 생활, 3 스스로 실천하는 식생활과 의생활(출판사 미확인); 3학년 영어 1 Hello, ABC! ~ 11 It’s Snowing(대청초). 출판사 확정 후 별도 수집 필요",
+    "verified": false
+   }
+  },
+  "6": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 같은 주제에 대한 책을 읽고 생각을 나누어요",
+      "standards": [
+       "[6국01-06]",
+       "[6국02-05]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 1,
+      "title": "자신의 삶과 관련지어 읽어요",
+      "standards": [
+       "[6국01-03]",
+       "[6국02-05]",
+       "[6국05-06]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "gyeonggi_draft_title": "성찰하며 읽어요",
+      "standards_note": "경기 예시자료 단원명과 달라 내용 대응으로 매핑(검증 필요)",
+      "standards_verified": false,
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 2,
+      "title": "바르게 고쳐 써요",
+      "standards": [
+       "[6국03-06]",
+       "[6국04-04]",
+       "[6국04-06]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 3,
+      "title": "절차를 지키며 토론해요",
+      "standards": [
+       "[6국01-02]",
+       "[6국01-07]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 매체 자료를 만들어요",
+      "standards": [
+       "[6국04-01]",
+       "[6국06-03]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "gyeonggi_draft_title": "매체 자료를 만들어요",
+      "standards_note": "경기 예시자료 단원명과 달라 내용 대응으로 매핑(검증 필요)",
+      "standards_verified": false,
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 4,
+      "title": "상황에 맞게 표현해요",
+      "standards": [
+       "[6국03-03]",
+       "[6국04-03]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "gyeonggi_draft_title": "관용 표현을 이해하고 생각을 표현해요",
+      "standards_note": "경기 예시자료 단원명과 달라 내용 대응으로 매핑(검증 필요)",
+      "standards_verified": false,
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 5,
+      "title": "자신의 글쓰기 과정을 살펴봐요",
+      "standards": [
+       "[6국03-02]",
+       "[6국03-05]",
+       "[6국04-06]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "note": "화정초 계획 순서: 4 상황에 맞게 표현해요 → 5 자신의 글쓰기 과정을 살펴봐요 → 6 비판적으로 읽어요 (경기 예시자료는 4 비판적으로 읽어요, 6 자신의 글쓰기 과정을 살펴봐요)",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 6,
+      "title": "비판적으로 읽어요",
+      "standards": [
+       "[6국02-03]",
+       "[6국02-04]"
+      ],
+      "lessons": null,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "verified": true,
+      "standards_source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 다양한 책을 읽고 문제를 해결해요",
+      "standards": [
+       "[6국02-04]",
+       "[6국03-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 1,
+      "title": "작가의 의도를 파악해요",
+      "standards": [
+       "[6국02-01]",
+       "[6국05-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 2,
+      "title": "궁금한 점을 해결해요",
+      "standards": [
+       "[6국01-03]",
+       "[6국01-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 3,
+      "title": "보거나 듣고 판단해요",
+      "standards": [
+       "[6국01-02]",
+       "[6국02-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 나를 돌아봐요",
+      "standards": [
+       "[6국03-06]",
+       "[6국06-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 4,
+      "title": "우리말의 아름다움을 느껴요",
+      "standards": [
+       "[6국02-02]",
+       "[6국04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 5,
+      "title": "언어의 특성과 독자를 고려하여 소통해요",
+      "standards": [
+       "[6국03-04]",
+       "[6국04-01]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     },
+     {
+      "no": 6,
+      "title": "시와 이야기로 표현해요",
+      "standards": [
+       "[6국03-06]",
+       "[6국05-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "note": "경기도교육청 2026.2 예시자료 단원명; 실제 교과서 확인 필요",
+      "lessons_estimate": "독서·매체 약 10, 본 단원 약 13~14 (5-1 화정초 실측 기준)"
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "나는 꿈 요리사",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": false,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "note": "경기 예시자료에 번호 없이 \"나는 꿈 요리사\"로 표기 — 1단원으로 추정",
+      "note2": "화정초 6학년 계획에서도 3·4·5·6·8단원명 일치 확인",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 2,
+      "title": "다름을 존중하는 우리",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "note2": "화정초 6학년 계획에서도 3·4·5·6·8단원명 일치 확인",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 3,
+      "title": "인공지능 로봇 그리고 나",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "note2": "화정초 6학년 계획에서도 3·4·5·6·8단원명 일치 확인",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 4,
+      "title": "인공지능으로 일하는 미래",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "note2": "화정초 6학년 계획에서도 3·4·5·6·8단원명 일치 확인",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "통일 한반도의 어느 날",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 6,
+      "title": "사랑, 우리를 넘어 세계로",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 7,
+      "title": "우리 모두의 미래를 위한 선택",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     },
+     {
+      "no": 8,
+      "title": "우리가 꿈꾸는 세상을 위하여",
+      "standards": [],
+      "lessons": 4,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "lessons_note": "도덕 34시간/년 ÷ 8단원 ≈ 4차시 (학교 실측 3~4)",
+      "standards_note": "도덕 단원↔성취기준([4도01~04-0X]/[6도01~04-0X]) 매핑 출처 미확보 — 단원 1~2: 자신과의 관계, 3~4: 타인과의 관계(3·4학년)·사회공동체, 5~8: 사회·공동체/자연과의 관계 순으로 배치되는 경향(경기 예시자료 영역 표). 코드 미기재"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "평화 통일을 위한 노력, 민주화와 산업화",
+      "standards": [
+       "[6사07-01]",
+       "[6사07-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 2,
+      "title": "민주주의와 시민 참여",
+      "standards": [
+       "[6사08-01]",
+       "[6사08-02]",
+       "[6사08-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 3,
+      "title": "지구, 대륙 그리고 국가들",
+      "standards": [
+       "[6사09-01]",
+       "[6사09-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "세계의 자연환경",
+      "standards": [
+       "[6사10-01]",
+       "[6사10-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 2,
+      "title": "시장경제와 국가 간 거래",
+      "standards": [
+       "[6사11-01]",
+       "[6사11-02]",
+       "[6사11-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     },
+     {
+      "no": 3,
+      "title": "지구촌 사람들",
+      "standards": [
+       "[6사12-01]",
+       "[6사12-02]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이나 단원 = 성취기준 묶음([4사01]~[4사10], [6사01]~[6사12])이어서 출판사 간 단원 구성이 거의 같음; 단원명 표기 차이 가능(예: 4-1 \"우리 지역의 국가유산\"/\"문화유산\")"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "분수의 나눗셈",
+      "standards": [
+       "[6수01-10]",
+       "[6수01-11]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 2,
+      "title": "각기둥과 각뿔",
+      "standards": [
+       "[6수03-05]",
+       "[6수03-06]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 3,
+      "title": "소수의 나눗셈",
+      "standards": [
+       "[6수01-14]",
+       "[6수01-15]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 4,
+      "title": "비와 비율",
+      "standards": [
+       "[6수02-02]",
+       "[6수02-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 5,
+      "title": "여러 가지 그래프",
+      "standards": [
+       "[6수04-02]",
+       "[6수04-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 6,
+      "title": "직육면체의 겉넓이와 부피",
+      "standards": [
+       "[6수03-17]",
+       "[6수03-18]",
+       "[6수03-19]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "분수의 나눗셈",
+      "standards": [
+       "[6수01-11]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 2,
+      "title": "공간과 입체",
+      "standards": [
+       "[6수03-09]",
+       "[6수03-10]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 3,
+      "title": "소수의 나눗셈",
+      "standards": [
+       "[6수01-15]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 4,
+      "title": "비례식과 비례배분",
+      "standards": [
+       "[6수02-04]",
+       "[6수02-05]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 5,
+      "title": "원의 둘레와 넓이",
+      "standards": [
+       "[6수03-15]",
+       "[6수03-16]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     },
+     {
+      "no": 6,
+      "title": "원기둥, 원뿔, 구",
+      "standards": [
+       "[6수03-07]",
+       "[6수03-08]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "confirmed_by": [
+       "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+      ],
+      "lessons_estimate": "단원당 약 8~15차시 (출판사별 상이; 3~6학년 수학 학기 64~68차시)"
+     }
+    ]
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "산과 염기",
+      "standards": [
+       "[6과09-01]",
+       "[6과09-02]",
+       "[6과09-03]",
+       "[6과09-04]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "물체의 운동",
+      "standards": [
+       "[6과10-01]",
+       "[6과10-02]",
+       "[6과10-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "식물의 구조와 기능",
+      "standards": [
+       "[6과11-01]",
+       "[6과11-02]",
+       "[6과11-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "지구의 운동",
+      "standards": [
+       "[6과12-01]",
+       "[6과12-02]",
+       "[6과12-03]"
+      ],
+      "lessons": null,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "계절의 변화",
+      "standards": [
+       "[6과13-01]",
+       "[6과13-02]",
+       "[6과13-03]"
+      ],
+      "lessons": 12,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 2,
+      "title": "물질의 연소",
+      "standards": [
+       "[6과14-01]",
+       "[6과14-02]",
+       "[6과14-03]",
+       "[6과14-04]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 3,
+      "title": "전기의 이용",
+      "standards": [
+       "[6과15-01]",
+       "[6과15-02]",
+       "[6과15-03]",
+       "[6과15-04]"
+      ],
+      "lessons": 13,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     },
+     {
+      "no": 4,
+      "title": "과학과 나의 진로",
+      "standards": [
+       "[6과16-01]",
+       "[6과16-02]"
+      ],
+      "lessons": 10,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "verified": true,
+      "publisher_variance": "검정이지만 2022 개정 과학은 단원=성취기준 묶음([4과01]~[4과16], [6과01]~[6과16])으로 학년·학기 배치가 출판사 공통; 단원 순서는 일부 출판사에서 다를 수 있음"
+     }
+    ]
+   },
+   "영어·음악·미술·체육·실과": {
+    "note": "검정 교과서로 출판사마다 단원명·순서가 완전히 다름(공통 단원 목록 없음). 성취기준만 공통. 예: 화정초 5학년 영어 1학기 1 I’m from Spain ~ 6 What Time Do You Get Up?(단원당 6차시), 6학년 영어 12단원 체제; 5학년 실과 1학기 1 건강한 발달을 위한 실천, 2 동식물과 함께하는 생활, 3 스스로 실천하는 식생활과 의생활(출판사 미확인); 3학년 영어 1 Hello, ABC! ~ 11 It’s Snowing(대청초). 출판사 확정 후 별도 수집 필요",
+    "verified": false
+   }
+  }
+ },
+ "notes": [
+  "시간 배당은 2년(학년군) 기준, 연간 34주, 1시간=40분. 학교는 교과(군)별 ±20% 증감 가능(체육·예술 감축 불가). 1~2학년 안전교육은 2015의 \"안전한 생활\"(64시간)을 폐지하고 통합교과·창체에 흡수. 정보교육은 실과 정보영역+학교자율시간으로 34시간 이상.",
+  "학교자율시간: 3~6학년 학기별 1주 분량 확보 → 교과서 개발 시 학기 차시를 줄여 개발(예: 비상 수학 3-2는 68 대신 64차시).",
+  "국정: 국어 1~6, 수학 1~2, 통합교과 1~2(주제별 8권/학년), 도덕 3~6. 검정: 사회·수학·과학 3~6, 영어·음악·미술·체육 3~6, 실과 5~6.",
+  "국어 3~6학년은 학기마다 본 단원 1~6 + \"독서 단원\" + \"매체 단원\". 교과서 내 위치는 독서 단원이 학기 첫머리, 매체 단원이 3단원 뒤(학교 진도표 기준).",
+  "5~6학년 국어: 경기도교육청 2026.2 예시자료의 단원명이 실제 교과서와 일부 다름(5-1: 1 짐작하며 대화해요→대화를 나누어요, 2 체험한 일을 써요→체험한 일을 글로 써요, 3 매체로 발표해요→발표하고 질문해요, 6 빗대어 표현해요→작품을 즐겨요; 6-1 순서·명칭도 차이). 1학기는 학교 진도표(실제 교과서 쪽수 포함)로 확정, 2학기(5-2, 6-2)는 예시자료 단원명이라 verified=false.",
+  "\"시각과 시간\": 2022 개정 수학 2학년 2학기 4단원(국정). 성취기준 [2수03-07] 몇 시 몇 분 읽기, [2수03-08] 1시간=60분, [2수03-09] 1분·1시간·1일·1주일·1개월·1년 관계. 1-2 \"3. 모양과 시각\"에서 몇 시·몇 시 30분 도입, 3-1 \"5. 길이와 시간\"에서 초 단위·시간 계산.",
+  "단원↔성취기준 매핑은 경기도교육청 \"성취기준-단원 연결표\"(1~4학년: 2025 3~4학년 2학기 예시자료, 5~6학년: 2026 예시자료)를 PDF 좌표로 자동 파싱한 것. 한 성취기준이 여러 단원에 걸쳐 반복 지도되며, 행 경계 오차로 1~2개 코드가 누락·오배정됐을 수 있음.",
+  "차시(lessons): 학교 진도표의 n/N 표기 또는 출판사 지도 계획에서 읽은 값. 수학·과학·사회는 검정이라 출판사별로 다름. null이면 lessons_estimate 참고.",
+  "수학 3~6학년 단원 순서는 출판사별로 다름(4학년에서 특히 큼, 수학 note 참조). 5~6학년은 경기 예시자료와 화정초(5·6학년) 진도표가 일치.",
+  "통합교과 2022 개정: 1학년 1학기 학교·사람들·우리나라·탐험 / 2학기 하루·약속·상상·이야기; 2학년 1학기 나·자연·마을·세계 / 2학기 계절·인물·물건·기억. 각 주제 책은 바른·슬기·즐거운 생활 차시를 함께 담음. 1학년 1학기 첫머리에 입학 초기 적응활동(창체) 별도.",
+  "1학년 국어 1-1은 \"한글 놀이\"(화정초 34차시) 후 1~7단원; 차시는 화정초 2026 1학년 진도표."
+ ],
+ "sources": [
+  {
+   "id": "chongron",
+   "url": "https://att.pmg.co.kr/FileData/CO/345~356%EC%AA%BD%20%EA%B0%9C%EC%A0%95%EC%82%AC%ED%95%AD(2022%20%EA%B0%9C%EC%A0%95%20%EA%B5%90%EC%9C%A1%EA%B3%BC%EC%A0%95)(1).pdf"
+  },
+  {
+   "id": "goe14",
+   "url": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+  },
+  {
+   "id": "goe34a",
+   "url": "https://www.goe.go.kr/resource/old/BBSMSTR_000000030222/BBS_202503061124157060.pdf"
+  },
+  {
+   "id": "goe56",
+   "url": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+  },
+  {
+   "id": "vs31",
+   "url": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+  },
+  {
+   "id": "vs32",
+   "url": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+  },
+  {
+   "id": "vs41",
+   "url": "https://dn22.vivasam.com/VS/ES/MAT/106395/promo_library/ref_common/초등_수학 4-1_학기별 지도 계획.pdf"
+  },
+  {
+   "id": "vs42",
+   "url": "https://dn22.vivasam.com/VS/ES/MAT/106396/promo_library/ref_common/초등_수학 4-2_학기별 지도 계획.pdf"
+  },
+  {
+   "id": "hj1",
+   "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf"
+  },
+  {
+   "id": "hj4",
+   "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf"
+  },
+  {
+   "id": "hj5",
+   "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+  },
+  {
+   "id": "hj6",
+   "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+  },
+  {
+   "id": "dc3",
+   "url": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+  },
+  {
+   "id": "dc4",
+   "url": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+  },
+  {
+   "id": "puin",
+   "url": "https://www.goebc.kr/upload/puin-e/na/bbs_1400/2025/03/73047915-6BDD-53FD-B78A-4B4D90D17F67.pdf"
+  }
+ ]
+}

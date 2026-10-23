@@ -5486,43 +5486,43 @@
 
 .pc-inline-icon.is-xs,
 .pc-inline-icon.pc-is-xs {
-  width: 16px !important;
-  height: 16px !important;
-  min-width: 16px !important;
-  min-height: 16px !important;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  min-height: 22px !important;
 }
 
 .pc-inline-icon.is-sm,
 .pc-inline-icon.pc-is-sm {
-  width: 20px !important;
-  height: 20px !important;
-  min-width: 20px !important;
-  min-height: 20px !important;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  min-height: 26px !important;
 }
 
 .pc-inline-icon.is-md,
 .pc-inline-icon.pc-is-md,
 .pc-inline-icon:not(.is-xs):not(.is-sm):not(.is-lg):not(.is-xl) {
-  width: 24px !important;
-  height: 24px !important;
-  min-width: 24px !important;
-  min-height: 24px !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
 }
 
 .pc-inline-icon.is-lg,
 .pc-inline-icon.pc-is-lg {
-  width: 32px !important;
-  height: 32px !important;
-  min-width: 32px !important;
-  min-height: 32px !important;
-}
-
-.pc-inline-icon.is-xl,
-.pc-inline-icon.pc-is-xl {
   width: 44px !important;
   height: 44px !important;
   min-width: 44px !important;
   min-height: 44px !important;
+}
+
+.pc-inline-icon.is-xl,
+.pc-inline-icon.pc-is-xl {
+  width: 58px !important;
+  height: 58px !important;
+  min-width: 58px !important;
+  min-height: 58px !important;
 }
 
 /* 3D Papercraft Perforation & Slit Standards */

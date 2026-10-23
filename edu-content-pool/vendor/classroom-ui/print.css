@@ -1,0 +1,111 @@
+/* vendored from all_market/packages/classroom-ui/src/css/print.css @ e531bdff (@edulinker/classroom-ui, MIT) — 원본을 고치고 다시 복사한다. */
+/**
+ * @edulinker/classroom-ui - Print Stylesheet
+ * Optimized for A4 paper and classroom worksheet printing.
+ * Suppresses interactive controls and non-printable backgrounds/shadows.
+ */
+
+@media print {
+  @page {
+    margin: 12mm 10mm;
+    size: A4 portrait;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* Remove interactive buttons and form inputs from paper handouts */
+  .edu-btn,
+  button,
+  input,
+  select,
+  textarea {
+    display: none !important;
+  }
+
+  /*
+   * 범용 인쇄 제외 클래스. 개별 조작 요소를 숨기는 위 규칙만으로는 그것들을
+   * 담은 컨테이너(툴바·패널)가 레이아웃과 여백을 그대로 차지한다. 소비자 쪽
+   * 컨테이너에 이 클래스를 붙이면 인쇄에서 통째로 빠진다 — 학습지 본문(문항·
+   * 지문)은 이 클래스를 붙이지 않으므로 그대로 남는다.
+   */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Worksheet container and card styling */
+  .edu-card,
+  .edu-alert,
+  .edu-table {
+    border: 1px solid #000000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .edu-card {
+    padding: 12px;
+    margin-bottom: 16px;
+  }
+
+  .edu-alert {
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+  /* Print friendly high-contrast tables */
+  .edu-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 16px;
+  }
+
+  .edu-table th,
+  .edu-table td {
+    border: 1px solid #000000 !important;
+    padding: 6px 10px;
+    color: #000000 !important;
+  }
+
+  .edu-table th {
+    background-color: #f0f0f0 !important;
+    font-weight: bold;
+  }
+
+  /* Headings & links */
+  h1, h2, h3, h4, h5, h6 {
+    color: #000000 !important;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  a {
+    color: #000000 !important;
+    text-decoration: underline;
+  }
+
+  /* Worksheet single-page container helper */
+  .edu-worksheet-page {
+    width: 100%;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}

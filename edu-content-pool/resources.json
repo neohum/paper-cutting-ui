@@ -1,0 +1,877 @@
+{
+ "meta": {
+  "checkedOn": "2026-10-24",
+  "source": "웹 조사 에이전트 — HTTP 200·리다이렉트 확인, 로그인·학년 정보는 일부 미검증",
+  "excluded": [
+   "e학습터: SERVICE ENDED 2026-02-28 per KERIS notice (search snippet); host no longer resolves. Do NOT link.",
+   "디지털교과서 (dtbook): responds 200; digitaltextbook.kr does not resolve; current role unverified",
+   "사이언스레벨업: UNVERIFIED - host does not resolve (2026-10-24); KOFAC renamed KOSAC (kosac.re.kr). Use 사이언스올 instead.",
+   "학교체육 포털 (schoolsports.or.kr): UNVERIFIED - host does not resolve"
+  ],
+  "youtubeSearch": "https://www.youtube.com/results?search_query=<URL-encoded query>  (e.g. encodeURIComponent('초등 3학년 과학 자석의 성질')). Verified working 2026-10-24.",
+  "channelSearch": "https://www.youtube.com/@<handle>/search?query=<encoded>  (search within a curated channel - recommended for per-lesson links)",
+  "embedding": [
+   "Privacy-enhanced embed: https://www.youtube-nocookie.com/embed/<VIDEO_ID> (no tracking cookies until play). Since we don't store video IDs, link out instead of embedding search results (search pages cannot be embedded).",
+   "Google Workspace for Education admins usually enforce YouTube Restricted Mode (Strict/Moderate) on managed Chromebooks; non-approved videos may be hidden for students. Teachers can approve videos for their OU. Search links still work but results are filtered.",
+   "Videos marked 'made for kids' disable comments/notifications; embedding may be disabled per video by uploader.",
+   "Prefer opening on teacher screen (TV) rather than student devices for 1-2학년; add target=_blank rel=noopener.",
+   "Search results change over time - label links '검색 결과(변동 가능)'."
+  ]
+ },
+ "sites": [
+  {
+   "id": "s0",
+   "name": "에듀넷·티-클리어",
+   "url": "https://www.edunet.net",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s2",
+   "name": "학습데이터 분석 활용 포털",
+   "url": "https://edupath.kr",
+   "free": true,
+   "login": true,
+   "chromebook": true,
+   "status": "verified: aidtbook.kr shows 'domain changed -> edupath.kr'"
+  },
+  {
+   "id": "s4",
+   "name": "EBS 초등",
+   "url": "https://primary.ebs.co.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s5",
+   "name": "EBS 클립뱅크",
+   "url": "https://clipbank.ebs.co.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "responds (no title parsed) - unverified content"
+  },
+  {
+   "id": "s6",
+   "name": "EBSMath",
+   "url": "https://www.ebsmath.co.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s7",
+   "name": "EBSe",
+   "url": "https://www.ebse.co.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s8",
+   "name": "AI 펭톡",
+   "url": "https://ai.ebs.co.kr",
+   "free": true,
+   "login": true,
+   "chromebook": true,
+   "status": "ai.ebs.co.kr redirects to ai-plus.ebs.co.kr 'EBS 인공지능 DANCHOO+'; direct 펭톡 web URL unverified"
+  },
+  {
+   "id": "s9",
+   "name": "이솦",
+   "url": "https://www.ebssw.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s10",
+   "name": "똑똑! 수학탐험대",
+   "url": "https://www.toctocmath.kr",
+   "free": true,
+   "login": true,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s12",
+   "name": "사이언스올",
+   "url": "https://www.scienceall.com",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s13",
+   "name": "한국과학창의재단",
+   "url": "https://www.kosac.re.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200; kofac.re.kr no longer resolves"
+  },
+  {
+   "id": "s14",
+   "name": "국립중앙과학관",
+   "url": "https://www.science.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s15",
+   "name": "엔트리",
+   "url": "https://playentry.org",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s16",
+   "name": "소프트웨어야 놀자 / SW 중심사회",
+   "url": "https://www.software.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "responds 200"
+  },
+  {
+   "id": "s17",
+   "name": "AI·SW 교육",
+   "url": "https://ai.edunet.net",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s18",
+   "name": "Code.org",
+   "url": "https://code.org",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s19",
+   "name": "띵커벨",
+   "url": "https://www.tkbell.co.kr",
+   "free": false,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s20",
+   "name": "클래스카드",
+   "url": "https://www.classcard.net",
+   "free": false,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s21",
+   "name": "우리말샘",
+   "url": "https://opendict.korean.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s22",
+   "name": "표준국어대사전",
+   "url": "https://stdict.korean.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s23",
+   "name": "국립국어원",
+   "url": "https://www.korean.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s24",
+   "name": "국립어린이청소년도서관",
+   "url": "https://www.nlcy.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200 (name is 국립어린이청소년도서관)"
+  },
+  {
+   "id": "s25",
+   "name": "국토정보플랫폼",
+   "url": "https://map.ngii.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s26",
+   "name": "국토지리정보원 어린이",
+   "url": "https://www.ngii.go.kr/child/main.do",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s27",
+   "name": "우리역사넷",
+   "url": "https://contents.history.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s28",
+   "name": "국가기록원",
+   "url": "https://www.archives.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "main verified 200; dedicated 어린이 page URL unverified (/next/kids/main.do is 404)"
+  },
+  {
+   "id": "s29",
+   "name": "국립중앙박물관",
+   "url": "https://www.museum.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s30",
+   "name": "e뮤지엄",
+   "url": "https://www.emuseum.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s31",
+   "name": "한국민족문화대백과사전",
+   "url": "https://encykorea.aks.ac.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s32",
+   "name": "Chrome Music Lab",
+   "url": "https://musiclab.chromeexperiments.com",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s33",
+   "name": "국립국악원",
+   "url": "https://www.gugak.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200; specific '국악 배우기' sub-URL unverified"
+  },
+  {
+   "id": "s34",
+   "name": "AutoDraw",
+   "url": "https://www.autodraw.com",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s35",
+   "name": "Quick, Draw!",
+   "url": "https://quickdraw.withgoogle.com",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s36",
+   "name": "국립현대미술관",
+   "url": "https://www.mmca.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200; education subpage unverified"
+  },
+  {
+   "id": "s37",
+   "name": "Google Arts & Culture",
+   "url": "https://artsandculture.google.com",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s38",
+   "name": "GeoGebra",
+   "url": "https://www.geogebra.org",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s39",
+   "name": "알지오매스",
+   "url": "https://www.algeomath.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s40",
+   "name": "PhET",
+   "url": "https://phet.colorado.edu/ko/",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s41",
+   "name": "Khan Academy 한국어",
+   "url": "https://ko.khanacademy.org",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s42",
+   "name": "국가건강정보포털",
+   "url": "https://health.kdca.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "responds 200"
+  },
+  {
+   "id": "s43",
+   "name": "스포츠안전재단",
+   "url": "https://www.sportsafety.or.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s45",
+   "name": "학교안전정보센터 / 학교안전지원시스템",
+   "url": "https://www.schoolsafe24.or.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200 (title '학교안전지원시스템')"
+  },
+  {
+   "id": "s46",
+   "name": "안전Dream",
+   "url": "https://www.safe182.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s47",
+   "name": "커리어넷",
+   "url": "https://www.career.go.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  },
+  {
+   "id": "s48",
+   "name": "공공누리",
+   "url": "https://www.kogl.or.kr",
+   "free": true,
+   "login": false,
+   "chromebook": true,
+   "status": "verified 200"
+  }
+ ],
+ "channels": [
+  {
+   "id": "c0",
+   "name": "EBS 키즈",
+   "url": "https://www.youtube.com/@EBSKids",
+   "subjects": "통합교과, 국어, 영어(저학년)"
+  },
+  {
+   "id": "c1",
+   "name": "EBS Learning",
+   "url": "https://www.youtube.com/@EBSLearning",
+   "subjects": "all (EBS 강의)"
+  },
+  {
+   "id": "c2",
+   "name": "EBS ENGLISH (EBSe)",
+   "url": "https://www.youtube.com/@EBSe",
+   "subjects": "영어"
+  },
+  {
+   "id": "c3",
+   "name": "EBSMath",
+   "url": "https://www.youtube.com/@EBS_Math",
+   "subjects": "수학"
+  },
+  {
+   "id": "c4",
+   "name": "EBS 컬렉션 - 사이언스",
+   "url": "https://www.youtube.com/@ebs.science",
+   "subjects": "과학"
+  },
+  {
+   "id": "c5",
+   "name": "EBS Clipbank (EBS 클립뱅크)",
+   "url": "https://www.youtube.com/@EBSClipbank",
+   "subjects": "과학, 사회, 국어"
+  },
+  {
+   "id": "c6",
+   "name": "EBS 지식채널e",
+   "url": "https://www.youtube.com/@ebs_jisike",
+   "subjects": "도덕, 사회 (5-6, teacher preview)"
+  },
+  {
+   "id": "c7",
+   "name": "EBSDocumentary (EBS 다큐)",
+   "url": "https://www.youtube.com/@EBSDocumentary",
+   "subjects": "과학, 사회 (teacher preview)"
+  },
+  {
+   "id": "c8",
+   "name": "EBS 초등 (dedicated channel)",
+   "url": "",
+   "subjects": ""
+  },
+  {
+   "id": "c9",
+   "name": "자이언트 펭TV",
+   "url": "https://www.youtube.com/@giantpengtv",
+   "subjects": "통합교과, 도덕 (entertainment; teacher judgment)"
+  },
+  {
+   "id": "c10",
+   "name": "교육부",
+   "url": "https://www.youtube.com/@%EA%B5%90%EC%9C%A1%EB%B6%80",
+   "subjects": "teacher/policy, 안전"
+  },
+  {
+   "id": "c11",
+   "name": "한국교육학술정보원(KERIS)",
+   "url": "https://www.youtube.com/@keris_in",
+   "subjects": "teacher (에듀넷 tutorials)"
+  },
+  {
+   "id": "c12",
+   "name": "국립국어원",
+   "url": "https://www.youtube.com/channel/UCQEUCVtOyPAozp76V1_Aw0A",
+   "subjects": "국어"
+  },
+  {
+   "id": "c13",
+   "name": "국립한글박물관",
+   "url": "https://www.youtube.com/@National_Hangeul_Museum",
+   "subjects": "국어"
+  },
+  {
+   "id": "c14",
+   "name": "국립어린이청소년도서관",
+   "url": "https://www.youtube.com/@nlcy2006",
+   "subjects": "국어(독서)"
+  },
+  {
+   "id": "c15",
+   "name": "어린이수학동아X어린이과학동아",
+   "url": "https://www.youtube.com/@dongascience",
+   "subjects": "수학, 과학"
+  },
+  {
+   "id": "c16",
+   "name": "국립중앙과학관",
+   "url": "https://www.youtube.com/@sciencemuseumtv",
+   "subjects": "과학"
+  },
+  {
+   "id": "c17",
+   "name": "국립과천과학관",
+   "url": "https://www.youtube.com/@gnsmscience",
+   "subjects": "과학"
+  },
+  {
+   "id": "c18",
+   "name": "국립어린이과학관",
+   "url": "https://www.youtube.com/@2017scijoy",
+   "subjects": "과학(저학년)"
+  },
+  {
+   "id": "c19",
+   "name": "한국과학창의재단(KOSAC)",
+   "url": "https://www.youtube.com/@kosac.offcial",
+   "subjects": "과학, 수학"
+  },
+  {
+   "id": "c20",
+   "name": "YTN 사이언스",
+   "url": "https://www.youtube.com/@YTNSC",
+   "subjects": "과학 (teacher preview)"
+  },
+  {
+   "id": "c21",
+   "name": "ScienceTV",
+   "url": "https://www.youtube.com/@ScienceTV",
+   "subjects": "과학"
+  },
+  {
+   "id": "c22",
+   "name": "국립중앙박물관",
+   "url": "https://www.youtube.com/@nationalmuseumofkorea",
+   "subjects": "사회(역사), 미술"
+  },
+  {
+   "id": "c23",
+   "name": "국립민속박물관",
+   "url": "https://www.youtube.com/@tnfmk",
+   "subjects": "사회, 통합교과"
+  },
+  {
+   "id": "c24",
+   "name": "국립민속박물관 어린이박물관",
+   "url": "https://www.youtube.com/@nfmk_kids",
+   "subjects": "통합교과, 사회"
+  },
+  {
+   "id": "c25",
+   "name": "국사편찬위원회",
+   "url": "https://www.youtube.com/@nationalinstituteofkoreanh6654",
+   "subjects": "사회(역사)"
+  },
+  {
+   "id": "c26",
+   "name": "국가기록원 기록온",
+   "url": "https://www.youtube.com/@NAK.archiveson",
+   "subjects": "사회(역사)"
+  },
+  {
+   "id": "c27",
+   "name": "국토지리정보원",
+   "url": "https://www.youtube.com/channel/UCfDAwZchZ6yXGOsMj8gPfXQ",
+   "subjects": "사회(지도)"
+  },
+  {
+   "id": "c28",
+   "name": "국립국악원 National Gugak Center",
+   "url": "https://www.youtube.com/@gugak1951",
+   "subjects": "음악(국악)"
+  },
+  {
+   "id": "c29",
+   "name": "국악방송 TV",
+   "url": "https://www.youtube.com/@gugakTV",
+   "subjects": "음악(국악)"
+  },
+  {
+   "id": "c30",
+   "name": "국립현대미술관 MMCA",
+   "url": "https://www.youtube.com/@mmcakorea",
+   "subjects": "미술"
+  },
+  {
+   "id": "c31",
+   "name": "Google Arts & Culture",
+   "url": "https://www.youtube.com/@googlearts",
+   "subjects": "미술"
+  },
+  {
+   "id": "c32",
+   "name": "핑크퐁 (인기 동요・동화)",
+   "url": "https://www.youtube.com/@%ED%95%91%ED%81%AC%ED%90%81",
+   "subjects": "통합교과, 음악(저학년)"
+  },
+  {
+   "id": "c33",
+   "name": "Pinkfong Baby Shark - Kids' Songs & Stories",
+   "url": "https://www.youtube.com/@Pinkfong",
+   "subjects": "영어(3-4)"
+  },
+  {
+   "id": "c34",
+   "name": "Super Simple Songs",
+   "url": "https://www.youtube.com/@SuperSimpleSongs",
+   "subjects": "영어(3-4)"
+  },
+  {
+   "id": "c35",
+   "name": "Crash Course Kids",
+   "url": "https://www.youtube.com/@crashcoursekids",
+   "subjects": "과학(영어 자막)"
+  },
+  {
+   "id": "c36",
+   "name": "SciShow Kids",
+   "url": "https://www.youtube.com/@SciShowKids",
+   "subjects": "과학/영어"
+  },
+  {
+   "id": "c37",
+   "name": "Nat Geo Kids",
+   "url": "https://www.youtube.com/@natgeokids",
+   "subjects": "과학, 사회"
+  },
+  {
+   "id": "c38",
+   "name": "엔트리 공식 채널",
+   "url": "https://www.youtube.com/@playentry",
+   "subjects": "실과(정보)"
+  },
+  {
+   "id": "c39",
+   "name": "Khan Academy Korean",
+   "url": "https://www.youtube.com/@KhanAcademyKorean",
+   "subjects": "수학"
+  },
+  {
+   "id": "c40",
+   "name": "질병관리청 아프지마TV",
+   "url": "https://www.youtube.com/@KDCAkorea",
+   "subjects": "체육(건강), 실과"
+  },
+  {
+   "id": "c41",
+   "name": "스포츠안전재단",
+   "url": "https://www.youtube.com/channel/UCY9gN3a_NnjdGy1tSJvPMFQ",
+   "subjects": "체육"
+  },
+  {
+   "id": "c42",
+   "name": "행정안전부 안전한TV",
+   "url": "https://www.youtube.com/@safeppy",
+   "subjects": "안전한 생활, 실과"
+  },
+  {
+   "id": "c43",
+   "name": "저작권TV (한국저작권위원회)",
+   "url": "https://www.youtube.com/@koreacopyright",
+   "subjects": "도덕, 실과(정보윤리)"
+  }
+ ],
+ "subjectSites": {
+  "국어": [
+   "s0",
+   "s4",
+   "s21",
+   "s22",
+   "s23",
+   "s24",
+   "s19",
+   "s20"
+  ],
+  "수학": [
+   "s10",
+   "s6",
+   "s39",
+   "s38",
+   "s41",
+   "s40",
+   "s4"
+  ],
+  "사회": [
+   "s25",
+   "s26",
+   "s27",
+   "s28",
+   "s29",
+   "s30",
+   "s31",
+   "s37"
+  ],
+  "과학": [
+   "s12",
+   "s14",
+   "s40",
+   "s5",
+   "s13"
+  ],
+  "도덕": [
+   "s0",
+   "s4",
+   "s46",
+   "s28",
+   "s47"
+  ],
+  "영어": [
+   "s7",
+   "s8",
+   "s20",
+   "s2"
+  ],
+  "실과": [
+   "s15",
+   "s9",
+   "s18",
+   "s17",
+   "s16",
+   "s35",
+   "s34",
+   "s42",
+   "s47",
+   "s45",
+   "s0"
+  ],
+  "음악": [
+   "s32",
+   "s33",
+   "s4"
+  ],
+  "미술": [
+   "s36",
+   "s37",
+   "s30",
+   "s34",
+   "s29"
+  ],
+  "체육": [
+   "s43",
+   "s42",
+   "s45"
+  ],
+  "바른 생활": [
+   "s4",
+   "s32",
+   "s34",
+   "s24",
+   "s45",
+   "s19",
+   "s46"
+  ],
+  "슬기로운 생활": [
+   "s4",
+   "s32",
+   "s34",
+   "s24",
+   "s45",
+   "s19",
+   "s12",
+   "s26"
+  ],
+  "즐거운 생활": [
+   "s4",
+   "s32",
+   "s34",
+   "s24",
+   "s45",
+   "s19"
+  ]
+ },
+ "subjectChannels": {
+  "국어": [
+   "c0",
+   "c5",
+   "c12",
+   "c13"
+  ],
+  "수학": [
+   "c3",
+   "c15",
+   "c19",
+   "c39"
+  ],
+  "사회": [
+   "c5",
+   "c6",
+   "c7",
+   "c22"
+  ],
+  "과학": [
+   "c4",
+   "c5",
+   "c7",
+   "c15"
+  ],
+  "도덕": [
+   "c6",
+   "c9",
+   "c43"
+  ],
+  "영어": [
+   "c0",
+   "c2",
+   "c33",
+   "c34"
+  ],
+  "실과": [
+   "c38",
+   "c40",
+   "c42",
+   "c43"
+  ],
+  "음악": [
+   "c28",
+   "c29",
+   "c32"
+  ],
+  "미술": [
+   "c22",
+   "c30",
+   "c31"
+  ],
+  "체육": [
+   "c40",
+   "c41"
+  ],
+  "바른 생활": [
+   "c0",
+   "c9",
+   "c18",
+   "c23"
+  ],
+  "슬기로운 생활": [
+   "c0",
+   "c9",
+   "c18",
+   "c23"
+  ],
+  "즐거운 생활": [
+   "c0",
+   "c9",
+   "c18",
+   "c23"
+  ]
+ }
+}

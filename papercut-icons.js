@@ -11,6 +11,20 @@
   // Global icon registry (619 Standalone Layered Paper-Cut Icons)
   window.PAPERCUT_ICONS = [
   {
+    "id": "newspaper",
+    "nameKo": "빈티지 신문",
+    "nameEn": "Vintage Newspaper",
+    "category": "ui",
+    "tags": [
+      "newspaper",
+      "news",
+      "press",
+      "article",
+      "newsprint"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-newspaper\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-newspaper-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-newspaper-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-newspaper-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><rect x=\"10\" y=\"14\" width=\"40\" height=\"38\" rx=\"3\" fill=\"#D9C9B4\" data-layer=\"base\" filter=\"url(#ps-newspaper-base)\"/><rect x=\"14\" y=\"10\" width=\"40\" height=\"38\" rx=\"3\" fill=\"#FAF6ED\" data-layer=\"base\" filter=\"url(#ps-newspaper-base)\"/><rect x=\"18\" y=\"15\" width=\"32\" height=\"5\" rx=\"1.5\" fill=\"#3D352E\" data-layer=\"mid\" filter=\"url(#ps-newspaper-mid)\"/><rect x=\"18\" y=\"23\" width=\"14\" height=\"12\" rx=\"2\" fill=\"#FEE396\" data-layer=\"mid\" filter=\"url(#ps-newspaper-mid)\"/><circle cx=\"25\" cy=\"29\" r=\"3.5\" fill=\"#F7BA9E\" data-layer=\"top\" filter=\"url(#ps-newspaper-top)\"/><rect x=\"35\" y=\"23\" width=\"15\" height=\"2.5\" rx=\"1\" fill=\"#7A695A\" data-layer=\"top\" filter=\"url(#ps-newspaper-top)\"/><rect x=\"35\" y=\"28\" width=\"15\" height=\"2.5\" rx=\"1\" fill=\"#7A695A\" data-layer=\"top\" filter=\"url(#ps-newspaper-top)\"/><rect x=\"35\" y=\"33\" width=\"11\" height=\"2.5\" rx=\"1\" fill=\"#7A695A\" data-layer=\"top\" filter=\"url(#ps-newspaper-top)\"/><rect x=\"18\" y=\"38\" width=\"32\" height=\"2.5\" rx=\"1\" fill=\"#7A695A\" data-layer=\"top\" filter=\"url(#ps-newspaper-top)\"/><rect x=\"18\" y=\"43\" width=\"26\" height=\"2.5\" rx=\"1\" fill=\"#7A695A\" data-layer=\"top\" filter=\"url(#ps-newspaper-top)\"/></svg>"
+  },
+  {
     "id": "home",
     "nameKo": "홈 & 코티지",
     "nameEn": "Home & Cottage",
