@@ -1,0 +1,385 @@
+/* vendored from all_market/packages/classroom-ui/src/css/exam.css @ e531bdff (@edulinker/classroom-ui, MIT) — 원본을 고치고 다시 복사한다. */
+/**
+ * @edulinker/classroom-ui - Exam & Worksheet Stylesheet
+ * Optimized for paper handouts, diagnostic tests, and classroom exam printing (A4 standard).
+ * Supports 1-column / 2-column layouts, passage boxes, choice markers, and @media print.
+ */
+
+:root {
+  --exam-paper-width: 210mm;
+  --exam-paper-height: 297mm;
+  --exam-margin-top: 15mm;
+  --exam-margin-bottom: 15mm;
+  --exam-margin-left: 14mm;
+  --exam-margin-right: 14mm;
+  --exam-font-family: "KoPubBatang", "Batang", "함초롬바탕", "Nanum Myeongjo", serif;
+  --exam-line-height: 1.65;
+  --exam-q-gap: 20px;
+}
+
+/* ==========================================================================
+   1. 전체 시험지/학습지 시트 컨테이너
+   ========================================================================== */
+.edu-exam-sheet {
+  font-family: var(--exam-font-family);
+  color: #111827;
+  background-color: #ffffff;
+  line-height: var(--exam-line-height);
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: var(--exam-margin-top) var(--exam-margin-right) var(--exam-margin-bottom) var(--exam-margin-left);
+  width: 100%;
+  max-width: var(--exam-paper-width);
+  min-height: var(--exam-paper-height);
+  position: relative;
+  word-break: keep-all;
+}
+
+/* 에디터 프리뷰 환경에서의 종이 느낌 그림자 */
+.edu-exam-preview-frame {
+  background-color: #f1f5f9;
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.edu-exam-preview-frame .edu-exam-sheet {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.12), 0 2px 6px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+}
+
+/* ==========================================================================
+   2. 시험지/학습지 머리말 (Header)
+   ========================================================================== */
+.edu-exam-header {
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.edu-exam-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.edu-exam-org-badge {
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+  letter-spacing: -0.01em;
+}
+
+.edu-exam-title-group {
+  text-align: center;
+  flex: 1;
+}
+
+.edu-exam-main-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #0f172a;
+}
+
+.edu-exam-sub-title {
+  font-size: 13px;
+  color: #64748b;
+  margin-top: 2px;
+  font-weight: 500;
+}
+
+.edu-exam-meta-table {
+  border-collapse: collapse;
+  margin-top: 6px;
+  width: 100%;
+}
+
+.edu-exam-meta-table th,
+.edu-exam-meta-table td {
+  border: 1px solid #334155;
+  padding: 4px 8px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.edu-exam-meta-table th {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #1e293b;
+  width: 65px;
+}
+
+.edu-exam-meta-table td {
+  min-width: 50px;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   3. 다단 컬럼 레이아웃 (1단 / 2단)
+   ========================================================================== */
+.edu-exam-cols-2 {
+  column-count: 2;
+  column-gap: 12mm;
+  column-rule: 1px solid #cbd5e1;
+}
+
+.edu-exam-cols-1 {
+  column-count: 1;
+}
+
+@media (max-width: 640px) {
+  .edu-exam-cols-2 {
+    column-count: 1;
+  }
+}
+
+/* ==========================================================================
+   4. 개별 문항 (Question Block)
+   ========================================================================== */
+.edu-exam-q {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  margin-bottom: var(--exam-q-gap);
+  display: block;
+  font-size: 13.5px;
+}
+
+.edu-exam-q-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+.edu-exam-q-num {
+  font-weight: 800;
+  font-size: 15px;
+  color: #0f172a;
+  white-space: nowrap;
+}
+
+.edu-exam-q-pts {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.edu-exam-q-text {
+  font-weight: 600;
+  color: #0f172a;
+  flex: 1;
+}
+
+/* ==========================================================================
+   5. 지문 및 보기 박스 (Passage / Materials)
+   ========================================================================== */
+.edu-exam-passage {
+  border: 1px solid #475569;
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin: 8px 0 12px 0;
+  background-color: #f8fafc;
+  font-size: 12.5px;
+  line-height: 1.6;
+  position: relative;
+  break-inside: avoid;
+}
+
+.edu-exam-passage-title {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 11.5px;
+  color: #1e293b;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 2px;
+}
+
+/* ==========================================================================
+   6. 객관식 보기 목록 (Multiple Choices)
+   ========================================================================== */
+.edu-exam-choices {
+  margin: 8px 0 4px 0;
+  padding-left: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 13px;
+}
+
+.edu-exam-choices-horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+}
+
+.edu-exam-choice {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  line-height: 1.4;
+}
+
+.edu-exam-choice-marker {
+  font-weight: 700;
+  color: #0f172a;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 16px;
+}
+
+.edu-exam-choice-text {
+  color: #1e293b;
+}
+
+/* ==========================================================================
+   7. 주관식 / 서술형 답안란 (Short Answer & Essay)
+   ========================================================================== */
+.edu-exam-blank-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 10px 0 6px 0;
+  font-size: 13px;
+}
+
+.edu-exam-blank-label {
+  font-weight: 700;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.edu-exam-blank-underline {
+  flex: 1;
+  border-bottom: 1px solid #475569;
+  min-height: 22px;
+}
+
+.edu-exam-essay-box {
+  border: 1px dashed #64748b;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0 6px 0;
+  min-height: 70px;
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.edu-exam-essay-hint {
+  font-size: 11px;
+  color: #94a3b8;
+  text-align: right;
+}
+
+/* ==========================================================================
+   8. 하단 빠른 정답 마킹표 (Quick Answer Sheet)
+   ========================================================================== */
+.edu-exam-answer-sheet {
+  border: 1px solid #0f172a;
+  border-collapse: collapse;
+  margin-top: 24px;
+  width: 100%;
+  font-size: 11px;
+  text-align: center;
+  break-inside: avoid;
+}
+
+.edu-exam-answer-sheet th,
+.edu-exam-answer-sheet td {
+  border: 1px solid #0f172a;
+  padding: 4px 2px;
+}
+
+.edu-exam-answer-sheet th {
+  background-color: #f1f5f9;
+  font-weight: 700;
+}
+
+.edu-exam-answer-sheet td {
+  height: 20px;
+}
+
+/* ==========================================================================
+   9. 시험지 꼬리말 (Footer)
+   ========================================================================== */
+.edu-exam-footer {
+  margin-top: 24px;
+  padding-top: 8px;
+  border-top: 1px solid #cbd5e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #64748b;
+  break-inside: avoid;
+}
+
+.edu-exam-page-num {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ==========================================================================
+   10. @media print - A4 출력 최적화
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm 10mm;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .edu-exam-preview-frame {
+    background: #ffffff !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .edu-exam-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  .edu-exam-passage {
+    background: transparent !important;
+    border: 1px solid #000000 !important;
+  }
+
+  .edu-exam-meta-table th,
+  .edu-exam-meta-table td,
+  .edu-exam-answer-sheet th,
+  .edu-exam-answer-sheet td {
+    border-color: #000000 !important;
+  }
+
+  .edu-exam-meta-table th,
+  .edu-exam-answer-sheet th {
+    background-color: #f2f2f2 !important;
+  }
+
+  .edu-exam-cols-2 {
+    column-rule: 1px solid #000000 !important;
+  }
+}

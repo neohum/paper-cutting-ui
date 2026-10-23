@@ -1,0 +1,4721 @@
+{
+ "meta": {
+  "builtBy": "import-units.mjs",
+  "researchedOn": "2026-10-24",
+  "note": "국정(국어·1~2 수학·통합교과·도덕)은 교과서 단원 확인, 사회·과학·3~6 수학은 검정이지만 성취기준 묶음 단원이라 출판사 간 공통(명칭 일부 차이). 5-2·6-2 국어는 예시자료 단원명(verified=false). 영어·음악·미술·체육·실과는 공통 단원 목록이 없어 제외.",
+  "sources": [
+   {
+    "id": "chongron",
+    "url": "https://att.pmg.co.kr/FileData/CO/345~356%EC%AA%BD%20%EA%B0%9C%EC%A0%95%EC%82%AC%ED%95%AD(2022%20%EA%B0%9C%EC%A0%95%20%EA%B5%90%EC%9C%A1%EA%B3%BC%EC%A0%95)(1).pdf"
+   },
+   {
+    "id": "goe14",
+    "url": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+   },
+   {
+    "id": "goe34a",
+    "url": "https://www.goe.go.kr/resource/old/BBSMSTR_000000030222/BBS_202503061124157060.pdf"
+   },
+   {
+    "id": "goe56",
+    "url": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+   },
+   {
+    "id": "vs31",
+    "url": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+   },
+   {
+    "id": "vs32",
+    "url": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+   },
+   {
+    "id": "vs41",
+    "url": "https://dn22.vivasam.com/VS/ES/MAT/106395/promo_library/ref_common/초등_수학 4-1_학기별 지도 계획.pdf"
+   },
+   {
+    "id": "vs42",
+    "url": "https://dn22.vivasam.com/VS/ES/MAT/106396/promo_library/ref_common/초등_수학 4-2_학기별 지도 계획.pdf"
+   },
+   {
+    "id": "hj1",
+    "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_a0255d24-5284-4670-ac71-d1a5565856e51778226372150.pdf"
+   },
+   {
+    "id": "hj4",
+    "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_5bbda22d-48fa-4ddc-adc3-b7ed5f4faf3b1778226461006.pdf"
+   },
+   {
+    "id": "hj5",
+    "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+   },
+   {
+    "id": "hj6",
+    "url": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf"
+   },
+   {
+    "id": "dc3",
+    "url": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+   },
+   {
+    "id": "dc4",
+    "url": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+   },
+   {
+    "id": "puin",
+    "url": "https://www.goebc.kr/upload/puin-e/na/bbs_1400/2025/03/73047915-6BDD-53FD-B78A-4B4D90D17F67.pdf"
+   }
+  ]
+ },
+ "hours": {
+  "1-2": {
+   "국어": 482,
+   "수학": 256,
+   "통합교과": 768
+  },
+  "3-4": {
+   "국어": 408,
+   "사회": 204,
+   "도덕": 68,
+   "수학": 272,
+   "과학": 204,
+   "체육": 204,
+   "음악": 136,
+   "미술": 136,
+   "영어": 136
+  },
+  "5-6": {
+   "국어": 408,
+   "사회": 204,
+   "도덕": 68,
+   "수학": 272,
+   "과학": 204,
+   "실과": 136,
+   "체육": 204,
+   "음악": 136,
+   "미술": 136,
+   "영어": 204
+  }
+ },
+ "grades": {
+  "1": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "0",
+      "title": "한글 놀이",
+      "standards": [
+       "[2국01-03]",
+       "[2국02-05]",
+       "[2국04-01]"
+      ],
+      "lessons": 34,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 1,
+      "title": "글자를 만들어요",
+      "standards": [
+       "[2국02-01]",
+       "[2국02-05]",
+       "[2국04-01]",
+       "[2수01-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "받침이 있는 글자를 읽어요",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-01]",
+       "[2국04-01]",
+       "[2수03-01]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "낱말과 친해져요",
+      "standards": [
+       "[2국02-01]",
+       "[2국03-01]",
+       "[2국04-01]",
+       "[2수01-05]",
+       "[2수01-06]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "여러 가지 낱말을 익혀요",
+      "standards": [
+       "[2국02-01]",
+       "[2국05-01]",
+       "[2국06-01]",
+       "[2수03-06]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 5,
+      "title": "반갑게 인사해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-05]",
+       "[2국02-05]",
+       "[2국04-02]",
+       "[2수01-01]",
+       "[2수01-03]",
+       "[2수01-04]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 6,
+      "title": "또박또박 읽어요",
+      "standards": [
+       "[2국02-02]",
+       "[2국04-03]",
+       "[2국05-02]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 7,
+      "title": "알맞은 낱말을 찾아요",
+      "standards": [
+       "[2국03-02]",
+       "[2국04-03]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "기분을 말해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국03-02]",
+       "[2국05-01]",
+       "[2수01-01]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "낱말을 정확하게 읽어요",
+      "standards": [
+       "[2국02-01]",
+       "[2국02-03]",
+       "[2국03-01]",
+       "[2국04-02]",
+       "[2국05-01]",
+       "[2수01-03]",
+       "[2수01-05]",
+       "[2수01-08]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "그림일기를 써요",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-04]",
+       "[2국06-02]",
+       "[2수03-03]",
+       "[2수03-07]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "감동을 나누어요",
+      "standards": [
+       "[2국01-01]",
+       "[2국05-02]",
+       "[2국06-01]",
+       "[2수01-05]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 5,
+      "title": "생각을 키워요",
+      "standards": [
+       "[2국02-05]",
+       "[2국04-02]",
+       "[2국05-02]",
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 6,
+      "title": "문장을 읽고 써요",
+      "standards": [
+       "[2국02-02]",
+       "[2국03-02]",
+       "[2국04-03]",
+       "[2국05-04]",
+       "[2수01-05]"
+      ],
+      "lessons": 16,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 7,
+      "title": "무엇이 중요할까요",
+      "standards": [
+       "[2국01-01]",
+       "[2국02-03]",
+       "[2국03-04]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 8,
+      "title": "느끼고 표현해요",
+      "standards": [
+       "[2국05-02]",
+       "[2국05-03]",
+       "[2국05-04]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "9까지의 수",
+      "standards": [
+       "[2국02-01]",
+       "[2국02-05]",
+       "[2국04-01]",
+       "[2수01-01]",
+       "[2수01-03]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "여러 가지 모양",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-01]",
+       "[2국04-01]",
+       "[2수03-01]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "덧셈과 뺄셈",
+      "standards": [
+       "[2국02-01]",
+       "[2국03-01]",
+       "[2국04-01]",
+       "[2수01-05]",
+       "[2수01-06]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "비교하기",
+      "standards": [
+       "[2국02-01]",
+       "[2국05-01]",
+       "[2국06-01]",
+       "[2수03-06]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "50까지의 수",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-05]",
+       "[2국02-05]",
+       "[2국04-02]",
+       "[2수01-01]",
+       "[2수01-03]",
+       "[2수01-04]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "100까지의 수",
+      "standards": [
+       "[2국01-02]",
+       "[2국03-02]",
+       "[2수01-01]",
+       "[2수01-03]",
+       "[2수01-04]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "덧셈과 뺄셈(1)",
+      "standards": [
+       "[2국02-01]",
+       "[2국02-03]",
+       "[2국03-01]",
+       "[2국04-02]",
+       "[2국05-01]",
+       "[2수01-03]",
+       "[2수01-05]",
+       "[2수01-08]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "모양과 시각",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-04]",
+       "[2국06-02]",
+       "[2수03-03]",
+       "[2수03-07]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "덧셈과 뺄셈(2)",
+      "standards": [
+       "[2국01-01]",
+       "[2국05-02]",
+       "[2국06-01]",
+       "[2수01-05]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "규칙 찾기",
+      "standards": [
+       "[2국02-05]",
+       "[2국04-02]",
+       "[2국05-02]",
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "덧셈과 뺄셈(3)",
+      "standards": [
+       "[2국02-02]",
+       "[2국03-02]",
+       "[2국04-03]",
+       "[2국05-04]",
+       "[2수01-05]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "통합교과": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "학교",
+      "standards": [
+       "[2국02-01]",
+       "[2국02-05]",
+       "[2국04-01]",
+       "[2수01-03]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "사람들",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-01]",
+       "[2국04-01]",
+       "[2수03-01]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "우리나라",
+      "standards": [
+       "[2국02-01]",
+       "[2국03-01]",
+       "[2국04-01]",
+       "[2수01-05]",
+       "[2수01-06]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "탐험",
+      "standards": [
+       "[2국02-01]",
+       "[2국05-01]",
+       "[2국06-01]",
+       "[2수03-06]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "하루",
+      "standards": [
+       "[2국02-05]",
+       "[2국04-02]",
+       "[2국05-02]",
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "약속",
+      "standards": [
+       "[2국02-02]",
+       "[2국03-02]",
+       "[2국04-03]",
+       "[2국05-04]",
+       "[2수01-05]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 7,
+      "title": "상상",
+      "standards": [
+       "[2국01-01]",
+       "[2국02-03]",
+       "[2국03-04]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 8,
+      "title": "이야기",
+      "standards": [
+       "[2국05-02]",
+       "[2국05-03]",
+       "[2국05-04]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   }
+  },
+  "2": {
+   "국어": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "만나서 반가워요!",
+      "standards": [
+       "[2국01-03]",
+       "[2국01-04]",
+       "[2국03-03]",
+       "[2수01-02]",
+       "[2수01-03]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "말의 재미가 솔솔",
+      "standards": [
+       "[2국02-05]",
+       "[2국03-02]",
+       "[2국05-01]",
+       "[2수03-02]",
+       "[2수03-03]",
+       "[2수03-04]",
+       "[2수03-05]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "겪은 일을 나타내요",
+      "standards": [
+       "[2국03-02]",
+       "[2국03-04]",
+       "[2국04-03]",
+       "[2수01-05]",
+       "[2수01-06]",
+       "[2수01-07]",
+       "[2수01-08]",
+       "[2수01-09]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "분위기를 살려 읽어요",
+      "standards": [
+       "[2국02-02]",
+       "[2국04-02]",
+       "[2국05-01]",
+       "[2수03-06]",
+       "[2수03-10]",
+       "[2수03-12]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "마음을 짐작해요",
+      "standards": [
+       "[2국02-02]",
+       "[2국02-04]",
+       "[2국04-02]",
+       "[2수04-01]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "자신의 생각을 표현해요",
+      "standards": [
+       "[2국02-03]",
+       "[2국02-04]",
+       "[2국05-02]",
+       "[2국06-02]",
+       "[2수01-10]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 7,
+      "title": "마음을 담아서 말해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-04]",
+       "[2국01-05]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 8,
+      "title": "다양한 작품을 감상해요",
+      "standards": [
+       "[2국01-05]",
+       "[2국05-02]",
+       "[2국05-03]",
+       "[2국06-01]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "장면을 상상하며",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-02]",
+       "[2국05-01]",
+       "[2국05-02]",
+       "[2수01-02]",
+       "[2수01-03]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "서로 존중해요",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-03]",
+       "[2국02-04]",
+       "[2수01-11]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "내용을 살펴요",
+      "standards": [
+       "[2국02-03]",
+       "[2국03-03]",
+       "[2국03-04]",
+       "[2수03-10]",
+       "[2수03-11]",
+       "[2수03-12]",
+       "[2수03-13]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "마음을 전해요",
+      "standards": [
+       "[2국01-04]",
+       "[2국04-03]",
+       "[2국05-03]",
+       "[2수03-07]",
+       "[2수03-08]",
+       "[2수03-09]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "바른 말로 이야기 나누어요",
+      "standards": [
+       "[2국01-01]",
+       "[2국01-02]",
+       "[2국02-03]",
+       "[2국04-02]",
+       "[2수04-02]",
+       "[2수04-03]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "매체를 경험해요",
+      "standards": [
+       "[2국03-04]",
+       "[2국06-01]",
+       "[2국06-02]",
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 7,
+      "title": "내 생각은 이래요",
+      "standards": [
+       "[2국01-04]",
+       "[2국02-03]",
+       "[2국03-04]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 8,
+      "title": "나도 작가",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-02]",
+       "[2국05-02]",
+       "[2국06-01]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "세 자리 수",
+      "standards": [
+       "[2국01-03]",
+       "[2국01-04]",
+       "[2국03-03]",
+       "[2수01-02]",
+       "[2수01-03]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "여러 가지 도형",
+      "standards": [
+       "[2국02-05]",
+       "[2국03-02]",
+       "[2국05-01]",
+       "[2수03-02]",
+       "[2수03-03]",
+       "[2수03-04]",
+       "[2수03-05]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "덧셈과 뺄셈",
+      "standards": [
+       "[2국03-02]",
+       "[2국03-04]",
+       "[2국04-03]",
+       "[2수01-05]",
+       "[2수01-06]",
+       "[2수01-07]",
+       "[2수01-08]",
+       "[2수01-09]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "길이 재기",
+      "standards": [
+       "[2국02-02]",
+       "[2국04-02]",
+       "[2국05-01]",
+       "[2수03-06]",
+       "[2수03-10]",
+       "[2수03-12]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "분류하기",
+      "standards": [
+       "[2국02-02]",
+       "[2국02-04]",
+       "[2국04-02]",
+       "[2수04-01]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "곱셈",
+      "standards": [
+       "[2국02-03]",
+       "[2국02-04]",
+       "[2국05-02]",
+       "[2국06-02]",
+       "[2수01-10]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "네 자리 수",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-02]",
+       "[2국05-01]",
+       "[2국05-02]",
+       "[2수01-02]",
+       "[2수01-03]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "곱셈구구",
+      "standards": [
+       "[2국01-02]",
+       "[2국01-03]",
+       "[2국02-04]",
+       "[2수01-11]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "길이 재기",
+      "standards": [
+       "[2국02-03]",
+       "[2국03-03]",
+       "[2국03-04]",
+       "[2수03-10]",
+       "[2수03-11]",
+       "[2수03-12]",
+       "[2수03-13]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "시각과 시간",
+      "standards": [
+       "[2국01-04]",
+       "[2국04-03]",
+       "[2국05-03]",
+       "[2수03-07]",
+       "[2수03-08]",
+       "[2수03-09]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "표와 그래프",
+      "standards": [
+       "[2국01-01]",
+       "[2국01-02]",
+       "[2국02-03]",
+       "[2국04-02]",
+       "[2수04-02]",
+       "[2수04-03]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "규칙 찾기",
+      "standards": [
+       "[2국03-04]",
+       "[2국06-01]",
+       "[2국06-02]",
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "통합교과": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "나",
+      "standards": [
+       "[2국01-03]",
+       "[2국01-04]",
+       "[2국03-03]",
+       "[2수01-02]",
+       "[2수01-03]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "자연",
+      "standards": [
+       "[2국02-05]",
+       "[2국03-02]",
+       "[2국05-01]",
+       "[2수03-02]",
+       "[2수03-03]",
+       "[2수03-04]",
+       "[2수03-05]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "마을",
+      "standards": [
+       "[2국03-02]",
+       "[2국03-04]",
+       "[2국04-03]",
+       "[2수01-05]",
+       "[2수01-06]",
+       "[2수01-07]",
+       "[2수01-08]",
+       "[2수01-09]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "세계",
+      "standards": [
+       "[2국02-02]",
+       "[2국04-02]",
+       "[2국05-01]",
+       "[2수03-06]",
+       "[2수03-10]",
+       "[2수03-12]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "계절",
+      "standards": [
+       "[2국01-01]",
+       "[2국01-02]",
+       "[2국02-03]",
+       "[2국04-02]",
+       "[2수04-02]",
+       "[2수04-03]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "인물",
+      "standards": [
+       "[2국03-04]",
+       "[2국06-01]",
+       "[2국06-02]",
+       "[2수02-01]",
+       "[2수02-02]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 7,
+      "title": "물건",
+      "standards": [
+       "[2국01-04]",
+       "[2국02-03]",
+       "[2국03-04]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 8,
+      "title": "기억",
+      "standards": [
+       "[2국01-04]",
+       "[2국03-02]",
+       "[2국05-02]",
+       "[2국06-01]"
+      ],
+      "lessons": 48,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   }
+  },
+  "3": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 읽은 책을 소개해요",
+      "standards": [
+       "[4국01-05]",
+       "[4국02-06]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 1,
+      "title": "생생하게 표현해요",
+      "standards": [
+       "[4과01-01]",
+       "[4과01-02]",
+       "[4과01-03]",
+       "[4과01-04]",
+       "[4국01-03]",
+       "[4국01-04]",
+       "[4국05-04]",
+       "[4국05-05]",
+       "[4사01-01]",
+       "[4사01-02]",
+       "[4수01-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "분명하고 유창하게",
+      "standards": [
+       "[4과02-01]",
+       "[4과02-02]",
+       "[4과02-03]",
+       "[4국01-03]",
+       "[4국02-01]",
+       "[4국04-03]",
+       "[4수03-01]",
+       "[4수03-02]",
+       "[4수03-09]",
+       "[4수03-10]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "짜임새 있는 글, 재미와 감동이 있는 글",
+      "standards": [
+       "[4과03-01]",
+       "[4과03-02]",
+       "[4과03-03]",
+       "[4국03-01]",
+       "[4국05-05]",
+       "[4수01-05]",
+       "[4수01-06]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 서로 배려하며 소통해요",
+      "standards": [
+       "[4국01-04]",
+       "[4국06-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "중요한 내용을 찾아요",
+      "standards": [
+       "[4과04-01]",
+       "[4과04-02]",
+       "[4과04-03]",
+       "[4국01-01]",
+       "[4국02-06]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "인물에게 마음을 전해요",
+      "standards": [
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국05-01]",
+       "[4수03-13]",
+       "[4수03-14]",
+       "[4수03-15]",
+       "[4수03-16]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "자신 있게 읽고 써요",
+      "standards": [
+       "[4국02-04]",
+       "[4국03-05]",
+       "[4수01-09]",
+       "[4수01-10]",
+       "[4수01-11]",
+       "[4수01-12]",
+       "[4수01-14]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 계획대로 차근차근 읽어요",
+      "standards": [
+       "[4국02-02]",
+       "[4국02-06]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 1,
+      "title": "경험과 관련지으며 이해해요",
+      "standards": [
+       "[4과05-01]",
+       "[4과05-02]",
+       "[4과05-03]",
+       "[4국01-01]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사03-01]",
+       "[4사03-02]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "유창하게 읽고 발표해요",
+      "standards": [
+       "[4과06-01]",
+       "[4과06-02]",
+       "[4국01-05]",
+       "[4국02-01]",
+       "[4국06-02]",
+       "[4사04-01]",
+       "[4사04-02]",
+       "[4사04-03]",
+       "[4수01-05]",
+       "[4수01-06]",
+       "[4수01-08]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "정확하게 글을 써요",
+      "standards": [
+       "[4과07-01]",
+       "[4과07-02]",
+       "[4국02-05]",
+       "[4국03-02]",
+       "[4국04-04]",
+       "[4수03-06]",
+       "[4수03-07]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 온라인 상황에서 글을 써요",
+      "standards": [
+       "[4국03-04]",
+       "[4국06-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "서로 존중하며 대화해요",
+      "standards": [
+       "[4과08-01]",
+       "[4과08-02]",
+       "[4과08-03]",
+       "[4국01-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수01-09]",
+       "[4수01-10]",
+       "[4수01-11]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "사전으로 여는 세상",
+      "standards": [
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국04-02]",
+       "[4수03-17]",
+       "[4수03-18]",
+       "[4수03-19]",
+       "[4수03-20]",
+       "[4수03-21]",
+       "[4수03-22]",
+       "[4수03-23]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "감상과 표현의 즐거움",
+      "standards": [
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국05-05]",
+       "[4수04-01]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "나를 찾아 떠나는 여행",
+      "standards": [
+       "[4과01-01]",
+       "[4과01-02]",
+       "[4과01-03]",
+       "[4과01-04]",
+       "[4국01-03]",
+       "[4국01-04]",
+       "[4국05-04]",
+       "[4국05-05]",
+       "[4사01-01]",
+       "[4사01-02]",
+       "[4수01-03]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     },
+     {
+      "no": 2,
+      "title": "성실하게 사는 삶",
+      "standards": [
+       "[4과02-01]",
+       "[4과02-02]",
+       "[4과02-03]",
+       "[4국01-03]",
+       "[4국02-01]",
+       "[4국04-03]",
+       "[4도01-03]",
+       "[4수03-01]",
+       "[4수03-02]",
+       "[4수03-09]",
+       "[4수03-10]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     },
+     {
+      "no": 3,
+      "title": "함께하는 우리 가족",
+      "standards": [
+       "[4과03-01]",
+       "[4과03-02]",
+       "[4과03-03]",
+       "[4국03-01]",
+       "[4국05-05]",
+       "[4도02-01]",
+       "[4수01-05]",
+       "[4수01-06]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     },
+     {
+      "no": 4,
+      "title": "인공지능 로봇 연구소에 가요!",
+      "standards": [
+       "[4과04-01]",
+       "[4과04-02]",
+       "[4과04-03]",
+       "[4국01-01]",
+       "[4국02-06]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "너와 나의 공감",
+      "standards": [
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국04-02]",
+       "[4수03-17]",
+       "[4수03-18]",
+       "[4수03-19]",
+       "[4수03-20]",
+       "[4수03-21]",
+       "[4수03-22]",
+       "[4수03-23]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     },
+     {
+      "no": 6,
+      "title": "함께 가는 공정의 길",
+      "standards": [
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국05-05]",
+       "[4수04-01]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     },
+     {
+      "no": 7,
+      "title": "생명을 소중히 여기는 우리",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     },
+     {
+      "no": 8,
+      "title": "더 나은 세상을 위한 탐구",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_df36ff0f-6ff8-4c25-b1b6-c14bd455544b1775631353348.pdf"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "우리가 사는 곳",
+      "standards": [
+       "[4과01-01]",
+       "[4과01-02]",
+       "[4과01-03]",
+       "[4과01-04]",
+       "[4국01-03]",
+       "[4국01-04]",
+       "[4국05-04]",
+       "[4국05-05]",
+       "[4사01-01]",
+       "[4사01-02]",
+       "[4수01-03]"
+      ],
+      "lessons": 26,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "일상에서 만나는 과거",
+      "standards": [
+       "[4과02-01]",
+       "[4과02-02]",
+       "[4과02-03]",
+       "[4국01-03]",
+       "[4국02-01]",
+       "[4국04-03]",
+       "[4사02-01]",
+       "[4사02-02]",
+       "[4사02-03]",
+       "[4수03-01]",
+       "[4수03-02]",
+       "[4수03-09]",
+       "[4수03-10]"
+      ],
+      "lessons": 26,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "사회 변화와 다양한 문화",
+      "standards": [
+       "[4과05-01]",
+       "[4과05-02]",
+       "[4과05-03]",
+       "[4국01-01]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사03-01]",
+       "[4사03-02]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 26,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "옛날과 오늘날의 생활 모습",
+      "standards": [
+       "[4과06-01]",
+       "[4과06-02]",
+       "[4국01-05]",
+       "[4국02-01]",
+       "[4국06-02]",
+       "[4사04-01]",
+       "[4사04-02]",
+       "[4사04-03]",
+       "[4수01-05]",
+       "[4수01-06]",
+       "[4수01-08]"
+      ],
+      "lessons": 26,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "덧셈과 뺄셈",
+      "standards": [
+       "[4과01-01]",
+       "[4과01-02]",
+       "[4과01-03]",
+       "[4과01-04]",
+       "[4국01-03]",
+       "[4국01-04]",
+       "[4국05-04]",
+       "[4국05-05]",
+       "[4사01-01]",
+       "[4사01-02]",
+       "[4수01-03]",
+       "[4수01-08]"
+      ],
+      "lessons": 9,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 2,
+      "title": "평면도형",
+      "standards": [
+       "[4과02-01]",
+       "[4과02-02]",
+       "[4과02-03]",
+       "[4국01-03]",
+       "[4국02-01]",
+       "[4국04-03]",
+       "[4수03-01]",
+       "[4수03-02]",
+       "[4수03-09]",
+       "[4수03-10]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 3,
+      "title": "나눗셈",
+      "standards": [
+       "[4과03-01]",
+       "[4과03-02]",
+       "[4과03-03]",
+       "[4국03-01]",
+       "[4국05-05]",
+       "[4수01-05]",
+       "[4수01-06]"
+      ],
+      "lessons": 8,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 4,
+      "title": "곱셈",
+      "standards": [
+       "[4과04-01]",
+       "[4과04-02]",
+       "[4과04-03]",
+       "[4국01-01]",
+       "[4국02-06]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 8,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 5,
+      "title": "길이와 시간",
+      "standards": [
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국05-01]",
+       "[4수03-13]",
+       "[4수03-14]",
+       "[4수03-15]",
+       "[4수03-16]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 6,
+      "title": "분수와 소수",
+      "standards": [
+       "[4국02-04]",
+       "[4국03-05]",
+       "[4수01-09]",
+       "[4수01-10]",
+       "[4수01-11]",
+       "[4수01-12]",
+       "[4수01-14]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106393/promo_library/ref_common/초등_수학 3-1_학기별 지도 계획.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "곱셈",
+      "standards": [
+       "[4과05-01]",
+       "[4과05-02]",
+       "[4과05-03]",
+       "[4국01-01]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사03-01]",
+       "[4사03-02]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 2,
+      "title": "나눗셈",
+      "standards": [
+       "[4과06-01]",
+       "[4과06-02]",
+       "[4국01-05]",
+       "[4국02-01]",
+       "[4국06-02]",
+       "[4사04-01]",
+       "[4사04-02]",
+       "[4사04-03]",
+       "[4수01-05]",
+       "[4수01-06]",
+       "[4수01-08]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 3,
+      "title": "원",
+      "standards": [
+       "[4과07-01]",
+       "[4과07-02]",
+       "[4국02-05]",
+       "[4국03-02]",
+       "[4국04-04]",
+       "[4수03-06]",
+       "[4수03-07]"
+      ],
+      "lessons": 7,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 4,
+      "title": "분수와 소수 (경기 예시: 분수)",
+      "standards": [
+       "[4과08-01]",
+       "[4과08-02]",
+       "[4과08-03]",
+       "[4국01-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수01-09]",
+       "[4수01-10]",
+       "[4수01-11]",
+       "[4수01-12]",
+       "[4수01-14]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 5,
+      "title": "들이와 무게",
+      "standards": [
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국04-02]",
+       "[4수03-17]",
+       "[4수03-18]",
+       "[4수03-19]",
+       "[4수03-20]",
+       "[4수03-21]",
+       "[4수03-22]",
+       "[4수03-23]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+     },
+     {
+      "no": 6,
+      "title": "그림그래프",
+      "standards": [
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국05-05]",
+       "[4수04-01]"
+      ],
+      "lessons": 7,
+      "verified": true,
+      "source": "https://dn22.vivasam.com/VS/ES/MAT/106394/promo_library/ref_common/초등_수학 3-2_학기별 지도 계획.pdf"
+     }
+    ]
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "힘과 우리 생활",
+      "standards": [
+       "[4과01-01]",
+       "[4과01-02]",
+       "[4과01-03]",
+       "[4과01-04]",
+       "[4국01-03]",
+       "[4국01-04]",
+       "[4국05-04]",
+       "[4국05-05]",
+       "[4사01-01]",
+       "[4사01-02]",
+       "[4수01-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "동물의 생활",
+      "standards": [
+       "[4과02-01]",
+       "[4과02-02]",
+       "[4과02-03]",
+       "[4국01-03]",
+       "[4국02-01]",
+       "[4국04-03]",
+       "[4수03-01]",
+       "[4수03-02]",
+       "[4수03-09]",
+       "[4수03-10]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "식물의 생활",
+      "standards": [
+       "[4과03-01]",
+       "[4과03-02]",
+       "[4과03-03]",
+       "[4국03-01]",
+       "[4국05-05]",
+       "[4수01-05]",
+       "[4수01-06]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "생물의 한살이",
+      "standards": [
+       "[4과04-01]",
+       "[4과04-02]",
+       "[4과04-03]",
+       "[4국01-01]",
+       "[4국02-06]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "물체와 물질",
+      "standards": [
+       "[4과05-01]",
+       "[4과05-02]",
+       "[4과05-03]",
+       "[4국01-01]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사03-01]",
+       "[4사03-02]",
+       "[4수01-04]",
+       "[4수01-08]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "지구와 바다",
+      "standards": [
+       "[4과06-01]",
+       "[4과06-02]",
+       "[4과06-03]",
+       "[4국01-05]",
+       "[4국02-01]",
+       "[4국06-02]",
+       "[4사04-01]",
+       "[4사04-02]",
+       "[4사04-03]",
+       "[4수01-05]",
+       "[4수01-06]",
+       "[4수01-08]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "소리의 성질",
+      "standards": [
+       "[4과07-01]",
+       "[4과07-02]",
+       "[4국02-05]",
+       "[4국03-02]",
+       "[4국04-04]",
+       "[4수03-06]",
+       "[4수03-07]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "감염병과 건강한 생활",
+      "standards": [
+       "[4과08-01]",
+       "[4과08-02]",
+       "[4과08-03]",
+       "[4국01-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수01-09]",
+       "[4수01-10]",
+       "[4수01-11]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   }
+  },
+  "4": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 질문을 만들며 책을 읽어요",
+      "standards": [
+       "[4국02-01]",
+       "[4국02-03]"
+      ],
+      "lessons": 9,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 1,
+      "title": "깊이 있게 읽어요",
+      "standards": [
+       "[4과09-01]",
+       "[4과09-02]",
+       "[4과09-03]",
+       "[4과10-01]",
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국05-01]",
+       "[4사05-01]",
+       "[4사05-02]",
+       "[4수01-01]",
+       "[4수01-02]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "서로 다른 의견",
+      "standards": [
+       "[4과10-02]",
+       "[4과10-03]",
+       "[4국01-04]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4사06-01]",
+       "[4사06-02]",
+       "[4수03-02]",
+       "[4수03-24]",
+       "[4수03-25]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "자세하게 살펴요",
+      "standards": [
+       "[4과11-01]",
+       "[4과11-02]",
+       "[4과11-03]",
+       "[4과11-04]",
+       "[4국03-02]",
+       "[4국03-05]",
+       "[4국04-01]",
+       "[4국04-02]",
+       "[4사07-01]",
+       "[4사07-02]",
+       "[4수01-04]",
+       "[4수01-05]",
+       "[4수01-07]",
+       "[4수01-08]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 인터넷에서 자료를 찾아요",
+      "standards": [
+       "[4국01-05]",
+       "[4국06-02]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "뜻을 파악하며 읽어요",
+      "standards": [
+       "[4과12-01]",
+       "[4과12-02]",
+       "[4과12-03]",
+       "[4국04-03]",
+       "[4국05-03]",
+       "[4국05-04]",
+       "[4수03-04]",
+       "[4수03-05]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 5,
+      "title": "말과 글로 전하는 생각",
+      "standards": [
+       "[4국01-04]",
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수04-01]",
+       "[4수04-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 6,
+      "title": "경험을 표현해요",
+      "standards": [
+       "[4국01-02]",
+       "[4국02-03]",
+       "[4국05-01]",
+       "[4수02-01]",
+       "[4수02-02]",
+       "[4수02-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 생각을 나누며 책을 읽어요",
+      "standards": [
+       "[4국01-06]",
+       "[4국02-04]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 1,
+      "title": "비교하며 읽어요",
+      "standards": [
+       "[4과13-01]",
+       "[4과13-02]",
+       "[4과13-03]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사08-01]",
+       "[4사08-02]",
+       "[4수01-15]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "우리말 우리글",
+      "standards": [
+       "[4과14-01]",
+       "[4과14-02]",
+       "[4과14-03]",
+       "[4국02-02]",
+       "[4국03-02]",
+       "[4국04-05]",
+       "[4국06-01]",
+       "[4사09-01]",
+       "[4사09-02]",
+       "[4수03-08]",
+       "[4수03-09]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "의견을 모아서",
+      "standards": [
+       "[4과15-01]",
+       "[4과15-02]",
+       "[4과15-03]",
+       "[4과15-04]",
+       "[4국01-06]",
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국04-03]",
+       "[4사10-01]",
+       "[4사10-02]",
+       "[4수01-13]",
+       "[4수01-14]",
+       "[4수01-16]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 자료를 활용하여 발표해요",
+      "standards": [
+       "[4국01-05]",
+       "[4국06-02]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "책 속의 길을 따라",
+      "standards": [
+       "[4과16-01]",
+       "[4과16-02]",
+       "[4과16-03]",
+       "[4국02-03]",
+       "[4국05-03]",
+       "[4국05-05]",
+       "[4수03-03]",
+       "[4수03-10]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 5,
+      "title": "오가는 마음",
+      "standards": [
+       "[4국01-04]",
+       "[4국01-05]",
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수04-02]",
+       "[4수04-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 6,
+      "title": "상상의 날개",
+      "standards": [
+       "[4국01-02]",
+       "[4국02-03]",
+       "[4국05-01]",
+       "[4수03-11]",
+       "[4수03-12]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "바르고 곧은 길",
+      "standards": [
+       "[4과09-01]",
+       "[4과09-02]",
+       "[4과09-03]",
+       "[4과10-01]",
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국05-01]",
+       "[4사05-01]",
+       "[4사05-02]",
+       "[4수01-01]",
+       "[4수01-02]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     },
+     {
+      "no": 2,
+      "title": "도덕적인 나",
+      "standards": [
+       "[4과10-02]",
+       "[4과10-03]",
+       "[4국01-04]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4사06-01]",
+       "[4사06-02]",
+       "[4수03-02]",
+       "[4수03-24]",
+       "[4수03-25]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     },
+     {
+      "no": 3,
+      "title": "배려하는 우리",
+      "standards": [
+       "[4과11-01]",
+       "[4과11-02]",
+       "[4과11-03]",
+       "[4과11-04]",
+       "[4국03-02]",
+       "[4국03-05]",
+       "[4국04-01]",
+       "[4국04-02]",
+       "[4사07-01]",
+       "[4사07-02]",
+       "[4수01-04]",
+       "[4수01-05]",
+       "[4수01-07]",
+       "[4수01-08]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     },
+     {
+      "no": 4,
+      "title": "도덕적인 생활을 위한 탐구",
+      "standards": [
+       "[4과12-01]",
+       "[4과12-02]",
+       "[4과12-03]",
+       "[4국04-03]",
+       "[4국05-03]",
+       "[4국05-04]",
+       "[4수03-04]",
+       "[4수03-05]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "바람직한 디지털 사회",
+      "standards": [
+       "[4국01-04]",
+       "[4국01-05]",
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수04-02]",
+       "[4수04-03]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     },
+     {
+      "no": 6,
+      "title": "통일로 가는 한 걸음",
+      "standards": [
+       "[4국01-02]",
+       "[4국02-03]",
+       "[4국05-01]",
+       "[4수03-11]",
+       "[4수03-12]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     },
+     {
+      "no": 7,
+      "title": "자연은 소중해요",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     },
+     {
+      "no": 8,
+      "title": "비무장 지대, 평화와 생명의 땅을 지켜요!",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/daechung-e/cec/2026/doc_68ba92cf-bb04-4dfa-a6ae-45d7c51c67c61775631371270.pdf"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "지도로 만나는 우리 지역",
+      "standards": [
+       "[4과09-01]",
+       "[4과09-02]",
+       "[4과09-03]",
+       "[4과10-01]",
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국05-01]",
+       "[4사05-01]",
+       "[4사05-02]",
+       "[4수01-01]",
+       "[4수01-02]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "우리 지역의 국가유산",
+      "standards": [
+       "[4과10-02]",
+       "[4과10-03]",
+       "[4국01-04]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4사06-01]",
+       "[4사06-02]",
+       "[4수03-02]",
+       "[4수03-24]",
+       "[4수03-25]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "경제활동과 지역 간 교류",
+      "standards": [
+       "[4과11-01]",
+       "[4과11-02]",
+       "[4과11-03]",
+       "[4과11-04]",
+       "[4국03-02]",
+       "[4국03-05]",
+       "[4국04-01]",
+       "[4국04-02]",
+       "[4사07-01]",
+       "[4사07-02]",
+       "[4수01-04]",
+       "[4수01-05]",
+       "[4수01-07]",
+       "[4수01-08]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "민주주의와 자치",
+      "standards": [
+       "[4과13-01]",
+       "[4과13-02]",
+       "[4과13-03]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사08-01]",
+       "[4사08-02]",
+       "[4수01-15]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "지역문제를 해결하고 지역을 알리는 노력",
+      "standards": [
+       "[4과14-01]",
+       "[4과14-02]",
+       "[4과14-03]",
+       "[4국02-02]",
+       "[4국03-02]",
+       "[4국04-05]",
+       "[4국06-01]",
+       "[4사09-01]",
+       "[4사09-02]",
+       "[4수03-08]",
+       "[4수03-09]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "다양한 환경과 삶의 모습",
+      "standards": [
+       "[4과15-01]",
+       "[4과15-02]",
+       "[4과15-03]",
+       "[4과15-04]",
+       "[4국01-06]",
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국04-03]",
+       "[4사10-01]",
+       "[4사10-02]",
+       "[4수01-13]",
+       "[4수01-14]",
+       "[4수01-16]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "큰 수",
+      "standards": [
+       "[4과09-01]",
+       "[4과09-02]",
+       "[4과09-03]",
+       "[4과10-01]",
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국05-01]",
+       "[4사05-01]",
+       "[4사05-02]",
+       "[4수01-01]",
+       "[4수01-02]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "각도",
+      "standards": [
+       "[4과10-02]",
+       "[4과10-03]",
+       "[4국01-04]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4사06-01]",
+       "[4사06-02]",
+       "[4수03-02]",
+       "[4수03-24]",
+       "[4수03-25]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "곱셈과 나눗셈",
+      "standards": [
+       "[4과11-01]",
+       "[4과11-02]",
+       "[4과11-03]",
+       "[4과11-04]",
+       "[4국03-02]",
+       "[4국03-05]",
+       "[4국04-01]",
+       "[4국04-02]",
+       "[4사07-01]",
+       "[4사07-02]",
+       "[4수01-04]",
+       "[4수01-05]",
+       "[4수01-07]",
+       "[4수01-08]"
+      ],
+      "lessons": 9,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "평면도형의 이동",
+      "standards": [
+       "[4과12-01]",
+       "[4과12-02]",
+       "[4과12-03]",
+       "[4국04-03]",
+       "[4국05-03]",
+       "[4국05-04]",
+       "[4수03-04]",
+       "[4수03-05]"
+      ],
+      "lessons": 16,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "막대그래프",
+      "standards": [
+       "[4국01-04]",
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수04-01]",
+       "[4수04-03]"
+      ],
+      "lessons": 9,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 6,
+      "title": "규칙 찾기",
+      "standards": [
+       "[4국01-02]",
+       "[4국02-03]",
+       "[4국05-01]",
+       "[4수02-01]",
+       "[4수02-02]",
+       "[4수02-03]"
+      ],
+      "lessons": 16,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "분수의 덧셈과 뺄셈",
+      "standards": [
+       "[4과13-01]",
+       "[4과13-02]",
+       "[4과13-03]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사08-01]",
+       "[4사08-02]",
+       "[4수01-15]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "삼각형",
+      "standards": [
+       "[4과14-01]",
+       "[4과14-02]",
+       "[4과14-03]",
+       "[4국02-02]",
+       "[4국03-02]",
+       "[4국04-05]",
+       "[4국06-01]",
+       "[4사09-01]",
+       "[4사09-02]",
+       "[4수03-08]",
+       "[4수03-09]"
+      ],
+      "lessons": 16,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "소수의 덧셈과 뺄셈",
+      "standards": [
+       "[4과15-01]",
+       "[4과15-02]",
+       "[4과15-03]",
+       "[4과15-04]",
+       "[4국01-06]",
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국04-03]",
+       "[4사10-01]",
+       "[4사10-02]",
+       "[4수01-13]",
+       "[4수01-14]",
+       "[4수01-16]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "사각형",
+      "standards": [
+       "[4과16-01]",
+       "[4과16-02]",
+       "[4과16-03]",
+       "[4국02-03]",
+       "[4국05-03]",
+       "[4국05-05]",
+       "[4수03-03]",
+       "[4수03-10]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 5,
+      "title": "꺾은선그래프",
+      "standards": [
+       "[4국01-04]",
+       "[4국01-05]",
+       "[4국03-04]",
+       "[4국04-04]",
+       "[4국04-05]",
+       "[4수04-02]",
+       "[4수04-03]"
+      ],
+      "lessons": 9,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 6,
+      "title": "다각형",
+      "standards": [
+       "[4국01-02]",
+       "[4국02-03]",
+       "[4국05-01]",
+       "[4수03-11]",
+       "[4수03-12]"
+      ],
+      "lessons": 9,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ]
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "자석의 이용",
+      "standards": [
+       "[4과09-01]",
+       "[4과09-02]",
+       "[4과09-03]",
+       "[4과10-01]",
+       "[4국02-03]",
+       "[4국02-06]",
+       "[4국05-01]",
+       "[4사05-01]",
+       "[4사05-02]",
+       "[4수01-01]",
+       "[4수01-02]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "물의 상태 변화",
+      "standards": [
+       "[4과10-01]",
+       "[4과10-02]",
+       "[4과10-03]",
+       "[4국01-04]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4사06-01]",
+       "[4사06-02]",
+       "[4수03-02]",
+       "[4수03-24]",
+       "[4수03-25]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "땅의 변화",
+      "standards": [
+       "[4과11-01]",
+       "[4과11-02]",
+       "[4과11-03]",
+       "[4과11-04]",
+       "[4국03-02]",
+       "[4국03-05]",
+       "[4국04-01]",
+       "[4국04-02]",
+       "[4사07-01]",
+       "[4사07-02]",
+       "[4수01-04]",
+       "[4수01-05]",
+       "[4수01-07]",
+       "[4수01-08]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "다양한 생물과 우리 생활",
+      "standards": [
+       "[4과12-01]",
+       "[4과12-02]",
+       "[4과12-03]",
+       "[4국04-03]",
+       "[4국05-03]",
+       "[4국05-04]",
+       "[4수03-04]",
+       "[4수03-05]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "밤하늘 관찰",
+      "standards": [
+       "[4과13-01]",
+       "[4과13-02]",
+       "[4과13-03]",
+       "[4국01-06]",
+       "[4국02-04]",
+       "[4국05-02]",
+       "[4국05-05]",
+       "[4사08-01]",
+       "[4사08-02]",
+       "[4수01-15]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 2,
+      "title": "생물과 환경",
+      "standards": [
+       "[4과14-01]",
+       "[4과14-02]",
+       "[4과14-03]",
+       "[4국02-02]",
+       "[4국03-02]",
+       "[4국04-05]",
+       "[4국06-01]",
+       "[4사09-01]",
+       "[4사09-02]",
+       "[4수03-08]",
+       "[4수03-09]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 3,
+      "title": "여러 가지 기체",
+      "standards": [
+       "[4과15-01]",
+       "[4과15-02]",
+       "[4과15-03]",
+       "[4과15-04]",
+       "[4국01-06]",
+       "[4국03-01]",
+       "[4국03-03]",
+       "[4국04-03]",
+       "[4사10-01]",
+       "[4사10-02]",
+       "[4수01-13]",
+       "[4수01-14]",
+       "[4수01-16]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     },
+     {
+      "no": 4,
+      "title": "기후 변화와 우리 생활",
+      "standards": [
+       "[4과16-01]",
+       "[4과16-02]",
+       "[4과16-03]",
+       "[4국02-03]",
+       "[4국05-03]",
+       "[4국05-05]",
+       "[4수03-03]",
+       "[4수03-10]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2025/07/f4c15fac-ae7b-46aa-8e16-b8d86b710d44.pdf"
+     }
+    ]
+   }
+  },
+  "5": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 책을 읽고 함께 이야기해요",
+      "standards": [
+       "[6국02-01]",
+       "[6국02-05]",
+       "[6국05-04]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 1,
+      "title": "대화를 나누어요",
+      "standards": [
+       "[6과01-01]",
+       "[6과01-02]",
+       "[6과01-03]",
+       "[6국01-01]",
+       "[6국01-03]",
+       "[6사01-01]",
+       "[6사01-02]",
+       "[6수01-01]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 2,
+      "title": "체험한 일을 글로 써요",
+      "standards": [
+       "[6과02-01]",
+       "[6과02-02]",
+       "[6과02-03]",
+       "[6국03-03]",
+       "[6국04-05]",
+       "[6사02-01]",
+       "[6사02-02]",
+       "[6수01-04]",
+       "[6수01-05]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 3,
+      "title": "발표하고 질문해요",
+      "standards": [
+       "[6과03-01]",
+       "[6과03-02]",
+       "[6과03-03]",
+       "[6국01-03]",
+       "[6국01-05]",
+       "[6국06-01]",
+       "[6사03-01]",
+       "[6사03-02]",
+       "[6수02-01]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 필요한 정보를 찾아요",
+      "standards": [
+       "[6국03-02]",
+       "[6국06-01]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 4,
+      "title": "대상을 설명해요",
+      "standards": [
+       "[6과04-01]",
+       "[6과04-02]",
+       "[6과04-03]",
+       "[6국02-01]",
+       "[6국03-01]",
+       "[6수01-06]",
+       "[6수01-07]",
+       "[6수01-12]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 5,
+      "title": "의논하며 토의해요",
+      "standards": [
+       "[6국01-06]",
+       "[6국02-04]",
+       "[6수01-08]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 6,
+      "title": "작품을 즐겨요",
+      "standards": [
+       "[6국05-02]",
+       "[6국05-04]",
+       "[6수03-11]",
+       "[6수03-12]",
+       "[6수03-13]",
+       "[6수03-14]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 여러 가지 형태의 책을 읽어요",
+      "standards": [
+       "[6국02-05]",
+       "[6국06-01]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 1,
+      "title": "작품에 대한 생각을 나누어요",
+      "standards": [
+       "[6과05-01]",
+       "[6과05-02]",
+       "[6과05-03]",
+       "[6국01-06]",
+       "[6국05-04]",
+       "[6사04-01]",
+       "[6사04-02]",
+       "[6사04-03]",
+       "[6수01-02]",
+       "[6수01-03]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "올바른 문장으로 글을 써요",
+      "standards": [
+       "[6과06-01]",
+       "[6과06-02]",
+       "[6과06-03]",
+       "[6국03-04]",
+       "[6국04-04]",
+       "[6사05-01]",
+       "[6사05-02]",
+       "[6수01-09]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "추론하며 읽어요",
+      "standards": [
+       "[6과07-01]",
+       "[6과07-02]",
+       "[6과07-03]",
+       "[6과07-04]",
+       "[6국02-01]",
+       "[6국02-02]",
+       "[6사06-01]",
+       "[6사06-02]",
+       "[6수03-01]",
+       "[6수03-02]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 평가하며 이용해요",
+      "standards": [
+       "[6국02-03]",
+       "[6국06-02]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "표준어와 방언을 알아봐요",
+      "standards": [
+       "[6과08-01]",
+       "[6과08-02]",
+       "[6과08-03]",
+       "[6국02-05]",
+       "[6국04-02]",
+       "[6국05-06]",
+       "[6수01-13]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "의견을 조정하며 문제를 해결해요",
+      "standards": [
+       "[6국01-01]",
+       "[6국01-06]",
+       "[6수03-03]",
+       "[6수03-04]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "작품을 감상해요",
+      "standards": [
+       "[6국02-02]",
+       "[6국05-03]",
+       "[6국05-05]",
+       "[6수04-01]",
+       "[6수04-04]",
+       "[6수04-05]",
+       "[6수04-06]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "내 삶의 주인이 되는 나",
+      "standards": [
+       "[6과01-01]",
+       "[6과01-02]",
+       "[6과01-03]",
+       "[6국01-01]",
+       "[6국01-03]",
+       "[6도01-01]",
+       "[6사01-01]",
+       "[6사01-02]",
+       "[6수01-01]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 2,
+      "title": "반성과 성찰로 성장하는 나",
+      "standards": [
+       "[6과02-01]",
+       "[6과02-02]",
+       "[6과02-03]",
+       "[6국03-03]",
+       "[6국04-05]",
+       "[6사02-01]",
+       "[6사02-02]",
+       "[6수01-04]",
+       "[6수01-05]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 3,
+      "title": "함께 사는 세상, 봉사하는 우리",
+      "standards": [
+       "[6과03-01]",
+       "[6과03-02]",
+       "[6과03-03]",
+       "[6국01-03]",
+       "[6국01-05]",
+       "[6국06-01]",
+       "[6사03-01]",
+       "[6사03-02]",
+       "[6수02-01]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     },
+     {
+      "no": 4,
+      "title": "우리 스스로 만드는 따뜻한 세상",
+      "standards": [
+       "[6과04-01]",
+       "[6과04-02]",
+       "[6과04-03]",
+       "[6국02-01]",
+       "[6국03-01]",
+       "[6수01-06]",
+       "[6수01-07]",
+       "[6수01-12]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_66c6ea61-9711-46b2-addd-8772dea3f0ef1778226483343.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "모두에게 인권을",
+      "standards": [
+       "[6국01-01]",
+       "[6국01-06]",
+       "[6수03-03]",
+       "[6수03-04]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 6,
+      "title": "공동체를 정의롭게",
+      "standards": [
+       "[6국02-02]",
+       "[6국05-03]",
+       "[6국05-05]",
+       "[6수04-01]",
+       "[6수04-04]",
+       "[6수04-05]",
+       "[6수04-06]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 7,
+      "title": "지구의 내일을 심는 우리",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 8,
+      "title": "우리들의 인공지능 로봇 이야기",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "우리나라 국토 여행",
+      "standards": [
+       "[6과01-01]",
+       "[6과01-02]",
+       "[6과01-03]",
+       "[6국01-01]",
+       "[6국01-03]",
+       "[6사01-01]",
+       "[6사01-02]",
+       "[6수01-01]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 2,
+      "title": "우리나라 지리 탐구",
+      "standards": [
+       "[6과02-01]",
+       "[6과02-02]",
+       "[6과02-03]",
+       "[6국03-03]",
+       "[6국04-05]",
+       "[6사02-01]",
+       "[6사02-02]",
+       "[6수01-04]",
+       "[6수01-05]"
+      ],
+      "lessons": 16,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 3,
+      "title": "법과 인권의 보장",
+      "standards": [
+       "[6과03-01]",
+       "[6과03-02]",
+       "[6과03-03]",
+       "[6국01-03]",
+       "[6국01-05]",
+       "[6국06-01]",
+       "[6사03-01]",
+       "[6사03-02]",
+       "[6수02-01]"
+      ],
+      "lessons": 15,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "유적과 유물로 살펴본 옛 사람들의 생활",
+      "standards": [
+       "[6과05-01]",
+       "[6과05-02]",
+       "[6과05-03]",
+       "[6국01-06]",
+       "[6국05-04]",
+       "[6사04-01]",
+       "[6사04-02]",
+       "[6사04-03]",
+       "[6수01-02]",
+       "[6수01-03]"
+      ],
+      "lessons": 19,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "달라지는 시대, 변화하는 생활 모습",
+      "standards": [
+       "[6과06-01]",
+       "[6과06-02]",
+       "[6과06-03]",
+       "[6국03-04]",
+       "[6국04-04]",
+       "[6사05-01]",
+       "[6사05-02]",
+       "[6수01-09]"
+      ],
+      "lessons": 19,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "식민 통치와 저항, 전쟁이 바꾼 사회와 생활",
+      "standards": [
+       "[6과07-01]",
+       "[6과07-02]",
+       "[6과07-03]",
+       "[6과07-04]",
+       "[6국02-01]",
+       "[6국02-02]",
+       "[6사06-01]",
+       "[6사06-02]",
+       "[6수03-01]",
+       "[6수03-02]"
+      ],
+      "lessons": 19,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "자연수의 혼합 계산",
+      "standards": [
+       "[6과01-01]",
+       "[6과01-02]",
+       "[6과01-03]",
+       "[6국01-01]",
+       "[6국01-03]",
+       "[6사01-01]",
+       "[6사01-02]",
+       "[6수01-01]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "약수와 배수",
+      "standards": [
+       "[6과02-01]",
+       "[6과02-02]",
+       "[6과02-03]",
+       "[6국03-03]",
+       "[6국04-05]",
+       "[6사02-01]",
+       "[6사02-02]",
+       "[6수01-04]",
+       "[6수01-05]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "대응 관계",
+      "standards": [
+       "[6과03-01]",
+       "[6과03-02]",
+       "[6과03-03]",
+       "[6국01-03]",
+       "[6국01-05]",
+       "[6국06-01]",
+       "[6사03-01]",
+       "[6사03-02]",
+       "[6수02-01]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "약분과 통분",
+      "standards": [
+       "[6과04-01]",
+       "[6과04-02]",
+       "[6과04-03]",
+       "[6국02-01]",
+       "[6국03-01]",
+       "[6수01-06]",
+       "[6수01-07]",
+       "[6수01-12]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "분수의 덧셈과 뺄셈",
+      "standards": [
+       "[6국01-06]",
+       "[6국02-04]",
+       "[6수01-08]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "다각형의 둘레와 넓이",
+      "standards": [
+       "[6국05-02]",
+       "[6국05-04]",
+       "[6수03-11]",
+       "[6수03-12]",
+       "[6수03-13]",
+       "[6수03-14]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "수의 범위와 올림, 버림, 반올림",
+      "standards": [
+       "[6과05-01]",
+       "[6과05-02]",
+       "[6과05-03]",
+       "[6국01-06]",
+       "[6국05-04]",
+       "[6사04-01]",
+       "[6사04-02]",
+       "[6사04-03]",
+       "[6수01-02]",
+       "[6수01-03]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "분수의 곱셈",
+      "standards": [
+       "[6과06-01]",
+       "[6과06-02]",
+       "[6과06-03]",
+       "[6국03-04]",
+       "[6국04-04]",
+       "[6사05-01]",
+       "[6사05-02]",
+       "[6수01-09]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "합동과 대칭",
+      "standards": [
+       "[6과07-01]",
+       "[6과07-02]",
+       "[6과07-03]",
+       "[6과07-04]",
+       "[6국02-01]",
+       "[6국02-02]",
+       "[6사06-01]",
+       "[6사06-02]",
+       "[6수03-01]",
+       "[6수03-02]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "소수의 곱셈",
+      "standards": [
+       "[6과08-01]",
+       "[6과08-02]",
+       "[6과08-03]",
+       "[6국02-05]",
+       "[6국04-02]",
+       "[6국05-06]",
+       "[6수01-13]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "직육면체와 정육면체",
+      "standards": [
+       "[6국01-01]",
+       "[6국01-06]",
+       "[6수03-03]",
+       "[6수03-04]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "평균과 가능성",
+      "standards": [
+       "[6국02-02]",
+       "[6국05-03]",
+       "[6국05-05]",
+       "[6수04-01]",
+       "[6수04-04]",
+       "[6수04-05]",
+       "[6수04-06]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "지층과 화석",
+      "standards": [
+       "[6과01-01]",
+       "[6과01-02]",
+       "[6과01-03]",
+       "[6국01-01]",
+       "[6국01-03]",
+       "[6사01-01]",
+       "[6사01-02]",
+       "[6수01-01]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 2,
+      "title": "빛의 성질",
+      "standards": [
+       "[6과02-01]",
+       "[6과02-02]",
+       "[6과02-03]",
+       "[6국03-03]",
+       "[6국04-05]",
+       "[6사02-01]",
+       "[6사02-02]",
+       "[6수01-04]",
+       "[6수01-05]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 3,
+      "title": "용해와 용액",
+      "standards": [
+       "[6과03-01]",
+       "[6과03-02]",
+       "[6과03-03]",
+       "[6국01-03]",
+       "[6국01-05]",
+       "[6국06-01]",
+       "[6사03-01]",
+       "[6사03-02]",
+       "[6수02-01]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 4,
+      "title": "우리 몸의 구조와 기능",
+      "standards": [
+       "[6과04-01]",
+       "[6과04-02]",
+       "[6과04-03]",
+       "[6국02-01]",
+       "[6국03-01]",
+       "[6수01-06]",
+       "[6수01-07]",
+       "[6수01-12]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "혼합물의 분리",
+      "standards": [
+       "[6과05-01]",
+       "[6과05-02]",
+       "[6과05-03]",
+       "[6국01-06]",
+       "[6국05-04]",
+       "[6사04-01]",
+       "[6사04-02]",
+       "[6사04-03]",
+       "[6수01-02]",
+       "[6수01-03]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "날씨와 우리 생활",
+      "standards": [
+       "[6과06-01]",
+       "[6과06-02]",
+       "[6과06-03]",
+       "[6국03-04]",
+       "[6국04-04]",
+       "[6사05-01]",
+       "[6사05-02]",
+       "[6수01-09]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "열과 우리 생활",
+      "standards": [
+       "[6과07-01]",
+       "[6과07-02]",
+       "[6과07-03]",
+       "[6과07-04]",
+       "[6국02-01]",
+       "[6국02-02]",
+       "[6사06-01]",
+       "[6사06-02]",
+       "[6수03-01]",
+       "[6수03-02]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "자원과 에너지",
+      "standards": [
+       "[6과08-01]",
+       "[6과08-02]",
+       "[6과08-03]",
+       "[6국02-05]",
+       "[6국04-02]",
+       "[6국05-06]",
+       "[6수01-13]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   }
+  },
+  "6": {
+   "국어": {
+    "1학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 같은 주제에 대한 책을 읽고 생각을 나누어요",
+      "standards": [
+       "[6국01-06]",
+       "[6국02-05]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 1,
+      "title": "자신의 삶과 관련지어 읽어요",
+      "standards": [
+       "[6과09-01]",
+       "[6과09-02]",
+       "[6과09-03]",
+       "[6과09-04]",
+       "[6국01-03]",
+       "[6국02-05]",
+       "[6국05-06]",
+       "[6사07-01]",
+       "[6사07-02]",
+       "[6수01-10]",
+       "[6수01-11]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "바르게 고쳐 써요",
+      "standards": [
+       "[6과10-01]",
+       "[6과10-02]",
+       "[6과10-03]",
+       "[6국03-06]",
+       "[6국04-04]",
+       "[6국04-06]",
+       "[6사08-01]",
+       "[6사08-02]",
+       "[6사08-03]",
+       "[6수03-05]",
+       "[6수03-06]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "절차를 지키며 토론해요",
+      "standards": [
+       "[6과11-01]",
+       "[6과11-02]",
+       "[6과11-03]",
+       "[6국01-02]",
+       "[6국01-07]",
+       "[6사09-01]",
+       "[6사09-02]",
+       "[6수01-14]",
+       "[6수01-15]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 매체 자료를 만들어요",
+      "standards": [
+       "[6국04-01]",
+       "[6국06-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "상황에 맞게 표현해요",
+      "standards": [
+       "[6과12-01]",
+       "[6과12-02]",
+       "[6과12-03]",
+       "[6국02-03]",
+       "[6국02-04]",
+       "[6국03-03]",
+       "[6국04-03]",
+       "[6수02-02]",
+       "[6수02-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "자신의 글쓰기 과정을 살펴봐요",
+      "standards": [
+       "[6국03-02]",
+       "[6국03-03]",
+       "[6국03-05]",
+       "[6국04-03]",
+       "[6국04-06]",
+       "[6수04-02]",
+       "[6수04-03]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "비판적으로 읽어요",
+      "standards": [
+       "[6국02-03]",
+       "[6국02-04]",
+       "[6국03-02]",
+       "[6국03-05]",
+       "[6국04-06]",
+       "[6수03-17]",
+       "[6수03-18]",
+       "[6수03-19]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://school.busanedu.net/upload/bshj-e/cec/2026/doc_de74370e-86ab-494f-9eaf-454f602132d21778226508961.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": "독서",
+      "title": "독서 단원. 다양한 책을 읽고 문제를 해결해요",
+      "standards": [
+       "[6국02-04]",
+       "[6국03-03]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 1,
+      "title": "작가의 의도를 파악해요",
+      "standards": [
+       "[6과13-01]",
+       "[6과13-02]",
+       "[6과13-03]",
+       "[6국02-01]",
+       "[6국05-01]",
+       "[6사10-01]",
+       "[6사10-02]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "궁금한 점을 해결해요",
+      "standards": [
+       "[6과14-01]",
+       "[6과14-03]",
+       "[6과14-04]",
+       "[6국01-03]",
+       "[6국01-04]",
+       "[6사11-01]",
+       "[6사11-02]",
+       "[6사11-03]",
+       "[6수03-09]",
+       "[6수03-10]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "보거나 듣고 판단해요",
+      "standards": [
+       "[6과15-01]",
+       "[6과15-02]",
+       "[6과15-03]",
+       "[6과15-04]",
+       "[6국01-02]",
+       "[6국02-03]",
+       "[6사12-01]",
+       "[6사12-02]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": "매체",
+      "title": "매체 단원. 나를 돌아봐요",
+      "standards": [
+       "[6국03-06]",
+       "[6국06-04]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "우리말의 아름다움을 느껴요",
+      "standards": [
+       "[6과16-01]",
+       "[6과16-02]",
+       "[6국02-02]",
+       "[6국04-03]",
+       "[6수02-04]",
+       "[6수02-05]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "언어의 특성과 독자를 고려하여 소통해요",
+      "standards": [
+       "[6국03-04]",
+       "[6국04-01]",
+       "[6수03-15]",
+       "[6수03-16]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "시와 이야기로 표현해요",
+      "standards": [
+       "[6국03-06]",
+       "[6국05-05]",
+       "[6수03-07]",
+       "[6수03-08]"
+      ],
+      "lessons": 13,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "도덕": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "나는 꿈 요리사",
+      "standards": [
+       "[6과09-01]",
+       "[6과09-02]",
+       "[6과09-03]",
+       "[6과09-04]",
+       "[6국01-03]",
+       "[6국02-05]",
+       "[6국05-06]",
+       "[6사07-01]",
+       "[6사07-02]",
+       "[6수01-10]",
+       "[6수01-11]"
+      ],
+      "lessons": 4,
+      "verified": false,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 2,
+      "title": "다름을 존중하는 우리",
+      "standards": [
+       "[6과10-01]",
+       "[6과10-02]",
+       "[6과10-03]",
+       "[6국03-06]",
+       "[6국04-04]",
+       "[6국04-06]",
+       "[6사08-01]",
+       "[6사08-02]",
+       "[6사08-03]",
+       "[6수03-05]",
+       "[6수03-06]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 3,
+      "title": "인공지능 로봇 그리고 나",
+      "standards": [
+       "[6과11-01]",
+       "[6과11-02]",
+       "[6과11-03]",
+       "[6국01-02]",
+       "[6국01-07]",
+       "[6사09-01]",
+       "[6사09-02]",
+       "[6수01-14]",
+       "[6수01-15]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 4,
+      "title": "인공지능으로 일하는 미래",
+      "standards": [
+       "[6과12-01]",
+       "[6과12-02]",
+       "[6과12-03]",
+       "[6국02-03]",
+       "[6국02-04]",
+       "[6수02-02]",
+       "[6수02-03]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     }
+    ],
+    "2학기": [
+     {
+      "no": 5,
+      "title": "통일 한반도의 어느 날",
+      "standards": [
+       "[6국03-04]",
+       "[6국04-01]",
+       "[6수03-15]",
+       "[6수03-16]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 6,
+      "title": "사랑, 우리를 넘어 세계로",
+      "standards": [
+       "[6국03-06]",
+       "[6국05-05]",
+       "[6수03-07]",
+       "[6수03-08]"
+      ],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 7,
+      "title": "우리 모두의 미래를 위한 선택",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 8,
+      "title": "우리가 꿈꾸는 세상을 위하여",
+      "standards": [],
+      "lessons": 4,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     }
+    ]
+   },
+   "사회": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "평화 통일을 위한 노력, 민주화와 산업화",
+      "standards": [
+       "[6과09-01]",
+       "[6과09-02]",
+       "[6과09-03]",
+       "[6과09-04]",
+       "[6국01-03]",
+       "[6국02-05]",
+       "[6국05-06]",
+       "[6사07-01]",
+       "[6사07-02]",
+       "[6수01-10]",
+       "[6수01-11]"
+      ],
+      "lessons": 17,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "민주주의와 시민 참여",
+      "standards": [
+       "[6과10-01]",
+       "[6과10-02]",
+       "[6과10-03]",
+       "[6국03-06]",
+       "[6국04-04]",
+       "[6국04-06]",
+       "[6사08-01]",
+       "[6사08-02]",
+       "[6사08-03]",
+       "[6수03-05]",
+       "[6수03-06]"
+      ],
+      "lessons": 17,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "지구, 대륙 그리고 국가들",
+      "standards": [
+       "[6과11-01]",
+       "[6과11-02]",
+       "[6과11-03]",
+       "[6국01-02]",
+       "[6국01-07]",
+       "[6사09-01]",
+       "[6사09-02]",
+       "[6수01-14]",
+       "[6수01-15]"
+      ],
+      "lessons": 17,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "세계의 자연환경",
+      "standards": [
+       "[6과13-01]",
+       "[6과13-02]",
+       "[6과13-03]",
+       "[6국02-01]",
+       "[6국05-01]",
+       "[6사10-01]",
+       "[6사10-02]"
+      ],
+      "lessons": 17,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "시장경제와 국가 간 거래",
+      "standards": [
+       "[6과14-01]",
+       "[6과14-03]",
+       "[6과14-04]",
+       "[6국01-03]",
+       "[6국01-04]",
+       "[6사11-01]",
+       "[6사11-02]",
+       "[6사11-03]",
+       "[6수03-09]",
+       "[6수03-10]"
+      ],
+      "lessons": 17,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "지구촌 사람들",
+      "standards": [
+       "[6과15-01]",
+       "[6과15-02]",
+       "[6과15-03]",
+       "[6과15-04]",
+       "[6국01-02]",
+       "[6국02-03]",
+       "[6사12-01]",
+       "[6사12-02]"
+      ],
+      "lessons": 17,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "수학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "분수의 나눗셈",
+      "standards": [
+       "[6과09-01]",
+       "[6과09-02]",
+       "[6과09-03]",
+       "[6과09-04]",
+       "[6국01-03]",
+       "[6국02-05]",
+       "[6국05-06]",
+       "[6사07-01]",
+       "[6사07-02]",
+       "[6수01-10]",
+       "[6수01-11]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "각기둥과 각뿔",
+      "standards": [
+       "[6과10-01]",
+       "[6과10-02]",
+       "[6과10-03]",
+       "[6국03-06]",
+       "[6국04-04]",
+       "[6국04-06]",
+       "[6사08-01]",
+       "[6사08-02]",
+       "[6사08-03]",
+       "[6수03-05]",
+       "[6수03-06]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "소수의 나눗셈",
+      "standards": [
+       "[6과11-01]",
+       "[6과11-02]",
+       "[6과11-03]",
+       "[6국01-02]",
+       "[6국01-07]",
+       "[6사09-01]",
+       "[6사09-02]",
+       "[6수01-14]",
+       "[6수01-15]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "비와 비율",
+      "standards": [
+       "[6과12-01]",
+       "[6과12-02]",
+       "[6과12-03]",
+       "[6국02-03]",
+       "[6국02-04]",
+       "[6수02-02]",
+       "[6수02-03]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "여러 가지 그래프",
+      "standards": [
+       "[6국03-03]",
+       "[6국04-03]",
+       "[6수04-02]",
+       "[6수04-03]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "직육면체의 겉넓이와 부피",
+      "standards": [
+       "[6국03-02]",
+       "[6국03-05]",
+       "[6국04-06]",
+       "[6수03-17]",
+       "[6수03-18]",
+       "[6수03-19]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "분수의 나눗셈",
+      "standards": [
+       "[6과13-01]",
+       "[6과13-02]",
+       "[6과13-03]",
+       "[6국02-01]",
+       "[6국05-01]",
+       "[6사10-01]",
+       "[6사10-02]",
+       "[6수01-11]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "공간과 입체",
+      "standards": [
+       "[6과14-01]",
+       "[6과14-03]",
+       "[6과14-04]",
+       "[6국01-03]",
+       "[6국01-04]",
+       "[6사11-01]",
+       "[6사11-02]",
+       "[6사11-03]",
+       "[6수03-09]",
+       "[6수03-10]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "소수의 나눗셈",
+      "standards": [
+       "[6과15-01]",
+       "[6과15-02]",
+       "[6과15-03]",
+       "[6과15-04]",
+       "[6국01-02]",
+       "[6국02-03]",
+       "[6사12-01]",
+       "[6사12-02]",
+       "[6수01-15]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "비례식과 비례배분",
+      "standards": [
+       "[6과16-01]",
+       "[6과16-02]",
+       "[6국02-02]",
+       "[6수02-04]",
+       "[6수02-05]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 5,
+      "title": "원의 둘레와 넓이",
+      "standards": [
+       "[6국03-04]",
+       "[6국04-01]",
+       "[6수03-15]",
+       "[6수03-16]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 6,
+      "title": "원기둥, 원뿔, 구",
+      "standards": [
+       "[6국03-06]",
+       "[6국05-05]",
+       "[6수03-07]",
+       "[6수03-08]"
+      ],
+      "lessons": 11,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ]
+   },
+   "과학": {
+    "1학기": [
+     {
+      "no": 1,
+      "title": "산과 염기",
+      "standards": [
+       "[6과09-01]",
+       "[6과09-02]",
+       "[6과09-03]",
+       "[6과09-04]",
+       "[6국01-03]",
+       "[6국02-05]",
+       "[6국05-06]",
+       "[6사07-01]",
+       "[6사07-02]",
+       "[6수01-10]",
+       "[6수01-11]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 2,
+      "title": "물체의 운동",
+      "standards": [
+       "[6과10-01]",
+       "[6과10-02]",
+       "[6과10-03]",
+       "[6국03-06]",
+       "[6국04-04]",
+       "[6국04-06]",
+       "[6사08-01]",
+       "[6사08-02]",
+       "[6사08-03]",
+       "[6수03-05]",
+       "[6수03-06]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 3,
+      "title": "식물의 구조와 기능",
+      "standards": [
+       "[6과11-01]",
+       "[6과11-02]",
+       "[6과11-03]",
+       "[6국01-02]",
+       "[6국01-07]",
+       "[6사09-01]",
+       "[6사09-02]",
+       "[6수01-14]",
+       "[6수01-15]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     },
+     {
+      "no": 4,
+      "title": "지구의 운동",
+      "standards": [
+       "[6과12-01]",
+       "[6과12-02]",
+       "[6과12-03]",
+       "[6국02-03]",
+       "[6국02-04]",
+       "[6수02-02]",
+       "[6수02-03]"
+      ],
+      "lessons": 14,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf",
+      "lessonsEstimated": true
+     }
+    ],
+    "2학기": [
+     {
+      "no": 1,
+      "title": "계절의 변화",
+      "standards": [
+       "[6과13-01]",
+       "[6과13-02]",
+       "[6과13-03]",
+       "[6국02-01]",
+       "[6국05-01]",
+       "[6사10-01]",
+       "[6사10-02]"
+      ],
+      "lessons": 12,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 2,
+      "title": "물질의 연소",
+      "standards": [
+       "[6과14-01]",
+       "[6과14-02]",
+       "[6과14-03]",
+       "[6과14-04]",
+       "[6국01-03]",
+       "[6국01-04]",
+       "[6사11-01]",
+       "[6사11-02]",
+       "[6사11-03]",
+       "[6수03-09]",
+       "[6수03-10]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 3,
+      "title": "전기의 이용",
+      "standards": [
+       "[6과15-01]",
+       "[6과15-02]",
+       "[6과15-03]",
+       "[6과15-04]",
+       "[6국01-02]",
+       "[6국02-03]",
+       "[6사12-01]",
+       "[6사12-02]"
+      ],
+      "lessons": 13,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     },
+     {
+      "no": 4,
+      "title": "과학과 나의 진로",
+      "standards": [
+       "[6과16-01]",
+       "[6과16-02]",
+       "[6국02-02]",
+       "[6수02-04]",
+       "[6수02-05]"
+      ],
+      "lessons": 10,
+      "verified": true,
+      "source": "https://www.goe.go.kr/resource/goe/na/bbs_2675/2026/02/116dc7a4-254a-44fe-9e77-3e908ecc5ff3.pdf"
+     }
+    ]
+   }
+  }
+ }
+}
