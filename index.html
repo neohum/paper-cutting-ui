@@ -1618,8 +1618,14 @@
             <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 11px;">추천</span>
           </div>
           <p style="font-size: 13px; color: #5C4331; margin: 0; line-height: 1.5;" class="break-keep">
-            외부 빌드 도구 없이 단일 HTML 파일로 즉시 실행할 수 있는 완성형 스타터 코드입니다.
+            외부 빌드 도구 없이 글로벌 CDN 링크 하나로 즉시 실행할 수 있는 완성형 스타터 코드입니다.
           </p>
+          <div style="background: #F4EFE6; border: 1px dashed rgba(46,30,20,0.2); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 10px 0;">
+            <code style="font-size: 11px; color: #2E1E14; overflow-x: auto; white-space: nowrap;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css"&gt;</code>
+            <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css&quot;&gt;&#10;&lt;script src=&quot;https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut-icons.js&quot;&gt;&lt;/script&gt;&#10;&lt;script src=&quot;https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.js&quot;&gt;&lt;/script&gt;" style="padding: 4px 10px; font-size: 11px; min-height: 28px; white-space: nowrap;">
+              <span>CDN 태그 복사</span>
+            </button>
+          </div>
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-copy-code-btn" data-copy-target="pc-starter-template-code" style="flex: 1; justify-content: center; background: #EAF7F1; border-color: #6CAE97; color: #1B4738;">
               <span class="pc-inline-icon is-xs" data-icon="clipboard"></span>
@@ -1636,9 +1642,8 @@
   &lt;meta charset="utf-8"&gt;
   &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
   &lt;title&gt;My PaperCut App&lt;/title&gt;
-  &lt;!-- PaperCut Core CSS --&gt;
-  &lt;link rel="stylesheet" href="./papercut.css"&gt;
-  &lt;link rel="stylesheet" href="./papercut-svg-primitives.css"&gt;
+  &lt;!-- PaperCut Core CSS (jsDelivr CDN) --&gt;
+  &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css"&gt;
 &lt;/head&gt;
 &lt;body style="background: #FAF7F0; padding: 40px 20px; font-family: sans-serif;"&gt;
   &lt;div style="max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;"&gt;
@@ -1656,9 +1661,9 @@
       &lt;p&gt;설치와 복사 붙여넣기로 즉시 완성되는 3D 페이퍼 인터페이스입니다.&lt;/p&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;!-- PaperCut Scripts --&gt;
-  &lt;script src="./papercut-icons.js"&gt;&lt;/script&gt;
-  &lt;script src="./papercut.js"&gt;&lt;/script&gt;
+  &lt;!-- PaperCut Scripts (jsDelivr CDN) --&gt;
+  &lt;script src="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut-icons.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.js"&gt;&lt;/script&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
           </div>
