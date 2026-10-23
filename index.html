@@ -814,24 +814,24 @@
               </svg>
             </button>
             <div class="pc-dropdown-menu" id="header-paper-dropdown-menu" role="menu" data-pc-paper="menu" style="min-width: 170px; right: 0; left: auto;">
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost pc-is-active" data-value="cotton"><span class="pc-inline-icon is-xs" data-icon="leaf"></span> <span class="pc-dropdown-item-label">300g 코튼지</span></button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="hanji"><span class="pc-inline-icon is-xs" data-icon="bamboo"></span> <span class="pc-dropdown-item-label">닥나무 한지</span></button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="kraft"><span class="pc-inline-icon is-xs" data-icon="package"></span> <span class="pc-dropdown-item-label">크라프트 보드</span></button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="vellum"><span class="pc-inline-icon is-xs" data-icon="scroll"></span> <span class="pc-dropdown-item-label">실크 벨러지</span></button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="origami"><span class="pc-inline-icon is-xs" data-icon="palette"></span> <span class="pc-dropdown-item-label">오리가미 화지</span></button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="cardboard"><span class="pc-inline-icon is-xs" data-icon="package"></span> <span class="pc-dropdown-item-label">골판지 카톤</span></button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="newsprint"><span class="pc-inline-icon is-xs" data-icon="book"></span> <span class="pc-dropdown-item-label">빈티지 신문지</span></button>
-              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="parchment"><span class="pc-inline-icon is-xs" data-icon="scroll"></span> <span class="pc-dropdown-item-label">고문서 양피지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost pc-is-active" data-value="cotton"><span class="pc-inline-icon is-sm" data-icon="leaf"></span> <span class="pc-dropdown-item-label">300g 코튼지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="hanji"><span class="pc-inline-icon is-sm" data-icon="bamboo"></span> <span class="pc-dropdown-item-label">닥나무 한지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="kraft"><span class="pc-inline-icon is-sm" data-icon="package-box"></span> <span class="pc-dropdown-item-label">크라프트 보드</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="vellum"><span class="pc-inline-icon is-sm" data-icon="scroll"></span> <span class="pc-dropdown-item-label">실크 벨러지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="origami"><span class="pc-inline-icon is-sm" data-icon="palette"></span> <span class="pc-dropdown-item-label">오리가미 화지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="cardboard"><span class="pc-inline-icon is-sm" data-icon="package-sealed"></span> <span class="pc-dropdown-item-label">골판지 카톤</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="newsprint"><span class="pc-inline-icon is-sm" data-icon="newspaper"></span> <span class="pc-dropdown-item-label">빈티지 신문지</span></button>
+              <button type="button" class="pc-dropdown-item pc-btn pc-btn-ghost" data-value="parchment"><span class="pc-inline-icon is-sm" data-icon="scroll"></span> <span class="pc-dropdown-item-label">고문서 양피지</span></button>
             </div>
             <!-- 하위 호환성 및 기존 로직 동기화를 위한 숨김 select 유지 -->
             <select id="header-paper-sound-type" style="display:none;" aria-hidden="true">
               <option value="cotton" selected data-icon="leaf">300g 코튼지</option>
               <option value="hanji" data-icon="bamboo">닥나무 한지</option>
-              <option value="kraft" data-icon="package">크라프트 보드</option>
+              <option value="kraft" data-icon="package-box">크라프트 보드</option>
               <option value="vellum" data-icon="scroll">실크 벨러지</option>
               <option value="origami" data-icon="palette">오리가미 화지</option>
-              <option value="cardboard" data-icon="package">골판지 카톤</option>
-              <option value="newsprint" data-icon="book">빈티지 신문지</option>
+              <option value="cardboard" data-icon="package-sealed">골판지 카톤</option>
+              <option value="newsprint" data-icon="newspaper">빈티지 신문지</option>
               <option value="parchment" data-icon="scroll">고문서 양피지</option>
             </select>
           </div>
@@ -956,58 +956,58 @@
           </div>
           
           <div class="pc-sidebar-sound-papers" id="pc-sidebar-sound-list" role="radiogroup" aria-label="종이 종류별 사운드 선택">
-            <button type="button" class="pc-sidebar-paper-btn is-active" data-paper="cotton" role="radio" aria-checked="true" title="🌿 300g 수제 코튼지 (포근한 펄프 서걱임)">
+            <button type="button" class="pc-sidebar-paper-btn is-active" data-paper="cotton" role="radio" aria-checked="true" title="300g 수제 코튼지 (포근한 펄프 서걱임)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">🌿</span>
+                <span class="pc-inline-icon is-sm" data-icon="leaf"></span>
                 <span class="pc-paper-name">300g 코튼지</span>
               </div>
               <span class="pc-paper-badge">300g</span>
             </button>
-            <button type="button" class="pc-sidebar-paper-btn" data-paper="hanji" role="radio" aria-checked="false" title="🎋 닥나무 전통 한지 (맑고 찰랑이는 사각거림)">
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="hanji" role="radio" aria-checked="false" title="닥나무 전통 한지 (맑고 찰랑이는 사각거림)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">🎋</span>
+                <span class="pc-inline-icon is-sm" data-icon="bamboo"></span>
                 <span class="pc-paper-name">닥나무 한지</span>
               </div>
               <span class="pc-paper-badge">한지</span>
             </button>
-            <button type="button" class="pc-sidebar-paper-btn" data-paper="kraft" role="radio" aria-checked="false" title="📦 350g 크라프트 보드 (묵직한 둔탁음과 마찰)">
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="kraft" role="radio" aria-checked="false" title="350g 크라프트 보드 (묵직한 둔탁음과 마찰)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">📦</span>
+                <span class="pc-inline-icon is-sm" data-icon="package-box"></span>
                 <span class="pc-paper-name">크라프트 보드</span>
               </div>
               <span class="pc-paper-badge">350g</span>
             </button>
-            <button type="button" class="pc-sidebar-paper-btn" data-paper="vellum" role="radio" aria-checked="false" title="📜 반투명 실크 벨러지 (바삭바삭 파사삭 찰랑임)">
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="vellum" role="radio" aria-checked="false" title="반투명 실크 벨러지 (바삭바삭 파사삭 찰랑임)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">📜</span>
+                <span class="pc-inline-icon is-sm" data-icon="scroll"></span>
                 <span class="pc-paper-name">실크 벨러지</span>
               </div>
               <span class="pc-paper-badge">벨럼</span>
             </button>
-            <button type="button" class="pc-sidebar-paper-btn" data-paper="origami" role="radio" aria-checked="false" title="🎨 오리가미 화지 (경쾌한 착착 접힘 스냅)">
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="origami" role="radio" aria-checked="false" title="오리가미 화지 (경쾌한 착착 접힘 스냅)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">🎨</span>
+                <span class="pc-inline-icon is-sm" data-icon="palette"></span>
                 <span class="pc-paper-name">오리가미 화지</span>
               </div>
               <span class="pc-paper-badge">색종이</span>
             </button>
-            <button type="button" class="pc-sidebar-paper-btn" data-paper="cardboard" role="radio" aria-checked="false" title="📦 골판지 카톤 (드르륵 요철 질감 마찰음)">
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="cardboard" role="radio" aria-checked="false" title="골판지 카톤 (드르륵 요철 질감 마찰음)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">📦</span>
+                <span class="pc-inline-icon is-sm" data-icon="package-sealed"></span>
                 <span class="pc-paper-name">골판지 카톤</span>
               </div>
               <span class="pc-paper-badge">골판지</span>
             </button>
-            <button type="button" class="pc-sidebar-paper-btn" data-paper="newsprint" role="radio" aria-checked="false" title="📰 빈티지 신문지 (가볍게 파스락거리는 구김음)">
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="newsprint" role="radio" aria-checked="false" title="빈티지 신문지 (가볍게 파스락거리는 구김음)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">📰</span>
+                <span class="pc-inline-icon is-sm" data-icon="newspaper"></span>
                 <span class="pc-paper-name">빈티지 신문지</span>
               </div>
               <span class="pc-paper-badge">신문지</span>
             </button>
-            <button type="button" class="pc-sidebar-paper-btn" data-paper="parchment" role="radio" aria-checked="false" title="📜 고문서 양피지 (바싹 마른 크리스피 크랙클)">
+            <button type="button" class="pc-sidebar-paper-btn" data-paper="parchment" role="radio" aria-checked="false" title="고문서 양피지 (바싹 마른 크리스피 크랙클)">
               <div class="pc-paper-btn-left">
-                <span class="pc-paper-emoji">📜</span>
+                <span class="pc-inline-icon is-sm" data-icon="scroll"></span>
                 <span class="pc-paper-name">고문서 양피지</span>
               </div>
               <span class="pc-paper-badge">양피지</span>
@@ -1896,7 +1896,7 @@
         <div class="pc-sound-master-deck">
           <div style="display: flex; flex-direction: column; gap: 2px;">
             <span style="font-size: 11px; font-weight: 800; color: #8C7C6D; text-transform: uppercase;">Master Audio</span>
-            <span id="studio-current-paper-name" style="font-size: 13.5px; font-weight: 800; color: #1E5C41;">🌿 300g 수제 코튼지 활성</span>
+            <span id="studio-current-paper-name" style="font-size: 13.5px; font-weight: 800; color: #1E5C41; display: inline-flex; align-items: center; gap: 6px;"><span class="pc-inline-icon is-sm" data-icon="leaf"></span> 300g 수제 코튼지 활성</span>
           </div>
           <button type="button" class="pc-btn pc-btn-buttercup pc-btn-sm pc-btn-pill" id="studio-sound-master-toggle">
             <span class="pc-inline-icon is-xs" data-icon="volume" id="studio-master-icon"></span>
@@ -1913,7 +1913,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">🌿</span>
+                <span class="pc-inline-icon is-md" data-icon="leaf"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">300g 수제 코튼지</span>
               </div>
               <span class="pc-badge pc-badge--mint" style="font-size: 10px;">300gsm</span>
@@ -1952,7 +1952,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">🎋</span>
+                <span class="pc-inline-icon is-md" data-icon="bamboo"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">닥나무 전통 한지</span>
               </div>
               <span class="pc-badge pc-badge--sage" style="font-size: 10px;">한지</span>
@@ -1991,7 +1991,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">📦</span>
+                <span class="pc-inline-icon is-md" data-icon="package-box"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">350g 크라프트 보드</span>
               </div>
               <span class="pc-badge pc-badge--peach" style="font-size: 10px;">350gsm</span>
@@ -2030,7 +2030,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">📜</span>
+                <span class="pc-inline-icon is-md" data-icon="scroll"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">반투명 실크 벨러지</span>
               </div>
               <span class="pc-badge pc-badge--sky" style="font-size: 10px;">벨럼</span>
@@ -2069,7 +2069,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">🎨</span>
+                <span class="pc-inline-icon is-md" data-icon="palette"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">오리가미 화지</span>
               </div>
               <span class="pc-badge pc-badge--lavender" style="font-size: 10px;">색종이</span>
@@ -2108,7 +2108,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">📦</span>
+                <span class="pc-inline-icon is-md" data-icon="package-sealed"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">골판지 카톤</span>
               </div>
               <span class="pc-badge pc-badge--buttercup" style="font-size: 10px;">골판지</span>
@@ -2147,7 +2147,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">📰</span>
+                <span class="pc-inline-icon is-md" data-icon="newspaper"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">빈티지 신문지</span>
               </div>
               <span class="pc-badge pc-badge--rose" style="font-size: 10px;">신문지</span>
@@ -2186,7 +2186,7 @@
           <div>
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
               <div style="display: inline-flex; align-items: center; gap: 8px;">
-                <span style="font-size: 20px;">📜</span>
+                <span class="pc-inline-icon is-md" data-icon="scroll"></span>
                 <span style="font-size: 16px; font-weight: 800; color: #3D352E;">고문서 양피지</span>
               </div>
               <span class="pc-badge pc-badge--peach" style="font-size: 10px;">양피지</span>
@@ -2800,8 +2800,8 @@
         </h3>
 
         <!-- 사용자 프롬프트 원문 카드 -->
-        <div style="background: #FFFDF9; border: 1px dashed rgba(46, 30, 20, 0.20); border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 12.5px; color: #554433; line-height: 1.5;">
-          <strong style="color: #2E1E14;">🎨 Visual Core Prompt:</strong>
+        <div style="background: #FFFDF9; border: 1px dashed rgba(46, 30, 20, 0.20); border-radius: 10px; padding: 12px 16px; margin-bottom: 20px; font-size: 12.5px; color: #554433; line-height: 1.5; display: flex; align-items: center; gap: 8px;">
+          <strong style="color: #2E1E14; display: inline-flex; align-items: center; gap: 6px;"><span class="pc-inline-icon is-xs" data-icon="palette"></span> Visual Core Prompt:</strong>
           <em>"Layered paper-cut illustration, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling."</em>
         </div>
 
@@ -5280,10 +5280,10 @@
                   음각 도화지 드롭다운 (.pc-select-paper)
                 </label>
                 <select class="pc-select-paper pc-select" style="width: 100%;">
-                  <option selected>🌿 300g 수제 코튼지 (Mint Focus Aura)</option>
-                  <option>🎋 닥나무 전통 한지 (Translucent)</option>
-                  <option>📦 350g 크라프트 보드 (Dense)</option>
-                  <option>📜 실크 벨러지 (Vellum Grain)</option>
+                  <option selected>300g 수제 코튼지 (Mint Focus Aura)</option>
+                  <option>닥나무 전통 한지 (Translucent)</option>
+                  <option>350g 크라프트 보드 (Dense)</option>
+                  <option>실크 벨러지 (Vellum Grain)</option>
                 </select>
               </div>
             </div>
@@ -7646,9 +7646,9 @@
           selSlot.appendChild(P.createSelect({
             tone: 'lavender',
             options: [
-              { value: 'cotton', label: '🌿 300g 수제 코튼지' },
-              { value: 'hanji', label: '🎋 닥나무 전통 한지' },
-              { value: 'kraft', label: '📦 350g 크라프트 보드' }
+              { value: 'cotton', label: '300g 수제 코튼지' },
+              { value: 'hanji', label: '닥나무 전통 한지' },
+              { value: 'kraft', label: '350g 크라프트 보드' }
             ]
           }));
         }
@@ -7721,7 +7721,7 @@
       try {
         var es = new EventSource('/__livereload');
         es.addEventListener('css', function(e) {
-          console.log('[LiveReload] 🎨 Hot-reloading CSS (' + (e.data || 'stylesheet') + ')...');
+          console.log('[LiveReload] Hot-reloading CSS (' + (e.data || 'stylesheet') + ')...');
           document.querySelectorAll('link[rel="stylesheet"]').forEach(function(link) {
             var rawHref = link.getAttribute('href');
             if (rawHref && !rawHref.startsWith('http://') && !rawHref.startsWith('https://')) {
@@ -7731,12 +7731,12 @@
           });
         });
         es.addEventListener('reload', function(e) {
-          console.log('[LiveReload] ⚡ File changed (' + (e.data || 'page') + '), reloading...');
+          console.log('[LiveReload] File changed (' + (e.data || 'page') + '), reloading...');
           window.location.reload();
         });
         es.onopen = function() {
           window.__pc_livereload_active = true;
-          console.log('[LiveReload] 🟢 Real-time Hot Reload connected');
+          console.log('[LiveReload] Real-time Hot Reload connected');
         };
         es.onerror = function() {
           // If server doesn't support SSE, gracefully silent

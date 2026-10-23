@@ -1420,10 +1420,13 @@
     toast.innerHTML = `
       <div style="position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 64px; height: 16px; background: ${pal.bg}; opacity: 0.85; border-radius: 2px; box-shadow: 0 1px 2px rgba(46,30,20,0.15);"></div>
       <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: ${pal.bg}; color: ${pal.ink}; font-weight: 800; font-size: 12px;">✓</span>
+        <span class="pc-inline-icon is-xs" data-icon="check-v" style="width: 22px; height: 22px;"></span>
         <span style="font-size: 13.5px; font-weight: 700; color: #2E1E14;">${message}</span>
       </div>
     `;
+    if (typeof window.hydratePapercutIcons === 'function') {
+      window.hydratePapercutIcons(toast);
+    }
 
     container.appendChild(toast);
     requestAnimationFrame(() => {
@@ -1468,7 +1471,14 @@
 
       const circle = document.createElement('div');
       circle.style.cssText = `width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; border: 1px solid ${isCurrent || isCompleted ? pal.border : 'rgba(46,30,20,0.18)'}; background: ${isCompleted ? pal.bg : (isCurrent ? '#FFFDF9' : '#F6EFE3')}; color: ${isCurrent ? '#2E1E14' : pal.ink}; box-shadow: ${isCurrent ? '0 2px 4px rgba(46,30,20,0.18), inset 0 1px 0 #FFFFFF' : 'none'};`;
-      circle.textContent = isCompleted ? '✓' : String(idx + 1);
+      if (isCompleted) {
+        circle.innerHTML = '<span class="pc-inline-icon is-xs" data-icon="check-v" style="width: 18px; height: 18px;"></span>';
+        if (typeof window.hydratePapercutIcons === 'function') {
+          window.hydratePapercutIcons(circle);
+        }
+      } else {
+        circle.textContent = String(idx + 1);
+      }
 
       const title = document.createElement('span');
       title.style.cssText = `font-size: 12.5px; font-weight: ${isCurrent ? '800' : '600'}; color: ${isCurrent ? '#2E1E14' : '#7A695A'};`;
