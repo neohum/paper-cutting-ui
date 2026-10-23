@@ -174,12 +174,12 @@ describe('Lane B: Cards, Banners & Sections Multi-Layer SVG Papercraft Geometry'
       // Verifying dashed perforation in both cards
       const ticketMatch = indexHtml.match(/<!-- 04\. 노치 시네마\/바우처 티켓 카드 \(직각\) -->[\s\S]*?<\/svg>/);
       assert.ok(ticketMatch, 'Card 04 Ticket SVG must be present');
-      assert.ok(ticketMatch[0].includes('stroke-dasharray="3 3"'), 'Card 04 Ticket must feature stroke-dasharray="3 3"');
+      assert.ok(ticketMatch[0].includes('stroke-dasharray="1 5"') || ticketMatch[0].includes('stroke-dasharray="3 3"'), 'Card 04 Ticket must feature perforation line');
       assert.ok(ticketMatch[0].includes('#FAF6ED'), 'Card 04 Ticket must feature inner cream inlay');
 
       const ticketRndMatch = indexHtml.match(/<!-- 04-R\. 둥근 노치 시네마 티켓 카드 -->[\s\S]*?<\/svg>/);
       assert.ok(ticketRndMatch, 'Card 04-R Ticket SVG must be present');
-      assert.ok(ticketRndMatch[0].includes('stroke-dasharray="3 3"'), 'Card 04-R Ticket must feature stroke-dasharray="3 3"');
+      assert.ok(ticketRndMatch[0].includes('stroke-dasharray="1 5"') || ticketRndMatch[0].includes('stroke-dasharray="3 3"'), 'Card 04-R Ticket must feature perforation line');
       assert.ok(ticketRndMatch[0].includes('#FAF6ED'), 'Card 04-R Ticket must feature inner cream inlay');
     });
 
@@ -300,8 +300,16 @@ describe('Lane B: Cards, Banners & Sections Multi-Layer SVG Papercraft Geometry'
       assert.ok(indexHtml.includes('data-bg-shape'), 'data-bg-shape attributes must remain intact');
     });
 
-    it('should enforce Flaticon UIcons fi fi-rr-* standard', () => {
-      assert.ok(indexHtml.includes('fi fi-rr-'), 'index.html must maintain fi fi-rr-* standard');
+    it('should enforce PaperCut 3D Vector Icon standard and absence of legacy icon classes', () => {
+      assert.strictEqual(
+        indexHtml.includes('fi' + ' fi-' + 'rr-'),
+        false,
+        'index.html must not contain legacy icon classes'
+      );
+      assert.ok(
+        indexHtml.includes('pc-inline-icon'),
+        'index.html must use PaperCut vector icon system'
+      );
     });
 
     it('should enforce Anti-Fingernail rule (no asymmetric border-l-4 rounded)', () => {

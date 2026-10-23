@@ -200,7 +200,7 @@ gram.triggerKey('KeyG');
    - 방향키(Arrow Up/Down/Left/Right), Page Up/Down 키로 시점과 가상 광원을 접근성 친화적으로 회전할 수 있습니다.
 2. **모션 감소 대응 (`prefers-reduced-motion: reduce`)**:
    - 시스템의 모션 감소 옵션 활성화 시 모든 CSS 트랜지션과 팬 회전 애니메이션이 즉각 중지되며, 렌더링 루프는 정적 슬립 모드로 진입합니다.
-3. **Flaticon UIcons (`fi fi-rr-*`) 단일 아이콘 표준**:
-   - UI 상의 모든 제어 버튼과 정보 뱃지는 Flaticon Regular Rounded 스타일 아이콘을 사용하여 일관된 그래픽 완성도를 보장합니다.
+3. **PaperCut 3D 다층 벡터 아이콘 표준**:
+   - UI 상의 모든 제어 버튼과 정보 뱃지는 PaperCut 3D 종이공예 다층 벡터 아이콘(`pc-inline-icon` 및 Pure SVG)을 사용하여 일관된 그래픽 완성도를 보장합니다.
 4. **한국어 타이포그래피 표준**:
    - 어절 단위 줄바꿈(`break-keep`), 제목 균형 배치(`text-balance`), 본문 외톨이 단어 방지(`text-pretty`)를 철저히 적용하여 가독성을 극대화합니다.

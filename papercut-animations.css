@@ -864,34 +864,13 @@
   }
 }
 
-/* 1.14 Shingle Card Tactile Pop (슁글 카드 틈새 솟아오름 팝업 스프링) */
-@keyframes pcShinglePop {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  60% {
-    transform: translateY(-16px) scale(1.025);
-  }
-  100% {
-    transform: translateY(-14px) scale(1.02);
-  }
-}
-
-/* Strata & Shingle Animation Classes */
+/* Strata Animation Classes */
 .pc-anim-strata-breeze {
   animation: pcStrataBreeze 6s ease-in-out infinite both;
 }
 
-.pc-anim-shingle-lift {
-  animation: pcShinglePop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
 .pc-hover-strata-breeze:hover {
   animation: pcStrataBreeze 4s ease-in-out infinite both;
-}
-
-.pc-hover-shingle-lift:hover {
-  animation: pcShinglePop 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* ==========================================================================
@@ -1005,12 +984,9 @@
   .pc-anim-cut-carve,
   .pc-anim-loop,
   .pc-anim-strata-breeze,
-  .pc-anim-shingle-lift,
   .pc-strata-hills,
   .pc-strata-layer,
   .pc-strata-slot,
-  .pc-shingle-deck,
-  .pc-shingle-card,
   .pc-wood-curl-card,
   .pc-wood-curl-peel,
   .pc-wood-curl-underlayer,
@@ -1056,8 +1032,7 @@
   .pc-hover-wax-slam:hover,
   .pc-hover-snip-split:hover,
   .pc-hover-deckle-tear:hover,
-  .pc-hover-strata-breeze:hover,
-  .pc-hover-shingle-lift:hover {
+  .pc-hover-strata-breeze:hover {
     animation: none !important;
     transform: translateY(-1px) !important;
     opacity: 1 !important;

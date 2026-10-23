@@ -98,99 +98,36 @@ describe('Step 3: Showcase Stacking & Interlocking Integration', () => {
   });
 
   // -------------------------------------------------------------------------
-  // AC-8: Showcase Section & 5 Stacking/Interlocking Studio Demos
+  // Purged: Papercraft Multi-Layer Stacking & Interlocking Studio
   // -------------------------------------------------------------------------
-  describe('AC-8: Papercraft Multi-Layer Stacking & Interlocking Studio Showcase', () => {
-    it('should declare #papercut-stacking-studio section in index.html', () => {
+  describe('Purged: Papercraft Multi-Layer Stacking & Interlocking Studio', () => {
+    it('should confirm #papercut-stacking-studio section is completely purged from index.html', () => {
       assert.ok(
-        indexHtml.includes('id="papercut-stacking-studio"'),
-        'index.html must have #papercut-stacking-studio dedicated section'
+        !indexHtml.includes('id="papercut-stacking-studio"'),
+        'index.html must not contain #papercut-stacking-studio'
       );
       assert.ok(
-        indexHtml.includes('Papercraft Multi-Layer Stacking &amp; Interlocking Studio') ||
-        indexHtml.includes('Papercraft Multi-Layer Stacking & Interlocking Studio'),
-        'Studio section title must be declared'
-      );
-    });
-
-    it('should demonstrate fanned and cascading paper decks (.pc-stack-fanned, .pc-stack-cascade)', () => {
-      assert.ok(
-        indexHtml.includes('pc-stack-fanned'),
-        'Studio section must showcase .pc-stack-fanned deck demo'
-      );
-      assert.ok(
-        indexHtml.includes('pc-stack-cascade'),
-        'Studio section must showcase .pc-stack-cascade deck demo'
+        !indexHtml.includes('Papercraft Multi-Layer Stacking & Interlocking Studio') &&
+        !indexHtml.includes('Papercraft Multi-Layer Stacking &amp; Interlocking Studio'),
+        'Studio section title must not exist'
       );
     });
 
-    it('should demonstrate precision knife-cut slit interlocking (.pc-slot-slit, .pc-slot-insert)', () => {
-      assert.ok(
-        indexHtml.includes('pc-slot-slit'),
-        'Studio section must showcase .pc-slot-slit carved slot line'
-      );
-      assert.ok(
-        indexHtml.includes('pc-slot-insert'),
-        'Studio section must showcase .pc-slot-insert inserted ticket or button'
-      );
-      assert.ok(
-        indexHtml.includes('pc-slot-pocket'),
-        'Studio section must showcase .pc-slot-pocket interlocking container'
-      );
+    it('should confirm knife-cut slit interlocking and shingle deck are purged from index.html', () => {
+      assert.ok(!indexHtml.includes('pc-slot-slit'), 'index.html must not contain .pc-slot-slit');
+      assert.ok(!indexHtml.includes('pc-slot-insert'), 'index.html must not contain .pc-slot-insert');
+      assert.ok(!indexHtml.includes('pc-slot-pocket'), 'index.html must not contain .pc-slot-pocket');
+      assert.ok(!indexHtml.includes('pc-shingle-deck'), 'index.html must not contain .pc-shingle-deck');
     });
 
-    it('should demonstrate cascading shingle deck with overlapping cards (.pc-shingle-deck, .pc-shingle-card)', () => {
+    it('should confirm sidebar navigation does not link to papercut-stacking-studio', () => {
       assert.ok(
-        indexHtml.includes('pc-shingle-deck'),
-        'Studio section must showcase .pc-shingle-deck container'
+        !indexHtml.includes('href="#papercut-stacking-studio"'),
+        'index.html sidebar must not link to #papercut-stacking-studio'
       );
       assert.ok(
-        indexHtml.includes('pc-shingle-card'),
-        'Studio section must feature multiple .pc-shingle-card items'
-      );
-      const cardMatches = indexHtml.match(/class="[^"]*pc-shingle-card[^"]*"/g) || [];
-      assert.ok(
-        cardMatches.length >= 3,
-        `Shingle deck must include at least 3 stacked cards, found ${cardMatches.length}`
-      );
-    });
-
-    it('should demonstrate craft photo corners and belly band mount cards', () => {
-      const studioSection = indexHtml.split('id="papercut-stacking-studio"')[1]?.split('</section>')[0];
-      assert.ok(studioSection, 'Studio section content must exist');
-      assert.ok(
-        studioSection.includes('pc-photo-corner'),
-        'Studio section must demonstrate .pc-photo-corner mounting'
-      );
-      assert.ok(
-        studioSection.includes('pc-belly-band'),
-        'Studio section must demonstrate .pc-belly-band paper wrapping'
-      );
-    });
-
-    it('should synchronize sidebar navigation in both index.html and papercut-sidebar.js', () => {
-      // index.html static sidebar
-      assert.ok(
-        indexHtml.includes('href="#papercut-stacking-studio"'),
-        'index.html sidebar must link to #papercut-stacking-studio'
-      );
-      assert.ok(
-        indexHtml.includes('레이어드 스택 &amp; 겹침') || indexHtml.includes('레이어드 스택 & 겹침'),
-        'Sidebar label "레이어드 스택 & 겹침" must be displayed'
-      );
-      assert.ok(
-        indexHtml.includes('NEW STACK'),
-        'Sidebar badge "NEW STACK" must be present'
-      );
-
-      // papercut-sidebar.js dynamic router
-      assert.ok(
-        sidebarJs.includes("id: 'papercut-stacking-studio'"),
-        'papercut-sidebar.js must register papercut-stacking-studio section'
-      );
-      assert.ok(
-        sidebarJs.includes("NEW STACK"),
-        'papercut-sidebar.js must register NEW STACK badge'
+        !sidebarJs.includes("id: 'papercut-stacking-studio'"),
+        'papercut-sidebar.js must not register papercut-stacking-studio'
       );
     });
   });
@@ -199,38 +136,6 @@ describe('Step 3: Showcase Stacking & Interlocking Integration', () => {
   // AC-9: Hard Rules Compliance & Non-breaking Aesthetics
   // -------------------------------------------------------------------------
   describe('AC-9: AGENTS.md Hard Rules & Typographic Standard', () => {
-    it('should use Flaticon UIcons (fi fi-rr-*) standard without inline SVGs replacing icon icons', () => {
-      const studioSection = indexHtml.split('id="papercut-stacking-studio"')[1]?.split('</section>')[0] || '';
-      const iconMatches = studioSection.match(/fi fi-rr-[a-z0-9-]+/g) || [];
-      assert.ok(
-        iconMatches.length >= 5,
-        `Studio section must use standard Flaticon UIcons (fi fi-rr-*), found ${iconMatches.length}`
-      );
-      // Ensure no Lucide or Heroicon prefixes in studio
-      assert.ok(!studioSection.includes('lucide-'), 'Must not mix Lucide icon classes');
-      assert.ok(!studioSection.includes('heroicon-'), 'Must not mix Heroicon classes');
-    });
-
-    it('should adhere to Korean typography standards (break-keep, text-balance) and forbid break-all', () => {
-      const studioSection = indexHtml.split('id="papercut-stacking-studio"')[1]?.split('</section>')[0] || '';
-      assert.ok(
-        studioSection.includes('break-keep'),
-        'Studio section must apply Korean break-keep typography'
-      );
-      assert.ok(
-        !studioSection.includes('break-all'),
-        'break-all is strictly forbidden by AGENTS.md Hard Rules'
-      );
-    });
-
-    it('should adhere to button and badge centering standards (inline-flex items-center justify-center leading-none)', () => {
-      const studioSection = indexHtml.split('id="papercut-stacking-studio"')[1]?.split('</section>')[0] || '';
-      assert.ok(
-        studioSection.includes('inline-flex items-center justify-center leading-none'),
-        'Buttons and badges must enforce inline-flex items-center justify-center leading-none'
-      );
-    });
-
     it('should adhere to anti-fingernail design standard (forbid border-l-4 rounded-*)', () => {
       assert.ok(
         !indexHtml.includes('border-l-4 rounded-'),

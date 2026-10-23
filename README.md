@@ -12,7 +12,7 @@
 ```text
 paper-cutting-ui/
 ├── index.html                  # 메인 종합 쇼케이스 (30개 실전 예제, 45개 PC 컴포넌트, 6대 벡터 차트, 678 아이콘 갤러리)
-├── icon-simulator.html         # 아이콘 규격별 듀얼 디자인 시뮬레이션 스튜디오 (16~28px fi-rr 라인 vs 32~256px 3D 페이퍼)
+├── icon-simulator.html         # 3D 페이퍼컷 아이콘 라이브러리 (index.html#icon-gallery 연동)
 ├── papercut.css                # 페이퍼 아트 UI 전용 독립 CSS 라이브러리 (B 표준: 2-Tier · 4.5px · 48% Stacking 적용)
 ├── papercut.js                 # 기본 인터랙션, 드롭다운, 토스트, 복사, 오디오 합성 스크립트
 ├── papercut-icons.js           # 678종 스탠드얼론 레이어드 페이퍼 컷팅 아이콘 시스템 (659개 SVG + 19개 별칭) & 동적 스케일 엔진
@@ -28,7 +28,7 @@ paper-cutting-ui/
 └── assets/
     ├── papercut-hero.jpg       # AI 에이전트 협업 생성: 열기구와 마을 페이퍼 컷팅 아트
     ├── papercut-botanical.jpg  # AI 에이전트 협업 생성: 보태니컬 온실 페이퍼 컷팅 아트
-    └── uicons/                 # Flaticon Regular Rounded UI 아이콘 폰트
+    └── avatars/                # 페이퍼컷 아바타 자산
 ```
 
 ---
@@ -43,9 +43,8 @@ paper-cutting-ui/
    - Tier 2: 4.5px 단차 높이 48% 부유 그림자(Mid-air Float)로 층간 분리감 구현
    - 1px 칼선 화이트 반사 림(Knife Bevel Highlight)으로 종이 두께감 형성
    - 내부 다층 적층: `base ➔ mid ➔ top ➔ steam` 각 층이 하부 층으로 독립 그림자를 투사하여 완벽한 입체감(양각) 연출
-4. **678종 스탠드얼론 아이콘 & 듀얼 스튜디오 아키텍처**:
-   - **16~28px fi fi-rr 정밀 라인 스튜디오**: 0.88px 진회색(#423D39) 극세선, 3D 그림자 차단(Shadow OFF), 8% 파스텔 워시로 마이크로 버튼·인풋·태그의 또렷한 가독성 확보.
-   - **32~256px 3D 레이어드 페이퍼 아트 스튜디오**: 배경 박스 없는 순수 다층 색지와 2-Tier 48% 입체 그림자로 카드·모달·쇼케이스의 예술적 공간감 연출.
+4. **678종 스탠드얼론 Pure 3D 종이공예 아이콘 시스템**:
+   - **Universal Full-Color 3D Kirigami Standard (16px ~ 256px 전역)**: 모노크롬 철선을 전면 배제하고, AI 원작 아트워크의 파스텔 7색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Cream)와 2-Tier 48% 번트 엄버 그림자가 살아있는 독립형 풀컬러 3D 종이공예 SVG(678종 시스템)를 단일 표준으로 적용.
    - 659개 마스터크래프트 Kirigami SVG + 19개 호환 별칭 = 678개 아이콘 토큰.
 5. **130가지 종이 배경 플레이트 컬렉션**: 클래식 우표, 실링 왁스, 유기적 조약돌, 로마네스크 아치, 접지 공예 등 5개 아키타입 배경 플레이트.
 6. **45개 PC UI 페이퍼컷 컴포넌트 & 6대 프로덕션 블록 & 6대 3D 벡터 차트**: 아코디언부터 툴팁까지 전체 UI 컴포넌트 및 SaaS 대시보드, 인증, 이커머스, 인터랙티브 벡터 차트 완비.

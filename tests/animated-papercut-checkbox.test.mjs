@@ -394,13 +394,13 @@ describe('Animated Paper-Cutting Checkbox, RadioGroup & Switch Suite', () => {
       assert.equal(sw.getAttribute('aria-checked'), 'true', 'switch toggleCut must update aria-checked="true"');
     });
 
-    it('AC-2 & AC-3: index.html includes Animated Paper-Cutting Checkbox/Radio/Switch showcase with Korean copy and Flaticon UIcons', () => {
+    it('AC-2 & AC-3: index.html includes Animated Paper-Cutting Checkbox/Radio/Switch showcase with Korean copy and PaperCut icons', () => {
       const html = readFileSync(join(rootDir, 'index.html'), 'utf-8');
       assert.ok(html.includes('pc-checkbox-cut'), 'index.html must include .pc-checkbox-cut showcase');
       assert.ok(html.includes('pc-radio-cut'), 'index.html must include .pc-radio-cut showcase');
       assert.ok(html.includes('pc-switch-cut'), 'index.html must include .pc-switch-cut showcase');
       assert.ok(html.includes('data-pc-cut="animated"'), 'index.html must include data-pc-cut="animated" attributes');
-      assert.ok(html.includes('fi fi-rr-scissors'), 'showcase must use Flaticon UIcons (fi fi-rr-scissors)');
+      assert.ok(html.includes('data-icon="scissors"'), 'showcase must use PaperCut vector icon (data-icon="scissors")');
 
       const papercutCss = readFileSync(join(rootDir, 'papercut.css'), 'utf-8');
       assert.ok(papercutCss.includes('word-break: keep-all'), 'must enforce word-break: keep-all for Korean labels');

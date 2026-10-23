@@ -4,6 +4,8 @@
   "private": true,
   "description": "PaperCut UI - zero-runtime Vanilla HTML/CSS/JS UI library (테스트용 devDependency만 포함)",
   "scripts": {
+    "dev": "node scripts/dev/live-server.mjs",
+    "serve": "node scripts/dev/live-server.mjs",
     "test": "node --test tests/*.test.mjs",
     "test:physics": "node --test tests/wood-shaving-curl.test.mjs tests/paper-flutter-scatter.test.mjs tests/kirigami-interactions.test.mjs tests/dynamic-light-shadow.test.mjs tests/perf-fps.test.mjs",
     "inspect:visual": "node --experimental-strip-types scripts/visual-inspector/inspect-web.ts",

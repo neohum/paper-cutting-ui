@@ -1550,7 +1550,7 @@ PaperCut UI의 아이콘 시스템은 AI Agent Generated Paper-cut Art 및 Matte
 - **전역 풀컬러 렌더링 (16px ~ 256px 전역):**
   - 모노크롬 철선(wireframe)을 전면 배제하고, 모든 아이콘이 원본 파스텔 색지(Mint, Peach, Lavender, Buttercup, Sky, Rose, Sage, Cream)의 풍부한 층위와 3D 입체 그림자를 기본으로 표시합니다.
   - 버튼(`.pc-btn`), 배지(`.pc-pill-badge`), 인풋 접두사(`.pc-input-icon`), 드롭다운 트리거/항목, 모바일 내비게이션 등 소형 UI부터 대형 카드 쇼케이스까지 동일한 따뜻한 종이 공예의 질감과 컬러를 제공합니다.
-- **예외적 라인 모드:** 오직 개발/시뮬레이션 전용 클래스(`.force-firr`)가 명시된 경우에만 단색 벡터 라인 모드로 전환됩니다.
+- **예외적 라인 모드:** 오직 개발/시뮬레이션 전용 클래스(`.pc-monochrome-style`)가 명시된 경우에만 단색 벡터 라인 모드로 전환됩니다.
 
 #### 2. 'B. 양각 위로 쌓기 (2-Tier · 4.5px · 48% Stacking)' 물리 명세
 - **가상 크래프트 광원:** 315° 탑레프트 사광 (따스한 3200K 독서등 조명).

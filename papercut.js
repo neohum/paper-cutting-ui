@@ -324,7 +324,7 @@ function autoEnhanceSelectsToPaperDropdowns(root = document) {
         ${initialExtracted.iconId ? `<span class="pc-inline-icon is-sm" data-icon="${initialExtracted.iconId}"></span>` : ''}
         <span class="pc-trigger-text trigger-text">${initialExtracted.label}</span>
       </span>
-      <span class="arrow-icon fi fi-rr-angle-small-down" aria-hidden="true"></span>
+      <span class="arrow-icon pc-inline-icon is-xs" data-icon="chevron-down" aria-hidden="true"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg></span>
     `;
     customDropdown.appendChild(trigger);
 
@@ -1454,8 +1454,12 @@ function initPlayground() {
        if (statusText) statusText.textContent = soundEnabled ? 'ON' : 'OFF';
      }
      if (sbIcon) {
-       sbIcon.className = soundEnabled ? 'pc-sidebar-sound-icon fi fi-rr-volume' : 'pc-sidebar-sound-icon fi fi-rr-volume-slash';
+       sbIcon.className = 'pc-sidebar-sound-icon pc-inline-icon is-xs';
+       sbIcon.setAttribute('data-icon', soundEnabled ? 'volume' : 'mute');
        sbIcon.style.color = soundEnabled ? '#1E5C41' : '#8C7C6D';
+       if (typeof window.hydratePapercutIcons === 'function') {
+         window.hydratePapercutIcons(sbIcon.parentElement || sbIcon);
+       }
      }
 
      // 4. Sidebar Paper Item Active Highlighting
@@ -1491,20 +1495,29 @@ function initPlayground() {
 
      const studioToggle = document.getElementById('studio-sound-master-toggle');
      if (studioToggle) {
-       const icon = studioToggle.querySelector('.fi');
+       const icon = studioToggle.querySelector('.pc-inline-icon') || studioToggle.querySelector('.fi');
        const text = document.getElementById('studio-master-text');
        if (soundEnabled) {
          studioToggle.style.background = '#FEE396';
          studioToggle.style.borderColor = '#E2BC55';
          studioToggle.style.color = '#66460D';
-         if (icon) icon.className = 'fi fi-rr-volume';
+         if (icon) {
+           icon.className = 'pc-inline-icon is-xs';
+           icon.setAttribute('data-icon', 'volume');
+         }
          if (text) text.textContent = '효과음: ON';
        } else {
          studioToggle.style.background = '#FAF6ED';
          studioToggle.style.borderColor = '#DFD3BF';
          studioToggle.style.color = '#7A6F64';
-         if (icon) icon.className = 'fi fi-rr-volume-slash';
+         if (icon) {
+           icon.className = 'pc-inline-icon is-xs';
+           icon.setAttribute('data-icon', 'mute');
+         }
          if (text) text.textContent = '효과음: OFF';
+       }
+       if (typeof window.hydratePapercutIcons === 'function') {
+         window.hydratePapercutIcons(studioToggle);
        }
      }
    }

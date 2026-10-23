@@ -49,11 +49,11 @@ test('Universal Papercut Craft Showcase Harmonization Suite', async (t) => {
       'Must not use break-all on Korean UI typography'
     );
 
-    // 3. Icons: Flaticon UIcons standard (fi fi-rr)
+    // 3. Icons: PaperCut 3D Vector Icons standard (pc-inline-icon)
     const newCraftBlockMatch = indexHtml.match(/<!-- 7\.0 Universal Papercraft Die-Cut & Aperture Showcase Banner -->[\s\S]*?<!-- Interactive Components Showcase Grid/);
     if (newCraftBlockMatch) {
       const craftBlock = newCraftBlockMatch[0];
-      assert.ok(craftBlock.includes('fi fi-rr-cut'), 'Must use Flaticon UIcons regular-rounded icon');
+      assert.ok(craftBlock.includes('data-icon="scissors"'), 'Must use PaperCut 3D Vector Icon standard');
     }
   });
 });
