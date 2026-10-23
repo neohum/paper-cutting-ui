@@ -9,6 +9,7 @@
 
   const SECTIONS = [
     { id: 'overview', title: '개요 & 히어로', badge: 'Hero', icon: 'home', bgShape: 'postage-stamp', bgTheme: 'peach', category: '기본 정보' },
+    { id: 'quick-start', title: '설치 & 복사 가이드', badge: '1초 복사', icon: 'download', bgShape: 'seal-wax', bgTheme: 'mint', category: '기본 정보' },
     
     // 마스터 UI 키트 (PC 표준)
     { id: 'pc-components', title: '페이퍼 UI & 특화 컴포넌트', badge: '통합 마스터', icon: 'grid-view', bgTheme: 'lavender', category: '마스터 UI 키트', aliases: ['kirigami-components', 'knife-cut-buttons'],
