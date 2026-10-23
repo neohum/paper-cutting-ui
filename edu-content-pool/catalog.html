@@ -30,7 +30,7 @@
     </header>
 
     <nav class="grades pc-sheet" aria-label="학년">
-      <div role="tablist" id="grade-tabs" class="grade-tabs"></div>
+      <div role="group" aria-label="학년 선택" id="grade-tabs" class="grade-tabs"></div>
     </nav>
 
     <div class="body">
@@ -38,18 +38,20 @@
         <h2 class="side__title"><i class="fi fi-rr-book-alt" aria-hidden="true"></i> 과목</h2>
         <ul id="subject-list" class="subject-list"></ul>
         <div class="legend">
-          <p><span class="chip chip--mint">단원 확인</span> 교과서 단원과 대조함</p>
-          <p><span class="chip chip--butter">추정 배정</span> 성취기준에서 자동 배정 — 검수 필요</p>
+          <p><span class="chip chip--mint">단원명 확인</span> 2022 개정 교과서 단원명과 대조함</p>
+          <p><span class="chip chip--butter">추정 단원</span> 공통 단원 목록이 없는 과목(영어·음악·미술·체육·실과) — 성취기준 영역으로 묶음</p>
+          <p>차시 내용은 학년군 성취기준에서 자동 배치한 초안입니다.</p>
         </div>
       </aside>
 
       <main class="main">
         <div class="toolbar pc-sheet">
           <h2 id="crumb" class="toolbar__crumb"></h2>
+          <p id="result-count" class="toolbar__count" role="status" aria-live="polite"></p>
           <label class="field">
             <span class="sr-only">차시 검색</span>
             <i class="fi fi-rr-search" aria-hidden="true"></i>
-            <input id="search" type="search" placeholder="단원·차시 이름 검색" autocomplete="off">
+            <input id="search" type="search" placeholder="이 학년 전체에서 단원·차시 검색" autocomplete="off">
           </label>
           <label class="field field--select">
             <span class="sr-only">학기</span>
@@ -65,11 +67,13 @@
     </div>
   </div>
 
-  <section id="detail" class="detail pc-sheet no-print" role="dialog" aria-modal="false" aria-label="차시 수업 패키지" tabindex="-1" hidden></section>
+  <div id="backdrop" class="backdrop no-print" hidden></div>
+  <section id="detail" class="detail pc-sheet no-print" role="dialog" aria-modal="true" aria-labelledby="detail-title" tabindex="-1" hidden></section>
 
   <!-- 인쇄 시에만 보이는 종이 활동지(생태계 classroom-ui 양식) -->
   <div id="worksheet" class="print-only" aria-hidden="true"></div>
 
+  <script src="korean-endings.js"></script>
   <script src="catalog-data.js"></script>
   <script src="catalog.js"></script>
 </body>

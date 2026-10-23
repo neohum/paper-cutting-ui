@@ -53,7 +53,162 @@ paper-cutting-ui/
 
 ---
 
-## 🚀 빠른 시작 (Quick Start)
+## 🚀 설치 및 복사 붙여넣기 가이드 (Installation & Copy-Paste)
+
+PaperCut UI는 **Zero-Runtime(빌드 도구 불필요 Vanilla HTML/CSS/JS)** 기반으로 설계되어, 설치 후 원하는 컴포넌트를 그대로 복사 붙여넣기하여 즉시 사용하실 수 있습니다.
+
+### 방법 1: 1초 CDN & HTML 템플릿 복사 붙여넣기 (가장 빠름)
+
+HTML 파일 하나만 만들고 아래 코드를 그대로 붙여넣으면 즉시 3D 페이퍼 아트 UI가 동작합니다:
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My PaperCut App</title>
+  
+  <!-- PaperCut 핵심 스타일시트 -->
+  <link rel="stylesheet" href="./papercut.css">
+  <link rel="stylesheet" href="./papercut-svg-primitives.css">
+</head>
+<body style="background: #FAF7F0; padding: 40px 20px; font-family: sans-serif;">
+  <div style="max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
+    <h1 style="color: #2E1E14; margin: 0;">✂️ PaperCut UI</h1>
+
+    <!-- 01. 버튼 -->
+    <div style="display: flex; gap: 10px;">
+      <button type="button" class="pc-btn pc-btn--mint">민트 버튼</button>
+      <button type="button" class="pc-btn pc-btn--ticket pc-btn--peach">티켓 버튼</button>
+    </div>
+
+    <!-- 02. 카드 -->
+    <div class="pc-card pc-card-sheet" style="padding: 24px; border-radius: 16px; background: #FFFDF9; border: 1.5px solid #D5C7B4; box-shadow: 0 4px 14px rgba(46,30,20,0.10);">
+      <h3 style="margin-top: 0;">수제 종이 카드</h3>
+      <p style="color: #5C4331;">설치와 복사 붙여넣기로 즉시 완성되는 3D 페이퍼 인터페이스입니다.</p>
+    </div>
+  </div>
+
+  <!-- PaperCut 핵심 스크립트 -->
+  <script src="./papercut-icons.js"></script>
+  <script src="./papercut-svg-primitives.js"></script>
+  <script src="./papercut.js"></script>
+</body>
+</html>
+```
+
+---
+
+### 방법 2: NPM 패키지 설치 & Import (React / Vue / Vite / Next.js)
+
+```bash
+# npm 설치
+npm install papercut-ui
+
+# 또는 pnpm / yarn
+pnpm add papercut-ui
+yarn add papercut-ui
+```
+
+```javascript
+// main.js 또는 App.jsx / App.tsx 에서 스타일시트 임포트
+import 'papercut-ui/css';
+import 'papercut-ui/svg-primitives.css';
+
+// 순수 SVG Radix 프리미티브 엔진 사용 (선택 사항)
+import { PaperCutSVG } from 'papercut-ui/primitives';
+```
+
+---
+
+### 방법 3: npx CLI (shadcn/ui 방식 컴포넌트 추가)
+
+별도의 복잡한 세팅 없이 CLI 한 줄로 프로젝트에 파일과 컴포넌트를 바로 가져올 수 있습니다:
+
+```bash
+# 프로젝트 초기화 (핵심 CSS/JS 및 스타터 HTML 복사)
+npx papercut-ui init
+
+# 원하는 컴포넌트 스니펫 추가 (components/<component>.html 파일 생성)
+npx papercut-ui add button
+npx papercut-ui add card
+npx papercut-ui add switch
+
+# 사용 가능한 전체 컴포넌트 목록 확인
+npx papercut-ui list
+
+# 콘솔에 컴포넌트 코드 직접 출력
+npx papercut-ui snippet button
+```
+
+---
+
+### 📋 주요 컴포넌트 복사 붙여넣기 스니펫 (Copy-Paste Snippets)
+
+#### 01. 버튼 (Button)
+```html
+<!-- 민트 솔리드 버튼 -->
+<button type="button" class="pc-btn pc-btn--mint">민트 버튼</button>
+
+<!-- 피치 티켓 노치 버튼 -->
+<button type="button" class="pc-btn pc-btn--ticket pc-btn--peach">티켓 버튼</button>
+
+<!-- 라벤더 우표 천공 버튼 -->
+<button type="button" class="pc-btn pc-btn--stamp pc-btn--lavender">우표 버튼</button>
+```
+
+#### 02. 인풋 입력창 (Input)
+```html
+<!-- 음각 프레스 카빙 인풋 -->
+<input type="text" class="pc-input" data-pc-paper="field" placeholder="내용을 입력하세요..." />
+```
+
+#### 03. 카드 & 패널 (Card)
+```html
+<!-- 티켓 노치 수제 종이 카드 -->
+<div class="pc-card pc-card-sheet" data-pc-paper="ticket" data-pc-tone="cream" style="padding: 24px; border-radius: 16px; background: #FFFDF9; border: 1.5px solid #D5C7B4;">
+  <h3 class="pc-card-title">종이 공예 카드</h3>
+  <p>3D 다층 단차와 2-Tier 번트 엄버 그림자가 적용된 카드입니다.</p>
+</div>
+```
+
+#### 04. 스위치 토글 (Switch)
+```html
+<!-- 슬라이딩 셔터 스위치 -->
+<label class="pc-switch" role="switch" tabindex="0">
+  <span>알림 설정</span>
+  <input type="checkbox" />
+  <span class="pc-switch-thumb"></span>
+</label>
+```
+
+#### 05. 체크박스 (Checkbox)
+```html
+<!-- 종이접기 도그이어 체크박스 -->
+<label class="pc-checkbox">
+  <input type="checkbox" checked />
+  <span>약관에 동의합니다</span>
+</label>
+```
+
+#### 06. 배지 (Badge)
+```html
+<span class="pc-badge pc-badge--mint">Mint</span>
+<span class="pc-badge pc-badge--peach">Peach</span>
+<span class="pc-badge pc-badge--ticket pc-badge--lavender">Ticket</span>
+<span class="pc-badge pc-badge--stamp pc-badge--sand">Stamp</span>
+```
+
+#### 07. 토스트 알림 (Toast)
+```javascript
+// 토스트 메시지 띄우기 (메시지, 톤, 아이콘)
+window.showPaperToast('작업이 완료되었습니다!', 'mint', 'check');
+```
+
+---
+
+## 🚀 빠른 시작 (Quick Start - 로컬 미리보기)
 
 웹 브라우저에서 `index.html` 파일을 더블 클릭하거나 아래 명령어로 로컬 서버를 실행하여 즉시 확인하실 수 있습니다:
 
