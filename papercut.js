@@ -436,30 +436,92 @@ function showPaperToast(message, type = 'mint', iconId = 'check') {
 }
 
 /**
- * Copy Code Snippets
+ * Copy Code Snippets & Quick Clipboard Helper
  */
-function initCopyCodeButtons() {
-  document.addEventListener('click', (e) => {
-    const copyBtn = e.target.closest('[data-copy-target]');
-    if (!copyBtn) return;
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(text);
+  }
+  return new Promise((resolve, reject) => {
+    try {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.left = '-9999px';
+      textarea.style.top = '-9999px';
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      const successful = document.execCommand('copy');
+      document.body.removeChild(textarea);
+      if (successful) resolve();
+      else reject(new Error('execCommand copy failed'));
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
 
-    const targetId = copyBtn.getAttribute('data-copy-target');
-    const targetElement = document.getElementById(targetId);
-    if (!targetElement) return;
-
-    const code = targetElement.textContent.trim();
-    navigator.clipboard.writeText(code).then(() => {
+window.copyPaperCutSnippet = function(code, copyBtn) {
+  if (!code) return;
+  copyTextToClipboard(code).then(() => {
+    if (typeof showPaperToast === 'function') {
       showPaperToast('코드가 클립보드에 복사되었습니다!', 'mint', 'check');
+    }
+    if (copyBtn) {
       const originalText = copyBtn.innerHTML;
-      copyBtn.innerHTML = '<span class="pc-inline-icon is-xs" data-icon="check"></span> <span>복사됨</span>';
+      copyBtn.innerHTML = '<span class="pc-inline-icon is-xs" data-icon="check"></span> <span>복사됨!</span>';
+      copyBtn.classList.add('is-copied');
       if (typeof window.hydratePapercutIcons === 'function') {
         window.hydratePapercutIcons(copyBtn);
       }
-      setTimeout(() => copyBtn.innerHTML = originalText, 1800);
-    }).catch(err => {
-      console.error(err);
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+        copyBtn.classList.remove('is-copied');
+        if (typeof window.hydratePapercutIcons === 'function') {
+          window.hydratePapercutIcons(copyBtn);
+        }
+      }, 1800);
+    }
+  }).catch(err => {
+    console.error(err);
+    if (typeof showPaperToast === 'function') {
       showPaperToast('복사에 실패했습니다.', 'peach', 'ban');
-    });
+    }
+  });
+};
+
+function initCopyCodeButtons() {
+  document.addEventListener('click', (e) => {
+    const copyBtn = e.target.closest('[data-copy-target], [data-copy-snippet], [data-copy-code], [data-copy-html-of]');
+    if (!copyBtn) return;
+
+    let code = '';
+    if (copyBtn.hasAttribute('data-copy-snippet')) {
+      code = copyBtn.getAttribute('data-copy-snippet');
+    } else if (copyBtn.hasAttribute('data-copy-code')) {
+      code = copyBtn.getAttribute('data-copy-code');
+    } else if (copyBtn.hasAttribute('data-copy-html-of')) {
+      const targetId = copyBtn.getAttribute('data-copy-html-of');
+      const el = document.getElementById(targetId);
+      if (el) {
+        code = el.outerHTML.trim();
+      }
+    } else if (copyBtn.hasAttribute('data-copy-target')) {
+      const targetId = copyBtn.getAttribute('data-copy-target');
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        if (targetElement.tagName === 'INPUT' || targetElement.tagName === 'TEXTAREA') {
+          code = targetElement.value;
+        } else {
+          code = targetElement.textContent.trim();
+        }
+      }
+    }
+
+    if (code) {
+      window.copyPaperCutSnippet(code, copyBtn);
+    }
   });
 
   // Toggle code view button
@@ -469,10 +531,13 @@ function initCopyCodeButtons() {
     const targetId = toggleBtn.getAttribute('data-toggle-code');
     const codeBlock = document.getElementById(targetId);
     if (codeBlock) {
-      const isHidden = codeBlock.style.display === 'none' || !codeBlock.style.display;
+      const isHidden = codeBlock.style.display === 'none' || !codeBlock.style.display || getComputedStyle(codeBlock).display === 'none';
       codeBlock.style.display = isHidden ? 'block' : 'none';
       toggleBtn.classList.toggle('is-active', isHidden);
-      toggleBtn.querySelector('.toggle-label').textContent = isHidden ? '코드 닫기' : '코드 보기';
+      const labelSpan = toggleBtn.querySelector('.toggle-label') || toggleBtn;
+      if (labelSpan) {
+        labelSpan.textContent = isHidden ? '코드 닫기' : '코드 보기';
+      }
     }
   });
 }

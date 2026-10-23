@@ -43,6 +43,12 @@ for (const [g, subjects] of Object.entries(research.grades)) {
             if (unitNoOf(label) === u.no) std.add(`[${code}]`);
           }
         }
+        // 과학 단원은 성취기준 묶음([4과07-*] 등) 하나와 일대일이다. 연결표 PDF 좌표 파싱이 옆 행 코드를
+        // 끌어오는 오배정(예: 자석의 이용에 [4과10-01])이 있어, 단원 자체 목록의 묶음 번호만 남긴다.
+        if (subject === '과학' && (u.standards ?? []).length) {
+          const blocks = new Set(u.standards.map((c) => c.slice(0, c.indexOf('-'))));
+          for (const c of [...std]) if (!blocks.has(c.slice(0, c.indexOf('-')))) std.delete(c);
+        }
         linked += std.size;
         return {
           no: u.no, title: u.title, standards: [...std].sort(),

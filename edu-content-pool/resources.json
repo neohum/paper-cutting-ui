@@ -6,7 +6,8 @@
    "e학습터: SERVICE ENDED 2026-02-28 per KERIS notice (search snippet); host no longer resolves. Do NOT link.",
    "디지털교과서 (dtbook): responds 200; digitaltextbook.kr does not resolve; current role unverified",
    "사이언스레벨업: UNVERIFIED - host does not resolve (2026-10-24); KOFAC renamed KOSAC (kosac.re.kr). Use 사이언스올 instead.",
-   "학교체육 포털 (schoolsports.or.kr): UNVERIFIED - host does not resolve"
+   "학교체육 포털 (schoolsports.or.kr): UNVERIFIED - host does not resolve",
+   "EBS 클립뱅크 사이트(clipbank.ebs.co.kr): 2026-10-24 페르소나 점검에서 NXDOMAIN — YouTube 채널 @EBSClipbank은 유지"
   ],
   "youtubeSearch": "https://www.youtube.com/results?search_query=<URL-encoded query>  (e.g. encodeURIComponent('초등 3학년 과학 자석의 성질')). Verified working 2026-10-24.",
   "channelSearch": "https://www.youtube.com/@<handle>/search?query=<encoded>  (search within a curated channel - recommended for per-lesson links)",
@@ -47,15 +48,6 @@
    "status": "verified 200"
   },
   {
-   "id": "s5",
-   "name": "EBS 클립뱅크",
-   "url": "https://clipbank.ebs.co.kr",
-   "free": true,
-   "login": false,
-   "chromebook": true,
-   "status": "responds (no title parsed) - unverified content"
-  },
-  {
    "id": "s6",
    "name": "EBSMath",
    "url": "https://www.ebsmath.co.kr",
@@ -89,7 +81,8 @@
    "free": true,
    "login": false,
    "chromebook": true,
-   "status": "verified 200"
+   "status": "verified 200",
+   "topic": "coding"
   },
   {
    "id": "s10",
@@ -134,7 +127,8 @@
    "free": true,
    "login": false,
    "chromebook": true,
-   "status": "verified 200"
+   "status": "verified 200",
+   "topic": "coding"
   },
   {
    "id": "s16",
@@ -143,7 +137,8 @@
    "free": true,
    "login": false,
    "chromebook": true,
-   "status": "responds 200"
+   "status": "responds 200",
+   "topic": "coding"
   },
   {
    "id": "s17",
@@ -152,7 +147,8 @@
    "free": true,
    "login": false,
    "chromebook": true,
-   "status": "verified 200"
+   "status": "verified 200",
+   "topic": "coding"
   },
   {
    "id": "s18",
@@ -161,7 +157,8 @@
    "free": true,
    "login": false,
    "chromebook": true,
-   "status": "verified 200"
+   "status": "verified 200",
+   "topic": "coding"
   },
   {
    "id": "s19",
@@ -305,7 +302,8 @@
    "free": true,
    "login": false,
    "chromebook": true,
-   "status": "verified 200"
+   "status": "verified 200",
+   "topic": "coding"
   },
   {
    "id": "s35",
@@ -314,7 +312,8 @@
    "free": true,
    "login": false,
    "chromebook": true,
-   "status": "verified 200"
+   "status": "verified 200",
+   "topic": "coding"
   },
   {
    "id": "s36",
@@ -658,7 +657,8 @@
    "id": "c38",
    "name": "엔트리 공식 채널",
    "url": "https://www.youtube.com/@playentry",
-   "subjects": "실과(정보)"
+   "subjects": "실과(정보)",
+   "topic": "coding"
   },
   {
    "id": "c39",
@@ -725,7 +725,6 @@
    "s12",
    "s14",
    "s40",
-   "s5",
    "s13"
   ],
   "도덕": [
@@ -771,32 +770,16 @@
    "s42",
    "s45"
   ],
-  "바른 생활": [
+  "통합교과": [
    "s4",
    "s32",
    "s34",
    "s24",
    "s45",
    "s19",
-   "s46"
-  ],
-  "슬기로운 생활": [
-   "s4",
-   "s32",
-   "s34",
-   "s24",
-   "s45",
-   "s19",
+   "s46",
    "s12",
    "s26"
-  ],
-  "즐거운 생활": [
-   "s4",
-   "s32",
-   "s34",
-   "s24",
-   "s45",
-   "s19"
   ]
  },
  "subjectChannels": {
@@ -855,19 +838,7 @@
    "c40",
    "c41"
   ],
-  "바른 생활": [
-   "c0",
-   "c9",
-   "c18",
-   "c23"
-  ],
-  "슬기로운 생활": [
-   "c0",
-   "c9",
-   "c18",
-   "c23"
-  ],
-  "즐거운 생활": [
+  "통합교과": [
    "c0",
    "c9",
    "c18",

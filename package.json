@@ -1,8 +1,56 @@
 {
   "name": "papercut-ui",
+  "version": "1.0.0",
   "type": "module",
-  "private": true,
-  "description": "PaperCut UI - zero-runtime Vanilla HTML/CSS/JS UI library (테스트용 devDependency만 포함)",
+  "description": "PaperCut UI - 3D Layered Paper-Craft Design System & UI Components with instant copy-paste and CLI support",
+  "main": "papercut.js",
+  "module": "papercut.js",
+  "style": "papercut.css",
+  "bin": {
+    "papercut-ui": "./bin/papercut.mjs"
+  },
+  "exports": {
+    ".": {
+      "import": "./papercut.js",
+      "default": "./papercut.js"
+    },
+    "./css": "./papercut.css",
+    "./svg-primitives.css": "./papercut-svg-primitives.css",
+    "./primitives": "./papercut-svg-primitives.js",
+    "./icons": "./papercut-icons.js",
+    "./backgrounds": "./papercut-backgrounds.js"
+  },
+  "files": [
+    "bin",
+    "papercut.css",
+    "papercut.js",
+    "papercut-svg-primitives.css",
+    "papercut-svg-primitives.js",
+    "papercut-icons.js",
+    "papercut-backgrounds.js",
+    "papercut-alerts-toasts.css",
+    "papercut-alerts-toasts.js",
+    "papercut-blocks-charts.css",
+    "papercut-blocks-charts.js",
+    "papercut-modals.css",
+    "papercut-modals.js",
+    "papercut-sidebar.css",
+    "papercut-sidebar.js",
+    "assets",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "papercut",
+    "paper-craft",
+    "ui",
+    "components",
+    "svg",
+    "radix",
+    "kirigami",
+    "design-system"
+  ],
+  "license": "MIT",
   "scripts": {
     "dev": "node scripts/dev/live-server.mjs",
     "serve": "node scripts/dev/live-server.mjs",

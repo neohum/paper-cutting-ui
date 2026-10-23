@@ -70,14 +70,39 @@ test('annual lesson totals stay within the legal ±20% of the 2022 curriculum ba
   }
 });
 
-test('ability-form objective conversion handles -는다 / -ㄴ다 endings', () => {
-  const src = readFileSync(join(pool, 'catalog.js'), 'utf8');
-  const body = src.slice(src.indexOf('const HANGUL'), src.indexOf('function buildPackage'));
-  const toAbility = new Function(`${body}; return toAbility;`)();
-  assert.equal(toAbility('시계를 보고 시각을 읽는다.', '수 있다.'), '시계를 보고 시각을 읽을 수 있다.');
-  assert.equal(toAbility('까닭을 찾아 설명한다.', '수 있다.'), '까닭을 찾아 설명할 수 있다.');
-  assert.equal(toAbility('작품을 만든다.', '수 있다.'), '작품을 만들 수 있다.');
-  assert.equal(toAbility('정답이다', '수 있다.'), null);
+function loadEndings() {
+  const sandbox = {};
+  vm.runInNewContext(readFileSync(join(pool, 'korean-endings.js'), 'utf8'), sandbox);
+  return sandbox.KoEndings;
+}
+
+test('ability and task forms handle regular and irregular verbs', () => {
+  const { toAbility, toTask } = loadEndings();
+  const cases = [
+    ['시각을 읽는다.', '시각을 읽을 수 있다.', '시각을 읽어 봅시다.'],
+    ['까닭을 설명한다.', '까닭을 설명할 수 있다.', '까닭을 설명해 봅시다.'],
+    ['작품을 만든다.', '작품을 만들 수 있다.', '작품을 만들어 봅시다.'],
+    ['선을 잇는다.', '선을 이을 수 있다.', '선을 이어 봅시다.'],
+    ['노래를 듣는다.', '노래를 들을 수 있다.', '노래를 들어 봅시다.'],
+    ['친구를 돕는다.', '친구를 도울 수 있다.', '친구를 도와 봅시다.'],
+    ['하나를 고른다.', '하나를 고를 수 있다.', '하나를 골라 봅시다.'],
+    ['계획을 세운다.', '계획을 세울 수 있다.', '계획을 세워 봅시다.'],
+    ['교실을 꾸민다.', '교실을 꾸밀 수 있다.', '교실을 꾸며 봅시다.'],
+    ['글로 써 본다.', '글로 써 볼 수 있다.', '글로 써 봅시다.'],
+  ];
+  for (const [src, ability, task] of cases) {
+    assert.equal(toAbility(src, '수 있다.'), ability);
+    assert.equal(toTask(src), task);
+  }
+  assert.equal(toTask('정답이다'), null);
+});
+
+test('every evidence sentence in the catalog converts to both forms', () => {
+  const { toAbility, toTask } = loadEndings();
+  const C = loadCatalog();
+  const ev = [...new Set(Object.values(C.topics).flatMap((t) => t.e))];
+  const missing = ev.filter((e) => !toAbility(e, '수 있다.') || !toTask(e));
+  assert.deepEqual(missing.length, 0, missing.slice(0, 3).join(' | '));
 });
 
 test('worksheet print uses the ecosystem classroom-ui exam styles', () => {
@@ -87,4 +112,6 @@ test('worksheet print uses the ecosystem classroom-ui exam styles', () => {
   assert.match(html, /<html lang="ko">/);
   const js = readFileSync(join(pool, 'catalog.js'), 'utf8');
   assert.match(js, /edu-exam-sheet/);
+  // 교사 지시("…하게 하라")는 학생 활동지에 싣지 않는다
+  assert.match(js, /isTeacherPrompt/);
 });

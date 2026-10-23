@@ -6759,6 +6759,130 @@ textarea.pc-input.pc-texture-paper,
   min-height: 44px !important;
 }
 
+/* ==========================================================================
+   PaperCut Quick-Start, Code Preview & Copy-to-Clipboard System
+   ========================================================================== */
+.pc-copy-btn,
+.pc-copy-code-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 8px 14px !important;
+  min-height: 38px !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  font-family: inherit !important;
+  color: var(--pc-ink, #2E1E14) !important;
+  background: #FFFDF9 !important;
+  border: 1.5px solid #D5C7B4 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 4px rgba(46, 30, 20, 0.08), inset 0 1px 0 #FFFFFF !important;
+  cursor: pointer !important;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  white-space: nowrap !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  user-select: none !important;
+}
+
+.pc-copy-btn:hover,
+.pc-copy-code-btn:hover {
+  background: #FAF5EB !important;
+  border-color: #BFAEA0 !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 0 4px 10px rgba(46, 30, 20, 0.12), inset 0 1px 0 #FFFFFF !important;
+}
+
+.pc-copy-btn:active,
+.pc-copy-code-btn:active {
+  transform: translateY(1px) !important;
+  box-shadow: 0 1px 2px rgba(46, 30, 20, 0.15) !important;
+}
+
+.pc-copy-btn.is-copied,
+.pc-copy-code-btn.is-copied {
+  background: #EAF7F1 !important;
+  border-color: #6CAE97 !important;
+  color: #1B4738 !important;
+}
+
+.pc-copy-btn--ticket {
+  clip-path: polygon(5px 0, calc(100% - 5px) 0, 100% 5px, 100% calc(100% - 5px), calc(100% - 5px) 100%, 5px 100%, 0 calc(100% - 5px), 0 5px);
+}
+
+.pc-code-preview {
+  background: #F4EFE6 !important;
+  border: 1.5px dashed rgba(46, 30, 20, 0.22) !important;
+  border-radius: 12px !important;
+  padding: 16px 20px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 13px !important;
+  color: #4A3A2C !important;
+  line-height: 1.6 !important;
+  overflow-x: auto !important;
+  box-shadow: inset 0 2px 6px rgba(46, 30, 20, 0.06) !important;
+  position: relative !important;
+  margin: 12px 0 0 0 !important;
+  white-space: pre !important;
+}
+
+.pc-code-preview code {
+  font-family: inherit !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.pc-copy-deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.pc-copy-deck-card {
+  background: #FFFDF9;
+  border: 1.5px solid #D5C7B4;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(46, 30, 20, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pc-copy-deck-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px dashed rgba(46, 30, 20, 0.14);
+  padding-bottom: 10px;
+}
+
+.pc-copy-deck-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #2E1E14;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pc-copy-deck-stage {
+  min-height: 80px;
+  background: #FBF8F2;
+  border: 1px solid rgba(46, 30, 20, 0.08);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
 
 
 
