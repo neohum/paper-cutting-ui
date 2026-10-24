@@ -335,9 +335,9 @@ p,
   border: 1px solid rgba(46, 30, 20, 0.20) !important;
   border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
   box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.92),
-    0 1.5px 3.5px rgba(46, 30, 20, 0.18),
-    0 4px 10px rgba(46, 30, 20, 0.10) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 1.8px rgba(46, 30, 20, 0.48),
+    0 4px 10px rgba(46, 30, 20, 0.22) !important;
   pointer-events: none !important;
   z-index: -1 !important;
   display: block !important;
@@ -353,8 +353,8 @@ p,
 .pc-btn-block-action:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn):hover::before,
 .pc-sidebar-top-btn:not(.pc-svg-kirigami-btn):hover::before {
   box-shadow: 
-    0 3px 7px rgba(46, 30, 20, 0.22),
-    0 7px 16px rgba(46, 30, 20, 0.14) !important;
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 8px 18px rgba(46, 30, 20, 0.26) !important;
 }
 
 .pc-btn:not(.pc-sidebar-item):not(.pc-svg-kirigami-btn):active::before,
@@ -2387,35 +2387,40 @@ p,
   position: relative !important;
   isolation: isolate;
   background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1px solid rgba(46, 30, 20, 0.10) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
   border-radius: 16px !important;
   padding: 32px !important;
-  /* 300g Fine Cardstock 3-Tier Layered Burnt Umber Shadow + 0.88px Knife Rim */
+  /* 아이콘 배경 플레이트와 100% 동일한 미싱 점선 스티칭 인레이 */
+  outline: 1.2px dashed rgba(216, 206, 189, 0.85) !important;
+  outline-offset: -8px !important;
+  /* 3-Tier Layered Burnt Umber Shadow: 48% 접촉선 + 26% 깊은 분산 그림자 + 0.88px 순백 칼선 림 */
   box-shadow: 
     inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
     inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    0 1.5px 0 rgba(46, 30, 20, 0.30),
-    0 3.5px 8px rgba(46, 30, 20, 0.16),
-    0 12px 26px rgba(46, 30, 20, 0.09) !important;
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 5px 14px -2px rgba(46, 30, 20, 0.26),
+    0 14px 28px rgba(46, 30, 20, 0.10) !important;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
 }
 
 .pc-card.pc-page-view {
   position: relative !important;
   background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1px solid rgba(46, 30, 20, 0.10) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
   border-radius: 18px !important;
   margin-top: 50px;
   margin-bottom: 50px;
   padding: 36px 32px !important;
+  outline: 1.2px dashed rgba(216, 206, 189, 0.85) !important;
+  outline-offset: -9px !important;
   box-shadow: 
     inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
     inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    0 2px 0 rgba(46, 30, 20, 0.25),
-    0 6px 16px rgba(46, 30, 20, 0.12),
-    0 18px 38px rgba(46, 30, 20, 0.08) !important;
+    0 2px 2.5px rgba(46, 30, 20, 0.48),
+    0 7px 18px -2px rgba(46, 30, 20, 0.26),
+    0 20px 42px rgba(46, 30, 20, 0.10) !important;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
 }
 
@@ -2424,15 +2429,17 @@ p,
   position: relative !important;
   isolation: isolate;
   background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1px solid rgba(46, 30, 20, 0.10) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  border: 1px solid rgba(46, 30, 20, 0.14) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
   border-radius: 16px !important;
+  outline: 1.2px dashed rgba(216, 206, 189, 0.85) !important;
+  outline-offset: -8px !important;
   box-shadow: 
     inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
     inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    0 1.5px 0 rgba(46, 30, 20, 0.30),
-    0 4px 10px rgba(46, 30, 20, 0.15),
-    0 14px 28px rgba(46, 30, 20, 0.08) !important;
+    0 1.5px 2px rgba(46, 30, 20, 0.48),
+    0 5px 14px -2px rgba(46, 30, 20, 0.26),
+    0 14px 28px rgba(46, 30, 20, 0.10) !important;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
 }
 
