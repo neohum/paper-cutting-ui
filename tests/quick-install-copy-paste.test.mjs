@@ -93,6 +93,12 @@ describe('PaperCut UI: Quick Installation & Copy-Paste Workflow', () => {
       assert.ok(indexHtml.includes('snippet-code-toast'), 'Must have toast snippet');
     });
 
+    it('should provide CSS vs JS installation guide info card', () => {
+      assert.ok(indexHtml.includes('CSS 경로만 있으면 되나요'), 'Must contain CSS vs JS guide title');
+      assert.ok(indexHtml.includes('CSS vs JS 필요 여부 가이드'), 'Must contain badge');
+      assert.ok(indexHtml.includes('CSS만 필요'), 'Must explain CSS-only usage for styling');
+    });
+
     it('should have a navigation link to #quick-start in sidebar', () => {
       assert.ok(indexHtml.includes('href="#quick-start"'), 'Sidebar must link to #quick-start');
     });
