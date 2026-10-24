@@ -50,29 +50,15 @@ describe('Step 3: Showcase Stacking & Interlocking Integration', () => {
       );
     });
 
-    it('should feature organic strata hills (.pc-strata-hills, .pc-strata-layer, .pc-strata-svg) in #overview', () => {
+    it('should confirm organic strata hills (.pc-strata-hills) are removed from #overview', () => {
       assert.ok(
-        indexHtml.includes('pc-strata-hills'),
-        '#overview must feature .pc-strata-hills organic paper hills'
+        !indexHtml.includes('pc-strata-hills'),
+        '#overview must not feature .pc-strata-hills artificial curves'
       );
       assert.ok(
-        indexHtml.includes('pc-strata-layer'),
-        '#overview must include .pc-strata-layer multi-tier paper hill sheets'
+        !indexHtml.includes('pc-strata-svg'),
+        '#overview must not include svg.pc-strata-svg'
       );
-      assert.ok(
-        indexHtml.includes('pc-strata-svg'),
-        '#overview must utilize svg.pc-strata-svg for organic hill curve contours'
-      );
-    });
-
-    it('should integrate 4 pastel swatches (sand, mint, lavender, sky) in hero strata hills', () => {
-      const swatches = ['pc-swatch-sand', 'pc-swatch-mint', 'pc-swatch-lavender', 'pc-swatch-sky'];
-      for (const swatch of swatches) {
-        assert.ok(
-          indexHtml.includes(swatch),
-          `Hero strata hills must include pastel swatch "${swatch}"`
-        );
-      }
     });
 
     it('should mount photo corners (.pc-photo-corner) on the master art frame', () => {

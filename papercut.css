@@ -277,7 +277,7 @@ p,
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 11px 22px;
+  padding: 12px 22px 10px; /* 광학 보정: 글리프 ascent 및 하단 그림자 무게 중심 상하 수직 중앙 보정 */
   min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   min-width: 0; /* 컨테이너가 좁으면 버튼이 줄어들고 글자가 줄바꿈된다 */
   max-width: 100%;
@@ -573,6 +573,7 @@ p,
   align-items: center;
   justify-content: center;
   line-height: 1;
+  transform: translateY(0.5px); /* 글리프 및 베이스라인 상하 수직 중앙 광학 미세 보정 */
 }
 
 /* ==========================================================================
@@ -828,7 +829,7 @@ p,
 
 /* Button Sizes */
 .pc-btn-sm {
-  padding: 8px 14px;
+  padding: 9px 14px 7px;
   font-size: 13px;
   min-height: 44px; /* Ensure 44px touch target standard */
   min-width: 0;
@@ -851,7 +852,7 @@ p,
 }
 
 .pc-btn-lg {
-  padding: 13px 26px;
+  padding: 14px 26px 12px;
   font-size: 16px;
   min-height: 48px;
   min-width: 0;
@@ -904,7 +905,7 @@ p,
 
 /* Paper Tag Button with Eyelet Punch Hole */
 .pc-btn-tag {
-  padding: 11px 24px;
+  padding: 12px 24px 10px;
   position: relative;
   justify-content: center;
 }
@@ -987,7 +988,7 @@ p,
   color: var(--pc-buttercup-dark);
   font-size: 11px;
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 8px 3px;
   border-radius: 6px;
   box-shadow: var(--pc-paper-shadow-xs);
 }
@@ -997,12 +998,13 @@ p,
   min-height: 44px; /* WCAG 2.1 touch target 44px+ standard */
   font-family: var(--pc-font);
   font-size: 15px;
+  line-height: 1.35;
   color: var(--pc-ink);
   /* 1. input 내부는 탁한 색이 채워지지 않고 깨끗한 클린 크림/화이트 종이 */
   background-color: #FFFDF9 !important;
   border: 1.2px solid rgba(196, 183, 166, 0.85) !important;
   border-radius: 6px;
-  padding: 10px 16px;
+  padding: 11px 16px 9px;
   /* 종이를 정교하게 파낸 Carved Well 음각 입체감 */
   box-shadow: 
     inset 0 2px 4px rgba(46, 30, 20, 0.16),
@@ -3322,7 +3324,7 @@ p,
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 4px 10px;
+  padding: 5px 10px 4px; /* 광학 보정: 상단 여백 밸런스로 수직 중앙 안착 */
   font-family: var(--pc-font, 'Nanum Square Round', -apple-system, sans-serif);
   font-size: 11.5px;
   font-weight: 800;
@@ -3375,6 +3377,7 @@ p,
   line-height: 1;
   position: relative;
   z-index: 2;
+  transform: translateY(0.5px);
 }
 
 /* 7대 파스텔 색지 컬러웨이 (7 Core Pastel Paper Colorways - 무광 수제 색지) */
@@ -3849,7 +3852,7 @@ p,
 .pc-badge--sound,
 .pc-badge-sound {
   position: relative;
-  padding: 4px 11px 4px 22px;
+  padding: 5px 11px 4px 22px;
   background-color: var(--pc-buttercup, #FEE396);
   color: #66460D;
   border-radius: 0 !important;
@@ -4042,7 +4045,7 @@ pre code {
   background: var(--pc-buttercup);
   color: var(--pc-buttercup-dark);
   font-weight: 800;
-  padding: 6px 18px;
+  padding: 7px 18px 5px;
   border-radius: 8px;
   box-shadow: var(--pc-paper-shadow-sm);
   position: relative;
@@ -4057,6 +4060,30 @@ pre code {
   display: inline-flex;
   align-items: center;
   line-height: 1;
+  transform: translateY(0.5px);
+}
+
+/* 탭 트리거 및 액션 버튼 광학 수직 중앙 정렬 표준 */
+.pc-tab-btn,
+.pc-tab,
+.pc-copy-code-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 9px 18px 7px;
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
+.pc-tab-btn > *,
+.pc-tab > *,
+.pc-copy-code-btn > * {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: translateY(0.5px);
 }
 
 /* ==========================================================================
@@ -6870,6 +6897,164 @@ textarea.pc-input.pc-texture-paper,
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* ==========================================================================
+   3D Layered Paper-Cut Spinner & Page Loader (.pc-paper-spinner, .pc-layered-loader)
+   Authentic 4-Tier Paper-Craft Spinner with 2-Tier Burnt Umber Shadows & Knife-Edge Rims
+   ========================================================================== */
+.pc-layered-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #FAF7F0;
+  z-index: 9999999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  user-select: none;
+  pointer-events: all;
+}
+
+.pc-layered-loader.pc-dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body:not(.pc-loaded) {
+  overflow: hidden !important;
+}
+
+.pc-paper-spinner {
+  display: block;
+  width: 160px;
+  height: 160px;
+  filter: drop-shadow(0 8px 24px rgba(46, 30, 20, 0.12));
+}
+
+.pc-loader-text {
+  margin-top: 20px;
+  font-family: 'Nanum Square Round', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2E1E14;
+  letter-spacing: -0.3px;
+  text-align: center;
+  user-select: none;
+  white-space: nowrap;
+  word-break: keep-all;
+  animation: pc-spinner-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pc-wifi-fly-away {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  14% {
+    transform: translateY(3px) scale(0.97);
+    opacity: 1;
+  }
+  38% {
+    transform: translateY(-46px) scale(1.18);
+    opacity: 0;
+  }
+  52% {
+    transform: translateY(22px) scale(0.75);
+    opacity: 0;
+  }
+  72% {
+    transform: translateY(-2px) scale(1.03);
+    opacity: 1;
+  }
+  85%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.pc-wifi-wave-top {
+  transform-origin: 80px 48px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0s infinite;
+}
+
+.pc-wifi-wave-mid {
+  transform-origin: 80px 68px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.22s infinite;
+}
+
+.pc-wifi-wave-inner {
+  transform-origin: 80px 88px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.44s infinite;
+}
+
+.pc-wifi-dot {
+  transform-origin: 80px 112px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.66s infinite;
+}
+
+@keyframes pc-spinner-rotate-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pc-spinner-rotate-ccw {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pc-spinner-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.025);
+    opacity: 0.88;
+  }
+}
+
+.pc-spinner-gear {
+  transform-origin: 80px 80px;
+  animation: pc-spinner-rotate-cw 8s linear infinite;
+}
+
+.pc-spinner-pinwheel {
+  transform-origin: 80px 80px;
+  animation: pc-spinner-rotate-cw 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.pc-spinner-badge {
+  transform-origin: 80px 80px;
+  animation: pc-spinner-pulse 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-wifi-wave-top,
+  .pc-wifi-wave-mid,
+  .pc-wifi-wave-inner,
+  .pc-wifi-dot,
+  .pc-spinner-gear,
+  .pc-spinner-pinwheel,
+  .pc-spinner-badge,
+  .pc-loader-text {
+    animation: none !important;
+  }
 }
 
 

@@ -12,25 +12,11 @@ describe('Full SVG Cards & Hero Diorama Architecture (Step 2)', () => {
   const indexHtml = fs.readFileSync(path.join(projectRoot, 'index.html'), 'utf8');
   const papercutCss = fs.readFileSync(path.join(projectRoot, 'papercut.css'), 'utf8');
 
-  it('AC-4: Eliminates raster JPG image and deploys Pure SVG 5-Layer Kirigami Diorama in Hero banner', () => {
-    // 래스터 이미지가 히어로에 없어야 함
-    assert.ok(!indexHtml.includes('<img src="assets/papercut-hero.jpg"'), 'Raster JPG image must be eliminated from hero banner');
-    assert.ok(!indexHtml.includes('as="image" type="image/jpeg"'), 'Preload of JPG image must be removed');
-
-    // 순수 SVG 키리가미 디오라마가 16:9 Cinema View로 존재해야 함
-    assert.ok(indexHtml.includes('class="pc-hero-art-img hero-art-img pc-hero-kirigami-diorama"'), 'Hero must contain pure SVG kirigami diorama');
-    assert.ok(indexHtml.includes('viewBox="0 0 1200 675"'), 'Diorama must use 16:9 1200x675 viewBox');
-
-    // 3-Tier feDropShadow 및 다층 레이어 검증
-    assert.ok(indexHtml.includes('id="pc-diorama-sh-deep"'), 'Must define deep burnt umber drop shadow');
-    assert.ok(indexHtml.includes('id="pc-diorama-sh-mid"'), 'Must define mid drop shadow');
-    assert.ok(indexHtml.includes('id="pc-diorama-sh-near"'), 'Must define near drop shadow');
-    assert.ok(indexHtml.includes('LAYER 1: 파스텔 하늘'), 'Must contain Layer 1 sky & sun');
-    assert.ok(indexHtml.includes('LAYER 2: 원경 라벤더 종이 산맥'), 'Must contain Layer 2 mountain');
-    assert.ok(indexHtml.includes('LAYER 3: 중경 세이지 & 민트 완만한 곡선 언덕'), 'Must contain Layer 3 hills');
-    assert.ok(indexHtml.includes('LAYER 4: 중근경 피치 & 샌드 테라스 마을'), 'Must contain Layer 4 terrace houses');
-    assert.ok(indexHtml.includes('LAYER 5: 근경 샌드 옐로우 & 민트 테라스'), 'Must contain Layer 5 foreground');
-    assert.ok(indexHtml.includes('LAYER 6: 최외곽 도화지 컷아웃 프레임'), 'Must contain Layer 6 frame');
+  it('AC-4: Restores authentic master artwork raster JPG image (assets/papercut-hero.jpg) in Hero banner and ensures preload', () => {
+    // 래스터 원본 마스터 일러스트 이미지가 히어로에 올바르게 존재해야 함
+    assert.ok(indexHtml.includes('<img src="assets/papercut-hero.jpg"'), 'Raster JPG master artwork must be present in hero banner');
+    assert.ok(indexHtml.includes('as="image" type="image/jpeg"'), 'Preload of JPG image must be preserved');
+    assert.ok(indexHtml.includes('class="pc-hero-art-img hero-art-img"'), 'Hero artwork must use standard hero art classes');
   });
 
   it('AC-5: Washi tape provides realistic paper tape texture and jagged deckle torn ends', () => {

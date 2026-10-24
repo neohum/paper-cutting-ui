@@ -89,6 +89,15 @@
 .pc-svg-btn {
   cursor: pointer;
   transition: transform 0.18s var(--pc-svg-ease-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-svg-btn text,
+.pc-svg-btn .pc-svg-btn-label {
+  dominant-baseline: central;
 }
 
 .pc-svg-btn:hover {
@@ -238,6 +247,15 @@
 .pc-svg-tab-trigger {
   cursor: pointer;
   transition: transform 0.2s var(--pc-svg-ease-smooth);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.pc-svg-tab-trigger text,
+.pc-svg-tab-trigger .pc-svg-tab-label {
+  dominant-baseline: central;
 }
 
 .pc-svg-tab-trigger:hover {
@@ -367,18 +385,26 @@
    ========================================================================== */
 .pc-svg-badge {
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
   vertical-align: middle;
   transition: transform 0.16s ease;
 }
 
-.pc-svg-badge:hover {
-  transform: translateY(-1px);
+.pc-svg-badge text {
+  dominant-baseline: central;
 }
 
 .pc-svg-input-wrap {
   display: inline-block;
   vertical-align: middle;
   transition: transform 0.16s ease;
+}
+
+.pc-svg-input-wrap input {
+  vertical-align: middle;
+  line-height: 1.35;
 }
 
 .pc-svg-input-wrap:focus-within {
