@@ -3557,7 +3557,10 @@ p,
    ========================================================================== */
 .pc-badge--ticket,
 .pc-badge-ticket {
-  padding: 4px 13px 4px 16px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 14px 4px 20px;
   border-radius: 0 !important;
   border: none !important;
   box-shadow: 
@@ -6665,30 +6668,10 @@ textarea.pc-input.pc-texture-paper,
     0 6px 14px rgba(46, 30, 20, 0.10) !important;
 }
 
-/* Ticket Top-Left Sprocket Punch Strip (카드 왼쪽 위 천공 홈 스트립) */
-.pc-ticket-punch-strip {
-  position: absolute;
-  top: 3px;
-  left: 18px;
-  display: inline-flex;
-  align-items: center;
-  gap: 4.5px;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Individual Vertically Elongated Rounded Rectangular Cutout Slot (아래로 긴 둥근 사각형 홈) */
+.pc-ticket-punch-strip,
 .pc-ticket-punch-slot {
-  display: inline-block;
-  width: 5px;
-  height: 7.5px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #D4C6B0 0%, #E8DFC8 100%);
-  box-shadow: 
-    inset 0 1.2px 1.8px rgba(46, 30, 20, 0.45),
-    inset 0 -0.5px 1px rgba(255, 255, 255, 0.50),
-    0 0.88px 0 rgba(255, 255, 255, 0.95);
-  flex-shrink: 0;
+  display: none !important;
+  visibility: hidden !important;
 }
 
 /* SVG Ticket Card Punch Slots Accent */
