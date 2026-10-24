@@ -1,9 +1,40 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 120" width="512" height="120">
   <defs>
-    <!-- PaperCut Multi-Tier Soft Umber 3D Shadows: 2-Tier 48% Burnt Umber Standard -->
-    <filter id="pc-shadow-stamp" x="-20%" y="-20%" width="140%" height="150%">
-      <feDropShadow dx="0" dy="1.6" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.48"/>
-      <feDropShadow dx="0" dy="4.8" stdDeviation="2.4" flood-color="#2E1E14" flood-opacity="0.25"/>
+    <!-- ============================================================== -->
+    <!-- PaperCut Multi-Tier Soft Umber 3D Shadows: 3-Tier Standard     -->
+    <!-- ============================================================== -->
+    <!-- Tier 1 (Base Underlays & Background Plates): Deepest depth     -->
+    <filter id="ps-logo-base" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="1.8" stdDeviation="0.9" flood-color="#2E1E14" flood-opacity="0.48"/>
+      <feDropShadow dx="0" dy="5.2" stdDeviation="2.6" flood-color="#2E1E14" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="-0.6" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+
+    <!-- Tier 2 (Mid Layers & Main Cardstock Body): Crisply focused     -->
+    <filter id="ps-logo-mid" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+
+    <!-- Tier 3 (Top Papercuts & Inlay Elements): Subtle micro-lift    -->
+    <filter id="ps-logo-top" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0.9" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.40"/>
+      <feDropShadow dx="0" dy="2.0" stdDeviation="1.0" flood-color="#2E1E14" flood-opacity="0.20"/>
+      <feDropShadow dx="0" dy="-0.4" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.98"/>
+    </filter>
+
+    <!-- Craft Scissors Deep Stepped Shadow                            -->
+    <filter id="ps-logo-scissors" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1.0" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.42"/>
+      <feDropShadow dx="0.6" dy="2.6" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.25"/>
+      <feDropShadow dx="-0.4" dy="-0.4" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+
+    <!-- Backward compatibility filter aliases                          -->
+    <filter id="pc-shadow-stamp" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="1.8" stdDeviation="0.9" flood-color="#2E1E14" flood-opacity="0.48"/>
+      <feDropShadow dx="0" dy="5.2" stdDeviation="2.6" flood-color="#2E1E14" flood-opacity="0.25"/>
       <feDropShadow dx="0" dy="-0.6" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95"/>
     </filter>
     <filter id="pc-shadow-scissors" x="-30%" y="-30%" width="160%" height="160%">
@@ -12,18 +43,30 @@
       <feDropShadow dx="-0.4" dy="-0.4" stdDeviation="0.25" flood-color="#FFFFFF" flood-opacity="0.95"/>
     </filter>
     <filter id="pc-shadow-mid" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="1.2" stdDeviation="1.5" flood-color="#2E1E14" flood-opacity="0.16"/>
-    </filter>
-    <filter id="pc-shadow-text" x="-10%" y="-10%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.18"/>
-    </filter>
-    <filter id="pc-shadow-badge" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="1.5" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
-      <feDropShadow dx="0" dy="3.5" stdDeviation="2.0" flood-color="#2E1E14" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
       <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
     </filter>
+    <filter id="pc-shadow-text" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
+    <filter id="pc-shadow-badge" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="1.8" stdDeviation="0.9" flood-color="#2E1E14" flood-opacity="0.48"/>
+      <feDropShadow dx="0" dy="5.2" stdDeviation="2.6" flood-color="#2E1E14" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="-0.6" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95"/>
+    </filter>
 
-    <!-- Linear Gradients for Soft Paper Cardstock -->
+    <!-- Linear Gradients for Soft Paper Cardstock                      -->
+    <linearGradient id="ps-grad-ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#483F37"/>
+      <stop offset="100%" stop-color="#332B24"/>
+    </linearGradient>
+    <linearGradient id="ps-grad-badge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#BBD5B8"/>
+      <stop offset="100%" stop-color="#8DCDB3"/>
+    </linearGradient>
     <linearGradient id="pc-grad-ink" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="#483F37"/>
       <stop offset="100%" stop-color="#332B24"/>
@@ -35,163 +78,375 @@
   </defs>
 
   <!-- ============================================================== -->
-  <!-- 1. LEFT EMBLEM: 3D Postage Stamp + Craft Scissors (100% Unified) -->
+  <!-- 1. LEFT EMBLEM: 3D Postage Stamp + Craft Scissors (4 Layers)   -->
   <!-- ============================================================== -->
   <g id="pc-logo-emblem" transform="translate(17, 15) scale(2.25)">
-    <!-- Layer 1: Postage Stamp Perforated Icon Background Plate Base (Mint Pastel #BBD5B8) -->
-    <path d="M 6 4 Q 8 6 10 4 Q 12 6 14 4 Q 16 6 18 4 Q 20 6 22 4 Q 24 6 26 4 Q 28 6 30 4 Q 32 6 34 4 Q 36 6 38 4 Q 37 6 37 8 Q 39 10 37 12 Q 39 14 37 16 Q 39 18 37 20 Q 39 22 37 24 Q 39 26 37 28 Q 39 30 37 32 Q 39 34 37 36 Q 36 34 34 36 Q 32 34 30 36 Q 28 34 26 36 Q 24 34 22 36 Q 20 34 18 36 Q 16 34 14 36 Q 12 34 10 36 Q 8 34 6 36 Q 4 34 2 36 Q 3 34 3 32 Q 1 30 3 28 Q 1 26 3 24 Q 1 22 3 20 Q 1 18 3 16 Q 1 14 3 12 Q 1 10 3 8 Q 1 6 3 4 Z" fill="#BBD5B8" filter="url(#pc-shadow-stamp)"/>
-    <!-- Layer 2: Inner Cream Paper Inlay Sheet -->
-    <rect x="6.5" y="6.5" width="27" height="27" rx="3" fill="#FFFDF9"/>
-    <!-- Layer 3: Dashed Perforation Ring -->
-    <rect x="8.5" y="8.5" width="23" height="23" rx="2" fill="none" stroke="#D8CEBD" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <!-- Layer 1: Postage Stamp Perforated Base (Mint Pastel #BBD5B8) -->
+    <path id="pc-emblem-base" d="M 6 4 Q 8 6 10 4 Q 12 6 14 4 Q 16 6 18 4 Q 20 6 22 4 Q 24 6 26 4 Q 28 6 30 4 Q 32 6 34 4 Q 36 6 38 4 Q 37 6 37 8 Q 39 10 37 12 Q 39 14 37 16 Q 39 18 37 20 Q 39 22 37 24 Q 39 26 37 28 Q 39 30 37 32 Q 39 34 37 36 Q 36 34 34 36 Q 32 34 30 36 Q 28 34 26 36 Q 24 34 22 36 Q 20 34 18 36 Q 16 34 14 36 Q 12 34 10 36 Q 8 34 6 36 Q 4 34 2 36 Q 3 34 3 32 Q 1 30 3 28 Q 1 26 3 24 Q 1 22 3 20 Q 1 18 3 16 Q 1 14 3 12 Q 1 10 3 8 Q 1 6 3 4 Z" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.88" filter="url(#ps-logo-base)"/>
+    
+    <!-- Layer 2: Inner Pure White Cream Paper Inlay Sheet -->
+    <rect id="pc-emblem-inlay" x="6.5" y="6.5" width="27" height="27" rx="3" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88" filter="url(#ps-logo-mid)"/>
+    
+    <!-- Layer 3: Dashed Sewing Perforation Ring -->
+    <rect id="pc-emblem-perforations" x="8.5" y="8.5" width="23" height="23" rx="2" fill="none" stroke="#D8CEBD" stroke-width="0.8" stroke-dasharray="2 2"/>
+    
     <!-- Layer 4: 3D Paper-Cut Scissors Craft Motif -->
-    <g transform="translate(10.5, 10.5) scale(0.29)" filter="url(#pc-shadow-scissors)">
-      <circle cx="16" cy="18" r="9" fill="#F7BA9E"/>
+    <g id="pc-emblem-scissors" transform="translate(10.5, 10.5) scale(0.29)" filter="url(#ps-logo-scissors)">
+      <!-- Peach #F8B49B Dual Round Handles with 0.88px Knife-Edge Rim -->
+      <circle cx="16" cy="18" r="9" fill="#F8B49B" stroke="#FFFFFF" stroke-width="0.88"/>
       <circle cx="16" cy="18" r="5" fill="#FFFDF9"/>
-      <circle cx="16" cy="46" r="9" fill="#F7BA9E"/>
+      <circle cx="16" cy="46" r="9" fill="#F8B49B" stroke="#FFFFFF" stroke-width="0.88"/>
       <circle cx="16" cy="46" r="5" fill="#FFFDF9"/>
+      
+      <!-- Layered Scissor Blades: Cream #FFFDF9 Base + Mint #A3D8C3 Blade Body -->
       <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#FFFDF9" stroke-width="6" stroke-linecap="round"/>
       <path d="M 22 23 L 54 44 M 22 41 L 54 20" stroke="#A3D8C3" stroke-width="3" stroke-linecap="round"/>
-      <circle cx="34" cy="32" r="3.2" fill="#FEE396"/>
+      
+      <!-- Gold Brass Rivet Stud (#FEE396) -->
+      <circle cx="34" cy="32" r="3.2" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88"/>
     </g>
   </g>
 
   <!-- ============================================================== -->
-  <!-- 2. RIGHT TYPOGRAPHY: 'PaperCut' Pure Vector Paths              -->
+  <!-- 2. CENTRAL WORDMARK: "PaperCut" 3D Layered Paper Typography     -->
   <!-- ============================================================== -->
-  <g id="pc-logo-wordmark" fill="url(#pc-grad-ink)" filter="url(#pc-shadow-text)">
-    <!-- Letter P -->
-    <path fill-rule="evenodd" d="
-      M 136, 64 L 136, 24 L 154, 24 
-      C 163, 24, 169, 30, 169, 38 
-      C 169, 46, 163, 52, 154, 52 
-      L 144.5, 52 L 144.5, 64 Z 
-      M 144.5, 31.5 L 144.5, 44.5 L 153.5, 44.5 
-      C 157.5, 44.5, 160.5, 41.8, 160.5, 38 
-      C 160.5, 34.2, 157.5, 31.5, 153.5, 31.5 Z
-    " />
+  <g id="pc-logo-wordmark">
+    <!-- == -->
+    <!-- Glyph 'P': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-P" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" fill-rule="evenodd" d="
+        M 136, 64 L 136, 24 L 154, 24 
+        C 163, 24, 169, 30, 169, 38 
+        C 169, 46, 163, 52, 154, 52 
+        L 144.5, 52 L 144.5, 64 Z 
+        M 144.5, 31.5 L 144.5, 44.5 L 153.5, 44.5 
+        C 157.5, 44.5, 160.5, 41.8, 160.5, 38 
+        C 160.5, 34.2, 157.5, 31.5, 153.5, 31.5 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" fill-rule="evenodd" d="
+        M 136, 64 L 136, 24 L 154, 24 
+        C 163, 24, 169, 30, 169, 38 
+        C 169, 46, 163, 52, 154, 52 
+        L 144.5, 52 L 144.5, 64 Z 
+        M 144.5, 31.5 L 144.5, 44.5 L 153.5, 44.5 
+        C 157.5, 44.5, 160.5, 41.8, 160.5, 38 
+        C 160.5, 34.2, 157.5, 31.5, 153.5, 31.5 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: Peach (#F8B49B) Inner Loop Folded Paper Inlay -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <path class="pc-inlay-sheet" d="
+          M 145, 32 L 153.5, 32 
+          C 157, 32, 159.5, 34.5, 159.5, 38 
+          C 159.5, 41.5, 157, 44, 153.5, 44 
+          L 145, 44 Z
+        " fill="#F8B49B" stroke="#FFFFFF" stroke-width="0.88"/>
+        <line x1="145" y1="38" x2="159" y2="38" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 1.5"/>
+      </g>
+    </g>
 
-    <!-- Letter a -->
-    <path fill-rule="evenodd" d="
-      M 200, 43.5 L 193, 43.5 
-      C 190.5, 39.5, 185.5, 38, 181, 38 
-      C 171.5, 38, 165, 44.5, 165, 51.5 
-      C 165, 58.5, 171.5, 65, 181, 65 
-      C 185.5, 65, 190.5, 63, 193, 59 
-      L 193, 64 L 200, 64 Z 
-      M 182, 44.5 
-      C 186.5, 44.5, 190, 47, 191.5, 50 
-      C 192.5, 52, 192.5, 54, 191.5, 56 
-      C 190, 59, 186.5, 61, 182, 61 
-      C 176.5, 61, 172.5, 57, 172.5, 51.5 
-      C 172.5, 46, 176.5, 44.5, 182, 44.5 Z
-    " />
+    <!-- == -->
+    <!-- Glyph 'a': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-a" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" fill-rule="evenodd" d="
+        M 200, 43.5 L 193, 43.5 
+        C 190.5, 39.5, 185.5, 38, 181, 38 
+        C 171.5, 38, 165, 44.5, 165, 51.5 
+        C 165, 58.5, 171.5, 65, 181, 65 
+        C 185.5, 65, 190.5, 63, 193, 59 
+        L 193, 64 L 200, 64 Z 
+        M 182, 44.5 
+        C 186.5, 44.5, 190, 47, 191.5, 50 
+        C 192.5, 52, 192.5, 54, 191.5, 56 
+        C 190, 59, 186.5, 61, 182, 61 
+        C 176.5, 61, 172.5, 57, 172.5, 51.5 
+        C 172.5, 46, 176.5, 44.5, 182, 44.5 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" fill-rule="evenodd" d="
+        M 200, 43.5 L 193, 43.5 
+        C 190.5, 39.5, 185.5, 38, 181, 38 
+        C 171.5, 38, 165, 44.5, 165, 51.5 
+        C 165, 58.5, 171.5, 65, 181, 65 
+        C 185.5, 65, 190.5, 63, 193, 59 
+        L 193, 64 L 200, 64 Z 
+        M 182, 44.5 
+        C 186.5, 44.5, 190, 47, 191.5, 50 
+        C 192.5, 52, 192.5, 54, 191.5, 56 
+        C 190, 59, 186.5, 61, 182, 61 
+        C 176.5, 61, 172.5, 57, 172.5, 51.5 
+        C 172.5, 46, 176.5, 44.5, 182, 44.5 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: Mint (#A3D8C3) Inner Bowl Color Paper Inlay -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <path class="pc-inlay-sheet" d="
+          M 182, 45 
+          C 186, 45, 191, 47.5, 191, 51.5 
+          C 191, 55.5, 186, 60.5, 182, 60.5 
+          C 177, 60.5, 173, 56.5, 173, 51.5 
+          C 173, 46.5, 177, 45, 182, 45 Z
+        " fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88"/>
+        <path d="M 175, 51.5 Q 182, 55 189, 51.5" fill="none" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 1.5"/>
+      </g>
+    </g>
 
-    <!-- Letter p -->
-    <path fill-rule="evenodd" d="
-      M 207, 39 L 214, 39 L 214, 42 
-      C 217, 39.5, 221.5, 38, 226.5, 38 
-      C 235.5, 38, 241.5, 44.5, 241.5, 51.5 
-      C 241.5, 58.5, 235.5, 65, 226.5, 65 
-      C 221.5, 65, 217, 63.5, 214, 60.5 
-      L 214, 75 L 207, 75 Z 
-      M 225, 44.5 
-      C 229.5, 44.5, 233.5, 47.5, 233.5, 51.5 
-      C 233.5, 55.5, 229.5, 58.5, 225, 58.5 
-      C 220.5, 58.5, 217, 55.5, 215, 52.5 
-      C 214.2, 51, 214.2, 49, 215, 47.5 
-      C 217, 45.5, 220.5, 44.5, 225, 44.5 Z
-    " />
+    <!-- == -->
+    <!-- Glyph 'p': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-p" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" fill-rule="evenodd" d="
+        M 207, 39 L 214, 39 L 214, 42 
+        C 217, 39.5, 221.5, 38, 226.5, 38 
+        C 235.5, 38, 241.5, 44.5, 241.5, 51.5 
+        C 241.5, 58.5, 235.5, 65, 226.5, 65 
+        C 221.5, 65, 217, 63.5, 214, 60.5 
+        L 214, 75 L 207, 75 Z 
+        M 225, 44.5 
+        C 229.5, 44.5, 233.5, 47.5, 233.5, 51.5 
+        C 233.5, 55.5, 229.5, 58.5, 225, 58.5 
+        C 220.5, 58.5, 217, 55.5, 215, 52.5 
+        C 214.2, 51, 214.2, 49, 215, 47.5 
+        C 217, 45.5, 220.5, 44.5, 225, 44.5 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" fill-rule="evenodd" d="
+        M 207, 39 L 214, 39 L 214, 42 
+        C 217, 39.5, 221.5, 38, 226.5, 38 
+        C 235.5, 38, 241.5, 44.5, 241.5, 51.5 
+        C 241.5, 58.5, 235.5, 65, 226.5, 65 
+        C 221.5, 65, 217, 63.5, 214, 60.5 
+        L 214, 75 L 207, 75 Z 
+        M 225, 44.5 
+        C 229.5, 44.5, 233.5, 47.5, 233.5, 51.5 
+        C 233.5, 55.5, 229.5, 58.5, 225, 58.5 
+        C 220.5, 58.5, 217, 55.5, 215, 52.5 
+        C 214.2, 51, 214.2, 49, 215, 47.5 
+        C 217, 45.5, 220.5, 44.5, 225, 44.5 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: Sky (#BDE0EA) Descender Paper Ribbon Inlay -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <rect class="pc-inlay-sheet" x="207.5" y="42" width="6" height="32" rx="1.5" fill="#BDE0EA" stroke="#FFFFFF" stroke-width="0.88"/>
+        <line x1="210.5" y1="44" x2="210.5" y2="72" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 2"/>
+      </g>
+    </g>
 
-    <!-- Letter e -->
-    <path fill-rule="evenodd" d="
-      M 273, 53 L 253, 53 
-      C 253.5, 57.5, 257, 59.5, 261, 59.5 
-      C 265, 59.5, 268, 57.5, 270, 55 
-      L 275.5, 58 
-      C 272.5, 62.5, 267.5, 65, 261, 65 
-      C 251, 65, 245, 58.5, 245, 51.5 
-      C 245, 44.5, 251, 38, 261, 38 
-      C 269.5, 38, 275.5, 44, 275.5, 51.5 
-      C 275.5, 52.2, 275, 53, 273, 53 Z 
-      M 261, 43.5 
-      C 256.5, 43.5, 253.5, 46, 252.8, 49 
-      L 268.2, 49 
-      C 267.5, 46, 265, 43.5, 261, 43.5 Z
-    " />
+    <!-- == -->
+    <!-- Glyph 'e': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-e" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" fill-rule="evenodd" d="
+        M 273, 53 L 253, 53 
+        C 253.5, 57.5, 257, 59.5, 261, 59.5 
+        C 265, 59.5, 268, 57.5, 270, 55 
+        L 275.5, 58 
+        C 272.5, 62.5, 267.5, 65, 261, 65 
+        C 251, 65, 245, 58.5, 245, 51.5 
+        C 245, 44.5, 251, 38, 261, 38 
+        C 269.5, 38, 275.5, 44, 275.5, 51.5 
+        C 275.5, 52.2, 275, 53, 273, 53 Z 
+        M 261, 43.5 
+        C 256.5, 43.5, 253.5, 46, 252.8, 49 
+        L 268.2, 49 
+        C 267.5, 46, 265, 43.5, 261, 43.5 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" fill-rule="evenodd" d="
+        M 273, 53 L 253, 53 
+        C 253.5, 57.5, 257, 59.5, 261, 59.5 
+        C 265, 59.5, 268, 57.5, 270, 55 
+        L 275.5, 58 
+        C 272.5, 62.5, 267.5, 65, 261, 65 
+        C 251, 65, 245, 58.5, 245, 51.5 
+        C 245, 44.5, 251, 38, 261, 38 
+        C 269.5, 38, 275.5, 44, 275.5, 51.5 
+        C 275.5, 52.2, 275, 53, 273, 53 Z 
+        M 261, 43.5 
+        C 256.5, 43.5, 253.5, 46, 252.8, 49 
+        L 268.2, 49 
+        C 267.5, 46, 265, 43.5, 261, 43.5 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: Lavender (#D7CBEB) Tongue Fold Slit & Inlay -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <path class="pc-inlay-sheet" d="
+          M 253, 49 L 268, 49 
+          C 267.5, 46, 265, 44, 261, 44 
+          C 257, 44, 254, 46, 253, 49 Z
+        " fill="#D7CBEB" stroke="#FFFFFF" stroke-width="0.88"/>
+        <line x1="253" y1="53" x2="273" y2="53" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 1.5"/>
+      </g>
+    </g>
 
-    <!-- Letter r -->
-    <path d="
-      M 281, 39 L 288, 39 L 288, 45 
-      C 290.5, 40.5, 295, 38, 300, 38 
-      L 300, 45.5 
-      C 295.5, 45.5, 291.5, 48, 288, 51 
-      L 288, 64 L 281, 64 Z
-    " />
+    <!-- == -->
+    <!-- Glyph 'r': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-r" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" d="
+        M 281, 39 L 288, 39 L 288, 45 
+        C 290.5, 40.5, 295, 38, 300, 38 
+        L 300, 45.5 
+        C 295.5, 45.5, 291.5, 48, 288, 51 
+        L 288, 64 L 281, 64 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" d="
+        M 281, 39 L 288, 39 L 288, 45 
+        C 290.5, 40.5, 295, 38, 300, 38 
+        L 300, 45.5 
+        C 295.5, 45.5, 291.5, 48, 288, 51 
+        L 288, 64 L 281, 64 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: Buttercup (#FEE396) Paper Curl Terminal -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <circle class="pc-inlay-sheet" cx="298" cy="41.5" r="3.2" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88"/>
+        <path d="M 288, 45 Q 294, 40 298, 41.5" fill="none" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 1.5"/>
+      </g>
+    </g>
 
-    <!-- Letter C (Uppercase with Crafted Paper Arc) -->
-    <path d="
-      M 338, 33.5 L 332, 38 
-      C 328.5, 33, 324, 30, 318, 30 
-      C 309, 30, 303, 36.5, 303, 44 
-      C 303, 51.5, 309, 58, 318, 58 
-      C 324, 58, 328.5, 55, 332, 49.5 
-      L 338, 54 
-      C 333.5, 61, 327, 65, 318, 65 
-      C 305, 65, 295, 55.5, 295, 44 
-      C 295, 32.5, 305, 23, 318, 23 
-      C 327, 23, 333.5, 27, 338, 33.5 Z
-    " />
+    <!-- == -->
+    <!-- Glyph 'C': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-C" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" d="
+        M 338, 33.5 L 332, 38 
+        C 328.5, 33, 324, 30, 318, 30 
+        C 309, 30, 303, 36.5, 303, 44 
+        C 303, 51.5, 309, 58, 318, 58 
+        C 324, 58, 328.5, 55, 332, 49.5 
+        L 338, 54 
+        C 333.5, 61, 327, 65, 318, 65 
+        C 305, 65, 295, 55.5, 295, 44 
+        C 295, 32.5, 305, 23, 318, 23 
+        C 327, 23, 333.5, 27, 338, 33.5 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" d="
+        M 338, 33.5 L 332, 38 
+        C 328.5, 33, 324, 30, 318, 30 
+        C 309, 30, 303, 36.5, 303, 44 
+        C 303, 51.5, 309, 58, 318, 58 
+        C 324, 58, 328.5, 55, 332, 49.5 
+        L 338, 54 
+        C 333.5, 61, 327, 65, 318, 65 
+        C 305, 65, 295, 55.5, 295, 44 
+        C 295, 32.5, 305, 23, 318, 23 
+        C 327, 23, 333.5, 27, 338, 33.5 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: Chiseled Carved 2-Tier Curved Paper Arc -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <path class="pc-inlay-sheet" d="
+          M 330, 34 
+          C 324, 27, 312, 27, 304, 35 
+          C 298, 41, 298, 48, 304, 54 
+          C 312, 62, 324, 62, 330, 55
+        " fill="none" stroke="#F8B49B" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="
+          M 326, 36 
+          C 321, 32, 314, 32, 308, 37 
+          C 304, 41, 304, 47, 308, 51 
+          C 314, 56, 321, 56, 326, 52
+        " fill="none" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2.5 1.5"/>
+      </g>
+    </g>
 
-    <!-- Letter u -->
-    <path d="
-      M 346, 39 L 353, 39 L 353, 54 
-      C 353, 57.5, 355.5, 59.5, 359.5, 59.5 
-      C 363.5, 59.5, 366, 57.5, 366, 54 
-      L 366, 39 L 373, 39 L 373, 64 L 366, 64 L 366, 58 
-      C 363.5, 62, 359, 65, 354, 65 
-      C 347, 65, 346, 59.5, 346, 53.5 Z
-    " />
+    <!-- == -->
+    <!-- Glyph 'u': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-u" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" d="
+        M 346, 39 L 353, 39 L 353, 54 
+        C 353, 57.5, 355.5, 59.5, 359.5, 59.5 
+        C 363.5, 59.5, 366, 57.5, 366, 54 
+        L 366, 39 L 373, 39 L 373, 64 L 366, 64 L 366, 58 
+        C 363.5, 62, 359, 65, 354, 65 
+        C 347, 65, 346, 59.5, 346, 53.5 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" d="
+        M 346, 39 L 353, 39 L 353, 54 
+        C 353, 57.5, 355.5, 59.5, 359.5, 59.5 
+        C 363.5, 59.5, 366, 57.5, 366, 54 
+        L 366, 39 L 373, 39 L 373, 64 L 366, 64 L 366, 58 
+        C 363.5, 62, 359, 65, 354, 65 
+        C 347, 65, 346, 59.5, 346, 53.5 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: Mint (#A3D8C3) Bottom Curve Inlay -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <path class="pc-inlay-sheet" d="
+          M 353, 55 
+          C 353, 58.5, 356, 61, 359.5, 61 
+          C 363.5, 61, 366, 58.5, 366, 55 
+          C 366, 62, 362.5, 64.5, 359.5, 64.5 
+          C 354, 64.5, 353, 60, 353, 55 Z
+        " fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88"/>
+        <path d="M 353, 55 C 353, 58, 356, 60, 359.5, 60 C 363, 60, 366, 58, 366, 55" fill="none" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 1.5"/>
+      </g>
+    </g>
 
-    <!-- Letter t (With Kirigami Angled Cut on Crossbar) -->
-    <path d="
-      M 383, 30 L 388, 25 L 388, 39 L 398, 39 L 398, 44.5 L 388, 44.5 
-      L 388, 56.5 C 388, 59.5, 390, 60.5, 393, 60.5 C 395.5, 60.5, 397, 60, 398, 59 
-      L 398, 64 C 395.5, 64.8, 392.5, 65.5, 389, 65.5 
-      C 383.5, 65.5, 381, 62, 381, 56 L 381, 44.5 L 376, 44.5 L 376, 39 L 381, 39 L 381, 30 Z
-    " />
+    <!-- == -->
+    <!-- Glyph 't': 3-Tier Layered Papercraft                          -->
+    <!-- == -->
+    <g id="pc-letter-t" class="pc-paper-glyph">
+      <!-- Tier 1: Kraft Underlay Sheet -->
+      <path class="pc-glyph-underlay" d="
+        M 383, 30 L 388, 25 L 388, 39 L 398, 39 L 398, 44.5 L 388, 44.5 
+        L 388, 56.5 C 388, 59.5, 390, 60.5, 393, 60.5 C 395.5, 60.5, 397, 60, 398, 59 
+        L 398, 64 C 395.5, 64.8, 392.5, 65.5, 389, 65.5 
+        C 383.5, 65.5, 381, 62, 381, 56 L 381, 44.5 L 376, 44.5 L 376, 39 L 381, 39 L 381, 30 Z
+      " transform="translate(1.2, 1.8)" fill="#D9CBB8" filter="url(#ps-logo-base)"/>
+      <!-- Tier 2: Velvet Ink Cardstock with 0.88px Pure White Knife-Edge Rim -->
+      <path class="pc-glyph-main" d="
+        M 383, 30 L 388, 25 L 388, 39 L 398, 39 L 398, 44.5 L 388, 44.5 
+        L 388, 56.5 C 388, 59.5, 390, 60.5, 393, 60.5 C 395.5, 60.5, 397, 60, 398, 59 
+        L 398, 64 C 395.5, 64.8, 392.5, 65.5, 389, 65.5 
+        C 383.5, 65.5, 381, 62, 381, 56 L 381, 44.5 L 376, 44.5 L 376, 39 L 381, 39 L 381, 30 Z
+      " fill="#382E26" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-mid)"/>
+      <!-- Tier 3: Kirigami Inlay: 45° Chisel Notch & Score Line Inlay -->
+      <g class="pc-glyph-inlay" filter="url(#ps-logo-top)">
+        <polygon class="pc-inlay-sheet" points="388,38.5 392,38.5 388,42.5" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88"/>
+        <line x1="377" y1="40" x2="397" y2="40" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 1.5"/>
+        <line x1="388" y1="46" x2="388" y2="58" stroke="#FFFFFF" stroke-width="0.88" stroke-dasharray="2 2"/>
+      </g>
+    </g>
   </g>
 
   <!-- ============================================================== -->
-  <!-- 3. 'UI' 3D LAYERED CARDSTOCK PILL BADGE                       -->
+  <!-- 3. 'UI' 2-SHEET LAYERED CARDSTOCK PILL BADGE                   -->
   <!-- ============================================================== -->
-  <g id="pc-logo-badge" filter="url(#pc-shadow-badge)">
-    <!-- Bottom Paper Layer (Peach 3D Offset) -->
-    <rect x="412" y="27" width="68" height="37" rx="14" fill="#F7BA9E" />
+  <g id="pc-logo-badge">
+    <!-- Layer 1: Peach (#F8B49B) Base Round Pill Backing Sheet -->
+    <rect id="pc-badge-sheet-1" x="412" y="27" width="68" height="37" rx="14" fill="#F8B49B" filter="url(#ps-logo-base)"/>
     
-    <!-- Top Paper Layer (Mint Pastel Cardstock) -->
-    <rect x="410" y="25" width="68" height="37" rx="14" fill="url(#pc-grad-badge)" stroke="#FAF6ED" stroke-width="1.2" />
+    <!-- Layer 2: Mint (#BBD5B8) Top Cardstock Sheet with 1.2px White Border -->
+    <rect id="pc-badge-sheet-2" x="410" y="25" width="68" height="37" rx="14" fill="url(#ps-grad-badge)" stroke="#FFFFFF" stroke-width="1.2" filter="url(#ps-logo-mid)"/>
     
-    <!-- Delicate Perforated / Cut Stitched Border -->
-    <rect x="413.5" y="28.5" width="61" height="30" rx="10.5" 
-          fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="3 2" opacity="0.75" />
+    <!-- Layer 3: Dashed Perforated Sewing Stitch Line -->
+    <rect id="pc-badge-stitching" x="413.5" y="28.5" width="61" height="30" rx="10.5" fill="none" stroke="#FFFFFF" stroke-width="1" stroke-dasharray="3 2" opacity="0.85"/>
 
-    <!-- Pure White Cardstock Letters 'UI' -->
-    <g fill="#FFFFFF" filter="url(#pc-shadow-text)">
+    <!-- Layer 4: Pure White Cream Cardstock (#FFFDF9) Letters 'UI' with 0.88px Knife Rim -->
+    <g id="pc-badge-letters">
       <!-- Letter U -->
-      <path d="
+      <path id="pc-badge-letter-u" d="
         M 421, 33 L 427, 33 L 427, 44.5 
         C 427, 48, 429.5, 50, 433.5, 50 
         C 437.5, 50, 440, 48, 440, 44.5 
         L 440, 33 L 446, 33 L 446, 45 
         C 446, 51, 440.5, 54.5, 433.5, 54.5 
         C 426.5, 54.5, 421, 51, 421, 45 Z
-      " />
+      " fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-top)"/>
       
       <!-- Letter I -->
-      <path d="
+      <path id="pc-badge-letter-i" d="
         M 452, 33 L 458, 33 L 458, 54 L 452, 54 Z
-      " />
+      " fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88" stroke-linejoin="round" filter="url(#ps-logo-top)"/>
     </g>
   </g>
 
@@ -199,22 +454,22 @@
   <!-- 4. SUBTITLE & CRAFT DIVIDER: 'Layered Craft Design System'     -->
   <!-- ============================================================== -->
   <g id="pc-logo-subtitle">
-    <!-- Palette Swatch Studs (Mint, Peach, Lavender, Buttercup) -->
-    <g transform="translate(136, 88)">
-      <rect x="0" y="-4" width="7" height="7" rx="2" fill="#BBD5B8" transform="rotate(45 3.5 -0.5)" filter="url(#pc-shadow-mid)" />
-      <rect x="14" y="-4" width="7" height="7" rx="2" fill="#F7BA9E" transform="rotate(45 17.5 -0.5)" filter="url(#pc-shadow-mid)" />
-      <rect x="28" y="-4" width="7" height="7" rx="2" fill="#D7CBEB" transform="rotate(45 31.5 -0.5)" filter="url(#pc-shadow-mid)" />
-      <rect x="42" y="-4" width="7" height="7" rx="2" fill="#FEE396" transform="rotate(45 45.5 -0.5)" filter="url(#pc-shadow-mid)" />
+    <!-- Palette Swatch Diamond Studs (Mint, Peach, Lavender, Buttercup) -->
+    <g id="pc-logo-studs" transform="translate(136, 88)">
+      <rect id="pc-stud-mint" x="0" y="-4" width="7" height="7" rx="2" fill="#BBD5B8" stroke="#FFFFFF" stroke-width="0.88" transform="rotate(45 3.5 -0.5)" filter="url(#ps-logo-mid)"/>
+      <rect id="pc-stud-peach" x="14" y="-4" width="7" height="7" rx="2" fill="#F8B49B" stroke="#FFFFFF" stroke-width="0.88" transform="rotate(45 17.5 -0.5)" filter="url(#ps-logo-mid)"/>
+      <rect id="pc-stud-lavender" x="28" y="-4" width="7" height="7" rx="2" fill="#D7CBEB" stroke="#FFFFFF" stroke-width="0.88" transform="rotate(45 31.5 -0.5)" filter="url(#ps-logo-mid)"/>
+      <rect id="pc-stud-buttercup" x="42" y="-4" width="7" height="7" rx="2" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.88" transform="rotate(45 45.5 -0.5)" filter="url(#ps-logo-mid)"/>
     </g>
 
     <!-- Subtitle Text -->
-    <text x="194" y="91" 
-          font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Nanum Square Round', sans-serif" 
+    <text id="pc-subtitle-text" x="194" y="91" 
+          font-family="'Nanum Square Round', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif" 
           font-size="11.5" font-weight="800" letter-spacing="3.2" fill="#7D7368">
       LAYERED CRAFT DESIGN SYSTEM
     </text>
 
     <!-- Subtle End Divider Dash Line -->
-    <line x1="472" y1="88" x2="494" y2="88" stroke="#D8CEBE" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 3" />
+    <line id="pc-subtitle-divider" x1="472" y1="88" x2="494" y2="88" stroke="#D8CEBD" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 3"/>
   </g>
 </svg>

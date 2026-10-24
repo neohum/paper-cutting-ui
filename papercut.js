@@ -1495,6 +1495,8 @@ function initPlayground() {
        if (label) label.textContent = labelText;
        const path = heroSoundToggle.querySelector('rect[data-layer="base"]');
        if (path) path.setAttribute('fill', bgFill);
+       const soundWaves = heroSoundToggle.querySelectorAll('.pc-hero-sound-wave');
+       soundWaves.forEach(w => w.setAttribute('opacity', soundEnabled ? '1' : '0.35'));
      }
 
      // 2. Header Sound Button
