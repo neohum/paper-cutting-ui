@@ -6,10 +6,10 @@
  * Easy installation and copy-paste component generator for PaperCut UI.
  * 
  * Usage:
- *   npx papercut-ui init              # Initializes PaperCut UI in your project (CSS, JS, starter)
- *   npx papercut-ui add <component>   # Adds a component snippet to ./components/
- *   npx papercut-ui list              # Lists all available components
- *   npx papercut-ui snippet <comp>    # Outputs raw code snippet to stdout
+ *   npx paper-cutting-ui init              # Initializes PaperCut UI in your project (CSS, JS, starter)
+ *   npx paper-cutting-ui add <component>   # Adds a component snippet to ./components/
+ *   npx paper-cutting-ui list              # Lists all available components
+ *   npx paper-cutting-ui snippet <comp>    # Outputs raw code snippet to stdout
  */
 
 import fs from 'node:fs';
@@ -236,11 +236,11 @@ function printHelp() {
 ✂️ PaperCut UI - CLI Tool
 
 명령어:
-  npx papercut-ui init              프로젝트에 PaperCut UI 핵심 파일 복사 및 시작 템플릿 생성
-  npx papercut-ui add <component>   원하는 컴포넌트 HTML 스니펫을 ./components/ 에 복사
-  npx papercut-ui list              사용 가능한 모든 컴포넌트 목록 보기
-  npx papercut-ui snippet <comp>    컴포넌트 HTML 코드를 콘솔에 즉시 출력
-  npx papercut-ui help              도움말 확인
+  npx paper-cutting-ui init              프로젝트에 PaperCut UI 핵심 파일 복사 및 시작 템플릿 생성
+  npx paper-cutting-ui add <component>   원하는 컴포넌트 HTML 스니펫을 ./components/ 에 복사
+  npx paper-cutting-ui list              사용 가능한 모든 컴포넌트 목록 보기
+  npx paper-cutting-ui snippet <comp>    컴포넌트 HTML 코드를 콘솔에 즉시 출력
+  npx paper-cutting-ui help              도움말 확인
 
 사용 가능한 컴포넌트:
   ${Object.keys(COMPONENTS).join(', ')}
@@ -276,12 +276,12 @@ function runInit() {
 
   console.log('\n✨ 초기화가 완료되었습니다!');
   console.log('  👉 브라우저에서 papercut-starter.html 을 열어보거나,');
-  console.log('  👉 "npx papercut-ui add button" 으로 원하는 컴포넌트를 추가하세요.\n');
+  console.log('  👉 "npx paper-cutting-ui add button" 으로 원하는 컴포넌트를 추가하세요.\n');
 }
 
 function runAdd(componentName) {
   if (!componentName) {
-    console.error('❌ 컴포넌트 이름을 입력해주세요. 예: npx papercut-ui add button');
+    console.error('❌ 컴포넌트 이름을 입력해주세요. 예: npx paper-cutting-ui add button');
     console.log('사용 가능 컴포넌트:', Object.keys(COMPONENTS).join(', '));
     process.exit(1);
   }
@@ -312,12 +312,12 @@ function runList() {
   for (const [key, val] of Object.entries(COMPONENTS)) {
     console.log(`  • ${key.padEnd(12)} - ${val.name}: ${val.desc}`);
   }
-  console.log('\n👉 추가 방법: npx papercut-ui add <이름>\n');
+  console.log('\n👉 추가 방법: npx paper-cutting-ui add <이름>\n');
 }
 
 function runSnippet(componentName) {
   if (!componentName) {
-    console.error('❌ 컴포넌트 이름을 입력해주세요. 예: npx papercut-ui snippet button');
+    console.error('❌ 컴포넌트 이름을 입력해주세요. 예: npx paper-cutting-ui snippet button');
     process.exit(1);
   }
 

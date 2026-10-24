@@ -1,5 +1,5 @@
 {
-  "name": "papercut-ui",
+  "name": "paper-cutting-ui",
   "version": "1.0.0",
   "type": "module",
   "description": "PaperCut UI - 3D Layered Paper-Craft Design System & UI Components with instant copy-paste and CLI support",
@@ -7,8 +7,17 @@
   "module": "papercut.js",
   "style": "papercut.css",
   "bin": {
+    "paper-cutting-ui": "./bin/papercut.mjs",
     "papercut-ui": "./bin/papercut.mjs"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neohum/paper-cutting-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/neohum/paper-cutting-ui/issues"
+  },
+  "homepage": "https://github.com/neohum/paper-cutting-ui#readme",
   "exports": {
     ".": {
       "import": "./papercut.js",

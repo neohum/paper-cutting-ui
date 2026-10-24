@@ -102,20 +102,20 @@ HTML 파일 하나만 만들고 아래 코드를 그대로 붙여넣으면 즉�
 
 ```bash
 # npm 설치
-npm install papercut-ui
+npm install paper-cutting-ui
 
 # 또는 pnpm / yarn
-pnpm add papercut-ui
-yarn add papercut-ui
+pnpm add paper-cutting-ui
+yarn add paper-cutting-ui
 ```
 
 ```javascript
 // main.js 또는 App.jsx / App.tsx 에서 스타일시트 임포트
-import 'papercut-ui/css';
-import 'papercut-ui/svg-primitives.css';
+import 'paper-cutting-ui/css';
+import 'paper-cutting-ui/svg-primitives.css';
 
 // 순수 SVG Radix 프리미티브 엔진 사용 (선택 사항)
-import { PaperCutSVG } from 'papercut-ui/primitives';
+import { PaperCutSVG } from 'paper-cutting-ui/primitives';
 ```
 
 ---
@@ -126,18 +126,18 @@ import { PaperCutSVG } from 'papercut-ui/primitives';
 
 ```bash
 # 프로젝트 초기화 (핵심 CSS/JS 및 스타터 HTML 복사)
-npx papercut-ui init
+npx paper-cutting-ui init
 
 # 원하는 컴포넌트 스니펫 추가 (components/<component>.html 파일 생성)
-npx papercut-ui add button
-npx papercut-ui add card
-npx papercut-ui add switch
+npx paper-cutting-ui add button
+npx paper-cutting-ui add card
+npx paper-cutting-ui add switch
 
 # 사용 가능한 전체 컴포넌트 목록 확인
-npx papercut-ui list
+npx paper-cutting-ui list
 
 # 콘솔에 컴포넌트 코드 직접 출력
-npx papercut-ui snippet button
+npx paper-cutting-ui snippet button
 ```
 
 ---

@@ -27,11 +27,11 @@ describe('PaperCut UI: Quick Installation & Copy-Paste Workflow', () => {
 
   describe('1. Package Configuration & Exports', () => {
     it('should configure name, main, module, style and bin in package.json', () => {
-      assert.equal(pkg.name, 'papercut-ui');
+      assert.equal(pkg.name, 'paper-cutting-ui');
       assert.equal(pkg.main, 'papercut.js');
       assert.equal(pkg.module, 'papercut.js');
       assert.equal(pkg.style, 'papercut.css');
-      assert.ok(pkg.bin && pkg.bin['papercut-ui'], 'Must provide bin.papercut-ui');
+      assert.ok(pkg.bin && (pkg.bin['paper-cutting-ui'] || pkg.bin['papercut-ui']), 'Must provide bin');
     });
 
     it('should configure exports for CSS and submodules', () => {
