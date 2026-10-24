@@ -405,7 +405,7 @@
           <span class="pc-badge pc-badge--tag pc-badge--lavender">Multi-Tier Shadows</span>
         </div>
         <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
-          <span class="pc-section-plate" data-bg-shape="cloud-puffy" data-icon="sun" data-size="52" title="3D 그림자 스튜디오"></span>
+          <span class="pc-section-plate" data-bg-shape="cloud-puffy" data-icon="sun" data-size="88" title="3D 그림자 스튜디오"></span>
           <span>3D 페이퍼 입체감 &amp; 그림자 시뮬레이터 (Paper Depth Studio)</span>
         </h2>
         <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;">
