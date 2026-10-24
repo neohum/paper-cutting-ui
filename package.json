@@ -7,8 +7,8 @@
   "module": "papercut.js",
   "style": "papercut.css",
   "bin": {
-    "paper-cutting-ui": "./bin/papercut.mjs",
-    "papercut-ui": "./bin/papercut.mjs"
+    "paper-cutting-ui": "bin/papercut.mjs",
+    "papercut-ui": "bin/papercut.mjs"
   },
   "repository": {
     "type": "git",
