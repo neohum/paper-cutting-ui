@@ -59,7 +59,20 @@ PaperCut UI는 **Zero-Runtime(빌드 도구 불필요 Vanilla HTML/CSS/JS)** 기
 
 ### 방법 1: 1초 CDN & HTML 템플릿 복사 붙여넣기 (가장 빠름)
 
-HTML 파일 하나만 만들고 아래 코드를 그대로 붙여넣으면 즉시 3D 페이퍼 아트 UI가 동작합니다:
+HTML에 CDN 링크만 추가하면 즉시 3D 페이퍼 아트 UI가 동작합니다:
+
+```html
+<!-- 01. 핵심 스타일시트 (필수: 버튼, 카드, 배지, 2-Sheet 종이 레이아웃) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.css">
+
+<!-- 02. 핵심 자바스크립트 (선택: 바닐라 모달, 토스트, 아코디언 인터랙션) -->
+<script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.js"></script>
+
+<!-- 03. 3D 페이퍼아트 벡터 아이콘 (선택: 678종 종이공예 아이콘) -->
+<script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut-icons.js"></script>
+```
+
+#### 완성형 HTML 스타터 템플릿:
 
 ```html
 <!DOCTYPE html>
@@ -70,7 +83,7 @@ HTML 파일 하나만 만들고 아래 코드를 그대로 붙여넣으면 즉�
   <title>My PaperCut App</title>
   
   <!-- PaperCut 핵심 스타일시트 (글로벌 CDN) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.css">
 </head>
 <body style="background: #FAF7F0; padding: 40px 20px; font-family: sans-serif;">
   <div style="max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
@@ -90,8 +103,8 @@ HTML 파일 하나만 만들고 아래 코드를 그대로 붙여넣으면 즉�
   </div>
 
   <!-- PaperCut 678종 3D 아이콘 & 핵심 스크립트 (글로벌 CDN) -->
-  <script src="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut-icons.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut-icons.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.js"></script>
 </body>
 </html>
 ```

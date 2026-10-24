@@ -1632,12 +1632,44 @@
           <p style="font-size: 13px; color: #5C4331; margin: 0; line-height: 1.5;" class="break-keep">
             외부 빌드 도구 없이 글로벌 CDN 링크 하나로 즉시 실행할 수 있는 완성형 스타터 코드입니다.
           </p>
-          <div style="background: #F4EFE6; border: 1px dashed rgba(46,30,20,0.2); border-radius: 8px; padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 10px 0;">
-            <code style="font-size: 11px; color: #2E1E14; overflow-x: auto; white-space: nowrap;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css"&gt;</code>
-            <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.css&quot;&gt;&#10;&lt;script src=&quot;https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut-icons.js&quot;&gt;&lt;/script&gt;&#10;&lt;script src=&quot;https://cdn.jsdelivr.net/gh/neohum/paper-cutting-ui@main/papercut.js&quot;&gt;&lt;/script&gt;" style="padding: 4px 10px; font-size: 11px; min-height: 28px; white-space: nowrap;">
-              <span>CDN 태그 복사</span>
+
+          <!-- CDN 개별 태그 복사 목록 (CSS & JS) -->
+          <div style="display: flex; flex-direction: column; gap: 6px; margin: 10px 0;">
+            <!-- 01. CSS CDN -->
+            <div style="background: #F4EFE6; border: 1px dashed rgba(46,30,20,0.2); border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+              <span style="font-size: 10px; font-weight: 800; background: #6CAE97; color: #FFF; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">CSS</span>
+              <code style="font-size: 10.5px; color: #2E1E14; overflow-x: auto; white-space: nowrap; flex: 1;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.css"&gt;</code>
+              <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.css&quot;&gt;" style="padding: 2px 8px; font-size: 10.5px; min-height: 24px; white-space: nowrap;">
+                <span>복사</span>
+              </button>
+            </div>
+
+            <!-- 02. Core JS CDN -->
+            <div style="background: #F4EFE6; border: 1px dashed rgba(46,30,20,0.2); border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+              <span style="font-size: 10px; font-weight: 800; background: #E29477; color: #FFF; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">Core JS</span>
+              <code style="font-size: 10.5px; color: #2E1E14; overflow-x: auto; white-space: nowrap; flex: 1;">&lt;script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.js"&gt;&lt;/script&gt;</code>
+              <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;script src=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.js&quot;&gt;&lt;/script&gt;" style="padding: 2px 8px; font-size: 10.5px; min-height: 24px; white-space: nowrap;">
+                <span>복사</span>
+              </button>
+            </div>
+
+            <!-- 03. Icons JS CDN -->
+            <div style="background: #F4EFE6; border: 1px dashed rgba(46,30,20,0.2); border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+              <span style="font-size: 10px; font-weight: 800; background: #9D7CB8; color: #FFF; padding: 2px 6px; border-radius: 4px; white-space: nowrap;">Icons JS</span>
+              <code style="font-size: 10.5px; color: #2E1E14; overflow-x: auto; white-space: nowrap; flex: 1;">&lt;script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut-icons.js"&gt;&lt;/script&gt;</code>
+              <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;script src=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut-icons.js&quot;&gt;&lt;/script&gt;" style="padding: 2px 8px; font-size: 10.5px; min-height: 24px; white-space: nowrap;">
+                <span>복사</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+            <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;!-- PaperCut UI (jsDelivr CDN) --&gt;&#10;&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.css&quot;&gt;&#10;&lt;script src=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut-icons.js&quot;&gt;&lt;/script&gt;&#10;&lt;script src=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.js&quot;&gt;&lt;/script&gt;" style="flex: 1; justify-content: center; font-size: 11.5px; min-height: 32px; background: #F4EFE6;">
+              <span class="pc-inline-icon is-xs" data-icon="copy"></span>
+              <span>CDN 3종 전체 복사</span>
             </button>
           </div>
+
           <div style="display: flex; gap: 8px;">
             <button type="button" class="pc-copy-code-btn" data-copy-target="pc-starter-template-code" style="flex: 1; justify-content: center; background: #EAF7F1; border-color: #6CAE97; color: #1B4738;">
               <span class="pc-inline-icon is-xs" data-icon="clipboard"></span>
@@ -1761,8 +1793,11 @@
             <p style="font-size: 12.5px; color: #6E533F; margin: 0; line-height: 1.5;" class="break-keep">
               버튼, 카드, 배지, 입력창, 2-Sheet 적층 등은 100% 순수 CSS입니다. JS 없이도 종이 질감, 나이프 엣지 림, 그림자, 호버 리프트가 완전 작동합니다. React/Vue/Vite 프로젝트는 CSS만 임포트하면 끝납니다.
             </p>
-            <div style="margin-top: auto; padding-top: 6px;">
-              <code style="font-size: 11.5px; background: #EAF5EE; color: #1B4738; padding: 4px 8px; border-radius: 6px; display: block; overflow-x: auto; white-space: nowrap;">import 'paper-cutting-ui/css';</code>
+            <div style="margin-top: auto; padding-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 6px; background: #EAF5EE; border-radius: 6px; padding: 4px 8px;">
+              <code style="font-size: 11px; color: #1B4738; overflow-x: auto; white-space: nowrap; flex: 1;">&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.css"&gt;</code>
+              <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.css&quot;&gt;" style="padding: 2px 6px; font-size: 10px; min-height: 22px; white-space: nowrap;">
+                <span>복사</span>
+              </button>
             </div>
           </div>
 
@@ -1775,8 +1810,11 @@
             <p style="font-size: 12.5px; color: #6E533F; margin: 0; line-height: 1.5;" class="break-keep">
               React/Vue 같은 프레임워크 없이 순수 HTML에서 모달 팝업 열기/닫기, 토스트 알림 띄우기, 아코디언 토글을 쓰려면 <code style="font-size: 11px;">papercut.js</code>가 필요합니다.
             </p>
-            <div style="margin-top: auto; padding-top: 6px;">
-              <code style="font-size: 11.5px; background: #FAF0E6; color: #6A381F; padding: 4px 8px; border-radius: 6px; display: block; overflow-x: auto; white-space: nowrap;">&lt;script src=".../papercut.js"&gt;&lt;/script&gt;</code>
+            <div style="margin-top: auto; padding-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 6px; background: #FAF0E6; border-radius: 6px; padding: 4px 8px;">
+              <code style="font-size: 11px; color: #6A381F; overflow-x: auto; white-space: nowrap; flex: 1;">&lt;script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.js"&gt;&lt;/script&gt;</code>
+              <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;script src=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut.js&quot;&gt;&lt;/script&gt;" style="padding: 2px 6px; font-size: 10px; min-height: 22px; white-space: nowrap;">
+                <span>복사</span>
+              </button>
             </div>
           </div>
 
@@ -1789,8 +1827,11 @@
             <p style="font-size: 12.5px; color: #6E533F; margin: 0; line-height: 1.5;" class="break-keep">
               내장된 3D 다층 종이 공예 벡터 아이콘(&lt;span class="pc-inline-icon"&gt;)을 사용하시려면 <code style="font-size: 11px;">papercut-icons.js</code>를 추가 로드합니다.
             </p>
-            <div style="margin-top: auto; padding-top: 6px;">
-              <code style="font-size: 11.5px; background: #F3ECF8; color: #4A2B66; padding: 4px 8px; border-radius: 6px; display: block; overflow-x: auto; white-space: nowrap;">&lt;script src=".../papercut-icons.js"&gt;&lt;/script&gt;</code>
+            <div style="margin-top: auto; padding-top: 6px; display: flex; align-items: center; justify-content: space-between; gap: 6px; background: #F3ECF8; border-radius: 6px; padding: 4px 8px;">
+              <code style="font-size: 11px; color: #4A2B66; overflow-x: auto; white-space: nowrap; flex: 1;">&lt;script src="https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut-icons.js"&gt;&lt;/script&gt;</code>
+              <button type="button" class="pc-copy-code-btn" data-copy-code="&lt;script src=&quot;https://cdn.jsdelivr.net/npm/paper-cutting-ui@1.0.0/papercut-icons.js&quot;&gt;&lt;/script&gt;" style="padding: 2px 6px; font-size: 10px; min-height: 22px; white-space: nowrap;">
+                <span>복사</span>
+              </button>
             </div>
           </div>
         </div>
