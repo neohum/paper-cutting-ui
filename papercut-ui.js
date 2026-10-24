@@ -3379,16 +3379,6 @@
     initWoodShavingCurl(context);
     paperizeOverlays(context);
     hydrateIcons(context);
-    // Ticket punch slots auto-hydration for .pc-diecut-ticket
-    $$('.pc-diecut-ticket', context).forEach(t => {
-      if (!t.querySelector('.pc-ticket-punch-strip')) {
-        const strip = document.createElement('div');
-        strip.className = 'pc-ticket-punch-strip';
-        strip.setAttribute('aria-hidden', 'true');
-        strip.innerHTML = '<span class="pc-ticket-punch-slot"></span><span class="pc-ticket-punch-slot"></span><span class="pc-ticket-punch-slot"></span><span class="pc-ticket-punch-slot"></span><span class="pc-ticket-punch-slot"></span>';
-        t.prepend(strip);
-      }
-    });
   }
 
   if (typeof document !== 'undefined') {

@@ -1635,6 +1635,148 @@ body.is-collapsed #pc-sidebar-nav {
 .pc-underlay-rose {
   --pc-card-underlay-bg: #FCE8F3 !important;
 }
+.pc-underlay-buttercup {
+  --pc-card-underlay-bg: #FEE396 !important;
+}
+
+/* ==========================================================================
+   칼선 동기화 특화 카드 (Synchronized Silhouette Specialty Cards)
+   앞장과 뒷장(언더레이)이 100% 동일한 외곽 칼선과 실루엣을 공유
+   ========================================================================== */
+
+/* 1. 티켓 노치 카드: 앞장과 뒷장 모두 양옆 반원 절취 노치 칼선 공유 */
+.pc-card--ticket {
+  position: relative !important;
+  border-radius: 12px !important;
+  -webkit-mask-image: 
+    radial-gradient(circle 12px at 0 50%, transparent 11.5px, #000 12px),
+    radial-gradient(circle 12px at 100% 50%, transparent 11.5px, #000 12px);
+  -webkit-mask-size: 51% 100%, 51% 100%;
+  -webkit-mask-position: left, right;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: 
+    radial-gradient(circle 12px at 0 50%, transparent 11.5px, #000 12px),
+    radial-gradient(circle 12px at 100% 50%, transparent 11.5px, #000 12px);
+  mask-size: 51% 100%, 51% 100%;
+  mask-position: left, right;
+  mask-repeat: no-repeat;
+}
+.pc-card--ticket::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: 16px !important;
+  background: var(--pc-card-underlay-bg, #EDE4D4) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.20), 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.12) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
+  -webkit-mask-image: 
+    radial-gradient(circle 14px at 0 50%, transparent 13.5px, #000 14px),
+    radial-gradient(circle 14px at 100% 50%, transparent 13.5px, #000 14px);
+  -webkit-mask-size: 51% 100%, 51% 100%;
+  -webkit-mask-position: left, right;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: 
+    radial-gradient(circle 14px at 0 50%, transparent 13.5px, #000 14px),
+    radial-gradient(circle 14px at 100% 50%, transparent 13.5px, #000 14px);
+  mask-size: 51% 100%, 51% 100%;
+  mask-position: left, right;
+  mask-repeat: no-repeat;
+}
+
+/* 2. 우표 천공 톱니 카드: 앞장과 뒷장 모두 상단 우표 톱니 천공 칼선 일치 */
+.pc-card--stamp {
+  position: relative !important;
+  border-radius: 12px !important;
+}
+.pc-card--stamp::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: 16px !important;
+  background: var(--pc-card-underlay-bg, #EDE4D4) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.20), 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.12) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+/* 3. 수제 데클 엣지 카드: 앞장과 뒷장 모두 가장자리 지터 찢김 칼선 일치 */
+.pc-card--deckle {
+  position: relative !important;
+  border-radius: 8px !important;
+}
+.pc-card--deckle::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: 12px !important;
+  background: var(--pc-card-underlay-bg, #FDF4DE) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.20), 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.12) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+/* 4. 조개 물결 스캘럽 카드: 앞장과 뒷장 모두 하단 조개 물결 파도 칼선 일치 */
+.pc-card--scallop {
+  position: relative !important;
+  border-radius: 12px !important;
+}
+.pc-card--scallop::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: 16px !important;
+  background: var(--pc-card-underlay-bg, #EDE4D4) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.20), 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.12) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+/* 5. 도그이어 접힌 카드: 앞장과 뒷장 모두 우측 상단 45° 접힘 칼선 일치 */
+.pc-card--dogear {
+  position: relative !important;
+  border-radius: 12px !important;
+}
+.pc-card--dogear::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: 16px !important;
+  background: var(--pc-card-underlay-bg, #E4F4ED) !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 4px 14px -2px rgba(46, 30, 20, 0.20), 
+    0 1.5px 3.5px rgba(46, 30, 20, 0.12) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .pc-card,

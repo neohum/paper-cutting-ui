@@ -77,7 +77,7 @@
 
   /* ---------- 공유 필터 defs (130종 아이콘 배경과 100% 동일) ---------- */
   function getDefsContent() {
-    var region = 'filterUnits="userSpaceOnUse" x="-16" y="-16" width="3200" height="3200" color-interpolation-filters="sRGB"';
+    var region = 'x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"';
     var umber = 'flood-color="#2E1E14"';
     return (
       '<defs>' +

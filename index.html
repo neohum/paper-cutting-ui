@@ -2279,8 +2279,8 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           3D 다층 단차와 수제 크래프트 질감의 페이퍼 모달 다이얼로그입니다. 코드를 복사하여 즉시 사용할 수 있습니다.
         </p>
         <div style="display: flex; justify-content: flex-end; gap: 10px;">
-          <button type="button" onclick="document.getElementById('quick-demo-modal').style.display='none'" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 8px; background: #FAF6ED; border: 1.5px solid #D5C7B4; color: #5C4331; cursor: pointer;">닫기</button>
-          <button type="button" onclick="document.getElementById('quick-demo-modal').style.display='none'" class="pc-btn pc-btn--mint" style="padding: 8px 16px; font-size: 13px; font-weight: 800; border-radius: 8px; cursor: pointer;">확인</button>
+          <button type="button" onclick="document.getElementById('quick-demo-modal').style.display='none'" class="pc-btn pc-btn-ghost inline-flex items-center justify-center leading-none" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 8px; cursor: pointer;">닫기</button>
+          <button type="button" onclick="document.getElementById('quick-demo-modal').style.display='none'" class="pc-btn pc-btn--mint inline-flex items-center justify-center leading-none" style="padding: 8px 16px; font-size: 13px; font-weight: 800; border-radius: 8px; cursor: pointer;">확인</button>
         </div>
       </div>
     </div>
@@ -3382,14 +3382,14 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
     <section class="pc-card pc-card-stacked pc-page-view" id="pc-components" data-alias="pc-components-section" data-pc-paper="sheet" data-pc-tone="cream">
       <div id="kirigami-components" data-alias="pc-components" style="position: absolute; top: -60px; left: 0;"></div>
       <div class="pc-washi-tape pc-washi-tape-peach"></div>
-      <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
-        <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Paper UI Master Suite</span>
-        <span class="pc-badge pc-badge--ticket pc-badge--peach">100% Pure SVG 다층 페이퍼아트</span>
-        <span class="pc-badge pc-badge--ticket pc-badge--lavender" style="font-size: 11px;">버튼 · 특화 카드 · 배지 · 폼 &amp; 44종 통합</span>
+      <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 12px; align-items: center;">
+        <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="padding: 6px 14px; font-size: 12px; min-height: 28px;">Paper UI Master Suite</span>
+        <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none" style="padding: 6px 14px; font-size: 12px; min-height: 28px;">100% Pure SVG 다층 페이퍼아트</span>
+        <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none" style="padding: 6px 14px; font-size: 12px; min-height: 28px;">버튼 · 특화 카드 · 배지 · 폼 &amp; 44종 통합</span>
       </div>
-      <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 10px; color: var(--pc-ink);">
-        <span class="pc-section-plate" data-bg-shape="clover-leaf" data-icon="grid-view" data-size="52" title="페이퍼 UI 컴포넌트"></span>
-        <span>3D 페이퍼컷 마스터 UI 컴포넌트 스위트 (버튼 · 특화 카드 · 배지 · 폼 &amp; 44종 통합)</span>
+      <h2 class="pc-section-title section-title" style="display: flex; align-items: center; gap: 12px; font-size: 26px; font-weight: 800; margin: 0 0 12px; color: var(--pc-ink); flex-wrap: wrap;">
+        <span class="pc-section-plate" data-bg-shape="clover-leaf" data-icon="grid-view" data-size="44" title="페이퍼 UI 컴포넌트" style="flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center;"></span>
+        <span class="break-keep text-balance">3D 페이퍼컷 마스터 UI 컴포넌트 스위트 (버튼 · 특화 카드 · 배지 · 폼 &amp; 44종 통합)</span>
       </h2>
       <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;" class="break-keep">
         기존 CSS 흉내내기 방식을 전면 배제하고, <strong>678종 papercut-icons &amp; 130종 배경 플레이트 제작 방식과 100% 동일한 순수 SVG 다층 벡터 아트(Pure SVG Paper-Cut Layers)</strong> 표준으로 제작된 24종 페이퍼 커팅 버튼, 4대 특화 카드/패널, 6대 특화 배지/7대 색지, 폼 컨트롤 및 44종 모던 UI 컴포넌트 전체를 단일 마스터 페이지로 통합했습니다.
@@ -3503,6 +3503,30 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
               <button type="button" class="pc-btn pc-btn-primary pc-swatch-sage inline-flex items-center justify-center leading-none" data-pc-paper="pill" style="padding: 10px 18px; font-size: 13px; font-weight: 800; min-height: 44px; border-radius: 8px;">
                 <span class="pc-inline-icon is-xs mr-1" data-icon="sprout"></span> Sage Green
               </button>
+            </div>
+
+            <!-- 기본 버튼 계층 (Standard Core Button Hierarchy: Primary, Secondary, Ghost, Craft, Ticket) -->
+            <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed rgba(46,30,20,0.12);">
+              <div style="font-size: 12px; font-weight: 800; color: var(--pc-ink-muted); margin-bottom: 8px;">
+                표준 기본 버튼 스타일 계층 (.pc-btn, .pc-btn-primary, .pc-btn-secondary, .pc-btn-ghost, .pc-btn-craft, .pc-btn--ticket):
+              </div>
+              <div class="pc-row-wrap" style="--pc-gap: 10px; align-items: center; flex-wrap: wrap;">
+                <button type="button" class="pc-btn pc-btn-primary inline-flex items-center justify-center leading-none" style="padding: 8px 16px; font-size: 13px; font-weight: 800; min-height: 40px; border-radius: 8px;">
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="star"></span> Primary 버튼
+                </button>
+                <button type="button" class="pc-btn pc-btn-secondary inline-flex items-center justify-center leading-none" style="padding: 8px 16px; font-size: 13px; font-weight: 800; min-height: 40px; border-radius: 8px;">
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="file"></span> Secondary 버튼
+                </button>
+                <button type="button" class="pc-btn pc-btn-ghost inline-flex items-center justify-center leading-none" style="padding: 8px 16px; font-size: 13px; font-weight: 800; min-height: 40px; border-radius: 8px;">
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span> Ghost 버튼
+                </button>
+                <button type="button" class="pc-btn pc-btn-craft inline-flex items-center justify-center leading-none" style="padding: 8px 16px; font-size: 13px; font-weight: 800; min-height: 40px; border-radius: 8px;">
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="scissors"></span> Craft 버튼
+                </button>
+                <button type="button" class="pc-btn pc-btn--ticket pc-btn--peach inline-flex items-center justify-center leading-none" style="padding: 8px 18px; font-size: 13px; font-weight: 800; min-height: 40px;">
+                  <span class="pc-inline-icon is-xs mr-1" data-icon="ticket"></span> Ticket 버튼
+                </button>
+              </div>
             </div>
           </div>
 
@@ -4424,16 +4448,9 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                 <div style="font-size: 12.5px; font-weight: 800; color: #1C4835; margin-bottom: 4px;">.pc-shadowbox-well.pc-is-deep</div>
                 <div style="font-size: 11.5px; color: var(--pc-ink-muted);">깊은 음각 섀도우 웰 &amp; 다층 페이퍼 안착</div>
               </div>
-              <div class="pc-card pc-diecut-ticket" style="padding: 26px 16px 14px; border-radius: 10px; background: #FFFDF9; position: relative;">
-                <div class="pc-ticket-punch-strip" aria-hidden="true">
-                  <span class="pc-ticket-punch-slot"></span>
-                  <span class="pc-ticket-punch-slot"></span>
-                  <span class="pc-ticket-punch-slot"></span>
-                  <span class="pc-ticket-punch-slot"></span>
-                  <span class="pc-ticket-punch-slot"></span>
-                </div>
+              <div class="pc-card pc-diecut-ticket" style="padding: 16px; border-radius: 10px; background: #FFFDF9; position: relative;">
                 <div style="font-size: 12.5px; font-weight: 800; color: #8A4822; margin-bottom: 4px;">.pc-diecut-ticket</div>
-                <div style="font-size: 11.5px; color: var(--pc-ink-muted);">상단 천공 펀치 슬롯 &amp; 양옆 노치 절취선</div>
+                <div style="font-size: 11.5px; color: var(--pc-ink-muted);">양옆 반원 노치 절취선 &amp; 순수 종이 티켓</div>
               </div>
               <div class="pc-card pc-card-nested pc-underlay-mint" style="padding: 16px; border-radius: 10px; background: #FFFDF9;">
                 <div style="font-size: 12.5px; font-weight: 800; color: #275C46; margin-bottom: 4px;">.pc-card-nested.pc-underlay-mint</div>
@@ -4565,8 +4582,8 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                     <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
                   </filter>
                 </defs>
-                <!-- Layer 0: 직각 사각 언더레이 버터컵 밑종이 (상하좌우 6px 균일 확장 돌출) -->
-                <rect x="2" y="2" width="376" height="216" rx="0" fill="#FDF4DE" stroke="rgba(46,30,20,0.16)" stroke-width="1" filter="url(#svg-card-sh-deckle)"/>
+                <!-- Layer 0: 직각 사각 언더레이 버터컵 밑종이 (앞장과 동일한 데클 엣지 지터 칼선 동기화, 상하좌우 6px 균일 확장 돌출) -->
+                <path d="M 2 2 Q 42 0 92 3 Q 152 0 212 3 Q 292 1 378 2 Q 380 52 377 110 Q 380 168 378 218 Q 298 220 218 217 Q 138 219 2 218 Q 0 158 3 110 Q 0 52 2 2 Z" fill="#FDF4DE" stroke="rgba(46,30,20,0.16)" stroke-width="1" filter="url(#svg-card-sh-deckle)"/>
                 <!-- Layer 1: 직각 사각 수제 한지 데클 엣지 본체 -->
                 <path d="M 8 8 Q 42 6 92 9 Q 152 6 212 9 Q 292 7 372 8 Q 374 52 371 110 Q 374 168 372 212 Q 298 214 218 211 Q 138 213 8 212 Q 6 158 9 110 Q 6 52 8 8 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88"/>
                 <!-- Layer 2: 골드 헤어라인 3D 입체 천공 스티칭 인레이 -->
@@ -4619,19 +4636,6 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                 <!-- Layer 1: 직각 사각 크림 티켓 본체 -->
                 <path d="M 8 8 L 372 8 L 372 95 A 15 15 0 0 0 372 125 L 372 212 L 8 212 L 8 125 A 15 15 0 0 0 8 95 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88"/>
                 <path d="M 14 14 L 366 14 L 366 97 A 12 12 0 0 0 366 123 L 366 206 L 14 206 L 14 123 A 12 12 0 0 0 14 97 Z" fill="#FAF6ED"/>
-                <!-- Top-Left 입체 타공 천공 펀치 슬롯 (구멍 음각 + 순백 림) -->
-                <g class="pc-svg-ticket-punches">
-                  <rect x="24" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="24" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="34" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="34" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="44" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="44" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="54" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="54" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="64" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="64" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                </g>
                 <!-- 3D 바늘 타공 절취선 (음각 섀도우 + 순백 림) -->
                 <line x1="280" y1="14" x2="280" y2="206" stroke="#2E1E14" stroke-opacity="0.30" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 5"/>
                 <line x1="280.8" y1="14" x2="280.8" y2="206" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 5"/>
@@ -4842,8 +4846,8 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                     <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
                   </filter>
                 </defs>
-                <!-- 배면 버터컵 언더레이 (상하좌우 6px 균일 확장 동심 22px 다이컷) -->
-                <rect x="2" y="2" width="376" height="216" rx="22" fill="#FDF4DE" stroke="rgba(46,30,20,0.16)" stroke-width="1" filter="url(#svg-card-sh-deckle-rnd)"/>
+                <!-- 배면 버터컵 언더레이 (앞장과 동일한 둥근 데클 엣지 지터 칼선 동기화, 상하좌우 6px 균일 확장) -->
+                <path d="M 16 2 Q 42 0 92 3 Q 152 0 212 3 Q 292 1 364 2 Q 378 2 378 16 Q 380 70 377 110 Q 380 150 378 204 Q 378 218 364 218 Q 292 220 220 217 Q 140 219 16 218 Q 2 218 2 204 Q 0 150 3 110 Q 0 70 2 16 Q 2 2 16 2 Z" fill="#FDF4DE" stroke="rgba(46,30,20,0.16)" stroke-width="1" filter="url(#svg-card-sh-deckle-rnd)"/>
                 <!-- 전면 16px 둥근 수제 한지 데클 본체 -->
                 <path d="M 22 8 Q 42 6 92 9 Q 152 6 212 9 Q 292 7 358 8 Q 372 8 372 22 Q 374 70 371 110 Q 374 150 372 198 Q 372 212 358 212 Q 292 214 220 211 Q 140 213 22 212 Q 8 212 8 198 Q 6 150 9 110 Q 6 70 8 22 Q 8 8 22 8 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88"/>
                 <!-- 3D 골드 입체 천공 스티칭 인레이 -->
@@ -4889,19 +4893,6 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                 <!-- 전면 16px 둥근 크림 티켓 본체 -->
                 <path d="M 22 8 L 358 8 Q 372 8 372 22 L 372 95 A 15 15 0 0 0 372 125 L 372 198 Q 372 212 358 212 L 22 212 Q 8 212 8 198 L 8 125 A 15 15 0 0 0 8 95 L 8 22 Q 8 8 22 8 Z" fill="#FFFDF9" stroke="#FFFFFF" stroke-width="0.88"/>
                 <path d="M 22 14 L 358 14 Q 366 14 366 22 L 366 97 A 12 12 0 0 0 366 123 L 366 198 Q 366 206 358 206 L 22 206 Q 14 206 14 198 L 14 123 A 12 12 0 0 0 14 97 L 14 22 Q 14 14 22 14 Z" fill="#FAF6ED"/>
-                <!-- Top-Left 입체 타공 천공 펀치 슬롯 (구멍 음각 + 순백 림) -->
-                <g class="pc-svg-ticket-punches">
-                  <rect x="28" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="28" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="38" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="38" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="48" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="48" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="58" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="58" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                  <rect x="68" y="20.8" width="6" height="14" rx="3" fill="#FFFFFF" opacity="0.95"/>
-                  <rect x="68" y="20" width="6" height="14" rx="3" fill="#3D352E" opacity="0.22"/>
-                </g>
                 <!-- 3D 바늘 타공 절취선 (음각 섀도우 + 순백 림) -->
                 <line x1="280" y1="14" x2="280" y2="206" stroke="#2E1E14" stroke-opacity="0.30" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 5"/>
                 <line x1="280.8" y1="14" x2="280.8" y2="206" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="1 5"/>
@@ -5047,6 +5038,123 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
               <div class="pc-row-wrap" style="--pc-gap: 6px;">
                 <span class="pc-badge pc-badge--tag pc-swatch-sky inline-flex items-center justify-center leading-none" style="font-size: 10px;">Clean Pastel</span>
                 <span class="pc-badge pc-badge--tag pc-swatch-cream inline-flex items-center justify-center leading-none" style="font-size: 10px;">Hover Lift Sync</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- D. 실물 다이컷 칼선 특화 카드 에디션 (Ticket · Stamp · Deckle · Dogear · Scallop) -->
+          <div style="margin-top: 24px; margin-bottom: 14px; padding-top: 18px; border-top: 1.5px dashed #E5DCD1;">
+            <div class="pc-row-wrap" style="--pc-gap: 8px; margin-bottom: 6px;">
+              <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Die-Cut Shape Master</span>
+              <h4 class="break-keep" style="font-size: 16px; font-weight: 800; margin: 0; color: var(--pc-ink);">
+                <span class="pc-inline-icon is-xs mr-1" data-icon="scissors"></span>앞장·뒷장 칼선 동기화 특화 카드 5선 (.pc-card--*)
+              </h4>
+            </div>
+            <p class="break-keep" style="font-size: 13px; color: var(--pc-ink-muted); margin: 0 0 16px; line-height: 1.55;">
+              앞장의 모서리/절취선 형태에 맞춰 <strong>뒷장 언더레이도 100% 동일한 칼선 실루엣</strong>을 공유합니다. 둥근 사각형은 둥근 뒷장, 티켓 노치는 티켓 뒷장, 데클은 지터 단면 뒷장으로 정갈하게 결합됩니다.
+            </p>
+          </div>
+
+          <div class="pc-grid-cols" style="--pc-cols: 3; --pc-grid-gap: 18px; margin-bottom: 16px;">
+            <!-- D-01. Ticket Notch Card -->
+            <div class="pc-card pc-card--ticket pc-underlay-mint" style="padding: 20px; border-radius: 12px; background: #FFFDF9;">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--ticket pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Ticket Notch</span>
+                <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #275C46;">.pc-card--ticket</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 14.5px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                양옆 노치 티켓 카드
+              </h4>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 0 0 10px; line-height: 1.5;">
+                앞장과 뒷장 모두 양측 반원형 절취 홈이 동기화되어 깔끔하게 일치하는 바우처 티켓 카드입니다.
+              </p>
+              <div class="pc-row-wrap" style="--pc-gap: 6px;">
+                <span class="pc-badge pc-badge--tag pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Notched Silhouette</span>
+              </div>
+            </div>
+
+            <!-- D-02. Stamp Perforation Card -->
+            <div class="pc-card pc-card--stamp pc-underlay-sand" style="padding: 20px; border-radius: 12px; background: #FFFDF9;">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--buttercup inline-flex items-center justify-center leading-none" style="font-size: 10px;">Perforated Stamp</span>
+                <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #6E530F;">.pc-card--stamp</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 14.5px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                우표 천공 톱니 카드
+              </h4>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 0 0 10px; line-height: 1.5;">
+                우표의 섬세한 타공 톱니 천공 칼선이 샌드 옐로우 백킹 시트와 포개어진 빈티지 우표 카드입니다.
+              </p>
+              <div class="pc-row-wrap" style="--pc-gap: 6px;">
+                <span class="pc-badge pc-badge--tag pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Deckle Perforation</span>
+              </div>
+            </div>
+
+            <!-- D-03. Handcrafted Deckle Edge Card -->
+            <div class="pc-card pc-card--deckle pc-underlay-sand" style="padding: 20px; border-radius: 8px; background: #FFFDF9;">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--tag pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Deckle Edge</span>
+                <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #8A5A1A;">.pc-card--deckle</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 14.5px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                수제 한지 데클 카드
+              </h4>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 0 0 10px; line-height: 1.5;">
+                가장자리가 미세하게 찢긴 자연스러운 데클 엣지 칼선이 앞/뒷장에 유기적으로 결합된 카드입니다.
+              </p>
+              <div class="pc-row-wrap" style="--pc-gap: 6px;">
+                <span class="pc-badge pc-badge--tag pc-swatch-sand inline-flex items-center justify-center leading-none" style="font-size: 10px;">Natural Pulp Edge</span>
+              </div>
+            </div>
+
+            <!-- D-04. Dog-Ear Folded Flap Card -->
+            <div class="pc-card pc-card--dogear pc-underlay-mint" style="padding: 20px; border-radius: 12px; background: #FFFDF9;">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">Dog-Ear Flap</span>
+                <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #1C4835;">.pc-card--dogear</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 14.5px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                도그이어 접힌 모서리 카드
+              </h4>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 0 0 10px; line-height: 1.5;">
+                우측 상단 45° 접힘 단면과 배면 민트 색지의 칼선이 완벽하게 일치하여 접힌 책갈피 감성을 제공합니다.
+              </p>
+              <div class="pc-row-wrap" style="--pc-gap: 6px;">
+                <span class="pc-badge pc-badge--tag pc-swatch-mint inline-flex items-center justify-center leading-none" style="font-size: 10px;">45° Score Flap</span>
+              </div>
+            </div>
+
+            <!-- D-05. Scallop Wave Card -->
+            <div class="pc-card pc-card--scallop pc-underlay-peach" style="padding: 20px; border-radius: 12px; background: #FFFDF9;">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--peach inline-flex items-center justify-center leading-none" style="font-size: 10px;">Scallop Wave</span>
+                <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #8A4822;">.pc-card--scallop</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 14.5px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                스캘럽 조개 물결 카드
+              </h4>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 0 0 10px; line-height: 1.5;">
+                하단 테두리에 리드미컬한 조개 물결 파도 칼선이 조각된 수제 축하장 및 감사 카드입니다.
+              </p>
+              <div class="pc-row-wrap" style="--pc-gap: 6px;">
+                <span class="pc-badge pc-badge--tag pc-swatch-peach inline-flex items-center justify-center leading-none" style="font-size: 10px;">Wavy Curve Die-Cut</span>
+              </div>
+            </div>
+
+            <!-- D-06. Standard Concentric Rounded Sheet Card -->
+            <div class="pc-card pc-card-nested pc-underlay-lavender" style="padding: 20px; border-radius: 16px; background: #FFFDF9;">
+              <div class="pc-row-wrap" style="justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none" style="font-size: 10px;">Concentric Rounded</span>
+                <span class="break-keep" style="font-size: 11px; font-weight: 800; color: #4B3A6E;">.pc-card-nested</span>
+              </div>
+              <h4 class="break-keep" style="font-size: 14.5px; font-weight: 800; margin: 0 0 4px; color: var(--pc-ink);">
+                동심 둥근 모서리 카드
+              </h4>
+              <p class="break-keep" style="font-size: 12px; color: var(--pc-ink-muted); margin: 0 0 10px; line-height: 1.5;">
+                앞면 16px 둥근 모서리와 뒷면 22px(16+6px) 동심 라운딩이 완벽한 평행 곡률을 이루는 표준 중첩 카드입니다.
+              </p>
+              <div class="pc-row-wrap" style="--pc-gap: 6px;">
+                <span class="pc-badge pc-badge--tag pc-swatch-lavender inline-flex items-center justify-center leading-none" style="font-size: 10px;">Concentric Parallel</span>
               </div>
             </div>
           </div>
