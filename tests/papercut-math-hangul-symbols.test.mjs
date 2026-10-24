@@ -247,3 +247,28 @@ test('AC-8: getPapercutIconSvg returns valid unique SVGs for all 58 new icons', 
     assert.notEqual(svg1, svg2, `getPapercutIconSvg("${id}") sequential calls must generate unique IDs`);
   }
 });
+
+test('AC-9: standalone freestanding icons have NO background box rects and feature pastel layered kirigami', () => {
+  const js = read('papercut-icons.js');
+  const context = setupVmContext(js);
+
+  // 1. Verify all 58 icons have no background box rects (x=7 y=7 width=50 height=50)
+  for (const id of ALL_NEW_ICONS) {
+    const svg = context.window.getPapercutIconSvg(id);
+    assert.ok(!svg.includes('width="50" height="50"'), `Icon ${id} must NOT have background box 50x50 rect`);
+    assert.ok(!svg.includes('x="7" y="7"'), `Icon ${id} must NOT have background box origin x=7 y=7`);
+    assert.ok(!svg.includes('x="10" y="10" width="44"'), `Icon ${id} must NOT have secondary background rect`);
+    assert.ok(svg.includes('data-layer="base"'), `Icon ${id} must contain base pastel layer`);
+    assert.ok(svg.includes('data-layer="mid"'), `Icon ${id} must contain mid core paper layer`);
+    assert.ok(svg.includes('data-layer="top"'), `Icon ${id} must contain top rim/stitch layer`);
+  }
+
+  // 2. Verify dynamic fallback glyph engine also has NO background box
+  const dynamicSvg = context.window.getPapercutGlyphSvg('혁');
+  assert.ok(!dynamicSvg.includes('width="50" height="50"'), 'Dynamic glyph must NOT have background box 50x50 rect');
+  assert.ok(!dynamicSvg.includes('x="7" y="7"'), 'Dynamic glyph must NOT have background box origin x=7 y=7');
+  assert.ok(dynamicSvg.includes('data-layer="base"'), 'Dynamic glyph must contain base layer');
+  assert.ok(dynamicSvg.includes('data-layer="mid"'), 'Dynamic glyph must contain mid layer');
+  assert.ok(dynamicSvg.includes('data-layer="top"'), 'Dynamic glyph must contain top layer');
+});
+
