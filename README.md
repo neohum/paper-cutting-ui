@@ -142,6 +142,23 @@ npx paper-cutting-ui snippet button
 
 ---
 
+### 💡 설치 가이드: CSS 경로만 있으면 되나요? (CSS vs JS 필요 여부)
+
+**사용하시는 목적에 따라 다릅니다:**
+
+1. **디자인·컴포넌트 스타일만 쓸 때 (가장 일반적)** 👉 **`papercut.css` 하나면 충분합니다!**
+   - 버튼, 카드, 배지, 입력창, 2-Sheet 적층 레이아웃은 **100% 순수 CSS**로 구동됩니다.
+   - 자바스크립트 없이도 종이 질감, 나이프 엣지 림 라이트, 2-Tier 번트 엄버 그림자, 호버 핀셋 리프트가 완벽히 동작합니다.
+   - **React / Vue / Next.js 프로젝트:** UI 상태 제어(열림/닫힘)를 컴포넌트 자체 state(`useState`, `ref` 등)로 처리하므로 `import 'paper-cutting-ui/css';` 한 줄이면 충분합니다.
+
+2. **바닐라 HTML에서 모달·토스트 동적 인터랙션까지 쓸 때** 👉 **`papercut.js` 필요**
+   - 별도 프레임워크 없는 순수 HTML 환경에서 모달 다이얼로그 열기/닫기, 토스트 알림 띄우기, 아코디언 토글을 자동으로 제어하려면 `papercut.js`를 함께 로드합니다.
+
+3. **3D 종이 공예 벡터 아이콘까지 쓸 때** 👉 **`papercut-icons.js` 추가**
+   - 내장된 3D 다층 종이 공예 벡터 아이콘(`<span class="pc-inline-icon" data-icon="...">`)을 사용하시려면 `papercut-icons.js`를 함께 로드합니다.
+
+---
+
 ### 📋 주요 컴포넌트 복사 붙여넣기 스니펫 (Copy-Paste Snippets)
 
 #### 01. 버튼 (Button)
