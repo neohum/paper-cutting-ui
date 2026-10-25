@@ -1503,42 +1503,46 @@ button.pc-sidebar-paper-btn.is-active {
 
 .pc-sidebar-top-btn {
   width: 100%;
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  text-align: center !important;
+  line-height: 1 !important;
   gap: 8px;
-  padding: 8px 14px;
-  min-height: 44px;
-  background: linear-gradient(180deg, #FFFDF9 0%, #FAF5EB 100%);
-  border: 1.5px solid #D5C8B4;
-  border-radius: 10px;
-  color: var(--pc-ink, #3D352E);
-  font-size: 12.5px;
-  font-weight: 800;
+  padding: 10px 16px !important;
+  min-height: 44px !important;
+  background: #FFFDF9 !important;
+  border: 1px solid rgba(46, 30, 20, 0.16) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+  border-radius: 10px !important;
+  color: var(--pc-ink, #3D352E) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
   cursor: pointer;
+  position: relative !important;
   box-shadow: 
-    inset 0 1.2px 0 #FFFFFF,
-    0 2px 0 rgba(74, 58, 42, 0.28),
-    0 4px 8px rgba(74, 58, 42, 0.10);
-  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background 0.15s ease;
+    var(--pc-paper-rim-light, inset 0 1px 0 rgba(255, 255, 255, 0.98)),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    var(--pc-paper-shadow-contact, 0 1.5px 2px rgba(46, 30, 20, 0.45)),
+    0 3.5px 8px rgba(46, 30, 20, 0.16) !important;
+  transition: transform 0.16s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, background 0.16s ease !important;
 }
 .pc-sidebar-top-btn:hover {
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF6ED 100%);
-  border-color: #BFAF98;
-  color: var(--pc-ink, #2E251E);
-  transform: translateY(-1.5px);
+  background: #FAF6ED !important;
+  border-color: rgba(46, 30, 20, 0.22) !important;
+  color: var(--pc-ink, #2E251E) !important;
+  transform: translateY(-1.5px) !important;
   box-shadow: 
-    inset 0 1.5px 0 #FFFFFF,
-    0 3.5px 0 rgba(74, 58, 42, 0.35),
-    0 7px 14px rgba(74, 58, 42, 0.15);
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
+    0 2.5px 3.5px rgba(46, 30, 20, 0.48),
+    0 7px 16px rgba(46, 30, 20, 0.22) !important;
 }
 .pc-sidebar-top-btn:active {
-  transform: translateY(1.5px);
+  transform: translateY(1px) !important;
   box-shadow: 
-    inset 0 1px 2px rgba(74, 58, 42, 0.20),
-    0 0.8px 0 rgba(74, 58, 42, 0.30);
-  background: #F4EFE6;
+    inset 0 1px 2px rgba(46, 30, 20, 0.22),
+    0 1px 1px rgba(46, 30, 20, 0.30) !important;
+  background: #F4EFE6 !important;
 }
 #pc-sidebar-nav.pc-is-collapsed .pc-sidebar-top-btn span:not(.pc-inline-icon),
 #pc-sidebar-nav.is-collapsed .pc-sidebar-top-btn span:not(.pc-inline-icon) {
@@ -1661,25 +1665,175 @@ body.pc-page-mode .pc-page-view.is-active-page {
   }
 }
 
-/* Page Navigation Header Bar (Breadcrumbs & Mode Toggle - PaperCut Card Sheet Model) */
-.pc-page-nav-bar {
-  display: flex;
+/* Page Navigation Header Bar (Dedicated Layered Paper-Cut Breadcrumb Bar - No Card Backing) */
+.pc-page-nav-bar,
+#pc-page-nav-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 6px 2px 20px 2px !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  margin-bottom: 24px !important;
+  box-shadow: none !important;
+  flex-wrap: wrap !important;
+  gap: 14px !important;
+  position: relative !important;
+  isolation: isolate !important;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif) !important;
+  box-sizing: border-box !important;
+}
+
+.pc-page-nav-bar::before,
+#pc-page-nav-bar::before,
+.pc-page-nav-bar::after,
+#pc-page-nav-bar::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Dedicated Layered Paper-Cut Breadcrumb Architecture */
+.pc-breadcrumb-layered {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 14px 22px;
-  background: #FFFDF9;
-  border: 1.5px solid #E2D7C5;
-  border-radius: var(--pc-radius-lg, 16px);
-  margin-bottom: 28px;
-  box-shadow: 
-    0 1px 0 rgba(255, 255, 255, 0.98) inset,
-    var(--pc-paper-shadow-md, 0 3px 10px rgba(46, 30, 20, 0.08));
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 8px;
+}
+
+.pc-breadcrumb-layered .pc-ui-breadcrumb-list {
+  display: inline-flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pc-breadcrumb-layered .pc-ui-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   position: relative;
-  isolation: isolate;
-  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
-  box-sizing: border-box;
+}
+
+/* Base Cardstock Tag Style for all Breadcrumb items */
+.pc-breadcrumb-layered .pc-ui-breadcrumb-link,
+.pc-breadcrumb-layered .pc-ui-breadcrumb-page {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  min-height: 36px !important;
+  padding: 6px 14px !important;
+  border-radius: 10px !important;
+  font-family: var(--pc-font, 'Nanum Square Round', -apple-system, sans-serif) !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  user-select: none !important;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease, background 0.18s ease !important;
+}
+
+/* Step 1: [홈] Natural Sand Kraft Paper Tag with Pure White Rim */
+.pc-breadcrumb-layered .pc-crumb-home,
+.pc-breadcrumb-layered .pc-ui-breadcrumb-item:first-child .pc-ui-breadcrumb-link {
+  background: #FFFDF9 !important;
+  color: #4A3B2C !important;
+  font-weight: 700 !important;
+  border: 1.2px solid #E2D7C5 !important;
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
+    0 1.5px 3.5px rgba(46, 30, 20, 0.11),
+    0 4px 10px rgba(46, 30, 20, 0.05) !important;
+  cursor: pointer !important;
+}
+
+.pc-breadcrumb-layered .pc-crumb-home:hover {
+  background: #FDF6EC !important;
+  color: #2E1E14 !important;
+  border-color: #D5C2AA !important;
+  transform: translateY(-1.5px) !important;
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    inset 0 0 0 0.88px #FFFFFF,
+    0 3px 8px rgba(46, 30, 20, 0.16),
+    0 8px 16px rgba(46, 30, 20, 0.08) !important;
+}
+
+/* Step 2: [카테고리] Soft Pastel Peach Paper Tag */
+.pc-breadcrumb-layered .pc-crumb-category {
+  background: #FFF8F2 !important;
+  color: #6E3A20 !important;
+  font-weight: 700 !important;
+  border: 1.2px solid #F5D7C3 !important;
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
+    0 1.5px 3.5px rgba(46, 30, 20, 0.10),
+    0 4px 10px rgba(46, 30, 20, 0.05) !important;
+  cursor: default !important;
+}
+
+/* Step 3: [현재 페이지] Layered Sage Mint Cardstock with Dashed Stitching */
+.pc-breadcrumb-layered .pc-crumb-page,
+.pc-breadcrumb-layered .pc-ui-breadcrumb-page {
+  background: #D8F2E5 !important;
+  color: #11422E !important;
+  font-weight: 800 !important;
+  border: 1.2px dashed #75BE97 !important;
+  box-shadow: 
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.85),
+    0 2px 5px rgba(46, 30, 20, 0.15),
+    0 6px 14px rgba(46, 30, 20, 0.09) !important;
+  transform: translateY(-0.5px) !important;
+}
+
+/* Step 4: [서브 페이지 (있을 경우)] Lavender Tag with Perforation */
+.pc-breadcrumb-layered .pc-crumb-subpage {
+  background: #EFE8F8 !important;
+  color: #3F2964 !important;
+  font-weight: 800 !important;
+  border: 1.2px dashed #C1A6E4 !important;
+  box-shadow: 
+    inset 0 1px 0 #FFFFFF,
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.9),
+    0 2px 5px rgba(46, 30, 20, 0.14) !important;
+}
+
+/* 3D Paper-Cut Chevron Arrow Separator Badge */
+.pc-breadcrumb-layered .pc-ui-breadcrumb-separator {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  color: inherit !important;
+}
+
+.pc-crumb-arrow {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  background: #F7EFE3 !important;
+  border: 1px solid #E6D9C5 !important;
+  border-radius: 6px !important;
+  box-shadow: 
+    inset 0 0.8px 0 #FFFFFF,
+    inset 0 0 0 0.6px rgba(255, 255, 255, 0.8),
+    0 1px 3px rgba(46, 30, 20, 0.12) !important;
+  transform: translateY(0) !important;
+  transition: transform 0.16s ease !important;
+}
+
+.pc-crumb-arrow svg {
+  display: block;
 }
 
 /* PaperCut UI Text Navigation & Breadcrumbs */
@@ -1851,39 +2005,124 @@ body.pc-page-mode .pc-page-view.is-active-page {
   font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
 }
 
+/* Page Bottom Pagination Bar - Authentic 3D Paper-Cut Button Suite */
+.pc-page-pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 10px;
+  margin-top: 40px;
+  border-top: 1.5px dashed rgba(74, 58, 42, 0.18);
+  gap: 16px;
+  flex-wrap: wrap;
+  font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
+}
+
 .pc-page-prev-btn,
 .pc-page-next-btn {
-  display: inline-flex;
-  align-items: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
   gap: 10px;
-  padding: 12px 22px;
-  border-radius: 14px;
+  padding: 12px 24px !important;
+  min-height: 48px !important;
+  border-radius: 12px !important;
   background: #FFFDF9;
-  border: 1.5px solid #E6DCCF;
-  font-size: 14px;
-  font-weight: 800;
+  border: 1px solid rgba(46, 30, 20, 0.18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.98) !important;
+  font-size: 13.5px !important;
+  font-weight: 800 !important;
   color: var(--pc-ink, #3D352E);
   cursor: pointer;
-  box-shadow: 0 1px 0 #FFFFFF inset, 0 3px 6px rgba(74, 58, 42, 0.08);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
+  position: relative !important;
+  text-decoration: none !important;
+  box-shadow: 
+    var(--pc-paper-rim-light, inset 0 1px 0 rgba(255, 255, 255, 0.98)),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    var(--pc-paper-shadow-contact, 0 1.5px 2px rgba(46, 30, 20, 0.45)),
+    0 4px 10px rgba(46, 30, 20, 0.16) !important;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.18s cubic-bezier(0.16, 1, 0.3, 1), 
+              background 0.18s ease, 
+              border-color 0.18s ease !important;
 }
+
+/* 2-Sheet Underlay Backing Cardstock Sheet */
+.pc-page-prev-btn::before,
+.pc-page-next-btn::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -3px !important;
+  border-radius: 14px !important;
+  background: #F0E8DC;
+  border: 1px solid rgba(46, 30, 20, 0.14);
+  box-shadow: 0 1.5px 3px rgba(46, 30, 20, 0.32);
+  z-index: -1;
+  pointer-events: none;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pc-page-btn-direction {
+  font-size: 11.5px;
+  font-weight: 700;
+  opacity: 0.82;
+  letter-spacing: -0.2px;
+}
+
+.pc-page-btn-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
 .pc-page-prev-btn:hover,
 .pc-page-next-btn:hover {
-  background: #FAF6ED;
-  transform: translateY(-2px);
-  border-color: #C8B9A0;
-  box-shadow: 0 6px 14px rgba(74, 58, 42, 0.12);
+  transform: translateY(-2px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.95),
+    0 2.5px 3.5px rgba(46, 30, 20, 0.48),
+    0 8px 18px rgba(46, 30, 20, 0.22) !important;
 }
+
+.pc-page-prev-btn:active,
+.pc-page-next-btn:active {
+  transform: translateY(1px) !important;
+  box-shadow: 
+    inset 0 1px 2px rgba(46, 30, 20, 0.25),
+    0 1px 1px rgba(46, 30, 20, 0.35) !important;
+}
+
+/* Previous Button: Cloud White & Sand Underlay */
+.pc-page-prev-btn {
+  background: #FFFDF9;
+  border-color: #DCD2C3 !important;
+  color: var(--pc-ink, #3D352E);
+}
+.pc-page-prev-btn::before {
+  background: #EFE8DC;
+}
+.pc-page-prev-btn:hover {
+  background: #FAF6ED;
+  border-color: #C8B9A0 !important;
+}
+
+/* Next Button: Mint Cotton Palette (#EAF7F1) with 3D Sage Underlay */
 .pc-page-next-btn {
   margin-left: auto;
   background: #EAF7F1;
-  border-color: #A3D8C3;
-  color: #275C46;
+  border-color: #A3D8C3 !important;
+  color: #174E37 !important;
+}
+.pc-page-next-btn::before {
+  background: #D2EADC;
+  border-color: #88C9AE;
 }
 .pc-page-next-btn:hover {
-  background: #D9F0E5;
-  border-color: #72BE99;
+  background: #DCF3E8;
+  border-color: #72BE99 !important;
+  color: #0F3F2B !important;
 }
 
 /* ==========================================================================

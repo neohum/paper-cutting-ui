@@ -963,7 +963,7 @@
             </svg>
           </div>
           <div class="pc-site-logo-text">
-            <span class="pc-site-logo-title">PaperCut UI</span>
+            <span class="pc-site-logo-title"><span class="pc-logo-word-papercut">PaperCut</span> <span class="pc-logo-badge-ui">UI</span></span>
             <span class="pc-site-logo-sub">Layered Craft System</span>
           </div>
         </a>
@@ -1264,30 +1264,34 @@
     <div class="pc-content-wrapper" id="pc-content-wrapper">
       <main class="pc-site-main pc-showcase-container showcase-container" id="main-content">
       
-      <!-- 0. [BREADCRUMB & NAV] 상단 텍스트 네비게이션 (지정된 표준 브레드크럼 스타일) -->
-      <nav id="pc-page-nav-bar" class="pc-page-nav-bar pc-card pc-card-sheet pc-card-nested pc-underlay-mint" aria-label="현재 위치 네비게이션">
-        <div class="pc-ui-breadcrumb" aria-label="현재 위치">
+      <!-- 0. [BREADCRUMB & NAV] 상단 전용 레이어드 페이퍼 커팅 브레드크럼 (카드 밑받침 제거) -->
+      <nav id="pc-page-nav-bar" class="pc-page-nav-bar pc-paper-breadcrumb-bar" aria-label="현재 위치 네비게이션">
+        <div class="pc-ui-breadcrumb pc-breadcrumb-layered" aria-label="현재 위치">
           <ol class="pc-ui-breadcrumb-list">
             <li class="pc-ui-breadcrumb-item">
-              <a href="#overview" class="pc-ui-breadcrumb-link" title="홈">
+              <a href="#overview" class="pc-ui-breadcrumb-link pc-crumb-home" title="홈">
                 <span class="pc-inline-icon is-xs" data-icon="home"></span>
                 <span>홈</span>
               </a>
             </li>
             <li class="pc-ui-breadcrumb-separator" aria-hidden="true">
-              <span class="pc-inline-icon is-xs" data-icon="chevron-right"></span>
+              <span class="pc-crumb-arrow" aria-hidden="true">
+                <span class="pc-inline-icon is-xs" data-icon="chevron-right"></span>
+              </span>
             </li>
             <li class="pc-ui-breadcrumb-item">
-              <span class="pc-ui-breadcrumb-link" style="cursor: default;">
+              <span class="pc-ui-breadcrumb-link pc-crumb-category" style="cursor: default;">
                 <span class="pc-inline-icon is-xs" data-icon="folder"></span>
                 <span>기본 정보</span>
               </span>
             </li>
             <li class="pc-ui-breadcrumb-separator" aria-hidden="true">
-              <span class="pc-inline-icon is-xs" data-icon="chevron-right"></span>
+              <span class="pc-crumb-arrow" aria-hidden="true">
+                <span class="pc-inline-icon is-xs" data-icon="chevron-right"></span>
+              </span>
             </li>
             <li class="pc-ui-breadcrumb-item">
-              <span class="pc-ui-breadcrumb-page" aria-current="page">
+              <span class="pc-ui-breadcrumb-page pc-crumb-page" aria-current="page">
                 <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
                 <span>개요 &amp; 히어로</span>
               </span>
@@ -1348,15 +1352,15 @@
               <img src="logo.svg" alt="PaperCut UI - Layered Craft Design System" style="height: 48px; width: auto; max-width: 100%; display: block;">
             </div>
             <div class="pc-row-wrap" style="--pc-gap: 8px; justify-content: flex-start; margin-bottom: 12px; align-items: center; flex-wrap: wrap;">
-              <span class="pc-badge pc-badge--ticket pc-swatch-peach inline-flex items-center justify-center leading-none" data-pc-paper="ticket">
+              <span class="pc-badge pc-badge--stamp pc-badge--peach pc-swatch-peach inline-flex items-center justify-center leading-none" data-pc-paper="stamp" data-pc-tone="peach">
                 <span class="pc-inline-icon is-xs mr-1" data-icon="scissors"></span>
                 <span>Paper-Cut UI Library</span>
               </span>
-              <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none" data-pc-paper="pill">
+              <span class="pc-badge pc-badge--stamp pc-badge--mint pc-swatch-mint inline-flex items-center justify-center leading-none" data-pc-paper="stamp" data-pc-tone="mint">
                 <span class="pc-inline-icon is-xs mr-1" data-icon="wand-magic"></span>
                 <span>100% Pure SVG + Vanilla JS</span>
               </span>
-              <span class="pc-badge pc-badge--tag pc-swatch-lavender inline-flex items-center justify-center leading-none" data-pc-paper="stamp">
+              <span class="pc-badge pc-badge--stamp pc-badge--lavender pc-swatch-lavender inline-flex items-center justify-center leading-none" data-pc-paper="stamp" data-pc-tone="lavender">
                 <span class="pc-inline-icon is-xs mr-1" data-icon="apps"></span>
                 <span>44 Master UI Components</span>
               </span>
@@ -1445,6 +1449,45 @@
           <h3 style="font-size: 16.5px; font-weight: 800; margin: 0; color: var(--pc-ink);">핵심 쇼케이스 바로가기 3D 페이퍼 커팅 버튼 덱</h3>
         </div>
         <div class="pc-hero-actions-grid hero-actions-deck" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; width: 100%;">
+            <!-- 00. 우표 천공형: 초간단 설치 & 복사 가이드 (1초 즉시 적용) -->
+            <a href="#quick-start" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="초간단 설치 &amp; 복사 붙여넣기 가이드 바로가기">
+              <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <filter id="hero-btn-sh-quick" x="-15%" y="-15%" width="130%" height="135%">
+                    <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.48"/>
+                    <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                    <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                  </filter>
+                  <filter id="hero-quick-icon-sh" x="-20%" y="-20%" width="140%" height="140%">
+                    <feDropShadow dx="0.6" dy="0.9" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.35"/>
+                  </filter>
+                </defs>
+                <!-- Layer 1: Mint Cotton Postage Stamp Base Plate -->
+                <path d="M 8 6 Q 14 9 20 6 Q 26 9 32 6 Q 38 9 44 6 Q 50 9 56 6 Q 62 9 68 6 Q 74 9 80 6 Q 86 9 92 6 Q 98 9 104 6 Q 110 9 116 6 Q 122 9 128 6 Q 134 9 140 6 Q 146 9 152 6 Q 158 9 164 6 Q 170 9 176 6 Q 182 9 188 6 Q 194 9 200 6 Q 206 9 212 6 Q 215 12 212 18 Q 215 24 212 30 Q 215 36 212 42 Q 215 48 212 48 Q 206 45 200 48 Q 194 45 188 48 Q 182 45 176 48 Q 170 45 164 48 Q 158 45 152 48 Q 146 45 140 48 Q 134 45 128 48 Q 122 45 116 48 Q 110 45 104 48 Q 98 45 92 48 Q 86 45 80 48 Q 74 45 68 48 Q 62 45 56 48 Q 50 45 44 48 Q 38 45 32 48 Q 26 45 20 48 Q 14 45 8 48 Q 5 42 8 36 Q 5 30 8 24 Q 5 18 8 12 Z" fill="#8ECBA5" stroke="#FFFFFF" stroke-width="0.88" filter="url(#hero-btn-sh-quick)" data-layer="base"/>
+                <!-- Layer 2: Inset Cream Paper Sheet -->
+                <rect x="13" y="9" width="194" height="36" rx="4" fill="#FFFDF9" stroke="#EAE1D5" stroke-width="0.75" data-layer="mid"/>
+                <!-- 3D Embossed Perforation Sewing Lines -->
+                <line x1="48" y1="11" x2="200" y2="11" stroke="#2E1E14" stroke-opacity="0.25" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="1 5"/>
+                <line x1="48" y1="11.8" x2="200" y2="11.8" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="1 5"/>
+                <line x1="48" y1="43" x2="200" y2="43" stroke="#2E1E14" stroke-opacity="0.25" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="1 5"/>
+                <line x1="48" y1="43.8" x2="200" y2="43.8" stroke="#FFFFFF" stroke-opacity="0.95" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="1 5"/>
+                <!-- Layer 3: Soft Mint Cancellation Postmark Wave -->
+                <path d="M 16 14 C 26 11 36 17 46 14 M 16 20 C 26 17 36 23 46 20 M 16 26 C 26 23 36 29 46 26" stroke="#A3D8C3" stroke-width="1.4" stroke-linecap="round" opacity="0.6"/>
+                <!-- Layer 4: 3D Layered Paper Download / Copy Craft Motif -->
+                <g transform="translate(16, 14)" filter="url(#hero-quick-icon-sh)">
+                  <!-- Paper Document Sheet -->
+                  <rect x="4" y="2" width="16" height="22" rx="2" fill="#FAF6ED" stroke="#F7BA9E" stroke-width="0.8" data-layer="mid"/>
+                  <rect x="7" y="6" width="10" height="2" rx="0.5" fill="#D7CBEB" data-layer="mid"/>
+                  <rect x="7" y="10" width="10" height="2" rx="0.5" fill="#D7CBEB" data-layer="mid"/>
+                  <!-- Arrow Paper Snip -->
+                  <path d="M 12 14 L 12 21 M 9 18 L 12 21 L 15 18" stroke="#275C46" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-layer="top"/>
+                  <circle cx="21" cy="6" r="3.5" fill="#FEE396" stroke="#FFFFFF" stroke-width="0.8" data-layer="top"/>
+                </g>
+                <!-- Layer 5: Typography -->
+                <text x="56" y="32" font-family="'Nanum Square Round', sans-serif" font-size="14.5" font-weight="800" fill="#1C5C40" letter-spacing="-0.3">설치 &amp; 복사 가이드</text>
+              </svg>
+            </a>
+
             <!-- 01. 우표 천공형: 44종 컴포넌트 키트 -->
             <a href="#pc-components" class="pc-btn pc-svg-kirigami-btn pc-hero-action-btn hero-action-btn" data-pc-paper="ticket" title="44종 페이퍼 UI 마스터 컴포넌트 키트 이동">
               <svg class="pc-kirigami-btn-svg" viewBox="0 0 220 54" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -2926,21 +2969,21 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
             <!-- 1. Success Alert -->
             <div class="pc-alert pc-alert-success">
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="check"></span>
+                <span class="pc-mounted-plate" data-bg-shape="seal-wax" data-icon="check" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">작업 성공 · 동기화 완료</div>
                 <p class="pc-alert-desc">수제 코튼지 질감 프로필과 619종 스탠드얼론 아이콘 메타데이터가 로컬 저장소에 안전하게 기록되었습니다.</p>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
             <!-- 2. Info Alert -->
             <div class="pc-alert pc-alert-info">
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="info"></span>
+                <span class="pc-mounted-plate" data-bg-shape="shield-crest" data-icon="info" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">디자인 시스템 2.0 업데이트</div>
@@ -2972,28 +3015,28 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                 </div>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
             <!-- 3. Warning Alert -->
             <div class="pc-alert pc-alert-warning">
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="warning"></span>
+                <span class="pc-mounted-plate" data-bg-shape="notched-ticket" data-icon="warning" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">선 두께(Stroke) 조정 주의</div>
                 <p class="pc-alert-desc">스케일 모드가 '고정 픽셀'인 상태에서 선 두께가 5.0px를 초과하면 소형 화면(24px 이하)에서 시인성이 저하될 수 있습니다.</p>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
             <!-- 4. Destructive / Error Alert -->
             <div class="pc-alert pc-alert-destructive">
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="octagon-gem" data-icon="close" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">외부 SVG 파싱 실패</div>
@@ -3014,15 +3057,15 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                 </div>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
             <!-- 5. Pinned Memo Slip Alert -->
             <div class="pc-alert pc-alert-memo">
               <div class="pc-washi-tape-pin"></div>
-              <div class="pc-alert-icon-box" style="background: #FFFDF9;">
-                <span class="pc-inline-icon is-sm" data-icon="edit"></span>
+              <div class="pc-alert-icon-box">
+                <span class="pc-mounted-plate" data-bg-shape="pebble-organic" data-icon="edit" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">마스킹 테이프 메모 슬립 (Post-it Memo)</div>
@@ -3033,14 +3076,14 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
             <!-- 6. Notched Cinema Ticket Alert -->
             <div class="pc-alert pc-alert-ticket pc-alert-buttercup">
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="ticket"></span>
+                <span class="pc-mounted-plate" data-bg-shape="notched-ticket" data-icon="ticket" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">시네마 티켓 노치 알림 (Notched Ticket)</div>
                 <p class="pc-alert-desc">양측 반원 노치 홈과 점선 절취선이 적용된 다이컷 종이 알림 슬립입니다.</p>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
@@ -3048,71 +3091,63 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
             <div class="pc-alert pc-alert-dogear pc-alert-mint">
               <div class="pc-alert-dogear-flap"></div>
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="check"></span>
+                <span class="pc-mounted-plate" data-bg-shape="postage-stamp" data-icon="check" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">도그이어 접힌 카드 알림 (Dog-ear Fold)</div>
                 <p class="pc-alert-desc">우측 상단 45° 접힌 모서리와 배면 민트 색지가 입체적으로 노출됩니다.</p>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
             <!-- 8. Antique Wax Seal Alert -->
             <div class="pc-alert pc-alert-wax pc-alert-rose">
-              <div class="pc-alert-wax-seal">
-                <svg class="pc-wax-seal-svg" viewBox="0 0 32 32" fill="none">
-                  <circle cx="16" cy="16" r="15" fill="#F5B8BE"/>
-                  <circle cx="16" cy="16" r="12" fill="#F7BA9E"/>
-                  <circle cx="16" cy="16" r="8.5" fill="#FAF6ED"/>
-                  <path d="M 16 12 C 14.2 9.5 11 11 11 14 C 11 17 16 20 16 20.5 C 16 20 21 17 21 14 C 21 11 17.8 9.5 16 12 Z" fill="#F5B8BE"/>
-                </svg>
-              </div>
-              <div class="pc-alert-icon-box" style="margin-left: 14px;">
-                <span class="pc-inline-icon is-sm" data-icon="sparkles"></span>
+              <div class="pc-alert-icon-box">
+                <span class="pc-mounted-plate" data-bg-shape="seal-wax" data-icon="sparkles" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">앤틱 왁스 실링 인장 알림 (Wax Seal Action)</div>
                 <p class="pc-alert-desc">장미빛 왁스가 녹아내린 하트 인장과 2-Tier 번트 엄버 그림자가 각인되어 있습니다.</p>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
             <!-- 9. Perforated Postage Stamp Alert -->
             <div class="pc-alert pc-alert-stamp pc-alert-peach">
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="scissors"></span>
+                <span class="pc-mounted-plate" data-bg-shape="postage-stamp" data-icon="scissors" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">우표 천공 테두리 알림 (Perforated Stamp)</div>
                 <p class="pc-alert-desc">우표 톱니 테두리와 내부 점선 링으로 둘러싸인 핸드크래프트 알림 카드입니다.</p>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
 
             <!-- 10. Swallowtail Ribbon Banner Alert -->
             <div class="pc-alert pc-alert-ribbon pc-alert-sky">
               <div class="pc-alert-icon-box">
-                <span class="pc-inline-icon is-sm" data-icon="bookmark"></span>
+                <span class="pc-mounted-plate" data-bg-shape="badge-ribbon" data-icon="bookmark" data-size="54"></span>
               </div>
               <div class="pc-alert-content">
                 <div class="pc-alert-title">제비꼬리 리본 배너 알림 (Swallowtail Ribbon)</div>
                 <p class="pc-alert-desc">우측 깊은 V-노치 절단과 상하 스티치 바느질 점선이 적용된 리본 배너입니다.</p>
               </div>
               <button type="button" class="pc-alert-close" aria-label="닫기">
-                <span class="pc-inline-icon is-xs" data-icon="close"></span>
+                <span class="pc-mounted-plate" data-bg-shape="coin-medallion" data-icon="close" data-size="34"></span>
               </button>
             </div>
           </div>
         </div>
 
         <!-- Right Column: Interactive Live Toast Studio -->
-        <div class="pc-stack pc-card pc-card-nested pc-underlay-mint" style="background: #FAF7F0; border: 1.5px solid #EADBCC; border-radius: 20px; padding: 24px;">
+        <div class="pc-stack pc-card pc-card-nested pc-underlay-mint pc-toast-studio-card" style="background: #FAF7F0; border: 1.5px solid #EADBCC; border-radius: 20px; padding: 24px;">
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 14px;">
             <h3 style="font-size: 17px; font-weight: 800; margin: 0; color: var(--pc-ink);">
               <span class="pc-inline-icon is-sm" data-icon="bell"></span> 라이브 토스트 알림 스튜디오 (Interactive)
@@ -3130,26 +3165,26 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
               토스트 팝업 앵커 위치:
             </div>
             <div class="pc-row-wrap" style="--pc-gap: 8px;">
-              <button type="button" class="pc-svg-kirigami-btn pc-toast-pos-btn is-active" data-pos="top-right" style="flex: 1; padding: 0;">
+              <button type="button" class="pc-svg-kirigami-btn pc-toast-pos-btn" data-pos="top-right" style="flex: 1; padding: 0;">
                 <svg class="pc-kirigami-btn-svg" viewBox="0 0 110 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px; width:100%;">
                   <defs>
                     <filter id="pos-sh-tr" x="-20%" y="-20%" width="140%" height="150%">
-                      <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.38"/>
-                    </filter>
-                  </defs>
-                  <path d="M 6 4 H 104 C 105 4 106 5 106 6 V 14 C 103 14 101 16.5 101 19 C 101 21.5 103 24 106 24 V 32 C 106 33 105 34 104 34 H 6 C 5 34 4 33 4 32 V 24 C 7 24 9 21.5 9 19 C 9 16.5 7 14 4 14 V 6 C 4 5 5 4 6 4 Z" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pos-sh-tr)"/>
-                  <text x="55" y="23" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#275C46">우측 상단</text>
-                </svg>
-              </button>
-              <button type="button" class="pc-svg-kirigami-btn pc-toast-pos-btn" data-pos="bottom-right" style="flex: 1; padding: 0;">
-                <svg class="pc-kirigami-btn-svg" viewBox="0 0 110 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px; width:100%;">
-                  <defs>
-                    <filter id="pos-sh-br" x="-20%" y="-20%" width="140%" height="150%">
                       <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.35"/>
                     </filter>
                   </defs>
-                  <path d="M 6 4 H 104 C 105 4 106 5 106 6 V 14 C 103 14 101 16.5 101 19 C 101 21.5 103 24 106 24 V 32 C 106 33 105 34 104 34 H 6 C 5 34 4 33 4 32 V 24 C 7 24 9 21.5 9 19 C 9 16.5 7 14 4 14 V 6 C 4 5 5 4 6 4 Z" fill="#FAF6ED" stroke="#D8CEBD" stroke-width="0.88" filter="url(#pos-sh-br)"/>
-                  <text x="55" y="23" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#544B42">우측 하단</text>
+                  <path d="M 6 4 H 104 C 105 4 106 5 106 6 V 14 C 103 14 101 16.5 101 19 C 101 21.5 103 24 106 24 V 32 C 106 33 105 34 104 34 H 6 C 5 34 4 33 4 32 V 24 C 7 24 9 21.5 9 19 C 9 16.5 7 14 4 14 V 6 C 4 5 5 4 6 4 Z" fill="#FAF6ED" stroke="#D8CEBD" stroke-width="0.88" filter="url(#pos-sh-tr)"/>
+                  <text x="55" y="23" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#544B42">우측 상단</text>
+                </svg>
+              </button>
+              <button type="button" class="pc-svg-kirigami-btn pc-toast-pos-btn is-active" data-pos="bottom-right" style="flex: 1; padding: 0;">
+                <svg class="pc-kirigami-btn-svg" viewBox="0 0 110 38" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:36px; width:100%;">
+                  <defs>
+                    <filter id="pos-sh-br" x="-20%" y="-20%" width="140%" height="150%">
+                      <feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="#2E1E14" flood-opacity="0.38"/>
+                    </filter>
+                  </defs>
+                  <path d="M 6 4 H 104 C 105 4 106 5 106 6 V 14 C 103 14 101 16.5 101 19 C 101 21.5 103 24 106 24 V 32 C 106 33 105 34 104 34 H 6 C 5 34 4 33 4 32 V 24 C 7 24 9 21.5 9 19 C 9 16.5 7 14 4 14 V 6 C 4 5 5 4 6 4 Z" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88" filter="url(#pos-sh-br)"/>
+                  <text x="55" y="23" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="12" font-weight="800" fill="#275C46">우측 하단</text>
                 </svg>
               </button>
               <button type="button" class="pc-svg-kirigami-btn pc-toast-pos-btn" data-pos="top-center" style="flex: 1; padding: 0;">
@@ -3299,10 +3334,10 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
       </div>
       <h2 class="pc-section-title section-title" style="font-size: 28px; font-weight: 800; margin: 0 0 12px; color: var(--pc-ink);">
         <span class="pc-section-plate" data-bg-shape="cog-seal" data-icon="star-cluster" data-size="88" title="아이콘 갤러리"></span>
-        <span>3D 페이퍼 컷 정밀 아이콘 갤러리 (배경 박스 없는 순수 레이어드 페이퍼 아트 · 750종)</span>
+        <span>3D 페이퍼 컷 정밀 아이콘 갤러리 (배경 박스 없는 순수 레이어드 페이퍼 아트 · 816종)</span>
       </h2>
       <p style="font-size: 15px; color: var(--pc-ink-muted); margin: 0 0 24px; line-height: 1.6;" class="break-keep">
-        기존의 사각형/원형 배경 타일을 완전히 걷어내고, <strong>아이콘 오브젝트 자체를 3~5겹의 파스텔 색종이로 오려 붙인 정밀 스탠드얼론 페이퍼 컷(Kirigami) 컬렉션 750선</strong>입니다. 글로벌 모던 UI 표준 체계를 바탕으로 숫자(0-9), 수학용 특수 문자(+, -, ×, ÷, lim, ∑, ∫, √, ∞, π, ∆, ∂, ± 등), 한글 자음(ㄱ~ㅎ) 및 대표 음절(한, 글, 꽃, 별, 꿈, 봄 등), 특수 기호(별, 하트, 음표, 체크, 엑스 등), UI 컨트롤, 커뮤니케이션, 소셜, 커머스, 금융, 개발자 도구, 미디어, 디바이스, 자연, 푸드, 여행, 라이프스타일을 완벽 지원합니다. 카드를 클릭하면 SVG 코드가 즉시 복사됩니다.
+        기존의 사각형/원형 배경 타일을 완전히 걷어내고, <strong>아이콘 오브젝트 자체를 3~5겹의 파스텔 색종이로 오려 붙인 정밀 스탠드얼론 페이퍼 컷(Kirigami) 컬렉션 816선</strong>입니다. 글로벌 모던 UI 표준 체계를 바탕으로 숫자(0-9), 수학용 특수 문자(+, -, ×, ÷, lim, ∑, ∫, √, ∞, π, ∆, ∂, ± 등), 한글 자음(ㄱ~ㅎ) 및 대표 음절(한, 글, 꽃, 별, 꿈, 봄 등), 특수 기호(별, 하트, 음표, 체크, 엑스 등), UI 컨트롤, 커뮤니케이션, 소셜, 커머스, 금융, 개발자 도구, 미디어, 디바이스, 자연, 푸드, 여행, 라이프스타일을 완벽 지원합니다. 카드를 클릭하면 SVG 코드가 즉시 복사됩니다.
       </p>
 
       <!-- 3D Layered Math & Hangul Typography Live Studio -->
@@ -3455,12 +3490,14 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
             <span class="pc-inline-icon is-sm" data-icon="search" style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); pointer-events: none;"></span>
             <input type="text" id="icon-search-input" class="pc-input" data-pc-paper="field" placeholder="아이콘 이름, 숫자(0-9), 수학(+, lim, ∑), 한글(ㄱ, 한), 기호(별, 하트) 검색..." style="padding-left: 44px; width: 100%; border-radius: 999px; height: 44px;">
           </div>
-          <span class="pc-badge pc-badge--mint" id="icon-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">750개 아이콘</span>
+          <span class="pc-badge pc-badge--mint" id="icon-count-badge" style="font-size: 13.5px; padding: 7px 16px; font-weight: 800;">816개 아이콘</span>
           <span style="font-size: 13px; color: var(--pc-ink-muted); display: inline-flex; align-items: center; gap: 6px; line-height: 1;"><span class="pc-inline-icon is-xs" data-icon="sparkles"></span> <span>아이콘 카드를 클릭하면 인라인 SVG 코드가 클립보드에 즉시 복사됩니다.</span></span>
         </div>
 
         <div class="pc-icon-category-pills">
-          <button type="button" class="pc-icon-cat-btn is-active" data-cat="all">전체 (750)</button>
+          <button type="button" class="pc-icon-cat-btn is-active" data-cat="all">전체 (816)</button>
+          <button type="button" class="pc-icon-cat-btn" data-cat="science">과학 실험도구 (12)</button>
+          <button type="button" class="pc-icon-cat-btn" data-cat="education">전 교과 도구 (54)</button>
           <button type="button" class="pc-icon-cat-btn" data-cat="math">수학 &amp; 과학 기호 (33)</button>
           <button type="button" class="pc-icon-cat-btn" data-cat="hangul">한글 타이포그래피 (20)</button>
           <button type="button" class="pc-icon-cat-btn" data-cat="symbol">숫자 &amp; 특수 기호 (45)</button>
@@ -6977,6 +7014,139 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
             </div>
           </div>
 
+          <!-- NEW COMPONENT: 3D Layered Paper Craft Tabs Deck (스크롤 없이 좌우로 쌓이는 색 카드 탭 덱) -->
+          <div class="pc-layered-tabs-container" style="margin-bottom: 24px; padding-top: 14px; border-top: 1px dashed rgba(74,58,42,0.15);">
+            <div style="font-size: 12.5px; font-weight: 800; color: var(--pc-ink); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="display: flex; align-items: center; gap: 6px;">
+                <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
+                <span>Layered Paper Craft Tabs Deck (좌우 적층형 종이 카드 탭 덱):</span>
+              </span>
+              <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 10px;">신규 마스터 컴포넌트</span>
+            </div>
+            <p style="font-size: 12px; color: var(--pc-ink-muted); margin: 0 0 12px; line-height: 1.5;">
+              스크롤바 없이 활성 탭을 중심으로 색 카드스톡이 왼쪽·오른쪽으로 계단식으로 겹쳐 쌓이는 정통 종이공예 탭입니다. 탭 선택 시 부드러운 종이 들림과 물리적 적층 순서 재정렬이 일어납니다.
+            </p>
+
+            <div class="pc-layered-tabs-deck" role="tablist" aria-label="프로젝트 정보 탭 덱">
+              <div class="pc-layered-tabs-track">
+                <button type="button" class="pc-layered-tab-card is-mint is-active" role="tab" aria-selected="true" data-tone="mint" aria-controls="pc-lp-panel-1" style="padding:0;background:transparent;border:none;box-shadow:none;">
+                  <svg class="pc-layered-tab-svg" width="160" height="46" viewBox="0 0 160 46" style="display:block;overflow:visible;">
+                    <defs>
+                      <filter id="pc-sh-demo-tab-mint" x="-25%" y="-25%" width="150%" height="160%">
+                        <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                        <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                        <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                      </filter>
+                    </defs>
+                    <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 145 2 C 151 2 156 6 156 12 L 156 46 Z" fill="#82C2A8" filter="url(#pc-sh-demo-tab-mint)"/>
+                    <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 144 3 C 150 3 155 7 155 13 L 155 46 Z" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88"/>
+                    <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 140 8 C 145 8 148 11 148 16 L 148 46" fill="none" stroke="#68A58D" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+                    <line x1="18" y1="4.5" x2="142" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+                    <g class="pc-tab-svg-stamp">
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#82C2A8" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                      <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#1A533C">01</text>
+                    </g>
+                    <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="800" fill="#1A533C">프로젝트 개요</text>
+                  </svg>
+                </button>
+                <button type="button" class="pc-layered-tab-card is-peach" role="tab" aria-selected="false" data-tone="peach" aria-controls="pc-lp-panel-2" style="padding:0;background:transparent;border:none;box-shadow:none;">
+                  <svg class="pc-layered-tab-svg" width="160" height="46" viewBox="0 0 160 46" style="display:block;overflow:visible;">
+                    <defs>
+                      <filter id="pc-sh-demo-tab-peach" x="-25%" y="-25%" width="150%" height="160%">
+                        <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                        <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                        <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                      </filter>
+                    </defs>
+                    <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 145 2 C 151 2 156 6 156 12 L 156 46 Z" fill="#E69D7B" filter="url(#pc-sh-demo-tab-peach)"/>
+                    <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 144 3 C 150 3 155 7 155 13 L 155 46 Z" fill="#FDF1EA" stroke="#FFFFFF" stroke-width="0.88"/>
+                    <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 140 8 C 145 8 148 11 148 16 L 148 46" fill="none" stroke="#D88764" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+                    <line x1="18" y1="4.5" x2="142" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+                    <g class="pc-tab-svg-stamp">
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#E69D7B" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                      <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#7A2800">02</text>
+                    </g>
+                    <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#7A2800">디자인 시스템</text>
+                  </svg>
+                </button>
+                <button type="button" class="pc-layered-tab-card is-sky" role="tab" aria-selected="false" data-tone="sky" aria-controls="pc-lp-panel-3" style="padding:0;background:transparent;border:none;box-shadow:none;">
+                  <svg class="pc-layered-tab-svg" width="160" height="46" viewBox="0 0 160 46" style="display:block;overflow:visible;">
+                    <defs>
+                      <filter id="pc-sh-demo-tab-sky" x="-25%" y="-25%" width="150%" height="160%">
+                        <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                        <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                        <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                      </filter>
+                    </defs>
+                    <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 145 2 C 151 2 156 6 156 12 L 156 46 Z" fill="#98C8D6" filter="url(#pc-sh-demo-tab-sky)"/>
+                    <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 144 3 C 150 3 155 7 155 13 L 155 46 Z" fill="#EDF7FA" stroke="#FFFFFF" stroke-width="0.88"/>
+                    <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 140 8 C 145 8 148 11 148 16 L 148 46" fill="none" stroke="#7BAFB9" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+                    <line x1="18" y1="4.5" x2="142" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+                    <g class="pc-tab-svg-stamp">
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#98C8D6" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                      <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#174E6F">03</text>
+                    </g>
+                    <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#174E6F">컴포넌트 스펙</text>
+                  </svg>
+                </button>
+                <button type="button" class="pc-layered-tab-card is-lavender" role="tab" aria-selected="false" data-tone="lavender" aria-controls="pc-lp-panel-4" style="padding:0;background:transparent;border:none;box-shadow:none;">
+                  <svg class="pc-layered-tab-svg" width="160" height="46" viewBox="0 0 160 46" style="display:block;overflow:visible;">
+                    <defs>
+                      <filter id="pc-sh-demo-tab-lavender" x="-25%" y="-25%" width="150%" height="160%">
+                        <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                        <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                        <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                      </filter>
+                    </defs>
+                    <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 145 2 C 151 2 156 6 156 12 L 156 46 Z" fill="#B8A6D9" filter="url(#pc-sh-demo-tab-lavender)"/>
+                    <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 144 3 C 150 3 155 7 155 13 L 155 46 Z" fill="#F4F0FA" stroke="#FFFFFF" stroke-width="0.88"/>
+                    <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 140 8 C 145 8 148 11 148 16 L 148 46" fill="none" stroke="#9C88C0" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+                    <line x1="18" y1="4.5" x2="142" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+                    <g class="pc-tab-svg-stamp">
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                      <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#B8A6D9" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                      <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#473B6B">04</text>
+                    </g>
+                    <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#473B6B">배포 가이드</text>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Layered Tab Panels -->
+            <div class="pc-layered-tab-panel is-active" id="pc-lp-panel-1" role="tabpanel" style="background: var(--pc-mint-light, #EAF7F1); border: 1.5px solid #A3D8C3; border-radius: 14px; padding: 18px; box-shadow: 0 6px 16px rgba(46,30,20,0.10); font-size: 13px; line-height: 1.6; color: #1C4835;">
+              <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span class="pc-badge pc-badge--stamp pc-badge--mint" style="font-size: 10px;">01 Mint Cotton</span>
+                <span>프로젝트 개요 (Project Overview)</span>
+              </div>
+              PaperCut UI는 실제 종이를 칼로 오려 층층이 덧댄 레이어드 페이퍼 아트의 물리적 깊이를 재현합니다. 가로 스크롤을 쓰지 않고 카드스톡을 겹쳐 배치함으로써 내용이 많아도 모든 탭이 한눈에 파스텔 색종이 덱처럼 정갈하게 시각화됩니다.
+            </div>
+            <div class="pc-layered-tab-panel" id="pc-lp-panel-2" role="tabpanel" style="display: none; background: var(--pc-peach-light, #FDF1EA); border: 1.5px solid #F7BA9E; border-radius: 14px; padding: 18px; box-shadow: 0 6px 16px rgba(46,30,20,0.10); font-size: 13px; line-height: 1.6; color: #7A2800;">
+              <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span class="pc-badge pc-badge--stamp pc-badge--peach" style="font-size: 10px;">02 Peach Warm</span>
+                <span>디자인 시스템 (Design Tokens &amp; Craft Palette)</span>
+              </div>
+              원작 7대 색지(Cloud White, Mint Cotton, Peach Warm, Sand Yellow, Lavender Purple, Sky Blue, Sage Green)와 0.88px 화이트 나이프 엣지 림, 2-Tier 번트 엄버 음영이 전 컴포넌트에 일관되게 적용됩니다.
+            </div>
+            <div class="pc-layered-tab-panel" id="pc-lp-panel-3" role="tabpanel" style="display: none; background: var(--pc-sky-light, #EDF7FA); border: 1.5px solid #BDE0EA; border-radius: 14px; padding: 18px; box-shadow: 0 6px 16px rgba(46,30,20,0.10); font-size: 13px; line-height: 1.6; color: #174E6F;">
+              <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span class="pc-badge pc-badge--stamp pc-badge--sky" style="font-size: 10px;">03 Sky Blue</span>
+                <span>컴포넌트 스펙 (Accessibility &amp; Interaction)</span>
+              </div>
+              WAI-ARIA 탭 리스트 표준(role="tablist", role="tab", aria-selected), 좌우 화살표/Home/End 키보드 네비게이션, 최소 44px 터치 타겟 규격을 100% 준수합니다.
+            </div>
+            <div class="pc-layered-tab-panel" id="pc-lp-panel-4" role="tabpanel" style="display: none; background: var(--pc-lavender-light, #F4F0FA); border: 1.5px solid #D7CBEB; border-radius: 14px; padding: 18px; box-shadow: 0 6px 16px rgba(46,30,20,0.10); font-size: 13px; line-height: 1.6; color: #473B6B;">
+              <div style="font-weight: 800; font-size: 14px; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                <span class="pc-badge pc-badge--stamp pc-badge--lavender" style="font-size: 10px;">04 Lavender Purple</span>
+                <span>배포 가이드 (NPM &amp; CDN Setup)</span>
+              </div>
+              Vanilla JS 및 순수 CSS로 구동되므로 React, Vue, Svelte, 정적 HTML 등 모든 프레임워크에서 외부 무거운 의존성 없이 즉시 복사하여 사용할 수 있습니다.
+            </div>
+          </div>
+
           <!-- Paper Cutout Breadcrumb (지정된 표준 브레드크럼 스타일) -->
           <div style="margin-bottom: 16px;">
             <div style="font-size: 11.5px; font-weight: 800; color: var(--pc-ink-muted); margin-bottom: 6px;">
@@ -7010,6 +7180,14 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                 </li>
               </ol>
             </nav>
+            <!-- 100% Pure SVG Multi-Layer Breadcrumb Primitive Live Showcase -->
+            <div style="margin-top: 10px; padding: 10px 14px; background: #FAF6ED; border-radius: 10px; border: 1px dashed rgba(74,58,42,0.18);">
+              <div style="font-size: 11px; font-weight: 800; color: #6E530F; margin-bottom: 6px; display: flex; align-items: center; gap: 4px;">
+                <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
+                <span>Pure SVG Multi-Layer Paper Tag Breadcrumb (선언적 프리미티브):</span>
+              </div>
+              <div data-pc-svg="breadcrumb" data-items="홈,디자인 시스템,컴포넌트 스펙,현재 위치" data-tone="sand"></div>
+            </div>
           </div>
 
           <!-- Progress Bar: 3D Paper Ruler Progress -->
@@ -7109,6 +7287,15 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
                 </svg>
               </button>
             </nav>
+            <!-- 100% Pure SVG Multi-Layer Stepper & Pagination Primitive Live Showcase -->
+            <div style="margin-top: 10px; padding: 10px 14px; background: #FAF6ED; border-radius: 10px; border: 1px dashed rgba(74,58,42,0.18); display: flex; flex-direction: column; gap: 8px;">
+              <div style="font-size: 11px; font-weight: 800; color: #6E530F; display: flex; align-items: center; gap: 4px;">
+                <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
+                <span>Pure SVG Stitched Stepper &amp; Ticket Stamp Pagination:</span>
+              </div>
+              <div data-pc-svg="stepper" data-steps="기본 정보,상세 설정,검토 완료" data-active="1" data-tone="mint"></div>
+              <div data-pc-svg="pagination" data-total="5" data-current="1" data-tone="mint" style="margin-top: 4px;"></div>
+            </div>
           </div>
         </div>
 
@@ -7873,14 +8060,142 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
         실제 프로덕션 SaaS 대시보드, 크래프트 봉투 인증, 설정 레이아웃, 이커머스 스토어프론트, 3단 가격 플랜, 파일 업로더 드롭존을 <strong>3D 페이퍼 아트 테마</strong>로 완성한 종합 블록 컬렉션입니다.
       </p>
 
-      <!-- Block Selector Tabs -->
-      <div class="pc-row-scroll pc-filter-pills-row" style="padding-bottom: 8px; margin-bottom: 24px;">
-        <button type="button" class="pc-filter-btn is-active" data-pc-paper="tab" style="flex-shrink: 0;" onclick="PaperCutUI.switchBlock('admin-dashboard', this)">01. SaaS & Admin 대시보드</button>
-        <button type="button" class="pc-filter-btn" data-pc-paper="tab" style="flex-shrink: 0;" onclick="PaperCutUI.switchBlock('auth', this)">02. 편지봉투 크래프트 인증</button>
-        <button type="button" class="pc-filter-btn" data-pc-paper="tab" style="flex-shrink: 0;" onclick="PaperCutUI.switchBlock('settings', this)">03. 설정 & 프로필 레이아웃</button>
-        <button type="button" class="pc-filter-btn" data-pc-paper="tab" style="flex-shrink: 0;" onclick="PaperCutUI.switchBlock('ecommerce', this)">04. 이커머스 상품 & 카트</button>
-        <button type="button" class="pc-filter-btn" data-pc-paper="tab" style="flex-shrink: 0;" onclick="PaperCutUI.switchBlock('pricing', this)">05. 3단 가격 플랜 & 리본 배지</button>
-        <button type="button" class="pc-filter-btn" data-pc-paper="tab" style="flex-shrink: 0;" onclick="PaperCutUI.switchBlock('dropzone', this)">06. 스티치 골판지 드롭존</button>
+      <!-- 3D Layered Paper Craft Tabs Deck (100% Pure SVG 다층 색지 카드스톡 탭 덱) -->
+      <div class="pc-layered-tabs-deck" role="tablist" aria-label="6대 핵심 실전 애플리케이션 시나리오">
+        <div class="pc-layered-tabs-track">
+          <!-- 01. Mint Cotton Card -->
+          <button type="button" class="pc-layered-tab-card is-mint is-active" role="tab" aria-selected="true" data-tone="mint" onclick="PaperCutUI.switchBlock('admin-dashboard', this)" style="padding:0;background:transparent;border:none;box-shadow:none;">
+            <svg class="pc-layered-tab-svg" width="168" height="46" viewBox="0 0 168 46" style="display:block;overflow:visible;">
+              <defs>
+                <filter id="pc-sh-blk-tab-mint" x="-25%" y="-25%" width="150%" height="160%">
+                  <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                  <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 153 2 C 159 2 164 6 164 12 L 164 46 Z" fill="#82C2A8" filter="url(#pc-sh-blk-tab-mint)"/>
+              <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 152 3 C 158 3 163 7 163 13 L 163 46 Z" fill="#A3D8C3" stroke="#FFFFFF" stroke-width="0.88"/>
+              <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 148 8 C 153 8 156 11 156 16 L 156 46" fill="none" stroke="#68A58D" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+              <line x1="18" y1="4.5" x2="150" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+              <g class="pc-tab-svg-stamp">
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#82C2A8" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#1A533C">01</text>
+              </g>
+              <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="800" fill="#1A533C">SaaS &amp; Admin</text>
+            </svg>
+          </button>
+          <!-- 02. Peach Warm Card -->
+          <button type="button" class="pc-layered-tab-card is-peach" role="tab" aria-selected="false" data-tone="peach" onclick="PaperCutUI.switchBlock('auth', this)" style="padding:0;background:transparent;border:none;box-shadow:none;">
+            <svg class="pc-layered-tab-svg" width="168" height="46" viewBox="0 0 168 46" style="display:block;overflow:visible;">
+              <defs>
+                <filter id="pc-sh-blk-tab-peach" x="-25%" y="-25%" width="150%" height="160%">
+                  <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                  <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 153 2 C 159 2 164 6 164 12 L 164 46 Z" fill="#E69D7B" filter="url(#pc-sh-blk-tab-peach)"/>
+              <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 152 3 C 158 3 163 7 163 13 L 163 46 Z" fill="#FDF1EA" stroke="#FFFFFF" stroke-width="0.88"/>
+              <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 148 8 C 153 8 156 11 156 16 L 156 46" fill="none" stroke="#D88764" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+              <line x1="18" y1="4.5" x2="150" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+              <g class="pc-tab-svg-stamp">
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#E69D7B" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#7A2800">02</text>
+              </g>
+              <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#7A2800">크래프트 인증</text>
+            </svg>
+          </button>
+          <!-- 03. Sky Blue Card -->
+          <button type="button" class="pc-layered-tab-card is-sky" role="tab" aria-selected="false" data-tone="sky" onclick="PaperCutUI.switchBlock('settings', this)" style="padding:0;background:transparent;border:none;box-shadow:none;">
+            <svg class="pc-layered-tab-svg" width="168" height="46" viewBox="0 0 168 46" style="display:block;overflow:visible;">
+              <defs>
+                <filter id="pc-sh-blk-tab-sky" x="-25%" y="-25%" width="150%" height="160%">
+                  <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                  <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 153 2 C 159 2 164 6 164 12 L 164 46 Z" fill="#98C8D6" filter="url(#pc-sh-blk-tab-sky)"/>
+              <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 152 3 C 158 3 163 7 163 13 L 163 46 Z" fill="#EDF7FA" stroke="#FFFFFF" stroke-width="0.88"/>
+              <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 148 8 C 153 8 156 11 156 16 L 156 46" fill="none" stroke="#7BAFB9" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+              <line x1="18" y1="4.5" x2="150" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+              <g class="pc-tab-svg-stamp">
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#98C8D6" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#174E6F">03</text>
+              </g>
+              <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#174E6F">설정 &amp; 프로필</text>
+            </svg>
+          </button>
+          <!-- 04. Lavender Purple Card -->
+          <button type="button" class="pc-layered-tab-card is-lavender" role="tab" aria-selected="false" data-tone="lavender" onclick="PaperCutUI.switchBlock('ecommerce', this)" style="padding:0;background:transparent;border:none;box-shadow:none;">
+            <svg class="pc-layered-tab-svg" width="168" height="46" viewBox="0 0 168 46" style="display:block;overflow:visible;">
+              <defs>
+                <filter id="pc-sh-blk-tab-lavender" x="-25%" y="-25%" width="150%" height="160%">
+                  <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                  <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 153 2 C 159 2 164 6 164 12 L 164 46 Z" fill="#B8A6D9" filter="url(#pc-sh-blk-tab-lavender)"/>
+              <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 152 3 C 158 3 163 7 163 13 L 163 46 Z" fill="#F4F0FA" stroke="#FFFFFF" stroke-width="0.88"/>
+              <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 148 8 C 153 8 156 11 156 16 L 156 46" fill="none" stroke="#9C88C0" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+              <line x1="18" y1="4.5" x2="150" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+              <g class="pc-tab-svg-stamp">
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#B8A6D9" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#473B6B">04</text>
+              </g>
+              <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#473B6B">이커머스 &amp; 카트</text>
+            </svg>
+          </button>
+          <!-- 05. Buttercup Gold Card -->
+          <button type="button" class="pc-layered-tab-card is-buttercup" role="tab" aria-selected="false" data-tone="buttercup" onclick="PaperCutUI.switchBlock('pricing', this)" style="padding:0;background:transparent;border:none;box-shadow:none;">
+            <svg class="pc-layered-tab-svg" width="168" height="46" viewBox="0 0 168 46" style="display:block;overflow:visible;">
+              <defs>
+                <filter id="pc-sh-blk-tab-buttercup" x="-25%" y="-25%" width="150%" height="160%">
+                  <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                  <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 153 2 C 159 2 164 6 164 12 L 164 46 Z" fill="#EDC96C" filter="url(#pc-sh-blk-tab-buttercup)"/>
+              <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 152 3 C 158 3 163 7 163 13 L 163 46 Z" fill="#FFF9E8" stroke="#FFFFFF" stroke-width="0.88"/>
+              <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 148 8 C 153 8 156 11 156 16 L 156 46" fill="none" stroke="#D4AC4C" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+              <line x1="18" y1="4.5" x2="150" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+              <g class="pc-tab-svg-stamp">
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#EDC96C" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#6E530F">05</text>
+              </g>
+              <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#6E530F">3단 가격 플랜</text>
+            </svg>
+          </button>
+          <!-- 06. Sand Kraft Card -->
+          <button type="button" class="pc-layered-tab-card is-sand" role="tab" aria-selected="false" data-tone="sand" onclick="PaperCutUI.switchBlock('dropzone', this)" style="padding:0;background:transparent;border:none;box-shadow:none;">
+            <svg class="pc-layered-tab-svg" width="168" height="46" viewBox="0 0 168 46" style="display:block;overflow:visible;">
+              <defs>
+                <filter id="pc-sh-blk-tab-sand" x="-25%" y="-25%" width="150%" height="160%">
+                  <feDropShadow dx="0" dy="1.4" stdDeviation="0.8" flood-color="#2E1E14" flood-opacity="0.45"/>
+                  <feDropShadow dx="0" dy="3.2" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.22"/>
+                  <feDropShadow dx="0" dy="-0.5" stdDeviation="0.3" flood-color="#FFFFFF" flood-opacity="0.95"/>
+                </filter>
+              </defs>
+              <path class="pc-tab-svg-base" d="M 4 46 L 4 12 C 4 6 9 2 15 2 L 153 2 C 159 2 164 6 164 12 L 164 46 Z" fill="#D4A85A" filter="url(#pc-sh-blk-tab-sand)"/>
+              <path class="pc-tab-svg-sheet" d="M 5 46 L 5 13 C 5 7 10 3 16 3 L 152 3 C 158 3 163 7 163 13 L 163 46 Z" fill="#FFF8EA" stroke="#FFFFFF" stroke-width="0.88"/>
+              <path class="pc-tab-svg-stitch" d="M 12 46 L 12 16 C 12 11 15 8 20 8 L 148 8 C 153 8 156 11 156 16 L 156 46" fill="none" stroke="#B88A3C" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.65"/>
+              <line x1="18" y1="4.5" x2="150" y2="4.5" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.95"/>
+              <g class="pc-tab-svg-stamp">
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="#FFFFFF" opacity="0.9"/>
+                <rect x="14" y="14" width="22" height="18" rx="4" fill="none" stroke="#D4A85A" stroke-width="0.8" stroke-dasharray="1.5 1.5"/>
+                <text x="25" y="27" text-anchor="middle" font-family="'Nanum Square Round', sans-serif" font-size="10.5" font-weight="900" fill="#6E530F">06</text>
+              </g>
+              <text class="pc-tab-svg-label" x="44" y="27" font-family="'Nanum Square Round', sans-serif" font-size="12.5" font-weight="700" fill="#6E530F">골판지 드롭존</text>
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Mount Points for Blocks (Auto-Hydrated by papercut-blocks-charts.js) -->
@@ -7915,21 +8230,51 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
       <!-- Category Filter Tabs Bar -->
       <div class="pc-row-scroll pc-filter-pills-row" style="padding-bottom: 8px; margin-bottom: 24px;">
         <button type="button" class="pc-filter-btn is-active inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="all" onclick="PaperCutUI.filterCharts('all', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="apps"></span>전체 (All)
+          <i class="fi fi-rr-apps mr-1.5" aria-hidden="true"></i>전체 (All)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="trends" onclick="PaperCutUI.filterCharts('trends', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="activity"></span>추세 및 시계열 (Trends)
+          <i class="fi fi-rr-chart-line-up mr-1.5" aria-hidden="true"></i>추세 및 시계열 (Trends)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="comparisons" onclick="PaperCutUI.filterCharts('comparisons', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="sort-asc"></span>비교 및 비율 (Comparisons)
+          <i class="fi fi-rr-chart-histogram mr-1.5" aria-hidden="true"></i>비교 및 비율 (Comparisons)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" data-pc-paper="tab" style="flex-shrink: 0;" data-chart-filter="distributions" onclick="PaperCutUI.filterCharts('distributions', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span>분포 및 상관 (Distributions)
+          <i class="fi fi-rr-sparkles mr-1.5" aria-hidden="true"></i>분포 및 상관 (Distributions)
         </button>
         <button type="button" class="pc-filter-btn inline-flex items-center justify-center leading-none" style="flex-shrink: 0;" data-chart-filter="gauges" onclick="PaperCutUI.filterCharts('gauges', this)">
-          <span class="pc-inline-icon is-xs mr-1" data-icon="gauge"></span>게이지 및 달성도 (Gauges)
+          <i class="fi fi-rr-tachometer-alt mr-1.5" aria-hidden="true"></i>게이지 및 달성도 (Gauges)
         </button>
       </div>
+
+      <!-- Master SVG Defs for 3D Papercraft Gradients & Elevation Shadows -->
+      <svg id="pc-global-charts-defs" style="position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none;" aria-hidden="true">
+        <defs>
+          <filter id="pc-shadow-paper-soft" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1.5" stdDeviation="1.2" flood-color="#2E1E14" flood-opacity="0.22" />
+            <feDropShadow dx="0" dy="5" stdDeviation="5.5" flood-color="#2E1E14" flood-opacity="0.10" />
+          </filter>
+          <filter id="pc-shadow-paper-deep" x="-25%" y="-25%" width="150%" height="150%">
+            <feDropShadow dx="0" dy="2.5" stdDeviation="1.8" flood-color="#2E1E14" flood-opacity="0.28" />
+            <feDropShadow dx="0" dy="9" stdDeviation="8" flood-color="#2E1E14" flood-opacity="0.14" />
+          </filter>
+          <filter id="pc-shadow-paper-cut" x="-10%" y="-10%" width="120%" height="120%">
+            <feOffset dx="0" dy="1.5"/>
+            <feGaussianBlur stdDeviation="1" result="offset-blur"/>
+            <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse"/>
+            <feFlood flood-color="#2E1E14" flood-opacity="0.26" result="color"/>
+            <feComposite operator="in" in="color" in2="inverse" result="shadow"/>
+            <feComposite operator="over" in="shadow" in2="SourceGraphic"/>
+          </filter>
+          <linearGradient id="pc-grad-mint" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#A3D8C3" stop-opacity="0.95" /><stop offset="100%" stop-color="#EAF7F1" stop-opacity="0.75" /></linearGradient>
+          <linearGradient id="pc-grad-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#BDE0EA" stop-opacity="0.95" /><stop offset="100%" stop-color="#EDF7FA" stop-opacity="0.7" /></linearGradient>
+          <linearGradient id="pc-grad-lavender" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D7CBEB" stop-opacity="0.95" /><stop offset="100%" stop-color="#F4F0FA" stop-opacity="0.65" /></linearGradient>
+          <linearGradient id="pc-grad-peach" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F7BA9E" stop-opacity="0.95" /><stop offset="100%" stop-color="#FDF1EA" stop-opacity="0.65" /></linearGradient>
+          <linearGradient id="pc-grad-buttercup" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FEE396" stop-opacity="0.95" /><stop offset="100%" stop-color="#FFF9E8" stop-opacity="0.65" /></linearGradient>
+          <linearGradient id="pc-grad-sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EADCC7" stop-opacity="0.95" /><stop offset="100%" stop-color="#F7F2EA" stop-opacity="0.7" /></linearGradient>
+          <linearGradient id="pc-grad-rose" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F5B8BE" stop-opacity="0.95" /><stop offset="100%" stop-color="#FDF0F1" stop-opacity="0.65" /></linearGradient>
+          <linearGradient id="pc-grad-sage" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#BBD5B8" stop-opacity="0.95" /><stop offset="100%" stop-color="#F0F6EE" stop-opacity="0.7" /></linearGradient>
+        </defs>
+      </svg>
 
       <!-- 12 Master Vector Charts Grid (Auto-Hydrated by papercut-blocks-charts.js) -->
       <div class="pc-grid-auto" id="pc-charts-grid" style="--pc-grid-min: 340px; --pc-grid-gap: 24px;">
@@ -7942,7 +8287,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="mountain"></span>
+              <i class="fi fi-rr-chart-area mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">01. Area Chart (페이퍼 산맥 마운틴 지형)</span>
             </span>
             <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Layered Area</span>
@@ -7958,7 +8303,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="sort-asc"></span>
+              <i class="fi fi-rr-chart-histogram mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">02. Bar Chart (도톰한 종이 기둥 입체 차트)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--peach inline-flex items-center justify-center leading-none">Cardstock Columns</span>
@@ -7974,7 +8319,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="activity"></span>
+              <i class="fi fi-rr-chart-line-up mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">03. Line Chart (오리가미 종이 리본 웨이브)</span>
             </span>
             <span class="pc-badge pc-badge--ribbon pc-badge--lavender inline-flex items-center justify-center leading-none">Ribbon Curve</span>
@@ -7990,7 +8335,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="pie-chart-clean"></span>
+              <i class="fi fi-rr-chart-pie-alt mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">04. Donut Chart (부채꼴 색종이 휠)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--buttercup inline-flex items-center justify-center leading-none">Origami Fan</span>
@@ -8006,7 +8351,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="shield-check"></span>
+              <i class="fi fi-rr-chart-radar mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">05. Radar Chart (페이퍼 커팅 입체 연 폴리곤)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--sky inline-flex items-center justify-center leading-none">Kite Polygon</span>
@@ -8022,7 +8367,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="dashboard"></span>
+              <i class="fi fi-rr-dashboard mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">06. Radial Bar Chart (원형 종이 링 게이지)</span>
             </span>
             <span class="pc-badge pc-badge--mint inline-flex items-center justify-center leading-none">Paper Gauge</span>
@@ -8038,7 +8383,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="grid-view"></span>
+              <i class="fi fi-rr-grid mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">07. Heatmap Mosaic (색종이 모자이크 타일 히트맵)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--peach inline-flex items-center justify-center leading-none">Mosaic Grid</span>
@@ -8054,7 +8399,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="award-star"></span>
+              <i class="fi fi-rr-stats mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">08. Candlestick Range (종이 핀셋 캔들스틱 차트)</span>
             </span>
             <span class="pc-badge pc-badge--ticket pc-badge--rose inline-flex items-center justify-center leading-none">Craft Tweezers</span>
@@ -8070,7 +8415,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="sparkles"></span>
+              <i class="fi fi-rr-bubble mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">09. Confetti Bubble (공중 부유 콘페티 버블 산점도)</span>
             </span>
             <span class="pc-badge pc-badge--lavender inline-flex items-center justify-center leading-none">Confetti Scatter</span>
@@ -8086,7 +8431,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="mountain"></span>
+              <i class="fi fi-rr-filter mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">10. Pyramid Funnel (계단식 절단면 퍼널 피라미드)</span>
             </span>
             <span class="pc-badge pc-badge--ribbon pc-badge--buttercup inline-flex items-center justify-center leading-none">Cutout Funnel</span>
@@ -8102,7 +8447,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="grid-view"></span>
+              <i class="fi fi-rr-apps mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">11. Kirigami Treemap (키리가미 바둑판 트리맵)</span>
             </span>
             <span class="pc-badge pc-badge--tag pc-badge--sage inline-flex items-center justify-center leading-none">Kirigami Tiles</span>
@@ -8118,7 +8463,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
           </svg>
           <div class="pc-row-wrap" style="justify-content: space-between; margin-bottom: 12px; border-bottom: 1px dashed rgba(74,58,42,0.15); padding-bottom: 8px;">
             <span class="break-keep" style="font-size: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; line-height: 1;">
-              <span class="pc-inline-icon is-xs mr-1" data-icon="gauge"></span>
+              <i class="fi fi-rr-tachometer-alt mr-1.5" aria-hidden="true"></i>
               <span class="break-keep">12. Compass Gauge (반원형 종이 나침반 게이지)</span>
             </span>
             <span class="pc-badge pc-badge--sky inline-flex items-center justify-center leading-none">Compass Dial</span>
@@ -8190,7 +8535,7 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
             <li><a href="#pc-components" class="pc-footer-link">44종 페이퍼 PC UI 키트</a></li>
             <li><a href="#pc-blocks-charts" class="pc-footer-link">6대 실전 애플리케이션 블록</a></li>
             <li><a href="#pc-charts-section" class="pc-footer-link">12종 3D 페이퍼 벡터 차트</a></li>
-            <li><a href="#icon-gallery" class="pc-footer-link">750종 레이어드 페이퍼 아이콘</a></li>
+            <li><a href="#icon-gallery" class="pc-footer-link">816종 레이어드 페이퍼 아이콘</a></li>
             <li><a href="#bg-library" class="pc-footer-link">130종 종이 배경 플레이트</a></li>
           </ul>
         </div>
@@ -8276,8 +8621,18 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
         });
       },
       switchBlock(blockId, btn) {
-        btn.closest('div').querySelectorAll('.pc-filter-btn').forEach(b => b.classList.remove('is-active'));
-        btn.classList.add('is-active');
+        if (btn) {
+          const deck = btn.closest('.pc-layered-tabs-deck') || btn.closest('.pc-layered-tabs-track')?.parentElement;
+          if (deck && window.PaperCutUI && typeof window.PaperCutUI.updateLayeredTabs === 'function') {
+            window.PaperCutUI.updateLayeredTabs(deck, btn);
+          } else {
+            const container = btn.closest('div');
+            if (container) {
+              container.querySelectorAll('.pc-filter-btn, .pc-layered-tab-card').forEach(b => b.classList.remove('is-active'));
+              btn.classList.add('is-active');
+            }
+          }
+        }
         document.querySelectorAll('.pc-block-container').forEach(c => c.style.display = 'none');
         const target = document.getElementById('block-' + blockId);
         if (target) {
@@ -8297,6 +8652,11 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
             card.style.display = 'none';
           }
         });
+      },
+      refreshCharts() {
+        if (window.PapercutCharts && typeof window.PapercutCharts.init === 'function') {
+          window.PapercutCharts.init();
+        }
       },
       openDemoModal() {
         if (window.PaperCutModal && window.PaperCutModal.openDialog) {
@@ -8384,20 +8744,25 @@ window.showPaperToast('복사 붙여넣기 준비 완료!', 'mint', 'check');</c
         console.log('[PaperCutSVG] Initializing Radix Full SVG Primitives...');
         window.PaperCutSVG.init(document);
 
-        // Toast 알림 전역 래퍼
-        window.showPaperToast = function(msg, tone, icon) {
-          if (window.PaperCutSVG && window.PaperCutSVG.createToast) {
-            window.PaperCutSVG.createToast({ message: msg, tone: tone || 'mint', icon: icon || 'bell' });
-          }
-        };
+        // Toast 알림 전역 래퍼 (기존 showPaperToast가 이미 있으면 보존)
+        if (!window.showPaperToast) {
+          window.showPaperToast = function(msg, tone, icon) {
+            if (window.PaperCutSVG && window.PaperCutSVG.createToast) {
+              window.PaperCutSVG.createToast({ message: msg, tone: tone || 'mint', icon: icon || 'bell' });
+            }
+          };
+        }
 
-        // 기존 SVG 버튼들에 토스트 피드백 연결
+        // 쇼케이스 버튼들에 토스트 피드백 연결 (알림&토스트 스튜디오 내부 버튼은 자체 컨트롤러가 있으므로 제외)
         document.querySelectorAll('.pc-svg-kirigami-btn, .pc-svg-btn, .pc-button-showcase-card button').forEach(function(btn) {
+          if (btn.closest('#paper-alerts-toasts') || btn.classList.contains('pc-toast-pos-btn')) return;
           if (!btn.dataset.hasToastBound) {
             btn.dataset.hasToastBound = 'true';
             btn.addEventListener('click', function(e) {
               const label = btn.getAttribute('title') || btn.textContent.trim() || '페이퍼아트 컴포넌트';
-              window.showPaperToast(label + ' 선택됨!', 'mint', 'check');
+              if (typeof window.showPaperToast === 'function') {
+                window.showPaperToast(label + ' 선택됨!', 'mint', 'check');
+              }
             });
           }
         });

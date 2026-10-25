@@ -1,0 +1,2 @@
+Flaticon UIcons 2.6.0 (Regular Rounded) — https://www.flaticon.com/uicons
+Free for commercial use with attribution: "Uicons by Flaticon". 웹폰트·CSS는 오프라인 번들(런처 허브 CSP font-src 'self')을 위해 원본 그대로 동봉.

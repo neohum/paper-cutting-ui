@@ -21,48 +21,87 @@
   display: flex;
   align-items: flex-start;
   gap: 16px;
-  padding: 18px 22px;
-  border-radius: var(--pc-radius-md, 16px);
+  padding: 16px 20px;
+  border-radius: 16px;
   background: #FFFDF9;
-  border: 1.5px solid #EADBCC;
+  border: 1.5px solid rgba(46, 30, 20, 0.12);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.95);
   box-shadow: 
-    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
-    0 1.5px 2px rgba(46, 30, 20, 0.48),
-    0 4.5px 12px rgba(46, 30, 20, 0.24);
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
+    0 1.5px 3px rgba(46, 30, 20, 0.08),
+    0 4px 14px rgba(46, 30, 20, 0.06);
   font-family: var(--pc-font, 'Nanum Square Round', sans-serif);
   color: var(--pc-ink, #3D352E);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
   overflow: visible;
+  isolation: isolate;
 }
 
 .pc-alert:hover {
   transform: translateY(-2px);
   box-shadow: 
-    inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
-    0 2px 3px rgba(46, 30, 20, 0.50),
-    0 8px 20px rgba(46, 30, 20, 0.28);
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.98),
+    inset 0 0 0 0.88px #FFFFFF,
+    0 2.5px 6px rgba(46, 30, 20, 0.12),
+    0 8px 20px rgba(46, 30, 20, 0.09);
 }
 
-/* Anti-Fingernail Standard: Symmetric full borders & tinted cardstock (no asymmetric left strip) */
-.pc-alert::before {
-  display: none;
+/* 2-Sheet Layered Paper Underlay Backing Sheet (레이어드 색지 받침) */
+.pc-alert::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: calc(16px + 4px);
+  background: var(--pc-alert-underlay, #EFE6D8);
+  border: 1.2px solid rgba(46, 30, 20, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 3px rgba(46, 30, 20, 0.08),
+    0 4px 12px rgba(46, 30, 20, 0.05);
+  z-index: -1;
+  pointer-events: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.pc-alert-icon-box {
+.pc-alert:hover::after {
+  box-shadow: 
+    0 2.5px 5px rgba(46, 30, 20, 0.10),
+    0 6px 18px rgba(46, 30, 20, 0.08);
+}
+
+/* 3D Icon Background Plate Container (제일 왼쪽 3D 배경 플레이트 - 대형화 규격 58px) */
+.pc-alert-icon-box,
+.pc-alert-plate-wrap {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  min-height: 58px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #FFFDF9;
-  border: 1px solid rgba(74, 58, 42, 0.12);
-  box-shadow: 
-    inset 0 1px 0 #FFFFFF,
-    0 1.5px 2px rgba(46, 30, 20, 0.35);
   position: relative;
   z-index: 2;
+  border-radius: 14px;
+}
+
+.pc-alert-icon-box .pc-section-plate,
+.pc-alert-icon-box .pc-mounted-plate,
+.pc-alert-plate-wrap .pc-mounted-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+}
+
+.pc-alert-icon-box svg,
+.pc-alert-plate-wrap svg {
+  display: block;
+  width: 58px;
+  height: 58px;
 }
 
 .pc-alert-content {
@@ -70,13 +109,14 @@
   min-width: 0;
   position: relative;
   z-index: 2;
+  padding-top: 2px;
 }
 
 .pc-alert-title {
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 800;
   margin: 0 0 4px;
-  line-height: 1.3;
+  line-height: 1.35;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -97,11 +137,12 @@
   margin-top: 12px;
 }
 
-/* 3D Papercut Alert Close Button */
+/* 3D Papercut Alert Close Button (고대 주화 양각 메달리온 닫기 x 버튼) */
 .pc-alert-close {
   flex-shrink: 0;
-  background: #FFFDF9;
-  border: 1px solid rgba(46, 30, 20, 0.12);
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   cursor: pointer;
   padding: 0;
   width: 36px;
@@ -109,11 +150,7 @@
   min-width: 36px;
   min-height: 36px;
   border-radius: 50%;
-  color: var(--pc-ink-muted, #7A6F64);
-  box-shadow: 
-    inset 0 1px 0 #FFFFFF,
-    0 1.5px 2px rgba(46, 30, 20, 0.32);
-  transition: transform 0.18s ease, color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -121,20 +158,61 @@
   z-index: 2;
 }
 
+.pc-alert-close .pc-mounted-plate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+}
+
 .pc-alert-close:hover {
-  background: #FFF0EB;
-  color: #C74E38;
-  transform: translateY(-1px) rotate(90deg);
-  box-shadow: 
-    inset 0 1px 0 #FFFFFF,
-    0 2.5px 5px rgba(46, 30, 20, 0.30);
+  transform: translateY(-2px) rotate(15deg) scale(1.08);
+  filter: drop-shadow(0 4px 8px rgba(46, 30, 20, 0.24));
 }
 
 .pc-alert-close:active {
-  transform: translateY(1px) rotate(90deg);
-  box-shadow: 
-    inset 0 1px 2px rgba(46, 30, 20, 0.25),
-    0 0.5px 0 rgba(46, 30, 20, 0.35);
+  transform: translateY(1px) scale(0.95);
+  filter: drop-shadow(0 1px 2px rgba(46, 30, 20, 0.18));
+}
+
+/* 4 Semantic & Kirigami Underlay Color Themes */
+.pc-alert-success,
+.pc-alert-mint {
+  border-color: #B2DEC9;
+  --pc-alert-underlay: #D8F2E5;
+}
+.pc-alert-info,
+.pc-alert-sky {
+  border-color: #C5E2EA;
+  --pc-alert-underlay: #E1F2F7;
+}
+.pc-alert-warning,
+.pc-alert-buttercup {
+  border-color: #F8DE97;
+  --pc-alert-underlay: #FFF2CE;
+}
+.pc-alert-destructive,
+.pc-alert-error,
+.pc-alert-rose {
+  border-color: #F5B8BE;
+  --pc-alert-underlay: #FCE6E9;
+}
+.pc-alert-peach {
+  border-color: #F7BA9E;
+  --pc-alert-underlay: #FDEFE6;
+}
+.pc-alert-lavender {
+  border-color: #D7CBEB;
+  --pc-alert-underlay: #F3EEFD;
+}
+.pc-alert-cream {
+  border-color: #E6DBCB;
+  --pc-alert-underlay: #F4ECE1;
+}
+.pc-alert-sage {
+  border-color: #BBD5B8;
+  --pc-alert-underlay: #EAF3E9;
 }
 
 /* ==========================================================================
@@ -300,8 +378,8 @@
   box-shadow: 
     inset 0 0.88px 0 rgba(255, 255, 255, 0.98),
     0 0 0 3px #FAF6ED,
-    0 1.5px 2px rgba(46, 30, 20, 0.48),
-    0 4.5px 12px rgba(46, 30, 20, 0.24);
+    0 1.5px 3px rgba(46, 30, 20, 0.08),
+    0 4px 14px rgba(46, 30, 20, 0.06);
 }
 
 /* --- 09. Hanging Craft Tag Alert (.pc-alert-tag) --- */
@@ -366,6 +444,7 @@
 /* Mint / Success */
 .pc-alert-mint,
 .pc-alert-success {
+  --pc-alert-underlay: #D6EFE3;
   background: #F4FAF6;
   border-color: #A3D8C3;
 }
@@ -383,6 +462,7 @@
 /* Sky / Info */
 .pc-alert-sky,
 .pc-alert-info {
+  --pc-alert-underlay: #E1F2F7;
   background: #F2F8FC;
   border-color: #BDE0EA;
 }
@@ -400,6 +480,7 @@
 /* Buttercup / Warning */
 .pc-alert-buttercup,
 .pc-alert-warning {
+  --pc-alert-underlay: #FDF1CE;
   background: #FEFBF0;
   border-color: #FEE396;
 }
@@ -418,6 +499,7 @@
 .pc-alert-rose,
 .pc-alert-destructive,
 .pc-alert-error {
+  --pc-alert-underlay: #FCE1E4;
   background: #FDF3F4;
   border-color: #F5B8BE;
 }
@@ -436,6 +518,7 @@
 
 /* Peach */
 .pc-alert-peach {
+  --pc-alert-underlay: #FDE8DB;
   background: #FFF6F0;
   border-color: #F7BA9E;
 }
@@ -448,6 +531,7 @@
 
 /* Lavender */
 .pc-alert-lavender {
+  --pc-alert-underlay: #ECE4F7;
   background: #FAF7FE;
   border-color: #D7CBEB;
 }
@@ -460,6 +544,7 @@
 
 /* Cream / Neutral */
 .pc-alert-cream {
+  --pc-alert-underlay: #F2EADA;
   background: #FFFDF9;
   border-color: #E6DBCB;
 }
@@ -472,6 +557,7 @@
 
 /* Sage */
 .pc-alert-sage {
+  --pc-alert-underlay: #E3EDE1;
   background: #F5F9F4;
   border-color: #BBD5B8;
 }
@@ -506,34 +592,69 @@
 #pc-toast-container.pos-top-right {
   top: calc(var(--pc-header-height, 64px) + 16px) !important;
   bottom: auto !important;
-  right: 16px;
+  left: auto !important;
+  right: 16px !important;
+  transform: none !important;
+  flex-direction: column !important;
 }
 #pc-toast-container.pc-pos-bottom-right,
 #pc-toast-container.pos-bottom-right {
   top: auto !important;
-  bottom: 16px !important;
-  right: 16px;
-  flex-direction: column-reverse;
+  bottom: 20px !important;
+  left: auto !important;
+  right: 20px !important;
+  transform: none !important;
+  flex-direction: column-reverse !important;
 }
 #pc-toast-container.pc-pos-top-center,
 #pc-toast-container.pos-top-center {
   top: calc(var(--pc-header-height, 64px) + 16px) !important;
   bottom: auto !important;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 50% !important;
+  right: auto !important;
+  transform: translateX(-50%) !important;
+  flex-direction: column !important;
 }
 #pc-toast-container.pc-pos-top-left,
 #pc-toast-container.pos-top-left {
   top: calc(var(--pc-header-height, 64px) + 16px) !important;
   bottom: auto !important;
-  left: 16px;
+  left: 16px !important;
+  right: auto !important;
+  transform: none !important;
+  flex-direction: column !important;
 }
 #pc-toast-container.pc-pos-bottom-left,
 #pc-toast-container.pos-bottom-left {
   top: auto !important;
-  bottom: 16px !important;
-  left: 16px;
-  flex-direction: column-reverse;
+  bottom: 20px !important;
+  left: 16px !important;
+  right: auto !important;
+  transform: none !important;
+  flex-direction: column-reverse !important;
+}
+
+/* Toast Studio Position Selector Buttons Active States */
+.pc-toast-pos-btn svg path {
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+.pc-toast-pos-btn svg text {
+  transition: fill 0.2s ease;
+}
+.pc-toast-pos-btn.is-active svg path {
+  fill: #A3D8C3 !important;
+  stroke: #FFFFFF !important;
+}
+.pc-toast-pos-btn.is-active svg text {
+  fill: #1E5C41 !important;
+  font-weight: 800 !important;
+}
+.pc-toast-pos-btn:not(.is-active) svg path {
+  fill: #FAF6ED !important;
+  stroke: #D8CEBD !important;
+}
+.pc-toast-pos-btn:not(.is-active) svg text {
+  fill: #544B42 !important;
 }
 
 /* Base Toast Card: 2-Tier 48% Burnt Umber Shadow & 0.88px Knife Rim */
@@ -587,121 +708,216 @@
 }
 
 /* ==========================================================================
-   5. KIRIGAMI TOAST STYLES
+   5. 5대 키리가미 아키타입 순수 3D SVG 토스트 프레임 (버튼 조형 100% 일치)
    ========================================================================== */
 
-/* --- 01. Notched Cinema Ticket Toast (.pc-toast-ticket) --- */
-.pc-toast-card.pc-toast-ticket {
-  border-radius: 12px;
-  border-left: 2px dashed #E6DBCB;
-  border-right: 2px dashed #E6DBCB;
-}
-.pc-toast-ticket::before,
-.pc-toast-ticket::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 16px;
-  height: 16px;
-  background: var(--pc-bg-cream, #FAF7F0);
-  border-radius: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  box-shadow: inset 0 1.5px 3px rgba(46, 30, 20, 0.35);
-  pointer-events: none;
-}
-.pc-toast-ticket::before { left: -8px; }
-.pc-toast-ticket::after { right: -8px; }
-
-/* --- 02. Dog-ear Folded Corner Toast (.pc-toast-dogear) --- */
-.pc-toast-card.pc-toast-dogear {
-  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
-  border-radius: 14px 0 14px 14px;
-}
-.pc-toast-dogear-flap {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 20px;
-  height: 20px;
-  background: var(--pc-mint, #A3D8C3);
-  clip-path: polygon(0 0, 100% 100%, 0 100%);
-  box-shadow: 
-    -1.5px 1.5px 3px rgba(46, 30, 20, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  z-index: 10;
-  pointer-events: none;
-}
-.pc-variant-peach .pc-toast-dogear-flap,
-.variant-peach .pc-toast-dogear-flap { background: #F7BA9E; }
-.pc-variant-lavender .pc-toast-dogear-flap,
-.variant-lavender .pc-toast-dogear-flap { background: #D7CBEB; }
-.pc-variant-buttercup .pc-toast-dogear-flap,
-.variant-buttercup .pc-toast-dogear-flap { background: #FEE396; }
-.pc-variant-sky .pc-toast-dogear-flap,
-.variant-sky .pc-toast-dogear-flap { background: #BDE0EA; }
-.pc-variant-rose .pc-toast-dogear-flap,
-.variant-rose .pc-toast-dogear-flap { background: #F5B8BE; }
-
-/* --- 03. Washi Tape Pinned Toast (.pc-toast-washi) --- */
-.pc-toast-card.pc-toast-washi {
-  padding-top: 20px;
-}
-.pc-toast-tape {
-  position: absolute;
-  top: -8px;
-  right: 24px;
-  width: 56px;
-  height: 18px;
-  background: rgba(163, 216, 195, 0.90);
-  box-shadow: 0 1.5px 3px rgba(46, 30, 20, 0.35);
-  transform: rotate(2deg);
-  clip-path: polygon(
-    0% 0%, 2px 25%, 0% 50%, 2px 75%, 0% 100%,
-    100% 100%, calc(100% - 2px) 75%, 100% 50%, calc(100% - 2px) 25%, 100% 0%
-  );
-  border-top: 1px dashed rgba(255, 255, 255, 0.7);
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.7);
-  z-index: 10;
-}
-.pc-toast-card.pc-variant-peach .pc-toast-tape,
-.pc-toast-card.variant-peach .pc-toast-tape { background: rgba(247, 186, 158, 0.90); }
-.pc-toast-card.pc-variant-lavender .pc-toast-tape,
-.pc-toast-card.variant-lavender .pc-toast-tape { background: rgba(215, 203, 235, 0.90); }
-.pc-toast-card.pc-variant-buttercup .pc-toast-tape,
-.pc-toast-card.variant-buttercup .pc-toast-tape { background: rgba(254, 227, 150, 0.90); }
-.pc-toast-card.pc-variant-rose .pc-toast-tape,
-.pc-toast-card.variant-rose .pc-toast-tape { background: rgba(245, 184, 190, 0.90); }
-.pc-toast-card.pc-variant-sky .pc-toast-tape,
-.pc-toast-card.variant-sky .pc-toast-tape { background: rgba(189, 224, 234, 0.90); }
-
-/* --- 04. Perforated Stamp Toast (.pc-toast-stamp) --- */
-.pc-toast-card.pc-toast-stamp {
-  border: 2px solid #E6DBCB;
-  outline: 1.5px dashed #D8CEBD;
-  outline-offset: -5px;
-  border-radius: 10px;
-}
-
-/* --- 05. Antique Wax Seal Toast (.pc-toast-wax) --- */
-.pc-toast-card.pc-toast-wax {
-  border-radius: 16px;
+/* 5 ARCHETYPES 100% PURE 3D KIRIGAMI TOAST FRAMES */
+.pc-toast-card.pc-toast-archetype {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 6px 12px 6px 8px !important;
+  min-height: 52px;
   position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 0 !important;
+  box-sizing: border-box;
 }
-.pc-toast-wax-seal {
+
+.pc-toast-card.pc-toast-archetype .pc-toast-archetype-bg,
+.pc-toast-card.pc-toast-ticket .pc-toast-ticket-bg {
   position: absolute;
-  top: -10px;
-  left: 18px;
-  width: 28px;
-  height: 28px;
-  z-index: 10;
-  pointer-events: none;
-  filter: drop-shadow(0 1.5px 3px rgba(46, 30, 20, 0.40));
-}
-.pc-toast-wax-seal svg {
+  inset: 0;
   width: 100%;
   height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(46, 30, 20, 0.16));
 }
+
+.pc-toast-card.pc-toast-archetype .pc-toast-progress-bar {
+  display: none;
+}
+
+.pc-toast-card.pc-toast-archetype .pc-toast-body {
+  position: relative;
+  z-index: 2;
+  margin-left: 10px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.pc-toast-card.pc-toast-archetype .pc-toast-msg {
+  color: #4A3E31;
+  font-size: 11.5px;
+  line-height: 1.35;
+  margin: 1px 0 0;
+  word-break: keep-all;
+}
+
+.pc-toast-card.pc-toast-archetype .pc-toast-close-btn {
+  position: relative;
+  z-index: 3;
+  margin-right: 4px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pc-toast-card.pc-toast-archetype .pc-toast-close-btn .pc-mounted-plate {
+  transform: scale(0.85);
+}
+
+/* --- 01. Notched Cinema Ticket Toast (.pc-toast-ticket) --- */
+.pc-toast-card.pc-toast-ticket .pc-toast-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 3px;
+}
+.pc-toast-card.pc-toast-ticket .pc-toast-title {
+  color: #1E5C41;
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 티켓 색지 베이스 컬러 */
+.pc-toast-card.pc-toast-ticket.variant-mint .pc-ticket-base-path { fill: #A3D8C3; }
+.pc-toast-card.pc-toast-ticket.variant-buttercup .pc-ticket-base-path { fill: #FEE396; }
+.pc-toast-card.pc-toast-ticket.variant-rose .pc-ticket-base-path { fill: #F5B8BE; }
+.pc-toast-card.pc-toast-ticket.variant-lavender .pc-ticket-base-path { fill: #D7CBEB; }
+.pc-toast-card.pc-toast-ticket.variant-sky .pc-ticket-base-path { fill: #BDE0EA; }
+.pc-toast-card.pc-toast-ticket.variant-peach .pc-ticket-base-path { fill: #F7BA9E; }
+
+/* --- 02. Washi Tape Masking Note Toast (.pc-toast-washi) --- */
+.pc-toast-card.pc-toast-washi .pc-toast-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 3px;
+}
+.pc-toast-card.pc-toast-washi .pc-toast-title {
+  color: #433261;
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- 03. Dog-ear Folded Corner Toast (.pc-toast-dogear) --- */
+.pc-toast-card.pc-toast-dogear .pc-toast-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 3px;
+}
+.pc-toast-card.pc-toast-dogear .pc-toast-title {
+  color: #855C08;
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pc-toast-card.pc-toast-dogear .pc-toast-close-btn {
+  margin-right: 18px !important; /* 플랩 여유 공간 */
+}
+
+/* --- 04. Perforated Postage Stamp Toast (.pc-toast-stamp) --- */
+.pc-toast-card.pc-toast-stamp .pc-toast-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 5px;
+}
+.pc-toast-card.pc-toast-stamp .pc-toast-title {
+  color: #702830;
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- 05. Antique Wax Seal Pill Toast (.pc-toast-wax) --- */
+.pc-toast-card.pc-toast-wax .pc-toast-icon-wrap {
+  position: relative;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+.pc-toast-card.pc-toast-wax .pc-toast-title {
+  color: #3D352E;
+  font-weight: 800;
+  font-size: 13.5px;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pc-toast-card.pc-toast-wax .pc-toast-action-btn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 4px;
+  background: #FAF6ED;
+  border: 1px solid #D8CBB7;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 800;
+  color: #3D352E;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(46, 30, 20, 0.15);
+  transition: all 0.15s ease;
+  width: fit-content;
+}
+.pc-toast-card.pc-toast-wax .pc-toast-action-btn:hover {
+  background: #FFFDF9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(46, 30, 20, 0.2);
+}
+
+/* --- 기타 확장 키리가미 토스트 (Ribbon, Gem, Voucher) --- */
 
 /* --- 06. Swallowtail Ribbon Toast (.pc-toast-ribbon) --- */
 .pc-toast-card.pc-toast-ribbon {
@@ -841,4 +1057,32 @@
 /* 알림 액션 줄은 좁은 컨테이너에서 줄바꿈한다 (넘침 방지) */
 .pc-alert-actions {
   flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   6. LIVE TOAST NOTIFICATION STUDIO CARD (2-Sheet Stacking & Concentric Corners)
+   ========================================================================== */
+.pc-toast-studio-card,
+#paper-alerts-toasts .pc-card-nested {
+  border-radius: 20px !important;
+  border: 1.5px solid #EADBCC !important;
+  box-sizing: border-box !important;
+}
+
+.pc-toast-studio-card::after,
+#paper-alerts-toasts .pc-card-nested::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: -6px !important;
+  border-radius: calc(20px + 6px) !important; /* 26px 동심원 라운딩 일치 */
+  background: var(--pc-mint-light, #E8F5EF) !important;
+  border: 1.5px solid #85C2A6 !important;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.5px 3px rgba(46, 30, 20, 0.12),
+    0 6px 18px -2px rgba(46, 30, 20, 0.10) !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
 }
