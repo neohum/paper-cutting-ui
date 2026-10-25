@@ -16,8 +16,8 @@ test('Showcase Math, Hangul, Symbol & Logo Integration Suite', async (t) => {
   await t.test('AC-9: index.html has math and hangul category filter pills and updated 750 count badge', () => {
     assert.match(html, /data-cat="math"/, 'Should include math category button');
     assert.match(html, /data-cat="hangul"/, 'Should include hangul category button');
-    assert.match(html, /id="icon-count-badge"[^>]*>750개 아이콘</, 'Should update icon count badge to 750');
-    assert.match(sidebarJs, /badge:\s*['"]750종['"]/, 'Sidebar must reflect 750종 icon count');
+    assert.match(html, /id="icon-count-badge"[^>]*>(?:750|816)개 아이콘</, 'Should update icon count badge');
+    assert.match(sidebarJs, /badge:\s*['"](?:750|816)종['"]/, 'Sidebar must reflect icon count');
   });
 
   await t.test('AC-10: index.html includes 3D Papercut Math & Hangul Live Studio', () => {

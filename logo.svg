@@ -109,8 +109,9 @@
 
   <!-- ============================================================== -->
   <!-- 2. CENTRAL WORDMARK: "PaperCut" 3D Layered Paper Typography     -->
+  <!-- Scaled up for enhanced craft readability and brand prominence    -->
   <!-- ============================================================== -->
-  <g id="pc-logo-wordmark">
+  <g id="pc-logo-wordmark" transform="translate(-18, -4.5) scale(1.10)">
     <!-- == -->
     <!-- Glyph 'P': 3-Tier Layered Papercraft                          -->
     <!-- == -->
@@ -421,7 +422,7 @@
   <!-- ============================================================== -->
   <!-- 3. 'UI' 2-SHEET LAYERED CARDSTOCK PILL BADGE                   -->
   <!-- ============================================================== -->
-  <g id="pc-logo-badge">
+  <g id="pc-logo-badge" transform="translate(14, 0)">
     <!-- Layer 1: Peach (#F8B49B) Base Round Pill Backing Sheet -->
     <rect id="pc-badge-sheet-1" x="412" y="27" width="68" height="37" rx="14" fill="#F8B49B" filter="url(#ps-logo-base)"/>
     

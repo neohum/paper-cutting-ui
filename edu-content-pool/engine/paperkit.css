@@ -1,0 +1,30 @@
+/* PaperKit 교구 공통 스타일. 화면은 파스텔 레이어드 종이, 인쇄는 흰 바탕 검은 칼선. */
+.pk-stage { display: block; width: 100%; height: auto; max-height: 72vh; touch-action: none; user-select: none; -webkit-user-select: none; }
+.pk-text { font-family: 'Nanum Gothic', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; pointer-events: none; }
+.pk-draggable, .pk-rotatable { cursor: grab; outline: none; }
+.pk-draggable:focus-visible .pk-face, .pk-rotatable:focus-visible .pk-face { stroke: #473B6B; stroke-width: 3; }
+.pk-lifted { cursor: grabbing; }
+.pk-lifted .pk-face { filter: drop-shadow(0 6px 6px rgba(46, 30, 20, 0.32)); }
+.pk-hit { fill: transparent; }
+.pk-ok .pk-face { stroke: #275C46; stroke-width: 3; }
+.pk-no .pk-face { stroke: #702830; stroke-width: 3; }
+.pk-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@keyframes pk-sway { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+@keyframes pk-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+/* 흔들림은 바깥 묶음(.pk-amb)에만 건다 — 안쪽 모티프의 위치 transform을 덮지 않도록 */
+.pk-ambient .pk-amb--0 { animation: pk-sway 7s ease-in-out infinite; }
+.pk-ambient .pk-amb--1 { animation: pk-bob 5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .pk-ambient * { animation: none !important; } }
+
+/* 인쇄·흑백: 그림자와 아래층을 빼고 윗면을 흰 바탕 검은 칼선으로 */
+@media print {
+  .pk-stage .pk-under, .pk-stage .pk-grain { display: none; }
+  .pk-stage .pk-face { fill: #fff !important; stroke: #000 !important; stroke-width: 1.2 !important; filter: none !important; }
+  .pk-stage .pk-bg { fill: #fff !important; stroke: #000; }
+  .pk-stage .pk-text { fill: #000 !important; }
+  .pk-ambient * { animation: none !important; }
+}
+.pk-print .pk-stage .pk-under, .pk-print .pk-stage .pk-grain { display: none; }
+.pk-print .pk-stage .pk-face { fill: #fff !important; stroke: #000 !important; stroke-width: 1.2 !important; filter: none !important; }
+.pk-print .pk-stage .pk-bg { fill: #fff !important; stroke: #000; }

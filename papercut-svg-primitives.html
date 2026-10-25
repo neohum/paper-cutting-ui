@@ -52,6 +52,48 @@
       word-break: keep-all;
       animation: pc-spinner-pulse 2.4s ease-in-out infinite;
     }
+    @keyframes pc-wifi-fly-away {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      14% {
+        transform: translateY(3px) scale(0.97);
+        opacity: 1;
+      }
+      38% {
+        transform: translateY(-46px) scale(1.18);
+        opacity: 0;
+      }
+      52% {
+        transform: translateY(22px) scale(0.75);
+        opacity: 0;
+      }
+      72% {
+        transform: translateY(-2px) scale(1.03);
+        opacity: 1;
+      }
+      85%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+    .pc-wifi-wave-top {
+      transform-origin: 80px 48px;
+      animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0s infinite;
+    }
+    .pc-wifi-wave-mid {
+      transform-origin: 80px 68px;
+      animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.22s infinite;
+    }
+    .pc-wifi-wave-inner {
+      transform-origin: 80px 88px;
+      animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.44s infinite;
+    }
+    .pc-wifi-dot {
+      transform-origin: 80px 112px;
+      animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.66s infinite;
+    }
     @keyframes pc-spinner-rotate-cw {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
@@ -64,19 +106,11 @@
       0%, 100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.025); opacity: 0.88; }
     }
-    .pc-spinner-gear {
-      transform-origin: 80px 80px;
-      animation: pc-spinner-rotate-cw 8s linear infinite;
-    }
-    .pc-spinner-pinwheel {
-      transform-origin: 80px 80px;
-      animation: pc-spinner-rotate-cw 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    }
-    .pc-spinner-badge {
-      transform-origin: 80px 80px;
-      animation: pc-spinner-pulse 2s ease-in-out infinite;
-    }
     @media (prefers-reduced-motion: reduce) {
+      .pc-wifi-wave-top,
+      .pc-wifi-wave-mid,
+      .pc-wifi-wave-inner,
+      .pc-wifi-dot,
       .pc-spinner-gear,
       .pc-spinner-pinwheel,
       .pc-spinner-badge,
@@ -275,7 +309,7 @@
   <!-- ==========================================================================
        3D Layered Paper-Cut Page Loader (FOUC 방지 & 수공예 페이퍼아트 로딩)
        ========================================================================== -->
-  <div id="pc-page-loader" class="pc-layered-loader" role="status" aria-live="polite" aria-label="종이 공예 캔버스를 펼치는 중...">
+  <div id="pc-page-loader" class="pc-layered-loader" role="status" aria-live="polite" aria-label="종이 공예 신호를 연결하는 중...">
     <svg class="pc-paper-spinner" viewBox="0 0 160 160" width="160" height="160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <defs>
         <!-- 3D Layered Paper Shadow Filters with Pure White Rim and Burnt Umber Shadow -->
@@ -283,114 +317,63 @@
           <feDropShadow dx="-0.8" dy="-0.8" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95" />
           <feDropShadow dx="1.5" dy="2.8" stdDeviation="2.2" flood-color="#2E1E14" flood-opacity="0.28" />
         </filter>
-        <filter id="pc-loader-filter-gear" x="-20%" y="-20%" width="140%" height="140%">
-          <feDropShadow dx="-0.8" dy="-0.8" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95" />
-          <feDropShadow dx="1.5" dy="2.8" stdDeviation="1.8" flood-color="#2E1E14" flood-opacity="0.30" />
-        </filter>
-        <filter id="pc-loader-filter-petal" x="-30%" y="-30%" width="160%" height="160%">
-          <feDropShadow dx="-0.8" dy="-0.8" stdDeviation="0.5" flood-color="#FFFFFF" flood-opacity="0.95" />
-          <feDropShadow dx="1.5" dy="2.8" stdDeviation="1.6" flood-color="#2E1E14" flood-opacity="0.34" />
-        </filter>
-        <filter id="pc-loader-filter-badge" x="-25%" y="-25%" width="150%" height="150%">
-          <feDropShadow dx="-0.8" dy="-0.8" stdDeviation="0.4" flood-color="#FFFFFF" flood-opacity="0.95" />
-          <feDropShadow dx="1.5" dy="2.8" stdDeviation="2.0" flood-color="#2E1E14" flood-opacity="0.36" />
+        <filter id="pc-loader-filter-wave" x="-30%" y="-30%" width="160%" height="160%">
+          <feDropShadow dx="0" dy="1.2" stdDeviation="0.6" flood-color="#2E1E14" flood-opacity="0.45"/>
+          <feDropShadow dx="1.5" dy="2.8" stdDeviation="1.8" flood-color="#2E1E14" flood-opacity="0.24"/>
+          <feDropShadow dx="-0.6" dy="-0.6" stdDeviation="0.35" flood-color="#FFFFFF" flood-opacity="0.95"/>
         </filter>
 
-        <!-- 6 Pastel Cardstock Gradients (Mint, Peach, Lavender, Sky, Rose, Sage) -->
-        <linearGradient id="pc-loader-grad-mint" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#BCE4DB" />
-          <stop offset="100%" stop-color="#9FD4C7" />
-        </linearGradient>
-        <linearGradient id="pc-loader-grad-peach" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#F8B49B" />
-          <stop offset="100%" stop-color="#EE8F72" />
-        </linearGradient>
-        <linearGradient id="pc-loader-grad-lavender" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#E2D3EE" />
-          <stop offset="100%" stop-color="#C9B3DC" />
-        </linearGradient>
-        <linearGradient id="pc-loader-grad-sky" x1="0%" y1="0%" x2="100%" y2="100%">
+        <!-- 4 Pastel Cardstock Gradients for Wi-Fi Layers -->
+        <linearGradient id="pc-wifi-grad-top" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stop-color="#D4EDF4" />
-          <stop offset="100%" stop-color="#B4DDE7" />
+          <stop offset="100%" stop-color="#9FD4E4" />
         </linearGradient>
-        <linearGradient id="pc-loader-grad-rose" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#F7C4C9" />
-          <stop offset="100%" stop-color="#DE939B" />
+        <linearGradient id="pc-wifi-grad-mid" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#C2E8D5" />
+          <stop offset="100%" stop-color="#80BE9D" />
         </linearGradient>
-        <linearGradient id="pc-loader-grad-sage" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#CDE3D5" />
-          <stop offset="100%" stop-color="#A3D4B6" />
+        <linearGradient id="pc-wifi-grad-inner" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#E5D9F2" />
+          <stop offset="100%" stop-color="#B8A4D6" />
+        </linearGradient>
+        <linearGradient id="pc-wifi-grad-dot" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#FEE8D6" />
+          <stop offset="100%" stop-color="#EE977A" />
         </linearGradient>
       </defs>
 
-      <!-- Layer 1 (Underlay Base): 크라프트/샌드 베이스 원형 종이 시트 -->
-      <g class="pc-loader-layer-base">
-        <circle cx="80" cy="80" r="74" fill="#F4EBD9" stroke="#E2D4BF" stroke-width="1.2" filter="url(#pc-loader-filter-base)" />
-        <!-- Mat Board Margin & Subtle Guide Stitches -->
-        <circle cx="80" cy="80" r="68" fill="none" stroke="#D5C7B4" stroke-width="0.8" stroke-dasharray="3 3" opacity="0.75" />
+      <!-- Layer 1 (Underlay Base): 크라프트/샌드 베이스 원형 종이 시트 + 미싱 스티칭 링 -->
+      <g class="pc-loader-layer-base" filter="url(#pc-loader-filter-base)">
+        <circle cx="80" cy="80" r="74" fill="#F4EBD9" stroke="#E2D4BF" stroke-width="1.2" />
+        <circle cx="80" cy="80" r="67" fill="none" stroke="#D5C7B4" stroke-width="1.2" stroke-dasharray="3.5 3" opacity="0.8" />
+        <circle cx="80" cy="80" r="59" fill="#FFFDF9" stroke="#EFE6D8" stroke-width="0.9" />
       </g>
 
-      <!-- Layer 2 (Outer Perforated Gear Ring): 스탬프 톱니 천공 종이 링 (8s 부드러운 회전) -->
-      <g class="pc-spinner-gear pc-loader-layer-gear" style="transform-origin: 80px 80px;">
-        <circle cx="80" cy="80" r="60" fill="#FFFDF9" stroke="#E4D7C5" stroke-width="1" filter="url(#pc-loader-filter-gear)" />
-        <circle cx="80" cy="80" r="41" fill="#F4EBD9" stroke="#DDD0BD" stroke-width="0.9" />
-        <!-- 16 Stamp Perforation Punch Holes -->
-        <circle cx="135" cy="80" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="130.8" cy="101" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="118.9" cy="118.9" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="101" cy="130.8" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="80" cy="135" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="59" cy="130.8" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="41.1" cy="118.9" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="29.2" cy="101" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="25" cy="80" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="29.2" cy="59" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="41.1" cy="41.1" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="59" cy="29.2" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="80" cy="25" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="101" cy="29.2" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="118.9" cy="41.1" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="130.8" cy="59" r="2.4" fill="#FAF7F0" stroke="#DDD0BD" stroke-width="0.5" />
-        <circle cx="80" cy="80" r="47" fill="none" stroke="#CFC2B0" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.6" />
+      <!-- Layer 2: 1번 호선 (Wave Top - 최상단 가장 큰 호) : 위에서부터 가장 먼저 날아감 -->
+      <g class="pc-wifi-wave-top pc-loader-layer-wave-top" filter="url(#pc-loader-filter-wave)">
+        <path d="M 34 52 C 54 30 106 30 126 52" stroke="url(#pc-wifi-grad-top)" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <path d="M 34 52 C 54 30 106 30 126 52" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.95"/>
       </g>
 
-      <!-- Layer 3 (Layered Petal Pinwheel): 6개 파스텔 색지 꽃잎 3D 바람개비 휠 (2.8s 역동적 스핀) -->
-      <g class="pc-spinner-pinwheel pc-loader-layer-pinwheel" style="transform-origin: 80px 80px;">
-        <path d="M 80 80 C 80 60 88 44 104 36 C 116 46 118 64 98 76 Z"
-              fill="url(#pc-loader-grad-mint)" stroke="#FFFFFF" stroke-width="0.8"
-              filter="url(#pc-loader-filter-petal)" transform="rotate(0 80 80)" />
-        <path d="M 80 80 C 80 60 88 44 104 36 C 116 46 118 64 98 76 Z"
-              fill="url(#pc-loader-grad-peach)" stroke="#FFFFFF" stroke-width="0.8"
-              filter="url(#pc-loader-filter-petal)" transform="rotate(60 80 80)" />
-        <path d="M 80 80 C 80 60 88 44 104 36 C 116 46 118 64 98 76 Z"
-              fill="url(#pc-loader-grad-lavender)" stroke="#FFFFFF" stroke-width="0.8"
-              filter="url(#pc-loader-filter-petal)" transform="rotate(120 80 80)" />
-        <path d="M 80 80 C 80 60 88 44 104 36 C 116 46 118 64 98 76 Z"
-              fill="url(#pc-loader-grad-sky)" stroke="#FFFFFF" stroke-width="0.8"
-              filter="url(#pc-loader-filter-petal)" transform="rotate(180 80 80)" />
-        <path d="M 80 80 C 80 60 88 44 104 36 C 116 46 118 64 98 76 Z"
-              fill="url(#pc-loader-grad-rose)" stroke="#FFFFFF" stroke-width="0.8"
-              filter="url(#pc-loader-filter-petal)" transform="rotate(240 80 80)" />
-        <path d="M 80 80 C 80 60 88 44 104 36 C 116 46 118 64 98 76 Z"
-              fill="url(#pc-loader-grad-sage)" stroke="#FFFFFF" stroke-width="0.8"
-              filter="url(#pc-loader-filter-petal)" transform="rotate(300 80 80)" />
+      <!-- Layer 3: 2번 호선 (Wave Mid - 중간 호선) : 두 번째로 날아감 -->
+      <g class="pc-wifi-wave-mid pc-loader-layer-wave-mid" filter="url(#pc-loader-filter-wave)">
+        <path d="M 47 70 C 63 52 97 52 113 70" stroke="url(#pc-wifi-grad-mid)" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <path d="M 47 70 C 63 52 97 52 113 70" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.95"/>
       </g>
 
-      <!-- Layer 4 (Embossed Center Badge): 중앙 카드스톡 인장 서클 (#FFFDF9) + 미싱선 + 가위/별 페이퍼컷 모티브 -->
-      <g class="pc-spinner-badge pc-loader-layer-badge" style="transform-origin: 80px 80px;">
-        <circle cx="80" cy="80" r="23" fill="#FFFDF9" stroke="#E2D7C8" stroke-width="1.2" filter="url(#pc-loader-filter-badge)" />
-        <circle cx="80" cy="80" r="19" fill="none" stroke="#C5B5A0" stroke-width="0.9" stroke-dasharray="2.5 1.8" />
-        <g transform="translate(80, 80) scale(0.72) translate(-80, -80)">
-          <circle cx="73" cy="88" r="4.2" fill="none" stroke="#2E1E14" stroke-width="1.5" />
-          <circle cx="87" cy="88" r="4.2" fill="none" stroke="#2E1E14" stroke-width="1.5" />
-          <path d="M 74.5 84 L 84.5 71" stroke="#2E1E14" stroke-width="1.6" stroke-linecap="round" />
-          <path d="M 85.5 84 L 75.5 71" stroke="#2E1E14" stroke-width="1.6" stroke-linecap="round" />
-          <circle cx="80" cy="77" r="1.4" fill="#EE8F72" />
-          <polygon points="80,67.5 81.2,70.2 84,70.5 81.8,72 82.5,74.5 80,73.1 77.5,74.5 78.2,72 76,70.5 78.8,70.2" fill="#F5CE82" stroke="#E6A838" stroke-width="0.4" />
-        </g>
+      <!-- Layer 4: 3번 호선 (Wave Inner - 작은 호선) : 세 번째로 날아감 -->
+      <g class="pc-wifi-wave-inner pc-loader-layer-wave-inner" filter="url(#pc-loader-filter-wave)">
+        <path d="M 61 88 C 70 76 90 76 99 88" stroke="url(#pc-wifi-grad-inner)" stroke-width="9" stroke-linecap="round" fill="none"/>
+        <path d="M 61 88 C 70 76 90 76 99 88" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" fill="none" opacity="0.95"/>
+      </g>
+
+      <!-- Layer 5: 4번 원형 점 (Bottom Dot - 최하단 신호점) : 마지막에 퐁 날아감 -->
+      <g class="pc-wifi-dot pc-loader-layer-dot" filter="url(#pc-loader-filter-wave)">
+        <circle cx="80" cy="112" r="8.5" fill="url(#pc-wifi-grad-dot)" stroke="#FFFFFF" stroke-width="1.2"/>
+        <circle cx="80" cy="112" r="4.5" fill="#FAF6ED" stroke="#FFFFFF" stroke-width="0.8"/>
       </g>
     </svg>
-    <div class="pc-loader-text">종이 공예 캔버스를 펼치는 중...</div>
+    <div class="pc-loader-text">종이 공예 신호를 연결하는 중...</div>
   </div>
 
   <!-- Page Loader Dismissal & FOUC Release Script -->
@@ -453,7 +436,7 @@
             <span class="pc-inline-icon is-xs" data-icon="clipboard"></span>
             <span>전체 CDN 태그 복사</span>
           </button>
-          <a href="index.html#quick-start" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #FFFDF9; border: 1.5px solid #D5C7B4; border-radius: 8px; font-size: 12.5px; font-weight: 800; color: #2E1E14; text-decoration: none;">
+          <a href="index.html#quick-start" class="pc-btn pc-btn-primary pc-swatch-mint inline-flex items-center justify-center leading-none" style="gap: 6px; padding: 8px 16px; font-size: 12.5px; font-weight: 800; min-height: 40px; border-radius: 8px; text-decoration: none;" title="메인 가이드 이동">
             <span>메인 가이드</span>
             <span class="pc-inline-icon is-xs" data-icon="arrow-right"></span>
           </a>
@@ -580,7 +563,7 @@
         </p>
         <div class="pc-component-stage">
           <div id="progress-container"></div>
-          <button type="button" id="btn-progress-random" style="padding: 6px 14px; background: #FFFDF9; border: 1px solid #D5C7B4; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">
+          <button type="button" id="btn-progress-random" class="pc-btn pc-btn-secondary inline-flex items-center justify-center leading-none" style="padding: 6px 14px; font-size: 12px; font-weight: 700; min-height: 36px; border-radius: 8px;">
             게이지 변경
           </button>
         </div>
@@ -624,6 +607,25 @@
         </div>
         <div style="display: flex; justify-content: flex-end; width: 100%;">
           <button type="button" class="pc-copy-code-btn" data-copy-html-of="tabs-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 8-B. LAYERED TABS DECK (좌우 적층형 순수 SVG 종이 카드 탭 덱) -->
+      <section class="pc-section-card" style="grid-column: 1 / -1;">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="sparkles" aria-hidden="true"></span> 08-B. Layered Paper Craft Tabs (좌우 적층형 3D 종이 카드 탭 덱)</h2>
+          <span class="pc-primitive-badge">Primitive: LayeredTabs</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          가로 스크롤 없이 활성 탭을 중심으로 색 카드스톡이 왼쪽·오른쪽으로 계단식으로 겹쳐 쌓이는 100% Pure SVG 다층 탭 덱입니다. 탭 선택 시 부드러운 종이 들림과 물리적 적층 순서 재정렬이 일어납니다.
+        </p>
+        <div class="pc-component-stage" style="align-items: stretch;">
+          <div id="layered-tabs-container"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="layered-tabs-container" title="SVG 코드 복사">
             <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
           </button>
         </div>
@@ -678,7 +680,7 @@
         </p>
         <div class="pc-component-stage">
           <div class="pc-svg-tooltip-wrapper">
-            <button type="button" style="padding: 10px 20px; background: #FFFDF9; border: 1.5px solid #D5C7B4; border-radius: 10px; font-weight: 800; color: #2E1E14; cursor: pointer; box-shadow: 0 2px 6px rgba(46,30,20,0.1);">
+            <button type="button" class="pc-btn pc-btn-secondary inline-flex items-center justify-center leading-none" style="padding: 10px 20px; font-weight: 800; min-height: 44px; border-radius: 10px;">
               마우스를 올려보세요
             </button>
             <div id="tooltip-container"></div>
@@ -705,6 +707,203 @@
         </div>
         <div style="display: flex; justify-content: flex-end; width: 100%;">
           <button type="button" class="pc-copy-code-btn" data-copy-html-of="select-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 13. BADGE & STAMP (우표 톱니 및 티켓 배지) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="award" aria-hidden="true"></span> 13. Badge &amp; Stamp</h2>
+          <span class="pc-primitive-badge">Primitive: Badge</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          우표 톱니 테두리, 티켓 노치, 미싱 점선이 들어간 순수 SVG 종이공예 배지입니다.
+        </p>
+        <div class="pc-component-stage" style="gap: 12px; flex-wrap: wrap;">
+          <div id="badge-container-1"></div>
+          <div id="badge-container-2"></div>
+          <div id="badge-container-3"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="badge-container-1" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 14. INPUT (칼선 홈 파낸 텍스트 필드) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="edit" aria-hidden="true"></span> 14. Input &amp; TextField</h2>
+          <span class="pc-primitive-badge">Primitive: Input</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          수제 종이 보드에 오목하게 파낸 음각 슬릿(Cutout Inset) 형태의 SVG 인풋입니다.
+        </p>
+        <div class="pc-component-stage" style="width: 100%; max-width: 320px;">
+          <div id="input-container" style="width: 100%;"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="input-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 15. AVATAR (다층 다이컷 종이 아바타) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="user" aria-hidden="true"></span> 15. Avatar</h2>
+          <span class="pc-primitive-badge">Primitive: Avatar</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          동심원 미싱 점선과 0.88px 림 라이트가 적용된 순수 SVG 종이 디스크 아바타입니다.
+        </p>
+        <div class="pc-component-stage" style="gap: 16px;">
+          <div id="avatar-container-1"></div>
+          <div id="avatar-container-2"></div>
+          <div id="avatar-container-3"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="avatar-container-1" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 16. BREADCRUMB (순수 SVG 종이 태그 경로) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="folder" aria-hidden="true"></span> 16. Breadcrumb</h2>
+          <span class="pc-primitive-badge">Primitive: Breadcrumb</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          낱장의 다이컷 색지 태그와 쉐브론 화살표로 연결된 100% 순수 SVG 브레드크럼입니다.
+        </p>
+        <div class="pc-component-stage" style="overflow-x: auto; max-width: 100%;">
+          <div id="breadcrumb-container"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="breadcrumb-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 17. PAGINATION (순수 SVG 티켓 스탬프 번호 블록) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="grid" aria-hidden="true"></span> 17. Pagination</h2>
+          <span class="pc-primitive-badge">Primitive: Pagination</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          파스텔 스탬프 블록과 미싱 라인이 들어간 순수 SVG 인터랙티브 페이지네이션입니다.
+        </p>
+        <div class="pc-component-stage">
+          <div id="pagination-container"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="pagination-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 18. TOAST (와시테이프 부착형 순수 SVG 토스트) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="bell" aria-hidden="true"></span> 18. Toast Alert</h2>
+          <span class="pc-primitive-badge">Primitive: Toast</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          마스킹 와시테이프로 벽면에 부착된 듯한 3D 입체 순수 SVG 팝업 알림입니다.
+        </p>
+        <div class="pc-component-stage">
+          <div id="toast-trigger-container"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="toast-trigger-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 19. STEPPER (순수 SVG 스티치 디스크 진행 단계) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="check-circle" aria-hidden="true"></span> 19. Stepper</h2>
+          <span class="pc-primitive-badge">Primitive: Stepper</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          미싱 점선 원형 디스크와 연결 대시선으로 구성된 순수 SVG 단계 표시기입니다.
+        </p>
+        <div class="pc-component-stage" style="overflow-x: auto; max-width: 100%;">
+          <div id="stepper-container"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="stepper-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 20. ALERT & CALLOUT (와시테이프 핀 다층 SVG 알림 배너) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="info" aria-hidden="true"></span> 20. Alert &amp; Callout</h2>
+          <span class="pc-primitive-badge">Primitive: Alert</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          파스텔 색지와 테두리 스티치, 좌측 컬러 와시테이프 핀이 결합된 순수 SVG 알림 배너입니다.
+        </p>
+        <div class="pc-component-stage" style="flex-direction: column; gap: 12px; width: 100%;">
+          <div id="alert-container-1" style="width: 100%;"></div>
+          <div id="alert-container-2" style="width: 100%;"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="alert-container-1" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 21. TABLE (순수 SVG 다층 종이 데이터 표) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="list" aria-hidden="true"></span> 21. Table</h2>
+          <span class="pc-primitive-badge">Primitive: Table</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          모눈종이 질감과 파스텔 인덱스 헤더 탭이 조화된 순수 SVG 종이 데이터 표입니다.
+        </p>
+        <div class="pc-component-stage" style="width: 100%;">
+          <div id="table-container" style="width: 100%;"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="table-container" title="SVG 코드 복사">
+            <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 22. SKELETON (종이 칼선 슬릿 펄스 스켈레톤) -->
+      <section class="pc-section-card">
+        <div class="pc-card-header-tag">
+          <h2 class="pc-card-title"><span class="pc-inline-icon is-sm" data-icon="sparkles" aria-hidden="true"></span> 22. Skeleton Loader</h2>
+          <span class="pc-primitive-badge">Primitive: Skeleton</span>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: #7A695A;">
+          종이 도화지를 칼로 오려낸 자리에 빛이 흘러가는 음각 슬릿 순수 SVG 스켈레톤입니다.
+        </p>
+        <div class="pc-component-stage" style="flex-direction: column; gap: 10px; align-items: flex-start; width: 100%; max-width: 280px;">
+          <div id="skeleton-container-1"></div>
+          <div id="skeleton-container-2"></div>
+          <div id="skeleton-container-3"></div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <button type="button" class="pc-copy-code-btn" data-copy-html-of="skeleton-container-1" title="SVG 코드 복사">
             <span class="pc-inline-icon is-xs" data-icon="copy"></span> <span>SVG 복사</span>
           </button>
         </div>
@@ -829,6 +1028,19 @@
       });
       document.getElementById('tabs-container').appendChild(tabs);
 
+      // 8-B. Layered Tabs Deck
+      const layeredTabs = PaperCutSVG.createLayeredTabs({
+        tabs: [
+          { id: 'lt-1', num: '01', label: '프로젝트 개요', tone: 'mint', content: '스크롤 없이 탭 항목이 색 카드처럼 좌우로 겹쳐 쌓이는 정통 종이공예 탭 덱입니다.' },
+          { id: 'lt-2', num: '02', label: '디자인 시스템', tone: 'peach', content: '원작 7대 색지와 0.88px 칼선 림 라이트, 번트 엄버 2-Tier 그림자가 적용되었습니다.' },
+          { id: 'lt-3', num: '03', label: '컴포넌트 스펙', tone: 'sky', content: 'WAI-ARIA 시맨틱스와 키보드 방향키 물리적 탐색 인터랙션을 100% 지원합니다.' },
+          { id: 'lt-4', num: '04', label: '배포 가이드', tone: 'lavender', content: '100% Pure SVG + Vanilla JS로 구현되어 모든 웹 프레임워크와 즉시 호환됩니다.' }
+        ],
+        defaultTab: 'lt-1',
+        onChange: (tabId) => log(`LayeredTabs: 활성 탭 전환 -> ${tabId}`)
+      });
+      document.getElementById('layered-tabs-container').appendChild(layeredTabs.element);
+
       // 9. Card
       const card = PaperCutSVG.createCard({
         title: '티켓 노치 다이컷 카드',
@@ -881,6 +1093,111 @@
         onChange: (v) => log(`Select: 선택된 종이 스펙 -> ${v}`)
       });
       document.getElementById('select-container').appendChild(select);
+
+      // 13. Badges
+      const bdg1 = PaperCutSVG.createBadge({ label: 'MINT STAMP', tone: 'mint', variant: 'stamp' });
+      const bdg2 = PaperCutSVG.createBadge({ label: 'PEACH TICKET', tone: 'peach', variant: 'ticket' });
+      const bdg3 = PaperCutSVG.createBadge({ label: 'LAVENDER PILL', tone: 'lavender', variant: 'pill' });
+      document.getElementById('badge-container-1').appendChild(bdg1);
+      document.getElementById('badge-container-2').appendChild(bdg2);
+      document.getElementById('badge-container-3').appendChild(bdg3);
+
+      // 14. Input
+      const input = PaperCutSVG.createInput({
+        placeholder: '종이 이름을 입력하세요...',
+        tone: 'mint',
+        variant: 'wavy',
+        onInput: (v) => log(`Input: 입력값 -> ${v}`)
+      });
+      document.getElementById('input-container').appendChild(input);
+
+      // 15. Avatars
+      const av1 = PaperCutSVG.createAvatar({ initials: '홍길', tone: 'mint', size: 48 });
+      const av2 = PaperCutSVG.createAvatar({ initials: '이순', tone: 'peach', size: 48 });
+      const av3 = PaperCutSVG.createAvatar({ initials: '신사', tone: 'lavender', size: 48 });
+      document.getElementById('avatar-container-1').appendChild(av1);
+      document.getElementById('avatar-container-2').appendChild(av2);
+      document.getElementById('avatar-container-3').appendChild(av3);
+
+      // 16. Breadcrumb
+      const breadcrumb = PaperCutSVG.createBreadcrumb({
+        items: [
+          { label: '홈', onClick: () => log('Breadcrumb: 홈 클릭') },
+          { label: '컴포넌트', onClick: () => log('Breadcrumb: 컴포넌트 클릭') },
+          { label: 'SVG 프리미티브', onClick: () => log('Breadcrumb: 프리미티브 클릭') },
+          { label: '현재 위치' }
+        ],
+        tone: 'sand'
+      });
+      document.getElementById('breadcrumb-container').appendChild(breadcrumb);
+
+      // 17. Pagination
+      const pagination = PaperCutSVG.createPagination({
+        current: 2,
+        total: 5,
+        tone: 'mint',
+        onPageChange: (p) => log(`Pagination: ${p} 페이지로 이동`)
+      });
+      document.getElementById('pagination-container').appendChild(pagination);
+
+      // 18. Toast
+      const toastBtn = PaperCutSVG.createButton({
+        label: '토스트 알림 띄우기',
+        tone: 'mint',
+        onClick: () => {
+          PaperCutSVG.createToast({
+            message: '순수 SVG 와시테이프 종이 토스트 알림이 도착했습니다!',
+            tone: 'mint'
+          });
+          log('Toast: 토스트 알림 생성됨');
+        }
+      });
+      document.getElementById('toast-trigger-container').appendChild(toastBtn);
+
+      // 19. Stepper
+      const stepper = PaperCutSVG.createStepper({
+        steps: ['수제 도화지 준비', '정밀 칼선 재단', '입체 레이어 결합', '완성'],
+        active: 1,
+        tone: 'mint'
+      });
+      document.getElementById('stepper-container').appendChild(stepper);
+
+      // 20. Alerts
+      const alert1 = PaperCutSVG.createAlert({
+        title: '신규 종이 텍스처 업데이트',
+        description: '300g 코튼지 질감과 림 하이라이트가 모든 프리미티브에 기본 적용되었습니다.',
+        tone: 'mint',
+        width: 460
+      });
+      const alert2 = PaperCutSVG.createAlert({
+        title: '배포 전 필수 확인',
+        description: 'WAI-ARIA 키보드 방향키 이동 및 고대비 모드를 지원하는지 검증을 완료했습니다.',
+        tone: 'peach',
+        width: 460
+      });
+      document.getElementById('alert-container-1').appendChild(alert1);
+      document.getElementById('alert-container-2').appendChild(alert2);
+
+      // 21. Table
+      const table = PaperCutSVG.createTable({
+        headers: ['식별자', '종이 재질', '무게(g/m²)', '가공 상태'],
+        rows: [
+          ['PC-01', '닥나무 전통 한지', '220g', '재단 완료'],
+          ['PC-02', '수제 코튼 도화지', '300g', '양각 스티치'],
+          ['PC-03', '오트밀 크래프트지', '350g', '출고 준비']
+        ],
+        tone: 'sand',
+        width: 460
+      });
+      document.getElementById('table-container').appendChild(table);
+
+      // 22. Skeleton
+      const skel1 = PaperCutSVG.createSkeleton({ width: 260, height: 24, tone: 'kraft' });
+      const skel2 = PaperCutSVG.createSkeleton({ width: 200, height: 18, tone: 'kraft' });
+      const skel3 = PaperCutSVG.createSkeleton({ width: 140, height: 18, tone: 'kraft' });
+      document.getElementById('skeleton-container-1').appendChild(skel1);
+      document.getElementById('skeleton-container-2').appendChild(skel2);
+      document.getElementById('skeleton-container-3').appendChild(skel3);
     });
   </script>
 </body>

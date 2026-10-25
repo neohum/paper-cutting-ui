@@ -20,7 +20,7 @@
     { id: 'pc-charts-section', title: '3D 페이퍼 벡터 차트', badge: '12종 차트', icon: 'pie-chart-clean', bgShape: 'star-burst-8', bgTheme: 'mint', category: '마스터 UI 키트' },
     
     // 에셋 & 배경 시스템
-    { id: 'icon-gallery', title: '3D 페이퍼컷 아이콘', badge: '750종', icon: 'star-cluster', bgShape: 'cog-seal', bgTheme: 'sky', category: '에셋 & 배경 시스템' },
+    { id: 'icon-gallery', title: '3D 페이퍼컷 아이콘', badge: '816종', icon: 'star-cluster', bgShape: 'cog-seal', bgTheme: 'sky', category: '에셋 & 배경 시스템' },
     { id: 'bg-library', title: '3D 아이콘 배경 플레이트', badge: '130종', icon: 'shield-star', bgShape: 'shield-crest', bgTheme: 'rose', category: '에셋 & 배경 시스템' },
     
     { id: 'texture-showcase', title: '16종 종이 질감 & 토큰', badge: '16 Stocks', icon: 'palette', bgShape: 'pebble-organic', bgTheme: 'sage', category: '디자인 시스템 & 피드백' },
@@ -141,10 +141,11 @@
       if (root.getAttribute('data-hydrated') !== 'true' || !root.firstElementChild) {
         const bgShape = root.getAttribute('data-bg-shape') || (root.dataset && root.dataset.bgShape);
         const iconId = root.getAttribute('data-icon') || (root.dataset && root.dataset.icon);
-        const sizeAttr = root.getAttribute('data-size') || (root.dataset && root.dataset.size) || '52';
-        const size = parseInt(sizeAttr, 10);
+        const sizeAttr = root.getAttribute('data-size') || (root.dataset && root.dataset.size) || '88';
+        const size = parseInt(sizeAttr, 10) || 88;
+        const iconScale = Math.round(size * 0.56);
         if (bgShape && iconId) {
-          const tpl = getMountedPapercutPlateTemplate(bgShape, iconId, { size: size, iconScale: 48 });
+          const tpl = getMountedPapercutPlateTemplate(bgShape, iconId, { size: size, iconScale: iconScale });
           root.textContent = '';
           root.appendChild(tpl.content.cloneNode(true));
           root.setAttribute('data-hydrated', 'true');
@@ -159,10 +160,11 @@
       if (el.getAttribute('data-hydrated') === 'true' && el.firstElementChild) return;
       const bgShape = el.getAttribute('data-bg-shape') || (el.dataset && el.dataset.bgShape);
       const iconId = el.getAttribute('data-icon') || (el.dataset && el.dataset.icon);
-      const sizeAttr = el.getAttribute('data-size') || (el.dataset && el.dataset.size) || '52';
-      const size = parseInt(sizeAttr, 10);
+      const sizeAttr = el.getAttribute('data-size') || (el.dataset && el.dataset.size) || '88';
+      const size = parseInt(sizeAttr, 10) || 88;
+      const iconScale = Math.round(size * 0.56);
       if (bgShape && iconId) {
-        const tpl = getMountedPapercutPlateTemplate(bgShape, iconId, { size: size, iconScale: 48 });
+        const tpl = getMountedPapercutPlateTemplate(bgShape, iconId, { size: size, iconScale: iconScale });
         el.textContent = '';
         el.appendChild(tpl.content.cloneNode(true));
         el.setAttribute('data-hydrated', 'true');
@@ -411,9 +413,15 @@
     hydrateIcons();
     window.addEventListener('load', () => {
       hydrateMountedPlates(sidebarEl);
+      hydrateMountedPlates(document);
     });
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', hydrateIcons);
+      document.addEventListener('DOMContentLoaded', () => {
+        hydrateIcons();
+        hydrateMountedPlates(document);
+      });
+    } else {
+      hydrateMountedPlates(document);
     }
 
     // Synchronize initial toggle button states (Header & Sidebar)
@@ -761,6 +769,9 @@
       if (activePageId === 'pc-blocks-charts' && window.PaperCutUI && window.PaperCutUI.refreshBlocks) {
         window.PaperCutUI.refreshBlocks();
       }
+      if (activePageId === 'pc-charts-section' && window.PapercutCharts && typeof window.PapercutCharts.init === 'function') {
+        window.PapercutCharts.init();
+      }
     }
 
     const stickyHeader = document.getElementById('pc-site-header');
@@ -857,37 +868,45 @@
     if (!container) return;
 
     if (!bar) {
-      bar = document.createElement('div');
+      bar = document.createElement('nav');
       bar.id = 'pc-page-nav-bar';
       container.prepend(bar);
     }
-    bar.className = 'pc-page-nav-bar pc-card pc-card-sheet';
+    bar.className = 'pc-page-nav-bar pc-paper-breadcrumb-bar';
+    bar.setAttribute('aria-label', '현재 위치 네비게이션');
 
     const curIndex = SECTIONS.findIndex(s => s.id === sec.id);
     const subIndex = activeSubId && sec.children ? sec.children.findIndex(c => c.id === activeSubId) : -1;
+    const arrowSep = `<li class="pc-ui-breadcrumb-separator" aria-hidden="true"><span class="pc-crumb-arrow" aria-hidden="true"><span class="pc-inline-icon is-xs" data-icon="chevron-right"></span></span></li>`;
     const subCrumb = subIndex === -1 ? '' :
-      `<li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li><li class="pc-ui-breadcrumb-item"><span class="pc-ui-breadcrumb-page pc-badge pc-badge--lavender" style="font-size: 12px; font-weight: 800;">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span></li>`;
+      `${arrowSep}<li class="pc-ui-breadcrumb-item"><span class="pc-ui-breadcrumb-page pc-crumb-subpage pc-badge pc-badge--lavender" style="font-size: 12px; font-weight: 800;">${String(subIndex + 1).padStart(2, '0')}. ${sec.children[subIndex].title}</span></li>`;
 
     bar.innerHTML = `
-      <nav class="pc-ui-breadcrumb" aria-label="현재 위치">
+      <div class="pc-ui-breadcrumb pc-breadcrumb-layered" aria-label="현재 위치">
         <ol class="pc-ui-breadcrumb-list">
           <li class="pc-ui-breadcrumb-item">
-            <a href="#overview" class="pc-ui-breadcrumb-link" title="홈">
+            <a href="#overview" class="pc-ui-breadcrumb-link pc-crumb-home" title="홈">
               <span class="pc-inline-icon is-xs" data-icon="home"></span>
               <span>홈</span>
             </a>
           </li>
-          <li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li>
+          ${arrowSep}
           <li class="pc-ui-breadcrumb-item">
-            <span class="pc-ui-breadcrumb-link pc-breadcrumb-category" style="cursor: default;">${sec.category}</span>
+            <span class="pc-ui-breadcrumb-link pc-crumb-category" style="cursor: default;">
+              <span class="pc-inline-icon is-xs" data-icon="folder"></span>
+              <span>${sec.category}</span>
+            </span>
           </li>
-          <li class="pc-ui-breadcrumb-separator" aria-hidden="true">›</li>
+          ${arrowSep}
           <li class="pc-ui-breadcrumb-item">
-            <span class="pc-ui-breadcrumb-page pc-breadcrumb-current">${sec.title}</span>
+            <span class="pc-ui-breadcrumb-page pc-crumb-page" aria-current="page">
+              <span class="pc-inline-icon is-xs" data-icon="sparkles"></span>
+              <span>${sec.title}</span>
+            </span>
           </li>
           ${subCrumb}
         </ol>
-      </nav>
+      </div>
       <div class="pc-page-nav-actions">
         <span class="pc-badge pc-badge--ticket pc-badge--lavender" style="font-size:12px; font-weight:800; padding: 5px 14px;">
           ${isPageMode ? `페이지 ${curIndex + 1} / ${SECTIONS.length}` : '전체 연속 스크롤'}
@@ -1050,14 +1069,16 @@
 
     pagination.innerHTML = `
       ${prevSec ? `
-        <a href="#${prevSec.id}" class="pc-page-prev-btn" data-page="${prevSec.id}">
+        <a href="#${prevSec.id}" class="pc-btn pc-btn-secondary pc-page-prev-btn inline-flex items-center justify-center leading-none" data-page="${prevSec.id}" title="이전 페이지: ${prevSec.title}">
           <span class="pc-inline-icon is-xs" data-icon="arrow-left"></span>
-          <span>이전 페이지: ${prevSec.title}</span>
+          <span class="pc-page-btn-direction">이전 페이지:</span>
+          <span class="pc-page-btn-title">${prevSec.title}</span>
         </a>
       ` : '<div></div>'}
       ${nextSec ? `
-        <a href="#${nextSec.id}" class="pc-page-next-btn" data-page="${nextSec.id}">
-          <span>다음 페이지: ${nextSec.title}</span>
+        <a href="#${nextSec.id}" class="pc-btn pc-btn-primary pc-swatch-mint pc-page-next-btn inline-flex items-center justify-center leading-none" data-page="${nextSec.id}" title="다음 페이지: ${nextSec.title}">
+          <span class="pc-page-btn-direction">다음 페이지:</span>
+          <span class="pc-page-btn-title">${nextSec.title}</span>
           <span class="pc-inline-icon is-xs" data-icon="arrow-right"></span>
         </a>
       ` : '<div></div>'}
@@ -1074,6 +1095,9 @@
     }
     if (pageId === 'pc-blocks-charts' && window.PaperCutUI && window.PaperCutUI.refreshBlocks) {
       window.PaperCutUI.refreshBlocks();
+    }
+    if (pageId === 'pc-charts-section' && window.PapercutCharts && typeof window.PapercutCharts.init === 'function') {
+      window.PapercutCharts.init();
     }
     if (typeof window.applyPapercutStrokeByScale === 'function') {
       const activeEl = document.getElementById(pageId);

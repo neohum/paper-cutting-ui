@@ -2639,4 +2639,167 @@ function initPaperHorizontalScroll() {
   });
 }
 
+/**
+ * ============================================================================
+ * AUTHENTIC LAYERED PAPER CRAFT TABS (레이어드 페이퍼 크래프트 탭 덱 엔진)
+ * 스크롤 대신 활성 탭을 중심으로 색 카드가 왼쪽/오른쪽으로 계단식으로 겹쳐서 쌓이는 3D 종이공예 탭
+ * ============================================================================
+ */
+function updateLayeredTabsDeck(deckEl, activeIndexOrEl) {
+  if (!deckEl) return;
+  const cards = Array.from(deckEl.querySelectorAll('.pc-layered-tab-card'));
+  if (!cards.length) return;
+
+  let activeIndex = -1;
+  if (typeof activeIndexOrEl === 'number') {
+    activeIndex = activeIndexOrEl;
+  } else if (activeIndexOrEl && activeIndexOrEl instanceof Element) {
+    activeIndex = cards.indexOf(activeIndexOrEl);
+  }
+
+  if (activeIndex < 0 || activeIndex >= cards.length) {
+    activeIndex = cards.findIndex(c => c.classList.contains('is-active') || c.getAttribute('aria-selected') === 'true');
+    if (activeIndex === -1) activeIndex = 0;
+  }
+
+  const TONE_COLORS = {
+    mint: { bg: '#A3D8C3', light: '#EAF7F1' },
+    peach: { bg: '#F7BA9E', light: '#FDF1EA' },
+    sky: { bg: '#BDE0EA', light: '#EDF7FA' },
+    lavender: { bg: '#D7CBEB', light: '#F4F0FA' },
+    buttercup: { bg: '#FEE396', light: '#FFF9E8' },
+    sand: { bg: '#F5CE82', light: '#FFF8EA' },
+    rose: { bg: '#F5B8BE', light: '#FDF0F1' }
+  };
+
+  cards.forEach((card, idx) => {
+    const tone = card.getAttribute('data-tone') || (card.className.match(/is-(\w+)/) || [])[1] || 'mint';
+    const pal = TONE_COLORS[tone] || TONE_COLORS.mint;
+    const svgSheet = card.querySelector('.pc-tab-svg-sheet');
+    const svgLabel = card.querySelector('.pc-tab-svg-label');
+
+    if (idx < activeIndex) {
+      // 왼쪽 스택: 왼쪽으로 비스듬히 차곡차곡 포개어 쌓임
+      card.setAttribute('data-stack', 'left');
+      card.classList.remove('is-active');
+      card.setAttribute('aria-selected', 'false');
+      card.tabIndex = -1;
+      const dist = activeIndex - idx;
+      card.style.setProperty('--stack-dist', dist);
+      card.style.zIndex = 10 + idx;
+      if (svgSheet) svgSheet.setAttribute('fill', pal.light);
+      if (svgLabel) svgLabel.setAttribute('font-weight', '700');
+    } else if (idx === activeIndex) {
+      // 활성 중앙 카드: 정면 위로 솟아오름
+      card.setAttribute('data-stack', 'active');
+      card.classList.add('is-active');
+      card.setAttribute('aria-selected', 'true');
+      card.tabIndex = 0;
+      card.style.removeProperty('--stack-dist');
+      card.style.zIndex = 30;
+      if (svgSheet) svgSheet.setAttribute('fill', pal.bg);
+      if (svgLabel) svgLabel.setAttribute('font-weight', '800');
+    } else {
+      // 오른쪽 스택: 오른쪽으로 비스듬히 차곡차곡 포개어 쌓임
+      card.setAttribute('data-stack', 'right');
+      card.classList.remove('is-active');
+      card.setAttribute('aria-selected', 'false');
+      card.tabIndex = -1;
+      const dist = idx - activeIndex;
+      card.style.setProperty('--stack-dist', dist);
+      card.style.zIndex = 30 - dist;
+      if (svgSheet) svgSheet.setAttribute('fill', pal.light);
+      if (svgLabel) svgLabel.setAttribute('font-weight', '700');
+    }
+  });
+
+  // 연결된 패널 전환 (data-tab-target 또는 data-controls)
+  const activeCard = cards[activeIndex];
+  const targetId = activeCard.getAttribute('data-tab-target') || activeCard.getAttribute('aria-controls');
+  if (targetId) {
+    const parentContainer = deckEl.closest('.pc-layered-tabs-container') || deckEl.parentElement;
+    if (parentContainer) {
+      const panels = parentContainer.querySelectorAll('.pc-layered-tab-panel');
+      panels.forEach(p => {
+        if (p.id === targetId || p.getAttribute('data-tab-panel') === targetId) {
+          p.classList.add('is-active');
+          p.style.display = 'block';
+        } else {
+          p.classList.remove('is-active');
+          p.style.display = 'none';
+        }
+      });
+    }
+  }
+
+  // 탭 변경 이벤트 디스패치
+  deckEl.dispatchEvent(new CustomEvent('pc-tab-change', {
+    detail: { index: activeIndex, card: activeCard, targetId }
+  }));
+}
+
+function initLayeredTabs() {
+  const decks = document.querySelectorAll('.pc-layered-tabs-deck');
+  decks.forEach(deck => {
+    updateLayeredTabsDeck(deck);
+
+    // 클릭 이벤트
+    deck.addEventListener('click', (e) => {
+      const card = e.target.closest('.pc-layered-tab-card');
+      if (!card || !deck.contains(card)) return;
+      e.preventDefault();
+      updateLayeredTabsDeck(deck, card);
+      
+      // 사운드 효과
+      if (typeof playPaperSound === 'function') {
+        playPaperSound('cardstock');
+      }
+    });
+
+    // 키보드 내비게이션 (WAI-ARIA 방향키)
+    deck.addEventListener('keydown', (e) => {
+      const cards = Array.from(deck.querySelectorAll('.pc-layered-tab-card'));
+      const currentIndex = cards.findIndex(c => c === document.activeElement);
+      if (currentIndex === -1) return;
+
+      let nextIndex = currentIndex;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        nextIndex = (currentIndex + 1) % cards.length;
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        nextIndex = (currentIndex - 1 + cards.length) % cards.length;
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        nextIndex = 0;
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        nextIndex = cards.length - 1;
+      }
+
+      if (nextIndex !== currentIndex) {
+        cards[nextIndex].focus();
+        updateLayeredTabsDeck(deck, nextIndex);
+        if (typeof playPaperSound === 'function') {
+          playPaperSound('cardstock');
+        }
+      }
+    });
+  });
+}
+
+// Global Export
+if (typeof window !== 'undefined') {
+  window.PaperCutUI = window.PaperCutUI || {};
+  window.PaperCutUI.updateLayeredTabs = updateLayeredTabsDeck;
+  window.PaperCutUI.initLayeredTabs = initLayeredTabs;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLayeredTabs);
+  } else {
+    initLayeredTabs();
+  }
+}
+
+
 

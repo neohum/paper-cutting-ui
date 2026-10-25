@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>수업 배포·수집</title>
+  <meta name="description" content="페이퍼커팅 40분 차시를 학생에게 배포(포털·런처 허브·링크/QR·종이)하고 결과를 모아 난이도를 조정하는 교사 화면">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../vendor/uicons/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="../engine/paperkit.css">
+  <link rel="stylesheet" href="player.css">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <a class="skip" href="#lessons">본문으로 건너뛰기</a>
+  <div class="pl-app">
+    <header class="pl-top pc-card">
+      <div class="pl-top__title">
+        <span class="pl-chip">교사용</span>
+        <h1>수업 배포·결과 수집</h1>
+        <p class="pl-muted">① 차시를 고르고 ② 배포 방법을 고른 뒤 ③ 수업이 끝나면 결과를 모아 다음 차시 난이도를 정합니다.</p>
+      </div>
+      <form id="class-form" class="t-class">
+        <label>반 코드 <input id="class" maxlength="12" autocomplete="off" placeholder="예: 2-3"></label>
+        <label>학생 수 <input id="expected" type="number" min="1" max="40" value="25"></label>
+      </form>
+    </header>
+
+    <section class="pc-card pl-card" aria-labelledby="h-lessons">
+      <div class="t-row"><h2 id="h-lessons">① 차시 고르기</h2>
+        <div role="group" aria-label="학년" id="grade-filter" class="pl-level"></div></div>
+      <ul id="lessons" class="t-lessons" tabindex="-1"></ul>
+    </section>
+
+    <section class="pc-card pl-card" aria-labelledby="h-dist" id="dist" hidden>
+      <h2 id="h-dist">② 배포하기 — <span id="dist-title"></span></h2>
+      <div class="t-tabs" role="tablist" aria-label="배포 방법">
+        <button role="tab" aria-selected="true" data-tab="portal"><i class="fi fi-rr-graduation-cap" aria-hidden="true"></i> 학생 포털 과제</button>
+        <button role="tab" aria-selected="false" data-tab="hub"><i class="fi fi-rr-wifi" aria-hidden="true"></i> 런처 교실 허브</button>
+        <button role="tab" aria-selected="false" data-tab="link"><i class="fi fi-rr-qrcode" aria-hidden="true"></i> 링크·QR</button>
+        <button role="tab" aria-selected="false" data-tab="paper"><i class="fi fi-rr-print" aria-hidden="true"></i> 종이</button>
+      </div>
+      <div class="t-panel" data-panel="portal" role="tabpanel">
+        <p>do.io.kr 학생 포털에 <b>과제</b>로 냅니다. 학생은 포털에 로그인해 과제를 열고, 결과는 포털의 자료 제출함(<code>web_material_submissions</code>)으로 자동으로 들어옵니다. 런처의 <b>자료 배포</b> 화면에 아래 링크를 붙이면 되고, 실제 API로는 <code>POST /api/assignments</code> 다음 <code>/publish</code>입니다.</p>
+        <label>과제 링크(외부 링크) <input id="portal-url" readonly></label>
+        <details><summary>web_assignments 요청 본문</summary><pre id="portal-json" class="t-pre"></pre></details>
+        <div class="pl-actions"><button class="pl-btn pl-btn--primary" id="portal-post"><i class="fi fi-rr-paper-plane" aria-hidden="true"></i> 시험용 포털에 게시</button>
+          <a class="pl-btn" href="portal-sim.html" target="_blank" rel="noopener">학생 포털 시험대 열기 <span class="sr-only">(새 창)</span></a></div>
+        <p class="pl-muted" id="portal-status" role="status"></p>
+      </div>
+      <div class="t-panel" data-panel="hub" role="tabpanel" hidden>
+        <p>인터넷이 느리거나 막힌 교실은 <b>교사 런처의 교실 허브</b>로 같은 와이파이 안에서 나눠 줍니다. 묶음(zip)을 런처에 설치하면 학생 화면에 <code>/dist/&lt;차시&gt;/</code>로 뜨고, 학생은 반 코드와 번호를 넣고 시작합니다. 런처 허브는 외부 글꼴·CDN을 막기 때문에 묶음 안에 아이콘 글꼴까지 들어 있습니다.</p>
+        <div class="pl-actions"><a class="pl-btn pl-btn--primary" id="hub-zip" download><i class="fi fi-rr-download" aria-hidden="true"></i> 런처용 묶음(zip)</a><a class="pl-btn" id="hub-open" target="_blank" rel="noopener">허브 주소로 열기 <span class="sr-only">(새 창)</span></a></div>
+        <p class="t-warn"><i class="fi fi-rr-info" aria-hidden="true"></i> 지금 런처 허브에는 결과를 받는 주소(<code>/api/tools/&lt;id&gt;/submissions</code>)가 아직 없습니다. 허브로 배포하면 결과는 학생 화면에 크게 뜨는 <b>짧은 제출 코드</b>(예: 7K2M-9QX4-…)를 아래 ③에 붙여 넣어 받습니다. 이 시험대(classroom-hub.mjs)에서는 그 주소를 흉내 내어 자동 수집을 확인합니다.</p>
+      </div>
+      <div class="t-panel" data-panel="link" role="tabpanel" hidden>
+        <p>크롬북 바탕화면·학급 홈페이지·패들렛 어디든 붙일 수 있는 링크와 QR입니다. 반 코드가 들어 있어 학생은 번호만 넣습니다.</p>
+        <div class="t-qr"><div id="qr" aria-label="수업 링크 QR 코드" role="img"></div>
+          <div><label>학생 링크 <input id="student-url" readonly></label>
+            <label>교사(전자칠판) 링크 <input id="teacher-url" readonly></label>
+            <div class="pl-actions"><button class="pl-btn" id="qr-big"><i class="fi fi-rr-expand" aria-hidden="true"></i> QR 크게 띄우기</button><button class="pl-btn" id="copy"><i class="fi fi-rr-copy" aria-hidden="true"></i> 학생 링크 복사</button><a class="pl-btn pl-btn--primary" id="open-teacher" target="_blank" rel="noopener"><i class="fi fi-rr-chalkboard-user" aria-hidden="true"></i> 전자칠판으로 수업 <span class="sr-only">(새 창)</span></a></div>
+            <p class="pl-muted" id="copy-status" role="status"></p></div></div>
+      </div>
+      <div class="t-panel" data-panel="paper" role="tabpanel" hidden>
+        <p>기기가 없거나 숙제로 낼 때 쓰는 A4 활동지입니다. 디지털 교구와 같은 그림이 흑백 칼선으로 들어갑니다.</p>
+        <div class="pl-actions"><a class="pl-btn pl-btn--primary" id="ws-basic" target="_blank" rel="noopener"><i class="fi fi-rr-print" aria-hidden="true"></i> 기본 활동지 <span class="sr-only">(새 창)</span></a><a class="pl-btn" id="ws-easy" target="_blank" rel="noopener">쉬운 활동지 <span class="sr-only">(새 창)</span></a></div>
+      </div>
+    </section>
+
+    <section class="pc-card pl-card" aria-labelledby="h-collect" id="collect" hidden>
+      <div class="t-row"><h2 id="h-collect">③ 결과 모으기</h2>
+        <span class="pl-muted" id="live" role="status"></span></div>
+      <div class="t-import">
+        <label>제출 코드 붙여 넣기 (여러 줄 가능) <textarea id="codes" rows="3" placeholder="학생 화면의 짧은 코드(예: 1A2B-3C4D-5E6F) 또는 EL1. 긴 코드 — 여러 개는 줄을 바꿔서"></textarea></label>
+        <div class="pl-actions"><button class="pl-btn" id="add-codes"><i class="fi fi-rr-add" aria-hidden="true"></i> 코드 넣기</button>
+          <label class="pl-btn"><i class="fi fi-rr-folder-open" aria-hidden="true"></i> 결과 파일 넣기<input type="file" id="files" accept="application/json,.json" multiple class="sr-only"></label>
+          <button class="pl-btn" id="csv"><i class="fi fi-rr-file-spreadsheet" aria-hidden="true"></i> CSV 내려받기</button></div>
+        <p class="pl-muted" id="import-status" role="status"></p>
+      </div>
+      <div id="summary"></div>
+    </section>
+  </div>
+  <div class="t-overlay" id="qr-overlay" hidden role="dialog" aria-modal="true" aria-label="전자칠판용 큰 QR"><div class="t-overlay__box"><div id="qr-big-box"></div><p>카메라로 찍고 번호를 넣으면 시작해요</p><button class="pl-btn pl-btn--primary" id="qr-close">닫기</button></div></div>
+  <script src="../vendor/qrcode/qrcode.js"></script>
+  <script src="manifest.js"></script>
+  <script src="registry.js"></script>
+  <script src="analytics.js"></script>
+  <script src="teacher.js"></script>
+</body>
+</html>

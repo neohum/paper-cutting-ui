@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>학생 포털 시험대</title>
+  <meta name="description" content="web-student 학생 포털의 과제 목록과 앱 내 뷰어(iframe) 제출 중계를 흉내 낸 시험용 화면">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../vendor/uicons/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="player.css">
+  <style>
+    .ps-list { display: grid; gap: 12px; list-style: none; padding: 0; margin: 0; }
+    .ps-list li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; }
+    .ps-viewer { position: fixed; inset: 0; background: rgba(46, 30, 20, 0.45); display: grid; place-items: center; padding: 12px; }
+    .ps-viewer[hidden] { display: none; }
+    .ps-frame { width: min(1300px, 100%); height: min(860px, 100%); display: grid; grid-template-rows: auto 1fr; overflow: hidden; }
+    .ps-frame header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; gap: 8px; }
+    .ps-frame iframe { width: 100%; height: 100%; border: 0; background: #F8F4EC; }
+    .ps-toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: #EAF7F1; padding: 12px 18px; border-radius: 14px; box-shadow: var(--pc-shadow-elevated); }
+  </style>
+</head>
+<body>
+  <div class="pl-app">
+    <header class="pl-top pc-card">
+      <div class="pl-top__title"><span class="pl-chip">시험대</span><h1>학생 포털 (web-student 흉내)</h1>
+        <p class="pl-muted">실제 포털의 InAppWebViewerModal처럼 과제 링크를 iframe으로 열고, 도구가 보낸 <code>edulinker_submission</code> 메시지를 자료 제출(web_material_submissions)로 중계합니다. 이름은 보내지 않고 번호만 씁니다.</p></div>
+      <form id="who" class="pl-actions"><label>학년 <input name="g" size="2" value="2"></label><label>반 <input name="c" size="2" value="3"></label><label>번호 <input name="n" size="3" required></label><button class="pl-btn pl-btn--primary">로그인</button></form>
+    </header>
+    <section class="pc-card pl-card"><h2>내 과제</h2><ul id="list" class="ps-list"><li class="pl-muted">로그인하면 과제가 보입니다.</li></ul></section>
+  </div>
+  <div class="ps-viewer" id="viewer" hidden><div class="ps-frame pc-card"><header><b id="vt"></b><button class="pl-btn" id="close"><i class="fi fi-rr-cross-small" aria-hidden="true"></i> 닫기</button></header><iframe id="frame" title="과제 보기" allow="autoplay"></iframe></div></div>
+  <div class="ps-toast" id="toast" role="status" hidden></div>
+  <script>
+    (function () {
+      let me = null; let open = null;
+      const $ = (s) => document.querySelector(s);
+      const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      $('#who').addEventListener('submit', async (e) => {
+        e.preventDefault(); const f = new FormData(e.target);
+        me = { grade: Number(f.get('g')), cls: Number(f.get('c')), num: Number(f.get('n')) };
+        const all = await (await fetch('/api/portal/assignments')).json();
+        const mine = all.filter((a) => (!a.target_grade || a.target_grade === me.grade) && (!a.target_class_num || a.target_class_num === me.cls));
+        $('#list').innerHTML = mine.length ? mine.map((a) => `<li class="pc-card"><span><b>${esc(a.title)}</b><br><span class="pl-muted">${esc(a.payload_json.subject_tag || '')}</span></span><button class="pl-btn pl-btn--primary" data-open="${a.id}">열기</button></li>`).join('') : '<li class="pl-muted">받은 과제가 없습니다.</li>';
+        window.__assignments = mine;
+      });
+      document.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-open]'); if (!b) return;
+        open = window.__assignments.find((a) => a.id === b.dataset.open);
+        const link = open.payload_json.external_links[0];
+        const u = new URL(typeof link === 'string' ? link : link.url, location.href);
+        // inAppViewerPolicy.normalizeViewerUrl: material_id를 붙인다
+        u.searchParams.set('material_id', open.id);
+        $('#vt').textContent = open.title; $('#frame').src = u.toString(); $('#viewer').hidden = false;
+      });
+      $('#close').addEventListener('click', () => { $('#viewer').hidden = true; $('#frame').src = 'about:blank'; });
+      window.addEventListener('message', async (e) => {
+        // isTrustedViewerMessage: 뷰어 iframe에서 온 메시지만
+        if (e.source !== $('#frame').contentWindow) return;
+        if (e.data?.type !== 'edulinker_submission' || !e.data.payload || !open) return;
+        const payload = Object.assign({}, e.data.payload, { deviceLabel: `${me.grade}-${me.cls}-${me.num}번 학생` });
+        const r = await fetch(`/api/portal/materials/${encodeURIComponent(open.id)}/submit`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
+        const t = $('#toast'); t.hidden = false; t.textContent = r.ok ? '선생님께 제출했어요' : `제출 실패 (${r.status})`;
+        window.__portalSubmitted = (window.__portalSubmitted || 0) + (r.ok ? 1 : 0);
+        setTimeout(() => { t.hidden = true; }, 2500);
+      });
+    })();
+  </script>
+</body>
+</html>

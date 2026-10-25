@@ -156,12 +156,41 @@ body.is-collapsed {
 }
 
 .pc-site-logo-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 17px;
   font-weight: 800;
   letter-spacing: -0.4px;
   line-height: 1.15;
   color: var(--pc-ink, #3D352E);
   white-space: nowrap;
+}
+
+.pc-logo-word-papercut {
+  font-size: 22px; /* 'PaperCut' 글자를 17px -> 22px로 확대하여 가시성 및 3D 입체감 강화 */
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  color: var(--pc-ink, #2E251E);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95), 0 1.5px 3px rgba(46, 30, 20, 0.12);
+}
+
+.pc-logo-badge-ui {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 2px 7px !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.5px !important;
+  line-height: 1 !important;
+  border-radius: 6px !important;
+  background: #BBD5B8 !important;
+  color: #1A543B !important;
+  border: 1px solid #FFFFFF !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 1.2px 2px rgba(46, 30, 20, 0.32) !important;
 }
 
 .pc-site-logo-sub {
@@ -1192,14 +1221,14 @@ body.is-collapsed #pc-sidebar-nav {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  width: 52px !important;
-  height: 52px !important;
-  min-width: 52px !important;
-  min-height: 52px !important;
+  width: var(--pc-section-plate-size, 88px) !important;
+  height: var(--pc-section-plate-size, 88px) !important;
+  min-width: var(--pc-section-plate-size, 88px) !important;
+  min-height: var(--pc-section-plate-size, 88px) !important;
   flex-shrink: 0 !important;
   vertical-align: middle !important;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease !important;
-  filter: drop-shadow(0 2px 5px rgba(46, 30, 20, 0.20)) !important;
+  filter: drop-shadow(0 4px 12px rgba(46, 30, 20, 0.24)) !important;
   overflow: visible !important;
   line-height: 1 !important;
   cursor: pointer;
@@ -1213,8 +1242,8 @@ body.is-collapsed #pc-sidebar-nav {
 
 .pc-section-plate svg.pc-mounted-plate-svg,
 .pc-mounted-plate svg.pc-mounted-plate-svg {
-  width: 52px !important;
-  height: 52px !important;
+  width: 100% !important;
+  height: 100% !important;
   display: block !important;
   overflow: visible !important;
 }
@@ -1223,8 +1252,25 @@ body.is-collapsed #pc-sidebar-nav {
 .section-title {
   display: flex !important;
   align-items: center !important;
-  gap: 12px !important;
-  flex-wrap: wrap !important;
+  flex-wrap: nowrap !important;
+  gap: 16px !important;
+  min-height: 88px !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.pc-section-title > .pc-section-plate,
+.pc-section-title > .pc-mounted-plate,
+.section-title > .pc-section-plate,
+.section-title > .pc-mounted-plate {
+  flex-shrink: 0 !important;
+}
+
+.pc-section-title > span:not(.pc-section-plate):not(.pc-mounted-plate),
+.section-title > span:not(.pc-section-plate):not(.pc-mounted-plate) {
+  flex: 1 1 auto;
+  min-width: 0;
+  word-break: keep-all;
+  line-height: 1.3;
 }
 
 /* 7.1 Unified 3D Kirigami SVG Page Mode Toggle Button */
@@ -1872,46 +1918,26 @@ body.is-collapsed #pc-sidebar-nav {
 
 .pc-page-nav-bar,
 #pc-page-nav-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 6px 2px 20px 2px !important;
+  margin-bottom: 24px !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   position: relative !important;
   isolation: isolate !important;
-  background: var(--pc-paper-white, #FFFDF9) !important;
-  border: 1px solid rgba(46, 30, 20, 0.12) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  border-radius: 16px !important;
-  box-shadow: 
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.92),
-    0 1.5px 0 rgba(46, 30, 20, 0.26),
-    0 3.5px 10px rgba(46, 30, 20, 0.10) !important;
 }
 
 .pc-page-nav-bar::before,
-#pc-page-nav-bar::before {
-  display: none !important;
-  content: none !important;
-}
-
+#pc-page-nav-bar::before,
 .pc-page-nav-bar::after,
 #pc-page-nav-bar::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: -6px !important; /* 상하좌우 6px 균일 확장 */
-  border-radius: calc(16px + 6px) !important; /* 22px 동심원 라운딩 */
-  background: #EFE4D2 !important; /* 내추럴 웜 크래프트 도화지 원단 */
-  border: 1px solid rgba(46, 30, 20, 0.14) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 0 0 0.88px rgba(255, 255, 255, 0.90),
-    0 1.5px 3px rgba(46, 30, 20, 0.16),
-    0 5px 14px -2px rgba(46, 30, 20, 0.12) !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-  transform: none !important;
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s ease !important;
+  display: none !important;
+  content: none !important;
 }
 
 /* AI Prompt Box - Authentic Cutout Well Depth & 3D Paper Bandage Tag */
@@ -3101,6 +3127,53 @@ body:not(.pc-loaded) {
   animation: pc-spinner-pulse 2.4s ease-in-out infinite;
 }
 
+@keyframes pc-wifi-fly-away {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  14% {
+    transform: translateY(3px) scale(0.97);
+    opacity: 1;
+  }
+  38% {
+    transform: translateY(-46px) scale(1.18);
+    opacity: 0;
+  }
+  52% {
+    transform: translateY(22px) scale(0.75);
+    opacity: 0;
+  }
+  72% {
+    transform: translateY(-2px) scale(1.03);
+    opacity: 1;
+  }
+  85%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.pc-wifi-wave-top {
+  transform-origin: 80px 48px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0s infinite;
+}
+
+.pc-wifi-wave-mid {
+  transform-origin: 80px 68px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.22s infinite;
+}
+
+.pc-wifi-wave-inner {
+  transform-origin: 80px 88px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.44s infinite;
+}
+
+.pc-wifi-dot {
+  transform-origin: 80px 112px;
+  animation: pc-wifi-fly-away 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.66s infinite;
+}
+
 @keyframes pc-spinner-rotate-cw {
   from {
     transform: rotate(0deg);
@@ -3146,6 +3219,10 @@ body:not(.pc-loaded) {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .pc-wifi-wave-top,
+  .pc-wifi-wave-mid,
+  .pc-wifi-wave-inner,
+  .pc-wifi-dot,
   .pc-spinner-gear,
   .pc-spinner-pinwheel,
   .pc-spinner-badge,

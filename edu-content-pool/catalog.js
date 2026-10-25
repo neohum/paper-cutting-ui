@@ -254,7 +254,13 @@
         </div>
         <div class="mode-card mode-card--digital">
           <h3>크롬북 · 디지털</h3>
-          ${p.tool ? `<p><strong>${esc(p.tool.name)}</strong> <span class="chip chip--butter">제작 예정</span></p><p class="muted">${esc(p.tool.interaction)}</p>` : '<p class="muted">이 차시는 종이 활동으로 진행합니다.</p>'}
+          ${(() => {
+            // 만들어진 움직이는 교구 차시(lessons/manifest.js)가 이 차시 또는 이 단원에 있으면 바로 연다
+            const built = (window.EDU_LESSONS || []).filter((x) => x.catalog && x.catalog.unit === u.id);
+            const exact = built.find((x) => x.catalog.lesson === lesson.i);
+            if (built.length) return `<p><span class="chip chip--mint">수업 준비됨</span> ${exact ? '이 차시' : '이 단원'}의 움직이는 교구 수업</p>${built.map((x) => `<p><a href="lessons/player.html?lesson=${esc(x.id)}&role=teacher" target="_blank" rel="noopener">${esc(x.title)} — 전자칠판<span class="sr-only">(새 창)</span></a> · <a href="lessons/teacher.html" target="_blank" rel="noopener">배포·수집<span class="sr-only">(새 창)</span></a></p>`).join('')}`;
+            return p.tool ? `<p><strong>${esc(p.tool.name)}</strong> <span class="chip chip--butter">제작 예정</span></p><p class="muted">${esc(p.tool.interaction)}</p>` : '<p class="muted">이 차시는 종이 활동으로 진행합니다.</p>';
+          })()}
         </div>
         <div class="mode-card mode-card--site">
           <h3>교육 사이트</h3>
@@ -381,7 +387,7 @@
     $('#stats').innerHTML = `
       <div class="stat"><span class="stat__n">${total.toLocaleString('ko-KR')}</span><span class="stat__l">차시</span></div>
       <div class="stat"><span class="stat__n">${verifiedU}/${C.units.length}</span><span class="stat__l">단원명 확인</span></div>
-      <div class="stat"><span class="stat__n">0/${C.tools.length}</span><span class="stat__l">디지털 도구 제작</span></div>
+      <div class="stat"><span class="stat__n">${(window.EDU_LESSONS || []).length}</span><span class="stat__l">움직이는 교구 수업</span></div>
       <div class="stat"><span class="stat__n">${total.toLocaleString('ko-KR')}</span><span class="stat__l">인쇄 활동지</span></div>`;
   }
 
