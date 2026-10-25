@@ -13,7 +13,8 @@ PaperLessons.register({
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   illustration: {
-    prompt: 'Layered paper-cut illustration of four little trees standing side by side on rolling hills, one with pink spring blossoms, one with thick green summer leaves, one with orange and yellow autumn leaves, and one with bare branches under falling snow, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of four little trees standing side by side on rolling hills, one with pink spring blossoms, one with thick green summer leaves, one with orange and yellow autumn leaves, and one with bare branches under falling snow, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g2-together-seasons.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: padScene({ motif: 'hills', y: 206, colors: ['mint', 'buttercup', 'sky'] }, [
       { motif: 'sun', x: 410, y: 52, s: 0.7 }, { motif: 'cloud', x: 110, y: 50, s: 0.8 }, { motif: 'cloud', x: 300, y: 36, s: 0.6 },
       { motif: 'tree', x: 80, y: 214, color: 'rose' }, { motif: 'tree', x: 190, y: 210, color: 'mint' },

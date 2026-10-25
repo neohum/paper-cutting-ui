@@ -68,12 +68,44 @@
     };
   }
 
+  // 제출 한 건을 가리키는 무작위 id — 포털의 받음 확인(ack)을 짝지을 때만 쓴다. 학생 정보는 들어 있지 않다.
+  const clientIdOf = () => {
+    try { if (root.crypto && root.crypto.randomUUID) return root.crypto.randomUUID(); } catch (_) { /* 보안 문맥 아님 */ }
+    return `c${Date.now().toString(36)}${Math.random().toString(36).slice(2, 10)}`;
+  };
+  const isPlain = (d) => d != null && typeof d === 'object' && !Array.isArray(d) && Object.prototype.toString.call(d) === '[object Object]';
+  // 부모 포털이 { type: 'edulinker_submission:ack', ok, clientId? } 로 답하면 'received'|'rejected',
+  // ms 안에 답이 없으면 'unconfirmed'(넘기긴 했지만 받았는지 모름 — 지금의 실제 포털이 그렇다)
+  function waitAck(clientId, ms) {
+    return new Promise((resolve) => {
+      const done = (v) => { clearTimeout(t); root.removeEventListener('message', on); resolve(v); };
+      const on = (e) => {
+        if (e.source !== root.parent) return;
+        const d = e.data;
+        if (!isPlain(d) || d.type !== 'edulinker_submission:ack' || typeof d.ok !== 'boolean') return;
+        // 실제 포털(web-student)은 clientId를 붙이지 않을 수도 있다 — 출처가 부모로 확인됐으면 id 없는 답은 이 제출의 답으로 본다
+        const ref = d.clientId ?? d.submissionId;
+        if (ref != null && ref !== clientId) return;
+        done(d.ok ? 'received' : 'rejected');
+      };
+      const t = setTimeout(() => done('unconfirmed'), ms);
+      root.addEventListener('message', on);
+    });
+  }
+
   async function submit(result, opts = {}) {
     const routes = [];
     const payload = sdkPayload(result, opts);
-    // 1) 학생 포털·런처 웹뷰 안(iframe)이면 부모에게 넘긴다. 포털은 답(ack)을 주지 않으므로 SDK처럼 넘긴 것으로 본다.
+    payload.clientId = payload.clientId || clientIdOf();
+    let ack = null;
+    // 1) 학생 포털·런처 웹뷰 안(iframe)이면 부모에게 넘긴다. 받음 확인은 보낸 뒤 따로 기다린다(아래 sent.ack).
     if (root.parent && root.parent !== root) {
-      try { root.parent.postMessage({ type: 'edulinker_submission', source: 'paperkit-lesson', payload }, '*'); routes.push('portal'); } catch (_) { /* 부모 없음 */ }
+      // 듣기를 먼저 건다 — 허브 전송을 기다리는 사이에 온 ack를 놓치지 않게
+      const waiting = waitAck(payload.clientId, opts.ackMs ?? 5000);
+      try {
+        root.parent.postMessage({ type: 'edulinker_submission', source: 'paperkit-lesson', clientId: payload.clientId, payload }, '*');
+        routes.push('portal'); ack = waiting;
+      } catch (_) { /* 부모 없음 */ }
     }
     // 2) 교실 허브(LAN): 런처가 /dist/<id>/로 서빙하면 같은 출처의 도구 제출 주소. ?collect=로 바꿀 수 있다.
     const hub = opts.collect || (location.pathname.includes('/dist/') && location.protocol.startsWith('http')
@@ -85,8 +117,22 @@
     const delivered = routes.some((r) => r === 'portal' || r === 'hub');
     // 수집 주소가 아예 없는 곳(404: 실제 런처 허브 등)은 다시 보내도 소용없으니 대기열에 넣지 않는다
     const noEndpoint = routes.some((r) => /HTTP 40[45]/.test(r));
-    if (!delivered && !noEndpoint) { const q = readQ(); q.push({ collect: opts.collect || null, payload }); writeQ(q); routes.push('queued'); }
-    return { delivered, routes, code: encode(result) };
+    const enqueue = () => { const q = readQ(); q.push({ collect: opts.collect || null, payload }); writeQ(q); routes.push('queued'); };
+    if (!delivered && !noEndpoint) enqueue();
+    const sent = { delivered, routes, code: encode(result), clientId: payload.clientId, portal: ack ? 'pending' : null };
+    if (ack) {
+      // 열거되지 않게 둔다 — 자동 검사가 sent를 직렬화해 읽을 때 Promise가 끼지 않게
+      Object.defineProperty(sent, 'ack', { enumerable: false, value: ack.then((state) => {
+        sent.portal = state;
+        // 포털이 못 받았다고 답했고 허브로도 안 갔으면, 안 간 것으로 고치고 코드·대기열 길로 돌린다
+        if (state === 'rejected' && !routes.includes('hub')) {
+          sent.delivered = false; routes.push('portal-rejected');
+          if (!noEndpoint) enqueue();
+        }
+        return state;
+      }) });
+    }
+    return sent;
   }
 
   // 대기열 재전송: 플레이어를 다시 열면(와이파이 복구) 자동으로 보낸다
@@ -173,6 +219,6 @@
 
   root.PaperLessons = {
     register(l) { lessons[l.id] = l; }, get: (id) => lessons[id], all: () => Object.values(lessons),
-    load, loadScript, toolsOf, submit, flush, encode, decode, encodeShort, decodeShort, sdkPayload, base,
+    load, loadScript, toolsOf, submit, waitAck, flush, encode, decode, encodeShort, decodeShort, sdkPayload, base,
   };
 })(window);

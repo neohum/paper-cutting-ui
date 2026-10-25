@@ -12,7 +12,8 @@ PaperLessons.register({
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   illustration: {
-    prompt: 'Layered paper-cut illustration of friendly paper letter blocks stacked into a little house in a garden, with Korean consonant and vowel shapes floating like kites, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of friendly paper letter blocks stacked into a little house in a garden, with Korean consonant and vowel shapes floating like kites, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g1-korean-syllable.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'sun', x: 72, y: 60, s: 0.8 }, { motif: 'cloud', x: 230, y: 48, s: 0.8 }, { motif: 'cloud', x: 390, y: 64 },
       { motif: 'hills', y: 198, colors: ['sky', 'mint', 'buttercup'] },

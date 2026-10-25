@@ -16,7 +16,8 @@ PaperLessons.register({
     '거울 테두리는 테이프로 감싸 쓰고, 거울이 깨지면 손대지 말고 선생님께 알려요.',
   ],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a child in a cozy dark room shining a flashlight at a small hand mirror so the beam bounces up to light a golden paper star, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a child in a cozy dark room shining a flashlight at a small hand mirror so the beam bounces up to light a golden paper star, shown as a flat side view where the mirror lies flat on the floor between the child and the star, and the beam going down to the mirror and the beam bouncing up from it make a perfectly symmetric letter V with equal angles on both sides, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g5-science-light.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], background: '#EDE7F4', layers: [
       { motif: 'moon', x: 70, y: 60, s: 0.9 }, { motif: 'star', x: 400, y: 50 }, { motif: 'star', x: 330, y: 92, color: 'cream' },
       { motif: 'star', x: 170, y: 40, color: 'cream' }, { motif: 'cloud', x: 250, y: 70, s: 0.7 },

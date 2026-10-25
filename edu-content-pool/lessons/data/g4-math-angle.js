@@ -15,7 +15,8 @@ PaperLessons.register({
     '각도기와 자로 친구를 찌르거나 휘두르지 않아요.',
   ],
   illustration: {
-    prompt: 'Layered paper-cut illustration of two paper strips joined by a golden brad opening wide over a translucent pastel protractor, beside a little house with a pointed roof and a slide on a hill, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of two paper strips joined by a golden brad opening wide over a translucent pastel protractor, beside a little house with a pointed roof and a slide on a hill, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g4-math-angle.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'sun', x: 404, y: 60, s: 0.85 }, { motif: 'cloud', x: 120, y: 50 }, { motif: 'cloud', x: 300, y: 36, s: 0.7 },
       { motif: 'mountain', x: 330, y: 206, color: 'lavender' }, { motif: 'hills', y: 206, colors: ['mint', 'sky', 'buttercup'] },

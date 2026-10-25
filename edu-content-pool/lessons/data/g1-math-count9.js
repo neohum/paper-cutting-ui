@@ -12,7 +12,8 @@ PaperLessons.register({
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a cozy apple orchard on rolling hills where a little rabbit counts red apples into a wooden ten-frame crate, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a cozy apple orchard on rolling hills where a little rabbit counts red apples into a wooden ten-frame crate, the crate has ten cells in two rows of five holding exactly nine apples with one cell left empty, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g1-math-count9.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'sun', x: 410, y: 58, s: 0.85 }, { motif: 'cloud', x: 110, y: 52 }, { motif: 'cloud', x: 290, y: 38, s: 0.7 },
       { motif: 'hills', y: 196, colors: ['mint', 'buttercup', 'peach'] },

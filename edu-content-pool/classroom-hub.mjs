@@ -5,7 +5,8 @@
 //   - POST /api/tools/<appId>/submissions : @edulinker/app-sdk가 LAN에서 쓰는 주소. 실제 허브에는 아직 없는 경로다
 //     (all_market/plans/treasure-codex-classroom-results.plan.md에 계획만 있음) — 런처 쪽 추가 작업으로 넘긴다.
 //   - /portal/ : 학생 포털(web-student InAppWebViewerModal) 흉내. iframe의 edulinker_submission 메시지를
-//     받아 POST /api/portal/materials/<id>/submit(web_material_submissions 모양)으로 저장한다.
+//     받아 POST /api/portal/materials/<id>/submit(web_material_submissions 모양)으로 저장하고, 저장 결과를
+//     edulinker_submission:ack { clientId, ok }로 도구에 돌려준다(portal-sim.html?ack=0이면 답하지 않음).
 //   - GET /api/results?class=&lesson= : 교사 대시보드가 읽는다(허브·포털 두 길 모두)
 // 사용: node edu-content-pool/classroom-hub.mjs [--port 8790] [--out results.jsonl]
 import { createServer } from 'node:http';
@@ -22,7 +23,7 @@ const repo = join(here, '..');
 const results = [];
 const assignments = []; // web-student web_assignments 흉내: { id, title, target_grade, target_class_num, payload_json: { external_links } }
 
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json; charset=utf-8', '.svg': 'image/svg+xml', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg' };
 // all_market/apps/launcher/internal/server/static_bundle.go baseBundleCSP 그대로(2026-10-25 기준)
 const LAUNCHER_CSP = "default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; script-src 'self' 'unsafe-inline'; form-action 'none'; frame-ancestors 'none'; base-uri 'none'; object-src 'none'";
 
@@ -49,6 +50,7 @@ async function store(kind, payload, extra) {
     receiptId: `rc-${results.length + 1}`, receivedAt: new Date().toISOString(), via: kind,
     appId: payload.appId, materialId: payload.materialId || extra.materialId || null, studentKey: payload.studentKey,
     deviceLabel: payload.deviceLabel, score: payload.score, totalScore: payload.totalScore, comment: payload.comment,
+    clientId: typeof payload.clientId === 'string' ? payload.clientId.slice(0, 64) : null,
     lessonId: r.lessonId, classCode: r.classCode, seat: r.seat, data: r,
   };
   // 같은 학생의 같은 차시 재제출은 덮어쓴다(web_assignment_submissions의 assignment+student 유일과 같음)
@@ -73,7 +75,7 @@ createServer(async (req, res) => {
     }
     if (req.method === 'POST' && (m = /^\/api\/portal\/materials\/([^/]+)\/submit$/.exec(url.pathname))) {
       const row = await store('portal', await body(req), { materialId: decodeURIComponent(m[1]) });
-      return json(res, 201, { receiptId: row.receiptId, receivedAt: row.receivedAt });
+      return json(res, 201, { receiptId: row.receiptId, receivedAt: row.receivedAt, clientId: row.clientId });
     }
     if (req.method === 'POST' && url.pathname === '/api/results/import') {
       const row = await store('code', await body(req), {});

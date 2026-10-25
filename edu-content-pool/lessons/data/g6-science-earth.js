@@ -14,7 +14,8 @@ PaperLessons.register({
     '지구본 실험의 전등은 뜨거우니 만지지 말고, 친구 눈에 비추지 않아요.',
   ],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a smiling paper Earth spinning beside a warm glowing sun, with one half bright with daytime houses and the other half in a starry night, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a smiling paper Earth spinning beside a warm glowing sun, with one half bright with daytime houses and the other half in a starry night, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g6-science-earth.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], background: '#EDE7F4', layers: [
       { motif: 'sun', x: 80, y: 80, s: 1.1 }, { motif: 'cloud', x: 200, y: 60, s: 0.7 },
       { motif: 'moon', x: 400, y: 64, s: 0.8 }, { motif: 'star', x: 330, y: 44, color: 'cream' }, { motif: 'star', x: 450, y: 120 },

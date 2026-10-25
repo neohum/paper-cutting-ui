@@ -32,6 +32,14 @@ const toolsOf = (l) => [...new Set([
 const CATEGORY = { 국어: 'korean', 수학: 'math', 영어: 'english', 사회: 'social_ethics', 도덕: 'social_ethics', 과학: 'science_practical', 실과: 'science_practical', 체육: 'arts_sports', 음악: 'arts_sports', 미술: 'arts_sports', 통합교과: 'integrated_curriculum' };
 const SLUG = { 국어: 'korean', 수학: 'math', 영어: 'english', 사회: 'social', 도덕: 'ethics', 과학: 'science', 실과: 'practical-arts', 체육: 'pe', 음악: 'music', 미술: 'art', 통합교과: 'integrated' };
 
+// zip이 없는 윈도에서는 시스템 bsdtar(tar.exe)로 같은 zip을 만든다(Git Bash의 GNU tar는 zip을 못 만든다)
+function makeZip(zip, dir) {
+  try { execFileSync('zip', ['-qr', zip, '.'], { cwd: dir, stdio: 'pipe' }); return; } catch (e) { if (e.code !== 'ENOENT') throw e; }
+  const tar = join(process.env.SystemRoot || 'C:/Windows', 'System32', 'tar.exe');
+  if (!existsSync(tar)) throw new Error('zip도 tar.exe도 없어 묶음 zip을 만들 수 없음');
+  execFileSync(tar, ['-a', '-c', '-f', zip, ...readdirSync(dir)], { cwd: dir, stdio: 'pipe' });
+}
+
 // 차시 폴더만 하나씩 지우고 다시 쓴다 — 허브가 다른 차시를 서빙하는 중에도 다시 묶을 수 있게
 mkdirSync(dist, { recursive: true });
 const manifest = [];
@@ -46,6 +54,13 @@ for (const l of lessons) {
     ['vendor/classroom-ui/exam.css'], ['vendor/classroom-ui/print.css'],
     ['vendor/uicons/css/uicons-regular-rounded.css'], ['vendor/uicons/webfonts/uicons-regular-rounded.woff2'], ['vendor/uicons/LICENSE.txt'],
   ];
+  // 생성 그림은 lessons/ 기준 경로 그대로 번들 lessons/ 아래에 둔다 — 플레이어가 registry 위치(lessons/)에서 같은 주소로 찾는다
+  const img = l.illustration?.image;
+  if (img) {
+    if (!/^img\/[a-z0-9][a-z0-9-]*\.(webp|png|jpe?g)$/.test(img)) throw new Error(`${l.id}: illustration.image 경로 형식이 아님: ${img}`);
+    if (existsSync(join(here, 'lessons', img))) files.push([`lessons/${img}`]);
+    else console.warn(`! ${l.id}: illustration.image ${img} 파일이 없어 벡터 그림으로 묶음`);
+  }
   for (const [rel] of files) { mkdirSync(dirname(join(out, rel)), { recursive: true }); copyFileSync(join(here, rel), join(out, rel)); }
   // 플레이어 껍데기: 외부 글꼴·CDN을 빼고 경로를 번들 루트 기준으로. 허브는 매개변수를 주지 않으므로 차시 id를 박는다.
   const html = readFileSync(join(here, 'lessons/player.html'), 'utf8')
@@ -95,7 +110,7 @@ for (const l of lessons) {
 
   // zip(맥·리눅스 기본 zip). 묶음 해시를 lesson-package에 남긴다.
   const zip = join(dist, `${l.id}.zip`);
-  execFileSync('zip', ['-qr', zip, '.'], { cwd: out });
+  makeZip(zip, out);
   manifest.push({ id: l.id, grade: l.grade, subject: l.subject, unit: l.unitTitle, title: l.title, objective: l.objective, tools: toolsOf(l), catalog: l.catalog, bundleSha256: sha(readFileSync(zip)), standards: l.standards || [] });
 }
 
@@ -104,7 +119,7 @@ console.log(`bundles=${manifest.length} → ${dist}`);
 
 // 계약 검사: all_market의 JSON Schema(2020-12)로 실제 검증
 if (process.argv.includes('--validate')) {
-  const am = '/Users/nm/works/all_market';
+  const am = [process.env.ALL_MARKET_DIR, '/Users/nm/works/all_market', join(here, '../../all_market')].find((p) => p && existsSync(join(p, 'contracts'))) || '';
   const ajvPath = join(am, 'node_modules/.pnpm/ajv@8.20.0/node_modules/ajv/dist/2020.js');
   if (!existsSync(ajvPath)) { console.error('all_market ajv 없음 — 검증 건너뜀'); process.exit(1); }
   const require = createRequire(import.meta.url);

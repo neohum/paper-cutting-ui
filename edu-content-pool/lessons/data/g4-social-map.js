@@ -12,7 +12,8 @@ PaperLessons.register({
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a small village map with a winding river, rolling hills, a school with a flag and a big compass rose in the corner, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a small village map with a winding river, rolling hills, a school with a flag and a big compass rose in the corner, seen from above like a map, with no words or lettering anywhere except the four direction letters N, E, S, W on the compass rose, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g4-social-map.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'cloud', x: 110, y: 52 }, { motif: 'cloud', x: 300, y: 40, s: 0.7 }, { motif: 'mountain', x: 96, y: 206, s: 0.95 }, { motif: 'mountain', x: 176, y: 210, s: 0.6, color: 'mint' },
       { motif: 'hills', y: 204 },

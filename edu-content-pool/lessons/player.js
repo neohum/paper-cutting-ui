@@ -82,7 +82,7 @@
           <button class="pl-btn pl-btn--primary" type="submit"><i class="fi fi-rr-play" aria-hidden="true"></i> 시작하기</button>
         </form>
       </section>`;
-    K.scene($('#join-art'), S.lesson.illustration.scene);
+    showArt($('#join-art'));
     $('#join').addEventListener('submit', (e) => {
       e.preventDefault();
       const f = new FormData(e.target);
@@ -98,6 +98,23 @@
       S.started = Date.now(); K.recorder.reset(); render(); $('#stage').focus();
     });
     (needClass ? $('input[name="class"]') : $('input[name="seat"]')).focus();
+  }
+
+  // ---- 도입 그림: 생성 그림(illustration.image)이 있으면 그것을, 없거나 못 읽으면 벡터 장면을 띄운다 ----
+  // 경로는 lessons/ 기준 'img/<파일>'만 받는다 — 번들(dist/<id>/lessons/img/)과 개발 폴더에서 같은 주소로 풀리게
+  const IMG_PATH = /^img\/[a-z0-9][a-z0-9-]*\.(webp|png|jpe?g)$/;
+  function showArt(box) {
+    const il = S.lesson.illustration || {};
+    const vector = () => { box.textContent = ''; K.scene(box, il.scene); };
+    if (!il.image || !IMG_PATH.test(il.image)) return vector();
+    const [w, h] = il.size || (il.scene && il.scene.viewBox) || [480, 270];
+    const caption = il.alt || [S.lesson.title, (il.scene?.layers || []).find((x) => x.motif === 'text')?.text].filter(Boolean).join(' — ');
+    const img = document.createElement('img');
+    img.className = 'pl-art__img'; img.decoding = 'async'; img.width = w; img.height = h;
+    img.alt = `${caption} (종이 오리기 그림)`;
+    img.addEventListener('error', vector, { once: true });
+    img.src = L.base + il.image;
+    box.textContent = ''; box.appendChild(img);
   }
 
   const stages = () => S.lesson.stages;
@@ -177,7 +194,7 @@
         ${safetyBox()}
         ${st.demo ? `<div class="pl-demo" id="demo"></div>${S.role === 'teacher' ? '<button type="button" class="pl-btn" id="demo-play"><i class="fi fi-rr-play" aria-hidden="true"></i> 시연</button>' : ''}` : ''}
       </section>`;
-    K.scene($('#art'), S.lesson.illustration.scene);
+    showArt($('#art'));
     if (st.demo) {
       // 학생 화면의 시연 교구는 보기만 한다(Tab 순서에서 빼서 '활동 시작'까지 Tab을 덜 누르게)
       if (S.role !== 'teacher') { $('#demo').inert = true; $('#demo').setAttribute('aria-hidden', 'true'); }
@@ -391,15 +408,20 @@
     const sent = await L.submit(result, opts);
     if (S.pairSeat) await L.submit(mk(S.pairSeat), opts);
     window.__lastResult = { result, sent };
-    if (btn) { btn.innerHTML = sent.delivered ? '<i class="fi fi-rr-check" aria-hidden="true"></i> 보냈어요' : '<i class="fi fi-rr-time-past" aria-hidden="true"></i> 코드를 선생님께 보여 주세요'; }
     const short = L.encodeShort(result, S.lesson);
     const stars = total ? Math.round((solved / total) * 2 + (correct / total)) : 0; // 끝까지 해낸 것 2별 + 한 번에 맞힘 1별
+    // 받음 확인이 오면 '받았어요', 못 받았다고 오면 정직하게 실패와 코드를, 답이 없으면 '보냈어요'(확인 안 됨) 그대로
+    const headline = () => (sent.portal === 'received' ? '선생님께 받았어요!' : sent.delivered ? '선생님께 보냈어요!' : sent.portal === 'rejected' ? '선생님 쪽에서 받지 못했어요.' : '아직 선생님께 가지 않았어요.');
+    const btnHTML = () => (sent.portal === 'received' ? '<i class="fi fi-rr-check-double" aria-hidden="true"></i> 선생님께 받았어요'
+      : sent.delivered ? '<i class="fi fi-rr-check" aria-hidden="true"></i> 보냈어요' : '<i class="fi fi-rr-time-past" aria-hidden="true"></i> 코드를 선생님께 보여 주세요');
+    const shortBox = () => `<div class="pl-short"><p>이 코드를 선생님께 보여 주세요</p><p class="pl-short__code" aria-label="제출 코드 ${esc(short.split('').join(' '))}">${esc(short)}</p>${sent.routes.some((r) => /HTTP 404|HTTP 405/.test(r)) || !sent.routes.some((r) => r.startsWith('hub-failed') || r === 'queued') ? '' : '<p class="pl-muted">와이파이가 되면 이 화면을 다시 열어도 자동으로 보내요.</p>'}</div>`;
+    if (btn) btn.innerHTML = btnHTML();
     $('#done').innerHTML = `
       <div class="pl-done" role="status">
         <p class="pl-stars" aria-label="별 ${stars}개">${[0, 1, 2].map((k) => `<span class="pl-star ${k < stars ? 'is-on' : ''}"><i class="fi fi-rr-star" aria-hidden="true"></i></span>`).join('')}</p>
-        <p><b>${sent.delivered ? '선생님께 보냈어요!' : '아직 선생님께 가지 않았어요.'}</b></p>
+        <p><b id="done-head">${headline()}</b></p>
         <p>끝까지 해낸 문제 <b>${solved} / ${total}</b> · 한 번에 맞힌 문제 <b>${correct} / ${total}</b></p>
-        ${sent.delivered ? '' : `<div class="pl-short"><p>이 코드를 선생님께 보여 주세요</p><p class="pl-short__code" aria-label="제출 코드 ${esc(short.split('').join(' '))}">${esc(short)}</p>${sent.routes.some((r) => /HTTP 404|HTTP 405/.test(r)) || !sent.routes.some((r) => r.startsWith('hub-failed') || r === 'queued') ? '' : '<p class="pl-muted">와이파이가 되면 이 화면을 다시 열어도 자동으로 보내요.</p>'}</div>`}
+        <div id="done-short">${sent.delivered ? '' : shortBox()}</div>
         <details><summary>자세한 결과 파일</summary><textarea readonly rows="3" class="pl-code" aria-label="긴 제출 코드">${esc(sent.code)}</textarea>
         <button type="button" class="pl-btn" id="dl"><i class="fi fi-rr-download" aria-hidden="true"></i> 결과 파일 저장</button></details>
       </div>`;
@@ -411,6 +433,16 @@
     window.__lastResult.short = short;
     $('#done').scrollIntoView({ behavior: 'smooth', block: 'center' }); $('#done .pl-done').setAttribute('tabindex', '-1'); $('#done .pl-done').focus({ preventScroll: true });
     document.dispatchEvent(new CustomEvent('lesson:submitted', { detail: window.__lastResult }));
+    if (sent.ack) {
+      sent.ack.then((state) => {
+        if (state !== 'unconfirmed') {
+          if (btn) btn.innerHTML = btnHTML();
+          const head = $('#done-head'); if (head) head.textContent = headline();
+          const box = $('#done-short'); if (box && !sent.delivered) box.innerHTML = shortBox();
+        }
+        document.dispatchEvent(new CustomEvent('lesson:ack', { detail: { state, clientId: sent.clientId } }));
+      });
+    }
   }
 
   // ---- 인쇄 활동지: 생태계 종이 학습지 양식(classroom-ui .edu-exam-*) ----

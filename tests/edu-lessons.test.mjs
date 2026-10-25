@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
@@ -127,4 +127,56 @@ test('short code check catches adjacent transpositions', () => {
     }
   }
   assert.equal(caught, tried, `${tried - caught}/${tried} transpositions slipped through`);
+});
+
+// 포털 iframe 안에서 제출: 부모에게 clientId를 맨 위에 실어 보내고, 부모의 받음 확인(ack)으로 상태가 정해진다
+function loadInFrame() {
+  const listeners = new Set(); const posted = [];
+  const parent = { postMessage: (m) => posted.push(m) };
+  const win = { addEventListener: (k, f) => { if (k === 'message') listeners.add(f); }, removeEventListener: (k, f) => listeners.delete(f), location: { pathname: '/x', protocol: 'https:' }, parent };
+  const store = {};
+  const ctx = { window: win, document: { currentScript: null, head: { appendChild() {} } }, TextEncoder, TextDecoder, btoa, atob, localStorage: { getItem: (k) => store[k] ?? null, setItem: (k, v) => { store[k] = v; } }, location: win.location, Uint8Array, JSON, setTimeout, clearTimeout, fetch: async () => { throw new Error('offline'); } };
+  vm.runInNewContext(readFileSync(join(pool, 'lessons/registry.js'), 'utf8'), ctx);
+  const emit = (data, source = parent) => { for (const f of [...listeners]) f({ source, data }); };
+  return { PL: win.PaperLessons, posted, emit, store };
+}
+
+test('portal ack: received, rejected, spoofed source, wrong id, and no answer', async () => {
+  const run = async (answer, ackMs = 200) => {
+    const F = loadInFrame();
+    const sent = await F.PL.submit({ ...sample, title: '시계', studentKey: '2-3-7' }, { materialId: 'as-1', ackMs });
+    const msg = F.posted[0];
+    assert.equal(msg.type, 'edulinker_submission');
+    assert.ok(typeof msg.clientId === 'string' && msg.clientId.length > 0 && msg.clientId.length <= 128);
+    assert.equal(msg.payload.clientId, msg.clientId);
+    assert.equal(sent.portal, 'pending'); assert.equal(sent.delivered, true);
+    assert.ok(!Object.keys(sent).includes('ack'), 'ack Promise는 열거되지 않는다');
+    answer(F, msg.clientId);
+    const state = await sent.ack;
+    return { state, sent, F };
+  };
+  let r = await run((F, id) => F.emit({ type: 'edulinker_submission:ack', clientId: id, ok: true }));
+  assert.equal(r.state, 'received'); assert.equal(r.sent.delivered, true);
+  r = await run((F) => F.emit({ type: 'edulinker_submission:ack', ok: true })); // 실제 포털은 clientId를 빼기도 한다
+  assert.equal(r.state, 'received');
+  r = await run((F, id) => F.emit({ type: 'edulinker_submission:ack', clientId: id, ok: false }));
+  assert.equal(r.state, 'rejected'); assert.equal(r.sent.delivered, false);
+  assert.ok(r.sent.routes.includes('portal-rejected') && r.sent.routes.includes('queued'));
+  r = await run((F, id) => {
+    F.emit({ type: 'edulinker_submission:ack', clientId: id, ok: true }, {}); // 부모가 아닌 창
+    F.emit({ type: 'edulinker_submission:ack', clientId: 'someone-else', ok: true }); // 다른 제출
+    F.emit([{ type: 'edulinker_submission:ack', clientId: id, ok: true }]); // 평범한 객체가 아님
+    F.emit({ type: 'edulinker_submission:ack', clientId: id, ok: 'yes' }); // ok가 참거짓이 아님
+  });
+  assert.equal(r.state, 'unconfirmed'); assert.equal(r.sent.delivered, true);
+});
+
+test('illustration.image, when declared, is a small local file under lessons/img', () => {
+  for (const { l } of lessons) {
+    const img = l.illustration.image;
+    if (img == null) continue;
+    assert.match(img, /^img\/[a-z0-9][a-z0-9-]*\.(webp|png|jpe?g)$/, `${l.id} image path`);
+    const st = statSync(join(pool, 'lessons', img));
+    assert.ok(st.size <= 400 * 1024, `${l.id} ${img} ${st.size}B > 400KB`);
+  }
 });

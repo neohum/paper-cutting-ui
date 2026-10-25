@@ -10,7 +10,8 @@ PaperLessons.register({
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a pastel paper cube gently unfolding into a cross-shaped net on a craft table with scissors and colored paper squares, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a pastel paper cube gently unfolding into a cross-shaped net on a craft table with scissors and colored paper squares, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g5-math-cuboid.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'sun', x: 410, y: 62, s: 0.8 }, { motif: 'cloud', x: 110, y: 54 }, { motif: 'cloud', x: 270, y: 36, s: 0.7 },
       { motif: 'hills', y: 210, colors: ['lavender', 'sky', 'buttercup'] },

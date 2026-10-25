@@ -10,7 +10,8 @@ PaperLessons.register({
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a round pastel paper pizza cut into many thin slices that are rearranged into a long rectangle on a picnic blanket in a sunny park, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a round pastel paper pizza cut into many thin slices that are rearranged into a long rectangle on a picnic blanket in a sunny park, the whole round pizza shown on the left and on the right the same wedge slices placed alternately point-up and point-down so the crusts form the two slightly wavy long edges of the rectangle, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g6-math-circle-area.webp", size: [1200, 600],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'sun', x: 410, y: 58, s: 0.85 }, { motif: 'cloud', x: 110, y: 52 }, { motif: 'cloud', x: 290, y: 40, s: 0.6 },
       { motif: 'hills', y: 196 }, { motif: 'tree', x: 70, y: 214 }, { motif: 'tree', x: 420, y: 218, color: 'sky', s: 0.8 },

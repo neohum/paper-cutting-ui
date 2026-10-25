@@ -18,7 +18,8 @@ PaperLessons.register({
     '자른 종이 조각은 바닥에 떨어지지 않게 모아 두어요.',
   ],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a round paper pizza cut into four equal slices next to a long striped paper ribbon on a picnic blanket, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a round paper pizza cut into four equal slices next to a long striped paper ribbon on a picnic blanket, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g3-math-fraction.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: padScene({ motif: 'hills', y: 204, colors: ['buttercup', 'mint', 'peach'] }, [
       { motif: 'sun', x: 410, y: 56, s: 0.8 }, { motif: 'cloud', x: 120, y: 52 }, { motif: 'cloud', x: 290, y: 38, s: 0.6 },
       { motif: 'tree', x: 70, y: 214, color: 'mint' }, { motif: 'house', x: 400, y: 218, color: 'peach', s: 0.8 },

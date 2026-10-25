@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // 배포·수집 경로 시험 — 교사 화면에서 배포하고 학생 화면에서 제출한 뒤 교사 화면에 모이는지 실제 브라우저로 본다.
-// 사용: node edu-content-pool/test-routes.mjs [lessonId] [--out routes.json]   (classroom-hub.mjs, build-bundles.mjs 먼저)
+// 사용: node edu-content-pool/test-routes.mjs [lessonId] [--hub http://localhost:8790] [--out routes.json]   (classroom-hub.mjs, build-bundles.mjs 먼저)
 import { existsSync, writeFileSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,7 +11,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const id = process.argv[2] && !process.argv[2].startsWith('--') ? process.argv[2] : 'g2-math-clock';
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const out = arg('--out', null);
-const hub = 'http://localhost:8790';
+const hub = arg('--hub', 'http://localhost:8790').replace(/\/$/, '');
 const L = `${hub}/edu-content-pool/lessons`;
 // 포털은 학년·반으로 과제를 거르므로 반 코드는 '<차시 학년>-<반>' 모양
 const grade = (() => { const w = {}; new Function('window', readFileSync(join(here, 'lessons/manifest.js'), 'utf8'))(w); return w.EDU_LESSONS.find((l) => l.id === id).grade; })();
@@ -38,15 +38,55 @@ const finish = async (F, E) => {
 const T = await page();
 await T.goto(`${L}/teacher.html`); await T.fill('#class', cls); await T.click(`[data-lesson="${id}"]`);
 
-await record({ name: '학생 포털 과제 (do.io.kr)', teacher: "교사 화면 '학생 포털 과제' → 과제 게시(web_assignments.external_links)", student: '포털 로그인 → 과제 열기(앱 내 뷰어 iframe) → 번호 입력 → 수업 → 제출', collect: 'edulinker_submission 메시지 → 포털이 자료 제출함(web_material_submissions)에 저장' }, async () => {
-  await T.click('#portal-post'); await T.waitForFunction(() => /게시했습니다/.test(document.querySelector('#portal-status').textContent));
+// 포털 시험대에서 과제를 열어 제출하고, 도구가 받음 확인(ack)을 어떻게 보였는지 돌려준다.
+// ack: '1' 저장 뒤 확인을 돌려줌 · '0' 답 안 함(지금의 실제 포털) · 'fail' 못 받았다고 답함
+const portalRun = async (ack, seat) => {
   const S = await page(); const [g, c] = cls.split('-');
-  await S.goto(`${L}/portal-sim.html`); await S.fill('input[name="g"]', g); await S.fill('input[name="c"]', c); await S.fill('input[name="n"]', '1'); await S.click('#who button');
+  await S.goto(`${L}/portal-sim.html?ack=${ack}&keep=1`); await S.fill('input[name="g"]', g); await S.fill('input[name="c"]', c); await S.fill('input[name="n"]', seat); await S.click('#who button');
   await S.locator('[data-open]').last().click();
-  const F = S.frameLocator('#frame'); await F.locator('input[name="seat"]').fill('1'); await F.locator('#join button[type="submit"]').click();
-  await finish(F, S.frames().find((f) => f.url().includes('player.html'))); await S.waitForFunction(() => window.__portalSubmitted >= 1, null, { timeout: 6000 });
+  const F = S.frameLocator('#frame'); await F.locator('input[name="seat"]').fill(seat); await F.locator('#join button[type="submit"]').click();
+  const E = S.frames().find((f) => f.url().includes('player.html'));
+  await finish(F, E); await S.waitForFunction(() => window.__portalSubmitted >= 1, null, { timeout: 6000 });
+  const early = await E.evaluate(() => ({ portal: window.__lastResult.sent.portal, head: document.querySelector('#done-head').textContent }));
+  // 확인이 없으면 5초 기다린 뒤 'unconfirmed'가 된다
+  await E.waitForFunction(() => window.__lastResult.sent.portal !== 'pending', null, { timeout: 8000 });
+  const late = await E.evaluate(() => ({ portal: window.__lastResult.sent.portal, delivered: window.__lastResult.sent.delivered, head: document.querySelector('#done-head').textContent, btn: document.querySelector('#exit button[type="submit"]').textContent.trim(), code: !!document.querySelector('#done-short .pl-short__code') }));
+  await S.close();
+  return { early, late };
+};
+
+// 실제 뷰어처럼 저장 성공 300ms 뒤 iframe을 닫는 포털: 닫히기 전에 도구가 '받았어요'를 바로 그렸는지 본다
+const portalClose = async (seat) => {
+  const S = await page(); const [g, c] = cls.split('-');
+  await S.goto(`${L}/portal-sim.html?ack=1`); await S.fill('input[name="g"]', g); await S.fill('input[name="c"]', c); await S.fill('input[name="n"]', seat); await S.click('#who button');
+  await S.locator('[data-open]').last().click();
+  const F = S.frameLocator('#frame'); await F.locator('input[name="seat"]').fill(seat); await F.locator('#join button[type="submit"]').click();
+  const E = S.frames().find((f) => f.url().includes('player.html'));
+  // 받음 확인 사건이 오는 그 순간의 제목을 프레임 안에서 붙잡아 부모 창에 남긴다(곧 iframe이 닫힌다)
+  await E.evaluate(() => document.addEventListener('lesson:ack', () => { parent.__headAtAck = document.querySelector('#done-head')?.textContent || ''; }));
+  await finish(F, E);
+  await S.waitForFunction(() => window.__headAtAck != null && document.querySelector('#viewer').hidden, null, { timeout: 6000 });
+  const head = await S.evaluate(() => window.__headAtAck); await S.close();
+  return head;
+};
+
+await record({ name: '학생 포털 과제 (do.io.kr)', teacher: "교사 화면 '학생 포털 과제' → 과제 게시(web_assignments.external_links)", student: '포털 로그인 → 과제 열기(앱 내 뷰어 iframe) → 번호 입력 → 수업 → 제출', collect: 'edulinker_submission 메시지 → 포털이 자료 제출함(web_material_submissions)에 저장 → edulinker_submission:ack로 받음 확인' }, async () => {
+  await T.click('#portal-post'); await T.waitForFunction(() => /게시했습니다/.test(document.querySelector('#portal-status').textContent));
+  const { late } = await portalRun('1', '1');
+  if (late.portal !== 'received' || !/받았어요/.test(late.head) || !/받았어요/.test(late.btn)) throw new Error(`받음 확인이 화면에 안 보임: ${JSON.stringify(late)}`);
   const r = (await rows()).find((x) => x.seat === '1'); if (!r || r.via !== 'portal') throw new Error('포털 제출이 수집되지 않음');
-  return `포털 중계 저장 → ${r.receiptId}, deviceLabel '${r.deviceLabel}'`;
+  if (!r.clientId) throw new Error('포털 저장에 clientId 없음');
+  const closing = await portalClose('7');
+  if (!/받았어요/.test(closing)) throw new Error(`iframe이 닫히기 전에 받음 확인이 그려지지 않음: '${closing}'`);
+  return `포털 중계 저장 → ${r.receiptId}, deviceLabel '${r.deviceLabel}', 받음 확인 → '${late.head}'`;
+});
+
+await record({ name: '포털 받음 확인 없음·실패', teacher: '—', student: '확인을 돌려주지 않는 포털 / 저장 실패를 돌려주는 포털에서 제출', collect: '확인 없음 → “보냈어요”(확인 안 됨) 유지, 실패 → 실패 안내와 제출 코드' }, async () => {
+  const none = await portalRun('0', '5');
+  if (none.early.portal !== 'pending' || none.late.portal !== 'unconfirmed' || !none.late.delivered || !/보냈어요/.test(none.late.btn) || /받았어요/.test(none.late.head)) throw new Error(`확인 없음 처리 이상: ${JSON.stringify(none)}`);
+  const bad = await portalRun('fail', '6');
+  if (bad.late.portal !== 'rejected' || bad.late.delivered || !bad.late.code || !/받지 못했어요/.test(bad.late.head)) throw new Error(`실패 처리 이상: ${JSON.stringify(bad)}`);
+  return `확인 없음 → '${none.late.btn}'(5초 뒤 unconfirmed), 실패 → '${bad.late.head}' + 제출 코드 표시`;
 });
 
 await record({ name: '링크·QR (크롬북 바로가기)', teacher: "교사 화면 '링크·QR' → 학생 링크 복사 또는 QR을 전자칠판에 띄움", student: 'QR·링크로 열기 → 번호 입력 → 수업 → 제출', collect: '링크에 든 수집 주소로 바로 전송(교사 PC 시험대)' }, async () => {

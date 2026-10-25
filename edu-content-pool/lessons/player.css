@@ -161,6 +161,10 @@ input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border
 }
 @media (max-height: 480px) { .pl-tool .pk-stage { max-height: none; } }
 .pl-art .pk-stage { max-height: 42vh; }
+/* 생성 그림: 벡터 장면과 같은 칸·같은 비율. 비율이 다른 그림도 늘어나지 않게 잘라 맞춘다 */
+.pl-art__img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 16px; background: #F8F4EC; }
+.pl-art .pl-art__img { max-height: 42vh; }
+@media print { .pl-art__img { display: none; } }
 .pl-nav--top { margin-bottom: -4px; }
 @media (max-width: 820px) and (max-height: 520px) { .pl-side--actions { position: static; } }
 .pl-safety summary { cursor: pointer; min-height: 32px; list-style: none; display: flex; align-items: center; }

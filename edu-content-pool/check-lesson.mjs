@@ -2,7 +2,7 @@
 // 차시 자동 검사 — 정적 계약 + 실브라우저로 40분 흐름을 끝까지 풀고 제출까지 한다.
 // 사용: node edu-content-pool/check-lesson.mjs <lessonId> [--hub http://localhost:8790] [--shots <dir>]
 // classroom-hub.mjs가 떠 있어야 한다. 종료 코드 1 = 실패 항목 있음.
-import { existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
@@ -52,6 +52,16 @@ let lesson;
   }
   const p = lesson.illustration?.prompt || '';
   if (!p.startsWith(PROMPT_HEAD) || !p.endsWith(PROMPT_TAIL)) fail('illustration.prompt가 지정 문장 틀과 다름');
+  // 생성 그림은 선택이다. 적었으면 파일이 있어야 하고, 크롬북·허브에서 가볍게 열리도록 400KB 이하
+  const img = lesson.illustration?.image;
+  if (img != null) {
+    if (!/^img\/[a-z0-9][a-z0-9-]*\.(webp|png|jpe?g)$/.test(img)) fail(`illustration.image는 'img/<소문자-이름>.webp|png|jpg' 모양이어야 함: ${img}`);
+    else if (!existsSync(join(here, 'lessons', img))) fail(`illustration.image 파일 없음: lessons/${img}`);
+    else if (statSync(join(here, 'lessons', img)).size > 400 * 1024) fail(`illustration.image ${Math.round(statSync(join(here, 'lessons', img)).size / 1024)}KB > 400KB`);
+    else notes.push(`그림 ${img} ${Math.round(statSync(join(here, 'lessons', img)).size / 1024)}KB`);
+    const size = lesson.illustration.size;
+    if (size != null && !(Array.isArray(size) && size.length === 2 && size.every((n) => Number.isInteger(n) && n > 0))) fail('illustration.size는 [가로, 세로] 정수 쌍이어야 함');
+  }
   if (!lesson.worksheet?.items?.length) fail('worksheet.items 없음');
   if (!/[다]\.$/.test(lesson.objective || '')) fail('objective는 "~할 수 있다."로 끝나야 함');
   if (!lesson.catalog?.unit) fail('catalog.unit 없음');
@@ -71,6 +81,11 @@ const classCode = `chk-${Date.now() % 100000}`;
 try {
   await page.goto(`${base}&class=${classCode}&seat=1&collect=${encodeURIComponent(`${hub}/api/tools/edu-lesson:${id}/submissions`)}`);
   await page.waitForSelector('[data-next]', { timeout: 8000 });
+  if (lesson.illustration?.image) {
+    // 적어 둔 그림이 실제로 떴는지(못 읽으면 플레이어는 조용히 벡터로 돌아가므로 여기서 잡는다)
+    const shown = await page.waitForFunction(() => { const i = document.querySelector('#art img'); return i && i.complete && i.naturalWidth > 0; }, null, { timeout: 4000 }).then(() => true, () => false);
+    if (!shown) fail('illustration.image가 도입 화면에 뜨지 않음(벡터로 대체됨)');
+  }
   if (shots) await page.screenshot({ path: join(shots, `${id}-1-intro.png`) });
   await page.click('[data-next]');
   let guard = 0; let n = 0;

@@ -14,7 +14,7 @@ window.EDU_LESSONS = [
    "unit": "g1-국어-1학기-1",
    "lesson": 6
   },
-  "bundleSha256": "2bb619bf21f71e457fd0b647b96d3f09bd728a633f12bc35b5dadd4ca681ca09",
+  "bundleSha256": "c8942d6d485581e14a717be4af3fe908821cfa9f8280df117df1ce4ca33897f7",
   "standards": [
    "[2국02-01]",
    "[2국02-05]"
@@ -34,7 +34,7 @@ window.EDU_LESSONS = [
    "unit": "g1-수학-1학기-1",
    "lesson": 5
   },
-  "bundleSha256": "b75615d84817075a70e1d70274f010402430b95d3ad6d7654f48b0f6212280b2",
+  "bundleSha256": "6c4e486e28368f6d7e48c1fd32ebadccd7d21cd71931c96bfb1e6d25ecf19b78",
   "standards": [
    "[2수01-01]",
    "[2수01-03]"
@@ -54,7 +54,7 @@ window.EDU_LESSONS = [
    "unit": "g2-수학-2학기-4",
    "lesson": 2
   },
-  "bundleSha256": "bd42e2d7e27679e6d773b850319bbe528d624d5ed1b776a5e2b66bf418cfd8dc",
+  "bundleSha256": "ee533a5462b207c7bb6f9fcbe5ba02e3dd94474e7b1172b18c7361eda1ee857b",
   "standards": [
    "[2수03-01]"
   ]
@@ -73,7 +73,7 @@ window.EDU_LESSONS = [
    "unit": "g2-통합교과-2학기-5",
    "lesson": 3
   },
-  "bundleSha256": "c1576ce4d20a1e2a45f2fc976e03ecb2986d66d6dd57f16a6d2bab90cc60731f",
+  "bundleSha256": "9b34290284e949c32c7abda6336ff4be15d631ffe98f6021414539e205048091",
   "standards": [
    "[2바03-02]",
    "[2슬03-02]"
@@ -93,7 +93,7 @@ window.EDU_LESSONS = [
    "unit": "g3-수학-1학기-6",
    "lesson": 1
   },
-  "bundleSha256": "1e0c9a9953672089b324433910b5c285b4e8eb3a443678417caf2ebbfef39a8e",
+  "bundleSha256": "3dbde40564741b07e7085bdeb6773f1b7f79a3e337e524927373e62b75f43226",
   "standards": [
    "[4수01-09]",
    "[4수01-10]"
@@ -113,7 +113,7 @@ window.EDU_LESSONS = [
    "unit": "g3-과학-2학기-3",
    "lesson": 2
   },
-  "bundleSha256": "04005ce1e6b47afdc122333e3f24a728d46da467a89996bb07e06076263d4322",
+  "bundleSha256": "7b256805c631b2563b6ae945d757d4724315d64a1f2b9d904df77c5779bc945d",
   "standards": [
    "[4과07-01]",
    "[4과07-02]"
@@ -133,7 +133,7 @@ window.EDU_LESSONS = [
    "unit": "g4-수학-1학기-2",
    "lesson": 2
   },
-  "bundleSha256": "88dd986ead7f7382e978f51f7176411796e827c13918d6cd58d53bef754482a0",
+  "bundleSha256": "accf36723b15ccb3556ac7b7fb6890f3bd54a69b110fc40978d3b9e9003eba6b",
   "standards": [
    "[4수03-02]"
   ]
@@ -152,7 +152,7 @@ window.EDU_LESSONS = [
    "unit": "g4-사회-1학기-1",
    "lesson": 2
   },
-  "bundleSha256": "830ab8250903fcf686c395780848254d3b02f32f4f56949410fe7c1c3de67168",
+  "bundleSha256": "401ab49d3868312fedac2b18df7d5426010e6864d7093a2a70dd745f6f1ab8a6",
   "standards": [
    "[4사05-01]",
    "[4사05-02]"
@@ -172,7 +172,7 @@ window.EDU_LESSONS = [
    "unit": "g5-수학-2학기-5",
    "lesson": 5
   },
-  "bundleSha256": "d8687a2b6731546b6d11213a60ceae5cd4036a85a44ac06c82f123a57dffe107",
+  "bundleSha256": "661906d85126541bee5c9f27d856952db5048739c77e80015e7d1d586c9dec53",
   "standards": [
    "[6수03-03]",
    "[6수03-04]"
@@ -192,7 +192,7 @@ window.EDU_LESSONS = [
    "unit": "g5-과학-1학기-2",
    "lesson": 4
   },
-  "bundleSha256": "f3b26eb34e34daa3f929792e6244986449753b404470aeb301fe4d313e59c881",
+  "bundleSha256": "2f6ecc78fee5fdfb4d7f9b2b249ef0bfd9486cad3d9c40c2e9128275c0d1a5e0",
   "standards": [
    "[6과02-01]",
    "[6과02-02]"
@@ -212,7 +212,7 @@ window.EDU_LESSONS = [
    "unit": "g6-수학-2학기-5",
    "lesson": 5
   },
-  "bundleSha256": "5a903f41934d5e489439c8ea4d787bc03115cf4229effd1837db5aa9d0e69066",
+  "bundleSha256": "1df7f0c8eb1db036fc2fa4c04d5ef7809dd5a10bbebd77d7cef802bb240fc755",
   "standards": [
    "[6수03-15]",
    "[6수03-16]"
@@ -232,7 +232,7 @@ window.EDU_LESSONS = [
    "unit": "g6-과학-1학기-4",
    "lesson": 2
   },
-  "bundleSha256": "3465ffb651c1275667693f9a7c14f3a71fb26abea3f4467e057e3e5d5146331f",
+  "bundleSha256": "40b186f25ef645dbacb949003f4d98f8fd8c686e91e40094660b6743dd295cf5",
   "standards": [
    "[6과12-01]"
   ]

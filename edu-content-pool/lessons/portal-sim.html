@@ -33,6 +33,8 @@
   <script>
     (function () {
       let me = null; let open = null;
+      const ackMode = new URLSearchParams(location.search).get('ack') || '1';
+      const keepOpen = new URLSearchParams(location.search).get('keep') === '1';
       const $ = (s) => document.querySelector(s);
       const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
       $('#who').addEventListener('submit', async (e) => {
@@ -59,6 +61,13 @@
         if (e.data?.type !== 'edulinker_submission' || !e.data.payload || !open) return;
         const payload = Object.assign({}, e.data.payload, { deviceLabel: `${me.grade}-${me.cls}-${me.num}번 학생` });
         const r = await fetch(`/api/portal/materials/${encodeURIComponent(open.id)}/submit`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
+        // 저장한 뒤 받음 확인을 도구에 돌려준다(?ack=0: 답 안 함 — 지금의 실제 포털, ?ack=fail: 저장 실패로 답함)
+        // 실제 뷰어와 같은 모양: clientId는 메시지 맨 위에서만 읽고(빈 문자열 아님, 128자 이하), 답은 iframe 출처로만 보낸다
+        const clientId = typeof e.data.clientId === 'string' && e.data.clientId && e.data.clientId.length <= 128 ? e.data.clientId : undefined;
+        const ok = ackMode === 'fail' ? false : r.ok;
+        if (ackMode !== '0') e.source.postMessage(Object.assign({ type: 'edulinker_submission:ack', ok }, clientId ? { clientId } : {}), new URL($('#frame').src).origin);
+        // 실제 뷰어는 저장에 성공하면 약 300ms 뒤 iframe을 닫는다(?keep=1: 화면 확인용으로 열어 둠)
+        if (ok && ackMode !== '0' && !keepOpen) setTimeout(() => $('#close').click(), 300);
         const t = $('#toast'); t.hidden = false; t.textContent = r.ok ? '선생님께 제출했어요' : `제출 실패 (${r.status})`;
         window.__portalSubmitted = (window.__portalSubmitted || 0) + (r.ok ? 1 : 0);
         setTimeout(() => { t.hidden = true; }, 2500);

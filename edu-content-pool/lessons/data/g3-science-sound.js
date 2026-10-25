@@ -16,7 +16,8 @@ PaperLessons.register({
     '목에 손을 댈 때는 살짝만 대요. 이어폰을 쓸 때는 소리를 작게 맞춰요.',
   ],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a child plucking a rubber-band guitar made from a tissue box beside a little drum with paper confetti jumping into the air, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a child plucking a rubber-band guitar made from a tissue box beside a little drum with paper confetti jumping into the air, the rubber bands stretched across the box opening and the small confetti pieces bouncing up just above the drum top as a stick taps it, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g3-science-sound.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'sun', x: 410, y: 58, s: 0.85 }, { motif: 'cloud', x: 110, y: 52 }, { motif: 'cloud', x: 290, y: 38, s: 0.7 },
       { motif: 'hills', y: 204, colors: ['mint', 'lavender', 'buttercup'] },

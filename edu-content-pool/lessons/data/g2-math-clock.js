@@ -10,7 +10,8 @@ PaperLessons.register({
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   illustration: {
-    prompt: 'Layered paper-cut illustration of a cheerful paper clock tower in a small village at morning, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.',
+    prompt: "Layered paper-cut illustration of a cheerful paper clock tower in a small village at morning, with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.",
+    image: "img/g2-math-clock.webp", size: [1200, 800],
     scene: { viewBox: [480, 270], layers: [
       { motif: 'sun', x: 400, y: 60, s: 0.9 }, { motif: 'cloud', x: 120, y: 56 }, { motif: 'cloud', x: 300, y: 40, s: 0.7 },
       { motif: 'hills', y: 200 }, { motif: 'house', x: 110, y: 214 }, { motif: 'house', x: 360, y: 218, color: 'buttercup', s: 0.8 },
