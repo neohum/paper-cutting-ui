@@ -28,10 +28,9 @@
   const keyOf = (a, i) => `${a.id}.${i + 1}`;
   const rec = (a, i) => (S.items[keyOf(a, i)] ??= { key: keyOf(a, i), activity: a.id, attempts: 0, hints: 0, correct: false, level: S.level, ms: 0, t0: Date.now() });
 
-  // ---- 소리: 효과음·읽어 주기 켜고 끄기(소리에 예민한 학생, 헤드폰 없는 교실) ----
+  // ---- 소리: 효과음 켜고 끄기(소리에 예민한 학생, 헤드폰 없는 교실). 읽어 주기는 학생이 스피커 단추를 누를 때만 ----
   if (pref.sound === false) K.setSound(false);
   const lowGrade = () => S.lesson && S.lesson.grade <= 2;
-  const autoRead = () => (pref.autoRead ?? lowGrade()) && pref.sound !== false;
   // force: 학생이 읽어 주기 단추를 직접 누른 경우 — 효과음을 꺼 둔 학생도 듣고 싶을 때 들을 수 있게
   function speak(text, force) {
     if ((pref.sound === false && !force) || !('speechSynthesis' in window) || !text) return;
@@ -120,7 +119,6 @@
           <div class="pl-level" role="group" aria-label="난이도">${Object.entries(LEVELS).map(([k, v]) => `<button type="button" class="pl-level__b" data-level="${k}" aria-pressed="${S.level === k}">${v}</button>`).join('')}</div>
           <div class="pl-prefs">
             <button type="button" class="pl-pref" data-pref="sound" aria-pressed="${pref.sound !== false}"><i class="fi ${pref.sound === false ? 'fi-rr-volume-mute' : 'fi-rr-volume'}" aria-hidden="true"></i> 소리 ${pref.sound === false ? '꺼짐' : '켜짐'}</button>
-            <button type="button" class="pl-pref" data-pref="autoRead" aria-pressed="${autoRead()}"><i class="fi fi-rr-headphones" aria-hidden="true"></i> 자동 읽기 ${autoRead() ? '켜짐' : '꺼짐'}</button>
           </div>
           ${S.role === 'student' ? `<span class="pl-muted">${who}</span>` : ''}
         </div>
@@ -186,7 +184,6 @@
       const t = K.mount(st.demo.tool, $('#demo'), Object.assign({ demoView: S.role === 'teacher' }, st.demo.options || {}));
       $('#demo-play')?.addEventListener('click', async () => { for (const s of st.demo.sequence) { await t.demo(s); await K.wait(900); } });
     }
-    if (autoRead()) speak(st.student);
   }
 
   const levelOpts = (a) => Object.assign({}, a.options || {}, (a.levels || {})[S.level] || {});
@@ -228,7 +225,6 @@
     const r = rec(a, S.item); r.t0 = Date.now();
     const initialJSON = JSON.stringify(S.tool.getState());
     let lastHint = '';
-    if (autoRead()) speak(it.prompt);
     $('#check').addEventListener('click', () => {
       // 짝 활동(정답 없는 문항)도 교구를 한 번은 움직여야 '다 했어요'가 된다
       // (말하기만 하는 문항 talk:true는 예외)
@@ -241,7 +237,7 @@
       if (r.attempts && now === r.lastJSON && !r.correct) { $('#fb').innerHTML = '<p class="pl-hint">교구를 움직여 바꾼 뒤에 다시 확인해요.</p>'; return; }
       const res = S.tool.check(it.target);
       // 교구가 '아직 다 하지 않음'(incomplete)이라고 하면 시도로 세지 않고 안내만 한다(예: 까닭을 아직 안 고름)
-      if (res.incomplete) { $('#fb').className = 'pl-feedback'; $('#fb').innerHTML = `<p class="pl-hint">${esc(res.feedback)}</p>`; if (autoRead()) speak(res.feedback); return; }
+      if (res.incomplete) { $('#fb').className = 'pl-feedback'; $('#fb').innerHTML = `<p class="pl-hint">${esc(res.feedback)}</p>`; return; }
       r.lastJSON = now;
       // 기록하는 단계는 '확인을 누른 때'의 단계 — 단계를 바꾼 직후 문항이 이전 단계로 남지 않게
       r.attempts++; r.level = S.level; r.last = S.tool.getState(); lastHint = res.hint || lastHint;
@@ -250,15 +246,13 @@
       fb.className = `pl-feedback ${res.correct ? 'is-ok' : 'is-no'}`;
       fb.innerHTML = `<i class="fi ${res.correct ? 'fi-rr-star' : 'fi-rr-refresh'}" aria-hidden="true"></i> ${esc(res.feedback)}`;
       K.tick(res.correct ? 'ok' : 'no');
-      if (autoRead()) speak(res.feedback);
       if (res.correct) {
         r.correct = true; r.ms = Date.now() - r.t0;
         S.streak = r.attempts === 1 ? S.streak + 1 : 0;
         $('#check').disabled = true;
-        // 자동 읽기 중이면 칭찬을 끝까지 듣고 넘어간다
         // 기다리는 사이 교사가 단계·활동을 바꿨으면 넘기지 않는다
         const at = `${S.stage}.${S.act}.${S.item}`;
-        setTimeout(() => { if (`${S.stage}.${S.act}.${S.item}` === at) advance(); }, autoRead() ? 2400 : 1100);
+        setTimeout(() => { if (`${S.stage}.${S.act}.${S.item}` === at) advance(); }, 1100);
       } else {
         S.streak = 0;
         $('#suggest').innerHTML = ''; // 틀렸을 때 '단계 올리기' 권유가 남아 있지 않게
@@ -277,7 +271,6 @@
       const h = res.correct ? '지금 상태가 맞아요. 확인을 눌러 보세요.' : (res.hint || lastHint || '도구를 천천히 움직여 보세요.');
       r.hints++; K.recorder.log('hint', { key: r.key });
       $('#fb').className = 'pl-feedback'; $('#fb').innerHTML = `<p class="pl-hint"><b>힌트</b> ${esc(h)}</p>`;
-      if (autoRead()) speak(h);
     });
     $('#reset').addEventListener('click', () => { S.tool.reset ? S.tool.reset() : null; if (it.state && S.tool.setState) S.tool.setState(it.state); });
     if (!it.free && S.streak >= 3 && S.level !== 'challenge') suggest(a, S.level === 'easy' ? 'base' : 'challenge', '아주 잘하고 있어요! 한 단계 올려 볼까요?');
@@ -318,7 +311,6 @@
       </section>`;
     restoreExitDraft();
     $('#exit').addEventListener('change', saveExitDraft);
-    if (autoRead() && S.role === 'student') speak('정리 시간이에요. 문제 옆 스피커 단추를 누르면 읽어 줘요.');
     const tools = S.exitTools = {}; const initial = {};
     st.exitTicket.forEach((q, i) => {
       if (q.type !== 'tool') return;
@@ -475,12 +467,10 @@
     if (pf) {
       const k = pf.dataset.pref;
       if (k === 'sound') { pref.sound = pref.sound === false; K.setSound(pref.sound !== false); if (pref.sound === false && 'speechSynthesis' in window) speechSynthesis.cancel(); }
-      else pref.autoRead = !autoRead();
       savePref();
       // 화면을 다시 그리지 않고 단추만 바꾼다 — 놓아 둔 조각·고른 답이 지워지지 않게
-      const snd = $('[data-pref="sound"]'); const ar = $('[data-pref="autoRead"]');
+      const snd = $('[data-pref="sound"]');
       if (snd) { snd.setAttribute('aria-pressed', String(pref.sound !== false)); snd.innerHTML = `<i class="fi ${pref.sound === false ? 'fi-rr-volume-mute' : 'fi-rr-volume'}" aria-hidden="true"></i> 소리 ${pref.sound === false ? '꺼짐' : '켜짐'}`; }
-      if (ar) { ar.setAttribute('aria-pressed', String(autoRead())); ar.innerHTML = `<i class="fi fi-rr-headphones" aria-hidden="true"></i> 자동 읽기 ${autoRead() ? '켜짐' : '꺼짐'}`; }
       return;
     }
     const ds = e.target.closest('[data-dismiss]'); if (ds) { S.suggestOff[ds.dataset.dismiss] = true; $('#suggest').innerHTML = ''; return; }

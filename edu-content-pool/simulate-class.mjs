@@ -58,7 +58,8 @@ let lesson;
 vm.runInNewContext(readFileSync(join(here, 'lessons/data', `${id}.js`), 'utf8'), { PaperLessons: { register(l) { lesson = l; } } });
 const routes = route === 'mixed' ? ['link', 'hub', 'portal'] : [route];
 
-const chrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// 시스템 크롬을 쓴다(playwright 번들 브라우저가 없어도 돈다). CHROME_PATH로 덮어쓸 수 있다.
+const chrome = [process.env.CHROME_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome'].find((p) => p && existsSync(p));
 const browser = await chromium.launch({ executablePath: existsSync(chrome) ? chrome : undefined, headless: true });
 const errors = []; const logs = [];
 
@@ -136,7 +137,7 @@ async function runStudent(seat) {
         }
       }
       if (solved) {
-        // 다음 문항으로 넘어갈 때까지 기다린다(1·2학년 자동 읽기면 칭찬을 다 읽고 넘어가 더 오래 걸린다)
+        // 다음 문항으로 넘어갈 때까지 기다린다
         await page.waitForTimeout(1250);
         for (let w = 0; w < 20; w++) { const k = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; return s.id === 'main' ? `${s.activities[S.act].id}.${S.item + 1}` : s.id; }); if (k !== st.key) break; await page.waitForTimeout(150); }
         if (P.upLevel && await F.locator('#suggest [data-level]').count().catch(() => 0)) {

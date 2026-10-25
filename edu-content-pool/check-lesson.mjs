@@ -58,7 +58,8 @@ let lesson;
 }
 
 // ---- 2) 실브라우저 ----
-const chrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// 시스템 크롬을 쓴다(playwright 번들 브라우저가 없어도 돈다). CHROME_PATH로 덮어쓸 수 있다.
+const chrome = [process.env.CHROME_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome'].find((p) => p && existsSync(p));
 const browser = await chromium.launch({ executablePath: existsSync(chrome) ? chrome : undefined, headless: true });
 if (shots) mkdirSync(shots, { recursive: true });
 const errors = [];

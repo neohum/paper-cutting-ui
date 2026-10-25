@@ -16,7 +16,8 @@ const L = `${hub}/edu-content-pool/lessons`;
 // 포털은 학년·반으로 과제를 거르므로 반 코드는 '<차시 학년>-<반>' 모양
 const grade = (() => { const w = {}; new Function('window', readFileSync(join(here, 'lessons/manifest.js'), 'utf8'))(w); return w.EDU_LESSONS.find((l) => l.id === id).grade; })();
 const cls = `${grade}-${Date.now() % 90 + 10}`;
-const chrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// 시스템 크롬을 쓴다(playwright 번들 브라우저가 없어도 돈다). CHROME_PATH로 덮어쓸 수 있다.
+const chrome = [process.env.CHROME_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome'].find((p) => p && existsSync(p));
 const browser = await chromium.launch({ executablePath: existsSync(chrome) ? chrome : undefined, headless: true });
 const errors = [];
 const page = async (vp = { width: 1366, height: 800 }) => { const p = await browser.newPage({ viewport: vp }); p.on('pageerror', (e) => errors.push(e.message)); p.on('console', (m) => { if (m.type() === 'error' && !/ERR_INTERNET_DISCONNECTED/.test(m.text())) errors.push(m.text()); }); return p; };

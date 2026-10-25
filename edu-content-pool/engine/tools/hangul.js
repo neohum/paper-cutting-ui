@@ -28,19 +28,6 @@
   const MIRROR = { ㅏ: 'ㅓ', ㅓ: 'ㅏ', ㅗ: 'ㅜ', ㅜ: 'ㅗ', ㅑ: 'ㅕ', ㅕ: 'ㅑ', ㅛ: 'ㅠ', ㅠ: 'ㅛ' };
   const STROKE = { ㅏ: '짧은 획이 오른쪽(바깥)', ㅓ: '짧은 획이 왼쪽(자음 쪽)', ㅗ: '짧은 획이 위쪽(자음 쪽)', ㅜ: '짧은 획이 아래쪽', ㅑ: '짧은 획 두 개가 오른쪽', ㅕ: '짧은 획 두 개가 왼쪽', ㅛ: '짧은 획 두 개가 위쪽', ㅠ: '짧은 획 두 개가 아래쪽' };
   const where = (j) => (typeOf(j) === 'v' ? '오른쪽' : '아래');
-  const sayAloud = (K2, text) => {
-    try {
-      if (!K2.soundOn || !K2.soundOn()) return;
-      const ss = window.speechSynthesis;
-      if (!ss || typeof SpeechSynthesisUtterance === 'undefined') return;
-      ss.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'ko-KR'; u.rate = 0.85;
-      const v = ss.getVoices().find((x) => /^ko/i.test(x.lang));
-      if (v) u.voice = v;
-      ss.speak(u);
-    } catch (_) { /* 소리를 못 내도 글로 남아 있다 */ }
-  };
 
   K.registerTool('hangul', {
     name: '한글 글자 조립',
@@ -165,17 +152,16 @@
         eqT.textContent = cho || jung ? `${cho ? cho.ch : '□'} + ${jung ? jung.ch : '□'}${s && showSyl ? ` = ${s}` : ''}` : '자음과 모음을 모아요';
         if (bounce && s) kit.spring(1.25, 1, { stiffness: 260, damping: 10, onUpdate: (v) => kit.transform(sylG, { s: v }) });
       };
-      // 안내 줄은 다음 조작까지 남긴다(2.6초는 1학년이 읽기에 짧았다). aloud면 소리로도 읽는다.
+      // 안내 줄은 다음 조작까지 남긴다(2.6초는 1학년이 읽기에 짧았다).
       let lastWrong = null; // 마지막으로 틀린 자리에 놓으려 한 모음 — 확인 피드백에도 다시 쓴다
-      const say = (text, aloud) => {
+      const say = (text) => {
         if (msgT) msgT.textContent = text;
         kit.announce(text);
-        if (aloud) sayAloud(kit, text);
       };
       const clearMsg = () => { if (msgT) msgT.textContent = ''; };
       const wrongSlot = (ch) => {
         lastWrong = ch;
-        say(`${ch}는 ${where(ch)}에 붙여요!`, true);
+        say(`${ch}는 ${where(ch)}에 붙여요!`);
         kit.tick('no');
         flashZone(typeOf(ch));
       };

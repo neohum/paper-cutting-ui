@@ -32,7 +32,8 @@ const routes = readJSON(join(ev, 'routes.json'), []);
 const changes = readJSON(join(ev, 'changes.json'), []);
 
 // ---- 화면 캡처(작은 JPEG) ----
-const chrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+// 시스템 크롬을 쓴다(playwright 번들 브라우저가 없어도 돈다). CHROME_PATH로 덮어쓸 수 있다.
+const chrome = [process.env.CHROME_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome'].find((p) => p && existsSync(p));
 const browser = await chromium.launch({ executablePath: existsSync(chrome) ? chrome : undefined, headless: true });
 const page = await browser.newPage({ viewport: { width: 1280, height: 760 }, deviceScaleFactor: 1 });
 const shot = async (opts = {}) => `data:image/jpeg;base64,${(await page.screenshot({ type: 'jpeg', quality: 62, ...opts })).toString('base64')}`;
