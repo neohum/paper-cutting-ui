@@ -44,7 +44,7 @@ const portalRun = async (ack, seat) => {
   const S = await page(); const [g, c] = cls.split('-');
   await S.goto(`${L}/portal-sim.html?ack=${ack}&keep=1`); await S.fill('input[name="g"]', g); await S.fill('input[name="c"]', c); await S.fill('input[name="n"]', seat); await S.click('#who button');
   await S.locator('[data-open]').last().click();
-  const F = S.frameLocator('#frame'); await F.locator('input[name="seat"]').fill(seat); await F.locator('#join button[type="submit"]').click();
+  const F = S.frameLocator('#frame'); await F.locator('[data-next]').first().waitFor();
   const E = S.frames().find((f) => f.url().includes('player.html'));
   await finish(F, E); await S.waitForFunction(() => window.__portalSubmitted >= 1, null, { timeout: 6000 });
   const early = await E.evaluate(() => ({ portal: window.__lastResult.sent.portal, head: document.querySelector('#done-head').textContent }));
@@ -60,7 +60,7 @@ const portalClose = async (seat) => {
   const S = await page(); const [g, c] = cls.split('-');
   await S.goto(`${L}/portal-sim.html?ack=1`); await S.fill('input[name="g"]', g); await S.fill('input[name="c"]', c); await S.fill('input[name="n"]', seat); await S.click('#who button');
   await S.locator('[data-open]').last().click();
-  const F = S.frameLocator('#frame'); await F.locator('input[name="seat"]').fill(seat); await F.locator('#join button[type="submit"]').click();
+  const F = S.frameLocator('#frame'); await F.locator('[data-next]').first().waitFor();
   const E = S.frames().find((f) => f.url().includes('player.html'));
   // 받음 확인 사건이 오는 그 순간의 제목을 프레임 안에서 붙잡아 부모 창에 남긴다(곧 iframe이 닫힌다)
   await E.evaluate(() => document.addEventListener('lesson:ack', () => { parent.__headAtAck = document.querySelector('#done-head')?.textContent || ''; }));
@@ -70,7 +70,7 @@ const portalClose = async (seat) => {
   return head;
 };
 
-await record({ name: '학생 포털 과제 (do.io.kr)', teacher: "교사 화면 '학생 포털 과제' → 과제 게시(web_assignments.external_links)", student: '포털 로그인 → 과제 열기(앱 내 뷰어 iframe) → 번호 입력 → 수업 → 제출', collect: 'edulinker_submission 메시지 → 포털이 자료 제출함(web_material_submissions)에 저장 → edulinker_submission:ack로 받음 확인' }, async () => {
+await record({ name: '학생 포털 과제 (do.io.kr)', teacher: "교사 화면 '학생 포털 과제' → 과제 게시(web_assignments.external_links)", student: '포털 로그인 → 과제 열기(앱 내 뷰어 iframe) → 수업 → 제출', collect: 'edulinker_submission 메시지 → 포털이 자료 제출함(web_material_submissions)에 저장 → edulinker_submission:ack로 받음 확인' }, async () => {
   await T.click('#portal-post'); await T.waitForFunction(() => /게시했습니다/.test(document.querySelector('#portal-status').textContent));
   const { late } = await portalRun('1', '1');
   if (late.portal !== 'received' || !/받았어요/.test(late.head) || !/받았어요/.test(late.btn)) throw new Error(`받음 확인이 화면에 안 보임: ${JSON.stringify(late)}`);
@@ -89,18 +89,17 @@ await record({ name: '포털 받음 확인 없음·실패', teacher: '—', stud
   return `확인 없음 → '${none.late.btn}'(5초 뒤 unconfirmed), 실패 → '${bad.late.head}' + 제출 코드 표시`;
 });
 
-await record({ name: '링크·QR (크롬북 바로가기)', teacher: "교사 화면 '링크·QR' → 학생 링크 복사 또는 QR을 전자칠판에 띄움", student: 'QR·링크로 열기 → 번호 입력 → 수업 → 제출', collect: '링크에 든 수집 주소로 바로 전송(교사 PC 시험대)' }, async () => {
+await record({ name: '링크·QR (크롬북 바로가기)', teacher: "교사 화면 '링크·QR' → 학생 링크 복사 또는 QR을 전자칠판에 띄움", student: 'QR·링크로 열기(반·번호는 링크에) → 수업 → 제출', collect: '링크에 든 수집 주소로 바로 전송(교사 PC 시험대)' }, async () => {
   const url = await T.inputValue('#student-url'); const qr = await T.locator('#qr svg').count(); if (!qr) throw new Error('QR 없음');
-  const S = await page(); await S.goto(url); await S.fill('input[name="seat"]', '2'); await S.click('#join button[type="submit"]'); await finish(S, S);
+  const S = await page(); await S.goto(`${url}&seat=2`); await finish(S, S);
   const r = (await rows()).find((x) => x.seat === '2'); if (!r) throw new Error('링크 제출이 수집되지 않음');
   return `QR SVG 생성, 제출 경로 ${r.via}`;
 });
 
-await record({ name: '런처 교실 허브 (LAN)', teacher: "교사 화면 '런처 교실 허브' → 묶음(zip)을 런처에 설치 → 허브 QR/주소 공유", student: '허브 주소 /dist/<차시>/ 열기 → 반 코드·번호 → 수업 → 제출', collect: '같은 출처 /api/tools/<id>/submissions (실제 허브에는 아직 없음 → 시험대가 흉내)' }, async () => {
+await record({ name: '런처 교실 허브 (LAN)', teacher: "교사 화면 '런처 교실 허브' → 묶음(zip)을 런처에 설치 → 허브 QR/주소 공유", student: '허브 주소 /dist/<차시>/?class=&seat= 열기(런처가 붙임) → 수업 → 제출', collect: '같은 출처 /api/tools/<id>/submissions (실제 허브에는 아직 없음 → 시험대가 흉내)' }, async () => {
   const csp = (await fetch(`${hub}/dist/${id}/`)).headers.get('content-security-policy');
   if (!/connect-src 'self'/.test(csp) || !/font-src 'self'/.test(csp)) throw new Error('허브 CSP가 실제 런처와 다름');
-  const S = await page(); await S.goto(`${hub}/dist/${id}/`);
-  await S.fill('input[name="class"]', cls); await S.fill('input[name="seat"]', '3'); await S.click('#join button[type="submit"]'); await finish(S, S);
+  const S = await page(); await S.goto(`${hub}/dist/${id}/?class=${encodeURIComponent(cls)}&seat=3`); await finish(S, S);
   const font = await S.evaluate(() => document.fonts.check('16px uicons-regular-rounded'));
   const r = (await rows()).find((x) => x.seat === '3'); if (!r || r.via !== 'hub') throw new Error('허브 제출이 수집되지 않음');
   return `실제 런처 CSP에서 콘솔 오류 0, 아이콘 글꼴 동봉(${font ? '로드됨' : '안 됨'}), 수집 ${r.via}`;

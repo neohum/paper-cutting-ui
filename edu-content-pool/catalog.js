@@ -8,6 +8,14 @@
   const unitById = new Map(C.units.map((u) => [u.id, u]));
   const toolById = new Map(C.tools.map((t) => [t.id, t]));
   const siteById = new Map(C.resources.sites.map((s) => [s.id, s]));
+  // 수업 준비 색인(build-bundles.mjs가 만드는 lessons/units/index.js): 카탈로그 차시('<단원>~<번호>') → 차시 id, 단원 → 진행 방향
+  const READY = window.EDU_UNIT_INDEX || { units: {}, lessons: {} };
+  const readyId = (l) => READY.lessons[`${l.u}~${l.i}`] || null;
+  const playerHref = (id, role) => `lessons/player.html?lesson=${encodeURIComponent(id)}&role=${role}`;
+  // 차시 줄에서 바로 가는 세 길: 교사(전자칠판) · 학생 화면 미리보기 · 활동지. 학생 입장·반 코드 화면은 없다(런처가 나눠 준다)
+  const goLinks = (id, cls = 'go') => `<a class="${cls}" href="${playerHref(id, 'teacher')}" target="_blank" rel="noopener"><i class="fi fi-rr-chalkboard-user" aria-hidden="true"></i> 교사<span class="sr-only"> 전자칠판 화면 (새 창)</span></a>
+      <a class="${cls}" href="${playerHref(id, 'student')}" target="_blank" rel="noopener"><i class="fi fi-rr-graduation-cap" aria-hidden="true"></i> 학생<span class="sr-only"> 화면 미리보기 (새 창)</span></a>
+      <a class="${cls}" href="${playerHref(id, 'print')}" target="_blank" rel="noopener"><i class="fi fi-rr-print" aria-hidden="true"></i> 활동지<span class="sr-only"> (새 창)</span></a>`;
   const lessonsByUnit = new Map();
   for (const l of C.lessons) {
     if (!lessonsByUnit.has(l.u)) lessonsByUnit.set(l.u, []);
@@ -146,11 +154,15 @@
   function unitBlock(u, ls, showSubject) {
     const rows = ls.map((l) => {
       const tool = toolById.get(l.tool);
-      return `<li><button type="button" class="lesson-row" data-lesson="${esc(l.u)}~${l.i}">
+      const id = readyId(l);
+      return `<li class="lesson-item"><button type="button" class="lesson-row" data-lesson="${esc(l.u)}~${l.i}">
         <span class="lesson-row__no">${l.i}차시</span>
         <span class="lesson-row__title">${l.rp ? `<span class="rp">${esc(l.rp)}</span> ` : ''}${esc(l.title)}</span>
-        <span class="lesson-row__modes"><span class="mode">${tool ? esc(tool.name) : '종이 활동'}</span></span></button></li>`;
+        <span class="lesson-row__modes"><span class="mode">${tool ? esc(tool.name) : '종이 활동'}</span></span></button>
+        <span class="lesson-go">${id ? goLinks(id) : '<span class="chip chip--butter lesson-go__wait">준비 중</span>'}</span></li>`;
     }).join('');
+    const ready = READY.units[u.id];
+    const readyN = ls.filter((l) => readyId(l)).length;
     return `<section class="unit pc-sheet" aria-labelledby="h-${esc(u.id)}">
       <header class="unit__head">
         <h3 id="h-${esc(u.id)}">${showSubject ? `<span class="unit__subj">${esc(u.s)}</span> ` : ''}<span class="unit__no">${esc(unitLabel(u))}</span></h3>
@@ -160,7 +172,9 @@
           <span class="chip ${u.v ? 'chip--mint' : 'chip--butter'}">${u.v ? '단원명 확인' : '추정 단원'}</span>
           ${u.sa ? '<span class="chip">기준 자동 연결</span>' : ''}
           ${u.ne ? '<span class="chip">차시 수 추정</span>' : ''}
+          <span class="chip ${readyN ? 'chip--mint' : 'chip--butter'}">수업 준비 ${readyN}/${ls.length}</span>
         </div>
+        ${ready && ready.flow ? `<details class="unit__flow"><summary><i class="fi fi-rr-route" aria-hidden="true"></i> 단원 진행 방향</summary><p>${esc(ready.flow)}</p></details>` : ''}
         <details class="unit__std"><summary>성취기준 ${u.std.length}개</summary>
           <ul>${u.std.map((c) => `<li><b>${esc(c)}</b> ${esc(C.standards[c] ?? '')}</li>`).join('')}</ul></details>
       </header>
@@ -255,10 +269,9 @@
         <div class="mode-card mode-card--digital">
           <h3>크롬북 · 디지털</h3>
           ${(() => {
-            // 만들어진 움직이는 교구 차시(lessons/manifest.js)가 이 차시 또는 이 단원에 있으면 바로 연다
-            const built = (window.EDU_LESSONS || []).filter((x) => x.catalog && x.catalog.unit === u.id);
-            const exact = built.find((x) => x.catalog.lesson === lesson.i);
-            if (built.length) return `<p><span class="chip chip--mint">수업 준비됨</span> ${exact ? '이 차시' : '이 단원'}의 움직이는 교구 수업</p>${built.map((x) => `<p><a href="lessons/player.html?lesson=${esc(x.id)}&role=teacher" target="_blank" rel="noopener">${esc(x.title)} — 전자칠판<span class="sr-only">(새 창)</span></a> · <a href="lessons/teacher.html" target="_blank" rel="noopener">배포·수집<span class="sr-only">(새 창)</span></a></p>`).join('')}`;
+            // 만들어진 40분 차시(lessons/units/index.js 색인)가 있으면 교사·학생·활동지로 바로 연다
+            const id = readyId(lesson);
+            if (id) return `<p><span class="chip chip--mint">수업 준비됨</span> 움직이는 교구 40분 수업</p><div class="btn-row">${goLinks(id, 'pc-btn pc-btn--ghost')}</div><p><a href="lessons/teacher.html" target="_blank" rel="noopener">배포·결과 모으기<span class="sr-only">(새 창)</span></a></p>`;
             return p.tool ? `<p><strong>${esc(p.tool.name)}</strong> <span class="chip chip--butter">제작 예정</span></p><p class="muted">${esc(p.tool.interaction)}</p>` : '<p class="muted">이 차시는 종이 활동으로 진행합니다.</p>';
           })()}
         </div>
@@ -387,7 +400,7 @@
     $('#stats').innerHTML = `
       <div class="stat"><span class="stat__n">${total.toLocaleString('ko-KR')}</span><span class="stat__l">차시</span></div>
       <div class="stat"><span class="stat__n">${verifiedU}/${C.units.length}</span><span class="stat__l">단원명 확인</span></div>
-      <div class="stat"><span class="stat__n">${(window.EDU_LESSONS || []).length}</span><span class="stat__l">움직이는 교구 수업</span></div>
+      <div class="stat"><span class="stat__n">${C.lessons.filter(readyId).length.toLocaleString('ko-KR')}</span><span class="stat__l">움직이는 교구 수업</span></div>
       <div class="stat"><span class="stat__n">${total.toLocaleString('ko-KR')}</span><span class="stat__l">인쇄 활동지</span></div>`;
   }
 

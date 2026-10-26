@@ -42,8 +42,9 @@
     $('#open-teacher').href = $('#teacher-url').value;
     $('#ws-basic').href = playerURL({ lesson: l.id, role: 'print' });
     $('#ws-easy').href = playerURL({ lesson: l.id, role: 'print', variant: 'easy' });
-    $('#hub-zip').href = `../dist/${l.id}.zip`;
-    $('#hub-open').href = onHub ? `${location.origin}/dist/${l.id}/` : `../dist/${l.id}/index.html`;
+    // 단원 차시는 단원 묶음(dist/units/<단원>/)에 들어 있다(manifest의 hub·zip). data 차시는 차시 묶음 그대로
+    $('#hub-zip').href = `../dist/${l.zip || `${l.id}.zip`}`;
+    $('#hub-open').href = onHub ? `${location.origin}/dist/${l.hub || `${l.id}/`}` : `../dist/${l.hub || `${l.id}/index.html`}`;
     // 포털 과제: 링크에 반 코드만(수집 주소는 포털이 맡는다)
     const portalUrl = playerURL({ lesson: l.id, ...(cls ? { class: cls } : {}) });
     $('#portal-url').value = portalUrl;

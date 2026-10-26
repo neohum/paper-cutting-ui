@@ -49,7 +49,7 @@
         <p class="pl-muted" id="portal-status" role="status"></p>
       </div>
       <div class="t-panel" data-panel="hub" role="tabpanel" hidden>
-        <p>인터넷이 느리거나 막힌 교실은 <b>교사 런처의 교실 허브</b>로 같은 와이파이 안에서 나눠 줍니다. 묶음(zip)을 런처에 설치하면 학생 화면에 <code>/dist/&lt;차시&gt;/</code>로 뜨고, 학생은 반 코드와 번호를 넣고 시작합니다. 런처 허브는 외부 글꼴·CDN을 막기 때문에 묶음 안에 아이콘 글꼴까지 들어 있습니다.</p>
+        <p>인터넷이 느리거나 막힌 교실은 <b>교사 런처의 교실 허브</b>로 같은 와이파이 안에서 나눠 줍니다. 묶음(zip)을 런처에 설치하면 학생 화면에 <code>/dist/&lt;차시&gt;/</code>로 뜨고, 반·번호는 런처가 주소로 넘겨 주므로 학생은 입력 없이 바로 시작합니다(번호가 없으면 기기별로 모입니다). 런처 허브는 외부 글꼴·CDN을 막기 때문에 묶음 안에 아이콘 글꼴까지 들어 있습니다.</p>
         <div class="pl-actions"><a class="pl-btn pl-btn--primary" id="hub-zip" download><i class="fi fi-rr-download" aria-hidden="true"></i> 런처용 묶음(zip)</a><a class="pl-btn" id="hub-open" target="_blank" rel="noopener">허브 주소로 열기 <span class="sr-only">(새 창)</span></a></div>
         <p class="t-warn"><i class="fi fi-rr-info" aria-hidden="true"></i> 지금 런처 허브에는 결과를 받는 주소(<code>/api/tools/&lt;id&gt;/submissions</code>)가 아직 없습니다. 허브로 배포하면 결과는 학생 화면에 크게 뜨는 <b>짧은 제출 코드</b>(예: 7K2M-9QX4-…)를 아래 ③에 붙여 넣어 받습니다. 이 시험대(classroom-hub.mjs)에서는 그 주소를 흉내 내어 자동 수집을 확인합니다.</p>
       </div>

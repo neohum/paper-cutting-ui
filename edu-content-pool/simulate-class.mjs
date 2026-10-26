@@ -143,16 +143,13 @@ async function runStudent(seat) {
       await page.click(`[data-open="${assignment.id}"]`);
       F = page.frameLocator('#frame');
     } else if (rt === 'hub') {
-      await page.goto(`${hub}/dist/${id}/`);
-      await F.locator('input[name="class"]').fill(cls);
+      // 학생 입장 화면은 없다 — 런처가 반·번호를 주소로 넘긴다
+      await page.goto(`${hub}/dist/${id}/?class=${encodeURIComponent(cls)}&seat=${seat}`);
     } else {
       const collect = rt === 'link' ? `&collect=${encodeURIComponent(`${hub}/api/tools/edu-lesson:${id}/submissions`)}` : '';
-      await page.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${id}&class=${encodeURIComponent(cls)}${collect}`);
+      await page.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${id}&class=${encodeURIComponent(cls)}&seat=${seat}${collect}`);
     }
     const frameEval = async (fn, a) => (rt === 'portal' ? page.frames().find((f) => f.url().includes('player.html')).evaluate(fn, a) : page.evaluate(fn, a));
-    await F.locator('input[name="seat"]').fill(String(seat));
-    if (kind === 'ell' || kind === 'quick') await F.locator('input[name="nick"]').fill(pick(['별', '토끼', '구름', '하늘']));
-    if (P.keyboard) { await F.locator('input[name="seat"]').press('Enter'); } else await F.locator('#join button[type="submit"]').click();
     think();
     await F.locator('[data-next]').click();
     // 처음 단계: 시작 전 느린 학생은 쉬움으로, 빠른 학생은 그대로

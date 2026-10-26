@@ -431,6 +431,86 @@ test('hub PII filter: phone / resident numbers / e-mail blocked, long decimals p
   for (const bad of ['010-1234-5678', '01012345678', '900101-1234567', '9001011234567', 'kid@school.kr', '연락처 011 123 4567'.replace(/ /g, '-')]) assert.equal(PII.test(JSON.stringify({ note: bad })), true, `막아야 함: ${bad}`);
 });
 
+// ---- 카탈로그 전 차시: 단원 파일 · 학생 입장 화면 없음 ----
+const unitFiles = (() => { try { return readdirSync(join(pool, 'lessons/units')).filter((f) => f.endsWith('.js') && f !== 'index.js'); } catch (_) { return []; } })();
+const loadUnitFile = (f) => { let u; vm.runInNewContext(readFileSync(join(pool, 'lessons/units', f), 'utf8'), { PaperLessons: { registerUnit(x) { u = x; }, register() {} } }); return u; };
+
+test('registerUnit registers unit lessons with unit info and aliases refs to existing lessons', () => {
+  const PL = loadRegistry();
+  const mk = (n) => ({ id: `g9-math-1-01-${n}`, title: `t${n}` });
+  PL.registerUnit({ id: 'g9-math-1-01', catalogUnit: 'g9-수학-1학기-1', unitTitle: '1. 예시', flow: '흐름', refs: { 2: 'g2-math-clock' }, lessons: [mk('01'), mk('03')] });
+  const l = PL.get('g9-math-1-01-03');
+  assert.equal(l.unit.id, 'g9-math-1-01'); assert.equal(l.unit.flow, '흐름'); assert.equal(l.unit.index, 1);
+  assert.equal(PL.resolve('g9-math-1-01-02'), 'g2-math-clock', 'refs 번호는 기존 차시로');
+  assert.equal(PL.resolve('g9-math-1-01-01'), 'g9-math-1-01-01');
+  assert.equal(PL.unit('g9-math-1-01').lessons.length, 2);
+  assert.equal(PL.unitOf('g3-sci-1-02-04'), 'g3-sci-1-02');
+  assert.equal(PL.unitOf('_sample-01'), '_sample');
+  assert.equal(PL.unitOf('g2-math-clock'), null, 'data 차시 id는 단원 차시 모양이 아니다');
+  assert.equal(PL.unitOf('_tool-cards'), null);
+});
+
+test('registry loads unit files for -NN ids, data files otherwise, and _cards.js before tools', () => {
+  const src = readFileSync(join(pool, 'lessons/registry.js'), 'utf8');
+  assert.match(src, /units\/\$\{u\}\.js/); assert.match(src, /data\/\$\{id\}\.js/);
+  assert.match(src, /_cards\.js`\)\.catch\(/, '없는 _cards.js는 조용히 건너뛴다');
+  assert.ok(src.indexOf('_cards.js') < src.indexOf('Promise.all(toolsOf(l)'), '공통 판을 교구보다 먼저');
+  assert.match(src, /\^_\?\[a-z0-9\]/, "검사용 '_' 차시 id를 받는다");
+});
+
+test('student role opens the lesson directly: no join screen, class/seat only from the URL', () => {
+  const src = readFileSync(join(pool, 'lessons/player.js'), 'utf8');
+  assert.doesNotMatch(src, /renderJoin|name="seat"|name="class"|id="join"/, '입장 화면이 남아 있으면 안 된다');
+  assert.match(src, /qs\.get\('seat'\)/); assert.match(src, /qs\.get\('class'\)/);
+  assert.doesNotMatch(readFileSync(join(pool, 'lessons/player.css'), 'utf8'), /\.pl-join/);
+  // 번호가 없으면 기기 키로 묶고, 포털에는 '번호 없음'으로 간다
+  assert.match(src, /d\$\{deviceKey\}/);
+  const p = loadRegistry().sdkPayload({ ...sample, seat: '', title: '시계', studentKey: 'mx-dabcd1234' }, {});
+  assert.equal(p.deviceLabel, '번호 없음');
+  const clock = lessons.find(({ l }) => l.id === 'g2-math-clock').l;
+  const ex = clock.stages[2].exitTicket.map((q, i) => ({ key: `exit.${i + 1}`, correct: q.type === 'mood' ? null : true, value: q.type === 'mood' ? 'good' : 0 }));
+  assert.equal(loadRegistry().decodeShort(loadRegistry().encodeShort({ ...sample, seat: '', items: [], exitTicket: ex }, clock), clock, '2-3').seat, '0', '번호 없는 짧은 코드는 0번');
+});
+
+test('unit files follow edu-unit.v1 and their lessons follow edu-lesson.v1', () => {
+  assert.ok(unitFiles.includes('_sample.js'), '형식 예시 단원 _sample.js');
+  for (const f of unitFiles) {
+    const u = loadUnitFile(f);
+    assert.equal(`${u.id}.js`, f); assert.equal(u.schema, 'edu-unit.v1', f);
+    assert.ok(typeof u.flow === 'string' && u.flow.trim(), `${u.id} flow`);
+    assert.ok(Array.isArray(u.lessons) && u.lessons.length, `${u.id} lessons`);
+    for (const l of u.lessons) {
+      assert.equal(l.id, `${u.id}-${String(l.catalog.lesson).padStart(2, '0')}`, `${l.id} id = 단원-번호`);
+      assert.equal(l.catalog.unit, u.catalogUnit, `${l.id} catalog.unit`);
+      assert.ok(!(String(l.catalog.lesson) in (u.refs || {})), `${l.id} refs 번호는 lessons에 쓰지 않는다`);
+      assert.equal(l.stages.map((s) => s.id).join(), 'intro,main,wrapup', l.id);
+      assert.equal(l.stages.reduce((a, s) => a + s.minutes, 0), 40, `${l.id} 40분`);
+      assert.equal(l.illustration.image, undefined, `${l.id} illustration.image 없음`);
+      assert.ok(l.illustration.prompt.endsWith(PROMPT_TAIL), `${l.id} prompt template`);
+      for (const a of l.stages[1].activities) for (const it of a.items) assert.ok(it.free || it.target, `${l.id}/${a.id} target`);
+    }
+  }
+});
+
+test("build-bundles leaves '_' files out of manifest, catalog index and bundles", () => {
+  const src = readFileSync(join(pool, 'build-bundles.mjs'), 'utf8');
+  assert.equal((src.match(/!f\.startsWith\('_'\)/g) || []).length, 2, 'data·units 둘 다 거른다');
+  const w = {}; new Function('window', readFileSync(join(pool, 'lessons/manifest.js'), 'utf8'))(w);
+  assert.ok(Array.isArray(w.EDU_LESSONS) && Array.isArray(w.EDU_UNITS));
+  assert.ok(!w.EDU_LESSONS.some((x) => x.id.startsWith('_')), 'manifest에 _ 차시 없음');
+  const ix = {}; new Function('window', readFileSync(join(pool, 'lessons/units/index.js'), 'utf8'))(ix);
+  assert.ok(!Object.values(ix.EDU_UNIT_INDEX.lessons).some((id) => id.startsWith('_')));
+  assert.equal(ix.EDU_UNIT_INDEX.lessons['g2-수학-2학기-4~2'], 'g2-math-clock', '기존 차시는 카탈로그 차시에 이어진다');
+});
+
+test('catalog links every ready lesson to teacher / student preview / worksheet and never to a join screen', () => {
+  const src = readFileSync(join(pool, 'catalog.js'), 'utf8');
+  for (const role of ['teacher', 'student', 'print']) assert.match(src, new RegExp(`playerHref\\(id, '${role}'\\)`));
+  assert.match(src, /준비 중/); assert.match(src, /unit__flow/);
+  assert.doesNotMatch(src, /seat=|&class=/);
+  assert.match(readFileSync(join(pool, 'catalog.html'), 'utf8'), /lessons\/units\/index\.js/);
+});
+
 test('items[n].levels[단계].prompt·target replace the item for that level only', () => {
   const F = loadRegistry().flow;
   const it = { prompt: '3시', target: { h: 3, m: 0 }, hints: ['h1'], levels: { challenge: { prompt: '3시 25분', target: { h: 3, m: 25 } }, easy: { state: { h: 1 } } } };

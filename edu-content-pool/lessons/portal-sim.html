@@ -59,7 +59,9 @@
         // isTrustedViewerMessage: 뷰어 iframe에서 온 메시지만
         if (e.source !== $('#frame').contentWindow) return;
         if (e.data?.type !== 'edulinker_submission' || !e.data.payload || !open) return;
+        // 포털은 로그인한 학생을 안다 — 도구는 번호를 받지 않으므로(입장 화면 없음) 저장할 때 포털이 반·번호를 붙인다
         const payload = Object.assign({}, e.data.payload, { deviceLabel: `${me.grade}-${me.cls}-${me.num}번 학생` });
+        if (payload.data && !payload.data.seat) payload.data = Object.assign({}, payload.data, { seat: String(me.num), classCode: payload.data.classCode || `${me.grade}-${me.cls}` });
         const r = await fetch(`/api/portal/materials/${encodeURIComponent(open.id)}/submit`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(payload) });
         // 저장한 뒤 받음 확인을 도구에 돌려준다(?ack=0: 답 안 함 — 지금의 실제 포털, ?ack=fail: 저장 실패로 답함)
         // 실제 뷰어와 같은 모양: clientId는 메시지 맨 위에서만 읽고(빈 문자열 아님, 128자 이하), 답은 iframe 출처로만 보낸다

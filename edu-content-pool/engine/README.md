@@ -137,7 +137,7 @@
 - **문항별 단계 시작(선택):** `items[n].levels = { easy?: { state?, toolOptions?, prompt?, target? }, base?: …, challenge?: … }`. 학생이 고른 단계에 칸이 있으면 그 단계의 `state`가 문항의 `state`를 **바꾸고**, `toolOptions`는 문항의 `toolOptions` 위에 **같은 키만 덮는다**(활동 `levels` 옵션 → 문항 `toolOptions` → 단계별 `toolOptions` 순). '처음으로'도 그 단계의 시작 상태로 돌아간다. `check-lesson.mjs`가 모양(모르는 단계·칸, 빈 칸)과 '그 단계 시작 상태가 이미 정답'을 검사한다.
 - **단계별 문항(선택):** 같은 칸에 `prompt`(160자 이하)와 `target`을 두면 그 단계에서는 문항 글과 목표가 그것으로 바뀐다(예: 도전은 더 어려운 목표). 플레이어·출구·`check-lesson.mjs`·`simulate-class.mjs`가 모두 `PaperLessons.flow.itemAt(item, level)`로 그 단계의 문항을 쓴다 — 확인·`solve`·힌트·모의 수업이 그 단계 `target`을 본다. `target`은 짝 활동(free) 문항에 쓰지 않고, 문항 `target`과 같은 모양(객체/배열)이어야 하며, 바꿨다면 `prompt`도 함께 바꿔야 한다(글과 목표가 어긋나지 않게). `check-lesson.mjs`는 단계마다 `solve(target)` 뒤 `check(target).correct`, 1단계 힌트에 그 단계 정답 값이 없는지도 본다.
 - **확인 단추:** 틀린 직후 1.2초 동안 잠긴다(`aria-disabled`). 교구를 바꾸지 않고 다시 누르면 시도로 세지 않고, 보이던 피드백과 자동 힌트는 그대로 둔다. 피드백·힌트 줄에는 누르면 읽어 주는 단추가 붙는다(자동 읽기는 없다).
-- **성취기준:** `standards`의 코드는 차시 과목 머리글자와 같아야 한다(국어→국, 수학→수, 과학→과, 사회→사, 통합교과→바·슬·즐, 도덕→도). `units-map.json`의 `catalog.unit` 단원 목록에 같은 과목 코드가 하나라도 있으면, 차시의 코드는 그 목록 안에 있어야 한다. 단원이 없거나 같은 과목 코드가 없으면 검사는 알림만 남긴다.
+- **성취기준:** `standards`의 코드는 차시 과목 머리글자와 같아야 한다(국어→국, 수학→수, 과학→과, 사회→사, 통합교과→바·슬·즐, 도덕→도, 영어→영, 체육→체, 음악→음, 미술→미, 실과→실). `units-map.json`의 `catalog.unit` 단원 목록에 같은 과목 코드가 하나라도 있으면, 차시의 코드는 그 목록 안에 있어야 한다. 단원이 없거나 같은 과목 코드가 없으면 검사는 알림만 남긴다.
 - **출구 질문**은 전개 문항과 문항(prompt)·정답(target)이 똑같으면 안 된다. 숫자나 상황을 바꿔 옮겨 쓰는지를 잰다.
 - **출구 질문:** `wrapup.exitTicket[]`의 `type`은 `choice`, `tool`, `short`, `mood` 중 하나다.
 - **활동지:** `worksheet.items[]`의 `type`은 `figure`, `choice`, `blank`, `check`, `table`, `short`, `draw` 중 하나다.
@@ -149,9 +149,30 @@
 - `illustration.scene`은 같은 장면을 `PaperKit.scene` 모티프로 조립한 벡터판이다. 화면에는 이것을 띄운다.
   - 쓸 수 있는 모티프: `hills`, `sun`, `moon`, `cloud`, `tree`, `flower`, `house`, `star`, `wave`, `mountain`, `bird`, `leaf`, `snow`, `text`
 
+## 단원 파일 (`lessons/units/<단원 id>.js`, schema `edu-unit.v1`)
+
+카탈로그 차시(330단원·5,199차시)는 단원 하나를 파일 하나에 담는다. `lessons/units/_sample.js`가 형식 예시다(차시 2개, `check-unit.mjs _sample`이 통과한다). 무엇을 써야 하는지(단원·차시 id, 차시 수, 제목, 교구 선택, 성취기준)는 `CATALOG_BUILD.md` 2·5절이 정본이다.
+
+```js
+PaperLessons.registerUnit({
+  id: 'g3-sci-1-02', schema: 'edu-unit.v1', catalogUnit: 'g3-과학-1학기-2',
+  grade: 3, subject: '과학', unitTitle: '2. 동물의 생활',
+  flow: '교사용 진행 방향 3~6문장',
+  refs: { 2: 'g3-science-sound' },   // units-index.json existing의 번호 → 이미 있는 lessons/data 차시(그 번호는 lessons에 쓰지 않는다)
+  lessons: [ { id: 'g3-sci-1-02-01', schema: 'edu-lesson.v1', catalog: { unit: 'g3-과학-1학기-2', lesson: 1 }, … }, … ],
+});
+```
+
+- **차시:** `lessons[]`의 각 차시는 위 '차시 계약'을 전부 따른다. `grade`·`subject`·`unitTitle`은 단원과 같고, 차시 id는 `<단원 id>-<두 자리 번호>`, `catalog.lesson`은 그 번호다. `illustration.image`는 쓰지 않는다(`scene`만).
+- **레지스트리:** `PaperLessons.registerUnit(unit)`이 차시마다 `lesson.unit = { id, catalogUnit, unitTitle, flow, index }`를 붙여 등록하고, `refs` 번호(`<단원 id>-NN`)는 기존 차시의 별칭으로 둔다. `load(id)`는 id가 `-NN`으로 끝나면 `units/<단원 id>.js`를, 아니면 `data/<id>.js`를 읽는다(못 찾으면 다른 쪽도 본다). 교구를 읽기 전에 카드 계열 공통 판 `engine/tools/_cards.js`를 언제나 먼저 읽는다(없으면 조용히 건너뛴다).
+- **검사용 차시:** 이름이 `_`로 시작하는 파일(`data/_tool-*.js`, `units/_sample.js`)은 manifest·카탈로그·묶음에서 빠진다. `player.html?lesson=_tool-x`로는 열린다.
+- **학생 화면:** `role=student`는 입장 화면 없이 바로 수업을 연다. 반·번호는 런처·포털이 주소(`class`, `seat`, `pair`)나 포털 `material_id` 문맥으로 넘긴다. 번호가 없으면 결과의 `seat`는 비고 `studentKey`는 `<반 코드|m<자료 id>>-d<기기 키 8자>`(이 기기의 무작위 키)다 — 제출은 포털(부모 창)·허브(`/dist/`·`collect`)가 주는 길로만 가고, 길이 없으면 대기열과 제출 코드로 남는다. 포털로 갈 때 `deviceLabel`은 '번호 없음'이고 포털이 로그인한 학생으로 저장한다.
+- **묶음:** `build-bundles.mjs`가 `dist/units/<단원 id>/`(첫 화면 `index.html` = 차시 고르기, 차시마다 `<차시 id>.html`, `packages/<차시 id>.json` lesson-package.v1)와 `dist/units/<단원 id>.zip`을 만든다. `lessons/manifest.js`에는 차시 항목(`EDU_LESSONS`, 단원 차시는 `unitId`·`hub`·`zip`)과 단원 목록(`EDU_UNITS`)을, `lessons/units/index.js`에는 카탈로그 색인(`EDU_UNIT_INDEX`: 카탈로그 차시 → 차시 id, 단원 진행 방향)을 쓴다. 성취기준이 비어 있는 차시는 lesson-package를 만들지 않는다(스키마가 성취기준을 요구한다).
+
 ## 검사 도구
 
 - `check-lesson.mjs <id>` — 정적 계약 + 실브라우저 흐름. `--shots <dir>`이면 도입·**활동마다 한 장**·출구·휴대폰·활동지를 찍는다. 교사 화면에서 문항마다 reveal 누출·단계별 시작·오답 만들기를 따로 본다(제출 기록에 남지 않음).
+- `check-unit.mjs <단원 id>|--all [--hub URL] [--shots dir] [--no-pdf] [--static]` — 단원의 모든 차시를 크롬 하나·페이지 재사용으로 차시당 몇 초에 본다. 정적: `check-lesson.mjs`의 차시 계약 + `CATALOG_BUILD.md` 2·5절(차시 수·번호 = plan − refs, id 형식, 단원 안 중복 문항·제목, 활동 1~3·문항 3~6·출구 2~4·활동지 4 이상, `illustration.image` 없음, 성취기준 과목 코드, 교사 발문, 안전). 동적: 문항마다 시작 상태가 정답 아님·`solve`→`check`·1단계 힌트 누출 없음·`wrongAnswer`, 확인 단추 한 번, 출구 교구, 학생 화면이 바로 열리고 휴대폰 폭에서 넘치지 않음, 활동지 렌더·2쪽 이하, 단원마다 번호 있는/없는 제출. 실패는 `차시 id · 위치 · 이유` 한 줄씩, 종료 코드 1. `check-lesson.mjs`는 학생처럼 끝까지 푸는 느린 검사(차시당 1분 남짓)로 그대로 남는다.
 - `simulate-class.mjs <id> --class <반>` — 30명 모의 수업. 결과 JSON에 문항별 `items[].incompleteAttempts`·`incompleteRate`·`wrongVia`(오답을 만든 방법)와 `simUnreliable`(시도로 세지지 않은 확인이 30% 넘는 문항)이 있다. 학생은 `maxAttempts`를 지킨다(닫히면 '다음 문제' → `closedByAttempts`, 문항별 `closed`). 약한 학생은 틀린 뒤 힌트 사다리를 올라가고(문항별 `hintLevels`), 힌트 단계만큼 다음 시도가 조금 쉬워진다. 문항 하나가 `--item-timeout`초(기본 60)를 넘으면 건너뛰고 `timedOut`에 적는다(페이지가 통째로 멈추면 그 학생만 끝낸다).
 - `classroom-hub.mjs`의 개인정보 거름(`PII`)은 모듈에서 가져다 쓸 수 있다(가져올 때는 서버를 띄우지 않는다). 숫자 앞이 숫자·소수점이면 시작하지 않아 긴 소수(0.142857142857, 1.3333333333333333)는 걸리지 않는다.
 - **번들 신선도:** 허브 경로 학생은 `dist/<id>/`를 받는다. 두 스크립트는 번들이 차시·교구·플레이어 원본보다 오래되었으면 경고하고, `--rebuild`를 주면 `build-bundles.mjs`로 다시 묶는다.

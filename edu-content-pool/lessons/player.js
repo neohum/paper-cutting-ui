@@ -1,5 +1,6 @@
 /* 40분 차시 플레이어 — 학생(크롬북)·교사(전자칠판)·인쇄(활동지) 세 화면.
- * URL: player.html?lesson=<id>&role=student|teacher|print&level=easy|base|challenge&class=<반코드>&seat=<번호>
+ * URL: player.html?lesson=<id>&role=student|teacher|print&level=easy|base|challenge&class=<반코드>&seat=<번호>&pair=<짝 번호>
+ *      role=student는 입장 화면 없이 바로 수업을 연다 — 반·번호는 런처·포털이 주소로 넘기고, 없으면 번호 없이 한다.
  *      &collect=<제출 주소 | 1(같은 출처 허브 주소)>&material_id=<포털 자료 id>
  * 런처 허브는 매개변수 없이 /dist/<id>/로 띄우므로 lesson이 없으면 번들에 박힌 window.EDU_BUNDLE_LESSON을 쓴다.
  */
@@ -16,9 +17,18 @@
   const pref = (() => { try { return JSON.parse(localStorage.getItem(PREF) || '{}'); } catch (_) { return {}; } })();
   const savePref = () => { try { localStorage.setItem(PREF, JSON.stringify(pref)); } catch (_) { /* 저장 불가 */ } };
 
+  // 반·번호는 런처·포털이 주소(class, seat, pair)로만 넘긴다 — 학생 입장 화면은 없다(런처가 차시를 나눠 준다).
+  // 번호가 없으면 번호 없이 수업하고, 결과는 이 기기의 무작위 키로 묶는다(이름·번호를 묻지 않는다).
+  const digits = (v) => String(v || '').replace(/\D/g, '').replace(/^0+/, '').slice(0, 2);
+  const seat0 = digits(qs.get('seat'));
+  const pair0 = digits(qs.get('pair'));
+  const DEVICE = 'edu-device-key';
+  const deviceKey = (() => {
+    try { let k = localStorage.getItem(DEVICE); if (!/^[a-z0-9]{8}$/.test(k || '')) { k = Math.random().toString(36).slice(2, 10).padEnd(8, '0'); localStorage.setItem(DEVICE, k); } return k; } catch (_) { return Math.random().toString(36).slice(2, 10).padEnd(8, '0'); }
+  })();
   const S = {
     lesson: null, role: qs.get('role') || 'student', level: LEVELS[qs.get('level')] ? qs.get('level') : 'base',
-    classCode: (qs.get('class') || '').slice(0, 12), seat: qs.get('seat') || '', pairSeat: '', nickname: '',
+    classCode: (qs.get('class') || '').trim().slice(0, 12), seat: seat0, pairSeat: seat0 && pair0 !== seat0 ? pair0 : '', nickname: '',
     stage: 0, act: 0, item: 0, maxStage: 0, tool: null, started: null, items: {}, streak: 0, levelChanges: [],
     stageT0: {}, actT0: {}, suggestOff: {}, exitWarned: false,
   };
@@ -57,7 +67,6 @@
     // 다시 열었을 때 못 보낸 결과가 있으면 보내고, 보냈다고 알려 준다
     L.flush().then((n) => { if (n) toast(`지난번에 못 보낸 결과 ${n}개를 선생님께 보냈어요.`); }).catch(() => {});
     if (S.role === 'print') return renderPrint(qs.get('variant') === 'easy');
-    if (S.role === 'student' && !S.seat) return renderJoin();
     S.started = Date.now(); K.recorder.reset();
     if (S.role === 'teacher') S.maxStage = 2;
     render();
@@ -66,42 +75,6 @@
   function toast(text) {
     const t = document.createElement('div'); t.className = 'pl-toast'; t.setAttribute('role', 'status'); t.textContent = text;
     document.body.appendChild(t); setTimeout(() => t.remove(), 4000);
-  }
-
-  // ---- 입장: 번호만 받는다(이름 없음). 포털이 아니면 반 코드가 꼭 있어야 반끼리 결과가 섞이지 않는다 ----
-  function renderJoin() {
-    const needClass = !S.classCode && !qs.get('material_id');
-    app.innerHTML = `
-      <section class="pl-join pc-card">
-        <div class="pl-join__art" id="join-art"></div>
-        <h1>${esc(S.lesson.title)} ${readBtn(S.lesson.title)}</h1>
-        <p class="pl-muted">${S.lesson.grade}학년 ${esc(S.lesson.subject)} · ${esc(S.lesson.unitTitle)}</p>
-        <form id="join" class="pl-join__form">
-          ${needClass ? '<label>반 코드 <input name="class" maxlength="12" required autocomplete="off" placeholder="선생님이 알려 준 코드 (예: 3-2)"></label>' : ''}
-          <label>내 번호 <input name="seat" inputmode="numeric" maxlength="4" required autocomplete="off" placeholder="예: 7"></label>
-          <label>짝 번호 (둘이 한 기기로 할 때만) <input name="pair" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="비워 두어도 돼요"></label>
-          <p class="pl-warn" id="join-warn" role="alert" hidden></p>
-          <label>별명 (선택) <input name="nick" maxlength="8" autocomplete="off" placeholder="이름은 쓰지 않아요"></label>
-          ${qs.get('material_id') ? '<p class="pl-muted">포털에 로그인한 번호와 같은 번호를 넣어 주세요.</p>' : ''}
-          <button class="pl-btn pl-btn--primary" type="submit"><i class="fi fi-rr-play" aria-hidden="true"></i> 시작하기</button>
-        </form>
-      </section>`;
-    showArt($('#join-art'));
-    $('#join').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const f = new FormData(e.target);
-      // '7번'처럼 써도 숫자만 받는다(브라우저 영어 형식 경고 대신 우리 말로 안내)
-      S.seat = String(f.get('seat') || '').replace(/\D/g, '').replace(/^0+/, '').slice(0, 2);
-      if (!S.seat) { const w = $('#join-warn'); w.hidden = false; w.textContent = '번호는 숫자로 써 주세요. 예: 7'; $('input[name="seat"]').focus(); return; }
-      S.pairSeat = String(f.get('pair') || '').replace(/\D/g, '').slice(0, 2);
-      if (S.pairSeat === S.seat) S.pairSeat = '';
-      S.pairSeat = S.pairSeat.replace(/^0+/, '');
-      if (f.get('class')) S.classCode = String(f.get('class')).trim().slice(0, 12);
-      // 별명에 이름·전화번호처럼 보이는 것은 받지 않는다(포털에는 번호만 간다)
-      S.nickname = String(f.get('nick') || '').replace(/[0-9-]{6,}/g, '').slice(0, 8);
-      S.started = Date.now(); K.recorder.reset(); render(); $('#stage').focus();
-    });
-    (needClass ? $('input[name="class"]') : $('input[name="seat"]')).focus();
   }
 
   // ---- 도입 그림: 생성 그림(illustration.image)이 있으면 그것을, 없거나 못 읽으면 벡터 장면을 띄운다 ----
@@ -131,7 +104,8 @@
     // 목표: 도입에서는 펼치고, 휴대폰에서는 도입 뒤로 접는다(학생이 펼치거나 접으면 다음 화면에서도 그대로)
     const showGoal = !(S.role === 'student' && S.lesson.grade <= 2);
     const goalOpen = S.goalOpen ?? (!phone() || st.id === 'intro');
-    const who = `<span class="pl-who__c">${esc(S.classCode || '반 코드 없음')} · </span>${esc(S.seat)}번${S.pairSeat ? `·${esc(S.pairSeat)}번` : ''}${S.nickname ? ` · ${esc(S.nickname)}` : ''}`;
+    // 런처·포털이 준 반·번호만 보인다(없으면 비운다 — 학생에게 묻지 않는다)
+    const who = [S.classCode ? `<span class="pl-who__c">${esc(S.classCode)}${S.seat ? ' · ' : ''}</span>` : '', S.seat ? `${esc(S.seat)}번${S.pairSeat ? `·${esc(S.pairSeat)}번` : ''}` : ''].join('');
     // 단계 띠: 휴대폰에서는 수업 화면 아래에 둔다(DOM 순서 = 보이는 순서). 교구가 첫 화면에 들어오게
     const steps = `<nav class="pl-steps" aria-label="수업 단계">
         ${stages().map((s, i) => { const locked = i > S.maxStage; return `<button type="button" class="pl-step ${i === S.stage ? 'is-on' : ''} ${i < S.stage ? 'is-done' : ''}" data-stage="${i}" ${i === S.stage ? 'aria-current="step"' : ''} ${locked ? 'disabled title="앞 단계를 마치면 열려요"' : ''} style="flex:${s.minutes}">
@@ -149,7 +123,7 @@
           <div class="pl-prefs">
             <button type="button" class="pl-pref" data-pref="sound" aria-pressed="${pref.sound !== false}">${soundLabel()}</button>
           </div>
-          ${S.role === 'student' ? `<span class="pl-muted pl-who">${who}</span>` : ''}
+          ${S.role === 'student' && who ? `<span class="pl-muted pl-who">${who}</span>` : ''}
         </div>
       </header>
       ${phone() ? '' : steps}
@@ -523,7 +497,10 @@
       score: { correct, total, solved }, items, exitTicket: exit, events: K.recorder.events.length,
     };
     // 포털·허브가 번호로 학생을 묶는 가명 키(반 코드+번호). 이름은 어디에도 없다. 짝이 있으면 같은 결과를 두 번호로 낸다.
-    const mk = (seat) => ({ ...base, pairWith: S.pairSeat ? (seat === S.seat ? S.pairSeat : S.seat) : undefined, id: `${S.lesson.id}:${S.classCode}:${seat}:${finishedAt}`, seat, studentKey: `${S.classCode || `m${qs.get('material_id') || 'x'}`}-${seat}` });
+    // 번호가 없으면(런처 허브 /dist/…를 매개변수 없이 연 경우) 이 기기의 무작위 키 'd<8자>'로 묶는다 — 같은 기기의 재제출만 덮어쓴다.
+    // 포털은 로그인한 학생으로 저장하므로 번호가 없어도 포털 쪽 기록은 학생별로 남는다.
+    const who0 = (seat) => seat || `d${deviceKey}`;
+    const mk = (seat) => ({ ...base, pairWith: S.pairSeat ? (seat === S.seat ? S.pairSeat : S.seat) : undefined, id: `${S.lesson.id}:${S.classCode}:${who0(seat)}:${finishedAt}`, seat, studentKey: `${S.classCode || `m${qs.get('material_id') || 'x'}`}-${who0(seat)}` });
     const result = mk(S.seat);
     const btn = $('#exit button[type="submit"]'); if (btn) { btn.disabled = true; btn.textContent = '보내는 중…'; }
     const collect = qs.get('collect') === '1' ? `${location.origin}/api/tools/${encodeURIComponent(`edu-lesson:${S.lesson.id}`)}/submissions` : qs.get('collect') || undefined;
@@ -551,7 +528,7 @@
     $('#dl').addEventListener('click', () => {
       const a = document.createElement('a');
       a.href = URL.createObjectURL(new Blob([JSON.stringify(result, null, 1)], { type: 'application/json' }));
-      a.download = `${S.lesson.id}-${S.classCode || 'class'}-${S.seat}.json`; a.click();
+      a.download = `${S.lesson.id}-${S.classCode || 'class'}-${S.seat || 'device'}.json`; a.click();
     });
     window.__lastResult.short = short;
     $('#done').scrollIntoView({ behavior: 'smooth', block: 'center' }); $('#done .pl-done').setAttribute('tabindex', '-1'); $('#done .pl-done').focus({ preventScroll: true });

@@ -35,11 +35,6 @@ p { margin: 0; text-wrap: pretty; }
 .pl-btn .fi { line-height: 1; display: inline-flex; }
 .pl-chip { display: inline-flex; align-items: center; justify-content: center; line-height: 1; padding: 6px 12px; border-radius: 999px; background: var(--pc-lavender-light); color: var(--pc-lavender-dark); font-weight: 800; font-size: 0.8em; }
 
-/* 입장 */
-.pl-join { padding: 24px; display: grid; gap: 12px; max-width: 640px; margin: 24px auto; text-align: center; }
-.pl-join__art { max-width: 520px; margin: 0 auto; width: 100%; }
-.pl-join__form { display: grid; gap: 12px; text-align: left; }
-.pl-join__form label { display: grid; gap: 4px; font-weight: 700; }
 input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border: 1px solid #CFC5B5; background: #fff; color: var(--pc-ink); min-height: 48px; }
 
 /* 상단 */

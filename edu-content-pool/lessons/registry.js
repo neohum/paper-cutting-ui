@@ -32,13 +32,47 @@
     return [...ids];
   }
 
+  // ---- 단원 파일(units/<단원 id>.js): PaperLessons.registerUnit({ id, flow, refs, lessons: [...] }) ----
+  // 단원 차시 id는 '<단원 id>-<두 자리>'. refs의 번호(이미 있는 data/ 차시)는 그 차시로 넘긴다.
+  const units = {};
+  const aliases = {}; // '<단원 id>-NN' → 이미 있는 차시 id(refs)
+  const two = (n) => String(n).padStart(2, '0');
+  const unitOf = (id) => { const m = /^(.+)-\d{2}$/.exec(String(id || '')); return m ? m[1] : null; };
+  function registerUnit(u) {
+    if (!u || typeof u.id !== 'string') throw new Error('단원 id가 없습니다');
+    units[u.id] = u;
+    const info = { id: u.id, catalogUnit: u.catalogUnit, unitTitle: u.unitTitle, flow: u.flow || '' };
+    (u.lessons || []).forEach((l, i) => {
+      // 같은 차시 객체를 두 번 등록해도(다시 읽기) 덮어쓰기만 한다
+      l.unit = Object.assign({ index: i }, info);
+      lessons[l.id] = l;
+    });
+    for (const [n, ref] of Object.entries(u.refs || {})) aliases[`${u.id}-${two(n)}`] = ref;
+  }
+
+  // 차시 id 모양: 소문자·숫자·붙임표. 맨 앞 '_'는 검사용 차시(_tool-*, _sample)만 쓴다
+  const ID = /^_?[a-z0-9][a-z0-9-]*$/;
   // opts.tools=false: 교사 화면처럼 교구 없이 차시 구조만 필요할 때(짧은 제출 코드 풀기)
   async function load(id, opts = {}) {
-    if (!/^[a-z0-9-]+$/.test(id)) throw new Error('차시 id 형식이 아닙니다');
-    if (!lessons[id]) await loadScript(`${base}data/${id}.js`);
+    if (!ID.test(String(id))) throw new Error('차시 id 형식이 아닙니다');
+    if (aliases[id]) return load(aliases[id], opts);
+    if (!lessons[id]) {
+      // 단원 차시('…-NN')는 단원 파일을 먼저, 나머지는 data/<id>.js를 먼저 읽는다(없으면 다른 쪽도 본다)
+      const u = unitOf(id);
+      const order = u ? [`units/${u}.js`, `data/${id}.js`] : [`data/${id}.js`];
+      for (const rel of order) {
+        try { await loadScript(`${base}${rel}`); } catch (_) { /* 다음 길로 */ }
+        if (lessons[id] || aliases[id]) break;
+      }
+      if (aliases[id]) return load(aliases[id], opts);
+    }
     const l = lessons[id];
     if (!l) throw new Error(`차시를 찾지 못함: ${id}`);
-    if (opts.tools !== false) await Promise.all(toolsOf(l).map((t) => loadScript(`${base}../engine/tools/${t}.js`)));
+    if (opts.tools !== false) {
+      // 카드 계열 교구(story·timeline…)의 공통 판을 언제나 먼저 읽는다 — 아직 없는 곳에서는 조용히 건너뛴다
+      await loadScript(`${base}../engine/tools/_cards.js`).catch(() => {});
+      await Promise.all(toolsOf(l).map((t) => loadScript(`${base}../engine/tools/${t}.js`)));
+    }
     return l;
   }
 
@@ -61,7 +95,7 @@
   function sdkPayload(result, opts) {
     return {
       appId: `edu-lesson:${result.lessonId}`, appTitle: result.title, materialId: opts.materialId || '',
-      pin: opts.pin || '', studentKey: result.studentKey, deviceLabel: `${result.seat}번`,
+      pin: opts.pin || '', studentKey: result.studentKey, deviceLabel: result.seat ? `${result.seat}번` : '번호 없음',
       score: result.score.correct, totalScore: result.score.total,
       comment: `${result.level} 단계 · ${Math.round(result.durationSec / 60)}분 · 출구 ${result.exitTicket.filter((e) => e.correct).length}/${result.exitTicket.filter((e) => e.correct != null).length}`,
       data: result, attachments: [], submittedAt: result.finishedAt, clientTime: new Date().toISOString(),
@@ -371,7 +405,8 @@
 
   root.PaperLessons = {
     flow,
-    register(l) { lessons[l.id] = l; }, get: (id) => lessons[id], all: () => Object.values(lessons),
+    register(l) { lessons[l.id] = l; }, registerUnit, unit: (id) => units[id], unitOf, resolve: (id) => aliases[id] || id,
+    get: (id) => lessons[aliases[id] || id], all: () => Object.values(lessons),
     load, loadScript, toolsOf, submit, waitAck, flush, encode, decode, encodeShort, decodeShort, sdkPayload, base,
   };
 })(window);
