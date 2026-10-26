@@ -15,6 +15,8 @@
   'use strict';
   const kindOf = (a) => (a > 0 && a < 90 ? 'less' : a === 90 ? 'right' : a > 90 && a < 180 ? 'more' : null);
   const WORD = { less: '직각보다 작은 각', right: '직각', more: '직각보다 큰 각' };
+  // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 답이 될 각의 이름·기호를 말하지 않는다), 2 = 한 번 틀린 뒤 지금 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
+  const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
   K.registerTool('rightangle', {
     name: '종이 직각',
@@ -92,7 +94,7 @@
 
       // ---- 삼각자 대 보기 단추 ----
       const btn = (layer, x, y, w, label, aria, color, press) => {
-        const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': aria, class: 'pk-draggable' }, layer);
+        const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': aria }, layer);
         kit.transform(g, { x, y });
         NS('rect', { x: -w / 2 - 2, y: -25, width: w + 4, height: 50, class: 'pk-hit' }, g);
         const pc = kit.piece(st, g, { shape: { type: 'rect', x: -w / 2, y: -22, w, h: 44, rx: 12 }, color, depth: 2 });
@@ -129,10 +131,29 @@
         });
       }
 
+      // ---- 겹쳐 보기(비교): 가의 각을 본떠 나의 꼭짓점·초록 띠에 맞춰 겹친다 — 눈어림 대신 겹쳐서 견준다 ----
+      let looked = 0; let ghost = null;
+      if (mode === 'compare' && !print) {
+        btn(UI, 316, 36, 128, '겹쳐 보기', '가의 각을 본떠 나 위에 겹쳐 보기', 'sky', async (via) => {
+          looked++; if (ghost) ghost.remove();
+          const pair = o.pair || [{ angle: 40, arm: 1 }, { angle: 65, arm: 0.45 }];
+          const V = angles[1].V; const len = 150 * Math.max(pair[0].arm || 1, pair[1].arm || 1) + 10;
+          ghost = NS('g', { 'pointer-events': 'none' }, st.layer('ghost'));
+          const style = { stroke: '#204C5A', 'stroke-width': 4, 'stroke-dasharray': '9 6', 'stroke-linecap': 'round', fill: 'none' };
+          NS('line', Object.assign({ x1: V[0], y1: V[1], x2: V[0] + len, y2: V[1] }, style), ghost);
+          const arm = NS('line', Object.assign({ x1: V[0], y1: V[1], x2: V[0] + len, y2: V[1] }, style), ghost);
+          const a0 = pair[0].angle;
+          await kit.tween(700, (p) => { const r = (a0 * p * Math.PI) / 180; arm.setAttribute('x2', (V[0] + len * Math.cos(r)).toFixed(1)); arm.setAttribute('y2', (V[1] - len * Math.sin(r)).toFixed(1)); });
+          kit.tick(); kit.announce('가의 각을 본떠 나의 꼭짓점과 초록 띠에 맞춰 겹쳤어요. 나의 복숭아색 띠가 점선보다 안쪽인지, 꼭 맞는지, 바깥쪽인지 보세요.');
+          kit.recorder.log('rightangle', Object.assign({ via, act: 'overlay' }, state()));
+          const mine = ghost; setTimeout(() => { if (ghost === mine) { ghost.remove(); ghost = null; } }, 3200);
+        });
+      }
+
       // ---- 꼭짓점·변 고르기 ----
       if (mode === 'parts' && !print) {
         const mark = (g, key, label) => {
-          g.setAttribute('tabindex', 0); g.setAttribute('role', 'button'); g.setAttribute('aria-label', label); g.classList.add('pk-draggable');
+          g.setAttribute('tabindex', 0); g.setAttribute('role', 'button'); g.setAttribute('aria-label', label);
           const go = (via) => {
             part = key; kit.tick();
             [main.brad, main.fixedG, main.mv].forEach((x) => x.classList.toggle('pk-ok', false));
@@ -152,20 +173,22 @@
       const state = () => {
         const s = { mode, angle, square: usedSquare };
         if (btnRow) s.choice = choice;
+        if (mode === 'compare') s.looked = looked;
         if (mode === 'parts') s.part = part;
         return s;
       };
       const setState = (s) => {
         s = s || {};
         if (s.angle != null && mode !== 'compare') { angle = kit.clamp(Math.round(s.angle), 0, 180); main.setA(angle); if (rot) rot.set(90 - angle); }
-        choice = s.choice ?? null; part = s.part ?? null; usedSquare = !!s.square; sqShown = false; paintSq();
+        choice = s.choice ?? null; part = s.part ?? null; usedSquare = !!s.square; sqShown = false; paintSq(); looked = s.looked || 0;
         choiceBtns.forEach((c) => c.pc.setColor(c.key === choice ? 'buttercup' : 'cream'));
         paintKind();
       };
       setState({ angle });
 
+      let hinting = false;
       function celebrate() {
-        if (print) return;
+        if (print || hinting) return;
         angles.forEach((an) => kit.tween(600, (p) => kit.transform(an.brad, { r: p * 360, cx: an.V[0], cy: an.V[1] })));
       }
 
@@ -208,23 +231,40 @@
             }
           }
           if (mode === 'judge') {
-            if (!choice) return no('세 단추 가운데 하나를 골라요.', '삼각자 대 보기를 눌러 직각과 견주어 보세요.');
-            if (choice === t.judge) return yes(t.judge === 'right' ? '맞아요! 삼각자의 직각과 꼭 맞아요.' : `맞아요! 삼각자의 직각보다 ${t.judge === 'less' ? '좁아요' : '넓어요'}.`);
-            // 기울어진 직각을 '직각이 아니다'로 고르는 오개념은 따로 짚는다
-            if (t.judge === 'right' && o.turn) return no(usedSquare ? '기울어져 있어도 삼각자의 직각과 꼭 맞으면 직각이에요. 놓인 방향은 각의 크기와 관계없어요.' : '비스듬히 놓여 있어서 헷갈릴 수 있어요. 삼각자를 대 보세요.', '삼각자도 함께 기울여 꼭짓점과 초록 띠에 맞추어 보세요.');
-            if (t.judge !== 'right' && choice === 'right') return no(usedSquare ? '삼각자의 직각과 꼭 맞지 않아요. 복숭아색 띠가 삼각자의 변보다 안쪽인지 바깥쪽인지 보세요.' : '눈으로만 보면 헷갈릴 수 있어요. 삼각자를 대 보세요.', '삼각자의 직각을 꼭짓점에 대고 한 변을 초록 띠에 맞춰요.');
-            return no(usedSquare ? '삼각자를 대 본 모습을 다시 살펴봐요.' : '눈으로만 보면 헷갈릴 수 있어요. 삼각자를 대 보세요.', '삼각자의 직각을 꼭짓점에 대고 한 변을 초록 띠에 맞추면, 복숭아색 띠가 삼각자의 다른 변 안쪽인지·꼭 맞는지·바깥쪽인지 보여요.');
+            if (!choice) return { correct: false, incomplete: true, feedback: '세 단추 가운데 하나를 골라요.', hint: '삼각자 대 보기를 눌러 직각과 견주어 보세요.' };
+            // 삼각자를 대 보기 전의 판단은 맞든 틀리든 시도로 세지 않는다 — 단추를 차례로 눌러 맞히지 않게
+            if (!usedSquare) return { correct: false, incomplete: true, feedback: '먼저 "삼각자 대 보기"를 눌러 삼각자의 직각과 견주어 본 뒤에 확인해요.', hint: '삼각자의 직각을 꼭짓점에 대고 한 변을 초록 띠에 맞춰요.' };
+            if (choice === t.judge) return yes(t.judge === 'right' ? (o.turn ? '맞아요! 비스듬히 놓여 있어도 삼각자의 직각과 꼭 맞으니 직각이에요.' : '맞아요! 삼각자의 직각과 꼭 맞아요.') : `맞아요! 삼각자의 직각보다 ${t.judge === 'less' ? '좁아요' : '넓어요'}.`);
+            // 기울어진 직각: 첫 오답은 '다시 보기'만 — 교정 문장(기울어져도 직각)을 바로 주면 삼각자를 다시 보지 않고 답만 바꾼다
+            if (t.judge === 'right' && o.turn) return no('삼각자의 두 변이 두 띠와 꼭 맞는지 다시 보세요. 남는 틈이나 겹치는 곳이 있나요?', '기울어져 있어도 삼각자의 직각과 꼭 맞으면 직각이에요. 놓인 방향은 각의 크기와 관계없어요.');
+            if (t.judge !== 'right' && choice === 'right') return no('삼각자의 직각과 꼭 맞지 않아요. 복숭아색 띠가 삼각자의 변보다 안쪽인지 바깥쪽인지 보세요.', '삼각자의 직각을 꼭짓점에 대고 한 변을 초록 띠에 맞춰요.');
+            return no('삼각자를 대 본 모습을 다시 살펴봐요. 복숭아색 띠가 삼각자의 변보다 안쪽인가요, 바깥쪽인가요?', '삼각자의 직각을 꼭짓점에 대고 한 변을 초록 띠에 맞추면, 복숭아색 띠가 삼각자의 다른 변 안쪽인지·꼭 맞는지·바깥쪽인지 보여요.');
           }
           if (mode === 'compare') {
-            if (!choice) return no('세 단추 가운데 하나를 골라요.', '두 각이 벌어진 정도를 견주어 보세요.');
+            if (!choice) return { correct: false, incomplete: true, feedback: '세 단추 가운데 하나를 골라요.', hint: '두 각이 벌어진 정도를 견주어 보세요.' };
             if (choice === t.bigger) return yes('맞아요! 각의 크기는 변의 길이가 아니라 두 변이 벌어진 정도로 정해져요.');
             const longer = (o.pair || [{ arm: 1 }, { arm: 0.45 }])[0].arm >= (o.pair || [{ arm: 1 }, { arm: 0.45 }])[1].arm ? '가' : '나';
-            if (choice === longer && t.bigger !== longer) return no('변이 길다고 각이 큰 것은 아니에요.', '변의 길이는 생각하지 말고, 두 변이 얼마나 벌어졌는지만 견주어요. 한쪽 각을 다른 각 위에 겹쳐 본다고 생각해 보세요.');
+            if (choice === longer && t.bigger !== longer) return no(`변이 길다고 각이 큰 것은 아니에요.${looked ? '' : ' "겹쳐 보기"를 눌러 두 각을 겹쳐 보세요.'}`, '변의 길이는 생각하지 말고, 두 변이 얼마나 벌어졌는지만 견주어요. 겹쳐 보기로 가의 각을 나 위에 겹쳐 보세요.');
             return no('다시 견주어 볼까요?', '두 변이 벌어진 정도를 견주어요. 변의 길이는 각의 크기와 관계없어요.');
           }
-          if (!part) return no('꼭짓점이나 변을 눌러 골라요.', '각은 한 점에서 그은 두 반직선으로 이루어져요.');
+          if (!part) return { correct: false, incomplete: true, feedback: '꼭짓점이나 변을 눌러 골라요.', hint: '각은 한 점에서 그은 두 반직선으로 이루어져요.' };
           if (part === t.part) return yes(t.part === 'vertex' ? '맞아요! 두 변이 만나는 점이 꼭짓점이에요.' : '맞아요! 꼭짓점에서 뻗어 나간 띠가 각의 변이에요.');
           return no(part === 'vertex' ? '그 점은 꼭짓점이에요.' : '그것은 각의 변이에요.', t.part === 'vertex' ? '두 띠가 만나는 할핀 자리를 찾아요.' : '꼭짓점에서 뻗어 나간 띠를 찾아요.');
+        },
+        // 새 힌트 계약: 1단계는 늘 열리고 답(각의 이름·고를 기호)을 말하지 않는다. 지금 상태가 맞아도 '맞아요'라고 알려 주지 않는다.
+        hint(t, opts) {
+          t = t || {}; const lv = hintLevel(opts);
+          hinting = true;
+          try {
+            const r = this.check(t);
+            const concept = mode === 'parts' ? '각은 한 점에서 그은 두 반직선으로 이루어져요. 두 띠가 만나는 점과, 그 점에서 뻗어 나간 띠를 살펴봐요.'
+              : mode === 'compare' ? '변의 길이는 생각하지 말고 두 변이 벌어진 정도만 견주어요. "겹쳐 보기"로 한 각을 다른 각 위에 겹쳐 볼 수 있어요.'
+                : mode === 'judge' ? '"삼각자 대 보기"를 눌러, 꼭짓점과 초록 띠에 맞춘 삼각자의 다른 변과 복숭아색 띠를 견주어요.'
+                  : t.right ? '삼각자를 대 보고, 삼각자의 두 변에 두 띠가 꼭 맞게 돌려요.' : '삼각자를 대 보고, 복숭아색 띠가 삼각자의 변보다 안쪽에 있는지 바깥쪽에 있는지 견주어요.';
+            if (lv === 1 || r.correct) return { hint: concept, level: 1 };
+            if (lv === 2) return { hint: r.feedback || concept, level: 2 };
+            return { hint: r.hint || r.feedback || '', level: 3 };
+          } finally { hinting = false; }
         },
         async demo(t) {
           if (mode !== 'make' || print) return;

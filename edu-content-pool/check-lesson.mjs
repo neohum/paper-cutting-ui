@@ -30,6 +30,15 @@ async function nudge(F, E) {
   }
   return false;
 }
+// 확인을 누른 뒤 학생이 보는 글: 피드백 줄(#fb)과 안내 줄(#fb-note, 보일 때만)
+const said = (P) => P.evaluate(() => { const fb = document.querySelector('#fb'); const n = document.querySelector('#fb-note'); return { fb: (fb?.innerText || '').trim(), no: Boolean(fb?.classList.contains('is-no')), note: n && !n.hidden ? n.innerText.trim() : '' }; });
+// 틀린 확인은 피드백이 비면 안 되고, 세지 않은 확인(잠김·바꾸지 않음)도 안내 줄로 답해야 한다
+async function saidSomething(P, key, how, counted) {
+  const r = await said(P);
+  if (counted && r.no && !r.fb) fail(`${key}: 틀린 확인(${how}) 뒤 피드백이 비어 있음`);
+  else if (!counted && !r.note && !r.fb) fail(`${key}: 확인(${how})을 눌렀는데 아무 글도 없음`);
+  return r;
+}
 const fails = []; const notes = [];
 const fail = (m) => fails.push(m);
 
@@ -51,21 +60,63 @@ function itemShape(it) {
   }
   if (it.conclude != null && (typeof it.conclude !== 'string' || !it.conclude.trim() || it.conclude.length > 120)) out.push('conclude는 120자 이하 한 문장이어야 함');
   if (it.reveal != null && it.reveal !== 'after-check') out.push(`reveal은 'after-check'만 쓸 수 있음: ${it.reveal}`);
+  // 힌트 사다리 글: hints = ['1단계 개념', '2단계 틀린 단계 짚기', '3단계 풀이'] — 있으면 교구 힌트 글 대신 단계별로 쓴다
+  if (it.hints != null) {
+    if (!Array.isArray(it.hints) || !it.hints.length || it.hints.length > 3 || !it.hints.every((h) => typeof h === 'string' && h.trim() && h.length <= 200)) out.push('hints는 글자 1~3개 배열이어야 함(단계 1·2·3, 200자 이하)');
+    else for (const lv of ['easy', 'base', 'challenge']) { const leak = targetLeak(it.hints[0], itemAt(it, lv).target); if (leak) { out.push(`hints[0](1단계)는 개념만 — ${lv} 정답 값 ${leak}이(가) 들어 있음`); break; } }
+  }
+  if (it.maxAttempts != null && !(Number.isInteger(it.maxAttempts) && it.maxAttempts >= 1 && it.maxAttempts <= 10)) out.push('maxAttempts는 1~10 정수여야 함');
+  if (it.free && (it.hints != null || it.maxAttempts != null)) out.push('짝 활동(free) 문항에는 hints·maxAttempts를 쓰지 않음');
   // 문항별 단계 시작: levels = { easy?|base?|challenge?: { state?, toolOptions? } }
   if (it.levels != null) {
     if (typeof it.levels !== 'object' || Array.isArray(it.levels)) out.push('levels는 { easy?, base?, challenge? } 객체여야 함');
     else for (const [k, v] of Object.entries(it.levels)) {
       if (!['easy', 'base', 'challenge'].includes(k)) { out.push(`levels에 모르는 단계: ${k}`); continue; }
       if (!v || typeof v !== 'object' || Array.isArray(v)) { out.push(`levels.${k}는 { state?, toolOptions? } 객체여야 함`); continue; }
-      const extra = Object.keys(v).filter((x) => !['state', 'toolOptions'].includes(x));
+      const extra = Object.keys(v).filter((x) => !['state', 'toolOptions', 'prompt', 'target'].includes(x));
       if (extra.length) out.push(`levels.${k}에 모르는 칸: ${extra.join(', ')}`);
-      if (!('state' in v) && !('toolOptions' in v)) out.push(`levels.${k}가 비어 있음(state나 toolOptions가 있어야 함)`);
+      if (!['state', 'toolOptions', 'prompt', 'target'].some((x) => x in v)) out.push(`levels.${k}가 비어 있음(state·toolOptions·prompt·target 중 하나는 있어야 함)`);
+      // 단계별 문항: prompt는 글, target은 문항 target과 같은 모양(객체)이고 free 문항에는 쓰지 않는다
+      if (v.prompt != null && (typeof v.prompt !== 'string' || !v.prompt.trim() || v.prompt.length > 160)) out.push(`levels.${k}.prompt는 160자 이하 글이어야 함`);
+      if (v.target != null) {
+        if (it.free) out.push(`levels.${k}.target: 짝 활동(free) 문항에는 target을 쓰지 않음`);
+        else if (typeof v.target !== 'object' || Array.isArray(v.target) !== Array.isArray(it.target)) out.push(`levels.${k}.target은 문항 target과 같은 모양이어야 함`);
+        else { const ks = (o) => Object.keys(o || {}).sort().join(); if (!Array.isArray(v.target) && ks(v.target) !== ks(it.target)) notes.push(`levels.${k}.target 칸(${ks(v.target)})이 문항 target 칸(${ks(it.target)})과 다름 — 의도한 것인지 확인`); }
+        if (v.prompt == null && JSON.stringify(v.target) !== JSON.stringify(it.target)) out.push(`levels.${k}.target을 바꾸면 levels.${k}.prompt도 함께 바꿔야 함(문항 글과 목표가 어긋남)`);
+      }
       if (v.state != null && (typeof v.state !== 'object' || Array.isArray(v.state))) out.push(`levels.${k}.state는 교구 상태 객체여야 함`);
       if (v.toolOptions != null && (typeof v.toolOptions !== 'object' || Array.isArray(v.toolOptions))) out.push(`levels.${k}.toolOptions는 객체여야 함`);
     }
   }
   return out;
 }
+// 플레이어 PaperLessons.flow.itemAt과 같은 규칙: 그 단계의 prompt·target이 문항 것을 바꾼다
+function itemAt(item, level) {
+  const o = (item && item.levels && item.levels[level]) || {};
+  if (!item || (o.prompt == null && o.target == null)) return item;
+  return Object.assign({}, item, o.prompt != null ? { prompt: o.prompt } : {}, o.target != null ? { target: o.target } : {});
+}
+// 1단계 힌트는 개념·전략만: 목표(target)의 수(0·1 제외)·한글 값이 글에 들어 있으면 그 값을 돌려준다
+function targetLeak(text, target) {
+  if (typeof text !== 'string' || !text || target == null) return null;
+  const vals = [];
+  (function walk(v) {
+    if (typeof v === 'number' && Number.isFinite(v) && Math.abs(v) >= 2) vals.push(String(v));
+    else if (typeof v === 'string' && /[가-힣]/.test(v)) vals.push(v);
+    else if (v && typeof v === 'object') for (const k of Object.keys(v)) walk(v[k]);
+  })(target);
+  for (const v of vals) {
+    // 한두 글자 한글 값('가', '감')은 낱말 속('소리가')이 아니라 따로 쓰였을 때만 센다
+    const esc = v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const hit = /^-?\d/.test(v) ? new RegExp(`(?<![\\d.])${esc}(?![\\d])`).test(text)
+      : v.length <= 2 ? new RegExp(`(?<![가-힣])${esc}(?![가-힣])`).test(text) : text.includes(v);
+    if (hit) return `'${v}'`;
+  }
+  return null;
+}
+// 출구 질문에는 확인 단추가 없다 — '확인을 누르세요' 같은 글은 학생을 헤매게 한다
+const EXIT_CHECK_WORDS = /['‘"“]확인['’"”]|확인\s*(단추|버튼)|확인\s*(을|를)?\s*(누르|눌러|눌렀|눌)/;
+
 // 활동지 표: cells = 미리 채운 칸의 2차원 배열(''는 빈칸), 줄마다 columns 수와 같아야 한다
 function worksheetShape(it) {
   const out = [];
@@ -121,14 +172,17 @@ let lesson;
     if (!a.levels || !a.levels.easy || !a.levels.base || !a.levels.challenge) fail(`${a.id}: levels easy/base/challenge 필요`);
     if (!a.items?.length) fail(`${a.id}: items 없음`);
     for (const it of a.items || []) if (!it.free && !it.target) fail(`${a.id}: target 없는 문항 "${it.prompt}"`);
+    // 단계별 문항도 출구 중복 검사 대상(아래 mainKeys)
     (a.items || []).forEach((it, i) => { for (const m of itemShape(it)) fail(`${a.id}.${i + 1}: ${m}`); });
   }
   // 출구 질문이 전개 문항을 그대로 다시 내면 '배운 것을 옮겨 쓰는지'를 재지 못한다
   const norm = (t) => String(t || '').replace(/\s+/g, ' ').trim();
-  const mainKeys = new Map((main?.activities || []).flatMap((a) => a.items.map((it, i) => [`${norm(it.prompt)}|${JSON.stringify(it.target ?? null)}`, `${a.id}.${i + 1}`])));
+  const mainKeys = new Map((main?.activities || []).flatMap((a) => a.items.flatMap((it, i) => ['easy', 'base', 'challenge'].map((lv) => { const x = itemAt(it, lv); return [`${norm(x.prompt)}|${JSON.stringify(x.target ?? null)}`, `${a.id}.${i + 1}`]; }))));
   (st.find((s) => s.id === 'wrapup')?.exitTicket || []).forEach((q, i) => {
     const same = mainKeys.get(`${norm(q.prompt)}|${JSON.stringify(q.target ?? null)}`);
     if (same) fail(`exit.${i + 1}: 전개 ${same}와 문항·정답이 똑같음 — 숫자나 상황을 바꿔 내야 함`);
+    if (EXIT_CHECK_WORDS.test(q.prompt || '')) fail(`exit.${i + 1}: 출구 질문에는 확인 단추가 없는데 '확인'을 누르라고 함: "${q.prompt}"`);
+    if (q.type === 'tool' && !q.target) fail(`exit.${i + 1}: 교구 출구 질문에 target 없음`);
   });
   for (const m of standardsCheck(lesson)) (m.fail ? fail : (x) => notes.push(x))(m.text);
   const p = lesson.illustration?.prompt || '';
@@ -185,7 +239,7 @@ try {
   while (guard++ < 40) {
     const where = await page.evaluate(() => window.__pl.lesson.stages[window.__pl.stage].id);
     if (where !== 'main') break;
-    const info = await page.evaluate(() => { const S = window.__pl; const a = S.lesson.stages[S.stage].activities[S.act]; return { item: a.items[S.item], act: a.id, key: `${a.id}.${S.item + 1}`, hasSolve: typeof S.tool.solve === 'function' }; });
+    const info = await page.evaluate(() => { const S = window.__pl; const a = S.lesson.stages[S.stage].activities[S.act]; return { item: window.PaperLessons.flow.itemAt(a.items[S.item], S.level), act: a.id, key: `${a.id}.${S.item + 1}`, hasSolve: typeof S.tool.solve === 'function' }; });
     if (info.item.predict) {
       // 예상을 고르기 전에는 확인이 잠겨 있어야 한다
       if ((await page.getAttribute('#check', 'aria-disabled')) !== 'true') fail(`${info.key}: 예상을 고르기 전에 확인이 열려 있음`);
@@ -221,8 +275,27 @@ try {
     if (q.type === 'mood') await page.check(`input[name="q${i}"][value="good"]`);
     if (q.type === 'short') await page.fill(`textarea[name="q${i}"]`, '자동 검사 답');
     if (q.type === 'tool') {
-      const ok = await page.evaluate(([i, t]) => { const tl = window.__pl.exitTools[i]; if (!tl || !tl.solve) return false; tl.solve(t); return tl.check(t).correct; }, [i, q.target]);
-      if (!ok) fail(`exit.${i + 1}: 교구 solve 뒤에도 정답이 아님`);
+      // 전개 문항과 똑같이 장착됐는가: 따로 옵션 → 시작 상태 → setTarget으로 세운 교구와 상태·글자가 같아야 한다
+      // (출구 교구에 target이 안 넘어가 보기·질문이 목표 없이 만들어지던 문제 — 1학년 모으기 출구 3)
+      const same = await page.evaluate((i) => {
+        const S = window.__pl; const q = S.lesson.stages[2].exitTicket[i]; const tl = S.exitTools[i];
+        if (!tl) return 'missing';
+        const box = document.createElement('div'); box.style.cssText = 'position:absolute;left:-9999px;top:0;width:560px'; document.body.appendChild(box);
+        try {
+          const st = window.PaperLessons.flow.itemStart(q, S.level);
+          const ref = window.PaperKit.mount(q.tool, box, Object.assign({}, q.options || {}, st.toolOptions));
+          if (st.state && ref.setState) ref.setState(st.state);
+          const tq = window.PaperLessons.flow.itemAt(q, S.level).target;
+          if (tq && ref.setTarget) ref.setTarget(tq);
+          const text = (el) => [...el.querySelectorAll('text, button, label')].map((x) => x.textContent.trim()).filter(Boolean).join('|');
+          if (JSON.stringify(ref.getState()) !== JSON.stringify(tl.getState())) return 'state';
+          if (text(box) !== text(document.querySelector(`#exit-tool-${i}`))) return 'text';
+          return '';
+        } finally { box.remove(); }
+      }, i);
+      if (same) fail(`exit.${i + 1}: 출구 교구가 전개 문항처럼 장착되지 않음(${same === 'missing' ? '교구 없음' : same === 'state' ? '시작 상태 다름' : '보기·글자 다름 — setTarget 누락?'})`);
+      const ok = await page.evaluate((i) => { const S = window.__pl; const t = window.PaperLessons.flow.itemAt(S.lesson.stages[2].exitTicket[i], S.level).target; const tl = S.exitTools[i]; if (!tl || !tl.solve) return false; tl.solve(t); return tl.check(t).correct; }, i);
+      if (!ok) fail(`exit.${i + 1}: 교구 solve(target) 뒤 check(target).correct가 아님 — 학생이 풀 수 없는 출구 문항`);
     }
   }
   if (shots) await page.screenshot({ path: join(shots, `${id}-3-exit.png`), fullPage: true });
@@ -282,14 +355,21 @@ async function probeItems() {
   const acts = lesson.stages[1].activities;
   for (let x = 0; x < acts.length; x++) {
     for (let y = 0; y < acts[x].items.length; y++) {
-      const it = acts[x].items[y]; const key = `${acts[x].id}.${y + 1}`;
-      if (it.free) continue;
+      const it0 = acts[x].items[y]; const key = `${acts[x].id}.${y + 1}`;
+      if (it0.free) continue;
+      const it = itemAt(it0, 'base');
       const open = async (level) => { await tp.evaluate(([x, y, lv]) => { window.__pl.level = lv; window.__pl.goto(1, x, y); }, [x, y, level]); await tp.waitForTimeout(120); };
       // 문항별 단계 시작: 그 단계로 열었을 때 시작 상태가 이미 정답이면 안 된다
-      for (const lv of Object.keys(it.levels || {})) {
+      for (const lv of Object.keys(it0.levels || {})) {
         await open(lv);
-        const pre = await tp.evaluate((t) => { const r = window.__pl.tool.check(t, { forHint: true }); return r.correct && !r.incomplete; }, it.target);
+        const tl = itemAt(it0, lv).target;
+        const pre = await tp.evaluate((t) => { const r = window.__pl.tool.check(t, { forHint: true }); return r.correct && !r.incomplete; }, tl);
         if (pre) fail(`${key}: levels.${lv} 시작 상태가 이미 정답`);
+        // 단계별 목표가 있으면 그 단계에서 풀 수 있어야 한다(solve → check)
+        if (it0.levels[lv].target != null) {
+          const ok = await tp.evaluate((t) => { const T = window.__pl.tool; if (!T.solve) return false; T.solve(t); return T.check(t, { forHint: true }).correct === true; }, tl);
+          if (!ok) fail(`${key}: levels.${lv}.target을 solve 뒤에도 정답이 아님`);
+        }
       }
       await open('base');
       // 다 했지만 틀린 답을 만들 수 있는가(모의 수업이 오답 시도를 정직하게 기록하려면 필요) — wrongAnswer(target) 또는 정답 근처 상태
@@ -309,6 +389,7 @@ async function probeItems() {
         await tp.evaluate((t) => { window.PaperLessons.flow.findWrong(window.__pl.tool, t, { seed: 7 }); }, it.target);
         const s0 = await tp.evaluate(visibleText);
         await tp.click('#check'); await tp.waitForTimeout(200);
+        await saidSomething(tp, key, '오답 상태', true);
         const ok = await tp.evaluate(() => document.querySelector('#fb').classList.contains('is-ok'));
         const s1 = await tp.evaluate(visibleText);
         if (!ok && s0 !== s1) (hasHint ? (m) => notes.push(`확인 필요: ${m}`) : fail)(`${key}: reveal 문항에서 틀린 확인 뒤 교구 표시가 바뀜: "${s0.slice(0, 80)}" → "${s1.slice(0, 80)}"`);
@@ -316,7 +397,97 @@ async function probeItems() {
       if (!hasHint) notes.push(`${key}: reveal 문항 교구에 hint()가 없어 플레이어가 setState로 다시 숨김(교구에 hint()를 넣으세요)`);
     }
   }
+  await probeLadder(tp);
   await tp.close();
+}
+
+// 한 칸씩 쓸어 보기(학생이 키보드로 한 걸음 바꾸고 확인을 누르기를 되풀이): 닫힐 때까지 확인마다 글이 있어야 하고,
+// 틀린 직후 잠긴 동안 다시 누른 확인도 안내 줄로 답해야 한다(말없이 무시되던 문제 — g5-science-light a1.5)
+async function stepSweep(tp, open, x, y, it, key) {
+  await open(x, y);
+  const max = it.maxAttempts || 3; let fast = false;
+  for (let k = 0; k <= max; k++) {
+    if (await tp.evaluate(() => document.querySelector('#check')?.disabled)) break;
+    if (!(await nudge(tp, tp))) { if (k === 0) notes.push(`${key}: 한 칸씩 쓸어 보기 검사를 못 함(키보드로 움직일 수 없음)`); break; }
+    const a0 = await tp.evaluate((k) => window.__pl.items[k]?.attempts || 0, key);
+    await tp.click('#check'); await tp.waitForTimeout(150);
+    const st = await tp.evaluate((k) => { const x = window.__pl.items[k]; return { a: x?.attempts || 0, ok: Boolean(x?.correct) }; }, key);
+    if (st.ok) break;
+    await saidSomething(tp, key, `한 칸씩 ${k + 1}번째`, st.a > a0);
+    if (!fast && st.a > a0 && !(await tp.evaluate(() => document.querySelector('#check')?.disabled))) {
+      // 잠긴 동안 바로 다시 누르기
+      fast = true; await nudge(tp, tp); await tp.click('#check', { force: true }); await tp.waitForTimeout(80);
+      const a1 = await tp.evaluate((k) => window.__pl.items[k]?.attempts || 0, key);
+      const r = await said(tp);
+      if (a1 === st.a && !r.note) fail(`${key}: 틀린 직후 잠긴 확인을 다시 눌렀는데 안내가 없음`);
+    }
+    await tp.waitForTimeout(1250);
+  }
+}
+// 1단계 힌트(시도 전)는 개념만: 교구 hint(target, { level: 1, attempts: 0 })(또는 차시 hints[0])에 정답 값이 없어야 한다.
+// 힌트 사다리(단추 글 '힌트' → '힌트 2/3')와 쓸어 보기 막기(reveal 문항은 3번 틀리면 닫힘)를 교사 화면에서 한 문항씩 확인한다.
+async function probeLadder(tp) {
+  const acts = lesson.stages[1].activities;
+  const open = async (x, y) => { await tp.evaluate(([x, y]) => { const S = window.__pl; const a = S.lesson.stages[1].activities[x]; delete S.items[`${a.id}.${y + 1}`]; S.level = 'base'; S.goto(1, x, y); }, [x, y]); await tp.waitForTimeout(120); };
+  let ladderDone = false; let sweepDone = false;
+  for (let x = 0; x < acts.length; x++) {
+    for (let y = 0; y < acts[x].items.length; y++) {
+      const it = itemAt(acts[x].items[y], 'base'); const key = `${acts[x].id}.${y + 1}`;
+      if (it.free) continue;
+      await open(x, y);
+      const h1 = await tp.evaluate((it) => { const r = window.PaperLessons.flow.askHint(window.__pl.tool, it.target, { level: 1, attempts: 0, hints: it.hints }); return { hint: r.hint, via: r.via, from: r.from || '' }; }, it);
+      const leak = targetLeak(h1.hint, it.target);
+      if (leak) (h1.via === 'hint' || h1.from ? fail : (m) => notes.push(`확인 필요: ${m}`))(`${key}: 1단계 힌트(시도 전)에 정답 값 ${leak}이(가) 보임 — 개념·전략만 말해야 함: "${h1.hint.slice(0, 60)}"`);
+      if (!ladderDone) {
+        // 시도 전: 단추 글 '힌트', 몇 번 눌러도 1단계
+        const lab0 = (await tp.textContent('#hint-t'))?.trim();
+        await tp.click('#hint'); await tp.waitForTimeout(60); await tp.click('#hint'); await tp.waitForTimeout(60);
+        const lv0 = await tp.evaluate((k) => window.__pl.items[k]?.hintLevels?.join(','), key);
+        if (lab0 !== '힌트') fail(`${key}: 시도 전 힌트 단추 글이 '힌트'가 아님: ${lab0}`);
+        if (lv0 !== '1,1') fail(`${key}: 시도 전 힌트가 1단계에 머물지 않음: [${lv0}]`);
+        const w = await tp.evaluate((t) => Boolean(window.PaperLessons.flow.findWrong(window.__pl.tool, t, { seed: 11 })), it.target);
+        if (w) {
+          await tp.click('#check'); await tp.waitForTimeout(1300);
+          await saidSomething(tp, key, '사다리 첫 오답', true);
+          const lab1 = (await tp.textContent('#hint-t').catch(() => ''))?.trim();
+          const closed = await tp.evaluate((k) => Boolean(window.__pl.items[k]?.closed), key);
+          if (!closed && lab1 !== '힌트 2/3') fail(`${key}: 한 번 틀린 뒤 힌트 단추가 '힌트 2/3'이 아님: ${lab1}`);
+          if (!closed) {
+            // 바꾸지 않고 다시 누르면 안내 줄이 뜨고, 그 뒤 맞히면 안내 줄은 내용까지 사라져야 한다('맞아요' 옆에 '다시 확인해요'가 남던 문제)
+            await tp.click('#check'); await tp.waitForTimeout(100);
+            const n0 = await tp.textContent('#fb-note');
+            await tp.evaluate((t) => window.__pl.tool.solve(t), it.target);
+            await tp.click('#check');
+            const ok = await tp.waitForSelector('#fb.is-ok', { timeout: 3000 }).then(() => true, () => false);
+            const n1 = await tp.evaluate(() => { const n = document.querySelector('#fb-note'); return n ? `${n.hidden ? 'hidden' : 'shown'}:${n.textContent.trim()}` : 'gone'; });
+            if (!/바꾼 뒤에/.test(n0 || '')) notes.push(`${key}: 바꾸지 않은 확인에 안내 줄이 안 보임: "${(n0 || '').trim()}"`);
+            if (ok && n1 !== 'hidden:' && n1 !== 'gone') fail(`${key}: 맞힌 뒤에도 지난 안내 줄이 남음: ${n1}`);
+          }
+          ladderDone = true;
+        }
+      }
+      if (!sweepDone && it.reveal === 'after-check') {
+        await open(x, y);
+        const max = it.maxAttempts || 3;
+        let made = 0;
+        for (let k = 0; k < max; k++) {
+          const w = await tp.evaluate(([t, k, s]) => { const S = window.__pl; return Boolean(window.PaperLessons.flow.findWrong(S.tool, t, { seed: s, avoid: [S.items[k]?.lastJSON].filter(Boolean) })); }, [it.target, key, 21 + k]);
+          if (!w) break;
+          await tp.click('#check'); await tp.waitForTimeout(1300); made++;
+          await saidSomething(tp, key, `쓸어 보기 ${made}번째`, true);
+        }
+        if (made === max) {
+          const r = await tp.evaluate((k) => { const x = window.__pl.items[k]; return { closed: x?.closed, correct: x?.correct, attempts: x?.attempts, next: Boolean(document.querySelector('#next-item')), checkOff: document.querySelector('#check')?.disabled }; }, key);
+          if (r.closed !== 'attempts' || r.correct || !r.next || !r.checkOff) fail(`${key}: reveal 문항을 ${max}번 틀려도 닫히지 않음(쓸어 보기 막기): ${JSON.stringify(r)}`);
+          sweepDone = true;
+        }
+      }
+      if (it.reveal === 'after-check') await stepSweep(tp, open, x, y, it, key);
+    }
+  }
+  if (!ladderDone) notes.push('힌트 사다리 화면 검사를 못 함(틀린 상태를 만들 수 있는 문항 없음)');
+  if (!sweepDone && acts.some((a) => a.items.some((it) => it.reveal === 'after-check'))) notes.push('쓸어 보기 막기 화면 검사를 못 함(reveal 문항에서 서로 다른 틀린 상태를 시도 수만큼 만들지 못함)');
+  else if (sweepDone) notes.push('힌트 사다리·쓸어 보기 막기 화면 검사 통과');
 }
 await browser.close();
 for (const e of errors) fail(e);

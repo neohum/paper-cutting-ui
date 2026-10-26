@@ -25,7 +25,15 @@
     겨울: { bg: 'sky', tag: 'lavender', ground: 'cream' },
   };
   const josa = (w, a, b) => { const c = w.charCodeAt(w.length - 1); if (c < 0xac00 || c > 0xd7a3) return w + b; return w + ((c - 0xac00) % 28 ? a : b); };
+  // 힌트 단계(새 계약): 1 = 방법만(시도 전에도), 2 = 다시 볼 카드 짚기(1번 틀린 뒤), 3 = 그 카드의 실마리(2번 틀린 뒤)
+  const levelOf = (opts) => {
+    const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
+    const a = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
+    const cap = a == null ? 3 : a >= 2 ? 3 : a >= 1 ? 2 : 1;
+    return Math.max(1, Math.min(3, want, cap));
+  };
   const labelOf = (name) => (CARDS[name] && CARDS[name].label) || name;
+  const P0 = K.palette;
   const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // 그림 카드: 아이콘은 (0,-10) 둘레 ±26 안에 종이 조각으로 그린다. clue는 정답 계절 이름을 말하지 않는 힌트.
@@ -40,7 +48,8 @@
       p({ type: 'path', d: 'M0 -8 C -6 -22 -20 -24 -24 -18 C -18 -8 -8 -6 0 -8 Z' }, 'mint');
       p({ type: 'path', d: 'M0 -10 C 6 -26 20 -30 24 -24 C 18 -12 8 -8 0 -10 Z' }, 'mint');
     } },
-    개나리: { season: '봄', easy: '노란 꽃이 가지에 줄줄이 피는 나무예요.', clue: '잎보다 먼저 노란 꽃이 가지를 따라 줄줄이 피어요.', draw(p) {
+    개나리: { season: '봄', easy: '노란 꽃이 가지에 줄줄이 피는 나무예요.', clue: '잎보다 먼저 노란 꽃이 가지를 따라 줄줄이 피어요.',
+      mix: { 여름: '개나리는 해바라기처럼 노랗지만 피는 때는 달라요. 개나리를 본 날은 따뜻했나요, 더웠나요?' }, draw(p) {
       p({ type: 'rect', w: 50, h: 4, x: -25, y: -2, rx: 2 }, 'peach', { y: -10, r: -24, flat: true });
       [[-15, -2], [2, -12], [17, -21]].forEach(([x, y]) => {
         for (let i = 0; i < 4; i++) p({ type: 'ellipse', rx: 4, ry: 7.5, cy: -6.5 }, 'buttercup', { x, y, r: i * 90 + 45, flat: i > 0 });
@@ -78,7 +87,8 @@
       p({ type: 'path', d: 'M0 8 L-24 -20 A36 36 0 0 1 24 -20 Z' }, 'sky', { depth: 2 });
       p({ type: 'path', d: 'M0 8 L-13 -7 A20 20 0 0 1 13 -7 Z' }, 'cream', { flat: true });
     } },
-    해바라기: { season: '여름', easy: '키가 크고 해처럼 둥근 노란 꽃이에요.', clue: '햇볕이 뜨거운 때 해를 닮은 큰 노란 꽃이 피어요.', draw(p) {
+    해바라기: { season: '여름', easy: '키가 크고 해처럼 둥근 노란 꽃이에요.', clue: '햇볕이 뜨거운 때 해를 닮은 큰 노란 꽃이 피어요.',
+      mix: { 봄: '해바라기는 개나리처럼 노랗지만 피는 때는 달라요. 해바라기를 본 날은 더웠나요, 따뜻했나요?' }, draw(p) {
       p({ type: 'rect', w: 3, h: 22, x: -1.5, y: -4 }, 'mint', { flat: true });
       p({ type: 'ellipse', rx: 4, ry: 8 }, 'mint', { x: 7, y: 8, r: 50 });
       for (let i = 0; i < 12; i++) p({ type: 'ellipse', rx: 4, ry: 9, cy: -11 }, 'buttercup', { x: 0, y: -12, r: i * 30, flat: i % 2 === 1 });
@@ -94,7 +104,8 @@
       p({ type: 'poly', points: '0,-36 6,-22 18,-28 14,-14 26,-10 12,-2 16,8 2,2 0,12 -2,2 -16,8 -12,-2 -26,-10 -14,-14 -18,-28 -6,-22' }, 'peach', { depth: 2, fill: K.palette.peach.layer });
       p({ type: 'poly', points: '0,-26 4,-16 10,-18 8,-10 14,-8 6,-2 0,4 -6,-2 -14,-8 -8,-10 -10,-18 -4,-16' }, 'rose', { flat: true, depth: 0 });
     } },
-    고추잠자리: { season: '가을', easy: '빨간 몸에 날개가 넷인 곤충이에요.', clue: '하늘이 높고 맑을 때 빨간 몸으로 무리 지어 날아다녀요.', draw(p) {
+    고추잠자리: { season: '가을', easy: '빨간 몸에 날개가 넷인 곤충이에요.', clue: '하늘이 높고 맑을 때 빨간 몸으로 무리 지어 날아다녀요.',
+      mix: { 여름: '여름에도 잠자리는 있어요. 빨간 고추잠자리가 무리 지어 나는 날은 더웠나요, 선선했나요?' }, draw(p) {
       p({ type: 'ellipse', rx: 13, ry: 4.5 }, 'lavender', { x: -3, y: -21, r: -14, fill: K.palette.lavender.light });
       p({ type: 'ellipse', rx: 13, ry: 4.5 }, 'lavender', { x: -3, y: -3, r: 14, fill: K.palette.lavender.light });
       p({ type: 'ellipse', rx: 11, ry: 4 }, 'lavender', { x: 9, y: -19, r: -24, fill: K.palette.lavender.light });
@@ -143,6 +154,19 @@
     고드름: { season: '겨울', easy: '처마 끝에 길고 뾰족하게 언 얼음이에요.', clue: '물이 떨어지다가 꽁꽁 얼어 처마 끝에 뾰족하게 매달려요.', draw(p) {
       p({ type: 'rect', w: 54, h: 9, x: -27, y: -36, rx: 2 }, 'peach', { depth: 2, fill: K.palette.peach.layer });
       [[-20, 30], [-8, 44], [4, 34], [16, 46]].forEach(([x, len]) => p({ type: 'poly', points: `${x - 5},-27 ${x + 5},-27 ${x},${-27 + len}` }, 'sky', { fill: '#DDEFFA' }));
+    } },
+    팥빙수: { season: '여름', easy: '얼음을 곱게 갈아 팥을 얹은 차가운 간식이에요.', clue: '땀이 날 만큼 더운 날 시원하게 먹는 얼음 간식이에요.', draw(p) {
+      p({ type: 'path', d: 'M-14 -20 Q 0 -38 14 -20 Z' }, 'sky', { fill: '#F4FAFE', depth: 2 });
+      [[-6, -24], [2, -27], [7, -22], [-1, -21]].forEach(([x, y]) => p({ type: 'circle', r: 2.6 }, 'rose', { x, y, fill: '#8C3B3B', flat: true, depth: 0 }));
+      p({ type: 'path', d: 'M-22 -18 L22 -18 L14 8 L-14 8 Z' }, 'sky', { depth: 2 });
+      p({ type: 'rect', w: 20, h: 6, x: -10, y: 8, rx: 2 }, 'sky', { fill: K.palette.sky.layer });
+      p({ type: 'rect', w: 3, h: 20, x: 12, y: -36, rx: 1.5 }, 'buttercup', { r: 20, flat: true });
+    } },
+    털모자: { season: '겨울', easy: '털실로 짠 따뜻한 모자예요.', clue: '귀가 시릴 만큼 찬 바람이 불 때 머리에 써요.', draw(p) {
+      p({ type: 'circle', r: 7 }, 'cream', { x: 0, y: -30, fill: '#FFFFFF', depth: 2 });
+      p({ type: 'path', d: 'M-22 8 C -24 -20 24 -20 22 8 Z' }, 'rose', { depth: 2 });
+      [-12, -4, 4, 12].forEach((x) => p({ type: 'rect', w: 2, h: 16, x: x - 1, y: -10 }, 'rose', { fill: P0.rose.layer, flat: true, depth: 0 }));
+      p({ type: 'rect', w: 48, h: 10, x: -24, y: 4, rx: 4 }, 'buttercup', { depth: 2 });
     } },
     썰매: { season: '겨울', easy: '눈 위에서 타고 미끄러지는 놀이 기구예요.', clue: '눈 덮인 언덕에서 타고 미끄러져 내려와요.', draw(p) {
       p({ type: 'rect', w: 7, h: 22, x: -23, y: -32, rx: 2 }, 'peach');
@@ -239,11 +263,11 @@
 
       function drawCard(st, g, name) {
         piece(st, g, { type: 'rect', w: CW, h: CH, x: -CW / 2, y: -CH / 2, rx: 10 }, 'cream', { depth: 2 });
-        piece(st, g, { type: 'rect', w: CW - 10, h: 19, x: -(CW - 10) / 2, y: 20, rx: 6 }, 'buttercup', { flat: true, depth: 0, fill: P.buttercup.light });
+        piece(st, g, { type: 'rect', w: CW - 6, h: 22, x: -(CW - 6) / 2, y: 18, rx: 6 }, 'buttercup', { flat: true, depth: 0, fill: P.buttercup.light });
         const icon = kit.el('g', null, g);
         CARDS[name].draw((shape, color, extra) => piece(st, icon, shape, color, extra));
         const shown = labelOf(name);
-        kit.el('text', { x: 0, y: 34.5, 'text-anchor': 'middle', 'font-size': shown.length > 4 ? 10 : shown.length > 3 ? 11.5 : 13, class: 'pk-text', fill: P.ink.base }, g).textContent = shown;
+        kit.el('text', { x: 0, y: 35, 'text-anchor': 'middle', 'font-size': shown.length > 4 ? 11.5 : shown.length > 3 ? 13.5 : 16, 'font-weight': 700, class: 'pk-text', fill: P.ink.base }, g).textContent = shown;
       }
 
       // ---- 분류판 ----
@@ -615,8 +639,8 @@
       function checkWhy(t, okText) {
         if (!whyOpt || !Number.isInteger(t.why)) return { correct: true, feedback: okText };
         // 아직 까닭을 고르지 않았으면 '다 하지 않음'(incomplete) — 플레이어가 시도로 세지 않는다
-        if (whyPick == null) return { correct: false, incomplete: true, feedback: '카드는 모두 알맞게 넣었어요. 이제 아래에서 까닭을 하나 골라요.', hint: `‘${labelOf(whyOpt.card)}’: ${clueOf(whyOpt.card)}` };
-        if (whyPick !== t.why) return { correct: false, feedback: '카드는 맞아요. 고른 까닭을 다시 생각해 봐요. 그때 날씨는 어떤가요?', hint: `‘${labelOf(whyOpt.card)}’: ${clueOf(whyOpt.card)}` };
+        if (whyPick == null) return { correct: false, incomplete: true, feedback: '카드는 모두 알맞게 넣었어요. 이제 아래에서 까닭을 하나 골라요.', hint: hintAt(t, 2) };
+        if (whyPick !== t.why) return { correct: false, feedback: '카드는 맞아요. 고른 까닭을 다시 생각해 봐요. 그때 날씨는 어떤가요?', hint: hintAt(t, 2) };
         return { correct: true, feedback: `${okText} 까닭도 알맞게 골랐어요.` };
       }
 
@@ -646,11 +670,11 @@
           return r;
         },
         // 힌트 단추: 카드를 흔들거나 판을 축하하지 않고, 계절을 떠올릴 실마리(날씨·경험)만 준다
-        hint(t) {
+        hint(t, opts) {
           if (deco || !t) return { hint: '마음에 드는 카드를 나무 판에 붙여 꾸며요.' };
           const r = judge(t, true);
           if (r.correct) return { hint: '모든 카드가 어울리는 자리에 있어요.', correct: true };
-          return { hint: r.hint || '그 카드를 언제 보았는지, 그때 날씨가 어땠는지 떠올려 봐요.', correct: false };
+          return { hint: hintAt(t, levelOf(opts)), correct: false };
         },
         // 모의 수업·자동 검사용 오답: 이웃 계절과 헷갈리기(봄↔여름, 가을↔겨울) / 카드는 맞고 까닭을 잘못 고르기
         // 지금 판과 같은 오답은 건너뛴다(같은 오답을 다시 내면 시도로 세지 않는다)
@@ -695,9 +719,12 @@
             const left = names.filter((n) => !s[n]);
             const wrong = names.filter((n) => s[n] && s[n] !== t.sorted[n]);
             if (!left.length && !wrong.length) return checkWhy(t, '맞아요! 모든 카드가 알맞은 계절 나무에 들어갔어요.');
-            if (left.length) return { correct: false, feedback: `아직 옮기지 않은 카드가 ${left.length}장 있어요.`, hint: `‘${labelOf(left[0])}’: ${clueOf(left[0])}` };
+            if (left.length) return { correct: false, feedback: `아직 옮기지 않은 카드가 ${left.length}장 있어요.`, hint: hintAt(t, 2) };
             if (!quiet) flagWrong(wrong);
-            return { correct: false, feedback: `${wrong.length}장이 다른 계절 나무에 들어가 있어요. 흔들리는 카드를 다시 보세요.`, hint: `‘${labelOf(wrong[0])}’: ${clueOf(wrong[0])}` };
+            // 이 차시가 노린 오개념(해바라기를 개나리와 같은 봄에)은 그 까닭을 짚는 첫 피드백을 준다
+            const mixed = wrong.find((n) => CARDS[n] && CARDS[n].mix && CARDS[n].mix[s[n]]);
+            if (mixed) return { correct: false, feedback: `${wrong.length > 1 ? `${wrong.length}장이 다른 계절 나무에 들어가 있어요. ` : ''}${CARDS[mixed].mix[s[mixed]]}`, hint: hintAt(t, 2) };
+            return { correct: false, feedback: `${wrong.length}장이 다른 계절 나무에 들어가 있어요. 흔들리는 카드를 다시 보세요.`, hint: hintAt(t, 2) };
           }
           const label = o.hideSeasonNames ? '그 나무 판' : `${t.season} 나무 판`;
           const inside = Object.keys(s).filter((n) => s[n] === t.season);
@@ -705,8 +732,35 @@
           const extra = inside.filter((n) => !t.cards.includes(n));
           if (!missing.length && !extra.length) return checkWhy(t, `맞아요! ${label}에 가장 잘 어울리는 카드를 모두 찾았어요.`);
           if (extra.length && !quiet) flagWrong(extra);
-          if (extra.length) return { correct: false, feedback: `${josa(labelOf(extra[0]), '은', '는')} ${josa(label, '과', '와')} 잘 어울리지 않아요.`, hint: `‘${labelOf(extra[0])}’: ${clueOf(extra[0])}` };
-          return { correct: false, feedback: `${label}에 들어갈 카드가 ${missing.length}장 더 있어요.`, hint: `‘${labelOf(missing[0])}’: ${clueOf(missing[0])}` };
+          if (extra.length) return { correct: false, feedback: `${josa(labelOf(extra[0]), '은', '는')} ${josa(label, '과', '와')} 잘 어울리지 않아요.`, hint: hintAt(t, 2) };
+          return { correct: false, feedback: `${label}에 들어갈 카드가 ${missing.length}장 더 있어요.`, hint: hintAt(t, 2) };
+      }
+      // 단계별 힌트 글. 1단계는 카드 이름·계절·실마리를 말하지 않는다(날씨로 떠올리는 방법만).
+      // 2단계는 다시 볼 카드 하나를 짚되 계절은 말하지 않는다. 3단계는 그 카드의 실마리(언제·어떤 날씨)를 준다.
+      function hintAt(t, lv) {
+        const s = state().placed;
+        let card = null; let kind = 'why';
+        if (t.sorted) {
+          const names = Object.keys(t.sorted);
+          const wrong = names.find((n) => s[n] && s[n] !== t.sorted[n]); const left = names.find((n) => !s[n]);
+          if (wrong) { card = wrong; kind = 'wrong'; } else if (left) { card = left; kind = 'left'; }
+        } else {
+          const extra = Object.keys(s).find((n) => s[n] === t.season && !t.cards.includes(n)); const missing = t.cards.find((n) => s[n] !== t.season);
+          if (extra) { card = extra; kind = 'extra'; } else if (missing) { card = missing; kind = 'missing'; }
+        }
+        if (lv <= 1) return card ? '그 카드를 언제 많이 보았는지 떠올려 봐요. 그날은 따뜻했나요, 더웠나요, 선선했나요, 추웠나요?' : '까닭은 날씨와 이어져요. 그 카드를 본 날의 날씨를 떠올려 골라요.';
+        if (!card) {
+          if (lv === 2) return '고른 까닭이 날씨를 말하나요? 꽃 색이나 모양이 아니라 그때의 날씨로 골라요.';
+          return whyOpt ? `‘${labelOf(whyOpt.card)}’: ${clueOf(whyOpt.card)}` : '그때의 날씨를 떠올려 골라요.';
+        }
+        if (lv === 2) {
+          const nm = `‘${labelOf(card)}’`;
+          if (kind === 'wrong') return `흔들리는 ${nm} 카드를 언제 보았는지 다시 생각해요. 그날 날씨는 어땠나요?`;
+          if (kind === 'left') return `아직 옮기지 않은 ${nm} 카드를 언제 보았는지 떠올려 봐요.`;
+          if (kind === 'extra') return `${nm} 카드를 본 날의 날씨가 이 판의 날씨와 같은지 생각해 봐요.`;
+          return '이 판과 어울리는 카드가 아직 남아 있어요. 남은 카드를 하나씩 살펴봐요.';
+        }
+        return `‘${labelOf(card)}’: ${clueOf(card)}`;
       }
     },
   });

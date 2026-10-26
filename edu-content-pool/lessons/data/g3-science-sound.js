@@ -50,6 +50,8 @@ PaperLessons.register({
             { prompt: '고무줄을 튕긴 뒤, 떨리고 있는 고무줄을 눌러 잡아 보세요. 소리는 어떻게 되나요?', target: { stopped: true }, difficulty: 0.14,
               predict: { q: '떨리는 고무줄을 손으로 잡으면 소리는 어떻게 될까요?', options: ['더 커져요', '그대로 나요', '멈춰요'], answer: 2 },
               conclude: '떨림이 멈추면 소리도 멈춰요. 소리가 나는 물체는 떨리고 있어요.' },
+            { extra: true, prompt: '이번에는 작은북을 아주 약하게 쳐 보세요. 소리가 작아도 종이 조각이 움직이나요?', target: { source: 'drum', loud: false }, difficulty: 0.12,
+              conclude: '작은 소리가 날 때도 북은 떨려요. 떨림이 작을 뿐이에요.' },
           ],
         },
         {
@@ -65,6 +67,7 @@ PaperLessons.register({
               conclude: '세게 치면 북이 크게 떨려서 종이 조각이 높이 튀고, 큰 소리가 나요.' },
             { prompt: '고무줄로 큰 소리를 내 보세요. 떨림의 크기는 어떤가요?', target: { source: 'string', loud: true }, difficulty: 0.16, reveal: 'after-check',
               conclude: '큰 소리는 떨림이 커요. 작은 소리는 떨림이 작아요.' },
+            { extra: true, prompt: '고무줄로 작은 소리를 내 보세요. 떨림의 크기는 어떤가요?', target: { source: 'string', loud: false }, difficulty: 0.16, reveal: 'after-check' },
           ],
         },
         {

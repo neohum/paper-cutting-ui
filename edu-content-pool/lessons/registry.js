@@ -149,7 +149,7 @@
   // 제출 코드: 네트워크가 전혀 없을 때 학생이 화면 코드를 보여 주거나 붙여 넣는다. 요약만 담아 짧게 유지한다.
   function encode(r) {
     const s = { v: 1, l: r.lessonId, c: r.classCode, n: r.seat, k: r.nickname, lv: r.level, d: r.durationSec,
-      sc: [r.score.correct, r.score.total, r.score.solved ?? r.score.correct], it: r.items.map((i) => { const row = [i.key, i.correct ? 1 : 0, i.attempts, i.hints, i.free ? 1 : 0]; if (i.predict != null) row.push(i.predict); return row; }),
+      sc: [r.score.correct, r.score.total, r.score.solved ?? r.score.correct], it: r.items.map((i) => { const row = [i.key, i.correct ? 1 : 0, i.attempts, i.hints, i.free ? 1 : 0]; const fl = (i.closed ? 'c' : '') + (i.gaveUp ? 'g' : ''); if (i.predict != null || fl) row.push(i.predict ?? null); if (fl) row.push(fl); return row; }),
       x: r.exitTicket.map((e) => [e.key, e.correct == null ? -1 : e.correct ? 1 : 0, e.value]), f: r.finishedAt };
     const bytes = new TextEncoder().encode(JSON.stringify(s));
     let bin = ''; bytes.forEach((b) => { bin += String.fromCharCode(b); });
@@ -163,7 +163,7 @@
     return {
       schema: 'edu-lesson-result.v1', id: `${s.l}:${s.c}:${s.n}:${s.f}`, lessonId: s.l, classCode: s.c, seat: s.n, nickname: s.k, level: s.lv,
       durationSec: s.d, score: { correct: s.sc[0], total: s.sc[1], solved: s.sc[2] ?? s.sc[0] }, finishedAt: s.f, via: 'code',
-      items: s.it.map(([key, c, attempts, hints, free, predict]) => ({ key, correct: !!c, attempts, hints, ...(free ? { free: true } : {}), ...(predict != null ? { predict } : {}) })),
+      items: s.it.map(([key, c, attempts, hints, free, predict, fl]) => ({ key, correct: !!c, attempts, hints, ...(free ? { free: true } : {}), ...(predict != null ? { predict } : {}), ...(fl && fl.includes('c') ? { closed: 'attempts' } : {}), ...(fl && fl.includes('g') ? { gaveUp: true } : {}) })),
       exitTicket: s.x.map(([key, c, value]) => ({ key, correct: c < 0 ? null : !!c, value })),
     };
   }
@@ -237,6 +237,13 @@
       const opt = item.predict.options[rec.predict];
       return opt == null ? '' : `예상: ${opt} → 관찰한 결과를 떠올려 보세요`;
     },
+    // 학생이 고른 단계에서 실제로 내는 문항: items[n].levels[<단계>]의 prompt·target이 있으면 문항의 것을 바꾼다
+    // (도전 단계에 더 어려운 목표). 확인·힌트·solve·자동 검사·모의 수업 모두 이 문항을 쓴다.
+    itemAt(item, level) {
+      const o = (item && item.levels && item.levels[level]) || {};
+      if (!item || (o.prompt == null && o.target == null)) return item;
+      return Object.assign({}, item, o.prompt != null ? { prompt: o.prompt } : {}, o.target != null ? { target: o.target } : {});
+    },
     // 문항의 시작 상태·교구 옵션: items[n].levels[<단계>]가 있으면 그 단계의 state를 쓰고 toolOptions는 같은 키만 덮는다
     itemStart(item, level) {
       const o = (item && item.levels && item.levels[level]) || {};
@@ -245,15 +252,61 @@
         toolOptions: Object.assign({}, (item && item.toolOptions) || {}, o.toolOptions || {}),
       };
     },
-    // 힌트 단추: 교구의 hint(target)이 있으면 그것만 부른다(확인이 아니므로 숨긴 값을 드러내지 않는다).
-    // 없으면 check(target, { forHint: true }) — 교구는 forHint일 때 읽기 값을 드러내지 않아야 한다.
-    askHint(tool, target) {
+    // 힌트 사다리: 1 = 개념·전략만(정답의 수·자리·이름 없음), 2 = 틀린 단계 짚기(시도 1번 뒤), 3 = 그 단계 풀이(시도 2번 뒤).
+    // 이 문항에서 n번째 힌트 요청이 n단계이고, 시도 횟수 + 1을 넘지 않는다(시도 전에는 언제나 1단계).
+    HINT_MAX: 3,
+    hintLevel(rec) {
+      const n = ((rec && rec.hintLevels) || []).length + 1;
+      return Math.max(1, Math.min(3, n, ((rec && rec.attempts) || 0) + 1));
+    },
+    // 힌트 단추: 교구의 hint(target, { level, attempts })가 있으면 그것만 부른다(확인이 아니므로 숨긴 값을 드러내지 않는다).
+    // 없으면 check(target, { forHint: true, level, attempts }) — 교구는 forHint일 때 읽기 값을 드러내지 않아야 한다.
+    // 둘째 인자를 모르는 옛 교구도 그대로 돈다(무시할 뿐). opts.hints(차시의 items[n].hints)에 그 단계 글이 있으면 그 글을 쓴다.
+    askHint(tool, target, opts = {}) {
+      const level = Math.max(1, Math.min(3, Math.floor(opts.level || 1)));
+      const attempts = Math.max(0, Math.floor(opts.attempts || 0));
+      let out;
       if (typeof tool.hint === 'function') {
-        const r = tool.hint(target) || {};
-        return { hint: typeof r.hint === 'string' ? r.hint : '', correct: r.correct === true, via: 'hint' };
+        const r = tool.hint(target, { level, attempts }) || {};
+        out = { hint: typeof r.hint === 'string' ? r.hint : '', correct: r.correct === true, via: 'hint' };
+      } else {
+        const r = tool.check(target, { forHint: true, level, attempts }) || {};
+        out = { hint: typeof r.hint === 'string' ? r.hint : '', correct: r.correct === true && !r.incomplete, via: 'check' };
       }
-      const r = tool.check(target, { forHint: true }) || {};
-      return { hint: typeof r.hint === 'string' ? r.hint : '', correct: r.correct === true && !r.incomplete, via: 'check' };
+      const own = Array.isArray(opts.hints) ? opts.hints[level - 1] : null;
+      if (typeof own === 'string' && own.trim()) { out.hint = own.trim(); out.from = 'lesson'; }
+      out.level = level;
+      return out;
+    },
+    // 확인을 연달아 눌러 숨긴 값을 쓸어 보는 것을 막는다: reveal:'after-check' 문항은 기본 3번, 그 밖은 끝없음(Infinity).
+    // items[n].maxAttempts(1 이상 정수)가 있으면 그것을 쓴다. 이만큼 틀리면 문항을 '못 풂'으로 닫는다.
+    maxAttempts(item) {
+      if (item && Number.isInteger(item.maxAttempts) && item.maxAttempts >= 1) return item.maxAttempts;
+      return item && item.reveal === 'after-check' ? 3 : Infinity;
+    },
+    shouldClose: (item, rec) => Boolean(rec) && !rec.correct && (rec.attempts || 0) >= flow.maxAttempts(item),
+    // 직전 틀린 상태에서 '한 걸음'만 바꾼 확인인가(조금씩 찔러 보기). 시도로는 언제나 센다 — 교사 화면에 보일 횟수만 센다.
+    // 교구의 distance(a, b)가 있으면 1 이하일 때, 없으면 JSON 잎 하나만 1(또는 참거짓 뒤집기)만큼 바뀌었을 때.
+    isNudge(tool, prevJSON, nowJSON) {
+      if (!prevJSON || !nowJSON || prevJSON === nowJSON) return false;
+      let a; let b;
+      try { a = JSON.parse(prevJSON); b = JSON.parse(nowJSON); } catch (_) { return false; }
+      if (tool && typeof tool.distance === 'function') {
+        try { const d = tool.distance(a, b); if (typeof d === 'number' && Number.isFinite(d)) return d <= 1; } catch (_) { /* 비교로 넘어간다 */ }
+      }
+      const diffs = [];
+      (function walk(x, y) {
+        if (diffs.length > 1) return;
+        if (x === y) return;
+        if (typeof x === 'number' && typeof y === 'number') { diffs.push(Math.abs(x - y) <= 1); return; }
+        if (typeof x === 'boolean' && typeof y === 'boolean') { diffs.push(true); return; }
+        if (x && y && typeof x === 'object' && typeof y === 'object' && Array.isArray(x) === Array.isArray(y)) {
+          for (const k of new Set([...Object.keys(x), ...Object.keys(y)])) walk(x[k], y[k]);
+          return;
+        }
+        diffs.push(false);
+      })(a, b);
+      return diffs.length === 1 && diffs[0];
     },
     // reveal:'after-check' 문항에서 hint()가 없는(새 계약을 아직 따르지 않는) 교구는 확인·힌트가 숨긴 값을 드러낼 수 있다.
     // 틀린 확인과 힌트 뒤에는 플레이어가 상태를 그대로 다시 넣어(setState) 숨김으로 되돌린다. 맞힌 확인 뒤에는 두어 보여 준다.

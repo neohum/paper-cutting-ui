@@ -15,6 +15,9 @@
   const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const kindOf = (a) => (a > 0 && a < 90 ? '예각' : a === 90 ? '직각' : a > 90 && a < 180 ? '둔각' : null);
   const KIND_COLOR = { 예각: 'mint', 직각: 'buttercup', 둔각: 'rose' };
+  // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림 — 각도 값도, '직각보다 작은/큰 각'도 말하지 않는다: 예상 질문의 답이다),
+  // 2 = 한 번 틀린 뒤 지금 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
+  const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
   K.registerTool('protractor', {
     name: '종이 각도기',
@@ -24,7 +27,8 @@
       // 만들기에는 띠 아래 한 줄에 ±단추를 둔다(휴대폰에서 띠 끝을 잡기 어려울 때). 맞추기는 그 줄에 돌리기 단추.
       const btnRow = !o.print && (!measure || place);
       const W = 400; const H = btnRow ? 330 : 290;
-      const st = kit.stage(box, { viewBox: [W, H], label: place ? '종이 각도기. 각도기를 옮기고 돌려 각에 맞춘 뒤 각도를 재어요.' : '종이 각도기. 복숭아색 종이 띠를 돌려 각을 만들어요.' });
+      // 활동지: 무대 바탕을 그리지 않는다 — 잘라 낸 viewBox 안에 바탕 사각형의 좌우 테두리가 세로줄로 남았다
+      const st = kit.stage(box, { viewBox: [W, H], background: o.print ? false : undefined, label: place ? '종이 각도기. 각도기를 옮기고 돌려 각에 맞춘 뒤 각도를 재어요.' : '종이 각도기. 복숭아색 종이 띠를 돌려 각을 만들어요.' });
       const cx = 200; const cy = 246; const R = 158;
       const ARM = Math.round(178 * kit.clamp(o.armLength || 1, 0.4, 1.25));
       // 길이를 견주는 그림은 같은 틀(가장 긴 띠 기준)에 그려야 길이 차이가 보인다
@@ -41,6 +45,9 @@
       const showKind = !o.print && !measure && (o.showKind ?? (o.showReadout !== false));
       // 활동지에서는 빈 읽기 칸을 잘라 내 각도기를 크게 그린다
       if (o.print) st.svg.setAttribute('viewBox', `${cx - VA - 10} ${cy - VA - 18} ${2 * VA + 20} ${VA + 40}`);
+      // 활동지 wide: 눈금을 읽는 그림은 줄 하나를 다 쓰고 더 크게(세 칸에 나누면 숫자가 1mm 남짓이었다)
+      // 활동지 wide: 두 칸씩 크게(세 칸이면 눈금 숫자가 1mm 남짓, 한 줄에 하나면 활동지가 3쪽이 된다)
+      if (o.print && o.wide) { const grid = box.closest('.ws-figs'); if (grid) grid.style.gridTemplateColumns = '1fr 1fr'; st.svg.style.maxHeight = '62mm'; }
       const scaleName = base === 'right' ? '안쪽' : '바깥쪽';
       const NS = (tag, a, p) => kit.el(tag, a, p);
 
@@ -91,7 +98,7 @@
       const num = (d, r, text, fill, ring) => {
         const [x, y] = pt(d, r);
         const dim = strong && strong !== ring;
-        const t = NS('text', { x, y: y + 3.5, 'text-anchor': 'middle', 'font-size': o.print ? (ring === 'outer' ? 10.5 : 8.5) : (ring === 'outer' ? 10.5 : 9.5), class: 'pk-text', fill, opacity: dim ? 0.3 : 1, transform: `rotate(${90 - d} ${x} ${y})` }, P);
+        const t = NS('text', { x, y: y + (o.print ? 4 : 3.5), 'text-anchor': 'middle', 'font-size': o.print ? (ring === 'outer' ? 12.5 : 11) : (ring === 'outer' ? 10.5 : 9.5), class: 'pk-text', fill, opacity: dim ? 0.3 : 1, transform: `rotate(${90 - d} ${x} ${y})` }, P);
         if (strong === ring) t.setAttribute('font-size', ring === 'outer' ? 12 : 11);
         t.textContent = text;
       };
@@ -109,7 +116,7 @@
       NS('path', { d: `M${cx - ringR - 9} ${cy} A${ringR + 9} ${ringR + 9} 0 0 1 ${cx + ringR + 9} ${cy}`, fill: 'none', stroke: '#E8B33C', 'stroke-width': 5, 'stroke-dasharray': '3 6', 'stroke-linecap': 'round' }, flashG);
       { const [zx, zy] = pt(base === 'right' ? 0 : 180, ringR); NS('circle', { cx: zx, cy: zy, r: 11, fill: 'none', stroke: '#E8B33C', 'stroke-width': 3.5 }, flashG); }
       let flashTimer = 0;
-      const flashZero = () => { if (o.print) return; flashG.setAttribute('display', 'inline'); clearTimeout(flashTimer); flashTimer = setTimeout(() => flashG.setAttribute('display', 'none'), 2600); };
+      const flashZero = () => { if (o.print || hinting) return; flashG.setAttribute('display', 'inline'); clearTimeout(flashTimer); flashTimer = setTimeout(() => flashG.setAttribute('display', 'none'), 2600); };
       if (!showP) P.setAttribute('display', 'none');
 
       // 각 표시 부채꼴(각도기 위, 할핀 아래): 위 반원으로 자른 반원판을 띠와 같이 돌린다 — transform만으로 각의 크기가 보인다
@@ -179,7 +186,7 @@
       function settled(via) { kit.recorder.log('protractor', Object.assign({ via }, state())); const a = Math.round(angle); kit.announce(showR ? `${a}도${kindOf(a) ? `, ${kindOf(a)}` : ''}` : '띠를 놓았어요'); }
       // 아래 줄 단추(크기 44 이상): 만들기는 ±각도, 맞추기는 각도기 돌리기
       const rowBtn = (layer, x, w, label, aria, color, press) => {
-        const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': aria, class: 'pk-draggable' }, layer);
+        const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': aria }, layer);
         kit.transform(g, { x, y: 304 });
         NS('rect', { x: -w / 2 - 2, y: -25, width: w + 4, height: 50, class: 'pk-hit' }, g);
         kit.piece(st, g, { shape: { type: 'rect', x: -w / 2, y: -22, w, h: 44, rx: 12 }, color, depth: 2 });
@@ -234,7 +241,7 @@
         kit.piece(st, ML, { shape: { type: 'rect', x: 150, y: 8, w: 100, h: 44, rx: 12 }, color: 'cream', depth: 1 });
         entryText = NS('text', { x: 200, y: 40, 'text-anchor': 'middle', 'font-size': 26, class: 'pk-text', fill: '#3D352E' }, ML);
         const btn = (x, d) => {
-          const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': `각도 ${d > 0 ? d : -d}도 ${d > 0 ? '늘리기' : '줄이기'}`, class: 'pk-draggable' }, ML);
+          const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': `각도 ${d > 0 ? d : -d}도 ${d > 0 ? '늘리기' : '줄이기'}` }, ML);
           kit.transform(g, { x, y: 30 });
           NS('rect', { x: -26, y: -24, width: 52, height: 48, class: 'pk-hit' }, g);
           const pc = kit.piece(st, g, { shape: { type: 'rect', x: -24, y: -20, w: 48, h: 40, rx: 12 }, color: d > 0 ? 'mint' : 'lavender', depth: 2 });
@@ -254,8 +261,9 @@
       const setState = (s) => { const a = kit.clamp(Math.round((s && s.angle) ?? 0), 0, 180); rot.set(a - 90); angle = a; kit.transform(wedge, { r: a - 90, cx, cy }); entry = (s && s.entry != null) ? s.entry : null; if (place && s && s.place) setPlace(s.place); paintEntry(); paint(); };
       setState({ angle: o.start || 0 });
 
+      let hinting = false;
       function celebrate() {
-        if (o.print || reduce) return;
+        if (o.print || reduce || hinting) return;
         const v = angle - 90;
         kit.spring(v + 7, v, { stiffness: 320, damping: 7, onUpdate: (x) => kit.transform(mv, { r: x, cx, cy }) });
         kit.tween(700, (p) => kit.transform(brad, { r: p * 360, cx, cy }));
@@ -277,6 +285,21 @@
           if (t.kind && t.min != null && a <= t.min) a = t.kind === '예각' ? Math.min(89, t.min + 15) : t.min + 15;
           if (t.kind && t.max != null && a >= t.max) a = t.max - 15;
           setState({ angle: a });
+        },
+        // 새 힌트 계약: 1단계는 늘 열리고 각도 값·각의 종류를 말하지 않는다. 지금 상태가 맞아도 '맞아요'라고 알려 주지 않는다.
+        hint(t, opts) {
+          t = t || {}; const lv = hintLevel(opts);
+          hinting = true;
+          try {
+            const r = this.check(t);
+            const concept = place ? '각도기는 ① 중심을 꼭짓점에 ② 밑금을 한 변에 맞춘 뒤 ③ 그 변이 맞춰진 0부터 눈금을 읽어요. 지금 어느 단계인지 보세요.'
+              : t.angle == null ? '각의 종류는 직각과 견주어 정해요. 두 띠가 벌어진 정도를 공책 모서리 같은 직각과 견주어 보세요.'
+                : measure ? '고정 띠 끝의 0이 있는 줄을 먼저 손가락으로 짚어요. 그 줄을 따라 0, 10, 20 … 으로 세며 움직이는 띠까지 가요.'
+                  : '고정 띠 끝의 0이 있는 줄을 먼저 손가락으로 짚어요. 그 줄의 숫자만 따라 0, 10, 20 … 으로 세며 띠를 돌려요.';
+            if (lv === 1 || r.correct) return { hint: concept, level: 1 };
+            if (lv === 2) return { hint: r.feedback || concept, level: 2 };
+            return { hint: r.hint || r.feedback || '', level: 3 };
+          } finally { hinting = false; }
         },
         check(t) {
           t = t || {};

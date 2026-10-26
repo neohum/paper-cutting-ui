@@ -325,3 +325,119 @@ test('analytics: levelMoves counts who switched difficulty, how often and which 
   assert.equal(s.levelMoves.who[0].path, '기본→쉬움→기본');
   assert.equal(s.students.find((x) => x.seat === '3').levelChanges, 2);
 });
+
+// ---- 5회차: 힌트 사다리 · 쓸어 보기 막기 · 못 푼 문항 · 허브 개인정보 거름 ----
+test('hint ladder: level = n-th request, capped by attempts + 1 (1 before any try, 3 at most)', () => {
+  const F = loadRegistry().flow;
+  const r = { attempts: 0, hintLevels: [] };
+  assert.equal(F.hintLevel(r), 1);
+  r.hintLevels.push(1); assert.equal(F.hintLevel(r), 1, '시도 전에는 몇 번 눌러도 1단계');
+  r.hintLevels.push(1);
+  r.attempts = 1; assert.equal(F.hintLevel(r), 2, '한 번 틀린 뒤 2단계까지');
+  r.hintLevels.push(2); assert.equal(F.hintLevel(r), 2);
+  r.attempts = 2; assert.equal(F.hintLevel(r), 3, '두 번 틀린 뒤 3단계');
+  r.hintLevels.push(3, 3); assert.equal(F.hintLevel(r), 3, '3단계를 넘지 않는다');
+  assert.equal(F.hintLevel({ attempts: 5 }), 1, '처음 누르는 힌트는 시도가 많아도 1단계부터');
+});
+
+test('askHint passes { level, attempts } to hint() and check(forHint), and items[n].hints overrides per level', () => {
+  const F = loadRegistry().flow;
+  const seen = [];
+  const neu = revealTool(); neu.hint = (target, o) => { seen.push(o); return { hint: `교구 ${o.level}단계` }; };
+  let r = F.askHint(neu, { v: 3 }, { level: 2, attempts: 1 });
+  assert.equal(r.hint, '교구 2단계'); assert.equal(r.level, 2); assert.equal(seen[0].level, 2); assert.equal(seen[0].attempts, 1);
+  r = F.askHint(neu, { v: 3 }, { level: 2, attempts: 1, hints: ['개념', '틀린 단계', '풀이'] });
+  assert.equal(r.hint, '틀린 단계'); assert.equal(r.from, 'lesson');
+  r = F.askHint(neu, { v: 3 }, { level: 3, attempts: 2, hints: ['개념'] });
+  assert.equal(r.hint, '교구 3단계', '그 단계 글이 없으면 교구 글');
+  // 옛 교구(인자 하나만 받는 hint)도 그대로 돈다
+  const old = revealTool({ withHint: true });
+  r = F.askHint(old, { v: 3 }, { level: 3, attempts: 2 });
+  assert.equal(r.hint, '더 올려요'); assert.equal(r.via, 'hint');
+  // hint()가 없으면 check(target, { forHint, level, attempts })
+  const plain = revealTool();
+  r = F.askHint(plain, { v: 3 }, { level: 2, attempts: 1 });
+  assert.equal(plain.checks[0].forHint, true); assert.equal(plain.checks[0].level, 2); assert.equal(plain.revealed, false);
+  assert.equal(F.askHint(plain, { v: 3 }, { level: 9 }).level, 3, '단계는 1~3으로 묶는다');
+});
+
+test('anti-sweep: maxAttempts defaults to 3 for reveal items, unlimited otherwise; close after that many wrong', () => {
+  const F = loadRegistry().flow;
+  assert.equal(F.maxAttempts({ reveal: 'after-check' }), 3);
+  assert.equal(F.maxAttempts({}), Infinity);
+  assert.equal(F.maxAttempts({ maxAttempts: 5, reveal: 'after-check' }), 5);
+  assert.equal(F.maxAttempts({ maxAttempts: 0 }), Infinity, '잘못된 값은 무시');
+  const it = { reveal: 'after-check' };
+  assert.equal(F.shouldClose(it, { attempts: 2, correct: false }), false);
+  assert.equal(F.shouldClose(it, { attempts: 3, correct: false }), true);
+  assert.equal(F.shouldClose(it, { attempts: 3, correct: true }), false);
+  assert.equal(F.shouldClose({}, { attempts: 40, correct: false }), false);
+});
+
+test('isNudge: one minimal step from the previous wrong state (tool distance() first, else one JSON leaf by 1)', () => {
+  const F = loadRegistry().flow;
+  assert.equal(F.isNudge({}, '{"h":3,"m":15}', '{"h":3,"m":16}'), true);
+  assert.equal(F.isNudge({}, '{"h":3,"m":15}', '{"h":3,"m":25}'), false, '크게 바꿈');
+  assert.equal(F.isNudge({}, '{"h":3,"m":15}', '{"h":4,"m":16}'), false, '두 곳을 바꿈');
+  assert.equal(F.isNudge({}, '{"on":[true,false]}', '{"on":[true,true]}'), true);
+  assert.equal(F.isNudge({}, '{"a":1}', '{"a":1}'), false, '같은 상태는 찔러보기가 아님(시도로도 세지 않음)');
+  assert.equal(F.isNudge({}, null, '{"a":1}'), false, '첫 시도');
+  const tool = { distance: (a, b) => Math.abs(a.deg - b.deg) / 5 };
+  assert.equal(F.isNudge(tool, '{"deg":40}', '{"deg":45}'), true);
+  assert.equal(F.isNudge(tool, '{"deg":40}', '{"deg":41}'), true);
+  assert.equal(F.isNudge(tool, '{"deg":40}', '{"deg":60}'), false);
+});
+
+test('closed and given-up items survive the long code and show up for the teacher', () => {
+  const PL = loadRegistry();
+  const r = { ...sample, items: [{ key: 'a1.1', correct: false, attempts: 3, hints: 2, hintLevels: [1, 3], closed: 'attempts', nudges: 2 }, { key: 'a1.2', correct: false, attempts: 4, hints: 0, gaveUp: true }, { key: 'a1.3', correct: true, attempts: 1, hints: 0, predict: 1 }] };
+  const back = PL.decode(PL.encode(r));
+  assert.equal(back.items[0].closed, 'attempts'); assert.ok(!back.items[0].gaveUp);
+  assert.equal(back.items[1].gaveUp, true); assert.ok(!back.items[1].closed);
+  assert.equal(back.items[2].predict, 1); assert.ok(!back.items[2].closed && !back.items[2].gaveUp);
+  const ctx = { window: {} };
+  vm.runInNewContext(readFileSync(join(pool, 'lessons/analytics.js'), 'utf8'), ctx);
+  const A = ctx.window.LessonAnalytics;
+  const s = A.summarize([r, { ...sample, seat: '8' }]);
+  const st = s.students.find((x) => x.seat === '7');
+  assert.equal(st.closed.join(), 'a1.1'); assert.equal(st.gaveUp.join(), 'a1.2'); assert.equal(st.nudges, 2); assert.ok(st.flag);
+  assert.equal(st.perItem['a1.1'], '×닫힘'); assert.equal(st.perItem['a1.2'], '×넘김');
+  const row = s.items.find((x) => x.key === 'a1.1'); assert.equal(row.closed, 1); assert.equal(row.deepHintRate, 50);
+  assert.ok(s.recommendations.some((t) => t.includes('닫힌 문항') && t.includes('7번(a1.1)')));
+  assert.ok(s.recommendations.some((t) => t.includes('넘긴 문항') && t.includes('7번(a1.2)')));
+  assert.match(A.toCSV([r]), /"a1\.1 닫힘, a1\.2 넘김"/);
+});
+
+test('teacher dashboard renders closed / given-up columns', () => {
+  const src = readFileSync(join(pool, 'lessons/teacher.js'), 'utf8');
+  assert.match(src, /못 푼 문항/); assert.match(src, /studentUnsolved\(x\)/); assert.match(src, /unsolvedCell\(r\)/);
+});
+
+test('lesson items that declare hints / maxAttempts follow the contract', () => {
+  for (const { l } of lessons) {
+    for (const a of l.stages[1].activities) a.items.forEach((it, i) => {
+      const at = `${l.id}/${a.id}.${i + 1}`;
+      if (it.hints != null) assert.ok(Array.isArray(it.hints) && it.hints.length >= 1 && it.hints.length <= 3 && it.hints.every((h) => typeof h === 'string' && h.trim()), `${at} hints`);
+      if (it.maxAttempts != null) assert.ok(Number.isInteger(it.maxAttempts) && it.maxAttempts >= 1 && it.maxAttempts <= 10, `${at} maxAttempts`);
+    });
+  }
+});
+
+test('hub PII filter: phone / resident numbers / e-mail blocked, long decimals pass', async () => {
+  const { PII } = await import('../edu-content-pool/classroom-hub.mjs');
+  const ok = (v) => assert.equal(PII.test(JSON.stringify({ data: { state: v } })), false, `막으면 안 됨: ${JSON.stringify(v)}`);
+  for (const v of [0.142857142857, 1.3333333333333333, 0.3333333333333333, 2 / 3, 1 / 7, 22 / 7, -0.30000000000000004, 1e-7 / 3, 0.10123456789, 3.0101234567, [0.142857142857, 1.3333333333333333]]) ok(v);
+  ok('0.142857142857'); ok('1.3333333333333333'); ok('ratio 0.0101234567 of 1.9001011234567');
+  for (const bad of ['010-1234-5678', '01012345678', '900101-1234567', '9001011234567', 'kid@school.kr', '연락처 011 123 4567'.replace(/ /g, '-')]) assert.equal(PII.test(JSON.stringify({ note: bad })), true, `막아야 함: ${bad}`);
+});
+
+test('items[n].levels[단계].prompt·target replace the item for that level only', () => {
+  const F = loadRegistry().flow;
+  const it = { prompt: '3시', target: { h: 3, m: 0 }, hints: ['h1'], levels: { challenge: { prompt: '3시 25분', target: { h: 3, m: 25 } }, easy: { state: { h: 1 } } } };
+  const c = F.itemAt(it, 'challenge');
+  assert.equal(c.prompt, '3시 25분'); assert.equal(c.target.m, 25); assert.equal(c.hints[0], 'h1', '다른 칸은 그대로');
+  assert.equal(F.itemAt(it, 'easy'), it, 'prompt·target이 없는 단계는 문항 그대로');
+  assert.equal(F.itemAt(it, 'base'), it);
+  assert.equal(F.itemAt({ prompt: 'p', levels: { base: { target: { v: 2 } } } }, 'base').prompt, 'p');
+  assert.equal(it.target.m, 0, '원래 문항을 바꾸지 않는다');
+});

@@ -12,6 +12,22 @@
   // 숫자 읽기(일·이·삼…)의 받침에 맞는 조사: 3을, 4를, 7과, 2와
   const BATCHIM = { 0: 1, 1: 1, 3: 1, 6: 1, 7: 1, 8: 1, 10: 1, 11: 1 };
   const josa = (n, a, b) => (BATCHIM[n] ? a : b);
+  // 힌트 단계(새 계약): 1 = 방법만(시도 전에도, 시각·숫자를 말하지 않음), 2 = 틀린 바늘 짚기, 3 = 그 바늘 풀어 보이기
+  const levelOf = (opts) => {
+    const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
+    const a = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
+    const cap = a == null ? 3 : a >= 2 ? 3 : a >= 1 ? 2 : 1;
+    return Math.max(1, Math.min(3, want, cap));
+  };
+  // 두 바늘을 바꿔 놓았는가/읽었는가: 바늘 위치(숫자 단위, 0~12)로 견준다.
+  // 7시 50분(짧은바늘 ≈ 7.8, 긴바늘 10)을 바꾸면 10시 40분 무렵(짧은바늘 ≈ 10.7, 긴바늘 8)이 된다 — 분이 정확히 맞지 않아도 잡는다
+  const circ = (a, b) => { const d = Math.abs((((a - b) % 12) + 12) % 12); return Math.min(d, 12 - d); };
+  const swapped = (s, t) => {
+    const tm = t.m || 0; const tShort = (t.h % 12) + tm / 60; const tLong = tm / 5;
+    if (circ(tShort, tLong) < 1.5) return false; // 두 바늘이 거의 겹친 시각은 바꿔도 구별되지 않는다
+    const sShort = (s.h % 12) + (s.m || 0) / 60; const sLong = (s.m || 0) / 5;
+    return circ(sShort, tLong) <= 0.8 && circ(sLong, tShort) <= 0.8;
+  };
   const parse = (text) => { const m = /(\d+)\s*시(?:\s*(\d+)\s*분)?/.exec(String(text || '')); return m ? { h: Number(m[1]), m: Number(m[2] || 0) } : null; };
   K.registerTool('clock', {
     name: '종이 아날로그 시계',
@@ -160,15 +176,17 @@
         const same = s.h === t.h && s.m === tm;
         if (same) return null;
         if (s.m === tm && tm > 0 && H(s.h) === H(t.h + 1)) {
-          return read ? `짧은바늘이 ${s.h}에 가깝지만 아직 ${s.h}에 닿지 않았어요. 그래서 아직 ${t.h}시예요.`
-            : `짧은바늘이 벌써 ${s.h}${josa(s.h, '을', '를')} 지났어요. 그러면 ${s.h}시 ${tm}분이에요. ${t.h}시 ${tm}분이면 짧은바늘은 ${s.h}에 가깝지만 아직 ${s.h}에 닿지 않아요.`;
+          // '가깝지만'은 30분이 지났을 때만 맞는 말이다(3시 15분의 짧은바늘은 4보다 3에 가깝다)
+          const near = tm >= 30;
+          return read ? `짧은바늘이 ${near ? `${s.h}에 가깝지만 ` : ''}아직 ${s.h}에 닿지 않았어요. 그래서 아직 ${t.h}시예요.`
+            : `짧은바늘이 벌써 ${s.h}${josa(s.h, '을', '를')} 지났어요. 그러면 ${s.h}시 ${tm}분이에요. ${t.h}시 ${tm}분이면 짧은바늘은 ${near ? `${s.h}에 가깝지만 ` : ''}아직 ${s.h}에 닿지 않아요.`;
         }
         if (s.m === tm && tm > 0 && H(s.h) === H(t.h - 1)) {
           return read ? `짧은바늘이 벌써 ${t.h}${josa(t.h, '을', '를')} 지났어요. 그래서 ${t.h}시예요.`
             : `짧은바늘이 아직 ${t.h}에 오지 않았어요. 짧은바늘은 ${t.h}${josa(t.h, '과', '와')} ${(t.h % 12) + 1} 사이에 있어야 해요.`;
         }
-        if (H(s.h) === H(Math.round(tm / 5)) && H(Math.round(s.m / 5)) === H(t.h)) {
-          return read ? '긴바늘과 짧은바늘을 바꿔 읽었어요. 짧은바늘이 시를, 긴바늘이 분을 나타내요.' : '긴바늘과 짧은바늘이 바뀌었어요. 긴바늘은 분을, 짧은바늘은 시를 나타내요.';
+        if (swapped(s, t)) {
+          return read ? '바늘이 바뀌었어요. 긴바늘과 짧은바늘을 바꿔 읽었어요. 짧은바늘이 시를, 긴바늘이 분을 나타내요.' : '바늘이 바뀌었어요. 긴바늘을 짧은바늘 자리에, 짧은바늘을 긴바늘 자리에 놓았어요. 긴바늘은 분을, 짧은바늘은 시를 나타내요.';
         }
         if (read && s.h === t.h && tm % 5 === 0 && s.m === tm / 5) {
           return `긴바늘이 가리키는 숫자 ${s.m}${josa(s.m, '을', '를')} 그대로 읽었어요. 숫자 한 칸은 5분이라서 ${tm}분이에요.`;
@@ -191,7 +209,7 @@
         if (s.h === t.h && s.m === tm) return null;
         if (s.m === tm && tm > 0 && H(s.h) === H(t.h + 1)) return 'ahead';
         if (s.m === tm && tm > 0 && H(s.h) === H(t.h - 1)) return 'behind';
-        if (H(s.h) === H(Math.round(tm / 5)) && H(Math.round(s.m / 5)) === H(t.h)) return 'swap';
+        if (swapped(s, t)) return 'swap';
         if (s.h === t.h && tm % 5 === 0 && s.m === tm / 5) return 'numeral';
         if (s.h === t.h) return 'minute';
         return 'other';
@@ -216,12 +234,11 @@
           if (!(opts && opts.forHint) && r.correct) { revealed = true; paintDigital(); }
           return r;
         },
-        hint(t) {
+        hint(t, opts) {
+          if (!t) return { hint: '' };
           const r = judge(t);
-          if (r.incomplete) return { hint: readHint('', state()) };
           if (r.correct) return { hint: '두 바늘이 모두 알맞은 자리에 있어요.', correct: true };
-          if (!(readOnly || (t && t.pick != null))) return { hint: r.hint || '긴바늘로 분을 먼저 맞추고, 짧은바늘로 시를 맞춰요.', correct: false };
-          return { hint: readHint(choices[pick], state()), correct: false };
+          return { hint: hintAt(t, levelOf(opts)), correct: false };
         },
         // 흔한 오개념 순서로 후보를 만들고, 지금 시계와 같은 오답은 건너뛴다(같은 오답을 다시 내면 시도로 세지 않는다)
         wrongAnswer(t) {
@@ -238,7 +255,11 @@
           if (tm >= 30) list.push({ h: next, m: tm }); // 다음 숫자에 가까우니 시를 한 칸 넘겨 놓기
           if (tm > 0 && tm * 5 < 60) list.push({ h: t.h, m: tm * 5 }); // 9시 5분 → 긴바늘을 숫자 5에
           if (tm > 0 && tm % 10 === 0) list.push({ h: t.h, m: tm / 2 }); // 40분 → 긴바늘을 숫자 4에
-          if (!o.hourOnly && tm % 5 === 0) { const sh = H(tm / 5 || 12); const sm = (t.h % 12) * 5; if (sh !== t.h || sm !== tm) list.push({ h: sh, m: sm }); } // 두 바늘 바꿔 놓기
+          if (!o.hourOnly) {
+            // 두 바늘 바꿔 놓기: 긴바늘을 짧은바늘 자리(분 = 짧은바늘 위치 × 5)에, 짧은바늘을 긴바늘 숫자 쪽에
+            const sm = (Math.round((((t.h % 12) + tm / 60) * 5) / step) * step) % 60; const sh = H(Math.round(tm / 5 - sm / 60) || 12);
+            if ((sh !== t.h || sm !== tm) && swapped({ h: sh, m: sm }, t)) list.push({ h: sh, m: sm });
+          }
           list.push({ h: next, m: tm }, { h: H(t.h - 1), m: tm });
           if (!o.hourOnly) list.push({ h: t.h, m: (tm + step) % 60 });
           const cur = state(); const ok = list.filter((x) => !(x.h === t.h && x.m === tm));
@@ -247,25 +268,51 @@
         // 교사 시연용: 목표 시각까지 바늘이 스스로 돌아간다
         async demo(t) { const from = total; const to = (t.h % 12) * 60 + (t.m || 0); await kit.tween(1400, (p) => { total = from + (to - from) * p; lock = true; paint(); lock = false; }); },
       };
+      // 단계별 힌트 글. 1단계는 목표 시각·숫자·바늘 자리를 말하지 않는다(어느 바늘을 어떻게 읽는지만).
+      // 2단계는 틀린 바늘을 짚되 자리는 말하지 않는다. 3단계는 그 바늘 하나를 풀어 보인다.
+      function hintAt(t, lv) {
+        const read = readOnly || (t && t.pick != null);
+        const fine = step === 1 && !o.hourOnly ? ' 작은 눈금 한 칸은 1분이에요.' : '';
+        if (read) {
+          const shown = state();
+          if (lv <= 1 || pick == null) return `짧은바늘부터 보세요. 두 숫자 사이에 있으면 지나온 숫자가 ‘시’예요. 그다음 긴바늘을 맨 위 숫자부터 숫자 하나를 지날 때마다 ‘오 분, 십 분, 십오 분…’ 하고 세어요.${fine}`;
+          const said = parse(choices[pick]);
+          if (lv === 2) return readHint(choices[pick], shown);
+          const { hourHint, minHint } = hintsFor(shown);
+          const k = mistakeOf(said, shown);
+          return k === 'minute' || k === 'numeral' ? minHint : hourHint;
+        }
+        if (lv <= 1) return o.hourOnly ? '짧은바늘이 시를 나타내요. 짧은바늘이 시 숫자를 똑바로 가리키게 돌려요.' : `긴바늘은 분, 짧은바늘은 시를 나타내요. 긴바늘부터 맞추고 짧은바늘은 마지막에 봐요. 긴바늘은 맨 위 숫자부터 숫자 하나를 지날 때마다 ‘오 분, 십 분…’ 하고 세어요.${fine}`;
+        const s = state(); const tm = t.m || 0; const H = (x) => ((x % 12) + 12) % 12;
+        const { hourHint, minHint } = hintsFor(t);
+        if (swapped(s, t)) return lv === 2 ? '바늘이 바뀌었어요. 길고 가는 긴바늘이 분, 짧고 굵은 짧은바늘이 시예요. 두 바늘의 길이를 먼저 견주어 봐요.' : `${minHint} 짧은바늘은 시를 나타내요.`;
+        if (s.m !== tm) return lv === 2 ? `긴바늘이 아직 맞지 않아요. 12에서부터 숫자 한 칸에 5분씩 세며 긴바늘을 돌려 봐요.${fine}` : minHint;
+        if (lv === 2) {
+          if (tm > 0 && H(s.h) === H(t.h + 1)) return '긴바늘은 맞았어요. 짧은바늘이 다음 숫자를 벌써 지났어요. 그 숫자에 닿기 전까지는 앞 숫자가 ‘시’예요.';
+          if (tm > 0 && H(s.h) === H(t.h - 1)) return '긴바늘은 맞았어요. 짧은바늘이 아직 시 숫자에 오지 않았어요.';
+          return '긴바늘은 맞았어요. 이제 짧은바늘로 시를 맞춰요. 분이 지날수록 짧은바늘은 다음 숫자 쪽으로 조금씩 가요.';
+        }
+        return hourHint;
+      }
       function judge(t) {
+          const h2 = () => hintAt(t, 2);
           if (readOnly || (t && t.pick != null)) {
             if (pick == null) return { correct: false, incomplete: true, feedback: '시계를 보고 아래에서 시각을 하나 골라요.' };
-            const shown = state(); const { hourHint, minHint } = hintsFor(shown);
+            const shown = state();
             if (pick === t.pick) return { correct: true, feedback: `맞아요! 긴바늘은 ${shown.m}분, 짧은바늘은 ${shown.h}시를 나타내서 ${fmtOf(shown)}이에요.` };
             const said = parse(choices[pick]);
             const why = said && diagnose(said, shown, true);
-            return { correct: false, feedback: why || '다시 볼까요? 긴바늘부터 읽어요.', hint: `${minHint} ${hourHint}` };
+            return { correct: false, feedback: why || '다시 볼까요? 짧은바늘부터 읽어요.', hint: h2() };
           }
           const s = state(); const tm = t.m || 0;
           const ok = s.h === t.h && s.m === tm;
           if (ok) return { correct: true, feedback: `맞아요! ${fmt()}이에요.` };
-          const { hourHint, minHint } = hintsFor(t);
           const now = `지금 시계는 ${fmt()}이에요.`;
           const why = diagnose(s, t);
-          if (why) return { correct: false, feedback: `${now} ${why}`, hint: why.includes('바뀌었') ? `${minHint} ${hourHint}` : hourHint };
-          if (s.m === tm) return { correct: false, feedback: `${now} 긴바늘은 맞았어요. 짧은바늘을 다시 보세요.`, hint: hourHint };
-          if (s.h === t.h) return { correct: false, feedback: `${now} 짧은바늘은 맞았어요. 긴바늘을 다시 보세요.`, hint: minHint };
-          return { correct: false, feedback: `${now} 긴바늘부터 맞춰 볼까요?`, hint: `${minHint} ${hourHint}` };
+          if (why) return { correct: false, feedback: `${now} ${why}`, hint: h2() };
+          if (s.m === tm) return { correct: false, feedback: `${now} 긴바늘은 맞았어요. 짧은바늘을 다시 보세요.`, hint: h2() };
+          if (s.h === t.h) return { correct: false, feedback: `${now} 짧은바늘은 맞았어요. 긴바늘을 다시 보세요.`, hint: h2() };
+          return { correct: false, feedback: `${now} 긴바늘부터 맞춰 볼까요?`, hint: h2() };
       }
     },
   });

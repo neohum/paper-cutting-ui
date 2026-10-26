@@ -6,7 +6,8 @@
  *       steppers('r': 반지름 조절만), revealAfterCheck(길이 이름표를 '확인' 뒤에만 보이고, 다시 움직이면 감춘다), rMax(기본 6), hMax(기본 8), print
  * 상태: { r, h, unrolled, pick, value, judge }
  * target: { unrolled:true, width?:'밑면의 둘레', height?:'원기둥의 높이', r? } | { width: 길이, r } (가로 길이 채점, r은 문항의 반지름)
- *       | { r, findR:true } (가로 길이에 맞는 반지름 찾기) | { judge: 번호 }
+ *       | { r, findR:true } (가로 길이에 맞는 반지름 찾기 — pad와 padFor:'diameter'면 지름을 먼저 써야 하고, 틀린 확인은 그 반지름의 가로·길고 짧음을 말하지 않는다)
+ *       | { judge: 번호 }
  */
 (function (K) {
   'use strict';
@@ -70,6 +71,13 @@
     return val;
   }
 
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
   K.registerTool('cylnet', {
     name: '원기둥 펼치기',
     create(box, o, kit) {
@@ -243,9 +251,9 @@
         }
         if (pad) {
           const p = document.createElement('label'); p.className = 'cy-pad';
-          p.append('옆면의 가로 =');
+          p.append(o.padFor === 'diameter' ? '밑면의 지름 =' : '옆면의 가로 =');
           input = document.createElement('input'); input.className = 'cy-in'; input.type = 'text'; input.setAttribute('tabindex', '0'); input.setAttribute('inputmode', 'decimal'); input.setAttribute('autocomplete', 'off');
-          input.setAttribute('aria-label', '옆면의 가로 길이(cm)');
+          input.setAttribute('aria-label', o.padFor === 'diameter' ? '밑면의 지름(cm)' : '옆면의 가로 길이(cm)');
           input.addEventListener('input', () => { input.value = input.value.replace(/[^0-9.]/g, '').slice(0, 7); revealed = false; paintLabels(); });
           input.addEventListener('change', () => log());
           // 숫자 입력칸처럼 ↑↓로 1씩 바꿀 수 있다
@@ -302,29 +310,45 @@
           if (s.judge === t.judge) return { correct: true, feedback: '맞아요! 두 밑면이 옆면의 위와 아래에 하나씩 있고, 옆면의 가로가 밑면의 둘레와 같아요.' };
           const why = {
             same: '두 밑면이 옆면의 같은 쪽에 붙어 있어요. 접으면 한쪽은 막히지 않고 다른 쪽은 두 장이 겹쳐요.',
-            short: `옆면의 가로 ${fmt(4 * jr)} cm가 밑면의 둘레(${2 * jr} × ${PI} = ${fmt(2 * jr * PI)} cm)보다 짧아요. 말면 밑면을 다 두르지 못해요.`,
+            short: '옆면의 가로가 밑면의 둘레보다 짧아요. 말면 밑면을 다 두르지 못해요. 밑면의 둘레를 직접 계산해 견주어 보세요.',
             size: '두 밑면의 크기가 달라요. 원기둥의 두 밑면은 크기가 같은(합동인) 원이에요.',
             ok: '그 전개도도 맞아요.',
           }[kind] || '다시 살펴볼까요?';
-          return { correct: false, feedback: why, hint: '두 밑면의 자리(위와 아래), 두 밑면의 크기, 옆면의 가로 = 밑면의 둘레를 차례로 살펴요.' };
+          return { correct: false, feedback: why, hint: '두 밑면의 자리(위와 아래), 두 밑면의 크기, 옆면의 가로 = 밑면의 둘레를 차례로 살펴요.', h3: `밑면의 둘레는 ${2 * jr} × ${PI} = ${fmt(2 * jr * PI)} cm예요. 두 밑면이 위·아래에 하나씩 있고 크기가 같으며 옆면의 가로가 이 길이인 것을 골라요.` };
         }
         if (t.findR) {
-          const w = fmt(2 * s.r * PI);
-          if (s.r === t.r) return { correct: true, feedback: `맞아요! 반지름이 ${s.r} cm이면 둘레는 ${2 * s.r} × ${PI} = ${w} cm예요.` };
-          return { correct: false, feedback: `반지름이 ${s.r} cm이면 옆면의 가로는 ${2 * s.r} × ${PI} = ${w} cm예요. 목표보다 ${2 * s.r * PI > 2 * t.r * PI ? '길어요' : '짧아요'}.`, hint: `가로 ÷ ${PI} = 지름, 지름 ÷ 2 = 반지름이에요.` };
+          const W2 = 2 * t.r * PI; const v = s.value;
+          const h3 = `${fmt(W2)} ÷ ${PI} = ${2 * t.r}(지름), ${2 * t.r} ÷ 2 = ${t.r}이라 반지름은 ${t.r} cm예요.`;
+          if (pad) {
+            if (v == null) return { correct: false, incomplete: true, feedback: '먼저 옆면의 가로로 밑면의 지름을 구해 칸에 써요.', hint: '옆면의 가로 = 밑면의 둘레 = 지름 × 3.14예요.' };
+            if (!same(v, 2 * t.r)) {
+              if (same(v, t.r)) return { correct: false, feedback: '칸에는 반지름이 아니라 지름을 써요. 가로 ÷ 3.14를 하면 지름이 나와요.', hint: '둘레 = 지름 × 3.14이니, 둘레 ÷ 3.14 = 지름이에요.', h3 };
+              if (same(v, W2 / 2)) return { correct: false, feedback: '가로를 2로 나누었어요. 둘레에서 지름을 구할 때는 3.14로 나눠요.', hint: '둘레 = 지름 × 3.14 — 거꾸로 하면 3.14로 나누기예요.', h3 };
+              if (same(v, W2 * PI)) return { correct: false, feedback: '3.14를 곱했어요. 둘레에서 지름을 거꾸로 구할 때는 3.14로 나눠요.', hint: '둘레 = 지름 × 3.14 — 거꾸로 하면 3.14로 나누기예요.', h3 };
+              return { correct: false, feedback: '칸에 쓴 지름이 가로 ÷ 3.14와 달라요. 나눗셈을 다시 해 봐요.', hint: '옆면의 가로 ÷ 3.14 = 지름이에요.', h3 };
+            }
+          }
+          if (s.r === t.r) return { correct: true, feedback: `맞아요! 반지름이 ${s.r} cm이면 둘레는 ${2 * s.r} × ${PI} = ${fmt(2 * s.r * PI)} cm예요.` };
+          // 그 반지름의 가로와 '길어요/짧아요'는 말하지 않는다 — 단추를 한 칸씩 눌러 가며 확인으로 맞추지 않게
+          if (pad && s.r === 2 * t.r) return { correct: false, feedback: '지름을 반지름으로 맞췄어요. 반지름은 지름의 반이에요.', hint: '지름 ÷ 2 = 반지름이에요.', h3 };
+          if (pad && s.r === Math.round(W2 / 2)) return { correct: false, feedback: '가로를 2로 나눈 수를 반지름으로 맞췄어요. 둘레에서는 3.14로 먼저 나눠 지름을 구해요.', hint: '가로 ÷ 3.14 = 지름, 지름 ÷ 2 = 반지름이에요.', h3 };
+          return { correct: false, feedback: pad ? '칸에 쓴 지름과 맞지 않는 반지름이에요. 지름과 반지름의 관계를 다시 생각해 봐요.' : '그 반지름으로는 옆면의 가로가 맞지 않아요. 가로 ÷ 3.14로 지름부터 구해 봐요.', hint: '가로 ÷ 3.14 = 지름, 지름 ÷ 2 = 반지름이에요.', h3 };
         }
         if (typeof t.width === 'number') {
           const rr = t.r != null ? t.r : s.r; const v = s.value;
-          const hint = labels === 'none' ? '옆면의 가로 = 밑면의 둘레 = 지름 × 원주율이에요.' : `옆면의 가로 = 밑면의 둘레 = 지름 × ${PI} = ${2 * rr} × ${PI}`;
+          // 2단계 힌트는 수 없이 틀린 단계(반지름 → 지름)를 짚고, 수를 넣은 식은 3단계에만
+          const dia = o.given === 'diameter';
+          const hint = dia ? '주어진 길이가 지름이에요. 둘레는 지름에 원주율 3.14를 곱해요.' : '주어진 길이가 반지름이에요. 둘레에는 반지름이 아니라 무엇이 필요할까요?';
+          const h3 = `옆면의 가로 = 밑면의 둘레 = 지름 × ${PI} = ${2 * rr} × ${PI}를 계산해요.${dia ? '' : ` (지름 = ${rr} × 2 = ${2 * rr} cm)`}`;
           if (v == null) return { correct: false, incomplete: true, feedback: '옆면의 가로 길이를 칸에 써 넣어요.', hint };
           if (same(v, t.width)) return { correct: true, feedback: `맞아요! 옆면의 가로 = 밑면의 둘레 = ${2 * rr} × ${PI} = ${fmt(t.width)} (cm)예요.` };
-          if (same(v, rr * PI)) return { correct: false, feedback: `반지름 × ${PI}만 했어요. 둘레는 지름(반지름 × 2) × ${PI}예요.`, hint };
-          if (same(v, 4 * rr * PI)) return { correct: false, feedback: `지름에 2를 한 번 더 곱했어요. 지름이 ${2 * rr} cm이면 둘레는 ${2 * rr} × ${PI}예요.`, hint };
-          if (same(v, 2 * rr)) return { correct: false, feedback: `지름(${2 * rr} cm)만 썼어요. 둘레는 지름 × 원주율(${PI})이에요.`, hint };
-          if (same(v, rr)) return { correct: false, feedback: '반지름을 그대로 썼어요. 가로는 밑면의 둘레예요.', hint };
-          if (same(v, s.h)) return { correct: false, feedback: '높이를 썼어요. 높이는 옆면의 세로이고, 가로는 밑면의 둘레예요.', hint };
-          if (same(v, rr * rr * PI)) return { correct: false, feedback: '밑면(원)의 넓이를 구했어요. 가로는 둘레(지름 × 원주율)예요.', hint };
-          return { correct: false, feedback: '다시 계산해 볼까요? 지름부터 구해요.', hint };
+          if (same(v, rr * PI)) return { correct: false, feedback: `반지름 × ${PI}만 했어요. 둘레는 지름(반지름 × 2) × ${PI}예요.`, hint, h3 };
+          if (same(v, 4 * rr * PI)) return { correct: false, feedback: '지름에 2를 한 번 더 곱했어요. 지름이 주어졌으면 2를 곱하지 않고 바로 3.14를 곱해요.', hint, h3 };
+          if (same(v, 2 * rr)) return { correct: false, feedback: `지름만 썼어요. 둘레는 지름 × 원주율(${PI})이에요.`, hint, h3 };
+          if (same(v, rr)) return { correct: false, feedback: '반지름을 그대로 썼어요. 가로는 밑면의 둘레예요.', hint, h3 };
+          if (same(v, s.h)) return { correct: false, feedback: '높이를 썼어요. 높이는 옆면의 세로이고, 가로는 밑면의 둘레예요.', hint, h3 };
+          if (same(v, rr * rr * PI)) return { correct: false, feedback: '밑면(원)의 넓이를 구했어요. 가로는 둘레(지름 × 원주율)예요.', hint, h3 };
+          return { correct: false, feedback: '다시 계산해 볼까요? 지름부터 구해요.', hint, h3 };
         }
         if (t.unrolled != null) {
           if (t.r != null && s.r !== t.r) return { correct: false, feedback: `이번에는 밑면의 반지름을 ${t.r} cm로 맞춰요.`, hint: '반지름 옆의 + − 단추를 눌러요.' };
@@ -357,29 +381,37 @@
           const s = {};
           if (t.judge != null) s.judge = t.judge;
           if (t.unrolled != null) s.unrolled = t.unrolled;
-          if (t.findR) s.r = t.r; else if (t.r != null && t.width == null && t.unrolled != null) s.r = t.r;
+          if (t.findR) { s.r = t.r; if (pad) s.value = 2 * t.r; } else if (t.r != null && t.width == null && t.unrolled != null) s.r = t.r;
           if (t.width != null && typeof t.width === 'string') s.pick = t.width;
           if (t.height != null && typeof t.height === 'string') s.pick = t.height;
           if (typeof t.width === 'number') s.value = t.width;
           setState(s);
         },
         check(t, opts) {
-          const r = grade(t);
+          const r = grade(t); delete r.h3;
           // 길이 이름표(revealAfterCheck)는 맞힌 확인에서만 켠다 — 틀린 확인·힌트는 아무것도 드러내지 않는다
           if (r.correct && !(opts && opts.forHint)) { revealed = true; paintLabels(); }
           return r;
         },
-        hint(t) {
+        // 힌트 3단계: 1 개념(수 없음) / 2 틀린 단계 짚기(반지름 → 지름 등, 수 없음) / 3 수를 넣은 풀이 한 단계
+        hint(t, opts) {
           t = t || {};
           const r = grade(t);
           const why = t.judge != null ? '접었을 때 두 밑면이 위와 아래를 하나씩 막고, 옆면의 가로가 밑면 둘레를 꼭 한 바퀴 둘러야 원기둥이 돼요.'
-            : t.findR ? '옆면의 가로는 밑면의 둘레예요. 가로 ÷ 3.14 = 지름, 지름 ÷ 2 = 반지름으로 거꾸로 구해요.'
-              : typeof t.width === 'number' ? '옆면은 원기둥을 한 바퀴 굴린 자국이라 가로가 밑면의 둘레(지름 × 3.14)예요. 지름이 아니라 둘레예요.'
+            : t.findR ? '옆면의 가로는 밑면의 둘레예요. 둘레를 구할 때 한 계산을 거꾸로 해 보세요.'
+              : typeof t.width === 'number' ? '옆면은 원기둥을 한 바퀴 굴린 자국이라 가로가 밑면의 둘레예요. 둘레는 지름 × 원주율이에요.'
                 : typeof t.width === 'string' ? '원기둥을 한 바퀴 굴리면 밑면 테두리가 바닥에 한 바퀴 닿아요. 그 자국(분홍 선)이 옆면의 가로예요.'
                   : typeof t.height === 'string' ? '옆면을 펼쳐도 키는 그대로예요. 펼치기 전 원기둥의 키와 옆면의 세로를 견주어 보세요.'
                     : '"펼치기"를 눌러 원기둥을 한 바퀴 굴려 보세요. 옆면은 직사각형, 두 밑면은 크기가 같은 원이에요.';
-          if (r.correct) return { hint: why, correct: true };
-          return { hint: r.hint || why, correct: false };
+          const lv = hintLevel(opts);
+          if (r.correct) return { hint: why, correct: true, level: 1 };
+          if (lv === 1 || !r.hint) return { hint: why, correct: false, level: 1 };
+          if (lv >= 3) {
+            const rr = t.r != null ? t.r : state().r;
+            const h3 = r.h3 || (typeof t.width === 'number' ? `옆면의 가로 = 지름 × ${PI} = ${2 * rr} × ${PI}를 계산해요.` : t.findR ? `${fmt(2 * t.r * PI)} ÷ ${PI} = ${2 * t.r}(지름), 지름 ÷ 2 = 반지름이에요.` : r.hint);
+            return { hint: h3, correct: false, level: 3 };
+          }
+          return { hint: r.hint, correct: false, level: 2 };
         },
         wrongAnswer(t) {
           t = t || {};
@@ -393,7 +425,7 @@
             // 가로 ÷ 3.14로 구한 지름을 반지름으로 쓰거나 2로 두 번 나누는 실수
             let rr = Math.max(1, Math.round(t.r / 2));
             if (rr === t.r) rr = t.r > 1 ? t.r - 1 : t.r + 1;
-            return Object.assign(s, { r: rr });
+            return Object.assign(s, pad ? { r: rr, value: 2 * t.r } : { r: rr });
           }
           if (typeof t.width === 'number') {
             // 옆면의 가로를 밑면의 둘레 대신 지름으로 쓰는 오개념

@@ -6,6 +6,9 @@
 //   1) 교구의 wrongAnswer(target) — 그럴듯한 오개념 상태  2) 화면의 입력 칸에 틀린 수·고르지 않은 보기 누르기
 //   3) 정답 상태의 숫자 하나를 조금 바꾼 상태(PaperLessons.flow.findWrong)  4) 그래도 안 되면 조각에 방향키(예전 방식)
 // 확인을 눌렀는데 시도로 세지지 않은 경우(incomplete·바꾼 것 없음)를 문항별로 세어, 30%를 넘으면 simUnreliable로 표시한다.
+// 시도 제한(items[n].maxAttempts, reveal 문항 기본 3)을 넘기면 플레이어가 문항을 닫는다 — 학생은 '다음 문제'로 넘어간다(closed).
+// 힌트 사다리: 약한 학생(struggling·ell)은 틀린 뒤 힌트를 눌러 단계를 올리고(1 → 2 → 3), 힌트 단계만큼 다음 시도가 쉬워진다.
+// 문항 하나가 60초(--item-timeout)를 넘으면 그 문항을 건너뛰고(timedOut) 기록한다 — solve()가 멈춘 교구가 모의 수업 전체를 붙잡지 않게.
 // 사용: node edu-content-pool/simulate-class.mjs <lessonId> --class 2-3 [--route link|hub|portal|mixed] [--students 30] [--seed 7] [--difficulty 0] [--rebuild]
 //   --rebuild: 허브 경로 학생이 받는 dist/<id>/ 번들이 원본보다 오래되었으면 다시 묶는다(없으면 경고만)
 //   --difficulty: 이 차시가 이 학년에게 얼마나 어려운지(-0.3 쉬움 ~ +0.3 어려움). 교사 페르소나가 판단해 넣는다.
@@ -28,6 +31,7 @@ const route = arg('--route', 'mixed');
 const N = Number(arg('--students', 30));
 const difficulty = Number(arg('--difficulty', 0));
 const out = arg('--out', null);
+const ITEM_MS = Number(arg('--item-timeout', 60)) * 1000;
 let seed = Number(arg('--seed', 7));
 const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
 const pick = (xs) => xs[Math.floor(rnd() * xs.length)];
@@ -73,7 +77,9 @@ if (routes.includes('hub')) {
 
 // 문항별: 확인을 몇 번 눌렀고 그중 몇 번이 시도로 세졌는지, 틀린 답을 어떻게 만들었는지
 const itemStats = {};
-const statOf = (k) => (itemStats[k] ??= { clicks: 0, counted: 0, incomplete: 0, unchanged: 0, wrongVia: {} });
+const statOf = (k) => (itemStats[k] ??= { clicks: 0, counted: 0, incomplete: 0, unchanged: 0, wrongVia: {}, closed: 0, timedOut: 0, hintLevels: {} });
+// 정한 시간 안에 끝나지 않으면 'timeout'으로 끝나는 약속
+const within = (ms, p) => { let t; return Promise.race([p.finally(() => clearTimeout(t)), new Promise((res) => { t = setTimeout(() => res('timeout'), ms); })]); };
 
 // 틀린 조작: 다 했지만 틀린 답을 만든다(위 1~4 순서). 돌려주는 값은 쓴 방법.
 async function wrongMove(F, frameEval, target, key, log) {
@@ -121,7 +127,7 @@ async function runStudent(seat) {
   const rt = P.offline ? 'code' : routes[(seat - 1) % routes.length];
   const ctx = await browser.newContext({ viewport: P.viewport || { width: 1366, height: 768 } });
   const page = await ctx.newPage();
-  const log = { seat, kind, route: rt, attempts: 0, hints: 0, levelSwitches: [], wrongKeys: 0, predicts: [], submitted: null, notes: [] };
+  const log = { seat, kind, route: rt, attempts: 0, hints: 0, hintLevels: [], levelSwitches: [], wrongKeys: 0, predicts: [], closed: [], timedOut: [], submitted: null, notes: [] };
   page.on('pageerror', (e) => errors.push(`${seat}번 pageerror: ${e.message}`));
   page.on('console', (m) => { if (m.type() === 'error' && !/favicon|Failed to load resource: net::ERR_INTERNET_DISCONNECTED/.test(m.text())) errors.push(`${seat}번 console: ${m.text()}`); });
   let F = page; // 포털이면 iframe 안
@@ -151,10 +157,7 @@ async function runStudent(seat) {
     await F.locator('[data-next]').click();
     // 처음 단계: 시작 전 느린 학생은 쉬움으로, 빠른 학생은 그대로
     if (kind === 'ell' && rnd() < 0.5) { await F.locator('.pl-level__b[data-level="easy"]').click(); log.levelSwitches.push('start→easy'); }
-    let guard = 0;
-    while (guard++ < 60) {
-      const st = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; if (s.id !== 'main') return null; const a = s.activities[S.act]; return { item: a.items[S.item], level: S.level, key: `${a.id}.${S.item + 1}`, picked: S.items[`${a.id}.${S.item + 1}`]?.predict != null }; });
-      if (!st) break;
+    async function doItem(st) {
       if (st.item.predict && !st.picked) {
         // 예상 먼저(채점 아님). predict.answer가 있으면 빠르고 잘하는 학생일수록 그 보기를 더 자주 고른다
         const pr = st.item.predict; const right = Number.isInteger(pr.answer) ? pr.answer : null;
@@ -165,12 +168,15 @@ async function runStudent(seat) {
         log.predicts.push({ key: st.key, pick: k, right: right == null ? null : k === right });
       }
       const nextItem = async () => { if (st.item.predict || st.item.conclude) await F.locator('#next-item').click({ timeout: 3000 }).catch(() => log.notes.push(`${st.key}: '다음 문제' 단추 없음`)); };
-      if (st.item.free) { think(); await nudge(F, { evaluate: frameEval }); await F.locator('#check').click(); await page.waitForTimeout(250); await nextItem(); continue; }
-      let solved = false;
-      for (let t = 1; t <= P.patience && !solved; t++) {
+      if (st.item.free) { think(); await nudge(F, { evaluate: frameEval }); await F.locator('#check').click(); await page.waitForTimeout(250); await nextItem(); return; }
+      let solved = false; let closed = false; let hintBoost = 0;
+      // 약한 학생은 시도 전에도 가끔 힌트를 본다(시도 전에는 언제나 1단계 — 개념만)
+      if (weak && rnd() < P.hint * 0.4) hintBoost = Math.max(hintBoost, await pressHint(st.key));
+      for (let t = 1; t <= P.patience && !solved && !closed; t++) {
         think();
         // 문항 난도(item.difficulty, 교사가 판단해 차시 파일에 적음)를 차시 난도에 더한다 — 모든 문항이 같은 확률이 되지 않게
-        const p = Math.min(0.97, Math.max(0.05, P.acc + LEVEL_MOD[st.level] - difficulty - (st.item.difficulty || 0) + (t >= 3 ? 0.15 : 0)));
+        // 힌트 단계가 올라갈수록 조금 더 맞히기 쉽다(1단계 +0.04 · 2단계 +0.08 · 3단계 +0.12)
+        const p = Math.min(0.97, Math.max(0.05, P.acc + LEVEL_MOD[st.level] - difficulty - (st.item.difficulty || 0) + (t >= 3 ? 0.15 : 0) + hintBoost * 0.04));
         const sx = statOf(st.key);
         if (rnd() < p) {
           await frameEval((tg) => window.__pl.tool.solve(tg), st.item.target);
@@ -188,17 +194,24 @@ async function runStudent(seat) {
         const after = await frameEval((k) => (window.__pl.items[k] ? window.__pl.items[k].attempts : 0), st.key);
         if (after > before) sx.counted++;
         else if (!solved) { const nt = await F.locator('#fb-note').textContent().catch(() => ''); if (/바꾼 뒤에/.test(nt || '')) sx.unchanged++; else sx.incomplete++; }
+        // 시도를 다 써서 닫혔으면(reveal 문항 기본 3번) '다음 문제'로 넘어간다
+        if (!solved) closed = await frameEval((k) => window.__pl.items[k]?.closed === 'attempts', st.key);
+        if (closed) { log.closed.push(st.key); statOf(st.key).closed++; break; }
         if (!solved) {
           if (P.mash) { await F.locator('#check').click().catch(() => {}); log.attempts++; } // 연타
-          if (rnd() < P.hint) { await F.locator('#hint').click(); log.hints++; }
+          // 힌트 사다리: 틀린 뒤 힌트 한 칸. 약한 학생은 두 번째 틀림부터 한 칸 더(풀이 단계까지)
+          if (rnd() < P.hint) { hintBoost = Math.max(hintBoost, await pressHint(st.key)); if (weak && t >= 2) hintBoost = Math.max(hintBoost, await pressHint(st.key)); }
           // 쉬움 권유가 뜨면 내려간다
           if (P.downLevel && await F.locator('#suggest [data-level="easy"]').count()) { await F.locator('#suggest [data-level="easy"]').click(); log.levelSwitches.push(`${st.key}→easy`); break; }
         }
       }
-      if (solved) {
+      if (closed) {
+        await F.locator('#next-item').click({ timeout: 3000 }).catch(() => log.notes.push(`${st.key}: 닫힌 뒤 '다음 문제' 단추 없음`));
+        await waitLeave(st.key);
+      } else if (solved) {
         // 다음 문항으로 넘어갈 때까지 기다린다(예상·정리 문항은 '다음 문제'를 누른다)
         if (st.item.predict || st.item.conclude) await nextItem(); else await page.waitForTimeout(1250);
-        for (let w = 0; w < 20; w++) { const k = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; return s.id === 'main' ? `${s.activities[S.act].id}.${S.item + 1}` : s.id; }); if (k !== st.key) break; await page.waitForTimeout(150); }
+        await waitLeave(st.key);
         if (P.upLevel && await F.locator('#suggest [data-level]').count().catch(() => 0)) {
           const lv = await F.locator('#suggest [data-level]').getAttribute('data-level');
           await F.locator('#suggest [data-level]').click(); log.levelSwitches.push(`${st.key}→${lv}`);
@@ -209,8 +222,35 @@ async function runStudent(seat) {
         await frameEval((tg) => window.__pl.tool.solve(tg), st.item.target);
         await F.locator('#check:not([disabled]):not([aria-disabled="true"])').click({ timeout: 3000 }).catch(() => log.notes.push('도움 뒤 확인 단추 비활성'));
         if (st.item.predict || st.item.conclude) { await F.locator('#fb.is-ok').waitFor({ timeout: 2000 }).catch(() => {}); await nextItem(); } else await page.waitForTimeout(1250);
-        for (let w = 0; w < 20; w++) { const k = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; return s.id === 'main' ? `${s.activities[S.act].id}.${S.item + 1}` : s.id; }); if (k !== st.key) break; await page.waitForTimeout(150); }
+        await waitLeave(st.key);
       }
+    }
+    const weak = kind === 'struggling' || kind === 'ell';
+    const itemKey = () => frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; return s.id === 'main' ? `${s.activities[S.act].id}.${S.item + 1}` : s.id; });
+    const waitLeave = async (key) => { for (let w = 0; w < 20; w++) { if (await itemKey() !== key) return; await page.waitForTimeout(150); } };
+    // 힌트 단추 한 번 = 사다리 한 칸(플레이어가 단계를 정한다). 닫힌 문항에서는 단추가 꺼져 있다
+    const pressHint = async (key) => {
+      const hb = F.locator('#hint:not([disabled])');
+      if (!(await hb.count())) return 0;
+      await hb.click(); log.hints++;
+      const lv = await frameEval((k) => { const x = window.__pl.items[k]; return x && x.hintLevels ? x.hintLevels[x.hintLevels.length - 1] : 0; }, key);
+      if (lv) { log.hintLevels.push(lv); const hs = statOf(key).hintLevels; hs[lv] = (hs[lv] || 0) + 1; }
+      return lv || 0;
+    };
+    let guard = 0;
+    while (guard++ < 60) {
+      const st = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; if (s.id !== 'main') return null; const a = s.activities[S.act]; return { item: window.PaperLessons.flow.itemAt(a.items[S.item], S.level), level: S.level, key: `${a.id}.${S.item + 1}`, picked: S.items[`${a.id}.${S.item + 1}`]?.predict != null }; });
+      if (!st) break;
+      const done = await within(ITEM_MS, doItem(st).then(() => 'ok'));
+      if (done !== 'timeout') continue;
+      // 이 문항이 멈췄다: 기록하고 다음 문항으로 건너뛴다. 페이지 자체가 멈췄으면 이 학생은 여기서 끝낸다
+      log.timedOut.push(st.key); statOf(st.key).timedOut++;
+      const moved = await within(5000, frameEval(() => {
+        const S = window.__pl; const s = S.lesson.stages[S.stage]; const a = s.activities[S.act];
+        if (S.item + 1 < a.items.length) S.goto(S.stage, S.act, S.item + 1); else if (S.act + 1 < s.activities.length) S.goto(S.stage, S.act + 1, 0); else S.goto(S.stage + 1, 0, 0);
+        return true;
+      }));
+      if (moved === 'timeout') throw new Error(`${st.key}: ${ITEM_MS / 1000}초 넘게 멈춰 이 학생을 끝냄`);
     }
     // 출구 질문
     await F.locator('#exit').waitFor({ timeout: 5000 });
@@ -220,7 +260,7 @@ async function runStudent(seat) {
       const q = exit[i]; think();
       const p = Math.min(0.97, Math.max(0.05, P.acc - difficulty - (q.difficulty || 0) + 0.05));
       if (q.type === 'choice') { asked++; const ok = rnd() < p; if (ok) right++; const v = ok ? q.answer : pick(q.options.map((_, k) => k).filter((k) => k !== q.answer)); await F.locator(`input[name="q${i}"][value="${v}"]`).check(); }
-      if (q.type === 'tool') { asked++; if (rnd() < p) { right++; await frameEval(([i, t]) => window.__pl.exitTools[i].solve(t), [i, q.target]); } }
+      if (q.type === 'tool') { asked++; if (rnd() < p) { right++; await frameEval((i) => { const S = window.__pl; window.__pl.exitTools[i].solve(window.PaperLessons.flow.itemAt(S.lesson.stages[2].exitTicket[i], S.level).target); }, i); } }
       if (q.type === 'short') await F.locator(`textarea[name="q${i}"]`).fill(pick(['재미있었다', '조금 헷갈렸다', '친구랑 같이 해서 좋았다', '']));
       if (q.type === 'mood') {
         const share = asked ? right / asked : 1;
@@ -267,11 +307,14 @@ const byRoute = rows.reduce((a, r) => { a[r.via] = (a[r.via] || 0) + 1; return a
 // 문항별 정직성: 확인을 눌렀는데 시도로 세지지 않은 비율이 30%를 넘으면 그 문항의 '한 번에 맞힘'은 믿을 수 없다
 const items = Object.entries(itemStats).sort(([a], [b]) => a.localeCompare(b, 'en', { numeric: true })).map(([key, x]) => {
   const incompleteAttempts = x.incomplete + x.unchanged;
-  return { key, clicks: x.clicks, counted: x.counted, incompleteAttempts, incomplete: x.incomplete, unchanged: x.unchanged, incompleteRate: x.clicks ? Math.round((incompleteAttempts / x.clicks) * 100) : 0, simUnreliable: x.clicks > 0 && incompleteAttempts / x.clicks > 0.3, wrongVia: x.wrongVia };
+  return { key, clicks: x.clicks, counted: x.counted, incompleteAttempts, incomplete: x.incomplete, unchanged: x.unchanged, incompleteRate: x.clicks ? Math.round((incompleteAttempts / x.clicks) * 100) : 0, simUnreliable: x.clicks > 0 && incompleteAttempts / x.clicks > 0.3, wrongVia: x.wrongVia, closed: x.closed, timedOut: x.timedOut, hintLevels: x.hintLevels };
 });
 const simUnreliable = items.filter((x) => x.simUnreliable).map((x) => x.key);
-const report = { lesson: id, classCode: cls, students: N, received: rows.length, byRoute, difficulty, summary, items, simUnreliable, warnings, students_log: logs.sort((a, b) => a.seat - b.seat), errors };
+const timedOut = logs.flatMap((l) => l.timedOut.map((k) => `${l.seat}번 ${k}`));
+const closedByAttempts = logs.flatMap((l) => l.closed.map((k) => `${l.seat}번 ${k}`));
+const report = { lesson: id, classCode: cls, students: N, received: rows.length, byRoute, difficulty, summary, items, simUnreliable, timedOut, closedByAttempts, warnings, students_log: logs.sort((a, b) => a.seat - b.seat), errors };
 if (out) writeFileSync(out, JSON.stringify(report, null, 1));
-console.log(JSON.stringify({ lesson: id, classCode: cls, received: `${rows.length}/${N}`, byRoute, firstTry: summary.firstTry, simUnreliable, warnings,
-  items: items.map((x) => `${x.key} 한번에 ${summary.items.find((r) => r.key === x.key)?.firstTry ?? '-'}% · 확인 ${x.clicks}(셈 ${x.counted}, 안 셈 ${x.incompleteAttempts}) · ${Object.entries(x.wrongVia).map(([k, v]) => `${k}×${v}`).join(' ')}`), avgScore: summary.avgScore, levels: summary.levels, moods: summary.moods, recommendations: summary.recommendations, stuck: logs.filter((l) => l.notes.some((n) => n.startsWith('멈춤'))).length, errors: errors.slice(0, 10) }, null, 1));
-process.exit(errors.length ? 1 : 0);
+console.log(JSON.stringify({ lesson: id, classCode: cls, received: `${rows.length}/${N}`, byRoute, firstTry: summary.firstTry, simUnreliable, timedOut, closedByAttempts, warnings,
+  items: items.map((x) => `${x.key} 한번에 ${summary.items.find((r) => r.key === x.key)?.firstTry ?? '-'}% · 확인 ${x.clicks}(셈 ${x.counted}, 안 셈 ${x.incompleteAttempts})${x.closed ? ` · 닫힘 ${x.closed}` : ''}${x.timedOut ? ` · 시간초과 ${x.timedOut}` : ''}${Object.keys(x.hintLevels).length ? ` · 힌트단계 ${Object.entries(x.hintLevels).map(([l, n]) => `${l}:${n}`).join(' ')}` : ''} · ${Object.entries(x.wrongVia).map(([k, v]) => `${k}×${v}`).join(' ')}`), avgScore: summary.avgScore, levels: summary.levels, moods: summary.moods, recommendations: summary.recommendations, stuck: logs.filter((l) => l.notes.some((n) => n.startsWith('멈춤'))).length, errors: errors.slice(0, 10) }, null, 1));
+// process.exit()는 윈도에서 남은 소켓을 닫는 중에 libuv 단언으로 죽을 수 있다 — 종료 코드만 정하고 저절로 끝나게 둔다
+process.exitCode = errors.length ? 1 : 0;

@@ -337,13 +337,27 @@
           if (!(opts && opts.forHint) && r.correct) { revealed = true; paintTags(); }
           return r;
         },
-        hint(t) {
+        hint(t, opts) {
           t = t || target || {};
           const r = judge(t, true);
           if (r.correct) return { hint: '모두 알맞게 나누었어요.', correct: true };
-          if (!by && !unclear) return { hint: '누가 나누어도 똑같이 나뉘는 기준을 골라요. 색깔·구멍 수·모양은 누가 보아도 같아요.' };
-          // 수를 넣는 단계의 자동 힌트는 개수를 말하지 않는다 — 그대로 쓴다
-          return { hint: r.hint || '한 번 정한 기준만 보고, 단추를 하나씩 알맞은 칸에 넣어요.', correct: false };
+          // 힌트 단계(새 계약): 1 = 방법만(시도 전에도, 기준·칸 이름·개수를 말하지 않음), 2 = 틀린 단계 짚기, 3 = 한 걸음 풀어 보이기
+          const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
+          const att = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
+          const lv = Math.max(1, Math.min(3, want, att == null ? 3 : att >= 2 ? 3 : att >= 1 ? 2 : 1));
+          if (lv <= 1) {
+            if (!by && t.clear) return { hint: '나와 짝이 따로 나누어도 똑같이 나뉠지 생각하며 기준을 골라요.', correct: false };
+            if (!by) return { hint: '문제가 말한 기준 단추를 먼저 골라요.', correct: false };
+            if (cards.some((c) => !c.at) || cards.some((c) => ATTR[by].of(c) !== c.at)) return { hint: '정한 기준 하나만 보고 단추를 하나씩 칸에 넣어요. 다른 것은 보지 않아요.', correct: false };
+            return { hint: '칸 안의 단추를 왼쪽부터 하나씩 짚으며 세어요. 센 단추는 다시 세지 않아요.', correct: false };
+          }
+          if (lv === 2) return { hint: r.hint || '한 번 정한 기준만 보고, 단추를 하나씩 알맞은 칸에 넣어요.', correct: false };
+          if (by) {
+            const A = ATTR[by];
+            const bad = cards.find((c) => c.at && A.of(c) !== c.at) || cards.find((c) => !c.at);
+            if (bad) return { hint: `‘${nameOf(bad)}’는 ${A.of(bad)} 칸에 들어가요. 나머지도 ${josa(A.label, '을', '를')} 보고 넣어요.`, correct: false };
+          }
+          return { hint: r.hint || '색깔·구멍 수·모양처럼 누가 보아도 똑같이 말할 수 있는 것을 골라요.', correct: false };
         },
         // 모의 수업·자동 검사용 오답: '예쁜 것'처럼 분명하지 않은 기준 / 쓰지 말라는 기준 / 단추 하나를 다른 기준으로 보고 넣기 / 하나를 두 번 세기
         // 지금 판과 같은 오답은 건너뛴다(같은 오답을 다시 내면 시도로 세지 않는다)
@@ -409,7 +423,7 @@
               const other = Object.keys(ATTR).find((k) => k !== by && !ATTR[k].unclear && inside.every((c) => ATTR[k].of(c) === ATTR[k].of(inside[0])));
               if (other) return { correct: false, feedback: `${b.value} 칸의 단추는 ${josa(A.label, '이', '가')} 아니라 ${josa(ATTR[other].label, '이', '가')} 같아요. 기준이 섞였어요.`, hint: `한 번 정한 기준(${A.label})만 끝까지 보고 나누어요. 흔들리는 단추의 ${josa(A.label, '을', '를')} 다시 보세요.` };
             }
-            return { correct: false, feedback: `${wrong.length}개가 맞지 않는 칸에 들어가 있어요. 흔들리는 단추의 ${josa(A.label, '을', '를')} 다시 보세요.`, hint: `‘${nameOf(wrong[0])}’는 ${A.of(wrong[0])} 칸에 들어가요.` };
+            return { correct: false, feedback: `${wrong.length}개가 맞지 않는 칸에 들어가 있어요. 흔들리는 단추의 ${josa(A.label, '을', '를')} 다시 보세요.`, hint: `흔들리는 ‘${nameOf(wrong[0])}’의 ${josa(A.label, '을', '를')} 다시 보고, 같은 ${A.label} 칸을 찾아요.` };
           }
           if (t.counts || askCount) {
             const real = truth(by);

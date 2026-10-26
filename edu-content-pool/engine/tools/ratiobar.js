@@ -64,6 +64,13 @@
     return inp;
   }
 
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
   K.registerTool('ratiobar', {
     name: '비율 띠',
     create(box, o, kit) {
@@ -192,7 +199,9 @@
       setState(st0);
 
       const C = sc.compare; const B = sc.base; const unit = sc.unit;
-      const hint = labels === 'none' || sc.hideCompare ? '비율 = 비교하는 양 ÷ 기준량이에요. "~에 대한"이 붙은 쪽이 기준량이에요.' : `비율 = 비교하는 양 ÷ 기준량 = ${C} ÷ ${B}`;
+      // 2단계 힌트는 낱말 식까지만, 수를 넣은 나눗셈은 3단계에만
+      const hint = '분모(나누는 수)에 쓴 것이 "~에 대한" 앞에 있는 양인지 확인해요. 비율 = 비교하는 양 ÷ 기준량이에요.';
+      const h3 = sc.hideCompare ? '비율을 분모가 기준량인 분수로 바꿔 보세요. (예: 0.5 = 5/10)' : `기준량은 ${sc.baseName} ${B}${unit}, 비교하는 양은 ${sc.compareName} ${C}${unit}이에요. 비율 = ${C} ÷ ${B}`;
       // 채점만 한다(화면은 바꾸지 않는다) — 확인·힌트·오답 만들기가 함께 쓴다
       function judge(t) {
         const s = state();
@@ -200,49 +209,52 @@
           if (s.whole == null) return { correct: false, incomplete: true, feedback: '먼저 띠 전체(기준량)로 삼을 양을 위에서 골라요.' };
           if (s.whole !== t.whole) {
             const picked = wholeChoices[s.whole];
-            const fb = s.whole === 1 ? `${josa(sc.compareName, '은', '는')} 비교하는 양이에요. "${sc.baseName}에 대한"처럼 '~에 대한'이 붙은 쪽이 기준량이에요.`
-              : `${josa(picked, '은', '는')} 두 양을 더한 것이에요. 이 비는 ${sc.baseName}에 견주므로 기준량은 ${josa(sc.baseName, "이에요", "예요")}.`;
-            return { correct: false, feedback: fb, hint: '"■에 대한 ▲의 비"에서 ■가 기준량, ▲가 비교하는 양이에요.' };
+            // 첫 오답은 답(기준량 이름)을 말하지 않고 오개념만 짚는다 — 학생이 '~에 대한'을 다시 읽어 스스로 고르게
+            const fb = s.whole === 1 ? `${josa(picked, '은', '는')} 견주어 보는 쪽(비교하는 양)이에요. 문장에서 "~에 대한" 바로 앞에 있는 낱말을 다시 읽어 보세요.`
+              : `${josa(picked, '은', '는')} 두 양을 더한 전체예요. 기준량이 언제나 전체인 것은 아니에요. 문장에서 "~에 대한" 바로 앞에 있는 낱말을 다시 읽어 보세요.`;
+            return { correct: false, feedback: fb, hint: '"■에 대한 ▲의 비"에서 ■가 기준량, ▲가 비교하는 양이에요. 문장의 "~에 대한" 앞 낱말에 밑줄을 그어 보세요.', h3: `"${sc.baseName}에 대한"이므로 기준량은 ${josa(sc.baseName, '이에요', '예요')}.` };
           }
         }
         if (t.bar) {
           const v = s.shaded / s.parts;
           if (s.parts === 1 && s.shaded === 0) return { correct: false, feedback: '띠를 아직 나누지 않았어요.', hint: `띠 전체가 ${josa(`${B}${unit}`, '이에요', '예요')}. 칸 수를 정해 나눠 보세요.` };
           if (Math.abs(v - C / B) > 1e-9) {
-            if (s.parts === C && s.shaded === B) return { correct: false, feedback: '기준량과 비교하는 양이 바뀌었어요. 띠 전체가 기준량이에요.', hint };
-            if (Math.abs(v - (B - C) / B) < 1e-9) return { correct: false, feedback: `색칠한 칸이 ${josa(sc.compareName, '이', '가')} 아닌 나머지를 나타내요.`, hint: `${sc.compareName}만큼 색칠해요.` };
-            if (B % s.parts !== 0 && s.parts !== B) return { correct: false, feedback: `${B}${unit}를 ${s.parts}칸으로 똑같이 나누면 한 칸이 딱 떨어지지 않아요.`, hint: `${B}를 나누어떨어지게 하는 칸 수를 골라요. 한 칸이 몇 ${unit}인지 생각해요.` };
+            if (s.parts === C && s.shaded === B) return { correct: false, feedback: '기준량과 비교하는 양이 바뀌었어요. 띠 전체가 기준량이에요.', hint, h3 };
+            if (Math.abs(v - (B - C) / B) < 1e-9) return { correct: false, feedback: `색칠한 칸이 ${josa(sc.compareName, '이', '가')} 아닌 나머지를 나타내요.`, hint: `${sc.compareName}만큼 색칠해요.`, h3 };
+            if (B % s.parts !== 0 && s.parts !== B) return { correct: false, feedback: `${B}${unit}를 ${s.parts}칸으로 똑같이 나누면 한 칸이 딱 떨어지지 않아요.`, hint: `${B}를 나누어떨어지게 하는 칸 수를 골라요. 한 칸이 몇 ${unit}인지 생각해요.`, h3 };
             const per = B / s.parts;
-            if (sc.hideCompare) return { correct: false, feedback: `한 칸이 ${josa(`${fmt(per)}${unit}`, '이니', '니')} ${s.shaded}칸은 ${josa(`${fmt(per * s.shaded)}${unit}`, '이에요', '예요')}. 색칠한 양 ÷ 기준량이 문제의 비율과 같아야 해요.`, hint: '비율을 분모가 기준량인 분수로 바꿔 보세요. (예: 0.5 = 5/10)' };
-            return { correct: false, feedback: `한 칸이 ${josa(`${fmt(per)}${unit}`, '이니', '니')} ${s.shaded}칸은 ${josa(`${fmt(per * s.shaded)}${unit}`, '이에요', '예요')}. ${josa(`${C}${unit}`, '이', '가')} 되게 칠해요.`, hint };
+            if (sc.hideCompare) return { correct: false, feedback: `한 칸이 ${josa(`${fmt(per)}${unit}`, '이니', '니')} ${s.shaded}칸은 ${josa(`${fmt(per * s.shaded)}${unit}`, '이에요', '예요')}. 색칠한 양 ÷ 기준량이 문제의 비율과 같아야 해요.`, hint: '비율을 분모가 기준량인 분수로 바꿔 보세요. (예: 0.5 = 5/10)', h3 };
+            // 한 칸 크기로 비교하는 양을 칠할 수 없는 칸 수(예: 200 mL를 5칸 → 한 칸 40 mL로는 50 mL를 못 칠함)
+            if (C % per !== 0) return { correct: false, feedback: `${s.parts}칸으로 나누면 한 칸이 ${josa(`${fmt(per)}${unit}`, '이라', '라')} ${josa(`${C}${unit}`, '을', '를')} 칸으로 칠할 수 없어요. 한 칸의 크기를 다시 정해요.`, hint: `${C}${unit}도 ${B}${unit}도 똑같은 칸으로 나누어지게 칸 수를 골라요.`, h3 };
+            return { correct: false, feedback: `한 칸이 ${josa(`${fmt(per)}${unit}`, '이니', '니')} ${s.shaded}칸은 ${josa(`${fmt(per * s.shaded)}${unit}`, '이에요', '예요')}. ${josa(`${C}${unit}`, '이', '가')} 되게 칠해요.`, hint, h3 };
           }
         }
         if (t.fraction) {
           if (s.num == null || s.den == null) return { correct: false, incomplete: true, feedback: '분자와 분모를 모두 써요.' };
-          if (s.den === 0) return { correct: false, feedback: '분모에는 0을 쓸 수 없어요.', hint };
+          if (s.den === 0) return { correct: false, feedback: '분모에는 0을 쓸 수 없어요.', hint, h3 };
           const ok = s.num * B === s.den * C;
           if (!ok) {
-            if (s.num * C === s.den * B) return { correct: false, feedback: '분모와 분자가 바뀌었어요. 분모에는 기준량(무엇에 대한)을 써요.', hint };
-            if (sc.other && s.den === sc.other.n && s.num === C) return { correct: false, feedback: `분모에 ${josa(sc.other.name, '을', '를')} 썼어요. 이 비율의 기준량은 ${josa(sc.baseName, '이에요', '예요')}.`, hint };
-            if (s.den === B + C && s.num === C) return { correct: false, feedback: '두 양을 더해 분모에 썼어요. 분모에는 기준량만 써요.', hint };
-            if (B > C && s.den > 0 && s.num * (B - C) === s.den * C) return { correct: false, feedback: '색칠하지 않은 나머지를 분모에 썼어요. 분모에는 띠 전체(기준량)를 써요.', hint };
-            return { correct: false, feedback: '비율을 다시 써 볼까요? 분자는 비교하는 양, 분모는 기준량이에요.', hint };
+            if (s.num * C === s.den * B) return { correct: false, feedback: '분모와 분자가 바뀌었어요. 분모에는 기준량(무엇에 대한)을 써요.', hint, h3 };
+            if (sc.other && s.den === sc.other.n && s.num === C) return { correct: false, feedback: `분모에 ${josa(sc.other.name, '을', '를')} 썼어요. 문장에서 "~에 대한" 앞 낱말을 다시 읽어 보세요.`, hint, h3 };
+            if (s.den === B + C && s.num === C) return { correct: false, feedback: '두 양을 더한 전체를 분모에 썼어요. 분모에는 "~에 대한" 쪽 양(기준량)만 써요.', hint, h3 };
+            if (B > C && s.den > 0 && s.num * (B - C) === s.den * C) return { correct: false, feedback: '색칠하지 않은 나머지를 분모에 썼어요. 분모에는 띠 전체(기준량)를 써요.', hint, h3 };
+            return { correct: false, feedback: '비율을 다시 써 볼까요? 분자는 비교하는 양, 분모는 기준량이에요.', hint, h3 };
           }
-          if (t.fraction === 'lowest' && gcd(s.num, s.den) !== 1) return { correct: false, feedback: `크기는 맞아요! 이번에는 기약분수로 나타내요. 분모와 분자를 둘 다 ÷ ${gcd(s.num, s.den)} 해 보세요.`, hint: '분모와 분자를 같은 수로 더 나눌 수 없을 때까지 약분해요.' };
+          if (t.fraction === 'lowest' && gcd(s.num, s.den) !== 1) return { correct: false, feedback: '크기는 맞아요! 이번에는 기약분수로 나타내요. 분모와 분자를 둘 다 나눌 수 있는 수가 아직 있어요.', hint: '분모와 분자를 같은 수로 더 나눌 수 없을 때까지 약분해요.', h3: `${s.num}과 ${s.den}의 최대공약수는 ${gcd(s.num, s.den)}이에요.` };
         }
         if (t.decimal) {
           const v = s.dec;
           if (v == null) return { correct: false, incomplete: true, feedback: '비율을 소수로 써요.' };
           if (Math.abs(v - C / B) > 1e-6) {
-            if (Math.abs(v - B / C) < 1e-6) return { correct: false, feedback: '기준량과 비교하는 양을 바꿔 나누었어요. 비교하는 양 ÷ 기준량이에요.', hint };
-            if (Math.abs(v - C / 100) < 1e-6 || Math.abs(v - C / 10) < 1e-6) return { correct: false, feedback: `분자 ${C}에 소수점만 찍었어요. ${C}/${B}의 분모를 10, 100으로 만든 뒤 소수로 써요.`, hint: `${C} ÷ ${B}를 계산하거나, 분모가 100인 분수로 바꿔 보세요.` };
-            if (Math.abs(v - C) < 1e-6) return { correct: false, feedback: '비교하는 양을 그대로 썼어요. 비율은 기준량을 1로 볼 때의 크기예요.', hint };
-            return { correct: false, feedback: '소수로 바꾸는 계산을 다시 해 볼까요?', hint: `${C} ÷ ${B}를 계산해요.` };
+            if (Math.abs(v - B / C) < 1e-6) return { correct: false, feedback: '기준량과 비교하는 양을 바꿔 나누었어요. 비교하는 양 ÷ 기준량이에요.', hint, h3 };
+            if (Math.abs(v - C / 100) < 1e-6 || Math.abs(v - C / 10) < 1e-6) return { correct: false, feedback: '분자에 소수점만 찍었어요. 분모를 10이나 100으로 만든 뒤 소수로 써요.', hint: '분모가 10이나 100인 크기가 같은 분수로 바꾸거나, 분자 ÷ 분모를 계산해요.', h3 };
+            if (Math.abs(v - C) < 1e-6) return { correct: false, feedback: '비교하는 양을 그대로 썼어요. 비율은 기준량을 1로 볼 때의 크기예요.', hint, h3 };
+            return { correct: false, feedback: '소수로 바꾸는 계산을 다시 해 볼까요?', hint: '분자 ÷ 분모를 계산하거나, 분모가 100인 분수로 바꿔 보세요.', h3 };
           }
         }
         if (t.read != null) {
           if (s.read == null) return { correct: false, incomplete: true, feedback: '아래에서 하나를 골라요.' };
-          if (s.read !== t.read) return { correct: false, feedback: (o.read.why && o.read.why[s.read]) || '다시 골라 볼까요?', hint: '"■ : ▲"는 "■ 대 ▲", "▲에 대한 ■의 비", "■의 ▲에 대한 비"로 읽어요. 기준량은 ▲예요.' };
+          if (s.read !== t.read) return { correct: false, feedback: (o.read.why && o.read.why[s.read]) || '다시 골라 볼까요?', hint: '"■ : ▲"는 "■ 대 ▲", "▲에 대한 ■의 비", "■의 ▲에 대한 비"로 읽어요. 기준량은 ▲예요.', h3: '"■ : ▲"는 "■ 대 ▲", "▲에 대한 ■의 비", "■의 ▲에 대한 비"로 읽어요. 기준량은 ▲예요.' };
         }
         const parts2 = [t.fraction ? `${s.num}/${s.den}` : null, t.decimal ? String(s.dec) : null].filter(Boolean).join(' = ');
         return { correct: true, feedback: parts2 ? `맞아요! ${sc.baseName}에 대한 ${sc.compareName}의 비율: ${parts2}` : t.read != null ? '맞아요!' : `맞아요! 띠 전체(${B}${unit}) 가운데 ${C}${unit}만큼 칠했어요.` };
@@ -261,16 +273,19 @@
           if (t.read != null) s.read = t.read;
           setState(s);
         },
-        check(t) { return judge(t); },
-        hint(t) {
+        check(t) { const r = judge(t); delete r.h3; return r; },
+        // 힌트 3단계: 1 개념(수 없음) / 2 틀린 단계(낱말 식) / 3 수를 넣은 식
+        hint(t, opts) {
           t = t || {};
           const r = judge(t);
           const why = t.whole != null ? '"■에 대한 ▲의 비"에서 견주는 기준이 되는 ■가 기준량이에요. 띠 전체는 기준량을 나타내요.'
             : t.bar ? '띠 전체가 기준량이에요. 한 칸이 몇인지 정한 뒤, 비교하는 양만큼만 색칠해요.'
               : t.fraction || t.decimal ? '비율 = 비교하는 양 ÷ 기준량이에요. 분모(나누는 수)에는 기준량을 써요.'
                 : '"■ : ▲"에서 ▲가 기준량이에요. "▲에 대한 ■의 비"로 읽어요.';
-          if (r.correct) return { hint: why, correct: true };
-          return { hint: r.hint || why, correct: false };
+          const lv = hintLevel(opts);
+          if (r.correct) return { hint: why, correct: true, level: 1 };
+          if (lv === 1 || !r.hint) return { hint: why, correct: false, level: 1 };
+          return { hint: lv >= 3 && r.h3 ? r.h3 : r.hint, correct: false, level: lv };
         },
         wrongAnswer(t) {
           t = t || {};

@@ -13,7 +13,7 @@ import { createServer } from 'node:http';
 import { readFile, appendFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { dirname, join, normalize, extname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
@@ -40,8 +40,9 @@ async function body(req) {
 }
 
 // 개인정보 거름: 이름·전화·주민번호 같은 모양이 들어 있으면 받지 않는다(studentPii: none)
-// 숫자 앞뒤 경계를 둔다 — 교구 상태의 되풀이 소수(0.3333333333333333)가 주민번호 모양으로 걸려 제출이 막혔다
-const PII = /(?<![\d.])\d{6}-?[1-4]\d{6}(?!\d)|(?<![\d.])01[016789]-?\d{3,4}-?\d{4}(?!\d)|[\w.+-]+@[\w-]+\.[\w.]+/;
+// 숫자 앞뒤 경계를 둔다 — 교구 상태의 되풀이 소수(0.3333333333333333)가 주민번호 모양으로 걸려 제출이 막혔다.
+// 앞이 숫자나 소수점이면 시작하지 않으므로 긴 소수(0.142857142857, 1.3333333333333333)의 자릿수는 걸리지 않는다(tests/edu-lessons.test.mjs)
+export const PII = /(?<![\d.])\d{6}-?[1-4]\d{6}(?!\d)|(?<![\d.])01[016789]-?\d{3,4}-?\d{4}(?!\d)|[\w.+-]+@[\w-]+\.[\w.]+/;
 
 async function store(kind, payload, extra) {
   // clientId(무작위 UUID)는 빼고 본다 — 16진 조각이 전화번호 모양(01012345678)이 되어 5천 번에 한 번꼴로 제출이 막혔다
@@ -65,7 +66,9 @@ async function store(kind, payload, extra) {
   return row;
 }
 
-createServer(async (req, res) => {
+// 다른 스크립트·검사가 PII만 가져다 쓸 때는 서버를 띄우지 않는다
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMain) createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   try {
     if (req.method === 'OPTIONS') return send(res, 204, '');

@@ -89,6 +89,10 @@
     return `<p class="t-movesline"><i class="fi fi-rr-shuffle" aria-hidden="true"></i> <b>단계 바꿈</b> ${m.students}명 · ${m.total}번 (쉽게 ${m.down} · 어렵게 ${m.up})
       <span class="pl-muted">${m.who.map((w) => `${esc(w.seat)}번 ${esc(w.path)}`).join(' · ')}</span></p>`;
   }
+  // 못 푼 문항: 시도를 다 써서 닫힘(쓸어 보기 막기) · 학생이 '다음 문제로'를 눌러 넘김
+  const unsolvedCell = (r) => [r.closed ? `<span class="t-unsolved is-closed" title="시도를 다 써서 닫힘">닫힘 ${r.closed}명</span>` : '', r.gaveUp ? `<span class="t-unsolved" title="학생이 넘김">넘김 ${r.gaveUp}명</span>` : ''].join(' ');
+  const studentUnsolved = (x) => [...(x.closed || []).map((k) => `<span class="t-unsolved is-closed" title="시도를 다 써서 닫힘${x.nudges ? ` · 조금씩 바꿔 확인 ${x.nudges}번` : ''}">${esc(k)} 닫힘</span>`), ...(x.gaveUp || []).map((k) => `<span class="t-unsolved" title="학생이 '다음 문제로'를 눌러 넘김">${esc(k)} 넘김</span>`)].join(' ');
+
   function renderSummary() {
     if (!S.lesson) return;
     const all = [...S.rows, ...S.local].filter(forLesson);
@@ -105,11 +109,11 @@
         <div class="t-stat"><b>${s.moods.good}·${s.moods.ok}·${s.moods.hard}</b><span>느낌(좋음·조금·많이 어려움)</span></div>
       </div>
       <div class="t-rec"><h3><i class="fi fi-rr-bulb" aria-hidden="true"></i> 다음 수업 난이도</h3><ul>${s.recommendations.map((r) => `<li>${esc(r)}</li>`).join('')}</ul></div>
-      ${s.items.length ? `<h3>문항별</h3><table class="t-table"><thead><tr><th>문항</th><th>한 번에</th><th>결국 맞힘</th><th>평균 시도</th><th>힌트 본 학생</th></tr></thead><tbody>${s.items.map((r) => `<tr><td><b>${esc(r.key)}</b> ${esc(r.label)}</td><td>${bar(r.firstTry, r.firstTry < 50 ? 'is-low' : '')}</td><td>${bar(r.solved)}</td><td>${r.avgAttempts}</td><td>${r.hintRate}%</td></tr>`).join('')}</tbody></table>` : ''}
+      ${s.items.length ? `<h3>문항별</h3><table class="t-table"><thead><tr><th>문항</th><th>한 번에</th><th>결국 맞힘</th><th>평균 시도</th><th>힌트 본 학생</th><th>못 풂</th></tr></thead><tbody>${s.items.map((r) => `<tr><td><b>${esc(r.key)}</b> ${esc(r.label)}</td><td>${bar(r.firstTry, r.firstTry < 50 ? 'is-low' : '')}</td><td>${bar(r.solved)}</td><td>${r.avgAttempts}</td><td>${r.hintRate}%${r.deepHintRate ? ` <span class="pl-muted">(풀이 ${r.deepHintRate}%)</span>` : ''}</td><td>${unsolvedCell(r)}</td></tr>`).join('')}</tbody></table>` : ''}
       ${levelMovesLine(s)}
       ${predictTable(s)}
       ${s.exits.length ? `<h3>출구 질문</h3><table class="t-table"><tbody>${s.exits.map((r) => `<tr><td><b>${esc(r.key)}</b> ${esc(r.label)}</td><td>${bar(r.correct, r.correct < 50 ? 'is-low' : '')}</td></tr>`).join('')}</tbody></table>` : ''}
-      ${s.students.length ? `<h3>학생별 (이름 없이 번호만)</h3><table class="t-table"><thead><tr><th>번호</th><th>별명</th><th>단계</th><th>한 번에</th><th>끝까지</th><th>건너뜀</th><th>시간</th><th>느낌</th></tr></thead><tbody>${s.students.map((x) => `<tr class="${x.flag ? 'is-flag' : ''}"><td>${esc(x.seat)}${x.pairWith ? `·${esc(x.pairWith)}` : ''}</td><td>${esc(x.nickname)}</td><td>${esc({ easy: '쉬움', base: '기본', challenge: '도전' }[x.level] || x.level)}${x.levelChanges ? ` <span class="t-moves" title="${esc(x.levelPath)}">↺${x.levelChanges}</span>` : ''}</td><td>${x.firstTry}%</td><td>${x.solved}%</td><td>${x.skipped || ''}</td><td>${x.durationMin}분${x.durationMin > 40 ? ' ⚠' : ''}</td><td>${esc({ good: '좋음', ok: '조금 어려움', hard: '많이 어려움' }[x.mood] || '')}</td></tr>`).join('')}</tbody></table>` : ''}`;
+      ${s.students.length ? `<h3>학생별 (이름 없이 번호만)</h3><table class="t-table"><thead><tr><th>번호</th><th>별명</th><th>단계</th><th>한 번에</th><th>끝까지</th><th>건너뜀</th><th>못 푼 문항</th><th>시간</th><th>느낌</th></tr></thead><tbody>${s.students.map((x) => `<tr class="${x.flag ? 'is-flag' : ''}"><td>${esc(x.seat)}${x.pairWith ? `·${esc(x.pairWith)}` : ''}</td><td>${esc(x.nickname)}</td><td>${esc({ easy: '쉬움', base: '기본', challenge: '도전' }[x.level] || x.level)}${x.levelChanges ? ` <span class="t-moves" title="${esc(x.levelPath)}">↺${x.levelChanges}</span>` : ''}</td><td>${x.firstTry}%</td><td>${x.solved}%</td><td>${x.skipped || ''}</td><td>${studentUnsolved(x)}</td><td>${x.durationMin}분${x.durationMin > 40 ? ' ⚠' : ''}</td><td>${esc({ good: '좋음', ok: '조금 어려움', hard: '많이 어려움' }[x.mood] || '')}</td></tr>`).join('')}</tbody></table>` : ''}`;
     // 학생 수를 알면 아직 안 낸 번호를 보여 준다(모의 수업에서 2명이 멈춰도 누가 빠졌는지 몰랐던 문제)
     if (expected && s.n < expected) {
       const got = new Set(s.students.flatMap((x) => [String(x.seat), String(x.pairWith || '')]));

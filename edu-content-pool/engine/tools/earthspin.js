@@ -4,7 +4,7 @@
  *       oneWay(반대로 돌리면 되돌아감, 기본 참), showStart(처음 자리 표시), print,
  *       revealAfterCheck(우리나라의 때 글자는 '확인'을 눌러야 보이고, 다시 돌리면 숨는다 — 플레이어의 reveal:'after-check'),
  *       showLocal(우리나라 사람 옆에 동·서 방향 표시 — 지구가 돌면 함께 돈다),
- *       ask({q, choices}) — 지구 아래에 고르는 단추를 둔다. check({…, ask: 정답 번호})
+ *       ask({q, choices, why?[]}) — 지구 아래에 고르는 단추를 둔다. check({…, ask: 정답 번호}). why[고른 번호]는 그 보기의 오개념을 짚는 말
  * 상태: { hour, time:'낮'|'밤'|'경계', phase:'아침'|'낮'|'저녁'|'밤', elapsed(돌린 시간) }
  *   time은 phase와 같은 구간을 쓴다: 낮 08~16시, 밤 20~04시, 그 사이(아침·저녁)는 낮과 밤의 경계라 '경계'.
  * check({time}) | check({phase:'해 뜰 무렵'|'해 질 무렵'|'한낮'|'한밤중'|…}) | check({hour}) | check({elapsed}) | check({…, ask})
@@ -24,6 +24,13 @@
   const valueOfHour = (h) => 270 - (h - 12) * 15;
   const hourOf = (v) => { const h = (12 + (270 - K.norm(v)) / 15) % 24; return ((Math.round(h) % 24) + 24) % 24; };
 
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
   K.registerTool('earthspin', {
     name: '지구의 자전 낮과 밤',
     create(box, o, kit) {
@@ -259,9 +266,11 @@
         const now = hideUntilCheck && !shown ? '' : `지금 우리나라는 ${PHASE_TEXT[s.phase]}이에요. `;
         if (t.ask != null && ok(s, t)) {
           const where = PHASE_TEXT[s.phase];
-          if (pick == null) return { correct: false, incomplete: true, feedback: '아래에서 하나를 골라요.', hint: showLocal ? '우리나라 사람 옆의 동·서 표시에서 태양이 있는 쪽을 찾아봐요.' : '태양이 있는 쪽을 생각해 봐요.' };
-          if (pick !== t.ask) return { correct: false, feedback: `우리나라는 ${where}이에요. 고른 답을 다시 생각해 볼까요?`, hint: showLocal ? '우리나라 사람 옆의 동·서 표시를 보고, 태양이 어느 글자 쪽에 있는지 찾아봐요.' : '지구가 서쪽에서 동쪽으로 돈다는 것을 떠올려 봐요.' };
-          return { correct: true, feedback: `맞아요! 우리나라가 ${where}일 때 태양은 ${askO.choices[t.ask]}에 있어요.` };
+          const look = showLocal ? '우리나라 사람 옆의 동·서 표시 가운데 태양을 보고 있는 쪽을 찾아봐요.' : '지구가 서쪽에서 동쪽으로 돈다는 것을 떠올려 봐요.';
+          if (pick == null) return { correct: false, incomplete: true, feedback: '아래에서 하나를 골라요.', hint: look };
+          // 숨김 문항에서는 틀린 말에도 지금의 때를 넣지 않는다(고른 보기의 오개념만 짚는다)
+          if (pick !== t.ask) return { correct: false, feedback: (askO.why && askO.why[pick]) || `고른 답을 다시 생각해 볼까요? ${look}`, hint: look, h3: `정답은 "${askO.choices[t.ask]}"예요. ${look}` };
+          return { correct: true, feedback: `맞아요! 우리나라가 ${where}일 때 ${askO.ok || `답은 ${askO.choices[t.ask]}예요.`}` };
         }
         if (ok(s, t)) {
           if (t.elapsed != null) return { correct: true, feedback: `맞아요! 지구가 ${t.elapsed === 24 ? '한 바퀴(하루)' : `${t.elapsed}시간 동안`} 돌아 우리나라는 ${PHASE_TEXT[s.phase]}이에요.` };
@@ -270,18 +279,28 @@
               : s.phase === '아침' ? '밤인 쪽에서 낮인 쪽으로 막 들어가는 자리(낮과 밤이 바뀌는 경계)에 있어' : '낮인 쪽에서 밤인 쪽으로 막 들어가는 자리(낮과 밤이 바뀌는 경계)에 있어';
           return { correct: true, feedback: `맞아요! 우리나라가 ${side} ${PHASE_TEXT[s.phase]}이에요.` };
         }
+        if (t.elapsed != null && !(t.hour != null && s.hour === t.hour && s.elapsed !== t.elapsed)) {
+          // 몇 시간 더(덜) 돌릴지는 말하지 않는다 — 한 칸씩 돌리며 확인으로 맞추지 않게
+          const h3 = `${t.elapsed}시간 = ${t.elapsed}칸(${t.elapsed * 15}°)이에요. 처음으로 돌아가 ${t.elapsed}칸을 세며 돌려요.`;
+          if (t.elapsed !== 24 && s.elapsed % 24 === t.elapsed % 24 && s.elapsed !== t.elapsed) return { correct: false, feedback: '시각은 같지만 돌린 시간이 문제와 달라요. 한 바퀴(24시간)를 더 돌렸거나 덜 돌렸어요.', hint: '지구는 하루(24시간)에 한 바퀴 돌아요.', h3 };
+          return { correct: false, feedback: '돌린 시간이 문제의 시간과 달라요. 처음으로 돌아가 한 칸이 몇 시간인지 생각하며 세어 보세요.', hint: '한 칸(15°)이 1시간이에요. 지구는 하루(24시간)에 한 바퀴(360°) 돌아요.', h3 };
+        }
         if (t.elapsed != null) {
-          if (s.elapsed > t.elapsed) return { correct: false, feedback: `${t.elapsed}시간보다 더 돌렸어요. 처음으로 돌아가 다시 해 볼까요?`, hint: '한 칸(15°)이 1시간이에요. 지구는 하루(24시간)에 한 바퀴(360°) 돌아요.' };
-          return { correct: false, feedback: `아직 ${t.elapsed - s.elapsed}시간을 더 돌려야 해요.`, hint: '지구는 하루(24시간)에 한 바퀴 돌아요. 우리나라 사람이 처음 자리로 돌아오면 하루가 지난 거예요.' };
+          const h3 = `${t.elapsed}시간 = ${t.elapsed}칸이에요.`;
+          return { correct: false, feedback: '시각은 맞지만 날짜가 달라요. 지구를 하루(한 바퀴) 더 돌렸거나 덜 돌렸어요.', hint: '다음 날 시각이면 밤 12시를 지나요. 몇 시간 뒤인지 먼저 세어 봐요.', h3 };
         }
         const goal = PHASE[t.phase] || t.time;
         const hint = goal === '아침' ? '밤인 쪽에서 낮인 쪽으로 막 들어가는 자리가 해 뜰 무렵이에요.'
           : goal === '저녁' ? '낮인 쪽에서 밤인 쪽으로 막 들어가는 자리가 해 질 무렵이에요.'
             : goal === '밤' ? '태양 반대쪽(그림자 쪽)에 우리나라가 오게 돌려 보세요.' : '태양을 마주 보는 쪽에 우리나라가 오게 돌려 보세요.';
+        const h3 = t.hour != null || goal ? `지금에서 ${forward(t)}시간(${forward(t)}칸) 더 돌리면 돼요.` : hint;
+        // 방향·남은 시간은 말하지 않는다. 오개념(경계를 낮·밤으로, 해 뜰·질 무렵을 바꿔 앎)만 짚는다
         if (s.time === '경계' && (goal === '밤' || goal === '낮')) {
-          return { correct: false, feedback: `${now}${now ? '낮과 밤이 바뀌는 자리(경계)라 아직 ' + goal + '이 아니에요.' : '아직 ' + goal + '이 아니에요.'} 조금 더 돌려 보세요.`, hint };
+          return { correct: false, feedback: `${now}낮과 밤이 바뀌는 자리(경계)는 아직 ${goal}이 아니에요.`, hint, h3 };
         }
-        return { correct: false, feedback: `${now || '아직 아니에요. '}지구를 더 돌려 볼까요?`, hint };
+        if ((goal === '아침' && s.phase === '저녁') || (goal === '저녁' && s.phase === '아침')) return { correct: false, feedback: `${now}해 뜰 무렵과 해 질 무렵을 바꿔 생각했을 수 있어요. 지구는 서쪽에서 동쪽으로 돌아요. 밤 쪽에서 빛을 받는 쪽으로 들어가는 자리가 해 뜰 무렵이에요.`, hint, h3 };
+        if (t.hour != null) return { correct: false, feedback: `${now}시각이 달라요. 처음 시각에서 몇 시간 뒤인지 먼저 세어 보세요.`, hint, h3 };
+        return { correct: false, feedback: `${now || '아직 아니에요. '}우리나라가 태양 빛을 받는 쪽인지, 받지 못하는 쪽인지, 그 경계인지 다시 살펴봐요.`, hint, h3 };
       }
 
       return {
@@ -297,25 +316,27 @@
           if (askO && t && t.ask != null) { pick = t.ask; markPick(); }
         },
         check(t, opts) {
-          const r = judge(t);
+          const r = judge(t); delete r.h3;
           // 맞힌 확인에서만 때 글자를 보인다 — 틀린 확인마다 보이면 확인을 눌러 가며 때를 읽어 맞춘다
           if (r.correct && hideUntilCheck && !shown && !(opts && opts.forHint)) { shown = true; say.setAttribute('display', 'inline'); paint(committed); }
           return r;
         },
-        hint(t) {
+        // 힌트 3단계: 1 개념(시각·칸 수 없음) / 2 틀린 단계 짚기(때를 드러내지 않음) / 3 몇 칸 돌릴지
+        hint(t, opts) {
           t = t || {};
           const hidden = hideUntilCheck && !shown;
           const r = judge(t);
-          const goal = PHASE[t.phase] || t.time;
-          const why = t.elapsed != null ? '한 칸(15°)이 1시간이에요. 지구는 하루(24시간)에 서쪽에서 동쪽으로 한 바퀴(360°) 돌아요.'
-            : t.hour != null ? '지구는 1시간에 15°씩, 시계 반대 방향(서→동)으로 돌아요. 지금 시각에서 몇 시간 뒤인지 먼저 세어 봐요.'
-              : goal === '아침' ? '지구는 서쪽에서 동쪽으로 돌아요. 그림자(밤) 쪽에서 막 빛을 받는 쪽으로 들어가는 자리가 해 뜰 무렵이에요.'
-                : goal === '저녁' ? '지구는 서쪽에서 동쪽으로 돌아요. 빛을 받는 쪽에서 막 그림자 쪽으로 들어가는 자리가 해 질 무렵이에요.'
-                  : goal === '밤' ? '태양 빛을 받지 못하는 반쪽(그림자 쪽) 한가운데로 우리나라가 들어가야 밤이에요.' : '태양을 마주 보는 반쪽 안으로 우리나라가 들어가야 낮이에요.';
-          // 때 글자를 숨기는 동안에는 지금이 맞는지, 지금이 언제인지 알려 주지 않는다
-          if (hidden) return { hint: why };
-          if (r.correct) return { hint: why, correct: true };
-          return { hint: r.incomplete ? (r.hint || why) : why, correct: false };
+          // 1단계는 목표(때 이름·시간 수)를 말하지 않는다 — 규칙과 볼 곳만
+          const why = t.ask != null ? '태양은 그대로 있고 지구가 서쪽에서 동쪽으로 돌아요. 지구가 돌 때 우리나라 사람의 어느 쪽이 태양을 향하는지 살펴봐요.'
+            : t.elapsed != null ? '한 칸(15°)이 1시간이에요. 몇 시간인지 먼저 세고, 그만큼 칸을 세며 돌려요.'
+              : t.hour != null ? '지구는 1시간에 15°씩, 시계 반대 방향(서→동)으로 돌아요. 지금 시각에서 몇 시간 뒤인지 먼저 세어 봐요.'
+                : '태양은 그대로 있고 지구가 서쪽에서 동쪽으로 돌아요. 우리나라가 태양 빛을 받는 쪽인지, 받지 못하는 쪽인지, 그 경계에서 어느 쪽으로 들어가는 중인지 살펴봐요.';
+          const lv = hintLevel(opts);
+          if (!hidden && r.correct) return { hint: why, correct: true, level: 1 };
+          if (lv === 1 || !r.hint) return { hint: why, correct: false, level: 1 };
+          // 2단계 힌트는 목표(때·시간)에 맞춘 규칙이라 숨긴 때·맞음 여부를 드러내지 않는다
+          if (lv === 2) return { hint: r.hint, correct: false, level: 2 };
+          return { hint: r.h3 || r.hint, correct: false, level: 3 };
         },
         wrongAnswer(t) {
           t = t || {};

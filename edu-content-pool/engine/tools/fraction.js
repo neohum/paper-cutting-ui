@@ -25,6 +25,8 @@
   const ro = (v) => (jong(v) && jong(v) !== 'l' ? '으로' : '로');
   const ieyo = (v) => (jong(v) ? '이에요' : '예요');
   const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 문항의 수를 말하지 않는다), 2 = 한 번 틀린 뒤 지금 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
+  const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
   K.registerTool('fraction', {
     name: '분수 피자·띠 조각',
@@ -54,6 +56,10 @@
       const hatchId = `fr-hatch-${Math.random().toString(36).slice(2, 8)}`;
       const pat = kit.el('pattern', { id: hatchId, width: 6, height: 6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' }, st.defs);
       kit.el('line', { x1: 0, y1: 0, x2: 0, y2: 6, stroke: '#000', 'stroke-width': 2.6 }, pat);
+      // 덧셈 활동지: 처음 분수(잠긴 조각)는 점무늬, 더한 조각은 빗금 — 흑백에서도 '처음 + 더한 양'이 구별된다
+      const dotsId = `${hatchId}-dots`;
+      const pat2 = kit.el('pattern', { id: dotsId, width: 8, height: 8, patternUnits: 'userSpaceOnUse' }, st.defs);
+      kit.el('circle', { cx: 4, cy: 4, r: 1.9, fill: '#000' }, pat2);
       // 활동지: 빈 분수 쓰기 틀(□ 위, 분수선, □ 아래) — 분수선 있는 분수 쓰기 연습
       if (print && o.frame && shape === 'pizza') {
         // 3학년 숫자 쓰기에 넉넉하게(칸 80) 피자 가장자리에서 띄운다
@@ -117,7 +123,7 @@
           g.appendChild(deco);
           let hatchEl = null;
           if (print) {
-            const fill = `url(#${hatchId})`; const a2 = { class: 'fr-hatch', 'pointer-events': 'none', fill };
+            const fill = `url(#${locked.has(i) ? dotsId : hatchId})`; const a2 = { class: 'fr-hatch', 'pointer-events': 'none', fill };
             hatchEl = shp.type === 'circle' ? kit.el('circle', Object.assign({ r: shp.r }, a2), g)
               : shp.type === 'rect' ? kit.el('rect', Object.assign({ x: -shp.w / 2, y: -shp.h / 2, width: shp.w, height: shp.h, rx: shp.rx }, a2), g)
                 : kit.el('path', Object.assign({ d: shp.d }, a2), g);
@@ -163,16 +169,16 @@
         kit.announce(readText());
         kit.recorder.log('fraction', Object.assign({ via }, state()));
       }
+      // 조각은 누르는 단추라 pk-draggable을 달지 않는다 — 달면 무대가 그 위의 touchmove를 막아 피자·띠 위에서 화면이 굴러가지 않았다
+      // (끄는 칼집 손잡이는 kit.drag·kit.rotate가 스스로 pk-draggable·pk-rotatable을 단다)
       function bindPick(p) {
         p.g.setAttribute('tabindex', '0'); p.g.setAttribute('role', 'button');
-        p.g.classList.add('pk-draggable');
         const pick = (via) => { picked = p.i; paintParts(); pop(p); kit.tick(); kit.announce(`${p.i + 1}번째 조각을 가장 큰 조각으로 골랐어요.`); kit.recorder.log('fraction', Object.assign({ via }, state())); };
         p.g.addEventListener('click', () => pick('pointer'));
         p.g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick('keyboard'); } });
       }
       function bindPart(p) {
         p.g.setAttribute('tabindex', '0'); p.g.setAttribute('role', 'button');
-        p.g.classList.add('pk-draggable');
         p.g.addEventListener('click', () => toggle(p, 'pointer'));
         p.g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(p, 'keyboard'); } });
       }
@@ -244,7 +250,7 @@
 
       // ---- 조각 수 단추(스테퍼) ----
       const button = (x, y, w, h, color, text, label, onPress, size = 30) => {
-        const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': label, class: 'pk-draggable fr-btn' }, uiL);
+        const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': label, class: 'fr-btn' }, uiL);
         kit.transform(g, { x, y });
         kit.el('rect', { x: -Math.max(w, 48) / 2, y: -Math.max(h, 48) / 2, width: Math.max(w, 48), height: Math.max(h, 48), class: 'pk-hit' }, g);
         const pc = kit.piece(st, g, { shape: w === h ? { type: 'circle', r: w / 2 } : { type: 'rect', w, h, rx: 16 }, color, depth: 2 });
@@ -534,7 +540,14 @@
         // 다 했지만 틀린 상태(모의 수업·검사용): 진분수 문항은 모두 칠한 분수, 판단 문항은 반대 판단
         wrongAnswer(t) {
           if ('equal' in t) return Object.assign(state(), { judge: !t.equal });
-          if (t.proper) { const k = Math.max(5, t.minDen || 0); return { n: k, colored: Array.from({ length: k }, (_, i) => i) }; }
+          // 짝 놀이: 조건을 하나 어긴 진분수(절반 조건이면 반대쪽, 분자 조건이면 단위분수), 조건이 없으면 모두 칠한 분수
+          if (t.proper) {
+            const k = Math.max(5, t.minDen || 0);
+            if (t.lessThanHalf) return { n: k, colored: Array.from({ length: Math.ceil(k / 2) }, (_, i) => i) };
+            if (t.moreThanHalf) return { n: k, colored: [0] };
+            if (t.minNum) return { n: k, colored: [0] };
+            return { n: k, colored: Array.from({ length: k }, (_, i) => i) };
+          }
           // 칼집 옮기기: 칼집 하나를 한 칸 비켜 둔 '거의 똑같은' 나누기(눈으로는 같아 보이는 흔한 실수)
           if (freeCut && t.den) {
             const c = shape === 'pizza' ? Array.from({ length: t.den }, (_, i) => (360 * i) / t.den) : Array.from({ length: t.den - 1 }, (_, i) => r4((i + 1) / t.den));
@@ -555,7 +568,8 @@
             wNum = t.num; wDen = t.den; paintWrite(); return;
           }
           if (t.proper) {
-            const k = Math.max(5, t.minDen || 0); const c = t.lessThanHalf ? Math.max(1, Math.floor((k - 1) / 2)) : 2;
+            const k = Math.max(5, t.minDen || 0);
+            const c = t.lessThanHalf ? Math.max(1, Math.floor((k - 1) / 2)) : t.moreThanHalf ? Math.floor(k / 2) + 1 : Math.max(2, t.minNum || 0);
             cuts = null; n = 0; setN(k, 'solve', true); colored = new Set(Array.from({ length: c }, (_, i) => i)); paintParts(); return;
           }
           if (t.den && freeCut) {
@@ -572,7 +586,23 @@
           if (!fh && revealMode && !revealed && (freeCut || r.correct)) { revealed = true; paintReadout(); }
           return r;
         },
-        hint(t) { const r = this.judgeNow(t, true); return { hint: r.hint || '', correct: r.correct === true }; },
+        // 새 힌트 계약: 1단계는 늘 열리고 문항의 수(합·분모·분자)를 말하지 않는다. 지금 상태가 맞아도 '맞아요'라고 알려 주지 않는다.
+        hint(t, opts) {
+          t = t || {}; const lv = hintLevel(opts);
+          const r = this.judgeNow(t, true);
+          if (lv === 1 || r.correct) return { hint: this.conceptHint(t), level: 1 };
+          if (lv === 2) return { hint: r.feedback || this.conceptHint(t), level: 2 };
+          return { hint: r.hint || r.feedback || '', level: 3 };
+        },
+        conceptHint(t) {
+          if ('equal' in t) return '조각 수가 아니라 조각의 크기를 봐요. 모든 조각의 크기가 같아야 똑같이 나눈 거예요.';
+          if (o.write) return locked.size ? '더한 뒤에도 전체를 똑같이 나눈 조각 수는 그대로예요. 한 조각짜리 분수가 모두 몇 개인지 세어요.' : '분모(아래 수)는 전체를 똑같이 나눈 조각 수, 분자(위 수)는 색칠한 조각 수예요.';
+          if (t.proper) return '분자가 분모보다 작은 분수예요. 문제에 붙은 조건을 하나씩 따져 보고 만들어요.';
+          if (freeCut) return `${shape === 'pizza' ? '피자 가장자리' : '띠 위'}의 눈금 칸을 세어, 조각마다 칸 수가 같아지게 칼집을 옮겨요.`;
+          if (locked.size) return '복숭아색은 처음 분수예요. 더하는 분수만큼 몇 조각을 더 칠해야 할까요?';
+          if (t.num == null) return '분모는 전체를 똑같이 나눈 조각 수예요. 문제의 분수에서 분모를 먼저 찾아요.';
+          return '분모는 전체를 똑같이 나눈 조각 수, 분자는 색칠한 조각 수예요. 문제의 분수에서 분모와 분자를 먼저 짚어요.';
+        },
         judgeNow(t, fh) {
           const terms = (d, c) => ` 분모 ${d}${eun(d)} 전체를 똑같이 나눈 조각 수, 분자 ${c}${eun(c)} 색칠한 조각 수예요.`;
           if ('equal' in t) {
@@ -590,7 +620,8 @@
             return { correct: true, feedback: t.equal ? '맞아요! 모든 조각의 크기가 같으니 똑같이 나눈 거예요.' : '맞아요! 조각의 크기가 서로 달라서 똑같이 나눈 것이 아니에요. 그래서 분수로 나타낼 수 없어요.' };
           }
           if (o.write) {
-            const k = partEls.length; const c = colored.size;
+            // 정답은 문항의 분수다(그림이 처음 분수만 칠한 채여도 — 출구 질문은 더한 양을 그림 없이 셈해야 한다)
+            const k = t.den ?? partEls.length; const c = t.num ?? colored.size;
             if (wNum == null || wDen == null) return { correct: false, feedback: '분자와 분모를 모두 정해 주세요.', hint: '전체 조각 수를 세어 분모(아래)에, 색칠한 조각 수를 세어 분자(위)에 써요.' };
             if (wNum === k && wDen === c && k !== c) return { correct: false, feedback: '분모와 분자가 바뀌었어요.', hint: '분모는 아래에 쓰는 수로, 전체를 똑같이 나눈 조각 수예요.' };
             if (locked.size && wDen === 2 * k && wNum === c) return { correct: false, feedback: `분모끼리 더했네요. 분모를 더하면 한 조각의 크기가 바뀌어요. 전체를 똑같이 나눈 수는 그대로 ${k}${ieyo(k)}.`, hint: `${k}분의 1이 몇 개인지 세어 분자에 써요. 분모는 ${k} 그대로예요.` };
@@ -605,6 +636,8 @@
             if (c === 0) return { correct: false, feedback: `똑같이 ${k}조각으로 나누었어요. 이제 짝이 말한 분자만큼 색칠해요.`, hint: '분자는 색칠한 조각 수예요.' };
             if (c >= k) return { correct: false, feedback: `${k}조각을 모두 색칠했어요. 오늘은 분자가 분모보다 작은 분수만 만들어요.`, hint: '분모보다 적은 수만큼만 색칠해요. 칠한 조각을 한 번 더 누르면 색이 지워져요.' };
             if (t.minDen && k < t.minDen) return { correct: false, feedback: `지금 분모는 ${k}${ieyo(k)}. 분모가 ${t.minDen - 1}보다 커야 해요.`, hint: `${t.minDen}조각 이상으로 나누고, 색칠한 조각이 나머지보다 적어야 해요.` };
+            if (t.minNum && c < t.minNum) return { correct: false, feedback: `지금 분자는 ${c}${ieyo(c)}. 분자가 ${t.minNum - 1}보다 커야 해요.`, hint: `${t.minNum}조각 이상 색칠하되, 모두 칠하지는 않아요.` };
+            if (t.moreThanHalf && c * 2 <= k) return { correct: false, feedback: `${k}분의 ${c}${eun(c)} 절반보다 많지 않아요. 색칠한 조각이 색칠하지 않은 조각보다 많아야 해요.`, hint: `${k}조각의 절반은 ${k / 2}조각이에요. 그보다 많이, 그러나 모두는 아니게 색칠해요.` };
             if (t.lessThanHalf && c * 2 >= k) return { correct: false, feedback: `${k}분의 ${c}${eun(c)} 피자의 절반보다 적지 않아요. 색칠한 조각이 색칠하지 않은 조각보다 적어야 해요.`, hint: `${k}조각의 절반은 ${k / 2}조각이에요. 그보다 적게 색칠해요.` };
             return { correct: true, feedback: `${k}분의 ${c}${eul(c)} 만들었어요! 짝이 말한 분수와 같은지 짝에게 확인해요.${terms(k, c)}` };
           }
@@ -620,7 +653,12 @@
           }
           if (k !== t.den) return { correct: false, feedback: `지금은 ${k}조각이에요. 분모 ${t.den}${eun(t.den)} 전체를 똑같이 ${t.den}조각으로 나눈다는 뜻이에요.`, hint: `분모 ${t.den}${eun(t.den)} 전체를 똑같이 나눈 조각 수예요. 단추로 조각 수를 ${t.den}${ro(t.den)} 맞춰요.` };
           if (t.num == null) return { correct: true, feedback: freeCut ? `맞아요! 칼집을 옮겨 조각마다 ${GRID / t.den}칸씩, 전체를 똑같이 ${t.den}조각으로 나누었어요. 한 조각은 전체의 ${t.den}분의 1이에요.` : `맞아요! 전체를 똑같이 ${t.den}조각으로 나누었어요.` };
-          if (c !== t.num) return { correct: false, feedback: `조각은 알맞게 나누었어요. 지금 색칠한 조각은 ${c}개예요.${c > t.num ? ' 칠한 조각을 한 번 더 누르면 색이 지워져요.' : ''}`, hint: `분자 ${t.num}${eun(t.num)} 색칠한 조각 수예요. 조각을 눌러 ${t.num}조각만 색칠해요.` };
+          if (c !== t.num) {
+            // 덧셈(잠긴 조각): 합을 말하지 않고 '처음 + 더하는 양'의 풀이 한 걸음만 짚는다
+            const lk = [...locked].filter((i) => i < k).length;
+            const hint = lk ? `처음 분수는 복숭아색 ${lk}조각이에요. 더하는 분수의 분자만큼 조각을 더 칠해요.` : `분자 ${t.num}${eun(t.num)} 색칠한 조각 수예요. 조각을 눌러 ${t.num}조각만 색칠해요.`;
+            return { correct: false, feedback: `조각은 알맞게 나누었어요. 지금 색칠한 조각은 ${c}개예요.${c > t.num ? ' 칠한 조각을 한 번 더 누르면 색이 지워져요.' : ''}`, hint };
+          }
           if (locked.size) { const lk = [...locked].length; return { correct: true, feedback: `맞아요! ${t.den}분의 ${lk}에 ${t.den}분의 ${t.num - lk}${eul(t.num - lk)} 더하면 ${t.den}분의 1이 ${t.num}개, ${t.den}분의 ${t.num}${ieyo(t.num)}. 분모 ${t.den}${eun(t.den)} 그대로예요.` }; }
           return { correct: true, feedback: `맞아요! 전체를 똑같이 ${t.den}${ro(t.den)} 나눈 것 중의 ${t.num}, ${t.den}분의 ${t.num}${ieyo(t.num)}.${terms(t.den, t.num)}` };
         },

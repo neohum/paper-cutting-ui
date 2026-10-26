@@ -18,6 +18,8 @@
 (function (K) {
   const reduce = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const PITCH_NAME = { high: '높은 소리', mid: '중간 높이 소리', low: '낮은 소리' };
+  // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 받침·손잡이를 어느 쪽으로 옮길지 말하지 않는다), 2 = 한 번 틀린 뒤 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
+  const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
   const pitchOf = (L, T) => { const d = T - L; return d >= 2 ? 'high' : d <= -2 ? 'low' : 'mid'; };
   const LOUD = 61; const QUIET = 40;
   const loudName = (s) => (s >= LOUD ? '큰 소리' : s <= QUIET ? '작은 소리' : '중간 세기 소리');
@@ -491,12 +493,13 @@
         const yes = (feedback) => { celebrate(); return { correct: true, feedback }; };
         if (t.stopped) {
           if (stopped) return yes('맞아요! 떨림을 멈추니 소리도 멈췄어요.');
-          if (!sounds) return no('먼저 고무줄을 당겼다 놓아 소리를 내요.', '고무줄을 튕긴 뒤, 떨리고 있을 때 고무줄을 한 번 눌러요.');
+          if (!sounds) return { correct: false, incomplete: true, feedback: '먼저 고무줄을 당겼다 놓아 소리를 내요.', hint: '고무줄을 튕긴 뒤, 떨리고 있을 때 고무줄을 한 번 눌러요.' };
           return no('고무줄이 떨리는 동안 고무줄을 잡아 보세요.', '고무줄을 튕기자마자 고무줄을 한 번 눌러요(키보드는 Enter). 떨림이 멈추면 소리도 멈춰요.');
         }
         const src = t.source || (t.pitch ? 'string' : null);
         if (!last || (src && last.source !== src)) {
-          if (!last && !src) return no('아직 소리를 내지 않았어요.', '고무줄을 당겼다 놓거나 북채로 작은북을 쳐 보세요.');
+          // 아직 아무 소리도 내지 않은 확인은 시도로 세지 않는다
+          if (!last) return { correct: false, incomplete: true, feedback: src === 'drum' ? '북채를 올렸다 놓아 작은북을 먼저 쳐 보세요.' : src ? '고무줄을 당겼다 놓아 먼저 소리를 내 보세요.' : '아직 소리를 내지 않았어요.', hint: src === 'drum' ? '북채를 위로 끌어 올렸다가 놓으면 작은북을 쳐요.' : '고무줄을 위나 아래로 끌어 당겼다가 놓아요.' };
           return no(src === 'drum' ? '이번에는 작은북을 쳐 보세요.' : (last && last.source === 'drum' ? '이번에는 고무줄을 튕겨 보세요.' : '고무줄을 당겼다 놓아 소리를 내 보세요.'),
             src === 'drum' ? '북채를 위로 끌어 올렸다가 놓으면 작은북을 쳐요.' : '고무줄을 위나 아래로 끌어 당겼다가 놓아요. 길이나 팽팽함을 바꾸었다면 다시 튕겨야 해요.');
         }
@@ -573,7 +576,23 @@
           if (r.correct && !(opts && opts.forHint)) setReveal(true);
           return r;
         },
-        hint(t) { hinting = true; try { const r = judgeNow(t); return { hint: r.hint || '', correct: r.correct === true }; } finally { hinting = false; } },
+        // 새 힌트 계약: 1단계는 늘 열리고 개념만 말한다. 지금 상태가 맞아도 '맞아요'라고 알려 주지 않는다(힌트가 정답 확인 단추가 되지 않게).
+        hint(t, opts) {
+          t = t || {}; const lv = hintLevel(opts);
+          const concept = t.stopped ? '소리가 나는 물체는 떨리고 있어요. 떨림을 멈추게 하면 소리는 어떻게 될지 생각해 봐요.'
+            : t.only ? '한 번에 한 가지만 바꾸어야 무엇 때문에 소리가 달라졌는지 알 수 있어요. 문제에서 바꾸라고 한 것만 움직여요.'
+              : t.pitch && t.loud != null ? '소리의 높낮이와 세기는 서로 달라요. 높낮이는 떨리는 부분의 길이와 팽팽함으로, 세기는 얼마나 크게 떨리게 하는지로 정해져요.'
+                : t.pitch ? '소리의 높낮이는 무엇이 얼마나 빠르게 떨리는지와 관계있어요. 떨리는 부분의 길이와 팽팽함 가운데 무엇을 바꿀 수 있나요?'
+                  : t.loud != null ? '소리의 세기는 떨림의 크기와 관계있어요. 떨림을 크게, 또는 작게 하려면 어떻게 소리를 내야 할까요?'
+                    : '소리가 날 때 물체를 잘 보세요. 떨림이 잘 보이지 않으면 종이 조각처럼 함께 움직이는 것을 살펴봐요.';
+          hinting = true;
+          try {
+            const r = judgeNow(t);
+            if (lv === 1 || r.correct) return { hint: concept, level: 1 };
+            if (lv === 2) return { hint: r.feedback || concept, level: 2 };
+            return { hint: r.hint || r.feedback || '', level: 3 };
+          } finally { hinting = false; }
+        },
         async demo(t) {
           t = t || {};
           if (t.pitch) {

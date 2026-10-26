@@ -34,28 +34,30 @@ PaperLessons.register({
       id: 'main', title: '전개', minutes: 26,
       activities: [
         {
-          id: 'a1', title: '활동 1. 세로로 긴 모음', minutes: 8, tool: 'hangul',
-          task: 'ㅏ, ㅓ, ㅣ는 세로로 길어요. 모음을 어디에 붙일지 골라 글자를 만들어 봅시다.',
-          teacher: '"ㄱ에 ㅏ를 붙이면?" 기본 단계에서는 확인을 누르기 전까지 합친 글자가 "?"로 가려진다. 소리를 먼저 내어 보고 확인하게 한 뒤, 소리 듣기 단추로 맞춰 들어 보게 한다.',
+          id: 'a1', title: '활동 1. 모음 자리 찾기 ①', minutes: 8, tool: 'hangul',
+          task: '자음과 모음을 모아 글자를 만들어요. 모음을 어디에 붙일지 스스로 골라요.',
+          teacher: '"ㄱ에 ㅏ를 붙이면?" 기본 단계에서는 확인을 누르기 전까지 합친 글자가 "?"로 가려진다. 소리를 먼저 내어 보고 확인하게 한 뒤, 내 글자 듣기 단추로 맞춰 들어 보게 한다.',
           levels: {
             // 쉬움: 꼭 필요한 조각, 자리 글씨, 모음을 들면 알맞은 자리 테두리가 깜박임(자리는 학생이 직접 누름), 합친 글자가 바로 보임
-            // 기본: 합친 글자는 확인 뒤에만 보임 / 도전: 조각 12개(거울 모양 ㅑ·ㅕ 섞임), 소리 듣기 없음
-            easy: { consonants: ['ㄱ', 'ㄴ', 'ㅁ'], vowels: ['ㅏ', 'ㅓ', 'ㅣ'], slotHints: true, slotGuide: true },
+            // 기본: 합친 글자는 확인 뒤에만 보임 / 도전: 조각 12개(거울 모양 ㅑ·ㅕ 섞임), 내 글자 듣기 없음
+            easy: { consonants: ['ㄱ', 'ㄴ', 'ㅁ'], vowels: ['ㅏ', 'ㅓ', 'ㅣ', 'ㅗ'], slotHints: true, slotGuide: true },
             base: { consonants: ['ㄱ', 'ㄴ', 'ㄷ', 'ㅁ'], vowels: ['ㅏ', 'ㅓ', 'ㅣ', 'ㅗ'], revealAfterCheck: true },
             challenge: { consonants: ['ㄱ', 'ㄴ', 'ㄷ', 'ㅁ', 'ㅂ', 'ㅇ'], vowels: ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅣ', 'ㅗ'], speak: false, revealAfterCheck: true },
           },
           items: [
             { prompt: '\'가\'를 만들어 보세요.', target: { syllable: '가' }, difficulty: 0 },
-            { prompt: '\'너\'를 만들어 보세요.', target: { syllable: '너' }, difficulty: 0.17,
+            { prompt: 'ㄴ과 ㅓ를 모아 글자를 만들어 보세요. 어떤 소리가 날까요?', target: { syllable: '너' }, difficulty: 0.17,
               predict: { q: 'ㄴ에 ㅓ를 붙이면 어떤 소리가 날까요?', options: ['나', '너', '노'], answer: 1 },
               conclude: 'ㅓ는 짧은 획이 자음 쪽(왼쪽)에 있어요. ㄴ에 ㅓ를 붙이면 [너] 소리가 나요.' },
+            { prompt: '\'노\'를 만들어 보세요.', target: { syllable: '노' }, difficulty: 0.15,
+              conclude: 'ㅗ는 가로로 길어서 자음 아래에 붙어요. ㅏ·ㅓ와 자리가 달라요.' },
             { prompt: '\'미\'를 만들어 보세요.', target: { syllable: '미' }, difficulty: 0.05 },
             { prompt: '더 해 보기: 거울 모양에 주의! \'며\'를 만들어 보세요.', target: { syllable: '며' }, extra: true, difficulty: 0.28, toolOptions: { consonants: ['ㄴ', 'ㅁ', 'ㅂ'], vowels: ['ㅑ', 'ㅕ', 'ㅓ'] } },
           ],
         },
         {
-          id: 'a2', title: '활동 2. 가로로 긴 모음', minutes: 9, tool: 'hangul',
-          task: 'ㅗ, ㅜ, ㅡ는 가로로 길어요. 모음을 어디에 붙일지 골라 글자를 만들어 봅시다.',
+          id: 'a2', title: '활동 2. 모음 자리 찾기 ②', minutes: 9, tool: 'hangul',
+          task: '이번에도 모음을 어디에 붙일지 스스로 골라요. 모음 모양을 잘 보세요.',
           teacher: '"ㅗ를 자음 오른쪽에 놓으면 어떻게 될까요?" 일부러 틀린 자리에 놓아 보며 "가로로 길어서 자음 아래"라는 까닭을 함께 말한다. 마지막 문항에서 \'가\'와 \'고\'를 나란히 쓰고 무엇이 다른지 묻는다.',
           levels: {
             easy: { consonants: ['ㄱ', 'ㅅ', 'ㅇ'], vowels: ['ㅏ', 'ㅗ', 'ㅜ'], slotHints: true, slotGuide: true, silentMark: true },
@@ -64,7 +66,8 @@ PaperLessons.register({
           },
           items: [
             { prompt: '\'소\'를 만들어 보세요.', target: { syllable: '소' }, difficulty: 0.15 },
-            { prompt: '\'구두\'의 \'구\'를 만들어 보세요.', target: { syllable: '구' }, difficulty: 0.15 },
+            { prompt: '\'사과\'의 \'사\'를 만들어 보세요.', target: { syllable: '사' }, difficulty: 0.15,
+              conclude: '\'소\'의 ㅗ는 아래, \'사\'의 ㅏ는 오른쪽에 붙어요. 자음이 같아도 모음 모양에 따라 자리가 달라요.' },
             { prompt: '\'우유\'의 \'우\'를 만들어 보세요.', target: { syllable: '우' }, difficulty: 0.22 },
             { prompt: '같은 ㄱ으로 \'고\'를 만들어 보세요. 활동 1에서 만든 \'가\'와 무엇이 다를까요?', target: { syllable: '고' }, difficulty: 0.15,
               predict: { q: 'ㄱ에 ㅗ를 붙이면 ㅗ는 어디에 갈까요?', options: ['→ ㄱ 오른쪽', '↓ ㄱ 아래'], answer: 1 },
@@ -88,7 +91,7 @@ PaperLessons.register({
             { prompt: '\'나무\'의 첫 글자 \'나\'를 만들어 보세요.', target: { syllable: '나' }, difficulty: 0.05 },
             { prompt: '\'나무\'의 둘째 글자 \'무\'를 만들어 보세요.', target: { syllable: '무' }, difficulty: 0.15, toolOptions: { wordSoFar: '나' },
               conclude: '\'나\'와 \'무\'를 이어 읽으면 \'나무\'예요.' },
-            { prompt: '더 해 보기: \'사자\'의 둘째 글자 \'자\'를 만들고, 두 글자를 이어 읽어 보세요.', target: { syllable: '자' }, extra: true, difficulty: 0.2, toolOptions: { consonants: ['ㅅ', 'ㅈ', 'ㅊ'], vowels: ['ㅏ', 'ㅓ', 'ㅗ'], wordSoFar: '사' } },
+            { prompt: '더 해 보기: \'하마\'의 둘째 글자 \'마\'를 만들고, 두 글자를 이어 읽어 보세요.', target: { syllable: '마' }, extra: true, difficulty: 0.2, toolOptions: { consonants: ['ㅁ', 'ㅂ', 'ㅎ'], vowels: ['ㅏ', 'ㅓ', 'ㅗ'], wordSoFar: '하' } },
           ],
         },
       ],
@@ -129,7 +132,7 @@ PaperLessons.register({
   differentiation: {
     easy: '꼭 필요한 조각만 있고 틀에 "자음"·"모음" 자리가 보여요. 모음을 들면 알맞은 자리 테두리가 깜박이고, 틀린 자리를 누르면 그 자리가 잠깐 회색이 되며 까닭(세로로 길어서/가로로 길어서)을 알려 줘요. 자리는 스스로 눌러요. 합친 글자가 바로 보이고, ㅇ 조각에 "소리 없음"이 붙어 있어요.',
     base: '모음을 누른 뒤 틀의 오른쪽·아래 자리를 직접 골라요. 합친 글자는 확인을 누른 뒤에만 보여서, 모양을 맞춰 보는 대신 소리를 떠올려 만들어요.',
-    challenge: '조각이 12개로 늘고 ㅑ·ㅕ·ㅛ·ㅠ처럼 비슷한 모음이 섞여요. 소리 듣기 없이 스스로 읽고, 더 해 보기(며·교·사자)가 나와요.',
+    challenge: '조각이 12개로 늘고 ㅑ·ㅕ·ㅛ·ㅠ처럼 비슷한 모음이 섞여요. 내 글자 듣기 없이 스스로 읽고, 더 해 보기(며·교·하마)가 나와요.',
   },
   teacherNotes: '자주 보이는 어려움: ① 모음 자리를 헷갈린다(ㅗ를 자음 오른쪽에 붙임) → 세로로 긴 모음은 오른쪽, 가로로 긴 모음은 아래라는 것을 몸으로(팔 세우기·눕히기) 익힌다. 교구도 틀린 자리에 놓으면 이 까닭을 말해 준다. ② 모음을 먼저 쓰고 자음을 뒤에 쓴다 → 글자는 자음(첫소리)부터 쓴다. ③ ㅇ에도 소리가 있다고 생각한다 → 첫소리 ㅇ은 소리가 없어 "오", "이"는 모음 소리만 난다. ④ 자음 이름(기역, 니은)과 글자 속 소리를 섞는다 → "ㄱ의 이름은 기역, 가에서는 [ㄱ] 소리"처럼 구분해 준다. ⑤ ㅓ와 ㅏ, ㅗ와 ㅜ의 짧은 획 방향을 바꿔 쓴다 → 소리를 내며 획의 방향을 손가락으로 따라 그린다. ⑥ 문항 글자와 모양만 맞춘다(읽지 않고 통과) → 기본 단계는 합친 글자를 확인 뒤에만 보여 주고, 출구 질문 3번은 선생님 소리를 듣고 고르게 한다.',
 });

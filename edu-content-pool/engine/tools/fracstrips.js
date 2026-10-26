@@ -16,6 +16,13 @@
   const fr = (n, d) => `${n}/${d}`;
   const ro = (n) => `${n}${'036'.includes(String(n).slice(-1)) ? '으로' : '로'}`; // 삼으로·육으로·십으로, 이로·사로
   const eul = (n) => josa(n, '을', '를');
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
 
   K.registerTool('fracstrips', {
     name: '분수 띠 견주기',
@@ -45,6 +52,8 @@
       const topG = kit.el('g', { 'aria-label': `위 띠 ${fr(tn, td)}` }, stripL);
       const pw = SW / td;
       for (let i = 0; i < td; i++) kit.piece(st, topG, { shape: { type: 'rect', x: SX0 + i * pw, y: TY, w: pw, h: SH, rx: o.noCuts ? 0 : 4 }, color: i < tn ? 'sky' : 'cream', depth: 1, strokeWidth: o.noCuts ? 0 : 1, stroke: o.noCuts ? 'none' : undefined });
+      // 인쇄에서는 종이 조각(.pk-face)이 흰색으로 바뀌므로 색칠한 칸을 회색 칸으로 덧그린다
+      if (print) kit.el('rect', { x: SX0, y: TY, width: pw * tn, height: SH, fill: '#BDBDBD', 'pointer-events': 'none' }, topG);
       kit.el('rect', { x: SX0, y: TY, width: SW, height: SH, rx: 4, fill: 'none', stroke: '#204C5A', 'stroke-width': 1.6, 'pointer-events': 'none' }, topG);
       if (o.noCuts) { /* 도전: 금을 숨기고 겉 테두리만 */ } else for (let i = 1; i < td; i++) kit.el('line', { x1: SX0 + i * pw, y1: TY, x2: SX0 + i * pw, y2: TY + SH, stroke: '#204C5A', 'stroke-width': 1.2, 'pointer-events': 'none' }, topG);
       fracText(TY - 2, '#204C5A').set(tn, td);
@@ -230,23 +239,30 @@
         t = t || {};
         const done = (fb) => ({ correct: true, feedback: fb });
         // keep: 아직 볼 것이 없는 틀림(조각 수부터 다름) — 확인해도 띠·선을 켜지 않는다
-        const no = (feedback, hint, keep) => (keep ? { correct: false, feedback, hint, keep: true } : { correct: false, feedback, hint });
+        // no(첫 피드백, 2단계 힌트(틀린 단계 짚기), 3단계 힌트(풀이 한 단계), keep)
+        const no = (feedback, h2, h3, keep) => (keep ? { correct: false, feedback, hint: h2, h3, keep: true } : { correct: false, feedback, hint: h2, h3 });
         if (t.equalTo) {
           const [n, d] = t.equalTo;
           const k = t.den;
-          if (k && den !== k) return no(`이번에는 아래 띠를 ${k}조각으로 나누어야 해요.`, `'조각 수(분모)' 단추로 ${k}조각을 만들어요.`, true);
+          if (k && den !== k) return no(`이번에는 아래 띠를 ${k}조각으로 나누어야 해요.`, `'조각 수(분모)' 단추로 ${k}조각을 만들어요.`, `'조각 수(분모)' 단추로 ${k}조각을 만들어요.`, true);
           if (num === 0) return { correct: false, incomplete: true, feedback: '아래 띠에 색칠한 조각이 없어요. 조각을 눌러 색칠해요.' };
           const same = num * d === n * den;
+          // 2단계는 틀린 단계(분모에 한 계산)만 짚고, 곱하거나 나눈 수와 답은 3단계에만 넣는다
+          const step2 = `분모가 ${d}에서 ${den}이 되었어요. 몇을 곱했는지(몇으로 나누었는지) 먼저 찾고, 분자에도 같은 계산을 해요.`;
+          const step3 = d % den === 0 ? `분모 ${d} ÷ ${d / den} = ${den}이니, 분자도 ${n} ÷ ${d / den} = ${(n * den) / d}이에요.`
+            : den % d === 0 ? `분모 ${d} × ${den / d} = ${den}이니, 분자도 ${n} × ${den / d} = ${(n * den) / d}이에요.`
+              : '위 띠의 색칠한 끝과 아래 띠의 색칠한 끝이 같은 자리가 되게 해요.';
           if (!same) {
-            if (num === n && den !== d) return no(`조각 수(분모)만 바꾸고 색칠한 조각(분자)은 ${n}개 그대로예요. 색칠한 끝이 위 띠와 맞지 않아요.`, d % den === 0 ? `분모를 ${d}에서 ${ro(den)}, ${ro(d / den)} 나누었으니 분자도 ${ro(d / den)} 나눠요.` : den % d === 0 ? `분모에 ${eul(den / d)} 곱했으니 분자에도 ${eul(den / d)} 곱해요.` : '분모와 분자에 같은 수를 곱하거나 나눠요.');
-            if ((n * den) % d !== 0) return no(`${den}조각으로는 색칠한 끝을 위 띠와 맞출 수 없어요.`, `${d}의 약수나 배수로 조각 수를 바꿔 봐요.`);
-            const want = (n * den) / d;
-            const hint = d % den === 0 ? `분모를 ${d}÷${d / den}=${ro(den)} 나누었으니 분자도 ${n}÷${ro(d / den)} 나눠요.` : den % d === 0 ? `분모를 ${d}×${den / d}=${ro(den)} 곱했으니 분자도 ${n}×${ro(den / d)} 곱해요.` : `위 띠의 색칠한 끝과 아래 띠의 색칠한 끝이 같은 자리가 되게 해요.`;
-            return no(`색칠한 끝이 위 띠보다 ${num > want ? '오른쪽' : '왼쪽'}에 있어요. 아래 띠가 위 띠보다 ${num > want ? '많아요' : '적어요'}.`, hint);
+            if (num === n && den !== d) return no('조각 수(분모)만 바꾸고 색칠한 조각(분자)은 그대로 두었어요. 분모를 바꾸면 한 조각의 크기가 달라져요.', step2, step3);
+            if ((n * den) % d !== 0) return no(`${den}조각으로는 색칠한 끝을 위 띠와 맞출 수 없어요.`, `${d}의 약수나 배수로 조각 수를 바꿔 봐요.`, `${d}의 약수나 배수로 조각 수를 바꿔 봐요.`);
+            // 오개념: 분모에 더한(뺀) 수를 분자에도 더한다(뺀다)
+            if (num - n === den - d) return no('분모와 분자에 같은 수를 더했거나 뺐어요. 더하거나 빼면 크기가 달라져요. 곱하거나 나눠야 해요.', step2, step3);
+            // 방향(왼쪽·오른쪽)은 말하지 않는다 — 한 칸씩 바꿔 가며 확인으로 맞추지 않게
+            return no('색칠한 끝이 위 띠와 같은 자리에서 끝나지 않아요. 분모와 분자를 똑같이 바꾸었는지 살펴봐요.', step2, step3);
           }
-          if (den === d && !t.allowSame) return no('위 띠와 똑같은 분수예요. 조각 수를 바꿔서 크기가 같은 다른 분수를 만들어 봐요.', '조각 수(분모)를 늘리거나 줄여 보세요.');
-          if (t.smallest && den !== d / gcd(n, d)) return no(`크기는 같아요! 그런데 분모가 더 작은 분수가 있어요. ${josa(num, '과', '와')} ${eul(den)} 더 나눌 수 있을까요?`, '분모와 분자를 둘 다 나누어떨어지게 하는 수로 나눠 봐요.');
-          if (askOpt && Number.isInteger(t.ask) && pick !== t.ask) { if (pick == null) return { correct: false, incomplete: true, feedback: '띠는 맞아요. 이제 아래에서 답을 골라요.' }; return no((askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요?', askOpt.hint); }
+          if (den === d && !t.allowSame) return no('위 띠와 똑같은 분수예요. 조각 수를 바꿔서 크기가 같은 다른 분수를 만들어 봐요.', '조각 수(분모)를 늘리거나 줄여 보세요.', '조각 수(분모)를 늘리거나 줄여 보세요.');
+          if (t.smallest && den !== d / gcd(n, d)) return no(`크기는 같아요! 그런데 분모가 더 작은 분수가 있어요. ${josa(num, '과', '와')} ${eul(den)} 더 나눌 수 있을까요?`, '분모와 분자를 둘 다 나누어떨어지게 하는 수로 나눠 봐요.', `${josa(n, '과', '와')} ${eul(d)} 둘 다 나누어떨어지게 하는 가장 큰 수는 ${gcd(n, d)}이에요.`);
+          if (askOpt && Number.isInteger(t.ask) && pick !== t.ask) { if (pick == null) return { correct: false, incomplete: true, feedback: '띠는 맞아요. 이제 아래에서 답을 골라요.' }; return no((askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요?', askOpt.hint, askOpt.hint); }
           const how = den < d ? `분모와 분자를 똑같이 ${ro(d / den)} 나누었어요` : `분모와 분자에 똑같이 ${eul(den / d)} 곱했어요`;
           return done(`맞아요! ${josa(fr(n, d), '과', '와')} ${josa(fr(num, den), '은', '는')} 크기가 같아요. ${Number.isInteger(d / den) || Number.isInteger(den / d) ? how : '색칠한 끝이 같은 자리에서 끝나요'}.`);
         }
@@ -254,25 +270,28 @@
           const [a, b] = t.reduce;
           if (div == null) return { correct: false, incomplete: true, feedback: '먼저 분모와 분자를 나눌 수를 골라요.' };
           if (num == null || den == null) return { correct: false, incomplete: true, feedback: '약분한 분수의 분자와 분모를 모두 써요.' };
-          if (a % div || b % div) return no(`${ro(div)}는 ${josa(a, '과', '와')} ${eul(b)} 모두 나누어떨어지게 할 수 없어요. 분모와 분자의 공약수로 나눠요.`, `${josa(a, '과', '와')} ${b}의 약수를 각각 써 보고 둘 다에 있는 수를 찾아요.`);
-          if (t.div && div !== t.div) return no(`이번에는 ${ro(t.div)} 나누어 약분해요.`, `'÷ ${t.div}' 단추를 골라요.`);
+          const g0 = gcd(a, b);
+          const commons = []; for (let k = 2; k <= g0; k++) if (a % k === 0 && b % k === 0) commons.push(k);
+          if (a % div || b % div) return no(`${ro(div)}는 ${josa(a, '과', '와')} ${eul(b)} 모두 나누어떨어지게 할 수 없어요. 분모와 분자의 공약수로 나눠요.`, `${josa(a, '과', '와')} ${b}의 약수를 각각 써 보고 둘 다에 있는 수를 찾아요.`, `${josa(a, '과', '와')} ${b}의 공약수(1 말고)는 ${commons.join(', ')}이에요.`);
+          if (t.div && div !== t.div) return no(`이번에는 ${ro(t.div)} 나누어 약분해요.`, `'÷ ${t.div}' 단추를 골라요.`, `'÷ ${t.div}' 단추를 골라요.`);
           const ea = a / div; const eb = b / div;
-          if (num === a && den === eb) return no(`분모만 나누었어요 — 분자 ${a}도 같은 수 ${ro(div)} 나눠요.`, `${a} ÷ ${div} = ?`);
-          if (num === ea && den === b) return no(`분자만 나누었어요 — 분모 ${b}도 같은 수 ${ro(div)} 나눠요.`, `${b} ÷ ${div} = ?`);
-          if (den === eb && num !== ea) return no(`분모를 ${ro(div)} 나누었으니 분자도 ${ro(div)} 나눠요. ${a} ÷ ${eul(div)} 다시 계산해 봐요.`, '분모와 분자는 꼭 같은 수로 나눠요.');
-          if (num === ea && den !== eb) return no(`분자를 ${ro(div)} 나누었으니 분모도 ${ro(div)} 나눠요. ${b} ÷ ${eul(div)} 다시 계산해 봐요.`, '분모와 분자는 꼭 같은 수로 나눠요.');
+          if (num === a && den === eb) return no('분모만 나누고 분자는 그대로 두었어요. 분모와 분자는 꼭 같은 수로 나눠요.', `분자 ${a}도 고른 수 ${ro(div)} 나누어 보세요.`, `${a} ÷ ${div} = ${ea}, ${b} ÷ ${div} = ${eb}`);
+          if (num === ea && den === b) return no('분자만 나누고 분모는 그대로 두었어요. 분모와 분자는 꼭 같은 수로 나눠요.', `분모 ${b}도 고른 수 ${ro(div)} 나누어 보세요.`, `${a} ÷ ${div} = ${ea}, ${b} ÷ ${div} = ${eb}`);
+          if (den === eb && num !== ea) return no('분모는 맞게 나누었는데 분자의 나눗셈이 달라요. 분자의 계산을 다시 해 봐요.', '분모와 분자는 꼭 같은 수로 나눠요.', `${a} ÷ ${div} = ${ea}`);
+          if (num === ea && den !== eb) return no('분자는 맞게 나누었는데 분모의 나눗셈이 달라요. 분모의 계산을 다시 해 봐요.', '분모와 분자는 꼭 같은 수로 나눠요.', `${b} ÷ ${div} = ${eb}`);
           const same = num * b === a * den;
-          if (!same) return no(`${josa(fr(num, den), '은', '는')} ${josa(fr(a, b), '과', '와')} 크기가 달라요. 아래 띠의 색칠한 끝을 위 띠와 견주어 보세요.`, `분모와 분자를 모두 ${ro(div)} 나눠요.`);
+          if (!same) return no(`${josa(fr(num, den), '은', '는')} ${josa(fr(a, b), '과', '와')} 크기가 달라요. 분모와 분자를 같은 수로 나누었는지 살펴봐요.`, `분모와 분자를 모두 고른 수 ${ro(div)} 나눠요.`, `${a} ÷ ${div} = ${ea}, ${b} ÷ ${div} = ${eb}`);
           if (t.lowest) {
             const g = gcd(num, den);
-            if (g > 1) return no(`크기는 같아요! 그런데 ${josa(num, '과', '와')} ${josa(den, '은', '는')} 아직 ${ro(g)} 더 나눌 수 있어요. 기약분수는 분모와 분자의 공약수가 1뿐인 분수예요.`, `${josa(a, '과', '와')} ${eul(b)} 둘 다 나누어떨어지게 하는 가장 큰 수(최대공약수)로 한 번에 나눠 봐요.`);
-          } else if (den !== eb) return no(`크기는 같지만 ${ro(div)} 나눈 결과가 아니에요. ${fr(a, b)}의 분모와 분자를 ${ro(div)} 나눠요.`, `${a} ÷ ${div}, ${b} ÷ ${div}`);
-          if (askOpt && Number.isInteger(t.ask) && pick !== t.ask) { if (pick == null) return { correct: false, incomplete: true, feedback: '약분은 맞아요. 이제 아래에서 답을 골라요.' }; return no((askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요?', askOpt.hint); }
+            // 한 번 약분하고 멈추는 오개념 — 더 나눌 수는 3단계 힌트에만
+            if (g > 1) return no(`크기는 같아요! 그런데 ${fr(num, den)}은 아직 더 약분할 수 있어요. 기약분수는 분모와 분자의 공약수가 1뿐인 분수예요.`, `${josa(num, '과', '와')} ${eul(den)} 둘 다 나누어떨어지게 하는 수가 아직 있는지 찾아요. 처음부터 가장 큰 공약수로 나누면 한 번에 끝나요.`, `${josa(a, '과', '와')} ${b}의 최대공약수는 ${g0}이에요. ${a} ÷ ${g0} = ${a / g0}, ${b} ÷ ${g0} = ${b / g0}`);
+          } else if (den !== eb) return no(`크기는 같지만 ${ro(div)} 나눈 결과가 아니에요. ${fr(a, b)}의 분모와 분자를 ${ro(div)} 나눠요.`, `분모와 분자를 모두 ${ro(div)} 나눠요.`, `${a} ÷ ${div}, ${b} ÷ ${div}`);
+          if (askOpt && Number.isInteger(t.ask) && pick !== t.ask) { if (pick == null) return { correct: false, incomplete: true, feedback: '약분은 맞아요. 이제 아래에서 답을 골라요.' }; return no((askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요?', askOpt.hint, askOpt.hint); }
           return done(`맞아요! ${fr(a, b)}의 분모와 분자를 ${ro(div)} 나누면 ${fr(num, den)}${t.lowest && gcd(num, den) === 1 ? '이고, 더 약분할 수 없는 기약분수예요' : '예요'}.`);
         }
         if (askOpt && Number.isInteger(t.ask)) {
           if (pick == null) return { correct: false, incomplete: true, feedback: '아래에서 답을 하나 골라요.' };
-          if (pick !== t.ask) return no((askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요?', askOpt.hint);
+          if (pick !== t.ask) return no((askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요?', askOpt.hint, askOpt.hint);
           return done('맞아요!');
         }
         return { correct: false, feedback: '확인할 문제가 없어요.' };
@@ -296,19 +315,22 @@
         },
         check(t, opts) {
           const r = judge(t || {});
-          const keep = r.keep; delete r.keep;
+          const keep = r.keep; delete r.keep; delete r.h3;
           // 확인 뒤 보임(크기가 같아요 선·약분 띠): revealAfterCheck면 맞힌 확인에서만, 아니면 틀린 확인에서도 보여 견주게 한다
           if (!(opts && opts.forHint) && !r.incomplete && (r.correct || (!o.revealAfterCheck && !keep))) { checked = true; paint(true); }
           return r;
         },
-        hint(t) {
+        // 힌트 3단계: 1 개념·전략(문항의 수 없음) / 2 틀린 단계 짚기(답은 아님) / 3 풀이 한 단계
+        hint(t, opts) {
           t = t || {};
-          const r = judge(t); delete r.keep;
+          const r = judge(t);
           const why = t.reduce ? '분모와 분자를 같은 수로 나누면 조각을 묶어 크게 만든 것이라 크기는 그대로예요. 둘 다 나누어떨어지는 수(공약수)로 나눠요.'
             : t.equalTo ? '분모와 분자에 같은 수를 곱하거나 같은 수로 나누면 크기가 같아요. 같은 수를 더하거나 빼면 크기가 달라져요.'
               : '두 띠의 색칠한 끝이 같은 자리에서 끝나면 크기가 같은 분수예요.';
-          if (r.correct) return { hint: why, correct: true };
-          return { hint: r.hint || why, correct: false };
+          const lv = hintLevel(opts);
+          if (r.correct) return { hint: why, correct: true, level: 1 };
+          if (lv === 1 || !r.hint) return { hint: why, correct: false, level: 1 };
+          return { hint: lv >= 3 && r.h3 ? r.h3 : r.hint, correct: false, level: lv };
         },
         wrongAnswer(t) {
           t = t || {};

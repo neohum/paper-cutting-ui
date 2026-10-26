@@ -32,6 +32,13 @@
   const ga = (w) => `${w}${fin(w) ? '이' : '가'}`; const wa = (w) => `${w}${fin(w) ? '과' : '와'}`; const eun = (w) => `${w}${fin(w) ? '은' : '는'}`;
   // 숫자 + 로/으로: 받침 ㄹ(1 일, 7 칠, 8 팔)과 받침 없는 수는 '로', 나머지 받침(0 영, 3 삼, 6 육, 10 십)은 '으로'
   const ro = (n) => `${n}${[0, 3, 6, 10].includes(n) ? '으로' : '로'}`;
+  // 힌트 단계(새 계약): 1 = 방법만(시도 전에도, 목표 수를 말하지 않음), 2 = 틀린 단계 짚기, 3 = 풀이 한 걸음
+  const levelOf = (opts) => {
+    const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
+    const a = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
+    const cap = a == null ? 3 : a >= 2 ? 3 : a >= 1 ? 2 : 1;
+    return Math.max(1, Math.min(3, want, cap));
+  };
   const APPLE_D = 'M0 -11 C -7 -18 -21 -16 -20 -1 C -19 13 -8 21 0 17 C 8 21 19 13 20 -1 C 21 -16 7 -18 0 -11 Z';
 
   // 장면 모티프 '사과' — 수 세기 도입 그림의 나무에 셀 수 있는 사과를 단다(교구와 같은 종이 사과)
@@ -112,7 +119,8 @@
             homes.push({ x: 240 + ((i % 5) - 2) * 74 + jx, y: (i < 5 ? 254 : 318) + jy, col: 0 });
           }
         }
-        if (o.showGoal) goalT = kit.el('text', { x: 414, y: 228, 'text-anchor': 'end', 'font-size': 18, 'font-weight': 700, class: 'pk-text', fill: kit.palette.rose.dark }, T);
+        if (o.showGoal) goalT = two ? kit.el('text', { x: 240, y: 188, 'text-anchor': 'middle', 'font-size': 18, 'font-weight': 700, class: 'pk-text', fill: kit.palette.rose.dark }, st.layer('goal'))
+          : kit.el('text', { x: 414, y: 228, 'text-anchor': 'end', 'font-size': 18, 'font-weight': 700, class: 'pk-text', fill: kit.palette.rose.dark }, T);
       } else for (let i = 0; i < (two ? supply * 2 : supply); i++) homes.push({ x: 0, y: 0, col: two ? Math.floor(i / supply) : 0 });
 
       // ---- 조각(사과/칩) ----
@@ -307,7 +315,13 @@
       };
       // askNumber가 묻는 수: 보통은 모두 몇인지, 가르기(ask:'b')면 둘째 색이 몇인지
       const answerOf = (t) => (two && t && t.ask === 'b' ? goalOf(t) - (t.parts[0] || 0) : goalOf(t));
-      const choicesOf = (t) => { const c = answerOf(t); return [c - 1, c, c + 1].filter((v) => v >= 0 && v <= 10); };
+      const choicesOf = (t) => {
+        if (!t) return [];
+        const c = answerOf(t); const list = [c - 1, c, c + 1];
+        // 가르기(ask:'b')는 모두의 수도 보기에 넣는다 — '7을 3과 7로' 고르는 오개념이 드러나게
+        if (two && t.ask === 'b') list.push(goalOf(t));
+        return [...new Set(list)].filter((v) => v >= 0 && v <= 10).sort((x, y) => x - y);
+      };
       function paintAsk() {
         if (!askBar) return;
         askBar.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.n) === said)));
@@ -336,7 +350,9 @@
       const paintGoal = () => {
         if (!goalT) return;
         if (!target) { goalT.textContent = ''; return; }
-        if (two) { goalT.textContent = target.parts && target.parts[0] != null && target.parts[1] != null ? `${target.parts[0]}과 ${target.parts[1]}` : `모두 ${goalOf(target)}`; return; }
+        // 수 그림 줄: 문장에만 있던 수 관계를 기호로(모으기 '3 과 2 → ?', 가르기 '6 → 2 와 ?'). 묻는 수는 늘 ?로 둔다
+        if (two) { const p0 = target.parts || []; goalT.textContent = target.ask === 'total' ? `${p0[0]}${NUM_GWA[p0[0]]} ${p0[1]} → ?` : target.ask === 'b' ? `${goalOf(target)} → ${p0[0]}${NUM_GWA[p0[0]]} ?` : p0[0] != null && p0[1] != null ? `${p0[0]}${NUM_GWA[p0[0]]} ${p0[1]}` : `모두 ${goalOf(target)}`; return; }
+        if (target.of) { goalT.textContent = `? → ${target.of.more ? '하나 더' : '하나 빼기'} → ${target.of.is}`; return; }
         goalT.textContent = target.more ? `${target.count} → 하나 더` : target.less ? `${target.count} → 하나 빼기` : `${WORDS[target.count]} · ${target.count}`;
       };
 
@@ -361,31 +377,104 @@
       function checkTwo(t) {
         const total = goalOf(t); const n = count(); const p = parts(); const [A, Bn] = [COL[0].n, COL[1].n];
         const want = t.parts || [null, null];
-        if (n !== total) {
-          if (n < total) return { correct: false, feedback: `모두 ${total}개가 되어야 해요. 지금은 ${n}개예요. 더 놓아 볼까요?`, hint: `칸을 하나씩 짚으며 세어 보세요. ${total}에서 멈춰요.` };
-          return { correct: false, feedback: `모두 ${total}개가 되어야 해요. 지금은 ${n}개라서 ${n - total}개가 더 있어요.`, hint: `칸을 하나씩 짚으며 세어 보세요. ${total}에서 멈추고, 남는 것을 바구니로 보내요.` };
+        const h2 = () => hintTwo(t, 2);
+        // 모으기(ask:'total'): 묻는 답이 '모두의 수'이므로 피드백·힌트에 모두의 수를 쓰지 않고 색별 개수만 견준다
+        if (t.ask === 'total') {
+          for (const k of [0, 1]) {
+            if (p[k] !== want[k]) {
+              const nm = k ? Bn : A; const other = k ? A : Bn;
+              const okOther = p[1 - k] === want[1 - k];
+              return { correct: false, feedback: `${okOther ? `${eun(other)} ${want[1 - k]}개 맞아요. ` : ''}${eun(nm)} ${want[k]}개 놓아야 해요. 지금은 ${p[k]}개예요.`, hint: h2() };
+            }
+          }
+        } else if (n !== total) {
+          if (n < total) return { correct: false, feedback: `모두 ${total}개가 되어야 해요. 지금은 ${n}개예요. 더 놓아 볼까요?`, hint: h2() };
+          return { correct: false, feedback: `모두 ${total}개가 되어야 해요. 지금은 ${n}개라서 ${n - total}개가 더 있어요.`, hint: h2() };
         }
         for (const k of [0, 1]) {
           if (want[k] != null && p[k] !== want[k]) {
             const nm = k ? Bn : A;
-            return { correct: false, feedback: `모두 ${total}개는 맞아요. ${ga(nm)} ${want[k]}개가 되어야 하는데 지금은 ${p[k]}개예요.`, hint: `${nm}${obj(nm)} ${want[k]}개만 놓고, 나머지는 다른 색으로 채워요.` };
+            return { correct: false, feedback: `모두 ${total}개는 맞아요. ${ga(nm)} ${want[k]}개가 되어야 하는데 지금은 ${p[k]}개예요.`, hint: h2() };
           }
         }
-        if (want[0] == null && want[1] == null && (p[0] === 0 || p[1] === 0)) return { correct: false, feedback: `두 가지 색이 모두 있어야 둘로 가른 거예요. 지금은 한 가지 색뿐이에요.`, hint: `${wa(A)} ${Bn}${obj(Bn)} 섞어 ${total}개를 채워요.` };
-        if (Array.isArray(t.avoid) && t.avoid.some((x) => x[0] === p[0] && x[1] === p[1])) return { correct: false, feedback: `${p[0]}${NUM_GWA[p[0]]} ${nun(p[1])} 앞에서 찾은 방법이에요. 다른 방법으로 갈라 봐요.`, hint: `${A}${obj(A)} 하나 더 놓거나 하나 빼 보세요. ${Bn}도 따라서 바뀌어요.` };
+        if (want[0] == null && want[1] == null && (p[0] === 0 || p[1] === 0)) return { correct: false, feedback: '두 가지 색이 모두 있어야 둘로 가른 거예요. 지금은 한 가지 색뿐이에요.', hint: h2() };
+        if (Array.isArray(t.avoid) && t.avoid.some((x) => x[0] === p[0] && x[1] === p[1])) return { correct: false, feedback: `${p[0]}${NUM_GWA[p[0]]} ${nun(p[1])} 앞에서 찾은 방법이에요. 다른 방법으로 갈라 봐요.`, hint: h2() };
         if (o.askNumber) {
           const ans = answerOf(t);
-          if (said == null) return { correct: false, incomplete: true, feedback: `잘 놓았어요. 이제 아래에서 수를 골라요.` };
+          if (said == null) return { correct: false, incomplete: true, feedback: '잘 놓았어요. 이제 아래에서 수를 골라요.' };
           if (said !== ans) {
+            if (t.ask === 'b' && said === total) return { correct: false, feedback: `${nun(total)} 모두의 수예요. ${eun(A)} 세지 않고 ${Bn}만 세어요.`, hint: h2() };
             return t.ask === 'b'
-              ? { correct: false, feedback: `${total}개 가운데 ${A} ${p[0]}개를 빼고 남은 ${Bn}${obj(Bn)} 세어 봐요. 고른 수 ${said}${NUM_OBJ[said] || '를'} 다시 보세요.`, hint: `${Bn}만 하나씩 짚으며 세어요.` }
-              : { correct: false, feedback: `${A} ${p[0]}개와 ${Bn} ${p[1]}개를 모두 세어 봐요. 고른 수 ${said}${NUM_OBJ[said] || '를'} 다시 보세요.`, hint: `${p[0]}에서 이어 세어요: ${Array.from({ length: p[1] }, (_, j) => p[0] + j + 1).join(', ')}.` };
+              ? { correct: false, feedback: `${total}개 가운데 ${A} ${p[0]}개를 빼고 남은 ${Bn}${obj(Bn)} 세어 봐요. 고른 수 ${said}${NUM_OBJ[said] || '를'} 다시 보세요.`, hint: h2() }
+              : { correct: false, feedback: `놓은 것은 맞아요. ${A} ${p[0]}개에서 이어서 ${Bn}${obj(Bn)} 세어 봐요. 고른 수 ${said}${NUM_OBJ[said] || '를'} 다시 보세요.`, hint: h2() };
           }
         }
+        if (t.ask === 'total') return { correct: true, feedback: `맞아요! ${p[0]}${NUM_GWA[p[0]]} ${p[1]}${NUM_OBJ[p[1]]} 모으면 ${ieyo(total)}. ${p[0]}에서 ${Array.from({ length: p[1] }, (_, j) => p[0] + j + 1).join(', ')} 하고 이어 세었어요.` };
         return { correct: true, feedback: `맞아요! ${nun(total)} ${p[0]}${NUM_GWA[p[0]]} ${ro(p[1])} 가를 수 있어요. ${p[0]}${NUM_GWA[p[0]]} ${p[1]}${NUM_OBJ[p[1]]} 모으면 ${ieyo(total)}.` };
+      }
+      // 두 색 문항의 단계별 힌트. 1단계는 수를 말하지 않는다. 2단계는 틀린 단계(색별 개수 / 모두의 수 / 수 고르기)를 짚는다.
+      // 3단계는 그 단계를 한 걸음 풀어 보인다(모으기는 첫 수에서 이어 세기의 첫 걸음까지만).
+      function hintTwo(t, lv) {
+        const total = goalOf(t); const n = count(); const p = parts(); const [A, Bn] = [COL[0].n, COL[1].n];
+        const want = t.parts || [null, null];
+        if (lv <= 1) {
+          if (t.ask === 'total') return `${A}${obj(A)} 문제에 나온 만큼 먼저 놓고, 이어서 ${Bn}${obj(Bn)} 놓아요. 다 놓으면 ${A} 수에서부터 이어 세어요.`;
+          if (t.ask === 'b') return `모두의 수만큼 먼저 채워요. ${A} 수를 맞춘 다음 ${Bn}만 하나씩 세어요.`;
+          return '두 가지 색을 섞어 문제의 수만큼 채워요. 한쪽 색이 하나 늘면 다른 색은 하나 줄어요.';
+        }
+        if (t.ask === 'total') {
+          for (const k of [0, 1]) {
+            if (p[k] !== want[k]) {
+              const nm = k ? Bn : A;
+              return lv === 2 ? `${nm} 수가 문제와 달라요. ${nm}만 하나씩 짚으며 세어 보세요.` : `${nm}${obj(nm)} 하나씩 짚으며 세어 ${want[k]}에서 멈춰요.${p[k] > want[k] ? ' 남는 것은 눌러서 바구니로 보내요.' : ''}`;
+            }
+          }
+          return lv === 2 ? `놓은 것은 맞아요. 처음부터 다시 세지 말고 ${A} 수 ${p[0]}에서 이어 세어요: ${p[0]} … 다음은?` : `${p[0]}에서 ${Bn}${obj(Bn)} 하나씩 짚으며 이어 세어요: ${p[0]}, ${p[0] + 1}, … 마지막에 센 수가 모두의 수예요.`;
+        }
+        if (n !== total) return lv === 2 ? (n < total ? '모두의 수가 모자라요. 칸을 하나씩 짚으며 세어 보세요.' : '모두의 수보다 많아요. 칸을 하나씩 짚으며 세어 보세요.') : `칸을 하나씩 짚으며 세어 ${total}에서 멈춰요.${n > total ? ' 남는 것은 바구니로 보내요.' : ''}`;
+        for (const k of [0, 1]) {
+          if (want[k] != null && p[k] !== want[k]) {
+            const nm = k ? Bn : A;
+            return lv === 2 ? `모두의 수는 맞아요. ${nm} 수가 문제와 달라요.` : `${nm}${obj(nm)} ${want[k]}개만 놓고, 나머지 칸은 다른 색으로 채워요.`;
+          }
+        }
+        if (want[0] == null && want[1] == null && (p[0] === 0 || p[1] === 0)) return lv === 2 ? '한 가지 색뿐이에요. 둘로 가르려면 두 색이 모두 있어야 해요.' : `한 가지 색 하나를 빼고 그 자리에 다른 색을 놓아 보세요.`;
+        if (Array.isArray(t.avoid) && t.avoid.some((x) => x[0] === p[0] && x[1] === p[1])) return lv === 2 ? '앞에서 찾은 방법이에요. 한쪽 색을 바꿔 보세요.' : `${A}${obj(A)} 하나 더 놓거나 하나 빼 보세요. ${Bn}도 따라서 바뀌어요.`;
+        if (o.askNumber && t.ask === 'b') return lv === 2 ? (said === total ? `고른 수는 모두의 수예요. ${Bn}만 세어요.` : `${Bn}만 다시 세어 보세요. ${eun(A)} 세지 않아요.`) : `${Bn}${obj(Bn)} 하나씩 짚으며 ‘하나, 둘, …’ 하고 세어요. 마지막에 센 수를 골라요.`;
+        return '놓은 것을 하나씩 짚으며 세어 보고, 아래에서 그 수를 골라요.';
+      }
+      // 한 색 문항(수 놓기·1만큼 더 큰/작은 수·수 줄)의 단계별 힌트. 1단계는 문제의 수를 말하지 않는다.
+      function hintOne(t, lv) {
+        const goal = goalOf(t); const n = count();
+        if (lv <= 1) {
+          if (lineMode) return '1만큼 더 큰 수는 수 줄에서 바로 오른쪽(뒤), 1만큼 더 작은 수는 바로 왼쪽(앞)에 있어요.';
+          if (t.of) return '거꾸로 생각해요. □에 하나를 더하거나 빼서 문제의 수가 되었어요. 문제의 수를 먼저 놓고 거꾸로 해 봐요.';
+          if (t.more) return '하나를 더 놓으면 1만큼 더 큰 수가 돼요. 놓은 다음 처음부터 하나씩 세어 봐요.';
+          if (t.less) return '하나를 빼면 1만큼 더 작은 수가 돼요. 뺀 다음 남은 것을 하나씩 세어 봐요.';
+          return '하나 놓을 때마다 소리 내어 세어요. 윗줄이 꽉 차면 다섯이에요. 마지막에 센 수가 모두의 수예요.';
+        }
+        if (lineMode) {
+          if (said == null) return `수 줄에서 처음 수 ${t.count}${NUM_OBJ[t.count] || '를'} 먼저 찾아요.`;
+          if (lv === 2) return said === t.count ? '처음 수 그대로예요. 한 칸 옮겨야 해요.' : `수 줄에서 처음 수 ${t.count}${NUM_OBJ[t.count] || '를'} 찾고, 거기서 ${t.more ? '오른쪽' : '왼쪽'}으로 한 칸만 가요.`;
+          return `${t.count}에서 ${t.more ? '오른쪽' : '왼쪽'}으로 한 칸 간 수를 눌러요.`;
+        }
+        if (n === goal && o.askNumber) return lv === 2 ? '놓은 것은 맞아요. 칸을 하나씩 짚으며 세어 보고 그 수를 골라요.' : `${t.more ? `${t.count} 바로 뒤의 수` : t.less ? `${t.count} 바로 앞의 수` : '마지막에 센 수'}를 골라요.`;
+        if (t.of) {
+          const is = t.of.is; const d = t.of.more ? 1 : -1;
+          if (lv === 2) return n === is ? `${is}개는 '1만큼 더 ${d > 0 ? '큰' : '작은'} 수'예요. □는 아직 아니에요.` : `${is}개를 먼저 놓아 보세요. 거기서 거꾸로 생각해요.`;
+          return `${is}개를 놓고 하나를 ${d > 0 ? '빼' : '더 놓아'} 보세요.`;
+        }
+        if (t.more || t.less) {
+          if (lv === 2) return n === t.count ? `처음 수 그대로예요. 하나를 ${t.more ? '더 놓아요' : '빼요'}.` : n < goal ? '아직 모자라요. 처음 수부터 다시 세어 보세요.' : '너무 많아요. 하나씩 짚으며 다시 세어 보세요.';
+          return t.more ? `${t.count}개를 놓고 딱 하나만 더 놓아요.` : `${t.count}개에서 딱 하나만 빼요. 누르면 바구니로 돌아가요.`;
+        }
+        if (lv === 2) return n < goal ? '아직 모자라요. 하나씩 짚으며 다시 세어 보세요.' : '너무 많아요. 하나씩 짚으며 다시 세어 보세요.';
+        return `손가락으로 하나씩 짚으며 ${goal}까지 세고 멈춰요.${goal > 5 && !o.scatter ? ' 윗줄 5칸이 다 차면 5예요.' : ''}`;
       }
 
       setState(o.start || { count: 0 });
+      // 출구 질문처럼 setTarget을 부르지 않는 자리에서도 수 고르기 보기가 문항에 맞게 만들어지도록 옵션으로도 받는다
+      if (o.target) { target = o.target; buildAsk(); paintGoal(); }
       return {
         getState: state,
         setState,
@@ -409,16 +498,12 @@
           if (!(opts && opts.forHint) && r.correct) { revealed = true; paint(false); if (!lineMode) celebrate(); }
           return r;
         },
-        hint(t) {
+        hint(t, opts) {
+          if (!t) return { hint: '' };
           const r = judge(t);
           if (r.correct) return { hint: '알맞게 놓았어요.', correct: true };
-          const goal = goalOf(t);
-          if (r.incomplete && o.askNumber) return { hint: '놓은 것을 하나씩 짚으며 세어 보고, 아래에서 그 수를 골라요.', correct: false };
-          // 모으기 수 고르기의 자동 힌트는 지금 놓인 개수로 이어 세기를 보여 준다 — 힌트 단추는 개수를 말하지 않는다
-          if (two && o.askNumber && count() === goal) return { hint: t.ask === 'b' ? `${COL[1].n}만 하나씩 짚으며 세어요. 다른 색은 세지 않아요.` : `${COL[0].n}${obj(COL[0].n)} 다 센 다음, 그 수에서 이어서 ${COL[1].n}${obj(COL[1].n)} 하나씩 세어요.`, correct: false };
-          if (r.hint) return { hint: r.hint, correct: false };
-          if (lineMode) return { hint: t.more ? `1만큼 더 큰 수는 수 줄에서 ${t.count} 바로 오른쪽(뒤)에 있어요.` : t.less ? `1만큼 더 작은 수는 수 줄에서 ${t.count} 바로 왼쪽(앞)에 있어요.` : `수 줄에서 ${goal}${NUM_OBJ[goal] || '를'} 찾아요.` };
-          return { hint: two ? '두 가지 색을 모두 칸에 놓고, 칸을 하나씩 짚으며 세어요.' : `칸을 하나씩 짚으며 세어요. 윗줄 5칸이 다 차면 5예요.`, correct: false };
+          const lv = levelOf(opts);
+          return { hint: two && !lineMode ? hintTwo(t, lv) : hintOne(t, lv), correct: false };
         },
         // 모의 수업·자동 검사용 오답: 목표보다 하나 많거나 적게(세다가 하나를 두 번 세거나 빠뜨림)
         // 지금 판과 같은 오답은 건너뛴다(같은 오답을 다시 내면 시도로 세지 않는다)
@@ -432,7 +517,8 @@
           } else if (two) {
             const w = t.parts || [null, null];
             const a = w[0] != null ? w[0] : w[1] != null ? goal - w[1] : Math.ceil(goal / 2);
-            if (o.askNumber) { const ans = answerOf(t); [ans + 1, ans - 1].filter((v) => okN(v)).forEach((v) => list.push({ parts: [a, goal - a], said: v })); }
+            // 가르기는 모두의 수를 고르는 오개념(⑤)을 먼저 낸다
+            if (o.askNumber) { const ans = answerOf(t); [...(t.ask === 'b' ? [goal] : []), ans + 1, ans - 1].filter((v) => okN(v) && v !== ans).forEach((v) => list.push({ parts: [a, goal - a], said: v })); }
             // 이어 세다가 하나 더/덜 놓기 → 정해 준 색을 하나 더/덜(모두는 맞음) → 앞에서 찾은 방법 → 한 가지 색만
             [1, -1].forEach((d) => { const b = goal - a + d; if (b >= 0 && a + b <= 10) list.push({ parts: [a, b] }); });
             if (w[0] != null || w[1] != null) [1, -1].forEach((d) => { const a2 = a + d; if (a2 >= 0 && a2 <= goal) list.push({ parts: [a2, goal - a2] }); });
@@ -490,14 +576,14 @@
           if (n === goal) {
             if (t.more) return { correct: true, feedback: `맞아요! ${t.count}보다 1만큼 더 큰 수는 ${ieyo(goal)}. ${orderLine(t, goal)}` };
             if (t.less) return { correct: true, feedback: goal === 0 ? `맞아요! ${t.count}보다 1만큼 더 작은 수는 0이에요. 하나도 없으면 0(영)이에요.` : `맞아요! ${t.count}보다 1만큼 더 작은 수는 ${ieyo(goal)}. ${orderLine(t, goal)}` };
-            if (t.of) return { correct: true, feedback: `맞아요! ${goal}보다 1만큼 더 ${t.of.more ? '큰' : '작은'} 수가 ${ieyo(t.of.is)}. 그래서 어떤 수는 ${ieyo(goal)}.` };
+            if (t.of) return { correct: true, feedback: `맞아요! ${goal}보다 1만큼 더 ${t.of.more ? '큰' : '작은'} 수가 ${ieyo(t.of.is)}. 그래서 □는 ${ieyo(goal)}.` };
             return { correct: true, feedback: goal === 0 ? '맞아요! 하나도 없으면 0(영)이에요.' : `맞아요! ${noun} ${UNIT[goal]} 개, ${ieyo(goal)}.` };
           }
           // 거꾸로 문항(어떤 수보다 1 큰 수가 6): 6을 놓거나 7을 놓는 실수를 따로 짚는다
           if (t.of) {
             const is = t.of.is; const d = t.of.more ? 1 : -1;
-            if (n === is) return { correct: false, feedback: `${is}개만 놓았어요. ${nun(is)} '1만큼 더 ${d > 0 ? '큰' : '작은'} 수'예요. 어떤 수는 ${is} 바로 ${d > 0 ? '앞' : '뒤'}의 수예요.`, hint: `${is}개를 놓고 하나를 ${d > 0 ? '빼' : '더 놓아'} 보세요.` };
-            if (n === is + d) return { correct: false, feedback: `${is}보다 1만큼 더 ${d > 0 ? '큰' : '작은'} 수를 놓았어요. 거꾸로 생각해요: 어떤 수에 하나를 ${d > 0 ? '더하면' : '빼면'} ${ieyo(is)}.`, hint: `${is}개를 놓고 하나를 ${d > 0 ? '빼' : '더 놓아'} 보세요.` };
+            if (n === is) return { correct: false, feedback: `${is}개만 놓았어요. ${nun(is)} '1만큼 더 ${d > 0 ? '큰' : '작은'} 수'예요. □는 ${is} 바로 ${d > 0 ? '앞' : '뒤'}의 수예요.`, hint: `${is}개를 놓고 하나를 ${d > 0 ? '빼' : '더 놓아'} 보세요.` };
+            if (n === is + d) return { correct: false, feedback: `${is}보다 1만큼 더 ${d > 0 ? '큰' : '작은'} 수를 놓았어요. 거꾸로 생각해요: □에 하나를 ${d > 0 ? '더하면' : '빼면'} ${ieyo(is)}.`, hint: `${is}개를 놓고 하나를 ${d > 0 ? '빼' : '더 놓아'} 보세요.` };
           }
           // 빈 판에서 시작한 문항: 처음 수까지만 만들고 멈춘 경우
           if ((t.more || t.less) && n === t.count) return { correct: false, feedback: `${t.count}${NUM_OBJ[t.count]} 만들었어요. 이제 1만큼 더 ${t.more ? '큰' : '작은'} 수가 되게 하나를 ${t.more ? '더 놓아요' : '빼요'}.`, hint: t.more ? `${t.count} 바로 뒤의 수를 생각해요.` : `${t.count} 바로 앞의 수를 생각해요.` };

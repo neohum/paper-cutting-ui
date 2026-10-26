@@ -94,11 +94,12 @@ PaperLessons.register({
         {
           id: 'a3', title: '활동 3. 짝과 분수 만들기 놀이', minutes: 8, tool: 'fraction', pair: true,
           task: '짝이 말한 분수를 피자나 종이띠로 만들어 보여 주고, 분모와 분자가 각각 무엇을 뜻하는지 말해 봅시다.',
-          teacher: '짝끼리 번갈아 "7분의 3!"처럼 분수를 말하고 만든다. 분모가 분자보다 큰 분수만 말하게 한다. 교구는 분자가 분모보다 작은지 확인하고, 만든 분수는 결과에 남는다.',
+          teacher: '짝끼리 번갈아 "7분의 3!"처럼 분수를 말하고 만든다. 분모가 분자보다 큰 분수만 말하게 한다. 문항마다 조건(분자가 1보다 큼, 절반보다 많음, 분모가 6보다 크고 절반보다 적음)이 붙어 있어 교구가 그 조건을 확인하고, 만든 분수는 결과에 남는다. 짝이 말한 분수와 같은지는 짝이 확인한다.',
           levels: { easy: { showTerms: true, max: 8 }, base: {}, challenge: { hideFraction: true } },
           items: [
-            { prompt: '짝이 말한 분수(분자가 분모보다 작은 분수)를 피자로 만들고 확인을 누르세요.', toolOptions: { shape: 'pizza' }, target: { proper: true }, difficulty: 0.1 },
-            { prompt: '이번에는 내가 분수를 말하고, 짝이 말한 분수를 종이띠로 만들어 확인을 누르세요.', toolOptions: { shape: 'strip' }, target: { proper: true }, difficulty: 0.1 },
+            // 1·2번도 조건이 붙는다 — 조건 없이 '아무 진분수'면 2분의 1처럼 가장 쉬운 분수 하나로 모두 통과했다
+            { prompt: '짝이 분자가 1보다 큰 분수(예: 6분의 4)를 말해요. 그 분수를 피자로 만들고 확인을 누르세요.', toolOptions: { shape: 'pizza' }, target: { proper: true, minNum: 2 }, difficulty: 0.12 },
+            { prompt: '이번에는 내가 분수를 말할 차례예요. 짝이 말한, 종이띠의 절반보다 많은 분수를 종이띠로 만들어 확인을 누르세요.', toolOptions: { shape: 'strip' }, target: { proper: true, moreThanHalf: true }, difficulty: 0.16 },
             // 아무 분수나 통과하지 않는 조건 문항 — 분모(나눈 수)와 분자(색칠한 수)를 함께 따져야 한다
             { prompt: '분모가 6보다 크고, 피자의 절반보다 적은 분수를 하나 만들어 보세요. 짝은 다른 분수를 만들어 서로 견주어요.', toolOptions: { shape: 'pizza' }, target: { proper: true, minDen: 7, lessThanHalf: true }, difficulty: 0.22 },
           ],

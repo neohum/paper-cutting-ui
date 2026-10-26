@@ -40,34 +40,34 @@ PaperLessons.register({
           levels: {
             // 쉬움: 칸 번호·수 카드가 보임 / 기본: 수 카드를 가리고 모두 몇 개인지 고름 / 도전: 흩어진 칸에 들어가 5칸 묶음으로 셀 수 없음
             easy: { twoColor: true, item: 'apple', showWord: true, cellNumbers: true },
-            base: { twoColor: true, item: 'apple', showCount: false, askNumber: true },
+            base: { twoColor: true, item: 'apple', showCount: false, askNumber: true, showGoal: true },
             challenge: { twoColor: true, item: 'apple', showCount: false, askNumber: true, scatter: true },
           },
           items: [
-            { prompt: '빨간 사과 3개와 초록 사과 2개를 모으면 모두 몇 개일까요?', target: { parts: [3, 2], ask: 'total' }, difficulty: 0.05 },
-            { prompt: '빨간 사과 4개와 초록 사과 3개를 모으면 모두 몇 개일까요?', target: { parts: [4, 3], ask: 'total' }, difficulty: 0.15,
+            { prompt: '빨간 사과 3개, 초록 사과 2개. 모으면 모두 몇 개일까요?', target: { parts: [3, 2], ask: 'total' }, difficulty: 0.05 },
+            { prompt: '빨간 사과 4개, 초록 사과 3개. 모으면 모두 몇 개일까요?', target: { parts: [4, 3], ask: 'total' }, difficulty: 0.15,
               predict: { q: '4와 3을 모으면 4보다 많아질까요, 적어질까요?', options: ['4보다 많아져요', '4보다 적어져요', '4 그대로예요'], answer: 0 },
               conclude: '4와 3을 모으면 7이에요. 4에서 5, 6, 7 하고 이어 세면 빨라요.' },
-            { prompt: '빨간 사과 2개와 초록 사과 6개를 모으면 모두 몇 개일까요?', target: { parts: [2, 6], ask: 'total' }, difficulty: 0.2 },
-            { prompt: '더 해 보기: 빨간 사과 5개와 초록 사과 4개를 모으면 모두 몇 개일까요?', target: { parts: [5, 4], ask: 'total' }, extra: true, difficulty: 0.25 },
+            { prompt: '빨간 사과 2개, 초록 사과 6개. 모으면 모두 몇 개일까요?', target: { parts: [2, 6], ask: 'total' }, difficulty: 0.2 },
+            { prompt: '더 해 보기: 빨간 사과 5개, 초록 사과 4개. 모으면 모두 몇 개일까요?', target: { parts: [5, 4], ask: 'total' }, extra: true, difficulty: 0.25 },
           ],
         },
         {
           id: 'a2', title: '활동 2. 하나의 수를 가르기', minutes: 9, tool: 'tenframe',
-          task: '모두 몇 개가 되도록 놓고, 빨간 사과 수가 정해져 있으면 초록 사과는 몇 개인지 알아봅시다.',
+          task: '모두의 수만큼 놓아요. 빨간 사과 수를 맞추고, 초록 사과는 몇 개인지 세어요.',
           teacher: '"사과 7개를 빨간 사과 3개와 초록 사과 몇 개로 가를 수 있을까요?" 모두 7개를 먼저 채우고, 빨간 사과 수를 맞춘 뒤 초록 사과만 세게 한다. 7을 다 놓지 않고 3과 4를 따로 생각하는 학생에게 "모두 몇 개인지 먼저 맞춰요"라고 말한다.',
           levels: {
             easy: { twoColor: true, item: 'apple', showWord: true, cellNumbers: true, showGoal: true },
-            base: { twoColor: true, item: 'apple', showCount: false, askNumber: true },
+            base: { twoColor: true, item: 'apple', showCount: false, askNumber: true, showGoal: true },
             challenge: { twoColor: true, item: 'chip', showCount: false, askNumber: true, scatter: true },
           },
           items: [
-            { prompt: '사과 6개를 빨간 사과 2개와 초록 사과 몇 개로 가를 수 있을까요?', target: { total: 6, parts: [2, null], ask: 'b' }, difficulty: 0.2 },
-            { prompt: '사과 7개를 빨간 사과 3개와 초록 사과 몇 개로 가를 수 있을까요?', target: { total: 7, parts: [3, null], ask: 'b' }, difficulty: 0.25,
+            { prompt: '6을 2와 몇으로 갈라요. 빨간 사과는 2개, 초록 사과는 몇 개?', target: { total: 6, parts: [2, null], ask: 'b' }, difficulty: 0.2 },
+            { prompt: '7을 3과 몇으로 갈라요. 빨간 사과는 3개, 초록 사과는 몇 개?', target: { total: 7, parts: [3, null], ask: 'b' }, difficulty: 0.25,
               predict: { q: '7을 3과 몇으로 가를까요? 먼저 생각해 봐요.', options: ['3', '4', '7'], answer: 1 },
               conclude: '7은 3과 4로 가를 수 있어요. 3과 4를 모으면 다시 7이에요.' },
-            { prompt: '사과 8개를 빨간 사과 5개와 초록 사과 몇 개로 가를 수 있을까요?', target: { total: 8, parts: [5, null], ask: 'b' }, difficulty: 0.25 },
-            { prompt: '더 해 보기: 사과 9개를 빨간 사과 4개와 초록 사과 몇 개로 가를 수 있을까요?', target: { total: 9, parts: [4, null], ask: 'b' }, extra: true, difficulty: 0.3 },
+            { prompt: '8을 5와 몇으로 갈라요. 빨간 사과는 5개, 초록 사과는 몇 개?', target: { total: 8, parts: [5, null], ask: 'b' }, difficulty: 0.25 },
+            { prompt: '더 해 보기: 9를 4와 몇으로 갈라요. 빨간 사과는 4개, 초록 사과는 몇 개?', target: { total: 9, parts: [4, null], ask: 'b' }, extra: true, difficulty: 0.3 },
           ],
         },
         {
@@ -94,7 +94,7 @@ PaperLessons.register({
       exitTicket: [
         { type: 'choice', prompt: '5와 2를 모으면 몇이 될까요?', options: ['6', '7', '8'], answer: 1, difficulty: 0.15, explain: '5에서 6, 7 하고 이어 세면 7이에요.' },
         { type: 'choice', prompt: '9는 6과 몇으로 가를 수 있을까요?', options: ['2', '3', '4'], answer: 1, difficulty: 0.25, explain: '6과 3을 모으면 9예요. 그래서 9는 6과 3으로 가를 수 있어요.' },
-        { type: 'tool', tool: 'tenframe', options: { twoColor: true, item: 'chip', showCount: false, askNumber: true }, prompt: '칩 8개를 하늘색 칩 2개와 복숭아색 칩 몇 개로 갈라 보세요.', target: { total: 8, parts: [2, null], ask: 'b' }, difficulty: 0.25 },
+        { type: 'tool', tool: 'tenframe', options: { twoColor: true, item: 'chip', showCount: false, askNumber: true, target: { total: 8, parts: [2, null], ask: 'b' } }, prompt: '8을 2와 몇으로 갈라요. 하늘색 칩은 2개, 주황색 칩은 몇 개?', target: { total: 8, parts: [2, null], ask: 'b' }, difficulty: 0.25 },
         { type: 'mood', prompt: '오늘 공부는 어땠나요?' },
       ],
     },
@@ -124,6 +124,6 @@ PaperLessons.register({
     base: '수 카드가 가려져 있어요. 다 놓은 뒤 모두 몇 개인지(모으기)나 초록 사과가 몇 개인지(가르기) 수를 직접 골라요.',
     challenge: '사과·칩이 흩어진 칸에 들어가서 5칸 묶음으로 셀 수 없어요. 9까지의 더 해 보기와 똑같은 두 수로 가르기가 나와요.',
   },
-  teacherNotes: '자주 보이는 어려움: ① 모으기에서 처음부터 다시 센다 → 앞 수에서 이어 세기(4… 5, 6, 7)를 보여 주고 칭찬한다. ② 가르기에서 모두의 수를 맞추지 않고 두 수를 따로 놓는다 → 모두 몇 개를 먼저 채운 뒤 한쪽 색을 맞추게 한다. 교구가 모두의 수부터 알려 준다. ③ 한 가지 색으로만 채우고 갈랐다고 생각한다 → 둘로 갈라야 두 가지 색이 모두 있다는 것을 짚는다. ④ 3과 4, 4와 3을 같은 방법으로 볼지 헷갈린다 → 이 차시는 색이 바뀌면 다른 방법으로 본다(빨간 3·초록 4 / 빨간 4·초록 3). ⑤ 가르기 답으로 모두의 수를 고른다(7을 3과 7로) → 남은 색만 하나씩 짚으며 세게 한다. 덧셈식·뺄셈식은 다음 차시에서 모으기·가르기와 이어서 다룬다.',
+  teacherNotes: '자주 보이는 어려움: ① 모으기에서 처음부터 다시 센다 → 앞 수에서 이어 세기(4… 5, 6, 7)를 보여 주고 칭찬한다. ② 가르기에서 모두의 수를 맞추지 않고 두 수를 따로 놓는다 → 모두 몇 개를 먼저 채운 뒤 한쪽 색을 맞추게 한다. 교구가 모두의 수부터 알려 준다. ③ 한 가지 색으로만 채우고 갈랐다고 생각한다 → 둘로 갈라야 두 가지 색이 모두 있다는 것을 짚는다. ④ 3과 4, 4와 3을 같은 방법으로 볼지 헷갈린다 → 이 차시는 색이 바뀌면 다른 방법으로 본다(빨간 3·초록 4 / 빨간 4·초록 3). ⑤ 가르기 답으로 모두의 수를 고른다(7을 3과 7로) → 남은 색만 하나씩 짚으며 세게 한다. 기본 단계의 수 고르기 보기에 모두의 수가 들어 있어 이 오개념이 기록에 남고, 교구가 "모두의 수예요. 초록 사과만 세어요"라고 짚는다. 덧셈식·뺄셈식은 다음 차시에서 모으기·가르기와 이어서 다룬다.',
 });
 })();

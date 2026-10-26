@@ -47,6 +47,17 @@
   const where = (j) => (typeOf(j) === 'v' ? '오른쪽' : '아래');
   // 자리만 말하지 않고 까닭(모음 모양)을 함께 말한다
   const whyWhere = (j) => (typeOf(j) === 'v' ? '세로로 길어서 자음 오른쪽' : '가로로 길어서 자음 아래');
+  // 받침 끝소리를 1학년이 읽을 수 있는 말로: [ㅁ] 같은 소리 기호 대신 입 모양으로 말한다
+  const MANNER = { ㄱ: '목 안쪽을 막으며 짧게', ㄴ: '혀끝을 윗잇몸에 대며', ㄷ: '혀끝을 대며 짧게', ㄹ: '혀를 살짝 굴리며', ㅁ: '입술을 다물며', ㅂ: '입술을 다물며 짧게', ㅇ: '코와 목에서 울리며' };
+  const MOUTH = { ㄱ: '목 막기', ㄴ: '혀 닿기', ㄷ: '혀 대기', ㄹ: '혀 굴리기', ㅁ: '입 다물기', ㅂ: '입 다물기', ㅇ: '목 울림' };
+  const mannerOf = (f) => MANNER[JSOUND[f] || f] || '';
+  // 힌트 단계(새 계약): 1 = 방법만(시도 전에도), 2 = 틀린 단계 짚기(1번 틀린 뒤), 3 = 풀이 한 걸음(2번 틀린 뒤)
+  const levelOf = (opts) => {
+    const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
+    const a = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
+    const cap = a == null ? 3 : a >= 2 ? 3 : a >= 1 ? 2 : 1;
+    return Math.max(1, Math.min(3, want, cap));
+  };
 
   K.registerTool('hangul', {
     name: '한글 글자 조립',
@@ -160,6 +171,8 @@
         kit.el('text', { x: 1.3, y: 15.6, 'text-anchor': 'middle', 'font-size': 42, class: 'pk-text pk-under', fill: kit.palette[color].layer }, g).textContent = ch;
         kit.el('text', { x: 0, y: 14, 'text-anchor': 'middle', 'font-size': 42, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = ch;
         if (o.silentMark && ch === 'ㅇ' && kind === 'c') kit.el('text', { x: 0, y: 30, 'text-anchor': 'middle', 'font-size': 11, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = '소리 없음';
+        // jongMouth(쉬움): 받침 조각 아래에 끝소리를 내는 입 모양(입 다물기·혀 닿기·목 울림) — 글자 모양 대신 소리로 고르게
+        if (o.jongMouth && kind === 'j' && MOUTH[JSOUND[ch] || ch]) kit.el('text', { x: 0, y: 30, 'text-anchor': 'middle', 'font-size': 11, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = MOUTH[JSOUND[ch] || ch];
         const t = { ch, kind, g, home, slot: null };
         const nm = NAMES[ch] ? `(${NAMES[ch]})` : '';
         g.setAttribute('aria-label', kind === 'c' ? `자음 ${ch}${nm}` : kind === 'j' ? `받침 ${ch}${nm}` : `모음 ${ch}`);
@@ -400,13 +413,31 @@
         } catch (_) { kit.announce(s); }
         if (sylG) kit.spring(1.15, 1, { stiffness: 260, damping: 10, onUpdate: (v) => kit.transform(sylG, { s: v }) });
       };
-      if (!print && o.speak !== false) {
+      // listenTarget: 문제 글자를 화면에 쓰지 않고 소리로만 들려준다(글자 모양을 맞춰 통과하지 않게). 소리가 안 나는 기기에서는 글자를 보인다.
+      let target = o.target || null;
+      const say1 = (text) => {
+        try {
+          const ss = window.speechSynthesis;
+          if (!ss || typeof SpeechSynthesisUtterance === 'undefined' || !ss.getVoices().some((x) => /^ko/i.test(x.lang))) return false;
+          ss.cancel();
+          const u = new SpeechSynthesisUtterance(text); u.lang = 'ko-KR'; u.rate = 0.7;
+          u.voice = ss.getVoices().find((x) => /^ko/i.test(x.lang));
+          ss.speak(u); return true;
+        } catch (_) { return false; }
+      };
+      const listen = () => {
+        if (!target || !target.syllable) return;
+        if (!say1(target.syllable)) say(`문제 글자: ${target.syllable}`);
+        else kit.announce('문제 소리를 들려줘요.');
+      };
+      if (!print && (o.speak !== false || o.listenTarget)) {
         const bar = document.createElement('div');
         bar.className = 'hg-bar';
-        bar.style.cssText = 'display:flex;justify-content:center;margin-top:8px';
-        bar.innerHTML = '<button type="button" class="pl-btn hg-speak" style="min-height:44px"><i class="fi fi-rr-volume" aria-hidden="true"></i> 소리 듣기</button>';
+        bar.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:8px';
+        bar.innerHTML = `${o.listenTarget ? '<button type="button" class="pl-btn hg-listen" style="min-height:44px"><i class="fi fi-rr-ear" aria-hidden="true"></i> 문제 듣기</button>' : ''}${o.speak !== false ? '<button type="button" class="pl-btn hg-speak" style="min-height:44px"><i class="fi fi-rr-volume" aria-hidden="true"></i> 내 글자 듣기</button>' : ''}`;
         box.appendChild(bar);
-        bar.querySelector('button').addEventListener('click', speak);
+        const sb = bar.querySelector('.hg-speak'); if (sb) sb.addEventListener('click', speak);
+        const lb = bar.querySelector('.hg-listen'); if (lb) lb.addEventListener('click', listen);
       }
 
       setState(o.start || {});
@@ -422,15 +453,12 @@
           if (!(opts && opts.forHint) && r.correct) { revealed = true; paint(false); celebrate(); }
           return r;
         },
-        hint(t) {
-          const want = decompose(t.syllable); const s = state();
+        setTarget(t) { target = t || null; },
+        hint(t, opts) {
+          const want = decompose(t && t.syllable);
           if (!want) return { hint: '' };
-          const r = judge(t);
-          if (r.correct) return { hint: `${want.jong ? '자음, 모음, 받침이' : '자음과 모음이'} 모두 알맞은 자리에 있어요.`, correct: true };
-          const okC = s.cho === want.cho; const okJ = s.jung === want.jung;
-          // 둘 다 틀렸을 때 자동 힌트는 조각 이름을 다 말해 준다 — 힌트 단추는 찾는 차례만 알려 준다
-          if (!okC && !okJ && (s.cho || s.jung)) return { hint: `'${t.syllable}'${eul(t.syllable)} 천천히 소리 내어 읽어요. 처음 나는 소리(자음) → 이어지는 소리(모음)${want.jong ? ' → 끝소리(받침)' : ''} 차례로 하나씩 찾아요.`, correct: false };
-          return { hint: r.hint || '', correct: false };
+          if (judge(t).correct) return { hint: `${want.jong ? '자음, 모음, 받침이' : '자음과 모음이'} 모두 알맞은 자리에 있어요.`, correct: true };
+          return { hint: hintAt(t, levelOf(opts)), correct: false };
         },
         // 오개념 순서대로 후보를 만들고, 지금 틀에 놓인 것과 같은 오답은 건너뛴다(같은 오답을 다시 내면 시도로 세지 않는다)
         wrongAnswer(t) {
@@ -472,34 +500,63 @@
           kit.announce(`${seq.map((x) => x[0]).join(' + ')} = ${t.syllable}`);
         },
       };
+      // 단계별 힌트 글. 1단계는 문항 글자·조각 이름·자리를 말하지 않는다(개념과 방법만).
+      // 2단계는 틀린 단계(자음/모음/받침)를 짚되 답 조각은 말하지 않는다. 3단계는 그 단계를 풀어 보인다.
+      function hintAt(t, lv) {
+        const want = decompose(t.syllable); const s = state();
+        const tw = o.listenTarget ? '들은 글자' : `'${t.syllable}'`;
+        const okC = s.cho === want.cho; const okJ = s.jung === want.jung;
+        const okF = !hasJong || (s.jong || null) === (want.jong || null);
+        if (lv <= 1) {
+          if (hasJong && want.jong) return '받침은 글자 맨 아래에 와요. 글자를 천천히 소리 내 보고, 끝소리에서 입술이 닫히는지, 혀가 닿는지, 목에서 울리는지 느껴 봐요.';
+          // 문항 글자가 한 글자라서 '가로'·'모음이' 같은 낱말 속 글자와도 겹치지 않게 골라 썼다(자동 검사가 글자 단위로 대조한다)
+          return '천천히 읽어 봐요. 첫 조각은 자음, 그다음 조각은 모음. 모음은 길게 서 있으면 자음 옆에, 길게 누워 있으면 자음 밑에 붙여요.';
+        }
+        // 어느 단계가 틀렸는가: 자음 → 모음 → 받침 차례로 첫 번째 틀린 곳
+        const step = !s.cho && !s.jung ? 'none' : !okC ? 'cho' : !okJ ? 'jung' : !okF ? 'jong' : 'none';
+        if (lv === 2) {
+          if (step === 'none') return '첫소리 자음부터 하나씩 틀에 놓아요.';
+          if (step === 'cho') return okJ ? '모음은 맞았어요. 첫소리 자음이 달라요. 글자를 소리 내며 처음 나는 소리만 떼어 들어 봐요.' : '첫소리 자음부터 달라요. 글자를 소리 내며 처음 나는 소리만 떼어 들어 봐요.';
+          if (step === 'jung') return `자음은 맞았어요. 모음이 달라요. ${tw}의 가운데 소리를 길게 내어 봐요(아~, 오~ 처럼).${s.jung && typeOf(s.jung) !== typeOf(want.jung) ? ' 모음 모양이 세로인지 가로인지도 다시 보세요.' : s.jung && MIRROR[want.jung] === s.jung ? ' 짧은 획이 어느 쪽에 있는지 보세요.' : ''}`;
+          if (!s.jong) return `자음과 모음은 맞았어요. ${tw}에는 받침이 있어요. 끝소리를 천천히 들어 봐요.`;
+          if (!want.jong) return `자음과 모음은 맞았어요. ${tw}에는 받침이 없어요.`;
+          return `자음과 모음은 맞았어요. 받침이 달라요. 지금 받침 ${s.jong}은 ${mannerOf(s.jong)} 끝나요. ${tw}의 끝소리는 어떻게 끝나나요?`;
+        }
+        // 3단계: 틀린 단계를 풀어 보인다
+        const twN = o.listenTarget ? '들은 글자는' : `'${t.syllable}'${eul(t.syllable) === '을' ? '은' : '는'}`;
+        if (step === 'cho' || step === 'none') return want.cho === 'ㅇ' ? `첫소리 ㅇ은 소리가 없어요. ${twN} 모음 소리로 바로 시작해요. 첫소리 자리에 ㅇ을 놓아요.` : `${tw}의 첫소리는 ${want.cho}(${NAMES[want.cho] || want.cho})예요. ${want.cho}부터 놓아요.`;
+        if (step === 'jung') return `${tw}의 가운데 소리는 '${VSOUND[want.jung]}' 소리, 모음 ${want.jung}예요. ${want.jung}는 ${whyWhere(want.jung)}에 붙여요.`;
+        if (!want.jong) return `받침 ${s.jong}을 바구니로 끌어 빼요.`;
+        return `${twN} ${mannerOf(want.jong)} 끝나요. 그렇게 끝나는 받침은 ${want.jong}이에요. ${want.jong}을 맨 아래에 놓아요.`;
+      }
       function judge(t) {
           const want = decompose(t.syllable); const s = state();
           if (!want) return { correct: false, feedback: '문항 글자를 읽을 수 없어요.' };
           const okC = s.cho === want.cho; const okJ = s.jung === want.jung;
           const okF = !hasJong || (s.jong || null) === (want.jong || null);
+          const tw = o.listenTarget ? '들은 글자' : `'${t.syllable}'`;
+          // 확인 피드백은 틀린 까닭을 '지금 놓은 조각'으로 말하고, 답 조각은 말하지 않는다. 자동 힌트(2번 틀린 뒤)는 2단계 힌트다
+          const h2 = () => hintAt(t, 2);
           if (okC && okJ && okF) {
-            if (want.jong) return { correct: true, feedback: `맞아요! ${want.cho}, ${want.jung}에 받침 ${want.jong}을 아래에 붙여 '${t.syllable}'${eul(t.syllable)} 만들었어요. 끝소리는 [${JSOUND[want.jong] || want.jong}] 소리예요.` };
+            if (want.jong) return { correct: true, feedback: `맞아요! ${want.cho}, ${want.jung}에 받침 ${want.jong}을 아래에 붙여 '${t.syllable}'${eul(t.syllable)} 만들었어요. 받침 ${want.jong}은 ${mannerOf(want.jong)} 끝나요.` };
             return { correct: true, feedback: `맞아요! ${want.cho}과 ${want.jung}를 모아 '${t.syllable}'${eul(t.syllable)} 만들었어요. ${want.jung}는 ${whyWhere(want.jung)}에 붙었어요.` };
           }
-          const silent = want.cho === 'ㅇ' ? ' 첫소리 ㅇ은 소리가 없어요.' : '';
-          if (!s.cho && !s.jung) return { correct: false, feedback: '자음과 모음 조각을 글자 틀에 놓아 보세요.', hint: `'${t.syllable}'${eul(t.syllable)} 소리 내어 읽고, 첫소리 자음부터 찾아요.${silent}` };
+          if (!s.cho && !s.jung) return { correct: false, feedback: '자음과 모음 조각을 글자 틀에 놓아 보세요.', hint: h2() };
           // 받침만 다를 때: 끝소리를 비교하게 한다
           if (okC && okJ && !okF) {
             const base = compose(want.cho, want.jung);
-            if (!s.jong) return { correct: false, feedback: jongRight ? `'${base}'까지는 맞았어요. 받침은 글자 맨 아래에 붙여요.` : `'${base}'까지는 맞았어요. '${t.syllable}'에는 받침이 있어요. 끝소리를 들어 봐요.`, hint: `'${t.syllable}'${eul(t.syllable)} 천천히 읽으면 끝에 [${JSOUND[want.jong] || want.jong}] 소리가 나요. 받침 ${want.jong}을 맨 아래에 놓아요.` };
-            if (!want.jong) return { correct: false, feedback: `지금 글자는 받침이 있어요. '${t.syllable}'에는 받침이 없어요.`, hint: `받침 ${s.jong}을 바구니로 끌어 빼요.` };
-            return { correct: false, feedback: `자음과 모음은 맞았어요. 받침 ${s.jong}을 붙이면${o.revealAfterCheck ? '' : ` '${s.syllable}'이 되어`} 끝소리가 [${JSOUND[s.jong] || s.jong}] 소리예요. '${t.syllable}'의 끝소리를 다시 들어 봐요.`, hint: `'${t.syllable}'의 끝소리는 [${JSOUND[want.jong] || want.jong}] 소리예요. 받침 ${want.jong}을 찾아요.` };
+            if (!s.jong) return { correct: false, feedback: jongRight ? `'${base}'까지는 맞았어요. 받침은 글자 맨 아래에 붙여요.` : `'${base}'까지는 맞았어요. ${tw}에는 받침이 있어요. 끝소리를 들어 봐요.`, hint: h2() };
+            if (!want.jong) return { correct: false, feedback: `지금 글자는 받침이 있어요. ${tw}에는 받침이 없어요.`, hint: h2() };
+            return { correct: false, feedback: `자음과 모음은 맞았어요. 받침 ${s.jong}${o.revealAfterCheck ? '' : `을 붙인 '${s.syllable}'`}은 ${mannerOf(s.jong)} 끝나요. ${tw}의 끝소리를 다시 들어 봐요.`, hint: h2() };
           }
           if (okC) {
-            // 거울 모양(ㅏ↔ㅓ, ㅗ↔ㅜ)은 둘째 시도부터 자동으로 뜨는 힌트에서 짧은 획 방향을 짚어 준다
             const mirror = s.jung && MIRROR[want.jung] === s.jung;
-            const fb = s.jung ? (mirror ? `자음은 맞았어요. ${s.jung}와 ${want.jung}는 짧은 획 방향이 달라요. 소리도 '${VSOUND[s.jung]}'와 '${VSOUND[want.jung]}'로 달라요.` : `자음은 맞았어요.${o.revealAfterCheck ? '' : ` 지금 글자는 '${s.syllable || compose(want.cho, s.jung)}'${eul(s.syllable || compose(want.cho, s.jung)) === '을' ? '이에요' : '예요'}.`} '${t.syllable}'에는 [${VSOUND[want.jung]}] 소리가 나는 모음 ${want.jung}가 필요해요.${typeOf(s.jung) !== typeOf(want.jung) ? ` ${want.jung}는 ${typeOf(want.jung) === 'h' ? '가로로 길어서 자음 아래' : '세로로 길어서 자음 오른쪽'}에 붙어요.` : ''}`)
+            const fb = s.jung ? (mirror ? `자음은 맞았어요. 고른 모음 ${s.jung}는 '${VSOUND[s.jung]}' 소리예요. 짧은 획 방향을 다시 보세요.` : `자음은 맞았어요. 고른 모음 ${s.jung}는 '${VSOUND[s.jung]}' 소리예요.${typeOf(s.jung) !== typeOf(want.jung) ? ` ${s.jung}는 ${whyWhere(s.jung)}에 붙어요.` : ''} ${tw}의 가운데 소리를 다시 들어 봐요.`)
               : lastWrong ? `자음은 맞았어요. ${lastWrong}는 ${whyWhere(lastWrong)}에 붙여요.` : '자음은 맞았어요. 이제 모음을 놓아요.';
-            const hint = mirror ? `${want.jung}는 ${STROKE[want.jung]}에 있어요. '${VSOUND[want.jung]}' 소리를 내며 찾아요.` : `'${VSOUND[want.jung]}' 소리가 나는 모음을 찾아 ${where(want.jung)}에 놓아요.`;
-            return { correct: false, feedback: fb, hint };
+            return { correct: false, feedback: fb, hint: h2() };
           }
-          if (okJ) return { correct: false, feedback: s.cho ? '모음은 맞았어요. 자음(첫소리)을 다시 보세요.' : '모음은 맞았어요. 이제 자음을 놓아요.', hint: want.cho === 'ㅇ' ? `첫소리 ㅇ은 소리가 없어요. '${t.syllable}'는 모음 소리로 시작해요.` : `'${t.syllable}'${eul(t.syllable)} 읽을 때 처음 나는 소리를 찾아요. 그 자음의 이름은 ${NAMES[want.cho] || want.cho}이에요.` };
-          return { correct: false, feedback: '다시 해 볼까요? 글자를 소리 내어 천천히 읽어 보세요.', hint: `'${t.syllable}'는 ${want.cho}과 ${want.jung}${want.jong ? `, 받침 ${want.jong}` : ''}를 모아요.` };
+          if (okJ) return { correct: false, feedback: s.cho ? '모음은 맞았어요. 자음(첫소리)을 다시 보세요.' : '모음은 맞았어요. 이제 자음을 놓아요.', hint: h2() };
+          return { correct: false, feedback: '다시 해 볼까요? 글자를 소리 내어 천천히 읽어 보세요.', hint: h2() };
       }
     },
   });

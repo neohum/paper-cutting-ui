@@ -105,7 +105,7 @@ PaperLessons.register({
       id: 'wrapup', title: '정리', minutes: 8,
       teacher: '"분명한 기준은 어떤 기준인가요?" 출구 질문 결과에서 1번(기준 고르기)과 3번(기준을 바꾸어도 전체 수는 같음)을 틀린 학생을 다음 차시(분류하여 세어 보기)에서 먼저 살핀다.',
       exitTicket: [
-        { type: 'choice', prompt: '과일을 나누려고 해요. 분명한 기준은 어느 것일까요?', options: ['좋아하는 과일과 싫어하는 과일', '껍질 색이 빨간 과일과 노란 과일', '맛있는 과일과 맛없는 과일'], answer: 1, difficulty: 0.1, explain: '좋아하는 것·맛있는 것은 사람마다 달라요. 껍질 색은 누가 보아도 같아서 분명한 기준이에요.' },
+        { type: 'choice', prompt: '과일을 나누려고 해요. 분명한 기준은 어느 것일까요?', options: ['좋아하는 과일과 싫어하는 과일', '껍질 색깔로 나누기(빨강·노랑·초록·보라)', '맛있는 과일과 맛없는 과일'], answer: 1, difficulty: 0.1, explain: '좋아하는 것·맛있는 것은 사람마다 달라요. 껍질 색깔은 누가 보아도 같고, 모든 과일이 어느 한 색 칸에 들어가서 분명한 기준이에요.' },
         { type: 'tool', tool: 'sortboard', options: { cards: ['y2c', 'b2t', 'r4s', 'y4t', 'b4s', 'r2c', 'y2s'], askCount: true }, prompt: '단추를 모양으로 나누고, 칸마다 몇 개인지 세어 넣으세요.', target: { by: '모양', counts: true }, difficulty: 0.15, explain: '모양으로 나누면 동그라미 2개, 네모 3개, 세모 2개예요.' },
         { type: 'choice', prompt: '단추 9개를 색깔로 나누었다가, 다시 모양으로 나누었어요. 모양으로 나눈 칸의 단추를 모두 세면 몇 개일까요?', options: ['9개보다 적어요', '9개예요', '9개보다 많아요'], answer: 1, difficulty: 0.15, explain: '기준을 바꾸어도 단추를 더하거나 빼지 않았으니 모두 9개 그대로예요.' },
         { type: 'choice', prompt: '단추를 색깔로 나누어 세었더니 빨강 2개, 파랑 5개, 노랑 3개였어요. 가장 많은 색은 무엇인가요?', options: ['빨강', '파랑', '노랑'], answer: 1, difficulty: 0.05, explain: '5가 가장 큰 수라서 파랑 단추가 가장 많아요.' },
@@ -116,17 +116,17 @@ PaperLessons.register({
   worksheet: {
     title: '기준을 정하여 나누고 세기',
     items: [
-      { type: 'figure', wide: true, prompt: '단추를 모양으로 나누어 세어 보세요.', tool: 'sortboard', figures: [{ options: { cards: ['r2c', 'b4s', 'y2t', 'r4s', 'b2c', 'y4t', 'r2t', 'b2s'] }, caption: '' }], answer: '동그라미 2개, 네모 3개, 세모 3개' },
-      { type: 'table', prompt: '위 단추를 모양으로 나눈 수를 표에 쓰세요.', columns: ['동그라미', '네모', '세모'], rows: 1, answer: '2, 3, 3' },
-      { type: 'figure', wide: true, prompt: '단추를 두 칸으로 나누었어요. 어떤 기준으로 나누었는지 (    )에 쓰세요.', tool: 'sortboard', figures: [{ options: { by: '구멍', cards: ['r2c', 'b4s', 'y2t', 'r4c', 'b2s', 'y4t'] }, state: { by: '구멍', sorted: true }, caption: `기준: ${BLANK}` }], answer: '구멍 수 (구멍 2개 / 구멍 4개)' },
+      { type: 'figure', wide: true, prompt: '단추를 모양으로 나누어요. 같은 모양 단추에 같은 표시를 하세요(동그라미 단추는 ○, 네모 단추는 □, 세모 단추는 △). 한 번 표시한 단추는 다시 표시하지 않아요.', tool: 'sortboard', figures: [{ options: { cards: ['r2c', 'b4s', 'y2t', 'r4s', 'b2c', 'y4t', 'r2t', 'b2s'] }, caption: '' }], answer: '○ 2개, □ 3개, △ 3개 표시' },
+      { type: 'table', prompt: '위에서 표시한 ○, □, △를 세어 표에 쓰세요.', columns: ['동그라미', '네모', '세모'], rows: 1, answer: '2, 3, 3' },
+      { type: 'figure', wide: true, prompt: '단추를 두 칸으로 나누었어요. 칸 위 (    )에는 칸 이름을, 아래 ‘기준: (    )’에는 무엇으로 나누었는지 쓰세요.', tool: 'sortboard', figures: [{ options: { by: '구멍', cards: ['r2c', 'b4s', 'y2t', 'r4c', 'b2s', 'y4t'] }, state: { by: '구멍', sorted: true }, caption: `기준: ${BLANK}` }], answer: '구멍 수 (구멍 2개 / 구멍 4개)' },
       { type: 'choice', prompt: '친구들을 나누려고 해요. 분명한 기준에 ○ 하세요.', options: ['키가 큰 친구와 작은 친구', '안경을 쓴 친구와 안 쓴 친구', '재미있는 친구와 재미없는 친구'], answer: '안경을 쓴 친구와 안 쓴 친구' },
       { type: 'short', prompt: '우리 교실의 물건(예: 크레파스, 책) 하나를 골라, 어떤 기준으로 나누면 좋을지 까닭과 함께 쓰세요.', answer: '예) 크레파스를 색깔로 나눠요. 누가 보아도 색은 똑같이 말할 수 있으니까요.' },
     ],
     easy: {
       note: '분명한 기준은 누가 나누어도 똑같이 나뉘어요. 색깔, 모양, 구멍 수처럼 눈으로 보고 똑같이 말할 수 있는 것을 골라요.',
       items: [
-        { type: 'figure', wide: true, prompt: '단추를 모양으로 나누어 세어 보세요.', tool: 'sortboard', figures: [{ options: { cards: ['r2c', 'b4s', 'y2t', 'b2c', 'y4s', 'r2s'] }, caption: '' }], answer: '동그라미 2개, 네모 3개, 세모 1개' },
-        { type: 'table', prompt: '모양마다 몇 개인지 표에 쓰세요.', columns: ['동그라미', '네모', '세모'], rows: 1, answer: '2, 3, 1' },
+        { type: 'figure', wide: true, prompt: '같은 모양 단추에 같은 표시를 하세요(동그라미는 ○, 네모는 □, 세모는 △).', tool: 'sortboard', figures: [{ options: { cards: ['r2c', 'b4s', 'y2t', 'b2c', 'y4s', 'r2s'] }, caption: '' }], answer: '○ 2개, □ 3개, △ 1개 표시' },
+        { type: 'table', prompt: '표시한 ○, □, △를 세어 표에 쓰세요.', columns: ['동그라미', '네모', '세모'], rows: 1, answer: '2, 3, 1' },
         { type: 'choice', prompt: '분명한 기준에 ○ 하세요.', options: ['예쁜 단추와 안 예쁜 단추', '구멍이 2개인 단추와 4개인 단추'], answer: '구멍이 2개인 단추와 4개인 단추' },
       ],
     },

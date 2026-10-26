@@ -8,7 +8,8 @@
  * 상태: { n, arranged, r, value, pick, step1? }
  * check({arranged:true, n, width?, height?}) | check({formula}) | check({area, r}) | check({findR, area})
  *   check({area, r})는 r(문항의 반지름)로 채점한다 — 손잡이 위치가 아니라 계산을 본다.
- *   check({findR})는 손잡이 반지름이 findR인지 본다(넓이에서 반지름 거꾸로 찾기).
+ *   check({findR})는 손잡이 반지름이 findR인지 본다(넓이에서 반지름 거꾸로 찾기). 숫자판(pad)이 있으면 먼저 '넓이 ÷ 3.14 = 반지름 × 반지름'을
+ *   써야 하고(padFor:'rr'), 틀린 확인은 그 반지름의 넓이를 계산해 주지도, 늘릴지 줄일지 알려 주지도 않는다.
  */
 (function (K) {
   const PI = 3.14; // 교과서 원주율
@@ -21,6 +22,13 @@
   const FORMULA_OK = '반지름 × 반지름 × 원주율';
   const ASK = { width: { part: '가로', answer: '원주의 1/2' }, height: { part: '세로', answer: '반지름' }, formula: { part: '넓이 식', answer: FORMULA_OK } };
 
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
   K.registerTool('circlearea', {
     name: '원 조각 다시 붙이기',
     create(box, o, kit) {
@@ -276,7 +284,7 @@
           fieldA.p.setColor(field === 1 ? 'buttercup' : 'cream'); fieldB.p.setColor(field === 2 ? 'buttercup' : 'cream');
           fieldA.g.setAttribute('aria-pressed', String(field === 1)); fieldB.g.setAttribute('aria-pressed', String(field === 2));
           mark1.textContent = entry1 !== '' && same(Number(entry1), r * r) ? '✓' : '';
-        } else if (valTxt) valTxt.textContent = `넓이 ${entry || '?'} cm²`;
+        } else if (valTxt) valTxt.textContent = o.padFor === 'rr' ? `반지름×반지름 = ${entry || '?'}` : `넓이 ${entry || '?'} cm²`;
       }
 
       function show(k) { NS.forEach((x) => sets[x].g.setAttribute('display', x === k ? 'inline' : 'none')); }
@@ -363,30 +371,42 @@
             }[`${want.part}:${s.pick}`] || '다시 골라 볼까요?';
             return { correct: false, feedback: why, hint };
           }
-          if (want) return { correct: true, feedback: `맞아요! 붙인 모양의 ${want.part}는 ${want.answer}과 같아요. ${want.part === '가로' ? '원주의 1/2 = 반지름 × 원주율이에요.' : '세로가 반지름이니 넓이 = 원주의 1/2 × 반지름이에요.'}` };
+          // 세로 문항의 정답 말은 다음 문항(가로)과 넓이 식을 미리 말하지 않는다
+          if (want) return { correct: true, feedback: `맞아요! 붙인 모양의 ${want.part}는 ${want.answer}과 같아요.${want.part === '가로' ? ' 원주의 1/2 = 반지름 × 원주율이에요.' : ''}` };
           return { correct: true, feedback: `맞아요! ${s.n}조각으로 붙이니 ${s.n >= 32 ? '거의 직사각형이 되었어요' : '직사각형에 가까워졌어요'}. 가로와 세로는 원의 어느 부분일까요?` };
         }
         if (t.findR != null) {
-          const a = s.r * s.r * PI;
-          if (s.r === t.findR) return { correct: true, feedback: `맞아요! ${s.r} × ${s.r} × ${PI} = ${fmt(a)} (cm²)라 반지름은 ${s.r} cm예요.` };
-          return { correct: false, feedback: `반지름 ${s.r} cm인 원의 넓이는 ${fmt(a)} cm²예요. ${a > t.area ? '넓이가 너무 커요. 반지름을 줄여 봐요.' : '넓이가 모자라요. 반지름을 늘려 봐요.'}`, hint: `넓이 ${fmt(t.area)} ÷ 3.14 = 반지름 × 반지름이에요. 같은 수를 두 번 곱해 그 수가 되는 수를 찾아요.` };
+          const rr2 = t.area / PI; const v = s.value;
+          const h3 = `${fmt(t.area)} ÷ ${PI} = ${fmt(rr2)}이고, ${t.findR} × ${t.findR} = ${fmt(rr2)}이라 반지름은 ${t.findR} cm예요.`;
+          if (pad) {
+            if (v == null) return { correct: false, incomplete: true, feedback: '먼저 넓이 ÷ 3.14를 계산해 숫자판에 반지름 × 반지름을 써요.', hint: '넓이 = 반지름 × 반지름 × 3.14이니, 넓이를 3.14로 나누면 반지름 × 반지름이에요.' };
+            if (!same(v, rr2)) {
+              if (same(v, t.area / (2 * PI))) return { correct: false, feedback: '둘레 식(반지름 × 2 × 3.14)으로 거꾸로 풀었어요. 넓이 식에는 2가 아니라 반지름이 한 번 더 들어가요.', hint: '넓이를 3.14로만 나누면 반지름 × 반지름이 나와요.', h3 };
+              if (same(v, t.area * PI)) return { correct: false, feedback: '3.14를 곱했어요. 넓이에서 거꾸로 갈 때는 3.14로 나눠요.', hint: '넓이 = 반지름 × 반지름 × 3.14 — 거꾸로 하면 곱하기가 나누기가 돼요.', h3 };
+              return { correct: false, feedback: '숫자판에 쓴 수가 넓이 ÷ 3.14와 달라요. 나눗셈을 다시 해 봐요.', hint: '넓이를 3.14로 나누면 반지름 × 반지름이에요.', h3 };
+            }
+          }
+          if (s.r === t.findR) return { correct: true, feedback: `맞아요! ${s.r} × ${s.r} × ${PI} = ${fmt(t.area)} (cm²)라 반지름은 ${s.r} cm예요.` };
+          // 방향(늘려/줄여)과 그 반지름의 넓이는 말하지 않는다 — 손잡이를 한 칸씩 옮겨 확인으로 맞추지 않게
+          if (pad && same(s.r * 2, rr2)) return { correct: false, feedback: '반지름 × 반지름을 2로 나누었어요. 반지름은 같은 수를 두 번 곱해 그 수가 되는 수예요.', hint: '1 × 1, 2 × 2, 3 × 3 …처럼 같은 수를 두 번 곱해 보며 찾아요.', h3 };
+          return { correct: false, feedback: pad ? '손잡이의 반지름을 두 번 곱하면 숫자판에 쓴 수가 되나요? 다시 생각해 봐요.' : '그 반지름으로는 넓이가 맞지 않아요. 넓이 ÷ 3.14부터 계산해 봐요.', hint: '넓이 ÷ 3.14 = 반지름 × 반지름이에요. 같은 수를 두 번 곱해 그 수가 되는 수를 찾아요.', h3 };
         }
         // 채점은 문항의 반지름(t.r)으로 한다: 손잡이를 안 맞춰도 계산이 맞으면 정답
         const rr = t.r != null ? t.r : s.r;
         const v = s.value;
         // 도전(이름표 없음)에서는 식만 주고 수는 넣지 않는다. 지름 문항은 반지름부터 구하게 한다.
-        const hint = diam ? `지름이 ${rr * 2} cm이면 반지름은 ${rr * 2} ÷ 2 = ${labels === 'none' ? '?' : rr} cm예요. 원의 넓이 = 반지름 × 반지름 × 원주율이에요.`
-          : labels === 'none' ? '원의 넓이 = 반지름 × 반지름 × 원주율이에요.' : `원의 넓이 = 반지름 × 반지름 × 원주율 = ${rr} × ${rr} × ${PI}`;
+        const hint = diam ? '주어진 길이가 지름이에요. 넓이 식에는 지름이 아니라 반지름이 들어가요.' : '반지름을 두 번 곱했는지, 그다음 원주율 3.14를 곱했는지 차례로 살펴봐요.';
+        const h3 = `${diam ? `반지름 = ${rr * 2} ÷ 2 = ${rr} cm, ` : ''}${rr} × ${rr} = ${rr * rr}, ${rr * rr} × ${PI}를 계산해요.`;
         if (v == null) return { correct: false, incomplete: true, feedback: steps && entry1 === '' ? '① 반지름 × 반지름부터 계산해 첫째 칸에 써요.' : '넓이를 숫자판으로 입력해 보세요.', hint };
         if (same(v, t.area)) return { correct: true, feedback: `맞아요! ${diam ? `반지름은 ${rr * 2} ÷ 2 = ${rr} cm, ` : ''}${rr} × ${rr} × ${PI} = ${fmt(t.area)} (cm²)예요.` };
-        if (s.r !== rr && same(v, s.r * s.r * PI)) return { correct: false, feedback: `손잡이를 옮겨 ${s.r} cm로 계산했어요. 이 문제의 ${diam ? `지름은 ${rr * 2}` : `반지름은 ${rr}`} cm예요.`, hint };
-        if (same(v, 2 * rr * 2 * rr * PI)) return { correct: false, feedback: '지름을 두 번 곱했어요. 지름의 반인 반지름을 두 번 곱해요.', hint };
-        if (same(v, 2 * rr * PI)) return { correct: false, feedback: '원주(원의 둘레)를 구했어요. 넓이는 원주의 1/2에 반지름을 곱해요.', hint };
-        if (same(v, rr * PI)) return { correct: false, feedback: '직사각형의 가로(원주의 1/2)만 구했어요. 세로(반지름)도 곱해 보세요.', hint };
-        if (same(v, 2 * rr * 2 * rr)) return { correct: false, feedback: '지름 × 지름까지 했어요. 지름 말고 반지름을 두 번 곱하고 3.14도 곱해요.', hint };
-        if (same(v, rr * rr)) return { correct: false, feedback: '반지름 × 반지름까지 했어요. 원주율 3.14도 곱해요.', hint };
-        if (same(v, 2 * rr * rr * PI)) return { correct: false, feedback: '지름 × 반지름을 곱했어요. 세로도 가로의 반쪽도 반지름이라 반지름을 두 번 곱해요.', hint };
-        return { correct: false, feedback: '다시 계산해 볼까요? 반지름 × 반지름을 먼저 하고 3.14를 곱해요.', hint };
+        if (s.r !== rr && same(v, s.r * s.r * PI)) return { correct: false, feedback: `손잡이를 옮겨 ${s.r} cm로 계산했어요. 문제에 주어진 ${diam ? '지름' : '반지름'}으로 계산해요.`, hint, h3 };
+        if (same(v, 2 * rr * 2 * rr * PI)) return { correct: false, feedback: '지름을 두 번 곱했어요. 지름의 반인 반지름을 두 번 곱해요.', hint, h3 };
+        if (same(v, 2 * rr * PI)) return { correct: false, feedback: '원주(원의 둘레)를 구했어요. 넓이는 원주의 1/2에 반지름을 곱해요.', hint, h3 };
+        if (same(v, rr * PI)) return { correct: false, feedback: '직사각형의 가로(원주의 1/2)만 구했어요. 세로(반지름)도 곱해 보세요.', hint, h3 };
+        if (same(v, 2 * rr * 2 * rr)) return { correct: false, feedback: '지름 × 지름까지 했어요. 지름 말고 반지름을 두 번 곱하고 3.14도 곱해요.', hint, h3 };
+        if (same(v, rr * rr)) return { correct: false, feedback: '반지름 × 반지름까지 했어요. 원주율 3.14도 곱해요.', hint, h3 };
+        if (same(v, 2 * rr * rr * PI)) return { correct: false, feedback: '지름 × 반지름을 곱했어요. 세로도 가로의 반쪽도 반지름이라 반지름을 두 번 곱해요.', hint, h3 };
+        return { correct: false, feedback: '다시 계산해 볼까요? 반지름 × 반지름을 먼저 하고 3.14를 곱해요.', hint, h3 };
       }
 
       return {
@@ -398,27 +418,35 @@
           if (t.n != null) s.n = t.n;
           if (t.arranged != null) s.arranged = t.arranged;
           if (t.r != null) s.r = t.r;
-          if (t.findR != null) s.r = t.findR;
+          if (t.findR != null) { s.r = t.findR; if (pad) s.value = Math.round((t.area / PI) * 100) / 100; }
           if (t.area != null && t.findR == null) s.value = t.area;
           if (t.width) s.pick = t.width; else if (t.height) s.pick = t.height; else if (t.formula) s.pick = t.formula;
           setState(s);
         },
         check(t, opts) {
-          const r = judge(t);
+          const r = judge(t); delete r.h3;
           // 붙인 모양의 이름표(revealAfterCheck)는 맞힌 확인에서만 켠다 — 틀린 확인·힌트는 아무것도 드러내지 않는다
           if (r.correct && !(opts && opts.forHint)) { revealed = true; paintLabels(); }
           return r;
         },
-        hint(t) {
+        // 힌트 3단계: 1 개념(수 없음) / 2 틀린 단계 짚기 / 3 수를 넣은 풀이 한 단계
+        hint(t, opts) {
           t = t || {};
           const r = judge(t);
-          const why = t.formula ? '붙인 모양은 직사각형에 가까워요. 가로(원주의 1/2 = 반지름 × 원주율) × 세로(반지름)라서 넓이는 반지름 × 반지름 × 원주율이에요.'
-            : t.width || t.height ? '조각의 둥근 테두리(원주)는 위와 아래로 반씩 나뉘어 가로가 되고, 조각의 길이(중심에서 테두리까지)는 세로가 돼요.'
+          const why = t.formula ? '붙인 모양은 직사각형에 가까워요. 직사각형의 넓이는 가로 × 세로예요. 가로와 세로가 원의 어느 부분이었는지 떠올려 식으로 바꿔요.'
+            : t.width || t.height ? '조각의 둥근 테두리(원주)는 위와 아래로 반씩 나뉘고, 조각 하나의 길이는 원의 중심에서 테두리까지예요.'
               : t.arranged != null ? '원을 잘게 자를수록 엇갈려 붙인 모양이 직사각형에 더 가까워져요.'
-                : t.findR != null ? '넓이 ÷ 3.14 = 반지름 × 반지름이에요. 같은 수를 두 번 곱해 그 수가 되는 반지름을 찾아요.'
-                  : diam ? '넓이 식에는 지름이 아니라 반지름이 들어가요. 지름 ÷ 2로 반지름을 먼저 구해요.' : '원의 넓이 = 반지름 × 반지름 × 원주율이에요. 반지름을 두 번 곱한 뒤 3.14를 곱해요.';
-          if (r.correct) return { hint: why, correct: true };
-          return { hint: r.hint || why, correct: false };
+                : t.findR != null ? '넓이를 구할 때 한 계산을 거꾸로 해 보세요. 곱하기를 거꾸로 하면 나누기예요.'
+                  : '원의 넓이는 붙인 직사각형의 가로 × 세로예요. 가로와 세로가 원의 어느 부분이었는지 떠올려요.';
+          const lv = hintLevel(opts);
+          if (r.correct) return { hint: why, correct: true, level: 1 };
+          if (lv === 1 || !r.hint) return { hint: why, correct: false, level: 1 };
+          if (lv >= 3) {
+            const h3 = r.h3 || (t.formula ? '(원주의 1/2) × 반지름 = (반지름 × 원주율) × 반지름 = 반지름 × 반지름 × 원주율이에요.'
+              : t.area != null && t.findR == null ? `${t.r} × ${t.r} = ${t.r * t.r}, ${t.r * t.r} × ${PI}를 계산해요.` : t.findR != null ? `${fmt(t.area)} ÷ ${PI} = ${fmt(t.area / PI)}이고, 같은 수를 두 번 곱해 ${fmt(t.area / PI)}이 되는 수를 찾아요.` : r.hint);
+            return { hint: h3, correct: false, level: 3 };
+          }
+          return { hint: r.hint, correct: false, level: 2 };
         },
         wrongAnswer(t) {
           t = t || {};
@@ -438,7 +466,7 @@
             // 넓이를 둘레 식(반지름 × 2 × 3.14)으로 거꾸로 푸는 오개념
             let rr = Math.max(1, Math.min(10, Math.round(t.area / (2 * PI))));
             if (rr === t.findR) rr = t.findR < 10 ? t.findR + 1 : t.findR - 1;
-            return Object.assign(s, { r: rr });
+            return Object.assign(s, pad ? { r: rr, value: Math.round((t.area / PI) * 100) / 100 } : { r: rr });
           }
           if (t.area != null) {
             const rr = t.r != null ? t.r : s.r;

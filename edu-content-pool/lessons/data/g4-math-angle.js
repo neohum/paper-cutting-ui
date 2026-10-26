@@ -38,7 +38,8 @@ PaperLessons.register({
       activities: [
         {
           id: 'a1', title: '활동 1. 오른쪽 0에서 시작하는 눈금으로 재고 그리기', minutes: 10, tool: 'protractor',
-          task: '고정 띠가 각도기 오른쪽 0에 맞춰져 있어요. 그 0에서 시작하는 눈금(이 각도기에서는 안쪽 눈금)을 읽으며 각을 만들고, 이미 벌어진 각은 재어 봅시다.',
+          // 과제 글은 모든 단계에 같으므로 짧게 쓴다(쉬움은 교구 안 안내 글이 '어느 줄'을 따로 알려 준다)
+          task: '고정 띠가 맞춰진 오른쪽 0부터 눈금을 세어 각을 만들고, 벌어진 각을 재어 봅시다.',
           teacher: '"각도기의 중심은 어디에 맞추나요? 밑금은 어느 변에 맞추나요? 고정 띠가 맞춰진 0은 어느 줄의 0인가요?" 만들기 → 재기 → 만들기 순서로, 띠가 지나는 눈금을 0부터 10씩 세어 읽게 한다. 만들기 전에 예각인지 둔각인지 먼저 예상하게 한다(예상과 다르면 눈금을 잘못 읽은 것).',
           // 기본: 각도 숫자와 각의 이름을 모두 숨긴다(이름이 보이면 예상이 의미 없다). 시작은 10°(0°이면 고정 띠가 가려진다).
           options: { base: 'right', start: 10 },
@@ -51,6 +52,10 @@ PaperLessons.register({
             { prompt: '45°인 각을 만들어 보세요.', target: { angle: 45 }, difficulty: 0.16,
               predict: { q: '45°는 어떤 각일까요?', options: ['예각(직각보다 작아요)', '둔각(직각보다 커요)'], answer: 0 } },
             { prompt: '복숭아색 띠가 만든 각을 재어 보세요. 눈금을 읽고 위의 단추로 각도를 정하세요.', toolOptions: { measure: true }, state: { angle: 70 }, target: { angle: 70 }, difficulty: 0.24 },
+            // 변의 길이 오개념을 화면에서 겪어 보는 문항: 띠만 길어진 같은 각
+            { prompt: '이번에는 띠가 더 긴 각이에요. 이 각을 재어 보세요.', toolOptions: { measure: true, armLength: 1.15 }, state: { angle: 70 }, target: { angle: 70 }, difficulty: 0.22,
+              predict: { q: '띠가 길어진 이 각은 앞에서 잰 각과 견주면 어떨까요?', options: ['더 커요', '같아요', '더 작아요'], answer: 1 },
+              conclude: '띠(변)의 길이가 달라도 두 변이 벌어진 정도가 같으면 각의 크기는 같아요.' },
             { prompt: '120°인 각을 만들어 보세요.', target: { angle: 120 }, difficulty: 0.24,
               predict: { q: '120°는 어떤 각일까요?', options: ['예각(직각보다 작아요)', '둔각(직각보다 커요)'], answer: 1 },
               conclude: '안쪽 눈금 0부터 세면 120이 직각보다 넓은 쪽에 있어요. 예상한 각의 종류와 맞는지 보면 반대쪽 눈금을 읽는 실수를 잡을 수 있어요.' },
@@ -59,7 +64,7 @@ PaperLessons.register({
         },
         {
           id: 'a2', title: '활동 2. 왼쪽 0에서 시작하는 눈금으로 재고 그리기', minutes: 9, tool: 'protractor',
-          task: '이번에는 고정 띠가 각도기 왼쪽 0에 맞춰져 있어요. 왼쪽 0이 어느 줄의 0인지 먼저 손가락으로 짚고, 그 0에서 시작하는 눈금을 읽으며 각을 만들고 재어 봅시다.',
+          task: '이번에는 고정 띠가 왼쪽 0에 맞춰져 있어요. 그 0을 먼저 손가락으로 짚고, 거기서부터 세어 각을 만들고 재어 봅시다.',
           teacher: '"고정 띠가 맞춰진 0은 어느 줄의 0인가요?" 시작 전에 모두 0을 손가락으로 짚게 한다. 60°를 120°로 만드는 학생은 교구가 바른 0과 눈금 줄을 반짝여 보여 준다. 실물 각도기는 회사마다 안쪽·바깥쪽 눈금 배치가 다를 수 있으므로 "왼쪽이면 바깥쪽"처럼 외우지 않게 한다.',
           options: { base: 'left', start: 10 },
           levels: {
@@ -111,7 +116,8 @@ PaperLessons.register({
   worksheet: {
     title: '각도 재기와 예각·둔각',
     items: [
-      { type: 'figure', prompt: '각도기의 눈금을 읽어 각도를 쓰세요.', tool: 'protractor', figures: [
+      // options.wide — 한 줄에 두 그림씩 크게 그린다(세 칸에 나누면 눈금 숫자가 1mm 남짓이라 종이에서 읽을 수 없었다)
+      { type: 'figure', prompt: '각도기의 눈금을 읽어 각도를 쓰세요.', tool: 'protractor', options: { wide: true }, figures: [
         { state: { angle: 40 }, caption: '(         )°' }, { state: { angle: 110 }, caption: '(         )°' }, { options: { base: 'left' }, state: { angle: 70 }, caption: '(         )°' }], answer: '40°, 110°, 70°' },
       { type: 'figure', prompt: '예각, 직각, 둔각 중 어느 것인지 쓰세요.', tool: 'protractor', options: { showProtractor: false }, figures: [
         { state: { angle: 30 }, caption: '(            )' }, { state: { angle: 90 }, caption: '(            )' }, { state: { angle: 145 }, caption: '(            )' }], answer: '예각, 직각, 둔각' },

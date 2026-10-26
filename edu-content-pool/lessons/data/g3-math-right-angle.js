@@ -8,7 +8,7 @@ PaperLessons.register({
   grade: 3, subject: '수학', unitTitle: '2. 평면도형',
   title: '각과 직각 찾기',
   objective: '각의 꼭짓점과 변을 알고, 직각을 찾거나 만들어 직각보다 작은 각과 큰 각을 구별할 수 있다.',
-  standards: ['[4수03-01]', '[4수03-02]'],
+  standards: ['[4수03-02]'],
   minutes: 40,
   formats: ['chromebook', 'projector', 'print'],
   safety: [
@@ -68,7 +68,7 @@ PaperLessons.register({
         {
           id: 'a3', title: '활동 3. 삼각자를 대어 직각 찾기', minutes: 7, tool: 'rightangle',
           options: { mode: 'judge' },
-          task: '놓여 있는 각에 삼각자를 대 보고, 직각인지 직각보다 작은지 큰지 골라 봅시다. 비스듬히 놓인 각도 있어요.',
+          task: '"삼각자 대 보기"를 눌러 각에 삼각자를 대 본 뒤, 직각인지 직각보다 작은지 큰지 골라 봅시다. 비스듬히 놓인 각도 있어요.',
           teacher: '"비스듬히 놓인 각도 직각일 수 있을까요?" 기울어진 직각(3번)을 "직각이 아니다"라고 고르는 학생이 많다. 놓인 방향과 관계없이 삼각자의 직각과 꼭 맞으면 직각이라는 것을 짚는다.',
           levels: { easy: {}, base: {}, challenge: {} },
           items: [
@@ -91,6 +91,7 @@ PaperLessons.register({
               predict: { q: '변이 긴 가가 더 큰 각일까요?', options: ['네, 가가 더 커요', '변의 길이와는 관계없어요'], answer: 1 },
               conclude: '각의 크기는 변의 길이가 아니라 두 변이 벌어진 정도로 정해져요.' },
             { prompt: '이번에는 어느 각이 더 클까요?', toolOptions: { pair: [{ angle: 60, arm: 0.5 }, { angle: 60, arm: 1 }] }, target: { bigger: 'same' }, difficulty: 0.28 },
+            { extra: true, prompt: '변이 짧은 나가 더 클 수도 있을까요? 겹쳐 보고 골라요.', toolOptions: { pair: [{ angle: 80, arm: 1 }, { angle: 95, arm: 0.5 }] }, target: { bigger: '나' }, difficulty: 0.3 },
           ],
         },
       ],
@@ -100,6 +101,7 @@ PaperLessons.register({
       teacher: '"교실에서 직각을 세 군데 찾아 삼각자를 대 보세요." 출구 질문에서 기울어진 직각과 변의 길이 문항을 틀린 학생을 확인한다.',
       exitTicket: [
         { type: 'tool', tool: 'rightangle', options: { mode: 'judge', turn: 60 }, state: { angle: 90 }, prompt: '비스듬히 놓인 이 각은 무엇일까요? 삼각자를 대 보고 골라요.', target: { judge: 'right' }, difficulty: 0.28 },
+        { type: 'tool', tool: 'rightangle', options: { mode: 'judge', turn: 20 }, state: { angle: 110 }, prompt: '이 각은 직각보다 큰가요, 작은가요? 삼각자를 대 보고 골라요.', target: { judge: 'more' }, difficulty: 0.24 },
         { type: 'choice', prompt: '각에서 두 변이 만나는 점을 무엇이라고 하나요?', options: ['꼭짓점', '변', '직각'], answer: 0, difficulty: 0.08,
           explain: '각에서 두 변이 만나는 점을 꼭짓점이라고 해요.' },
         { type: 'choice', prompt: '종이 띠를 더 긴 것으로 바꾸고 벌린 정도는 그대로 두었어요. 각의 크기는 어떻게 될까요?', options: ['더 커져요', '더 작아져요', '그대로예요'], answer: 2, difficulty: 0.24,
@@ -115,10 +117,10 @@ PaperLessons.register({
         { state: { angle: 60 }, caption: '' }], answer: '할핀 자리가 꼭짓점, 두 띠가 변' },
       { type: 'figure', prompt: '삼각자를 대어 보고 직각인 것에 ○표 하세요.', tool: 'rightangle', options: { mode: 'judge' }, figures: [
         { state: { angle: 90 }, caption: '가' }, { options: { turn: 30 }, state: { angle: 80 }, caption: '나' }, { options: { turn: 40 }, state: { angle: 90 }, caption: '다' }], answer: '가, 다' },
-      { type: 'figure', prompt: '두 각 중 더 큰 각의 기호에 ○표 하세요.', tool: 'rightangle', options: { mode: 'compare', pair: [{ angle: 35, arm: 1 }, { angle: 75, arm: 0.45 }] }, figures: [
-        { caption: '' }], answer: '나 — 변의 길이가 아니라 벌어진 정도를 본다' },
+      { type: 'figure', prompt: '두 각 중 더 큰 각의 기호에 ○표 하세요.', tool: 'rightangle', options: { mode: 'judge' }, figures: [
+        { options: { arm: 1 }, state: { angle: 35 }, caption: '가' }, { options: { arm: 0.45 }, state: { angle: 75 }, caption: '나' }], answer: '나 — 변의 길이가 아니라 벌어진 정도를 본다' },
       { type: 'table', prompt: '교실에서 직각인 곳을 찾아 써 보세요.', columns: ['찾은 곳', '삼각자를 대 보았나요?'], rows: 3, answer: '공책·책·칠판·창틀·문 모서리 등' },
-      { type: 'draw', prompt: '자를 사용하여 직각을 하나, 직각보다 큰 각을 하나 그려 보세요.', answer: '삼각자의 직각을 이용해 직각을 그렸는지 확인' },
+      { type: 'draw', prompt: '삼각자를 사용하여 직각을 하나, 직각보다 큰 각을 하나 그려 보세요.', answer: '삼각자의 직각을 이용해 직각을 그렸는지 확인' },
     ],
     easy: { note: '각: 한 점에서 그은 두 반직선으로 이루어진 도형. 꼭짓점: 두 변이 만나는 점. 직각: 종이를 두 번 접었을 때 생기는 반듯한 각(삼각자의 모서리와 꼭 맞아요). 비스듬히 놓여 있어도 삼각자와 꼭 맞으면 직각이에요.' },
   },
@@ -126,5 +128,5 @@ PaperLessons.register({
     easy: '각을 만들 때 지금 각의 이름(직각, 직각보다 작은 각, 직각보다 큰 각)이 글자로 보여요. 띠는 크게 딱딱 움직여요.',
     challenge: '띠가 조금씩 움직여 직각을 정확히 맞춰야 하고, 더 많이 기울어진 각을 판단하는 추가 문항이 있어요.',
   },
-  teacherNotes: '3학년은 각도(°)를 배우지 않으므로 교구도 숫자 대신 "직각보다 작은 각·큰 각"으로 말한다(예각·둔각이라는 낱말은 4학년). 오개념 1) 비스듬히 놓인 직각은 직각이 아니라고 여긴다 — 활동 3의 3번과 출구 질문에서 확인하고, 삼각자를 돌려 대어 보게 한다. 2) 변이 길면 각이 크다 — 활동 4와 활동지 3번에서 확인하고, 실제 띠를 겹쳐 보게 한다. 3) 꼭짓점이 두 개 이상인 줄 안다 — 각은 꼭짓점이 하나다. 디지털 삼각자는 늘 꼭짓점에 정확히 대어지므로, 실제 삼각자를 꼭짓점에 맞추는 연습을 함께 한다.',
+  teacherNotes: '3학년은 각도(°)를 배우지 않으므로 교구도 숫자 대신 "직각보다 작은 각·큰 각"으로 말한다(예각·둔각이라는 낱말은 4학년). 오개념 1) 비스듬히 놓인 직각은 직각이 아니라고 여긴다 — 활동 3의 3번과 출구 질문에서 확인하고, 삼각자를 돌려 대어 보게 한다. 2) 변이 길면 각이 크다 — 활동 4와 활동지 3번에서 확인하고, 화면의 "겹쳐 보기"와 실제 띠를 겹쳐 보게 한다. 활동 3은 "삼각자 대 보기"를 누르기 전에는 확인이 시도로 세어지지 않는다. 3) 꼭짓점이 두 개 이상인 줄 안다 — 각은 꼭짓점이 하나다. 디지털 삼각자는 늘 꼭짓점에 정확히 대어지므로, 실제 삼각자를 꼭짓점에 맞추는 연습을 함께 한다.',
 });

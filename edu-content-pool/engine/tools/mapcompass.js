@@ -50,6 +50,11 @@
     return DIRS[Math.round(K.norm(a - rr) / 45) % 8];
   };
   const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
+  // 화면 읽기용 자리 이름: 지도 위의 자리만 말한다(방위로 말하면 '학교의 북서쪽 자리'처럼 답과 기준 장소를 함께 알려 준다)
+  const ROWS = { 82: '위', 172: '가운데', 262: '아래' }; const COLS = { 92: '왼쪽', 182: '가운데', 272: '오른쪽' };
+  const spotOf = (p) => (p.x === 182 && p.y === 172 ? '지도 한가운데' : `지도 ${COLS[p.x]} ${ROWS[p.y]}`);
+  // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 장소 이름·방위 낱말·빈 터 번호를 말하지 않는다 — 검사기가 '어디에서'의 '서'까지 잡으므로 방위 글자를 아예 쓰지 않는다), 2 = 한 번 틀린 뒤 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
+  const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
   // 지도 기호(잉크선). 인쇄해도 그대로 검게 보인다.
   function glyph(kit, parent, sym, s) {
@@ -129,8 +134,8 @@
       let lotNo = 0;
       const lotLabel = {}; // 빈 터 이름 → 화면 읽기용 이름(번호 + 학교에서 본 자리)
       for (const p of PLACES) {
-        if (hidden.has(p.name)) { lotNo++; lotLabel[p.name] = `빈 터 ${CIRCLED[lotNo - 1]}${p.name === '학교' ? '' : `(학교의 ${dirOf(byName['학교'], p)}쪽 자리)`}`; }
-        const g = kit.el('g', { class: 'mc-bld', 'aria-label': hidden.has(p.name) ? lotLabel[p.name] : (showNames ? p.name : '건물') }, B);
+        if (hidden.has(p.name)) { lotNo++; lotLabel[p.name] = `빈 터 ${CIRCLED[lotNo - 1]}(${spotOf(p)})`; }
+        const g = kit.el('g', { class: 'mc-bld', 'aria-label': hidden.has(p.name) ? lotLabel[p.name] : (showNames ? `${p.name}(${spotOf(p)})` : `건물(${spotOf(p)})`) }, B);
         if (hidden.has(p.name)) {
           kit.el('rect', { x: p.x - 28, y: p.y - 22, width: 56, height: 44, rx: 8, fill: 'rgba(255,253,249,0.7)', stroke: '#8C7F6E', 'stroke-dasharray': '5 4', 'stroke-width': 1.6, class: 'mc-lot' }, g);
           kit.el('circle', { cx: p.x, cy: p.y + 2, r: 15, fill: 'none', stroke: '#8C7F6E', 'stroke-dasharray': '3 3', 'stroke-width': 1.4 }, g);
@@ -160,7 +165,8 @@
         return g;
       };
       // 도착 건물 표시는 markTarget일 때만 — 없으면 이름이나 범례로 도착 건물을 찾아야 한다
-      const drawHighlights = () => { while (HL.firstChild) HL.removeChild(HL.firstChild); if (from) ring(from, 'from'); if (to && o.markTarget) ring(to, 'to'); };
+      // 빈 터 채우기(place)에서는 기준 장소를 스스로 찾는 것이 목표라 '여기서' 표시는 markFrom일 때만(쉬움) 그린다
+      const drawHighlights = () => { while (HL.firstChild) HL.removeChild(HL.firstChild); if (from && (mode !== 'place' || o.markFrom)) ring(from, 'from'); if (to && o.markTarget) ring(to, 'to'); };
 
       // ---- 방위표 ----
       // 좁은 칸에서는 방위표를 지도 아래로 옮기고 키운다. 안쪽 그림은 늘 (440,100) 둘레에 그리고, 바깥 묶음만 옮긴다.
@@ -380,6 +386,10 @@
       }
 
       const map = (obj) => { const r = {}; for (const n in obj) r[n] = obj[n].sym; return r; };
+      // 빈 터 채우기: 기준 장소에서 그 방위에 있는 빈 터는 모두 맞는 자리다(정답 자리를 하나로 못박으면, 바르게 읽은 학생을 틀렸다고 한다)
+      const okLots = (t) => (mode === 'place' && t && t.from && t.direction && byName[t.from] ? Object.keys(slots).filter((n) => dirOf(byName[t.from], byName[n]) === t.direction) : null);
+      const placedOk = (t, name) => { const ok = okLots(t); const sym = (t.place || {})[name]; if (!ok) return null; return ok.some((n) => assign[n] && assign[n].sym === sym) ? ok.find((n) => assign[n] && assign[n].sym === sym) : null; };
+      let hinting = false;
       function state() {
         if (mode === 'direction') return { mode, dir: dirIdx == null ? null : DIRS[dirIdx], from: from ? from.name : null, to: to ? to.name : null };
         return { mode, [mode]: map(assign) };
@@ -423,7 +433,7 @@
           const want = t.legend || t.place;
           if (want) {
             const names = Object.keys(want); const n0 = names[0];
-            if (mode === 'place') { const other = Object.keys(slots).find((k) => k !== n0 && !names.includes(k)); return other ? { place: { [other]: want[n0] } } : null; }
+            if (mode === 'place') { const ok = okLots(t) || []; const other = Object.keys(slots).find((k) => k !== n0 && !names.includes(k) && !ok.includes(k)); return other ? { place: { [other]: want[n0] } } : null; }
             if (names.length > 1) return { legend: Object.assign({}, want, { [names[0]]: want[names[1]], [names[1]]: want[names[0]] }) };
             const alt = stickers.find((sk) => sk.sym !== want[n0]); return alt ? { legend: { [n0]: alt.sym } } : null;
           }
@@ -444,9 +454,13 @@
           const want = t.legend || t.place;
           if (want) {
             const cur = map(assign); const names = Object.keys(want);
-            const wrong = names.filter((n) => cur[n] !== want[n]);
-            if (!wrong.length) { stickers.forEach((sk) => { if (sk.at && names.includes(sk.at)) bounce(sk, slots[sk.at]); }); return { correct: true, feedback: mode === 'legend' ? '범례를 알맞게 완성했어요! 이제 지도를 읽을 수 있어요.' : '알맞은 곳에 기호를 붙였어요!' }; }
-            stickers.forEach((sk) => { if (sk.at && wrong.includes(sk.at)) shake(sk, slots[sk.at]); });
+            const wrong = names.filter((n) => cur[n] !== want[n] && !(names.length === 1 && placedOk(t, n)));
+            if (!wrong.length) {
+              if (!hinting) stickers.forEach((sk) => { if (sk.at && (names.includes(sk.at) || (okLots(t) || []).includes(sk.at))) bounce(sk, slots[sk.at]); });
+              return { correct: true, feedback: mode === 'legend' ? '범례를 알맞게 완성했어요! 이제 지도를 읽을 수 있어요.' : t.from && t.direction ? `알맞은 곳에 기호를 붙였어요! ${t.from}에서 보았을 때 ${t.direction}쪽이에요.` : '알맞은 곳에 기호를 붙였어요!' };
+            }
+            if (!Object.keys(cur).length) return { correct: false, incomplete: true, feedback: mode === 'legend' ? '기호 스티커를 범례 빈칸에 붙여 보세요.' : '기호 스티커를 지도의 빈 터에 붙여 보세요.', hint: mode === 'legend' ? '기호 모양을 보고 그곳에서 하는 일을 떠올려요.' : '범례에서 기호를 먼저 찾아요.' };
+            if (!hinting) stickers.forEach((sk) => { if (sk.at && wrong.includes(sk.at)) shake(sk, slots[sk.at]); });
             const n0 = wrong[0];
             const empty = wrong.filter((n) => !cur[n]).length;
             // 찾는 기호가 다른 자리에 붙어 있는가
@@ -470,9 +484,9 @@
           if (t.direction) {
             const f = t.from ? byName[t.from] : from; const tt = t.to ? byName[t.to] : to;
             const lead = f && tt ? `${f.name}에서 보면 ${josa(tt.name, '은', '는')}` : '';
-            if (dirIdx == null) return { correct: false, feedback: '바늘이나 화살표를 돌려 방위를 골라 보세요.', hint: '방위표의 빨간 바늘 끝이 가리키는 쪽이 내가 고른 방위예요.' };
-            if (DIRS[dirIdx] === t.direction) { cheer(); return { correct: true, feedback: `맞아요! ${lead ? lead + ' ' : ''}${t.direction}쪽이에요.` }; }
-            wobble(R, rcS);
+            if (dirIdx == null) return { correct: false, incomplete: true, feedback: '바늘이나 화살표를 돌려 방위를 골라 보세요.', hint: '방위표의 빨간 바늘 끝이 가리키는 쪽이 내가 고른 방위예요.' };
+            if (DIRS[dirIdx] === t.direction) { if (!hinting) cheer(); return { correct: true, feedback: `맞아요! ${lead ? lead + ' ' : ''}${t.direction}쪽이에요.` }; }
+            if (!hinting) wobble(R, rcS);
             const want = DIRS.indexOf(t.direction); const diff = Math.abs(((dirIdx - want) % 8 + 8) % 8);
             const hintBase = RR ? '방위표의 북쪽(빨간 끝)을 먼저 찾아요. 이 지도는 위쪽이 북쪽이 아니에요. 방위표를 그대로 출발 건물에 옮겨 놓았다고 생각해요.'
               : f && tt ? `${f.name}에 방위표를 올려놓았다고 생각하고, ${josa(tt.name, '이', '가')} 위(북)·아래(남)·오른쪽(동)·왼쪽(서) 중 어디로 치우쳤는지 보세요.` : '지도의 위쪽이 북쪽, 오른쪽이 동쪽이에요.';
@@ -487,6 +501,21 @@
             return { correct: false, feedback: `지금은 ${mineSay}을 골랐어요. 다시 생각해 볼까요?`, hint: hintBase };
           }
           return { correct: false, feedback: '확인할 문제가 없어요.' };
+        },
+        // 새 힌트 계약: 1단계는 늘 열리고 장소 이름·방위·빈 터 번호를 말하지 않는다. 지금 상태가 맞아도 알려 주지 않는다.
+        hint(t, opts) {
+          t = t || {}; const lv = hintLevel(opts);
+          const concept = mode === 'legend' ? '기호는 그곳이 하는 일을 간단한 그림으로 나타낸 약속이에요. 스티커 모양을 보고 그곳이 무슨 일을 하는 곳인지 떠올려요.'
+            : mode === 'place' ? '먼저 문제 속 기준 장소(어느 곳을 기준으로 보는지)를 찾아 손가락을 올려요. 그다음 방위표를 그 장소에 옮겨 놓았다고 생각하고, 범례를 보고 붙일 기호를 찾아요.'
+              : RR ? '방위표가 있으면 지도의 위쪽이 아니라 방위표의 빨간 끝을 따라요. 방위표를 출발 건물에 옮겨 놓았다고 생각해요.'
+                : '출발 건물에 방위표를 올려놓았다고 생각해요. 방위표의 빨간 끝이 가리키는 쪽부터 차례로 짚어 보고, 도착 건물이 어느 쪽으로 치우쳤는지 봐요.';
+          hinting = true;
+          try {
+            const r = this.check(t);
+            if (lv === 1 || r.correct) return { hint: concept, level: 1 };
+            if (lv === 2) return { hint: r.feedback || concept, level: 2 };
+            return { hint: r.hint || r.feedback || '', level: 3 };
+          } finally { hinting = false; }
         },
         async demo(t) {
           if (t && t.direction) {

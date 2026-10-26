@@ -58,7 +58,7 @@ PaperLessons.register({
           id: 'a2', title: '활동 2. 여덟 방위로 찾기', minutes: 8, tool: 'mapcompass',
           options: { mode: 'direction', points: 8 },
           task: '북쪽과 동쪽 사이처럼, 두 방위 사이의 방위까지 써서 더 정확하게 나타내요. 이번 지도에는 건물 이름이 없어요. 범례에서 기호를 찾아 건물을 알아내요.',
-          teacher: '"북쪽과 동쪽 사이는 무엇이라고 부를까요?" 8방위는 북·남을 앞에 붙여 북동, 남동, 남서, 북서라고 부른다는 것을 확인한다. 기본 단계부터는 지도에 건물 이름이 없어 범례로 기호를 읽어야 도착 건물을 찾을 수 있다(기호·범례 활용). 도전 추가 문항은 방위표가 돌아간 지도다.',
+          teacher: '"북쪽과 동쪽 사이는 무엇이라고 부를까요?" 8방위는 북·남을 앞에 붙여 북동, 남동, 남서, 북서라고 부른다는 것을 확인한다. 기본 단계부터는 지도에 건물 이름이 없어 범례로 기호를 읽어야 도착 건물을 찾을 수 있다(기호·범례 활용). 마지막 문항은 방위표가 돌아간 지도다(모든 단계).',
           levels: {
             easy: { roseLabels: 'all', markTarget: true },
             base: { roseLabels: 'main', names: false },
@@ -67,10 +67,11 @@ PaperLessons.register({
           items: [
             { prompt: '학교에서 보았을 때 우체국은 어느 쪽에 있나요?', target: { direction: '북동', from: '학교', to: '우체국' }, difficulty: 0.1 },
             { prompt: '학교에서 보았을 때 소방서는 어느 쪽에 있나요?', target: { direction: '남서', from: '학교', to: '소방서' }, difficulty: 0.12 },
-            { prompt: '도서관에서 보았을 때 공원은 어느 쪽에 있나요?', target: { direction: '북동', from: '도서관', to: '공원' }, difficulty: 0.15 },
+            { extra: true, prompt: '도서관에서 보았을 때 공원은 어느 쪽에 있나요?', target: { direction: '북동', from: '도서관', to: '공원' }, difficulty: 0.15 },
             { prompt: '병원에서 보았을 때 기차역은 어느 쪽에 있나요?', target: { direction: '남동', from: '병원', to: '기차역' }, difficulty: 0.15,
               conclude: '지도에 이름이 없어도 범례로 기호의 뜻을 찾으면 장소와 방위를 읽을 수 있어요.' },
-            { extra: true, prompt: '이 지도는 방위표의 북쪽이 오른쪽을 가리켜요. 학교에서 보았을 때 시청은 어느 쪽인가요?', toolOptions: { roseRotate: 90, roseLabels: 'north', names: true }, target: { direction: '서', from: '학교', to: '시청' }, difficulty: 0.2,
+            // 방위표가 돌아간 지도: '지도의 위쪽은 늘 북쪽' 오개념을 모두가 한 번은 만나게 기본 문항으로 둔다
+            { prompt: '이 지도는 방위표의 북쪽이 오른쪽을 가리켜요. 학교에서 보았을 때 시청은 어느 쪽인가요?', toolOptions: { roseRotate: 90, roseLabels: 'north', names: true }, target: { direction: '서', from: '학교', to: '시청' }, difficulty: 0.2,
               predict: { q: '이 지도에서 위쪽은 어느 방위일까요?', options: ['북쪽', '서쪽', '동쪽'], answer: 1 },
               conclude: '방위표가 있으면 지도의 위쪽이 아니라 방위표의 북쪽을 따라요.' },
           ],
@@ -92,20 +93,22 @@ PaperLessons.register({
         },
         {
           id: 'a4', title: '활동 4. 방위와 기호로 빈 터 채우기', minutes: 7, tool: 'mapcompass', pair: true,
-          // 빈 터 4곳 가운데 소방서 자리는 어느 문항의 답도 아니다 — 기준 장소를 학교로 착각하면 그곳에 붙이게 되는 함정 자리.
-          // 불꽃 스티커도 함께 나와 기본 단계에도 방해 스티커가 하나 있다.
+          // 빈 터 4곳 가운데 경찰서 자리는 어느 문항의 답도 아니다 — 2번(시청의 서쪽)을 학교 기준으로 읽으면 그곳에 붙이게 되는 함정 자리.
+          // 방패 스티커도 함께 나와 기본 단계에도 방해 스티커가 하나 있다. 각 문항은 기준 장소에서 그 방위에 빈 터가 하나뿐이다.
+          // '여기서' 표시는 쉬움에서만 — 기준 장소를 스스로 찾는 것이 이 활동의 목표다.
           options: { mode: 'place', hidden: ['병원', '경찰서', '공원', '소방서'] },
           task: '설명을 읽고 범례에서 기호를 찾아, 지도의 알맞은 빈 터(①~④)에 붙여요. 먼저 "어디에서 보았을 때"인지 기준 장소를 찾아요.',
-          teacher: '짝이 방위로 설명하고 다른 짝이 스티커를 붙이게 한 뒤 역할을 바꾼다. "어디에서 보았을 때"를 꼭 넣어 말하게 한다. 2·3번은 기준 장소가 학교가 아니다.',
+          teacher: '짝이 방위로 설명하고 다른 짝이 스티커를 붙이게 한 뒤 역할을 바꾼다. "어디에서 보았을 때"를 꼭 넣어 말하게 한다. 2·3번은 기준 장소가 학교가 아니다. 2번을 학교 기준으로 읽으면 경찰서 자리에 붙인다.',
           levels: {
-            easy: { roseLabels: 'all' },
+            easy: { roseLabels: 'all', markFrom: true },
             base: { roseLabels: 'main' },
             challenge: { roseLabels: 'north', extra: ['우체국', '기차역'] },
           },
           items: [
-            { prompt: '학교의 북서쪽에 병원이 있어요. 병원 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 병원: 'cross' }, from: '학교', direction: '북서' }, difficulty: 0.08 },
-            { prompt: '시청의 남서쪽에 경찰서가 있어요. 경찰서 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 경찰서: 'shield' }, from: '시청', direction: '남서' }, difficulty: 0.22,
-              predict: { q: '이 문제에서 방위를 따질 기준 장소는 어디인가요?', options: ['학교', '시청', '경찰서'], answer: 1 } },
+            { prompt: '학교의 남서쪽에 소방서가 있어요. 소방서 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 소방서: 'fire' }, from: '학교', direction: '남서' }, difficulty: 0.08 },
+            { prompt: '시청의 서쪽에 병원이 있어요. 병원 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 병원: 'cross' }, from: '시청', direction: '서' }, difficulty: 0.22,
+              predict: { q: '이 문제에서 방위를 따질 기준 장소는 어디인가요?', options: ['학교', '시청', '병원'], answer: 1 },
+              conclude: '방위는 "어디에서 보았을 때"에 따라 달라져요. 학교의 서쪽과 시청의 서쪽은 다른 곳이에요.' },
             { prompt: '도서관의 북동쪽에 공원이 있어요. 공원 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 공원: 'tree' }, from: '도서관', direction: '북동' }, difficulty: 0.18 },
           ],
         },

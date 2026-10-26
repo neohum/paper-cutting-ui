@@ -45,3 +45,7 @@ h3 { margin: 12px 0 4px; font-size: 1em; }
 /* 단계 바꿈: 한 줄 요약과 학생 칸의 ↺횟수 */
 .t-movesline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 8px 0; padding: 8px 12px; border-radius: 12px; background: var(--pc-buttercup-light); }
 .t-moves { font-weight: 700; color: var(--pc-buttercup-dark); cursor: help; }
+
+/* 못 푼 문항: 닫힘(시도를 다 씀)·넘김(학생이 넘김). 색만이 아니라 글자로도 구분한다 */
+.t-unsolved { display: inline-flex; align-items: center; padding: 2px 8px; margin: 1px; border-radius: 999px; background: var(--pc-buttercup-light); color: var(--pc-buttercup-dark); font-weight: 700; font-size: 0.85em; white-space: nowrap; }
+.t-unsolved.is-closed { background: var(--pc-rose-light); color: var(--pc-rose-dark); }

@@ -255,14 +255,20 @@
           return out({ correct: false, feedback: '다시 세어 볼까요? 왼쪽 끝과 오른쪽 끝이 어느 눈금에 닿았는지 먼저 보세요.', hint: `왼쪽 끝 ${tickText(s)}에서 오른쪽 끝 ${tickText(e)}까지 1cm 칸을 하나씩 세어요.` });
         },
         // 힌트 단추: 양 끝 눈금 수·길이를 말하지 않고, 지금 실수의 까닭과 세는 방법만 알려 준다
-        hint(t) {
+        hint(t, opts) {
           const want = Math.round(t.length); const s = r1(start); const e = r1(start + L);
           const needZero = !!t.zero && !broken && !readOnly;
           const approx = t.approx || o.approx;
+          // 힌트 단계(새 계약): 1 = 방법만(시도 전에도), 2 = 지금 실수의 까닭, 3 = 칸 세기 한 걸음(양 끝 눈금, 길이는 말하지 않음)
+          const lvWant = opts && Number.isInteger(opts.level) ? opts.level : 1;
+          const att = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
+          const lv = Math.max(1, Math.min(3, lvWant, att == null ? 3 : att >= 2 ? 3 : att >= 1 ? 2 : 1));
           if (!onRuler(start)) return { hint: '띠 전체가 자의 눈금 위에 올라와야 잴 수 있어요. 띠를 자 위로 옮겨요.' };
           if (needZero && s !== 0) return { hint: '0에 맞추면 끝 눈금의 수가 바로 길이가 돼요. 왼쪽 끝 세모를 0 눈금 선에 맞춰요.' };
-          if (read == null) return { hint: approx ? '끝이 닿은 곳에서 더 가까운 긴 눈금을 찾아요. 그 수 앞에 "약"을 붙여 골라요.' : '왼쪽 끝에서 오른쪽 끝까지 1cm 칸을 하나씩 짚으며 세어 보고 골라요.' };
           if (read === want) return { hint: '알맞은 길이를 골랐어요.', correct: true };
+          if (lv <= 1) return { hint: approx ? '끝이 두 긴 눈금 사이에 있으면 어느 쪽 긴 눈금에 더 가까운지 보고 그 수 앞에 "약"을 붙여요.' : '길이는 1cm 칸이 몇 개인지예요. 왼쪽 끝이 닿은 눈금에서 오른쪽 끝까지 칸을 하나씩 짚으며 세어요.', correct: false };
+          if (lv >= 3) return { hint: approx ? `끝은 ${Math.floor(e)}과 ${Math.ceil(e)} 사이에 있어요. 가운데 짧은 눈금보다 어느 쪽에 있는지 보세요.`.replace(/(\d+)과/, (m, a) => `${a}${hasB(Number(a)) ? '과' : '와'}`) : `${s}에서 ${s + 1}까지가 1칸, ${s + 1}에서 ${s + 2}까지가 2칸 … 이렇게 오른쪽 끝 ${tickText(e)}까지 세어요.`, correct: false };
+          if (read == null) return { hint: approx ? '끝이 닿은 곳에서 더 가까운 긴 눈금을 찾아요. 그 수 앞에 "약"을 붙여 골라요.' : '왼쪽 끝에서 오른쪽 끝까지 1cm 칸을 하나씩 짚으며 세어 보고 골라요.' };
           if (s !== 0 && read === Math.round(e)) return { hint: '끝 눈금의 수는 0에서 시작할 때만 길이예요. 시작한 눈금부터 1cm 칸이 몇 개인지 세어요.', correct: false };
           if (approx) return { hint: '끝이 두 긴 눈금 사이에 있으면 가운데 짧은 눈금을 봐요. 끝이 어느 쪽 긴 눈금에 더 가까운지 보고 그 수를 읽어요.', correct: false };
           if (read === want + 1) return { hint: '눈금 선이 아니라 선과 선 사이의 칸을 세어요. 시작하는 선은 세지 않아요.', correct: false };

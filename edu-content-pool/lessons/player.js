@@ -27,7 +27,10 @@
   // 자동 검사용: 앞 단계를 건너뛰어 정리로 간다(학생 화면에는 이 길이 없다)
   S.goto = (i, act = 0, item = 0) => { S.stage = i; S.maxStage = Math.max(S.maxStage, i); S.act = act; S.item = item; render(); };
   const keyOf = (a, i) => `${a.id}.${i + 1}`;
-  const rec = (a, i) => (S.items[keyOf(a, i)] ??= { key: keyOf(a, i), activity: a.id, attempts: 0, hints: 0, correct: false, level: S.level, ms: 0, t0: Date.now() });
+  const rec = (a, i) => (S.items[keyOf(a, i)] ??= { key: keyOf(a, i), activity: a.id, attempts: 0, hints: 0, hintLevels: [], correct: false, level: S.level, ms: 0, t0: Date.now() });
+  // 휴대폰 폭: 머리말을 줄이고 목표를 접는다(교구가 첫 화면에 들어오게)
+  const phone = () => typeof matchMedia === 'function' && matchMedia('(max-width: 480px)').matches;
+  const soundLabel = () => `<i class="fi ${pref.sound === false ? 'fi-rr-volume-mute' : 'fi-rr-volume'}" aria-hidden="true"></i><span class="pl-pref__t"> 소리 ${pref.sound === false ? '꺼짐' : '켜짐'}</span>`;
 
   // ---- 소리: 효과음 켜고 끄기(소리에 예민한 학생, 헤드폰 없는 교실). 읽어 주기는 학생이 스피커 단추를 누를 때만 ----
   if (pref.sound === false) K.setSound(false);
@@ -125,29 +128,38 @@
     const st = curStage();
     S.stageT0[S.stage] ??= Date.now();
     const total = stages().reduce((a, s) => a + s.minutes, 0);
-    const who = `${esc(S.classCode || '반 코드 없음')} · ${esc(S.seat)}번${S.pairSeat ? `·${esc(S.pairSeat)}번` : ''}${S.nickname ? ` · ${esc(S.nickname)}` : ''}`;
+    // 목표: 도입에서는 펼치고, 휴대폰에서는 도입 뒤로 접는다(학생이 펼치거나 접으면 다음 화면에서도 그대로)
+    const showGoal = !(S.role === 'student' && S.lesson.grade <= 2);
+    const goalOpen = S.goalOpen ?? (!phone() || st.id === 'intro');
+    const who = `<span class="pl-who__c">${esc(S.classCode || '반 코드 없음')} · </span>${esc(S.seat)}번${S.pairSeat ? `·${esc(S.pairSeat)}번` : ''}${S.nickname ? ` · ${esc(S.nickname)}` : ''}`;
+    // 단계 띠: 휴대폰에서는 수업 화면 아래에 둔다(DOM 순서 = 보이는 순서). 교구가 첫 화면에 들어오게
+    const steps = `<nav class="pl-steps" aria-label="수업 단계">
+        ${stages().map((s, i) => { const locked = i > S.maxStage; return `<button type="button" class="pl-step ${i === S.stage ? 'is-on' : ''} ${i < S.stage ? 'is-done' : ''}" data-stage="${i}" ${i === S.stage ? 'aria-current="step"' : ''} ${locked ? 'disabled title="앞 단계를 마치면 열려요"' : ''} style="flex:${s.minutes}">
+          <span>${locked ? '<i class="fi fi-rr-lock" aria-hidden="true"></i> ' : ''}${esc(s.title)}</span><small>${s.minutes}분</small></button>`; }).join('')}
+      </nav>`;
     app.innerHTML = `
       <header class="pl-top pc-card">
         <div class="pl-top__title">
           <span class="pl-chip">${S.lesson.grade}학년 ${esc(S.lesson.subject)}</span>
-          <h1>${esc(S.lesson.title)}</h1>
-          ${S.role === 'student' && S.lesson.grade <= 2 ? '' : `<p class="pl-goal"><b>목표</b> ${esc(S.lesson.objective)}</p>`}
+          <h1 title="${esc(S.lesson.title)}">${esc(S.lesson.title)}</h1>
+          ${showGoal ? `<details class="pl-goal" id="goal" ${goalOpen ? 'open' : ''}><summary><b>목표</b><span class="pl-goal__more"> 보기</span></summary><p>${esc(S.lesson.objective)}</p></details>` : ''}
         </div>
         <div class="pl-top__side">
           <div class="pl-level" role="group" aria-label="난이도">${Object.entries(LEVELS).map(([k, v]) => `<button type="button" class="pl-level__b" data-level="${k}" aria-pressed="${S.level === k}">${v}</button>`).join('')}</div>
           <div class="pl-prefs">
-            <button type="button" class="pl-pref" data-pref="sound" aria-pressed="${pref.sound !== false}"><i class="fi ${pref.sound === false ? 'fi-rr-volume-mute' : 'fi-rr-volume'}" aria-hidden="true"></i> 소리 ${pref.sound === false ? '꺼짐' : '켜짐'}</button>
+            <button type="button" class="pl-pref" data-pref="sound" aria-pressed="${pref.sound !== false}">${soundLabel()}</button>
           </div>
-          ${S.role === 'student' ? `<span class="pl-muted">${who}</span>` : ''}
+          ${S.role === 'student' ? `<span class="pl-muted pl-who">${who}</span>` : ''}
         </div>
       </header>
-      <nav class="pl-steps" aria-label="수업 단계">
-        ${stages().map((s, i) => { const locked = i > S.maxStage; return `<button type="button" class="pl-step ${i === S.stage ? 'is-on' : ''} ${i < S.stage ? 'is-done' : ''}" data-stage="${i}" ${i === S.stage ? 'aria-current="step"' : ''} ${locked ? 'disabled title="앞 단계를 마치면 열려요"' : ''} style="flex:${s.minutes}">
-          <span>${locked ? '<i class="fi fi-rr-lock" aria-hidden="true"></i> ' : ''}${esc(s.title)}</span><small>${s.minutes}분</small></button>`; }).join('')}
-      </nav>
+      ${phone() ? '' : steps}
       ${S.role === 'teacher' ? '<div class="pl-timer pc-card" id="timer" aria-live="off"></div>' : ''}
       <main id="stage" class="pl-stage" tabindex="-1"></main>
+      ${phone() ? steps : ''}
       <p class="pl-muted pl-foot">40분 수업 · 총 ${total}분 구성 · ${S.role === 'teacher' ? '교사는 단계·활동을 자유롭게 넘길 수 있습니다' : '앞 단계를 마치면 다음 단계가 열려요'}</p>`;
+
+    // 학생이 직접 펼치거나 접은 것만 기억한다(toggle 이벤트는 처음 open 속성에도 일어난다)
+    $('#goal summary')?.addEventListener('click', () => { S.goalOpen = !$('#goal').open; });
     if (st.id === 'intro') renderIntro(st);
     else if (st.id === 'main') renderActivity(st);
     else renderWrap(st);
@@ -208,7 +220,7 @@
 
   // 피드백·힌트 줄마다 누르면 읽어 주는 단추(자동 읽기는 하지 않는다)
   const fbLine = (icon, text) => `<span class="pl-fb__t">${icon ? `<i class="fi ${icon}" aria-hidden="true"></i> ` : ''}${esc(text)}</span> ${readBtn(text)}`;
-  const hintLine = (text) => `<p class="pl-hint"><b>힌트</b> ${esc(text)} ${readBtn(text)}</p>`;
+  const hintLine = (text, level, label) => `<p class="pl-hint" ${level ? `data-hint-level="${level}"` : ''}><b>${esc(label || (level ? `힌트 ${level}/3` : '힌트'))}</b> ${esc(text)} ${readBtn(text)}</p>`;
 
   function predictBox(it, r) {
     const p = it.predict; const locked = r.correct || r.attempts > 0;
@@ -218,8 +230,12 @@
     </div>`;
   }
 
+  // 힌트 단추 글: 시도 전에는 '힌트'(언제나 1단계), 한 번 틀린 뒤부터 다음에 받을 단계 '힌트 2/3'
+  const hintLabel = (r) => (r.attempts ? `힌트 ${L.flow.hintLevel(r)}/3` : '힌트');
+
   function renderActivity(st) {
-    const a = st.activities[S.act]; const it = a.items[S.item];
+    // 단계별 문항(levels[단계].prompt·target)이 있으면 그 단계의 문항을 낸다
+    const a = st.activities[S.act]; const it = L.flow.itemAt(a.items[S.item], S.level);
     const r = rec(a, S.item);
     const F = L.flow;
     const box = $('#stage');
@@ -233,24 +249,26 @@
         <p class="pl-task">${esc(a.task)} ${readBtn(a.task)}</p>
         ${teacherBox(a.teacher)}
         ${safetyBox(false)}
-        <div class="pl-work">
+        <div class="pl-work${it.predict ? ' has-predict' : ''}">
           <div class="pl-side">
-            <ol class="pl-dots" aria-label="문항 진행">${a.items.map((_, i) => { const x = S.items[keyOf(a, i)]; return `<li class="${i === S.item ? 'is-on' : ''} ${x?.correct ? 'is-ok' : ''}" aria-label="${i + 1}번${x?.correct ? ' 맞음' : ''}"></li>`; }).join('')}</ol>
+            <ol class="pl-dots" aria-label="문항 진행">${a.items.map((_, i) => { const x = S.items[keyOf(a, i)]; return `<li class="${i === S.item ? 'is-on' : ''} ${x?.correct ? 'is-ok' : ''} ${x?.closed ? 'is-closed' : ''}" aria-label="${i + 1}번${x?.correct ? ' 맞음' : x?.closed ? ' 못 풂' : ''}"></li>`; }).join('')}</ol>
             ${it.extra ? '<span class="pl-chip">더 해 보기</span>' : ''}
             <p class="pl-prompt" id="prompt">${esc(it.prompt)} ${readBtn(it.prompt)}</p>
-            ${it.predict ? predictBox(it, r) : ''}
+          </div>
+          <div class="pl-tool" id="tool"></div>
+          ${it.predict ? `<div class="pl-side pl-side--predict">${predictBox(it, r)}</div>` : ''}
+          <div class="pl-side pl-side--actions">
+            <div class="pl-actions">
+              <button type="button" class="pl-btn pl-btn--primary" id="check"><i class="fi fi-rr-check" aria-hidden="true"></i> ${it.free ? '다 했어요' : '확인'}</button>
+              ${it.free ? '' : `<button type="button" class="pl-btn" id="hint"><i class="fi fi-rr-bulb" aria-hidden="true"></i> <span id="hint-t">${hintLabel(r)}</span></button>`}
+              <button type="button" class="pl-btn" id="reset"><i class="fi fi-rr-rotate-left" aria-hidden="true"></i> 처음으로</button>
+            </div>
+          </div>
+          <div class="pl-side pl-side--fb">
             <div class="pl-feedback" id="fb" role="status" aria-live="polite"></div>
             <p class="pl-note" id="fb-note" role="status" aria-live="polite" hidden></p>
             <div id="suggest"></div>
             <div class="pl-more" id="more"></div>
-          </div>
-          <div class="pl-tool" id="tool"></div>
-          <div class="pl-side pl-side--actions">
-            <div class="pl-actions">
-              <button type="button" class="pl-btn pl-btn--primary" id="check"><i class="fi fi-rr-check" aria-hidden="true"></i> ${it.free ? '다 했어요' : '확인'}</button>
-              ${it.free ? '' : '<button type="button" class="pl-btn" id="hint"><i class="fi fi-rr-bulb" aria-hidden="true"></i> 힌트</button>'}
-              <button type="button" class="pl-btn" id="reset"><i class="fi fi-rr-rotate-left" aria-hidden="true"></i> 처음으로</button>
-            </div>
           </div>
         </div>
       </section>`;
@@ -274,7 +292,34 @@
     // 안내 한 줄은 피드백과 따로 띄운다 — 연타가 진짜 피드백·자동 힌트를 덮어쓰지 않게
     let noteT = 0;
     const note = (text) => { const n = $('#fb-note'); n.hidden = false; n.innerHTML = fbLine('fi-rr-info', text); clearTimeout(noteT); noteT = setTimeout(() => { if ($('#fb-note') === n) n.hidden = true; }, 3500); };
-    const setFb = (cls, html) => { fb.className = `pl-feedback ${cls}`; fb.innerHTML = html; lastFb = html; $('#fb-note').hidden = true; };
+    // 피드백을 새로 쓰면 지난 안내 줄('바꾼 뒤에 다시 확인해요' 등)은 내용까지 지운다 — 맞힌 뒤 '다시 하라'는 말이 남지 않게
+    // 교구가 피드백 글을 비워 돌려줘도 확인 결과 줄은 비지 않는다
+    const said = (res) => (res && typeof res.feedback === 'string' && res.feedback.trim()) || (res && res.correct ? '맞았어요!' : '아직 아니에요. 교구를 다시 살펴봐요.');
+    const clearNote = () => { clearTimeout(noteT); const n = $('#fb-note'); n.hidden = true; n.textContent = ''; };
+    const setFb = (cls, html) => { fb.className = `pl-feedback ${cls}`; fb.innerHTML = html; lastFb = html; clearNote(); };
+    const hintBtn = $('#hint');
+    const refreshHint = () => { const t = $('#hint-t'); if (t) t.textContent = hintLabel(r); };
+    // 사다리 한 칸: 다음 단계 힌트를 받아 기록한다(힌트 단추와 두 번째 틀림 뒤 자동 힌트가 같이 쓴다)
+    const ladderHint = (stateJSON) => {
+      const level = F.hintLevel(r);
+      const res = F.askHint(S.tool, it.target, { level, attempts: r.attempts, hints: it.hints });
+      if (res.via === 'check') F.rehide(S.tool, it, stateJSON);
+      r.hints++; r.hintLevels.push(level); K.recorder.log('hint', { key: r.key, level });
+      refreshHint();
+      return res;
+    };
+    // 시도를 다 쓴 문항은 '못 풂'으로 닫는다: 3단계 풀이와 정리를 보여 주고 '다음 문제'만 남긴다
+    const showClosed = () => {
+      checkBtn.disabled = true; if (hintBtn) hintBtn.disabled = true;
+      box.querySelectorAll('[data-predict]').forEach((x) => { x.disabled = true; });
+      const snap = JSON.stringify(S.tool.getState());
+      const w = F.askHint(S.tool, it.target, { level: 3, attempts: r.attempts, hints: it.hints });
+      if (w.via === 'check') F.rehide(S.tool, it, snap);
+      setFb('is-no', fbLine('fi-rr-info', `${r.attempts}번 해 보았어요. 이 문제는 풀이를 보고 넘어가요.`) + (w.hint && !w.correct ? hintLine(w.hint, 3, '풀이') : ''));
+      $('#more').innerHTML = `<div class="pl-conclude">${it.conclude ? `<p>${fbLine('fi-rr-book-alt', `정리: ${it.conclude}`)}</p>` : ''}<p class="pl-muted">선생님과 나중에 함께 다시 봐요.</p><button type="button" class="pl-btn pl-btn--primary" id="next-item">다음 문제 <i class="fi fi-rr-arrow-right" aria-hidden="true"></i></button></div>`;
+      $('#next-item').addEventListener('click', () => { if (here()) advance(); });
+      $('#next-item').focus({ preventScroll: true });
+    };
 
     box.querySelectorAll('[data-predict]').forEach((b) => b.addEventListener('click', () => {
       if (b.disabled) return;
@@ -295,7 +340,8 @@
     }
 
     checkBtn.addEventListener('click', () => {
-      if (checkBtn.getAttribute('aria-disabled') === 'true') { if (!ready()) note('먼저 위에서 예상을 하나 골라요.'); return; }
+      // 잠긴 확인도 말없이 지나가지 않는다 — 예상을 안 골랐거나, 틀린 직후 피드백을 읽는 잠깐(WRONG_LOCK_MS)
+      if (checkBtn.getAttribute('aria-disabled') === 'true') { note(ready() ? '방금 받은 피드백을 먼저 읽어요. 잠시 뒤에 다시 확인할 수 있어요.' : '먼저 예상을 하나 골라요.'); return; }
       const now = JSON.stringify(S.tool.getState());
       // 짝 활동(정답 없는 문항)도 교구를 한 번은 움직여야 '다 했어요'가 된다 (말하기만 하는 문항 talk:true는 예외)
       if (it.free && !it.talk && now === initialJSON) { note('교구로 직접 만들어 본 뒤에 눌러요.'); return; }
@@ -306,18 +352,20 @@
         return advance();
       }
       // 이미 맞힌 문항을 다시 보는 중이면 기록을 바꾸지 않는다
-      if (r.correct) { const res0 = S.tool.check(it.target); setFb(res0.correct ? 'is-ok' : 'is-no', fbLine(null, res0.correct ? '이미 맞힌 문제예요. 다음으로 넘어가요.' : res0.feedback)); if (res0.correct) setTimeout(() => { if (here()) advance(); }, 900); return; }
+      if (r.correct) { const res0 = S.tool.check(it.target); setFb(res0.correct ? 'is-ok' : 'is-no', fbLine(null, res0.correct ? '이미 맞힌 문제예요. 다음으로 넘어가요.' : said(res0))); if (res0.correct) setTimeout(() => { if (here()) advance(); }, 900); return; }
       // 아무것도 바꾸지 않고 다시 누른 '확인'은 시도로 세지 않고, 보이던 피드백도 그대로 둔다
       if (F.checkGate(r, now, Date.now()) === 'unchanged') { note('교구를 움직여 바꾼 뒤에 다시 확인해요.'); return; }
       const res = S.tool.check(it.target);
       // 교구가 '아직 다 하지 않음'(incomplete)이라고 하면 시도로 세지 않고 안내만 한다(예: 까닭을 아직 안 고름)
       if (res.incomplete) { note(res.feedback); return; }
+      // 직전 틀린 상태에서 한 걸음만 바꾼 확인도 시도로 센다(쓸어 보기). 몇 번이었는지는 교사 화면에 보인다
+      if (!res.correct && F.isNudge(S.tool, r.lastJSON, now)) r.nudges = (r.nudges || 0) + 1;
       r.lastJSON = now;
       // 기록하는 단계는 '확인을 누른 때'의 단계 — 단계를 바꾼 직후 문항이 이전 단계로 남지 않게
       r.attempts++; r.level = S.level; r.last = S.tool.getState(); lastHint = res.hint || lastHint;
       lockPredict();
       K.recorder.log('check', { key: r.key, ok: res.correct });
-      let html = fbLine(res.correct ? 'fi-rr-star' : 'fi-rr-refresh', res.feedback);
+      let html = fbLine(res.correct ? 'fi-rr-star' : 'fi-rr-refresh', said(res));
       K.tick(res.correct ? 'ok' : 'no');
       if (res.correct) {
         setFb('is-ok', html);
@@ -332,8 +380,11 @@
       // 틀린 확인은 숨긴 읽기 값을 드러내지 않는다(hint() 없는 교구는 상태를 다시 넣어 숨김으로 되돌림)
       F.rehide(S.tool, it, now);
       $('#suggest').innerHTML = ''; // 틀렸을 때 '단계 올리기' 권유가 남아 있지 않게
-      // 두 번 틀리면 힌트를 자동으로 보이고, 세 번 틀리면 쉬운 단계를 권한다
-      if (r.attempts >= 2 && res.hint) { r.hints++; html += hintLine(res.hint); }
+      // 시도를 다 썼으면 닫는다(조금씩 바꿔 확인을 연달아 눌러 숨긴 값을 쓸어 보는 것을 막는다)
+      if (F.shouldClose(it, r)) { r.closed = 'attempts'; r.ms = Date.now() - r.t0; K.recorder.log('closed', { key: r.key, attempts: r.attempts }); return showClosed(); }
+      // 두 번 틀리면 힌트 사다리의 다음 칸을 자동으로 보이고, 세 번 틀리면 쉬운 단계를 권한다
+      if (r.attempts >= 2) { const h = ladderHint(now); if (h.hint && !h.correct) html += hintLine(h.hint, h.level); }
+      refreshHint();
       setFb('is-no', html);
       // 틀린 직후 잠깐 확인을 잠근다 — 빠르게 두 번 누르는 학생도 '왜'를 읽을 시간을 갖게
       F.lockAfterWrong(r, Date.now()); setLocked(true);
@@ -345,17 +396,16 @@
         $('#giveup').addEventListener('click', () => { r.gaveUp = true; K.recorder.log('giveup', { key: r.key }); S.streak = 0; advance(); });
       }
     });
-    $('#hint')?.addEventListener('click', () => {
-      // 힌트는 확인이 아니다 — hint()가 있으면 그것을, 없으면 check(target, { forHint: true })를 부르고, 숨김은 되돌린다
-      const before = JSON.stringify(S.tool.getState());
-      const res = F.askHint(S.tool, it.target);
-      if (res.via === 'check') F.rehide(S.tool, it, before);
-      const h = res.correct ? '지금 상태가 맞아요. 확인을 눌러 보세요.' : (res.hint || lastHint || '도구를 천천히 움직여 보세요.');
-      r.hints++; K.recorder.log('hint', { key: r.key });
+    hintBtn?.addEventListener('click', () => {
+      // 힌트는 확인이 아니다 — hint(target, { level, attempts })가 있으면 그것을, 없으면 check(target, { forHint: true })를 부르고, 숨김은 되돌린다
+      const res = ladderHint(JSON.stringify(S.tool.getState()));
+      // 1단계(시도 전)에는 틀린 확인의 힌트(lastHint)를 쓰지 않는다 — 그 글은 이 상태의 틀린 곳을 짚는다
+      const h = res.correct ? '지금 상태가 맞아요. 확인을 눌러 보세요.' : (res.hint || (res.level > 1 && lastHint) || '도구를 천천히 움직여 보세요.');
       // 힌트는 보이던 피드백 아래에 붙인다(피드백을 지우지 않는다)
-      fb.innerHTML = lastFb + hintLine(h); $('#fb-note').hidden = true;
+      fb.innerHTML = lastFb + hintLine(h, res.correct ? 0 : res.level); clearNote();
     });
     $('#reset').addEventListener('click', () => { S.tool.reset ? S.tool.reset() : null; if (start0.state && S.tool.setState) S.tool.setState(start0.state); });
+    if (r.closed) return showClosed(); // 닫힌 문항으로 돌아오면(단계 바꾸기·교사 바로 가기) 닫힌 모양 그대로
     if (!it.free && S.streak >= 3 && S.level !== 'challenge') suggest(a, S.level === 'easy' ? 'base' : 'challenge', '아주 잘하고 있어요! 한 단계 올려 볼까요?');
   }
 
@@ -374,8 +424,10 @@
     if (next < a.items.length) S.item = next;
     else if (S.act < st.activities.length - 1) { S.act++; S.item = 0; }
     else { S.stage++; S.maxStage = Math.max(S.maxStage, S.stage); S.act = 0; S.item = 0; }
-    render(); $('#stage').focus();
+    render(); focusStage();
   }
+  // 휴대폰에서는 화면 맨 위로(짧아진 머리말과 교구가 첫 화면에 함께), 넓은 화면은 전처럼 단계로 굴린다
+  function focusStage() { if (phone()) { $('#stage').focus({ preventScroll: true }); window.scrollTo(0, 0); } else $('#stage').focus(); }
 
   // ---- 정리: 출구 질문 + 제출 ----
   function renderWrap(st) {
@@ -395,10 +447,15 @@
     restoreExitDraft();
     $('#exit').addEventListener('change', saveExitDraft);
     const tools = S.exitTools = {}; const initial = {};
-    st.exitTicket.forEach((q, i) => {
-      if (q.type !== 'tool') return;
-      tools[i] = K.mount(q.tool, $(`#exit-tool-${i}`), q.options || {});
-      if (q.state && tools[i].setState) tools[i].setState(q.state);
+    st.exitTicket.forEach((q0, i) => {
+      if (q0.type !== 'tool') return;
+      const q = L.flow.itemAt(q0, S.level);
+      // 전개 문항과 똑같이 장착한다: 옵션(+문항 단계별 toolOptions) → 시작 상태 → 목표(setTarget).
+      // 목표를 넘기지 않으면 보기·질문을 목표 없이 만드는 교구가 있다(1학년 모으기 출구 3: 0·1만 고를 수 있었다)
+      const start0 = L.flow.itemStart(q, S.level);
+      tools[i] = K.mount(q.tool, $(`#exit-tool-${i}`), Object.assign({}, q.options || {}, start0.toolOptions));
+      if (start0.state && tools[i].setState) tools[i].setState(start0.state);
+      if (q.target && tools[i].setTarget) tools[i].setTarget(q.target);
       initial[i] = JSON.stringify(tools[i].getState());
     });
     $('#exit').addEventListener('submit', async (e) => {
@@ -416,7 +473,7 @@
       st.exitTicket.forEach((q, i) => {
         const key = `exit.${i + 1}`;
         if (q.type === 'choice') { const v = f.get(`q${i}`); out.push({ key, value: v == null ? null : Number(v), correct: v == null ? false : Number(v) === q.answer }); }
-        else if (q.type === 'tool') { const c = tools[i].check(q.target); out.push({ key, value: tools[i].getState(), correct: c.correct, feedback: c.feedback }); }
+        else if (q.type === 'tool') { const c = tools[i].check(L.flow.itemAt(q, S.level).target); out.push({ key, value: tools[i].getState(), correct: c.correct, feedback: c.feedback }); }
         else if (q.type === 'short') out.push({ key, value: String(f.get(`q${i}`) || '').slice(0, 300), correct: null });
         else out.push({ key, value: f.get(`q${i}`) || null, correct: null });
       });
@@ -451,7 +508,7 @@
   }
 
   async function finish(exit) {
-    const items = Object.values(S.items).map(({ t0, lastJSON, lockUntil, ...r }) => r);
+    const items = Object.values(S.items).map(({ t0, lastJSON, lockUntil, hintLevels, ...r }) => (hintLevels && hintLevels.length ? { ...r, hintLevels } : r));
     const scored = items.filter((r) => !r.free);
     const exitScored = exit.filter((e) => e.correct != null);
     const correct = scored.filter((r) => r.correct && r.attempts === 1).length + exitScored.filter((e) => e.correct).length;
@@ -573,7 +630,7 @@
       savePref();
       // 화면을 다시 그리지 않고 단추만 바꾼다 — 놓아 둔 조각·고른 답이 지워지지 않게
       const snd = $('[data-pref="sound"]');
-      if (snd) { snd.setAttribute('aria-pressed', String(pref.sound !== false)); snd.innerHTML = `<i class="fi ${pref.sound === false ? 'fi-rr-volume-mute' : 'fi-rr-volume'}" aria-hidden="true"></i> 소리 ${pref.sound === false ? '꺼짐' : '켜짐'}`; }
+      if (snd) { snd.setAttribute('aria-pressed', String(pref.sound !== false)); snd.innerHTML = soundLabel(); }
       return;
     }
     const ds = e.target.closest('[data-dismiss]'); if (ds) { S.suggestOff[ds.dataset.dismiss] = true; $('#suggest').innerHTML = ''; return; }
@@ -597,13 +654,13 @@
         // 전개로 돌아오면 아직 못 푼 첫 문항부터(다 풀었으면 처음 문항을 다시 볼 수 있지만 기록은 그대로)
         if (stages()[i].id === 'main') {
           const acts = stages()[i].activities;
-          outer: for (let x = 0; x < acts.length; x++) for (let y = 0; y < acts[x].items.length; y++) if (!S.items[keyOf(acts[x], y)]?.correct) { S.act = x; S.item = y; break outer; }
+          outer: for (let x = 0; x < acts.length; x++) for (let y = 0; y < acts[x].items.length; y++) { const x0 = S.items[keyOf(acts[x], y)]; if (!x0?.correct && !x0?.closed) { S.act = x; S.item = y; break outer; } }
         }
         render();
       }
       return;
     }
-    if (e.target.closest('[data-next]')) { S.stage = Math.min(S.stage + 1, stages().length - 1); S.maxStage = Math.max(S.maxStage, S.stage); S.act = 0; S.item = 0; render(); $('#stage').focus(); }
+    if (e.target.closest('[data-next]')) { S.stage = Math.min(S.stage + 1, stages().length - 1); S.maxStage = Math.max(S.maxStage, S.stage); S.act = 0; S.item = 0; render(); focusStage(); }
   });
 
   window.addEventListener('DOMContentLoaded', start);

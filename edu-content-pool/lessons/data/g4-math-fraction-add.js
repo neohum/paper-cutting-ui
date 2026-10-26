@@ -51,6 +51,8 @@ PaperLessons.register({
             { prompt: '6분의 1 + 6분의 5를 띠에 색칠해 보세요.', toolOptions: { startN: 6, min: 6, max: 6, locked: [0] }, state: { n: 6 }, target: { den: 6, num: 6 }, difficulty: 0.2,
               predict: { q: '6분의 1 + 6분의 5는 1보다 클까요?', options: ['1보다 커요', '1과 같아요', '1보다 작아요'], answer: 1 },
               conclude: '6분의 6은 띠 전체, 곧 1과 같아요.' },
+            // 빠른 학생용: 세 분수 더하기 — 처음 분수(복숭아색) 뒤에 두 번 더한다
+            { extra: true, prompt: '5분의 1 + 5분의 1 + 5분의 2를 띠에 색칠해 보세요.', toolOptions: { startN: 5, min: 5, max: 5, locked: [0] }, state: { n: 5 }, target: { den: 5, num: 4 }, difficulty: 0.22 },
           ],
         },
         {
@@ -65,6 +67,8 @@ PaperLessons.register({
             { prompt: '9분의 4 + 9분의 4 = ?', toolOptions: { locked: [0, 1, 2, 3] }, state: { n: 9, colored: [0, 1, 2, 3, 4, 5, 6, 7] }, target: { den: 9, num: 8 }, difficulty: 0.22 },
             { prompt: '4분의 1 + 4분의 2 = ?', toolOptions: { locked: [0] }, state: { n: 4, colored: [0, 1, 2] }, target: { den: 4, num: 3 }, difficulty: 0.18,
               conclude: '분모가 같은 분수끼리 더할 때는 분모는 그대로 두고 분자끼리 더해요.' },
+            { extra: true, prompt: '3분의 1 + 3분의 2 = ?', toolOptions: { locked: [0] }, state: { n: 3, colored: [0, 1, 2] }, target: { den: 3, num: 3 }, difficulty: 0.22,
+              conclude: '3분의 3은 띠 전체, 곧 1이에요.' },
           ],
         },
         {
@@ -76,7 +80,7 @@ PaperLessons.register({
           items: [
             { prompt: '피자 한 판을 똑같이 8조각으로 나누었어요. 민지가 3조각, 동생이 2조각을 먹었어요. 두 사람이 먹은 피자는 전체의 얼마인지 색칠해 보세요.', toolOptions: { startN: 8, min: 8, max: 8, locked: [0, 1, 2] }, state: { n: 8 }, target: { den: 8, num: 5 }, difficulty: 0.2 },
             { prompt: '피자 한 판을 똑같이 10조각으로 나누었어요. 점심에 10분의 4, 저녁에 10분의 3을 먹었어요. 먹은 피자는 전체의 얼마인지 색칠해 보세요.', toolOptions: { startN: 10, min: 10, max: 10, locked: [0, 1, 2, 3] }, state: { n: 10 }, target: { den: 10, num: 7 }, difficulty: 0.24 },
-            { extra: true, prompt: '피자 12조각 중 12분의 5를 먹었어요. 남은 피자를 모두 먹으면 먹은 피자는 모두 얼마일까요? 색칠해 보세요.', toolOptions: { startN: 12, min: 12, max: 12, locked: [0, 1, 2, 3, 4] }, state: { n: 12 }, target: { den: 12, num: 12 }, difficulty: 0.26 },
+            { extra: true, prompt: '피자 한 판을 똑같이 12조각으로 나누었어요. 아침에 12분의 5를 먹고, 저녁에 12분의 4를 더 먹었어요. 먹은 피자는 모두 얼마인지 덧셈식을 말하고 색칠해 보세요.', toolOptions: { startN: 12, min: 12, max: 12, locked: [0, 1, 2, 3, 4] }, state: { n: 12 }, target: { den: 12, num: 9 }, difficulty: 0.26 },
           ],
         },
       ],
@@ -85,7 +89,8 @@ PaperLessons.register({
       id: 'wrapup', title: '정리', minutes: 6,
       teacher: '"5분의 2 + 5분의 1이 10분의 3이 아닌 까닭을 그림으로 설명해 볼까요?" 출구 질문에서 분모끼리 더한 학생을 확인하고, 그 학생에게는 띠 그림을 다시 그려 보게 한다.',
       exitTicket: [
-        { type: 'tool', tool: 'fraction', options: { shape: 'strip', write: true, color: 'mint', locked: [0, 1, 2] }, state: { n: 6, colored: [0, 1, 2, 3, 4] }, prompt: '6분의 3 + 6분의 2 = ?', target: { den: 6, num: 5 }, difficulty: 0.22 },
+        // 그림에는 처음 분수(6분의 3)만 칠해져 있다 — 합만큼 미리 칠해 두면 덧셈 없이 칸만 세어도 맞아 계산을 재지 못했다
+        { type: 'tool', tool: 'fraction', options: { shape: 'strip', write: true, color: 'mint', locked: [0, 1, 2] }, state: { n: 6, colored: [0, 1, 2] }, prompt: '띠에는 6분의 3이 칠해져 있어요. 여기에 6분의 2를 더하면 얼마일까요? 분수로 써 보세요.', target: { den: 6, num: 5 }, difficulty: 0.26 },
         { type: 'choice', prompt: '3분의 1 + 3분의 1을 바르게 계산한 것은 무엇인가요?', options: ['6분의 2', '3분의 2', '3분의 1'], answer: 1, difficulty: 0.2,
           explain: '3분의 1이 2개이므로 3분의 2예요. 분모를 더하면(6분의 2) 한 조각의 크기가 바뀌어 버려요.' },
         { type: 'choice', prompt: '분모가 같은 분수끼리 더할 때 분모는 어떻게 하나요?', options: ['분모끼리 더해요', '분모는 그대로 써요', '분모끼리 곱해요'], answer: 1, difficulty: 0.12,
@@ -97,14 +102,14 @@ PaperLessons.register({
   worksheet: {
     title: '분모가 같은 진분수의 덧셈',
     items: [
-      { type: 'figure', prompt: '그림을 보고 덧셈식을 완성하세요.', tool: 'fraction', options: { shape: 'strip', frame: true, locked: [0, 1] }, figures: [
+      { type: 'figure', prompt: '그림을 보고 덧셈식을 완성하세요. 점무늬는 처음 분수, 빗금은 더한 분수예요.', tool: 'fraction', options: { shape: 'strip', frame: true, locked: [0, 1] }, figures: [
         { state: { n: 5, colored: [0, 1, 2] }, caption: '5분의 2 + 5분의 1 = (     )' }], answer: '5분의 3' },
       { type: 'blank', prompt: '계산해 보세요.', text: '7분의 3 + 7분의 2 = ___ ,  9분의 4 + 9분의 5 = ___ ,  11분의 6 + 11분의 4 = ___', answer: '7분의 5, 9분의 9(=1), 11분의 10' },
       { type: 'choice', prompt: '지호는 "8분의 3 + 8분의 2 = 16분의 5"라고 계산했어요. 바르게 고친 답은 무엇인가요?', options: ['16분의 5', '8분의 5', '8분의 6'], answer: '8분의 5' },
       { type: 'short', prompt: '지호의 계산이 왜 틀렸는지 그림이나 말로 설명해 보세요.', answer: '분모끼리 더하면 조각의 크기가 달라진다. 8분의 1이 3개와 2개, 모두 5개이므로 8분의 5이다.' },
       { type: 'draw', prompt: '띠를 똑같이 6칸으로 나누고 6분의 2 + 6분의 3을 두 가지 색으로 색칠한 뒤 답을 쓰세요.', answer: '두 색으로 2칸, 3칸 — 6분의 5' },
     ],
-    easy: { note: '분모 = 전체를 똑같이 나눈 조각 수(더해도 그대로), 분자 = 색칠한 조각 수(더해요). 예: 5분의 2 + 5분의 1 → 5분의 1이 2개 + 1개 = 3개 → 5분의 3.' },
+    easy: { note: '분모 = 전체를 똑같이 나눈 조각 수(더해도 그대로), 분자 = 색칠한 조각 수(더해요). 예: 5분의 2 + 5분의 1 → 5분의 1이 2개 + 1개 = 3개 → 5분의 3. 그림의 점무늬는 처음 분수, 빗금은 더한 분수예요.' },
   },
   differentiation: {
     easy: '분자·분모가 무엇을 뜻하는지 글자로 함께 보이고, 처음 분수(복숭아색)와 더한 분수(초록색)가 다른 색으로 칠해져 "5분의 1이 ○개"가 보여요.',

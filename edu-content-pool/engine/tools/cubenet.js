@@ -150,6 +150,13 @@
     return ok(rows) || ok(cols);
   }
 
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
   K.registerTool('cubenet', {
     name: '정육면체 전개도 접기',
     create(box, o, kit) {
@@ -536,13 +543,24 @@
         },
         // forHint(힌트·자동 검사): 흔들기·틀린 횟수 세기·안내 칸 같은 화면 변화 없이 채점만 한다
         check(t, opts) { return judge(t || {}, !!(opts && opts.forHint)); },
-        hint(t) {
+        // 힌트 3단계: 1 개념(면 이름 없음) / 2 틀린 까닭에 맞춘 규칙 / 3 풀이 한 단계(마주 보는 짝 하나를 짚음)
+        hint(t, opts) {
           t = t || {};
           const r = judge(t, true);
           const why = t.opposite || t.pairs ? '접으면 변이 맞닿은 면끼리는 옆면이 돼요. 한 줄로 이어진 세 면에서 가운데를 하나 건너뛴 면끼리 마주 보아요.'
             : '정육면체의 전개도는 6면이 변으로 이어지고, 접었을 때 겹치는 면이 없어야 해요. 한 줄은 네 면까지이고, 남은 두 면은 줄의 위와 아래에 하나씩 붙여요.';
-          if (r.correct) return { hint: why, correct: true };
-          return { hint: r.hint || why, correct: false };
+          const lv = hintLevel(opts);
+          if (r.correct) return { hint: why, correct: true, level: 1 };
+          if (lv === 1 || !r.hint) return { hint: why, correct: false, level: 1 };
+          if (lv >= 3) {
+            const res = foldResult(cells);
+            if (t.opposite && res.valid) return { hint: `${r.hint} 면 ${josa(t.opposite[0], '과', '와')} 마주 보는 면은 면 ${t.opposite[1]}이에요.`, correct: false, level: 3 };
+            if (t.pairs && res.valid) {
+              const a = IDS.find((id) => paint[id] && res.opp[id] !== IDS.find((x) => x !== id && paint[x] === paint[id])) || IDS[0];
+              return { hint: `${r.hint} 예를 들어 면 ${josa(a, '과', '와')} 마주 보는 면은 면 ${res.opp[a]}이에요.`, correct: false, level: 3 };
+            }
+          }
+          return { hint: r.hint, correct: false, level: lv };
         },
         wrongAnswer(t) {
           t = t || {};

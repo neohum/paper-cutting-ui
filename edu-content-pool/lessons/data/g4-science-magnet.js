@@ -66,6 +66,7 @@ PaperLessons.register({
             { prompt: '자석을 치우고 나침반 바늘을 살펴보세요.', target: { away: true }, difficulty: 0.08,
               predict: { q: '자석을 치우면 나침반 바늘의 N극은 어디를 가리킬까요?', options: ['모두 북쪽', '나침반마다 달라요', '모두 남쪽'], answer: 0 },
               conclude: '자석이 없으면 나침반 바늘의 N극은 늘 북쪽을 가리켜요.' },
+            // 힌트 1단계(교구)는 활동 1과 잇는 질문만 — 예상 질문(어느 극을 둘까)의 답과 놓을 자리는 두 번 틀린 뒤 3단계에서
             { prompt: '나침반 1의 바늘 N극이 동쪽을 가리키게 자석을 놓아 보세요.', state: { magnet: { x: 220, y: 162, r: 90 } }, target: { needle: '동', compass: 0 }, difficulty: 0.26,
               predict: { q: '바늘 N극을 동쪽으로 돌리려면 나침반의 동쪽에 자석의 어느 극을 두어야 할까요?', options: ['N극', 'S극'], answer: 1 },
               conclude: '나침반 바늘도 자석이라 바늘 N극은 자석의 S극에 끌려가요.' },
@@ -76,7 +77,7 @@ PaperLessons.register({
         {
           id: 'a3', title: '활동 3. 극 표시가 지워진 자석', minutes: 9, tool: 'magnet', pair: true,
           options: { mode: 'hidden' },
-          task: '색과 글자가 지워진 자석이 있어요. 나침반을 양 끝에 대어 보고, 어느 끝이 N극인지 알아내 봅시다.',
+          task: '색과 글자가 지워진 자석이 있어요. 나침반을 끌어 양 끝에 대어 보고, 바늘을 본 다음 어느 끝이 N극인지 골라요. 대어 보지 않은 끝은 고를 수 없어요.',
           teacher: '"나침반으로 자석의 극을 알아낼 수 있을까요?" 짝과 한 사람은 나침반을 옮기고 한 사람은 바늘의 어느 극이 끝을 향하는지 말한다. 끝나면 실제 극 표시를 가린 자석과 나침반으로 확인한다.',
           levels: { easy: {}, base: {}, challenge: {} },
           items: [
@@ -104,7 +105,8 @@ PaperLessons.register({
   worksheet: {
     title: '자석의 극과 나침반 바늘',
     items: [
-      { type: 'figure', prompt: '자석 둘레에 놓은 나침반입니다(검게 칠한 쪽이 바늘의 N극). 자석의 양 끝 중 N극인 쪽에 "N", S극인 쪽에 "S"를 쓰세요.', tool: 'magnet', options: { mode: 'compass', labels: false }, figures: [
+      // labels:false — 자석에 N·S 글자를 찍지 않는다(답을 쓰는 문항). wide — 바늘이 보이게 줄 전체에 크게
+      { type: 'figure', prompt: '자석 둘레에 놓은 나침반입니다(검게 칠한 쪽이 바늘의 N극). 자석의 양 끝 중 N극인 쪽에 "N", S극인 쪽에 "S"를 쓰세요.', tool: 'magnet', wide: true, options: { mode: 'compass', labels: false, wide: true }, figures: [
         { state: { magnet: { x: 220, y: 162, r: 0 } }, caption: '왼쪽 끝 (     )   오른쪽 끝 (     )' }], answer: '왼쪽 끝 S, 오른쪽 끝 N' },
       { type: 'blank', prompt: '알맞은 말을 써넣으세요.', text: '자석에서 철로 된 물체가 많이 붙는 양 끝을 자석의 ___이라고 합니다. 같은 극끼리는 서로 ___고, 다른 극끼리는 서로 ___습니다.', answer: '극, 밀어내, 끌어당기' },
       { type: 'table', prompt: '오늘 한 실험의 예상과 결과를 정리해 보세요.', columns: ['한 일', '나의 예상', '관찰한 결과'], rows: 3, answer: '학생마다 다름. 같은 극은 밀어내고 다른 극은 끌어당긴다, 자석이 없으면 바늘 N극은 북쪽을 가리킨다를 썼는지 확인' },

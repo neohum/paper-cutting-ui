@@ -3,7 +3,9 @@
  * 옵션: scene('up'|'tilt'|'back'|'periscope'|'zigzag'|'down'), step(거울 회전 스냅, 기본 15°), showAngles(들어온 각·나간 각 표시),
  *       hideRay(활동지: 빛의 길을 학생이 그린다), start(거울 처음 각도 배열), print,
  *       revealOnLit(빛이 별에 닿으면 각도 표시를 한 번 보여 줌 — 기본 단계), predict(거울에서 나간 빛은 '확인'을 눌러야 보임),
- *       revealAfterCheck(predict와 같다 — 플레이어의 reveal:'after-check'), ask:'compare'(들어온 각과 나간 각을 견주어 고르는 칸)
+ *       revealAfterCheck(predict와 같다 — 플레이어의 reveal:'after-check'), ask:'compare'(들어온 각과 나간 각을 견주어 고르는 칸),
+ *       submitOnly(출구처럼 확인 단추가 없는 자리: 안내 글을 '제출한 뒤에 보여요'로 바꾼다)
+ * 바닥 거울 장면: floor(들어온 각 50°), floorWide(65°), floorSteep(30°) — 여러 각에서 '들어온 각 = 나간 각'을 견주게
  * 각도 표시: 거울에 수직인 긴 점선(법선)과, 들어온 빛–법선·법선–나간 빛 사이의 호 두 개, 호 옆의 각도 숫자
  * 상태: { mirrors:[각도…], hit:'star'|'back'|'block'|'wall', bounces, compare? } / check({hit:'star', bounces?, compare?:'same'})
  */
@@ -19,6 +21,8 @@
     down: { lamp: { x: 56, y: 150, a: 0 }, mirrors: [{ x: 300, y: 150, start: 330 }], star: { x: 300, y: 284 }, blocks: [] },
     // 바닥에 누운 거울: 빛이 비스듬히(50°) 내려와 반대쪽으로 올라간다 — 들어온 각과 나간 각을 견주어 보는 장면
     floor: { lamp: { x: 60, y: 110, a: 40 }, mirrors: [{ x: 241, y: 262, start: 30 }], star: { x: 422, y: 110 }, blocks: [] },
+    floorWide: { lamp: { x: 60, y: 178, a: 25 }, mirrors: [{ x: 241, y: 262, start: 30 }], star: { x: 422, y: 178 }, blocks: [] },
+    floorSteep: { lamp: { x: 130, y: 70, a: 60 }, mirrors: [{ x: 241, y: 262, start: 30 }], star: { x: 352, y: 70 }, blocks: [] },
     periscope: {
       lamp: { x: 56, y: 260, a: 0 }, mirrors: [{ x: 160, y: 260, start: 255 }, { x: 160, y: 80, start: 60 }],
       star: { x: 420, y: 80 }, blocks: [{ x: 244, y: 130, w: 52, h: 182 }],
@@ -31,6 +35,13 @@
   const rad = (d) => (d * Math.PI) / 180;
   const deg = (r) => (r * 180) / Math.PI;
 
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
   K.registerTool('lightray', {
     name: '거울과 빛의 길',
     create(box, o, kit) {
@@ -252,7 +263,7 @@
         else if (showAngles && cur.hits.length) {
           readout.textContent = cur.hits.map((h, k) => `${mirrors.length > 1 ? `거울 ${h.i + 1}: ` : ''}들어온 각 ${h.inc}° · 나간 각 ${h.inc}°`).join('   ');
         } else if (showAngles && cur.hit === 'back') readout.textContent = '거울 뒷면은 빛을 반사하지 않아요';
-        else if (hideOut) readout.textContent = '빛이 어디로 갈지 예상하고 확인을 눌러 보세요';
+        else if (hideOut) readout.textContent = o.submitOnly ? '거울 방향을 정해 두세요. 나간 빛은 제출한 뒤에 보여요' : '빛이 어디로 갈지 예상하고 확인을 눌러 보세요';
         else readout.textContent = '';
         const nowLit = cur.hit === 'star' && !hideOut;
         if (nowLit !== lit) setLit(nowLit, anim);
@@ -356,18 +367,29 @@
           }
           return r;
         },
-        hint(t) {
+        // 힌트 3단계: 1 규칙(각도·방향 없음) / 2 틀린 단계(앞면·거울 1부터·가운데를 보게) / 3 몇 칸 돌릴지
+        // 나간 빛이 숨겨진 동안에는 1·2단계가 빛이 어디로 갔는지(별·벽·거울 2)도, 맞았는지도 알려 주지 않는다
+        hint(t, opts) {
           t = t || { hit: 'star' };
           const hidden = predict && !revealed;
-          const rule = "빛은 거울에 들어온 각과 똑같은 각으로 나가요. 거울의 반짝이는 앞면이 '빛이 들어오는 쪽'과 '별 쪽'의 딱 가운데를 보게 놓아 보세요.";
-          if (!hidden) {
-            const r = judge(t);
-            if (r.correct) return { hint: t.compare ? '두 호는 점선(거울에 수직인 선)을 사이에 두고 크기가 같아요.' : '들어온 각과 나간 각이 같아서 빛이 별에 닿았어요.', correct: true };
-            return { hint: r.hint || rule, correct: false };
+          const lv = hintLevel(opts);
+          const rule = '빛은 거울에 수직인 선(점선)을 기준으로 들어온 각과 똑같은 각으로 나가요.';
+          const aim = "거울의 반짝이는 앞면이 '빛이 들어오는 쪽'과 '가야 할 쪽'의 딱 가운데를 보게 놓아 보세요.";
+          const r = judge(t);
+          if (!hidden && r.correct) return { hint: t.compare ? '두 호는 점선(거울에 수직인 선)을 사이에 두고 크기가 같아요.' : '들어온 각과 나간 각이 같아서 빛이 별에 닿았어요.', correct: true, level: 1 };
+          if (lv === 1) return { hint: rule, correct: false, level: 1 };
+          if (lv === 2) {
+            if (cur.hit === 'back' && cur.backOf === 0) return { hint: '빛이 거울 뒷면(복숭아색 빗금)에 닿았어요. 반짝이는 하늘색 앞면이 빛이 오는 쪽을 보도록 돌려요.', correct: false, level: 2 };
+            if (hidden) return { hint: mirrors.length > 1 ? `거울 1부터 맞춰요. ${aim}` : aim, correct: false, level: 2 };
+            return { hint: r.hint || aim, correct: false, level: 2 };
           }
-          // 나간 빛이 숨겨진 동안에는 빛이 어디로 갔는지(별·벽·거울 2)도, 맞았는지도 알려 주지 않는다
-          if (cur.hit === 'back' && cur.backOf === 0) return { hint: '빛이 거울 뒷면(복숭아색 빗금)에 닿았어요. 반짝이는 하늘색 앞면이 빛이 오는 쪽을 보도록 돌려요.' };
-          return { hint: mirrors.length > 1 ? `거울 1부터 맞춰요. ${rule}` : rule };
+          // 3단계: 정답 각도까지 몇 칸(몇 도) 돌리면 되는지 — 마지막에 열리는 풀이
+          const sol = find(t);
+          if (!sol) return { hint: aim, correct: false, level: 3 };
+          const k = sol.findIndex((a, i) => Math.round(kit.norm(a)) !== Math.round(kit.norm(angles[i])));
+          if (k < 0) return { hint: aim, correct: false, level: 3 };
+          const dd = ((sol[k] - angles[k]) % 360 + 540) % 360 - 180;
+          return { hint: `${mirrors.length > 1 ? `거울 ${k + 1}을` : '거울을'} ${dd > 0 ? '시계 방향' : '시계 반대 방향'}으로 ${Math.abs(Math.round(dd))}°(${Math.abs(Math.round(dd / step))}칸) 돌려 보세요. ${aim}`, correct: false, level: 3 };
         },
         wrongAnswer(t) {
           t = t || { hit: 'star' };

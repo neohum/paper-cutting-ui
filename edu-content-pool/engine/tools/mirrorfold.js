@@ -3,13 +3,20 @@
  * 채점은 대응점 쌍마다 따로 한다: 건너편에 있는가, 대칭축과 수직인 선 위에 있는가, 대칭축까지의 칸 수가 같은가.
  * 옵션: cols·rows(모눈 칸, 기본 10×7), axis('v'|'h'), at(대칭축 자리, 기본 가운데), half([[x,y]…] 반쪽 꼭짓점 — 처음·끝은 대칭축 위),
  *       only(핀을 줄 꼭짓점 이름들; 나머지 대응점은 미리 찍혀 나옴), showDistance(쉬움: 대칭축까지 칸 수), showLinks(대응점을 잇는 선),
- *       allowFold(접기 단추, 기본 참), revealAfterCheck(완성 모양을 확인 뒤에만 보임), ask({q, choices[], why?[]}: 고르기 칸), print
+ *       allowFold(접기 단추, 기본 참), revealAfterCheck(완성 모양을 확인 뒤에만 보임 — 접어 보기도 확인을 누른 뒤에 한 번씩만 열린다), ask({q, choices[], why?[]}: 고르기 칸), print
  * 상태: { pins: { ㄴ: [x,y]|null, … }, pick? } / target: { complete:true } | { pins:['ㄴ'] } (+ ask: 정답 번호)
  */
 (function (K) {
   'use strict';
   const NAMES = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ', 'ㅊ'];
   const RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 힌트 단계(플레이어가 { level, attempts }를 준다): 1 개념·전략만(문항의 수·자리·이름 없음), 2 틀린 단계 짚기, 3 풀이 한 단계.
+  // 시도 수보다 높은 단계는 주지 않는다 — 시도 0 → 1단계, 1 → 2단계까지, 2 이상 → 3단계까지
+  const hintLevel = (opts) => {
+    const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
+    const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
+    return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
+  };
   const josa = (w, a, b) => { const c = String(w).replace(/'$/, '').slice(-1).charCodeAt(0); const has = (c >= 0x3131 && c <= 0x314E) || (c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0); return `${w}${has ? a : b}`; };
 
   K.registerTool('mirrorfold', {
@@ -67,7 +74,9 @@
       const labelAt = (p, d) => {
         // 이름표는 대칭축 바깥쪽으로 비켜 쓴다
         const q = px(p); const s = Math.sign(d) || 1;
-        return vAxis ? { x: q.x + s * 13, y: q.y - 8, 'text-anchor': s > 0 ? 'start' : 'end' } : { x: q.x + 9, y: q.y + s * 18, 'text-anchor': 'start' };
+        if (vAxis) return { x: q.x + s * 13, y: q.y - 8, 'text-anchor': s > 0 ? 'start' : 'end' };
+        const right = q.x + 26 > OX + COLS * C + 14;
+        return { x: right ? q.x - 9 : q.x + 9, y: q.y + s * 18, 'text-anchor': right ? 'end' : 'start' };
       };
       verts.forEach((v) => {
         const q = px(v.p);
@@ -102,10 +111,12 @@
 
       // ---- 핀 ----
       const pins = {}; const pinG = {};
-      const trayX = (k) => (pinIds.length <= Math.floor(COLS / 2) ? 1 + 2 * k : 1 + k);
+      const trayX = (k) => (1 + 2 * (pinIds.length - 1) <= COLS - 3 ? 1 + 2 * k : 1 + k);
       const home = (id) => px([trayX(pinIds.indexOf(id)), trayRow]);
       const canDrag = !print;
       let folded = false; let busy = false; let checked = false; let pick = null;
+      // 확인 전 숨김 문항: 접어 보기는 확인(맞든 틀리든)을 한 번 누를 때마다 한 번 열린다 — 접었다 폈다 하며 맞추지 않게
+      let foldTokens = o.revealAfterCheck ? 0 : Infinity;
       if (!print && pinIds.length) {
         const trayY = OY + trayRow * C;
         kit.piece(st, back, { shape: { type: 'rect', x: 10, y: trayY - 24, w: W - 20, h: 48, rx: 14 }, color: 'lavender', fill: kit.palette.lavender.light, depth: 1 });
@@ -190,6 +201,8 @@
       const setFold = (s) => kit.transform(foldG, vAxis ? { x: ax * (1 - s), y: 0, sx: s, sy: 1 } : { x: 0, y: ax * (1 - s), sx: 1, sy: s });
       async function fold() {
         if (busy || folded) return;
+        if (foldTokens <= 0) { status('확인을 누른 뒤에 한 번 접어 볼 수 있어요'); kit.announce('확인을 누른 뒤에 한 번 접어 볼 수 있어요'); kit.tick('no'); return; }
+        foldTokens--;
         busy = true; folded = true; paint(); kit.tick();
         flap.setAttribute('opacity', 0.55);
         await kit.tween(RM ? 0 : 1100, (p) => setFold(Math.cos(Math.PI * p)), { ease: (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2) });
@@ -262,12 +275,14 @@
       const why = (id) => {
         const v = vOf[id].p; const q = pins[id]; const want = Math.abs(dist(v)); const P = `${id}'`;
         const line = vAxis ? '가로줄' : '세로줄';
-        if (!q) return { feedback: `점 ${josa(P, '을', '를')} 아직 놓지 않았어요.`, hint: '핀 놓는 곳의 핀을 모눈 교점으로 끌어 놓아요.' };
+        const h3 = `점 ${josa(id, '은', '는')} 대칭축에서 ${want}칸 떨어져 있어요. 같은 ${line}을 따라 대칭축 건너편으로 ${want}칸 간 곳이 ${P}이에요.`;
+        if (!q) return { feedback: `점 ${josa(P, '을', '를')} 아직 놓지 않았어요.`, hint: '핀 놓는 곳의 핀을 모눈 교점으로 끌어 놓아요.', h3 };
         const d = dist(q);
-        if (d === 0) return { feedback: `점 ${josa(P, '이', '가')} 대칭축 위에 있어요. 점 ${id}에서 대칭축까지 ${want}칸이니, 대응점도 대칭축에서 ${want}칸 떨어져야 해요.`, hint: '대응점은 대칭축을 사이에 두고 반대쪽에 있어요.' };
-        if (Math.sign(d) === Math.sign(dist(v))) return { feedback: `점 ${josa(P, '이', '가')} 점 ${josa(id, '과', '와')} 같은 쪽에 있어요. 대응점은 대칭축의 건너편에 있어야 해요.`, hint: '종이를 대칭축에서 접으면 건너편 점이 꼭짓점과 포개져요.' };
-        if (along(q) !== along(v)) return { feedback: `점 ${josa(P, '이', '가')} 대칭축과 수직인 선 위에 있지 않아요. 점 ${id}에서 대칭축에 수직으로 그은 선(같은 ${line}) 위에 있어야 해요.`, hint: `점 ${id}에서 대칭축까지 수직으로 선을 긋고, 그 선을 건너편으로 늘여서 찾아요.` };
-        return { feedback: `점 ${josa(P, '은', '는')} 대칭축에서 ${want}칸이어야 하는데 ${Math.abs(d)}칸이에요.`, hint: `점 ${id}에서 대칭축까지 칸 수를 세고, 건너편으로 같은 칸 수만큼 가요.` };
+        if (d === 0) return { feedback: `점 ${josa(P, '이', '가')} 대칭축 위에 있어요. 대칭축 위의 점은 자기 자신이 대응점이에요. 점 ${josa(id, '은', '는')} 대칭축 위에 있지 않아요.`, hint: '대응점은 대칭축을 사이에 두고 꼭짓점의 반대쪽에 있어요.', h3 };
+        if (Math.sign(d) === Math.sign(dist(v))) return { feedback: `점 ${josa(P, '이', '가')} 점 ${josa(id, '과', '와')} 같은 쪽에 있어요. 대응점은 대칭축의 건너편에 있어야 해요.`, hint: '종이를 대칭축에서 접으면 건너편 점이 꼭짓점과 포개져요.', h3 };
+        if (along(q) !== along(v)) return { feedback: `점 ${josa(P, '이', '가')} 대칭축과 수직인 선 위에 있지 않아요. 점 ${id}에서 대칭축에 수직으로 그은 선(같은 ${line}) 위에 있어야 해요.`, hint: `점 ${id}에서 대칭축까지 수직으로 선을 긋고, 그 선을 건너편으로 늘여서 찾아요.`, h3 };
+        if (Math.abs(d) === 2 * want) return { feedback: `점 ${josa(P, '은', '는')} 꼭짓점에서 대칭축까지 거리의 두 배를 건너갔어요. 대응점은 꼭짓점이 아니라 대칭축에서 재요.`, hint: `점 ${id}에서 대칭축까지 칸을 하나씩 세고, 대칭축에서부터 건너편으로 같은 칸 수를 세어요.`, h3 };
+        return { feedback: `점 ${josa(P, '은', '는')} 대칭축에서 ${Math.abs(d)}칸이에요. 점 ${id}에서 대칭축까지 몇 칸인지 세어 견주어 보세요.`, hint: `점 ${id}에서 대칭축까지 칸을 하나씩 세고, 건너편으로 같은 칸 수만큼 가요.`, h3 };
       };
 
       // 채점만 한다(화면은 바꾸지 않는다) — 확인·힌트·오답 만들기가 함께 쓴다
@@ -280,11 +295,11 @@
         const bad = need.filter((id) => !same(pins[id], mirror(vOf[id].p)));
         if (bad.length) {
           const w = why(bad[0]);
-          return { correct: false, feedback: `${w.feedback}${bad.length > 1 ? ` 다시 볼 점이 ${bad.length}개예요.` : ''}`, hint: w.hint };
+          return { correct: false, feedback: `${w.feedback}${bad.length > 1 ? ' 다른 점도 다시 살펴봐요.' : ''}`, hint: w.hint, h3: w.h3 };
         }
         if (askOpt && Number.isInteger(t.ask)) {
           if (pick == null) return { correct: false, incomplete: true, feedback: need.length ? '점은 모두 맞게 놓았어요. 이제 아래에서 답을 골라요.' : '아래에서 답을 골라요.' };
-          if (pick !== t.ask) return { correct: false, feedback: (askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요? 점과 대응점을 이은 선을 보세요.', hint: askOpt.hint || '대응점을 이은 선분이 대칭축과 만나는 모양을 보세요.' };
+          if (pick !== t.ask) return { correct: false, feedback: (askOpt.why && askOpt.why[pick]) || '다시 생각해 볼까요? 점과 대응점을 이은 선을 보세요.', hint: askOpt.hint || '대응점을 이은 선분이 대칭축과 만나는 모양을 보세요.', h3: askOpt.hint || '대응점을 이은 선분이 대칭축과 만나는 모양을 보세요.' };
         }
         const one = need.length === 1 ? need[0] : null;
         if (!need.length && askOpt) return { correct: true, feedback: `맞아요! ${askOpt.ok || ''}`.trim() };
@@ -297,7 +312,7 @@
       return {
         getState: state,
         setState,
-        reset() { setState({ pins: {}, pick: null }); },
+        reset() { foldTokens = o.revealAfterCheck ? 0 : Infinity; setState({ pins: {}, pick: null }); },
         solve(t) {
           const s = { pins: {} };
           pinIds.forEach((id) => { s.pins[id] = mirror(vOf[id].p); });
@@ -305,17 +320,24 @@
           setState(s);
         },
         check(t, opts) {
-          const r = judge(t || {});
+          const r = judge(t || {}); delete r.h3;
           // 완성 모양(revealAfterCheck)은 맞힌 확인에서만 그린다 — 틀린 확인마다 보이면 모양을 보며 핀을 옮겨 맞춘다
-          if (r.correct && !(opts && opts.forHint)) { checked = true; paint(); }
+          if (!(opts && opts.forHint) && !r.incomplete) {
+            if (r.correct) { checked = true; paint(); }
+            // 확인을 누를 때마다 접어 보기 한 번(쌓이지 않는다)
+            if (o.revealAfterCheck) foldTokens = 1;
+          }
           return r;
         },
-        hint(t) {
+        // 힌트 3단계: 1 개념(수·자리 없음) / 2 틀린 단계(건너편·수직인 줄·칸 세기) / 3 그 점의 칸 수로 풀이 한 단계
+        hint(t, opts) {
           t = t || {};
           const r = judge(t);
-          const why = '선대칭도형에서 대응점은 대칭축의 건너편, 대칭축과 수직인 같은 줄 위에서 대칭축까지 똑같은 칸 수만큼 떨어져 있어요.';
-          if (r.correct) return { hint: why, correct: true };
-          return { hint: r.hint || why, correct: false };
+          const why = '선대칭도형에서 대응점은 대칭축의 건너편, 대칭축과 수직인 같은 줄 위에서 대칭축까지 꼭짓점과 똑같은 거리만큼 떨어져 있어요.';
+          const lv = hintLevel(opts);
+          if (r.correct) return { hint: why, correct: true, level: 1 };
+          if (lv === 1 || !r.hint) return { hint: why, correct: false, level: 1 };
+          return { hint: lv >= 3 && r.h3 ? r.h3 : r.hint, correct: false, level: lv };
         },
         wrongAnswer(t) {
           t = t || {};
