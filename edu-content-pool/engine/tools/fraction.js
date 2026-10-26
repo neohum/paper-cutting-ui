@@ -541,6 +541,10 @@
             c[shape === 'pizza' ? 1 : 0] += shape === 'pizza' ? 360 / GRID : 1 / GRID;
             return { cuts: c.map(r4) };
           }
+          // 분수 쓰기: 처음 분수가 잠긴 덧셈은 분모끼리 더한 답, 그 밖은 분자·분모를 바꿔 쓴 답
+          if (o.write && t.den && t.num != null && t.num !== t.den) return Object.assign(state(), locked.size ? { wNum: t.num, wDen: 2 * t.den } : { wNum: t.den, wDen: t.num });
+          // 색칠: 조각 수는 맞게 나누고 한 조각 더(또는 덜) 칠한 상태 — 조각 수가 정해진 문항에서도 학생이 만들 수 있는 오답
+          if (!o.write && t.den && t.num != null) { const c = t.num < t.den ? t.num + 1 : t.num - 1; return { n: t.den, colored: Array.from({ length: c }, (_, i) => i) }; }
           return null;
         },
         solve(t) {

@@ -90,7 +90,7 @@ PaperLessons.register({
               conclude: '각도기는 중심을 꼭짓점에, 밑금을 한 변에 맞추고, 그 변이 맞춰진 0부터 눈금을 읽어요.' },
             { prompt: '이번에는 고정 띠가 왼쪽에 있어요. 각도기를 맞추어 재어 보세요.', toolOptions: { base: 'left' }, state: { angle: 110 }, target: { angle: 110 }, difficulty: 0.32,
               predict: { q: '이 각은 어떤 각으로 보이나요?', options: ['예각', '직각', '둔각'], answer: 2 } },
-            { extra: true, prompt: '각도기를 맞추어 이 각을 재어 보세요.', toolOptions: { base: 'right', tilt: 15 }, state: { angle: 135 }, target: { angle: 135 }, difficulty: 0.3 },
+            { extra: true, prompt: '각도기를 맞추어 이 각을 재어 보세요.', toolOptions: { base: 'right', tilt: 15 }, state: { angle: 135 }, target: { angle: 135 }, difficulty: 0.22 },
           ],
         },
       ],
