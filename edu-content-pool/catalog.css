@@ -136,6 +136,16 @@ a { color: var(--pc-sky-dark); text-underline-offset: 2px; }
 .lesson-row:hover { background: var(--pc-cream); box-shadow: var(--pc-shadow-contact); }
 .lesson-row__no { font-weight: 800; color: var(--pc-lavender-dark); white-space: nowrap; }
 .lesson-row__title { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+/* 차시 줄: 왼쪽은 상세 열기, 오른쪽은 교사·학생·활동지로 바로 가기 */
+.lesson-item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.lesson-go { display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-end; }
+.go { display: inline-flex; align-items: center; justify-content: center; gap: 4px; line-height: 1; min-height: 44px; padding: 0 10px; border-radius: 999px; background: var(--pc-cream); color: var(--pc-ink); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; box-shadow: var(--pc-shadow-contact); }
+.go:hover { background: var(--pc-mint-light); }
+.go .fi { display: inline-flex; line-height: 1; }
+.lesson-go__wait { font-size: 12px; }
+.unit__flow { font-size: 14px; padding: 6px 10px; border-radius: var(--radius-sm); background: var(--pc-mint-light); }
+.unit__flow summary { cursor: pointer; min-height: 32px; display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+.unit__flow p { margin: 4px 0 2px; }
 .mode { display: inline-flex; align-items: center; justify-content: center; line-height: 1; padding: 4px 8px; border-radius: 999px; background: var(--pc-mint-light); color: var(--pc-mint-dark); font-size: 12px; white-space: nowrap; }
 .empty { padding: 32px; text-align: center; color: var(--pc-muted); }
 
@@ -198,6 +208,8 @@ a { color: var(--pc-sky-dark); text-underline-offset: 2px; }
   .detail__grid { grid-template-columns: minmax(0, 1fr); }
   .lesson-row { grid-template-columns: 56px minmax(0, 1fr); }
   .lesson-row__modes { display: none; }
+  .lesson-item { grid-template-columns: minmax(0, 1fr); }
+  .lesson-go { justify-content: flex-start; padding-left: 68px; }
 }
 
 /* ---- 인쇄: 화면 UI는 빼고 classroom-ui 학습지 한 장만 ---- */

@@ -35,11 +35,6 @@ p { margin: 0; text-wrap: pretty; }
 .pl-btn .fi { line-height: 1; display: inline-flex; }
 .pl-chip { display: inline-flex; align-items: center; justify-content: center; line-height: 1; padding: 6px 12px; border-radius: 999px; background: var(--pc-lavender-light); color: var(--pc-lavender-dark); font-weight: 800; font-size: 0.8em; }
 
-/* 입장 */
-.pl-join { padding: 24px; display: grid; gap: 12px; max-width: 640px; margin: 24px auto; text-align: center; }
-.pl-join__art { max-width: 520px; margin: 0 auto; width: 100%; }
-.pl-join__form { display: grid; gap: 12px; text-align: left; }
-.pl-join__form label { display: grid; gap: 4px; font-weight: 700; }
 input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border: 1px solid #CFC5B5; background: #fff; color: var(--pc-ink); min-height: 48px; }
 
 /* 상단 */
@@ -69,13 +64,15 @@ input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border
 .pl-nav { display: flex; justify-content: flex-end; }
 .pl-act-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
 .pl-task { font-weight: 700; }
-/* 문항·확인(.pl-side)이 DOM에서 교구보다 앞이다(좁은 화면 Tab 순서 = 보이는 순서). 넓은 화면에서만 교구를 왼쪽에 둔다 */
-.pl-work { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 1fr); gap: 20px; align-items: start; }
-/* 문항 묶음 → 교구 → 확인 묶음 순서(DOM·Tab). 넓은 화면에서는 교구를 왼쪽 두 줄에, 문항·확인을 오른쪽 위아래에 둔다 */
-.pl-work { grid-template-rows: auto 1fr; }
-.pl-work > .pl-tool { grid-column: 1; grid-row: 1 / span 2; }
-.pl-work > .pl-side { grid-column: 2; grid-row: 1; }
-.pl-work > .pl-side--actions { grid-row: 2; align-self: start; }
+/* DOM·Tab 순서 = 좁은 화면에 보이는 순서: 문항 → 교구 → 예상 → 확인 띠 → 피드백.
+   넓은 화면에서는 교구를 왼쪽 모든 줄에 걸치고, 오른쪽에 문항 → 예상 → 피드백 → 확인 띠를 위에서부터 둔다(5회차 전과 같은 모양).
+   빈 줄(예상 없는 문항)에 틈이 생기지 않게 줄 틈(row-gap)은 0, 오른쪽 칸마다 아래 여백을 준다. */
+.pl-work { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(260px, 1fr); column-gap: 20px; row-gap: 0; align-items: start; grid-template-rows: auto auto auto auto 1fr; }
+.pl-work > .pl-tool { grid-column: 1; grid-row: 1 / -1; }
+.pl-work > .pl-side { grid-column: 2; grid-row: 1; margin-bottom: 12px; }
+.pl-work > .pl-side--predict { grid-row: 2; }
+.pl-work > .pl-side--fb { grid-row: 3; }
+.pl-work > .pl-side--actions { grid-row: 4; align-self: start; }
 @media (max-width: 820px) { .pl-work { grid-template-columns: 1fr; } }
 .pl-tool { background: var(--pc-sky-light); border-radius: 18px; padding: 10px; min-width: 0; }
 .pl-tool--exit { max-width: 560px; } /* 출구 교구도 단추 44px·글자 12px 이상이 되게 넉넉히 */
@@ -151,18 +148,34 @@ input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border
 .ws-figs--wide { grid-template-columns: 1fr; }
 /* 좁은 화면(휴대폰·200% 확대): 문항을 교구 위로, 확인 단추는 아래에 붙여 둔다 */
 @media (max-width: 820px) {
-  .pl-work { display: flex; flex-direction: column; }
-  /* 좁거나 낮은 화면에서는 교구를 폭에 맞춰 키운다(높이 제한 때문에 683px 확대 화면에서 눈금이 4px로 줄던 문제) */
-  .pl-tool .pk-stage { max-height: none; }
-  /* 문항·확인 단추 묶음이 교구 위에 붙어 있어 교구를 만져도 확인 단추가 사라지지 않는다 */
-  .pl-side--actions { position: sticky; bottom: 0; z-index: 2; background: var(--pc-paper); padding: 8px 0; }
+  /* 넓은 화면의 align-items: start가 세로 배치에 남으면 교구가 내용 폭(약 320px)으로 줄어든다 — 폭을 꽉 채운다 */
+  .pl-work { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+  .pl-work > .pl-side, .pl-work > .pl-tool { align-self: stretch; margin-bottom: 0; }
+  .pl-side--fb:not(:has(.pl-feedback:not(:empty), .pl-note:not([hidden]), #suggest:not(:empty), .pl-more:not(:empty))) { display: none; }
+  /* 좁은 화면에서는 72vh 제한을 풀고(683px 확대 화면에서 눈금이 4px로 줄던 문제) 아래의 '화면 − 띠' 높이로 묶는다 */
+  /* 확인 띠는 한 줄(64px 이하)로 줄인다 — 두 줄 띠(132px)가 교구 아래 단추를 덮어 확인이 대신 눌리던 문제 */
+  /* 4회차: 확인 띠를 화면에 띄우지(sticky) 않는다. 띄운 띠는 교구가 화면 아래 끝에 걸친 모든 스크롤 위치에서
+     교구 아래쪽 64px을 덮었다(계절·분류판의 마지막 줄). 대신 띠를 교구 바로 밑에 두고, 교구 무대의 높이를
+     '화면 높이 − 띠 높이'로 묶어 교구와 확인 단추가 언제나 한 화면에 함께 들어오게 한다. */
+  .pl-work { --pl-bar-h: 64px; }
+  .pl-side--actions { position: static; min-height: var(--pl-bar-h); background: var(--pc-paper); padding: 8px 0; }
+  .pl-tool .pk-stage { max-height: calc(100svh - var(--pl-bar-h) - 40px); }
+  /* 예상 칸이 교구와 확인 띠 사이에 있으면 그만큼 무대를 줄여 띠가 같은 화면에 남게 */
+  .pl-work.has-predict .pl-tool .pk-stage { max-height: calc(100svh - var(--pl-bar-h) - 160px); }
+  .pl-side--actions .pl-actions { flex-wrap: nowrap; gap: 6px; }
+  .pl-side--actions .pl-btn { flex: 1 1 0; min-width: 0; min-height: 48px; padding: 6px 8px; gap: 6px; font-size: 0.9em; }
   .pl-top__side { justify-items: start; }
   .pl-prefs { justify-content: flex-start; }
 }
-@media (max-height: 480px) { .pl-tool .pk-stage { max-height: none; } }
+@media (max-height: 480px) and (min-width: 821px) { .pl-tool .pk-stage { max-height: none; } }
 .pl-art .pk-stage { max-height: 42vh; }
+/* 생성 그림: 벡터 장면과 같은 칸·같은 비율. 비율이 다른 그림도 늘어나지 않게 잘라 맞춘다 */
+.pl-art__img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 16px; background: #F8F4EC; }
+.pl-art .pl-art__img { max-height: 42vh; }
+@media print { .pl-art__img { display: none; } }
 .pl-nav--top { margin-bottom: -4px; }
-@media (max-width: 820px) and (max-height: 520px) { .pl-side--actions { position: static; } }
+/* 가로로 누운 휴대폰(낮은 화면)은 무대를 화면 높이에 묶으면 너무 작아진다 — 폭에 맞추고 띠는 아래에 둔다 */
+@media (max-width: 820px) and (max-height: 520px) { .pl-tool .pk-stage { max-height: none; } }
 .pl-safety summary { cursor: pointer; min-height: 32px; list-style: none; display: flex; align-items: center; }
 /* 쉬운 활동지가 기본보다 글씨가 작아지던 문제: 쉬운 판은 언제나 기본 이상 */
 .ws--easy .edu-exam-q-text { font-size: 13.5pt; }
@@ -170,3 +183,93 @@ input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border
 .ws--low .ws-blank, .ws--low figcaption, .ws--low .ws-checks, .ws--low .edu-exam-choice-text { font-size: 15pt; }
 html[data-role="teacher"] .pl-demo { max-width: 720px; } /* 전자칠판 시연은 교실 뒤에서도 보이게 크게 */
 .pl-late { color: var(--pc-rose-dark); }
+
+/* 3회차: 휴대폰에서 교구가 덜 줄게 바깥 여백을 줄인다(390px에서 무대 298px → 약 350px) */
+@media (max-width: 480px) {
+  .pl-app { padding: 8px; gap: 10px; }
+  .pl-card { padding: 12px; }
+  .pl-tool { padding: 4px; border-radius: 14px; }
+}
+/* 틀린 직후 잠긴 확인·예상을 고르기 전 확인: 눌러도 아무 일이 없다는 것이 보이게 */
+.pl-btn[aria-disabled="true"] { opacity: 0.55; cursor: default; }
+.pl-btn[aria-disabled="true"]:active { transform: none; }
+.pl-feedback .pl-read, .pl-note .pl-read, .pl-conclude .pl-read { width: 40px; height: 40px; }
+.pl-fb__t { vertical-align: middle; }
+.pl-note { margin: 0; padding: 6px 12px; border-radius: 12px; background: var(--pc-sky-light); color: var(--pc-sky-dark); font-weight: 700; }
+/* 예상 → 관찰 → 정리 */
+.pl-predict { display: grid; gap: 8px; background: var(--pc-peach-light); border: 1px solid var(--pc-peach); border-radius: 14px; padding: 10px 12px; }
+.pl-predict__q b { color: var(--pc-peach-dark); display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; }
+.pl-predict__opts { display: flex; flex-wrap: wrap; gap: 8px; }
+.pl-predict__o { white-space: normal; text-align: left; line-height: 1.3; }
+.pl-predict__o[aria-pressed="true"] { background: var(--pc-peach); color: var(--pc-peach-dark); box-shadow: 0 0 0 2px var(--pc-peach-layer); }
+.pl-predict__o:disabled { opacity: 1; }
+.pl-predict__o:disabled:not([aria-pressed="true"]) { opacity: 0.5; }
+.pl-more { display: grid; gap: 8px; justify-items: start; }
+.pl-more:empty, #suggest:empty { display: none; }
+.pl-conclude { display: grid; gap: 8px; background: var(--pc-mint-light); border-radius: 14px; padding: 10px 12px; width: 100%; }
+.pl-conclude p .fi { color: var(--pc-mint-dark); }
+
+/* 4회차: 교구 안 고르기 단추의 '고름' 모양. 교구는 단추에 .pl-btn(또는 .pk-choice)과 aria-pressed="true"
+   (라디오 모양이면 aria-checked="true")만 달면 된다. :where()로 낮춰 두어 예상 보기·활동 바로 가기 모양을 덮지 않는다.
+   색만으로 구분하지 않게 테두리 고리와 굵기도 바꾼다. */
+:where(.pl-btn, .pk-choice)[aria-pressed="true"], :where(.pl-btn, .pk-choice)[aria-checked="true"] {
+  background: var(--pc-mint-light); color: var(--pc-mint-dark); border-color: var(--pc-mint-dark);
+  box-shadow: inset 0 0 0 2px var(--pc-mint-dark), var(--pc-shadow-contact); font-weight: 800;
+}
+/* 활동지 표의 미리 채운 칸(cells) */
+.ws-grid td.ws-given { text-align: center; font-weight: 700; }
+.ws-grid td, .ws-grid th { padding: 1mm 2mm; }
+
+/* 5회차: 휴대폰(480px 이하) 짧은 머리말 — 제목 한 줄 + 난이도·소리 한 줄(머리말 약 370px → 100px 남짓).
+   목표는 접어 두는 칸(도입에서는 펼침), 반·번호는 같은 줄 끝에. 전개 단계 교구 위쪽이 390×844에서 260px 이하가 되게
+   활동 안내(.pl-task)와 안전 약속은 교구 아래로 내리고(순서만 바꿈, 읽어 주기 단추 그대로), 문항 점은 활동 제목 줄에 올린다. */
+.pl-goal > summary { cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap: 4px; min-height: 32px; }
+.pl-goal > summary::-webkit-details-marker { display: none; }
+.pl-goal[open] .pl-goal__more { display: none; }
+.pl-goal p { display: inline; }
+.pl-goal[open] > summary { display: inline-flex; margin-right: 6px; }
+.pl-goal[open] { display: block; }
+.pl-goal[open] > summary, .pl-goal[open] > p { vertical-align: baseline; }
+.pl-dots li.is-closed { background: var(--pc-rose); }
+@media (min-width: 481px) {
+  .pl-goal__more { display: none; }
+}
+@media (max-width: 480px) {
+  .pl-app { gap: 8px; }
+  /* 머리말 두 줄: [과목][제목……] / [목표][쉬움 기본 도전][소리][반·번호]. 묶음 div는 풀어(display: contents) 한 격자에 놓는다 */
+  .pl-top { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); align-items: center; gap: 6px; padding: 6px 10px; }
+  .pl-top__title, .pl-top__side { display: contents; }
+  .pl-top__title .pl-chip { grid-row: 1; grid-column: 1; padding: 4px 8px; font-size: 0.7em; }
+  .pl-top__title h1 { grid-row: 1; grid-column: 2 / -1; min-width: 0; font-size: 1.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pl-goal { grid-row: 2; grid-column: 1; font-size: 0.85em; }
+  .pl-goal > summary { min-height: 44px; padding: 0 8px; border-radius: 10px; background: var(--pc-paper); white-space: nowrap; }
+  /* 펼치면 셋째 줄 전체에 목표 글(접으려면 '목표'를 다시 누른다) */
+  .pl-goal[open] { grid-row: 3; grid-column: 1 / -1; }
+  .pl-goal[open] > summary { min-height: 36px; }
+  .pl-top .pl-level { grid-row: 2; grid-column: 2; padding: 2px; }
+  .pl-top:not(:has(.pl-goal:not([open]))) .pl-level { grid-column: 1 / span 2; justify-self: start; }
+  .pl-level__b { min-width: 52px; min-height: 44px; }
+  .pl-top .pl-prefs { grid-row: 2; grid-column: 3; flex-wrap: nowrap; }
+  .pl-pref { min-width: 44px; padding: 6px 10px; }
+  .pl-pref__t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } /* 글은 읽히게 두고 화면에서만 숨긴다 */
+  .pl-who { grid-row: 2; grid-column: 4; justify-self: end; min-width: 0; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 0.75em; }
+  .pl-steps { gap: 4px; }
+  .pl-step { min-height: 44px; padding: 2px 6px; font-size: 0.85em; }
+  .pl-step small { display: none; }
+  .pl-card { gap: 8px; position: relative; }
+  .pl-card > * { min-width: 0; }
+  .pl-card:has(> .pl-work) > .pl-act-head { padding-right: 96px; flex-wrap: nowrap; min-height: 24px; }
+  .pl-act-head h2 { font-size: 1em; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .pl-act-head .pl-muted { font-size: 0.75em; white-space: nowrap; }
+  .pl-card:has(> .pl-work) > .pl-work { order: 1; }
+  .pl-card:has(> .pl-work) > .pl-task, .pl-card:has(> .pl-work) > .pl-safety { order: 2; font-size: 0.9em; }
+  .pl-work .pl-side:first-child { gap: 4px; }
+  .pl-work .pl-dots { position: absolute; top: 15px; right: 12px; gap: 5px; }
+  .pl-work .pl-dots li { width: 12px; height: 12px; }
+  .pl-card:has(.pl-dots li:nth-child(6)) > .pl-act-head { padding-right: 132px; }
+  .pl-who__c { display: none; }
+  .pl-goal > summary { gap: 0; }
+  .pl-prompt { display: flex; align-items: flex-start; justify-content: space-between; gap: 6px; font-size: 1em; line-height: 1.45; }
+  .pl-prompt .pl-read { flex: none; }
+  .pl-predict { padding: 8px 10px; gap: 6px; }
+}

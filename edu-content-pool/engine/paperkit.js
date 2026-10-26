@@ -69,6 +69,9 @@
         return m ? p.matrixTransform(m.inverse()) : p;
       },
     };
+    // 무대는 세로 스크롤(pan-y)을 허용한다. 끄는 조각(.pk-draggable·.pk-rotatable) 위에서 움직인 터치만 스크롤을 막는다.
+    // CSS touch-action은 SVG 안쪽 요소에서 무시되므로 touchmove를 취소한다 — touchstart를 취소하면 단추 조각의 탭이 click이 되지 않는다.
+    svg.addEventListener('touchmove', (e) => { if (e.cancelable && e.target.closest && e.target.closest('.pk-draggable, .pk-rotatable, .pk-lifted')) e.preventDefault(); }, { passive: false });
     container.appendChild(svg);
     return s;
   }
@@ -367,7 +370,50 @@
     container.classList.add('pk-tool', `pk-tool--${id}`);
     const inst = def.create(container, options, api);
     inst.id = id; inst.name = def.name;
+    if (!options.print) legible(container);
     return inst;
+  }
+
+  // 휴대폰 폭에서는 교구 무대가 0.5~0.6배로 줄어 viewBox 글자 13이 7px이 된다.
+  // 화면 글자가 MIN_TEXT_PX 아래로 내려가면 글자만 키운다(조각 배치가 깨지지 않게 원래 크기의 MAX_BOOST배까지).
+  // 교구가 font-size 속성을 바꾸면 그 값을 새 기준으로 다시 맞춘다(인라인 style만 쓰므로 속성은 그대로 남는다).
+  const MIN_TEXT_PX = 12; const MAX_BOOST = 1.5;
+  function legible(container) {
+    if (typeof ResizeObserver === 'undefined' || typeof MutationObserver === 'undefined') return;
+    const scales = new Map();
+    const scaleOf = (svg) => {
+      if (!svg) return 0;
+      if (scales.has(svg)) return scales.get(svg);
+      const vb = svg.viewBox && svg.viewBox.baseVal; const r = svg.getBoundingClientRect();
+      const s = vb && vb.width && r.width ? Math.min(r.width / vb.width, r.height / vb.height) : 0;
+      scales.set(svg, s); return s;
+    };
+    const fit = (t) => {
+      const fs = parseFloat(t.getAttribute('font-size')); const s = scaleOf(t.ownerSVGElement);
+      if (!fs || !s) return;
+      let size = fs * s < MIN_TEXT_PX ? Math.min(MIN_TEXT_PX / s, fs * MAX_BOOST) : 0;
+      if (`${size ? size.toFixed(1) : ''}` === (t.style.fontSize || '').replace('px', '')) return;
+      t.style.fontSize = size ? `${size.toFixed(1)}px` : '';
+      if (!size) return;
+      // 키운 글자가 무대 밖으로 나가면(가운데 정렬 기준) 넘친 만큼 되돌린다 — 원래 크기보다 작게는 하지 않는다
+      const rt = t.getBoundingClientRect(); const rs = t.ownerSVGElement.getBoundingClientRect();
+      const over = Math.max(rs.left - rt.left, rt.right - rs.right, 0);
+      if (over > 0 && rt.width > 0) {
+        size = Math.max(fs, size * Math.max(0, rt.width - 2 * over) / rt.width);
+        t.style.fontSize = `${size.toFixed(1)}px`;
+      }
+    };
+    const all = () => { scales.clear(); container.querySelectorAll('text').forEach(fit); };
+    new ResizeObserver(all).observe(container);
+    new MutationObserver((recs) => {
+      for (const m of recs) {
+        if (m.type === 'attributes') { fit(m.target); continue; }
+        for (const n of m.addedNodes) {
+          if (n.nodeType !== 1) continue;
+          if (n.tagName === 'text') fit(n); else n.querySelectorAll('text').forEach(fit);
+        }
+      }
+    }).observe(container, { childList: true, subtree: true, attributes: true, attributeFilter: ['font-size'] });
   }
 
   const api = {

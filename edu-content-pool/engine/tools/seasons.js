@@ -5,7 +5,10 @@
  *       words(쉬움: 카드를 누르면 쉬운 낱말 뜻 한 줄, 힌트도 쉬운 말로),
  *       hideSeasonNames(도전: 판 이름 대신 ?), why({card, ask, choices[], hard?}: 까닭 고르기),
  *       whyHard(도전: why.hard 선택지를 더함), decorate(자유 꾸미기: 카드를 스티커처럼 아무 데나 여러 장 붙임),
- *       demoView(교사 화면 시연: 판을 크게), view:'tree'|'card' + season|card(활동지 낱장 그림), print
+ *       demoView(교사 화면 시연: 판을 크게), view:'tree'|'card' + season|card(활동지 낱장 그림), print,
+ *       sayFrame(꾸미기: '나는 (계절)이 좋아요. (날씨) 때문이에요.' 말하기 틀 — 고른 계절·날씨가 상태 say에 남는다)
+ * 카드 표시 이름은 label이 있으면 그것을 쓴다(밤 → '알밤': 저녁 뒤의 '밤'으로 읽히지 않게). 문항의 카드 키는 그대로다.
+ * 나무 그림은 색 없이도 계절이 보이게 모양 단서를 둔다: 봄 다섯 잎 꽃, 여름 빽빽한 잎과 해, 가을 단풍잎(나무·땅), 겨울 맨가지와 눈송이.
  * 상태: { placed: { 카드이름: '봄'|'여름'|'가을'|'겨울'|null }, why?: 고른 까닭 번호|null }
  *       꾸미기: { stickers: [{ card, x, y, s, season }] }
  * target: { sorted: { 카드이름: 계절 }, why?: 번호 } 또는 { season: '가을', cards: [...], why?: 번호 }(그 판에 정확히 그 카드들)
@@ -22,6 +25,15 @@
     겨울: { bg: 'sky', tag: 'lavender', ground: 'cream' },
   };
   const josa = (w, a, b) => { const c = w.charCodeAt(w.length - 1); if (c < 0xac00 || c > 0xd7a3) return w + b; return w + ((c - 0xac00) % 28 ? a : b); };
+  // 힌트 단계(새 계약): 1 = 방법만(시도 전에도), 2 = 다시 볼 카드 짚기(1번 틀린 뒤), 3 = 그 카드의 실마리(2번 틀린 뒤)
+  const levelOf = (opts) => {
+    const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
+    const a = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
+    const cap = a == null ? 3 : a >= 2 ? 3 : a >= 1 ? 2 : 1;
+    return Math.max(1, Math.min(3, want, cap));
+  };
+  const labelOf = (name) => (CARDS[name] && CARDS[name].label) || name;
+  const P0 = K.palette;
   const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // 그림 카드: 아이콘은 (0,-10) 둘레 ±26 안에 종이 조각으로 그린다. clue는 정답 계절 이름을 말하지 않는 힌트.
@@ -36,7 +48,8 @@
       p({ type: 'path', d: 'M0 -8 C -6 -22 -20 -24 -24 -18 C -18 -8 -8 -6 0 -8 Z' }, 'mint');
       p({ type: 'path', d: 'M0 -10 C 6 -26 20 -30 24 -24 C 18 -12 8 -8 0 -10 Z' }, 'mint');
     } },
-    개나리: { season: '봄', easy: '노란 꽃이 가지에 줄줄이 피는 나무예요.', clue: '잎보다 먼저 노란 꽃이 가지를 따라 줄줄이 피어요.', draw(p) {
+    개나리: { season: '봄', easy: '노란 꽃이 가지에 줄줄이 피는 나무예요.', clue: '잎보다 먼저 노란 꽃이 가지를 따라 줄줄이 피어요.',
+      mix: { 여름: '개나리는 해바라기처럼 노랗지만 피는 때는 달라요. 개나리를 본 날은 따뜻했나요, 더웠나요?' }, draw(p) {
       p({ type: 'rect', w: 50, h: 4, x: -25, y: -2, rx: 2 }, 'peach', { y: -10, r: -24, flat: true });
       [[-15, -2], [2, -12], [17, -21]].forEach(([x, y]) => {
         for (let i = 0; i < 4; i++) p({ type: 'ellipse', rx: 4, ry: 7.5, cy: -6.5 }, 'buttercup', { x, y, r: i * 90 + 45, flat: i > 0 });
@@ -50,6 +63,20 @@
       p({ type: 'ellipse', rx: 8, ry: 7 }, 'rose', { x: 10, y: -2, r: -20 });
       p({ type: 'ellipse', rx: 3, ry: 15 }, 'ink', { x: 0, y: -10, depth: 0 });
     } },
+    진달래: { season: '봄', easy: '산에 피는 진한 분홍색 꽃이에요.', clue: '날이 풀리기 시작하면 잎보다 먼저 산에 진분홍 꽃이 피어요.', draw(p) {
+      p({ type: 'rect', w: 44, h: 3.5, x: -22, y: -2, rx: 2 }, 'peach', { y: 6, r: -14, flat: true });
+      [[-11, -16], [10, -8]].forEach(([x, y]) => {
+        for (let i = 0; i < 5; i++) p({ type: 'ellipse', rx: 6.5, ry: 9, cy: -8 }, 'lavender', { x, y, r: i * 72, fill: '#D660A8' });
+        p({ type: 'circle', r: 2.5 }, 'buttercup', { x, y, flat: true, depth: 0 });
+      });
+    } },
+    매미: { season: '여름', easy: '나무에 붙어 맴맴 크게 우는 곤충이에요.', clue: '아주 더운 날 나무에 붙어 맴맴 시끄럽게 울어요.', draw(p) {
+      p({ type: 'ellipse', rx: 9, ry: 22 }, 'sky', { x: -8, y: -6, r: 16, fill: K.palette.sky.light });
+      p({ type: 'ellipse', rx: 9, ry: 22 }, 'sky', { x: 8, y: -6, r: -16, fill: K.palette.sky.light });
+      p({ type: 'ellipse', rx: 8, ry: 17 }, 'peach', { x: 0, y: -8, fill: '#7A5236', depth: 2 });
+      p({ type: 'circle', r: 7 }, 'peach', { x: 0, y: -26, fill: '#5E3E28' });
+      [-5, 5].forEach((x) => p({ type: 'circle', r: 1.8 }, 'ink', { x, y: -28, flat: true, depth: 0 }));
+    } },
     수박: { season: '여름', easy: '크고 둥근 과일이에요. 속이 빨갛고 물이 많아요.', clue: '아주 더운 날 시원하게 먹는 물이 많은 과일이에요.', draw(p) {
       p({ type: 'path', d: 'M-26 -16 A26 26 0 0 0 26 -16 Z' }, 'mint', { depth: 2 });
       p({ type: 'path', d: 'M-21 -16 A21 21 0 0 0 21 -16 Z' }, 'rose');
@@ -60,7 +87,8 @@
       p({ type: 'path', d: 'M0 8 L-24 -20 A36 36 0 0 1 24 -20 Z' }, 'sky', { depth: 2 });
       p({ type: 'path', d: 'M0 8 L-13 -7 A20 20 0 0 1 13 -7 Z' }, 'cream', { flat: true });
     } },
-    해바라기: { season: '여름', easy: '키가 크고 해처럼 둥근 노란 꽃이에요.', clue: '햇볕이 뜨거운 때 해를 닮은 큰 노란 꽃이 피어요.', draw(p) {
+    해바라기: { season: '여름', easy: '키가 크고 해처럼 둥근 노란 꽃이에요.', clue: '햇볕이 뜨거운 때 해를 닮은 큰 노란 꽃이 피어요.',
+      mix: { 봄: '해바라기는 개나리처럼 노랗지만 피는 때는 달라요. 해바라기를 본 날은 더웠나요, 따뜻했나요?' }, draw(p) {
       p({ type: 'rect', w: 3, h: 22, x: -1.5, y: -4 }, 'mint', { flat: true });
       p({ type: 'ellipse', rx: 4, ry: 8 }, 'mint', { x: 7, y: 8, r: 50 });
       for (let i = 0; i < 12; i++) p({ type: 'ellipse', rx: 4, ry: 9, cy: -11 }, 'buttercup', { x: 0, y: -12, r: i * 30, flat: i % 2 === 1 });
@@ -76,7 +104,8 @@
       p({ type: 'poly', points: '0,-36 6,-22 18,-28 14,-14 26,-10 12,-2 16,8 2,2 0,12 -2,2 -16,8 -12,-2 -26,-10 -14,-14 -18,-28 -6,-22' }, 'peach', { depth: 2, fill: K.palette.peach.layer });
       p({ type: 'poly', points: '0,-26 4,-16 10,-18 8,-10 14,-8 6,-2 0,4 -6,-2 -14,-8 -8,-10 -10,-18 -4,-16' }, 'rose', { flat: true, depth: 0 });
     } },
-    고추잠자리: { season: '가을', easy: '빨간 몸에 날개가 넷인 곤충이에요.', clue: '하늘이 높고 맑을 때 빨간 몸으로 무리 지어 날아다녀요.', draw(p) {
+    고추잠자리: { season: '가을', easy: '빨간 몸에 날개가 넷인 곤충이에요.', clue: '하늘이 높고 맑을 때 빨간 몸으로 무리 지어 날아다녀요.',
+      mix: { 여름: '여름에도 잠자리는 있어요. 빨간 고추잠자리가 무리 지어 나는 날은 더웠나요, 선선했나요?' }, draw(p) {
       p({ type: 'ellipse', rx: 13, ry: 4.5 }, 'lavender', { x: -3, y: -21, r: -14, fill: K.palette.lavender.light });
       p({ type: 'ellipse', rx: 13, ry: 4.5 }, 'lavender', { x: -3, y: -3, r: 14, fill: K.palette.lavender.light });
       p({ type: 'ellipse', rx: 11, ry: 4 }, 'lavender', { x: 9, y: -19, r: -24, fill: K.palette.lavender.light });
@@ -84,7 +113,7 @@
       p({ type: 'ellipse', rx: 20, ry: 3.2 }, 'peach', { x: 4, y: -12, fill: '#D9473B' });
       p({ type: 'circle', r: 5 }, 'peach', { x: -18, y: -12, fill: '#C23A2F' });
     } },
-    밤: { season: '가을', easy: '가시 껍질 속에 든 갈색 열매예요.', clue: '뾰족한 가시 껍질 속에 들어 있는 열매가 익어 떨어져요.', draw(p) {
+    밤: { season: '가을', label: '알밤', easy: '가시 껍질 속에 든 갈색 열매예요.', clue: '뾰족한 가시 껍질 속에 들어 있는 열매가 익어 떨어져요.', draw(p) {
       p({ type: 'path', d: 'M0 -32 C 14 -24 24 -10 22 4 Q 0 14 -22 4 C -24 -10 -14 -24 0 -32 Z' }, 'peach', { depth: 2, fill: '#B9805F' });
       p({ type: 'path', d: 'M-22 4 Q 0 14 22 4 Q 18 13 0 15 Q -18 13 -22 4 Z' }, 'cream', { flat: true });
       p({ type: 'ellipse', rx: 3, ry: 6 }, 'cream', { x: -9, y: -14, r: 20, flat: true, depth: 0 });
@@ -93,6 +122,11 @@
       p({ type: 'circle', r: 18 }, 'peach', { x: 0, y: -8, depth: 2, fill: '#F4A261' });
       for (let i = 0; i < 4; i++) p({ type: 'ellipse', rx: 3.5, ry: 7, cy: -6 }, 'mint', { x: 0, y: -25, r: i * 90 + 45, flat: i > 0 });
       p({ type: 'rect', w: 3, h: 6, x: -1.5, y: -34 }, 'peach', { flat: true, depth: 0, fill: '#8A5A3C' });
+    } },
+    코스모스: { season: '가을', easy: '가늘고 긴 줄기에 분홍 꽃잎이 여덟 장 달린 꽃이에요.', clue: '하늘이 높고 바람이 선선할 때 길가에 하늘하늘 피어요.', draw(p) {
+      p({ type: 'rect', w: 2.5, h: 24, x: -1.25, y: -4 }, 'mint', { flat: true });
+      for (let i = 0; i < 8; i++) p({ type: 'ellipse', rx: 4.5, ry: 10, cy: -10 }, i % 2 ? 'lavender' : 'rose', { x: 0, y: -14, r: i * 45, flat: i % 2 === 1 });
+      p({ type: 'circle', r: 5 }, 'buttercup', { x: 0, y: -14 });
     } },
     눈사람: { season: '겨울', easy: '눈을 굴려서 만든 사람이에요.', clue: '하얀 눈이 쌓이면 눈을 굴려서 만들어요.', draw(p) {
       p({ type: 'circle', r: 27 }, 'sky', { x: 0, y: -10, flat: true, depth: 0, fill: K.palette.sky.light });
@@ -116,6 +150,23 @@
       p({ type: 'rect', w: 12, h: 4, x: 4, y: 5 }, 'buttercup', { flat: true, depth: 0 });
       p({ type: 'path', d: 'M-26 -28 Q 0 -16 26 -28 L 26 -15 Q 0 -3 -26 -15 Z' }, 'rose', { depth: 2 });
       [5, 9, 13].forEach((x) => p({ type: 'rect', w: 2, h: 5, x, y: 14 }, 'rose', { flat: true, depth: 0 }));
+    } },
+    고드름: { season: '겨울', easy: '처마 끝에 길고 뾰족하게 언 얼음이에요.', clue: '물이 떨어지다가 꽁꽁 얼어 처마 끝에 뾰족하게 매달려요.', draw(p) {
+      p({ type: 'rect', w: 54, h: 9, x: -27, y: -36, rx: 2 }, 'peach', { depth: 2, fill: K.palette.peach.layer });
+      [[-20, 30], [-8, 44], [4, 34], [16, 46]].forEach(([x, len]) => p({ type: 'poly', points: `${x - 5},-27 ${x + 5},-27 ${x},${-27 + len}` }, 'sky', { fill: '#DDEFFA' }));
+    } },
+    팥빙수: { season: '여름', easy: '얼음을 곱게 갈아 팥을 얹은 차가운 간식이에요.', clue: '땀이 날 만큼 더운 날 시원하게 먹는 얼음 간식이에요.', draw(p) {
+      p({ type: 'path', d: 'M-14 -20 Q 0 -38 14 -20 Z' }, 'sky', { fill: '#F4FAFE', depth: 2 });
+      [[-6, -24], [2, -27], [7, -22], [-1, -21]].forEach(([x, y]) => p({ type: 'circle', r: 2.6 }, 'rose', { x, y, fill: '#8C3B3B', flat: true, depth: 0 }));
+      p({ type: 'path', d: 'M-22 -18 L22 -18 L14 8 L-14 8 Z' }, 'sky', { depth: 2 });
+      p({ type: 'rect', w: 20, h: 6, x: -10, y: 8, rx: 2 }, 'sky', { fill: K.palette.sky.layer });
+      p({ type: 'rect', w: 3, h: 20, x: 12, y: -36, rx: 1.5 }, 'buttercup', { r: 20, flat: true });
+    } },
+    털모자: { season: '겨울', easy: '털실로 짠 따뜻한 모자예요.', clue: '귀가 시릴 만큼 찬 바람이 불 때 머리에 써요.', draw(p) {
+      p({ type: 'circle', r: 7 }, 'cream', { x: 0, y: -30, fill: '#FFFFFF', depth: 2 });
+      p({ type: 'path', d: 'M-22 8 C -24 -20 24 -20 22 8 Z' }, 'rose', { depth: 2 });
+      [-12, -4, 4, 12].forEach((x) => p({ type: 'rect', w: 2, h: 16, x: x - 1, y: -10 }, 'rose', { fill: P0.rose.layer, flat: true, depth: 0 }));
+      p({ type: 'rect', w: 48, h: 10, x: -24, y: 4, rx: 4 }, 'buttercup', { depth: 2 });
     } },
     썰매: { season: '겨울', easy: '눈 위에서 타고 미끄러지는 놀이 기구예요.', clue: '눈 덮인 언덕에서 타고 미끄러져 내려와요.', draw(p) {
       p({ type: 'rect', w: 7, h: 22, x: -23, y: -32, rx: 2 }, 'peach');
@@ -152,9 +203,10 @@
         const blob = (x, y, r, color, fill) => piece(st, tree, { type: 'circle', r, cx: x, cy: y }, color, { depth: 2, fill });
         if (season === '봄') {
           blob(-28, -70, 26, 'rose'); blob(28, -68, 26, 'rose'); blob(0, -90, 38, 'rose');
-          [[-30, -78], [-12, -104], [14, -96], [30, -74], [-6, -78], [20, -112], [-26, -58], [8, -62], [36, -58]].forEach(([x, y], i) => {
-            piece(st, tree, { type: 'circle', r: 5.5, cx: x, cy: y }, 'cream', { flat: true, depth: 0, fill: i % 2 ? '#FFFFFF' : P.rose.light });
-            piece(st, tree, { type: 'circle', r: 1.8, cx: x, cy: y }, 'rose', { flat: true, depth: 0, fill: P.rose.layer });
+          // 다섯 잎 꽃: 흑백 인쇄에서도 '꽃 핀 나무'로 보이게 꽃 모양 그대로 오린다
+          [[-30, -80], [-10, -106], [16, -98], [30, -72], [-4, -78], [22, -116], [-24, -56], [10, -60]].forEach(([x, y], i) => {
+            for (let k = 0; k < 5; k++) piece(st, tree, { type: 'ellipse', rx: 3.6, ry: 5.4, cy: -4.6 }, 'cream', { x, y, r: k * 72, flat: true, depth: 0, fill: i % 2 ? '#FFFFFF' : P.rose.light });
+            piece(st, tree, { type: 'circle', r: 2, cx: x, cy: y }, 'rose', { flat: true, depth: 0, fill: P.rose.layer });
           });
           piece(st, tree, { type: 'ellipse', rx: 5, ry: 3, cx: -8, cy: -46 }, 'mint', { flat: true, depth: 0 });
         } else if (season === '여름') {
@@ -163,7 +215,10 @@
         } else if (season === '가을') {
           blob(-28, -68, 25, 'buttercup'); blob(28, -66, 25, 'peach'); blob(0, -90, 36, 'buttercup');
           blob(-8, -76, 18, 'peach'); blob(16, -98, 14, 'rose');
-          [[-20, -96], [26, -82]].forEach(([x, y]) => piece(st, tree, { type: 'path', d: `M${x} ${y - 7} Q ${x + 6} ${y - 2} ${x} ${y + 7} Q ${x - 6} ${y - 2} ${x} ${y - 7} Z` }, 'rose', { flat: true, depth: 0 }));
+          // 단풍잎 모양: 나무 위와 땅에 — 색이 없어도 '잎이 물들어 떨어지는 나무'로 보이게
+          const maple = (x, y, r, c) => piece(st, tree, { type: 'poly', points: '0,-12 2,-7 6,-9 5,-5 9,-3 4,-1 5,3 1,1 0,5 -1,1 -5,3 -4,-1 -9,-3 -5,-5 -6,-9 -2,-7' }, c, { x, y, r, flat: true, depth: 0 });
+          maple(-20, -96, -10, 'rose'); maple(26, -82, 20, 'rose'); maple(2, -66, 0, 'peach');
+          maple(-34, -2, 30, 'peach'); maple(30, -1, -20, 'rose'); maple(-14, 0, 60, 'buttercup');
         } else {
           // 잎이 다 진 가지: 잔가지를 여러 갈래로 뻗고 끝마다 눈을 얹는다
           [[-17, -75, 26, -38], [18, -73, 28, 36], [-1, -83, 32, -14], [3, -83, 30, 18], [-7, -60, 24, -68], [6, -56, 22, 64], [-26, -95, 14, 12], [27, -95, 14, -10]].forEach(([x, y, len, ang]) => {
@@ -172,6 +227,8 @@
             piece(st, tree, { type: 'ellipse', rx: 7, ry: 3.6 }, 'cream', { x: x + Math.sin(a) * len, y: y - Math.cos(a) * len + 1, r: ang * 0.4, depth: 1, fill: '#FFFFFF' });
           });
           [[-12, -66], [12, -64], [0, -84]].forEach(([x, y]) => piece(st, tree, { type: 'ellipse', rx: 8, ry: 3.4, cx: x, cy: y }, 'cream', { depth: 1, fill: '#FFFFFF' }));
+          // 눈송이(여섯 갈래): 흑백 인쇄에서도 눈이 오는 계절로 보이게
+          [[-34, -108], [34, -100], [0, -120]].forEach(([x, y]) => { for (let k = 0; k < 3; k++) piece(st, tree, { type: 'rect', w: 2, h: 14, x: -1, y: -7 }, 'sky', { x, y, r: k * 60, flat: true, depth: 0, fill: P.sky.dark }); });
         }
         // 흩날리는 조각: 꽃잎(봄)·낙엽(가을)·눈(겨울)
         const fall = { 봄: 5, 가을: 5, 겨울: 9 }[season] || 0;
@@ -206,10 +263,11 @@
 
       function drawCard(st, g, name) {
         piece(st, g, { type: 'rect', w: CW, h: CH, x: -CW / 2, y: -CH / 2, rx: 10 }, 'cream', { depth: 2 });
-        piece(st, g, { type: 'rect', w: CW - 10, h: 19, x: -(CW - 10) / 2, y: 20, rx: 6 }, 'buttercup', { flat: true, depth: 0, fill: P.buttercup.light });
+        piece(st, g, { type: 'rect', w: CW - 6, h: 22, x: -(CW - 6) / 2, y: 18, rx: 6 }, 'buttercup', { flat: true, depth: 0, fill: P.buttercup.light });
         const icon = kit.el('g', null, g);
         CARDS[name].draw((shape, color, extra) => piece(st, icon, shape, color, extra));
-        kit.el('text', { x: 0, y: 34.5, 'text-anchor': 'middle', 'font-size': name.length > 4 ? 10 : name.length > 3 ? 11.5 : 13, class: 'pk-text', fill: P.ink.base }, g).textContent = name;
+        const shown = labelOf(name);
+        kit.el('text', { x: 0, y: 35, 'text-anchor': 'middle', 'font-size': shown.length > 4 ? 11.5 : shown.length > 3 ? 13.5 : 16, 'font-weight': 700, class: 'pk-text', fill: P.ink.base }, g).textContent = shown;
       }
 
       // ---- 분류판 ----
@@ -263,11 +321,11 @@
         wordLine.textContent = '카드를 누르면 무엇인지 알려 줘요.';
         box.appendChild(wordLine);
       }
-      const showWord = (name) => { if (wordLine) wordLine.textContent = `${name}: ${meaning(name)}`; };
+      const showWord = (name) => { if (wordLine) wordLine.textContent = `${labelOf(name)}: ${meaning(name)}`; };
       const clueOf = (name) => (!CARDS[name] ? '' : o.words ? `${meaning(name)} ${CARDS[name].clue}` : CARDS[name].clue);
 
       // ---- 까닭 고르기: 분류한 근거(날씨·생활)를 하나 고른다 ----
-      let whyPick = null; let whyBtns = [];
+      let whyPick = null; let whyBtns = []; let whyWrap = null;
       const whyOpt = o.why && Array.isArray(o.why.choices) ? o.why : null;
       if (whyOpt && !o.print) {
         const choices = whyOpt.choices.concat(o.whyHard && whyOpt.hard ? [whyOpt.hard] : []);
@@ -293,6 +351,7 @@
         });
         wrap.append(ask, row);
         box.appendChild(wrap);
+        whyWrap = wrap;
       }
       function setWhy(i) {
         whyPick = Number.isInteger(i) && i >= 0 && i < whyBtns.length ? i : null;
@@ -360,7 +419,7 @@
       const layout = (animate, except) => cards.forEach((c) => { if (c !== except) moveTo(c, slotOf(c), animate); });
       function labelAll() {
         if (deco) { cards.forEach((c) => c.g.setAttribute('aria-label', `${c.name} 스티커 카드. Enter를 누르면 나무 판에 한 장 붙여요.`)); return; }
-        cards.forEach((c) => c.g.setAttribute('aria-label', `${c.name} 카드, ${c.at ? `${o.hideSeasonNames ? `${seasons.indexOf(c.at) + 1}번` : c.at} 판에 있음` : '아직 옮기지 않음'}. Enter를 누르면 다음 판으로 옮겨요.`));
+        cards.forEach((c) => c.g.setAttribute('aria-label', `${labelOf(c.name)} 카드, ${c.at ? `${o.hideSeasonNames ? `${seasons.indexOf(c.at) + 1}번` : c.at} 판에 있음` : '아직 옮기지 않음'}. Enter를 누르면 다음 판으로 옮겨요.`));
       }
       const bounce = (c) => {
         const base = slotOf(c).s;
@@ -374,15 +433,17 @@
         if (o.instant && c.at && CARDS[c.name].season !== c.at) {
           kit.tick('no'); wobble(c.g, 14);
           // 단정('어울리지 않아요') 대신 경험을 떠올리게 묻는다
-          kit.announce(`음… ${josa(c.name, '을', '를')} 언제 많이 보았나요? 다시 생각해 봐요. ${CARDS[c.name].clue}`);
+          kit.announce(`음… ${josa(labelOf(c.name), '을', '를')} 언제 많이 보았나요? 다시 생각해 봐요. ${CARDS[c.name].clue}`);
           setTimeout(() => { c.at = null; layout(true); labelAll(); kit.recorder.log('seasons', state()); }, 650);
         } else {
           kit.tick(o.instant && c.at ? 'ok' : undefined);
-          kit.announce(c.at ? `${c.name} 카드를 ${o.hideSeasonNames ? `${seasons.indexOf(c.at) + 1}번` : c.at} 나무 판에 넣었어요.` : `${c.name} 카드를 카드 칸으로 돌려놓았어요.`);
+          kit.announce(c.at ? `${labelOf(c.name)} 카드를 ${o.hideSeasonNames ? `${seasons.indexOf(c.at) + 1}번` : c.at} 나무 판에 넣었어요.` : `${labelOf(c.name)} 카드를 카드 칸으로 돌려놓았어요.`);
           if (p) bounce(c);
         }
         kit.recorder.log('seasons', Object.assign({ via }, state()));
         celebrateCheck();
+        // 카드를 다 옮기면 아래의 까닭 고르기를 화면에 올린다(휴대폰에서는 확인 단추 줄 아래에 가려 있었다)
+        if (whyWrap && whyPick == null && cards.every((x) => x.at)) { try { whyWrap.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' }); } catch (_) { /* 오래된 브라우저 */ } }
       }
 
       function bindCard(c) {
@@ -526,8 +587,27 @@
       }
 
       const round1 = (v) => Math.round(v);
+      // ---- 말하기 틀(꾸미기): 좋아하는 계절과 그 까닭(날씨)을 하나씩 고른다 — '좋아서요'로 끝나지 않게 ----
+      const say = { season: null, weather: null };
+      if (deco && o.sayFrame && !o.print) {
+        const WEATHER = ['따뜻해서', '더워서', '선선해서', '추워서'];
+        const f = document.createElement('div');
+        f.className = 'ss-say';
+        f.style.cssText = 'margin-top:10px;display:grid;gap:6px;font-weight:700;line-height:1.5;word-break:keep-all';
+        const grp = (label, list, key) => `<div role="radiogroup" aria-label="${label}" style="display:flex;flex-wrap:wrap;gap:6px;align-items:center"><span>${label}</span>${list.map((v) => `<button type="button" class="pl-btn pl-btn--small" role="radio" aria-checked="false" data-say="${key}" data-v="${v}" style="min-height:44px">${v}</button>`).join('')}</div>`;
+        f.innerHTML = `<p style="margin:0">말하기 틀: 나는 <b class="ss-say-s">(   )</b>이 좋아요. <b class="ss-say-w">(   )</b> 좋아요.</p>${grp('계절', ALL, 'season')}${grp('까닭', WEATHER, 'weather')}`;
+        box.appendChild(f);
+        f.addEventListener('click', (e) => {
+          const b = e.target.closest('button[data-say]'); if (!b) return;
+          say[b.dataset.say] = b.dataset.v;
+          f.querySelectorAll(`button[data-say="${b.dataset.say}"]`).forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+          f.querySelector(b.dataset.say === 'season' ? '.ss-say-s' : '.ss-say-w').textContent = b.dataset.v;
+          kit.tick(); kit.recorder.log('seasons', state());
+        });
+      }
+
       function state() {
-        if (deco) return { stickers: stickers.map((k) => ({ card: k.card, x: round1(k.x), y: round1(k.y), s: k.size, season: seasonAt(k.x, k.y) })) };
+        if (deco) { const r = { stickers: stickers.map((k) => ({ card: k.card, x: round1(k.x), y: round1(k.y), s: k.size, season: seasonAt(k.x, k.y) })) }; if (o.sayFrame) r.say = Object.assign({}, say); return r; }
         const s = { placed: Object.fromEntries(cards.map((c) => [c.name, c.at])) };
         if (whyOpt) s.why = whyPick;
         return s;
@@ -559,8 +639,8 @@
       function checkWhy(t, okText) {
         if (!whyOpt || !Number.isInteger(t.why)) return { correct: true, feedback: okText };
         // 아직 까닭을 고르지 않았으면 '다 하지 않음'(incomplete) — 플레이어가 시도로 세지 않는다
-        if (whyPick == null) return { correct: false, incomplete: true, feedback: '카드는 모두 알맞게 넣었어요. 이제 아래에서 까닭을 하나 골라요.', hint: `‘${whyOpt.card}’: ${clueOf(whyOpt.card)}` };
-        if (whyPick !== t.why) return { correct: false, feedback: '카드는 맞아요. 고른 까닭을 다시 생각해 봐요. 그때 날씨는 어떤가요?', hint: `‘${whyOpt.card}’: ${clueOf(whyOpt.card)}` };
+        if (whyPick == null) return { correct: false, incomplete: true, feedback: '카드는 모두 알맞게 넣었어요. 이제 아래에서 까닭을 하나 골라요.', hint: hintAt(t, 2) };
+        if (whyPick !== t.why) return { correct: false, feedback: '카드는 맞아요. 고른 까닭을 다시 생각해 봐요. 그때 날씨는 어떤가요?', hint: hintAt(t, 2) };
         return { correct: true, feedback: `${okText} 까닭도 알맞게 골랐어요.` };
       }
 
@@ -583,26 +663,40 @@
           apply(solution(t), true);
           if (whyOpt && Number.isInteger(t.why)) setWhy(t.why);
         },
-        check(t) {
-          if (deco || !t) return { correct: true, feedback: '' };
-          const s = state().placed;
-          if (t.sorted) {
-            const names = Object.keys(t.sorted);
-            const left = names.filter((n) => !s[n]);
-            const wrong = names.filter((n) => s[n] && s[n] !== t.sorted[n]);
-            if (!left.length && !wrong.length) { const r = checkWhy(t, '맞아요! 모든 카드가 알맞은 계절 나무에 들어갔어요.'); if (r.correct) celebrateCheck(false, true); return r; }
-            if (left.length) return { correct: false, feedback: `아직 옮기지 않은 카드가 ${left.length}장 있어요.`, hint: `‘${left[0]}’: ${clueOf(left[0])}` };
-            flagWrong(wrong);
-            return { correct: false, feedback: `${wrong.length}장이 다른 계절 나무에 들어가 있어요. 흔들리는 카드를 다시 보세요.`, hint: `‘${wrong[0]}’: ${clueOf(wrong[0])}` };
+        check(t, opts) {
+          const quiet = !!(opts && opts.forHint);
+          const r = judge(t, quiet);
+          if (!quiet && r.correct && !deco && t) celebrateCheck(false, true);
+          return r;
+        },
+        // 힌트 단추: 카드를 흔들거나 판을 축하하지 않고, 계절을 떠올릴 실마리(날씨·경험)만 준다
+        hint(t, opts) {
+          if (deco || !t) return { hint: '마음에 드는 카드를 나무 판에 붙여 꾸며요.' };
+          const r = judge(t, true);
+          if (r.correct) return { hint: '모든 카드가 어울리는 자리에 있어요.', correct: true };
+          return { hint: hintAt(t, levelOf(opts)), correct: false };
+        },
+        // 모의 수업·자동 검사용 오답: 이웃 계절과 헷갈리기(봄↔여름, 가을↔겨울) / 카드는 맞고 까닭을 잘못 고르기
+        // 지금 판과 같은 오답은 건너뛴다(같은 오답을 다시 내면 시도로 세지 않는다)
+        wrongAnswer(t) {
+          if (deco || !t) return null;
+          const NEAR = { 봄: ['여름', '겨울'], 여름: ['봄', '가을'], 가을: ['겨울', '여름'], 겨울: ['가을', '봄'] };
+          const others = (sea) => (NEAR[sea] || []).filter((x) => seasons.includes(x)).concat(seasons.filter((x) => x !== sea && !(NEAR[sea] || []).includes(x)));
+          const right = Object.assign(Object.fromEntries(cards.map((c) => [c.name, c.at])), solution(t));
+          const hasWhy = whyOpt && Number.isInteger(t.why);
+          const mk = (patch, why) => { const s = { placed: Object.assign({}, right, patch) }; if (hasWhy) s.why = why == null ? t.why : why; return s; };
+          const list = [];
+          if (hasWhy) { const n = whyBtns.length || whyOpt.choices.length; for (let k = 1; k < n; k++) list.push(mk({}, (t.why + k) % n)); }
+          if (t.sorted) Object.keys(t.sorted).forEach((name) => others(t.sorted[name]).slice(0, 2).forEach((sea) => list.push(mk({ [name]: sea }))));
+          else {
+            // 그 판에 어울리지 않는 카드 하나를 더 넣기(이웃 계절 카드가 먼저) → 들어갈 카드 하나를 이웃 계절에
+            const nears = NEAR[t.season] || [];
+            cards.filter((c) => !t.cards.includes(c.name)).sort((a, b) => (nears.includes(CARDS[b.name].season) ? 1 : 0) - (nears.includes(CARDS[a.name].season) ? 1 : 0)).forEach((c) => list.push(mk({ [c.name]: t.season })));
+            t.cards.forEach((name) => { const sea = others(t.season)[0]; if (sea) list.push(mk({ [name]: sea })); });
           }
-          const label = o.hideSeasonNames ? '그 나무 판' : `${t.season} 나무 판`;
-          const inside = Object.keys(s).filter((n) => s[n] === t.season);
-          const missing = t.cards.filter((n) => s[n] !== t.season);
-          const extra = inside.filter((n) => !t.cards.includes(n));
-          if (!missing.length && !extra.length) { const r = checkWhy(t, `맞아요! ${label}에 가장 잘 어울리는 카드를 모두 찾았어요.`); if (r.correct) celebrateCheck(false, true); return r; }
-          if (extra.length) flagWrong(extra);
-          if (extra.length) return { correct: false, feedback: `${josa(extra[0], '은', '는')} ${josa(label, '과', '와')} 잘 어울리지 않아요.`, hint: `‘${extra[0]}’: ${clueOf(extra[0])}` };
-          return { correct: false, feedback: `${label}에 들어갈 카드가 ${missing.length}장 더 있어요.`, hint: `‘${missing[0]}’: ${clueOf(missing[0])}` };
+          const cur = state(); const key = (x) => JSON.stringify([x.placed, hasWhy ? x.why : null]);
+          const ck = key({ placed: cur.placed, why: cur.why });
+          return list.find((x) => key(x) !== ck) || list[0] || null;
         },
         // 교사 시연: 카드가 하나씩 날아가 제자리를 찾는다. 이미 놓여 있으면 먼저 카드 칸으로 되돌려 다시 보여 준다.
         async demo(t) {
@@ -617,6 +711,57 @@
           }
         },
       };
+      function judge(t, quiet) {
+          if (deco || !t) return { correct: true, feedback: '' };
+          const s = state().placed;
+          if (t.sorted) {
+            const names = Object.keys(t.sorted);
+            const left = names.filter((n) => !s[n]);
+            const wrong = names.filter((n) => s[n] && s[n] !== t.sorted[n]);
+            if (!left.length && !wrong.length) return checkWhy(t, '맞아요! 모든 카드가 알맞은 계절 나무에 들어갔어요.');
+            if (left.length) return { correct: false, feedback: `아직 옮기지 않은 카드가 ${left.length}장 있어요.`, hint: hintAt(t, 2) };
+            if (!quiet) flagWrong(wrong);
+            // 이 차시가 노린 오개념(해바라기를 개나리와 같은 봄에)은 그 까닭을 짚는 첫 피드백을 준다
+            const mixed = wrong.find((n) => CARDS[n] && CARDS[n].mix && CARDS[n].mix[s[n]]);
+            if (mixed) return { correct: false, feedback: `${wrong.length > 1 ? `${wrong.length}장이 다른 계절 나무에 들어가 있어요. ` : ''}${CARDS[mixed].mix[s[mixed]]}`, hint: hintAt(t, 2) };
+            return { correct: false, feedback: `${wrong.length}장이 다른 계절 나무에 들어가 있어요. 흔들리는 카드를 다시 보세요.`, hint: hintAt(t, 2) };
+          }
+          const label = o.hideSeasonNames ? '그 나무 판' : `${t.season} 나무 판`;
+          const inside = Object.keys(s).filter((n) => s[n] === t.season);
+          const missing = t.cards.filter((n) => s[n] !== t.season);
+          const extra = inside.filter((n) => !t.cards.includes(n));
+          if (!missing.length && !extra.length) return checkWhy(t, `맞아요! ${label}에 가장 잘 어울리는 카드를 모두 찾았어요.`);
+          if (extra.length && !quiet) flagWrong(extra);
+          if (extra.length) return { correct: false, feedback: `${josa(labelOf(extra[0]), '은', '는')} ${josa(label, '과', '와')} 잘 어울리지 않아요.`, hint: hintAt(t, 2) };
+          return { correct: false, feedback: `${label}에 들어갈 카드가 ${missing.length}장 더 있어요.`, hint: hintAt(t, 2) };
+      }
+      // 단계별 힌트 글. 1단계는 카드 이름·계절·실마리를 말하지 않는다(날씨로 떠올리는 방법만).
+      // 2단계는 다시 볼 카드 하나를 짚되 계절은 말하지 않는다. 3단계는 그 카드의 실마리(언제·어떤 날씨)를 준다.
+      function hintAt(t, lv) {
+        const s = state().placed;
+        let card = null; let kind = 'why';
+        if (t.sorted) {
+          const names = Object.keys(t.sorted);
+          const wrong = names.find((n) => s[n] && s[n] !== t.sorted[n]); const left = names.find((n) => !s[n]);
+          if (wrong) { card = wrong; kind = 'wrong'; } else if (left) { card = left; kind = 'left'; }
+        } else {
+          const extra = Object.keys(s).find((n) => s[n] === t.season && !t.cards.includes(n)); const missing = t.cards.find((n) => s[n] !== t.season);
+          if (extra) { card = extra; kind = 'extra'; } else if (missing) { card = missing; kind = 'missing'; }
+        }
+        if (lv <= 1) return card ? '그 카드를 언제 많이 보았는지 떠올려 봐요. 그날은 따뜻했나요, 더웠나요, 선선했나요, 추웠나요?' : '까닭은 날씨와 이어져요. 그 카드를 본 날의 날씨를 떠올려 골라요.';
+        if (!card) {
+          if (lv === 2) return '고른 까닭이 날씨를 말하나요? 꽃 색이나 모양이 아니라 그때의 날씨로 골라요.';
+          return whyOpt ? `‘${labelOf(whyOpt.card)}’: ${clueOf(whyOpt.card)}` : '그때의 날씨를 떠올려 골라요.';
+        }
+        if (lv === 2) {
+          const nm = `‘${labelOf(card)}’`;
+          if (kind === 'wrong') return `흔들리는 ${nm} 카드를 언제 보았는지 다시 생각해요. 그날 날씨는 어땠나요?`;
+          if (kind === 'left') return `아직 옮기지 않은 ${nm} 카드를 언제 보았는지 떠올려 봐요.`;
+          if (kind === 'extra') return `${nm} 카드를 본 날의 날씨가 이 판의 날씨와 같은지 생각해 봐요.`;
+          return '이 판과 어울리는 카드가 아직 남아 있어요. 남은 카드를 하나씩 살펴봐요.';
+        }
+        return `‘${labelOf(card)}’: ${clueOf(card)}`;
+      }
     },
   });
 })(window.PaperKit);

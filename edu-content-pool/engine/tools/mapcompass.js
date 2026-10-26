@@ -5,8 +5,11 @@
  *  - 'legend'   : 기호 스티커를 끌어 범례 빈칸에 붙인다. 상태 { legend:{병원:'cross'} } / target { legend:{병원:'cross'} }
  *  - 'place'    : 범례를 보고 지도 빈 터(o.hidden)에 기호 스티커를 붙인다. 상태 { place:{병원:'cross'} } / target { place:{병원:'cross'} }
  * 옵션: points(4|8), roseLabels('all'|'main'|'north'), names(지도에 건물 이름, 기본 true), from/to(강조), blank(범례 빈칸 이름들),
- *       hidden(빈 터 이름들), extra(헷갈리게 더 줄 기호), showReadout(내 답 표시), legend(범례 보이기, 기본 true), print, wide(활동지 넓게)
- * 마을은 지어낸 곳이다(실제 주소 없음). 지도는 위쪽이 북쪽이다.
+ *       hidden(빈 터 이름들), extra(헷갈리게 더 줄 기호), showReadout(내 답 표시), legend(범례 보이기, 기본 true), print, wide(활동지 넓게),
+ *       markTarget(도착 건물에 '어디?' 점선 고리 — 기본 false: 범례로 도착 건물을 찾아야 한다),
+ *       roseRotate(방위표의 북쪽이 가리키는 화면 각도, 시계 방향 — 90이면 오른쪽이 북쪽. 답은 방위표 기준이다)
+ * 스티커는 끌어 붙이거나, 눌러 고른 뒤 빈 터·빈칸을 눌러 붙인다(휴대폰에서 끄는 도중 화면이 굴러가지 않아도 되게).
+ * 마을은 지어낸 곳이다(실제 주소 없음). 지도는 위쪽이 북쪽이다(roseRotate가 없을 때).
  */
 (function (K) {
   'use strict';
@@ -41,10 +44,17 @@
   const SYM_SHAPE = { cross: '더하기(+) 모양', dcircle: '겹동그라미 모양', envelope: '편지 봉투 모양', shield: '방패 모양', flag: '깃발 모양', tree: '나무 모양', fire: '불꽃 모양', book: '펼친 책 모양', rail: '철길 모양' };
   // 사이 방위 뜻풀이(한국어 학습자가 '북동'이라는 낱말을 처음 볼 때)
   const MEAN = { 북동: '북쪽과 동쪽 사이', 남동: '남쪽과 동쪽 사이', 남서: '남쪽과 서쪽 사이', 북서: '북쪽과 서쪽 사이' };
-  const dirOf = (from, to) => {
+  // rr: 방위표가 돌아간 각도(시계 방향). 화면 위쪽 기준 각에서 그만큼 빼면 방위표 기준 방위가 된다.
+  const dirOf = (from, to, rr = 0) => {
     const a = (Math.atan2(to.x - from.x, -(to.y - from.y)) * 180) / Math.PI;
-    return DIRS[Math.round(K.norm(a) / 45) % 8];
+    return DIRS[Math.round(K.norm(a - rr) / 45) % 8];
   };
+  const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'];
+  // 화면 읽기용 자리 이름: 지도 위의 자리만 말한다(방위로 말하면 '학교의 북서쪽 자리'처럼 답과 기준 장소를 함께 알려 준다)
+  const ROWS = { 82: '위', 172: '가운데', 262: '아래' }; const COLS = { 92: '왼쪽', 182: '가운데', 272: '오른쪽' };
+  const spotOf = (p) => (p.x === 182 && p.y === 172 ? '지도 한가운데' : `지도 ${COLS[p.x]} ${ROWS[p.y]}`);
+  // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 장소 이름·방위 낱말·빈 터 번호를 말하지 않는다 — 검사기가 '어디에서'의 '서'까지 잡으므로 방위 글자를 아예 쓰지 않는다), 2 = 한 번 틀린 뒤 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
+  const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
   // 지도 기호(잉크선). 인쇄해도 그대로 검게 보인다.
   function glyph(kit, parent, sym, s) {
@@ -76,13 +86,19 @@
       const bw = o.print ? 0 : box.clientWidth || 0;
       const narrow = bw > 0 && bw < 460;
       const nSyms = withTray ? (mode === 'legend' ? (o.blank || PLACES) : (o.hidden || [])).length + (o.extra || []).length : 0;
-      const L = narrow
-        ? { W: 362, rc: [122, 487], rs: 1.35, ro: [300, 474], LX: 8, LY: 616, LW: 346, LH: 144, cols: 3, TY: 768, perRow: 5 }
-        : { W: 524, rc: [440, 100], rs: 1, ro: [440, 194], LX: 364, LY: 201, LW: 152, LH: 157, cols: 2, TY: 366, perRow: 99 };
-      const trayRows = Math.max(1, Math.ceil(nSyms / L.perRow));
+      const trayRows = Math.max(1, Math.ceil(nSyms / 5));
       const trayH = narrow ? 36 + trayRows * 60 : 60;
-      const H = narrow ? (withTray ? L.TY + trayH + 6 : L.LY + L.LH + 8) : (withTray ? 432 : 362);
-      const st = kit.stage(box, { viewBox: [L.W, H], label: '종이 마을 지도와 방위표. 위쪽이 북쪽입니다.' });
+      // 좁은 칸: 스티커 줄을 지도 바로 아래에 두고(끄는 거리를 줄인다) 방위표·범례를 그 아래로 내린다
+      const dn = narrow && withTray ? trayH + 8 : 0;
+      const L = narrow
+        ? { W: 362, rc: [122, 487 + dn], rs: 1.35, ro: [300, 474 + dn], LX: 8, LY: 616 + dn, LW: 346, LH: 144, cols: 3, TY: 362, perRow: 5 }
+        : o.print
+          // 활동지: 방위표를 키워 빈 동그라미에 '북동'을 손으로 쓸 수 있게 한다
+          ? { W: 566, rc: [458, 112], rs: 1.3, ro: [458, 214], LX: 380, LY: 222, LW: 160, LH: 157, cols: 2, TY: 366, perRow: 99 }
+          : { W: 524, rc: [440, 100], rs: 1, ro: [440, 194], LX: 364, LY: 201, LW: 152, LH: 157, cols: 2, TY: 366, perRow: 99 };
+      const H = narrow ? L.LY + L.LH + 8 : o.print ? 387 : (withTray ? 432 : 362);
+      const RR = o.roseRotate || 0;
+      const st = kit.stage(box, { viewBox: [L.W, H], label: RR ? '종이 마을 지도와 방위표. 이 지도는 위쪽이 북쪽이 아니에요. 방위표를 보세요.' : '종이 마을 지도와 방위표. 위쪽이 북쪽입니다.' });
       // 좁은 칸이나 200% 확대(칸 폭 760px 미만)에서는 화면 높이 제한(72vh)을 풀어 폭에 맞춘다 — 높이에 맞춰 줄면 글자가 9px까지 작아진다
       if (bw > 0 && bw < 760) st.svg.style.maxHeight = 'none';
       const TAG = narrow ? 1.55 : 1.1; // '여기서/어디?' 꼬리표 글자 배율
@@ -113,14 +129,20 @@
       // ---- 건물 ----
       const B = st.layer('buildings');
       const siteSlot = {}; // place 모드 빈 터
+      const slotHit = {}; // 눌러서 붙일 자리(범례 줄, 빈 터)
       const bldG = {};
       let lotNo = 0;
+      const lotLabel = {}; // 빈 터 이름 → 화면 읽기용 이름(번호 + 학교에서 본 자리)
       for (const p of PLACES) {
-        const g = kit.el('g', { class: 'mc-bld', 'aria-label': hidden.has(p.name) ? `빈 터 ${++lotNo}` : (showNames ? p.name : '건물') }, B);
+        if (hidden.has(p.name)) { lotNo++; lotLabel[p.name] = `빈 터 ${CIRCLED[lotNo - 1]}(${spotOf(p)})`; }
+        const g = kit.el('g', { class: 'mc-bld', 'aria-label': hidden.has(p.name) ? lotLabel[p.name] : (showNames ? `${p.name}(${spotOf(p)})` : `건물(${spotOf(p)})`) }, B);
         if (hidden.has(p.name)) {
           kit.el('rect', { x: p.x - 28, y: p.y - 22, width: 56, height: 44, rx: 8, fill: 'rgba(255,253,249,0.7)', stroke: '#8C7F6E', 'stroke-dasharray': '5 4', 'stroke-width': 1.6, class: 'mc-lot' }, g);
           kit.el('circle', { cx: p.x, cy: p.y + 2, r: 15, fill: 'none', stroke: '#8C7F6E', 'stroke-dasharray': '3 3', 'stroke-width': 1.4 }, g);
+          // 번호: 마우스 학생과 화면 읽기 학생이 같은 말(①번 빈 터)로 이야기하게
+          kit.el('text', { x: p.x - 19, y: p.y - 8, 'text-anchor': 'middle', 'font-size': narrow ? 15 : 12, class: 'pk-text', fill: '#6B5F50', 'pointer-events': 'none' }, g).textContent = CIRCLED[lotNo - 1];
           siteSlot[p.name] = { x: p.x, y: p.y + 2 };
+          slotHit[p.name] = g;
         } else {
           kit.piece(st, g, { shape: { type: 'rect', x: p.x - 26, y: p.y - 12, w: 52, h: 34, rx: 4 }, color: p.color, depth: 2 });
           kit.piece(st, g, { shape: { type: 'poly', points: `${p.x - 31},${p.y - 11} ${p.x},${p.y - 30} ${p.x + 31},${p.y - 11}` }, color: p.color === 'rose' ? 'peach' : 'rose', depth: 2 });
@@ -142,13 +164,16 @@
         kit.el('text', { x: tx + w / 2, y: ty + h * 0.75, 'text-anchor': 'middle', 'font-size': 10 * TAG, class: 'pk-text', fill: isFrom ? '#275C46' : '#702830' }, g).textContent = isFrom ? '여기서' : '어디?';
         return g;
       };
-      const drawHighlights = () => { while (HL.firstChild) HL.removeChild(HL.firstChild); if (from) ring(from, 'from'); if (to) ring(to, 'to'); };
+      // 도착 건물 표시는 markTarget일 때만 — 없으면 이름이나 범례로 도착 건물을 찾아야 한다
+      // 빈 터 채우기(place)에서는 기준 장소를 스스로 찾는 것이 목표라 '여기서' 표시는 markFrom일 때만(쉬움) 그린다
+      const drawHighlights = () => { while (HL.firstChild) HL.removeChild(HL.firstChild); if (from && (mode !== 'place' || o.markFrom)) ring(from, 'from'); if (to && o.markTarget) ring(to, 'to'); };
 
       // ---- 방위표 ----
       // 좁은 칸에서는 방위표를 지도 아래로 옮기고 키운다. 안쪽 그림은 늘 (440,100) 둘레에 그리고, 바깥 묶음만 옮긴다.
       const R = st.layer('rose');
       const rc = [440, 100]; const rcS = L.rc; // rc: 안쪽 좌표, rcS: 화면(무대) 좌표
-      const Rin = kit.el('g', { transform: narrow ? `translate(${rcS[0]} ${rcS[1]}) scale(${L.rs}) translate(${-rc[0]} ${-rc[1]})` : null }, R);
+      const moved = rcS[0] !== rc[0] || rcS[1] !== rc[1] || L.rs !== 1;
+      const Rin = kit.el('g', { transform: moved || RR ? `translate(${rcS[0]} ${rcS[1]}) scale(${L.rs})${RR ? ` rotate(${RR})` : ''} translate(${-rc[0]} ${-rc[1]})` : null }, R);
       kit.piece(st, Rin, { shape: { type: 'circle', r: 47, cx: rc[0], cy: rc[1] }, color: 'peach', depth: 3, texture: true });
       kit.piece(st, Rin, { shape: { type: 'circle', r: 40, cx: rc[0], cy: rc[1] }, color: 'cream', depth: 1 });
       const starPts = (r1, r2, rot) => { const a = []; for (let i = 0; i < 8; i++) { const ang = ((i * 45 + rot) * Math.PI) / 180; const r = i % 2 ? r2 : r1; a.push(`${(rc[0] + Math.sin(ang) * r).toFixed(1)},${(rc[1] - Math.cos(ang) * r).toFixed(1)}`); } return a.join(' '); };
@@ -172,7 +197,7 @@
         const x = rc[0] + Math.sin(ang) * br; const y = rc[1] - Math.cos(ang) * br;
         const g = kit.el('g', { class: 'mc-dirbtn', tabindex: o.print ? null : 0, role: o.print ? null : 'button', 'aria-label': `${DIRS[i]}쪽${MEAN[DIRS[i]] ? ` (${MEAN[DIRS[i]]})` : ''}` }, Rin);
         kit.el('circle', { cx: x, cy: y, r: 23, class: 'pk-hit' }, g);
-        const pc = kit.piece(st, g, { shape: { type: 'circle', r: i % 2 ? 13.5 : 15, cx: x, cy: y }, color: i === 0 ? 'rose' : 'cream', depth: 1 });
+        const pc = kit.piece(st, g, { shape: { type: 'circle', r: o.print ? (i % 2 ? 18 : 20) : (i % 2 ? 13.5 : 15), cx: x, cy: y }, color: i === 0 ? 'rose' : 'cream', depth: 1 });
         if (showLabel(i)) kit.el('text', { x, y: y + (i % 2 ? 3.8 : 4.6), 'text-anchor': 'middle', 'font-size': i % 2 ? 11.5 : 13, class: 'pk-text', fill: '#3D352E' }, g).textContent = DIRS[i];
         btns.push({ i, g, pc });
         if (!o.print) {
@@ -220,20 +245,22 @@
         readout2.textContent = show && !on && narrow ? '바늘을 돌려요' : '';
         btns.forEach((b) => b.g.classList.toggle('pk-ok', on && b.i === dirIdx));
       };
-      const onTurn = (v, via, other) => {
-        if (lock) return; lock = true; other.set(v); lock = false;
+      // 바늘 값은 방위표 기준, 화살표 값은 화면 기준이다(방위표가 RR만큼 돌아가 있으면 그만큼 차이)
+      const onTurn = (v, via, other, isArrow) => {
+        const nv = isArrow ? v - RR : v;
+        if (lock) return; lock = true; other.set(isArrow ? nv : v + RR); lock = false;
         // 단추 스프링('program')은 dirIdx를 다시 계산하지 않는다 — 빨리 다른 단추를 누르면 앞 스프링이 답을 되돌리던 문제
-        if (via !== 'init' && via !== 'program') { dirIdx = idxOf(v); paintDir(); }
+        if (via !== 'init' && via !== 'program') { dirIdx = idxOf(nv); paintDir(); }
       };
       const done = () => { kit.recorder.log('mapcompass', state()); if (dirIdx != null) kit.announce(`${DIRS[dirIdx]}쪽을 골랐어요`); };
       const enabled = () => mode === 'direction' && !o.print;
-      const nR = kit.rotate(st, needle, { center: [0, 0], step, value: 0, label: '방위표 바늘', enabled, valueText: (v) => `${DIRS[idxOf(v)]}쪽`, onChange: (v, via) => onTurn(v, via, aR), onStart: () => { halt(); kit.tick(); }, onEnd: done });
-      const aR = kit.rotate(st, arrow, { center: [0, 0], step, value: 0, label: '방향 화살표', enabled, valueText: (v) => `${DIRS[idxOf(v)]}쪽`, onChange: (v, via) => onTurn(v, via, nR), onStart: () => { halt(); kit.tick(); }, onEnd: done });
+      const nR = kit.rotate(st, needle, { center: [0, 0], step, value: 0, label: '방위표 바늘', enabled, valueText: (v) => `${DIRS[idxOf(v)]}쪽`, onChange: (v, via) => onTurn(v, via, aR, false), onStart: () => { halt(); kit.tick(); }, onEnd: done });
+      const aR = kit.rotate(st, arrow, { center: [0, 0], step, value: RR, label: '방향 화살표', enabled, valueText: (v) => `${DIRS[idxOf(v - RR)]}쪽`, onChange: (v, via) => onTurn(v, via, nR, true), onStart: () => { halt(); kit.tick(); }, onEnd: done });
       const pointTo = (deg, animate) => {
         halt();
         const cur = nR.get(); let d = deg - K.norm(cur); if (d > 180) d -= 360; if (d < -180) d += 360;
         const target = cur + d; dirIdx = idxOf(target); paintDir();
-        if (animate) { stopSpin = nR.set(target, true); } else { lock = true; nR.set(target); aR.set(target); lock = false; }
+        if (animate) { stopSpin = nR.set(target, true); } else { lock = true; nR.set(target); aR.set(target + RR); lock = false; }
         if (animate) done();
       };
       const placeArrow = () => {
@@ -258,6 +285,8 @@
           if (blank.has(name)) {
             kit.el('circle', { cx: x + 12, cy: y, r: 11.5, fill: '#fff', stroke: '#8C7F6E', 'stroke-dasharray': '3 3', 'stroke-width': 1.3, role: 'img', 'aria-label': `${name} 빈칸` }, Lg);
             legendSlot[name] = { x: x + 12, y };
+            // 눌러서 붙이기: 빈칸과 이름 줄 전체를 누를 수 있게(작은 빈칸만 누르기는 어렵다)
+            slotHit[name] = kit.el('rect', { x, y: y - rowH / 2, width: colW - 4, height: rowH, class: 'pk-hit mc-slot-hit' }, Lg);
           } else {
             kit.piece(st, Lg, { shape: { type: 'circle', r: 11.5, cx: x + 12, cy: y }, color: 'cream', depth: 1 });
             const gl = glyph(kit, Lg, p.sym); gl.setAttribute('transform', `translate(${x + 12} ${y}) scale(0.82)`);
@@ -285,13 +314,14 @@
           const home = narrow ? { x: 46 + (i % L.perRow) * gap, y: L.TY + 56 + Math.floor(i / L.perRow) * 60 } : { x: 112 + i * gap, y: 398 };
           const g = kit.el('g', { class: 'mc-sticker', 'aria-label': `${SYM_SHAPE[sym] || '기호'} 기호 스티커` }, S);
           kit.el('circle', { r: narrow ? 29 : 24, class: 'pk-hit' }, g);
+          const selRing = kit.el('circle', { r: 21, fill: 'none', stroke: '#473B6B', 'stroke-width': 3, 'stroke-dasharray': '5 3', display: 'none', 'pointer-events': 'none' }, g);
           kit.piece(st, g, { shape: { type: 'circle', r: 15 }, color: 'cream', depth: 2 });
           glyph(kit, g, sym);
           kit.transform(g, home);
-          const sk = { sym, g, home, at: null, anim: 0 };
+          const sk = { sym, g, home, at: null, anim: 0, selRing, down: null };
           stickers.push(sk);
           const nearest = (x, y) => { let best = null; let bd = 30; for (const n in slots) { const d = Math.hypot(slots[n].x - x, slots[n].y - y); if (d < bd) { bd = d; best = n; } } return best; };
-          const lotName = (slot) => (mode === 'legend' ? `${slot} 칸` : `빈 터 ${Object.keys(slots).indexOf(slot) + 1}`);
+          const lotName = (slot) => (mode === 'legend' ? `${slot} 칸` : lotLabel[slot] || '빈 터');
           const putAt = (slot, via) => {
             if (sk.at) delete assign[sk.at];
             if (slot) {
@@ -304,11 +334,16 @@
             kit.announce(slot ? `${SYM_SHAPE[sym] || '기호'} 스티커를 ${lotName(slot)}에 붙였어요` : '스티커를 제자리에 두었어요');
             if (via === 'keyboard') g.focus();
           };
+          sk.putAt = putAt;
           kit.drag(st, g, {
             enabled: () => !o.print,
-            onStart: () => { sk.anim++; kit.transform(g, { s: 1 }); }, // 진행 중인 흔들림·튀기기를 멈춘다
+            onStart: () => { sk.anim++; const t = g.__pk || home; sk.down = { x: t.x, y: t.y }; kit.transform(g, { s: 1 }); }, // 진행 중인 흔들림·튀기기를 멈춘다
             snap: (x, y) => { const n = nearest(x, y); return n ? slots[n] : home; },
-            onDrop: (x, y, via) => putAt(nearest(x, y), via),
+            onDrop: (x, y, via) => {
+              // 거의 움직이지 않은 누르기는 '고르기' — 그다음 빈 터나 빈칸을 누르면 붙는다
+              if (via === 'pointer' && sk.down && Math.hypot(x - sk.down.x, y - sk.down.y) < 4) { select(selected === sk ? null : sk); return; }
+              select(null); putAt(nearest(x, y), via);
+            },
             // 키보드: 방향키로 옮겼다면 그 자리에 놓고, 아니면 Enter마다 다음 칸으로 차례로 옮긴다
             keyActivate: () => {
               const t = g.__pk; const anchor = sk.at ? slots[sk.at] : home;
@@ -320,6 +355,18 @@
             },
           });
         });
+      }
+      let selected = null;
+      function select(sk) {
+        if (selected) selected.selRing.setAttribute('display', 'none');
+        selected = sk;
+        if (sk) { sk.selRing.setAttribute('display', 'inline'); kit.tick(); kit.announce(`${SYM_SHAPE[sk.sym] || '기호'} 스티커를 골랐어요. 붙일 ${mode === 'legend' ? '빈칸' : '빈 터'}을 누르세요.`); }
+      }
+      if (withTray) {
+        for (const n in slotHit) {
+          if (!slots[n]) continue;
+          slotHit[n].addEventListener('click', () => { if (!selected) return; const sk = selected; select(null); sk.putAt(n, 'tap'); });
+        }
       }
       function bounce(sk, at) {
         const tok = ++sk.anim;
@@ -339,6 +386,10 @@
       }
 
       const map = (obj) => { const r = {}; for (const n in obj) r[n] = obj[n].sym; return r; };
+      // 빈 터 채우기: 기준 장소에서 그 방위에 있는 빈 터는 모두 맞는 자리다(정답 자리를 하나로 못박으면, 바르게 읽은 학생을 틀렸다고 한다)
+      const okLots = (t) => (mode === 'place' && t && t.from && t.direction && byName[t.from] ? Object.keys(slots).filter((n) => dirOf(byName[t.from], byName[n]) === t.direction) : null);
+      const placedOk = (t, name) => { const ok = okLots(t); const sym = (t.place || {})[name]; if (!ok) return null; return ok.some((n) => assign[n] && assign[n].sym === sym) ? ok.find((n) => assign[n] && assign[n].sym === sym) : null; };
+      let hinting = false;
       function state() {
         if (mode === 'direction') return { mode, dir: dirIdx == null ? null : DIRS[dirIdx], from: from ? from.name : null, to: to ? to.name : null };
         return { mode, [mode]: map(assign) };
@@ -348,11 +399,12 @@
         if (mode === 'direction') {
           if (s.from) from = byName[s.from] || from; if (s.to) to = byName[s.to] || to;
           drawHighlights(); placeArrow();
-          if (s.dir) { pointTo(DIRS.indexOf(s.dir) * 45, false); } else { halt(); dirIdx = null; lock = true; nR.set(0); aR.set(0); lock = false; paintDir(); }
+          if (s.dir) { pointTo(DIRS.indexOf(s.dir) * 45, false); } else { halt(); dirIdx = null; lock = true; nR.set(0); aR.set(RR); lock = false; paintDir(); }
           return;
         }
         const want = s[mode] || {};
         for (const k in assign) delete assign[k];
+        select(null);
         stickers.forEach((sk) => { sk.at = null; sk.anim++; kit.transform(sk.g, { ...sk.home, s: 1 }); });
         for (const n in want) {
           const sk = stickers.find((x) => x.sym === want[n] && !x.at);
@@ -372,37 +424,73 @@
         setState,
         setTarget(t) {
           // 문항 데이터 검사: 지도 좌표로 계산한 방위와 정답이 다르면 저자에게 알린다
-          if (t && t.direction && t.from && t.to && byName[t.from] && byName[t.to] && !(t.legend || t.place) && dirOf(byName[t.from], byName[t.to]) !== t.direction) console.warn(`mapcompass: ${t.from}→${t.to}는 ${dirOf(byName[t.from], byName[t.to])}쪽인데 정답이 ${t.direction}`);
+          if (t && t.direction && t.from && t.to && byName[t.from] && byName[t.to] && !(t.legend || t.place) && dirOf(byName[t.from], byName[t.to], RR) !== t.direction) console.warn(`mapcompass: ${t.from}→${t.to}는 ${dirOf(byName[t.from], byName[t.to], RR)}쪽인데 정답이 ${t.direction}`);
           if (t && (t.from || t.to)) { if (t.from) from = byName[t.from]; if (t.to) to = byName[t.to]; drawHighlights(); placeArrow(); } },
         reset() { setState({}); },
+        // 다 했지만 틀린 상태(모의 수업·검사용) — 흔한 실수 쪽으로: 반대 방위, 다른 빈 터, 기호 두 개 바꿔 붙이기
+        wrongAnswer(t) {
+          t = t || {};
+          const want = t.legend || t.place;
+          if (want) {
+            const names = Object.keys(want); const n0 = names[0];
+            if (mode === 'place') { const ok = okLots(t) || []; const other = Object.keys(slots).find((k) => k !== n0 && !names.includes(k) && !ok.includes(k)); return other ? { place: { [other]: want[n0] } } : null; }
+            if (names.length > 1) return { legend: Object.assign({}, want, { [names[0]]: want[names[1]], [names[1]]: want[names[0]] }) };
+            const alt = stickers.find((sk) => sk.sym !== want[n0]); return alt ? { legend: { [n0]: alt.sym } } : null;
+          }
+          if (t.direction) return { from: t.from, to: t.to, dir: DIRS[(DIRS.indexOf(t.direction) + 4) % 8] };
+          return null;
+        },
         solve(t) {
           const want = t.legend || t.place;
-          if (want) { const cur = map(assign); setState({ [mode]: Object.assign(cur, want) }); return; }
+          if (want) {
+            // 찾는 기호가 다른 자리에 붙어 있으면 먼저 떼어 낸다(기호 스티커는 하나씩뿐이다)
+            const cur = map(assign); const syms = Object.values(want);
+            for (const k of Object.keys(cur)) if (!(k in want) && syms.includes(cur[k])) delete cur[k];
+            setState({ [mode]: Object.assign(cur, want) }); return;
+          }
           if (t.direction) { if (t.from || t.to) this.setTarget(t); pointTo(DIRS.indexOf(t.direction) * 45, false); }
         },
         check(t) {
           const want = t.legend || t.place;
           if (want) {
             const cur = map(assign); const names = Object.keys(want);
-            const wrong = names.filter((n) => cur[n] !== want[n]);
-            if (!wrong.length) { stickers.forEach((sk) => { if (sk.at && names.includes(sk.at)) bounce(sk, slots[sk.at]); }); return { correct: true, feedback: mode === 'legend' ? '범례를 알맞게 완성했어요! 이제 지도를 읽을 수 있어요.' : '알맞은 곳에 기호를 붙였어요!' }; }
-            stickers.forEach((sk) => { if (sk.at && wrong.includes(sk.at)) shake(sk, slots[sk.at]); });
+            const wrong = names.filter((n) => cur[n] !== want[n] && !(names.length === 1 && placedOk(t, n)));
+            if (!wrong.length) {
+              if (!hinting) stickers.forEach((sk) => { if (sk.at && (names.includes(sk.at) || (okLots(t) || []).includes(sk.at))) bounce(sk, slots[sk.at]); });
+              return { correct: true, feedback: mode === 'legend' ? '범례를 알맞게 완성했어요! 이제 지도를 읽을 수 있어요.' : t.from && t.direction ? `알맞은 곳에 기호를 붙였어요! ${t.from}에서 보았을 때 ${t.direction}쪽이에요.` : '알맞은 곳에 기호를 붙였어요!' };
+            }
+            if (!Object.keys(cur).length) return { correct: false, incomplete: true, feedback: mode === 'legend' ? '기호 스티커를 범례 빈칸에 붙여 보세요.' : '기호 스티커를 지도의 빈 터에 붙여 보세요.', hint: mode === 'legend' ? '기호 모양을 보고 그곳에서 하는 일을 떠올려요.' : '범례에서 기호를 먼저 찾아요.' };
+            if (!hinting) stickers.forEach((sk) => { if (sk.at && wrong.includes(sk.at)) shake(sk, slots[sk.at]); });
             const n0 = wrong[0];
             const empty = wrong.filter((n) => !cur[n]).length;
+            // 찾는 기호가 다른 자리에 붙어 있는가
+            const elsewhere = Object.keys(cur).find((slot) => slot !== n0 && cur[slot] === want[n0]);
             if (mode === 'place') {
               const hintPlace = t.from && t.direction ? `${t.from}에서 ${t.direction}쪽에 있는 빈 터를 찾아요.` : `범례에서 ${n0} 기호를 먼저 찾아요.`;
+              if (elsewhere && t.from && byName[t.from]) {
+                // 놓은 자리가 기준 장소에서 실제로 어느 쪽인지 말해 준다. 학교 기준이라면 맞는 자리였으면 기준 장소를 짚는다.
+                const real = dirOf(byName[t.from], byName[elsewhere]);
+                const fromSchool = t.from !== '학교' && t.direction && dirOf(byName['학교'], byName[elsewhere]) === t.direction;
+                return { correct: false, feedback: `그 빈 터는 ${t.from}에서 보았을 때 ${real}쪽이에요.${fromSchool ? ` 학교가 아니라 ${t.from}에서 보았을 때예요.` : ''}`, hint: `${t.from}에 손가락을 올리고 ${t.direction}쪽을 찾아요.` };
+              }
+              if (cur[n0] && cur[n0] !== want[n0]) return { correct: false, feedback: `자리는 맞았는데 붙인 것은 ${SYM_SHAPE[cur[n0]] || '다른'} 기호예요.`, hint: `범례에서 ${n0} 기호를 먼저 찾아요.` };
               return { correct: false, feedback: empty === wrong.length ? `${n0} 기호를 아직 붙이지 않았어요.` : '기호를 붙인 곳을 다시 확인해요.', hint: hintPlace };
             }
-            return { correct: false, feedback: `${names.length - wrong.length}개 맞았어요. ${empty ? '빈칸이 남았어요.' : '자리를 바꿔 볼 기호가 있어요.'}`, hint: `${n0}: ${SYM_HINT[want[n0]] || '기호 모양을 보고 그 곳에서 하는 일을 떠올려요.'}` };
+            const wrongAt = wrong.find((n) => cur[n]);
+            const fb = wrongAt ? `${names.length - wrong.length}개 맞았어요. ${wrongAt} 칸에 붙인 ${SYM_SHAPE[cur[wrongAt]] || ''} 기호는 ${wrongAt}과 어울리지 않아요.` : `${names.length - wrong.length}개 맞았어요. 빈칸이 남았어요.`;
+            const hn = wrongAt || n0;
+            return { correct: false, feedback: fb, hint: `${hn}: ${SYM_HINT[want[hn]] || '기호 모양을 보고 그 곳에서 하는 일을 떠올려요.'}` };
           }
           if (t.direction) {
             const f = t.from ? byName[t.from] : from; const tt = t.to ? byName[t.to] : to;
             const lead = f && tt ? `${f.name}에서 보면 ${josa(tt.name, '은', '는')}` : '';
-            if (dirIdx == null) return { correct: false, feedback: '바늘이나 화살표를 돌려 방위를 골라 보세요.', hint: '방위표의 빨간 바늘 끝이 가리키는 쪽이 내가 고른 방위예요.' };
-            if (DIRS[dirIdx] === t.direction) { cheer(); return { correct: true, feedback: `맞아요! ${lead ? lead + ' ' : ''}${t.direction}쪽이에요.` }; }
-            wobble(R, rcS);
+            if (dirIdx == null) return { correct: false, incomplete: true, feedback: '바늘이나 화살표를 돌려 방위를 골라 보세요.', hint: '방위표의 빨간 바늘 끝이 가리키는 쪽이 내가 고른 방위예요.' };
+            if (DIRS[dirIdx] === t.direction) { if (!hinting) cheer(); return { correct: true, feedback: `맞아요! ${lead ? lead + ' ' : ''}${t.direction}쪽이에요.` }; }
+            if (!hinting) wobble(R, rcS);
             const want = DIRS.indexOf(t.direction); const diff = Math.abs(((dirIdx - want) % 8 + 8) % 8);
-            const hintBase = f && tt ? `${f.name}에 방위표를 올려놓았다고 생각하고, ${josa(tt.name, '이', '가')} 위(북)·아래(남)·오른쪽(동)·왼쪽(서) 중 어디로 치우쳤는지 보세요.` : '지도의 위쪽이 북쪽, 오른쪽이 동쪽이에요.';
+            const hintBase = RR ? '방위표의 북쪽(빨간 끝)을 먼저 찾아요. 이 지도는 위쪽이 북쪽이 아니에요. 방위표를 그대로 출발 건물에 옮겨 놓았다고 생각해요.'
+              : f && tt ? `${f.name}에 방위표를 올려놓았다고 생각하고, ${josa(tt.name, '이', '가')} 위(북)·아래(남)·오른쪽(동)·왼쪽(서) 중 어디로 치우쳤는지 보세요.` : '지도의 위쪽이 북쪽, 오른쪽이 동쪽이에요.';
+            if (RR && f && tt && DIRS[dirIdx] === dirOf(f, tt)) return { correct: false, feedback: `지도의 위쪽을 북쪽으로 읽었어요. 이 지도는 방위표의 북쪽이 ${RR === 90 ? '오른쪽' : RR === 270 || RR === -90 ? '왼쪽' : RR === 180 ? '아래쪽' : '다른 쪽'}을 가리켜요.`, hint: hintBase };
             if (diff === 4) return { correct: false, feedback: `정반대 방향(${DIRS[dirIdx]}쪽)을 골랐어요. "여기서" 건물을 다시 확인해요.`, hint: `"어디에서 보았을 때"가 중요해요. ${hintBase}` };
             const mine = DIRS[dirIdx]; const mineSay = MEAN[mine] ? `${mine}쪽(${MEAN[mine]})` : `${mine}쪽`;
             if (diff === 1 || diff === 7) {
@@ -414,11 +502,26 @@
           }
           return { correct: false, feedback: '확인할 문제가 없어요.' };
         },
+        // 새 힌트 계약: 1단계는 늘 열리고 장소 이름·방위·빈 터 번호를 말하지 않는다. 지금 상태가 맞아도 알려 주지 않는다.
+        hint(t, opts) {
+          t = t || {}; const lv = hintLevel(opts);
+          const concept = mode === 'legend' ? '기호는 그곳이 하는 일을 간단한 그림으로 나타낸 약속이에요. 스티커 모양을 보고 그곳이 무슨 일을 하는 곳인지 떠올려요.'
+            : mode === 'place' ? '먼저 문제 속 기준 장소(어느 곳을 기준으로 보는지)를 찾아 손가락을 올려요. 그다음 방위표를 그 장소에 옮겨 놓았다고 생각하고, 범례를 보고 붙일 기호를 찾아요.'
+              : RR ? '방위표가 있으면 지도의 위쪽이 아니라 방위표의 빨간 끝을 따라요. 방위표를 출발 건물에 옮겨 놓았다고 생각해요.'
+                : '출발 건물에 방위표를 올려놓았다고 생각해요. 방위표의 빨간 끝이 가리키는 쪽부터 차례로 짚어 보고, 도착 건물이 어느 쪽으로 치우쳤는지 봐요.';
+          hinting = true;
+          try {
+            const r = this.check(t);
+            if (lv === 1 || r.correct) return { hint: concept, level: 1 };
+            if (lv === 2) return { hint: r.feedback || concept, level: 2 };
+            return { hint: r.hint || r.feedback || '', level: 3 };
+          } finally { hinting = false; }
+        },
         async demo(t) {
           if (t && t.direction) {
             this.setTarget(t); halt();
             const from0 = nR.get(); let d = DIRS.indexOf(t.direction) * 45 - K.norm(from0); if (d > 180) d -= 360; if (d < -180) d += 360; d += 360; // 한 바퀴 돌고 멈춘다
-            await kit.tween(1500, (p) => { lock = true; nR.set(from0 + d * p); aR.set(from0 + d * p); lock = false; });
+            await kit.tween(1500, (p) => { lock = true; nR.set(from0 + d * p); aR.set(from0 + d * p + RR); lock = false; });
             dirIdx = idxOf(from0 + d); paintDir(); cheer();
           }
         },
