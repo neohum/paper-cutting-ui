@@ -10,6 +10,7 @@
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const LEVELS = { easy: '쉬움', base: '기본', challenge: '도전' };
+  const CIRCLED = '①②③④⑤⑥⑦⑧⑨⑩';
   const app = $('#app');
   const PREF = 'edu-player-pref';
   const pref = (() => { try { return JSON.parse(localStorage.getItem(PREF) || '{}'); } catch (_) { return {}; } })();
@@ -24,7 +25,7 @@
 
   window.__pl = S; // 자동 검사(check-lesson·simulate-class)가 현재 교구에 접근한다
   // 자동 검사용: 앞 단계를 건너뛰어 정리로 간다(학생 화면에는 이 길이 없다)
-  S.goto = (i) => { S.stage = i; S.maxStage = Math.max(S.maxStage, i); S.act = 0; S.item = 0; render(); };
+  S.goto = (i, act = 0, item = 0) => { S.stage = i; S.maxStage = Math.max(S.maxStage, i); S.act = act; S.item = item; render(); };
   const keyOf = (a, i) => `${a.id}.${i + 1}`;
   const rec = (a, i) => (S.items[keyOf(a, i)] ??= { key: keyOf(a, i), activity: a.id, attempts: 0, hints: 0, correct: false, level: S.level, ms: 0, t0: Date.now() });
 
@@ -205,8 +206,22 @@
 
   const levelOpts = (a) => Object.assign({}, a.options || {}, (a.levels || {})[S.level] || {});
 
+  // 피드백·힌트 줄마다 누르면 읽어 주는 단추(자동 읽기는 하지 않는다)
+  const fbLine = (icon, text) => `<span class="pl-fb__t">${icon ? `<i class="fi ${icon}" aria-hidden="true"></i> ` : ''}${esc(text)}</span> ${readBtn(text)}`;
+  const hintLine = (text) => `<p class="pl-hint"><b>힌트</b> ${esc(text)} ${readBtn(text)}</p>`;
+
+  function predictBox(it, r) {
+    const p = it.predict; const locked = r.correct || r.attempts > 0;
+    return `<div class="pl-predict" role="group" aria-labelledby="predict-q">
+      <p class="pl-predict__q" id="predict-q"><b><i class="fi fi-rr-interrogation" aria-hidden="true"></i> 먼저 예상해요</b> ${esc(p.q)} ${readBtn(`${p.q} ${p.options.map((o, k) => `${k + 1}번, ${o}.`).join(' ')}`)}</p>
+      <div class="pl-predict__opts">${p.options.map((o, k) => `<button type="button" class="pl-btn pl-btn--small pl-predict__o" data-predict="${k}" aria-pressed="${r.predict === k}" ${locked ? 'disabled' : ''}>${esc(o)}</button>`).join('')}</div>
+    </div>`;
+  }
+
   function renderActivity(st) {
     const a = st.activities[S.act]; const it = a.items[S.item];
+    const r = rec(a, S.item);
+    const F = L.flow;
     const box = $('#stage');
     box.innerHTML = `
       <section class="pl-card pc-card">
@@ -220,76 +235,127 @@
         ${safetyBox(false)}
         <div class="pl-work">
           <div class="pl-side">
-            <ol class="pl-dots" aria-label="문항 진행">${a.items.map((_, i) => { const r = S.items[keyOf(a, i)]; return `<li class="${i === S.item ? 'is-on' : ''} ${r?.correct ? 'is-ok' : ''}" aria-label="${i + 1}번${r?.correct ? ' 맞음' : ''}"></li>`; }).join('')}</ol>
+            <ol class="pl-dots" aria-label="문항 진행">${a.items.map((_, i) => { const x = S.items[keyOf(a, i)]; return `<li class="${i === S.item ? 'is-on' : ''} ${x?.correct ? 'is-ok' : ''}" aria-label="${i + 1}번${x?.correct ? ' 맞음' : ''}"></li>`; }).join('')}</ol>
             ${it.extra ? '<span class="pl-chip">더 해 보기</span>' : ''}
             <p class="pl-prompt" id="prompt">${esc(it.prompt)} ${readBtn(it.prompt)}</p>
+            ${it.predict ? predictBox(it, r) : ''}
             <div class="pl-feedback" id="fb" role="status" aria-live="polite"></div>
+            <p class="pl-note" id="fb-note" role="status" aria-live="polite" hidden></p>
+            <div id="suggest"></div>
+            <div class="pl-more" id="more"></div>
           </div>
           <div class="pl-tool" id="tool"></div>
           <div class="pl-side pl-side--actions">
             <div class="pl-actions">
-              <button type="button" class="pl-btn pl-btn--primary" id="check">${it.free ? '<i class="fi fi-rr-check" aria-hidden="true"></i> 다 했어요' : '<i class="fi fi-rr-check" aria-hidden="true"></i> 확인'}</button>
+              <button type="button" class="pl-btn pl-btn--primary" id="check"><i class="fi fi-rr-check" aria-hidden="true"></i> ${it.free ? '다 했어요' : '확인'}</button>
               ${it.free ? '' : '<button type="button" class="pl-btn" id="hint"><i class="fi fi-rr-bulb" aria-hidden="true"></i> 힌트</button>'}
               <button type="button" class="pl-btn" id="reset"><i class="fi fi-rr-rotate-left" aria-hidden="true"></i> 처음으로</button>
             </div>
-            <div id="suggest"></div>
           </div>
         </div>
       </section>`;
-    S.tool = K.mount(a.tool, $('#tool'), Object.assign({}, levelOpts(a), it.toolOptions || {}));
-    if (it.state && S.tool.setState) S.tool.setState(it.state);
+    // reveal:'after-check'는 교구에 넘기는 신호다 — 지원하는 교구는 확인 전까지 실시간 표시를 숨긴다
+    // 문항별 단계 시작(items[n].levels[단계])이 있으면 그 단계의 시작 상태·교구 옵션을 쓴다
+    const start0 = F.itemStart(it, S.level);
+    S.tool = K.mount(a.tool, $('#tool'), Object.assign({}, levelOpts(a), start0.toolOptions, it.reveal === 'after-check' ? { revealAfterCheck: true } : {}));
+    if (start0.state && S.tool.setState) S.tool.setState(start0.state);
     if (it.target && S.tool.setTarget) S.tool.setTarget(it.target);
-    const r = rec(a, S.item); r.t0 = Date.now();
+    r.t0 = Date.now(); r.lockUntil = 0;
     const initialJSON = JSON.stringify(S.tool.getState());
-    let lastHint = '';
-    $('#check').addEventListener('click', () => {
-      // 짝 활동(정답 없는 문항)도 교구를 한 번은 움직여야 '다 했어요'가 된다
-      // (말하기만 하는 문항 talk:true는 예외)
-      if (it.free && !it.talk && JSON.stringify(S.tool.getState()) === initialJSON) { $('#fb').innerHTML = '<p class="pl-hint">교구로 직접 만들어 본 뒤에 눌러요.</p>'; return; }
-      if (it.free) { r.correct = true; r.free = true; r.attempts++; r.answer = S.tool.getState(); K.recorder.log('free', { key: r.key }); return advance(); }
-      // 이미 맞힌 문항을 다시 보는 중이면 기록을 바꾸지 않는다
-      if (r.correct) { const res0 = S.tool.check(it.target); $('#fb').className = `pl-feedback ${res0.correct ? 'is-ok' : 'is-no'}`; $('#fb').textContent = res0.correct ? '이미 맞힌 문제예요. 다음으로 넘어가요.' : res0.feedback; if (res0.correct) setTimeout(advance, 900); return; }
-      // 아무것도 바꾸지 않고 다시 누른 '확인'은 시도로 세지 않는다(연타가 점수를 깎지 않게)
+    const at = `${S.stage}.${S.act}.${S.item}`;
+    const checkBtn = $('#check'); const fb = $('#fb');
+    // 기다리는 사이 교사가 단계·활동을 바꿨거나 화면을 다시 그렸으면 이 문항의 예약 동작을 하지 않는다
+    const here = () => `${S.stage}.${S.act}.${S.item}` === at && $('#check') === checkBtn;
+    let lastHint = ''; let lastFb = '';
+    // 교사는 예상 없이도 확인할 수 있다(시연용)
+    const ready = () => S.role === 'teacher' || F.predictReady(it, r);
+    const setLocked = (on) => { checkBtn.setAttribute('aria-disabled', String(on)); };
+    setLocked(!ready());
+    // 안내 한 줄은 피드백과 따로 띄운다 — 연타가 진짜 피드백·자동 힌트를 덮어쓰지 않게
+    let noteT = 0;
+    const note = (text) => { const n = $('#fb-note'); n.hidden = false; n.innerHTML = fbLine('fi-rr-info', text); clearTimeout(noteT); noteT = setTimeout(() => { if ($('#fb-note') === n) n.hidden = true; }, 3500); };
+    const setFb = (cls, html) => { fb.className = `pl-feedback ${cls}`; fb.innerHTML = html; lastFb = html; $('#fb-note').hidden = true; };
+
+    box.querySelectorAll('[data-predict]').forEach((b) => b.addEventListener('click', () => {
+      if (b.disabled) return;
+      r.predict = Number(b.dataset.predict);
+      K.recorder.log('predict', { key: r.key, pick: r.predict });
+      box.querySelectorAll('[data-predict]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      if (!(r.lockUntil && Date.now() < r.lockUntil)) setLocked(false);
+    }));
+    const lockPredict = () => box.querySelectorAll('[data-predict]').forEach((x) => { x.disabled = true; });
+
+    // 예상·정리가 있는 문항은 맞힌 뒤 바로 넘기지 않는다 — 예상과 관찰을 견주어 볼 시간을 준다
+    const reflect = Boolean(it.predict || it.conclude);
+    function conclude() {
+      const lines = [F.predictLine(it, r), it.conclude ? `정리: ${it.conclude}` : ''].filter(Boolean);
+      $('#more').innerHTML = `<div class="pl-conclude">${lines.map((t) => `<p>${fbLine(t.startsWith('정리') ? 'fi-rr-book-alt' : 'fi-rr-eye', t)}</p>`).join('')}<button type="button" class="pl-btn pl-btn--primary" id="next-item">다음 문제 <i class="fi fi-rr-arrow-right" aria-hidden="true"></i></button></div>`;
+      $('#next-item').addEventListener('click', () => { if (here()) advance(); });
+      $('#next-item').focus({ preventScroll: true });
+    }
+
+    checkBtn.addEventListener('click', () => {
+      if (checkBtn.getAttribute('aria-disabled') === 'true') { if (!ready()) note('먼저 위에서 예상을 하나 골라요.'); return; }
       const now = JSON.stringify(S.tool.getState());
-      if (r.attempts && now === r.lastJSON && !r.correct) { $('#fb').innerHTML = '<p class="pl-hint">교구를 움직여 바꾼 뒤에 다시 확인해요.</p>'; return; }
+      // 짝 활동(정답 없는 문항)도 교구를 한 번은 움직여야 '다 했어요'가 된다 (말하기만 하는 문항 talk:true는 예외)
+      if (it.free && !it.talk && now === initialJSON) { note('교구로 직접 만들어 본 뒤에 눌러요.'); return; }
+      if (it.free) {
+        r.correct = true; r.free = true; r.attempts++; r.answer = S.tool.getState(); K.recorder.log('free', { key: r.key });
+        lockPredict();
+        if (reflect) { checkBtn.disabled = true; return conclude(); }
+        return advance();
+      }
+      // 이미 맞힌 문항을 다시 보는 중이면 기록을 바꾸지 않는다
+      if (r.correct) { const res0 = S.tool.check(it.target); setFb(res0.correct ? 'is-ok' : 'is-no', fbLine(null, res0.correct ? '이미 맞힌 문제예요. 다음으로 넘어가요.' : res0.feedback)); if (res0.correct) setTimeout(() => { if (here()) advance(); }, 900); return; }
+      // 아무것도 바꾸지 않고 다시 누른 '확인'은 시도로 세지 않고, 보이던 피드백도 그대로 둔다
+      if (F.checkGate(r, now, Date.now()) === 'unchanged') { note('교구를 움직여 바꾼 뒤에 다시 확인해요.'); return; }
       const res = S.tool.check(it.target);
       // 교구가 '아직 다 하지 않음'(incomplete)이라고 하면 시도로 세지 않고 안내만 한다(예: 까닭을 아직 안 고름)
-      if (res.incomplete) { $('#fb').className = 'pl-feedback'; $('#fb').innerHTML = `<p class="pl-hint">${esc(res.feedback)}</p>`; return; }
+      if (res.incomplete) { note(res.feedback); return; }
       r.lastJSON = now;
       // 기록하는 단계는 '확인을 누른 때'의 단계 — 단계를 바꾼 직후 문항이 이전 단계로 남지 않게
       r.attempts++; r.level = S.level; r.last = S.tool.getState(); lastHint = res.hint || lastHint;
+      lockPredict();
       K.recorder.log('check', { key: r.key, ok: res.correct });
-      const fb = $('#fb');
-      fb.className = `pl-feedback ${res.correct ? 'is-ok' : 'is-no'}`;
-      fb.innerHTML = `<i class="fi ${res.correct ? 'fi-rr-star' : 'fi-rr-refresh'}" aria-hidden="true"></i> ${esc(res.feedback)}`;
+      let html = fbLine(res.correct ? 'fi-rr-star' : 'fi-rr-refresh', res.feedback);
       K.tick(res.correct ? 'ok' : 'no');
       if (res.correct) {
+        setFb('is-ok', html);
         r.correct = true; r.ms = Date.now() - r.t0;
         S.streak = r.attempts === 1 ? S.streak + 1 : 0;
-        $('#check').disabled = true;
-        // 기다리는 사이 교사가 단계·활동을 바꿨으면 넘기지 않는다
-        const at = `${S.stage}.${S.act}.${S.item}`;
-        setTimeout(() => { if (`${S.stage}.${S.act}.${S.item}` === at) advance(); }, 1100);
-      } else {
-        S.streak = 0;
-        $('#suggest').innerHTML = ''; // 틀렸을 때 '단계 올리기' 권유가 남아 있지 않게
-        // 두 번 틀리면 힌트를 자동으로 보이고, 세 번 틀리면 쉬운 단계를 권한다
-        if (r.attempts >= 2 && res.hint) { r.hints++; fb.innerHTML += `<p class="pl-hint"><b>힌트</b> ${esc(res.hint)}</p>`; }
-        if (r.attempts >= 3 && S.level !== 'easy') suggest(a, 'easy', '어렵다면 쉬운 단계로 바꿔 볼까요?');
-        // 네 번 넘게 막히면 넘어갈 수 있다 — 못 푼 문항으로 기록되어 교사 화면에 보인다
-        if (r.attempts >= 4 && !$('#giveup')) {
-          $('.pl-actions').insertAdjacentHTML('beforeend', '<button type="button" class="pl-btn" id="giveup"><i class="fi fi-rr-arrow-right" aria-hidden="true"></i> 다음 문제로 (나중에 선생님과 다시)</button>');
-          $('#giveup').addEventListener('click', () => { r.gaveUp = true; K.recorder.log('giveup', { key: r.key }); S.streak = 0; advance(); });
-        }
+        checkBtn.disabled = true;
+        if (reflect) return conclude();
+        setTimeout(() => { if (here()) advance(); }, 1100);
+        return;
+      }
+      S.streak = 0;
+      // 틀린 확인은 숨긴 읽기 값을 드러내지 않는다(hint() 없는 교구는 상태를 다시 넣어 숨김으로 되돌림)
+      F.rehide(S.tool, it, now);
+      $('#suggest').innerHTML = ''; // 틀렸을 때 '단계 올리기' 권유가 남아 있지 않게
+      // 두 번 틀리면 힌트를 자동으로 보이고, 세 번 틀리면 쉬운 단계를 권한다
+      if (r.attempts >= 2 && res.hint) { r.hints++; html += hintLine(res.hint); }
+      setFb('is-no', html);
+      // 틀린 직후 잠깐 확인을 잠근다 — 빠르게 두 번 누르는 학생도 '왜'를 읽을 시간을 갖게
+      F.lockAfterWrong(r, Date.now()); setLocked(true);
+      setTimeout(() => { if (here()) setLocked(!ready()); }, F.WRONG_LOCK_MS);
+      if (r.attempts >= 3 && S.level !== 'easy') suggest(a, 'easy', '어렵다면 쉬운 단계로 바꿔 볼까요?');
+      // 네 번 넘게 막히면 넘어갈 수 있다 — 못 푼 문항으로 기록되어 교사 화면에 보인다
+      if (r.attempts >= 4 && !$('#giveup')) {
+        $('#more').insertAdjacentHTML('beforeend', '<button type="button" class="pl-btn pl-btn--small" id="giveup"><i class="fi fi-rr-arrow-right" aria-hidden="true"></i> 다음 문제로 (나중에 선생님과 다시)</button>');
+        $('#giveup').addEventListener('click', () => { r.gaveUp = true; K.recorder.log('giveup', { key: r.key }); S.streak = 0; advance(); });
       }
     });
     $('#hint')?.addEventListener('click', () => {
-      const res = S.tool.check(it.target);
+      // 힌트는 확인이 아니다 — hint()가 있으면 그것을, 없으면 check(target, { forHint: true })를 부르고, 숨김은 되돌린다
+      const before = JSON.stringify(S.tool.getState());
+      const res = F.askHint(S.tool, it.target);
+      if (res.via === 'check') F.rehide(S.tool, it, before);
       const h = res.correct ? '지금 상태가 맞아요. 확인을 눌러 보세요.' : (res.hint || lastHint || '도구를 천천히 움직여 보세요.');
       r.hints++; K.recorder.log('hint', { key: r.key });
-      $('#fb').className = 'pl-feedback'; $('#fb').innerHTML = `<p class="pl-hint"><b>힌트</b> ${esc(h)}</p>`;
+      // 힌트는 보이던 피드백 아래에 붙인다(피드백을 지우지 않는다)
+      fb.innerHTML = lastFb + hintLine(h); $('#fb-note').hidden = true;
     });
-    $('#reset').addEventListener('click', () => { S.tool.reset ? S.tool.reset() : null; if (it.state && S.tool.setState) S.tool.setState(it.state); });
+    $('#reset').addEventListener('click', () => { S.tool.reset ? S.tool.reset() : null; if (start0.state && S.tool.setState) S.tool.setState(start0.state); });
     if (!it.free && S.streak >= 3 && S.level !== 'challenge') suggest(a, S.level === 'easy' ? 'base' : 'challenge', '아주 잘하고 있어요! 한 단계 올려 볼까요?');
   }
 
@@ -385,7 +451,7 @@
   }
 
   async function finish(exit) {
-    const items = Object.values(S.items).map(({ t0, lastJSON, ...r }) => r);
+    const items = Object.values(S.items).map(({ t0, lastJSON, lockUntil, ...r }) => r);
     const scored = items.filter((r) => !r.free);
     const exitScored = exit.filter((e) => e.correct != null);
     const correct = scored.filter((r) => r.correct && r.attempts === 1).length + exitScored.filter((e) => e.correct).length;
@@ -451,10 +517,15 @@
     const q = (num, text, body) => `<section class="edu-exam-q"><div class="edu-exam-q-header"><span class="edu-exam-q-num">${num}</span><span class="edu-exam-q-text">${esc(text)}</span></div>${body}</section>`;
     const body = (it, i) => {
       if (it.type === 'figure') return `<div class="ws-figs ${it.wide ? 'ws-figs--wide' : ''}">${it.figures.map((f, k) => `<figure><div class="ws-fig" id="fig-${i}-${k}"></div><figcaption>${esc(f.caption || '')}</figcaption></figure>`).join('')}</div>`;
-      if (it.type === 'choice') return `<ol class="edu-exam-choices edu-exam-choices-horizontal">${it.options.map((o) => `<li class="edu-exam-choice"><span class="edu-exam-choice-marker"></span><span class="edu-exam-choice-text">${esc(o)}</span></li>`).join('')}</ol>`;
+      // 보기 번호 ①②③④ — 종이에서는 '몇 번'으로 말하고 ○ 표시할 자리가 있어야 한다
+      if (it.type === 'choice') return `<ol class="edu-exam-choices edu-exam-choices-horizontal">${it.options.map((o, k) => `<li class="edu-exam-choice"><span class="edu-exam-choice-marker" aria-hidden="true">${CIRCLED[k] || `(${k + 1})`}</span><span class="edu-exam-choice-text">${esc(o)}</span></li>`).join('')}</ol>`;
       if (it.type === 'blank') return `<p class="ws-blank">${esc(it.text).replace(/___/g, '<span class="edu-exam-blank-underline"></span>')}</p>`;
       if (it.type === 'check') return `<ul class="ws-checks">${it.options.map((o) => `<li>□ ${esc(o)}</li>`).join('')}</ul>`;
-      if (it.type === 'table') return `<table class="ws-grid"><tr>${it.columns.map((c) => `<th>${esc(c)}</th>`).join('')}</tr>${Array.from({ length: it.rows || 3 }, () => `<tr>${it.columns.map(() => '<td></td>').join('')}</tr>`).join('')}</table>`;
+      // cells: 미리 채운 칸(2차원 배열, ''는 학생이 채울 빈칸). 없으면 rows만큼 빈 줄
+      if (it.type === 'table') {
+        const grid = Array.isArray(it.cells) ? it.cells : Array.from({ length: it.rows || 3 }, () => it.columns.map(() => ''));
+        return `<table class="ws-grid"><tr>${it.columns.map((c) => `<th>${esc(c)}</th>`).join('')}</tr>${grid.map((row) => `<tr>${it.columns.map((_, c) => (row[c] ? `<td class="ws-given">${esc(row[c])}</td>` : '<td></td>')).join('')}</tr>`).join('')}</table>`;
+      }
       return `<div class="edu-exam-essay-box${it.type === 'draw' ? ' ws-draw' : ''}"></div>`;
     };
     const items = easy && ws.easy?.items ? ws.easy.items : ws.items;
@@ -508,7 +579,9 @@
     const ds = e.target.closest('[data-dismiss]'); if (ds) { S.suggestOff[ds.dataset.dismiss] = true; $('#suggest').innerHTML = ''; return; }
     const lv = e.target.closest('[data-level]');
     if (lv && S.lesson && S.role !== 'print') {
-      if (lv.dataset.level !== S.level) { S.levelChanges.push({ from: S.level, to: lv.dataset.level, at: K.recorder.events.length }); S.level = lv.dataset.level; }
+      // 이미 고른 난이도를 다시 누르면 아무것도 하지 않는다 — 다시 그리면 해 둔 조작이 지워진다
+      if (!L.flow.levelChanges(S.level, lv.dataset.level)) return;
+      S.levelChanges.push({ from: S.level, to: lv.dataset.level, at: K.recorder.events.length }); S.level = lv.dataset.level;
       K.recorder.log('level', { level: S.level });
       // 정리(출구 질문) 화면은 다시 그리지 않는다 — 고른 답이 지워지지 않게
       if (curStage().id === 'wrapup') { document.querySelectorAll('.pl-level__b').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.level === S.level))); return; }

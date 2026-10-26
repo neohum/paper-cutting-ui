@@ -37,3 +37,11 @@ h3 { margin: 12px 0 4px; font-size: 1em; }
 .t-overlay[hidden] { display: none; }
 .t-overlay__box { background: #fff; border-radius: 24px; padding: 24px; display: grid; gap: 12px; justify-items: center; font-size: 1.4em; font-weight: 800; }
 .t-overlay__box svg { width: min(78vh, 90vw); height: auto; }
+
+/* 예상 분포: 보기마다 학생 수. 예상 정답(predict.answer)은 테두리로만 표시 */
+.t-pred { display: inline-flex; gap: 4px; align-items: center; padding: 2px 8px; margin: 2px; border-radius: 999px; background: var(--pc-peach-light, #FDF1EA); }
+.t-pred.is-ans { box-shadow: 0 0 0 2px var(--pc-mint-layer, #82C2A8); }
+
+/* 단계 바꿈: 한 줄 요약과 학생 칸의 ↺횟수 */
+.t-movesline { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin: 8px 0; padding: 8px 12px; border-radius: 12px; background: var(--pc-buttercup-light); }
+.t-moves { font-weight: 700; color: var(--pc-buttercup-dark); cursor: help; }

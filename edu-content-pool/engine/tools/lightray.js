@@ -2,8 +2,10 @@
  * 거울은 반짝이는 앞면만 빛을 반사한다(뒷면은 막힘). 반사는 "들어온 각 = 나간 각"으로 계산한다.
  * 옵션: scene('up'|'tilt'|'back'|'periscope'|'zigzag'|'down'), step(거울 회전 스냅, 기본 15°), showAngles(들어온 각·나간 각 표시),
  *       hideRay(활동지: 빛의 길을 학생이 그린다), start(거울 처음 각도 배열), print,
- *       revealOnLit(빛이 별에 닿으면 각도 표시를 한 번 보여 줌 — 기본 단계), predict(도전: 거울에서 나간 빛은 '확인'을 눌러야 보임)
- * 상태: { mirrors:[각도…], hit:'star'|'back'|'block'|'wall', bounces } / check({hit:'star', bounces?})
+ *       revealOnLit(빛이 별에 닿으면 각도 표시를 한 번 보여 줌 — 기본 단계), predict(거울에서 나간 빛은 '확인'을 눌러야 보임),
+ *       revealAfterCheck(predict와 같다 — 플레이어의 reveal:'after-check'), ask:'compare'(들어온 각과 나간 각을 견주어 고르는 칸)
+ * 각도 표시: 거울에 수직인 긴 점선(법선)과, 들어온 빛–법선·법선–나간 빛 사이의 호 두 개, 호 옆의 각도 숫자
+ * 상태: { mirrors:[각도…], hit:'star'|'back'|'block'|'wall', bounces, compare? } / check({hit:'star', bounces?, compare?:'same'})
  */
 (function (K) {
   const W = 480; const H = 320; const HALF = 36; const SR = 20; const EDGE = 8;
@@ -15,6 +17,8 @@
     tilt: { lamp: { x: 56, y: 70, a: 30 }, mirrors: [{ x: 264, y: 190, start: -75 }], star: { x: 430, y: 190 }, blocks: [] },
     back: { lamp: { x: 56, y: 80, a: 0 }, mirrors: [{ x: 380, y: 80, start: -15 }], star: { x: 120, y: 230 }, blocks: [] },
     down: { lamp: { x: 56, y: 150, a: 0 }, mirrors: [{ x: 300, y: 150, start: 330 }], star: { x: 300, y: 284 }, blocks: [] },
+    // 바닥에 누운 거울: 빛이 비스듬히(50°) 내려와 반대쪽으로 올라간다 — 들어온 각과 나간 각을 견주어 보는 장면
+    floor: { lamp: { x: 60, y: 110, a: 40 }, mirrors: [{ x: 241, y: 262, start: 30 }], star: { x: 422, y: 110 }, blocks: [] },
     periscope: {
       lamp: { x: 56, y: 260, a: 0 }, mirrors: [{ x: 160, y: 260, start: 255 }, { x: 160, y: 80, start: 60 }],
       star: { x: 420, y: 80 }, blocks: [{ x: 244, y: 130, w: 52, h: 182 }],
@@ -78,7 +82,9 @@
       for (let i = 0; i < MAXSEG; i++) {
         const g = kit.el('g', { class: 'lr-seg', 'pointer-events': 'none' }, rayL);
         kit.el('rect', { x: 0, y: -6, width: 1, height: 12, fill: '#FEE396', opacity: 0.55 }, g);
-        kit.el('rect', { x: 0, y: -1.8, width: 1, height: 3.6, fill: '#FFF6C8' }, g);
+        // 연보라 바탕에서도 보이게 진한 금색 테두리를 둘러 대비를 높인다
+        kit.el('rect', { x: 0, y: -3, width: 1, height: 6, fill: '#B8901E' }, g);
+        kit.el('rect', { x: 0, y: -1.6, width: 1, height: 3.2, fill: '#FFF6C8' }, g);
         g.setAttribute('display', 'none');
         segs.push(g);
       }
@@ -90,13 +96,51 @@
 
       // 법선(거울에 수직인 선)과 각도 표시: 쉬움 단계에서만
       const showAnglesOpt = o.showAngles && !o.print;
-      const predict = !!o.predict && !o.print; let revealed = false;
+      const predict = (!!o.predict || !!o.revealAfterCheck) && !o.print; let revealed = false;
       let showAngles = showAnglesOpt;
       const normals = mirrors.map(() => {
         const g = kit.el('g', { 'pointer-events': 'none', display: 'none' }, rayL);
-        kit.el('line', { x1: 0, y1: 0, x2: 46, y2: 0, stroke: '#473B6B', 'stroke-width': 1.6, 'stroke-dasharray': '4 4' }, g);
+        kit.el('line', { x1: 0, y1: 0, x2: 74, y2: 0, stroke: '#473B6B', 'stroke-width': 2, 'stroke-dasharray': '5 4' }, g);
         return g;
       });
+      // 각 호: 들어온 빛과 법선 사이(복숭아), 법선과 나간 빛 사이(하늘) — 무엇과 무엇 사이의 각인지 그림으로 보이게
+      const ARC = 28;
+      const arcs = mirrors.map(() => {
+        const g = kit.el('g', { 'pointer-events': 'none', display: 'none' }, rayL);
+        const a1 = kit.el('path', { fill: '#F7C9B5', 'fill-opacity': 0.85, stroke: '#702830', 'stroke-width': 1.6 }, g);
+        const a2 = kit.el('path', { fill: '#BFE3EE', 'fill-opacity': 0.85, stroke: '#204C5A', 'stroke-width': 1.6 }, g);
+        const t1 = kit.el('text', { 'font-size': 13, 'text-anchor': 'middle', class: 'pk-text', fill: '#702830' }, g);
+        const t2 = kit.el('text', { 'font-size': 13, 'text-anchor': 'middle', class: 'pk-text', fill: '#204C5A' }, g);
+        return { g, a1, a2, t1, t2 };
+      });
+      const wedge = (h, u, v) => {
+        const p1 = { x: h.x + u.x * ARC, y: h.y + u.y * ARC }; const p2 = { x: h.x + v.x * ARC, y: h.y + v.y * ARC };
+        const sweep = u.x * v.y - u.y * v.x > 0 ? 1 : 0;
+        return `M${h.x.toFixed(1)} ${h.y.toFixed(1)} L${p1.x.toFixed(1)} ${p1.y.toFixed(1)} A${ARC} ${ARC} 0 0 ${sweep} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)} Z`;
+      };
+      const mid = (h, u, v) => { const m = { x: u.x + v.x, y: u.y + v.y }; const l = Math.hypot(m.x, m.y) || 1; return { x: h.x + (m.x / l) * (ARC + 13), y: h.y + (m.y / l) * (ARC + 13) + 4 }; };
+      // 들어온 각과 나간 각 견주기(HTML 단추: 키보드·터치 그대로)
+      const ask = o.ask === 'compare' && !o.print;
+      let cmp = null; let cmpBtns = []; let cmpDone = false;
+      // 고른 단추는 색으로도 보이게(플레이어 CSS에 aria-pressed 모양이 없다)
+      const markCmp = () => cmpBtns.forEach((x, i) => { const on = CMP[i][0] === cmp; x.setAttribute('aria-pressed', String(on)); x.style.background = on ? '#FEE396' : ''; x.style.boxShadow = on ? 'inset 0 0 0 2px #6E530F' : ''; });
+      const CMP = [['in', '들어온 각이 더 커요'], ['same', '두 각이 같아요'], ['out', '나간 각이 더 커요']];
+      if (ask) {
+        const wrap = document.createElement('div'); wrap.className = 'lr-ask';
+        wrap.setAttribute('role', 'group');
+        wrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;align-items:center';
+        const q = document.createElement('p'); q.style.cssText = 'flex-basis:100%;margin:0;font-weight:700;color:#473B6B';
+        q.textContent = '점선(거울에 수직인 선)을 기준으로 들어온 각과 나간 각을 견주면?';
+        q.id = `lr-ask-${Math.random().toString(36).slice(2, 8)}`; wrap.setAttribute('aria-labelledby', q.id);
+        wrap.appendChild(q);
+        cmpBtns = CMP.map(([k, label]) => {
+          const b = document.createElement('button'); b.type = 'button'; b.className = 'pl-btn pl-btn--small'; b.textContent = label;
+          b.style.minHeight = '44px'; b.setAttribute('aria-pressed', 'false');
+          b.addEventListener('click', () => { cmp = k; markCmp(); kit.tick(); kit.recorder.log('lightray', state()); kit.announce(label); });
+          wrap.appendChild(b); return b;
+        });
+        box.appendChild(wrap);
+      }
       const readout = kit.el('text', { x: W / 2, y: 28, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: '#473B6B' }, top);
 
       // 거울: 반짝이는 앞면(하늘색)이 각도 0°일 때 위쪽(-y)을 본다. 뒷면은 복숭아색 빗금.
@@ -162,7 +206,7 @@
             const dn = d.x * n.x + d.y * n.y;
             if (dn >= 0) { hit = 'back'; backOf = best.i; break; }
             const nd = { x: d.x - 2 * dn * n.x, y: d.y - 2 * dn * n.y };
-            hits.push({ i: best.i, x: q.x, y: q.y, n, inc: Math.round(deg(Math.acos(Math.min(1, -dn)))) });
+            hits.push({ i: best.i, x: q.x, y: q.y, n, din: { x: d.x, y: d.y }, dout: nd, inc: Math.round(deg(Math.acos(Math.min(1, -dn)))) });
             d = nd; p = q; last = best.i; bounces++;
             continue;
           }
@@ -193,11 +237,19 @@
         endDot.setAttribute('display', (cur.hit === 'back' || cur.hit === 'block') && !(hideOut && cur.path.length > 2) ? 'inline' : 'none');
         normals.forEach((g, i) => {
           const h = showAngles && cur.hits.find((x) => x.i === i);
-          if (!h) { g.setAttribute('display', 'none'); return; }
+          const A = arcs[i];
+          if (!h) { g.setAttribute('display', 'none'); A.g.setAttribute('display', 'none'); return; }
           g.setAttribute('display', 'inline');
           kit.transform(g, { x: h.x, y: h.y, r: deg(Math.atan2(h.n.y, h.n.x)), cx: 0, cy: 0 });
+          const back = { x: -h.din.x, y: -h.din.y };
+          A.g.setAttribute('display', 'inline');
+          A.a1.setAttribute('d', wedge(h, back, h.n)); A.a2.setAttribute('d', wedge(h, h.n, h.dout));
+          const m1 = mid(h, back, h.n); const m2 = mid(h, h.n, h.dout);
+          A.t1.setAttribute('x', m1.x.toFixed(1)); A.t1.setAttribute('y', m1.y.toFixed(1)); A.t1.textContent = (ask && !cmpDone) ? '' : `${h.inc}°`;
+          A.t2.setAttribute('x', m2.x.toFixed(1)); A.t2.setAttribute('y', m2.y.toFixed(1)); A.t2.textContent = (ask && !cmpDone) ? '' : `${h.inc}°`;
         });
-        if (showAngles && cur.hits.length) {
+        if (ask && !cmpDone) readout.textContent = '';
+        else if (showAngles && cur.hits.length) {
           readout.textContent = cur.hits.map((h, k) => `${mirrors.length > 1 ? `거울 ${h.i + 1}: ` : ''}들어온 각 ${h.inc}° · 나간 각 ${h.inc}°`).join('   ');
         } else if (showAngles && cur.hit === 'back') readout.textContent = '거울 뒷면은 빛을 반사하지 않아요';
         else if (hideOut) readout.textContent = '빛이 어디로 갈지 예상하고 확인을 눌러 보세요';
@@ -240,7 +292,7 @@
       }
 
       const sayState = () => ({ star: '빛이 별에 닿았어요!', back: '빛이 거울 뒷면에 막혔어요.', block: '빛이 가림판에 막혔어요.', wall: '빛이 별을 비껴 갔어요.' }[cur.hit]);
-      const state = () => ({ mirrors: angles.map((a) => Math.round(kit.norm(a))), hit: cur.hit, bounces: cur.bounces });
+      const state = () => { const s = { mirrors: angles.map((a) => Math.round(kit.norm(a))), hit: cur.hit, bounces: cur.bounces }; if (ask) s.compare = cmp; return s; };
       const setAngles = (arr, animate) => {
         arr.forEach((a, i) => { if (i < rots.length && a != null) { angles[i] = a; rots[i].set(a); } });
         paint(!!animate);
@@ -259,26 +311,78 @@
       }
       paint(false);
 
+      // 채점만 한다(화면은 바꾸지 않는다) — 확인·힌트·오답 만들기가 함께 쓴다
+      function judge(t) {
+        const s = state();
+        if (t.compare && ok(s, t)) {
+          const h = cur.hits[0];
+          if (!cmp) return { correct: false, incomplete: true, feedback: '두 호(색 부채꼴)의 크기를 견주어 보고 아래에서 하나 골라요.', hint: '점선(거울에 수직인 선)에서 들어온 빛까지, 점선에서 나간 빛까지 벌어진 정도를 봐요.' };
+          if (cmp !== t.compare) return { correct: false, feedback: "다시 보세요. 각은 거울 면이 아니라 점선(거울에 수직인 선)을 기준으로 재요. 복숭아색 호와 하늘색 호가 벌어진 정도를 견주어 봐요.", hint: '복숭아색 호와 하늘색 호의 크기를 견주어 봐요.' };
+          return { correct: true, feedback: `맞아요! 들어온 각 ${h.inc}°와 나간 각 ${h.inc}°가 같아요. 거울에 비스듬히 들어온 빛은 같은 각으로 반대쪽으로 나가요.` };
+        }
+        if (ok(s, t)) return { correct: true, feedback: `맞아요! 빛이 거울${s.bounces > 1 ? ` ${s.bounces}개` : ''}에서 방향을 바꿔 별에 닿았어요.` };
+        if (s.hit === 'star') return { correct: false, feedback: `별에 닿았지만, 이번에는 거울 ${t.bounces}개를 거쳐야 해요.`, hint: '가림판을 피해 거울을 모두 지나가게 해 보세요.' };
+        if (s.hit === 'back' && !(mirrors.length > 1 && cur.backOf === 1)) return { correct: false, feedback: `빛이 ${mirrors.length > 1 ? `거울 ${cur.backOf + 1}의 ` : '거울 '}뒷면에 닿았어요. 뒷면은 빛을 반사하지 않아요.`, hint: '반짝이는 하늘색 앞면이 빛이 오는 쪽을 보도록 거울을 돌려 보세요.' };
+        if (s.hit === 'block') return { correct: false, feedback: '빛이 가림판에 막혔어요. 빛은 곧게 나아가요.', hint: mirrors.length > 1 ? '첫 번째 거울로 빛을 두 번째 거울에 보내고, 두 번째 거울로 별에 보내 보세요.' : '거울을 돌려 가림판을 피해 보세요.' };
+        if (mirrors.length > 1) {
+          // 거울 1부터: 빛이 거울 2에 닿았는지(앞면이든 뒷면이든)로 어느 거울을 고칠지 알려 준다
+          const reached2 = cur.hits.some((h) => h.i === 1) || cur.backOf === 1;
+          if (!reached2) return { correct: false, feedback: '빛이 거울 2에 닿지 않았어요. 거울 1부터 맞춰요.', hint: '먼저 거울 1을 돌려 빛을 거울 2로 보내요. 그다음 거울 2를 돌려 별로 보내요.' };
+          if (s.hit === 'back') return { correct: false, feedback: '거울 1은 잘 맞췄어요. 빛이 거울 2의 뒷면에 닿았어요.', hint: '거울 2의 반짝이는 하늘색 앞면이 거울 1 쪽을 보도록 돌려 보세요.' };
+          return { correct: false, feedback: '거울 1은 잘 맞췄어요. 이제 거울 2를 돌려 빛을 별로 보내요.', hint: '빛이 거울에 들어온 각과 나간 각은 같아요. 거울 2에서 나간 빛이 별 쪽으로 가도록 기울여 보세요.' };
+        }
+        return { correct: false, feedback: predict ? '빛이 별을 비껴 갔어요. 들어온 각과 나간 각이 같도록 거울 기울기를 다시 정해 보세요. 나간 빛은 맞히면 보여요.' : '빛이 별을 비껴 갔어요. 거울을 조금씩 돌려 보세요.', hint: '빛이 거울에 들어온 각과 나간 각은 같아요. 거울에 부딪힌 빛이 별 쪽으로 가도록 거울을 기울여 보세요.' };
+      }
+
       return {
         getState: state,
-        setState(s) { if (s && s.mirrors) setAngles(s.mirrors, false); },
-        reset() { revealed = false; setAngles(mirrors.map((m, i) => ((o.start && o.start[i] != null) ? o.start[i] : m.start)), false); },
-        solve(t) { const arr = find(t || { hit: 'star' }); if (arr) setAngles(arr, true); },
-        check(t) {
-          if (predict && !revealed) { revealed = true; paint(true); }
-          const s = state();
-          if (ok(s, t)) return { correct: true, feedback: `맞아요! 빛이 거울${s.bounces > 1 ? ` ${s.bounces}개` : ''}에서 방향을 바꿔 별에 닿았어요.` };
-          if (s.hit === 'star') return { correct: false, feedback: `별에 닿았지만, 이번에는 거울 ${t.bounces}개를 거쳐야 해요.`, hint: '가림판을 피해 거울을 모두 지나가게 해 보세요.' };
-          if (s.hit === 'back' && !(mirrors.length > 1 && cur.backOf === 1)) return { correct: false, feedback: `빛이 ${mirrors.length > 1 ? `거울 ${cur.backOf + 1}의 ` : '거울 '}뒷면에 닿았어요. 뒷면은 빛을 반사하지 않아요.`, hint: '반짝이는 하늘색 앞면이 빛이 오는 쪽을 보도록 거울을 돌려 보세요.' };
-          if (s.hit === 'block') return { correct: false, feedback: '빛이 가림판에 막혔어요. 빛은 곧게 나아가요.', hint: mirrors.length > 1 ? '첫 번째 거울로 빛을 두 번째 거울에 보내고, 두 번째 거울로 별에 보내 보세요.' : '거울을 돌려 가림판을 피해 보세요.' };
-          if (mirrors.length > 1) {
-            // 거울 1부터: 빛이 거울 2에 닿았는지(앞면이든 뒷면이든)로 어느 거울을 고칠지 알려 준다
-            const reached2 = cur.hits.some((h) => h.i === 1) || cur.backOf === 1;
-            if (!reached2) return { correct: false, feedback: '빛이 거울 2에 닿지 않았어요. 거울 1부터 맞춰요.', hint: '먼저 거울 1을 돌려 빛을 거울 2로 보내요. 그다음 거울 2를 돌려 별로 보내요.' };
-            if (s.hit === 'back') return { correct: false, feedback: '거울 1은 잘 맞췄어요. 빛이 거울 2의 뒷면에 닿았어요.', hint: '거울 2의 반짝이는 하늘색 앞면이 거울 1 쪽을 보도록 돌려 보세요.' };
-            return { correct: false, feedback: '거울 1은 잘 맞췄어요. 이제 거울 2를 돌려 빛을 별로 보내요.', hint: '빛이 거울에 들어온 각과 나간 각은 같아요. 거울 2에서 나간 빛이 별 쪽으로 가도록 기울여 보세요.' };
+        setState(s) {
+          // 숨김까지 되돌린다: 플레이어·모의 수업이 확인 전 상태를 다시 넣을 때 나간 빛·각도 숫자가 남지 않게
+          revealed = false; cmpDone = false;
+          if (s && s.mirrors) setAngles(s.mirrors, false); else paint(false);
+          if (ask && s && 'compare' in s) { cmp = s.compare; markCmp(); }
+        },
+        reset() { revealed = false; cmp = null; cmpDone = false; markCmp(); setAngles(mirrors.map((m, i) => ((o.start && o.start[i] != null) ? o.start[i] : m.start)), false); },
+        solve(t) {
+          if (!ok(state(), t || { hit: 'star' })) { const arr = find(t || { hit: 'star' }); if (arr) setAngles(arr, true); }
+          if (ask && t && t.compare) { cmp = t.compare; markCmp(); }
+        },
+        check(t, opts) {
+          const r = judge(t);
+          // 맞힌 확인에서만 숨긴 것(나간 빛·각도 숫자)을 보인다 — 틀린 확인마다 보여 주면 확인을 눌러 가며 맞춘다
+          if (r.correct && !(opts && opts.forHint)) {
+            if (t.compare) { cmpDone = true; paint(false); }
+            if (predict && !revealed) { revealed = true; paint(true); }
           }
-          return { correct: false, feedback: '빛이 별을 비껴 갔어요. 거울을 조금씩 돌려 보세요.', hint: '빛이 거울에 들어온 각과 나간 각은 같아요. 거울에 부딪힌 빛이 별 쪽으로 가도록 거울을 기울여 보세요.' };
+          return r;
+        },
+        hint(t) {
+          t = t || { hit: 'star' };
+          const hidden = predict && !revealed;
+          const rule = "빛은 거울에 들어온 각과 똑같은 각으로 나가요. 거울의 반짝이는 앞면이 '빛이 들어오는 쪽'과 '별 쪽'의 딱 가운데를 보게 놓아 보세요.";
+          if (!hidden) {
+            const r = judge(t);
+            if (r.correct) return { hint: t.compare ? '두 호는 점선(거울에 수직인 선)을 사이에 두고 크기가 같아요.' : '들어온 각과 나간 각이 같아서 빛이 별에 닿았어요.', correct: true };
+            return { hint: r.hint || rule, correct: false };
+          }
+          // 나간 빛이 숨겨진 동안에는 빛이 어디로 갔는지(별·벽·거울 2)도, 맞았는지도 알려 주지 않는다
+          if (cur.hit === 'back' && cur.backOf === 0) return { hint: '빛이 거울 뒷면(복숭아색 빗금)에 닿았어요. 반짝이는 하늘색 앞면이 빛이 오는 쪽을 보도록 돌려요.' };
+          return { hint: mirrors.length > 1 ? `거울 1부터 맞춰요. ${rule}` : rule };
+        },
+        wrongAnswer(t) {
+          t = t || { hit: 'star' };
+          const sol = find(t) || angles.slice();
+          const out = (arr) => arr.map((a) => Math.round(kit.norm(a)));
+          // 각을 거울 면에서 재는 오개념: 두 각이 다르다고 고른다
+          if (t.compare) return { mirrors: out(sol), compare: CMP.map((c) => c[0]).find((k) => k !== t.compare) };
+          // 흔한 오개념: 들어온 빛은 생각하지 않고 거울 앞면을 별 쪽으로 똑바로 향하게 놓는다 → 나간 각이 들어온 각과 달라져 빛이 비껴 간다
+          const last = mirrors.length - 1; const m = mirrors[last];
+          const snap = (a) => Math.round(kit.norm(a) / step) * step;
+          const tryArr = (a) => { const arr = sol.slice(); arr[last] = a; const r = trace(arr); return !ok({ hit: r.hit, bounces: r.bounces }, t) && r.hit !== 'back' ? arr : null; };
+          let arr = tryArr(snap(deg(Math.atan2(star.y - m.y, star.x - m.x)) + 90));
+          // 별을 겨눈 거울이 우연히 맞으면, 정답에서 한 칸씩 더 기울여 빛이 비껴 가게 한다
+          for (let k = 1; !arr && k <= 180 / step; k++) arr = tryArr(snap(sol[last] + k * step)) || tryArr(snap(sol[last] - k * step));
+          return { mirrors: out(arr || sol) };
         },
         async demo(t) {
           const arr = find(t || { hit: 'star' }); if (!arr) return;

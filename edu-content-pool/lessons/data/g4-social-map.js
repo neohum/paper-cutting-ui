@@ -30,18 +30,18 @@ PaperLessons.register({
       id: 'intro', title: '도입', minutes: 6,
       teacher: '"친구에게 우리 집에서 학교까지 가는 길을 말로만 알려 주려면 무엇이 필요할까요?" 왼쪽·오른쪽은 서 있는 방향에 따라 바뀐다는 점을 짚고, 시연 단추로 방위표 바늘이 북쪽과 북동쪽을 가리키는 모습을 보여 준다.',
       student: '지도에서 "어느 쪽"인지 정확하게 말하려면 무엇이 필요할지 생각해 봅시다.',
-      demo: { tool: 'mapcompass', options: { mode: 'direction', points: 8, roseLabels: 'all', from: '학교', to: '우체국' }, sequence: [{ direction: '북', from: '학교', to: '시청' }, { direction: '북동', from: '학교', to: '우체국' }] },
+      demo: { tool: 'mapcompass', options: { mode: 'direction', points: 8, roseLabels: 'all', from: '학교', to: '우체국', markTarget: true }, sequence: [{ direction: '북', from: '학교', to: '시청' }, { direction: '북동', from: '학교', to: '우체국' }] },
     },
     {
-      id: 'main', title: '전개', minutes: 27,
+      id: 'main', title: '전개', minutes: 28,
       activities: [
         {
           id: 'a1', title: '활동 1. 네 방위로 찾기', minutes: 8, tool: 'mapcompass',
           options: { mode: 'direction', points: 4 },
-          task: '초록 동그라미("여기서") 건물에서 봐요. 빨간 점선("어디?") 건물은 어느 쪽에 있나요? 방위표(방향을 알려 주는 표)의 단추를 누르거나 바늘을 돌려요.',
+          task: '초록 동그라미("여기서") 건물에서 봐요. 문제에 나온 건물은 어느 쪽에 있나요? 방위표(방향을 알려 주는 표)의 단추를 누르거나 바늘을 돌려요.',
           teacher: '"방위표가 없으면 지도의 위쪽이 북쪽이에요. 북쪽을 보고 섰을 때 오른쪽이 동쪽, 왼쪽이 서쪽이에요." 오른팔을 동쪽으로 뻗어 몸으로 방위를 익히게 한다.',
           levels: {
-            easy: { roseLabels: 'all' },
+            easy: { roseLabels: 'all', markTarget: true },
             base: { roseLabels: 'north' },
             challenge: { roseLabels: 'north', names: false, showReadout: false },
           },
@@ -50,30 +50,35 @@ PaperLessons.register({
             { prompt: '학교에서 보았을 때 시청은 어느 쪽에 있나요?', target: { direction: '북', from: '학교', to: '시청' }, toolOptions: { roseLabels: 'main' }, difficulty: 0 },
             { prompt: '학교에서 보았을 때 경찰서는 어느 쪽에 있나요?', target: { direction: '서', from: '학교', to: '경찰서' }, toolOptions: { roseLabels: 'main' }, difficulty: 0.03 },
             { prompt: '시청에서 보았을 때 도서관은 어느 쪽에 있나요?', target: { direction: '남', from: '시청', to: '도서관' }, difficulty: 0.06 },
-            { prompt: '병원에서 보았을 때 우체국은 어느 쪽에 있나요?', target: { direction: '동', from: '병원', to: '우체국' }, difficulty: 0.08 },
+            { prompt: '병원에서 보았을 때 우체국은 어느 쪽에 있나요?', target: { direction: '동', from: '병원', to: '우체국' }, difficulty: 0.1 },
+            { extra: true, prompt: '도서관에서 보았을 때 학교는 어느 쪽에 있나요?', target: { direction: '북', from: '도서관', to: '학교' }, difficulty: 0.1 },
           ],
         },
         {
           id: 'a2', title: '활동 2. 여덟 방위로 찾기', minutes: 8, tool: 'mapcompass',
           options: { mode: 'direction', points: 8 },
-          task: '북쪽과 동쪽 사이처럼, 두 방위 사이의 방위까지 써서 더 정확하게 나타내요. 이름이 없는 단추에 손가락이나 마우스를 올리면 이름이 나와요.',
-          teacher: '"북쪽과 동쪽 사이는 무엇이라고 부를까요?" 8방위는 북·남을 앞에 붙여 북동, 남동, 남서, 북서라고 부른다는 것을 확인한다.',
+          task: '북쪽과 동쪽 사이처럼, 두 방위 사이의 방위까지 써서 더 정확하게 나타내요. 이번 지도에는 건물 이름이 없어요. 범례에서 기호를 찾아 건물을 알아내요.',
+          teacher: '"북쪽과 동쪽 사이는 무엇이라고 부를까요?" 8방위는 북·남을 앞에 붙여 북동, 남동, 남서, 북서라고 부른다는 것을 확인한다. 기본 단계부터는 지도에 건물 이름이 없어 범례로 기호를 읽어야 도착 건물을 찾을 수 있다(기호·범례 활용). 도전 추가 문항은 방위표가 돌아간 지도다.',
           levels: {
-            easy: { roseLabels: 'all' },
-            base: { roseLabels: 'main' },
+            easy: { roseLabels: 'all', markTarget: true },
+            base: { roseLabels: 'main', names: false },
             challenge: { roseLabels: 'north', names: false, showReadout: false },
           },
           items: [
             { prompt: '학교에서 보았을 때 우체국은 어느 쪽에 있나요?', target: { direction: '북동', from: '학교', to: '우체국' }, difficulty: 0.1 },
             { prompt: '학교에서 보았을 때 소방서는 어느 쪽에 있나요?', target: { direction: '남서', from: '학교', to: '소방서' }, difficulty: 0.12 },
             { prompt: '도서관에서 보았을 때 공원은 어느 쪽에 있나요?', target: { direction: '북동', from: '도서관', to: '공원' }, difficulty: 0.15 },
-            { prompt: '병원에서 보았을 때 기차역은 어느 쪽에 있나요?', target: { direction: '남동', from: '병원', to: '기차역' }, difficulty: 0.15 },
+            { prompt: '병원에서 보았을 때 기차역은 어느 쪽에 있나요?', target: { direction: '남동', from: '병원', to: '기차역' }, difficulty: 0.15,
+              conclude: '지도에 이름이 없어도 범례로 기호의 뜻을 찾으면 장소와 방위를 읽을 수 있어요.' },
+            { extra: true, prompt: '이 지도는 방위표의 북쪽이 오른쪽을 가리켜요. 학교에서 보았을 때 시청은 어느 쪽인가요?', toolOptions: { roseRotate: 90, roseLabels: 'north', names: true }, target: { direction: '서', from: '학교', to: '시청' }, difficulty: 0.2,
+              predict: { q: '이 지도에서 위쪽은 어느 방위일까요?', options: ['북쪽', '서쪽', '동쪽'], answer: 1 },
+              conclude: '방위표가 있으면 지도의 위쪽이 아니라 방위표의 북쪽을 따라요.' },
           ],
         },
         {
-          id: 'a3', title: '활동 3. 기호와 범례 완성하기', minutes: 6, tool: 'mapcompass',
+          id: 'a3', title: '활동 3. 기호와 범례 완성하기', minutes: 5, tool: 'mapcompass',
           options: { mode: 'legend', blank: ['병원', '우체국', '소방서', '도서관', '공원'] },
-          task: '지도에 쓰인 기호의 모양을 보고, 기호 스티커를 범례의 알맞은 빈칸에 붙여 봅시다.',
+          task: '지도에 쓰인 기호의 모양을 보고, 기호 스티커를 범례의 알맞은 빈칸에 붙여 봅시다. 스티커를 끌어도 되고, 눌러 고른 뒤 빈칸을 눌러도 돼요.',
           teacher: '"기호는 왜 쓸까요?" 글자로 다 쓰면 지도가 복잡해지므로 간단한 그림으로 약속한다는 점, 그 약속을 모아 둔 것이 범례라는 점을 정리한다.',
           levels: {
             easy: { names: true },
@@ -86,11 +91,11 @@ PaperLessons.register({
           ],
         },
         {
-          id: 'a4', title: '활동 4. 방위와 기호로 빈 터 채우기', minutes: 5, tool: 'mapcompass', pair: true,
+          id: 'a4', title: '활동 4. 방위와 기호로 빈 터 채우기', minutes: 7, tool: 'mapcompass', pair: true,
           // 빈 터 4곳 가운데 소방서 자리는 어느 문항의 답도 아니다 — 기준 장소를 학교로 착각하면 그곳에 붙이게 되는 함정 자리.
           // 불꽃 스티커도 함께 나와 기본 단계에도 방해 스티커가 하나 있다.
           options: { mode: 'place', hidden: ['병원', '경찰서', '공원', '소방서'] },
-          task: '설명을 읽고 범례에서 기호를 찾아, 지도의 알맞은 빈 터에 붙여요. 먼저 "어디에서 보았을 때"인지 기준 장소를 찾아요.',
+          task: '설명을 읽고 범례에서 기호를 찾아, 지도의 알맞은 빈 터(①~④)에 붙여요. 먼저 "어디에서 보았을 때"인지 기준 장소를 찾아요.',
           teacher: '짝이 방위로 설명하고 다른 짝이 스티커를 붙이게 한 뒤 역할을 바꾼다. "어디에서 보았을 때"를 꼭 넣어 말하게 한다. 2·3번은 기준 장소가 학교가 아니다.',
           levels: {
             easy: { roseLabels: 'all' },
@@ -99,19 +104,21 @@ PaperLessons.register({
           },
           items: [
             { prompt: '학교의 북서쪽에 병원이 있어요. 병원 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 병원: 'cross' }, from: '학교', direction: '북서' }, difficulty: 0.08 },
-            { prompt: '시청의 남서쪽에 경찰서가 있어요. 경찰서 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 경찰서: 'shield' }, from: '시청', direction: '남서' }, difficulty: 0.2 },
+            { prompt: '시청의 남서쪽에 경찰서가 있어요. 경찰서 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 경찰서: 'shield' }, from: '시청', direction: '남서' }, difficulty: 0.22,
+              predict: { q: '이 문제에서 방위를 따질 기준 장소는 어디인가요?', options: ['학교', '시청', '경찰서'], answer: 1 } },
             { prompt: '도서관의 북동쪽에 공원이 있어요. 공원 기호를 알맞은 빈 터에 붙이세요.', target: { place: { 공원: 'tree' }, from: '도서관', direction: '북동' }, difficulty: 0.18 },
           ],
         },
       ],
     },
     {
-      id: 'wrapup', title: '정리', minutes: 7,
-      teacher: '"지도를 읽을 때 꼭 먼저 보아야 할 것 두 가지는?"(방위표, 범례) 출구 질문 결과에서 기준 장소를 바꿔 답한 학생이 많으면 "○○에서 보았을 때"를 다시 짚는다.',
+      id: 'wrapup', title: '정리', minutes: 6,
+      teacher: '"지도를 읽을 때 꼭 먼저 보아야 할 것 두 가지는?"(방위표, 범례) 이어서 2분 동안 우리 학교 둘레 지도(교사가 준비한 지역 지도나 디지털 지도 화면)를 함께 보며 "우리 학교의 북동쪽에는 무엇이 있나요?"를 묻고, 출구 질문의 마지막 문항으로 이어 간다. 기준 장소를 바꿔 답한 학생이 많으면 "○○에서 보았을 때"를 다시 짚는다.',
       exitTicket: [
         { type: 'choice', prompt: '지도에 쓰인 기호와 그 뜻을 모아 한곳에 정리해 놓은 것을 무엇이라고 하나요?', options: ['방위표', '범례', '축척'], answer: 1, difficulty: 0.05, explain: '범례는 지도에 쓰인 기호와 그 뜻을 모아 놓은 것이에요. 방위표는 방향을, 축척은 실제 거리를 얼마나 줄였는지를 알려 줘요.' },
         { type: 'tool', tool: 'mapcompass', options: { mode: 'direction', points: 8, roseLabels: 'main', from: '경찰서', to: '도서관' }, prompt: '경찰서에서 보았을 때 도서관은 어느 쪽인지 나타내 보세요.', target: { direction: '남동', from: '경찰서', to: '도서관' }, difficulty: 0.15 },
         { type: 'choice', prompt: '방위표가 없는 지도에서 북쪽은 보통 어디인가요?', options: ['지도의 위쪽', '지도의 아래쪽', '내가 바라보는 쪽'], answer: 0, difficulty: 0.05, explain: '방위표가 없으면 보통 지도의 위쪽을 북쪽으로 봐요. 내가 바라보는 쪽은 서 있는 방향에 따라 바뀌어요.' },
+        { type: 'short', prompt: '우리 지역 지도를 보고, 우리 학교에서 보았을 때 어느 쪽에 무엇이 있는지 한 문장으로 써 보세요. (예: 우리 학교의 남쪽에는 ○○ 공원이 있어요.)', answer: '학생마다 다름 — "우리 학교에서 보았을 때"(기준 장소)와 방위, 장소 이름이 모두 들어갔는지 본다', difficulty: 0.2 },
         { type: 'mood', prompt: '오늘 공부는 어땠나요?' },
       ],
     },
@@ -137,8 +144,8 @@ PaperLessons.register({
     },
   },
   differentiation: {
-    easy: '방위표의 모든 방위 이름과 지도 위 건물 이름이 보이고, 고른 방위가 글자로 나타나요. 기본 단계에서도 이름 없는 사이 방위 단추에 손을 올리면 이름과 뜻("북쪽과 동쪽 사이")이 나와요.',
-    challenge: '방위표에 북쪽만 표시되고 건물 이름이 없어서, 범례로 기호를 읽고 나머지 방위를 스스로 떠올려야 해요.',
+    easy: '방위표의 모든 방위 이름과 지도 위 건물 이름이 보이고, 도착 건물에 "어디?" 표시가 붙으며, 고른 방위가 글자로 나타나요. 기본 단계에서도 이름 없는 사이 방위 단추에 손을 올리면 이름과 뜻("북쪽과 동쪽 사이")이 나와요.',
+    challenge: '방위표에 북쪽만 표시되고 건물 이름이 없어서, 범례로 기호를 읽고 나머지 방위를 스스로 떠올려야 해요. 활동 2 추가 문항은 방위표의 북쪽이 오른쪽을 가리키는 지도예요.',
   },
-  teacherNotes: '오개념 1) 방위를 왼쪽·오른쪽과 같은 것으로 여긴다 — 왼쪽·오른쪽은 몸의 방향에 따라 바뀌지만 방위는 바뀌지 않음을 교실에서 몸을 돌려 확인한다. 2) 기준 장소를 바꿔 답한다("학교에서 보았을 때 우체국"을 우체국에서 본 방향으로 답함) — 출발 장소에 손가락을 올려놓고 읽게 한다. 3) 8방위를 "동북, 서남"처럼 부른다 — 우리나라 교과서는 북·남을 앞에 두어 북동·남동·남서·북서로 부른다. 4) 지도의 위쪽이 언제나 북쪽이라고 여긴다 — 방위표가 있으면 방위표를 따르고, 없을 때만 위쪽을 북쪽으로 본다. 5) 기호가 모든 지도에서 같다고 여긴다 — 이 지도의 기호 일부는 종이 마을에서 정한 약속이므로, 다른 지도를 읽을 때는 반드시 그 지도의 범례를 먼저 확인하게 한다.',
+  teacherNotes: '오개념 1) 방위를 왼쪽·오른쪽과 같은 것으로 여긴다 — 왼쪽·오른쪽은 몸의 방향에 따라 바뀌지만 방위는 바뀌지 않음을 교실에서 몸을 돌려 확인한다. 2) 기준 장소를 바꿔 답한다("학교에서 보았을 때 우체국"을 우체국에서 본 방향으로 답함) — 출발 장소에 손가락을 올려놓고 읽게 한다. 3) 8방위를 "동북, 서남"처럼 부른다 — 우리나라 교과서는 북·남을 앞에 두어 북동·남동·남서·북서로 부른다. 4) 지도의 위쪽이 언제나 북쪽이라고 여긴다 — 방위표가 있으면 방위표를 따르고, 없을 때만 위쪽을 북쪽으로 본다(활동 2 도전 문항: 방위표가 돌아간 지도). 5) 기호가 모든 지도에서 같다고 여긴다 — 이 지도의 기호 일부는 종이 마을에서 정한 약속이므로, 다른 지도를 읽을 때는 반드시 그 지도의 범례를 먼저 확인하게 한다.',
 });

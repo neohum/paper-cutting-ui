@@ -5,6 +5,8 @@
   const avg = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : 0);
   const LEVEL_KO = { easy: '쉬움', base: '기본', challenge: '도전' };
   const MOOD_KO = { good: '좋음', ok: '조금 어려움', hard: '많이 어려움' };
+  const ORDER = ['easy', 'base', 'challenge'];
+  const levelPath = (ch) => (Array.isArray(ch) && ch.length ? [ch[0].from, ...ch.map((c) => c.to)].map((l) => LEVEL_KO[l] || l).join('→') : '');
 
   // rows: edu-lesson-result.v1 (포털·허브 행이면 .data 안에 있다)
   // labels: { 'a1.1': '3시 15분을 만들어 보세요.' } — 있으면 문항 이름으로 쓴다
@@ -19,9 +21,14 @@
     }
     const list = [...last.values()];
     const items = new Map(); const exits = new Map(); const moods = { good: 0, ok: 0, hard: 0 };
+    const preds = new Map(); // 예상(predict) 고른 보기 분포 — 채점하지 않는다
     const students = [];
     for (const r of list) {
       // 짝 활동(free)은 채점에서 빼고, 손대지 않은 문항(시도 0)은 '건너뜀'으로 따로 센다
+      for (const it of r.items || []) {
+        if (it.predict == null) continue;
+        const m = preds.get(it.key) || { key: it.key, n: 0, counts: {} }; m.n++; m.counts[it.predict] = (m.counts[it.predict] || 0) + 1; preds.set(it.key, m);
+      }
       const scored = (r.items || []).filter((it) => !it.free);
       const tried = scored.filter((it) => it.attempts > 0);
       for (const it of tried) {
@@ -39,6 +46,8 @@
       const den = tried.length + exitScored.length;
       students.push({
         seat: r.seat, nickname: r.nickname || '', classCode: r.classCode, level: r.level, levelChanges: (r.levelChanges || []).length,
+        // 단계를 바꾼 길(예: '기본→쉬움→기본') — 제출 코드로 들어온 결과에는 없다
+        levelPath: levelPath(r.levelChanges),
         firstTry: pct(tried.filter((i) => i.correct && i.attempts === 1).length + exitScored.filter((e) => e.correct).length, den),
         solved: pct(tried.filter((i) => i.correct).length + exitScored.filter((e) => e.correct).length, den),
         skipped: scored.length - tried.length, exitCorrect: pct(exitScored.filter((e) => e.correct).length, exitScored.length),
@@ -56,6 +65,16 @@
     const exitAvg = exitRows.length ? Math.round(avg(exitRows.map((r) => r.correct))) : null;
     const levels = students.reduce((a, s) => { a[s.level] = (a[s.level] || 0) + 1; return a; }, {});
     const flagged = students.filter((s) => s.flag);
+    // 단계 바꾸기: 누가 몇 번, 쉽게(↓)·어렵게(↑) 어느 쪽으로
+    const moves = { students: 0, total: 0, down: 0, up: 0, who: [] };
+    for (const r of list) {
+      const ch = Array.isArray(r.levelChanges) ? r.levelChanges : [];
+      if (!ch.length) continue;
+      moves.students++; moves.total += ch.length;
+      for (const c of ch) { const d = ORDER.indexOf(c.to) - ORDER.indexOf(c.from); if (d < 0) moves.down++; else if (d > 0) moves.up++; }
+      moves.who.push({ seat: r.seat, n: ch.length, path: levelPath(ch) });
+    }
+    moves.who.sort((a, b) => Number(a.seat) - Number(b.seat));
     // 난이도 권고: 반 전체 시작 단계 + 도움이 필요한 학생 + 다시 짚을 문항·출구 질문
     const rec = [];
     if (!students.length) rec.push('아직 결과가 없습니다.');
@@ -77,6 +96,8 @@
       avgScore: Math.round(avg(students.map((s) => s.firstTry))), // 이전 이름 호환: '한 번에 맞힘' 기준 점수
       avgMinutes: Math.round(avg(students.map((s) => s.durationMin)) * 10) / 10,
       firstTry, exitAvg, levels, moods, items: itemRows, exits: exitRows, students, recommendations: rec,
+      levelMoves: moves,
+      predicts: [...preds.values()].sort((a, b) => a.key.localeCompare(b.key, 'en', { numeric: true })),
     };
   }
 

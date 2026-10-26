@@ -180,3 +180,148 @@ test('illustration.image, when declared, is a small local file under lessons/img
     assert.ok(st.size <= 400 * 1024, `${l.id} ${img} ${st.size}B > 400KB`);
   }
 });
+
+test('flow: predict gates check, unchanged re-check and the wrong-answer lock do not count', () => {
+  const F = loadRegistry().flow;
+  const it = { prompt: 'p', target: {}, predict: { q: '어떻게 될까요?', options: ['커져요', '작아져요'], answer: 0 }, conclude: '정리' };
+  const r = { attempts: 0, correct: false };
+  assert.equal(F.predictReady(it, r), false);
+  assert.equal(F.predictReady({ prompt: 'p' }, r), true, '예상이 없는 문항은 언제나 확인할 수 있다');
+  r.predict = 1;
+  assert.equal(F.predictReady(it, r), true);
+  assert.equal(F.predictLine(it, r), '예상: 작아져요 → 관찰한 결과를 떠올려 보세요');
+  assert.equal(F.predictLine({ prompt: 'p' }, r), '');
+  // 첫 확인은 검사한다
+  assert.equal(F.checkGate(r, '{"a":1}', 1000), 'check');
+  r.attempts = 1; r.lastJSON = '{"a":1}';
+  F.lockAfterWrong(r, 1000);
+  // 틀린 직후 1.2초 동안은 상태를 바꿔도 잠겨 있다(연타가 피드백을 덮지 않게)
+  assert.equal(F.checkGate(r, '{"a":2}', 1000 + F.WRONG_LOCK_MS - 1), 'locked');
+  assert.equal(F.checkGate(r, '{"a":1}', 1000 + F.WRONG_LOCK_MS), 'unchanged');
+  assert.equal(F.checkGate(r, '{"a":2}', 1000 + F.WRONG_LOCK_MS), 'check');
+  assert.ok(F.WRONG_LOCK_MS >= 1000 && F.WRONG_LOCK_MS <= 1500);
+});
+
+test('flow: pressing the already-selected difficulty is a no-op', () => {
+  const F = loadRegistry().flow;
+  assert.equal(F.levelChanges('base', 'base'), false);
+  assert.equal(F.levelChanges('base', 'easy'), true);
+  assert.equal(F.levelChanges('base', undefined), false);
+});
+
+test('predict pick survives the long submission code and shows up in the class distribution', () => {
+  const PL = loadRegistry();
+  const r = { ...sample, items: [{ key: 'a1.1', correct: true, attempts: 1, hints: 0, predict: 2 }, { key: 'a1.2', correct: true, attempts: 1, hints: 0 }] };
+  const back = PL.decode(PL.encode(r));
+  assert.equal(back.items[0].predict, 2);
+  assert.ok(!('predict' in back.items[1]));
+  const ctx = { window: {} };
+  vm.runInNewContext(readFileSync(join(pool, 'lessons/analytics.js'), 'utf8'), ctx);
+  const s = ctx.window.LessonAnalytics.summarize([r, { ...r, seat: '8', items: [{ key: 'a1.1', correct: false, attempts: 2, hints: 0, predict: 0 }] }, { ...r, seat: '9' }]);
+  const p = s.predicts.find((x) => x.key === 'a1.1');
+  assert.equal(p.n, 3); assert.equal(p.counts[2], 2); assert.equal(p.counts[0], 1);
+  // 예상은 채점하지 않는다: 한 번에 맞힌 비율은 예상과 무관하다
+  assert.equal(s.items.find((x) => x.key === 'a1.1').firstTry, 67);
+});
+
+test('lessons that use predict / conclude / reveal follow the item contract', () => {
+  for (const { l } of lessons) {
+    for (const a of l.stages[1].activities) {
+      a.items.forEach((it, i) => {
+        const at = `${l.id}/${a.id}.${i + 1}`;
+        if (it.predict != null) {
+          assert.equal(typeof it.predict.q, 'string', `${at} predict.q`); assert.ok(it.predict.q.trim(), `${at} predict.q 비어 있음`);
+          assert.ok(Array.isArray(it.predict.options) && it.predict.options.length >= 2 && it.predict.options.length <= 5, `${at} predict.options 2~5개`);
+          assert.ok(it.predict.options.every((o) => typeof o === 'string' && o.trim()), `${at} predict.options 글자`);
+          if (it.predict.answer != null) assert.ok(Number.isInteger(it.predict.answer) && it.predict.answer < it.predict.options.length, `${at} predict.answer 범위`);
+        }
+        if (it.conclude != null) assert.ok(typeof it.conclude === 'string' && it.conclude.trim() && it.conclude.length <= 120, `${at} conclude`);
+        if (it.reveal != null) assert.equal(it.reveal, 'after-check', `${at} reveal`);
+      });
+    }
+  }
+});
+
+// 확인 전 숨김(reveal:'after-check') 교구를 흉내 낸다: check()는 읽기 값을 드러내고, setState()는 다시 숨긴다
+function revealTool({ withHint = false } = {}) {
+  const t = { v: 0, revealed: false, checks: [], hints: 0 };
+  Object.assign(t, {
+    getState: () => ({ v: t.v }),
+    setState: (s) => { t.v = s.v; t.revealed = false; },
+    check(target, opts) { t.checks.push(opts || null); if (!(opts && opts.forHint)) t.revealed = true; return t.v === target.v ? { correct: true, feedback: '맞아요' } : { correct: false, feedback: '아니에요', hint: '하나 더 올려요' }; },
+    solve: (target) => { t.v = target.v; },
+    reset: () => { t.v = 0; t.revealed = false; },
+  });
+  if (withHint) t.hint = (target) => { t.hints++; return { hint: t.v < target.v ? '더 올려요' : '내려요' }; };
+  return t;
+}
+
+test('hint button never calls a plain check(): hint() first, else check(target, { forHint: true })', () => {
+  const F = loadRegistry().flow;
+  const a = revealTool({ withHint: true });
+  const r = F.askHint(a, { v: 3 });
+  assert.equal(r.via, 'hint'); assert.equal(r.hint, '더 올려요'); assert.equal(a.checks.length, 0, 'hint()가 있으면 check를 부르지 않는다');
+  assert.equal(a.revealed, false);
+  const b = revealTool();
+  const r2 = F.askHint(b, { v: 3 });
+  assert.equal(r2.via, 'check'); assert.equal(r2.hint, '하나 더 올려요');
+  assert.equal(b.checks.length, 1); assert.equal(b.checks[0].forHint, true);
+});
+
+test('reveal after-check: hint and a wrong check reveal nothing, a correct check does', () => {
+  const F = loadRegistry().flow;
+  const item = { prompt: 'p', target: { v: 3 }, reveal: 'after-check' };
+  // forHint를 무시하는 옛 교구도 플레이어가 상태를 다시 넣어 숨긴다
+  const old = revealTool(); old.check = function (target) { old.revealed = true; return { correct: old.v === target.v, hint: 'h' }; };
+  old.v = 1; let snap = JSON.stringify(old.getState());
+  const h = F.askHint(old, item.target); if (h.via === 'check') F.rehide(old, item, snap);
+  assert.equal(old.revealed, false, '힌트 뒤 숨김');
+  snap = JSON.stringify(old.getState());
+  const wrong = old.check(item.target); assert.equal(wrong.correct, false);
+  F.rehide(old, item, snap);
+  assert.equal(old.revealed, false, '틀린 확인 뒤 숨김');
+  assert.equal(old.v, 1, '상태는 그대로');
+  old.v = 3; assert.equal(old.check(item.target).correct, true);
+  assert.equal(old.revealed, true, '맞힌 확인 뒤에는 보인다');
+  // hint()가 있는 교구는 계약을 스스로 지킨다고 보고 다시 숨기지 않는다
+  const neu = revealTool({ withHint: true }); assert.equal(F.rehide(neu, item, '{"v":0}'), false);
+  // reveal이 아닌 문항은 건드리지 않는다
+  assert.equal(F.rehide(revealTool(), { prompt: 'p' }, '{"v":0}'), false);
+});
+
+test('items[n].levels overrides the start state and merges toolOptions for that level', () => {
+  const F = loadRegistry().flow;
+  const it = { prompt: 'p', target: {}, state: { v: 1 }, toolOptions: { a: 1, b: 1 }, levels: { easy: { state: { v: 5 }, toolOptions: { b: 2 } }, challenge: { toolOptions: { c: 3 } } } };
+  const e = F.itemStart(it, 'easy'); assert.equal(e.state.v, 5); assert.equal(JSON.stringify(e.toolOptions), '{"a":1,"b":2}');
+  const c = F.itemStart(it, 'challenge'); assert.equal(c.state.v, 1); assert.equal(JSON.stringify(c.toolOptions), '{"a":1,"b":1,"c":3}');
+  const b = F.itemStart(it, 'base'); assert.equal(b.state.v, 1); assert.equal(JSON.stringify(b.toolOptions), '{"a":1,"b":1}');
+  assert.equal(F.itemStart({ prompt: 'p' }, 'easy').state, undefined);
+});
+
+test('findWrong makes a complete-but-wrong state: wrongAnswer() first, else a near miss of the solved state', () => {
+  const F = loadRegistry().flow;
+  const t = revealTool(); t.wrongAnswer = (target) => ({ v: target.v - 1 });
+  const r = F.findWrong(t, { v: 3 }, { seed: 1 });
+  assert.equal(r.via, 'wrongAnswer'); assert.equal(t.v, 2); assert.equal(t.revealed, false, '찾은 오답은 확인 전 상태로 남는다');
+  const u = revealTool(); u.v = 0;
+  const r2 = F.findWrong(u, { v: 3 }, { seed: 1, avoid: ['{"v":4}'] });
+  assert.equal(r2.via, 'perturb'); assert.ok([1, 2, 5].includes(u.v), `정답 근처 오답 ${u.v}`);
+  // 무엇을 해도 'incomplete'인 교구는 null이고 처음 상태로 돌아간다
+  const z = revealTool(); z.v = 7; z.check = () => ({ incomplete: true, feedback: '아직' });
+  assert.equal(F.findWrong(z, { v: 3 }, { seed: 1 }), null); assert.equal(z.v, 7);
+});
+
+test('analytics: levelMoves counts who switched difficulty, how often and which way', () => {
+  const ctx = { window: {} };
+  vm.runInNewContext(readFileSync(join(pool, 'lessons/analytics.js'), 'utf8'), ctx);
+  const A = ctx.window.LessonAnalytics;
+  const s = A.summarize([
+    { ...sample, seat: '3', levelChanges: [{ from: 'base', to: 'easy', at: 4 }, { from: 'easy', to: 'base', at: 9 }] },
+    { ...sample, seat: '5', levelChanges: [{ from: 'base', to: 'challenge', at: 2 }] },
+    { ...sample, seat: '6' },
+  ]);
+  assert.equal(s.levelMoves.students, 2); assert.equal(s.levelMoves.total, 3);
+  assert.equal(s.levelMoves.down, 1); assert.equal(s.levelMoves.up, 2);
+  assert.equal(s.levelMoves.who[0].path, '기본→쉬움→기본');
+  assert.equal(s.students.find((x) => x.seat === '3').levelChanges, 2);
+});

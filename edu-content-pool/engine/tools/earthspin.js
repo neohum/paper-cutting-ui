@@ -1,10 +1,14 @@
 /* 지구의 자전 낮과 밤 — 북극 위에서 내려다본 종이 지구를 서쪽→동쪽(시계 반대 방향)으로 돌린다.
  * 태양은 왼쪽에 가만히 있고, 태양 빛을 받는 반쪽은 낮, 반대쪽은 밤이다. 우리나라 표시가 어느 쪽에 있는지로 때를 읽는다.
  * 옵션: start({hour}), step(회전 스냅 각도, 15°=1시간), readout('full'|'phase'|'none'), showSides(낮·밤 글자), showArrow(자전 방향 화살표, 기본 참),
- *       oneWay(반대로 돌리면 되돌아감, 기본 참), showStart(처음 자리 표시), print
+ *       oneWay(반대로 돌리면 되돌아감, 기본 참), showStart(처음 자리 표시), print,
+ *       revealAfterCheck(우리나라의 때 글자는 '확인'을 눌러야 보이고, 다시 돌리면 숨는다 — 플레이어의 reveal:'after-check'),
+ *       showLocal(우리나라 사람 옆에 동·서 방향 표시 — 지구가 돌면 함께 돈다),
+ *       ask({q, choices}) — 지구 아래에 고르는 단추를 둔다. check({…, ask: 정답 번호})
  * 상태: { hour, time:'낮'|'밤'|'경계', phase:'아침'|'낮'|'저녁'|'밤', elapsed(돌린 시간) }
  *   time은 phase와 같은 구간을 쓴다: 낮 08~16시, 밤 20~04시, 그 사이(아침·저녁)는 낮과 밤의 경계라 '경계'.
- * check({time}) | check({phase:'해 뜰 무렵'|'해 질 무렵'|'한낮'|'한밤중'|…}) | check({hour}) | check({elapsed})
+ * check({time}) | check({phase:'해 뜰 무렵'|'해 질 무렵'|'한낮'|'한밤중'|…}) | check({hour}) | check({elapsed}) | check({…, ask})
+ *   ask를 쓰면 상태에 pick(고른 번호)이 들어가고, 고르기 전에는 incomplete로 돌려준다.
  */
 (function (K) {
   const W = 480; const E = { x: 300, y: 172 }; const R = 104;
@@ -99,7 +103,57 @@
       const sayBg = kit.piece(st, say, { shape: { type: 'rect', x: -150, y: -17, w: 300, h: 34, rx: 17 }, color: 'buttercup', depth: 1 });
       const sayTxt = kit.el('text', { x: 0, y: 6, 'text-anchor': 'middle', 'font-size': 16, class: 'pk-text', fill: '#3D352E' }, say);
       kit.transform(say, { x: 240, y: H - 26 });
-      if (readout === 'none') say.setAttribute('display', 'none');
+      // 확인을 눌러야 때 글자가 보이는 모드: 돌리면 다시 숨긴다(돌려 맞히기 대신 먼저 판단하게)
+      const hideUntilCheck = !!o.revealAfterCheck && !o.print && readout !== 'none';
+      let shown = !hideUntilCheck;
+      const sayVisible = () => readout !== 'none' && shown;
+      if (!sayVisible()) say.setAttribute('display', 'none');
+
+      // 동·서 표시: 우리나라 사람의 자리에서 지구 둘레를 따라 동쪽(자전하는 쪽)과 서쪽을 가리킨다.
+      // 북극 위에서 보면 지구는 시계 반대 방향으로 돌므로, 화면 각 φ 자리의 동쪽은 (-cos φ, -sin φ).
+      const local = kit.el('g', { 'pointer-events': 'none', display: 'none' }, st.layer('tag'));
+      // 사람 몸을 가리지 않게 가운데를 비운 짧은 선 두 개
+      const localLines = [0, 1].map(() => kit.el('line', { stroke: '#702830', 'stroke-width': 2.6, 'stroke-linecap': 'round' }, local));
+      const localE = kit.el('text', { 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: '#702830' }, local);
+      const localW = kit.el('text', { 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: '#473B6B' }, local);
+      localE.textContent = '동'; localW.textContent = '서';
+      const showLocal = !!o.showLocal;
+      if (showLocal) local.setAttribute('display', 'inline');
+      function paintLocal(v) {
+        if (!showLocal) return;
+        const phi = (K.norm(v) * Math.PI) / 180; const lr = R + 24;
+        const c = { x: E.x + Math.sin(phi) * lr, y: E.y - Math.cos(phi) * lr };
+        const east = { x: -Math.cos(phi), y: -Math.sin(phi) }; const L = 26; const gap = 13;
+        localLines.forEach((ln, k) => {
+          const sg = k ? -1 : 1;
+          ln.setAttribute('x1', (c.x + east.x * gap * sg).toFixed(1)); ln.setAttribute('y1', (c.y + east.y * gap * sg).toFixed(1));
+          ln.setAttribute('x2', (c.x + east.x * L * sg).toFixed(1)); ln.setAttribute('y2', (c.y + east.y * L * sg).toFixed(1));
+        });
+        const tx = (k) => ({ x: c.x + east.x * (L + 12) * k, y: c.y + east.y * (L + 12) * k + 5 });
+        const pe = tx(1); const pw = tx(-1);
+        localE.setAttribute('x', pe.x.toFixed(1)); localE.setAttribute('y', pe.y.toFixed(1));
+        localW.setAttribute('x', pw.x.toFixed(1)); localW.setAttribute('y', pw.y.toFixed(1));
+      }
+
+      // 고르는 칸(HTML 단추: 키보드·터치 그대로)
+      const askO = (o.ask && Array.isArray(o.ask.choices) && !o.print) ? o.ask : null;
+      let pick = null; let pickBtns = [];
+      // 고른 단추는 색으로도 보이게(플레이어 CSS에 aria-pressed 모양이 없다)
+      const markPick = () => pickBtns.forEach((b, i) => { const on = i === pick; b.setAttribute('aria-pressed', String(on)); b.style.background = on ? '#FEE396' : ''; b.style.boxShadow = on ? 'inset 0 0 0 2px #6E530F' : ''; });
+      if (askO) {
+        const wrap = document.createElement('div'); wrap.className = 'es-ask'; wrap.setAttribute('role', 'group');
+        wrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;align-items:center';
+        const q = document.createElement('p'); q.style.cssText = 'flex-basis:100%;margin:0;font-weight:700;color:#473B6B';
+        q.textContent = askO.q || ''; q.id = `es-ask-${Math.random().toString(36).slice(2, 8)}`; wrap.setAttribute('aria-labelledby', q.id);
+        wrap.appendChild(q);
+        pickBtns = askO.choices.map((label, i) => {
+          const b = document.createElement('button'); b.type = 'button'; b.className = 'pl-btn pl-btn--small'; b.textContent = label;
+          b.style.minHeight = '44px'; b.setAttribute('aria-pressed', 'false');
+          b.addEventListener('click', () => { pick = i; markPick(); kit.tick(); kit.recorder.log('earthspin', state()); kit.announce(label); });
+          wrap.appendChild(b); return b;
+        });
+        box.appendChild(wrap);
+      }
 
       const startHour = (o.start && o.start.hour != null) ? o.start.hour : 12;
       // 처음 자리 표시: 지구 둘레 바깥에 점선 고리 — 우리나라가 여기로 돌아오면 한 바퀴(하루)
@@ -113,11 +167,11 @@
         kit.transform(startMark, { x: E.x + Math.sin(phi) * mr, y: E.y - Math.cos(phi) * mr });
         startMark.setAttribute('display', 'inline');
       };
-      let committed = valueOfHour(startHour); let elapsed = 0; let lastPhase = null; let warn = false;
+      let committed = valueOfHour(startHour); let elapsed = 0; let lastPhase = null; let warn = false; let warnedAt = -1e9;
       const rot = kit.rotate(st, earth, {
         center: [E.x, E.y], step, value: committed, label: '지구',
         // 화면 읽기도 화면과 같은 정보만 준다(기본 단계는 때만, 시각은 쉬움에서만)
-        valueText: (v) => `우리나라 ${PHASE_TEXT[phaseOf(hourOf(v))]}${readout === 'full' ? `, ${clockText(hourOf(v))}` : ''}`,
+        valueText: (v) => (sayVisible() ? `우리나라 ${PHASE_TEXT[phaseOf(hourOf(v))]}${readout === 'full' ? `, ${clockText(hourOf(v))}` : ''}` : '지구'),
         onChange(v) { paint(v); },
         onStart() { kit.tick(); },
         onEnd(v) { commit(v); },
@@ -125,19 +179,23 @@
       function commit(v) {
         if (o.oneWay !== false && v > committed + 0.5) {
           // 지구는 서쪽에서 동쪽으로만 돈다: 반대로 돌리면 되돌아가며 알려 준다
-          kit.announce('지구는 서쪽에서 동쪽으로, 시계 반대 방향으로 돌아요.');
+          const now = Date.now();
+          if (now - warnedAt > 2000) kit.announce('지구는 서쪽에서 동쪽으로, 시계 반대 방향으로 돌아요.');
+          warnedAt = now;
           warn = true; say.setAttribute('display', 'inline');
           sayTxt.textContent = '반대 방향이에요! 서→동으로 돌려요';
           sayBg.setColor('rose');
           if (!o.print) wobble(arrow);
           rot.set(committed, true);
-          setTimeout(() => { warn = false; sayBg.setColor('buttercup'); if (readout === 'none') say.setAttribute('display', 'none'); paint(rot.get()); }, 1600);
+          setTimeout(() => { warn = false; sayBg.setColor('buttercup'); if (!sayVisible()) say.setAttribute('display', 'none'); paint(rot.get()); }, 1600);
           return;
         }
-        elapsed += Math.round((committed - v) / 15); committed = v;
+        const moved = Math.round((committed - v) / 15);
+        elapsed += moved; committed = v;
+        if (hideUntilCheck && moved) { shown = false; say.setAttribute('display', 'none'); }
         paint(v); hop();
         kit.recorder.log('earthspin', state());
-        kit.announce(`우리나라는 지금 ${PHASE_TEXT[phaseOf(hourOf(v))]}이에요.`);
+        if (sayVisible()) kit.announce(`우리나라는 지금 ${PHASE_TEXT[phaseOf(hourOf(v))]}이에요.`);
       }
       // 키보드: → ↑ 는 시간이 앞으로 가는 쪽(서→동, 시계 반대 방향), ← ↓ 는 거꾸로. PageUp은 5시간 앞으로.
       // kit.rotate의 기본 매핑(→=시계 방향)이 지구에서는 '반대 방향' 경고만 부르므로 먼저 가로챈다.
@@ -158,6 +216,7 @@
       function paint(v) {
         const phi = (K.norm(v) * Math.PI) / 180; const tr = R - 36;
         kit.transform(tag, { x: E.x + Math.sin(phi) * tr, y: E.y - Math.cos(phi) * tr });
+        paintLocal(v);
         const h = hourOf(v); const ph = phaseOf(h);
         if (readout !== 'none' && !warn) sayTxt.textContent = `우리나라: ${PHASE_TEXT[ph]}${readout === 'full' ? ` · ${clockText(h)}` : ''}`;
         if (ph !== lastPhase && lastPhase && !o.print && !RM) kit.spring(1.12, 1, { stiffness: 260, damping: 12, onUpdate: (s) => kit.transform(say, { s }) });
@@ -170,8 +229,12 @@
       function wobble(g) {
         kit.spring(14, 0, { stiffness: 300, damping: 6, onUpdate: (r) => kit.transform(g, { r, cx: E.x, cy: E.y }) });
       }
-      const state = () => { const h = hourOf(committed); return { hour: h, time: timeOf(h), phase: phaseOf(h), elapsed }; };
-      const setHour = (h, el) => { committed = valueOfHour(h); elapsed = el || 0; rot.set(committed); paint(committed); if (!el) markStart(h); };
+      const state = () => { const h = hourOf(committed); const s = { hour: h, time: timeOf(h), phase: phaseOf(h), elapsed }; if (askO) s.pick = pick; return s; };
+      const setHour = (h, el) => {
+        committed = valueOfHour(h); elapsed = el || 0;
+        if (hideUntilCheck) { shown = false; say.setAttribute('display', 'none'); }
+        rot.set(committed); paint(committed); if (!el) markStart(h);
+      };
       setHour(startHour, 0);
 
       const want = (t) => {
@@ -189,32 +252,93 @@
         return ((h - s.hour) % 24 + 24) % 24;
       };
 
+      // 채점만 한다(화면은 바꾸지 않는다) — 확인·힌트·오답 만들기가 함께 쓴다
+      function judge(t) {
+        const s = state();
+        // 때 글자를 숨기는 동안에는 틀린 확인의 말에도 지금의 때를 넣지 않는다
+        const now = hideUntilCheck && !shown ? '' : `지금 우리나라는 ${PHASE_TEXT[s.phase]}이에요. `;
+        if (t.ask != null && ok(s, t)) {
+          const where = PHASE_TEXT[s.phase];
+          if (pick == null) return { correct: false, incomplete: true, feedback: '아래에서 하나를 골라요.', hint: showLocal ? '우리나라 사람 옆의 동·서 표시에서 태양이 있는 쪽을 찾아봐요.' : '태양이 있는 쪽을 생각해 봐요.' };
+          if (pick !== t.ask) return { correct: false, feedback: `우리나라는 ${where}이에요. 고른 답을 다시 생각해 볼까요?`, hint: showLocal ? '우리나라 사람 옆의 동·서 표시를 보고, 태양이 어느 글자 쪽에 있는지 찾아봐요.' : '지구가 서쪽에서 동쪽으로 돈다는 것을 떠올려 봐요.' };
+          return { correct: true, feedback: `맞아요! 우리나라가 ${where}일 때 태양은 ${askO.choices[t.ask]}에 있어요.` };
+        }
+        if (ok(s, t)) {
+          if (t.elapsed != null) return { correct: true, feedback: `맞아요! 지구가 ${t.elapsed === 24 ? '한 바퀴(하루)' : `${t.elapsed}시간 동안`} 돌아 우리나라는 ${PHASE_TEXT[s.phase]}이에요.` };
+          const side = s.time === '낮' ? '태양 빛을 받는 쪽에 있어'
+            : s.time === '밤' ? '태양 빛을 받지 못하는 쪽에 있어'
+              : s.phase === '아침' ? '밤인 쪽에서 낮인 쪽으로 막 들어가는 자리(낮과 밤이 바뀌는 경계)에 있어' : '낮인 쪽에서 밤인 쪽으로 막 들어가는 자리(낮과 밤이 바뀌는 경계)에 있어';
+          return { correct: true, feedback: `맞아요! 우리나라가 ${side} ${PHASE_TEXT[s.phase]}이에요.` };
+        }
+        if (t.elapsed != null) {
+          if (s.elapsed > t.elapsed) return { correct: false, feedback: `${t.elapsed}시간보다 더 돌렸어요. 처음으로 돌아가 다시 해 볼까요?`, hint: '한 칸(15°)이 1시간이에요. 지구는 하루(24시간)에 한 바퀴(360°) 돌아요.' };
+          return { correct: false, feedback: `아직 ${t.elapsed - s.elapsed}시간을 더 돌려야 해요.`, hint: '지구는 하루(24시간)에 한 바퀴 돌아요. 우리나라 사람이 처음 자리로 돌아오면 하루가 지난 거예요.' };
+        }
+        const goal = PHASE[t.phase] || t.time;
+        const hint = goal === '아침' ? '밤인 쪽에서 낮인 쪽으로 막 들어가는 자리가 해 뜰 무렵이에요.'
+          : goal === '저녁' ? '낮인 쪽에서 밤인 쪽으로 막 들어가는 자리가 해 질 무렵이에요.'
+            : goal === '밤' ? '태양 반대쪽(그림자 쪽)에 우리나라가 오게 돌려 보세요.' : '태양을 마주 보는 쪽에 우리나라가 오게 돌려 보세요.';
+        if (s.time === '경계' && (goal === '밤' || goal === '낮')) {
+          return { correct: false, feedback: `${now}${now ? '낮과 밤이 바뀌는 자리(경계)라 아직 ' + goal + '이 아니에요.' : '아직 ' + goal + '이 아니에요.'} 조금 더 돌려 보세요.`, hint };
+        }
+        return { correct: false, feedback: `${now || '아직 아니에요. '}지구를 더 돌려 볼까요?`, hint };
+      }
+
       return {
         getState: state,
-        setState(s) { if (s && s.hour != null) setHour(s.hour, s.elapsed || 0); },
-        reset() { setHour(startHour, 0); },
-        solve(t) { const d = forward(t); const s = state(); setHour((s.hour + d) % 24, s.elapsed + d); },
-        check(t) {
-          const s = state();
-          if (ok(s, t)) {
-            if (t.elapsed != null) return { correct: true, feedback: `맞아요! 지구가 ${t.elapsed === 24 ? '한 바퀴(하루)' : `${t.elapsed}시간 동안`} 돌아 우리나라는 ${PHASE_TEXT[s.phase]}이에요.` };
-            const side = s.time === '낮' ? '태양 빛을 받는 쪽에 있어'
-              : s.time === '밤' ? '태양 빛을 받지 못하는 쪽에 있어'
-                : s.phase === '아침' ? '밤인 쪽에서 낮인 쪽으로 막 들어가는 경계에 있어' : '낮인 쪽에서 밤인 쪽으로 막 들어가는 경계에 있어';
-            return { correct: true, feedback: `맞아요! 우리나라가 ${side} ${PHASE_TEXT[s.phase]}이에요.` };
+        setState(s) {
+          if (hideUntilCheck) { shown = false; say.setAttribute('display', 'none'); }
+          if (s && s.hour != null) setHour(s.hour, s.elapsed || 0);
+          if (askO && s && 'pick' in s) { pick = s.pick; markPick(); }
+        },
+        reset() { pick = null; markPick(); setHour(startHour, 0); },
+        solve(t) {
+          const d = forward(t); const s = state(); if (d) setHour((s.hour + d) % 24, s.elapsed + d);
+          if (askO && t && t.ask != null) { pick = t.ask; markPick(); }
+        },
+        check(t, opts) {
+          const r = judge(t);
+          // 맞힌 확인에서만 때 글자를 보인다 — 틀린 확인마다 보이면 확인을 눌러 가며 때를 읽어 맞춘다
+          if (r.correct && hideUntilCheck && !shown && !(opts && opts.forHint)) { shown = true; say.setAttribute('display', 'inline'); paint(committed); }
+          return r;
+        },
+        hint(t) {
+          t = t || {};
+          const hidden = hideUntilCheck && !shown;
+          const r = judge(t);
+          const goal = PHASE[t.phase] || t.time;
+          const why = t.elapsed != null ? '한 칸(15°)이 1시간이에요. 지구는 하루(24시간)에 서쪽에서 동쪽으로 한 바퀴(360°) 돌아요.'
+            : t.hour != null ? '지구는 1시간에 15°씩, 시계 반대 방향(서→동)으로 돌아요. 지금 시각에서 몇 시간 뒤인지 먼저 세어 봐요.'
+              : goal === '아침' ? '지구는 서쪽에서 동쪽으로 돌아요. 그림자(밤) 쪽에서 막 빛을 받는 쪽으로 들어가는 자리가 해 뜰 무렵이에요.'
+                : goal === '저녁' ? '지구는 서쪽에서 동쪽으로 돌아요. 빛을 받는 쪽에서 막 그림자 쪽으로 들어가는 자리가 해 질 무렵이에요.'
+                  : goal === '밤' ? '태양 빛을 받지 못하는 반쪽(그림자 쪽) 한가운데로 우리나라가 들어가야 밤이에요.' : '태양을 마주 보는 반쪽 안으로 우리나라가 들어가야 낮이에요.';
+          // 때 글자를 숨기는 동안에는 지금이 맞는지, 지금이 언제인지 알려 주지 않는다
+          if (hidden) return { hint: why };
+          if (r.correct) return { hint: why, correct: true };
+          return { hint: r.incomplete ? (r.hint || why) : why, correct: false };
+        },
+        wrongAnswer(t) {
+          t = t || {};
+          const s = state(); const mod = (x) => ((x % 24) + 24) % 24;
+          const origin = mod(s.hour - s.elapsed); // 이 문항을 시작한 시각
+          const at = (h) => ({ hour: mod(h), elapsed: mod(h - origin) });
+          if (t.ask != null && askO) {
+            // 때는 맞게 돌렸지만 동·서를 거꾸로 고른다(태양이 지는 쪽을 동쪽으로 착각)
+            const h = want(t); const base = h == null ? s : at(h);
+            return Object.assign({}, base, { pick: askO.choices.findIndex((_, i) => i !== t.ask) });
           }
           if (t.elapsed != null) {
-            if (s.elapsed > t.elapsed) return { correct: false, feedback: `${t.elapsed}시간보다 더 돌렸어요. 처음으로 돌아가 다시 해 볼까요?`, hint: '한 칸(15°)이 1시간이에요. 지구는 하루(24시간)에 한 바퀴(360°) 돌아요.' };
-            return { correct: false, feedback: `아직 ${t.elapsed - s.elapsed}시간을 더 돌려야 해요.`, hint: '지구는 하루(24시간)에 한 바퀴 돌아요. 우리나라 사람이 처음 자리로 돌아오면 하루가 지난 거예요.' };
+            // 12시간 어긋나게: 하루를 반 바퀴로, 반나절을 하루로 생각한다
+            const e = t.elapsed >= 12 ? t.elapsed - 12 : t.elapsed + 12;
+            return { hour: mod(origin + e), elapsed: e };
           }
+          const h = want(t); if (h == null) return null;
+          const bad = (c) => !ok({ hour: mod(c), phase: phaseOf(mod(c)), time: timeOf(mod(c)), elapsed: mod(c - origin) }, t) && mod(c) !== origin;
           const goal = PHASE[t.phase] || t.time;
-          const hint = goal === '아침' ? '밤인 쪽에서 낮인 쪽으로 막 들어가는 자리가 해 뜰 무렵이에요.'
-            : goal === '저녁' ? '낮인 쪽에서 밤인 쪽으로 막 들어가는 자리가 해 질 무렵이에요.'
-              : goal === '밤' ? '태양 반대쪽(그림자 쪽)에 우리나라가 오게 돌려 보세요.' : '태양을 마주 보는 쪽에 우리나라가 오게 돌려 보세요.';
-          if (s.time === '경계' && (goal === '밤' || goal === '낮')) {
-            return { correct: false, feedback: `지금 우리나라는 ${PHASE_TEXT[s.phase]}이에요. 낮과 밤의 경계라 아직 ${goal}이 아니에요. 조금 더 돌려 보세요.`, hint };
-          }
-          return { correct: false, feedback: `지금 우리나라는 ${PHASE_TEXT[s.phase]}이에요. 지구를 더 돌려 볼까요?`, hint };
+          // 반대로(동→서) 같은 만큼 돌림 → 12시간 어긋남 → 해 뜰·질 무렵을 낮·밤으로 착각(경계에서 멈춤)
+          const cands = [2 * origin - h, h + 12, goal === '밤' ? 18 : goal === '낮' ? 6 : h + 6];
+          const c = cands.find(bad);
+          return c == null ? null : at(c);
         },
         async demo(t) {
           const d = forward(t); const from = committed; const to = committed - d * 15; const e0 = elapsed;

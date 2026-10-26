@@ -1,5 +1,7 @@
 /* PaperKit 교구 공통 스타일. 화면은 파스텔 레이어드 종이, 인쇄는 흰 바탕 검은 칼선. */
-.pk-stage { display: block; width: 100%; height: auto; max-height: 72vh; touch-action: none; user-select: none; -webkit-user-select: none; }
+/* 무대 위에서는 세로로 화면을 굴릴 수 있게 두고, 끌거나 돌리는 조각에서만 브라우저 제스처를 막는다(휴대폰에서 긴 교구가 갇히던 문제) */
+.pk-stage { display: block; width: 100%; height: auto; max-height: 72vh; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.pk-draggable, .pk-rotatable, .pk-lifted { touch-action: none; }
 .pk-text { font-family: 'Nanum Gothic', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; font-weight: 800; pointer-events: none; }
 .pk-draggable, .pk-rotatable { cursor: grab; outline: none; }
 .pk-draggable:focus-visible .pk-face, .pk-rotatable:focus-visible .pk-face { stroke: #473B6B; stroke-width: 3; }
@@ -20,11 +22,13 @@
 /* 인쇄·흑백: 그림자와 아래층을 빼고 윗면을 흰 바탕 검은 칼선으로 */
 @media print {
   .pk-stage .pk-under, .pk-stage .pk-grain { display: none; }
-  .pk-stage .pk-face { fill: #fff !important; stroke: #000 !important; stroke-width: 1.2 !important; filter: none !important; }
+  /* 칼선 굵기는 화면(종이) 기준 1px로 고정한다 — sx/sy로 크게 늘인 조각(막대·빛줄기)에서 선도 함께 늘어나
+     조각 전체가 검게 칠해지던 문제(vector-effect: non-scaling-stroke) */
+  .pk-stage .pk-face { fill: #fff !important; stroke: #000 !important; stroke-width: 1px !important; vector-effect: non-scaling-stroke; filter: none !important; }
   .pk-stage .pk-bg { fill: #fff !important; stroke: #000; }
   .pk-stage .pk-text { fill: #000 !important; }
   .pk-ambient * { animation: none !important; }
 }
 .pk-print .pk-stage .pk-under, .pk-print .pk-stage .pk-grain { display: none; }
-.pk-print .pk-stage .pk-face { fill: #fff !important; stroke: #000 !important; stroke-width: 1.2 !important; filter: none !important; }
+.pk-print .pk-stage .pk-face { fill: #fff !important; stroke: #000 !important; stroke-width: 1px !important; vector-effect: non-scaling-stroke; filter: none !important; }
 .pk-print .pk-stage .pk-bg { fill: #fff !important; stroke: #000; }

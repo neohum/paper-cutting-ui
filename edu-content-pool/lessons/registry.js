@@ -149,7 +149,7 @@
   // 제출 코드: 네트워크가 전혀 없을 때 학생이 화면 코드를 보여 주거나 붙여 넣는다. 요약만 담아 짧게 유지한다.
   function encode(r) {
     const s = { v: 1, l: r.lessonId, c: r.classCode, n: r.seat, k: r.nickname, lv: r.level, d: r.durationSec,
-      sc: [r.score.correct, r.score.total, r.score.solved ?? r.score.correct], it: r.items.map((i) => [i.key, i.correct ? 1 : 0, i.attempts, i.hints, i.free ? 1 : 0]),
+      sc: [r.score.correct, r.score.total, r.score.solved ?? r.score.correct], it: r.items.map((i) => { const row = [i.key, i.correct ? 1 : 0, i.attempts, i.hints, i.free ? 1 : 0]; if (i.predict != null) row.push(i.predict); return row; }),
       x: r.exitTicket.map((e) => [e.key, e.correct == null ? -1 : e.correct ? 1 : 0, e.value]), f: r.finishedAt };
     const bytes = new TextEncoder().encode(JSON.stringify(s));
     let bin = ''; bytes.forEach((b) => { bin += String.fromCharCode(b); });
@@ -163,7 +163,7 @@
     return {
       schema: 'edu-lesson-result.v1', id: `${s.l}:${s.c}:${s.n}:${s.f}`, lessonId: s.l, classCode: s.c, seat: s.n, nickname: s.k, level: s.lv,
       durationSec: s.d, score: { correct: s.sc[0], total: s.sc[1], solved: s.sc[2] ?? s.sc[0] }, finishedAt: s.f, via: 'code',
-      items: s.it.map(([key, c, attempts, hints, free]) => ({ key, correct: !!c, attempts, hints, ...(free ? { free: true } : {}) })),
+      items: s.it.map(([key, c, attempts, hints, free, predict]) => ({ key, correct: !!c, attempts, hints, ...(free ? { free: true } : {}), ...(predict != null ? { predict } : {}) })),
       exitTicket: s.x.map(([key, c, value]) => ({ key, correct: c < 0 ? null : !!c, value })),
     };
   }
@@ -217,7 +217,107 @@
       durationSec: minutes * 60, score: { correct: sc, total: tot, solved }, finishedAt: new Date().toISOString(), via: 'code', items, exitTicket };
   }
 
+  // ---- 문항 진행 규칙(플레이어가 쓰고, DOM 없이 단위 검사한다) ----
+  const WRONG_LOCK_MS = 1200;
+  const flow = {
+    WRONG_LOCK_MS,
+    // 예상(predict)이 있는 문항은 예상을 고르기 전에는 확인할 수 없다. 예상은 채점하지 않는다.
+    predictReady: (item, rec) => !(item && item.predict) || (rec && rec.predict != null),
+    // 확인을 눌렀을 때: 'locked'(틀린 직후 잠김) · 'unchanged'(바꾼 것 없음 — 시도로 세지 않고 피드백도 그대로) · 'check'
+    checkGate(rec, stateJSON, now) {
+      if (rec.lockUntil && now < rec.lockUntil) return 'locked';
+      if (rec.attempts && !rec.correct && stateJSON === rec.lastJSON) return 'unchanged';
+      return 'check';
+    },
+    lockAfterWrong(rec, now) { rec.lockUntil = now + WRONG_LOCK_MS; return rec.lockUntil; },
+    // 이미 고른 난이도를 다시 누르면 아무것도 하지 않는다(다시 그리면 해 둔 조작이 지워진다)
+    levelChanges: (cur, next) => Boolean(next) && next !== cur,
+    predictLine(item, rec) {
+      if (!item || !item.predict || rec == null || rec.predict == null) return '';
+      const opt = item.predict.options[rec.predict];
+      return opt == null ? '' : `예상: ${opt} → 관찰한 결과를 떠올려 보세요`;
+    },
+    // 문항의 시작 상태·교구 옵션: items[n].levels[<단계>]가 있으면 그 단계의 state를 쓰고 toolOptions는 같은 키만 덮는다
+    itemStart(item, level) {
+      const o = (item && item.levels && item.levels[level]) || {};
+      return {
+        state: Object.prototype.hasOwnProperty.call(o, 'state') ? o.state : item && item.state,
+        toolOptions: Object.assign({}, (item && item.toolOptions) || {}, o.toolOptions || {}),
+      };
+    },
+    // 힌트 단추: 교구의 hint(target)이 있으면 그것만 부른다(확인이 아니므로 숨긴 값을 드러내지 않는다).
+    // 없으면 check(target, { forHint: true }) — 교구는 forHint일 때 읽기 값을 드러내지 않아야 한다.
+    askHint(tool, target) {
+      if (typeof tool.hint === 'function') {
+        const r = tool.hint(target) || {};
+        return { hint: typeof r.hint === 'string' ? r.hint : '', correct: r.correct === true, via: 'hint' };
+      }
+      const r = tool.check(target, { forHint: true }) || {};
+      return { hint: typeof r.hint === 'string' ? r.hint : '', correct: r.correct === true && !r.incomplete, via: 'check' };
+    },
+    // reveal:'after-check' 문항에서 hint()가 없는(새 계약을 아직 따르지 않는) 교구는 확인·힌트가 숨긴 값을 드러낼 수 있다.
+    // 틀린 확인과 힌트 뒤에는 플레이어가 상태를 그대로 다시 넣어(setState) 숨김으로 되돌린다. 맞힌 확인 뒤에는 두어 보여 준다.
+    // 자동 검사·모의 수업용: '다 했지만 틀린' 상태를 찾는다(check가 incomplete도 correct도 아닌 상태).
+    // 1) 교구의 wrongAnswer(target)(그럴듯한 오개념 상태) 2) 정답 상태(solve)의 숫자·참거짓 칸 하나를 조금 바꾼 상태.
+    // opts: { seed, avoid: [상태 JSON…](같은 오답을 다시 내면 시도로 세지 않으므로 피한다), wrongAnswer: false, perturb: false, max }
+    // 확인 전 숨김 교구에서는 검사(check forHint)가 읽기 값을 드러낼 수 있다 — 학생 화면에서는 부르지 않는다.
+    // 찾으면 그 상태를 교구에 남기고 { state, via }를, 못 찾으면 처음 상태로 되돌리고 null을 돌려준다.
+    findWrong(tool, target, opts = {}) {
+      let seed = Math.abs(Math.floor(opts.seed || 1)) % 2147483648 || 1;
+      const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
+      const avoid = new Set(opts.avoid || []);
+      const startJSON = JSON.stringify(tool.getState());
+      const probe = (s) => {
+        try {
+          tool.setState(s);
+          const js = JSON.stringify(tool.getState());
+          if (avoid.has(js)) return false;
+          const r = tool.check(target, { forHint: true }) || {};
+          if (r.incomplete || r.correct !== false) return false;
+          // 검사가 켠 '확인 뒤 보임' 표시를 끈다 — reset 뒤 찾은 오답을 다시 넣는다(setState만으로는 안 꺼지는 교구가 있다)
+          if (typeof tool.reset === 'function') tool.reset();
+          tool.setState(JSON.parse(js));
+          return true;
+        } catch (_) { return false; }
+      };
+      if (opts.wrongAnswer !== false && typeof tool.wrongAnswer === 'function') {
+        const s = tool.wrongAnswer(target);
+        if (s != null && probe(JSON.parse(JSON.stringify(s)))) return { state: tool.getState(), via: 'wrongAnswer' };
+      }
+      if (opts.perturb !== false && typeof tool.solve === 'function') {
+        try { tool.solve(target); } catch (_) { /* solve 실패 → 바꿀 정답 상태 없음 */ }
+        const solJSON = JSON.stringify(tool.getState()); const sol = JSON.parse(solJSON);
+        const leaves = [];
+        (function walk(v, path) {
+          if (typeof v === 'number' && Number.isFinite(v)) leaves.push([path, v]);
+          else if (typeof v === 'boolean') leaves.push([path, v]);
+          else if (v && typeof v === 'object') for (const k of Object.keys(v)) walk(v[k], path.concat(k));
+        })(sol, []);
+        const cands = [];
+        for (const [path, v] of leaves) for (const nv of (typeof v === 'boolean' ? [!v] : [v + 1, v - 1, v + 2, v - 2])) cands.push([path, nv]);
+        for (let i = cands.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [cands[i], cands[j]] = [cands[j], cands[i]]; }
+        for (const [path, nv] of cands.slice(0, opts.max || 80)) {
+          const s = JSON.parse(solJSON); let o = s;
+          for (const k of path.slice(0, -1)) o = o[k];
+          if (!path.length) continue;
+          o[path[path.length - 1]] = nv;
+          if (probe(s)) return { state: tool.getState(), via: 'perturb', path: path.join('.') };
+        }
+      }
+      try { tool.setState(JSON.parse(startJSON)); } catch (_) { /* 되돌릴 수 없음 */ }
+      return null;
+    },
+    rehide(tool, item, stateJSON) {
+      if (!item || item.reveal !== 'after-check' || typeof tool.hint === 'function' || typeof tool.setState !== 'function' || stateJSON == null) return false;
+      // reset()을 먼저 — setState가 '보임' 표시를 끄지 않는 교구(lightray)도 reset은 끈다
+      if (typeof tool.reset === 'function') tool.reset();
+      tool.setState(JSON.parse(stateJSON));
+      return true;
+    },
+  };
+
   root.PaperLessons = {
+    flow,
     register(l) { lessons[l.id] = l; }, get: (id) => lessons[id], all: () => Object.values(lessons),
     load, loadScript, toolsOf, submit, waitAck, flush, encode, decode, encodeShort, decodeShort, sdkPayload, base,
   };

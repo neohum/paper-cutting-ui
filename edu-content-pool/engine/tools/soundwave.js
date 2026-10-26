@@ -6,10 +6,12 @@
  * - 작은북: 북채를 위로 끌어 올렸다 놓으면(키보드: ↑ 후 Enter) 친다. 세게 칠수록 종이 조각이 높이 튄다.
  * 옵션: showReadout(높낮이·세기 글자와 세기 막대, 기본 true), showPitch(높낮이 줄, 기본 showReadout), showLoud(세기 글자 줄, 기본 showReadout),
  *       showHints(조작 안내 글자), pictureWords(쉬움: 높낮이·팽팽함 낱말 옆 그림 단서), parts('guitar'|'drum'|'both'),
- *       start({length,tension} 처음 상태), sound(false면 소리 끔 — kit.soundOn()이 거짓이어도 끈다), print(활동지: 글자·소리 없음, 상태를 멈춘 그림으로)
+ *       start({length,tension} 처음 상태), sound(false면 소리 끔 — kit.soundOn()이 거짓이어도 끈다), print(활동지: 글자·소리 없음, 상태를 멈춘 그림으로),
+ *       revealAfterCheck(높낮이·세기 글자와 세기 막대를 확인을 누른 뒤에만 보인다 — 다시 소리를 내면 또 숨는다)
  * 상태: { length:1~5(1=가장 짧다), tension:1~5(5=가장 팽팽), pitch:'low'|'mid'|'high', rel:'higher'|'lower'|'same'(처음 상태와 비교), sounds,
  *        last:{source,strength(0~100),pitch,length,tension}|null, stopped }
- * 목표: {vibrating:true, source?}, {loud:true|false, source?}, {pitch:'higher'|'lower', loud?}(처음 상태보다 높게/낮게 — 높낮이는 비교 개념),
+ * 목표: {vibrating:true, source?}, {loud:true|false, source?}, {pitch:'higher'|'lower', loud?, only?:'length'|'tension'}(처음 상태보다 높게/낮게 — 높낮이는 비교 개념.
+ *        only가 있으면 그 변인 하나만 바꿔야 한다: 변인 통제),
  *       {pitch:'high'|'low', loud?}(절대 3단계), {stopped:true}
  * 세기: 61 이상 = 큰 소리(세기 막대 4칸 이상), 40 이하 = 작은 소리(2칸 이하)
  */
@@ -104,6 +106,11 @@
       });
       NS('text', { x: 291, y: 116, 'text-anchor': 'middle', 'font-size': 11, class: 'pk-text', fill: '#6E3B21' }, RO).textContent = '소리 세기';
       if (!showReadout) RO.setAttribute('display', 'none');
+      // 확인 뒤에만 보이기: 예상하고 들은 다음 글자로 확인한다(글자를 보고 맞히지 않게)
+      const revealMode = showReadout && !!o.revealAfterCheck;
+      let revealed = !revealMode;
+      const setReveal = (v) => { if (!revealMode) return; revealed = v; RO.setAttribute('display', v ? 'inline' : 'none'); };
+      setReveal(!revealMode);
       if (!showPitch) { roPitch.setAttribute('display', 'none'); roLoud.setAttribute('y', 44); }
       if (!showLoud) roLoud.setAttribute('display', 'none');
       if (pictures) {
@@ -281,7 +288,11 @@
         rippleRings(s, 186, BY);
         paintReadout();
         kit.recorder.log('soundwave', state());
-        if (!opts.quiet) kit.announce(`고무줄이 떨리며 소리가 나요. ${relMode ? REL_NAME[relOf(L, T)] : PITCH_NAME[pitch]}, ${loudName(last.strength)}예요.${opts.tap ? ' 더 많이 당겼다 놓으면 큰 소리가 나요.' : ''}`);
+        setReveal(false);
+        // 화면에 높낮이·세기 글자가 없으면 읽어 주는 말에도 넣지 않는다(화면 읽기 학생도 같은 판단 과제를 한다)
+        const sayPitch = showPitch && revealed; const sayLoud = showLoud && revealed;
+        const said = [sayPitch ? (relMode ? REL_NAME[relOf(L, T)] : PITCH_NAME[pitch]) : null, sayLoud ? loudName(last.strength) : null].filter(Boolean);
+        if (!opts.quiet) kit.announce(`고무줄이 떨리며 소리가 나요. ${said.length ? `${said.join(', ')}예요.` : '떨림의 크기와 빠르기를 보고 귀로 비교해 보세요.'}${opts.tap ? ' 더 많이 당겼다 놓으면 크게 떨려요.' : ''}`);
       }
       function damp(opts = {}) {
         if (!vibrating) return false;
@@ -312,7 +323,8 @@
         wobbleHead(s); jumpBits(s); rippleRings(s, DX, DY);
         paintReadout();
         kit.recorder.log('soundwave', state());
-        if (!opts.quiet) kit.announce(`작은북이 떨려 종이 조각이 ${s >= 0.6 ? '높이' : s <= 0.4 ? '조금' : ''} 튀어 올랐어요. ${loudName(last.strength)}예요.`);
+        setReveal(false);
+        if (!opts.quiet) kit.announce(`작은북이 떨려 종이 조각이 ${s >= 0.6 ? '높이' : s <= 0.4 ? '조금' : ''} 튀어 올랐어요.${showLoud && revealed ? ` ${loudName(last.strength)}예요.` : ''}`);
       }
       async function swing(s, opts) {
         const from = (stick.__pk || {}).y ?? REST;
@@ -321,7 +333,7 @@
         kit.spring(0, REST, { stiffness: 220, damping: 14, onUpdate: (v) => kit.transform(stick, { y: v }) });
         stickPull = 0;
       }
-      const configChanged = () => { if (last && last.source === 'string') last = null; drumFocus = false; damp({ quiet: true }); stopped = false; };
+      const configChanged = () => { if (last && last.source === 'string') last = null; drumFocus = false; damp({ quiet: true }); stopped = false; setReveal(false); };
 
       // ---------- 조작 ----------
       if (!o.print) {
@@ -365,7 +377,7 @@
           nl = kit.clamp(nl, 1, 5); const changed = nl !== L; L = nl;
           const to = X0 + spanOf(L); const from = xb;
           kit.spring(from, to, { stiffness: 260, damping: 18, onUpdate: (v) => { xb = v; layout(); } });
-          if (changed || via === 'pointer') { configChanged(); kit.tick(); kit.recorder.log('soundwave', state()); kit.announce(`고무줄 길이 ${L}단계. ${pitchWord()}가 나요.`); }
+          if (changed || via === 'pointer') { configChanged(); kit.tick(); kit.recorder.log('soundwave', state()); kit.announce(`고무줄 길이 ${L}단계.${showPitch && revealed ? ` ${pitchWord()}가 나요.` : ''}`); }
           paintReadout();
         };
         let bGrab = null;
@@ -384,7 +396,7 @@
           const from = (knob.__pk || {}).x ?? TX(T);
           layout();
           kit.spring(from, TX(T), { stiffness: 260, damping: 18, onUpdate: (v) => kit.transform(knob, { x: v }) });
-          if (changed) { configChanged(); kit.tick(); kit.recorder.log('soundwave', state()); kit.announce(`팽팽함 ${T}단계. ${pitchWord()}가 나요.`); }
+          if (changed) { configChanged(); kit.tick(); kit.recorder.log('soundwave', state()); kit.announce(`팽팽함 ${T}단계.${showPitch && revealed ? ` ${pitchWord()}가 나요.` : ''}`); }
         };
         let kGrab = null;
         knob.addEventListener('pointerdown', (e) => { e.preventDefault(); knob.setPointerCapture(e.pointerId); kGrab = st.point(e).x - TX(T); knob.classList.add('pk-lifted'); });
@@ -399,7 +411,7 @@
           if (kGrab == null) return; kGrab = null; knob.classList.remove('pk-lifted');
           const from = (knob.__pk || {}).x ?? TX(T);
           kit.spring(from, TX(T), { stiffness: 260, damping: 18, onUpdate: (v) => kit.transform(knob, { x: v }) });
-          kit.tick(); kit.recorder.log('soundwave', state()); kit.announce(`팽팽함 ${T}단계. ${pitchWord()}가 나요.`);
+          kit.tick(); kit.recorder.log('soundwave', state()); kit.announce(`팽팽함 ${T}단계.${showPitch && revealed ? ` ${pitchWord()}가 나요.` : ''}`);
         };
         knob.addEventListener('pointerup', kEnd); knob.addEventListener('pointercancel', kEnd);
         knob.addEventListener('keydown', (e) => {
@@ -450,7 +462,9 @@
       }
       setState(init);
 
+      let hinting = false;
       function celebrate() {
+        if (hinting) return;
         if (o.print || reduce) return;
         jumpBits(0.22); wobbleHead(0.2);
         kit.spring(-10, 0, { stiffness: 380, damping: 9, onUpdate: (v) => meter.forEach((m, i) => kit.transform(m.g, { y: v * (0.4 + i * 0.15) })) });
@@ -471,62 +485,95 @@
       const HINT_LOUD = (drum) => `${drum ? '북채를 더 높이 올렸다가 놓으면 세게 쳐서' : '고무줄을 더 많이 당겼다 놓으면 떨림이 커지고'} 큰 소리가 나요. 세기 막대가 4칸 이상 차면 큰 소리예요. 소리를 꺼 두었다면 ${drum ? '종이 조각이 튀는 높이' : '떨리는 폭'}로 알 수 있어요.`;
       const HINT_QUIET = (drum) => `${drum ? '북채를 조금만 올렸다가 놓으면 약하게 쳐서' : '고무줄을 조금만 당겼다 놓으면 떨림이 작아서'} 작은 소리가 나요. 세기 막대가 2칸 이하면 작은 소리예요.`;
 
+      const judgeNow = (t) => {
+        t = t || {};
+        const no = (feedback, hint) => ({ correct: false, feedback, hint });
+        const yes = (feedback) => { celebrate(); return { correct: true, feedback }; };
+        if (t.stopped) {
+          if (stopped) return yes('맞아요! 떨림을 멈추니 소리도 멈췄어요.');
+          if (!sounds) return no('먼저 고무줄을 당겼다 놓아 소리를 내요.', '고무줄을 튕긴 뒤, 떨리고 있을 때 고무줄을 한 번 눌러요.');
+          return no('고무줄이 떨리는 동안 고무줄을 잡아 보세요.', '고무줄을 튕기자마자 고무줄을 한 번 눌러요(키보드는 Enter). 떨림이 멈추면 소리도 멈춰요.');
+        }
+        const src = t.source || (t.pitch ? 'string' : null);
+        if (!last || (src && last.source !== src)) {
+          if (!last && !src) return no('아직 소리를 내지 않았어요.', '고무줄을 당겼다 놓거나 북채로 작은북을 쳐 보세요.');
+          return no(src === 'drum' ? '이번에는 작은북을 쳐 보세요.' : (last && last.source === 'drum' ? '이번에는 고무줄을 튕겨 보세요.' : '고무줄을 당겼다 놓아 소리를 내 보세요.'),
+            src === 'drum' ? '북채를 위로 끌어 올렸다가 놓으면 작은북을 쳐요.' : '고무줄을 위나 아래로 끌어 당겼다가 놓아요. 길이나 팽팽함을 바꾸었다면 다시 튕겨야 해요.');
+        }
+        const lL = last.length ?? L; const lT = last.tension ?? T;
+        const ch = changes(lL, lT);
+        // 변인 통제: 한 가지만 바꾸라는 문항에서 다른 변인도 바꾸었으면 결과가 맞아도 무엇 때문인지 알 수 없다
+        if (t.only === 'length' && lT !== ref.T) return no('손잡이(팽팽함)는 처음 그대로 두어야 해요. 한 가지만 바꿔야 무엇 때문에 소리가 달라졌는지 알 수 있어요.', '처음으로를 눌러 되돌린 뒤, 받침만 옮기고 튕겨요.');
+        if (t.only === 'tension' && lL !== ref.L) return no('받침은 처음 자리에 그대로 두어야 해요. 한 가지만 바꿔야 무엇 때문에 소리가 달라졌는지 알 수 있어요.', '처음으로를 눌러 되돌린 뒤, 손잡이만 옮기고 튕겨요.');
+        if (isRel(t.pitch)) {
+          const want = t.pitch; const got = relOf(lL, lT); const up = want === 'higher';
+          if (got !== want) {
+            if (got === 'same' && !ch.length) {
+              return no(`높낮이는 처음과 같아요. ${last.strength >= LOUD ? '세게 튕기면 소리가 커질 뿐 높아지지 않아요.' : last.strength <= QUIET ? '약하게 튕기면 소리가 작아질 뿐 낮아지지 않아요.' : '튕기는 세기로는 높낮이가 바뀌지 않아요.'}`, up ? HINT_UP : HINT_DOWN);
+            }
+            if (got === 'same') return no('길이와 팽팽함을 함께 바꾸어서 높낮이가 처음과 같아졌어요.', up ? HINT_UP : HINT_DOWN);
+            return no(`${ch.join(' 하고 ')} 했더니 ${REL_NAME[got]}가 났어요.`, up ? HINT_UP : HINT_DOWN);
+          }
+        } else if (t.pitch && last.pitch !== t.pitch) {
+          return no(`지금은 ${PITCH_NAME[last.pitch]}가 났어요.${!ch.length && last.strength >= LOUD ? ' 세게 튕기면 소리가 커질 뿐 높아지지 않아요.' : ''}`, t.pitch === 'high' ? HINT_UP : HINT_DOWN);
+        }
+        const pitchOk = t.pitch ? '높낮이는 맞았어요. 그런데 ' : '';
+        if (t.loud === true && last.strength < LOUD) return no(`${pitchOk}소리가 작았어요.`, HINT_LOUD(src === 'drum'));
+        // 높낮이를 맞힌 뒤 세기만 틀렸으면, 높낮이 조작을 되돌리지 않게 할 일 하나만 짚는다
+        if (t.loud === false && last.strength > QUIET) return no(`${pitchOk}소리가 너무 컸어요.${t.pitch && src !== 'drum' ? ' 받침과 손잡이는 그대로 두고, 고무줄만 조금 당겼다 놓아 보세요.' : ''}`, `${t.pitch && src !== 'drum' ? '높낮이는 받침·손잡이로, 세기는 당기는 정도로 정해져요. ' : ''}${HINT_QUIET(src === 'drum')}`);
+        if (t.loud === true && t.pitch && last.strength < LOUD) return no(`${pitchOk}소리가 작았어요. 받침과 손잡이는 그대로 두고, 고무줄을 더 많이 당겼다 놓아 보세요.`, `높낮이는 받침·손잡이로, 세기는 당기는 정도로 정해져요. ${HINT_LOUD(false)}`);
+        if (t.pitch) {
+          const up = t.pitch === 'higher' || t.pitch === 'high';
+          const how = ch.length ? `${ch.join(' 하고 ')} 하니 떨림이 ${up ? '빨라져' : '느려져'} ` : '';
+          const what = isRel(t.pitch) ? REL_NAME[t.pitch] : PITCH_NAME[t.pitch];
+          if (t.loud === false) return yes(`맞아요! ${how}${what}가 났고, 조금만 당겨서 작은 소리예요. 높낮이와 세기는 서로 달라요.`);
+          return yes(`맞아요! ${how}${what}가 났어요.`);
+        }
+        if (t.loud === true) return yes(src === 'drum' ? '맞아요! 세게 치니 떨림이 커서 종이 조각이 높이 튀었어요.' : '맞아요! 많이 당길수록 크게 떨리고 큰 소리가 나요.');
+        if (t.loud === false) return yes(src === 'drum' ? '맞아요! 약하게 치니 떨림이 작아서 종이 조각이 조금만 튀었어요.' : '맞아요! 조금 당기니 작게 떨리고 작은 소리가 나요.');
+        return yes(`맞아요! 소리가 날 때 ${last.source === 'drum' ? '작은북이' : '고무줄이'} 떨렸어요.`);
+      };
       return {
         getState: state,
         setState,
         setTarget(t) { relMode = !!(t && isRel(t.pitch)); paintReadout(); },
         reset() { setState(init); kit.transform(stick, { y: REST }); stickPull = 0; },
+        // 다 했지만 틀린 상태(모의 수업·검사용) — 흔한 오개념 쪽으로: 높은 소리를 내라는데 길이·팽팽함은 반대로 두고 세게만 튕기기,
+        // 큰 소리를 내라는데 약하게, 떨림 멈추기 문항에서 튕기기만 하기
+        wrongAnswer(t) {
+          t = t || {};
+          const src = t.source || 'string';
+          const shot = (cfg, strength) => Object.assign({}, cfg, { sounds: 1, stopped: false, last: Object.assign({ source: src, strength }, src === 'string' ? { length: cfg.length, tension: cfg.tension } : {}) });
+          const here = { length: ref.L, tension: ref.T };
+          if (t.stopped) return shot(here, 60);
+          if (t.pitch) {
+            const opp = { higher: 'lower', high: 'low', lower: 'higher', low: 'high' }[t.pitch] || 'low';
+            const cfg = cfgFor(opp);
+            if (t.only === 'length') cfg.tension = ref.T; else if (t.only === 'tension') cfg.length = ref.L;
+            return shot(cfg, t.loud === false ? 25 : 85);
+          }
+          if (t.loud === true) return shot(here, 25);
+          if (t.loud === false) return shot(here, 85);
+          // 무엇이든 소리를 내면 되는 문항은 다른 물체를 울린 상태(작은북을 치라는데 고무줄 튕기기)
+          const other = src === 'drum' ? 'string' : 'drum';
+          return { length: ref.L, tension: ref.T, sounds: 1, stopped: false, last: Object.assign({ source: other, strength: 55 }, other === 'string' ? { length: ref.L, tension: ref.T } : {}) };
+        },
         solve(t) {
           t = t || {};
           const cfg = t.pitch ? cfgFor(t.pitch) : { length: L, tension: T };
+          if (t.only === 'length') cfg.tension = ref.T; else if (t.only === 'tension') cfg.length = ref.L;
           setState(Object.assign({}, cfg));
           if (t.stopped) { pluck(0.6, { silent: true, quiet: true }); damp({ quiet: true }); return; }
           if ((t.source || 'string') === 'drum') hitDrum(strengthFor(t), { silent: true, quiet: true });
           else pluck(strengthFor(t), { silent: true, quiet: true });
         },
-        check(t) {
-          t = t || {};
-          const no = (feedback, hint) => ({ correct: false, feedback, hint });
-          const yes = (feedback) => { celebrate(); return { correct: true, feedback }; };
-          if (t.stopped) {
-            if (stopped) return yes('맞아요! 떨림을 멈추니 소리도 멈췄어요.');
-            if (!sounds) return no('먼저 고무줄을 당겼다 놓아 소리를 내요.', '고무줄을 튕긴 뒤, 떨리고 있을 때 고무줄을 한 번 눌러요.');
-            return no('고무줄이 떨리는 동안 고무줄을 잡아 보세요.', '고무줄을 튕기자마자 고무줄을 한 번 눌러요(키보드는 Enter). 떨림이 멈추면 소리도 멈춰요.');
-          }
-          const src = t.source || (t.pitch ? 'string' : null);
-          if (!last || (src && last.source !== src)) {
-            if (!last && !src) return no('아직 소리를 내지 않았어요.', '고무줄을 당겼다 놓거나 북채로 작은북을 쳐 보세요.');
-            return no(src === 'drum' ? '이번에는 작은북을 쳐 보세요.' : (last && last.source === 'drum' ? '이번에는 고무줄을 튕겨 보세요.' : '고무줄을 당겼다 놓아 소리를 내 보세요.'),
-              src === 'drum' ? '북채를 위로 끌어 올렸다가 놓으면 작은북을 쳐요.' : '고무줄을 위나 아래로 끌어 당겼다가 놓아요. 길이나 팽팽함을 바꾸었다면 다시 튕겨야 해요.');
-          }
-          const lL = last.length ?? L; const lT = last.tension ?? T;
-          const ch = changes(lL, lT);
-          if (isRel(t.pitch)) {
-            const want = t.pitch; const got = relOf(lL, lT); const up = want === 'higher';
-            if (got !== want) {
-              if (got === 'same' && !ch.length) {
-                return no(`높낮이는 처음과 같아요. ${last.strength >= LOUD ? '세게 튕기면 소리가 커질 뿐 높아지지 않아요.' : last.strength <= QUIET ? '약하게 튕기면 소리가 작아질 뿐 낮아지지 않아요.' : '튕기는 세기로는 높낮이가 바뀌지 않아요.'}`, up ? HINT_UP : HINT_DOWN);
-              }
-              if (got === 'same') return no('길이와 팽팽함을 함께 바꾸어서 높낮이가 처음과 같아졌어요.', up ? HINT_UP : HINT_DOWN);
-              return no(`${ch.join(' 하고 ')} 했더니 ${REL_NAME[got]}가 났어요.`, up ? HINT_UP : HINT_DOWN);
-            }
-          } else if (t.pitch && last.pitch !== t.pitch) {
-            return no(`지금은 ${PITCH_NAME[last.pitch]}가 났어요.${!ch.length && last.strength >= LOUD ? ' 세게 튕기면 소리가 커질 뿐 높아지지 않아요.' : ''}`, t.pitch === 'high' ? HINT_UP : HINT_DOWN);
-          }
-          const pitchOk = t.pitch ? '높낮이는 맞았어요. 그런데 ' : '';
-          if (t.loud === true && last.strength < LOUD) return no(`${pitchOk}소리가 작았어요.`, HINT_LOUD(src === 'drum'));
-          if (t.loud === false && last.strength > QUIET) return no(`${pitchOk}소리가 너무 컸어요.`, HINT_QUIET(src === 'drum'));
-          if (t.pitch) {
-            const up = t.pitch === 'higher' || t.pitch === 'high';
-            const how = ch.length ? `${ch.join(' 하고 ')} 하니 떨림이 ${up ? '빨라져' : '느려져'} ` : '';
-            const what = isRel(t.pitch) ? REL_NAME[t.pitch] : PITCH_NAME[t.pitch];
-            if (t.loud === false) return yes(`맞아요! ${how}${what}가 났고, 조금만 당겨서 작은 소리예요. 높낮이와 세기는 서로 달라요.`);
-            return yes(`맞아요! ${how}${what}가 났어요.`);
-          }
-          if (t.loud === true) return yes(src === 'drum' ? '맞아요! 세게 치니 떨림이 커서 종이 조각이 높이 튀었어요.' : '맞아요! 많이 당길수록 크게 떨리고 큰 소리가 나요.');
-          if (t.loud === false) return yes(src === 'drum' ? '맞아요! 약하게 치니 떨림이 작아서 종이 조각이 조금만 튀었어요.' : '맞아요! 조금 당기니 작게 떨리고 작은 소리가 나요.');
-          return yes(`맞아요! 소리가 날 때 ${last.source === 'drum' ? '작은북이' : '고무줄이'} 떨렸어요.`);
+        // 확인 전 숨김(reveal:'after-check'): 맞힌 확인 뒤에만 읽기 값을 보인다. 힌트는 확인이 아니라 아무것도 드러내지 않는다
+        check(t, opts) {
+          const r = judgeNow(t);
+          if (r.correct && !(opts && opts.forHint)) setReveal(true);
+          return r;
         },
+        hint(t) { hinting = true; try { const r = judgeNow(t); return { hint: r.hint || '', correct: r.correct === true }; } finally { hinting = false; } },
         async demo(t) {
           t = t || {};
           if (t.pitch) {

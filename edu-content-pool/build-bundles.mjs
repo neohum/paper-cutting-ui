@@ -6,10 +6,11 @@
 //   dist/<id>.zip             all-market 업로드·USB 배포용(같은 내용)
 //   lessons/manifest.js       교사 화면·결과 보고서가 읽는 차시 목록
 // 사용: node edu-content-pool/build-bundles.mjs [--validate]
-import { mkdirSync, readFileSync, writeFileSync, readdirSync, copyFileSync, rmSync, existsSync } from 'node:fs';
+// 다른 스크립트(check-lesson·simulate-class)는 bundleStale()만 가져다 쓴다 — import해도 묶지 않는다.
+import { mkdirSync, readFileSync, writeFileSync, readdirSync, copyFileSync, rmSync, existsSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import vm from 'node:vm';
@@ -18,10 +19,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const dist = join(here, 'dist');
 const sha = (buf) => createHash('sha256').update(buf).digest('hex');
 
-const lessons = readdirSync(join(here, 'lessons/data')).filter((f) => f.endsWith('.js')).sort().map((f) => {
-  let l; vm.runInNewContext(readFileSync(join(here, 'lessons/data', f), 'utf8'), { PaperLessons: { register(x) { l = x; } } });
-  return l;
-});
+const loadLesson = (f) => { let l; vm.runInNewContext(readFileSync(join(here, 'lessons/data', f), 'utf8'), { PaperLessons: { register(x) { l = x; } } }); return l; };
 
 const toolsOf = (l) => [...new Set([
   ...l.stages.flatMap((s) => [s.demo?.tool, ...(s.activities || []).map((a) => a.tool), ...(s.exitTicket || []).map((q) => q.tool)]),
@@ -40,6 +38,23 @@ function makeZip(zip, dir) {
   execFileSync(tar, ['-a', '-c', '-f', zip, ...readdirSync(dir)], { cwd: dir, stdio: 'pipe' });
 }
 
+// 허브 경로(/dist/<id>/) 학생은 번들을 읽는다 — 차시·교구·플레이어 원본이 번들보다 새로우면 학생은 옛 판을 받는다.
+// 돌려주는 값: null(최신) 또는 { reason, newer: [원본 경로…] }
+export function bundleStale(id) {
+  const entry = join(dist, id, 'index.html');
+  if (!existsSync(entry)) return { reason: 'missing', newer: [] };
+  const built = statSync(entry).mtimeMs;
+  let l; try { l = loadLesson(`${id}.js`); } catch (e) { return { reason: `lesson-unreadable: ${e.message}`, newer: [] }; }
+  const src = ['engine/paperkit.js', 'engine/paperkit.css', 'lessons/registry.js', 'lessons/player.js', 'lessons/player.css', 'lessons/player.html', `lessons/data/${id}.js`, ...toolsOf(l).map((t) => `engine/tools/${t}.js`)];
+  const newer = src.filter((rel) => existsSync(join(here, rel)) && statSync(join(here, rel)).mtimeMs > built + 1);
+  return newer.length ? { reason: 'stale', newer } : null;
+}
+
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMain) await main();
+
+async function main() {
+const lessons = readdirSync(join(here, 'lessons/data')).filter((f) => f.endsWith('.js')).sort().map(loadLesson);
 // 차시 폴더만 하나씩 지우고 다시 쓴다 — 허브가 다른 차시를 서빙하는 중에도 다시 묶을 수 있게
 mkdirSync(dist, { recursive: true });
 const manifest = [];
@@ -136,4 +151,5 @@ if (process.argv.includes('--validate')) {
   }
   console.log(bad ? `schema errors=${bad}` : `schema ok (plugin v3 + lesson-package v1) × ${manifest.length}`);
   process.exit(bad ? 1 : 0);
+}
 }

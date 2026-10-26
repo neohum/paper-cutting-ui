@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 // 학급 모의 수업 — 학생 30명이 실제 브라우저로 한 차시를 끝까지 하고 선택한 경로로 제출한다.
 // 학생은 사람이 아니라 '행동 모형'이다: 프로필(정확도·힌트·단계 바꾸기·기기·키보드·오프라인)에 따라
-// 맞는 조작(교구 solve) 또는 틀린 조작(교구 안 조각에 실제 키 입력)을 하고, 확인·힌트·단계 단추를 실제로 누른다.
-// 사용: node edu-content-pool/simulate-class.mjs <lessonId> --class 2-3 [--route link|hub|portal|mixed] [--students 30] [--seed 7] [--difficulty 0]
+// 맞는 조작(교구 solve) 또는 틀린 조작을 하고, 확인·힌트·단계 단추를 실제로 누른다.
+// 틀린 조작은 '다 했지만 틀린' 답이어야 한다(그래야 플레이어가 시도로 센다). 순서:
+//   1) 교구의 wrongAnswer(target) — 그럴듯한 오개념 상태  2) 화면의 입력 칸에 틀린 수·고르지 않은 보기 누르기
+//   3) 정답 상태의 숫자 하나를 조금 바꾼 상태(PaperLessons.flow.findWrong)  4) 그래도 안 되면 조각에 방향키(예전 방식)
+// 확인을 눌렀는데 시도로 세지지 않은 경우(incomplete·바꾼 것 없음)를 문항별로 세어, 30%를 넘으면 simUnreliable로 표시한다.
+// 사용: node edu-content-pool/simulate-class.mjs <lessonId> --class 2-3 [--route link|hub|portal|mixed] [--students 30] [--seed 7] [--difficulty 0] [--rebuild]
+//   --rebuild: 허브 경로 학생이 받는 dist/<id>/ 번들이 원본보다 오래되었으면 다시 묶는다(없으면 경고만)
 //   --difficulty: 이 차시가 이 학년에게 얼마나 어려운지(-0.3 쉬움 ~ +0.3 어려움). 교사 페르소나가 판단해 넣는다.
 // 출력: JSON(요약 + 학생별 기록 + 오류). classroom-hub.mjs가 떠 있어야 한다.
 import { existsSync, writeFileSync } from 'node:fs';
@@ -11,6 +16,8 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { chromium } from 'playwright-core';
+import { execFileSync } from 'node:child_process';
+import { bundleStale } from './build-bundles.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const id = process.argv[2];
@@ -57,6 +64,41 @@ async function nudge(F, E) {
 let lesson;
 vm.runInNewContext(readFileSync(join(here, 'lessons/data', `${id}.js`), 'utf8'), { PaperLessons: { register(l) { lesson = l; } } });
 const routes = route === 'mixed' ? ['link', 'hub', 'portal'] : [route];
+const warnings = [];
+if (routes.includes('hub')) {
+  let stale = bundleStale(id);
+  if (stale && process.argv.includes('--rebuild')) { execFileSync(process.execPath, [join(here, 'build-bundles.mjs')], { stdio: 'pipe' }); stale = bundleStale(id); }
+  if (stale) { const w = `dist/${id}/ 번들이 ${stale.reason === 'missing' ? '없음' : `원본보다 오래됨(${stale.newer.join(', ')})`} — 허브 경로 학생은 옛 판을 받는다(--rebuild)`; warnings.push(w); console.error(`! ${w}`); }
+}
+
+// 문항별: 확인을 몇 번 눌렀고 그중 몇 번이 시도로 세졌는지, 틀린 답을 어떻게 만들었는지
+const itemStats = {};
+const statOf = (k) => (itemStats[k] ??= { clicks: 0, counted: 0, incomplete: 0, unchanged: 0, wrongVia: {} });
+
+// 틀린 조작: 다 했지만 틀린 답을 만든다(위 1~4 순서). 돌려주는 값은 쓴 방법.
+async function wrongMove(F, frameEval, target, key, log) {
+  const seed = Math.floor(rnd() * 1e9);
+  // 직전 오답과 같은 상태는 피한다(플레이어가 '바꾼 것 없음'으로 시도에서 뺀다)
+  const find = (mode) => frameEval(([t, s, k, m]) => {
+    const S = window.__pl; const avoid = [S.items[k] && S.items[k].lastJSON].filter(Boolean);
+    const x = window.PaperLessons.flow.findWrong(S.tool, t, m === 'tool' ? { seed: s, avoid, perturb: false } : { seed: s, avoid, wrongAnswer: false });
+    return x && x.via;
+  }, [target, seed, key, mode]);
+  // 교구 검사로 '다 했지만 틀림'인지 본다. 검사가 켠 '확인 뒤 보임'은 상태를 다시 넣어 끈다.
+  const probe = () => frameEval(([t, k]) => { const S = window.__pl; const js = JSON.stringify(S.tool.getState()); if (S.items[k] && S.items[k].lastJSON === js) return false; const r = S.tool.check(t, { forHint: true }) || {}; if (S.tool.reset) S.tool.reset(); S.tool.setState(JSON.parse(js)); return !r.incomplete && r.correct === false; }, [target, key]);
+  const viaTool = await find('tool');
+  if (viaTool) return viaTool;
+  // 화면의 칸: 보이는 입력 칸에 틀린 수, 또는 아직 고르지 않은 보기 하나
+  const inputs = F.locator('#tool input:visible'); const ni = await inputs.count();
+  if (ni) { await inputs.nth(Math.floor(rnd() * ni)).fill(String(1 + Math.floor(rnd() * 19))).catch(() => {}); if (await probe()) return 'ui-input'; }
+  const choices = F.locator('#tool [aria-pressed="false"]:visible, #tool [role="radio"][aria-checked="false"]:visible'); const nc = await choices.count();
+  if (nc) { await choices.nth(Math.floor(rnd() * nc)).click({ timeout: 1500 }).catch(() => {}); if (await probe()) return 'ui-choice'; }
+  const viaNear = await find('near');
+  if (viaNear) return viaNear;
+  const n = await F.locator('#tool [tabindex="0"]').count();
+  if (n) { const el = F.locator('#tool [tabindex="0"]').nth(Math.floor(rnd() * n)); await el.focus(); for (let k = 0; k < 1 + Math.floor(rnd() * 3); k++) { await el.press(pick(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'])); log.wrongKeys++; } }
+  return 'keys';
+}
 
 // 시스템 크롬을 쓴다(playwright 번들 브라우저가 없어도 돈다). CHROME_PATH로 덮어쓸 수 있다.
 const chrome = [process.env.CHROME_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', 'C:/Program Files/Google/Chrome/Application/chrome.exe', '/usr/bin/google-chrome'].find((p) => p && existsSync(p));
@@ -79,7 +121,7 @@ async function runStudent(seat) {
   const rt = P.offline ? 'code' : routes[(seat - 1) % routes.length];
   const ctx = await browser.newContext({ viewport: P.viewport || { width: 1366, height: 768 } });
   const page = await ctx.newPage();
-  const log = { seat, kind, route: rt, attempts: 0, hints: 0, levelSwitches: [], wrongKeys: 0, submitted: null, notes: [] };
+  const log = { seat, kind, route: rt, attempts: 0, hints: 0, levelSwitches: [], wrongKeys: 0, predicts: [], submitted: null, notes: [] };
   page.on('pageerror', (e) => errors.push(`${seat}번 pageerror: ${e.message}`));
   page.on('console', (m) => { if (m.type() === 'error' && !/favicon|Failed to load resource: net::ERR_INTERNET_DISCONNECTED/.test(m.text())) errors.push(`${seat}번 console: ${m.text()}`); });
   let F = page; // 포털이면 iframe 안
@@ -111,24 +153,41 @@ async function runStudent(seat) {
     if (kind === 'ell' && rnd() < 0.5) { await F.locator('.pl-level__b[data-level="easy"]').click(); log.levelSwitches.push('start→easy'); }
     let guard = 0;
     while (guard++ < 60) {
-      const st = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; if (s.id !== 'main') return null; const a = s.activities[S.act]; return { item: a.items[S.item], level: S.level, key: `${a.id}.${S.item + 1}` }; });
+      const st = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; if (s.id !== 'main') return null; const a = s.activities[S.act]; return { item: a.items[S.item], level: S.level, key: `${a.id}.${S.item + 1}`, picked: S.items[`${a.id}.${S.item + 1}`]?.predict != null }; });
       if (!st) break;
-      if (st.item.free) { think(); await nudge(F, { evaluate: frameEval }); await F.locator('#check').click(); await page.waitForTimeout(250); continue; }
+      if (st.item.predict && !st.picked) {
+        // 예상 먼저(채점 아님). predict.answer가 있으면 빠르고 잘하는 학생일수록 그 보기를 더 자주 고른다
+        const pr = st.item.predict; const right = Number.isInteger(pr.answer) ? pr.answer : null;
+        const pRight = { quick: 0.75, steady: 0.55, keyboard: 0.5, mobile: 0.5, offline: 0.5 }[kind] ?? 0.35;
+        const others = pr.options.map((_, k) => k).filter((k) => k !== right);
+        const k = right != null && (rnd() < pRight || !others.length) ? right : pick(right != null ? others : pr.options.map((_, j) => j));
+        await F.locator(`[data-predict="${k}"]`).click();
+        log.predicts.push({ key: st.key, pick: k, right: right == null ? null : k === right });
+      }
+      const nextItem = async () => { if (st.item.predict || st.item.conclude) await F.locator('#next-item').click({ timeout: 3000 }).catch(() => log.notes.push(`${st.key}: '다음 문제' 단추 없음`)); };
+      if (st.item.free) { think(); await nudge(F, { evaluate: frameEval }); await F.locator('#check').click(); await page.waitForTimeout(250); await nextItem(); continue; }
       let solved = false;
       for (let t = 1; t <= P.patience && !solved; t++) {
         think();
         // 문항 난도(item.difficulty, 교사가 판단해 차시 파일에 적음)를 차시 난도에 더한다 — 모든 문항이 같은 확률이 되지 않게
         const p = Math.min(0.97, Math.max(0.05, P.acc + LEVEL_MOD[st.level] - difficulty - (st.item.difficulty || 0) + (t >= 3 ? 0.15 : 0)));
+        const sx = statOf(st.key);
         if (rnd() < p) {
           await frameEval((tg) => window.__pl.tool.solve(tg), st.item.target);
         } else {
-          // 틀린 조작: 교구 안 조작 가능한 조각에 실제 키 입력
-          const n = await F.locator('#tool [tabindex="0"]').count();
-          if (n) { const el = F.locator('#tool [tabindex="0"]').nth(Math.floor(rnd() * n)); await el.focus(); for (let k = 0; k < 1 + Math.floor(rnd() * 3); k++) { await el.press(pick(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'])); log.wrongKeys++; } }
+          const via = await wrongMove(F, frameEval, st.item.target, st.key, log);
+          sx.wrongVia[via] = (sx.wrongVia[via] || 0) + 1;
         }
+        // 틀린 직후 확인은 잠깐 잠긴다(aria-disabled) — 키보드 학생도 풀릴 때까지 기다렸다 누른다
+        await F.locator('#check:not([aria-disabled="true"])').waitFor({ timeout: 3000 }).catch(() => {});
+        const before = await frameEval((k) => (window.__pl.items[k] ? window.__pl.items[k].attempts : 0), st.key);
         if (P.keyboard) { await F.locator('#check').focus(); await page.keyboard.press('Enter'); } else await F.locator('#check').click();
-        log.attempts++;
+        log.attempts++; sx.clicks++;
         solved = await F.locator('#fb.is-ok').waitFor({ timeout: 700 }).then(() => true, () => false);
+        // 플레이어가 시도로 셌는가: 안 셌으면 incomplete(교구가 '아직 다 하지 않음')인지 '바꾼 것 없음'인지 안내 줄로 가른다
+        const after = await frameEval((k) => (window.__pl.items[k] ? window.__pl.items[k].attempts : 0), st.key);
+        if (after > before) sx.counted++;
+        else if (!solved) { const nt = await F.locator('#fb-note').textContent().catch(() => ''); if (/바꾼 뒤에/.test(nt || '')) sx.unchanged++; else sx.incomplete++; }
         if (!solved) {
           if (P.mash) { await F.locator('#check').click().catch(() => {}); log.attempts++; } // 연타
           if (rnd() < P.hint) { await F.locator('#hint').click(); log.hints++; }
@@ -137,8 +196,8 @@ async function runStudent(seat) {
         }
       }
       if (solved) {
-        // 다음 문항으로 넘어갈 때까지 기다린다
-        await page.waitForTimeout(1250);
+        // 다음 문항으로 넘어갈 때까지 기다린다(예상·정리 문항은 '다음 문제'를 누른다)
+        if (st.item.predict || st.item.conclude) await nextItem(); else await page.waitForTimeout(1250);
         for (let w = 0; w < 20; w++) { const k = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; return s.id === 'main' ? `${s.activities[S.act].id}.${S.item + 1}` : s.id; }); if (k !== st.key) break; await page.waitForTimeout(150); }
         if (P.upLevel && await F.locator('#suggest [data-level]').count().catch(() => 0)) {
           const lv = await F.locator('#suggest [data-level]').getAttribute('data-level');
@@ -148,7 +207,8 @@ async function runStudent(seat) {
         // 끝내 못 풀면 선생님 도움(모형): 정답 조작 후 넘어간다 — 첫 시도 정답으로는 세지 않는다
         log.notes.push(`${st.key}: ${P.patience}번 안에 못 풀어 선생님 도움`);
         await frameEval((tg) => window.__pl.tool.solve(tg), st.item.target);
-        await F.locator('#check:not([disabled])').click({ timeout: 3000 }).catch(() => log.notes.push('도움 뒤 확인 단추 비활성')); await page.waitForTimeout(1250);
+        await F.locator('#check:not([disabled]):not([aria-disabled="true"])').click({ timeout: 3000 }).catch(() => log.notes.push('도움 뒤 확인 단추 비활성'));
+        if (st.item.predict || st.item.conclude) { await F.locator('#fb.is-ok').waitFor({ timeout: 2000 }).catch(() => {}); await nextItem(); } else await page.waitForTimeout(1250);
         for (let w = 0; w < 20; w++) { const k = await frameEval(() => { const S = window.__pl; const s = S.lesson.stages[S.stage]; return s.id === 'main' ? `${s.activities[S.act].id}.${S.item + 1}` : s.id; }); if (k !== st.key) break; await page.waitForTimeout(150); }
       }
     }
@@ -204,7 +264,14 @@ const rows = await (await fetch(`${hub}/api/results?lesson=${id}&class=${encodeU
 const A = {}; vm.runInNewContext(readFileSync(join(here, 'lessons/analytics.js'), 'utf8'), { window: A });
 const summary = A.LessonAnalytics.summarize(rows);
 const byRoute = rows.reduce((a, r) => { a[r.via] = (a[r.via] || 0) + 1; return a; }, {});
-const report = { lesson: id, classCode: cls, students: N, received: rows.length, byRoute, difficulty, summary, students_log: logs.sort((a, b) => a.seat - b.seat), errors };
+// 문항별 정직성: 확인을 눌렀는데 시도로 세지지 않은 비율이 30%를 넘으면 그 문항의 '한 번에 맞힘'은 믿을 수 없다
+const items = Object.entries(itemStats).sort(([a], [b]) => a.localeCompare(b, 'en', { numeric: true })).map(([key, x]) => {
+  const incompleteAttempts = x.incomplete + x.unchanged;
+  return { key, clicks: x.clicks, counted: x.counted, incompleteAttempts, incomplete: x.incomplete, unchanged: x.unchanged, incompleteRate: x.clicks ? Math.round((incompleteAttempts / x.clicks) * 100) : 0, simUnreliable: x.clicks > 0 && incompleteAttempts / x.clicks > 0.3, wrongVia: x.wrongVia };
+});
+const simUnreliable = items.filter((x) => x.simUnreliable).map((x) => x.key);
+const report = { lesson: id, classCode: cls, students: N, received: rows.length, byRoute, difficulty, summary, items, simUnreliable, warnings, students_log: logs.sort((a, b) => a.seat - b.seat), errors };
 if (out) writeFileSync(out, JSON.stringify(report, null, 1));
-console.log(JSON.stringify({ lesson: id, classCode: cls, received: `${rows.length}/${N}`, byRoute, firstTry: summary.firstTry, avgScore: summary.avgScore, levels: summary.levels, moods: summary.moods, recommendations: summary.recommendations, stuck: logs.filter((l) => l.notes.some((n) => n.startsWith('멈춤'))).length, errors: errors.slice(0, 10) }, null, 1));
+console.log(JSON.stringify({ lesson: id, classCode: cls, received: `${rows.length}/${N}`, byRoute, firstTry: summary.firstTry, simUnreliable, warnings,
+  items: items.map((x) => `${x.key} 한번에 ${summary.items.find((r) => r.key === x.key)?.firstTry ?? '-'}% · 확인 ${x.clicks}(셈 ${x.counted}, 안 셈 ${x.incompleteAttempts}) · ${Object.entries(x.wrongVia).map(([k, v]) => `${k}×${v}`).join(' ')}`), avgScore: summary.avgScore, levels: summary.levels, moods: summary.moods, recommendations: summary.recommendations, stuck: logs.filter((l) => l.notes.some((n) => n.startsWith('멈춤'))).length, errors: errors.slice(0, 10) }, null, 1));
 process.exit(errors.length ? 1 : 0);

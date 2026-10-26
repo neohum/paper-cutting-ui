@@ -40,10 +40,12 @@ async function body(req) {
 }
 
 // 개인정보 거름: 이름·전화·주민번호 같은 모양이 들어 있으면 받지 않는다(studentPii: none)
-const PII = /\d{6}-?[1-4]\d{6}|01[016789]-?\d{3,4}-?\d{4}|[\w.+-]+@[\w-]+\.[\w.]+/;
+// 숫자 앞뒤 경계를 둔다 — 교구 상태의 되풀이 소수(0.3333333333333333)가 주민번호 모양으로 걸려 제출이 막혔다
+const PII = /(?<![\d.])\d{6}-?[1-4]\d{6}(?!\d)|(?<![\d.])01[016789]-?\d{3,4}-?\d{4}(?!\d)|[\w.+-]+@[\w-]+\.[\w.]+/;
 
 async function store(kind, payload, extra) {
-  const text = JSON.stringify(payload);
+  // clientId(무작위 UUID)는 빼고 본다 — 16진 조각이 전화번호 모양(01012345678)이 되어 5천 번에 한 번꼴로 제출이 막혔다
+  const text = JSON.stringify(payload, (k, v) => (k === 'clientId' ? undefined : v));
   if (PII.test(text)) throw Object.assign(new Error('개인정보로 보이는 값이 있어 받지 않았습니다'), { status: 422 });
   const r = payload.data || payload;
   const row = {

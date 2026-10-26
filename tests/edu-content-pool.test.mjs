@@ -115,3 +115,42 @@ test('worksheet print uses the ecosystem classroom-ui exam styles', () => {
   // 교사 지시("…하게 하라")는 학생 활동지에 싣지 않는다
   assert.match(js, /isTeacherPrompt/);
 });
+
+// 연결표는 한 학년-학기 열에 모든 교과 단원을 싣는다. 단원 번호만으로 합치면 수학 1단원에 국어 1단원 코드가 붙는다.
+const SUBJECT_CODE = { 국어: /^\[\d국/, 수학: /^\[\d수/, 과학: /^\[\d과/, 사회: /^\[\d사/, 도덕: /^\[\d도/, 통합교과: /^\[\d(바|슬|즐)/ };
+
+test('units-map: no unit carries another subject\'s standards; 통합교과 units have 바/슬/즐 codes or are marked unverified', () => {
+  const map = JSON.parse(readFileSync(join(pool, 'units-map.json'), 'utf8'));
+  const foreign = [];
+  for (const [g, subjects] of Object.entries(map.grades)) {
+    for (const [s, sems] of Object.entries(subjects)) {
+      const re = SUBJECT_CODE[s];
+      assert.ok(re, `${s}: 교과 코드 규칙 없음`);
+      for (const [sem, units] of Object.entries(sems)) {
+        for (const u of units) {
+          for (const c of u.standards) if (!re.test(c)) foreign.push(`${g}-${s}-${sem}-${u.no} ${c}`);
+          if (u.standards.length === 0) assert.equal(u.standardsVerified, false, `${g}-${s}-${sem}-${u.no}: 빈 성취기준인데 standardsVerified:false 표시 없음`);
+          if (s === '통합교과') assert.ok(u.standards.length > 0 || u.standardsVerified === false, `${g}-${s}-${sem}-${u.no}`);
+        }
+      }
+    }
+  }
+  assert.deepEqual(foreign, [], foreign.slice(0, 5).join(' | '));
+  // 정답 표본(경기도교육청 성취기준-단원 연결표): 시각과 시간은 시각 읽기 기준, 입체 모양 [2수03-01]이 아니다.
+  const clock = map.grades[2]['수학']['2학기'].find((u) => u.title === '시각과 시간');
+  assert.deepEqual([...clock.standards], ['[2수03-07]', '[2수03-08]', '[2수03-09]']);
+  const angle = map.grades[4]['수학']['1학기'].find((u) => u.title === '각도');
+  for (const c of ['[4수03-24]', '[4수03-25]']) assert.ok(angle.standards.includes(c), `각도 단원에 ${c} 없음`);
+});
+
+test('catalog: unit standards stay within the unit subject', () => {
+  const C = loadCatalog();
+  for (const u of C.units) {
+    // 학습지도 데이터셋은 1~2학년 신체활동 기준을 [2건…]으로 통합교과에 싣는다(생성기가 추정 배정, sa).
+    // 단원 지도(units-map)는 바/슬/즐만 받는다 — [2건]의 교과 귀속은 데이터셋 쪽 확인 과제다.
+    const re = u.s === '통합교과' ? /^\[2(바|슬|즐|건)/ : SUBJECT_CODE[u.s];
+    if (!re) continue; // 영어·음악·미술·체육·실과: 생성기가 같은 교과 기준만 배정한다
+    for (const c of u.std) assert.ok(re.test(c), `${u.id}: ${c}`);
+    if (u.s === '통합교과') assert.ok(u.std.length > 0, `${u.id}: 바/슬/즐 기준 없음`);
+  }
+});

@@ -24,6 +24,11 @@ const subjectName = (s) => (s.startsWith('통합교과') ? '통합교과' : s);
 // "3. 모양과 시각" → 단원 번호 3. by_code 값의 단원 표기에서 번호만 비교한다(단원명 표기는 출처마다 조금씩 다르다).
 const unitNoOf = (label) => { const m = /^(\d+)\./.exec(label.trim()); return m ? Number(m[1]) : null; };
 
+// 연결표는 학년-학기 열 하나에 모든 교과 단원을 함께 싣는다("1-1" 열에 국어 1단원과 수학 1단원이 같이 있다).
+// 단원 번호만으로 합치면 다른 교과 코드가 섞이므로, 코드의 교과 글자([2국…]의 '국')가 단원 교과와 같은 것만 받는다.
+const SUBJECT_CODE = { 국어: /^\[?\d국/, 수학: /^\[?\d수/, 과학: /^\[?\d과/, 사회: /^\[?\d사/, 도덕: /^\[?\d도/, 통합교과: /^\[?\d(바|슬|즐)/ };
+const ofSubject = (subject, code) => SUBJECT_CODE[subject]?.test(code) ?? false;
+
 const grades = {};
 let linked = 0;
 for (const [g, subjects] of Object.entries(research.grades)) {
@@ -37,8 +42,9 @@ for (const [g, subjects] of Object.entries(research.grades)) {
       if (!Array.isArray(list)) continue;
       const semNo = sem.startsWith('1') ? 1 : 2;
       out[sem] = list.filter((u) => u && u.title).map((u) => {
-        const std = new Set(u.standards ?? []);
+        const std = new Set((u.standards ?? []).filter((c) => ofSubject(subject, c)));
         for (const [code, places] of Object.entries(byCode)) {
+          if (!ofSubject(subject, code)) continue;
           for (const label of places[`${grade}-${semNo}`] ?? []) {
             if (unitNoOf(label) === u.no) std.add(`[${code}]`);
           }
@@ -54,6 +60,8 @@ for (const [g, subjects] of Object.entries(research.grades)) {
           no: u.no, title: u.title, standards: [...std].sort(),
           lessons: Number.isInteger(u.lessons) && u.lessons > 0 ? u.lessons : null,
           verified: u.verified !== false, source: u.source ?? null,
+          // 조사 자료에 이 단원의 같은 교과 코드가 없으면 비워 두고 표시한다(코드를 지어내지 않는다).
+          ...(std.size ? {} : { standardsVerified: false }),
         };
       });
     }
@@ -73,7 +81,7 @@ writeFileSync(join(here, 'units-map.json'), `${JSON.stringify({
   meta: {
     builtBy: 'import-units.mjs',
     researchedOn: '2026-10-24',
-    note: '국정(국어·1~2 수학·통합교과·도덕)은 교과서 단원 확인, 사회·과학·3~6 수학은 검정이지만 성취기준 묶음 단원이라 출판사 간 공통(명칭 일부 차이). 5-2·6-2 국어는 예시자료 단원명(verified=false). 영어·음악·미술·체육·실과는 공통 단원 목록이 없어 제외.',
+    note: '국정(국어·1~2 수학·통합교과·도덕)은 교과서 단원 확인, 사회·과학·3~6 수학은 검정이지만 성취기준 묶음 단원이라 출판사 간 공통(명칭 일부 차이). 5-2·6-2 국어는 예시자료 단원명(verified=false). 영어·음악·미술·체육·실과는 공통 단원 목록이 없어 제외. 성취기준은 단원과 같은 교과 코드만 싣는다; 출처에 같은 교과 코드가 없는 단원(통합교과 전체, 도덕 일부)은 standards=[]·standardsVerified=false이고 카탈로그 생성기가 추정 배정한다(sa).',
     sources: research.sources ?? [],
   },
   hours, grades,
