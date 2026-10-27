@@ -50,6 +50,8 @@
   };
   const r6 = (v) => Math.round(v * 1e6) / 1e6;
   const josa = (w, a, b) => { const s = String(w); const c = s.charCodeAt(s.length - 1); if (c >= 0xAC00 && c <= 0xD7A3) return s + ((c - 0xAC00) % 28 ? a : b); return s + (/[013678]$/.test(s) ? a : b); };
+  // ‘5분이에요’ ‘1번이에요’ ‘10명이에요’ ‘3개예요’ — 받침(수는 읽는 소리)을 따라
+  const ieyo = (w) => josa(w, '이에요', '예요');
   function ensureStyle() {
     if (document.getElementById('ch-style')) return;
     const s = document.createElement('style'); s.id = 'ch-style';
@@ -478,11 +480,11 @@
           const notYet = idx.filter((i) => (type === 'picture' ? icons[i].every((k) => !k) : values[i] == null));
           if (notYet.length) return { correct: false, incomplete: true, feedback: `아직 그리지 않은 것: ${notYet.map((i) => data[i].label).join(', ')}` };
           const bad = idx.filter((i) => Math.abs(valNow(i) - data[i].value) > 1e-6);
-          if (ratio && !bad.length) { const sum = r6(values.reduce((a, v) => a + (v || 0), 0)); if (Math.abs(sum - 100) > 1e-6) return { correct: false, feedback: `모두 더하면 ${sum}%예요. 100%가 되어야 해요.`, hint: '각 부분의 백분율을 모두 더해 100인지 확인해요.' }; }
+          if (ratio && !bad.length) { const sum = r6(values.reduce((a, v) => a + (v || 0), 0)); if (Math.abs(sum - 100) > 1e-6) return { correct: false, feedback: `모두 더하면 ${sum}%예요. 100%가 되어야 해요.`, hint: '각 부분의 백분율을 모두 더해 100인지 확인해요.', h3: `표의 백분율대로 다시 그려요: ${data.map((d) => `${d.label} ${d.value}%`).join(', ')} — 모두 더하면 100%예요.` }; }
           if (bad.length) {
             const i = bad[0]; const d = data[i]; const v = valNow(i);
             let why = `${josa(`${d.label} ${noun}`, '이', '가')} 표의 수와 달라요.`;
-            if ((type === 'bar' || type === 'line') && scale > 1 && Math.abs(v - from - (d.value - from) / scale) < 1e-6) why = `눈금 한 칸이 ${scale}${unit}예요. 칸 수가 아니라 눈금이 나타내는 수를 읽어요.`;
+            if ((type === 'bar' || type === 'line') && scale > 1 && Math.abs(v - from - (d.value - from) / scale) < 1e-6) why = `눈금 한 칸이 ${ieyo(`${scale}${unit}`)}. 칸 수가 아니라 눈금이 나타내는 수를 읽어요.`;
             else if (ratio && Math.abs(v - (100 - d.value)) < 1e-6 && 100 - d.value !== d.value) why = `${d.label} 부분이 나머지 크기로 그려졌어요.`;
             const fb = o.revealAfterCheck ? `표와 다른 ${josa(noun, '이', '가')} ${bad.length}개 있어요.` : why;
             const more = v > d.value;
@@ -490,7 +492,7 @@
               ? `${d.label}: ${d.value}${unit} → ${greedy(d.value).map((k, j) => `${iconsDef[j].name} 그림 ${k}개`).join(', ')}`
               : ratio ? `${d.label}: ${d.value}% → 눈금 ${Math.round(d.value / tickPct)}칸(한 칸 ${tickPct}%)`
                 : `${d.label}: ${d.value}${unit} → 눈금 ${r6((d.value - from) / scale)}칸(한 칸 ${scale}${unit})`;
-            return { correct: false, bad, feedback: fb, hint: `${d.label} ${noun}을 표와 견주어 보세요. 지금은 ${more ? '많아요(높아요)' : '적어요(낮아요)'}.`, h3 };
+            return { correct: false, bad, feedback: fb, hint: `${d.label} ${josa(noun, '을', '를')} 표와 견주어 보세요. 지금은 ${more ? '많아요(높아요)' : '적어요(낮아요)'}.`, h3 };
           }
           if (type === 'picture' && !o.anyIcons) {
             const loose = idx.find((i) => icons[i].some((k, j) => j > 0 && k * iconsDef[j].value >= iconsDef[j - 1].value));
@@ -502,17 +504,36 @@
           const empty = tblVals.findIndex((v) => v == null);
           if (empty >= 0) return { correct: false, incomplete: true, feedback: `표의 빈칸(${data[blanks[empty]].label})을 채워요.` };
           const k = blanks.findIndex((i, j) => Math.abs(tblVals[j] - data[i].value) > 1e-6);
-          if (k >= 0) { const d = data[blanks[k]]; const v = tblVals[k]; return { correct: false, feedback: o.revealAfterCheck ? '표에 그래프와 다른 수가 있어요.' : (type === 'bar' || type === 'line') && scale > 1 && Math.abs(v - (d.value - from) / scale) < 1e-6 ? `${d.label}: 칸 수를 썼어요. 눈금 한 칸은 ${scale}${unit}예요.` : `${d.label}의 수를 그래프에서 다시 읽어 보세요.`, hint: `${d.label} ${noun}이 어느 눈금까지 오는지 손가락으로 따라가 보세요.`, h3: type === 'picture' ? `${d.label}: ${greedy(d.value).map((c, j) => `${iconsDef[j].name}×${c}`).join(' + ')} = ${d.value}${unit}` : `${d.label}은(는) ${d.value}${pct}예요.` }; }
+          if (k >= 0) { const d = data[blanks[k]]; const v = tblVals[k]; return { correct: false, feedback: o.revealAfterCheck ? '표에 그래프와 다른 수가 있어요.' : (type === 'bar' || type === 'line') && scale > 1 && Math.abs(v - (d.value - from) / scale) < 1e-6 ? `${d.label}: 칸 수를 썼어요. 눈금 한 칸은 ${ieyo(`${scale}${unit}`)}.` : `${d.label}의 수를 그래프에서 다시 읽어 보세요.`, hint: `${d.label} ${josa(noun, '이', '가')} 어느 눈금까지 오는지 손가락으로 따라가 보세요.`, h3: type === 'picture' ? `${d.label}: ${greedy(d.value).map((c, j) => `${iconsDef[j].name}×${c}`).join(' + ')} = ${d.value}${unit}` : `${josa(d.label, '은', '는')} ${ieyo(`${d.value}${pct}`)}.` }; }
           return { correct: true, feedback: '맞아요! 그래프를 읽어 표를 채웠어요.' };
         }
         if (t.pick != null) {
           if (pick == null) return { correct: false, incomplete: true, feedback: '아래에서 하나를 골라요.' };
-          if (pick !== t.pick) return { correct: false, feedback: (o.why && o.why[pick]) || '그래프를 다시 보고 골라 볼까요?', hint: '고른 답이 그래프의 어느 부분인지 짚어 보고, 다른 것과 견주어 보세요.', h3: o.explain || '가장 긴(높은) 것과 가장 짧은(낮은) 것을 먼저 찾아 견주어요.' };
+          if (pick !== t.pick) return { correct: false, feedback: (o.why && o.why[pick]) || '고른 답이 그래프의 어느 부분을 말하는지 짚어 보고, 그래프와 다시 견주어 골라 볼까요?', hint: '고른 답이 그래프의 어느 부분인지 짚어 보고, 다른 것과 견주어 보세요.', h3: o.explain || '가장 긴(높은) 것과 가장 짧은(낮은) 것을 먼저 찾아 견주어요.' };
           return { correct: true, feedback: `맞아요! ${o.choices[t.pick]}` };
         }
         if (answer == null) return { correct: false, incomplete: true, feedback: '수를 써요.' };
-        if (Math.abs(answer - t.value) > 1e-6) return { correct: false, feedback: (type === 'bar' || type === 'line') && scale > 1 && Number.isInteger(t.value / scale) && Math.abs(answer - t.value / scale) < 1e-6 ? `칸 수를 썼어요. 눈금 한 칸은 ${scale}${unit}예요.` : '그래프를 다시 읽어 볼까요?', hint: `쓴 수가 ${answer > t.value ? '커요' : '작아요'}. 눈금 한 칸의 크기를 다시 확인해요.`, h3: o.explain || `눈금 한 칸은 ${scale}${unit}예요. 끝이 닿은 눈금을 차례로 세어 읽어요.` };
+        if (Math.abs(answer - t.value) > 1e-6) return { correct: false, feedback: (type === 'bar' || type === 'line') && scale > 1 && Number.isInteger(t.value / scale) && Math.abs(answer - t.value / scale) < 1e-6 ? `칸 수를 썼어요. 눈금 한 칸은 ${ieyo(`${scale}${unit}`)}.` : '그래프를 다시 읽어 볼까요?', hint: `쓴 수가 ${answer > t.value ? '커요' : '작아요'}. 눈금 한 칸의 크기를 다시 확인해요.`, h3: o.explain || `눈금 한 칸은 ${ieyo(`${scale}${unit}`)}. 끝이 닿은 눈금을 차례로 세어 읽어요.` };
         return { correct: true, feedback: `맞아요! ${t.value}${unit}` };
+      }
+      // 아직 다 하지 않은 상태의 2·3단계 힌트(1단계는 strategy)
+      function pending(t, lv) {
+        const h3Of = (d) => (type === 'picture' ? `${d.label}: ${d.value}${unit} → ${greedy(d.value).map((k, j) => `${iconsDef[j].name} 그림 ${k}개`).join(', ')}`
+          : ratio ? `${d.label}: ${d.value}% → 눈금 ${Math.round(d.value / tickPct)}칸(한 칸 ${tickPct}%)` : `${d.label}: ${d.value}${unit} → 눈금 ${r6((d.value - from) / scale)}칸(한 칸 ${scale}${unit})`);
+        if (mode === 'build') {
+          const i = checkIdx(t).find((k) => (type === 'picture' ? icons[k].every((x) => !x) : values[k] == null));
+          const d = data[i != null ? i : checkIdx(t)[0]];
+          if (!d) return strategy();
+          return lv >= 3 ? h3Of(d) : `아직 ‘${d.label}’ ${josa(noun, '을', '를')} 그리지 않았어요. 표에서 ${d.label}의 수를 찾고, 눈금 한 칸이 얼마인지 견주어 그려요.`;
+        }
+        if (t.table) {
+          const k = tblVals.findIndex((v) => v == null); const d = data[blanks[k >= 0 ? k : 0]];
+          if (!d) return strategy();
+          return lv >= 3 ? `${josa(d.label, '은', '는')} ${ieyo(`${d.value}${pct}`)}.` : `빈칸 ‘${d.label}’의 ${josa(noun, '이', '가')} 어느 눈금까지 오는지 손가락으로 따라가 보세요.`;
+        }
+        if (t.pick != null) return lv >= 3 ? (o.explain || '가장 긴(높은) 것과 가장 짧은(낮은) 것을 먼저 찾아 견주어요.') : '보기마다 그래프의 어느 부분을 말하는지 하나씩 짚어 보고, 그래프와 맞지 않는 보기를 지워 가요.';
+        return lv >= 3 ? (o.explain || `눈금 한 칸은 ${ieyo(`${scale}${unit}`)}. 끝이 닿은 눈금까지 한 칸씩 세어 읽어요.`)
+          : `묻는 항목의 ${josa(noun, '을', '를')} 찾아, 그 끝에서 눈금 쪽으로 줄을 그어 닿는 눈금을 읽어요.`;
       }
       function strategy() {
         if (mode === 'build') {
@@ -545,10 +566,13 @@
           else if (t.pick != null) setState({ pick: t.pick });
           else setState({ answer: t.value });
         },
+        // 힌트 사다리: 1 = 읽는 방법(strategy) · 2 = 어긋난(아직 안 한) 항목 짚기 · 3 = 그 항목의 풀이. 아직 다 하지 않은 상태에서도 단계마다 다른 글
         hint(t, opts) {
-          const r = judge(t || {}); const lv = hintLevel(opts);
+          t = t || {};
+          const r = judge(t); const lv = hintLevel(opts);
           if (r.correct) return { hint: strategy(), correct: true, level: 1 };
-          if (lv === 1 || r.incomplete || !r.hint) return { hint: strategy(), correct: false, level: 1 };
+          if (lv === 1) return { hint: strategy(), correct: false, level: 1 };
+          if (r.incomplete || !r.hint) return { hint: pending(t, lv), correct: false, level: lv };
           return { hint: lv >= 3 && r.h3 ? r.h3 : r.hint, correct: false, level: lv };
         },
         // 흔한 실수: 눈금 칸 수를 값으로 읽는다 · 그림 단위를 바꿔 센다 · 원·띠에서 두 항목 자리를 바꾼다 · 한 칸 어긋난다

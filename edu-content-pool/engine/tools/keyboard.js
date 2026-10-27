@@ -43,6 +43,8 @@
   };
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const josa = (w, a, b) => { const c = String(w).charCodeAt(String(w).length - 1); if (c < 0xac00 || c > 0xd7a3) return w + b; return w + ((c - 0xac00) % 28 ? a : b); };
+  // 따옴표로 감싼 음 이름 뒤의 '이에요/예요'(‘솔’이에요, ‘도’예요)
+  const ieyoQ = (w) => (josa(w, '1', '0').endsWith('1') ? '이에요' : '예요');
 
   // ---------------- 음 ----------------
   const PC = ['도', '도#', '레', '레#', '미', '파', '파#', '솔', '솔#', '라', '라#', '시'];
@@ -102,9 +104,9 @@
     const need = t.minNotes != null ? t.minNotes : 1;
     const work = workOf(c, s); const ticked = items.filter((_, i) => checks[i]).length;
     if (work < need && !ticked) return { correct: false, incomplete: true, feedback: `먼저 ${c.mode === 'melody' ? '건반을 눌러 가락을 지어' : c.mode === 'rhythm' ? '리듬 블록을 놓아' : '장단 칸을 채워'} 보세요.`, hint: '만든 뒤에 아래 목록에서 해낸 것을 표시해요.' };
-    if (work < need) return { correct: false, feedback: `${workWord(c)}${need > 1 ? `을 ${need}개 넘게` : ''} 더 만들어야 해요. 목록 표시만으로는 끝나지 않아요.`, hint: '건반·블록·칸으로 먼저 만들어요.' };
+    if (work < need) return { correct: false, feedback: `${workWord(c)}${need > 1 ? `을 ${need}개 이상` : ''} 더 만들어야 해요. 목록 표시만으로는 끝나지 않아요.`, hint: '건반·블록·칸으로 먼저 만들어요.' };
     const left = items.filter((_, i) => !checks[i]);
-    if (left.length) return { correct: false, feedback: `아직 표시하지 않은 점검 항목이 ${left.length}개 있어요.`, hint: `‘${left[0]}’를 해 보았는지 살펴보고 표시해요.`, left };
+    if (left.length) return { correct: false, feedback: `아직 표시하지 않은 점검 항목이 ${left.length}개 있어요.`, hint: `‘${left[0]}’${josa(left[0], '을', '를').slice(String(left[0]).length)} 해 보았는지 살펴보고 표시해요.`, left };
     return { correct: true, feedback: '스스로 점검을 모두 마쳤어요! 선생님께 내 작품을 들려 드려요.' };
   }
   function judgeMelody(s, t, c) {
@@ -129,10 +131,10 @@
     if (r.max && n > r.max) return { correct: false, feedback: `음이 ${r.max}개보다 많아요.`, hint: '‘하나 지우기’로 줄여요.', rule: 'length' };
     if (r.only) {
       const ok = r.only.map(norm); const bad = got.findIndex((x) => !ok.includes(x));
-      if (bad >= 0) return { correct: false, feedback: `${bad + 1}번째 음 ‘${got[bad]}’는 쓰기로 한 음이 아니에요.`, hint: `쓸 수 있는 음: ${ok.join(' ')}`, rule: 'only', at: bad };
+      if (bad >= 0) return { correct: false, feedback: `${bad + 1}번째 음 ‘${got[bad]}’${josa(got[bad], '은', '는').slice(String(got[bad]).length)} 쓰기로 한 음이 아니에요.`, hint: `쓸 수 있는 음: ${ok.join(' ')}`, rule: 'only', at: bad };
     }
-    if (r.startOn && got[0] !== norm(r.startOn)) return { correct: false, feedback: `첫 음이 ‘${got[0]}’예요. 시작하는 음 규칙을 다시 보세요.`, hint: `첫 음을 ‘${norm(r.startOn)}’로 시작해요.`, rule: 'startOn' };
-    if (r.endOn && got[n - 1] !== norm(r.endOn)) return { correct: false, feedback: `끝 음이 ‘${got[n - 1]}’예요. 가락이 끝난 느낌이 나도록 끝 음 규칙을 지켜요.`, hint: `마지막 음을 ‘${norm(r.endOn)}’로 바꾸어요.`, rule: 'endOn' };
+    if (r.startOn && got[0] !== norm(r.startOn)) return { correct: false, feedback: `첫 음이 ‘${got[0]}’${ieyoQ(got[0])}. 시작하는 음 규칙을 다시 보세요.`, hint: `첫 음을 ‘${norm(r.startOn)}’로 시작해요.`, rule: 'startOn' };
+    if (r.endOn && got[n - 1] !== norm(r.endOn)) return { correct: false, feedback: `끝 음이 ‘${got[n - 1]}’${ieyoQ(got[n - 1])}. 가락이 끝난 느낌이 나도록 끝 음 규칙을 지켜요.`, hint: `마지막 음을 ‘${norm(r.endOn)}’로 바꾸어요.`, rule: 'endOn' };
     return { correct: true, feedback: `규칙에 맞는 ${n}음 가락을 지었어요! ‘내가 친 음 듣기’로 들어 보세요.` };
   }
   function judgeRhythm(s, t, c) {
@@ -157,7 +159,7 @@
     const cross = lay.blocks.find((x) => x.cross);
     if (cross) { const m = Math.floor(cross.p / c.meter + 1e-9); return { correct: false, feedback: `${m + 1}번째 마디의 블록이 세로줄(마디줄)을 넘어갔어요. ${m + 1}번째 마디가 ${beatWord(c.meter)}이 되지 않아요.`, hint: `${m + 1}번째 마디의 박을 더해 ${c.meter}박이 되게 블록을 바꾸어요.`, measure: m }; }
     if (t.use) { const miss = t.use.find((k) => !list.includes(k)); if (miss) return { correct: false, feedback: `박은 맞아요. 그런데 ${(RHY[miss] || RHY.q).name}를 꼭 넣기로 했어요.`, hint: `${(RHY[miss] || RHY.q).name} 블록을 넣고, 박이 맞게 다른 블록을 바꾸어요.`, rule: 'use' }; }
-    if (t.rests) { const n = list.filter((k) => (RHY[k] || {}).rest).length; if (n < t.rests) return { correct: false, feedback: `박은 맞아요. 쉼표를 ${t.rests}개 넘게 넣기로 했어요.`, hint: '소리 블록 하나를 같은 박의 쉼표로 바꾸어요.', rule: 'rests' }; }
+    if (t.rests) { const n = list.filter((k) => (RHY[k] || {}).rest).length; if (n < t.rests) return { correct: false, feedback: `박은 맞아요. 쉼표를 ${t.rests}개 이상 넣기로 했어요.`, hint: '소리 블록 하나를 같은 박의 쉼표로 바꾸어요.', rule: 'rests' }; }
     return { correct: true, feedback: `맞아요! 마디마다 ${c.meter}박씩 꼭 맞아요(${sums.map((x) => `${x}박`).join(' · ')}).` };
   }
   function judgeJanggu(s, t, c) {
@@ -261,8 +263,8 @@
     }
     if (lv === 2) return { hint: r.hint || r.feedback, correct: false };
     // 3단계: 그 자리의 풀이
-    if (onlySelf || (r.left && r.left.length)) return { hint: `점검 항목 ‘${(r.left || t.selfCheck)[0]}’를 해 보고, 했으면 표시해요.`, correct: false };
-    if (c.mode === 'melody' && t.notes) { const i = r.at ?? 0; const want = t.notes.map(norm); return { hint: i < want.length ? `${i + 1}번째 음은 ‘${want[i]}’예요. 앞의 맞는 음은 두고 그 음부터 다시 쳐요.` : `음은 ${want.length}개예요. 남는 음을 지워요.`, correct: false }; }
+    if (onlySelf || (r.left && r.left.length)) return { hint: `점검 항목 ‘${(r.left || t.selfCheck)[0]}’${josa((r.left || t.selfCheck)[0], '을', '를').slice(String((r.left || t.selfCheck)[0]).length)} 해 보고, 했으면 표시해요.`, correct: false };
+    if (c.mode === 'melody' && t.notes) { const i = r.at ?? 0; const want = t.notes.map(norm); return { hint: i < want.length ? `${i + 1}번째 음은 ‘${want[i]}’${ieyoQ(want[i])}. 앞의 맞는 음은 두고 그 음부터 다시 쳐요.` : `음은 ${want.length}개예요. 남는 음을 지워요.`, correct: false }; }
     if (c.mode === 'melody') return { hint: r.hint || r.feedback, correct: false };
     if (c.mode === 'rhythm' && t.rhythm) { const i = r.at ?? 0; const k = t.rhythm[i]; return { hint: k ? `${i + 1}번째 블록은 ${RHY[k].name}(${beatWord(RHY[k].b)})예요.` : '남는 블록을 빼요.', correct: false }; }
     if (c.mode === 'rhythm') { const m = r.measure ?? 0; return { hint: `${m + 1}번째 마디를 4분음표 ${c.meter}개처럼 ${c.meter}박이 꼭 되는 블록으로 다시 놓아요. 남는 박은 다음 마디에 놓아요.`, correct: false }; }

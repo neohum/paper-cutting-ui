@@ -43,15 +43,22 @@
   add('frog', (st, g, o) => { const c = o.color || 'mint'; pc(st, g, { shape: { type: 'ellipse', rx: 20, ry: 13, cy: 4 }, color: c, depth: 2 }); pc(st, g, { shape: { type: 'circle', r: 6, cx: -9, cy: -9 }, color: c, depth: 1 }); pc(st, g, { shape: { type: 'circle', r: 6, cx: 9, cy: -9 }, color: c, depth: 1 }); dot(g, -9, -9); dot(g, 9, -9); });
   add('chick', (st, g, o) => { pc(st, g, { shape: { type: 'circle', r: 15, cy: 3 }, color: o.color || 'buttercup', depth: 2 }); pc(st, g, { shape: { type: 'circle', r: 9, cx: 8, cy: -12 }, color: o.color || 'buttercup', depth: 1 }); pc(st, g, { shape: { type: 'poly', points: '16,-13 23,-11 16,-8' }, color: 'peach', depth: 0, flat: true }); dot(g, 10, -14, 1.8); });
 
+  const LIFE = new Set(['egg', 'larva', 'pupa', 'butterfly', 'seed', 'sprout', 'tadpole', 'frog', 'chick']);
+  const living = ({ o, cards, slots }) => /한살이|자라|자람|성장/.test(String(o.center || '')) || cards.some((c) => LIFE.has(c.motif)) || slots.some((x) => LIFE.has(x.motif));
+
   K.registerTool('lifecycle', C.define('lifecycle', {
     name: '한살이 회전판',
     mode: 'order',
     label: '한살이 회전판. 둥근 판의 자리에 단계 카드를 화살표 차례대로 놓아요.',
+    // 생물의 한살이(한살이 모티프 카드·가운데 글 '한살이'·'자라')일 때만 '자라면서'를 말한다 — 화석이 되는 과정·물의 순환·땅의 변화는 중립 글
     hints: {
-      order: '가장 처음 모습을 찾아 맨 위 자리에 놓고, 자라면서 모습이 바뀌는 차례대로 화살표를 따라 놓아요.',
+      order: (look) => (living(look) ? '가장 처음 모습을 찾아 맨 위 자리에 놓고, 자라면서 모습이 바뀌는 차례대로 화살표를 따라 놓아요.'
+        : '가장 처음 단계를 찾아 맨 위 자리에 놓고, 화살표를 따라 그다음에 이어지는 단계를 차례대로 놓아요.'),
       match: '자리 이름을 먼저 읽고, 그때의 모습이나 일을 나타내는 카드를 찾아 놓아요.',
-      sort: '카드마다 생김새나 사는 곳, 자라는 방법을 살펴보고 같은 성질의 칸에 넣어요.',
+      sort: (look) => (living(look) ? '카드마다 생김새나 사는 곳, 자라는 방법을 살펴보고 같은 성질의 칸에 넣어요.'
+        : '칸 이름을 먼저 소리 내어 읽고, 카드를 하나씩 보며 그 칸의 성질과 같은지 따져 넣어요.'),
     },
+    prevWord: '단계',
     cardSize() { return { min: 100, max: 140 }; },
     layout(ctx) {
       const { mode, W, cw, ch, slots, o } = ctx; const n = slots.length;

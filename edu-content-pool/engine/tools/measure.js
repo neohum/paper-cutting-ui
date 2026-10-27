@@ -511,7 +511,7 @@
         const a = judgeAsk(t, state(), o); if (a) return a;
         return { correct: true, feedback: '맞아요!' };
       }
-      return {
+      const api = {
         getState: state,
         setState,
         reset() { setState(JSON.parse(JSON.stringify(start))); },
@@ -529,8 +529,14 @@
           const onlyAsk = Object.keys(t).every((k) => k === 'pick' || k === 'num');
           const h1 = onlyAsk ? '묻는 것을 교구에서 직접 재거나 견주어 본 뒤 답해요.' : M.hint1(t);
           if (r.correct) return { hint: h1, correct: true, level: 1 };
-          if (lv === 1 || !r.hint) return { hint: h1, correct: false, level: 1 };
-          return { hint: lv >= 3 && r.h3 ? r.h3 : r.hint, correct: false, level: lv };
+          if (lv === 1) return { hint: h1, correct: false, level: 1 };
+          if (r.hint) return { hint: lv >= 3 && r.h3 ? r.h3 : r.hint, correct: false, level: lv };
+          // 아직 다 하지 않음(답 칸이 빔 등): 2단계 = 남은 일 + 그 모드의 단계 짚기, 3단계 = 풀이 — 대표 오답 상태의 판정 글을 빌려 온다(상태는 되돌린다)
+          const keep = JSON.stringify(state()); let rw = null;
+          try { const w = api.wrongAnswer(t); if (w) { setState(w); rw = judge(t); } } finally { setState(JSON.parse(keep)); }
+          if (lv >= 3 && rw && rw.h3) return { hint: rw.h3, correct: false, level: lv };
+          const step = rw && rw.hint && rw.hint !== r.feedback ? ` ${rw.hint}` : '';
+          return { hint: `${r.feedback || '문제에서 하라는 것을 해 보세요.'}${step}`, correct: false, level: lv };
         },
         wrongAnswer(t) {
           t = t || {};
@@ -554,6 +560,7 @@
           return d;
         },
       };
+      return api;
     },
   });
 })(window.PaperKit);

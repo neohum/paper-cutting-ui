@@ -58,6 +58,20 @@ function unitStandards(idx) {
   return { verified: true, list: same(idx.standards), source: 'units-index' };
 }
 
+// 학생 활동 글: 도입 학생 글, 활동 과제, 문항 글(단계별 글 포함), 출구 질문, 활동지 문항 글, 준비물 — 교사 발문·교구 카드 글·정답 풀이는 뺀다
+export function studentText(l) {
+  const out = [];
+  const add = (v) => { if (typeof v === 'string') out.push(v); };
+  const st = l.stages || [];
+  for (const s of st) {
+    add(s.student);
+    for (const a of s.activities || []) { add(a.task); for (const it of a.items || []) { add(it.prompt); for (const v of Object.values(it.levels || {})) add(v && v.prompt); } }
+    for (const q of s.exitTicket || []) add(q.prompt);
+  }
+  for (const it of [...(l.worksheet?.items || []), ...(l.worksheet?.easy?.items || [])]) { add(it.prompt); add(it.instruction); }
+  for (const m of [].concat(l.materials || [], l.prep || [])) add(typeof m === 'string' ? m : m && (m.name || m.text));
+  return out.join('\n');
+}
 const HAZARD = /(^|[^편])불(을|이|꽃|에|씨)|촛불|알코올램프|가열|성냥|레이저|돋보기|시험관|약품|용액|전지|전구|회로|칼|가위|송곳|바늘|유리|비커|뜨거운|끓는|조리|공구/;
 const EMPTY_TEACHER = /지도한다|지도하기|지도함|안내한다\.?$|설명한다\.?$|확인한다\.?$/;
 
@@ -179,7 +193,10 @@ export function staticUnit(id, unit) {
     if (intro && norm(intro.student).length > 200) F('intro', `학생 글 ${norm(intro.student).length}자 > 200자`);
     // 안전: 체육은 언제나, 과학·실과는 위험한 도구·불·약품이 나오면
     const text = JSON.stringify(l);
-    if (!(l.safety || []).length && (l.subject === '체육' || (['과학', '실과'].includes(l.subject) && HAZARD.test(text)))) F('safety', `${l.subject} 차시${l.subject === '체육' ? '' : '(실험·도구)'}에 safety[] 없음`);
+    // 위험한 도구·불·약품은 학생이 실제로 하는 활동 글(도입 학생 글·과제·문항·출구·활동지 글·준비물)에 나올 때만 센다 —
+    // 교사 발문의 예시('돋보기로 해를 보면…')나 분류할 카드 글('옛날 칼')은 safety[]를 요구하지 않는다
+    const hz = HAZARD.exec(studentText(l));
+    if (!(l.safety || []).length && (l.subject === '체육' || (['과학', '실과'].includes(l.subject) && hz))) F('safety', `${l.subject} 차시${l.subject === '체육' ? '' : `(실험·도구 — 학생 활동 글의 '${hz[0]}')`}에 safety[] 없음`);
     if (PII.test(text)) F('차시', '전화번호·주민번호·전자우편 모양의 값이 있음(학생 개인정보 금지)');
   }
 }
@@ -209,12 +226,15 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
             out.items.push(row);
             try {
               if (it0.free) {
+                // 말하기만 하는 짝 활동(talk: true)은 교구를 움직이지 않아도 '다 했어요'가 된다(player.js) — 조각이 없어도 된다
+                if (it0.talk) continue;
                 open(x, y, 'base');
                 const box = document.querySelector('#tool');
-                if (!box.querySelector('[tabindex="0"], button, input, select, textarea, [role="button"]')) row.problems.push('짝 활동 교구에 키보드로 움직일 조각이 없음');
+                if (!box.querySelector('[tabindex="0"], button, input, select, textarea, [role="button"]')) row.problems.push('짝 활동 교구에 키보드로 움직일 조각이 없음 — 교구를 움직이지 않는 말하기 활동이면 talk: true, 아니면 그 문항에 toolOptions(카드·칸 등)를 준다');
                 continue;
               }
-              const levels = ['base', ...Object.keys(it0.levels || {}).filter((lv) => lv !== 'base' && it0.levels[lv].target != null)];
+              // 단계마다 판정: 문항 target을 바꾼 단계뿐 아니라 toolOptions·state만 바꾼 단계(함정 카드를 더한 도전 등)도 그 판으로 풀리는지 본다
+              const levels = ['base', ...Object.keys(it0.levels || {}).filter((lv) => lv !== 'base' && ['target', 'toolOptions', 'state'].some((k) => it0.levels[lv][k] != null))];
               for (const lv of levels) {
                 const it = Fl.itemAt(it0, lv); const tag = lv === 'base' ? '' : ` (levels.${lv})`;
                 let T = open(x, y, lv);
@@ -224,21 +244,26 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
                   const h = Fl.askHint(T, it.target, { level: 1, attempts: 0, hints: it.hints });
                   row.hint1 = { text: h.hint, via: h.via, from: h.from || '' }; row.target = it.target;
                   T = open(x, y, lv);
+                  // 스스로 점검(selfCheck)·아무 크기나 되는 척도(level: 'any')는 틀린 답이 없다 — wrongAnswer가 null이어도 된다(TOOLS.md)
+                  const selfAssess = it.target && typeof it.target === 'object' && (it.target.selfCheck != null || it.target.level === 'any');
                   if (typeof T.wrongAnswer === 'function') {
                     const w = T.wrongAnswer(it.target);
-                    if (w == null) row.problems.push('wrongAnswer(target)가 상태를 돌려주지 않음');
+                    if (w == null && selfAssess) row.notes = (row.notes || []).concat('스스로 점검 문항 — 틀린 답 검사를 건너뜀');
+                    else if (w == null) row.problems.push('wrongAnswer(target)가 상태를 돌려주지 않음');
                     else {
                       T.setState(JSON.parse(JSON.stringify(w)));
                       const c = T.check(it.target, { forHint: true }) || {};
                       if (c.correct) row.problems.push('wrongAnswer 상태가 정답으로 판정됨');
                       else if (c.incomplete) row.problems.push('wrongAnswer 상태가 incomplete(아직 다 안 함)로 판정됨 — 다 했지만 틀린 상태여야 함');
                     }
-                  } else {
+                  } else if (!selfAssess) {
                     const w = Fl.findWrong(T, it.target, { seed: 7 });
                     if (!w) row.problems.push('다 했지만 틀린 상태를 만들 수 없음 — 교구에 wrongAnswer(target) 필요');
                   }
                 }
                 T = open(x, y, lv);
+                // 그 단계의 팔레트·카드·보기로 목표를 만들 수 있는가(교구가 알려 줄 수 있을 때 — solve()는 팔레트를 거치지 않을 수 있다)
+                if (typeof T.achievable === 'function') { const why = T.achievable(it.target); if (why) row.problems.push(`${why}${tag}`); }
                 if (typeof T.solve !== 'function') { row.problems.push('교구에 solve() 없음'); break; }
                 T.solve(it.target);
                 const c = T.check(it.target) || {};
@@ -275,7 +300,7 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
         out.overflow = document.documentElement.scrollWidth - innerWidth;
         return out;
       });
-      for (const row of [...r.items, ...r.exits]) for (const p of row.problems) F(row.key, p);
+      for (const row of [...r.items, ...r.exits]) { for (const p of row.problems) F(row.key, p); for (const m of row.notes || []) notes.push(`${lid} ${row.key}: ${m}`); }
       for (const row of r.items) {
         if (!row.hint1) continue;
         const leak = targetLeak(row.hint1.text, row.target);

@@ -277,6 +277,10 @@
       if (mode === 'sort') {
         const cards = (Array.isArray(o.cards) ? o.cards : []).filter((c) => c && c.id != null).map((c) => Object.assign({}, c, { id: String(c.id) }));
         const bins = Array.isArray(o.bins) && o.bins.length ? o.bins.map(String) : ['가', '나'];
+        // 칸 기준이 물질의 성질(단단함·휘어짐·뜸·녹음·자석…)일 때만 '물질의 성질' 힌트를 쓴다 — 알갱이 크기·색으로 나누는 문항(암석 분류)은 중립 글
+        const propBins = !(Array.isArray(o.bins) && o.bins.length) || bins.some((b) => /단단|무르|휘|구부|뜨|가라앉|녹|자석|투명|고체|액체|기체|물질|성질|금속|플라스틱|나무|유리|고무|종이|천|탄성|잘 늘/.test(b));
+        const sizeBins = bins.some((b) => /알갱이|크기|굵|색/.test(b));
+        const matterWords = propBins && !sizeBins;
         const wrap = h('div', { class: `${P}-cls`, role: 'group', 'aria-label': '물질 카드 분류' }, box);
         const tray = h('div', { class: `${P}-tray` }, wrap);
         const binsEl = h('div', { class: `${P}-bins` }, wrap);
@@ -317,11 +321,11 @@
           const bad = ids.filter((id) => placedMap[id] !== t.bins[id]);
           if (!bad.length) return null;
           const c = cards.find((x) => x.id === bad[0]);
-          return { correct: false, feedback: `잘못 들어간 카드가 ${bad.length}장 있어요. 칸의 기준과 카드의 성질을 하나씩 견주어 봐요.`, hint: '물체의 이름이 아니라 그 물체를 이루는 물질의 성질(단단함, 휘어짐, 물에 뜸 등)을 봐요.', h3: `'${c ? c.name : bad[0]}' 카드는 ${bins[t.bins[bad[0]]]} 칸이에요.` };
+          return { correct: false, feedback: `잘못 들어간 카드가 ${bad.length}장 있어요. 칸의 기준과 카드의 성질을 하나씩 견주어 봐요.`, hint: matterWords ? '물체의 이름이 아니라 그 물체를 이루는 물질의 성질(단단함, 휘어짐, 물에 뜸 등)을 봐요.' : `‘${(c && (c.name || c.id)) || bad[0]}’ 카드의 특징을 칸 이름의 기준과 다시 견주어 봐요.`, h3: `'${c ? c.name : bad[0]}' 카드는 ${bins[t.bins[bad[0]]]} 칸이에요.` };
         };
         M.solve = (t) => { if (t.bins) M.set({ placed: Object.assign({}, placedMap, t.bins) }); };
         M.wrong = (t) => { if (!t.bins || bins.length < 2) return null; const ids = Object.keys(t.bins); if (!ids.length) return null; const p = Object.assign({}, placedMap, t.bins); p[ids[0]] = (t.bins[ids[0]] + 1) % bins.length; return { placed: p }; };
-        M.hint1 = () => '칸의 이름이 말하는 성질 하나만 보고 나누어요. 크기나 색이 아니라 그 성질이 있는지를 봐요.';
+        M.hint1 = () => (matterWords ? '칸의 이름이 말하는 성질 하나만 보고 나누어요. 크기나 색이 아니라 그 성질이 있는지를 봐요.' : '칸 이름이 말하는 기준을 먼저 읽고, 카드마다 그 기준에 맞는지 하나씩 견주어 나누어요.');
         M.dist = (a, b) => Object.keys(Object.assign({}, a.placed, b.placed)).filter((k) => (a.placed || {})[k] !== (b.placed || {})[k]).length;
       }
 

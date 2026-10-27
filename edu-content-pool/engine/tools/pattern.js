@@ -69,6 +69,12 @@
     return null;
   }
   const keyOf = (p) => { const q = norm(p); if (!q) return ''; return ['s', 'c', 'n', 't', 'k', 'r'].map((k) => (q[k] == null ? '' : q[k])).join('|'); };
+  // 받침에 맞는 조사(따옴표·괄호·수 뒤도: 'ㄱ'은, 손뼉이, 3이, 돌림)이) — 마지막 한글 글자나 숫자를 본다
+  function jo(w, a, b) {
+    const s = String(w).replace(/[’'"”)\]\s°]+$/, ''); const ch = s.charCodeAt(s.length - 1);
+    if (ch >= 0xac00 && ch <= 0xd7a3) return `${w}${(ch - 0xac00) % 28 ? a : b}`;
+    return `${w}${/[013678]$/.test(s) ? a : b}`;
+  }
   function say(p) {
     const q = norm(p); if (!q) return '빈칸';
     if (q.t != null) return `'${q.t}'`;
@@ -377,7 +383,7 @@
         const full = fullSeq(t);
         const nr = numRule(full); if (nr) return nr;
         const p = periodOf(full);
-        if (p >= 2) return `${full.slice(0, p).map(say).join(', ')} 이(가) 차례로 되풀이돼요.`.replace(' 이(가)', '가');
+        if (p >= 2) return `${jo(full.slice(0, p).map(say).join(', '), '이', '가')} 차례로 되풀이돼요.`;
         return '앞의 조각들과 견주어 무엇이 바뀌는지 찾아요.';
       }
 
@@ -415,7 +421,7 @@
           if (t.rule === 'core') {
             const core = (t.core || []).map(norm);
             const bad = arr.findIndex((p, i) => keyOf(p) !== keyOf(core[i % core.length]));
-            if (bad >= 0) return { correct: false, feedback: `${bad + 1}번째 칸이 정한 묶음과 달라요.`, hint: '정한 묶음을 처음부터 끝까지 차례로 되풀이해요.', h3: `${core.map(say).join(', ')}를 차례로 되풀이해요.` };
+            if (bad >= 0) return { correct: false, feedback: `${bad + 1}번째 칸이 정한 묶음과 달라요.`, hint: '정한 묶음을 처음부터 끝까지 차례로 되풀이해요.', h3: `${jo(core.map(say).join(', '), '을', '를')} 차례로 되풀이해요.` };
             return { correct: true, feedback: '맞아요! 정한 묶음을 되풀이했어요.' };
           }
           const p = periodOf(arr); const minR = t.minRepeats || 2;
@@ -462,7 +468,19 @@
           else if (mode === 'make') {
             if (t.rule === 'add' || t.rule === 'mul') { const a = o.start != null ? o.start : 1; const d = t.step != null ? t.step : 2; setState({ seq: made.map((_, i) => (t.rule === 'add' ? a + i * d : a * d ** i)) }); }
             else if (t.rule === 'core') setState({ seq: made.map((_, i) => palIndex((t.core || [])[i % (t.core || []).length])) });
-            else { const p = Math.min(palette.length, t.period || Math.max(2, Math.min(3, t.uses || 2))); setState({ seq: made.map((_, i) => i % p) }); }
+            else {
+              const want = t.period || Math.max(2, Math.min(3, t.uses || 2)); const L = palette.length;
+              if (L >= want || !t.period) { const p = Math.min(L, want); setState({ seq: made.map((_, i) => i % p) }); }
+              else {
+                // 조각 수(L)가 묶음 길이(period)보다 적으면 같은 조각을 묶음 안에 되풀이해 그 길이의 묶음을 만든다(조각 3개로 4박 묶음: 0 1 2 0)
+                const N = Math.max(made.length, want * 2);
+                const minP = (c) => { const sq = Array.from({ length: N }, (_, i) => c[i % want]); for (let q = 1; q < want; q++) if (sq.every((v, i) => v === sq[i % q])) return q; return want; };
+                const cands = [Array.from({ length: want }, (_, i) => i % L), Array.from({ length: want }, (_, i) => Math.floor((i * L) / want)), Array.from({ length: want }, (_, i) => (i === want - 1 ? Math.min(1, L - 1) : 0))];
+                const uses = (c) => new Set(c).size;
+                const core = cands.find((c) => minP(c) === want && (!t.uses || uses(c) === t.uses)) || cands.find((c) => minP(c) === want) || cands[0];
+                setState({ seq: made.map((_, i) => core[i % want]) });
+              }
+            }
           } else if (mode === 'odd') setState({ pick: t.odd });
           else setState({ pick: t.pick });
         },

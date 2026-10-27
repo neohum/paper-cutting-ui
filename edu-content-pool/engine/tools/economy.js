@@ -194,7 +194,7 @@
     // 카드 판 교구의 목표를 겉모양 목표에서 카드 판 목표로 바꿔 넘긴다(예: { spell: 'cat' } → { fill: … })
     function mapTargets(inst, map) {
       const out = Object.assign({}, inst);
-      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'demo', 'setTarget']) {
+      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'achievable', 'demo', 'setTarget']) {
         if (typeof inst[k] === 'function') out[k] = (t, ...rest) => inst[k](t == null ? t : map(t), ...rest);
       }
       return out;

@@ -55,7 +55,9 @@
  *                                              null이면 그 모드의 기본 배치(K.cards.layouts[mode]). 카드 칸은 그 아래에 판이 붙인다.
  *     decorate(ctx, layer)                     칸 아래 장식(축·화살표·가지 줄·가운데 주제). layer = SVG g
  *     drawSlot(ctx, slot, g, i) → true|false   true면 기본 칸 그리기를 건너뜀(직접 그림)
- *     hints: { 모드: '1단계 글' }               모드별 1단계 힌트(정답 값 없이)
+ *     hints: { 모드: '1단계 글' | (look) → 글 }  모드별 1단계 힌트(정답 값 없이). 함수면 look = { o, mode, cards, slots, numeric }를 보고 고른다
+ *                                              (예: 띠 양 끝 말이 시간이 아니면 중립 글). 차시 hints·hint1이 있으면 그쪽이 먼저다.
+ *     prevWord: '일' | '단계' | (look) → 글     order 2단계 힌트 '바로 앞 ○ 다음에 올 수 있을까요?'의 ○(기본 '카드')
  *     controls(ctx, api)                       무대 아래 HTML 단추(선택). api = { box, flash(i) }
  *   }
  *   ctx = { mode, cards, slots, o, kit, P, W, cw, ch, print, st, util }. util = { el, textBlock, fitText, wrapLines, PAD, GAP, arrow }.
@@ -178,7 +180,13 @@
     let target = null;
     const slotIdx = (key) => slots.findIndex((s) => s.id === String(key));
     const occupants = (i) => cards.filter((c) => at.get(c.id) === i);
-    const nameOf = (c) => { const n = String(c.name); return n.length > 16 ? `${n.slice(0, 15)}…` : n; };
+    // 힌트·피드백에서 카드를 부르는 이름 — 영어 덩이 문장('Let's play basketball')이 잘려 헷갈리지 않게 28자까지 그대로
+    const nameOf = (c) => { const n = String(c.name); return n.length > 28 ? `${n.slice(0, 27)}…` : n; };
+    // 수·기호 카드(‘5분’ ‘3’ ‘1/2’)만 있으면 '낱말'이 아니라 '카드'라고 부른다
+    const numeric = cards.length > 0 && cards.every((c) => /\d/.test(String(c.name)) || !/[가-힣A-Za-z]/.test(String(c.name)));
+    // 겉모양 spec.hints[모드]·spec.prevWord는 글 또는 함수(look) — look = { o, mode, cards, slots, numeric }
+    const look = { o, mode, cards, slots, numeric };
+    const specText = (v) => (typeof v === 'function' ? v(look) : v);
     const slotName = (i) => {
       const s = slots[i];
       if (mode === 'pick') return s.label;
@@ -275,7 +283,7 @@
         fb = w.length === 2 && w[1] - w[0] === 1 ? '이웃한 두 카드의 순서가 서로 바뀌었어요.' : `${w.length}장의 순서가 맞지 않아요. 흔들리는 카드를 다시 보세요.`;
       } else if (mode === 'sort') fb = `${v.wrong.length + v.left.length}장이 알맞은 칸에 있지 않아요. 흔들리는 카드를 다시 보세요.`;
       else if (mode === 'match') fb = `짝이 맞지 않는 곳이 ${v.wrong.length}군데 있어요. 흔들리는 카드를 다시 보세요.`;
-      else if (mode === 'fill') fb = `알맞지 않은 낱말이 ${v.wrong.length}군데 있어요. 문장을 처음부터 소리 내어 읽어 보세요.`;
+      else if (mode === 'fill') fb = numeric ? `알맞지 않은 카드가 ${v.wrong.length}군데 있어요. 빈칸마다 앞뒤 글과 다시 견주어 보세요.` : `알맞지 않은 낱말이 ${v.wrong.length}군데 있어요. 문장을 처음부터 소리 내어 읽어 보세요.`;
       else fb = v.wrong.length && v.missing.length ? '조건에 맞지 않는 카드가 섞였고, 맞는 카드도 더 있어요.' : v.wrong.length ? `조건에 맞지 않는 카드를 ${v.wrong.length}장 골랐어요.` : `조건에 맞는 카드가 ${v.missing.length}장 더 있어요.`;
       return { correct: false, feedback: fb, hint: hintAt(t, 2, 1), v };
     }
@@ -289,7 +297,7 @@
     function hintAt(t, level, attempts) {
       const v = verdict(t);
       const lv = Math.max(1, Math.min(3, Number.isInteger(level) ? level : 1, attempts == null ? 3 : attempts >= 2 ? 3 : attempts >= 1 ? 2 : 1));
-      if (lv <= 1) return o.hint1 || (spec.hints && spec.hints[mode]) || HINT1[mode];
+      if (lv <= 1) return o.hint1 || specText(spec.hints && spec.hints[mode]) || HINT1[mode];
       const e = v.e;
       if (v.e.kind === 'card') {
         const bad = v.wrong[0] || v.left[0] || v.missing[0];
@@ -307,7 +315,9 @@
       if (i == null) return HINT1[mode];
       if (lv === 2) {
         if (!v.occ[i]) return `${slotName(i)}가 비어 있어요. 앞뒤를 보고 들어갈 카드를 찾아요.`.replace('칸가', '칸이');
-        return mode === 'order' ? `${slotName(i)}의 ‘${nameOf(v.occ[i])}’ 카드를 다시 보세요. 바로 앞의 일 다음에 올 수 있을까요?` : `${slotName(i)}의 ‘${nameOf(v.occ[i])}’ 카드가 정말 어울리는지 다시 읽어 봐요.`;
+        // 바로 앞 '일'(이야기·사건·조리 차례)인지 '단계'·'카드'인지는 겉모양이 정한다(spec.prevWord, 기본 '카드')
+        const pw = specText(spec.prevWord) || '카드';
+        return mode === 'order' ? `${slotName(i)}의 ‘${nameOf(v.occ[i])}’ 카드를 다시 보세요. ${pw === '일' ? '바로 앞의 일' : `바로 앞 ${pw}`} 다음에 올 수 있을까요?` : `${slotName(i)}의 ‘${nameOf(v.occ[i])}’ 카드가 정말 어울리는지 다시 읽어 봐요.`;
       }
       const n = slots.length; const w = e.want[(i - (v.rot || 0) + n) % n];
       const c = byId.get([...w][0]);
@@ -359,8 +369,19 @@
       }
       return list;
     }
+    // 이 판(카드·칸)으로 목표를 만들 수 있는가 — 없는 카드·칸 이름을 쓴 목표는 이유 글, 만들 수 있으면 null(검사기가 단계별 보기마다 부른다)
+    function achievable(t) {
+      t = t || target || {};
+      const card = (id) => byId.has(String(id)); const slot = (id) => slotIdx(id) >= 0;
+      const miss = [];
+      if (mode === 'pick') arr(t.pick).forEach((id) => { if (!card(id)) miss.push(`카드 ‘${id}’`); });
+      else if (mode === 'sort') for (const [k, v] of Object.entries(t.sort || {})) { if (slot(k)) arr(v).forEach((id) => { if (!card(id)) miss.push(`카드 ‘${id}’`); }); else if (card(k)) arr(v).forEach((b) => { if (!slot(b)) miss.push(`칸 ‘${b}’`); }); else miss.push(`칸 ‘${k}’`); }
+      else if (mode === 'order') { const seq = arr(t.order).flat(); seq.forEach((id) => { if (!card(id)) miss.push(`카드 ‘${id}’`); }); if (seq.length > slots.length) miss.push(`자리 ${seq.length}개(지금 ${slots.length}개)`); }
+      else for (const [k, v] of Object.entries(t.match || t.fill || t.pairs || {})) { if (!slot(k)) miss.push(`칸 ‘${k}’`); if (!arr(v).some(card)) miss.push(`카드 ‘${arr(v).join('|')}’`); }
+      return miss.length ? `이 단계의 카드·칸에 목표의 ${[...new Set(miss)].slice(0, 3).join(', ')}이(가) 없음` : null;
+    }
     return {
-      mode, cards, slots, byId, at, nameOf, slotName, place, getState, setState, expect, verdict, judge, hintAt, solution, apply, wrongStates, HINT1,
+      mode, cards, slots, byId, at, nameOf, slotName, place, getState, setState, expect, verdict, judge, hintAt, solution, apply, wrongStates, HINT1, achievable,
       setTarget(t) { target = t || null; }, get target() { return target; },
       distance(a, b) { const x = (a && a.at) || {}; const y = (b && b.at) || {}; let d = 0; for (const c of cards) if ((x[c.id] ?? null) !== (y[c.id] ?? null)) d++; return d; },
       wrongAnswer(t) { const cur = JSON.stringify(getState()); const list = wrongStates(t); return list.find((s) => JSON.stringify(s) !== cur) || list[0] || null; },
@@ -517,6 +538,8 @@
           const pw = Math.min(sl.w - 16, Math.max(96, textWidth(sl.label, 18) + 28));
           kit.piece(st, g, { shape: { type: 'rect', x: sl.x + sl.w / 2 - pw / 2, y: sl.y + 7, w: pw, h: 32, rx: 16 }, color: tint, depth: 1 });
           textBlock(g, sl.label, { x: sl.x + sl.w / 2, y: sl.y + 23, w: pw - 14, h: 30, fs: 18, minFs: 13, maxLines: 2, fill: P[tint].dark });
+          // 칸 sub 글: 겉모양이 칸 머리를 높여 자리를 마련했을 때만(top ≥ 60) 이름 아래 한 줄로
+          if (sl.sub && sl.top >= 60) textBlock(g, sl.sub, { x: sl.x + sl.w / 2, y: sl.y + 50, w: sl.w - 16, h: 20, fs: 14, minFs: 12, maxLines: 1, fill: P[tint].dark });
         }
       }
       if (sl.badge) {
@@ -796,6 +819,7 @@
         return { hint: M.hintAt(tt, lv, att), correct: false };
       },
       wrongAnswer: (t) => M.wrongAnswer(t || M.target),
+      achievable: (t) => M.achievable(t || M.target),
       distance: M.distance,
       // 교사 시연: 카드가 한 장씩 제자리로 간다
       async demo(t) {

@@ -3,9 +3,12 @@
  * 옵션: independent(쉬움: 짧은바늘이 긴바늘을 따라가지 않음), minuteStep(분 스냅, 기본 1), hourOnly(정각만: 긴바늘 고정 0분),
  *       showDigital(디지털 시각 — 켤 때만 보임; 기본 단계에서 켜면 바늘을 안 읽고 글자만 맞춘다),
  *       revealAfterCheck(디지털 시각·시각 안내를 '확인'을 누른 뒤에만 보이고, 바늘을 다시 움직이면 감춘다),
- *       showMinuteMarks, showMinuteNumbers(바깥 5·10·15…), hourZone(쉬움: 짧은바늘이 있어야 할 두 숫자 사이를 연하게 칠함),
- *       readOnly + choices(['7시 50분', …]: 읽기 문항), hideHands(인쇄용 빈 시계판), print
- * 상태: { h: 1~12, m: 0~59 } (readOnly이면 + pick: 고른 보기 번호|null)
+ *       showMinuteMarks(작은 눈금: 기본 = 보통 굵기로 보임, true = 더 길고 진하게(1분 세기 쉬움 단계), false = 숨김(도전)),
+ *       showMinuteNumbers(바깥 5·10·15…), hourZone(쉬움: 짧은바늘이 있어야 할 두 숫자 사이를 연하게 칠함),
+ *       freeHour(짧은바늘을 분과 상관없이 아무 자리에나 놓을 수 있음 — 기본은 분에 맞춰 저절로 옮겨 감. 켜면 짧은바늘 자리도 판정한다:
+ *         '9시 40분인데 짧은바늘이 9에 똑바로' 같은 오개념을 만들기 문항·읽기 보기 그림으로 낼 수 있다. 상태에 hourAt(짧은바늘이 가리키는 수 0~12)가 붙는다),
+ *       readOnly + choices(['7시 50분', …]: 읽기 문항) + ask(보기 위 머리말, 기본 '몇 시 몇 분일까요?'), hideHands(인쇄용 빈 시계판), print
+ * 상태: { h: 1~12, m: 0~59 } (readOnly이면 + pick: 고른 보기 번호|null, freeHour이면 + hourAt: 0~12 — setState에 hourAt이 없으면 분에 맞춘 자리)
  * check: 나타내기 {h, m} / 읽기 {pick, h?, m?} — 읽기 오답은 보기 글자를 시각으로 풀어 어떤 오개념인지 말해 준다.
  */
 (function (K) {
@@ -44,8 +47,9 @@
       for (let i = 0; i < 60; i++) {
         const a = (i * 6 * Math.PI) / 180; const big = i % 5 === 0;
         if (!big && o.showMinuteMarks === false) continue;
-        const r1 = big ? 108 : 114; const r2 = 120;
-        kit.el('line', { x1: cx + Math.sin(a) * r1, y1: cy - Math.cos(a) * r1, x2: cx + Math.sin(a) * r2, y2: cy - Math.cos(a) * r2, stroke: '#544B42', 'stroke-width': big ? 3 : 1.2, 'stroke-linecap': 'round', class: 'pk-text' }, L);
+        const strong = o.showMinuteMarks === true; // 켜면 작은 눈금을 길고 진하게(1분 눈금 세기를 돕는 단계)
+        const r1 = big ? 108 : strong ? 111 : 114; const r2 = 120;
+        kit.el('line', { x1: cx + Math.sin(a) * r1, y1: cy - Math.cos(a) * r1, x2: cx + Math.sin(a) * r2, y2: cy - Math.cos(a) * r2, stroke: strong && !big ? '#3D352E' : '#544B42', 'stroke-width': big ? 3 : strong ? 2 : 1.2, 'stroke-linecap': 'round', class: 'pk-text' }, L);
       }
       if (o.showMinuteNumbers) {
         for (let n = 1; n <= 12; n++) {
@@ -81,7 +85,16 @@
       const step = o.hourOnly ? 60 : o.minuteStep || 1;
       let total = 0; // 0시 0분부터 흐른 분
       let revealed = false; let target = null; let pick = null;
-      const state = () => { const t = ((Math.round(total) % 720) + 720) % 720; const h = Math.floor(t / 60); const s = { h: h === 0 ? 12 : h, m: t % 60 }; if (readOnly) s.pick = pick; return s; };
+      // freeHour: 짧은바늘 각도를 따로 둔다(분이 움직여도 따라가지 않고, 시는 짧은바늘이 지나온 숫자)
+      const freeHour = !!o.freeHour && !o.hourOnly; let hourAng = 0;
+      const hourAtNow = () => Math.round(((((hourAng % 360) + 360) % 360) / 30) * 100) / 100 % 12;
+      const state = () => {
+        const t = ((Math.round(total) % 720) + 720) % 720; let h = Math.floor(t / 60);
+        if (freeHour) h = Math.floor(hourAtNow() + 1e-6) % 12;
+        const s = { h: h === 0 ? 12 : h, m: (((Math.round(total) % 60) + 60) % 60) };
+        if (freeHour) s.hourAt = hourAtNow();
+        if (readOnly) s.pick = pick; return s;
+      };
       const fmtOf = (s) => `${s.h}시${s.m ? ` ${s.m}분` : ''}`;
       const fmt = () => fmtOf(state());
       const showTime = () => o.showDigital === true && !o.print && (!o.revealAfterCheck || revealed);
@@ -101,7 +114,7 @@
         const a0 = ((t.h % 12) * 30 * Math.PI) / 180; const a1 = (((t.h % 12) + 1) * 30 * Math.PI) / 180; const r = 76;
         kit.el('path', { d: `M${cx} ${cy} L${cx + Math.sin(a0) * r} ${cy - Math.cos(a0) * r} A${r} ${r} 0 0 1 ${cx + Math.sin(a1) * r} ${cy - Math.cos(a1) * r} Z`, fill: kit.palette.lavender.base, 'fill-opacity': 0.35, stroke: kit.palette.lavender.dark, 'stroke-dasharray': '4 4', 'pointer-events': 'none' }, zoneL);
       };
-      const paint = () => { minR.set(total * 6); hourR.set(total * 0.5); paintDigital(); };
+      const paint = () => { minR.set(total * 6); hourR.set(freeHour ? hourAng : total * 0.5); paintDigital(); };
       const changed = () => { revealed = false; paintDigital(); };
       const announceMove = () => kit.announce(showTime() ? fmt() : `${pointText(total * 6)}. ${pointText(total * 0.5, true)}.`);
       let lock = false;
@@ -109,7 +122,7 @@
         center: [cx, cy], step: step * 6, value: 0, label: '긴바늘',
         enabled: () => !o.hourOnly && !readOnly,
         valueText: (v) => pointText(v),
-        onChange(v) { if (lock) return; lock = true; total = v / 6; hourR.set(total * 0.5); changed(); lock = false; },
+        onChange(v) { if (lock) return; lock = true; total = v / 6; if (!freeHour) hourR.set(total * 0.5); changed(); lock = false; },
         onStart() { kit.tick(); }, onEnd() { kit.recorder.log('clock', state()); announceMove(); },
       });
       const hourR = kit.rotate(st, hourG, {
@@ -118,10 +131,11 @@
         valueText: (v) => pointText(v, true),
         onChange(v) {
           if (lock) return; lock = true;
+          if (freeHour) { hourAng = v; changed(); lock = false; return; }
           // independent(쉬움): 짧은바늘을 돌려도 맞춰 둔 긴바늘은 그대로 — '긴바늘 먼저, 짧은바늘 나중' 순서로 풀 수 있게
           if (o.independent) { const m = ((Math.round(total) % 60) + 60) % 60; const h = Math.round((v - m * 0.5) / 30); total = h * 60 + m; minR.set(total * 6); changed(); lock = false; return; }
           total = v * 2; minR.set(total * 6); changed(); lock = false; },
-        onStart() { kit.tick(); }, onEnd() { if (o.independent) { lock = true; hourR.set(total * 0.5); lock = false; } kit.recorder.log('clock', state()); announceMove(); },
+        onStart() { kit.tick(); }, onEnd() { if (o.independent && !freeHour) { lock = true; hourR.set(total * 0.5); lock = false; } kit.recorder.log('clock', state()); announceMove(); },
       });
       if (readOnly) {
         // 읽기 문항: 바늘은 Tab으로 잡히지 않고, 아래 보기 단추로 고른다
@@ -137,7 +151,7 @@
         bar.className = 'ck-read';
         bar.setAttribute('role', 'group'); bar.setAttribute('aria-label', '몇 시 몇 분인지 고르기');
         bar.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-top:8px';
-        bar.innerHTML = `<span style="font-weight:700;width:100%;text-align:center">몇 시 몇 분일까요?</span>${choices.map((c, i) => `<button type="button" class="pl-btn ck-pick" data-i="${i}" tabindex="0" aria-pressed="false" style="min-width:104px;min-height:48px;font-size:19px">${c.replace(/[&<>]/g, '')}</button>`).join('')}`;
+        bar.innerHTML = `<span style="font-weight:700;width:100%;text-align:center">${String(o.ask || '몇 시 몇 분일까요?').replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]))}</span>${choices.map((c, i) => `<button type="button" class="pl-btn ck-pick" data-i="${i}" tabindex="0" aria-pressed="false" style="min-width:104px;min-height:48px;font-size:19px">${c.replace(/[&<>]/g, '')}</button>`).join('')}`;
         box.appendChild(bar);
         bar.addEventListener('click', (e) => {
           const b = e.target.closest('button[data-i]'); if (!b) return;
@@ -155,7 +169,7 @@
         });
       }
 
-      const setState = (s) => { total = ((s.h % 12) * 60) + (s.m || 0); if (readOnly) pick = s.pick == null ? null : s.pick; lock = true; paint(); lock = false; revealed = false; paintDigital(); paintZone(); paintPick(); };
+      const setState = (s) => { total = ((s.h % 12) * 60) + (s.m || 0); hourAng = (Number.isFinite(s.hourAt) ? s.hourAt : (s.h % 12) + (s.m || 0) / 60) * 30; if (readOnly) pick = s.pick == null ? null : s.pick; lock = true; paint(); lock = false; revealed = false; paintDigital(); paintZone(); paintPick(); };
       setState(o.start || { h: 12, m: 0 });
 
       // ---- 피드백 ----
@@ -252,6 +266,7 @@
           }
           const tm = t.m || 0; const next = (t.h % 12) + 1; const H = (x) => ((x - 1 + 12) % 12) + 1;
           const list = [];
+          if (freeHour && tm >= 10) list.push({ h: t.h, m: tm, hourAt: t.h % 12 }); // 짧은바늘을 시 숫자에 똑바로(분만큼 가지 않음)
           if (tm >= 30) list.push({ h: next, m: tm }); // 다음 숫자에 가까우니 시를 한 칸 넘겨 놓기
           if (tm > 0 && tm * 5 < 60) list.push({ h: t.h, m: tm * 5 }); // 9시 5분 → 긴바늘을 숫자 5에
           if (tm > 0 && tm % 10 === 0) list.push({ h: t.h, m: tm / 2 }); // 40분 → 긴바늘을 숫자 4에
@@ -262,8 +277,8 @@
           }
           list.push({ h: next, m: tm }, { h: H(t.h - 1), m: tm });
           if (!o.hourOnly) list.push({ h: t.h, m: (tm + step) % 60 });
-          const cur = state(); const ok = list.filter((x) => !(x.h === t.h && x.m === tm));
-          return ok.find((x) => x.h !== cur.h || x.m !== cur.m) || ok[0] || null;
+          const cur = state(); const ok = list.filter((x) => !(x.h === t.h && x.m === tm) || x.hourAt != null);
+          return ok.find((x) => x.h !== cur.h || x.m !== cur.m || (x.hourAt != null && x.hourAt !== cur.hourAt)) || ok[0] || null;
         },
         // 교사 시연용: 목표 시각까지 바늘이 스스로 돌아간다
         async demo(t) { const from = total; const to = (t.h % 12) * 60 + (t.m || 0); await kit.tween(1400, (p) => { total = from + (to - from) * p; lock = true; paint(); lock = false; }); },
@@ -306,6 +321,15 @@
           }
           const s = state(); const tm = t.m || 0;
           const ok = s.h === t.h && s.m === tm;
+          if (ok && freeHour) {
+            // 짧은바늘 자리: 분이 지난 만큼 다음 숫자 쪽으로(9시 40분 → 9와 10 사이, 10에 가깝게)
+            const want = (t.h % 12) + tm / 60; const next = (t.h % 12) + 1;
+            if (circ(s.hourAt, want) > 0.2) {
+              const straight = tm >= 10 && circ(s.hourAt, t.h % 12) < 0.1;
+              return { correct: false, feedback: straight ? `짧은바늘이 ${t.h}${josa(t.h, '을', '를')} 똑바로 가리켜요. ${tm}분이 지났으니 짧은바늘은 ${t.h}${josa(t.h, '과', '와')} ${next} 사이에서 ${next} 쪽으로 조금 가 있어야 해요.`
+                : `시와 분은 맞지만 짧은바늘 자리가 맞지 않아요. 분이 지난 만큼만 ${next} 쪽으로 옮겨요.`, hint: h2() };
+            }
+          }
           if (ok) return { correct: true, feedback: `맞아요! ${fmt()}이에요.` };
           const now = `지금 시계는 ${fmt()}이에요.`;
           const why = diagnose(s, t);

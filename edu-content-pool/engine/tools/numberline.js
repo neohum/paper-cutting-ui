@@ -510,6 +510,11 @@
             let hs = [];
             if (t.size != null && t.count != null) hs = Array(t.count).fill(tv(t.size));
             else if (t.end != null && t.size != null) { const n = Math.round((tv(t.end) - f) / tv(t.size)); hs = Array(Math.abs(n)).fill(Math.sign(n) * tv(t.size)); }
+            else if (t.end != null && t.count > 1) {
+              // 크기는 자유, 화살표 수만 정함('화살표 두 개로 110까지'): 눈금(hopStep) 단위로 거의 같게 나누고 나머지는 마지막 화살표에
+              const d = r6(tv(t.end) - f); const q = Math.trunc(d / t.count / hopStep) * hopStep || Math.sign(d) * hopStep;
+              hs = Array(t.count - 1).fill(r6(q)); hs.push(r6(d - q * (t.count - 1)));
+            }
             else if (t.end != null) hs = [r6(tv(t.end) - f)];
             else if (t.size != null) hs = [tv(t.size)];
             else if (t.count != null) hs = Array(t.count).fill(size);
