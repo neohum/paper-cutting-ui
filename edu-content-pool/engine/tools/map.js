@@ -13,10 +13,11 @@
  *                                                                                                            (dir이 없으면 from·to 자리로 계산한다. align = 방위표 북쪽을 지도 북쪽에 맞춤)
  * 'legend'                범례 빈칸을 눌러 기호의 뜻을 고른다                     { legend: { 기호: 이름|null } } { legend: { school:'학교', … } }(없으면 meanings 전부)
  * 'scale'                 출발·도착 사이 길(칸)을 세고 축척으로 거리를 넣는다      { dist: 수 | null }          { from:'학교', to:'역' } | { dist: 1500 }
+ * (활동지 print)           compass 방위표는 방위 글자 없이 빈 동그라미로 찍힌다(학생이 써 넣음)
  * (모든 모드)              ask 보기 고르기를 함께 쓸 수 있다                        + pick: 번호|null            + pick: 정답 번호 (ask만 묻는 문항은 { pick } 하나)
  *
  * 옵션
- *   grid [열, 행](기본 [6,4]) · places [{ name, icon, at:[열,행] }] · names(지도에 장소 이름, 기본 참 — legend 모드 기본 거짓)
+ *   grid [열, 행](기본 [6,4]) · places [{ name, icon, at:[열,행], legend? }](legend = 범례에 쓸 이름 — 'field'를 '밭'으로, 'park'를 '화단'으로. meanings가 있으면 그쪽이 먼저) · names(지도에 장소 이름, 기본 참 — legend 모드 기본 거짓)
  *   heights 2차원 배열(행마다 칸 높이 0~4, -1 = 바다) · terrainView 'layers'(색 층) | 'contour'(등고선만) · heightNames ['낮은 땅','언덕','산','높은 산','아주 높은 산']
  *   regions [{ name, cells:[[열,행]…], color?, value? }] · regionNames(지역 이름 표시, 기본 참) · regionValues(이름 옆에 value 표시) · unit(value 단위 글자)
  *   choropleth(value 크기로 진하기 — 범례 함께) · rivers [[[열,행]…]…] · roads [[[열,행]…]…] · sea [[열,행]…]
@@ -95,7 +96,7 @@
       const mode = ['pin', 'terrain', 'compass', 'legend', 'scale'].includes(o.mode) ? o.mode : 'pin';
       const pinMode = mode === 'pin' || mode === 'terrain';
       const [COLS, ROWS] = Array.isArray(o.grid) && o.grid.length === 2 ? o.grid.map((n) => Math.max(1, Math.min(14, Math.round(n)))) : [6, 4];
-      const places = (o.places || []).filter((p) => p && p.name && Array.isArray(p.at)).map((p) => ({ name: String(p.name), icon: ICONS[p.icon] ? p.icon : 'dot', at: [p.at[0], p.at[1]] }));
+      const places = (o.places || []).filter((p) => p && p.name && Array.isArray(p.at)).map((p) => ({ name: String(p.name), icon: ICONS[p.icon] ? p.icon : 'dot', at: [p.at[0], p.at[1]], legend: p.legend != null && String(p.legend).trim() ? String(p.legend) : null }));
       const heights = Array.isArray(o.heights) ? o.heights : null;
       const hAt = (c, r) => (heights && heights[r] && Number.isFinite(heights[r][c]) ? heights[r][c] : null);
       const hv = (c, r) => { const h = hAt(c, r); return h == null ? -99 : h; };
@@ -111,7 +112,8 @@
       const distStep = Number.isFinite(o.distStep) && o.distStep > 0 ? o.distStep : scale ? scale.cell : 1;
       const showNames = o.names != null ? !!o.names : mode !== 'legend';
       const readOnly = !!o.readOnly;
-      const meanings = Object.assign({}, ...[...new Set(places.map((p) => p.icon))].map((k) => ({ [k]: ICONS[k].name })), o.meanings || {});
+      // 범례 이름: o.meanings > 장소의 legend(같은 기호 가운데 처음 것 — 'field'를 '밭'으로) > 기호 기본 이름
+      const meanings = Object.assign({}, ...[...new Set(places.map((p) => p.icon))].map((k) => ({ [k]: (places.find((p) => p.icon === k && p.legend) || {}).legend || ICONS[k].name })), o.meanings || {});
       const legendKeys = (Array.isArray(o.legendIcons) ? o.legendIcons.filter((k) => ICONS[k]) : Object.keys(meanings)).slice(0, 8);
       const showLegend = o.legend !== false && (legendKeys.length > 0 || mode === 'legend');
       const terrainLegend = !!heights && (mode === 'terrain' || o.heightLegend !== false);
@@ -340,14 +342,15 @@
         kit.piece(st, rg, { shape: { type: 'poly', points: '0,24 7,5 0,9 -7,5' }, color: 'cream', depth: 1 });
         kit.piece(st, rg, { shape: { type: 'poly', points: '24,0 5,7 9,0 5,-7' }, color: 'cream', depth: 1 });
         kit.piece(st, rg, { shape: { type: 'poly', points: '-24,0 -5,7 -9,0 -5,-7' }, color: 'cream', depth: 1 });
-        [['북', 0, -29], ['동', 35, 5], ['남', 0, 40], ['서', -35, 5]].forEach(([t, x, y]) => { kit.el('text', { x, y, 'text-anchor': 'middle', 'font-size': 13, class: 'pk-text', fill: t === '북' ? (print ? '#000' : '#702830') : ink }, rg).textContent = t; });
+        // 활동지(print)에서는 방위 글자를 빈 동그라미로 둔다 — 돌아간 지도에 '위 = 북'을 찍어 답을 주거나 틀리게 알려 주지 않게(학생이 써 넣는다)
+        [['북', 0, -29], ['동', 35, 5], ['남', 0, 40], ['서', -35, 5]].forEach(([t, x, y]) => { if (print) kit.el('circle', { cx: x, cy: y - 4, r: 9, fill: '#fff', stroke: '#000', 'stroke-width': 1.2 }, rg); else kit.el('text', { x, y, 'text-anchor': 'middle', 'font-size': 13, class: 'pk-text', fill: t === '북' ? '#702830' : ink }, rg).textContent = t; });
         const outer = kit.el('g', null, panel); outer.appendChild(rg);
         kit.transform(outer, { x: RX, y: RY });
         if (!print && !readOnly) {
           roseCtl = kit.rotate(st, rg, {
             center: [0, 0], step: roseStep, value: rose, label: '방위표. 돌려서 북쪽을 지도의 북쪽에 맞춰요.',
-            valueText: (v) => `방위표 북쪽이 ${screenWord(norm(v))}을 가리켜요`,
-            onEnd(v) { rose = norm(Math.round(v / roseStep) * roseStep); revealed = false; paintRead(); kit.tick(); kit.recorder.log('map', state()); kit.announce(`방위표 북쪽이 ${screenWord(rose)}을 가리켜요.`); },
+            valueText: (v) => `방위표 북쪽이 ${josa(screenWord(norm(v)), '을', '를')} 가리켜요`,
+            onEnd(v) { rose = norm(Math.round(v / roseStep) * roseStep); revealed = false; paintRead(); kit.tick(); kit.recorder.log('map', state()); kit.announce(`방위표 북쪽이 ${josa(screenWord(rose), '을', '를')} 가리켜요.`); },
           });
         } else kit.transform(rg, { r: rose, cx: 0, cy: 0 });
       }
@@ -404,8 +407,17 @@
       function where(p) {
         const pl = places.find((x) => x.at[0] === p[0] && x.at[1] === p[1]);
         if (pl && showNames) return pl.name;
+        return cellWords(p);
+      }
+      function cellWords(p) {
         if (o.colLabels && o.rowLabels) return `${o.colLabels[p[0]]}·${o.rowLabels[p[1]]} 칸`;
         return `왼쪽에서 ${p[0] + 1}째, 위에서 ${p[1] + 1}째 칸`;
+      }
+      // 화면에서 지도의 어느 쪽인지(방위가 아니라 왼쪽·오른쪽·위·아래 — 북쪽 화살표가 돌아가 있어도 틀리지 않게)
+      function areaWords(p) {
+        const cols = COLS; const rows = ROWS; const fx = cols > 1 ? p[0] / (cols - 1) : 0.5; const fy = rows > 1 ? p[1] / (rows - 1) : 0.5;
+        const h = fx < 0.34 ? '왼쪽' : fx > 0.66 ? '오른쪽' : ''; const v = fy < 0.34 ? '위' : fy > 0.66 ? '아래' : '';
+        return h && v ? `${h} ${v}` : h || v || '가운데';
       }
 
       // ---- 방위 단추·거리 단추·보기(HTML, 교구 아래) ----
@@ -558,7 +570,7 @@
             if (!bad.length) main = { correct: true, feedback: '맞아요! 기호와 뜻을 알맞게 짝 지었어요.' };
             else {
               if (!quiet) bad.forEach((k) => flag(legendSlots[k].g));
-              main = { correct: false, feedback: `${bad.length}칸의 뜻이 맞지 않아요. 흔들리는 칸의 기호 모양을 다시 보세요.`, hint: showNames ? '지도에서 같은 기호를 찾아 옆에 쓰인 이름을 읽어요.' : '기호가 무엇을 닮았는지 생각해요.' };
+              main = { correct: false, feedback: `${bad.length}칸의 뜻이 맞지 않아요. 흔들리는 칸의 기호 모양을 다시 보세요.`, hint: showNames ? '지도에서 같은 기호를 찾아 옆에 쓰인 이름을 읽어요.' : '그 기호가 무엇을 나타내기로 약속했는지 다시 떠올려요. 지도에서 그 기호가 놓인 자리도 살펴요.' };
             }
           }
         } else if (mode === 'scale' && (Number.isFinite(t.dist) || (t.from && t.to))) {
@@ -645,17 +657,20 @@
               return { hint: showNames ? '지도의 기호와 이름을 하나씩 읽으며 찾는 곳을 찾아요.' : '범례에서 기호 모양을 먼저 보고, 지도에서 같은 모양을 찾아요.', correct: false };
             }
             if (mode === 'compass') return { hint: t.align ? '방위표의 빨간 바늘이 북쪽이에요. 지도의 북쪽 화살표와 같은 쪽을 가리키게 돌려요.' : '방위표를 지도의 북쪽 화살표에 맞춘 뒤, 출발 장소에 서서 도착 장소 쪽을 바라봐요.', correct: false };
-            if (mode === 'legend') return { hint: '기호의 모양이 무엇을 닮았는지 생각해요. 지도에 이름이 있으면 같은 기호 옆 이름을 읽어요.', correct: false };
+            if (mode === 'legend') return { hint: showNames ? '지도에서 같은 기호를 찾아, 그 옆에 쓰인 이름을 읽어요.' : '기호마다 무엇을 나타내기로 약속했는지 떠올리고, 지도에서 그 기호가 놓인 자리도 함께 살펴요.', correct: false };
             if (mode === 'scale') return { hint: '두 장소 사이 길을 따라 칸을 세고, 축척 막대에서 한 칸이 얼마인지 읽어 곱해요.', correct: false };
           }
           if (lv === 2) return { hint: r.hint || r.feedback || '지금 상태에서 어긋난 곳을 찾아봐요.', correct: false };
           // 3단계: 풀이
           if (pinMode && pinTargetOf(t)) {
             const c = cellsOf(t)[0];
-            if (c) return { hint: `${t.place || t.region || (t.from ? `${t.from}에서 ${t.dir}쪽` : '찾는 곳')}은 ${where(c)}이에요. 핀을 그 칸으로 옮겨요.`, correct: false };
+            // '학교 화단은 학교 화단이에요'처럼 이름을 되풀이하지 않게: 찾는 이름과 칸 이름이 같으면 자리를 말로 짚는다
+            const who = t.place || t.region || (t.from ? `${t.from}에서 ${t.dir}쪽` : '찾는 곳'); let spot = where(c);
+            if (spot === who || spot === t.place || spot === t.region) spot = cellWords(c);
+            if (c) return { hint: `${josa(who, '은', '는')} 지도의 ${areaWords(c)}, ${spot}에 있어요. 핀을 그 칸으로 옮겨요.`, correct: false };
           }
-          if (mode === 'compass') { const w = wantDir(t); if (t.align && norm(rose) !== north) return { hint: `방위표의 북쪽이 ${screenWord(north)}을 가리키게 돌려요.`, correct: false }; if (w) return { hint: `방위표를 맞추면 ${t.to || '도착'}은 ${t.from || '출발'}의 ${w}쪽이에요.`, correct: false }; }
-          if (mode === 'legend') { const want = t.legend || Object.fromEntries(legendKeys.map((k) => [k, meanings[k] || ICONS[k].name])); const k = Object.keys(want).find((x) => legend[x] !== want[x]); if (k) return { hint: `이 기호(${shapeWord(k)})는 ‘${want[k]}’이에요.`, correct: false }; }
+          if (mode === 'compass') { const w = wantDir(t); if (t.align && norm(rose) !== north) return { hint: `방위표의 북쪽이 ${josa(screenWord(north), '을', '를')} 가리키게 돌려요.`, correct: false }; if (w) return { hint: `방위표를 맞추면 ${josa(t.to || '도착', '은', '는')} ${t.from || '출발'}의 ${w}쪽이에요.`, correct: false }; }
+          if (mode === 'legend') { const want = t.legend || Object.fromEntries(legendKeys.map((k) => [k, meanings[k] || ICONS[k].name])); const k = Object.keys(want).find((x) => legend[x] !== want[x]); if (k) return { hint: `이 기호(${shapeWord(k)})는 ‘${want[k]}’${has(want[k]) ? '이에요' : '예요'}.`, correct: false }; }
           if (mode === 'scale') { const r2 = routeOf(t); const w = wantDist(t); if (r2) return { hint: `길이 ${r2.cells}칸이에요. ${r2.cells} × ${fmt(scale.cell)}${scale.unit} = ${fmt(w)}${scale.unit}예요.`, correct: false }; if (w != null) return { hint: `거리는 ${fmt(w)}${scale.unit}예요.`, correct: false }; }
           if (t.pick != null && o.ask) return { hint: `답은 ‘${o.ask.choices[t.pick]}’이에요. 지도에서 그 까닭을 찾아봐요.`, correct: false };
           return { hint: r.hint || '문제를 다시 읽어요.', correct: false };

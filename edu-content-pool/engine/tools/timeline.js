@@ -21,6 +21,10 @@
   const C = K.cards;
   const { el, textBlock, PAD, GAP, arrow } = C.util;
 
+  // 띠 양 끝 말이 때(옛날·먼저·아침·○년…)를 말하는가 — 아니면(‘알갱이가 큼’·‘가벼움’) 사건·때를 전제한 힌트를 쓰지 않는다
+  const TIME_WORD = /옛날|오늘날|요즘|지금|먼저|나중|처음|마지막|끝|과거|현재|미래|어제|오늘|내일|아침|점심|저녁|밤|낮|새벽|오전|오후|봄|여름|가을|겨울|\d+\s*(년|세기|월|일|시|분|살)|시대|이전|이후|전|후|태어|어릴|어른/;
+  const timeAxis = (o) => !(Array.isArray(o.axis) && o.axis.length === 2) || o.axis.some((w) => TIME_WORD.test(String(w)));
+  const endsQ = (o) => o.axis.map((w) => `‘${w}’`).join('과 ');
   const endsOf = (ctx) => (Array.isArray(ctx.o.axis) && ctx.o.axis.length === 2 ? ctx.o.axis.map(String) : ctx.mode === 'order' ? ['먼저', '나중'] : ['옛날', '오늘날']);
   // 띠 끝 말이 차지할 폭(한 줄로 들어가게, 너무 길면 두 줄)
   const insetOf = (ctx) => Math.min(80, Math.max(40, ...endsOf(ctx).map((e) => C.util.textWidth(e, 15) + 8)));
@@ -39,10 +43,14 @@
     mode: 'order',
     label: '연표. 왼쪽은 옛날, 오른쪽은 오늘날이에요. 사건 카드를 일어난 때에 맞게 시간 띠 위에 놓아요.',
     hints: {
-      order: '사건마다 때를 알려 주는 말(옛날·처음·그 뒤·요즘 같은 말)을 찾고, 먼저 일어난 일부터 왼쪽에 놓아요.',
-      match: '눈금의 때를 먼저 읽고, 카드의 사건이 그때 일어난 일인지 단서를 찾아 견주어요.',
-      sort: '구간 이름을 먼저 읽고, 사건이 어느 때의 일인지 단서를 찾아 그 구간에 넣어요.',
+      order: ({ o }) => (timeAxis(o) ? '사건마다 때를 알려 주는 말(옛날·처음·그 뒤·요즘 같은 말)을 찾고, 먼저 일어난 일부터 왼쪽에 놓아요.'
+        : `띠 양 끝의 말(${endsQ(o)})을 먼저 읽고, 그 기준에서 왼쪽 끝에 가장 가까운 카드부터 차례로 놓아요.`),
+      match: ({ o }) => (timeAxis(o) ? '눈금의 때를 먼저 읽고, 카드의 사건이 그때 일어난 일인지 단서를 찾아 견주어요.'
+        : `띠 양 끝의 말(${endsQ(o)})과 눈금 이름을 먼저 읽고, 카드마다 그 기준에서 어느 눈금에 맞는지 견주어요.`),
+      sort: ({ o }) => (timeAxis(o) ? '구간 이름을 먼저 읽고, 사건이 어느 때의 일인지 단서를 찾아 그 구간에 넣어요.'
+        : `띠 양 끝의 말(${endsQ(o)})과 칸 이름을 먼저 읽고, 카드마다 그 기준에서 어느 칸에 맞는지 따져 넣어요.`),
     },
+    prevWord: ({ o }) => (timeAxis(o) ? '일' : '카드'),
     cardSize() { return { min: 104, max: 152 }; },
     layout(ctx) {
       const { mode, W, cw, ch, slots, o } = ctx; const n = slots.length;
@@ -73,7 +81,8 @@
         const bw = (W - 2 * PAD - GAP * (per - 1)) / per; const s = Math.min(0.78, (bw - 12) / cw);
         const cols = Math.max(1, Math.floor((bw - 12 + 6) / (cw * s + 6)));
         const expectN = Math.min(ctx.cards.length, Math.ceil(ctx.cards.length / n) + 1);
-        const top = 46; const bh = top + Math.ceil(expectN / cols) * (ch * s + 6) + 8;
+        const subH = slots.some((x) => x.sub) ? 20 : 0; // 칸 sub 글(예: '밤 12시~낮 12시')을 이름 아래 한 줄로
+        const top = 46 + subH; const bh = top + Math.ceil(expectN / cols) * (ch * s + 6) + 8;
         slots.forEach((sl, i) => {
           const r = Math.floor(i / per); const k = i % per;
           Object.assign(sl, { x: PAD + k * (bw + GAP), y: PAD + r * (bh + GAP), w: bw, h: bh, top, scale: s });

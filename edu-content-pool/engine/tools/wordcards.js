@@ -199,7 +199,7 @@
     // 카드 판 교구의 목표를 겉모양 목표에서 카드 판 목표로 바꿔 넘긴다(예: { spell: 'cat' } → { fill: … })
     function mapTargets(inst, map) {
       const out = Object.assign({}, inst);
-      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'demo', 'setTarget']) {
+      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'achievable', 'demo', 'setTarget']) {
         if (typeof inst[k] === 'function') out[k] = (t, ...rest) => inst[k](t == null ? t : map(t), ...rest);
       }
       return out;
@@ -419,7 +419,9 @@
       mode: 'match',
       label: '영어 낱말 카드. 그림과 뜻에 맞는 영어 낱말 카드를 놓아요.',
       hints: {
-        match: '그림과 뜻을 먼저 보고, 영어 낱말 카드를 소리 내어 읽어 본 뒤 서로 같은 것을 짝 지어요.',
+        // 그림이 있는 짝 잇기에서만 '그림과 뜻'을 말한다(●○ 무늬·대답 짝 짓기처럼 그림이 없는 잇기는 중립 글)
+        match: ({ cards, slots }) => (cards.some((c) => c.motif) || slots.some((x) => x.motif) ? '그림과 뜻을 먼저 보고, 영어 낱말 카드를 소리 내어 읽어 본 뒤 서로 같은 것을 짝 지어요.'
+          : '왼쪽 말을 먼저 소리 내어 읽고, 그것과 짝이 되는 카드를 하나씩 찾아 옆에 놓아요.'),
         sort: '영어 낱말을 소리 내어 읽고 뜻을 떠올린 뒤, 같은 무리의 칸에 넣어요.',
         pick: '카드마다 낱말의 뜻을 떠올려 보고, 문제의 조건에 맞는 것만 골라요.',
         order: '문장에서 누가, 무엇을 하는지 차례를 떠올리며 낱말 카드를 왼쪽부터 놓아요.',

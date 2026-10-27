@@ -6,7 +6,7 @@
  * --------- | ------------------------------------------------------- | ---------------------------- | ------------------------------------------------------
  * 구간 타이머 | plan: { work, rest, rounds } 처음 값(초·초·번)          | plan: { work, rest, rounds } | plan: { work?, rest?, rounds? }(준 칸만 맞으면 됨) · total: 전체 초(운동×번 + 쉬기×(번−1))
  * 순서 카드  | cards: ['본운동','준비운동','정리운동'](섞어서 적는다) | order: ['…', …]              | order: ['준비운동','본운동','정리운동'] 바른 차례
- * 기록판    | fields: ['1회', {label:'2회', unit:'초', step:0.1}] , stopwatch(시간 재기) | records: [수|null, …] | records: true(모두 적기) | n(n칸 넘게 적기) | [수, …](그대로 옮겨 적기)
+ * 기록판    | fields: ['1회', {label:'2회', unit:'초', step:0.1}] , stopwatch(시간 재기) | records: [수|null, …] | records: true(모두 적기) | n(n칸 이상 적기) | [수, …](그대로 옮겨 적기)
  * 안전 점검  | safety: ['운동장에 돌이 없어요', …]                     | safety: [true|false, …]      | safety: true(모두 확인)
  * 스스로 점검 | (target.selfCheck)                                      | checks: [true|false, …]      | selfCheck: ['…', …]
  * 그 밖의 옵션: title(판 머리 글), unit(기록 기본 단위, 기본 '회'), showTotal(전체 시간 보기 — revealAfterCheck이면 맞힌 뒤에 보임),
@@ -114,7 +114,11 @@
     if (t.records != null && good.records && good.records.length) {
       const a = clone();
       if (Array.isArray(t.records)) { const i = t.records.findIndex((v) => v != null); a.records[i] = Number(a.records[i]) + 1; }
-      else if (a.records.length > 1) a.records[a.records.length - 1] = null;
+      else {
+        // n칸 이상 적기: 한 칸 모자라게(n−1칸만) 적은 상태 — records: 3처럼 수로 준 목표도 '다 했지만 모자람'을 만든다
+        const need = t.records === true ? a.records.length : Math.min(a.records.length, Number(t.records) || 1);
+        a.records = a.records.map((v, i) => (i < need - 1 ? v : null));
+      }
       list.push(a);
     }
     if (t.safety && good.safety && good.safety.length > 1) { const a = clone(); a.safety[a.safety.length - 1] = false; list.push(a); }
@@ -132,7 +136,10 @@
       return {
         hint: {
           safety: '활동하기 전에 둘레와 몸, 준비물을 실제로 살펴보고, 확인한 것만 표시해요.',
-          order: '무엇을 먼저 해야 몸이 다치지 않는지, 힘껏 움직인 뒤에는 무엇을 해야 몸이 편해지는지 차례대로 떠올려요.',
+          // 몸 움직임 차례(준비 운동·정리 운동…)일 때만 몸 이야기를 한다 — 음악·실과 차례 카드는 중립 글
+          order: (t.order || []).concat((o && o.cards) || []).some((c) => /운동|몸풀|스트레칭|체조|달리|뛰|걷|줄넘기|맨손|숨 고르|호흡/.test(String(c)))
+            ? '무엇을 먼저 해야 몸이 다치지 않는지, 힘껏 움직인 뒤에는 무엇을 해야 몸이 편해지는지 차례대로 떠올려요.'
+            : '무엇이 맨 먼저 와야 하는지 찾고, 그다음에 이어지는 것을 하나씩 차례대로 놓아요.',
           plan: '문제에서 운동하는 시간, 쉬는 시간, 되풀이하는 횟수를 하나씩 찾아 차례로 맞추어요.',
           total: '운동한 시간을 모두 더하고, 쉬는 시간도 더해요. 마지막 운동 뒤에는 쉬지 않아요.',
           records: '활동을 한 번 할 때마다 잰 횟수나 시간을 그 칸에 바로 적어요.',

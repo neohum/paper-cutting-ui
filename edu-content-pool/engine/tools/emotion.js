@@ -19,7 +19,8 @@
  * ── scale 옵션 ── steps 눈금 수, scaleLabels: ['조금', '', '', '', '아주 많이'] 또는 { 1: '조금', 5: '아주 많이' }(기본: 처음 '조금', 끝 '아주 많이'),
  *   ask: 눈금 위 질문(기본 '마음의 크기는 얼마나 될까요?'), after: 맞힌 뒤 보이는 한 문장(예: '이만큼 화가 나면 숨을 세 번 크게 쉬어요.').
  * ── branch 옵션 ── choices 2~4개. result = 그렇게 했을 때 생기는 일(고르면 바로 보임 — revealAfterCheck면 맞힌 뒤에만), mood = 결과의 마음 이름(날씨 그림),
- *   why = 그 보기를 골라 틀렸을 때 피드백 한 문장, ask: 보기 위 질문(기본 '어떻게 하면 좋을까요?'), who: 상황 카드 인물 이름(가명).
+ *   why = 그 보기를 골라 틀렸을 때 피드백 한 문장, ask: 보기 위 질문(기본 '어떻게 하면 좋을까요?'), who: 상황 카드 인물 이름(가명),
+ *   motif: 상황 카드 그림(모티프 이름 — 예 'leaf'·'flower'·'tree'. 없으면 feeling의 날씨 그림, 그것도 없으면 'house'). 활동지(print)에도 이 그림이 찍힌다.
  *
  * ── 상태 (getState / setState) ──
  *   카드 판 모드: { at: { 카드id: 칸 번호|null } }    scale: { level: 1~steps | null }    branch: { choice: 보기id | null }
@@ -203,7 +204,7 @@
     // 카드 판 교구의 목표를 겉모양 목표에서 카드 판 목표로 바꿔 넘긴다(예: { spell: 'cat' } → { fill: … })
     function mapTargets(inst, map) {
       const out = Object.assign({}, inst);
-      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'demo', 'setTarget']) {
+      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'achievable', 'demo', 'setTarget']) {
         if (typeof inst[k] === 'function') out[k] = (t, ...rest) => inst[k](t == null ? t : map(t), ...rest);
       }
       return out;

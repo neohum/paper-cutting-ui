@@ -22,6 +22,7 @@
         demo(target) {},           // (선택) 교사 시연 — 스스로 움직여 target 상태로 간다. Promise 반환
         hint(target, { level, attempts }) {}, // (선택, reveal 교구는 사실상 필수) 힌트 사다리 한 칸 — { hint: '한 문장', correct?: true|false }. 아무것도 드러내지 않는다
         wrongAnswer(target) {},    // (선택) 그럴듯한 오개념 상태 하나 — '다 했지만 틀린' 상태. 모의 수업·자동 검사가 오답 시도로 쓴다
+        achievable(target) {},     // (선택) 지금 판(팔레트·카드·칸)으로 target을 만들 수 없으면 까닭 한 문장, 되면 null — check-unit이 단계마다 부른다
         distance(a, b) {},         // (선택) 두 상태 사이 '걸음' 수(0 이상 수). 1 이하면 학생이 한 걸음만 바꿔 다시 확인한 것(쓸어 보기)으로 센다
       };
     },
@@ -93,6 +94,8 @@
 - `wrongAnswer(target)`은 `setState()`에 그대로 넣을 수 있는 상태를 돌려준다. 그 상태에서 `check(target)`은 `incomplete`가 아니고 `correct: false`여야 한다(숫자판·보기·핀처럼 '다 채운' 상태). 학생이 실제로 자주 하는 실수를 고른다(예: 반지름 대신 지름, 짧은바늘을 앞 숫자에).
 - `simulate-class.mjs`는 틀린 시도를 `wrongAnswer` → 화면의 입력 칸·고르지 않은 보기 → 정답 상태의 숫자 하나를 조금 바꾼 상태(`PaperLessons.flow.findWrong`) → 방향키 순으로 만든다. 확인이 시도로 세지지 않은 비율이 30%를 넘는 문항은 결과 JSON의 `simUnreliable`에 오른다(그 문항의 '한 번에 맞힘'은 믿지 말 것). 문항별 `incompleteAttempts`도 함께 낸다.
 - `check-lesson.mjs`는 '다 했지만 틀린 상태'를 만들지 못한 문항을 알림으로 남긴다 — 그 교구에 `wrongAnswer`가 필요하다는 뜻이다.
+- 스스로 점검 문항(`target.selfCheck`, 척도의 `level: 'any'`)은 틀린 답이 없으므로 `wrongAnswer`가 null이어도 된다. 말하기만 하는 짝 활동(`free` + `talk: true`)은 키보드로 움직일 조각이 없어도 된다.
+- `check-lesson.mjs <id>`는 단원 차시 id(`g4-art-1-01-01`)도 받는다 — `lessons/units/<단원 id>.js`에서 읽고, 단원 계약은 `check-unit.mjs`에 맡긴다.
 
 ### 고르기 단추 모양
 

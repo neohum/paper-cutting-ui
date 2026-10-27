@@ -153,7 +153,19 @@ export function standardsCheck(l, opts = {}) {
 
 export const PROMPT_HEAD = 'Layered paper-cut illustration of ';
 export const PROMPT_TAIL = ', with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.';
+// 단원 차시 id('<단원 id>-<두 자리>', 예: g1-int-2-06-01)는 lessons/units/<단원 id>.js 안에 있다
+export const UNIT_LESSON_ID = /^(g\d-[a-z]+-[12]-\d{2})-\d{2}$/;
+export function unitOfLesson(id) {
+  const m = UNIT_LESSON_ID.exec(id || '');
+  return m && !existsSync(join(here, 'lessons/data', `${id}.js`)) && existsSync(join(here, 'lessons/units', `${m[1]}.js`)) ? m[1] : null;
+}
 export function loadDataLesson(id) {
+  const unitId = unitOfLesson(id);
+  if (unitId) {
+    let unit = null;
+    vm.runInNewContext(readFileSync(join(here, 'lessons/units', `${unitId}.js`), 'utf8'), { PaperLessons: { registerUnit(u) { unit = u; }, register() {} } });
+    return (unit?.lessons || []).find((l) => l?.id === id);
+  }
   let lesson;
   vm.runInNewContext(readFileSync(join(here, 'lessons/data', `${id}.js`), 'utf8'), { PaperLessons: { register(l) { lesson = l; } } });
   return lesson;
@@ -219,11 +231,14 @@ if (!id) { console.error('usage: check-lesson.mjs <lessonId>'); process.exit(2);
 const fails = []; const notes = [];
 const fail = (m) => fails.push(m);
 const note = (m) => notes.push(m);
+const unitId = unitOfLesson(id);
 const lesson = loadDataLesson(id);
-staticLesson(lesson, id, fail, note);
+// 단원 차시의 성취기준 대조(units-map·units-index)와 단원 묶음은 check-unit.mjs가 맡는다 — 여기서는 비어 있어도 알림만
+staticLesson(lesson, id, fail, note, { allowEmptyStandards: !!unitId });
+if (unitId) note(`단원 ${unitId}의 차시 — 단원 계약(차시 번호·성취기준·refs)은 check-unit.mjs ${unitId}로 본다`);
 
 // ---- 1.5) 허브 번들(dist/<id>/)이 원본보다 오래되었는가 — 허브 경로 학생은 번들을 받는다 ----
-{
+if (!unitId) {
   let stale = bundleStale(id);
   if (stale && process.argv.includes('--rebuild')) {
     execFileSync(process.execPath, [join(here, 'build-bundles.mjs')], { stdio: 'pipe' });
@@ -281,7 +296,7 @@ try {
       await page.evaluate((t) => window.__pl.tool.solve(t), info.item.target);
       // 오답 피드백(힌트) 경로는 solve 전에 한 번 확인해 두는 대신 check 반환 모양만 본다
     }
-    if (info.item.free && !(await nudge(page, page))) fail(`${info.key}: 짝 활동 교구를 키보드로 움직일 수 없음`);
+    if (info.item.free && !info.item.talk && !(await nudge(page, page))) fail(`${info.key}: 짝 활동 교구를 키보드로 움직일 수 없음`);
     // 활동마다 첫 문항 화면을 한 장씩(활동이 넷 이상인 차시도 빠짐없이)
     if (shots && !shotActs.has(info.act)) { shotActs.add(info.act); await page.screenshot({ path: join(shots, `${id}-2-act-${shotActs.size}.png`) }); }
     await page.click('#check');

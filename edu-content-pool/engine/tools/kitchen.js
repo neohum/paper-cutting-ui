@@ -197,7 +197,7 @@
     // 카드 판 교구의 목표를 겉모양 목표에서 카드 판 목표로 바꿔 넘긴다(예: { spell: 'cat' } → { fill: … })
     function mapTargets(inst, map) {
       const out = Object.assign({}, inst);
-      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'demo', 'setTarget']) {
+      for (const k of ['check', 'solve', 'hint', 'wrongAnswer', 'achievable', 'demo', 'setTarget']) {
         if (typeof inst[k] === 'function') out[k] = (t, ...rest) => inst[k](t == null ? t : map(t), ...rest);
       }
       return out;
@@ -374,12 +374,16 @@
       mode: 'sort',
       label: '생활 설계 보드. 카드를 알맞은 칸이나 차례에 놓아요.',
       hints: {
-        sort: '음식마다 무엇으로 만들었는지, 몸에서 어떤 일을 하는지 떠올리고 같은 식품군 칸에 넣어요.',
+        // 식품군 문구는 식단 칸(기본 5가지 식품군 칸이거나 칸 이름이 식품군)일 때만 — 옷차림·가정일 나누기는 중립 글
+        sort: ({ slots }) => (slots.length && slots.every((x) => GROUPS.some((g) => g.id === x.id || g.label === x.label) || /식품군|곡류|채소|과일|유제품|당류/.test(x.label))
+          ? '음식마다 무엇으로 만들었는지, 몸에서 어떤 일을 하는지 떠올리고 같은 식품군 칸에 넣어요.'
+          : '칸 이름을 먼저 소리 내어 읽고, 카드를 하나씩 보며 그 칸에 맞는 까닭을 따져 넣어요.'),
         order: '무엇을 먼저 해야 안전하고 깨끗한지 생각하며, 맨 처음 할 일부터 하나씩 놓아요.',
         match: '시간이나 장소 이름을 먼저 읽고, 그때 그곳에서 하기에 알맞은 일을 찾아 놓아요.',
         pick: '카드마다 문제의 조건에 맞는지 하나씩 따져 보고, 맞는 것만 골라요.',
         fill: '빈칸에 카드를 넣고 문장을 처음부터 소리 내어 읽어, 생활 속 쓰임과 맞는지 들어 봐요.',
       },
+      prevWord: '일',
       cardSize({ mode }) { return mode === 'sort' ? { min: 96, max: 140 } : null; },
       // 나누기 칸: 칸 머리를 높여 그림 + 두 줄 이름(‘고기·생선·달걀·콩류’가 글자 중간에서 잘리지 않게)
       layout(ctx) {

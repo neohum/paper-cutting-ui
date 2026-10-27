@@ -9,6 +9,11 @@
 - target: lessons/units/<단원 id>.js (형식 예시 lessons/units/_sample.js)
 - 맞는 차시: 단원 레인이 쓰는 파일 형식. player.html?lesson=<단원>-NN이 자동으로 단원 파일을 읽고, refs 번호는 기존 차시로 넘어감
 
+## 카드 판 공통(story·timeline·lifecycle·mindmap·emotion·wordcards·kitchen·economy)
+
+- `T.achievable(target)`: 지금 판(카드·칸)으로 target을 만들 수 없으면 까닭 한 문장(없는 카드 id·칸 id), 만들 수 있으면 null. `check-unit.mjs`가 단계(easy/base/challenge)마다 부른다 — toolOptions만 바꾼 단계도 그 판으로 풀리는지 본다.
+- 1단계 기본 힌트는 판을 보고 고른다: timeline은 축 이름이 시간(옛날·먼저·아침…)일 때만 '일이 일어난 차례' 말을, 아니면 축 양 끝 이름으로 말한다. lifecycle은 한살이(가운데 글·생물 모티프)일 때만 '자라는 차례' 말을 쓴다. kitchen sort는 칸이 식품군일 때만 식품군 말을, matter sort는 칸이 물질 성질일 때만 성질 말을 쓴다. story fill은 칸에 who가 있을 때만 인물 말을, mindmap match는 '어울리는 카드'로 말한다(근거 잇기 차시는 문항 hints로 '근거'를 적는다). timer order는 카드가 운동 동작일 때만 체육 말을 쓴다. 차시마다 다른 말이 필요하면 hint1·문항 hints를 쓴다.
+
 ## story
 
 - 옵션: Common card board options: cards ['글' or {id,text,motif?,big?,sub?,back?,why?,color?}], slots (number | ['처음','가운데','끝'] | [{id,label,sub?,motif?,big?,who?,cap?}]), mode ('order' default | 'fill' | 'sort' | 'match' | 'pick'), shuffle, live, instant, showBack, revealAfterCheck, hint1, success, trayLabel, basket (pick), cardW, cardH, printCards. Skin-only: title (story title at the top). fill slots: {id, who:'토끼', motif?:'flower', label:'길을 알려 줘서 ___.'}, where ___ is the blank.
@@ -18,7 +23,7 @@
 
 ## timeline
 
-- 옵션: Common card board options plus: axis ['옛날','오늘날'] (axis end labels; default '먼저'/'나중' for order, '옛날'/'오늘날' for others). Slots: {id, label:'1960년', at?: number}. When any slot has `at`, toScale places slots by that value. When slots crowd, they alternate above and below the axis. sort mode: era bands in one row with the axis below. back: '1960년' shows after a correct check when revealAfterCheck is on.
+- 옵션: Common card board options plus: axis ['옛날','오늘날'] (axis end labels; default '먼저'/'나중' for order, '옛날'/'오늘날' for others). Slots: {id, label:'1960년', at?: number}. When any slot has `at`, toScale places slots by that value. When slots crowd, they alternate above and below the axis. sort mode: era bands in one row with the axis below; a slot's `sub` shows under its label. back: '1960년' shows after a correct check when revealAfterCheck is on.
 - 상태: { at: { 카드id: 눈금 번호 | null } }
 - target: order: { order:[ids] } (left = earlier). match: { match:{ 눈금id: 카드id } }. sort: { sort:{ 시대id:[ids] } }. fill and pick use the common shapes.
 - 맞는 차시: Social studies: changes in tools, history and the local area; personal timelines (born → kindergarten → grade 3). Daily routine (morning, afternoon, evening). Science: order of changes. Korean: sequence of events.
@@ -39,7 +44,7 @@
 
 ## numberline
 
-- 옵션: Range and labels: min, max, step, sub (small ticks), format: 'int'|'dec'|'frac', den, mixed, labels: 'major'|'all'|'ends'|'none', labelAt. Mode: mode: 'place'|'jump'|'read'. Place: count (1–6 points), names. Display: showValue, marks: [{v,name}] or numbers. Answer UI: choices, input:true, question, why. Jump: fixedFrom, hopStep, hopSize, backward. Also revealAfterCheck and print.
+- 옵션: Range and labels: min, max, step, sub (small ticks), format: 'int'|'dec'|'frac', den, mixed, labels: 'major'|'all'|'ends'|'none', labelAt. Mode: mode: 'place'|'jump'|'read'. Place: count (1–6 points), names. Display: showValue, marks: [{v,name}] or numbers. Answer UI: choices, input:true, question, why. Jump: fixedFrom, hopStep, hopSize, backward. target {end, count} without size: solve splits the distance into count hops on the hopStep grid (remainder on the last hop). Also revealAfterCheck and print.
 - 상태: place: {points:[v|null,...]}. jump: {from, hops:[...], size}. read: {pick} or {answer}.
 - target: place: {points:[3, '3/4', '1 1/2', 0.5]}. jump: {from?, size?, count?, end?}. read: {pick} or {value, form?:'frac'|'dec'|'int', mark?}.
 - 맞는 차시: Reading and placing numbers, fractions and decimals on a number line; skip counting and repeated addition (forward or backward jumps); adding and subtracting along a line; estimating and comparing sizes. Also timelines and thermometer or temperature readings in science.
@@ -123,7 +128,7 @@
 
 ## map
 
-- 옵션: mode 'pin'(default)|'terrain'|'compass'|'legend'|'scale'; grid [cols,rows] (default [6,4]); places [{name, icon, at:[c,r]}]; names; heights 2D (0~4, -1 sea); terrainView 'layers'|'contour'; heightNames; regions [{name, cells, color?, value?}]; regionNames; regionValues; unit; choropleth; rivers; roads; sea; north (degrees, 0 = up); points 4|8; roseStart; colLabels/rowLabels; scale {cell, unit}; distStep; showCells; legend; meanings; extra; from/to; readout; revealAfterCheck; ask {q, choices, why}; readOnly; title; print. About 31 icons: school, hospital, post, police, fire, office, park, mountain, temple, heritage, museum, station, bus, market, library, house, apartment, factory, field, orchard, port, airport, bridge, beach, city, capital, island, forest, lighthouse, castle, dot
+- 옵션: mode 'pin'(default)|'terrain'|'compass'|'legend'|'scale'; grid [cols,rows] (default [6,4]); places [{name, icon, at:[c,r]}]; names; places[].legend (범례에 쓸 이름 — meanings가 없을 때 아이콘 기본 이름 대신 씀); heights 2D (0~4, -1 sea); terrainView 'layers'|'contour'; heightNames; regions [{name, cells, color?, value?}]; regionNames; regionValues; unit; choropleth; rivers; roads; sea; north (degrees, 0 = up); points 4|8; roseStart; colLabels/rowLabels; scale {cell, unit}; distStep; showCells; legend; meanings; extra; from/to; readout; revealAfterCheck; ask {q, choices, why}; readOnly; title; print. About 31 icons: school, hospital, post, police, fire, office, park, mountain, temple, heritage, museum, station, bus, market, library, house, apartment, factory, field, orchard, port, airport, bridge, beach, city, capital, island, forest, lighthouse, castle, dot
 - 상태: pin/terrain {pin:[c,r]|null}; compass {rose:0~315, dir|null}; legend {legend:{icon:name|null}}; scale {dist:number|null}; + pick when ask is used
 - target: pin: {at:[c,r]} | {place} | {region} | {from, dir, steps?} | {highest} | {lowest} | {height:n} | {most} | {least} | {river} | {sea}; compass: {dir?, from?, to?, align?}; legend: {legend:{…}}; scale: {from, to} | {dist}; any mode: {pick}
 - 맞는 차시: 통합 g1-2 우리 마을·나라·세계, 사회 g3 고장 지도(기호·방위·축척), g4 지역·중심지·지형(등고선·높이), g5-6 우리나라 국토(지역·인구 단계구분도·기후·강·바다·독도), 세계 지도 칸(대륙·나라 지역 + value). 실제 지도 그림 대신 단순한 칸 지도
@@ -151,7 +156,7 @@
 
 ## emotion
 
-- 옵션: mode: match(기본)|sort|pick|order|fill → _cards.js 옵션 그대로(cards·slots·basket·live·instant·showBack·revealAfterCheck·hint1·success·print). 카드 글이 6자 이하 마음 낱말(기쁨·속상함·화남·걱정·무서움·놀람·고마움·미안함·뿌듯함·편안함·신남…)이면 날씨 그림이 저절로 붙는다(weather:false로 끔). 새 모티프: rain·storm·rainbow·wind. mode:'scale' → situation, feeling(마음 이름, 날씨 그림), motif?, steps(3~7, 기본 5), scaleLabels?(배열 또는 {1:'조금',5:'아주 많이'}), ask?, after?(맞힌 뒤 보이는 한 문장). mode:'branch' → situation, choices:[{id,text,result?,mood?,why?}] 2~4개, ask?, who?, feeling?
+- 옵션: mode: match(기본)|sort|pick|order|fill → _cards.js 옵션 그대로(cards·slots·basket·live·instant·showBack·revealAfterCheck·hint1·success·print). 카드 글이 6자 이하 마음 낱말(기쁨·속상함·화남·걱정·무서움·놀람·고마움·미안함·뿌듯함·편안함·신남…)이면 날씨 그림이 저절로 붙는다(weather:false로 끔). 새 모티프: rain·storm·rainbow·wind. mode:'scale' → situation, feeling(마음 이름, 날씨 그림), motif?, steps(3~7, 기본 5), scaleLabels?(배열 또는 {1:'조금',5:'아주 많이'}), ask?, after?(맞힌 뒤 보이는 한 문장). mode:'branch' → situation, choices:[{id,text,result?,mood?,why?}] 2~4개, ask?, who?, feeling?, motif?(인쇄·화면 그림, 기본은 feeling의 모티프 또는 house)
 - 상태: 카드 판 모드: { at: { 카드id: 칸번호|null } } / scale: { level: 1~steps|null } / branch: { choice: 보기id|null }
 - target: match {match:{칸id:카드id|[되는id…]}} · sort {sort:{칸id:[카드id…]}} · pick {pick:[…]} · order {order:[…]} · fill {fill:{칸id:카드id}} · scale {level: n | [최소,최대] | 'any'} · branch {choice: id | [되는id…]}. 예: {mode:'scale', situation:'새치기를 당했어요', feeling:'화남'} + {level:[2,4]}
 - 맞는 차시: 도덕·통합교과(마음·감정·배려·존중·가족·친구·약속·규칙·공동체·정직·생명), 국어(인물의 마음), 체육(경기 예절). 상황에 마음 짝 짓기=match, 마음 크기=scale, 어떻게 할까 판단=branch(result로 결과를 보여 줌, revealAfterCheck면 맞힌 뒤에만), 배려하는 말 고르기=pick, 마음 낱말 빈칸=fill, 마음이 바뀐 차례=order
