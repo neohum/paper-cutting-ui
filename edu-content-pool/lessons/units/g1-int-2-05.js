@@ -1514,7 +1514,7 @@
             levels: SCENE_LV,
             items: [
               { prompt: '월요일 화분 그림이에요. 금요일에는 싹이 자랐어요. 초록 나뭇잎을 두 장 이상 더해 보세요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 280, y: 300, r: 0 }] }, target: { has: [{ shape: 'rect', color: '갈색', n: 1 }, { shape: 'leaf', color: '초록', min: 2 }] }, difficulty: 0.1,
-                levels: { easy: { prompt: '월요일 화분 그림이에요. 금요일에는 싹이 자랐어요. 초록 세모 싹을 두 개 이상 더해 보세요.', target: { has: [{ shape: 'rect', color: '갈색', n: 1 }, { shape: 'triangle', color: '초록', min: 2 }] } },
+                levels: { easy: { prompt: '월요일 화분 그림이에요. 금요일에는 싹이 자랐어요. 초록 세모 싹을 두 개 이상 더해 보세요.', toolOptions: { shapes: ['circle', 'square', 'rect', 'triangle', 'heart', 'star'] }, target: { has: [{ shape: 'rect', color: '갈색', n: 1 }, { shape: 'triangle', color: '초록', min: 2 }] } },
                   challenge: { prompt: '월요일 화분 그림이에요. 금요일에는 잎 네 장과 꽃봉오리 하나가 생겼어요. 초록 나뭇잎 넷과 분홍 하트 하나를 더해 보세요.', target: { has: [{ shape: 'rect', color: '갈색', n: 1 }, { shape: 'leaf', color: '초록', n: 4 }, { shape: 'heart', color: '분홍', n: 1 }] } } } },
               { prompt: '월요일 교실 게시판에 별 딱지가 하나 있어요. 금요일까지 날마다 하나씩 늘었어요. 노랑 별이 다섯 개가 되게 해 보세요.', state: { pieces: [{ shape: 'star', color: '노랑', size: 'm', x: 120, y: 200, r: 0 }] }, target: { has: [{ shape: 'star', color: '노랑', n: 5 }] }, difficulty: 0.15 },
               { prompt: '내 그림일기 다섯 장을 차례대로 이어 붙이고 짝에게 달라진 점을 말했으면 "다 했어요"를 누르세요.', free: true },
@@ -2860,6 +2860,1056 @@
       challenge: '약속판에 길 셋과 하트를 정확히 붙이고, 복도를 지나지 않는 함정 카드를 빼요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 약속판을 꾸미는 데만 열중해 약속이 안 보인다 → 짝이 약속을 맞힐 수 있는지 점검하게 한다. ② 하루 가운데 복도를 지나는 때를 떠올리지 못한다 → 시간표를 보며 교실 밖으로 나가는 때를 찾는다. ③ 약속판을 붙인 뒤 다시 보지 않는다 → 아침 모임에서 약속판을 함께 읽는 것을 일과로 넣는다.',
+  }));
+
+  // ───────────────────────── 33~36차시: 내 물건 정리·복도 걷기·쉬는 시간·하교 정리(학교에서의 하루 — 바른 생활 실천) ─────────────────────────
+
+  lessons.push(L(33, {
+    title: '가방과 사물함을 정한 자리에 스스로 정리하기',
+    objective: '가방과 사물함의 물건을 정한 자리에 넣는 차례를 말하고, 내 서랍과 사물함을 스스로 정리할 수 있다.',
+    illustration: ART('a paper classroom with a row of small lockers, a child standing big books upright in a locker and a school bag hanging on a hook beside a desk', '내 물건은 내가', [
+      { motif: 'house', x: 110, y: 214, color: 'sky' }, { motif: 'star', x: 330, y: 84, s: 0.5 }, { motif: 'tree', x: 390, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"오늘 아침 가방은 누가 쌌나요? 사물함은 누가 정리하나요?" 손을 들게 한다. "정리는 엄마나 선생님이 해 주는 일일까요?"라고 묻고 생각을 듣는다(정리는 어른이 대신 해 주는 일이라는 생각). "내 물건이 어디 있는지 가장 잘 아는 사람은 나예요"라고 짚는다. 시연 단추로 정리 차례 카드가 놓이는 모습을 보여 준다.',
+        student: '내 사물함 안에 무엇이 들어 있는지 하나 말해 봐요.',
+        demo: { tool: 'story', options: { cards: [{ id: 'out', text: '물건을 모두 꺼내요', motif: 'house' }, { id: 'in', text: '자리에 다시 넣어요', motif: 'star' }], slots: ['먼저', '다음'], shuffle: false }, sequence: [{ order: ['out', 'in'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 정리하는 차례 놓고 직접 정리하기', minutes: 14, tool: 'story',
+            teacher: '"사물함에 큰 책을 나중에 넣으면 어떻게 될까요?" 작은 물건 위에 큰 책이 쓰러지는 모습을 실제 사물함에서 보여 준다. 차례를 다 놓으면 모두 자기 서랍과 사물함을 차례대로 정리하고, 짝이 "책이 서 있나요? 문이 닫히나요?"를 살펴 준다(6분).',
+            task: '가방과 사물함을 정리하는 차례를 놓고, 내 서랍과 사물함을 직접 정리해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '서아네 반 약속이에요. "꺼낸 물건을 서랍에 먼저 넣고, 가방은 맨 끝에 걸어요." 아침 가방 정리를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'out', text: '필통과 책을 꺼내요', motif: 'star' }, { id: 'drawer', text: '서랍에 넣어요', motif: 'house' }, { id: 'hang', text: '가방을 고리에 걸어요', motif: 'tree' }], slots: ['처음', '가운데', '끝'] },
+                target: { order: ['out', 'drawer', 'hang'] }, difficulty: 0.1,
+                hints: ['가방에서 물건을 꺼내야 넣을 수 있어요. 반 약속을 다시 읽어요.', '흔들리는 카드는 약속에서 "먼저"인가요, "맨 끝"인가요?', '꺼내요 → 서랍에 넣어요 → 가방을 걸어요 차례예요.'],
+                levels: { challenge: { prompt: '서아네 반 약속이에요. "꺼낸 물건을 서랍에 먼저 넣고, 가방은 맨 끝에 걸어요." 차례대로 놓고, 스스로 하지 않는 카드는 빼요.', toolOptions: { cards: [{ id: 'out', text: '필통과 책을 꺼내요', motif: 'star' }, { id: 'drawer', text: '서랍에 넣어요', motif: 'house' }, { id: 'hang', text: '가방을 고리에 걸어요', motif: 'tree' }, { id: 'mom', text: '엄마가 꺼내 줄 때까지 기다려요', motif: 'cloud' }] } } } },
+              { prompt: '사물함은 큰 것을 먼저, 작은 것을 나중에 넣어요. 준호의 사물함 정리를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'all', text: '물건을 모두 꺼내요', motif: 'house' }, { id: 'big', text: '큰 책을 세워 넣어요', motif: 'star' }, { id: 'small', text: '크레파스를 바구니에 담아요', motif: 'flower' }, { id: 'shut', text: '사물함 문을 닫아요', motif: 'leaf' }], slots: ['처음', '둘째', '셋째', '끝'] },
+                target: { order: ['all', 'big', 'small', 'shut'] }, difficulty: 0.15,
+                hints: ['다 꺼낸 뒤 큰 것 → 작은 것 차례로 넣고, 다 넣어야 문을 닫아요.', '흔들리는 카드의 물건이 큰가요, 작은가요?', '모두 꺼내요 → 큰 책 → 크레파스 → 문 닫기 차례예요.'],
+                levels: { easy: { prompt: '사물함은 큰 것을 먼저, 작은 것을 나중에 넣어요. 준호의 사물함 정리를 세 장 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'big', text: '큰 책을 세워 넣어요', motif: 'star' }, { id: 'small', text: '크레파스를 바구니에 담아요', motif: 'flower' }, { id: 'shut', text: '사물함 문을 닫아요', motif: 'leaf' }], slots: ['처음', '가운데', '끝'] }, target: { order: ['big', 'small', 'shut'] } } } },
+              { prompt: '내 서랍과 사물함을 차례대로 정리하고 짝이 살펴 주었으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 내가 하는 정리와 도움이 필요한 정리', minutes: 12, tool: 'mindmap',
+            teacher: '"이 가운데 1학년인 내가 할 수 있는 정리는?" 거의 모든 정리는 스스로 할 수 있고, 높은 곳이나 깨진 물건처럼 다칠 수 있는 일만 어른의 도움을 받는다는 것을 짚는다. 어질러진 모습을 고치는 방법을 이은 뒤 "고치는 데 몇 초 걸릴까요?" 하고 함께 세어 본다.',
+            task: '스스로 할 정리와 도움이 필요한 정리를 나누고, 어질러진 모습을 고치는 방법을 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '정리 카드를 내가 하는 것과 어른의 도움이 필요한 것으로 나누어 보세요.', toolOptions: { topic: '교실 정리', slots: ['내가 해요', '어른이 도와요'], cards: ['가방을 고리에 걸어요', '사물함 책을 세워요', '높은 선반 상자를 내려요', '깨진 컵 조각을 치워요'] },
+                target: { sort: { '내가 해요': ['가방을 고리에 걸어요', '사물함 책을 세워요'], '어른이 도와요': ['높은 선반 상자를 내려요', '깨진 컵 조각을 치워요'] } }, difficulty: 0.15,
+                hints: ['손이 닿고 다칠 일이 없으면 스스로 해요.', '흔들리는 카드는 손이 닿지 않거나 다칠 수 있는 일인가요?', '가방 걸기·책 세우기는 내가, 높은 선반·깨진 컵은 어른이 도와요.'],
+                levels: { challenge: { prompt: '정리 카드를 나누어 보세요. 여섯 장이에요.', toolOptions: { cards: ['가방을 고리에 걸어요', '사물함 책을 세워요', '서랍 속 쓰레기를 버려요', '높은 선반 상자를 내려요', '깨진 컵 조각을 치워요', '무거운 책장을 옮겨요'] }, target: { sort: { '내가 해요': ['가방을 고리에 걸어요', '사물함 책을 세워요', '서랍 속 쓰레기를 버려요'], '어른이 도와요': ['높은 선반 상자를 내려요', '깨진 컵 조각을 치워요', '무거운 책장을 옮겨요'] } } } } },
+              { prompt: '어질러진 모습과 고치는 방법을 이어 보세요.', toolOptions: { mode: 'match', topic: '이렇게 고쳐요', slots: [{ id: 'dust', label: '서랍에 지우개 가루가 있어요' }, { id: 'fall', label: '사물함 책이 쓰러졌어요' }, { id: 'floor', label: '가방이 바닥에 있어요' }], cards: ['휴지로 모아 버려요', '큰 책부터 세워요', '고리에 걸어요'] },
+                target: { match: { dust: '휴지로 모아 버려요', fall: '큰 책부터 세워요', floor: '고리에 걸어요' } }, difficulty: 0.1,
+                hints: ['어질러진 물건(가루·책·가방)이 원래 있어야 할 모습을 떠올려요.', '흔들리는 카드가 그 물건을 고치는 방법인지 봐요.', '가루는 휴지로, 책은 세우기, 가방은 고리예요.'] },
+              { prompt: '스스로 정리하는 마음이 담긴 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '내가 할게요', cards: ['내 물건은 내가 챙길게', '쓴 건 제자리에 둘게', '엄마가 다 싸 줄 거야', '선생님이 치워 주세요'] },
+                target: { pick: ['내 물건은 내가 챙길게', '쓴 건 제자리에 둘게'] }, difficulty: 0.1,
+                predict: { q: '사물함 정리는 누가 하는 일일까요?', options: ['어른이 해요', '내가 해요'], answer: 1 },
+                conclude: '내 물건이 어디 있는지 가장 잘 아는 나는 내 물건을 스스로 정리할 수 있어요.' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"정리한 사물함을 열어 보세요. 무엇이 달라졌나요?" 두세 명이 말한다. 내일 아침부터 가방 정리를 스스로 하고, 잘한 날에 학교생활 딱지판에 붙임 딱지를 붙인다고 안내한다(37차시에 함께 센다). 출구 1번을 틀린 학생은 실제 서랍 앞에서 다시 해 보게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { cards: [{ id: 'out', text: '서랍 물건을 모두 꺼내요', motif: 'house' }, { id: 'trash', text: '쓰레기를 골라 버려요', motif: 'leaf' }, { id: 'back', text: '가지런히 다시 넣어요', motif: 'star' }], slots: ['처음', '가운데', '끝'] }, prompt: '책상 서랍을 정리하는 차례대로 놓아 보세요.', target: { order: ['out', 'trash', 'back'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '내 사물함 정리는 누가 할까요?', options: ['엄마나 선생님', '나'], answer: 1, difficulty: 0.05, explain: '내 물건은 내가 가장 잘 알아서 스스로 정리할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '내 물건은 내가 정리해요',
+      items: [
+        { type: 'figure', wide: true, prompt: '사물함 정리 차례대로 1, 2, 3을 쓰세요.', tool: 'story', figures: [{ options: { cards: [{ id: 'shut', text: '사물함 문을 닫아요', motif: 'leaf' }, { id: 'big', text: '큰 책을 세워 넣어요', motif: 'star' }, { id: 'small', text: '크레파스를 바구니에 담아요', motif: 'flower' }], slots: ['', '', ''], shuffle: false }, caption: '' }], answer: '큰 책 → 크레파스 → 문 닫기' },
+        { type: 'check', prompt: '내가 스스로 하는 정리에 모두 ✓ 하세요.', options: ['가방을 고리에 걸어요', '높은 선반 상자를 내려요', '사물함 책을 세워요'] },
+        { type: 'table', prompt: '오늘 정리한 곳에 ○ 하세요.', columns: ['서랍', '사물함', '가방'], rows: 1 },
+        { type: 'draw', prompt: '정리한 내 사물함을 그려 보세요.' },
+      ],
+      easy: {
+        note: '큰 것을 먼저, 작은 것을 나중에 넣어요.',
+        items: [
+          { type: 'choice', prompt: '사물함에 먼저 넣을 것에 ○ 하세요.', options: ['큰 책', '크레파스'], answer: '큰 책' },
+          { type: 'choice', prompt: '내 가방 정리는 누가 할까요?', options: ['나', '엄마'], answer: '나' },
+          { type: 'draw', prompt: '정리한 내 서랍을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞게 놓으면 초록 테두리가 생겨요. 사물함 차례 카드는 세 장이에요.',
+      base: '모두 놓고 확인해요. 사물함 차례 카드는 네 장이에요.',
+      challenge: '스스로 하지 않는 함정 카드를 빼고, 정리 카드 여섯 장을 나누어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 정리는 어른이 대신 해 주는 일이라고 여긴다(핵심 오개념) → "내 물건이 어디 있는지 누가 가장 잘 알까요?"로 되묻는다. ② 사물함에 물건을 눕혀 쌓는다 → 큰 책을 책등이 보이게 세우는 모습을 직접 보여 준다. ③ 정리가 느린 학생을 짝이 대신 해 준다 → 짝은 말로만 도와준다고 미리 약속한다. 37차시에 쓸 학교생활 딱지판(가방 정리·복도 걷기·쉬는 시간 준비·하교 정리 네 줄)을 이 시간에 나누어 준다.',
+  }));
+
+  lessons.push(L(34, {
+    title: '복도와 계단에서 오른쪽으로 걸어 도서실 다녀오기',
+    objective: '줄을 서서 복도와 계단의 오른쪽으로 걸어 다른 교실에 가는 차례를 말하고, 뛰지 않고 그대로 걸을 수 있다.',
+    illustration: ART('a paper school staircase with a handrail, a line of small children walking down on the right side holding the rail, a library door with books at the bottom', '오른쪽으로 걸어요', [
+      { motif: 'house', x: 110, y: 214, color: 'lavender' }, { motif: 'star', x: 330, y: 84, s: 0.5 }, { motif: 'tree', x: 390, y: 214 }]),
+    safety: ['계단은 난간을 잡고 한 칸씩 걸어요.', '앞 친구와 한 걸음 떨어져 걸어요.', '복도 걷기 연습 때 다른 반 수업을 방해하지 않게 작은 목소리로 말해요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '"도서실은 몇 층에 있나요? 교실에서 도서실까지 어떤 길로 가나요?" 학교 안내도나 칠판 그림으로 길을 함께 짚는다. "계단에서 두 칸씩 뛰어 내려가면 어떻게 될까요?" 하고 묻는다. 오늘은 차례를 익힌 뒤 실제로 줄을 서서 도서실에 다녀온다고 안내한다. 시연 단추로 걷는 차례가 놓이는 모습을 보여 준다.',
+        student: '교실에서 도서실까지 가는 길에 무엇이 있는지 말해 봐요.',
+        demo: { tool: 'story', options: { cards: [{ id: 'line', text: '두 줄로 서요', motif: 'house' }, { id: 'walk', text: '오른쪽으로 걸어요', motif: 'tree' }], slots: ['먼저', '다음'], shuffle: false }, sequence: [{ order: ['line', 'walk'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 도서실 가는 차례 익히고 걸어 보기', minutes: 15, tool: 'story',
+            teacher: '"도서실은 아래층이라 복도를 지나 계단을 내려가요." 차례를 놓은 뒤 계단 앞에서 할 일을 몸짓으로 해 본다(난간 잡는 손, 한 칸씩 내딛는 발). 문항을 마치면 모두 두 줄로 서서 실제로 도서실 앞까지 다녀온다(8분). 교사는 앞에, 짝 도우미는 맨 뒤에 선다.',
+            task: '도서실 가는 차례와 계단에서 지킬 말을 익히고, 줄을 서서 실제로 다녀와요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '도서실은 아래층이에요. 교실에서 나와 복도를 지나 계단을 내려가요. 가는 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'line', text: '교실 앞에 두 줄로 서요', motif: 'house' }, { id: 'hall', text: '복도 오른쪽으로 걸어요', motif: 'tree' }, { id: 'stair', text: '난간 잡고 계단을 내려가요', motif: 'mountain' }, { id: 'wait', text: '도서실 앞에서 멈춰 기다려요', motif: 'star' }], slots: ['처음', '둘째', '셋째', '끝'] },
+                target: { order: ['line', 'hall', 'stair', 'wait'] }, difficulty: 0.15,
+                hints: ['교실 → 복도 → 계단 → 도서실, 걸어가는 길을 따라가요.', '흔들리는 카드의 곳(교실 앞·복도·계단·도서실 앞)이 길에서 어디쯤인지 봐요.', '줄 서기 → 복도 → 계단 → 도서실 앞 차례예요.'],
+                levels: { easy: { prompt: '도서실은 아래층이에요. 가는 차례대로 세 장 놓아 보세요.', toolOptions: { cards: [{ id: 'line', text: '교실 앞에 두 줄로 서요', motif: 'house' }, { id: 'stair', text: '난간 잡고 계단을 내려가요', motif: 'mountain' }, { id: 'wait', text: '도서실 앞에서 멈춰 기다려요', motif: 'star' }], slots: ['처음', '가운데', '끝'] }, target: { order: ['line', 'stair', 'wait'] } },
+                  challenge: { prompt: '도서실은 아래층이에요. 가는 차례대로 놓고, 위험한 카드는 빼요.', toolOptions: { cards: [{ id: 'line', text: '교실 앞에 두 줄로 서요', motif: 'house' }, { id: 'hall', text: '복도 오른쪽으로 걸어요', motif: 'tree' }, { id: 'stair', text: '난간 잡고 계단을 내려가요', motif: 'mountain' }, { id: 'wait', text: '도서실 앞에서 멈춰 기다려요', motif: 'star' }, { id: 'jump', text: '계단 두 칸씩 뛰어 내려가요', motif: 'cloud' }] } } } },
+              { prompt: '계단에서 지킬 말을 말풍선에 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['난간', '한 칸씩', '두 칸씩'], slots: [{ id: 'b1', who: '도윤', motif: 'mountain', label: '계단에서는 ___을 잡아요.' }, { id: 'b2', who: '민지', motif: 'house', label: '계단은 ___ 내려가요.' }] },
+                target: { fill: { b1: '난간', b2: '한 칸씩' } }, difficulty: 0.15,
+                hints: ['계단에서 넘어지지 않게 손과 발이 할 일을 떠올려요.', '흔들리는 말풍선을 소리 내어 읽고 안전한 말인지 들어 봐요.', '손은 "난간", 발은 "한 칸씩"이에요.'],
+                levels: { easy: { prompt: '계단에서 지킬 말을 말풍선에 넣어 보세요.', toolOptions: { cards: ['한 칸씩', '두 칸씩'], slots: [{ id: 'b2', who: '민지', motif: 'house', label: '계단은 ___ 내려가요.' }] }, target: { fill: { b2: '한 칸씩' } } } } },
+              { prompt: '줄을 서서 복도와 계단 오른쪽으로 도서실에 다녀왔으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 복도에서 이럴 땐 어떻게 할까', minutes: 12, tool: 'emotion',
+            teacher: '다녀온 길에서 있었던 일을 떠올리며 보기를 하나씩 읽는다. "앞 친구가 느리게 걸으면 앞질러도 될까요?" 결과를 본 뒤 그때의 마음을 묻는다. 맞은편에서 오는 친구와 부딪히지 않는 까닭이 오른쪽으로 걷기 때문이라는 것을 다시 짚는다.',
+            task: '복도와 계단에서 생길 수 있는 일을 읽고 안전한 행동을 골라요.',
+            levels: { easy: { steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '복도 맞은편에서 다른 반 줄이 걸어와요. 준호는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '도서실 가는 복도, 맞은편에서 다른 반 친구들이 줄을 서서 와요.', choices: [
+                { id: 'right', text: '내 오른쪽으로 붙어 걸어요', result: '두 줄이 부딪히지 않고 지나갔어요.', mood: '편안함' },
+                { id: 'middle', text: '복도 가운데로 걸어요', result: '맞은편 친구와 어깨가 부딪혔어요.', mood: '놀람', why: '가운데로 걸으면 맞은편 줄과 어떻게 될까요?' }] }, target: { choice: 'right' }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'right', text: '내 오른쪽으로 붙어 걸어요', result: '두 줄이 부딪히지 않고 지나갔어요.', mood: '편안함' },
+                  { id: 'middle', text: '복도 가운데로 걸어요', result: '맞은편 친구와 어깨가 부딪혔어요.', mood: '놀람', why: '가운데로 걸으면 맞은편 줄과 어떻게 될까요?' },
+                  { id: 'dash', text: '부딪히기 전에 뛰어서 지나가요', result: '뛰다가 모퉁이에서 미끄러졌어요.', mood: '속상함', why: '빨리 지나가려고 뛰면 어떤 일이 생길까요?' }] } } } },
+              { prompt: '앞에 선 친구가 천천히 걸어요. 서아는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '계단을 내려가는데 앞 친구가 난간을 잡고 천천히 걸어요.', choices: [
+                { id: 'keep', text: '한 걸음 떨어져 따라가요', result: '모두 안전하게 계단을 내려왔어요.', mood: '편안함' },
+                { id: 'pass', text: '옆으로 앞질러 내려가요', result: '앞 친구와 부딪혀 둘 다 휘청했어요.', mood: '무서움', why: '계단에서 앞지르면 앞 친구는 어떻게 될까요?' }] }, target: { choice: 'keep' }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'keep', text: '한 걸음 떨어져 따라가요', result: '모두 안전하게 계단을 내려왔어요.', mood: '편안함' },
+                  { id: 'pass', text: '옆으로 앞질러 내려가요', result: '앞 친구와 부딪혀 둘 다 휘청했어요.', mood: '무서움', why: '계단에서 앞지르면 앞 친구는 어떻게 될까요?' },
+                  { id: 'push', text: '"빨리 가" 하고 등을 밀어요', result: '앞 친구가 계단에서 넘어질 뻔했어요.', mood: '놀람', why: '계단에서 등을 밀면 친구가 어떻게 될까요?' }] } } } },
+              { prompt: '복도와 계단에서 안전한 행동만 골라 보세요.', toolOptions: { mode: 'pick', basket: '안전하게 걸어요', cards: ['난간을 잡아요', '앞 친구와 떨어져 걸어요', '계단에서 술래잡기해요', '난간에 매달려요'] },
+                target: { pick: ['난간을 잡아요', '앞 친구와 떨어져 걸어요'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['난간을 잡아요', '앞 친구와 떨어져 걸어요', '계단에서 술래잡기해요', '난간에 매달려요', '계단에 앉아 놀아요'] } } } },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"도서실에 다녀올 때 우리 줄이 잘한 점은 무엇이었나요?" 두세 명이 말한다. 오늘부터 복도를 바르게 걸은 날에 딱지판 둘째 줄에 붙임 딱지를 붙인다고 안내한다. 출구 1번을 틀린 학생에게는 오늘 걸어간 길을 손가락으로 다시 그리게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { cards: [{ id: 'line', text: '두 줄로 서요', motif: 'house' }, { id: 'hall', text: '복도 오른쪽으로 걸어요', motif: 'tree' }, { id: 'wash', text: '급식실 앞에서 손을 씻어요', motif: 'flower' }], slots: ['처음', '가운데', '끝'] }, prompt: '급식실에 가는 차례대로 놓아 보세요.', target: { order: ['line', 'hall', 'wash'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '계단을 내려갈 때 바른 것은?', options: ['두 칸씩 뛰어요', '난간을 잡고 한 칸씩 걸어요'], answer: 1, difficulty: 0.05, explain: '난간을 잡고 한 칸씩 걸어야 넘어지지 않아요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '복도와 계단 걷기',
+      items: [
+        { type: 'choice', prompt: '복도에서 맞은편 줄이 오면 어떻게 할까요?', options: ['내 오른쪽으로 붙어 걸어요', '복도 가운데로 걸어요'], answer: '내 오른쪽으로 붙어 걸어요' },
+        { type: 'blank', prompt: '계단에서는 ________을 잡고 ________ 내려가요.' },
+        { type: 'check', prompt: '오늘 도서실에 다녀올 때 내가 지킨 것에 ✓ 하세요.', options: ['두 줄로 섰어요', '오른쪽으로 걸었어요', '난간을 잡았어요', '앞 친구와 떨어져 걸었어요'] },
+        { type: 'draw', prompt: '계단을 안전하게 내려가는 나를 그려 보세요.' },
+      ],
+      easy: {
+        note: '손은 난간, 발은 한 칸씩이에요.',
+        items: [
+          { type: 'choice', prompt: '계단에서 바른 것에 ○ 하세요.', options: ['난간을 잡아요', '뛰어 내려가요'], answer: '난간을 잡아요' },
+          { type: 'choice', prompt: '복도에서는 어느 쪽으로 걸을까요?', options: ['오른쪽', '가운데'], answer: '오른쪽' },
+          { type: 'draw', prompt: '복도를 걷는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '차례 카드는 세 장이고 맞게 놓으면 초록 테두리가 생겨요. 말풍선은 하나예요.',
+      base: '차례 카드 네 장과 말풍선 두 개를 채워요.',
+      challenge: '위험한 함정 카드를 빼고, 보기 세 가지 가운데 안전한 행동을 골라요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 오른쪽과 왼쪽을 헷갈린다 → 밥 먹는 손(또는 오른손에 붙인 스티커) 쪽이 오른쪽이라고 정해 준다. 왼손잡이 학생을 위해 스티커로 짚는다. ② 계단에서 앞 친구를 앞지른다 → 한 걸음 거리를 손바닥 하나로 보여 준다. ③ 복도 연습이 놀이처럼 들뜬다 → 다녀오기 전에 "도서실 앞에서 멈춰 기다리기"를 먼저 약속한다. 학교마다 도서실 위치가 다르니 차례 카드를 우리 학교 길(위층·같은 층)에 맞게 말로 바꾸어 읽어 준다.',
+  }));
+
+  lessons.push(L(35, {
+    title: '쉬는 시간에 할 일을 먼저 하고 놀기',
+    objective: '쉬는 시간에 앞 시간 정리와 다음 시간 준비를 먼저 하고 화장실·놀이를 하는 차례를 정해, 스스로 그대로 할 수 있다.',
+    illustration: ART('a paper classroom at break time, a child putting a math book away and taking out crayons for the next class while other children go to the restroom', '쉬는 시간', [
+      { motif: 'sun', x: 120, y: 84, s: 0.6 }, { motif: 'house', x: 380, y: 214, color: 'mint' }, { motif: 'flower', x: 250, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"종이 울려 수업이 시작됐는데 책이 없어서 사물함까지 다녀온 적이 있나요?" 경험을 이름 없이 듣는다. "다음 시간 책은 누가 챙겨 줄까요?" 하고 물어 스스로 챙기는 일이라는 것을 짚는다(정리와 준비는 어른이 해 준다는 생각). 시연 단추로 쉬는 시간 차례가 띠에 놓이는 모습을 보여 준다.',
+        student: '쉬는 시간에 내가 가장 먼저 하는 일을 말해 봐요.',
+        demo: { tool: 'timeline', options: { cards: [{ id: 'ready', text: '다음 시간 책 꺼내기', motif: 'star' }, { id: 'play', text: '친구와 놀기', motif: 'sun' }], axis: ['쉬는 시간 시작', '종이 울려요'], shuffle: false }, sequence: [{ order: ['ready', 'play'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 쉬는 시간 차례 정하기', minutes: 13, tool: 'timeline',
+            teacher: '"할 일을 먼저 하고 노는 것과, 놀고 나서 할 일을 하는 것은 무엇이 다를까요?" 종이 울린 뒤 허둥대는 모습을 몸짓으로 보여 준다. 띠 왼쪽이 쉬는 시간 시작, 오른쪽이 종이 울릴 때라는 것을 짚는다. 화장실과 놀이처럼 어느 것을 먼저 해도 되는 일은 같은 묶음에 놓으면 된다고 알려 준다.',
+            task: '쉬는 시간과 점심시간에 할 일을 차례대로 띠에 놓아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '우리 반 쉬는 시간 약속이에요. "책상 정리와 다음 시간 준비를 먼저 해요. 화장실과 놀이는 그다음이에요." 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'put', text: '앞 시간 책을 넣어요', motif: 'house' }, { id: 'take', text: '다음 시간 책을 꺼내요', motif: 'star' }, { id: 'toilet', text: '화장실에 다녀와요', motif: 'leaf' }, { id: 'play', text: '친구와 놀아요', motif: 'sun' }, { id: 'sit', text: '종이 울리면 자리에 앉아요', motif: 'moon' }], axis: ['쉬는 시간 시작', '종이 울려요'] },
+                target: { order: [['put', 'take'], ['toilet', 'play'], 'sit'] }, difficulty: 0.2,
+                hints: ['할 일(정리·준비)과 하고 싶은 일(화장실·놀이), 종소리를 세 묶음으로 나누어 생각해요.', '흔들리는 카드는 할 일인가요, 하고 싶은 일인가요? 종소리 뒤에 하는 일인가요?', '책 넣기·꺼내기 → 화장실·놀이 → 자리에 앉기 차례예요. 묶음 안에서는 어느 것을 먼저 해도 돼요.'],
+                levels: { easy: { prompt: '쉬는 시간 약속이에요. "다음 시간 준비를 먼저 하고 놀아요." 차례대로 세 장 놓아 보세요.', toolOptions: { cards: [{ id: 'take', text: '다음 시간 책을 꺼내요', motif: 'star' }, { id: 'play', text: '친구와 놀아요', motif: 'sun' }, { id: 'sit', text: '종이 울리면 자리에 앉아요', motif: 'moon' }] }, target: { order: ['take', 'play', 'sit'] } } } },
+              { prompt: '점심을 먹은 뒤에도 할 일을 먼저 하고 놀아요. 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'tray', text: '식판을 정리해요', motif: 'flower' }, { id: 'brush', text: '이를 닦아요', motif: 'star' }, { id: 'yard', text: '운동장에서 놀아요', motif: 'sun' }, { id: 'back', text: '종이 울리면 교실로 와요', motif: 'house' }], axis: ['점심 다 먹음', '종이 울려요'] },
+                target: { order: ['tray', 'brush', 'yard', 'back'] }, difficulty: 0.15,
+                hints: ['다 먹은 자리에서 먼저 할 일, 그다음 몸을 깨끗이 할 일, 그다음 놀이예요.', '흔들리는 카드는 할 일인가요, 놀이인가요?', '식판 → 이 닦기 → 운동장 → 교실로 차례예요.'],
+                levels: { challenge: { prompt: '점심을 먹은 뒤에도 할 일을 먼저 하고 놀아요. 차례대로 놓고, 하면 안 되는 카드는 빼요.', toolOptions: { cards: [{ id: 'tray', text: '식판을 정리해요', motif: 'flower' }, { id: 'brush', text: '이를 닦아요', motif: 'star' }, { id: 'yard', text: '운동장에서 놀아요', motif: 'sun' }, { id: 'back', text: '종이 울리면 교실로 와요', motif: 'house' }, { id: 'leave', text: '식판을 자리에 두고 나가요', motif: 'cloud' }], slots: 4 } } } },
+              { prompt: '선생님과 연습 쉬는 시간(3분)에 할 일을 먼저 하고 놀아 보았으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 다음 시간 준비물 챙기기', minutes: 13, tool: 'kitchen',
+            teacher: '"다음 시간 준비물은 무엇을 보면 알 수 있을까요?" 교실 앞 시간표를 함께 본다. 점검표를 마치면 실제로 다음 시간(시간표에 맞게) 준비물을 책상 위에 꺼내 놓고, 짝이 시간표와 견주어 확인해 준다.',
+            task: '시간표를 보고 다음 시간 준비물만 골라 표시하고, 실제로 꺼내 놓아요.',
+            levels: PLAIN_LV,
+            items: [
+              { prompt: '다음은 미술 시간이에요. 오늘은 색종이로 꾸미기를 해요. 챙길 것만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '미술 시간 준비', items: [{ id: 'paper', text: '색종이' }, { id: 'glue', text: '풀' }, { id: 'scissor', text: '가위' }, { id: 'rope', text: '줄넘기' }] },
+                target: { checklist: ['paper', 'glue', 'scissor'] }, difficulty: 0.1,
+                levels: { easy: { prompt: '다음은 미술 시간이에요. 색종이를 붙여 꾸며요. 챙길 것만 표시해 보세요.', toolOptions: { items: [{ id: 'paper', text: '색종이' }, { id: 'glue', text: '풀' }, { id: 'rope', text: '줄넘기' }] }, target: { checklist: ['paper', 'glue'] } },
+                  challenge: { toolOptions: { items: [{ id: 'paper', text: '색종이' }, { id: 'glue', text: '풀' }, { id: 'scissor', text: '가위' }, { id: 'rope', text: '줄넘기' }, { id: 'recorder', text: '리코더' }, { id: 'mathbook', text: '수학책' }] } } } },
+              { prompt: '다음은 수학 시간이에요. 수학책에 답을 쓰고 고쳐요. 챙길 것만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '수학 시간 준비', items: [{ id: 'book', text: '수학책' }, { id: 'pencil', text: '연필' }, { id: 'eraser', text: '지우개' }, { id: 'crayon', text: '크레파스' }] },
+                target: { checklist: ['book', 'pencil', 'eraser'] }, difficulty: 0.1,
+                levels: { easy: { prompt: '다음은 수학 시간이에요. 수학책에 답을 써요. 챙길 것만 표시해 보세요.', toolOptions: { items: [{ id: 'book', text: '수학책' }, { id: 'pencil', text: '연필' }, { id: 'crayon', text: '크레파스' }] }, target: { checklist: ['book', 'pencil'] } },
+                  challenge: { toolOptions: { items: [{ id: 'book', text: '수학책' }, { id: 'pencil', text: '연필' }, { id: 'eraser', text: '지우개' }, { id: 'crayon', text: '크레파스' }, { id: 'ball', text: '공' }, { id: 'glue', text: '풀' }] } } } },
+              { prompt: '시간표를 보고 다음 시간 준비물을 책상 위에 꺼내 놓고 짝이 확인해 주었으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"연습 쉬는 시간에 할 일을 먼저 하니 종이 울렸을 때 어땠나요?" 두세 명이 말한다. 오늘부터 쉬는 시간마다 다음 시간 준비를 먼저 하고, 잘한 날에 딱지판 셋째 줄에 딱지를 붙인다고 안내한다. 출구 1번을 틀린 학생에게는 오늘 쉬는 시간 약속을 다시 소리 내어 읽게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'timeline', options: { cards: [{ id: 'ready', text: '다음 시간 책을 꺼내요', motif: 'star' }, { id: 'toilet', text: '화장실에 다녀와요', motif: 'leaf' }, { id: 'sit', text: '종이 울리면 자리에 앉아요', motif: 'moon' }], axis: ['쉬는 시간 시작', '종이 울려요'] }, prompt: '할 일을 먼저 하는 쉬는 시간 차례대로 놓아 보세요.', target: { order: ['ready', 'toilet', 'sit'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '다음 시간 준비물은 누가 챙길까요?', options: ['내가 시간표를 보고 챙겨요', '선생님이 챙겨 주세요'], answer: 0, difficulty: 0.05, explain: '시간표를 보면 내가 스스로 챙길 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '쉬는 시간 차례',
+      items: [
+        { type: 'table', prompt: '쉬는 시간에 할 일을 차례대로 쓰세요.', columns: ['먼저', '그다음', '종이 울리면'], rows: 1 },
+        { type: 'check', prompt: '미술 시간(색종이 꾸미기) 준비물에 ✓ 하세요.', options: ['색종이', '풀', '줄넘기', '가위'] },
+        { type: 'choice', prompt: '점심을 먹고 먼저 할 일에 ○ 하세요.', options: ['식판 정리하기', '운동장에서 놀기'], answer: '식판 정리하기' },
+        { type: 'short', prompt: '오늘 쉬는 시간에 내가 먼저 한 일을 쓰세요.' },
+      ],
+      easy: {
+        note: '할 일 먼저, 놀이는 그다음이에요.',
+        items: [
+          { type: 'choice', prompt: '쉬는 시간에 먼저 할 일에 ○ 하세요.', options: ['다음 시간 책 꺼내기', '친구와 놀기'], answer: '다음 시간 책 꺼내기' },
+          { type: 'check', prompt: '수학 시간 준비물에 ✓ 하세요.', options: ['수학책', '연필', '줄넘기'] },
+          { type: 'draw', prompt: '다음 시간 준비를 하는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '쉬는 시간 카드는 세 장이고 맞게 놓으면 초록 테두리가 생겨요. 준비물 보기가 세 가지예요.',
+      base: '다섯 장을 세 묶음 차례로 놓고, 준비물 네 가지 가운데 골라요.',
+      challenge: '하면 안 되는 함정 카드를 빼고, 준비물 보기 여섯 가지 가운데 골라요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 놀이부터 하고 종이 울린 뒤 책을 찾는다 → 쉬는 시간 시작 종이 울리면 "준비 먼저!"를 반 전체가 함께 말하는 신호를 정한다. ② 시간표를 읽지 못한다 → 과목마다 그림 표시(붓·숫자·공)를 붙인 시간표를 둔다. ③ 화장실과 놀이의 차례를 꼭 정해야 하는지 묻는다 → 그 둘은 어느 것을 먼저 해도 된다고 말해 준다. 준비물이 집에 없는 학생이 있을 수 있으니 교실 공용 바구니를 둔다.',
+  }));
+
+  lessons.push(L(36, {
+    title: '집에 가기 전 내 자리와 교실 함께 정리하기',
+    objective: '집에 가기 전 내 자리를 정리하는 차례를 지키고, 1인 1역 도우미가 되어 함께 쓰는 곳을 정리할 수 있다.',
+    illustration: ART('a paper classroom at the end of the day, chairs pushed under desks, one child wiping the board and another arranging the class bookshelf, school bags on backs', '함께 정리해요', [
+      { motif: 'sun', x: 120, y: 84, s: 0.6 }, { motif: 'house', x: 380, y: 214, color: 'peach' }, { motif: 'tree', x: 250, y: 214 }], false),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"어제 집에 간 뒤 교실은 어떤 모습이었을까요?" 의자가 나와 있고 바닥에 종이가 떨어진 교실 사진(또는 그림)을 보여 준다. "이 교실은 누가 정리해야 할까요?" 하고 물어 함께 쓰는 곳은 함께 정리한다는 것을 짚는다. 시연 단추로 내 자리 정리 차례가 놓이는 모습을 보여 준다.',
+        student: '집에 가기 전에 내가 하는 일을 하나 말해 봐요.',
+        demo: { tool: 'kitchen', options: { mode: 'order', cards: ['가방을 싸요', '의자를 넣어요'], shuffle: false }, sequence: [{ order: ['가방을 싸요', '의자를 넣어요'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 내 자리 정리 차례와 점검', minutes: 13, tool: 'kitchen',
+            teacher: '"알림장을 가방에 먼저 넣으면 무엇을 쓸 수 없을까요?" 차례가 왜 필요한지 묻는다. 점검표는 정리가 잘된 모습만 표시하는 것이라는 것을 알려 준다. 문항을 마치면 모두 실제로 내 자리를 정리하고 짝이 점검표 말로 살펴 준다.',
+            task: '집에 가기 전 내 자리 정리 차례를 놓고, 잘 정리된 모습을 점검해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '집에 가기 전 내 자리 정리 차례대로 놓아 보세요.', toolOptions: { mode: 'order', cards: ['알림장을 써요', '책과 필통을 가방에 넣어요', '의자를 책상 밑에 넣어요', '선생님께 인사해요'] },
+                target: { order: ['알림장을 써요', '책과 필통을 가방에 넣어요', '의자를 책상 밑에 넣어요', '선생님께 인사해요'] }, difficulty: 0.15,
+                hints: ['자리에 앉아서 하는 일이 먼저, 일어나서 하는 일이 나중이에요.', '흔들리는 카드는 앉아서 하나요, 일어나서 하나요?', '알림장 → 가방 싸기 → 의자 넣기 → 인사 차례예요.'],
+                levels: { easy: { prompt: '집에 가기 전 내 자리 정리 차례대로 세 장 놓아 보세요.', toolOptions: { cards: ['알림장을 써요', '책과 필통을 가방에 넣어요', '선생님께 인사해요'] }, target: { order: ['알림장을 써요', '책과 필통을 가방에 넣어요', '선생님께 인사해요'] } } } },
+              { prompt: '하준이의 자리를 살펴요. 잘 정리된 모습만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '하준이 자리 점검', items: [{ id: 'trash', text: '서랍에 쓰레기가 없어요' }, { id: 'chair', text: '의자가 책상 밑에 있어요' }, { id: 'note', text: '알림장이 가방에 있어요' }, { id: 'book', text: '교과서가 바닥에 있어요' }] },
+                target: { checklist: ['trash', 'chair', 'note'] }, difficulty: 0.15,
+                levels: { easy: { prompt: '하준이의 자리를 살펴요. 잘 정리된 모습만 표시해 보세요. 두 가지예요.', toolOptions: { items: [{ id: 'trash', text: '서랍에 쓰레기가 없어요' }, { id: 'chair', text: '의자가 책상 밑에 있어요' }, { id: 'book', text: '교과서가 바닥에 있어요' }] }, target: { checklist: ['trash', 'chair'] } },
+                  challenge: { toolOptions: { items: [{ id: 'trash', text: '서랍에 쓰레기가 없어요' }, { id: 'chair', text: '의자가 책상 밑에 있어요' }, { id: 'note', text: '알림장이 가방에 있어요' }, { id: 'book', text: '교과서가 바닥에 있어요' }, { id: 'cup', text: '물통이 책상 위에 남았어요' }] } } } },
+              { prompt: '내 자리를 차례대로 정리하고 짝이 살펴 주었으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 1인 1역 도우미로 함께 정리하기', minutes: 13, tool: 'mindmap',
+            teacher: '"내 자리 말고 우리가 함께 쓰는 곳은 어디일까요?" 칠판·창문·학급 문고·바닥을 짚는다. 도우미마다 하는 일을 이은 뒤 이번 주 도우미를 정하고, 2분 동안 모두 맡은 일을 해 본다. 친구 자리 쓰레기를 보았을 때는 탓하는 말 대신 함께 하자는 말을 쓴다고 짚는다.',
+            task: '내 자리 정리와 함께 쓰는 곳 정리를 나누고, 도우미가 하는 일을 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '정리 카드를 내 자리 정리와 함께 쓰는 곳 정리로 나누어 보세요.', toolOptions: { topic: '집에 가기 전 정리', slots: ['내 자리', '함께 쓰는 곳'], cards: ['내 서랍 정리하기', '내 의자 넣기', '학급 문고 꽂기', '칠판 지우기'] },
+                target: { sort: { '내 자리': ['내 서랍 정리하기', '내 의자 넣기'], '함께 쓰는 곳': ['학급 문고 꽂기', '칠판 지우기'] } }, difficulty: 0.1,
+                hints: ['그곳을 나 혼자 쓰는지, 반 친구 모두가 쓰는지 생각해요.', '흔들리는 카드 속 곳은 "내" 것인가요, 우리 모두의 것인가요?', '서랍·의자는 내 자리, 문고·칠판은 함께 쓰는 곳이에요.'],
+                levels: { challenge: { prompt: '정리 카드를 나누어 보세요. 여섯 장이에요.', toolOptions: { cards: ['내 서랍 정리하기', '내 의자 넣기', '내 사물함 문 닫기', '학급 문고 꽂기', '칠판 지우기', '창문 닫기'] }, target: { sort: { '내 자리': ['내 서랍 정리하기', '내 의자 넣기', '내 사물함 문 닫기'], '함께 쓰는 곳': ['학급 문고 꽂기', '칠판 지우기', '창문 닫기'] } } } } },
+              { prompt: '도우미와 하는 일을 이어 보세요.', toolOptions: { mode: 'match', topic: '1인 1역', slots: [{ id: 'board', label: '칠판 도우미' }, { id: 'window', label: '창문 도우미' }, { id: 'shelf', label: '책꽂이 도우미' }], cards: ['칠판을 지워요', '창문을 닫아요', '책을 바르게 꽂아요'] },
+                target: { match: { board: '칠판을 지워요', window: '창문을 닫아요', shelf: '책을 바르게 꽂아요' } }, difficulty: 0.05 },
+              { prompt: '친구 자리 밑에 종이가 떨어져 있어요. 할 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '함께 정리해요', cards: ['같이 주울까?', '종이가 떨어졌어. 내가 도와줄게', '네가 어질렀잖아', '내 것 아니니까 몰라'] },
+                target: { pick: ['같이 주울까?', '종이가 떨어졌어. 내가 도와줄게'] }, difficulty: 0.1 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"정리를 마친 교실을 둘러보세요. 무엇이 달라졌나요?" 두세 명이 말한다. 오늘부터 하교 정리를 잘한 날 딱지판 넷째 줄에 딱지를 붙이고, 다음 시간에 한 주 딱지를 함께 센다고 예고한다. 출구 1번을 틀린 학생에게는 앉아서 하는 일과 일어나서 하는 일을 다시 나누어 보게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'kitchen', options: { mode: 'order', cards: ['가방을 싸요', '의자를 넣어요', '인사하고 나가요'] }, prompt: '집에 가기 전 차례대로 놓아 보세요.', target: { order: ['가방을 싸요', '의자를 넣어요', '인사하고 나가요'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '함께 쓰는 곳은 누가 정리할까요?', options: ['우리 모두 함께', '청소하시는 분만'], answer: 0, difficulty: 0.05, explain: '함께 쓰는 곳은 함께 쓰는 우리가 함께 정리해요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '집에 가기 전 정리',
+      items: [
+        { type: 'figure', wide: true, prompt: '집에 가기 전 차례대로 1, 2, 3을 쓰세요.', tool: 'kitchen', figures: [{ options: { mode: 'order', cards: ['의자를 책상 밑에 넣어요', '알림장을 써요', '책과 필통을 가방에 넣어요'], slots: ['', '', ''], shuffle: false }, caption: '' }], answer: '알림장 → 가방 → 의자' },
+        { type: 'table', prompt: '정리할 곳을 나누어 쓰세요.', columns: ['내 자리', '함께 쓰는 곳'], rows: 2 },
+        { type: 'blank', prompt: '이번 주 나는 ____________ 도우미예요.' },
+        { type: 'short', prompt: '친구 자리에 쓰레기가 있을 때 할 말을 쓰세요.' },
+      ],
+      easy: {
+        note: '앉아서 하는 일 먼저, 일어나서 하는 일 나중이에요.',
+        items: [
+          { type: 'choice', prompt: '집에 가기 전 먼저 할 일에 ○ 하세요.', options: ['알림장 쓰기', '인사하기'], answer: '알림장 쓰기' },
+          { type: 'choice', prompt: '함께 쓰는 곳에 ○ 하세요.', options: ['학급 문고', '내 서랍'], answer: '학급 문고' },
+          { type: 'draw', prompt: '도우미 일을 하는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '정리 차례 카드는 세 장이고 맞게 놓으면 초록 테두리가 생겨요. 점검 항목은 세 가지예요.',
+      base: '정리 차례 네 장과 점검 항목 네 가지를 해요.',
+      challenge: '함정 점검 항목이 더 있고, 정리 카드 여섯 장을 나누어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 함께 쓰는 곳은 내 일이 아니라고 여긴다 → 도우미 일을 돌아가며 맡아 모두가 함께 쓰는 곳을 정리해 보게 한다. ② 알림장을 쓰기 전에 가방을 싼다 → 알림장과 연필을 책상 위에 남겨 두는 약속을 한다. ③ 친구 자리 쓰레기를 보고 탓한다 → "같이 주울까?" 말을 반 전체가 연습한다. 1인 1역은 한 주마다 바꾸어 모든 학생이 여러 역할을 해 보게 한다.',
+  }));
+
+  // ───────────────────────── 37~40차시: 학교생활 딱지판 돌아보기(학교에서의 하루 — 성찰과 습관화) ─────────────────────────
+
+  lessons.push(L(37, {
+    title: '한 주 붙임 딱지를 세어 가장 잘한 일 말하기',
+    objective: '한 주 동안 학교생활 딱지판에 붙인 딱지를 세어 가장 잘한 일을 말하고, 더 잘하고 싶은 일 하나를 그림으로 나타낼 수 있다.',
+    illustration: ART('a paper sticker board with four rows for bag tidying, hallway walking, break-time ready and going-home tidy, yellow star stickers in each row, a child pointing at the longest row', '내 딱지판', [
+      { motif: 'star', x: 120, y: 84, s: 0.6 }, { motif: 'house', x: 380, y: 214, color: 'buttercup' }, { motif: 'flower', x: 250, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"33차시부터 붙인 학교생활 딱지판을 꺼내 보세요. 어느 줄이 가장 길어요?" 손가락으로 짚게 한다. "딱지를 다섯 장 다 모은 일은 다음 주에는 안 해도 될까요?" 하고 묻고 생각을 듣는다(딱지를 많이 받으면 다음 주에는 안 해도 된다는 생각). 오늘은 세어 보고 다음 시간에 그 질문을 더 생각한다고 안내한다. 시연 단추로 딱지 수만큼 별이 놓이는 모습을 보여 준다.',
+        student: '내 딱지판에서 딱지가 가장 많은 줄을 손가락으로 짚어 봐요.',
+        demo: { tool: 'chart', options: { type: 'picture', title: '하준이의 가방 정리', unit: '장', data: [['가방 정리', 4]], icons: [{ value: 1, name: '1장' }], icon: 'star' }, sequence: [{ icons: [[4]] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 딱지를 세어 그래프로 나타내고 읽기', minutes: 14, tool: 'chart',
+            teacher: '"딱지 한 장에 별 하나예요. 한 장씩 손가락으로 짚으며 놓아요." 그래프를 다 만든 뒤 "가장 잘한 일은? 그렇게 생각한 까닭은?"을 묻는다. 문항을 마치면 내 딱지판을 세어 활동지 표에 수를 쓴다.',
+            task: '딱지판의 수만큼 별을 놓아 그래프를 만들고, 가장 잘한 일을 찾아요.',
+            levels: { easy: { showValues: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '도윤이의 한 주 딱지판이에요. 표를 보고 별을 놓아 보세요.', toolOptions: { type: 'picture', title: '도윤이의 학교생활 딱지', unit: '장', data: [['가방 정리', 5], ['복도 걷기', 3], ['쉬는 시간 준비', 4]], icons: [{ value: 1, name: '1장' }], icon: 'star', given: [0] }, target: { build: true }, difficulty: 0.15,
+                levels: { easy: { toolOptions: { given: [0, 1] } }, challenge: { prompt: '도윤이의 한 주 딱지판이에요. 표를 보고 네 줄의 별을 모두 놓아 보세요.', toolOptions: { data: [['가방 정리', 5], ['복도 걷기', 3], ['쉬는 시간 준비', 4], ['하교 정리', 2]], given: [] } } } },
+              { prompt: '민지의 딱지 그래프예요. 민지가 가장 잘한 일(딱지가 가장 많은 일)을 고르세요.', toolOptions: { type: 'picture', mode: 'read', title: '민지의 학교생활 딱지', unit: '장', data: [['가방 정리', 2], ['복도 걷기', 5], ['쉬는 시간 준비', 3], ['하교 정리', 4]], icons: [{ value: 1, name: '1장' }], icon: 'star', question: '딱지가 가장 많은 일은?', choices: ['가방 정리', '복도 걷기', '쉬는 시간 준비', '하교 정리'] }, target: { pick: 1 }, difficulty: 0.1,
+                levels: { challenge: { prompt: '민지의 딱지 그래프예요. 민지가 다음 주에 더 잘하고 싶은 일(딱지가 가장 적은 일)을 고르세요.', toolOptions: { question: '딱지가 가장 적은 일은?' }, target: { pick: 0 } } } },
+              { prompt: '준호의 딱지 그래프를 보고 표의 빈칸을 채워 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '준호의 학교생활 딱지', unit: '장', data: [['가방 정리', 4], ['복도 걷기', 2], ['쉬는 시간 준비', 5], ['하교 정리', 3]], icons: [{ value: 1, name: '1장' }], icon: 'star', tableBlanks: [1] }, target: { table: true }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { tableBlanks: [0, 1, 3] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 내 딱지판 꾸미고 더 잘하고 싶은 일 그리기', minutes: 12, tool: 'collage',
+            teacher: '"가장 잘한 일은 크게 칭찬하고, 딱지가 적은 일은 다음 주에 더 해 볼 일이에요." 딱지가 적은 것은 부끄러운 것이 아니라 연습할 일이 보인 것이라고 말한다. 그림을 다 꾸미면 짝에게 "나는 ○○을 가장 잘했고, ○○을 더 잘하고 싶어"라고 말한다.',
+            task: '딱지판 한 줄을 별로 꾸미고, 더 잘하고 싶은 일을 그림으로 나타내 짝에게 말해요.',
+            levels: HABIT_LV,
+            items: [
+              { prompt: '서아는 이번 주 가방 정리를 네 번 했어요. 가방 정리 줄에 노랑 별 네 개를 붙여 보세요.', target: { has: [{ shape: 'star', color: '노랑', n: 4 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '서아는 이번 주 가방 정리를 네 번, 복도 걷기를 세 번 했어요. 노랑 별 넷과 초록 동그라미 셋을 붙여 보세요.', target: { has: [{ shape: 'star', color: '노랑', n: 4 }, { shape: 'circle', color: '초록', n: 3 }] } } } },
+              { prompt: '다음 주에 더 잘하고 싶은 일을 조각 세 개 넘게 붙여 그리고 점검해 보세요.', target: { selfCheck: ['더 잘하고 싶은 일이 그림으로 보여요', '그 일을 하는 내 모습이 있어요', '짝에게 가장 잘한 일과 더 잘하고 싶은 일을 말했어요'], minPieces: 3 }, difficulty: 0.1 },
+              { prompt: '내 진짜 딱지판을 세어 활동지 표에 수를 썼으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"짝이 가장 잘한 일은 무엇이었나요?" 두세 명이 짝을 소개한다. 딱지 수는 친구와 견주는 것이 아니라 지난 나와 견주는 것이라고 말한다. 다음 시간에는 "딱지를 다 모으면 그만해도 될까?"를 함께 생각한다고 예고한다. 출구 1번을 틀린 학생에게는 별을 손가락으로 다시 세게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '서아의 학교생활 딱지', unit: '장', data: [['가방 정리', 3], ['복도 걷기', 4], ['하교 정리', 5]], icons: [{ value: 1, name: '1장' }], icon: 'star', question: '딱지가 가장 많은 일은?', choices: ['가방 정리', '복도 걷기', '하교 정리'] }, prompt: '그래프를 보고 서아가 가장 잘한 일을 고르세요.', target: { pick: 2 }, difficulty: 0.1 },
+          { type: 'choice', prompt: '딱지가 가장 적은 일은 무엇이 될까요?', options: ['다음 주에 더 해 볼 일', '그만둘 일'], answer: 0, difficulty: 0.1, explain: '딱지가 적은 일은 다음 주에 더 연습할 일이에요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '내 한 주 딱지판',
+      items: [
+        { type: 'table', prompt: '내 딱지판의 딱지 수를 세어 쓰세요.', columns: ['가방 정리', '복도 걷기', '쉬는 시간 준비', '하교 정리'], rows: 1 },
+        { type: 'blank', prompt: '내가 가장 잘한 일은 ______________예요.' },
+        { type: 'blank', prompt: '다음 주에 더 잘하고 싶은 일은 ______________예요.' },
+        { type: 'draw', prompt: '더 잘하고 싶은 일을 하는 나를 그려 보세요.' },
+      ],
+      easy: {
+        note: '딱지를 손가락으로 한 장씩 짚으며 세어요.',
+        items: [
+          { type: 'table', prompt: '딱지 수를 세어 쓰세요.', columns: ['가방 정리', '복도 걷기'], rows: 1 },
+          { type: 'blank', prompt: '나는 ____________을 가장 잘했어요.' },
+          { type: 'draw', prompt: '더 잘하고 싶은 일을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '그래프 두 줄이 미리 그려져 있고 수가 함께 보여요. 별 네 개만 붙여요.',
+      base: '그래프 첫 줄만 그려져 있어요. 표 빈칸 하나를 채워요.',
+      challenge: '네 줄 그래프를 처음부터 만들고, 가장 적은 일을 찾으며, 표 빈칸 세 개를 채워요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 딱지 수를 친구와 견주며 속상해한다 → 지난주 나와 견주게 하고, 반 전체 앞에서 수를 말하게 하지 않는다. ② 딱지를 많이 받으면 다음 주에는 안 해도 된다고 여긴다(핵심 오개념) → 38차시에서 이어서 다룬다. 오늘은 질문을 칠판 구석에 남겨 둔다. ③ 별을 한꺼번에 세다 틀린다 → 한 장씩 짚으며 놓게 한다. 딱지판을 잃어버린 학생은 기억나는 만큼 쓰게 하고 정확한 수를 고집하지 않는다.',
+  }));
+
+  lessons.push(L(38, {
+    title: '딱지를 다 모은 뒤에도 계속하는 까닭 알기',
+    objective: '딱지를 다 모으거나 딱지판이 없어도 좋은 습관을 계속하는 까닭을 말하고, 습관이 되어 가는 차례를 놓을 수 있다.',
+    illustration: ART('a paper child tidying a school bag on a hook without any sticker board around, a faded sticker board rolled up on the shelf behind, small hearts floating', '딱지가 없어도', [
+      { motif: 'star', x: 120, y: 84, s: 0.5 }, { motif: 'house', x: 380, y: 214, color: 'rose' }, { motif: 'leaf', x: 250, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"지난 시간 칠판에 남긴 질문이에요. 딱지를 다섯 장 다 모으면 다음 주에는 안 해도 될까요?" 손을 들게 하고 두 쪽의 생각을 모두 듣는다. "가방을 정리하는 까닭이 딱지였나요, 물건을 쉽게 찾는 것이었나요?" 하고 되묻는다. 시연 단추로 딱지판 없이 계속한 이야기 장면이 놓이는 모습을 보여 준다.',
+        student: '딱지를 받지 않아도 내가 날마다 하는 일을 하나 말해 봐요.',
+        demo: { tool: 'timeline', options: { cards: [{ id: 'board', text: '딱지판을 보고 해요', motif: 'star' }, { id: 'self', text: '딱지판 없이도 해요', motif: 'sun' }], axis: ['처음', '나중'], shuffle: false }, sequence: [{ order: ['board', 'self'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 딱지를 다 모은 다음 날', minutes: 13, tool: 'emotion',
+            teacher: '보기를 하나씩 읽고 "그렇게 하면 다음 날 어떤 일이 생길까요?"를 묻는다. 결과를 본 뒤 "딱지를 다 모으면 물건이 저절로 정리될까요?"라고 되묻는다. 습관은 딱지를 받으려고가 아니라 나에게 좋아서 하는 것이라는 것을 짚는다.',
+            task: '딱지를 다 모았거나 딱지판이 없는 날의 이야기를 읽고, 습관을 이어 가는 행동을 골라요.',
+            levels: { easy: { steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '준호는 가방 정리 딱지를 다섯 장 다 모았어요. 새로운 월요일 아침, 준호는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '가방 정리 딱지를 다 모은 다음 주 월요일 아침이에요.', choices: [
+                { id: 'keep', text: '오늘도 가방을 정리해요', result: '수업 시간에 필통을 바로 찾았어요.', mood: '뿌듯함' },
+                { id: 'stop', text: '다 모았으니 이제 안 해요', result: '필통을 못 찾아 수업에 늦었어요.', mood: '속상함', why: '딱지를 다 모으면 물건이 저절로 정리될까요?' }] }, target: { choice: 'keep' }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'keep', text: '오늘도 가방을 정리해요', result: '수업 시간에 필통을 바로 찾았어요.', mood: '뿌듯함' },
+                  { id: 'stop', text: '다 모았으니 이제 안 해요', result: '필통을 못 찾아 수업에 늦었어요.', mood: '속상함', why: '딱지를 다 모으면 물건이 저절로 정리될까요?' },
+                  { id: 'more', text: '딱지를 또 주면 하겠다고 해요', result: '딱지가 없는 날에는 서랍이 다시 어질러졌어요.', mood: '걱정', why: '딱지가 있을 때만 하면 딱지가 없는 날은 어떻게 될까요?' }] } } } },
+              { prompt: '서아가 딱지판을 집에 두고 왔어요. 쉬는 시간에 서아는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '오늘은 딱지판이 없어요. 쉬는 시간에 화장실에 가요.', choices: [
+                { id: 'walk', text: '딱지판이 없어도 오른쪽으로 걸어요', result: '모퉁이에서 친구와 부딪히지 않았어요.', mood: '편안함' },
+                { id: 'run', text: '오늘은 딱지가 없으니 뛰어가요', result: '모퉁이에서 친구와 부딪혔어요.', mood: '속상함', why: '딱지판이 없는 날에도 뛰면 부딪힐 수 있을까요?' }] }, target: { choice: 'walk' }, difficulty: 0.1 },
+              { prompt: '딱지가 없어도 습관을 이어 가는 까닭만 골라 보세요.', toolOptions: { mode: 'pick', basket: '계속하는 까닭', cards: ['물건을 쉽게 찾을 수 있어요', '친구와 부딪히지 않아요', '딱지를 받을 수 있어요', '딱지판이 있을 때만 해요'] },
+                target: { pick: ['물건을 쉽게 찾을 수 있어요', '친구와 부딪히지 않아요'] }, difficulty: 0.15,
+                predict: { q: '딱지를 다 모으면 그만해도 될까요?', options: ['그만해도 돼요', '계속해요'], answer: 1 },
+                conclude: '습관은 딱지 때문이 아니라 나와 친구에게 좋아서 계속해요.',
+                levels: { challenge: { toolOptions: { cards: ['물건을 쉽게 찾을 수 있어요', '친구와 부딪히지 않아요', '딱지를 받을 수 있어요', '딱지판이 있을 때만 해요', '선생님이 볼 때만 칭찬받아요'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 습관이 되어 가는 차례', minutes: 13, tool: 'timeline',
+            teacher: '"처음에는 누가 알려 줘야 했고, 그다음에는 딱지판을 보고 했고, 나중에는?" 습관은 알려 줌 → 스스로 떠올림 → 저절로 함 차례로 자란다는 것을 손가락 세 개로 보여 준다. 띠 왼쪽이 처음, 오른쪽이 나중이라는 것을 짚는다.',
+            task: '친구가 습관을 들여 간 이야기를 처음부터 나중까지 차례대로 놓아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '도윤이가 가방 정리 습관을 들인 이야기예요. 처음부터 나중까지 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'told', text: '선생님이 알려 주셔서 했어요', motif: 'house' }, { id: 'board', text: '딱지판을 보고 생각나서 했어요', motif: 'star' }, { id: 'self', text: '딱지판 없이도 저절로 해요', motif: 'sun' }], axis: ['처음', '나중'] },
+                target: { order: ['told', 'board', 'self'] }, difficulty: 0.15,
+                hints: ['처음에는 누가 도와주고, 갈수록 내가 스스로 하게 돼요.', '흔들리는 카드에서 도와주는 것(선생님·딱지판·없음)이 무엇인지 봐요.', '선생님이 알려 줌 → 딱지판 보고 → 저절로 차례예요.'],
+                levels: { challenge: { prompt: '도윤이가 가방 정리 습관을 들인 이야기예요. 차례대로 놓고, 이야기와 맞지 않는 카드는 빼요.', toolOptions: { cards: [{ id: 'told', text: '선생님이 알려 주셔서 했어요', motif: 'house' }, { id: 'board', text: '딱지판을 보고 생각나서 했어요', motif: 'star' }, { id: 'self', text: '딱지판 없이도 저절로 해요', motif: 'sun' }, { id: 'quit', text: '딱지를 다 모아서 그만뒀어요', motif: 'cloud' }], slots: 3 } } } },
+              { prompt: '민지가 의자 넣기 습관을 들인 이야기예요. 처음부터 나중까지 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'forget', text: '의자 넣기를 자꾸 잊었어요', motif: 'cloud' }, { id: 'friend', text: '짝이 "의자!" 하고 알려 줬어요', motif: 'flower' }, { id: 'auto', text: '일어나면 저절로 의자를 넣어요', motif: 'sun' }], axis: ['처음', '나중'] },
+                target: { order: ['forget', 'friend', 'auto'] }, difficulty: 0.15,
+                hints: ['잊는 때 → 도움받는 때 → 스스로 하는 때로 자라요.', '흔들리는 카드는 아직 잊나요, 도움을 받나요, 스스로 하나요?', '잊었어요 → 짝이 알려 줬어요 → 저절로 해요 차례예요.'] },
+              { prompt: '딱지판 없이 스스로 할 일 하나를 짝에게 말하고, 다음 쉬는 시간에 해 보기로 약속했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"딱지판이 없어도 내가 계속할 일은?" 두세 명이 말한다. 이번 주부터 딱지판은 한 줄씩 줄여 가고, 저절로 하게 된 일에는 딱지 대신 스스로 ✓만 한다고 안내한다. 출구 1번에서 그만둔다를 고른 학생에게는 준호의 필통 이야기를 다시 떠올리게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { mode: 'branch', who: '도윤', situation: '하교 정리 딱지를 다 모았어요. 오늘도 집에 갈 시간이에요.', choices: [
+            { id: 'keep', text: '오늘도 의자를 넣고 가요', result: '다음 날 아침 교실이 깨끗했어요.', mood: '편안함' },
+            { id: 'stop', text: '다 모았으니 그냥 가요', result: '의자에 걸려 친구가 넘어질 뻔했어요.', mood: '걱정', why: '딱지를 다 모으면 의자가 저절로 들어갈까요?' }] }, prompt: '딱지를 다 모은 도윤이는 어떻게 할까요?', target: { choice: 'keep' }, difficulty: 0.05 },
+          { type: 'choice', prompt: '좋은 습관은 언제까지 할까요?', options: ['딱지를 다 모을 때까지', '딱지가 없어도 계속'], answer: 1, difficulty: 0.1, explain: '습관은 나와 친구에게 좋아서 딱지가 없어도 계속해요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '딱지가 없어도 계속해요',
+      items: [
+        { type: 'choice', prompt: '딱지를 다 모은 준호가 할 일에 ○ 하세요.', options: ['오늘도 가방을 정리해요', '이제 안 해요'], answer: '오늘도 가방을 정리해요' },
+        { type: 'check', prompt: '습관을 계속하는 까닭에 모두 ✓ 하세요.', options: ['물건을 쉽게 찾아요', '딱지를 받으려고만', '친구와 부딪히지 않아요'] },
+        { type: 'table', prompt: '습관이 되어 가는 차례를 쓰세요.', columns: ['처음', '그다음', '나중'], rows: 1 },
+        { type: 'short', prompt: '딱지판 없이도 내가 계속할 일을 쓰세요.' },
+      ],
+      easy: {
+        note: '딱지가 없어도 물건은 정리해야 찾을 수 있어요.',
+        items: [
+          { type: 'choice', prompt: '딱지판이 없는 날 복도에서 ○ 하세요.', options: ['걸어요', '뛰어요'], answer: '걸어요' },
+          { type: 'choice', prompt: '습관은 언제까지 할까요?', options: ['계속해요', '딱지를 다 모을 때까지'], answer: '계속해요' },
+          { type: 'draw', prompt: '딱지판 없이 스스로 하는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '고를 보기가 두 가지예요. 습관 이야기 카드는 맞게 놓으면 초록 테두리가 생겨요.',
+      base: '보기 두 가지 가운데 골라요. 습관 이야기 세 장을 차례대로 놓아요.',
+      challenge: '함정 보기와 함정 카드가 하나씩 더 있어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 딱지를 다 모으면 그만해도 된다고 여긴다(핵심 오개념) → "딱지를 다 모으면 필통이 저절로 서랍에 들어갈까요?"로 되묻는다. ② 딱지가 없으면 하기 싫다고 솔직히 말한다 → 그 마음을 받아 주고, 습관이 생기면 저절로 하게 된다는 것을 친구의 이야기로 보여 준다. ③ 습관이 되어 가는 차례를 시간 차례로만 본다 → 도와주는 것이 줄어드는 차례라는 것을 짚는다. 딱지판은 갑자기 없애지 말고 한 줄씩 스스로 ✓로 바꾼다.',
+  }));
+
+  lessons.push(L(39, {
+    title: '모둠 딱지 그래프로 서로 돕는 방법 찾기',
+    objective: '모둠별 딱지 그림그래프를 읽어 많이 붙인 모둠과 적게 붙인 모둠을 찾고, 정리가 늦은 친구를 대신해 주지 않고 돕는 말과 행동을 고를 수 있다.',
+    illustration: ART('a paper class board with four small group sticker charts side by side, children of one group high-fiving and helping a friend put a chair under a desk', '함께 해요', [
+      { motif: 'star', x: 120, y: 84, s: 0.5 }, { motif: 'house', x: 380, y: 214, color: 'sky' }, { motif: 'flower', x: 250, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"이번 주에는 모둠 딱지판도 붙였지요. 우리 모둠은 몇 장인지 세어 볼까요?" 모둠마다 센 수를 칠판에 적는다. "딱지가 적은 모둠은 친구 한 명 때문일까요?" 하고 물어, 모둠 딱지는 탓할 것이 아니라 함께 늘릴 것이라는 것을 짚는다. 시연 단추로 모둠 수만큼 그림이 놓이는 모습을 보여 준다.',
+        student: '우리 모둠이 이번 주에 잘한 일을 하나 말해 봐요.',
+        demo: { tool: 'chart', options: { type: 'picture', title: '1모둠 복도 걷기', unit: '장', data: [['1모둠', 6]], icons: [{ value: 1, name: '1장' }], icon: 'heart' }, sequence: [{ icons: [[6]] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 모둠 딱지 그래프 만들고 읽기', minutes: 13, tool: 'chart',
+            teacher: '"하트 하나가 딱지 한 장이에요. 여섯 장이면 하트 몇 개를 놓을까요?" 다 만든 뒤 "가장 많은 모둠과 가장 적은 모둠은 몇 장 차이가 날까요?"를 묻는다. 그래프로 나타내면 한눈에 견줄 수 있다는 것을 짚는다.',
+            task: '모둠 딱지 수만큼 하트를 놓아 그래프를 만들고, 많은 모둠과 적은 모둠을 찾아요.',
+            levels: { easy: { showValues: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '모둠별 복도 걷기 딱지예요. 표를 보고 하트를 놓아 보세요.', toolOptions: { type: 'picture', title: '모둠별 복도 걷기 딱지', unit: '장', data: [['1모둠', 6], ['2모둠', 4], ['3모둠', 7], ['4모둠', 5]], icons: [{ value: 1, name: '1장' }], icon: 'heart', given: [0, 1] }, target: { build: true }, difficulty: 0.15,
+                levels: { easy: { toolOptions: { given: [0, 1, 2] } }, challenge: { toolOptions: { given: [] } } } },
+              { prompt: '모둠별 가방 정리 딱지 그래프예요. 딱지가 가장 많은 모둠을 고르세요.', toolOptions: { type: 'picture', mode: 'read', title: '모둠별 가방 정리 딱지', unit: '장', data: [['1모둠', 5], ['2모둠', 8], ['3모둠', 6], ['4모둠', 3]], icons: [{ value: 1, name: '1장' }], icon: 'heart', question: '딱지가 가장 많은 모둠은?', choices: ['1모둠', '2모둠', '3모둠', '4모둠'] }, target: { pick: 1 }, difficulty: 0.1,
+                levels: { challenge: { prompt: '모둠별 가방 정리 딱지 그래프예요. 2모둠은 4모둠보다 딱지가 몇 장 더 많을까요?', toolOptions: { question: '몇 장 더 많을까요?', choices: ['4장', '5장', '6장'] }, target: { pick: 1 } } } },
+              { prompt: '모둠별 쉬는 시간 준비 딱지 그래프를 보고 표의 빈칸을 채워 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '모둠별 쉬는 시간 준비 딱지', unit: '장', data: [['1모둠', 7], ['2모둠', 5], ['3모둠', 4], ['4모둠', 6]], icons: [{ value: 1, name: '1장' }], icon: 'heart', tableBlanks: [2] }, target: { table: true }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { tableBlanks: [0, 2, 3] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 정리가 늦은 친구를 돕는 방법', minutes: 13, tool: 'emotion',
+            teacher: '"친구 정리를 내가 다 대신 해 주면 친구는 언제 연습할까요?" 대신 해 주기와 옆에서 알려 주기의 다른 점을 짚는다(정리는 남이 대신 해 주는 일이라는 생각). 문항을 마치면 모둠끼리 다음 주에 함께 더 잘할 일 하나를 정해 모둠마다 30초씩 말한다.',
+            task: '정리가 늦은 친구를 돕는 행동과 응원하는 말을 고르고, 모둠의 다음 주 약속을 정해요.',
+            levels: { easy: { steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '하준이는 집에 갈 때 가방 싸기가 늦어요. 모둠 친구 서아는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '모두 줄을 섰는데 하준이는 아직 가방을 싸고 있어요.', choices: [
+                { id: 'help', text: '"알림장부터 넣자" 하고 옆에서 알려 줘요', result: '하준이가 스스로 가방을 다 쌌어요.', mood: '뿌듯함' },
+                { id: 'do', text: '하준이 가방을 대신 다 싸 줘요', result: '다음 날 하준이는 또 혼자 싸지 못했어요.', mood: '걱정', why: '대신 다 해 주면 하준이는 언제 연습할까요?' }] }, target: { choice: 'help' }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'help', text: '"알림장부터 넣자" 하고 옆에서 알려 줘요', result: '하준이가 스스로 가방을 다 쌌어요.', mood: '뿌듯함' },
+                  { id: 'do', text: '하준이 가방을 대신 다 싸 줘요', result: '다음 날 하준이는 또 혼자 싸지 못했어요.', mood: '걱정', why: '대신 다 해 주면 하준이는 언제 연습할까요?' },
+                  { id: 'rush', text: '"너 때문에 늦잖아!" 하고 소리쳐요', result: '하준이가 울먹이며 더 허둥댔어요.', mood: '속상함', why: '소리치는 말을 들은 하준이는 더 빨리 쌀 수 있을까요?' }] } } } },
+              { prompt: '모둠 친구를 응원하는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '응원해요', cards: ['조금만 더 하면 돼', '어제보다 빨라졌어', '너 때문에 딱지가 적어', '또 늦었네'] },
+                target: { pick: ['조금만 더 하면 돼', '어제보다 빨라졌어'] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '모둠 친구를 응원하는 말만 골라 보세요. 세 가지예요.', toolOptions: { cards: ['조금만 더 하면 돼', '어제보다 빨라졌어', '같이 해 볼까', '너 때문에 딱지가 적어', '또 늦었네'] }, target: { pick: ['조금만 더 하면 돼', '어제보다 빨라졌어', '같이 해 볼까'] } } } },
+              { prompt: '모둠끼리 다음 주에 함께 더 잘할 일 하나를 정해 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"다른 모둠이 정한 약속 가운데 우리 모둠도 해 보고 싶은 것은?" 두세 명이 말한다. 모둠 딱지는 이긴 모둠을 가리는 것이 아니라 함께 늘리는 것이라고 다시 말한다. 출구 1번을 틀린 학생에게는 하트를 손가락으로 짚어 다시 세게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '모둠별 하교 정리 딱지', unit: '장', data: [['1모둠', 6], ['2모둠', 3], ['3모둠', 5]], icons: [{ value: 1, name: '1장' }], icon: 'heart', question: '딱지가 가장 적은 모둠은?', choices: ['1모둠', '2모둠', '3모둠'] }, prompt: '그래프를 보고 하교 정리 딱지가 가장 적은 모둠을 고르세요.', target: { pick: 1 }, difficulty: 0.1 },
+          { type: 'choice', prompt: '친구가 정리를 늦게 할 때 좋은 도움은?', options: ['대신 다 해 줘요', '옆에서 알려 줘요'], answer: 1, difficulty: 0.1, explain: '옆에서 알려 주면 친구가 스스로 연습할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 모둠 딱지',
+      items: [
+        { type: 'table', prompt: '우리 모둠 딱지 수를 세어 쓰세요.', columns: ['가방 정리', '복도 걷기', '쉬는 시간 준비', '하교 정리'], rows: 1 },
+        { type: 'choice', prompt: '정리가 늦은 친구를 돕는 행동에 ○ 하세요.', options: ['옆에서 알려 줘요', '대신 다 해 줘요'], answer: '옆에서 알려 줘요' },
+        { type: 'short', prompt: '모둠 친구에게 해 줄 응원의 말을 쓰세요.' },
+        { type: 'blank', prompt: '우리 모둠이 다음 주에 함께 더 잘할 일: ______________' },
+      ],
+      easy: {
+        note: '하트 하나가 딱지 한 장이에요.',
+        items: [
+          { type: 'choice', prompt: '응원하는 말에 ○ 하세요.', options: ['조금만 더 하면 돼', '또 늦었네'], answer: '조금만 더 하면 돼' },
+          { type: 'choice', prompt: '친구를 돕는 행동에 ○ 하세요.', options: ['옆에서 알려 줘요', '소리쳐요'], answer: '옆에서 알려 줘요' },
+          { type: 'draw', prompt: '모둠 친구를 돕는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '그래프 세 줄이 미리 그려져 있고 수가 함께 보여요. 고를 보기가 두 가지예요.',
+      base: '그래프 두 줄을 놓고, 표 빈칸 하나를 채워요.',
+      challenge: '그래프 네 줄을 모두 놓고, 몇 장 더 많은지 셈하며, 함정 보기가 하나 더 있어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 딱지가 적은 모둠의 친구를 탓한다 → 모둠 딱지는 함께 늘리는 것이라고 말하고, 누구 때문인지는 묻지 않는다. ② 도와준다며 친구 일을 대신 다 해 준다(정리는 남이 대신 해 준다는 생각) → "말로만 도와요" 약속을 한다. ③ 몇 장 더 많은지 셈을 어려워한다 → 두 줄의 하트를 하나씩 짝 지어 남는 하트를 세게 한다. 모둠별 수를 반 전체 순위처럼 발표하지 않는다.',
+  }));
+
+  lessons.push(L(40, {
+    title: '더 잘하고 싶은 일을 작은 걸음으로 정하기',
+    objective: '더 잘하고 싶은 학교생활 습관 하나를 골라 내일부터 할 수 있는 작은 걸음 하나로 정하고, 걸음 카드로 나타낼 수 있다.',
+    illustration: ART('a paper staircase of three small blue steps with a child climbing toward a yellow star at the top, a classroom tree with step cards hanging on its branches', '한 걸음씩', [
+      { motif: 'tree', x: 110, y: 214 }, { motif: 'star', x: 330, y: 84, s: 0.6 }, { motif: 'flower', x: 390, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"계단을 한 번에 다섯 칸 뛰어오를 수 있나요? 한 칸씩 오르면요?" 교실 앞에서 한 걸음씩 걷는 모습을 보여 준다. "더 잘하고 싶은 일도 한 번에 다 잘하려 하면 어려워요. 오늘 할 수 있는 작은 걸음 하나로 바꾸어 봐요." 시연 단추로 어려운 일과 작은 걸음이 이어지는 모습을 보여 준다.',
+        student: '37차시에 고른 더 잘하고 싶은 일을 다시 말해 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '작은 걸음', slots: [{ id: 'g', label: '복도에서 자꾸 뛰어요' }], cards: ['교실 문 앞에서 멈췄다 걸어요'], shuffle: false }, sequence: [{ match: { g: '교실 문 앞에서 멈췄다 걸어요' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 어려운 일에 맞는 작은 걸음 찾기', minutes: 12, tool: 'mindmap',
+            teacher: '"작은 걸음은 내일 바로 할 수 있고, 한 번에 하나만 하는 것이에요." 어려운 일과 작은 걸음을 이은 뒤 "하루 만에 모두 잘하기는 왜 작은 걸음이 아닐까요?"를 묻는다. 문항을 마치면 짝에게 내 걸음을 말한다.',
+            task: '어려운 일에 맞는 작은 걸음을 잇고, 내일 할 수 있는 걸음만 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '어려운 일과 그 일을 돕는 작은 걸음을 이어 보세요.', toolOptions: { mode: 'match', topic: '작은 걸음', slots: [{ id: 'ready', label: '쉬는 시간 준비를 자꾸 잊어요' }, { id: 'run', label: '복도에서 자꾸 뛰어요' }, { id: 'mess', label: '사물함이 금방 어질러져요' }], cards: ['종이 울리면 시간표를 봐요', '교실 문 앞에서 멈췄다 걸어요', '쓴 물건을 바로 제자리에 둬요'] },
+                target: { match: { ready: '종이 울리면 시간표를 봐요', run: '교실 문 앞에서 멈췄다 걸어요', mess: '쓴 물건을 바로 제자리에 둬요' } }, difficulty: 0.15,
+                hints: ['어려운 일과 같은 곳·같은 물건이 나오는 걸음을 찾아요.', '흔들리는 카드가 그 어려운 일(준비·복도·사물함)을 돕는지 봐요.', '준비는 시간표 보기, 복도는 문 앞에서 멈추기, 사물함은 바로 제자리예요.'],
+                levels: { easy: { prompt: '어려운 일과 그 일을 돕는 작은 걸음을 이어 보세요. 두 짝이에요.', toolOptions: { slots: [{ id: 'ready', label: '쉬는 시간 준비를 자꾸 잊어요' }, { id: 'run', label: '복도에서 자꾸 뛰어요' }], cards: ['종이 울리면 시간표를 봐요', '교실 문 앞에서 멈췄다 걸어요'] }, target: { match: { ready: '종이 울리면 시간표를 봐요', run: '교실 문 앞에서 멈췄다 걸어요' } } } } },
+              { prompt: '내일 바로 할 수 있는 작은 걸음만 골라 보세요.', toolOptions: { mode: 'pick', basket: '내일 할 걸음', cards: ['쉬는 시간마다 다음 책 꺼내기', '집에 가기 전 서랍 한 번 보기', '하루 만에 모두 잘하기', '딱지 열 장 한꺼번에 받기'] },
+                target: { pick: ['쉬는 시간마다 다음 책 꺼내기', '집에 가기 전 서랍 한 번 보기'] }, difficulty: 0.15,
+                predict: { q: '더 잘하고 싶은 일은 어떻게 시작할까요?', options: ['한 번에 다', '작은 걸음 하나'], answer: 1 },
+                conclude: '내일 바로 할 수 있는 작은 걸음 하나부터 시작하면 조금씩 잘하게 돼요.',
+                levels: { challenge: { toolOptions: { cards: ['쉬는 시간마다 다음 책 꺼내기', '집에 가기 전 서랍 한 번 보기', '하루 만에 모두 잘하기', '딱지 열 장 한꺼번에 받기', '내일부터 한 번도 안 틀리기'] } } } },
+              { prompt: '내가 더 잘하고 싶은 일과 작은 걸음 하나를 짝에게 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 걸음 카드 만들어 걸음 나무에 붙이기', minutes: 14, tool: 'collage',
+            teacher: '"계단 맨 위의 별이 더 잘하고 싶은 일, 계단 한 칸이 작은 걸음이에요." 걸음 계단을 붙인 뒤 내 걸음 카드를 꾸미게 한다. 다 만든 카드는 종이에도 그려 교실 뒤 걸음 나무에 붙이고, 걸음을 해낸 날마다 계단 한 칸에 색을 칠한다.',
+            task: '걸음 계단을 붙이고, 내 작은 걸음 카드를 꾸며 걸음 나무에 붙여요.',
+            levels: HABIT_LV,
+            items: [
+              { prompt: '걸음 계단을 만들어요. 파랑 네모 세 개를 계단처럼 붙이고, 맨 위에 노랑 별 하나를 붙여 보세요.', target: { has: [{ shape: 'square', color: '파랑', n: 3 }, { shape: 'star', color: '노랑', n: 1 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '걸음 계단을 만들어요. 파랑 네모 다섯 개를 계단처럼 붙이고, 맨 위에 노랑 별 하나, 응원하는 빨강 하트 하나를 붙여 보세요.', target: { has: [{ shape: 'square', color: '파랑', n: 5 }, { shape: 'star', color: '노랑', n: 1 }, { shape: 'heart', color: '빨강', n: 1 }] } } } },
+              { prompt: '내 작은 걸음 카드를 조각 세 개 넘게 붙여 꾸미고 점검해 보세요.', target: { selfCheck: ['더 잘하고 싶은 일이 그림으로 보여요', '내일 할 작은 걸음 하나가 보여요', '짝이 내 걸음을 알아맞혔어요'], minPieces: 3 }, difficulty: 0.1 },
+              { prompt: '걸음 카드를 종이에 그려 교실 뒤 걸음 나무에 붙였으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"걸음 나무에 붙은 친구의 걸음 가운데 나도 해 보고 싶은 것은?" 두세 명이 말한다. 내일부터 걸음을 해낸 날 계단에 색을 칠하고, 다섯 칸이 모두 칠해지면 다음 걸음을 정한다고 안내한다. 출구 1번을 틀린 학생에게는 어려운 일과 같은 곳이 나오는 걸음을 찾게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '작은 걸음', slots: [{ id: 'chair', label: '의자 넣기를 자꾸 잊어요' }, { id: 'note', label: '알림장을 자주 두고 가요' }], cards: ['일어나면 의자부터 봐요', '알림장을 쓰면 바로 가방에 넣어요'] }, prompt: '어려운 일과 돕는 작은 걸음을 이어 보세요.', target: { match: { chair: '일어나면 의자부터 봐요', note: '알림장을 쓰면 바로 가방에 넣어요' } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '작은 걸음은 어느 것일까요?', options: ['내일부터 모두 완벽하게 하기', '쉬는 시간마다 다음 책 꺼내기'], answer: 1, difficulty: 0.1, explain: '작은 걸음은 내일 바로 할 수 있는 한 가지예요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '나의 작은 걸음',
+      items: [
+        { type: 'blank', prompt: '내가 더 잘하고 싶은 일: ______________' },
+        { type: 'blank', prompt: '내일 할 작은 걸음: ______________' },
+        { type: 'table', prompt: '걸음을 해낸 날에 ○ 하세요.', columns: ['월', '화', '수', '목', '금'], rows: 1 },
+        { type: 'draw', prompt: '작은 걸음을 하는 나를 그려 보세요.' },
+      ],
+      easy: {
+        note: '작은 걸음은 내일 바로 할 수 있는 한 가지예요.',
+        items: [
+          { type: 'choice', prompt: '작은 걸음에 ○ 하세요.', options: ['다음 책 꺼내기', '하루 만에 모두 잘하기'], answer: '다음 책 꺼내기' },
+          { type: 'blank', prompt: '내일 나는 ____________을 해요.' },
+          { type: 'draw', prompt: '걸음 계단을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '이을 짝이 두 개이고 맞게 놓으면 초록 테두리가 생겨요. 조각 색과 모양이 적어요.',
+      base: '이을 짝 세 개, 계단 네모 세 개를 붙여요.',
+      challenge: '함정 걸음 카드가 하나 더 있고, 계단 다섯 칸과 하트까지 붙여요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 걸음을 크게 잡는다("내일부터 다 잘할게요") → "내일 아침에 바로 할 수 있나요?"로 줄이게 한다. ② 여러 걸음을 한꺼번에 정한다 → 걸음 카드에는 하나만 담는다. ③ 걸음을 해내지 못한 날을 속상해한다 → 그날은 칠하지 않고 다음 날 다시 하면 된다고 말한다. 걸음 나무는 48차시 단원 정리 때 다시 함께 본다.',
+  }));
+
+  // ───────────────────────── 41~44차시: 내가 좋아하는 것·잘하는 것, 친구와 다른 점(나를 알기 — 생활 맥락 이해) ─────────────────────────
+
+  lessons.push(L(41, {
+    title: '내가 좋아하는 것과 잘하는 것 나누어 나타내기',
+    objective: '좋아하는 것(마음이 끌리는 것)과 잘하는 것(해낼 수 있는 것)을 나누고, 나의 것을 하나씩 그림으로 나타내 짝에게 말할 수 있다.',
+    illustration: ART('a paper child standing beside a little tree whose branches hold a dinosaur book, a strawberry, a jump rope and a paper boat, with a heart and stars around', '나를 알아요', [
+      { motif: 'tree', x: 110, y: 214 }, { motif: 'star', x: 330, y: 84, s: 0.6 }, { motif: 'flower', x: 390, y: 228, color: 'rose' }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"선생님은 비 오는 날을 좋아해요. 그리고 종이학을 잘 접어요." 교사 자신의 예로 시작한다. "좋아하는 것과 잘하는 것은 같은 말일까요?" 하고 묻는다. 좋아하는 것은 마음이 끌리는 것, 잘하는 것은 내가 해낼 수 있는 것이라고 짚는다. "친구가 나와 다른 것을 좋아하면 이상한 걸까요?"도 물어 생각을 들어 둔다(좋아하는 것이 친구와 다르면 이상하다는 생각). 시연 단추로 카드가 두 갈래로 나뉘는 모습을 보여 준다.',
+        student: '내가 좋아하는 것 하나를 떠올려 말해 봐요.',
+        demo: { tool: 'mindmap', options: { topic: '선생님', slots: ['좋아하는 것', '잘하는 것'], cards: ['비 오는 날이 좋아요', '종이학을 잘 접어요'], shuffle: false }, sequence: [{ sort: { '좋아하는 것': ['비 오는 날이 좋아요'], '잘하는 것': ['종이학을 잘 접어요'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 좋아하는 것과 잘하는 것 나누기', minutes: 12, tool: 'mindmap',
+            teacher: '"이 카드는 마음이 끌리는 이야기인가요, 해낼 수 있다는 이야기인가요?" 카드마다 묻는다. 좋아하지만 아직 잘 못하는 것, 잘하지만 아주 좋아하지는 않는 것도 있을 수 있다고 말해 준다. 문항을 마치면 짝에게 내가 좋아하는 것 하나, 잘하는 것 하나를 말한다.',
+            task: '친구의 이야기 카드를 좋아하는 것과 잘하는 것으로 나누고, 내 것을 짝에게 말해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '준호의 이야기 카드를 좋아하는 것과 잘하는 것으로 나누어 보세요.', toolOptions: { topic: '준호', slots: ['좋아하는 것', '잘하는 것'], cards: ['공룡 책이 좋아요', '비 오는 날이 좋아요', '줄넘기를 스무 번 넘어요', '종이배를 혼자 접어요'] },
+                target: { sort: { '좋아하는 것': ['공룡 책이 좋아요', '비 오는 날이 좋아요'], '잘하는 것': ['줄넘기를 스무 번 넘어요', '종이배를 혼자 접어요'] } }, difficulty: 0.15,
+                hints: ['마음이 끌리는 이야기인지, 해낼 수 있다는 이야기인지 나누어요.', '흔들리는 카드는 "좋아요"라는 마음인가요, 내가 해내는 일인가요?', '공룡 책·비 오는 날은 좋아하는 것, 줄넘기·종이배는 잘하는 것이에요.'],
+                levels: { challenge: { prompt: '준호의 이야기 카드를 나누어 보세요. 여섯 장이에요.', toolOptions: { cards: ['공룡 책이 좋아요', '비 오는 날이 좋아요', '딸기를 가장 좋아해요', '줄넘기를 스무 번 넘어요', '종이배를 혼자 접어요', '신발 끈을 혼자 묶어요'] }, target: { sort: { '좋아하는 것': ['공룡 책이 좋아요', '비 오는 날이 좋아요', '딸기를 가장 좋아해요'], '잘하는 것': ['줄넘기를 스무 번 넘어요', '종이배를 혼자 접어요', '신발 끈을 혼자 묶어요'] } } } } },
+              { prompt: '서아의 이야기에서 서아가 잘하는 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '서아가 잘하는 것', cards: ['노래를 끝까지 외워 불러요', '블록으로 높은 탑을 쌓아요', '고양이가 좋아요', '분홍색이 좋아요'] },
+                target: { pick: ['노래를 끝까지 외워 불러요', '블록으로 높은 탑을 쌓아요'] }, difficulty: 0.15,
+                hints: ['서아가 해낼 수 있는 일을 찾아요.', '흔들리는 카드는 할 수 있는 일인가요, 마음이 끌리는 것인가요?', '노래 외워 부르기와 블록 탑 쌓기가 잘하는 것이에요.'],
+                levels: { challenge: { toolOptions: { cards: ['노래를 끝까지 외워 불러요', '블록으로 높은 탑을 쌓아요', '고양이가 좋아요', '분홍색이 좋아요', '그림책 읽기를 좋아해요'] } } } },
+              { prompt: '짝에게 내가 좋아하는 것 하나와 잘하는 것 하나를 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 나를 나타내는 그림 꾸미기', minutes: 14, tool: 'collage',
+            teacher: '"별은 좋아하는 것, 하트는 가장 좋아하는 것이에요." 색과 모양이 무엇을 뜻하는지 정하고 붙이게 한다. 그림을 다 꾸미면 짝 그림과 나란히 놓고 "나랑 다른 점을 하나 찾아볼까?"를 말한다. 다른 점을 찾으면 "달라서 재미있다"고 말해 준다.',
+            task: '좋아하는 것과 잘하는 것이 보이게 나를 나타내는 그림을 꾸미고, 짝 그림과 다른 점을 찾아요.',
+            levels: SCENE_LV,
+            items: [
+              { prompt: '나의 좋아요 나무를 만들어요. 좋아하는 것 세 가지는 노랑 별 셋, 가장 좋아하는 것은 빨강 하트 하나로 붙여 보세요.', target: { has: [{ shape: 'star', color: '노랑', n: 3 }, { shape: 'heart', color: '빨강', n: 1 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '나의 좋아요 나무를 만들어요. 좋아하는 것은 노랑 별 셋, 가장 좋아하는 것은 빨강 하트 하나, 잘하는 것 두 가지는 파랑 동그라미 둘로 붙여 보세요.', target: { has: [{ shape: 'star', color: '노랑', n: 3 }, { shape: 'heart', color: '빨강', n: 1 }, { shape: 'circle', color: '파랑', n: 2 }] } } } },
+              { prompt: '나를 나타내는 그림을 조각 네 개 넘게 붙여 꾸미고 점검해 보세요.', target: { selfCheck: ['내가 좋아하는 것이 하나 있어요', '내가 잘하는 것이 하나 있어요', '짝 그림과 다른 점을 하나 찾아 말했어요'], minPieces: 4 }, difficulty: 0.1 },
+              { prompt: '활동지에 내가 좋아하는 것과 잘하는 것을 그렸으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"짝과 나의 다른 점은 무엇이었나요?" 두세 짝이 말한다. 다른 점을 말한 짝에게 "달라서 서로 새로운 것을 알려 줄 수 있겠네요"라고 말해 준다. 출구 1번을 틀린 학생에게는 카드가 마음 이야기인지 해내는 일 이야기인지 다시 묻는다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '도윤', slots: ['좋아하는 것', '잘하는 것'], cards: ['수박이 좋아요', '훌라후프를 열 번 돌려요'] }, prompt: '도윤이의 카드를 좋아하는 것과 잘하는 것으로 나누어 보세요.', target: { sort: { '좋아하는 것': ['수박이 좋아요'], '잘하는 것': ['훌라후프를 열 번 돌려요'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '친구가 나와 다른 것을 좋아하면?', options: ['이상해요', '서로 달라도 괜찮아요'], answer: 1, difficulty: 0.05, explain: '사람마다 좋아하는 것이 달라요. 달라도 괜찮아요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '나를 알아요',
+      items: [
+        { type: 'table', prompt: '나의 것을 쓰세요.', columns: ['좋아하는 것', '잘하는 것'], rows: 2 },
+        { type: 'draw', prompt: '내가 가장 좋아하는 것을 그려 보세요.' },
+        { type: 'choice', prompt: '잘하는 것에 ○ 하세요.', options: ['신발 끈을 혼자 묶어요', '딸기가 좋아요'], answer: '신발 끈을 혼자 묶어요' },
+        { type: 'blank', prompt: '짝과 나의 다른 점: 짝은 ________을 좋아하고, 나는 ________을 좋아해요.' },
+      ],
+      easy: {
+        note: '좋아하는 것은 마음, 잘하는 것은 해내는 일이에요.',
+        items: [
+          { type: 'blank', prompt: '나는 ____________이 좋아요.' },
+          { type: 'blank', prompt: '나는 ____________을 잘해요.' },
+          { type: 'draw', prompt: '좋아하는 것을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞게 놓으면 초록 테두리가 생겨요. 조각 색과 모양이 적어요.',
+      base: '카드 네 장을 나누고, 별과 하트로 좋아요 나무를 만들어요.',
+      challenge: '카드 여섯 장을 나누고, 함정 카드를 빼며, 잘하는 것 동그라미까지 붙여요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 좋아하는 것과 잘하는 것을 같은 것으로 여긴다 → "좋아하지만 아직 잘 못하는 것도 있나요?"로 묻는다. ② 잘하는 것이 없다고 말한다 → 신발 끈 묶기, 혼자 옷 입기처럼 날마다 해내는 작은 일도 잘하는 것이라고 짚어 준다. ③ 좋아하는 것이 친구와 다르면 이상하다고 여긴다(핵심 오개념) → 42차시에서 짝과 견주며 이어 다룬다. 가정 형편이 드러나는 것(여행·장난감)을 견주지 않게 한다.',
+  }));
+
+  lessons.push(L(42, {
+    title: '짝과 내가 같은 점과 다른 점 찾기',
+    objective: '두 친구가 좋아하는 것과 잘하는 것을 같은 점과 다른 점으로 나누고, 친구의 다른 점을 존중하는 말을 할 수 있다.',
+    illustration: ART('two paper children sitting face to face with two overlapping circles between them, an apple in the middle overlap, a paintbrush on one side and a soccer ball on the other', '같고 달라요', [
+      { motif: 'flower', x: 110, y: 228 }, { motif: 'star', x: 330, y: 84, s: 0.5 }, { motif: 'tree', x: 390, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"지난 시간 짝 그림과 다른 점을 찾았지요. 같은 점도 있었나요?" 두 짝을 앞으로 불러 좋아하는 과일을 물어본다. 같은 것은 가운데, 다른 것은 각자 쪽에 칠판에 적는다. "서로 다른 것을 좋아하면 함께 지낼 수 없을까요?" 하고 묻는다. 시연 단추로 카드가 세 칸으로 나뉘는 모습을 보여 준다.',
+        student: '짝이 좋아하는 과일을 물어보고 나와 같은지 말해 봐요.',
+        demo: { tool: 'mindmap', options: { topic: '민지와 준호', slots: ['둘 다', '민지만', '준호만'], cards: ['사과', '그림 그리기', '축구'], shuffle: false }, sequence: [{ sort: { '둘 다': ['사과'], '민지만': ['그림 그리기'], '준호만': ['축구'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 같은 점과 다른 점 나누기', minutes: 14, tool: 'mindmap',
+            teacher: '"둘 다 좋아하는 것은 가운데 칸, 한 사람만 좋아하는 것은 그 사람 칸이에요." 문항 글을 손가락으로 짚으며 함께 읽는다. 문항을 마치면 짝끼리 좋아하는 음식·놀이·색을 묻고 답해 같은 점 하나, 다른 점 하나를 활동지에 쓴다(6분).',
+            task: '두 친구의 이야기를 읽고 같은 점과 다른 점으로 나누고, 짝과 인터뷰해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '민지는 사과와 그림 그리기를 좋아해요. 준호는 사과와 축구를 좋아해요. 카드를 나누어 보세요.', toolOptions: { topic: '좋아하는 것', slots: ['둘 다', '민지만', '준호만'], cards: ['사과', '그림 그리기', '축구'] },
+                target: { sort: { '둘 다': ['사과'], '민지만': ['그림 그리기'], '준호만': ['축구'] } }, difficulty: 0.15,
+                hints: ['문항 글에서 두 사람 이름 뒤에 나오는 것을 손가락으로 짚어 견주어요.', '흔들리는 카드가 두 사람 글에 모두 나오는지, 한 사람 글에만 나오는지 봐요.', '사과는 둘 다, 그림 그리기는 민지만, 축구는 준호만이에요.'],
+                levels: { challenge: { prompt: '민지는 사과·고양이·그림 그리기를, 준호는 사과·고양이·축구를 좋아해요. 카드를 나누어 보세요.', toolOptions: { cards: ['사과', '고양이', '그림 그리기', '축구'] }, target: { sort: { '둘 다': ['사과', '고양이'], '민지만': ['그림 그리기'], '준호만': ['축구'] } } } } },
+              { prompt: '서아는 줄넘기와 종이접기를 잘해요. 도윤이는 줄넘기와 달리기를 잘해요. 카드를 나누어 보세요.', toolOptions: { topic: '잘하는 것', slots: ['둘 다', '서아만', '도윤만'], cards: ['줄넘기', '종이접기', '달리기'] },
+                target: { sort: { '둘 다': ['줄넘기'], '서아만': ['종이접기'], '도윤만': ['달리기'] } }, difficulty: 0.15,
+                hints: ['두 사람이 잘하는 것을 하나씩 견주어요.', '흔들리는 카드가 두 사람 글에 모두 있나요?', '줄넘기는 둘 다, 종이접기는 서아만, 달리기는 도윤만이에요.'],
+                levels: { challenge: { prompt: '서아는 줄넘기·종이접기·노래를, 도윤이는 줄넘기·달리기·노래를 잘해요. 카드를 나누어 보세요.', toolOptions: { cards: ['줄넘기', '노래', '종이접기', '달리기'] }, target: { sort: { '둘 다': ['줄넘기', '노래'], '서아만': ['종이접기'], '도윤만': ['달리기'] } } } } },
+              { prompt: '짝과 좋아하는 것을 묻고 답해 같은 점 하나, 다른 점 하나를 활동지에 썼으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 다른 점을 존중하는 말', minutes: 12, tool: 'emotion',
+            teacher: '"친구가 나와 다른 것을 좋아할 때 어떤 말을 하면 좋을까요?" 보기를 읽고 결과를 본다. "이상해"라는 말을 들은 친구의 마음을 묻는다. 다른 것을 좋아하는 친구에게는 "왜 좋아? 알려 줘"처럼 물어보면 새로운 것을 알게 된다고 짚는다.',
+            task: '좋아하는 것이 다를 때 할 말을 고르고, 다른 점을 존중하는 말을 골라요.',
+            levels: { easy: { steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '반 친구들이 축구 이야기를 해요. 도윤이는 꽃 기르기를 좋아해요. 한 친구가 "꽃이 좋다고? 이상해"라고 해요. 도윤이는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '도윤', situation: '친구가 "꽃 기르기가 좋다고? 이상해"라고 했어요.', choices: [
+                { id: 'say', text: '"나는 꽃이 좋아. 너는 축구가 좋구나" 해요', result: '친구가 "꽃은 어떻게 길러?" 하고 물었어요.', mood: '편안함' },
+                { id: 'lie', text: '"나도 축구가 더 좋아" 하고 거짓말해요', result: '도윤이는 하루 내내 마음이 불편했어요.', mood: '걱정', why: '내가 좋아하는 것을 숨기면 내 마음은 어떨까요?' }] }, target: { choice: 'say' }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'say', text: '"나는 꽃이 좋아. 너는 축구가 좋구나" 해요', result: '친구가 "꽃은 어떻게 길러?" 하고 물었어요.', mood: '편안함' },
+                  { id: 'lie', text: '"나도 축구가 더 좋아" 하고 거짓말해요', result: '도윤이는 하루 내내 마음이 불편했어요.', mood: '걱정', why: '내가 좋아하는 것을 숨기면 내 마음은 어떨까요?' },
+                  { id: 'back', text: '"축구가 더 이상해" 하고 되받아쳐요', result: '둘 다 기분이 상해 말을 하지 않았어요.', mood: '화남', why: '되받아치는 말을 들은 친구의 마음은 어떨까요?' }] } } } },
+              { prompt: '짝 서아는 비 오는 날이 좋대요. 맑은 날을 좋아하는 준호는 어떻게 말할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '서아가 "나는 비 오는 날이 제일 좋아"라고 말했어요.', choices: [
+                { id: 'ask', text: '"왜 좋아? 알려 줘" 하고 물어요', result: '서아가 웅덩이 첨벙 놀이 이야기를 신나게 해 주었어요.', mood: '기쁨' },
+                { id: 'odd', text: '"비 오는 날이 좋다니 이상해" 해요', result: '서아가 고개를 숙이고 말을 멈췄어요.', mood: '속상함', why: '"이상해"를 들은 서아의 마음은 어떨까요?' }] }, target: { choice: 'ask' }, difficulty: 0.1 },
+              { prompt: '다른 점을 존중하는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '존중하는 말', cards: ['너는 그게 좋구나', '달라서 재미있다', '그런 걸 왜 좋아해', '나랑 같은 걸 좋아해야지'] },
+                target: { pick: ['너는 그게 좋구나', '달라서 재미있다'] }, difficulty: 0.1,
+                predict: { q: '좋아하는 것이 친구와 다르면 이상한 걸까요?', options: ['이상해요', '달라도 괜찮아요'], answer: 1 },
+                conclude: '사람마다 좋아하는 것이 달라요. 달라서 서로 새로운 것을 알려 줄 수 있어요.',
+                levels: { challenge: { toolOptions: { cards: ['너는 그게 좋구나', '달라서 재미있다', '그런 걸 왜 좋아해', '나랑 같은 걸 좋아해야지', '너만 이상하게 좋아해'] } } } },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"짝과 나의 같은 점과 다른 점은 무엇이었나요?" 두세 짝이 말한다. 다른 점을 말할 때 "달라서 재미있다"를 함께 붙여 말하게 한다. 출구 1번을 틀린 학생에게는 두 사람 글에서 같은 낱말에 동그라미를 치게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '좋아하는 음식', slots: ['둘 다', '하준만', '서아만'], cards: ['김밥', '떡볶이', '국수'] }, prompt: '하준이는 김밥과 떡볶이를, 서아는 김밥과 국수를 좋아해요. 카드를 나누어 보세요.', target: { sort: { '둘 다': ['김밥'], '하준만': ['떡볶이'], '서아만': ['국수'] } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '짝이 나와 다른 것을 좋아할 때 할 말은?', options: ['"이상해"', '"왜 좋아? 알려 줘"'], answer: 1, difficulty: 0.05, explain: '물어보면 친구가 좋아하는 까닭을 알게 돼요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '짝과 나',
+      items: [
+        { type: 'table', prompt: '짝과 인터뷰한 것을 쓰세요.', columns: ['물어본 것', '짝', '나'], cells: [['좋아하는 음식', '', ''], ['좋아하는 놀이', '', ''], ['좋아하는 색', '', '']] },
+        { type: 'blank', prompt: '같은 점: 우리는 둘 다 ____________을 좋아해요.' },
+        { type: 'blank', prompt: '다른 점: 짝은 ________, 나는 ________을 좋아해요.' },
+        { type: 'choice', prompt: '다른 점을 존중하는 말에 ○ 하세요.', options: ['달라서 재미있다', '그런 걸 왜 좋아해'], answer: '달라서 재미있다' },
+      ],
+      easy: {
+        note: '짝에게 "무엇을 좋아해?" 하고 물어봐요.',
+        items: [
+          { type: 'blank', prompt: '짝은 ____________을 좋아해요.' },
+          { type: 'choice', prompt: '좋은 말에 ○ 하세요.', options: ['너는 그게 좋구나', '이상해'], answer: '너는 그게 좋구나' },
+          { type: 'draw', prompt: '짝과 나를 함께 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞게 놓으면 초록 테두리가 생겨요. 카드는 세 장, 고를 보기는 두 가지예요.',
+      base: '카드 세 장을 세 칸으로 나누고, 보기 두 가지 가운데 골라요.',
+      challenge: '같은 것이 두 장인 카드 네 장을 나누고, 함정 보기와 함정 카드가 더 있어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 좋아하는 것이 친구와 다르면 이상하다고 여긴다(핵심 오개념) → "선생님과 여러분이 좋아하는 것이 같을까요?"로 다른 것이 당연하다는 것을 보여 준다. ② 같은 점 칸에 한 사람만 좋아하는 것을 놓는다 → 두 사람 글에 모두 나오는 낱말에 동그라미를 치게 한다. ③ 인터뷰 때 짝의 말을 끊는다 → 묻고, 듣고, 쓰는 차례를 칠판에 적는다. 활동지 표에 짝의 답을 먼저 쓰고 내 답을 쓴다.',
+  }));
+
+  lessons.push(L(43, {
+    title: '좋아하는 놀이가 다른 친구와 함께 놀이 정하기',
+    objective: '좋아하는 놀이가 다를 때 번갈아 하기·섞어 하기처럼 함께 정하는 방법을 고르고, 짝과 차례대로 놀이를 정해 함께 놀 수 있다.',
+    illustration: ART('two paper children at a classroom table, one holding building blocks and the other holding crayons, building a block house together and drawing it, a small sun above', '함께 정해요', [
+      { motif: 'house', x: 110, y: 214, color: 'mint' }, { motif: 'star', x: 330, y: 84, s: 0.5 }, { motif: 'flower', x: 390, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"쉬는 시간에 친구와 하고 싶은 놀이가 달라서 다툰 적이 있나요?" 이름 없이 경험을 듣는다. "그럴 때 누가 이겨야 할까요?" 하고 묻는다. 좋아하는 것이 다른 것은 괜찮고, 함께 놀 방법을 같이 찾으면 된다고 짚는다. 시연 단추로 놀이를 정하는 차례가 놓이는 모습을 보여 준다.',
+        student: '친구와 하고 싶은 놀이가 달랐던 때를 떠올려 봐요.',
+        demo: { tool: 'story', options: { cards: [{ id: 'say', text: '하고 싶은 놀이를 말해요', motif: 'sun' }, { id: 'decide', text: '함께 정해요', motif: 'star' }], slots: ['먼저', '다음'], shuffle: false }, sequence: [{ order: ['say', 'decide'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 좋아하는 놀이가 다를 때', minutes: 12, tool: 'emotion',
+            teacher: '보기를 하나씩 읽고 "그렇게 하면 두 친구 마음은 어떨까요?"를 묻는다. 번갈아 하기, 두 놀이 섞기, 가위바위보로 정하고 다음에 바꾸기처럼 둘 다 즐거운 방법을 칠판에 모은다. 우기거나 혼자 가 버리면 놀이가 끝난다는 것을 짚는다.',
+            task: '좋아하는 놀이가 다른 이야기를 읽고 함께 즐거운 방법을 골라요.',
+            levels: { easy: { steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '쉬는 시간, 서아는 블록 놀이를, 민지는 그림 그리기를 하고 싶어요. 서아는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '서아는 블록, 민지는 그림 그리기를 하고 싶어요.', choices: [
+                { id: 'turn', text: '"오늘은 블록, 내일은 그림 하자" 해요', result: '이틀 동안 둘 다 즐겁게 놀았어요.', mood: '기쁨' },
+                { id: 'mine', text: '"블록만 할 거야" 하고 우겨요', result: '민지가 혼자 자리로 돌아갔어요.', mood: '속상함', why: '내 놀이만 하자고 우기면 민지의 마음은 어떨까요?' }] }, target: { choice: 'turn' }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'turn', text: '"오늘은 블록, 내일은 그림 하자" 해요', result: '이틀 동안 둘 다 즐겁게 놀았어요.', mood: '기쁨' },
+                  { id: 'mine', text: '"블록만 할 거야" 하고 우겨요', result: '민지가 혼자 자리로 돌아갔어요.', mood: '속상함', why: '내 놀이만 하자고 우기면 민지의 마음은 어떨까요?' },
+                  { id: 'leave', text: '화가 나서 말없이 가 버려요', result: '둘 다 쉬는 시간 내내 놀지 못했어요.', mood: '화남', why: '말없이 가 버리면 함께 놀 방법을 찾을 수 있을까요?' }] } } } },
+              { prompt: '모둠 네 친구가 하고 싶은 놀이가 모두 달라요. 하준이는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '공기, 끝말잇기, 실뜨기, 수수께끼 — 네 친구가 하고 싶은 놀이가 모두 달라요.', choices: [
+                { id: 'rps', text: '가위바위보로 정하고 다음엔 다른 놀이를 해요', result: '돌아가며 네 놀이를 모두 해 보았어요.', mood: '신남' },
+                { id: 'loud', text: '목소리가 가장 큰 친구 놀이로 해요', result: '세 친구는 하고 싶은 말을 못 했어요.', mood: '속상함', why: '큰 소리로 정하면 다른 친구들의 마음은 어떨까요?' }] }, target: { choice: 'rps' }, difficulty: 0.15 },
+              { prompt: '함께 놀이를 정하는 좋은 방법만 골라 보세요.', toolOptions: { mode: 'pick', basket: '함께 정해요', cards: ['번갈아 해요', '두 놀이를 섞어요', '내 놀이만 해요', '큰 소리로 우겨요'] },
+                target: { pick: ['번갈아 해요', '두 놀이를 섞어요'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['번갈아 해요', '두 놀이를 섞어요', '내 놀이만 해요', '큰 소리로 우겨요', '안 놀아 주겠다고 해요'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 짝과 놀이를 정해 함께 놀기', minutes: 14, tool: 'story',
+            teacher: '"놀이를 정할 때도 차례가 있어요. 먼저 서로 말하고, 함께 정하고, 정한 대로 놀아요." 차례를 놓고 말풍선을 채운 뒤, 짝과 실제로 놀이를 정해 교실 놀이(공기·끝말잇기·실뜨기 가운데) 하나를 6분 동안 해 본다. 정한 방법(번갈아·섞어)을 활동지에 쓴다.',
+            task: '놀이를 정하는 차례와 말을 익히고, 짝과 실제로 정해 함께 놀아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '친구와 놀이를 정하는 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'say', text: '하고 싶은 놀이를 서로 말해요', motif: 'sun' }, { id: 'decide', text: '어떻게 할지 함께 정해요', motif: 'star' }, { id: 'play', text: '정한 대로 즐겁게 놀아요', motif: 'flower' }], slots: ['처음', '가운데', '끝'] },
+                target: { order: ['say', 'decide', 'play'] }, difficulty: 0.1,
+                hints: ['서로의 생각을 알아야 함께 정할 수 있어요.', '흔들리는 카드 앞에 꼭 먼저 해야 할 일이 있나요?', '말해요 → 정해요 → 놀아요 차례예요.'],
+                levels: { challenge: { prompt: '친구와 놀이를 정하는 차례대로 놓아 보세요. 함께 정하는 방법이 아닌 카드는 빼요.', toolOptions: { cards: [{ id: 'say', text: '하고 싶은 놀이를 서로 말해요', motif: 'sun' }, { id: 'decide', text: '어떻게 할지 함께 정해요', motif: 'star' }, { id: 'play', text: '정한 대로 즐겁게 놀아요', motif: 'flower' }, { id: 'boss', text: '먼저 고른 사람 마음대로 해요', motif: 'cloud' }], slots: ['처음', '가운데', '끝'] } } } },
+              { prompt: '준호와 서아가 놀이를 정해요. 말풍선에 알맞은 말을 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['번갈아', '고마워', '줄넘기만'], slots: [{ id: 'b1', who: '준호', motif: 'sun', label: '우리 좋아하는 놀이가 다르네. ___ 해 볼까?' }, { id: 'b2', who: '서아', motif: 'flower', label: '좋아! 내 놀이부터 해 줘서 ___.' }] },
+                target: { fill: { b1: '번갈아', b2: '고마워' } }, difficulty: 0.15,
+                hints: ['두 친구가 모두 즐거운 방법과, 양보를 받았을 때 하는 말을 떠올려요.', '흔들리는 말풍선을 소리 내어 읽고 두 친구가 모두 즐거운지 들어 봐요.', '준호는 "번갈아", 서아는 "고마워"예요.'],
+                levels: { easy: { prompt: '준호가 놀이를 정해요. 말풍선에 알맞은 말을 넣어 보세요.', toolOptions: { cards: ['번갈아', '줄넘기만'], slots: [{ id: 'b1', who: '준호', motif: 'sun', label: '우리 좋아하는 놀이가 다르네. ___ 해 볼까?' }] }, target: { fill: { b1: '번갈아' } } } } },
+              { prompt: '짝과 차례대로 놀이를 정해 함께 놀아 보았으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"짝과 어떤 방법으로 놀이를 정했나요?" 번갈아 한 짝, 섞어 한 짝을 한 쌍씩 소개한다. 좋아하는 것이 달라서 오히려 새 놀이를 해 볼 수 있었다는 것을 짚는다. 출구 1번에서 우기기를 고른 학생에게는 상대 친구의 마음을 다시 묻는다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { mode: 'branch', who: '도윤', situation: '점심시간, 도윤이는 미끄럼틀을, 하준이는 모래 놀이를 하고 싶어요.', choices: [
+            { id: 'turn', text: '"미끄럼틀 세 번 타고 모래 놀이 하자" 해요', result: '둘 다 두 가지 놀이를 즐겁게 했어요.', mood: '기쁨' },
+            { id: 'mine', text: '"미끄럼틀만 타자" 하고 우겨요', result: '하준이가 혼자 모래 놀이를 하러 갔어요.', mood: '속상함', why: '내 놀이만 우기면 하준이의 마음은 어떨까요?' }] }, prompt: '도윤이는 어떻게 할까요?', target: { choice: 'turn' }, difficulty: 0.05 },
+          { type: 'choice', prompt: '놀이를 정할 때 가장 먼저 할 일은?', options: ['하고 싶은 놀이를 서로 말해요', '먼저 놀이를 시작해요'], answer: 0, difficulty: 0.1, explain: '서로의 생각을 먼저 말해야 함께 정할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '함께 놀이 정하기',
+      items: [
+        { type: 'table', prompt: '짝과 놀이를 정한 것을 쓰세요.', columns: ['내가 하고 싶은 놀이', '짝이 하고 싶은 놀이', '정한 방법'], rows: 1 },
+        { type: 'check', prompt: '함께 정하는 좋은 방법에 모두 ✓ 하세요.', options: ['번갈아 해요', '내 놀이만 해요', '두 놀이를 섞어요'] },
+        { type: 'blank', prompt: '놀이를 정하는 차례: 서로 ________ → 함께 ________ → 즐겁게 놀아요.' },
+        { type: 'draw', prompt: '짝과 함께 논 모습을 그려 보세요.' },
+      ],
+      easy: {
+        note: '번갈아 하면 둘 다 즐거워요.',
+        items: [
+          { type: 'choice', prompt: '좋은 방법에 ○ 하세요.', options: ['번갈아 해요', '우겨요'], answer: '번갈아 해요' },
+          { type: 'blank', prompt: '우리는 ____________ 놀이를 했어요.' },
+          { type: 'draw', prompt: '짝과 노는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '보기가 두 가지이고, 말풍선 하나를 채워요. 맞게 놓으면 초록 테두리가 생겨요.',
+      base: '보기 두 가지 가운데 고르고, 말풍선 두 개를 채워요.',
+      challenge: '함정 보기·함정 카드가 하나씩 더 있어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 가위바위보에서 진 친구가 속상해한다 → 진 친구의 놀이를 다음 차례에 꼭 한다는 약속을 함께 정한다. ② 좋아하는 놀이가 다르면 함께 못 논다고 여긴다 → 두 놀이를 섞은 예(블록 집을 짓고 그 집을 그리기)를 보여 준다. ③ 놀이 시간이 들떠 소란해진다 → 앉아서 하는 교실 놀이만 고르게 하고, 6분 타이머를 보이게 둔다.',
+  }));
+
+  lessons.push(L(44, {
+    title: '내가 잘하는 것으로 친구 돕기',
+    objective: '친구가 어려워하는 일과 그 일을 잘하는 친구를 잇고, 내가 잘하는 것으로 도울 수 있는 때를 넣어 나를 소개할 수 있다.',
+    illustration: ART('a paper child showing a friend how to fold a paper airplane, another child helping a classmate tie a shoelace, small hearts between them', '도와줄게', [
+      { motif: 'sun', x: 120, y: 84, s: 0.6 }, { motif: 'tree', x: 380, y: 214 }, { motif: 'flower', x: 250, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"41차시에 찾은 내가 잘하는 것, 기억나나요?" 두세 명에게 듣는다. "내가 잘하는 것은 나만 좋은 걸까요?" 하고 물어, 잘하는 것으로 친구를 도울 수 있다는 것을 끌어낸다. 돕는 것은 대신 해 주는 것이 아니라 친구가 할 수 있게 알려 주는 것이라고 짚는다. 시연 단추로 어려운 일과 돕는 친구가 이어지는 모습을 보여 준다.',
+        student: '내가 잘하는 것 하나를 다시 말해 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '도와줄게', slots: [{ id: 'a', label: '종이비행기를 못 접는 친구' }], cards: ['종이접기를 잘하는 서아'], shuffle: false }, sequence: [{ match: { a: '종이접기를 잘하는 서아' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 누가 도와줄 수 있을까', minutes: 12, tool: 'mindmap',
+            teacher: '"이 친구가 어려워하는 일을 잘하는 사람은 누구일까요?" 이은 뒤 "어떻게 도와주면 좋을까요?"를 묻는다. 대신 접어 주거나 대신 써 주면 친구가 언제 배울지 묻고, 옆에서 보여 주고 함께 해 보는 것이 돕는 것이라고 짚는다.',
+            task: '어려워하는 친구와 그 일을 잘하는 친구를 잇고, 돕는 말을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '어려워하는 친구와 그 일을 잘하는 친구를 이어 보세요.', toolOptions: { mode: 'match', topic: '도와줄게', slots: [{ id: 'plane', label: '종이비행기를 못 접는 친구' }, { id: 'rope', label: '줄넘기가 자꾸 걸리는 친구' }, { id: 'write', label: '글씨 쓰기가 어려운 친구' }], cards: ['종이접기를 잘하는 서아', '줄넘기를 잘하는 준호', '글씨를 또박또박 쓰는 민지'] },
+                target: { match: { plane: '종이접기를 잘하는 서아', rope: '줄넘기를 잘하는 준호', write: '글씨를 또박또박 쓰는 민지' } }, difficulty: 0.1,
+                hints: ['어려운 일과 같은 일을 잘하는 친구를 찾아요.', '흔들리는 카드의 친구가 잘하는 일이 그 어려운 일과 같은지 봐요.', '비행기는 서아, 줄넘기는 준호, 글씨는 민지예요.'],
+                levels: { easy: { prompt: '어려워하는 친구와 그 일을 잘하는 친구를 이어 보세요. 두 짝이에요.', toolOptions: { slots: [{ id: 'plane', label: '종이비행기를 못 접는 친구' }, { id: 'rope', label: '줄넘기가 자꾸 걸리는 친구' }], cards: ['종이접기를 잘하는 서아', '줄넘기를 잘하는 준호'] }, target: { match: { plane: '종이접기를 잘하는 서아', rope: '줄넘기를 잘하는 준호' } } } } },
+              { prompt: '친구를 돕는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '돕는 말', cards: ['같이 해 볼까?', '이렇게 접어 봐', '그것도 못 해?', '내가 다 해 줄게'] },
+                target: { pick: ['같이 해 볼까?', '이렇게 접어 봐'] }, difficulty: 0.15,
+                predict: { q: '친구를 돕는다는 것은 무엇일까요?', options: ['대신 해 줘요', '할 수 있게 알려 줘요'], answer: 1 },
+                conclude: '돕는 것은 대신 해 주는 것이 아니라 친구가 스스로 할 수 있게 알려 주는 것이에요.',
+                levels: { challenge: { toolOptions: { cards: ['같이 해 볼까?', '이렇게 접어 봐', '그것도 못 해?', '내가 다 해 줄게', '느려서 답답해'] } } } },
+              { prompt: '짝에게 내가 잘하는 것으로 무엇을 도와줄 수 있는지 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 잘하는 것을 넣어 나를 소개하기', minutes: 14, tool: 'story',
+            teacher: '"좋아하는 것과 잘하는 것은 다를 수 있어요. 소개에는 잘하는 것을 넣어요." 문항 글을 함께 읽고 말풍선을 채운다. 문항을 마치면 활동지의 \'도와줄게 쿠폰\'에 내가 잘하는 것과 도울 수 있는 때를 써서 짝에게 주고, 짝 앞에서 소개 말을 한다.',
+            task: '친구의 소개 말을 완성하고, 내 도와줄게 쿠폰을 만들어 짝에게 소개해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '서아는 노래를 좋아하지만 아직 잘 못 불러요. 종이접기는 잘해요. 서아의 소개 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['종이접기', '노래', '종이비행기를 못 접을', '노래를 못 외울'], slots: [{ id: 'b1', who: '서아', motif: 'star', label: '나는 ___를 잘해요.' }, { id: 'b2', who: '서아', motif: 'flower', label: '친구가 ___ 때 도와줄 수 있어요.' }] },
+                target: { fill: { b1: '종이접기', b2: '종이비행기를 못 접을' } }, difficulty: 0.2,
+                hints: ['좋아하는 것과 잘하는 것을 문항 글에서 나누어 찾아요. 소개에는 잘하는 것을 넣어요.', '흔들리는 말풍선에 넣은 것이 서아가 잘하는 일과 이어지나요?', '"종이접기"를 잘하고, "종이비행기를 못 접을" 때 도와줄 수 있어요.'],
+                levels: { easy: { prompt: '서아는 종이접기를 잘해요. 서아의 소개 말을 완성해 보세요.', toolOptions: { cards: ['종이접기', '노래'], slots: [{ id: 'b1', who: '서아', motif: 'star', label: '나는 ___를 잘해요.' }] }, target: { fill: { b1: '종이접기' } } } } },
+              { prompt: '준호는 달리기를 좋아하지만 느려요. 신발 끈 묶기는 잘해요. 준호의 소개 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['신발 끈 묶기', '달리기', '신발 끈이 풀렸을', '달리기에서 졌을'], slots: [{ id: 'b1', who: '준호', motif: 'sun', label: '나는 ___를 잘해요.' }, { id: 'b2', who: '준호', motif: 'tree', label: '친구가 ___ 때 도와줄 수 있어요.' }] },
+                target: { fill: { b1: '신발 끈 묶기', b2: '신발 끈이 풀렸을' } }, difficulty: 0.2,
+                hints: ['준호가 좋아하는 것과 잘하는 것을 문항 글에서 나누어 찾아요.', '흔들리는 말풍선이 준호가 잘하는 일과 이어지나요?', '"신발 끈 묶기"를 잘하고, "신발 끈이 풀렸을" 때 도와줄 수 있어요.'] },
+              { prompt: '도와줄게 쿠폰을 써서 짝에게 주고 소개 말을 했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"짝이 준 도와줄게 쿠폰에는 무엇이 적혀 있나요?" 두세 명이 짝의 쿠폰을 소개한다. 쿠폰은 쉬는 시간에 실제로 쓸 수 있다고 안내하고, 도울 때는 대신 해 주지 않고 함께 한다는 것을 다시 짚는다. 출구 1번에서 좋아하는 것을 넣은 학생에게는 문항 글을 다시 읽게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { mode: 'fill', cards: ['블록 쌓기', '그림 그리기'], slots: [{ id: 'b1', who: '도윤', motif: 'house', label: '나는 ___를 잘해요.' }] }, prompt: '도윤이는 그림 그리기를 좋아하지만 블록 쌓기를 더 잘해요. 소개 말을 완성해 보세요.', target: { fill: { b1: '블록 쌓기' } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '친구가 종이접기를 어려워할 때 좋은 도움은?', options: ['대신 다 접어 줘요', '옆에서 함께 접으며 알려 줘요'], answer: 1, difficulty: 0.05, explain: '함께 하며 알려 주면 친구가 스스로 할 수 있게 돼요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '도와줄게 쿠폰',
+      items: [
+        { type: 'blank', prompt: '나는 ____________을 잘해요.' },
+        { type: 'blank', prompt: '친구가 ____________ 때 도와줄 수 있어요.' },
+        { type: 'check', prompt: '돕는 말에 모두 ✓ 하세요.', options: ['같이 해 볼까?', '그것도 못 해?', '이렇게 해 봐'] },
+        { type: 'draw', prompt: '도와줄게 쿠폰을 꾸며 보세요.' },
+      ],
+      easy: {
+        note: '소개에는 내가 잘하는 것을 넣어요.',
+        items: [
+          { type: 'blank', prompt: '나는 ____________을 잘해요.' },
+          { type: 'choice', prompt: '돕는 말에 ○ 하세요.', options: ['같이 해 볼까?', '그것도 못 해?'], answer: '같이 해 볼까?' },
+          { type: 'draw', prompt: '친구를 돕는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '이을 짝이 두 개, 말풍선이 하나예요. 맞게 놓으면 초록 테두리가 생겨요.',
+      base: '이을 짝 세 개, 말풍선 두 개를 채워요.',
+      challenge: '함정 말 카드가 하나 더 있어요. 좋아하는 것과 잘하는 것을 구별해 소개 말을 완성해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 좋아하는 것과 잘하는 것을 섞어 소개한다 → 문항 글에서 "좋아하지만"과 "잘해요"에 밑줄을 긋게 한다. ② 돕는다며 대신 다 해 준다 → 도울 때는 "보여 주고, 함께 하고, 친구가 해 보게" 세 걸음으로 한다고 약속한다. ③ 잘하는 것이 없다고 쿠폰을 비운다 → 41차시 활동지를 함께 보며 작은 잘하는 일(정리, 인사, 기다리기)도 쿠폰이 된다고 알려 준다.',
   }));
 
   // ── 차시 끝 ──

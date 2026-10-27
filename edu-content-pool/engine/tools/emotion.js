@@ -280,6 +280,7 @@
     [/뿌듯|자랑|자신/, 'star', 'buttercup'], [/편안|편해|평온|차분|든든/, 'leaf', 'mint'],
   ];
   const moodOf = (s) => { const t = String(s || '').trim(); const m = MOODS.find(([re]) => re.test(t)); return m ? { motif: m[1], color: m[2] } : null; };
+  const feltBoard = ({ cards, slots }) => cards.some((c) => moodOf(c.name)) || slots.some((x) => moodOf(x.label));
   function weatherize(list, isCard) {
     if (list == null || typeof list === 'number') return list;
     return arr(list).map((x) => {
@@ -510,9 +511,12 @@
       name: '마음 날씨 카드',
       mode: 'match',
       label: '마음 날씨 카드. 상황에 어울리는 마음 카드를 놓아요.',
+      // 마음 낱말 카드·칸(기쁨·속상함…)이 있을 때만 '마음 날씨'를 말한다 — 체육 감상·생활 분류처럼 마음 낱말이 없는 짝 잇기·나누기는 중립 글
       hints: {
-        match: '상황 속 인물이 무엇을 겪었는지 먼저 읽고, 내가 그 자리에 있다면 마음이 어떤 날씨일지 떠올려 짝 지어요.',
-        sort: '카드의 일을 겪으면 마음이 어떨지 떠올리고, 같은 마음 날씨 칸에 모아요.',
+        match: (look) => (feltBoard(look) ? '상황 속 인물이 무엇을 겪었는지 먼저 읽고, 내가 그 자리에 있다면 마음이 어떤 날씨일지 떠올려 짝 지어요.'
+          : '왼쪽 칸의 글을 먼저 읽고, 그것과 가장 잘 어울리는 카드를 하나씩 찾아 옆에 놓아요.'),
+        sort: (look) => (feltBoard(look) ? '카드의 일을 겪으면 마음이 어떨지 떠올리고, 같은 마음 날씨 칸에 모아요.'
+          : '칸 이름을 먼저 소리 내어 읽고, 카드를 하나씩 보며 그 칸에 맞는지 따져 넣어요.'),
         pick: '카드마다 그 말이나 행동을 들은 사람의 마음이 어떨지 생각해 보고, 조건에 맞는 것만 골라요.',
         order: '마음이 바뀌게 된 까닭을 찾아, 먼저 든 마음부터 차례로 놓아요.',
         fill: '빈칸에 마음 낱말을 넣고 문장을 소리 내어 읽어, 인물의 마음과 어울리는지 들어 봐요.',

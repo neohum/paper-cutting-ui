@@ -3414,6 +3414,705 @@
     teacherNotes: '준비: 모둠마다 큰 도화지 1장, 색종이(갈색·초록·빨강·하늘), 풀. 콜라주 판을 바른 생활 협력 활동에 쓴다. 자주 보이는 어려움: ① 함께 꾸밀 때 남의 자리를 덮는다 → 붙이기 전에 묻는 말을 약속한다. ② 모두 같은 부분을 하려 한다 → 번갈아 고르기·가위바위보로 정한다. ③ 맡은 부분만 하고 나머지는 모른 척한다 → 다 붙인 뒤 나무 이름을 함께 짓게 한다.',
   }));
 
+  // ───────────────────────── 41~44차시: 맡을 일 고르고 서로 돕기(바른 생활 실천) ─────────────────────────
+
+  lessons.push(L(41, {
+    title: '모둠 일을 스스로 골라 먼저 손 들기',
+    objective: '모둠에서 해야 할 일을 살펴보고, 내가 맡을 일을 스스로 골라 손을 들어 "내가 할게"라고 말할 수 있다.',
+    illustration: ART('a paper classroom group table with scissors, glue and a half-made paper flag; one child raising a hand high while friends smile and point at tasks', '내가 할게!', [
+      { motif: 'star', x: 240, y: 84, s: 0.6 }, { motif: 'flower', x: 90, y: 228, color: 'rose' }, { motif: 'tree', x: 400, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"선생님이 \'칠판 지울 사람?\' 하고 물었어요. 그런데 아무도 손을 안 들었어요. 모두 \'누가 하겠지\' 생각했대요. 칠판은 어떻게 되었을까요?" 대답을 기다린다(글씨가 그대로 남아요). "오늘은 모둠 일을 내가 먼저 골라 손 드는 연습을 해요." 시연 단추로 이야기 장면이 차례로 놓이는 모습을 보여 준다.',
+        student: '"누가 하겠지" 하고 기다린 적이 있는지 떠올려 봐요.',
+        demo: { tool: 'story', options: { mode: 'order', slots: ['처음', '가운데', '끝'], cards: [{ id: '물음', text: '"칠판 지울 사람?"' }, { id: '조용', text: '아무도 손을 안 들어요' }, { id: '남음', text: '칠판 글씨가 그대로 남았어요' }], shuffle: false }, sequence: [{ order: ['물음', '조용', '남음'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. "누가 하겠지" 하면 어떻게 될까', minutes: 12, tool: 'emotion',
+            teacher: '"하준이처럼 \'누가 하겠지\' 하면 어떻게 될까요?" 보기를 고른 뒤 결과를 소리 내어 읽는다. \'내가 나서지 않아도 누군가는 한다\'고 말하는 학생에게 "모두 그렇게 생각하면 누가 할까요?"를 되묻는다. 손을 드는 말은 큰 목소리가 아니어도 된다고 알려 준다.',
+            task: '"누가 하겠지" 하는 상황에서 어떻게 할지 고르고, 먼저 나서는 말을 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '모둠이 쓴 가위와 풀을 정리해야 해요. 하준이는 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '하준', motif: 'house', situation: '모둠 활동이 끝났어요. 책상에 가위와 풀이 흩어져 있는데, 하준이는 "누가 하겠지" 생각이 들어요.', choices: [
+                { id: 'wait', text: '다른 친구가 하겠지 하고 가만히 있어요', result: '모두 기다리다 쉬는 시간이 끝났어요. 가위가 책상에 그대로예요.', mood: '걱정', why: '모두 같은 생각을 하면 누가 정리할까요?' },
+                { id: 'raise', text: '"내가 가위를 모을게!" 하고 손을 들어요', result: '친구들도 "나는 풀!" 하며 금방 다 정리했어요.', mood: '뿌듯함' },
+                { id: 'boss', text: '"너희가 해!" 하고 친구들에게 시켜요', result: '친구들은 서운하고, 하준이는 아무것도 하지 않았어요.', mood: '속상함', why: '시키기만 하면 하준이가 맡은 일은 무엇일까요?' }] }, target: { choice: 'raise' }, difficulty: 0.15 },
+              { prompt: '모둠 일을 내가 먼저 맡겠다는 말만 골라 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '먼저 나서는 말', cards: ['"내가 할게!"', '"나는 풀을 모을게."', '"누가 하겠지."', '"난 안 할래."'] },
+                target: { pick: ['"내가 할게!"', '"나는 풀을 모을게."'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['"내가 할게!"', '"나는 풀을 모을게."', '"누가 하겠지."', '"난 안 할래."', '"너가 해."', '"나중에 할게."'] } } },
+                hints: ['지금 그 일을 내가 맡겠다는 말인지 하나씩 살펴보세요.', '고른 말 가운데 일을 남에게 미루거나 뒤로 미루는 말이 있는지 보세요.', '"내가 할게!"와 "나는 풀을 모을게."가 먼저 나서는 말이에요.'] },
+              { prompt: '모둠 일을 맡을 때 하는 차례대로 놓아 보세요.', toolOptions: { mode: 'order', cards: [{ id: '살피기', text: '모둠에서 할 일을 살펴봐요' }, { id: '손들기', text: '손을 들고 "내가 할게"라고 말해요' }, { id: '고르기', text: '내가 할 수 있는 일을 골라요' }] },
+                target: { order: ['살피기', '고르기', '손들기'] }, difficulty: 0.15,
+                hints: ['무엇이 있는지 알아야 고를 수 있어요. 맨 처음에 할 일을 찾아보세요.', '고르기 전에 손부터 들면 무엇을 맡겠다고 말할까요?', '살펴보기 → 고르기 → 손 들고 말하기 차례예요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 손 들고 맡아 모둠 깃발 만들기', minutes: 14, tool: 'collage',
+            teacher: '칠판에 모둠 깃발 만들 일 네 가지(바탕 붙이기, 무늬 붙이기, 모둠 이름 쓰기, 풀·종이 조각 정리)를 적는다. "할 일을 살펴보고, 내가 할 일을 골라 손을 들어요." 손을 들지 못한 학생에게는 남은 일 가운데 고르게 하고, 정리 일을 아무도 고르지 않으면 "정리도 모둠 일이에요"라고 짚는다. 화면에는 우리 모둠 깃발을 조각으로 남긴다.',
+            task: '모둠 깃발 만드는 일 가운데 내가 맡을 일을 골라 손을 들고, 맡은 일을 해서 깃발을 완성해요.',
+            levels: COL_LV,
+            items: [
+              { prompt: '모둠 깃발 만들 일 네 가지를 보고, 내가 맡을 일을 골라 손을 들어 말해요. 맡은 일을 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '파랑 바탕 깃발에 하트 조각을 세 개 넘게 붙여 무늬를 꾸며 보세요.', state: { pieces: [{ shape: 'square', color: '파랑', size: 'l', x: 280, y: 200, r: 0 }] }, target: { has: [{ shape: 'heart', min: 3 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '파랑 바탕 깃발에 하트 조각 세 개 넘게, 노랑 동그라미 두 개 넘게를 붙여 무늬를 꾸며 보세요.', target: { has: [{ shape: 'heart', min: 3 }, { shape: 'circle', color: '노랑', min: 2 }] } } } },
+              { prompt: '모둠 깃발을 다 만든 뒤, 해낸 것을 표시해 보세요.', state: { pieces: [{ shape: 'square', color: '파랑', size: 'l', x: 280, y: 200, r: 0 }] }, target: { selfCheck: ['내가 맡을 일을 골라 손을 들었어요', '맡은 일을 끝까지 했어요', '정리할 때 함께 도왔어요'], minPieces: 3 }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 손을 먼저 들었을 때 어떤 마음이었나요?" 두세 명에게 듣는다. "누가 하겠지" 하고 기다린 순간이 있었다면 솔직히 말해 보게 하고, 탓하지 않는다. 다음 시간에는 힘들어하는 친구를 알아보는 방법을 배운다.',
+        exitTicket: [
+          { type: 'choice', prompt: '모둠 화분에 물 줄 사람을 찾는데 아무도 손을 안 들어요. 나는?', options: ['누가 하겠지 하고 기다려요', '"내가 할게" 하고 손을 들어요', '못 들은 척해요'], answer: 1, difficulty: 0.1, explain: '내가 먼저 나서면 모둠 일이 남지 않아요.' },
+          { type: 'tool', tool: 'emotion', options: { mode: 'pick', basket: '먼저 나서는 말', cards: ['"제가 나눠 줄게요."', '"쟤가 하면 돼요."', '"제가 모을게요."'] }, prompt: '일을 내가 먼저 맡겠다는 말만 골라 보세요.', target: { pick: ['"제가 나눠 줄게요."', '"제가 모을게요."'] }, difficulty: 0.1 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '내가 할게!',
+      items: [
+        { type: 'check', prompt: '모둠에서 내가 할 수 있는 일에 모두 ✓ 하세요.', options: ['바탕 붙이기', '무늬 붙이기', '이름 쓰기', '정리하기'] },
+        { type: 'choice', prompt: '아무도 손을 안 들 때 알맞은 말에 ○ 하세요.', options: ['"내가 할게!"', '"누가 하겠지."'], answer: '"내가 할게!"' },
+        { type: 'blank', prompt: '내가 맡고 싶은 일을 넣어 말해 보세요.', text: '"나는 ___ 할게!"', answer: '(학생마다 다름)' },
+        { type: 'draw', prompt: '모둠에서 내가 맡은 일을 하는 모습을 그려 보세요.' },
+      ],
+      easy: {
+        note: '할 일을 보고 내가 먼저 손을 들어요.',
+        items: [
+          { type: 'choice', prompt: '먼저 나서는 말에 ○ 하세요.', options: ['"내가 할게!"', '"난 안 할래."'], answer: '"내가 할게!"' },
+          { type: 'choice', prompt: '정리도 모둠 일일까요? ○ 하세요.', options: ['네', '아니요'], answer: '네' },
+          { type: 'draw', prompt: '우리 모둠 깃발을 그려 보세요.' },
+          { type: 'short', prompt: '내가 맡은 일을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 조각 모양이 네 가지로 줄어요. 맡을 일은 선생님이 두 가지 가운데 고르게 도와줘요.',
+      base: '보기 고르기·말 고르기·차례 놓기와 깃발 꾸미기를 하고 확인을 눌러요.',
+      challenge: '미루는 말 카드가 더 섞이고, 깃발 무늬 조건이 늘어요. 아무도 맡지 않은 일이 있으면 그 일도 내가 맡아 봐요.',
+    },
+    teacherNotes: '준비: 모둠마다 큰 색지 1장, 색종이, 풀, 가위, 네임펜. 자주 보이는 어려움: ① 내가 나서지 않아도 누군가는 한다고 여긴다 → 아무도 손을 안 든 칠판 이야기를 떠올리게 한다. ② 늘 같은 학생만 손을 든다 → "아직 안 든 친구 먼저" 규칙을 둔다. ③ 시키는 것을 맡는 것으로 여긴다 → "내가"가 들어간 말로 바꾸어 말하게 한다.',
+  }));
+
+  lessons.push(L(42, {
+    title: '힘들어하는 친구 알아채고 "도와줄까?" 묻기',
+    objective: '친구의 표정·몸짓·말을 보고 도움이 필요한 친구를 알아채고, 먼저 다가가 "도와줄까?"라고 물을 수 있다.',
+    illustration: ART('a paper child struggling to carry a tall stack of books, another child walking over with an open hand and a speech bubble, colorful paper chains hanging above', '도와줄까?', [
+      { motif: 'heart', x: 100, y: 80, s: 0.5 }, { motif: 'cloud', x: 360, y: 70 }, { motif: 'flower', x: 400, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '교사가 무거운 상자를 드는 시늉을 하며 "끙끙" 소리를 내고 얼굴을 찡그린다. "선생님은 \'도와줘\'라고 말하지 않았어요. 그런데 무엇이 필요해 보여요?" 표정, 몸짓, 소리처럼 말없이도 알 수 있는 단서를 찾는다. 시연 단추로 상황에 마음 카드가 놓이는 모습을 보여 준다.',
+        student: '선생님 모습에서 "도움이 필요하구나" 하고 알 수 있는 것을 찾아봐요.',
+        demo: { tool: 'emotion', options: { cards: ['걱정', '기쁨'], slots: [{ id: 's1', label: '친구가 혼자 무거운 상자를 들고 끙끙대요' }], shuffle: false }, sequence: [{ match: { s1: '걱정' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 도움이 필요한 친구 알아채기', minutes: 12, tool: 'emotion',
+            teacher: '"이 친구는 지금 도움이 필요할까요? 무엇을 보고 알았나요?" 단서(비틀거려요, 구겨요, 혼자 서 있어요)를 말하게 한다. 도와준다며 말없이 빼앗는 보기를 고른 학생에게 "친구는 그때 어떤 마음일까요?"를 묻는다.',
+            task: '도움이 필요한 친구를 찾고, 어떻게 다가가면 좋을지 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '도움이 필요해 보이는 친구만 골라 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '도움이 필요해요', cards: ['가위질이 안 돼 종이를 구겨요', '책 더미를 들고 비틀거려요', '친구와 웃으며 블록을 쌓아요', '콧노래를 부르며 그림을 그려요'] },
+                target: { pick: ['가위질이 안 돼 종이를 구겨요', '책 더미를 들고 비틀거려요'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['가위질이 안 돼 종이를 구겨요', '책 더미를 들고 비틀거려요', '친구와 웃으며 블록을 쌓아요', '콧노래를 부르며 그림을 그려요', '심부름을 신나게 다녀와요'] } } },
+                hints: ['친구의 얼굴과 몸짓을 떠올려 보세요. 잘 안 되는 일이 있는 친구는 누구일까요?', '웃거나 노래하는 친구는 지금 어떤 마음일지 생각해 보세요.', '종이를 구기는 친구와 비틀거리는 친구가 도움이 필요해요.'] },
+              { prompt: '서아가 가위질이 어려워 종이를 구기고 있어요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', motif: 'leaf', situation: '서아가 동그라미를 오리는데 가위가 자꾸 미끄러져요. 서아는 종이를 구기며 한숨을 쉬어요.', choices: [
+                { id: 'ask', text: '"도와줄까?" 하고 먼저 물어봐요', result: '서아가 "응, 종이를 잡아 줘" 해서 함께 오렸어요.', mood: '고마움' },
+                { id: 'grab', text: '말없이 가위를 가져가 대신 다 오려요', result: '서아는 깜짝 놀랐어요. 스스로 오려 보고 싶었대요.', mood: '속상함', why: '서아에게 먼저 물어보았나요?' },
+                { id: 'mine', text: '내 것만 빨리 끝내요', result: '서아는 혼자 끙끙대다 오리기를 그만두었어요.', mood: '슬픔', why: '한숨 쉬는 서아를 보았나요?' }] }, target: { choice: 'ask' }, difficulty: 0.15 },
+              { prompt: '친구가 힘들어하는 모습과 알맞은 도움을 이어 보세요.', toolOptions: { mode: 'match', weather: false, cards: ['함께 뚜껑 돌려 보기', '함께 크레파스 줍기', '"같이 하자"고 부르기'], slots: [{ id: 's1', label: '물통 뚜껑이 안 열려 끙끙대요' }, { id: 's2', label: '크레파스를 바닥에 쏟고 울상이에요' }, { id: 's3', label: '놀이에 끼지 못하고 혼자 서 있어요' }] },
+                target: { match: { s1: '함께 뚜껑 돌려 보기', s2: '함께 크레파스 줍기', s3: '"같이 하자"고 부르기' } }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['함께 뚜껑 돌려 보기', '함께 크레파스 줍기', '"같이 하자"고 부르기', '못 본 척 지나가기'] } } },
+                hints: ['친구가 무엇 때문에 힘든지 먼저 찾아보세요.', '그 일을 함께 하면 친구가 덜 힘들어지는 도움을 골라요.', '뚜껑은 함께 돌리기, 크레파스는 함께 줍기, 혼자 선 친구는 부르기예요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 서로 도우며 종이 사슬 만들기', minutes: 14, tool: 'collage',
+            teacher: '모둠마다 색종이 띠로 고리를 이어 교실에 걸 종이 사슬을 만든다. 고리 끝을 붙이기 어려워하는 친구가 꼭 생긴다. "끙끙대는 친구가 보이면 먼저 \'도와줄까?\'라고 물어요." 묻지 않고 대신 붙여 주는 학생이 보이면 그 자리에서 "먼저 물어볼까요?"라고 다시 해 보게 한다. 화면에는 사슬 무늬를 조각으로 남긴다.',
+            task: '모둠이 서로 도우며 종이 사슬을 만들고, 사슬 무늬를 조각으로 꾸며요.',
+            levels: COL_LV,
+            items: [
+              { prompt: '색종이 띠로 고리를 이어 종이 사슬을 만들어요. 힘들어하는 친구에게 "도와줄까?" 묻고 함께 한 뒤 "다 했어요"를 누르세요.', free: true },
+              { prompt: '빨강·노랑 동그라미를 번갈아 왼쪽부터 놓아 사슬 무늬를 만들어 보세요. 한 쌍이 세 번 넘게 되풀이되게 해요.', target: { repeat: { times: 3, unit: 2 }, has: [{ shape: 'circle', color: '빨강', min: 3 }, { shape: 'circle', color: '노랑', min: 3 }] }, difficulty: 0.2,
+                levels: { easy: { prompt: '빨강·노랑 동그라미를 번갈아 왼쪽부터 놓아 사슬 무늬를 만들어 보세요. 한 쌍이 두 번 넘게 되풀이되게 해요.', target: { repeat: { times: 2, unit: 2 }, has: [{ shape: 'circle', color: '빨강', min: 2 }, { shape: 'circle', color: '노랑', min: 2 }] } } },
+                hints: ['두 색 동그라미 하나씩을 한 묶음으로 생각해요. 왼쪽부터 차례로 놓아요.', '왼쪽부터 손가락으로 짚으며 색이 번갈아 나오는지 살펴보세요.', '빨강-노랑-빨강-노랑…처럼 왼쪽에서 오른쪽으로 나란히 놓아요.'] },
+              { prompt: '종이 사슬을 다 만든 뒤, 해낸 것을 표시해 보세요.', target: { selfCheck: ['짝에게 "도와줄까?"라고 묻는 말을 해 보았어요', '내 고리를 끝까지 만들었어요', '다 만든 사슬을 모둠과 함께 걸었어요'], minPieces: 2 }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 종이 사슬을 만들며 누가 누구를 도왔나요?" 도움을 받은 학생에게 그때 마음을 묻는다. 묻지 않고 대신 해 준 일이 있었다면 그때 친구 마음이 어땠을지 함께 떠올린다. 다음 시간에는 반 화분을 심으며 맡을 일과 도움을 함께 해 본다.',
+        exitTicket: [
+          { type: 'choice', prompt: '짝이 우유갑을 못 열어 끙끙대요. 먼저 할 말은?', options: ['"도와줄까?"', '"그것도 못 해?"', '말없이 빼앗아 열어요'], answer: 0, difficulty: 0.1, explain: '먼저 물어보면 친구가 어떤 도움을 바라는지 알 수 있어요.' },
+          { type: 'tool', tool: 'emotion', options: { mode: 'pick', basket: '도움이 필요해요', cards: ['신발 끈이 풀려 자꾸 넘어질 뻔해요', '친구와 사이좋게 그네를 타요', '우산이 안 펴져 비를 맞고 있어요'] }, prompt: '도움이 필요해 보이는 친구만 골라 보세요.', target: { pick: ['신발 끈이 풀려 자꾸 넘어질 뻔해요', '우산이 안 펴져 비를 맞고 있어요'] }, difficulty: 0.1 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '도와줄까?',
+      items: [
+        { type: 'check', prompt: '도움이 필요해 보이는 모습에 ✓ 하세요.', options: ['비틀거려요', '한숨을 쉬어요', '웃으며 놀아요', '혼자 서 있어요'] },
+        { type: 'blank', prompt: '힘들어하는 친구에게 먼저 할 말을 쓰세요.', text: '"___?"', answer: '도와줄까' },
+        { type: 'choice', prompt: '친구가 힘들어할 때 알맞은 것에 ○ 하세요.', options: ['먼저 물어봐요', '말없이 대신 해요'], answer: '먼저 물어봐요' },
+        { type: 'draw', prompt: '모둠이 함께 만든 종이 사슬을 그려 보세요.' },
+      ],
+      easy: {
+        note: '친구 얼굴과 몸짓을 잘 보아요.',
+        items: [
+          { type: 'choice', prompt: '도움이 필요한 친구에 ○ 하세요.', options: ['비틀거리는 친구', '웃는 친구'], answer: '비틀거리는 친구' },
+          { type: 'choice', prompt: '먼저 할 말에 ○ 하세요.', options: ['"도와줄까?"', '"비켜!"'], answer: '"도와줄까?"' },
+          { type: 'draw', prompt: '친구를 돕는 내 모습을 그려 보세요.' },
+          { type: 'short', prompt: '오늘 도와준 일이나 도움받은 일을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 사슬 무늬는 두 쌍만 되풀이해요.',
+      base: '고르기·보기 고르기·잇기와 사슬 무늬를 하고 확인을 눌러요.',
+      challenge: '헷갈리는 카드가 더 섞여 있어요. 오늘 내가 알아챈 단서(표정·몸짓·소리)를 짝에게 말해요.',
+    },
+    teacherNotes: '준비: 색종이 띠(2cm×15cm) 모둠마다 30장, 풀 또는 테이프. 자주 보이는 어려움: ① 돕는다며 묻지 않고 대신 다 해 준다 → 먼저 "도와줄까?" 묻기를 짝과 소리 내어 연습한다. ② 친구가 말로 하지 않으면 모른다 → 표정·몸짓·소리 단서를 함께 찾는다. ③ 도움받는 것을 부끄러워한다 → 도움받은 학생도 "고마워"로 답하면 된다고 알려 준다.',
+  }));
+
+  lessons.push(L(43, {
+    title: '반 화분 심기에서 맡을 일 나누고 서로 돕기',
+    objective: '모둠이 화분을 심는 일을 나누어 각자 맡을 일을 고르고, 친구가 힘들어하는 단계에서 함께 도울 수 있다.',
+    illustration: ART('four paper children around a clay flower pot: one scooping soil, one dropping seeds, two holding a watering can together, a small name tag in the pot', '우리 모둠 화분', [
+      { motif: 'flower', x: 100, y: 222, color: 'rose' }, { motif: 'leaf', x: 380, y: 220 }, { motif: 'sun', x: 400, y: 60, s: 0.5 }]),
+    safety: ['흙을 만진 손은 눈이나 입에 대지 않고, 끝나면 비누로 씻어요.', '물이 바닥에 흘렀으면 바로 닦아 미끄러지지 않게 해요.', '모종삽은 끝이 아래를 보게 들고 다녀요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '"오늘은 모둠마다 반 화분 하나를 심어요. 화분을 심으려면 무슨 일이 있을까요?" 학생 말을 받아 흙 담기, 씨앗 넣기, 물 주기, 이름표 꽂기를 칠판에 적는다. "지난 시간처럼 맡을 일을 스스로 고르고, 힘들어하는 친구를 도와요." 시연 단추로 화분에 싹 조각이 붙는 모습을 보여 준다.',
+        student: '화분을 심을 때 내가 맡고 싶은 일을 하나 떠올려 봐요.',
+        demo: { tool: 'collage', options: { readOnly: true }, sequence: [{ has: [{ color: '초록', min: 2 }] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 화분 심는 일 나누기', minutes: 11, tool: 'kitchen',
+            teacher: '"화분 심는 차례를 먼저 알아야 내 일을 언제 하는지 알 수 있어요." 차례를 놓은 뒤 친구들이 손을 들어 한 말을 읽고 맡은 일을 잇는다. 서로 돕는 모습을 고를 때 \'혼자 다 넣기\'에 표시한 학생에게 "그러면 씨앗을 맡은 친구는 무엇을 할까요?"를 묻는다.',
+            task: '화분 심는 차례를 놓고, 친구가 맡은 일과 서로 돕는 모습을 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '화분을 심는 차례대로 놓아 보세요.', toolOptions: { mode: 'order', cards: [{ id: '물', text: '물뿌리개로 물을 줘요' }, { id: '흙', text: '화분에 흙을 담아요' }, { id: '씨앗', text: '씨앗을 넣고 흙을 덮어요' }] },
+                target: { order: ['흙', '씨앗', '물'] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '화분을 심는 차례대로 네 장을 놓아 보세요.', toolOptions: { cards: [{ id: '물', text: '물뿌리개로 물을 줘요' }, { id: '흙', text: '화분에 흙을 담아요' }, { id: '구멍', text: '손가락으로 흙에 구멍을 내요' }, { id: '씨앗', text: '씨앗을 넣고 흙을 덮어요' }] }, target: { order: ['흙', '구멍', '씨앗', '물'] } } },
+                hints: ['씨앗을 넣으려면 화분에 무엇이 먼저 있어야 할까요?', '물은 씨앗을 넣기 전과 뒤 가운데 언제 주는지 생각해 보세요.', '흙 담기 → 씨앗 넣고 덮기 → 물 주기예요.'] },
+              { prompt: '친구들이 손을 들고 한 말을 읽고, 맡은 일 카드를 놓아 보세요.', toolOptions: { mode: 'match', cards: ['물 주기', '씨앗 넣기', '흙 담기'], slots: [{ id: 'm1', label: '민지: "물뿌리개는 내가 들게!"' }, { id: 'm2', label: '준호: "씨앗은 내가 넣을래."' }, { id: 'm3', label: '서아: "흙은 내가 담을게."' }] },
+                target: { match: { m1: '물 주기', m2: '씨앗 넣기', m3: '흙 담기' } }, difficulty: 0.1,
+                hints: ['친구가 한 말에 나오는 물건이나 일을 찾아 밑줄을 그어 보세요.', '물뿌리개·씨앗·흙 가운데 친구 말에 나온 것과 카드가 같은 일인지 보세요.', '물뿌리개는 물 주기, 씨앗은 씨앗 넣기, 흙은 흙 담기예요.'],
+                levels: { challenge: { toolOptions: { cards: ['물 주기', '씨앗 넣기', '흙 담기', '구경하기'] } } } },
+              { prompt: '화분을 심을 때 서로 돕는 모습에만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '서로 돕는 모습', items: [{ id: 'hold', text: '흙 담을 때 화분을 잡아 줘요' }, { id: 'carry', text: '무거운 물뿌리개를 같이 들어요' }, { id: 'alone', text: '씨앗을 혼자 다 넣어 버려요' }, { id: 'sweep', text: '흘린 흙을 함께 쓸어요' }] },
+                target: { checklist: ['hold', 'carry', 'sweep'] }, difficulty: 0.15,
+                hints: ['친구와 함께 하거나 친구의 일을 거들어 주는 모습을 찾아요.', '혼자 다 해 버리면 그 일을 맡은 친구는 어떻게 될지 생각해 보세요.', '화분 잡아 주기, 물뿌리개 같이 들기, 흙 함께 쓸기에 표시해요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 함께 화분 심고 꾸미기', minutes: 16, tool: 'collage',
+            teacher: '모둠마다 화분 1개, 흙, 강낭콩, 물뿌리개를 나눠 준다. 맡은 일대로 심되 힘들어하는 친구가 보이면 먼저 "도와줄까?"를 묻게 한다. 물뿌리개를 혼자 들기 무거워하는 모습이 자주 보인다. 그때 다가간 학생을 바로 칭찬하고, "내 일은 끝났어" 하고 앉는 학생에게 "아직 힘들어하는 친구가 있나요?"를 묻는다. 다 심은 모둠은 화면에서 화분 그림을 꾸민다.',
+            task: '맡은 일대로 모둠 화분을 심고, 힘들어하는 친구를 도운 뒤 화분 그림을 꾸며요.',
+            levels: COL_LV,
+            items: [
+              { prompt: '모둠이 맡은 일대로 화분에 흙을 담고 씨앗을 심어요. 힘들어하는 친구가 있으면 함께 한 뒤 "다 했어요"를 누르세요.', free: true },
+              { prompt: '갈색 화분 위에 초록 조각을 두 개 넘게 붙여 싹을 꾸며 보세요.', state: { pieces: [{ shape: 'square', color: '갈색', size: 'l', x: 280, y: 300, r: 0 }] }, target: { has: [{ color: '초록', min: 2 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '갈색 화분 위에 초록 조각 두 개 넘게로 싹을 붙이고, 노랑 동그라미 해를 꼭 하나 붙여 보세요.', target: { has: [{ color: '초록', min: 2 }, { shape: 'circle', color: '노랑', n: 1 }] } } } },
+              { prompt: '모둠 화분을 다 심은 뒤, 해낸 것을 표시해 보세요.', state: { pieces: [{ shape: 'square', color: '갈색', size: 'l', x: 280, y: 300, r: 0 }] }, target: { selfCheck: ['내가 맡은 일을 했어요', '내 일이 끝난 뒤 둘레를 살펴보았어요', '흘린 흙과 물을 함께 치웠어요'], minPieces: 2 }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 내 일이 끝난 뒤에 무엇을 했나요?" 끝나고 다른 친구를 도운 학생의 말을 듣는다. 모둠 화분을 창가에 나란히 놓고 물 주는 날을 정한다. 다음 시간에는 "도와줄까?"라고 물은 뒤 친구 대답에 맞게 돕는 법을 배운다.',
+        exitTicket: [
+          { type: 'choice', prompt: '모둠이 무거운 화분을 옮겨요. 한 친구가 힘들어해요. 알맞은 것은?', options: ['"같이 들까?" 하고 함께 들어요', '내 몫이 아니니 구경해요', '빨리 하라고 재촉해요'], answer: 0, difficulty: 0.1, explain: '힘들어하는 친구에게 먼저 다가가 함께 들면 안전하게 옮길 수 있어요.' },
+          { type: 'tool', tool: 'kitchen', options: { mode: 'order', cards: [{ id: '덮기', text: '모종을 넣고 흙을 덮어요' }, { id: '담기', text: '새 화분에 흙을 반쯤 담아요' }, { id: '주기', text: '흙이 젖도록 물을 줘요' }] }, prompt: '모종을 새 화분에 옮겨 심는 차례대로 놓아 보세요.', target: { order: ['담기', '덮기', '주기'] }, difficulty: 0.15 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 모둠 화분 심기',
+      items: [
+        { type: 'table', prompt: '모둠 친구가 맡은 일을 쓰세요.', columns: ['친구 이름', '맡은 일'], rows: 4 },
+        { type: 'check', prompt: '오늘 내가 한 도움에 ✓ 하세요.', options: ['화분 잡아 주기', '물뿌리개 같이 들기', '흘린 흙 쓸기', '이름표 함께 꾸미기'] },
+        { type: 'short', prompt: '내 일이 끝난 뒤에 무엇을 했는지 쓰세요.' },
+        { type: 'draw', prompt: '우리 모둠 화분을 그려 보세요.' },
+      ],
+      easy: {
+        note: '맡은 일을 하고, 친구도 도와요.',
+        items: [
+          { type: 'choice', prompt: '가장 먼저 할 일에 ○ 하세요.', options: ['흙 담기', '물 주기'], answer: '흙 담기' },
+          { type: 'choice', prompt: '서로 돕는 모습에 ○ 하세요.', options: ['물뿌리개 같이 들기', '혼자 다 하기'], answer: '물뿌리개 같이 들기' },
+          { type: 'draw', prompt: '우리 화분을 그려 보세요.' },
+          { type: 'short', prompt: '내가 맡은 일을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고 조각 모양이 네 가지로 줄어요. 화분 심기는 선생님이 차례 그림을 보여 줘요.',
+      base: '차례·잇기·표시하기와 화분 꾸미기를 하고 확인을 눌러요.',
+      challenge: '차례 카드가 네 장으로 늘고 맞지 않는 카드가 섞여 있어요. 화분에 물 주는 날을 모둠이 나누어 정해요.',
+    },
+    teacherNotes: '준비: 모둠마다 작은 화분, 상토, 강낭콩 3~4알, 물뿌리개, 모종삽, 이름표, 신문지. 자주 보이는 어려움: ① 내 일이 끝나면 다 끝났다고 여긴다 → "내 일이 끝나면 둘레를 봐요"를 약속한다. ② 모두 물 주기만 하려 한다 → 번갈아 고르기로 정한다. ③ 흙을 흘리고 탓한다 → 함께 쓰는 것도 돕기라고 짚는다. 콜라주 판은 화분 그림 남기기에 쓴다.',
+  }));
+
+  lessons.push(L(44, {
+    title: '친구 대답에 맞게 돕는 방법 고르기',
+    objective: '친구에게 도움이 필요한지 먼저 묻고, 친구의 대답에 따라 함께 하거나 기다려 주는 방법을 고를 수 있다.',
+    illustration: ART('two paper children at a desk: one rebuilding a fallen block castle, the other sitting beside with a cheering gesture and a small speech bubble', '혼자 해 볼래? 기다릴게', [
+      { motif: 'star', x: 240, y: 80, s: 0.6 }, { motif: 'heart', x: 100, y: 80, s: 0.5 }, { motif: 'tree', x: 400, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"선생님이 신발 끈을 묶고 있었어요. 민지가 와서 끈을 확 묶어 주었어요. 그런데 선생님은 혼자 묶어 보고 싶었어요." 잠시 기다린 뒤 "민지는 무엇을 먼저 했으면 좋았을까요?"를 묻는다. 도와주려는 마음은 고마운 것이라고 먼저 짚어 준다. 시연 단추로 민지의 말풍선이 채워지는 모습을 보여 준다.',
+        student: '친구가 나를 도와줬을 때 고마웠던 일과 아쉬웠던 일을 떠올려 봐요.',
+        demo: { tool: 'story', options: { mode: 'fill', cards: ['"도와줄까?"', '"비켜!"'], slots: [{ id: 'b1', who: '민지', motif: 'heart', label: '___ 하고 먼저 물어요.' }], shuffle: false }, sequence: [{ fill: { b1: '"도와줄까?"' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 친구 대답 듣고 고르기', minutes: 13, tool: 'emotion',
+            teacher: '"\'도와줄까?\'라고 물은 다음이 중요해요." 친구가 뭐라고 대답했는지 상황 글을 함께 읽는다. 친구가 "혼자 해 볼래"라고 했는데도 대신 해 주는 보기를 고른 학생에게 "하준이는 뭐라고 대답했나요?"를 되묻는다. 기다려 주는 것도 돕는 방법이라고 정리한다.',
+            task: '친구의 대답을 잘 듣고 알맞게 돕는 방법을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '하준이가 "혼자 다시 해 볼래"라고 대답했어요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '하준', motif: 'star', situation: '하준이가 쌓던 블록 성이 무너졌어요. "도와줄까?" 물으니 하준이가 "아니, 혼자 다시 해 볼래." 했어요.', choices: [
+                { id: 'wait', text: '"그래, 힘내!" 하고 옆에서 기다려요', result: '하준이가 혼자 다시 쌓고 뿌듯하게 웃어요.', mood: '뿌듯함' },
+                { id: 'push', text: '"내가 해 줄게" 하고 블록을 쌓아 버려요', result: '하준이가 "내가 한다고 했잖아" 하며 속상해해요.', mood: '속상함', why: '하준이는 뭐라고 대답했나요?' },
+                { id: 'leave', text: '"그럼 몰라" 하고 화내며 가 버려요', result: '하준이는 혼자 남아 쓸쓸해요.', mood: '슬픔', why: '친구가 혼자 하겠다고 하면 화낼 일일까요?' }] }, target: { choice: 'wait' }, difficulty: 0.15 },
+              { prompt: '서아가 "응, 끝을 잡아 줘"라고 대답했어요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', motif: 'leaf', situation: '서아가 큰 종이를 오리는데 종이가 자꾸 말려요. "도와줄까?" 물으니 서아가 "응, 끝을 잡아 줘." 했어요.', choices: [
+                { id: 'hold', text: '종이 끝을 잡아 줘요', result: '종이가 펴져서 서아가 쉽게 오렸어요.', mood: '고마움' },
+                { id: 'cut', text: '가위를 받아 대신 다 오려요', result: '서아는 오리는 것을 못 해서 아쉬워요.', mood: '속상함', why: '서아가 부탁한 것은 무엇이었나요?' }] }, target: { choice: 'hold' }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'hold', text: '종이 끝을 잡아 줘요', result: '종이가 펴져서 서아가 쉽게 오렸어요.', mood: '고마움' },
+                  { id: 'cut', text: '가위를 받아 대신 다 오려요', result: '서아는 오리는 것을 못 해서 아쉬워요.', mood: '속상함', why: '서아가 부탁한 것은 무엇이었나요?' },
+                  { id: 'tape', text: '종이를 책상에 테이프로 다 붙여 버려요', result: '종이가 책상에 붙어 서아가 오릴 수 없어요.', mood: '걱정', why: '서아가 부탁한 대로 했나요?' }] } } } },
+              { prompt: '친구를 돕는 말과 친구 마음을 다치게 하는 말로 나누어 보세요.', toolOptions: { mode: 'sort', weather: false, cards: ['"도와줄까?"', '"어디를 잡아 줄까?"', '"그것도 못 해?"', '"느림보야!"'], slots: [{ id: 'kind', label: '돕는 말' }, { id: 'hurt', label: '마음을 다치게 하는 말' }] },
+                target: { sort: { kind: ['"도와줄까?"', '"어디를 잡아 줄까?"'], hurt: ['"그것도 못 해?"', '"느림보야!"'] } }, difficulty: 0.1,
+                levels: { challenge: { prompt: '친구를 돕는 말과 마음을 다치게 하는 말로 나누어 보세요. 카드가 더 있어요.', toolOptions: { cards: ['"도와줄까?"', '"어디를 잡아 줄까?"', '"그것도 못 해?"', '"느림보야!"', '"힘내, 기다릴게."', '"내가 더 잘해."'] },
+                  target: { sort: { kind: ['"도와줄까?"', '"어디를 잡아 줄까?"', '"힘내, 기다릴게."'], hurt: ['"그것도 못 해?"', '"느림보야!"', '"내가 더 잘해."'] } } } },
+                hints: ['그 말을 들은 친구 얼굴을 떠올려 보세요. 웃을까요, 시무룩할까요?', '친구를 놀리거나 깎아내리는 말이 \'돕는 말\'에 들어가 있지 않은지 보세요.', '묻는 말과 기다려 주는 말은 돕는 말, 놀리는 말은 마음을 다치게 하는 말이에요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 짝과 물어 가며 집 그림 꾸미기', minutes: 13, tool: 'collage',
+            teacher: '짝과 큰 종이 한 장에 번갈아 색종이 조각을 붙여 집을 꾸민다. 붙이기 전에 "여기 붙여도 될까?", 짝이 힘들어하면 "도와줄까?"를 묻는다. 짝이 "혼자 할래"라고 하면 기다려 준다. 한 사람이 다 붙이는 짝에게는 "짝의 차례를 기다려 볼까요?"라고 말해 준다.',
+            task: '짝과 물어 가며 번갈아 조각을 붙여 집 그림을 함께 꾸며요.',
+            levels: COL_LV,
+            items: [
+              { prompt: '짝과 번갈아 집 그림 조각을 붙여요. 붙이기 전에 "여기 붙여도 될까?" 묻고, 짝 대답대로 한 뒤 "다 했어요"를 누르세요.', free: true },
+              { prompt: '노랑 네모 벽 위에 세모 지붕 하나 넘게, 동그라미 창문 두 개 넘게를 붙여 집을 꾸며 보세요.', state: { pieces: [{ shape: 'square', color: '노랑', size: 'l', x: 280, y: 260, r: 0 }] }, target: { has: [{ shape: 'triangle', min: 1 }, { shape: 'circle', min: 2 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '노랑 네모 벽 위에 빨강 세모 지붕 하나 넘게, 파랑 동그라미 창문 두 개 넘게, 하트 하나 넘게를 붙여 보세요.', target: { has: [{ shape: 'triangle', color: '빨강', min: 1 }, { shape: 'circle', color: '파랑', min: 2 }, { shape: 'heart', min: 1 }] } } } },
+              { prompt: '짝과 집 그림을 다 꾸민 뒤, 해낸 것을 표시해 보세요.', state: { pieces: [{ shape: 'square', color: '노랑', size: 'l', x: 280, y: 260, r: 0 }] }, target: { selfCheck: ['붙이기 전에 짝에게 물었어요', '짝의 대답을 끝까지 들었어요', '짝과 번갈아 붙였어요'], minPieces: 3 }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"짝이 내 대답을 듣고 도와주었을 때 마음이 어땠나요?" 두세 짝의 이야기를 듣는다. 돕고 싶은 마음이 앞서 짝의 대답을 듣지 못한 일이 있었다면 다시 해 보면 어떻게 할지 묻는다. 다음 시간에는 지금까지 한 모둠 활동을 돌아본다.',
+        exitTicket: [
+          { type: 'choice', prompt: '"도와줄까?" 물었더니 친구가 "괜찮아, 혼자 할게." 해요. 나는?', options: ['그래도 대신 해 줘요', '"힘내!" 하고 기다려요', '화를 내요'], answer: 1, difficulty: 0.1, explain: '친구가 혼자 해 보고 싶어 하면 기다려 주는 것도 돕는 방법이에요.' },
+          { type: 'tool', tool: 'emotion', options: { mode: 'branch', who: '준호', motif: 'house', situation: '준호의 신발주머니 끈이 엉켰어요. "도와줄까?" 물으니 준호가 "응, 같이 풀자." 했어요.', choices: [
+            { id: 'together', text: '끈 한쪽을 잡고 함께 풀어요' },
+            { id: 'take', text: '주머니를 가져가 혼자 다 풀어요', why: '준호는 "같이 풀자"고 했어요.' },
+            { id: 'go', text: '"알아서 해" 하고 가요', why: '준호가 도와 달라고 했어요.' }] }, prompt: '준호의 대답에 맞게 돕는 방법을 골라 보세요.', target: { choice: 'together' }, difficulty: 0.1 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '친구 대답에 맞게 돕기',
+      items: [
+        { type: 'table', prompt: '친구 대답을 듣고 어떻게 도울지 쓰세요.', columns: ['친구 대답', '나는 이렇게 해요'], cells: [['"혼자 해 볼래."', ''], ['"응, 잡아 줘."', ''], ['"같이 하자."', '']] },
+        { type: 'check', prompt: '돕는 말에 모두 ✓ 하세요.', options: ['"도와줄까?"', '"어디를 잡아 줄까?"', '"힘내, 기다릴게."', '"그것도 못 해?"'] },
+        { type: 'short', prompt: '오늘 짝이 나를 도와준 일을 쓰세요.' },
+        { type: 'draw', prompt: '짝과 함께 꾸민 집을 그려 보세요.' },
+      ],
+      easy: {
+        note: '먼저 묻고, 대답을 잘 들어요.',
+        items: [
+          { type: 'choice', prompt: '친구가 "혼자 할래" 하면? ○ 하세요.', options: ['기다려요', '대신 해요'], answer: '기다려요' },
+          { type: 'choice', prompt: '돕는 말에 ○ 하세요.', options: ['"도와줄까?"', '"느림보야!"'], answer: '"도와줄까?"' },
+          { type: 'draw', prompt: '짝과 꾸민 집을 그려 보세요.' },
+          { type: 'short', prompt: '짝에게 하고 싶은 말을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고 조각 모양이 네 가지로 줄어요.',
+      base: '보기 두 개 고르기·말 나누기와 집 꾸미기를 하고 확인을 눌러요.',
+      challenge: '보기와 말 카드가 더 늘고, 집 그림의 색 조건이 붙어요. 친구가 "혼자 할래"라고 할 때 기다리며 해 줄 응원 말을 지어 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 돕는 것은 대신 다 해 주는 것이라고 여긴다 → 친구가 부탁한 만큼만 돕는 장면을 짝과 해 본다. ② 친구가 거절하면 서운해하거나 화낸다 → "혼자 해 볼래"는 나를 싫어하는 말이 아니라고 짚는다. ③ 대답을 듣기 전에 손이 먼저 간다 → 묻고 셋을 센 뒤 움직이는 연습을 한다.',
+  }));
+
+  // ───────────────────────── 45~48차시: 잘된 점 찾고 역할 바꾸기, 단원 정리(성찰과 습관화) ─────────────────────────
+
+  lessons.push(L(45, {
+    title: '모둠 활동에서 잘된 점 찾고 다음 역할 정하기',
+    objective: '지난 모둠 활동을 돌아보며 잘된 점을 하나 찾아 말하고, 다음에 바꾸어 맡을 역할을 정해 모둠에 알릴 수 있다.',
+    illustration: ART('a paper group of four children sitting in a circle around their sprouting flower pot, one holding a small role card, a chart with swapped role arrows behind them', '잘된 점 하나, 바꿀 역할 하나', [
+      { motif: 'leaf', x: 100, y: 222 }, { motif: 'star', x: 240, y: 84, s: 0.6 }, { motif: 'flower', x: 390, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '지난번에 심은 모둠 화분을 가져와 함께 본다. "화분을 심을 때 우리 모둠에서 무엇이 잘되었나요?" \'다 좋았어요\'라고 말하면 "무엇이 좋았는지 하나만 콕 집어 볼까요?"라고 되묻는다. 시연 단추로 \'잘된 점\' 가지에 카드가 놓이는 모습을 보여 준다.',
+        student: '화분을 심을 때 우리 모둠이 잘한 일을 하나 떠올려 봐요.',
+        demo: { tool: 'mindmap', options: { topic: '모둠 화분 심기', slots: ['잘된 점', '다음에 바꿀 점'], cards: ['이름표를 함께 꾸몄어요', '한 친구만 계속 흙을 날랐어요'], shuffle: false }, sequence: [{ sort: { '잘된 점': ['이름표를 함께 꾸몄어요'], '다음에 바꿀 점': ['한 친구만 계속 흙을 날랐어요'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 잘된 점과 다음에 바꿀 점', minutes: 13, tool: 'mindmap',
+            teacher: '"잘된 점은 무엇이, 왜 좋았는지 말해야 친구들이 알아들어요." \'그냥 좋았어\'를 고른 학생에게 "그 말을 들으면 무엇이 좋았는지 알 수 있나요?"를 묻는다. 다음 역할을 정할 때는 친구가 하고 싶은 말을 먼저 듣는다. \'역할은 처음 정한 대로 계속 가야 한다\'는 말이 나오면 활동 2에서 다시 짚는다.',
+            task: '모둠 활동에서 잘된 점과 바꿀 점을 나누고, 다음에 맡을 역할을 정해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '모둠 화분을 심을 때 있었던 일을 잘된 점과 다음에 바꿀 점으로 나누어 보세요.', toolOptions: { topic: '모둠 화분 심기', slots: ['잘된 점', '다음에 바꿀 점'], cards: ['흙을 흘리면 함께 쓸었어요', '씨앗 넣기를 서로 하겠다고 다투었어요', '물뿌리개를 둘이 같이 들었어요', '한 친구는 할 일이 없어 구경만 했어요'] },
+                target: { sort: { '잘된 점': ['흙을 흘리면 함께 쓸었어요', '물뿌리개를 둘이 같이 들었어요'], '다음에 바꿀 점': ['씨앗 넣기를 서로 하겠다고 다투었어요', '한 친구는 할 일이 없어 구경만 했어요'] } }, difficulty: 0.15,
+                levels: { challenge: { prompt: '있었던 일 여섯 가지를 잘된 점과 다음에 바꿀 점으로 나누어 보세요.', toolOptions: { cards: ['흙을 흘리면 함께 쓸었어요', '씨앗 넣기를 서로 하겠다고 다투었어요', '물뿌리개를 둘이 같이 들었어요', '한 친구는 할 일이 없어 구경만 했어요', '차례를 지켜 씨앗을 넣었어요', '끝나고 아무도 정리를 안 했어요'] },
+                  target: { sort: { '잘된 점': ['흙을 흘리면 함께 쓸었어요', '물뿌리개를 둘이 같이 들었어요', '차례를 지켜 씨앗을 넣었어요'], '다음에 바꿀 점': ['씨앗 넣기를 서로 하겠다고 다투었어요', '한 친구는 할 일이 없어 구경만 했어요', '끝나고 아무도 정리를 안 했어요'] } } } },
+                hints: ['그 일이 있었을 때 모둠 친구들 얼굴이 웃었을지 찡그렸을지 떠올려 보세요.', '다툼이나 구경만 한 일이 \'잘된 점\'에 들어가 있지 않은지 보세요.', '함께 쓸기·같이 들기는 잘된 점, 다툼·구경만 하기는 바꿀 점이에요.'] },
+              { prompt: '무엇이 잘되었는지 알 수 있게 말한 것만 골라 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', topic: '잘된 점 말하기', basket: '알 수 있게 말했어요', cards: ['"화분을 잡아 줘서 흙이 안 흘렀어."', '"그냥 좋았어."', '"번갈아 넣어서 다툼이 없었어."', '"몰라."'] },
+                target: { pick: ['"화분을 잡아 줘서 흙이 안 흘렀어."', '"번갈아 넣어서 다툼이 없었어."'] }, difficulty: 0.15,
+                hints: ['그 말만 듣고 무엇이 좋았는지 알 수 있는지 하나씩 따져 보세요.', '\'그냥\'이나 \'몰라\'에는 무엇이 좋았는지가 들어 있나요?', '흙이 안 흘렀다는 말과 다툼이 없었다는 말이 무엇이 잘되었는지 알려 줘요.'] },
+              { prompt: '친구들이 다음에 해 보고 싶은 일을 말했어요. 모두 다른 일을 맡도록 카드를 놓아 보세요.', toolOptions: { mode: 'match', topic: '다음 역할', cards: ['물 주기', '이름표 꾸미기', '흙 담기', '씨앗 넣기'], slots: [{ id: 'm1', label: '민지: "물 주기를 해 볼래."' }, { id: 'm2', label: '준호: "이름표를 꾸며 볼래."' }, { id: 'm3', label: '서아: "흙을 담아 볼래."' }, { id: 'm4', label: '하준: "나는 남는 일을 할게."' }] },
+                target: { match: { m1: '물 주기', m2: '이름표 꾸미기', m3: '흙 담기', m4: '씨앗 넣기' } }, difficulty: 0.2,
+                hints: ['먼저 하고 싶은 일을 말한 친구들부터 카드를 놓아요.', '세 친구에게 카드를 놓고 나면 남는 카드가 무엇인지 보세요.', '하준이는 남은 씨앗 넣기를 맡아요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 역할은 바꿀 수 있을까', minutes: 13, tool: 'emotion',
+            teacher: '"물 주기는 지난번에도 준호가 했어요. 서아도 해 보고 싶대요. 처음 정한 대로 해야 할까요?" 보기를 고른 뒤 결과를 읽는다. 바꾸고 싶을 때 몰래 가져가지 않고 말로 알리는 것이 중요하다고 짚는다. 모둠마다 다음 역할을 정해 서로 알리게 하고, 교사는 돌아다니며 "왜 그 일을 골랐나요?"를 묻는다.',
+            task: '역할을 바꾸고 싶을 때 어떻게 할지 고르고, 내 마음을 돌아본 뒤 다음 역할을 모둠에 알려요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '서아도 물 주기를 해 보고 싶대요. 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '서아', motif: 'flower', situation: '물 주기는 지난번에도 준호가 했어요. 서아도 물을 주고 싶은데 아직 한 번도 못 해 봤어요.', choices: [
+                { id: 'same', text: '"처음 정한 대로 준호가 계속해야 해."', result: '서아는 이번에도 물을 못 줘서 서운해요.', mood: '속상함', why: '역할은 꼭 처음 정한 대로만 해야 할까요?' },
+                { id: 'swap', text: '"이번엔 서로 바꿔 해 볼까?" 하고 말해요', result: '서아는 물을 주고, 준호는 처음으로 이름표를 꾸며 봐요.', mood: '신남' },
+                { id: 'sneak', text: '서아가 말없이 물뿌리개를 가져가요', result: '준호가 놀라고 모둠이 다투었어요.', mood: '화남', why: '바꾸고 싶을 때는 어떻게 알려야 할까요?' }] }, target: { choice: 'swap' }, difficulty: 0.15 },
+              { prompt: '모둠 화분을 심을 때 내가 맡은 일을 얼마나 해냈는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '모둠 화분을 심을 때 내가 맡은 일을 떠올려 봐요.', feeling: '뿌듯함', ask: '내가 맡은 일을 얼마나 해냈나요?', scaleLabels: { 1: '조금', 3: '끝까지' } }, target: { level: 'any' }, difficulty: 0.05,
+                hints: ['지금 내 모습을 떠올려 보고, 가장 가까운 눈금 하나를 눌러요. 어느 눈금이든 괜찮아요.', '아직 고르지 않았다면 눈금 하나를 눌러요. 잘하고 못하고를 재는 것이 아니에요.', '눈금 가운데 하나를 고르면 돼요. 고른 눈금이 지금의 내 모습이에요.'] },
+              { prompt: '모둠에서 잘된 점 하나를 말하고, "나는 다음에 ○○를 할게." 하고 다음 역할을 알려요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '모둠마다 정한 다음 역할을 칠판 역할표에 붙인다. "다음 역할을 어떻게 정했나요?" 한두 모둠의 방법을 듣는다. 하고 싶은 일이 겹친 모둠이 어떻게 풀었는지도 나눈다. 다음 시간에는 바꾼 역할로 모둠 활동을 다시 해 본다.',
+        exitTicket: [
+          { type: 'choice', prompt: '모둠 놀이에서 늘 같은 친구만 공을 나눠 줬어요. 다음 놀이에서는?', options: ['처음 정한 대로 계속해요', '다른 친구와 바꾸어 해 봐요'], answer: 1, difficulty: 0.1, explain: '역할을 바꾸면 여러 친구가 새로운 일을 해 볼 수 있어요.' },
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', topic: '잘된 점 말하기', basket: '알 수 있게 말했어요', cards: ['"서로 기다려 줘서 줄이 안 엉켰어."', '"좋았어."', '"공을 번갈아 차서 모두 해 봤어."'] }, prompt: '무엇이 잘되었는지 알 수 있게 말한 것만 골라 보세요.', target: { pick: ['"서로 기다려 줘서 줄이 안 엉켰어."', '"공을 번갈아 차서 모두 해 봤어."'] }, difficulty: 0.15 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '잘된 점과 다음 역할',
+      items: [
+        { type: 'table', prompt: '우리 모둠 활동을 돌아보고 쓰세요.', columns: ['잘된 점', '다음에 바꿀 점'], rows: 2 },
+        { type: 'table', prompt: '모둠 역할표를 채우세요.', columns: ['친구 이름', '지난번 역할', '다음 역할'], rows: 4 },
+        { type: 'choice', prompt: '역할에 대해 알맞은 말에 ○ 하세요.', options: ['때때로 바꾸어 해 볼 수 있어요', '처음 정한 대로만 해야 해요'], answer: '때때로 바꾸어 해 볼 수 있어요' },
+        { type: 'blank', prompt: '다음 역할을 모둠에 알리는 말을 완성하세요.', text: '"나는 다음에 ___ 할게."', answer: '(학생마다 다름)' },
+      ],
+      easy: {
+        note: '잘된 점 하나, 다음 역할 하나를 정해요.',
+        items: [
+          { type: 'choice', prompt: '잘된 점에 ○ 하세요.', options: ['함께 흙을 쓸었어요', '서로 다투었어요'], answer: '함께 흙을 쓸었어요' },
+          { type: 'choice', prompt: '역할을 바꾸고 싶을 때 알맞은 것에 ○ 하세요.', options: ['말로 알려요', '몰래 가져가요'], answer: '말로 알려요' },
+          { type: 'short', prompt: '다음에 내가 맡을 일을 쓰세요.' },
+          { type: 'draw', prompt: '다음 역할을 하는 내 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생겨요. 잘된 점은 선생님이 보여 주는 화분 사진을 보며 찾아요.',
+      base: '나누기·고르기·역할 정하기와 보기 고르기를 하고 확인을 눌러요.',
+      challenge: '나눌 카드가 여섯 장으로 늘어요. 하고 싶은 일이 겹치면 모둠이 어떻게 정할지 방법을 말해요.',
+    },
+    teacherNotes: '준비: 지난 차시 모둠 화분(또는 활동 사진), 칠판 역할표(모둠 이름과 역할 칸). 자주 보이는 어려움: ① 역할은 처음 정한 대로 계속 가야 한다고 여긴다 → 바꾸어 해 본 결과를 다음 차시에서 직접 견주게 한다. ② 잘된 점을 \'다 좋았어\'로만 말한다 → "무엇이, 왜"를 넣은 말틀을 칠판에 둔다. ③ 바꿀 점을 말하며 친구를 탓한다 → 사람 대신 일(구경만 했어요 → 할 일을 더 나누어요)로 말하게 한다.',
+  }));
+
+  lessons.push(L(46, {
+    title: '바꾼 역할로 바다 그림 다시 꾸미기',
+    objective: '지난번과 다른 역할을 맡아 모둠 그림을 다시 꾸며 보고, 바꾸어 해 보니 새로 알게 된 점을 말할 수 있다.',
+    illustration: ART('four paper children decorating a big blue sea mural together with paper fish and seaweed, each wearing a new role badge, one child showing another how to glue a fish tail', '역할을 바꾸어 꾸며요', [
+      { motif: 'wave', x: 240, y: 230 }, { motif: 'star', x: 100, y: 80, s: 0.5 }, { motif: 'cloud', x: 380, y: 70 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '지난 시간 칠판 역할표를 다시 본다. "오늘 처음 해 보는 일을 맡은 사람 손 들어 볼까요? 처음 하는 일이 어려우면 누구에게 물어보면 될까요?" 지난번 그 일을 맡았던 친구에게 물으면 된다는 답을 기다린다. 시연 단추로 바다에 물고기 조각이 붙는 모습을 보여 준다.',
+        student: '오늘 내가 새로 맡은 일을 짝에게 말해 봐요.',
+        demo: { tool: 'collage', options: { readOnly: true }, sequence: [{ has: [{ shape: 'triangle', min: 2 }] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 바꾼 역할로 바다 그림 꾸미기', minutes: 16, tool: 'collage',
+            teacher: '모둠 역할은 바다 칠하기, 물고기 붙이기, 바닷말 붙이기, 이름 쓰기와 정리 네 가지다. 지난번과 다른 일을 맡는다. 처음 맡은 일이 어려운 학생이 "못 하겠어"라고 하면 "지난번에 그 일을 한 친구에게 물어볼까요?"로 잇는다. 알려 주는 학생에게는 대신 해 주지 말고 말로 알려 주게 한다. 화면에서는 우리 모둠 바다를 조각으로 꾸민다.',
+            task: '바꾼 역할대로 모둠 바다 그림을 꾸미고, 어려우면 그 일을 해 본 친구에게 물어요.',
+            levels: COL_LV,
+            items: [
+              { prompt: '모둠이 바꾼 역할대로 큰 종이에 바다 그림을 꾸며요. 어려우면 그 일을 해 본 친구에게 묻고, 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '파랑 바다에 물고기를 꾸며요. 동그라미 몸 두 개 넘게와 세모 꼬리 두 개 넘게를 붙여 보세요.', state: { pieces: [{ shape: 'square', color: '파랑', size: 'l', x: 280, y: 200, r: 0 }] }, target: { has: [{ shape: 'circle', min: 2 }, { shape: 'triangle', min: 2 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '파랑 바다에 주황 동그라미 몸 세 개 넘게와 세모 꼬리 세 개 넘게를 붙여 물고기를 꾸며 보세요.', target: { has: [{ shape: 'circle', color: '주황', min: 3 }, { shape: 'triangle', min: 3 }] } } } },
+              { prompt: '물고기 둘레에 초록 조각을 세 개 넘게 붙여 바닷말을 꾸며 보세요.', state: { pieces: [{ shape: 'square', color: '파랑', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'circle', color: '주황', size: 'm', x: 200, y: 140, r: 0 }, { shape: 'triangle', color: '주황', size: 'm', x: 140, y: 140, r: 90 }] }, target: { has: [{ color: '초록', min: 3 }] }, difficulty: 0.1 },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 바꾸어 해 보니 어땠나', minutes: 11, tool: 'emotion',
+            teacher: '"처음 해 보는 일을 맡았을 때 마음이 어땠나요?" 걱정했던 마음도 자연스러운 것이라고 받아 준다. \'늘 하던 일만 하면 편해서 좋다\'는 말이 나오면 "그러면 다른 친구는 그 일을 언제 해 볼 수 있을까요?"를 묻는다.',
+            task: '역할을 바꾸어 해 본 마음과 좋은 점을 찾고, 새로 알게 된 점을 짝에게 말해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '역할을 바꾸어 해 보며 생긴 일에 알맞은 마음 카드를 놓아 보세요.', toolOptions: { cards: ['걱정', '고마움', '뿌듯함'], slots: [{ id: 's1', label: '처음 해 보는 일이라 잘할 수 있을지 몰랐어요' }, { id: 's2', label: '모르는 것을 친구가 친절하게 알려 주었어요' }, { id: 's3', label: '새 역할을 끝까지 해내서 바다 그림이 완성됐어요' }] },
+                target: { match: { s1: '걱정', s2: '고마움', s3: '뿌듯함' } }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['걱정', '고마움', '뿌듯함', '화남'] } } } },
+              { prompt: '역할을 바꾸어 해 보아서 좋은 점만 골라 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', weather: false, basket: '바꾸면 좋은 점', cards: ['새로운 일을 해 볼 수 있어요', '친구 일이 얼마나 힘든지 알게 돼요', '늘 하던 일만 해서 편해요', '한 사람만 계속 쉬어요'] },
+                target: { pick: ['새로운 일을 해 볼 수 있어요', '친구 일이 얼마나 힘든지 알게 돼요'] }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['새로운 일을 해 볼 수 있어요', '친구 일이 얼마나 힘든지 알게 돼요', '늘 하던 일만 해서 편해요', '한 사람만 계속 쉬어요', '잘하는 사람만 계속해요'] } } },
+                hints: ['그 카드가 \'바꾸었기 때문에\' 생기는 일인지 따져 보세요.', '늘 하던 일만 하거나 한 사람만 쉬는 것은 역할을 바꾼 것일까요?', '새 일을 해 보는 것과 친구 일의 어려움을 아는 것이 좋은 점이에요.'] },
+              { prompt: '바꾸어 맡아 보니 새로 알게 된 점 하나를 짝에게 말한 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '모둠마다 바다 그림을 들고 "이번에 처음 해 본 일"을 한 사람씩 짧게 말한다. 지난번 화분 심기 때와 견주어 달라진 점이 있는지 묻는다. 다음 시간에는 지금까지 배운 것을 모둠 약속으로 만든다.',
+        exitTicket: [
+          { type: 'choice', prompt: '새로 맡은 공 나눠 주기가 어려워요. 먼저 할 일은?', options: ['해 본 친구에게 물어봐요', '그만둬요', '예전 역할로 바꿔 달라고 떼써요'], answer: 0, difficulty: 0.1, explain: '그 일을 해 본 친구에게 물으면 처음 하는 일도 해낼 수 있어요.' },
+          { type: 'tool', tool: 'emotion', options: { cards: ['걱정', '뿌듯함'], slots: [{ id: 's1', label: '처음 맡은 줄 세우기, 잘할 수 있을까?' }, { id: 's2', label: '처음 맡은 줄 세우기를 끝까지 해냈어요' }] }, prompt: '상황에 알맞은 마음 카드를 놓아 보세요.', target: { match: { s1: '걱정', s2: '뿌듯함' } }, difficulty: 0.1 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '역할을 바꾸어 해 보니',
+      items: [
+        { type: 'table', prompt: '지난번과 이번을 견주어 쓰세요.', columns: ['', '지난번', '이번'], cells: [['내가 맡은 일', '', ''], ['어려웠던 점', '', '']] },
+        { type: 'check', prompt: '역할을 바꾸어 좋았던 점에 ✓ 하세요.', options: ['새로운 일을 해 봤어요', '친구 일이 힘든 것을 알았어요', '친구에게 배웠어요'] },
+        { type: 'short', prompt: '바꾸어 해 보니 새로 알게 된 점을 쓰세요.' },
+        { type: 'draw', prompt: '우리 모둠 바다 그림에서 내가 꾸민 부분을 그려 보세요.' },
+      ],
+      easy: {
+        note: '새로 맡은 일이 어려우면 친구에게 물어요.',
+        items: [
+          { type: 'choice', prompt: '어려울 때 알맞은 것에 ○ 하세요.', options: ['친구에게 물어요', '그만둬요'], answer: '친구에게 물어요' },
+          { type: 'short', prompt: '오늘 처음 해 본 일을 쓰세요.' },
+          { type: 'draw', prompt: '바다 그림을 그려 보세요.' },
+          { type: 'choice', prompt: '역할을 바꾸면 좋은 점에 ○ 하세요.', options: ['새 일을 해 봐요', '늘 같은 일만 해요'], answer: '새 일을 해 봐요' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '조각 모양이 네 가지로 줄고, 마음 카드는 맞는 칸에 초록 테두리가 생겨요.',
+      base: '물고기·바닷말 꾸미기와 마음 잇기·고르기를 하고 확인을 눌러요.',
+      challenge: '물고기 조건이 늘고, 헷갈리는 카드가 더 섞여 있어요. 내 새 역할을 다음에 맡을 친구에게 알려 줄 방법을 말해요.',
+    },
+    teacherNotes: '준비: 모둠마다 큰 도화지(파랑 칠할 것), 색종이(주황·초록 등), 풀, 크레파스, 칠판 역할표. 자주 보이는 어려움: ① 처음 하는 일이라 손을 놓는다 → 그 일을 해 본 친구에게 묻는 길을 미리 알려 준다. ② 알려 주는 학생이 대신 다 해 준다 → 말로만 알려 주기를 약속한다. ③ 역할은 바꾸면 안 된다고 여긴다 → 지난번과 이번의 그림과 마음을 견주어 본다.',
+  }));
+
+  lessons.push(L(47, {
+    title: '모둠 약속 정하고 약속판 꾸미기',
+    objective: '여럿이 함께할 때 지킬 모둠 약속을 골라 약속판을 꾸미고, 각 약속이 필요한 때를 말할 수 있다.',
+    illustration: ART('a decorated paper promise board on a classroom wall with three hand-drawn promise lines, hearts on both sides, and four paper children pinky-promising in front of it', '우리 모둠 약속', [
+      { motif: 'heart', x: 100, y: 80, s: 0.5 }, { motif: 'star', x: 380, y: 80, s: 0.5 }, { motif: 'flower', x: 400, y: 228 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '"지금까지 모둠 활동을 하며 우리가 배운 것이 무엇이 있었나요?" 먼저 손 들기, "도와줄까?" 묻기, 잘된 점 말하기, 역할 바꾸기를 학생 말로 모아 칠판에 적는다. "오늘은 이것을 모둠 약속으로 만들어 늘 지켜요." 시연 단추로 약속판에 하트 조각이 붙는 모습을 보여 준다.',
+        student: '모둠 활동에서 꼭 지키고 싶은 것을 하나 떠올려 봐요.',
+        demo: { tool: 'collage', options: { readOnly: true }, sequence: [{ has: [{ shape: 'heart', min: 2 }] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 모둠 약속 고르고 쓰임 알기', minutes: 12, tool: 'mindmap',
+            teacher: '"약속은 모두가 지킬 수 있고, 모두에게 좋아야 해요." \'잘하는 친구만 칭찬하기\'를 좋은 약속에 넣은 학생에게 "그러면 다른 친구들의 잘한 점은 누가 찾아 줄까요?"를 묻는다. 약속마다 언제 쓰는지 이어 본 뒤, 모둠 활동의 처음·가운데·끝에 놓아 본다.',
+            task: '모둠 약속으로 좋은 것을 고르고, 약속이 필요한 때와 차례를 알아봐요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '모둠 약속으로 좋은 것과 알맞지 않은 것으로 나누어 보세요.', toolOptions: { topic: '모둠 약속', slots: ['약속으로 좋아요', '알맞지 않아요'], cards: ['할 일을 먼저 골라 손 들기', '힘들어하는 친구에게 "도와줄까?" 묻기', '목소리 큰 사람이 다 정하기', '잘하는 친구만 칭찬하기'] },
+                target: { sort: { '약속으로 좋아요': ['할 일을 먼저 골라 손 들기', '힘들어하는 친구에게 "도와줄까?" 묻기'], '알맞지 않아요': ['목소리 큰 사람이 다 정하기', '잘하는 친구만 칭찬하기'] } }, difficulty: 0.15,
+                levels: { challenge: { prompt: '모둠 약속 카드 여섯 장을 좋은 것과 알맞지 않은 것으로 나누어 보세요.', toolOptions: { cards: ['할 일을 먼저 골라 손 들기', '힘들어하는 친구에게 "도와줄까?" 묻기', '목소리 큰 사람이 다 정하기', '잘하는 친구만 칭찬하기', '역할을 돌아가며 맡기', '내 일만 끝내면 쉬기'] },
+                  target: { sort: { '약속으로 좋아요': ['할 일을 먼저 골라 손 들기', '힘들어하는 친구에게 "도와줄까?" 묻기', '역할을 돌아가며 맡기'], '알맞지 않아요': ['목소리 큰 사람이 다 정하기', '잘하는 친구만 칭찬하기', '내 일만 끝내면 쉬기'] } } } },
+                hints: ['모둠 친구 모두가 지킬 수 있고, 모두에게 좋은 약속인지 따져 보세요.', '몇 사람만 좋거나 몇 사람만 하게 되는 카드가 \'좋아요\'에 있는지 보세요.', '손 들기·"도와줄까?" 묻기는 좋은 약속, 큰 목소리로 다 정하기·잘하는 친구만 칭찬하기는 알맞지 않아요.'] },
+              { prompt: '모둠 약속을 쓰는 때와 이어 보세요.', toolOptions: { mode: 'match', topic: '약속이 필요한 때', slots: [{ id: 'm1', label: '모둠 일을 나눌 때' }, { id: 'm2', label: '친구가 끙끙댈 때' }, { id: 'm3', label: '활동이 끝났을 때' }], cards: ['먼저 손 들고 맡기', '"도와줄까?" 묻기', '잘된 점 하나씩 말하기'] },
+                target: { match: { m1: '먼저 손 들고 맡기', m2: '"도와줄까?" 묻기', m3: '잘된 점 하나씩 말하기' } }, difficulty: 0.15,
+                hints: ['그때 모둠에서 무슨 일이 일어나는지 떠올려 보세요.', '일을 나누는 때, 친구가 힘든 때, 다 끝난 때에 각각 무엇을 하면 좋을지 보세요.', '나눌 때는 손 들기, 끙끙댈 때는 "도와줄까?", 끝났을 때는 잘된 점 말하기예요.'] },
+              { prompt: '모둠 활동을 하는 차례대로 약속 카드를 놓아 보세요.', toolOptions: { mode: 'order', topic: '약속 차례', slots: ['처음', '가운데', '끝'], cards: ['잘된 점 말하기', '맡을 일 고르기', '함께 하며 돕기'] },
+                target: { order: ['맡을 일 고르기', '함께 하며 돕기', '잘된 점 말하기'] }, difficulty: 0.1,
+                hints: ['모둠 활동을 시작할 때 맨 먼저 무엇을 정하는지 떠올려 보세요.', '잘된 점은 활동을 하기 전과 다 한 뒤 가운데 언제 말할 수 있을까요?', '맡을 일 고르기 → 함께 하며 돕기 → 잘된 점 말하기예요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 우리 모둠 약속판 꾸미기', minutes: 15, tool: 'collage',
+            teacher: '모둠마다 약속 세 가지를 골라 큰 종이에 쓴다. 쓸 사람, 꾸밀 사람, 읽을 사람을 스스로 골라 손을 든다. 다 쓴 모둠은 한 사람씩 약속을 소리 내어 읽고 새끼손가락을 건다. 화면에서는 약속판 양쪽을 똑같이 꾸민다. 약속판은 교실에 붙이고 지킨 날을 표시할 것이라고 알린다.',
+            task: '모둠 약속 세 가지를 약속판에 쓰고, 양쪽을 똑같이 꾸며요.',
+            levels: COL_LV,
+            items: [
+              { prompt: '모둠이 약속 세 가지를 골라 큰 종이에 쓰고, 한 사람씩 소리 내어 읽은 뒤 "다 했어요"를 누르세요.', free: true },
+              { prompt: '약속판 양쪽이 똑같아지게 꾸며요. 접는 선 오른쪽에도 하트를 붙여 왼쪽과 짝을 맞춰 보세요.', state: { pieces: [{ shape: 'square', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'heart', color: '분홍', size: 'm', x: 180, y: 120, r: 0 }] }, target: { symmetry: 'vertical', pieces: { min: 3 } }, difficulty: 0.2,
+                levels: { challenge: { prompt: '왼쪽의 하트와 동그라미와 짝이 되게 오른쪽에도 붙여 약속판 양쪽을 똑같이 꾸며 보세요.', state: { pieces: [{ shape: 'square', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'heart', color: '분홍', size: 'm', x: 180, y: 120, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 160, y: 300, r: 0 }] }, target: { symmetry: 'vertical', pieces: { min: 5 } } } },
+                hints: ['가운데 접는 선을 접었다고 생각해 보세요. 왼쪽 조각은 오른쪽 어디에 닿을까요?', '오른쪽에 붙인 조각이 접는 선에서 왼쪽 조각과 같은 거리인지, 같은 높이인지 보세요.', '왼쪽 하트와 같은 색·같은 크기 하트를 접는 선에서 같은 거리, 같은 높이에 붙여요.'] },
+              { prompt: '약속판을 다 꾸민 뒤, 해낸 것을 표시해 보세요.', state: { pieces: [{ shape: 'square', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }] }, target: { selfCheck: ['모둠 약속을 세 가지 골랐어요', '약속을 소리 내어 읽었어요', '약속판을 함께 꾸몄어요'], minPieces: 3 }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '모둠 약속판을 교실 뒤에 나란히 붙인다. "우리 반 약속판에 똑같이 들어간 약속이 있나요?" 여러 모둠에 겹친 약속을 함께 찾는다. 활동지의 \'지킨 날\' 칸은 다음 주 모둠 활동마다 스스로 표시한다고 알린다.',
+        exitTicket: [
+          { type: 'choice', prompt: '친구가 무거운 책상을 혼자 옮기며 비틀거려요. 지킬 약속은?', options: ['"도와줄까?" 묻기', '잘된 점 말하기', '역할 바꾸기'], answer: 0, difficulty: 0.1, explain: '힘들어하는 친구를 보면 먼저 "도와줄까?" 하고 물어요.' },
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', topic: '모둠 약속', basket: '좋은 약속', cards: ['맡은 일을 끝까지 하기', '친구 말 끊고 내 말만 하기', '친구 말을 끝까지 듣기'] }, prompt: '모둠 약속으로 좋은 것만 골라 보세요.', target: { pick: ['맡은 일을 끝까지 하기', '친구 말을 끝까지 듣기'] }, difficulty: 0.1 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 모둠 약속',
+      items: [
+        { type: 'table', prompt: '우리 모둠 약속을 쓰세요.', columns: ['', '우리 모둠 약속'], cells: [['약속 1', ''], ['약속 2', ''], ['약속 3', '']] },
+        { type: 'table', prompt: '약속을 지킨 날에 ○ 하세요.', columns: ['약속', '월', '화', '수', '목', '금'], cells: [['약속 1', '', '', '', '', ''], ['약속 2', '', '', '', '', ''], ['약속 3', '', '', '', '', '']] },
+        { type: 'choice', prompt: '모둠 약속으로 알맞지 않은 것에 ○ 하세요.', options: ['친구 말을 끝까지 듣기', '목소리 큰 사람이 다 정하기'], answer: '목소리 큰 사람이 다 정하기' },
+        { type: 'draw', prompt: '우리 모둠 약속판을 그려 보세요.' },
+      ],
+      easy: {
+        note: '모두가 지킬 수 있는 약속을 골라요.',
+        items: [
+          { type: 'choice', prompt: '좋은 약속에 ○ 하세요.', options: ['"도와줄까?" 묻기', '내 일만 하기'], answer: '"도와줄까?" 묻기' },
+          { type: 'short', prompt: '내가 꼭 지킬 약속 하나를 쓰세요.' },
+          { type: 'draw', prompt: '약속을 지키는 내 모습을 그려 보세요.' },
+          { type: 'choice', prompt: '활동이 끝나면 할 일에 ○ 하세요.', options: ['잘된 점 말하기', '그냥 가기'], answer: '잘된 점 말하기' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고 조각 모양이 네 가지로 줄어요. 약속은 선생님이 고른 다섯 가지 가운데 세 가지를 골라요.',
+      base: '나누기·잇기·차례와 약속판 꾸미기를 하고 확인을 눌러요.',
+      challenge: '약속 카드가 여섯 장으로 늘고, 약속판에 짝 맞출 조각이 두 개예요. 우리 모둠만의 새 약속을 하나 지어 말해요.',
+    },
+    teacherNotes: '준비: 모둠마다 큰 색지 1장, 색종이, 풀, 네임펜. 자주 보이는 어려움: ① 약속을 많이 넣으려 한다 → 지킬 수 있게 세 가지만 고른다. ② 잘하는 친구만 눈에 띈다고 여긴다 → 모든 친구의 잘한 점을 찾는 약속을 권한다. ③ 약속을 만들고 잊는다 → 활동지 \'지킨 날\' 칸을 다음 주 모둠 활동 끝에 함께 표시한다.',
+  }));
+
+  lessons.push(L(48, {
+    title: '사람들 단원 돌아보며 고마운 사람 마음 지도 만들기',
+    objective: '이 단원에서 만난 식구·이웃·친구와 함께한 일을 떠올려 나누고, 내가 잘하게 된 점을 스스로 돌아볼 수 있다.',
+    illustration: ART('a paper child in the center of a heart-shaped map, surrounded by small paper figures of family at home, neighbors in a village shop, and classmates at school, connected by dotted lines of hearts', '고마운 사람들', [
+      { motif: 'house', x: 90, y: 214 }, { motif: 'tree', x: 400, y: 214 }, { motif: 'heart', x: 240, y: 84, s: 0.6 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '단원 첫 시간의 식구 얼굴 그림, 동네 분께 드린 편지 사진, 모둠 화분, 약속판을 칠판 앞에 늘어놓는다. "이 단원에서 우리는 누구누구를 만났나요?" 식구, 동네에서 일하시는 분, 움직임 놀이를 한 친구, 모둠 친구를 학생 말로 모은다. 시연 단추로 \'집\' 가지에 카드가 놓이는 모습을 보여 준다.',
+        student: '이 단원에서 함께한 사람 가운데 가장 먼저 떠오르는 사람을 말해 봐요.',
+        demo: { tool: 'mindmap', options: { topic: '사람들', slots: ['집에서', '동네에서'], cards: ['식구 얼굴 꾸미기', '동네 분께 하는 일 여쭤보기'], shuffle: false }, sequence: [{ sort: { '집에서': ['식구 얼굴 꾸미기'], '동네에서': ['동네 분께 하는 일 여쭤보기'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 단원에서 한 일 묶기', minutes: 11, tool: 'mindmap',
+            teacher: '"이 일은 어디에서 누구와 했나요?" 카드를 읽으며 장소와 사람을 함께 떠올린다. 기억이 흐린 학생에게는 칠판 앞 자료(그림·사진)를 가리킨다. 함께 사는 방법을 고를 때 \'누가 하겠지 기다리기\'를 넣은 학생에게 "칠판 지울 사람 이야기 기억나요?"로 되묻는다.',
+            task: '단원에서 한 일을 집·동네·학교로 묶고, 배운 함께 사는 방법을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '이 단원에서 한 일을 어디에서 누구와 했는지 나누어 보세요.', toolOptions: { topic: '사람들 단원', slots: ['집에서 식구와', '동네에서 이웃과', '학교에서 친구와'], cards: ['수저 놓기 돕기', '가게 사장님께 하는 일 여쭤보기', '친구와 움직임 이어 하기', '빨래 함께 개기', '이웃 어른께 먼저 인사하기', '종이컵 탑 함께 쌓기'] },
+                target: { sort: { '집에서 식구와': ['수저 놓기 돕기', '빨래 함께 개기'], '동네에서 이웃과': ['가게 사장님께 하는 일 여쭤보기', '이웃 어른께 먼저 인사하기'], '학교에서 친구와': ['친구와 움직임 이어 하기', '종이컵 탑 함께 쌓기'] } }, difficulty: 0.15,
+                levels: { easy: { prompt: '이 단원에서 한 일 세 가지를 어디에서 누구와 했는지 나누어 보세요.', toolOptions: { cards: ['수저 놓기 돕기', '이웃 어른께 먼저 인사하기', '종이컵 탑 함께 쌓기'] },
+                  target: { sort: { '집에서 식구와': ['수저 놓기 돕기'], '동네에서 이웃과': ['이웃 어른께 먼저 인사하기'], '학교에서 친구와': ['종이컵 탑 함께 쌓기'] } } } },
+                hints: ['카드마다 그 일을 한 곳이 집인지, 동네인지, 학교인지 먼저 떠올려 보세요.', '식구와 한 일, 이웃과 한 일, 친구와 한 일이 섞여 있지 않은지 보세요.', '수저·빨래는 집, 가게 사장님·이웃 어른은 동네, 움직임·컵 탑은 학교예요.'] },
+              { prompt: '만난 사람과 그분들과 함께한 일을 이어 보세요.', toolOptions: { mode: 'match', topic: '함께한 일', slots: [{ id: 's1', label: '식구' }, { id: 's2', label: '동네에서 일하시는 분' }, { id: 's3', label: '모둠 친구' }], cards: ['수저 놓고 빨래 개기', '하는 일을 여쭙고 편지 드리기', '맡을 일 나누어 화분 심기'] },
+                target: { match: { s1: '수저 놓고 빨래 개기', s2: '하는 일을 여쭙고 편지 드리기', s3: '맡을 일 나누어 화분 심기' } }, difficulty: 0.1,
+                hints: ['그 일을 집에서 했는지, 동네에서 했는지, 교실에서 했는지 떠올려 보세요.', '편지를 드린 분과 화분을 함께 심은 사람이 누구였는지 생각해 보세요.', '식구는 수저·빨래, 동네 분은 여쭙고 편지, 모둠 친구는 화분 심기예요.'] },
+              { prompt: '이 단원에서 배운 함께 사는 방법만 골라 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', topic: '함께 사는 방법', basket: '함께 사는 방법', cards: ['먼저 인사하기', '"도와줄까?" 묻기', '역할을 바꾸어 해 보기', '"누가 하겠지" 기다리기', '내 마음대로만 정하기'] },
+                target: { pick: ['먼저 인사하기', '"도와줄까?" 묻기', '역할을 바꾸어 해 보기'] }, difficulty: 0.1,
+                hints: ['그렇게 하면 둘레 사람들이 기쁠지, 서운할지 떠올려 보세요.', '기다리기만 하거나 내 마음대로 하는 것은 함께 사는 방법일까요?', '인사하기, "도와줄까?" 묻기, 역할 바꾸기를 골라요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 고마운 사람 마음 지도', minutes: 10, tool: 'collage',
+            teacher: '"이 단원에서 만난 사람 가운데 고마운 사람은 누구인가요? 왜 고마운가요?" 짝에게 먼저 말하게 한 뒤 화면에서 마음 지도를 만든다. 가운데 동그라미가 나, 둘레의 하트가 고마운 사람이다. 종이 활동지에도 같은 지도를 그리고 하트 옆에 이름(식구는 \'엄마\'처럼 부르는 말)을 쓴다.',
+            task: '고마운 사람을 짝에게 말하고, 나를 가운데 두고 고마운 사람들로 마음 지도를 만들어요.',
+            levels: COL_LV,
+            items: [
+              { prompt: '이 단원에서 만난 고마운 사람 한 명과 고마운 까닭을 짝에게 말한 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
+              { prompt: '가운데 노랑 동그라미가 나예요. 둘레에 고마운 사람을 하트 조각으로 세 개 넘게 붙여 마음 지도를 만들어 보세요.', state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }] }, target: { has: [{ shape: 'heart', min: 3 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '가운데 노랑 동그라미가 나예요. 식구는 빨강, 이웃은 주황, 친구는 분홍 하트로 하나 넘게씩 붙여 마음 지도를 만들어 보세요.', target: { has: [{ shape: 'heart', color: '빨강', min: 1 }, { shape: 'heart', color: '주황', min: 1 }, { shape: 'heart', color: '분홍', min: 1 }] } } } },
+              { prompt: '마음 지도를 다 만든 뒤, 해낸 것을 표시해 보세요.', state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }] }, target: { selfCheck: ['고마운 사람을 세 명 넘게 떠올렸어요', '짝에게 고마운 까닭을 말했어요', '마음 지도에 하트를 붙였어요'], minPieces: 3 }, difficulty: 0.05 },
+            ],
+          },
+          {
+            id: 'a3', title: '활동 3. 나를 돌아보기', minutes: 6, tool: 'emotion',
+            teacher: '"이제 나를 돌아봐요. 정답은 없어요. 지금 내 모습 그대로 골라요." 교사는 고른 칸을 보며 칭찬하거나 나무라지 않는다. \'조금\'을 고른 학생에게는 "앞으로 해 볼 일이 생겼네요"라고 말해 준다.',
+            task: '이 단원에서 배운 일을 내가 얼마나 하게 되었는지 솔직하게 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '식구를 돕거나 이웃에게 먼저 인사하는 일을 얼마나 하게 되었는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '집에서 식구를 돕고, 이웃에게 먼저 인사해요.', feeling: '기쁨', ask: '나는 얼마나 하게 되었나요?', scaleLabels: { 1: '조금', 3: '자주' } }, target: { level: 'any' }, difficulty: 0.05, hints: ['지금 내 모습을 떠올려 보고, 가장 가까운 눈금 하나를 눌러요. 어느 눈금이든 괜찮아요.', '아직 고르지 않았다면 눈금 하나를 눌러요. 잘하고 못하고를 재는 것이 아니에요.', '눈금 가운데 하나를 고르면 돼요. 고른 눈금이 지금의 내 모습이에요.'] },
+              { prompt: '모둠에서 먼저 손 들고 일을 맡는 것을 얼마나 하게 되었는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '모둠 일을 살펴보고 "내가 할게" 하고 손을 들어요.', feeling: '신남', ask: '나는 얼마나 하게 되었나요?', scaleLabels: { 1: '조금', 3: '자주' } }, target: { level: 'any' }, difficulty: 0.05, hints: ['지금 내 모습을 떠올려 보고, 가장 가까운 눈금 하나를 눌러요. 어느 눈금이든 괜찮아요.', '아직 고르지 않았다면 눈금 하나를 눌러요. 잘하고 못하고를 재는 것이 아니에요.', '눈금 가운데 하나를 고르면 돼요. 고른 눈금이 지금의 내 모습이에요.'] },
+              { prompt: '힘들어하는 친구에게 "도와줄까?" 묻는 것을 얼마나 하게 되었는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '힘들어하는 친구에게 다가가 "도와줄까?" 하고 물어요.', feeling: '뿌듯함', ask: '나는 얼마나 하게 되었나요?', scaleLabels: { 1: '조금', 3: '자주' } }, target: { level: 'any' }, difficulty: 0.05, hints: ['지금 내 모습을 떠올려 보고, 가장 가까운 눈금 하나를 눌러요. 어느 눈금이든 괜찮아요.', '아직 고르지 않았다면 눈금 하나를 눌러요. 잘하고 못하고를 재는 것이 아니에요.', '눈금 가운데 하나를 고르면 돼요. 고른 눈금이 지금의 내 모습이에요.'] },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '마음 지도를 교실 뒤에 붙인다. "이 단원을 마치며 앞으로도 꼭 이어서 하고 싶은 일 하나를 말해 볼까요?" 두세 명의 말을 듣는다. 스스로 돌아보기에서 \'조금\'을 고른 것은 부끄러운 일이 아니라 다음에 해 볼 일이라고 말해 준다.',
+        exitTicket: [
+          { type: 'choice', prompt: '새로 이사 온 이웃을 승강기에서 만났어요. 알맞은 것은?', options: ['먼저 "안녕하세요" 인사해요', '모른 척해요', '빤히 쳐다봐요'], answer: 0, difficulty: 0.1, explain: '먼저 인사하면 이웃과 가까워질 수 있어요.' },
+          { type: 'tool', tool: 'mindmap', options: { topic: '함께하는 일', slots: ['집에서 식구와', '학교에서 친구와'], cards: ['동생과 장난감 함께 정리하기', '짝과 번갈아 칠판 지우기'] }, prompt: '함께하는 일을 어디에서 누구와 하는지 나누어 보세요.', target: { sort: { '집에서 식구와': ['동생과 장난감 함께 정리하기'], '학교에서 친구와': ['짝과 번갈아 칠판 지우기'] } }, difficulty: 0.1 },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '사람들 단원 돌아보기',
+      items: [
+        { type: 'table', prompt: '만난 사람과 함께한 일을 쓰세요.', columns: ['만난 사람', '함께한 일'], cells: [['식구', ''], ['동네 이웃', ''], ['친구', '']] },
+        { type: 'check', prompt: '이 단원에서 해 본 일에 ✓ 하세요.', options: ['식구 돕기', '이웃에게 먼저 인사하기', '"도와줄까?" 묻기', '역할 바꾸어 해 보기'] },
+        { type: 'short', prompt: '가장 고마운 사람과 그 까닭을 쓰세요.' },
+        { type: 'draw', prompt: '나를 가운데 두고 고마운 사람들을 그려 마음 지도를 만드세요.' },
+      ],
+      easy: {
+        note: '이 단원에서 만난 사람들을 떠올려요.',
+        items: [
+          { type: 'choice', prompt: '집에서 함께한 사람에 ○ 하세요.', options: ['식구', '가게 사장님'], answer: '식구' },
+          { type: 'choice', prompt: '함께 사는 방법에 ○ 하세요.', options: ['먼저 인사하기', '모른 척하기'], answer: '먼저 인사하기' },
+          { type: 'short', prompt: '고마운 사람 한 명을 쓰세요.' },
+          { type: 'draw', prompt: '고마운 사람을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '나누기 카드가 세 장으로 줄고 맞는 칸에 초록 테두리가 생겨요. 조각 모양도 네 가지로 줄어요.',
+      base: '나누기·잇기·고르기, 마음 지도와 스스로 돌아보기를 하고 확인을 눌러요.',
+      challenge: '마음 지도에 식구·이웃·친구를 색으로 나누어 붙여요. 앞으로 내가 이어서 할 일 하나를 정해 짝에게 말해요.',
+    },
+    teacherNotes: '준비: 단원 동안 만든 자료(식구 얼굴 그림, 편지 사진, 모둠 화분, 약속판). 자주 보이는 어려움: ① 단원 앞부분 일을 잊었다 → 자료를 보며 떠올리게 한다. ② 고마운 사람을 식구로만 쓴다 → 동네 분과 친구도 떠올리게 묻는다. ③ 스스로 돌아보기에서 모두 \'자주\'를 고른다 → 정답이 없는 활동이라고 다시 알려 주고, 고른 칸을 평가하지 않는다. 마음 지도에는 친구 실명 대신 부르는 말이나 그림을 써도 된다.',
+  }));
+
   // @@NEXT@@
   // ── 차시 끝 ──
 

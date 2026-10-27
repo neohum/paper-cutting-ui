@@ -1,0 +1,14 @@
+import { chromium } from 'playwright-core';
+import { findChrome } from './check-lesson.mjs';
+const hub = 'http://localhost:10002';
+const [lesson, act, item, level] = process.argv.slice(2);
+const browser = await chromium.launch({ executablePath: findChrome() || undefined, headless: true });
+const P = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+await P.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${lesson}&level=${level}`);
+await P.waitForTimeout(1500);
+await P.evaluate(([a, i]) => window.__pl.goto(1, +a, +i), [act, item]);
+await P.waitForTimeout(800);
+const info = await P.evaluate(() => ({ prompt: document.querySelector('.pl-prompt, [class*=prompt]')?.textContent, btns: [...document.querySelectorAll('#tool button, #tool [role=button], #tool [role=radio]')].map((b) => (b.getAttribute('aria-label') || b.textContent).trim()).filter(Boolean) }));
+console.log(JSON.stringify(info, null, 1));
+await P.screenshot({ path: process.argv[6] || 'C:/Users/user/AppData/Local/Temp/claude/D--works-all-market/d262d3b4-fda8-4d7d-8acd-e9623369ef1d/scratchpad/units/g1-int-1-02/ui.png' });
+await browser.close();
