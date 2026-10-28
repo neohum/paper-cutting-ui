@@ -76,6 +76,8 @@
   const TINT = ['buttercup', 'sky', 'mint', 'peach', 'lavender', 'rose'];
   const NO_MOTIF = new Set(['hills', 'wave', 'text']);
   const PAD = 12; const GAP = 10; const W0 = 560;
+  // 받침에 맞는 조사(따옴표·수 뒤도): '‘봄’ 칸이', '‘우산’이'
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)]s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
   const INK = '#3D352E';
   const arr = (v) => (v == null ? [] : Array.isArray(v) ? v : [v]);
   const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -274,7 +276,7 @@
       if (v.incomplete) {
         if (mode === 'pick') return { correct: false, incomplete: true, feedback: `조건에 맞는 카드를 골라 ‘${slots[0].label}’ 칸에 넣어요.`, hint: hintAt(t, 2, 1), v };
         if (mode === 'sort') return { correct: false, incomplete: true, feedback: `아직 칸에 넣지 않은 카드가 ${v.left.length}장 있어요.`, hint: hintAt(t, 2, 1), v };
-        return { correct: false, incomplete: true, feedback: `빈 ${mode === 'order' ? '자리' : '칸'}가 ${v.empty.length}개 있어요. 카드를 모두 놓아요.`, hint: hintAt(t, 2, 1), v };
+        return { correct: false, incomplete: true, feedback: `빈 ${mode === 'order' ? '자리가' : '칸이'} ${v.empty.length}개 있어요. 카드를 모두 놓아요.`, hint: hintAt(t, 2, 1), v };
       }
       let fb;
       if (why) fb = why.why;
@@ -314,7 +316,7 @@
       const i = v.wrongSlots[0] != null ? v.wrongSlots[0] : v.empty[0];
       if (i == null) return HINT1[mode];
       if (lv === 2) {
-        if (!v.occ[i]) return `${slotName(i)}가 비어 있어요. 앞뒤를 보고 들어갈 카드를 찾아요.`.replace('칸가', '칸이');
+        if (!v.occ[i]) return `${jo(slotName(i), '이', '가')} 비어 있어요. 앞뒤를 보고 들어갈 카드를 찾아요.`;
         // 바로 앞 '일'(이야기·사건·조리 차례)인지 '단계'·'카드'인지는 겉모양이 정한다(spec.prevWord, 기본 '카드')
         const pw = specText(spec.prevWord) || '카드';
         return mode === 'order' ? `${slotName(i)}의 ‘${nameOf(v.occ[i])}’ 카드를 다시 보세요. ${pw === '일' ? '바로 앞의 일' : `바로 앞 ${pw}`} 다음에 올 수 있을까요?` : `${slotName(i)}의 ‘${nameOf(v.occ[i])}’ 카드가 정말 어울리는지 다시 읽어 봐요.`;

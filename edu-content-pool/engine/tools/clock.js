@@ -157,7 +157,7 @@
           const b = e.target.closest('button[data-i]'); if (!b) return;
           pick = Number(b.dataset.i); paintPick(); kit.tick();
           kit.recorder.log('clock', state());
-          kit.announce(`${choices[pick]}을 골랐어요.`);
+          { const w = String(choices[pick]); const k = w.charCodeAt(w.length - 1); kit.announce(`${w}${k >= 0xac00 && k <= 0xd7a3 && (k - 0xac00) % 28 === 0 ? '를' : '을'} 골랐어요.`); }
         });
         // 보기는 라디오 묶음처럼: 화살표가 옆 보기로 옮기며 고른다
         bar.addEventListener('keydown', (e) => {

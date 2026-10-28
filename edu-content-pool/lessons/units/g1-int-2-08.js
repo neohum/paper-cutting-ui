@@ -40,7 +40,8 @@
   var BODY_LV = {
     easy: { mode: 'parts', parts: SENSE, names: true },
     base: { mode: 'parts', parts: SENSE },
-    challenge: { mode: 'parts', parts: SENSE.concat(['목', '어깨', '손목', '무릎']) },
+    // 함정은 살필 때 움직였다고 우길 수 있는 곳(손목: 흔들기·쥐기, 목: 삼키기)을 빼고 고른다
+    challenge: { mode: 'parts', parts: SENSE.concat(['어깨', '팔꿈치', '허벅지', '무릎']) },
   };
   // body를 과학 밖(감각)에서 쓰므로 문항마다 힌트 세 단계를 직접 쓴다
   function BH(a, b, c) { return [a, b, c]; }
@@ -2282,7 +2283,7 @@
     worksheet: {
       title: '쿵짝 소리 악보',
       items: [
-        { type: 'figure', prompt: '규칙을 찾아 빈칸에 쿵 또는 짝을 쓰세요.', tool: 'pattern', options: { seq: ['쿵', '짝', '짝', '쿵', '짝', '짝', null, null] }, figures: [{ caption: '' }], answer: '쿵, 짝' },
+        { type: 'figure', wide: true, prompt: '규칙을 찾아 빈칸에 쿵 또는 짝을 쓰세요.', tool: 'pattern', options: { seq: ['쿵', '짝', '짝', '쿵', '짝', '짝', null, null] }, figures: [{ caption: '' }], answer: '쿵, 짝' },
         { type: 'blank', prompt: '나만의 소리 악보를 쓰세요(쿵·짝·쉿).', text: '_____ _____ _____ _____ _____ _____ _____ _____' },
         { type: 'choice', prompt: '"쉿"을 연주하는 방법에 ○ 하세요.', options: ['소리 내지 않고 쉬어요', '발을 세게 굴러요', '손뼉을 두 번 쳐요'], answer: '소리 내지 않고 쉬어요' },
         { type: 'short', prompt: '친구 악보 가운데 연주하기 재미있었던 것을 쓰세요.' },

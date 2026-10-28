@@ -39,7 +39,7 @@
     const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
     return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
   };
-  const josa = (w, a, b) => { const s = String(w); const c = s.charCodeAt(s.length - 1); return s + (c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 ? a : b); };
+  const josa = (w, a, b) => { const s = String(w); const c = s.charCodeAt(s.length - 1); if (c >= 0xAC00 && c <= 0xD7A3) return s + ((c - 0xAC00) % 28 ? a : b); return s + (/[013678]$/.test(s) ? a : b); };
   const r2 = (v) => Math.round(v * 100) / 100;
   const P = 'ms';
   function ensureStyle() {
@@ -172,7 +172,7 @@
         const FS = (print ? 1.5 : 1) * (max <= 10 ? 1.2 : max <= 15 ? 1.05 : 1);
         const obj = Object.assign({ name: '물체', len: 5, start: 0 }, o.object || {});
         const make = !!o.make; const step = o.step || (mm ? 0.1 : 1); const from = o.from || 0;
-        const st = kit.stage(box, { viewBox: [W, H], label: make ? `자와 종이띠. 띠의 끝을 끌어 길이를 만들어요. 자는 0부터 ${max} cm까지예요.` : tiles ? `${obj.name}와 ${tiles.name}. ${tiles.name}를 이어 붙여 길이를 재요.` : `${obj.name}와 자. 자는 0부터 ${max} cm까지예요.` });
+        const st = kit.stage(box, { viewBox: [W, H], label: make ? `자와 종이띠. 띠의 끝을 끌어 길이를 만들어요. 자는 0부터 ${max} cm까지예요.` : tiles ? `${josa(obj.name, '과', '와')} ${tiles.name}. ${josa(tiles.name, '을', '를')} 이어 붙여 길이를 재요.` : `${josa(obj.name, '과', '와')} 자. 자는 0부터 ${max} cm까지예요.` });
         kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 18 }, color: 'cream', depth: 1, texture: !print, fill: print ? '#fff' : '#FBF6EC' });
         const RL = st.layer('ruler'); const OL = st.layer('obj');
         const RY = 150;
@@ -250,9 +250,9 @@
             if (t.read == null) return null;
             if (ans.v == null) return { correct: false, incomplete: true, feedback: '잰 길이를 답 칸에 써요.' };
             if (Math.abs(ans.v - t.read) < 1e-6) return null;
-            if (!tiles && obj.start && Math.abs(ans.v - (obj.start + obj.len)) < 1e-6) return { correct: false, feedback: `${josa(obj.name, '은', '는')} 0이 아니라 ${obj.start} 눈금에서 시작해요. 끝 눈금을 그대로 읽으면 안 돼요.`, hint: '시작 눈금에서 끝 눈금까지 큰 눈금이 몇 칸인지 세어요.', h3: `끝 눈금 ${fmt(obj.start + obj.len)}에서 시작 눈금 ${obj.start}를 빼요.` };
+            if (!tiles && obj.start && Math.abs(ans.v - (obj.start + obj.len)) < 1e-6) return { correct: false, feedback: `${josa(obj.name, '은', '는')} 0이 아니라 ${obj.start} 눈금에서 시작해요. 끝 눈금을 그대로 읽으면 안 돼요.`, hint: '시작 눈금에서 끝 눈금까지 큰 눈금이 몇 칸인지 세어요.', h3: `끝 눈금 ${fmt(obj.start + obj.len)}에서 시작 눈금 ${josa(obj.start, '을', '를')} 빼요.` };
             if (!tiles && mm && Math.abs(ans.v * 10 - t.read) < 1e-6) return { correct: false, feedback: '단위를 확인해요. cm로 써야 하는데 mm로 센 수를 썼어요.', hint: '1 cm = 10 mm예요.', h3: `${t.read * 10} mm는 ${fmt(t.read)} cm예요.` };
-            return { correct: false, feedback: ans.v > t.read ? '잰 길이가 너무 길어요. 다시 세어 봐요.' : '잰 길이가 너무 짧아요. 다시 세어 봐요.', hint: tiles ? `${tiles.name}를 빈틈없이 이어 붙인 수를 세요. 끝이 남으면 '약'이라고 해요.` : mm ? '큰 눈금(cm)을 먼저 세고 작은 눈금(mm)을 더해요.' : '눈금 한 칸은 1 cm예요.', h3: tiles ? `${tiles.name}가 ${fmt(t.read)}개 들어가요.` : `시작에서 큰 눈금 ${Math.floor(t.read)}칸${mm && t.read % 1 ? `, 작은 눈금 ${Math.round((t.read % 1) * 10)}칸` : ''}이에요.` };
+            return { correct: false, feedback: ans.v > t.read ? '잰 길이가 너무 길어요. 다시 세어 봐요.' : '잰 길이가 너무 짧아요. 다시 세어 봐요.', hint: tiles ? `${josa(tiles.name, '을', '를')} 빈틈없이 이어 붙인 수를 세요. 끝이 남으면 '약'이라고 해요.` : mm ? '큰 눈금(cm)을 먼저 세고 작은 눈금(mm)을 더해요.' : '눈금 한 칸은 1 cm예요.', h3: tiles ? `${josa(tiles.name, '이', '가')} ${fmt(t.read)}개 들어가요.` : `시작에서 큰 눈금 ${Math.floor(t.read)}칸${mm && t.read % 1 ? `, 작은 눈금 ${Math.round((t.read % 1) * 10)}칸` : ''}이에요.` };
           };
           M.solve = (t) => { if (t.read != null) ans.set(t.read); };
           M.wrong = (t) => (t.read == null ? null : { ans: !tiles && obj.start ? r2(obj.start + obj.len) : r2(t.read + 1) });
@@ -270,7 +270,7 @@
           const right = Array.isArray(o.right) ? o.right : [];
           const unit = o.unit && o.unit.w > 0 ? o.unit : null;
           const maxU = o.maxUnits || 20;
-          const st = kit.stage(box, { viewBox: [W, H], label: `양팔저울. 왼쪽에 ${left.map((x) => x.name).join(', ')}${right.length ? `, 오른쪽에 ${right.map((x) => x.name).join(', ')}` : ''}${unit ? `이 있어요. 오른쪽에 ${unit.name}을 올려 수평을 잡아요.` : '이 있어요.'}` });
+          const st = kit.stage(box, { viewBox: [W, H], label: `양팔저울. 왼쪽에 ${left.map((x) => x.name).join(', ')}${right.length ? `, 오른쪽에 ${right.map((x) => x.name).join(', ')}` : ''}${unit ? `이 있어요. 오른쪽에 ${josa(unit.name, '을', '를')} 올려 수평을 잡아요.` : '이 있어요.'}` });
           kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 18 }, color: 'cream', depth: 1, texture: !print, fill: print ? '#fff' : '#FBF6EC' });
           const base = st.layer('base');
           kit.piece(st, base, { shape: { type: 'poly', points: `${CX - 18},${CY} ${CX + 18},${CY} ${CX + 40},300 ${CX - 40},300` }, color: 'lavender', depth: 2 });

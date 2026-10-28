@@ -2164,7 +2164,7 @@
       title: '반짝반짝 작은 별의 모양',
       items: [
         { type: 'table', prompt: '줄마다 가락을 듣고 같은 가락이면 같은 모양을 그리세요.', columns: ['첫째', '둘째', '셋째', '넷째', '다섯째', '여섯째'], cells: [['★', '●', '▲', '', '', '']] },
-        { type: 'figure', wide: true, prompt: '첫째 줄 첫 음 \'도\'를 칠 건반에 ○ 하세요.', tool: 'keyboard', figures: [{ options: { mode: 'melody', from: '도', to: '높은도', printNames: true }, caption: '' }], answer: '맨 왼쪽 건반' },
+        { type: 'figure', wide: true, prompt: '첫째 줄 가락 \'도도솔솔라라솔\'에서 가장 높은 음의 건반에 ○ 하세요.', tool: 'keyboard', figures: [{ options: { mode: 'melody', from: '도', to: '높은도', printNames: true }, caption: '' }], answer: '라' },
         { type: 'choice', prompt: '같은 가락이 되풀이되면 좋은 점에 ○ 하세요.', options: ['노래를 외우기 쉬워요', '노래가 짧아져요', '박이 빨라져요'], answer: '노래를 외우기 쉬워요' },
         { type: 'short', prompt: '같은 가락이 되풀이되는 다른 노래를 하나 쓰세요.' },
       ],
@@ -3408,7 +3408,7 @@
     worksheet: {
       title: '네모로 만든 그림',
       items: [
-        { type: 'check', prompt: '구성 그림에서 찾은 것에 모두 ✓ 하세요.', options: ['곧은 줄', '네모', '빨강', '파랑', '노랑'] },
+        { type: 'check', prompt: '몬드리안의 구성 그림에 있는 것에만 모두 ✓ 하세요.', options: ['곧은 줄', '동그라미', '네모', '빨강', '초록', '노랑'], answer: '곧은 줄, 네모, 빨강, 노랑' },
         { type: 'table', prompt: '그림마다 내가 찾은 것을 하나씩 쓰세요.', columns: ['그림', '내가 찾은 것'], cells: [['별이 빛나는 밤', ''], ['여름', ''], ['씨름', ''], ['구성', '']] },
         { type: 'short', prompt: '교실에서 찾은 곧은 줄과 네모로 된 물건을 쓰세요.' },
         { type: 'draw', prompt: '곧은 줄과 네모로만 나만의 그림을 그리고 빨강·파랑·노랑을 칠하세요.' },

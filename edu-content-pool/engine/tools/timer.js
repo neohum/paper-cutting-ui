@@ -18,6 +18,9 @@
  */
 (function (K) {
   'use strict';
+  // 받침에 맞는 조사(따옴표 뒤·수 뒤도) — '‘손 씻기’를', '‘줄넘기 3번’을'
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)]s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
+  const jq = (w, a, b) => `‘${w}’${jo(w, a, b).slice(String(w).length)}`;
   const levelOf = (opts) => {
     const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
     const a = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
@@ -42,14 +45,14 @@
     if (t.safety) {
       const items = o.safety || []; const got = s.safety || []; const n = items.filter((_, i) => got[i]).length;
       if (!n) return { correct: false, incomplete: true, feedback: '활동하기 전에 안전 점검부터 해요. 확인한 것을 눌러 표시해요.', hint: '둘레를 살펴보고 하나씩 표시해요.', part: 'safety' };
-      if (n < items.length) { const left = items.find((_, i) => !got[i]); return { correct: false, feedback: `안전 점검이 ${items.length - n}개 남았어요. 모두 확인해야 활동을 시작해요.`, hint: `‘${left}’를 확인했나요?`, part: 'safety', left }; }
+      if (n < items.length) { const left = items.find((_, i) => !got[i]); return { correct: false, feedback: `안전 점검이 ${items.length - n}개 남았어요. 모두 확인해야 활동을 시작해요.`, hint: `${jq(left, '을', '를')} 확인했나요?`, part: 'safety', left }; }
     }
     if (t.order) {
       const got = s.order || []; const want = t.order;
       const i = want.findIndex((x, k) => got[k] !== x);
       if (i >= 0) {
         const there = got[i]; const j = want.indexOf(there);
-        return { correct: false, feedback: `${i + 1}번째 자리에 ‘${there}’ 카드가 왔어요. ${j > i ? '이 활동은 더 나중에 해요.' : '이 활동은 더 먼저 해요.'}`, hint: `‘${there}’를 언제 하는지 떠올려 자리를 옮겨요.`, part: 'order', at: i };
+        return { correct: false, feedback: `${i + 1}번째 자리에 ‘${there}’ 카드가 왔어요. ${j > i ? '이 활동은 더 나중에 해요.' : '이 활동은 더 먼저 해요.'}`, hint: `${jq(there, '을', '를')} 언제 하는지 떠올려 자리를 옮겨요.`, part: 'order', at: i };
       }
     }
     if (t.plan || t.total != null) {
@@ -77,7 +80,7 @@
     if (t.selfCheck) {
       const got = s.checks || []; const left = t.selfCheck.filter((_, i) => !got[i]);
       if (left.length === t.selfCheck.length && parts.length === 1) return { correct: false, incomplete: true, feedback: '활동을 마치고 스스로 점검 목록에서 해낸 것을 표시해요.', hint: '해낸 것만 하나씩 눌러요.', part: 'self' };
-      if (left.length) return { correct: false, feedback: `아직 표시하지 않은 점검 항목이 ${left.length}개 있어요.`, hint: `‘${left[0]}’를 해 보았는지 떠올리고 표시해요.`, part: 'self', left };
+      if (left.length) return { correct: false, feedback: `아직 표시하지 않은 점검 항목이 ${left.length}개 있어요.`, hint: `${jq(left[0], '을', '를')} 해 보았는지 떠올리고 표시해요.`, part: 'self', left };
     }
     const said = t.order ? '활동 차례가 꼭 맞아요' : t.plan || t.total != null ? `타이머를 알맞게 맞추었어요(전체 ${fmt(totalOf(s.plan || PLAN0))})` : t.records != null ? '기록을 모두 적었어요' : t.safety ? '안전 점검을 모두 마쳤어요' : '스스로 점검을 마쳤어요';
     return { correct: true, feedback: `맞아요! ${said}.` };
@@ -154,7 +157,7 @@
     if (r.part === 'plan' && t.plan) { const NAME = { work: '운동 시간', rest: '쉬는 시간', rounds: '되풀이 횟수' }; const k = r.key; return { hint: r.swap ? `운동 ${t.plan.work}초, 쉬기 ${t.plan.rest}초로 넣어요.` : `${NAME[k]}${jong(NAME[k]) ? '을' : '를'} ${t.plan[k]}${k === 'rounds' ? '번으' : '초'}로 맞추어요.`, correct: false }; }
     if (r.part === 'total') { const p = solve(t, o).plan; return { hint: `예를 들어 운동 ${p.work}초, 쉬기 ${p.rest}초, ${p.rounds}번이면 ${p.rounds}×${p.work} + ${Math.max(0, p.rounds - 1)}×${p.rest} = ${totalOf(p)}초예요.`, correct: false }; }
     if (r.part === 'records' && Array.isArray(t.records)) { const fs = fieldsOf(o); return { hint: `${fs[r.at] ? fs[r.at].label : `${r.at + 1}번째`} 칸은 ${ieyo(`${t.records[r.at]}${fs[r.at] ? fs[r.at].unit : ''}`)}.`, correct: false }; }
-    if ((r.part === 'self' || r.part === 'safety') && r.left) return { hint: `‘${Array.isArray(r.left) ? r.left[0] : r.left}’를 직접 해 보고, 했으면 눌러 표시해요.`, correct: false };
+    if ((r.part === 'self' || r.part === 'safety') && r.left) return { hint: `${jq(Array.isArray(r.left) ? r.left[0] : r.left, '을', '를')} 직접 해 보고, 했으면 눌러 표시해요.`, correct: false };
     return { hint: r.hint || r.feedback, correct: false };
   }
   function distance(a, b) {
@@ -257,14 +260,14 @@
           const tap = () => {
             if (picked < 0) { picked = i; drawCards(); say(`‘${label}’ 카드를 골랐어요. 바꿀 자리의 카드를 눌러요.`); focusCard(i); return; }
             if (picked === i) { picked = -1; drawCards(); focusCard(i); return; }
-            const j = picked; [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`‘${order[i]}’와 ‘${order[j]}’의 자리를 바꾸었어요.`); focusCard(i);
+            const j = picked; [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`${jq(order[i], '과', '와')} ‘${order[j]}’의 자리를 바꾸었어요.`); focusCard(i);
           };
           g.addEventListener('click', tap);
           g.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(); return; }
             const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!d) return;
             e.preventDefault(); const j = i + d; if (j < 0 || j >= order.length) return;
-            [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`‘${order[j]}’를 ${j + 1}번째 자리로 옮겼어요.`); focusCard(j);
+            [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`${jq(order[j], '을', '를')} ${j + 1}번째 자리로 옮겼어요.`); focusCard(j);
           });
         });
       }

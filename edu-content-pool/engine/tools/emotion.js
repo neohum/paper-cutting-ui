@@ -40,6 +40,8 @@
  */
 (function (K) {
   'use strict';
+  // 받침에 맞는 조사(수 뒤도: '3을', '2를')
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)]s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
   // ── cards-b 공통(이 블록은 emotion·wordcards·kitchen·economy 네 파일에 글자 하나 다르지 않게 들어 있다 — 먼저 읽힌 파일의 것을 쓴다.
   //    고칠 때는 네 파일을 함께 고친다. tests/edu-tools-cards-b.test.mjs가 네 블록이 같은지 본다) ──
   if (!K.cardsB) K.cardsB = (function () {
@@ -320,9 +322,9 @@
         },
         hintAt(t, lv) {
           const v = M.verdict(t); const [a, b] = range(t);
-          if (v.incomplete) return lv >= 3 ? `눈금 ${a === b ? a : `${a}에서 ${b} 사이`}를 골라요.` : '아직 고르지 않았어요. 먼저 눈금 하나를 눌러요.';
+          if (v.incomplete) return lv >= 3 ? `눈금 ${a === b ? jo(a, '을', '를') : `${a}에서 ${b} 사이를`} 골라요.` : '아직 고르지 않았어요. 먼저 눈금 하나를 눌러요.';
           if (lv === 2) return v.dir > 0 ? `지금 고른 눈금 ${level}은(는) 조금 커요. 같은 일을 겪은 친구라면 마음이 얼마나 움직일지 떠올려 봐요.` : `지금 고른 눈금 ${level}은(는) 조금 작아요. 인물이 얼마나 놀라거나 속상했을지 떠올려 봐요.`;
-          return `이 상황에는 눈금 ${a === b ? a : `${a}에서 ${b} 사이`}가 어울려요.`;
+          return `이 상황에는 눈금 ${a === b ? jo(a, '이', '가') : `${a}에서 ${b} 사이가`} 어울려요.`;
         },
         solution(t) { const [a, b] = range(t); return { level: Math.round((a + b) / 2) }; },
         wrongAnswer(t) { const [a, b] = range(t); if (b < n) return { level: n }; if (a > 1) return { level: 1 }; return null; },

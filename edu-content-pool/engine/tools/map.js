@@ -430,7 +430,7 @@
         dirRow = document.createElement('div'); dirRow.setAttribute('role', 'radiogroup'); dirRow.setAttribute('aria-label', '방위 고르기');
         dirRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center';
         dirRow.innerHTML = `<span style="font-weight:700;margin-right:4px">방위</span>${DIRS.map((d) => btn(`role="radio" aria-checked="false" data-dir="${d}"${readOnly ? ' disabled' : ''}`, d)).join('')}`;
-        dirRow.addEventListener('click', (e) => { const b = e.target.closest('[data-dir]'); if (!b) return; dir = b.dataset.dir; revealed = false; paintDir(); paintRead(); kit.tick(); kit.recorder.log('map', state()); kit.announce(`${dir}을 골랐어요.`); });
+        dirRow.addEventListener('click', (e) => { const b = e.target.closest('[data-dir]'); if (!b) return; dir = b.dataset.dir; revealed = false; paintDir(); paintRead(); kit.tick(); kit.recorder.log('map', state()); kit.announce(`${josa(dir, '을', '를')} 골랐어요.`); });
         ctl.appendChild(dirRow);
       }
       if (ctl && mode === 'scale') {
@@ -446,7 +446,7 @@
         askRow = document.createElement('div'); askRow.setAttribute('role', 'radiogroup'); askRow.setAttribute('aria-label', o.ask.q || '고르기');
         askRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center';
         askRow.innerHTML = `${o.ask.q ? `<span style="font-weight:700;flex-basis:100%">${esc(o.ask.q)}</span>` : ''}${o.ask.choices.map((c, i) => btn(`role="radio" aria-checked="false" data-pick="${i}"`, esc(c))).join('')}`;
-        askRow.addEventListener('click', (e) => { const b = e.target.closest('[data-pick]'); if (!b) return; pick = Number(b.dataset.pick); revealed = false; paintPick(); paintRead(); kit.tick(); kit.recorder.log('map', state()); kit.announce(`${o.ask.choices[pick]}을 골랐어요.`); });
+        askRow.addEventListener('click', (e) => { const b = e.target.closest('[data-pick]'); if (!b) return; pick = Number(b.dataset.pick); revealed = false; paintPick(); paintRead(); kit.tick(); kit.recorder.log('map', state()); kit.announce(`${josa(o.ask.choices[pick], '을', '를')} 골랐어요.`); });
         ctl.appendChild(askRow);
       }
       function paintDir() { if (dirRow) dirRow.querySelectorAll('[data-dir]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.dir === dir))); }
@@ -549,7 +549,7 @@
           if (t.align && norm(rose) !== north) main = { correct: false, feedback: rose === 0 && north ? '방위표가 아직 위쪽을 북쪽으로 보고 있어요. 지도의 북쪽 화살표를 보세요.' : '방위표의 북쪽이 지도의 북쪽 화살표와 같은 쪽을 가리키지 않아요.', hint: '방위표를 돌려 빨간 바늘(북)을 지도 왼쪽 위 북쪽 화살표와 같은 쪽으로 맞춰요.' };
           else if (want) {
             if (!dir) main = { correct: false, incomplete: true, feedback: '아래 방위 단추에서 하나를 골라요.', hint: '출발 장소에서 도착 장소 쪽을 보고 방위를 골라요.' };
-            else if (dir === want) main = { correct: true, feedback: t.from && t.to ? `맞아요! ${t.to}는 ${t.from}의 ${want}쪽이에요.` : `맞아요! ${want}이에요.` };
+            else if (dir === want) main = { correct: true, feedback: t.from && t.to ? `맞아요! ${josa(t.to, '은', '는')} ${t.from}의 ${want}쪽이에요.` : `맞아요! ${want}이에요.` };
             else {
               const a = t.from && placeBy(t.from); const b = t.to && placeBy(t.to);
               const upRead = a && b && north ? dirName(a.at, b.at, 0) : null;

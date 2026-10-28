@@ -1711,7 +1711,8 @@
             levels: { easy: { showValues: true }, base: {}, challenge: {} },
             items: [
               { prompt: '가장 많은 친구가 해 보고 싶은 것은 무엇일까요?', toolOptions: { type: 'picture', mode: 'read', title: '2학년에 해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 7 }, { label: '길이 재기', value: 5 }, { label: '시각 읽기', value: 4 }], question: '가장 많은 친구가 고른 것은?', choices: ['곱셈구구', '길이 재기', '시각 읽기'] }, target: { pick: 0 }, difficulty: 0.1 },
-              { prompt: '\'길이 재기\'를 고른 친구는 몇 명일까요?', toolOptions: { type: 'picture', mode: 'read', title: '2학년에 해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 7 }, { label: '길이 재기', value: 5 }, { label: '시각 읽기', value: 4 }], question: '길이 재기를 고른 친구는?', choices: ['4명', '5명', '7명'] }, target: { pick: 1 }, difficulty: 0.15 },
+              { prompt: '\'길이 재기\'를 고른 친구는 몇 명일까요?', toolOptions: { type: 'picture', mode: 'read', title: '2학년에 해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 7 }, { label: '길이 재기', value: 5 }, { label: '시각 읽기', value: 4 }], question: '길이 재기를 고른 친구는?', choices: ['4명', '5명', '7명'] }, target: { pick: 1 }, difficulty: 0.15,
+                hints: ['\'길이 재기\' 줄을 찾아 손가락으로 짚어요. 별 하나는 친구 한 명이에요.', '그 줄의 별만 왼쪽부터 하나, 둘, 셋… 하고 세어요. 다른 줄과 섞지 않아요.', '\'길이 재기\' 줄의 별은 5개예요. 그러니 5명이에요.'] },
               { prompt: '가장 적은 친구가 고른 것은 무엇일까요?', toolOptions: { type: 'picture', mode: 'read', title: '2학년에 해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 6 }, { label: '길이 재기', value: 8 }, { label: '시각 읽기', value: 3 }, { label: '표 만들기', value: 5 }], question: '가장 적은 친구가 고른 것은?', choices: ['곱셈구구', '길이 재기', '시각 읽기', '표 만들기'] }, target: { pick: 2 }, difficulty: 0.2 },
             ],
           },
@@ -1721,7 +1722,7 @@
         id: 'wrapup', title: '정리', minutes: 8,
         teacher: '"차례와 그래프에서 알게 된 것을 하나씩 말해 볼까요?" 자료를 읽으면 앞으로 배울 것도 미리 알 수 있다는 것을 짚는다. 차례에서 찾은 이어지는 단원은 모둠 털실 종이에 새 카드로 붙인다.',
         exitTicket: [
-          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '이어지는 단원', slots: [{ id: 'e1', label: '100까지의 수' }, { id: 'e2', label: '모양과 시각' }], cards: ['시각과 시간', '세 자리 수'] }, prompt: '1학년 단원과 이어지는 2학년 단원을 이어 보세요.', target: { match: { e1: '세 자리 수', e2: '시각과 시간' } }, difficulty: 0.15 },
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '이어지는 단원', slots: [{ id: 'e1', label: '비교하기 (길이·무게 견주기)' }, { id: 'e2', label: '덧셈과 뺄셈 (같은 수 여러 번 더하기)' }], cards: ['곱셈', '길이 재기'] }, prompt: '다른 1학년 단원도 이어 보세요. 이어지는 2학년 단원을 찾아요.', target: { match: { e1: '길이 재기', e2: '곱셈' } }, difficulty: 0.2 },
           { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '좋아하는 시간', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '체육', value: 6 }, { label: '미술', value: 4 }, { label: '음악', value: 5 }], question: '가장 많은 친구가 좋아하는 시간은?', choices: ['체육', '미술', '음악'] }, prompt: '그래프를 보고 가장 많은 친구가 좋아하는 시간을 골라 보세요.', target: { pick: 0 }, difficulty: 0.1 },
           MOOD,
         ],
@@ -2241,7 +2242,7 @@
         { type: 'draw', prompt: '내가 흉내 낸 동물이나 자연을 그려 보세요.' },
       ],
       easy: {
-        note: '새는 높게, 뱀은 낮게!',
+        note: '높게는 까치발로 쭉, 낮게는 쪼그려 앉아요!',
         items: [
           { type: 'choice', prompt: '높게 움직이는 것에 ○ 하세요.', options: ['하늘을 나는 새', '땅을 기는 뱀'], answer: '하늘을 나는 새' },
           { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '높게, 낮게, 높게, ___', answer: '낮게' },
@@ -2448,8 +2449,9 @@
                 target: { match: { s1: '기뻐요', s2: '슬퍼요' } }, difficulty: 0.05,
                 levels: { challenge: { prompt: '있었던 일 네 가지와 마음을 이어 보세요.', toolOptions: { slots: [{ id: 's1', label: '생일 선물을 받아 펄쩍펄쩍 뛰었어요' }, { id: 's2', label: '아끼던 연필을 잃어버려 눈물이 났어요' }, { id: 's3', label: '동생이 내 그림을 찢어 얼굴이 빨개졌어요' }, { id: 's4', label: '늦잠을 자서 하품이 자꾸 나요' }], cards: ['기뻐요', '슬퍼요', '화나요', '졸려요'] },
                   target: { match: { s1: '기뻐요', s2: '슬퍼요', s3: '화나요', s4: '졸려요' } } } } },
-              { prompt: '마음에 대한 바른 생각만 골라 보세요.', toolOptions: { mode: 'pick', basket: '바른 생각', cards: ['내 마음을 몸으로 보여 줄 수 있어요', '친구 몸을 보고 마음을 짐작할 수 있어요', '마음은 몸으로 나타낼 수 없어요'] },
-                target: { pick: ['내 마음을 몸으로 보여 줄 수 있어요', '친구 몸을 보고 마음을 짐작할 수 있어요'] }, difficulty: 0.1 },
+              { prompt: '민지는 아끼던 풍선이 날아가 슬퍼요. 민지의 슬픈 마음을 나타낸 몸짓만 골라 보세요.', toolOptions: { mode: 'pick', basket: '슬픈 마음 몸짓', cards: ['발을 끌며 터벅터벅 느리게 걸어요', '어깨를 늘어뜨리고 낮게 앉아요', '팔을 높이 흔들며 깡충 뛰어요'] },
+                target: { pick: ['발을 끌며 터벅터벅 느리게 걸어요', '어깨를 늘어뜨리고 낮게 앉아요'] }, difficulty: 0.1,
+                hints: ['슬플 때 내 몸은 높아질까요, 낮아질까요? 빨라질까요, 느려질까요?', '슬플 때는 몸이 낮아지고 느려져요. 높고 빠른 몸짓은 빼요.', '\'터벅터벅 느리게 걸어요\', \'낮게 앉아요\' 카드를 골라요.'] },
               { prompt: '몸 모습을 보고 어떤 마음인지 이어 보세요.', toolOptions: { mode: 'match', topic: '몸을 보고 짐작해요', slots: [{ id: 'b1', label: '어깨를 펴고 활짝 웃으며 깡충 뛰어요' }, { id: 'b2', label: '주먹을 꽉 쥐고 발을 쿵쿵 굴러요' }], cards: ['기뻐요', '화나요'] },
                 target: { match: { b1: '기뻐요', b2: '화나요' } }, difficulty: 0.1 },
             ],
@@ -2491,7 +2493,7 @@
         { type: 'draw', prompt: '오늘 내 마음 움직임을 그려 보세요.' },
       ],
       easy: {
-        note: '신나면 높게 빨리, 속상하면 낮게 천천히!',
+        note: '그 마음일 때 내 몸이 어땠는지 직접 해 보고 골라요!',
         items: [
           { type: 'choice', prompt: '신이 날 때 움직임에 ○ 하세요.', options: ['높게·빠르게', '낮게·느리게'], answer: '높게·빠르게' },
           { type: 'choice', prompt: '속상할 때 움직임에 ○ 하세요.', options: ['높게·빠르게', '낮게·느리게'], answer: '낮게·느리게' },
@@ -2654,7 +2656,7 @@
         { type: 'draw', prompt: '꽃이 활짝 핀 장면을 몸으로 나타낸 내 모습을 그려 보세요.' },
       ],
       easy: {
-        note: '씨앗은 낮게, 꽃은 높게!',
+        note: '땅속 작은 씨앗과 활짝 핀 꽃을 몸으로 흉내 내 보고 골라요!',
         items: [
           { type: 'choice', prompt: '씨앗일 때 몸에 ○ 하세요.', options: ['낮게 웅크려요', '높게 서요'], answer: '낮게 웅크려요' },
           { type: 'choice', prompt: '먼저 일어나는 일에 ○ 하세요.', options: ['싹이 나와요', '꽃이 피어요'], answer: '싹이 나와요' },
@@ -3378,7 +3380,8 @@
               { prompt: '물음판 밑그림을 만들어요. 큰 동그라미 하나(주제)와 네모 세 개(물음 쪽지)를 붙여 보세요.', target: { has: [{ shape: 'circle', size: 'l', n: 1 }, { shape: 'square', n: 3 }] }, difficulty: 0.15,
                 hints: ['주제 자리 하나, 물음 쪽지 자리 세 개가 있어야 해요. 모양과 크기를 골라 붙여요.', '동그라미는 크게, 네모는 모두 세 장인지 세어 봐요.', '\'크게\'를 고른 동그라미를 하나 붙이고, 네모를 세 장 붙여요.'],
                 levels: { challenge: { prompt: '큰 동그라미 하나(주제), 네모 세 개(물음 쪽지), 별 두 개(꾸미기)를 붙여 보세요.', target: { has: [{ shape: 'circle', size: 'l', n: 1 }, { shape: 'square', n: 3 }, { shape: 'star', n: 2 }] } } } },
-              { prompt: '모둠이 큰 종이에 꾸민 물음판을 점검해 보세요. 해낸 것에 모두 표시해요.', target: { selfCheck: ['맨 가운데에 모둠 주제를 크게 썼어요', '물음 쪽지 세 장에 모두 물음표가 있어요', '모둠 친구 모두가 한 가지씩 맡아 했어요'], minPieces: 4 }, difficulty: 0.1 },
+              { prompt: '화면에 우리 모둠 물음판처럼 조각을 네 개 이상 붙이고, 큰 종이 물음판에서 해낸 것을 모두 표시해요.', target: { selfCheck: ['맨 가운데에 모둠 주제를 크게 썼어요', '물음 쪽지 세 장에 모두 물음표가 있어요', '모둠 친구 모두가 한 가지씩 맡아 했어요'], minPieces: 4 }, difficulty: 0.1,
+                hints: ['큰 종이 물음판을 보며 주제 자리와 물음 쪽지 자리를 화면에도 조각으로 붙여요.', '조각이 네 개 이상인지 세어 보고, 큰 종이를 보며 점검 목록을 하나씩 확인해요.', '동그라미 하나와 네모 세 장을 붙이고, 큰 종이에서 해낸 점검 항목을 표시해요.'] },
               { prompt: '모둠 물음판을 다 꾸며 칠판 옆 게시판에 붙였으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -4055,8 +4058,10 @@
             task: '단원에서 해낸 것을 눈금으로 스스로 평가하고, 가장 즐거웠던 활동을 짝에게 말해요.',
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
-              { prompt: '옛날과 지금을 견주어 물음을 만드는 것을 얼마나 해냈는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '옛날 물건과 지금 물건을 견주어 궁금한 것을 물음으로 만들었어요.', feeling: '뿌듯함', ask: '얼마나 해냈나요?', scaleLabels: { 1: '조금', 2: '꽤', 3: '아주 잘' } }, target: { level: 'any' }, difficulty: 0.05 },
-              { prompt: '궁금한 것을 여러 곳에서 찾아 알게 된 것을 말하는 것을 얼마나 해냈는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '내 주제의 물음을 만들고, 책·사람·직접 보기로 답을 모아 발표했어요.', feeling: '뿌듯함', ask: '얼마나 해냈나요?', scaleLabels: { 1: '조금', 2: '꽤', 3: '아주 잘' } }, target: { level: 'any' }, difficulty: 0.05 },
+              { prompt: '옛날과 지금을 견주어 물음을 만드는 것을 얼마나 해냈는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '옛날 물건과 지금 물건을 견주어 궁금한 것을 물음으로 만들었어요.', feeling: '뿌듯함', ask: '얼마나 해냈나요?', scaleLabels: { 1: '조금', 2: '꽤', 3: '아주 잘' } }, target: { level: 'any' }, difficulty: 0.05,
+                hints: ['옛날 물건과 지금 물건을 견주며 물음을 만들던 때를 떠올려 봐요.', '정답은 없어요. 내가 해낸 만큼 눈금 하나를 눌러요.', '조금 했으면 1, 꽤 했으면 2, 아주 잘했으면 3을 골라요.'] },
+              { prompt: '궁금한 것을 여러 곳에서 찾아 알게 된 것을 말하는 것을 얼마나 해냈는지 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', steps: 3, situation: '내 주제의 물음을 만들고, 책·사람·직접 보기로 답을 모아 발표했어요.', feeling: '뿌듯함', ask: '얼마나 해냈나요?', scaleLabels: { 1: '조금', 2: '꽤', 3: '아주 잘' } }, target: { level: 'any' }, difficulty: 0.05,
+                hints: ['물음을 만들고, 여러 곳에서 답을 모아 발표하던 때를 떠올려 봐요.', '정답은 없어요. 내가 해낸 만큼 눈금 하나를 눌러요.', '조금 했으면 1, 꽤 했으면 2, 아주 잘했으면 3을 골라요.'] },
               { prompt: '단원에서 가장 즐거웠던 활동과 그 까닭을 짝에게 말했으면 "다 했어요"를 누르세요.', free: true, talk: true },
               { prompt: '2학년이 되어 알아보고 싶은 별표 물음을 하나 골라 쪽지에 썼으면 "다 했어요"를 누르세요.', free: true },
             ],

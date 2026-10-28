@@ -230,7 +230,7 @@
             hit.addEventListener('pointerdown', down);
             if (type === 'line') pts[i].addEventListener('pointerdown', (e) => { e.stopPropagation(); down(e); });
             hit.addEventListener('pointermove', (e) => { if (dragging) setVal(i, fromPointer(st.point(e)), true); });
-            const end = () => { if (!dragging) return; dragging = false; log(); syncCur(); kit.announce(`${d.label} ${noun}을 바꿨어요`); };
+            const end = () => { if (!dragging) return; dragging = false; log(); syncCur(); kit.announce(`${d.label} ${josa(noun, '을', '를')} 바꿨어요`); };
             hit.addEventListener('pointerup', end); hit.addEventListener('pointercancel', end);
             tgt.addEventListener('focus', () => { sel = i; syncCur(); });
             tgt.addEventListener('keydown', (e) => {
@@ -360,7 +360,7 @@
         if (!editable(i)) return;
         values[i] = v == null ? null : Math.max(type === 'line' ? from : 0, Math.min(ratio ? 100 : axisMax, r6(v)));
         revealed = false; paint();
-        if (!quiet) { log(); kit.announce(`${data[i].label} ${noun}을 바꿨어요`); }
+        if (!quiet) { log(); kit.announce(`${data[i].label} ${josa(noun, '을', '를')} 바꿨어요`); }
       }
       function bump(i, d) {
         if (!editable(i)) return;
