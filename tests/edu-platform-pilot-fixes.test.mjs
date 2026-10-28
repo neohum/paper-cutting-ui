@@ -52,3 +52,22 @@ test('check-lesson: 단원 차시 id를 lessons/units에서 연다', () => {
   assert.equal(l && l.id, 'g4-art-1-01-01');
   assert.equal(loadDataLesson('g2-math-clock').id, 'g2-math-clock');
 });
+
+// 받침 조사 도우미: 따옴표·괄호로 끝나는 말도 안쪽 글자를 본다('줄넘기(3번)'을), 수는 읽는 소리('2예요'·'3이에요')
+const helper = (file, name) => {
+  const line = src(file).split('\n').find((l) => l.includes(`const ${name} = (w`));
+  assert.ok(line, `${file}에 ${name}`);
+  return vm.runInNewContext(`(${line.trim().replace(new RegExp(`^const ${name} = `), '').replace(/;$/, '')})`);
+};
+test('조사 도우미: 괄호·따옴표 뒤, 수 뒤', () => {
+  for (const f of ['_cards', 'emotion', 'timer']) {
+    const jo = helper(f, 'jo');
+    assert.equal(jo('줄넘기(3번)', '을', '를'), '줄넘기(3번)을', f);
+    assert.equal(jo('‘봄’', '이', '가'), '‘봄’이', f);
+    assert.equal(jo('나무', '이', '가'), '나무가', f);
+    assert.equal(jo('2', '을', '를'), '2를', f);
+  }
+  const isIt = helper('numberline', 'isIt');
+  assert.equal(isIt('3'), '3이에요'); assert.equal(isIt('2'), '2예요'); assert.equal(isIt('3/4'), '3/4이에요'); assert.equal(isIt('0.5'), '0.5예요');
+  assert.match(src('clock'), /isIt\(fmt\(\)\)/, 'clock: 정각은 ‘12시예요’');
+});

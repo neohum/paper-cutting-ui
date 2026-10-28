@@ -229,8 +229,21 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
                 // 말하기만 하는 짝 활동(talk: true)은 교구를 움직이지 않아도 '다 했어요'가 된다(player.js) — 조각이 없어도 된다
                 if (it0.talk) continue;
                 open(x, y, 'base');
+                // 플레이어는 교구 상태가 한 번은 바뀌어야 '다 했어요'를 받는다(player.js) — 조각이 있는지가 아니라 실제로 상태가 바뀌는지 본다
+                // (check-lesson.mjs nudge와 같은 키: Enter·→·↑·Space, 단추는 누르기, 입력 칸은 값 넣기)
                 const box = document.querySelector('#tool');
-                if (!box.querySelector('[tabindex="0"], button, input, select, textarea, [role="button"]')) row.problems.push('짝 활동 교구에 키보드로 움직일 조각이 없음 — 교구를 움직이지 않는 말하기 활동이면 talk: true, 아니면 그 문항에 toolOptions(카드·칸 등)를 준다');
+                const T0 = S.tool; const before = JSON.stringify(T0.getState());
+                const moved = () => JSON.stringify(T0.getState()) !== before;
+                let ok = false;
+                for (const el of [...box.querySelectorAll('[tabindex="0"], button, input, select, textarea, [role="button"]')].slice(0, 8)) {
+                  if (el.disabled) continue;
+                  if (/^(INPUT|TEXTAREA)$/.test(el.tagName)) { el.value = '1'; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); }
+                  else if (el.tagName === 'SELECT') { el.selectedIndex = (el.selectedIndex + 1) % Math.max(1, el.options.length); el.dispatchEvent(new Event('change', { bubbles: true })); }
+                  else for (const key of ['Enter', 'ArrowRight', 'ArrowUp', ' ']) { el.focus(); el.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true })); if (moved()) break; }
+                  if (!moved() && (el.tagName === 'BUTTON' || el.getAttribute('role') === 'button')) el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                  if (moved()) { ok = true; break; }
+                }
+                if (!ok) row.problems.push('짝 활동 교구를 움직여도 상태가 바뀌지 않음(학생이 \'다 했어요\'를 누를 수 없음) — 교구를 움직이지 않는 말하기 활동이면 talk: true, 아니면 그 문항에 toolOptions(카드·칸 등)를 준다');
                 continue;
               }
               // 단계마다 판정: 문항 target을 바꾼 단계뿐 아니라 toolOptions·state만 바꾼 단계(함정 카드를 더한 도전 등)도 그 판으로 풀리는지 본다
@@ -245,7 +258,10 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
                   row.hint1 = { text: h.hint, via: h.via, from: h.from || '' }; row.target = it.target;
                   T = open(x, y, lv);
                   // 스스로 점검(selfCheck)·아무 크기나 되는 척도(level: 'any')는 틀린 답이 없다 — wrongAnswer가 null이어도 된다(TOOLS.md)
-                  const selfAssess = it.target && typeof it.target === 'object' && (it.target.selfCheck != null || it.target.level === 'any');
+                  // 척도 전 범위([1, steps])를 정답으로 둔 '내 마음 크기' 문항도 같다
+                  const steps = (it.toolOptions && it.toolOptions.steps) || (acts[x].options && acts[x].options.steps) || 5;
+                  const lvAll = Array.isArray(it.target?.level) && it.target.level[0] <= 1 && it.target.level[1] >= steps;
+                  const selfAssess = it.target && typeof it.target === 'object' && (it.target.selfCheck != null || it.target.level === 'any' || lvAll);
                   if (typeof T.wrongAnswer === 'function') {
                     const w = T.wrongAnswer(it.target);
                     if (w == null && selfAssess) row.notes = (row.notes || []).concat('스스로 점검 문항 — 틀린 답 검사를 건너뜀');

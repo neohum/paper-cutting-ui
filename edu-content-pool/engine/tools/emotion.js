@@ -41,7 +41,7 @@
 (function (K) {
   'use strict';
   // 받침에 맞는 조사(수 뒤도: '3을', '2를')
-  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)]s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)\]\s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
   // ── cards-b 공통(이 블록은 emotion·wordcards·kitchen·economy 네 파일에 글자 하나 다르지 않게 들어 있다 — 먼저 읽힌 파일의 것을 쓴다.
   //    고칠 때는 네 파일을 함께 고친다. tests/edu-tools-cards-b.test.mjs가 네 블록이 같은지 본다) ──
   if (!K.cardsB) K.cardsB = (function () {

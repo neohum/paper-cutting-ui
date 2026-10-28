@@ -27,10 +27,11 @@
  * | success         | 글                                                | 맞혔을 때 피드백 한 문장                                    |
  * | cardW, cardH    | 수                                                | 카드 크기(viewBox 단위, 무대 폭 560) — 보통은 겉모양이 정함   |
  * | print           | 참/거짓                                            | 활동지 그림(흑백, 조작 없음, back 숨김). printCards:false면 카드 칸을 그리지 않음(빈 칸만) |
+ * | doneLabel       | 글                                                | 카드가 한 장도 없는 판(짝·모둠 free 문항)에 나오는 '해 보았어요' 표시 글(기본 '짝·모둠과 함께 해 보았어요') |
  * | (겉모양 옵션)    | topic·center·axis·title …                          | 겉모양 파일 첫머리 표를 본다                                 |
  *
  * ── 상태 (getState / setState) ──────────────────────────────────────────────────────────────────
- *   { at: { 카드id: 칸 번호(0부터) | null } }   null = 카드 칸. pick의 바구니는 0번 칸이다.
+ *   { at: { 카드id: 칸 번호(0부터) | null } }   null = 카드 칸. pick의 바구니는 0번 칸이다. 카드가 없는 판만 + done: true|false.
  *   setState는 모르는 카드·없는 칸 번호를 버리고, 한 장만 들어가는 칸에 두 장이 오면 뒤의 것을 카드 칸에 둔다.
  *
  * ── 판정 ───────────────────────────────────────────────────────────────────────────────────────
@@ -77,7 +78,7 @@
   const NO_MOTIF = new Set(['hills', 'wave', 'text']);
   const PAD = 12; const GAP = 10; const W0 = 560;
   // 받침에 맞는 조사(따옴표·수 뒤도): '‘봄’ 칸이', '‘우산’이'
-  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)]s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)\]\s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
   const INK = '#3D352E';
   const arr = (v) => (v == null ? [] : Array.isArray(v) ? v : [v]);
   const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -795,12 +796,23 @@
     };
     if (spec.controls && !print) spec.controls(ctx, api);
     layout(false); paint();
+    // 카드가 한 장도 없는 판(짝·모둠이 말로 하는 free 문항에 talk 표시가 빠진 경우)에는 '해 보았어요' 표시 하나를 둔다.
+    // 플레이어는 교구 상태가 한 번은 바뀌어야 '다 했어요'를 받으므로, 이것이 없으면 학생이 그 문항에서 멈춘다. 카드가 있으면 나오지 않고 상태 모양도 그대로다.
+    let done = false; let doneBtn = null;
+    const paintDone = () => { if (!doneBtn) return; doneBtn.setAttribute('aria-checked', String(done)); doneBtn.style.fontWeight = done ? '800' : '500'; doneBtn.innerHTML = `<i class="fi ${done ? 'fi-rr-checkbox' : 'fi-rr-square'}" aria-hidden="true"></i> ${String(o.doneLabel || '짝·모둠과 함께 해 보았어요').replace(/[&<>"]/g, (x) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[x]))}`; };
+    if (!cards.length && !print) {
+      doneBtn = document.createElement('button'); doneBtn.type = 'button'; doneBtn.className = 'pl-btn pl-btn--small'; doneBtn.setAttribute('role', 'checkbox'); doneBtn.tabIndex = 0;
+      doneBtn.style.cssText = 'margin-top:8px;min-height:44px;justify-content:flex-start;white-space:normal;text-align:left';
+      doneBtn.addEventListener('click', () => { done = !done; paintDone(); kit.tick(); kit.recorder.log(id, { via: 'done', done }); kit.announce(done ? '표시했어요.' : '표시를 지웠어요.'); });
+      box.appendChild(doneBtn); paintDone();
+    }
+    const stateNow = () => (doneBtn ? Object.assign(M.getState(), { done }) : M.getState());
 
     return {
-      getState: M.getState,
-      setState(s) { sel = null; M.setState(s); cards.forEach((c) => seqOf.set(c.id, M.at.get(c.id) == null ? 0 : ++seq)); revealed = false; layout(false); paint(); },
+      getState: stateNow,
+      setState(s) { sel = null; M.setState(s); cards.forEach((c) => seqOf.set(c.id, M.at.get(c.id) == null ? 0 : ++seq)); if (doneBtn) { done = !!(s && s.done); paintDone(); } revealed = false; layout(false); paint(); },
       setTarget(t) { M.setTarget(t); paint(); },
-      reset() { sel = null; M.setState({}); revealed = false; if (msg) msg.textContent = ''; layout(false); paint(); },
+      reset() { sel = null; M.setState({}); if (doneBtn) { done = false; paintDone(); } revealed = false; if (msg) msg.textContent = ''; layout(false); paint(); },
       solve(t) { sel = null; M.apply(M.solution(t || M.target)); cards.forEach((c) => seqOf.set(c.id, ++seq)); layout(false); paint(); },
       check(t, opts) {
         const quiet = !!(opts && opts.forHint);

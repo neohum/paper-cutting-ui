@@ -19,7 +19,7 @@
 (function (K) {
   'use strict';
   // 받침에 맞는 조사(따옴표 뒤·수 뒤도) — '‘손 씻기’를', '‘줄넘기 3번’을'
-  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)]s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)\]\s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
   const jq = (w, a, b) => `‘${w}’${jo(w, a, b).slice(String(w).length)}`;
   const levelOf = (opts) => {
     const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
