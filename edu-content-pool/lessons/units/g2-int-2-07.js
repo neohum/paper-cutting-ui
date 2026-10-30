@@ -439,7 +439,7 @@
     worksheet: {
       title: '종이 다시 쓰기',
       items: [
-        { type: 'figure', wide: true, prompt: '수첩 만드는 차례대로 1, 2, 3, 4를 쓰세요.', tool: 'kitchen', figures: [{ options: { mode: 'order', cards: ['접은 선을 따라 잘라요', '뒷면이 깨끗한 종이를 골라요', '가지런히 겹쳐 묶어요', '두 번 접어 선을 눌러요'], shuffle: false }, caption: '' }], answer: '종이 고르기 → 두 번 접기 → 자르기 → 겹쳐 묶기' },
+        { type: 'figure', wide: true, prompt: '수첩 만드는 차례대로 1, 2, 3, 4를 쓰세요.', tool: 'kitchen', figures: [{ options: { mode: 'order', cardW: 104, cardH: 100, cards: ['접은 선을 따라 잘라요', '뒷면이 깨끗한 종이를 골라요', '가지런히 겹쳐 묶어요', '두 번 접어 선을 눌러요'], shuffle: false }, caption: '' }], answer: '종이 고르기 → 두 번 접기 → 자르기 → 겹쳐 묶기' },
         { type: 'check', prompt: '다시 쓸 수 있는 종이에 모두 ✓ 하세요.', options: ['뒷면이 하얀 안내장', '포장지', '코를 푼 휴지'] },
         { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '종이를 반으로 두 번 접으면 ___ 칸이 생겨요.', answer: '네' },
         { type: 'short', prompt: '내 수첩을 어디에 쓸지 쓰세요.' },

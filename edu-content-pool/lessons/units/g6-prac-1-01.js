@@ -813,7 +813,7 @@
       title: '옷차림 돌아보기',
       items: [
         { type: 'table', prompt: '입어 본 옷차림을 돌아보고 고친 계획을 쓰세요.', columns: ['불편했던 점', '까닭(날씨·활동·옷 상태)', '고친 계획'], rows: 3 },
-        { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 그리세요. (날씨 3번, 활동 1번, 옷 상태 2번)', tool: 'chart', figures: [{ options: { type: 'bar', title: '불편했던 까닭', data: [['날씨', 3], ['활동', 1], ['옷 상태', 2]], unit: '번', max: 5, scale: 1, given: [] }, caption: '' }], answer: '날씨 3칸, 활동 1칸, 옷 상태 2칸' },
+        { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 까닭, 세로에 횟수(번)를 쓰고, 한 칸을 1번으로 해요. (날씨 3번, 활동 1번, 옷 상태 2번)' },
         { type: 'choice', prompt: '\'아침엔 춥고 낮엔 더웠어요\'를 고친 계획으로 알맞은 것에 ○ 하세요.', options: ['두꺼운 패딩만 입기', '얇은 옷을 겹쳐 입기', '옷 색 바꾸기'], answer: '얇은 옷을 겹쳐 입기' },
         { type: 'short', prompt: '옷차림 계획을 입어 보고 고쳐 쓰면 무엇이 좋은지 쓰세요.' },
       ],
@@ -1121,7 +1121,7 @@
       title: '우리 집 한 주 가정일 기록',
       items: [
         { type: 'table', prompt: '한 주 동안 우리 집 가족이 가정일을 한 시간(분)을 쓰세요. 이름 대신 관계(아빠·엄마·나)로 써요.', columns: ['가족', '한 일', '걸린 시간(분)'], rows: 4 },
-        { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 그리세요. (아빠 300분, 엄마 360분, 나 60분)', tool: 'chart', figures: [{ options: { type: 'bar', title: '한 주 가정일 시간', data: [['아빠', 300], ['엄마', 360], ['나', 60]], unit: '분', max: 420, scale: 60, given: [] }, caption: '' }], answer: '아빠 5칸, 엄마 6칸, 나 1칸 (한 칸 60분)' },
+        { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 가족, 세로에 시간(분)을 쓰고, 한 칸을 60분으로 해요. (아빠 300분, 엄마 360분, 나 60분)' },
         { type: 'table', prompt: '해 보기 전 짐작한 시간과 실제 시간을 적어 견주세요.', columns: ['가정일', '짐작(분)', '실제(분)', '차이(분)'], rows: 3 },
         { type: 'short', prompt: '짐작과 실제 시간의 차이가 생긴 까닭을 쓰세요.' },
       ],
@@ -1129,7 +1129,7 @@
         note: '그래프의 눈금 한 칸이 몇 분인지 먼저 확인해요.',
         items: [
           { type: 'table', prompt: '우리 집 가족이 한 가정일을 쓰세요.', columns: ['가족', '한 일'], rows: 3 },
-          { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 그리세요. (가 30분, 나 10분)', tool: 'chart', figures: [{ options: { type: 'bar', title: '가정일 시간', data: [['가', 30], ['나', 10]], unit: '분', max: 40, scale: 10, given: [] }, caption: '' }], answer: '가 3칸, 나 1칸' },
+          { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 이름, 세로에 시간(분)을 쓰고, 한 칸을 10분으로 해요. (가 30분, 나 10분)' },
           { type: 'choice', prompt: '해 보지 않은 일은 시간을 어떻게 짐작하기 쉬운가요? ○ 하세요.', options: ['짧게', '길게'], answer: '짧게' },
           { type: 'short', prompt: '내가 직접 재어 본 일과 걸린 시간을 쓰세요.' },
         ],

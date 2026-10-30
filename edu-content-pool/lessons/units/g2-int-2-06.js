@@ -966,7 +966,7 @@
     worksheet: {
       title: '이웃을 도울 곳',
       items: [
-        { type: 'figure', prompt: '동네 지도를 보고 쓰레기를 주울 수 있는 곳 하나에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '버스 정류장', icon: 'bus', at: [0, 1] }, { name: '놀이터', icon: 'park', at: [2, 2] }, { name: '도서관', icon: 'library', at: [4, 0] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '버스 정류장, 놀이터 등' },
+        { type: 'figure', wide: true, prompt: '동네 지도를 보고 쓰레기를 주울 수 있는 곳 하나에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '버스 정류장', icon: 'bus', at: [0, 1] }, { name: '놀이터', icon: 'park', at: [2, 2] }, { name: '도서관', icon: 'library', at: [4, 0] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '버스 정류장, 놀이터 등' },
         { type: 'choice', prompt: '놀이터에서 깨진 병 조각을 보면 어떻게 할까요?', options: ['어른께 알려요', '손으로 주워요', '발로 차요'], answer: '어른께 알려요' },
         { type: 'table', prompt: '우리 동네에서 이웃을 도울 곳과 할 일을 쓰세요.', columns: ['곳', '내가 할 일'], rows: 2 },
         { type: 'short', prompt: '이웃에게 해 보고 싶은 인사말을 쓰세요.' },
@@ -1295,14 +1295,14 @@
       title: '우리 반 투표 그림그래프',
       items: [
         { type: 'table', prompt: '우리 반 투표 결과를 표에 쓰세요.', columns: ['할 일', '고른 사람 수'], rows: 4 },
-        { type: 'figure', prompt: '그림그래프를 보고 가장 많은 사람이 고른 일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '함께 할 일', unit: '명', data: [['화분 물 주기', 5], ['책 읽어 주기', 8], ['낙엽 쓸기', 3]], icons: [{ value: 1, name: '1명' }] }, caption: '가장 많은 일: ________' }], answer: '책 읽어 주기' },
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 가장 많은 사람이 고른 일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '함께 할 일', unit: '명', data: [['화분 물 주기', 5], ['책 읽어 주기', 8], ['낙엽 쓸기', 3]], icons: [{ value: 1, name: '1명' }] }, caption: '가장 많은 일: ________' }], answer: '책 읽어 주기' },
         { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '이 그림그래프에서 동그라미 하나는 ___ 명이에요.', answer: '한' },
         { type: 'short', prompt: '우리 반이 정한 일을 언제, 어떻게 할지 쓰세요.' },
       ],
       easy: {
         note: '동그라미를 손가락으로 하나씩 짚으며 세어요.',
         items: [
-          { type: 'figure', prompt: '더 많은 사람이 고른 일에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', unit: '명', data: [['물 주기', 3], ['책 읽기', 6]], icons: [{ value: 1, name: '1명' }] }, caption: '' }], answer: '책 읽기' },
+          { type: 'figure', wide: true, prompt: '더 많은 사람이 고른 일에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', unit: '명', data: [['물 주기', 3], ['책 읽기', 6]], icons: [{ value: 1, name: '1명' }] }, caption: '' }], answer: '책 읽기' },
           { type: 'short', prompt: '우리 반이 함께 할 일을 쓰세요.' },
           { type: 'draw', prompt: '함께 하는 모습을 그려 보세요.' },
         ],
@@ -1712,7 +1712,7 @@
       title: '하루를 알아볼 분',
       items: [
         { type: 'table', prompt: '우리 학교에서 일하시는 분과 만날 곳을 쓰세요.', columns: ['하시는 일', '만날 곳'], rows: 3 },
-        { type: 'figure', wide: true, prompt: '부탁하는 차례대로 빈칸에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cards: [{ id: 'ask', text: '여쭈어봐도 될까요?', motif: 'star' }, { id: 'thanks', text: '고맙습니다', motif: 'flower' }, { id: 'hello', text: '안녕하세요', motif: 'sun' }, { id: 'me', text: '저는 민지예요', motif: 'house' }], shuffle: false }, caption: '' }], answer: '안녕하세요 1, 저는 민지예요 2, 여쭈어봐도 될까요? 3, 고맙습니다 4' },
+        { type: 'figure', wide: true, prompt: '부탁하는 차례대로 빈칸에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cardW: 104, cardH: 100, cards: [{ id: 'ask', text: '여쭈어봐도 될까요?', motif: 'star' }, { id: 'thanks', text: '고맙습니다', motif: 'flower' }, { id: 'hello', text: '안녕하세요', motif: 'sun' }, { id: 'me', text: '저는 민지예요', motif: 'house' }], shuffle: false }, caption: '' }], answer: '안녕하세요 1, 저는 민지예요 2, 여쭈어봐도 될까요? 3, 고맙습니다 4' },
         { type: 'choice', prompt: '공손하게 부탁하는 말에 ○ 하세요.', options: ['"하루를 여쭈어봐도 될까요?"', '"하루 말해 봐"'], answer: '"하루를 여쭈어봐도 될까요?"' },
         { type: 'short', prompt: '우리 모둠이 하루를 알아볼 분을 쓰세요.' },
       ],
@@ -2789,7 +2789,7 @@
       title: '작품을 볼 수 있는 곳',
       items: [
         { type: 'check', prompt: '작품을 볼 수 있는 곳에 모두 ✓ 하세요.', options: ['미술관', '세탁소', '박물관', '학교 작품 게시판', '주유소'] },
-        { type: 'figure', prompt: '지도에서 작품을 보러 갈 수 있는 곳을 찾아 이름을 쓰세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '어린이 미술관', icon: 'museum', at: [1, 1] }, { name: '시장', icon: 'market', at: [3, 0] }, { name: '병원', icon: 'hospital', at: [4, 2] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '어린이 미술관' },
+        { type: 'figure', wide: true, prompt: '지도에서 작품을 보러 갈 수 있는 곳을 찾아 이름을 쓰세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '어린이 미술관', icon: 'museum', at: [1, 1] }, { name: '시장', icon: 'market', at: [3, 0] }, { name: '병원', icon: 'hospital', at: [4, 2] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '어린이 미술관' },
         { type: 'table', prompt: '오늘 둘러본 작품 가운데 마음에 든 것을 쓰세요.', columns: ['작품을 본 곳', '누구의 무엇', '마음에 든 까닭'], rows: 1 },
         { type: 'short', prompt: '가 보고 싶은 전시를 쓰세요.' },
       ],
@@ -3038,7 +3038,7 @@
     worksheet: {
       title: '전시장 안내도',
       items: [
-        { type: 'figure', prompt: '안내도를 보고 그림을 보러 갈 곳에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [2, 0] }, { name: '조각 전시실', icon: 'museum', at: [4, 0] }, { name: '쉼터', icon: 'park', at: [3, 2] }] }, figures: [{ caption: '어린이 미술관 안내도' }], answer: '그림 전시실' },
+        { type: 'figure', wide: true, prompt: '안내도를 보고 그림을 보러 갈 곳에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [2, 0] }, { name: '조각 전시실', icon: 'museum', at: [4, 0] }, { name: '쉼터', icon: 'park', at: [3, 2] }] }, figures: [{ caption: '어린이 미술관 안내도' }], answer: '그림 전시실' },
         { type: 'table', prompt: '우리 모둠의 관람 차례를 쓰세요.', columns: ['차례', '갈 곳'], cells: [['1', ''], ['2', ''], ['3', ''], ['4', '']] },
         { type: 'choice', prompt: '길을 잃었을 때 갈 곳에 ○ 하세요.', options: ['안내 데스크', '전시실 안쪽 구석'], answer: '안내 데스크' },
         { type: 'short', prompt: '안내도에서 가장 가 보고 싶은 곳과 까닭을 쓰세요.' },

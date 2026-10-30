@@ -1002,7 +1002,7 @@
           items: [
             { type: 'table', prompt: '세 길로 가 보고 무엇처럼 보였는지 쓰세요.', columns: ['길', '무엇처럼 보였나요'], cells: [['곧은 길', ''], ['굽은 길', ''], ['지그재그 길', '']] },
             { type: 'choice', prompt: '‘게’처럼 움직일 때 가는 방향에 ○ 하세요.', options: ['앞으로', '뒤로', '옆으로'], answer: '옆으로' },
-            { type: 'figure', prompt: '‘로봇 걸음’에서 꺾인 마디에 ○ 하세요.', tool: 'body', options: { mode: 'parts', parts: ['목', '어깨', '팔꿈치', '손목', '허리', '무릎', '발목'] }, figures: [{ caption: '팔을 ㄱ자로 꺾고 다리를 높이 꺾어 올리며 걷기' }], answer: '팔꿈치, 무릎' },
+            { type: 'figure', wide: true, prompt: '‘로봇 걸음’에서 꺾인 마디에 ○ 하세요.', tool: 'body', options: { wide: true, mode: 'parts', parts: ['목', '어깨', '팔꿈치', '손목', '허리', '무릎', '발목'] }, figures: [{ caption: '팔을 ㄱ자로 꺾고 다리를 높이 꺾어 올리며 걷기' }], answer: '팔꿈치, 무릎' },
             { type: 'check', prompt: '오늘 지킨 안전 약속에 ✓ 하세요.', options: ['뒤로 갈 때 뒤를 보았어요', '앞 친구와 떨어져 출발했어요', '작은 걸음으로 뒤로 갔어요'] },
             { type: 'draw', prompt: '내가 지은 길 하나를 그리고, 그 길로 가면 무엇처럼 보일지 쓰세요.' },
           ],

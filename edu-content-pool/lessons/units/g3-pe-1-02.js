@@ -480,7 +480,7 @@
         worksheet: {
           title: '숲 표지 찾기',
           items: [
-            { type: 'figure', prompt: '지도를 보고 큰 나무에서 동쪽으로 2칸 간 곳에 ○ 하세요.', tool: 'map', options: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }] }, figures: [{ state: {}, caption: '지도 위쪽이 북쪽이에요.' }], answer: '큰 나무 오른쪽으로 2칸(4열 2행)' },
+            { type: 'figure', wide: true, prompt: '지도를 보고 큰 나무에서 동쪽으로 2칸 간 곳에 ○ 하세요.', tool: 'map', options: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }] }, figures: [{ state: {}, caption: '지도 위쪽이 북쪽이에요.' }], answer: '큰 나무 오른쪽으로 2칸(4열 2행)' },
             { type: 'table', prompt: '오늘 기록을 쓰세요.', columns: ['찾은 표지 수', '걸린 시간', '가장 어려웠던 표지'], rows: 1 },
             { type: 'choice', prompt: '표지 찾기를 하다가 꽃밭이 앞을 막았어요. 알맞은 것에 ○ 하세요.', options: ['꽃밭을 가로질러요', '길을 따라 돌아가요', '꽃을 꺾어 표시해요'], answer: '길을 따라 돌아가요' },
             { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '생태형 스포츠는 ___ 속에서 ___을 해치지 않고 도전해요.', answer: '자연, 자연' },
@@ -632,7 +632,7 @@
         worksheet: {
           title: '다음엔 이렇게 해 볼래요',
           items: [
-            { type: 'figure', prompt: '그래프를 보고 기술형·전략형·생태형을 고른 친구 수를 아래에 쓰세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '가장 어려웠던 갈래', unit: '명', data: [['기술형', 7], ['전략형', 11], ['생태형', 6]] }, figures: [{ state: {}, caption: '기술형 ( )명, 전략형 ( )명, 생태형 ( )명' }], answer: '7명, 11명, 6명' },
+            { type: 'table', prompt: '수업 화면의 그래프를 보고 가장 어려웠던 갈래를 고른 친구 수를 쓰세요.', columns: ['갈래', '고른 친구 수(명)'], cells: [['기술형', ''], ['전략형', ''], ['생태형', '']] },
             { type: 'table', prompt: '내가 어려웠던 장면과 다음에 해 볼 방법을 쓰세요.', columns: ['갈래', '어려웠던 장면', '해 볼 방법'], rows: 1 },
             { type: 'choice', prompt: '바꿔 볼 방법을 고를 때 알맞은 것에 ○ 하세요.', options: ['한 번에 한 가지만 바꿔요', '힘만 더 세게 써요', '여러 가지를 한꺼번에 바꿔요'], answer: '한 번에 한 가지만 바꿔요' },
             { type: 'short', prompt: '"힘이 세지면 저절로 잘하게 된다"는 말이 맞지 않는 까닭을 예를 들어 쓰세요.' },
@@ -1405,7 +1405,7 @@
         worksheet: {
           title: '나의 변화와 다음 목표',
           items: [
-            { type: 'figure', prompt: '민지의 한 발 서기 그래프를 보고 물음에 답하세요.', tool: 'chart', options: { type: 'line', mode: 'read', title: '민지의 한 발 서기 기록', unit: '초', data: [['1번째', 8], ['2번째', 12], ['3번째', 10], ['4번째', 17]] }, figures: [{ state: {}, caption: '기록이 줄어든 때: (    )번째' }], answer: '3번째' },
+            { type: 'choice', prompt: '민지의 한 발 서기 기록은 1번째 8초, 2번째 12초, 3번째 10초, 4번째 17초예요. 앞 기록보다 줄어든 때에 ○ 하세요.', options: ['2번째', '3번째', '4번째'], answer: '3번째' },
             { type: 'table', prompt: '내 기록을 쓰세요.', columns: ['지난 기록', '오늘 기록', '나아진 점'], rows: 1 },
             { type: 'choice', prompt: '지난 기록이 10초일 때 알맞은 다음 목표에 ○ 하세요.', options: ['12초 버티기', '1분 버티기', '반에서 1등 하기'], answer: '12초 버티기' },
             { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '목표는 다른 사람이 아니라 지난 ___ 기록과 견주어 조금 ___ 세워요.', answer: '나의(내), 높게' },
@@ -2689,7 +2689,7 @@
         worksheet: {
           title: '나의 다음 요소와 움직임 작품',
           items: [
-            { type: 'figure', prompt: '그래프를 보고 요소마다 고른 친구 수를 쓰세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '다음에 더 바꿔 보고 싶은 요소', unit: '명', data: [['빠르기', 5], ['방향', 9], ['높낮이', 7], ['힘', 4]] }, figures: [{ state: {}, caption: '빠르기 ( )명, 방향 ( )명, 높낮이 ( )명, 힘 ( )명' }], answer: '5명, 9명, 7명, 4명' },
+            { type: 'table', prompt: '수업 화면의 그래프를 보고 다음에 더 바꿔 보고 싶은 요소를 고른 친구 수를 쓰세요.', columns: ['요소', '고른 친구 수(명)'], cells: [['빠르기', ''], ['방향', ''], ['높낮이', ''], ['힘', '']] },
             { type: 'table', prompt: '우리 작품의 세 동작을 쓰세요.', columns: ['동작', '어떻게 움직였나요', '바꾼 요소'], cells: [['1', '', ''], ['2', '', ''], ['3', '', '']] },
             { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '다음에 바꿀 요소는 친구가 많이 고른 것이 아니라 ___가 더 해 보고 싶은 까닭이 있는 것으로 정해요.', answer: '내' },
             { type: 'short', prompt: '내가 다음에 바꿀 요소와 그 까닭을 쓰세요.' },
@@ -3219,7 +3219,7 @@
           items: [
             { type: 'table', prompt: '따로 연습 전과 뒤에 이은 수를 쓰세요.', columns: ['따로 연습 전(5번 중)', '따로 연습 뒤(5번 중)'], rows: 1 },
             { type: 'short', prompt: '짝이 찾아 준 내 끊긴 곳을 쓰세요.' },
-            { type: 'figure', prompt: '서아의 그래프를 보고 연습마다 이은 수를 아래에 쓰세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '서아: 끊긴 곳만 따로 연습하기', unit: '번', data: [['1번째', 2], ['2번째', 3], ['3번째', 4], ['4번째', 5]] }, figures: [{ state: {}, caption: '1번째 ( )번, 2번째 ( )번, 3번째 ( )번, 4번째 ( )번' }], answer: '2번, 3번, 4번, 5번' },
+            { type: 'table', prompt: '서아의 그래프를 보고 연습마다 이은 수(번)를 쓰세요.', columns: ['연습', '이은 수(번)'], cells: [['1번째', ''], ['2번째', ''], ['3번째', ''], ['4번째', '']] },
             { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '그냥 되풀이하면 끊긴 곳도 함께 ___돼요. 끊긴 곳만 따로 연습한 뒤 다시 ___ 봐요.', answer: '되풀이, 이어' },
             { type: 'short', prompt: '따로 연습이 도움이 되었는지, 내 기록을 근거로 쓰세요.' },
           ],

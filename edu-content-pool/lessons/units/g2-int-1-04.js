@@ -3164,7 +3164,7 @@
     worksheet: {
       title: '먼저 눈에 띈 곳',
       items: [
-        { type: 'figure', prompt: '어느 조각이 가장 먼저 눈에 띄나요? ○ 하고 까닭을 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true }, state: { pieces: [{ shape: 'star', color: '하양', size: 's', x: 100, y: 100, r: 0 }, { shape: 'star', color: '하양', size: 's', x: 180, y: 300, r: 0 }, { shape: 'circle', color: '노랑', size: 'l', x: 380, y: 160, r: 0 }, { shape: 'star', color: '하양', size: 's', x: 480, y: 320, r: 0 }] }, caption: '까닭: ____________' }], answer: '큰 동그라미 — 가장 크게 그려서' },
+        { type: 'figure', wide: true, prompt: '어느 조각이 가장 먼저 눈에 띄나요? ○ 하고 까닭을 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: { pieces: [{ shape: 'star', color: '하양', size: 's', x: 100, y: 100, r: 0 }, { shape: 'star', color: '하양', size: 's', x: 180, y: 300, r: 0 }, { shape: 'circle', color: '노랑', size: 'l', x: 380, y: 160, r: 0 }, { shape: 'star', color: '하양', size: 's', x: 480, y: 320, r: 0 }] }, caption: '까닭: ____________' }], answer: '큰 동그라미 — 가장 크게 그려서' },
         { type: 'short', prompt: '별이 빛나는 밤에서 내가 가장 먼저 본 곳을 쓰세요.' },
         { type: 'check', prompt: '그곳이 눈에 띈 까닭에 모두 ✓ 하세요.', options: ['크게 그려서', '밝은 색이라서', '움직이는 것 같아서', '진한 색 옆에 있어서'] },
         { type: 'draw', prompt: '내가 먼저 본 곳을 크게 그려 보세요.' },

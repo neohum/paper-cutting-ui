@@ -880,7 +880,7 @@
     worksheet: {
       title: '몸의 신호와 숨 고르기',
       items: [
-        { type: 'figure', wide: true, prompt: '민지의 몸이 달라진 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cards: [{ id: 'calm', text: '숨이 고르게 돼요', motif: 'flower' }, { id: 'jump', text: '줄넘기를 해요', motif: 'sun' }, { id: 'walk', text: '천천히 걸어요', motif: 'leaf' }, { id: 'pant', text: '숨이 차요', motif: 'cloud' }] }, caption: '' }], answer: '줄넘기 1, 숨이 차요 2, 천천히 걸어요 3, 고르게 돼요 4' },
+        { type: 'figure', wide: true, prompt: '민지의 몸이 달라진 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cardW: 104, cardH: 100, cards: [{ id: 'calm', text: '숨이 고르게 돼요', motif: 'flower' }, { id: 'jump', text: '줄넘기를 해요', motif: 'sun' }, { id: 'walk', text: '천천히 걸어요', motif: 'leaf' }, { id: 'pant', text: '숨이 차요', motif: 'cloud' }] }, caption: '' }], answer: '줄넘기 1, 숨이 차요 2, 천천히 걸어요 3, 고르게 돼요 4' },
         { type: 'choice', prompt: '숨을 크게 쉴 때 부풀어 오르는 곳에 ○ 하세요.', options: ['가슴과 배', '무릎과 발목', '귀'], answer: '가슴과 배' },
         { type: 'blank', prompt: '숨 고르기 방법을 빈칸에 쓰세요.', text: '코로 ___을 세며 들이쉬고, 입으로 넷을 세며 내쉬어요.', answer: '넷' },
         { type: 'short', prompt: '숨 고르기를 하고 난 뒤 내 몸의 느낌을 쓰세요.' },
@@ -1039,7 +1039,7 @@
       title: '한 주 동안 몸 움직인 기록',
       items: [
         { type: 'table', prompt: '내 기록을 요일마다 쓰세요.', columns: ['월', '화', '수', '목', '금'], rows: 1 },
-        { type: 'figure', prompt: '그래프를 보고 가장 많이 걸은 요일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '민지가 걸은 바퀴', data: [['월', 1], ['화', 3], ['수', 2]], unit: '바퀴', icons: [{ value: 1, name: '1바퀴' }] }, caption: '가장 많이 걸은 날: ______' }], answer: '화' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 가장 많이 걸은 요일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '민지가 걸은 바퀴', data: [['월', 1], ['화', 3], ['수', 2]], unit: '바퀴', icons: [{ value: 1, name: '1바퀴' }] }, caption: '가장 많이 걸은 날: ______' }], answer: '화' },
         { type: 'short', prompt: '다음 주에 더 움직일 날과 할 일을 쓰세요.' },
         { type: 'check', prompt: '이번 단원에서 해 본 것에 ✓ 하세요.', options: ['준비 운동을 머리부터 발끝까지 했어요', '정한 만큼 끝까지 걸었어요', '숨 고르기를 했어요', '내 몸에게 고맙다고 말했어요'] },
       ],
@@ -1375,7 +1375,7 @@
     worksheet: {
       title: '높낮이와 방향',
       items: [
-        { type: 'figure', wide: true, prompt: '씨앗이 나무가 되는 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cards: [{ id: 'tree', text: '두 팔을 쭉 뻗어요', motif: 'tree' }, { id: 'seed', text: '작게 웅크려요', motif: 'leaf' }, { id: 'wind', text: '팔을 흔들어요', motif: 'cloud' }, { id: 'sprout', text: '무릎을 펴요', motif: 'flower' }] }, caption: '' }], answer: '웅크려요 1, 무릎을 펴요 2, 쭉 뻗어요 3, 흔들어요 4' },
+        { type: 'figure', wide: true, prompt: '씨앗이 나무가 되는 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cardW: 104, cardH: 100, cards: [{ id: 'tree', text: '두 팔을 쭉 뻗어요', motif: 'tree' }, { id: 'seed', text: '작게 웅크려요', motif: 'leaf' }, { id: 'wind', text: '팔을 흔들어요', motif: 'cloud' }, { id: 'sprout', text: '무릎을 펴요', motif: 'flower' }] }, caption: '' }], answer: '웅크려요 1, 무릎을 펴요 2, 쭉 뻗어요 3, 흔들어요 4' },
         { type: 'choice', prompt: '옆으로 걷는 것에 ○ 하세요.', options: ['게', '엘리베이터', '회전목마'], answer: '게' },
         { type: 'table', prompt: '높게, 낮게 나타낼 것을 하나씩 쓰세요.', columns: ['높게', '낮게'], rows: 2 },
         { type: 'draw', prompt: '높낮이를 바꾸어 나타낸 내 모습 두 가지를 그리세요.' },
@@ -1714,7 +1714,7 @@
     worksheet: {
       title: '날씨를 몸으로',
       items: [
-        { type: 'figure', wide: true, prompt: '날씨 이야기 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cards: [{ id: 'rain', text: '소나기가 쏟아져요', motif: 'cloud' }, { id: 'sun', text: '해가 쨍쨍해요', motif: 'sun' }, { id: 'bow', text: '무지개가 떠요', motif: 'star' }, { id: 'wind', text: '바람이 불어요', motif: 'leaf' }] }, caption: '' }], answer: '해 1, 바람 2, 소나기 3, 무지개 4' },
+        { type: 'figure', wide: true, prompt: '날씨 이야기 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cardW: 104, cardH: 100, cards: [{ id: 'rain', text: '소나기가 쏟아져요', motif: 'cloud' }, { id: 'sun', text: '해가 쨍쨍해요', motif: 'sun' }, { id: 'bow', text: '무지개가 떠요', motif: 'star' }, { id: 'wind', text: '바람이 불어요', motif: 'leaf' }] }, caption: '' }], answer: '해 1, 바람 2, 소나기 3, 무지개 4' },
         { type: 'table', prompt: '날씨마다 나타낼 움직임을 쓰세요.', columns: ['날씨', '나타낼 움직임'], cells: [['산들바람', ''], ['소나기', ''], ['함박눈', '']] },
         { type: 'choice', prompt: '약하고 느린 날씨에 ○ 하세요.', options: ['산들바람', '태풍', '소나기'], answer: '산들바람' },
         { type: 'draw', prompt: '우리 모둠이 나타낸 날씨 장면 하나를 그리세요.' },
@@ -1966,7 +1966,7 @@
     worksheet: {
       title: '아기 구름의 여행 연습',
       items: [
-        { type: 'figure', wide: true, prompt: '이야기 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cards: [{ id: 'rain', text: '비가 되어 내려요', motif: 'cloud' }, { id: 'float', text: '구름이 둥실 떠요', motif: 'cloud' }, { id: 'flower', text: '꽃이 피어요', motif: 'flower' }, { id: 'wind', text: '바람에 날아가요', motif: 'leaf' }] }, caption: '' }], answer: '둥실 1, 바람 2, 비 3, 꽃 4' },
+        { type: 'figure', wide: true, prompt: '이야기 차례대로 카드 아래에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cardW: 104, cardH: 100, cards: [{ id: 'rain', text: '비가 되어 내려요', motif: 'cloud' }, { id: 'float', text: '구름이 둥실 떠요', motif: 'cloud' }, { id: 'flower', text: '꽃이 피어요', motif: 'flower' }, { id: 'wind', text: '바람에 날아가요', motif: 'leaf' }] }, caption: '' }], answer: '둥실 1, 바람 2, 비 3, 꽃 4' },
         { type: 'table', prompt: '우리 모둠의 역할을 쓰세요.', columns: ['역할', '맡은 친구', '움직임'], cells: [['구름', '', ''], ['바람', '', ''], ['꽃', '', '']] },
         { type: 'short', prompt: '연습하면서 바꾼 곳을 쓰세요.' },
         { type: 'draw', prompt: '내가 맡은 역할을 하는 모습을 그리세요.' },
@@ -2747,6 +2747,24 @@
   var P_JEJU = { name: '제주도', icon: 'island', at: [1, 8] };
   var P_BAEKDU = { name: '백두산', icon: 'mountain', at: [2, 0] };
   var P_GYEONGJU = { name: '경주', icon: 'heritage', at: [3, 6] };
+  // 활동지 전용 작은 지도(6×4) — 그림 칸이 낮아 9줄 지도는 글자가 작게 찍힌다. 칸 자리는 위치 관계(북·남·동쪽 바다)만 살린다
+  var KORW_LAND = [[1, 0], [2, 0], [3, 0], [1, 1], [2, 1], [3, 1], [1, 2], [2, 2], [3, 2], [2, 3], [3, 3]];
+  var KORW_SEA = [[0, 2], [0, 3], [4, 1], [4, 2], [4, 3], [5, 0], [5, 1], [5, 2], [5, 3], [1, 3]];
+  var KORW_HEIGHTS = [
+    [null, 1, 4, 1, null, -1],
+    [null, 1, 2, 1, -1, -1],
+    [-1, 0, 1, 2, -1, -1],
+    [-1, 3, 0, 1, -1, -1],
+  ];
+  function KORW(places, more) {
+    var o = { grid: [6, 4], regions: [{ name: '우리나라 땅', cells: KORW_LAND, color: 'mint' }], regionNames: false, sea: KORW_SEA, places: places };
+    for (var k in (more || {})) o[k] = more[k];
+    return o;
+  }
+  var PW_SEOUL = { name: '서울', icon: 'capital', at: [2, 1] };
+  var PW_BUSAN = { name: '부산', icon: 'port', at: [3, 3] };
+  var PW_DOKDO = { name: '독도', icon: 'island', at: [5, 1] };
+  var PW_JEJU = { name: '제주도', icon: 'island', at: [1, 3] };
   var KOR_MAP = KOR([P_SEOUL, P_DOKDO, P_JEJU, P_BAEKDU]);
   var MAP_LV = { easy: { names: true, readout: true }, base: { names: true }, challenge: { names: false } };
   // 높이 지도: 백두산(2,744m)이 가장 높고, 한라산(제주도)·지리산은 '높은 산', 바다는 -1. 우리나라 밖 칸은 비워 둔다(null)
@@ -2913,7 +2931,7 @@
     worksheet: {
       title: '우리나라 지도',
       items: [
-        { type: 'figure', prompt: '지도에서 서울에 ○, 독도에 △ 하세요.', tool: 'map', figures: [{ options: KOR([P_SEOUL, P_DOKDO, P_JEJU], { names: false }), caption: '우리나라 칸 지도' }], answer: '별이 든 동그라미 칸에 ○, 동쪽 바다 섬에 △' },
+        { type: 'figure', wide: true, prompt: '지도에서 서울에 ○, 독도에 △ 하세요.', tool: 'map', figures: [{ options: KORW([PW_SEOUL, PW_DOKDO, PW_JEJU], { names: false }), caption: '우리나라 칸 지도' }], answer: '별이 든 동그라미 칸에 ○, 동쪽 바다 섬에 △' },
         { type: 'table', prompt: '장소마다 지도에서 안 것을 쓰세요.', columns: ['장소', '지도에서 안 것'], cells: [['서울', ''], ['제주도', ''], ['독도', '']] },
         { type: 'choice', prompt: '우리나라에서 가장 큰 섬에 ○ 하세요.', options: ['제주도', '독도'], answer: '제주도' },
         { type: 'short', prompt: '가 보고 싶은 곳에 대해 궁금한 것을 물음 문장으로 쓰세요.' },
@@ -2997,7 +3015,7 @@
       title: '알아볼 방법 고르기',
       items: [
         { type: 'table', prompt: '물음마다 알아볼 방법을 쓰세요.', columns: ['물음', '알아볼 방법'], cells: [['부산은 서울에서 어느 쪽에 있을까요?', ''], ['할머니는 어릴 때 무엇을 하고 노셨을까요?', ''], ['독도에는 어떤 새가 살까요?', '']] },
-        { type: 'figure', prompt: '높이 지도에서 가장 높은 곳에 ○ 하세요.', tool: 'map', figures: [{ options: KOR([], { heights: KOR_HEIGHTS }), caption: '우리나라 높이 지도' }], answer: '맨 위 줄 가운데 칸(백두산)' },
+        { type: 'figure', wide: true, prompt: '높이 지도에서 가장 높은 곳에 ○ 하세요.', tool: 'map', figures: [{ options: KORW([], { heights: KORW_HEIGHTS }), caption: '우리나라 높이 지도' }], answer: '맨 위 줄 가운데 칸(백두산)' },
         { type: 'check', prompt: '누리집으로 알아볼 때 지킬 약속에 모두 ✓ 하세요.', options: ['어른과 함께 봐요', '내 이름을 써 넣어요', '찾은 곳을 적어 둬요'], answer: ['어른과 함께 봐요', '찾은 곳을 적어 둬요'] },
         { type: 'short', prompt: '집에서 어른께 여쭤볼 물음 하나를 쓰세요.' },
       ],
@@ -3078,7 +3096,7 @@
     worksheet: {
       title: '지도 기호와 알아낸 것',
       items: [
-        { type: 'figure', prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', figures: [{ options: KOR([P_SEOUL, P_BUSAN, P_JEJU], { mode: 'legend', meanings: { capital: '수도', port: '항구', island: '섬' } }), caption: '우리나라 칸 지도' }], answer: '수도, 항구, 섬' },
+        { type: 'figure', wide: true, prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', figures: [{ options: KORW([PW_SEOUL, PW_BUSAN, PW_JEJU], { mode: 'legend', meanings: { capital: '수도', port: '항구', island: '섬' } }), caption: '우리나라 칸 지도' }], answer: '수도, 항구, 섬' },
         { type: 'table', prompt: '물음판의 물음을 정리하세요.', columns: ['답을 찾은 물음', '아직 남은 물음'], rows: 2 },
         { type: 'choice', prompt: '답을 못 찾았을 때 할 일에 ○ 하세요.', options: ['다른 방법으로 알아봐요', '답을 지어내요'], answer: '다른 방법으로 알아봐요' },
         { type: 'short', prompt: '우리나라를 소개하는 한 문장을 쓰세요.' },
@@ -3742,7 +3760,7 @@
     worksheet: {
       title: '한 주 기록 그래프',
       items: [
-        { type: 'figure', prompt: '그래프를 보고 물음에 답하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '하준이가 한 주 동안 한 일', data: [['책 읽기', 3], ['줄넘기', 6], ['동생 돌보기', 5]], unit: '번', icons: [{ value: 5, name: '5번' }, { value: 1, name: '1번' }] }, caption: '가장 많이 한 일: ________' }], answer: '줄넘기' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 물음에 답하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '하준이가 한 주 동안 한 일', data: [['책 읽기', 3], ['줄넘기', 6], ['동생 돌보기', 5]], unit: '번', icons: [{ value: 5, name: '5번' }, { value: 1, name: '1번' }] }, caption: '가장 많이 한 일: ________' }], answer: '줄넘기' },
         { type: 'table', prompt: '내 기록표를 보고 한 번 수를 쓰세요.', columns: ['한 일', '한 번 수'], rows: 3 },
         { type: 'short', prompt: '내가 가장 많이 한 일로 나를 소개하는 한 문장을 쓰세요.' },
         { type: 'short', prompt: '가장 적게 한 일 가운데 더 해 보고 싶은 것을 쓰세요.' },
@@ -4019,7 +4037,7 @@
     worksheet: {
       title: '가장 나다운 점',
       items: [
-        { type: 'figure', prompt: '그래프를 보고 물음에 답하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '하준이에 대해 들은 말', data: [['친구를 잘 도와요', 6], ['종이접기를 잘해요', 2], ['노래를 좋아해요', 1]], unit: '명', icons: [{ value: 5, name: '5명' }, { value: 1, name: '1명' }] }, caption: '가장 많은 사람이 말한 모습: ________' }], answer: '친구를 잘 도와요' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 물음에 답하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '하준이에 대해 들은 말', data: [['친구를 잘 도와요', 6], ['종이접기를 잘해요', 2], ['노래를 좋아해요', 1]], unit: '명', icons: [{ value: 5, name: '5명' }, { value: 1, name: '1명' }] }, caption: '가장 많은 사람이 말한 모습: ________' }], answer: '친구를 잘 도와요' },
         { type: 'blank', prompt: '내 자료로 빈칸을 채우세요.', text: '가장 저다운 점은 ( )예요. 왜냐하면 ( ) 때문이에요.' },
         { type: 'choice', prompt: '나다운 점이 될 수 있는 말에 ○ 하세요.', options: ['저는 2학년이에요.', '저는 곤충 이름을 잘 알아요.'], answer: '저는 곤충 이름을 잘 알아요.' },
         { type: 'table', prompt: '친구 세 명에게 말하고 들은 답을 쓰세요.', columns: ['친구', '친구가 해 준 말'], rows: 3 },

@@ -1570,7 +1570,7 @@
     worksheet: {
       title: '세 갈래 물음',
       items: [
-        { type: 'figure', wide: true, prompt: '물음 카드가 들어갈 칸을 선으로 이으세요.', tool: 'mindmap', figures: [{ options: { topic: '무엇을 묻나요?', slots: ['먹이 물음', '사는 곳 물음', '생김새 물음'], cards: ['벌은 무엇을 먹을까?', '벌집은 어디에 있을까?', '벌 날개는 몇 장일까?'] }, caption: '' }], answer: '먹이-무엇을 먹을까, 사는 곳-벌집은 어디에, 생김새-날개는 몇 장' },
+        { type: 'figure', wide: true, prompt: '물음 카드가 들어갈 칸을 선으로 이으세요.', tool: 'mindmap', figures: [{ options: { cardW: 140, cardH: 44, topic: '무엇을 묻나요?', slots: ['먹이 물음', '사는 곳 물음', '생김새 물음'], cards: ['무엇을 먹을까?', '어디에 살까?', '날개는 몇 장?'] }, caption: '' }], answer: '먹이-무엇을 먹을까, 사는 곳-어디에 살까, 생김새-날개는 몇 장' },
         { type: 'table', prompt: '내가 고른 생물에게 할 물음을 칸마다 하나씩 쓰세요.', columns: ['먹이 물음', '사는 곳 물음', '생김새 물음'], rows: 1 },
         { type: 'short', prompt: '내 물음의 답을 어디에서 살펴볼지 쓰세요.' },
         { type: 'choice', prompt: '"지렁이는 낮에 어디에 숨을까?"는 어떤 물음인가요?', options: ['먹이 물음', '사는 곳 물음', '생김새 물음'], answer: '사는 곳 물음' },

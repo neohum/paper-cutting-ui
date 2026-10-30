@@ -809,7 +809,7 @@
     worksheet: {
       title: '기록으로 돌아보기',
       items: [
-        { type: 'figure', wide: true, prompt: '그래프를 보고 물을 가장 많이 마신 요일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', title: '준호가 마신 물', data: [['월', 3], ['화', 1], ['수', 2], ['목', 4]], unit: '컵', scale: 1, max: 5 }, caption: '가장 많이 마신 요일: ____' }], answer: '목' },
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 물을 가장 많이 마신 요일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '준호가 마신 물', data: [['월', 3], ['화', 1], ['수', 2], ['목', 4]], unit: '컵', icons: [{ value: 1, name: '1컵' }] }, caption: '가장 많이 마신 요일: ____' }], answer: '목' },
         { type: 'table', prompt: '내 기록을 보고 쓰세요.', columns: ['잘 지킨 날', '그날 잘 지킨 까닭'], rows: 2 },
         { type: 'table', prompt: '못 지킨 날도 쓰세요.', columns: ['못 지킨 날', '그날 못 지킨 까닭'], rows: 2 },
         { type: 'short', prompt: '기록을 해 보니 좋은 점을 쓰세요.' },

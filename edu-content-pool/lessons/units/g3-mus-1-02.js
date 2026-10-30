@@ -889,7 +889,7 @@
     worksheet: {
       title: '요소 그래프와 3박 리듬',
       items: [
-        { type: 'figure', prompt: '그래프에서 가장 덜 찾은 요소에 ○ 하세요.', tool: 'chart', wide: true, figures: [{ options: { type: 'bar', title: '우리 반이 찾은 요소', data: [['높낮이', 18], ['빠르기', 15], ['셈여림', 7], ['3박 리듬', 4]], unit: '명', xLabel: '요소', yLabel: '학생 수', given: [0, 1, 2, 3] }, caption: '' }], answer: '3박 리듬' },
+        { type: 'table', prompt: '우리 반이 찾은 요소의 학생 수를 보고, 가장 덜 찾은 요소의 마지막 칸에 ○ 하세요.', columns: ['항목', '들은 학생 수', '○'], cells: [['높낮이', '18명', ''], ['빠르기', '15명', ''], ['셈여림', '7명', ''], ['3박 리듬', '4명', '']], answer: '3박 리듬' },
         { type: 'figure', prompt: '마디마다 몇 박인지 세어 쓰세요.', tool: 'keyboard', options: { mode: 'rhythm', meter: 3, measures: 2 }, figures: [{ state: { rhythm: ['h', 'q', 'q', 'q', 'q'] }, caption: '첫째 마디 ___박, 둘째 마디 ___박' }], answer: '3박, 3박' },
         { type: 'choice', prompt: '그래프의 낮은 막대가 알려 주는 것에 ○ 하세요.', options: ['곡에 없는 요소', '우리가 덜 귀 기울인 요소', '어려운 곡'], answer: '우리가 덜 귀 기울인 요소' },
         { type: 'short', prompt: '1~10차시에 찾은 요소 가운데 가장 잘 들리게 된 것을 쓰세요.' },
@@ -1338,7 +1338,7 @@
     worksheet: {
       title: '세마치장단과 민요',
       items: [
-        { type: 'figure', prompt: '빈칸에 들어갈 구음을 쓰세요.', tool: 'keyboard', options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '', '', '덕', '', '덕', ''] }, caption: '넷째 칸 ___, 일곱째 칸 ___' }], answer: '넷째 칸 덩, 일곱째 칸 쿵' },
+        { type: 'figure', prompt: '빈칸에 들어갈 구음을 쓰세요.', tool: 'keyboard', wide: true, options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '', '', '덕', '', '덕', ''] }, caption: '넷째 칸 ___, 일곱째 칸 ___' }], answer: '넷째 칸 덩, 일곱째 칸 쿵' },
         { type: 'table', prompt: '두 노래를 견주어 쓰세요.', columns: ['', '몇 박씩 묶이나요', '어울리는 악기'], cells: [['도라지 타령', '', ''], ['작은 별', '', '']] },
         { type: 'choice', prompt: '무릎장단에서 ‘덕’을 치는 곳에 ○ 하세요.', options: ['두 무릎 함께', '왼 무릎', '오른 무릎'], answer: '오른 무릎' },
         { type: 'short', prompt: '무릎장단에 맞춰 노래할 때 가장 어려웠던 곳과 그 까닭을 쓰세요.' },
@@ -1346,7 +1346,7 @@
       easy: {
         note: '덩 = 두 무릎 함께, 쿵 = 왼 무릎, 덕 = 오른 무릎. 세마치는 세 박이에요.',
         items: [
-          { type: 'figure', prompt: '세마치장단을 손가락으로 짚으며 읽어 보세요.', tool: 'keyboard', options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '덩', '', '덕', '쿵', '덕', ''] }, caption: '쿵은 몇 번? ___번' }], answer: '1번' },
+          { type: 'figure', prompt: '세마치장단을 손가락으로 짚으며 읽어 보세요.', tool: 'keyboard', wide: true, options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '덩', '', '덕', '쿵', '덕', ''] }, caption: '쿵은 몇 번? ___번' }], answer: '1번' },
           { type: 'choice', prompt: '두 무릎을 함께 치는 구음은?', options: ['덩', '쿵'], answer: '덩' },
           { type: 'blank', prompt: '빈칸을 채우세요.', text: '「도라지 타령」은 ___박씩 묶인 장단에 맞춰 불러요.', answer: '세' },
           { type: 'draw', prompt: '도라지꽃을 그리고, 그 옆에 덩 쿵 덕을 써 보세요.' },
@@ -1772,7 +1772,7 @@
       title: '2부 정리: 여러 음악의 특징',
       items: [
         { type: 'table', prompt: '들은 곡과 특징을 쓰세요.', columns: ['곡 이름', '국악 / 서양 음악', '특징'], cells: [['수제천', '', ''], ['사계 중 봄', '', ''], ['도라지 타령', '', ''], ['작은 별 변주곡', '', '']] },
-        { type: 'figure', prompt: '그래프에서 표에서 지워야 할 특징에 ✕ 하세요.', tool: 'chart', wide: true, figures: [{ options: { type: 'bar', title: '‘코끼리’ 특징 확인', data: [['낮은 소리', 21], ['3박 춤곡', 16], ['트럼펫', 0]], unit: '명', xLabel: '특징', yLabel: '들었어요', given: [0, 1, 2] }, caption: '' }], answer: '트럼펫' },
+        { type: 'table', prompt: '‘코끼리’ 특징 확인 결과를 보고, 표에서 지워야 할 특징의 마지막 칸에 ✕ 하세요.', columns: ['항목', '들은 학생 수', '✕'], cells: [['낮은 소리', '21명', ''], ['3박 춤곡', '16명', ''], ['트럼펫', '0명', '']], answer: '트럼펫' },
         { type: 'choice', prompt: '좋은 듣기 습관에 ○ 하세요.', options: ['한 번 듣고 끝내요', '살필 요소를 정해 다시 들어요', '친구 말을 그대로 적어요'], answer: '살필 요소를 정해 다시 들어요' },
         { type: 'short', prompt: '2부에서 들은 곡 가운데 가족에게 들려주고 싶은 곡과 그 특징을 쓰세요.' },
       ],

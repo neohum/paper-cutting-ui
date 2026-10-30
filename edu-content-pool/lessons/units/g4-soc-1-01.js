@@ -134,6 +134,10 @@
   };
   // 11차시: 인구 단계 구분 지도(인구 = 만 명, 지어낸 값)
   const GARAM_POP = { grid: [6, 5], title: '가람도 지역별 인구(만 명)', regions: GARAM_REGIONS, choropleth: true, unit: '만 명', legend: false };
+  // 활동지 전용 가람도: 오른쪽에 바다 한 줄을 더해 지도 높이 대비 글자를 키우고(인쇄 그림 높이 52mm 제한), 제목·범례는 캡션으로 대신한다
+  const WS_SEA = { grid: [7, 5], title: '', sea: [[6, 0], [6, 1], [6, 2], [6, 3], [6, 4]] };
+  const GARAM_WS = W(WS_SEA, { legend: false });
+  const GARAM_POP_WS = W(WS_SEA, { regionValues: true });
   // 10차시: 솔빛군의 읍·면 — 군청은 솔빛읍에 있다
   const SOLBIT = {
     grid: [6, 4], title: '솔빛군',
@@ -258,7 +262,7 @@
         worksheet: {
           title: '지도의 약속 찾기',
           items: [
-            { type: 'figure', prompt: '햇살마을 지도에서 북쪽 화살표, 범례, 축척을 찾아 ○ 하세요.', tool: 'map', options: W(HAETSAL, { scale: { cell: 100, unit: 'm' } }), figures: [{ caption: '햇살마을 지도' }], answer: '왼쪽 위 북쪽 화살표, 오른쪽 범례, 오른쪽 아래 축척(한 칸 100m)' },
+            { type: 'figure', wide: true, prompt: '햇살마을 지도에서 북쪽 화살표, 범례, 축척을 찾아 ○ 하세요.', tool: 'map', options: W(HAETSAL, { scale: { cell: 100, unit: 'm' }, legendIcons: ['school', 'library', 'park', 'hospital', 'station'] }), figures: [{ caption: '햇살마을 지도' }], answer: '왼쪽 위 북쪽 화살표, 오른쪽 범례, 오른쪽 아래 축척(한 칸 100m)' },
             { type: 'table', prompt: '지도의 약속이 알려 주는 것을 쓰세요.', columns: ['지도의 약속', '알려 주는 것'], cells: [['방위표', ''], ['범례', ''], ['축척', '']], answer: '방위표: 방향(방위), 범례: 기호의 뜻, 축척: 실제보다 줄인 정도(실제 거리)' },
             { type: 'blank', prompt: '햇살마을 지도를 보고 빈칸에 알맞은 장소를 쓰세요.', text: '학교에서 북쪽으로 두 칸 가면 ___이 있고, 학교에서 동쪽 끝에는 ___이 있어요.', answer: '도서관, 병원' },
             { type: 'choice', prompt: '방위표가 없는 지도에서 북쪽은 보통 어디인가요?', options: ['지도의 위쪽', '지도의 아래쪽', '내가 바라보는 앞쪽'], answer: '지도의 위쪽' },
@@ -267,7 +271,7 @@
           easy: {
             note: '방위표는 방향, 범례는 기호의 뜻, 축척은 줄인 정도를 알려 줘요.',
             items: [
-              { type: 'figure', prompt: '햇살마을 지도에서 범례를 찾아 ○ 하세요.', tool: 'map', options: HAETSAL, figures: [{ caption: '햇살마을 지도' }], answer: '지도 오른쪽의 기호 목록' },
+              { type: 'figure', wide: true, prompt: '햇살마을 지도에서 범례를 찾아 ○ 하세요.', tool: 'map', options: HAETSAL, figures: [{ caption: '햇살마을 지도' }], answer: '지도 오른쪽의 기호 목록' },
               { type: 'choice', prompt: '기호의 뜻을 모아 놓은 것에 ○ 하세요.', options: ['방위표', '범례', '축척'], answer: '범례' },
               { type: 'blank', prompt: '지도를 보고 빈칸을 채우세요.', text: '학교의 북쪽에는 ___이 있어요.', answer: '도서관' },
               { type: 'short', prompt: '지도에서 찾고 싶은 우리 동네 장소 하나를 쓰세요.' },
@@ -357,7 +361,7 @@
         worksheet: {
           title: '축척으로 거리 구하기',
           items: [
-            { type: 'figure', prompt: '학교 둘레 지도를 보고 표의 거리를 구하세요.', tool: 'map', options: W(NEAR, { mode: 'scale' }), figures: [{ caption: '학교 둘레 지도 (한 칸 100m)' }], answer: '학교→병원 600m, 학교→시장 400m' },
+            { type: 'figure', wide: true, prompt: '학교 둘레 지도를 보고 표의 거리를 구하세요.', tool: 'map', options: W(NEAR, { mode: 'scale' }), figures: [{ caption: '학교 둘레 지도 (한 칸 100m)' }], answer: '학교→병원 600m, 학교→시장 400m' },
             { type: 'table', prompt: '길을 따라 건너간 칸 수와 실제 거리를 쓰세요.', columns: ['출발 → 도착', '칸 수', '실제 거리'], cells: [['학교 → 병원', '', ''], ['학교 → 시장', '', ''], ['아파트 → 도서관', '', '']], answer: '6칸 600m, 4칸 400m, 2칸 200m' },
             { type: 'blank', prompt: '빈칸을 채우세요.', text: '한 칸이 2km인 지도에서 5칸은 ___km예요. 한 칸이 100m인 지도에서 5칸은 ___m예요.', answer: '10, 500' },
             { type: 'choice', prompt: '더 많이 줄인 지도에 대한 설명으로 알맞은 것에 ○ 하세요.', options: ['넓은 곳을 간단히 보여 줘요', '좁은 곳을 자세히 보여 줘요', '작은 가게까지 모두 나와요'], answer: '넓은 곳을 간단히 보여 줘요' },
@@ -366,7 +370,7 @@
           easy: {
             note: '출발한 칸은 세지 않아요. 건너간 칸 수 × 한 칸의 거리 = 실제 거리.',
             items: [
-              { type: 'figure', prompt: '길 위 칸 번호를 보고 학교에서 시장까지 몇 칸인지 세세요.', tool: 'map', options: W(NEAR, { mode: 'scale', showCells: true, from: '학교', to: '시장' }), figures: [{ caption: '학교 둘레 지도 (한 칸 100m)' }], answer: '4칸, 400m' },
+              { type: 'figure', wide: true, prompt: '길 위 칸 번호를 보고 학교에서 시장까지 몇 칸인지 세세요.', tool: 'map', options: W(NEAR, { mode: 'scale', showCells: true, from: '학교', to: '시장' }), figures: [{ caption: '학교 둘레 지도 (한 칸 100m)' }], answer: '4칸, 400m' },
               { type: 'blank', prompt: '빈칸을 채우세요.', text: '한 칸이 100m이면 3칸은 ___m예요.', answer: '300' },
               { type: 'choice', prompt: '동네 놀이터를 자세히 보려면 어느 지도가 좋을까요?', options: ['조금 줄인 지도', '많이 줄인 지도'], answer: '조금 줄인 지도' },
               { type: 'short', prompt: '집에서 학교까지 몇 분쯤 걸리는지 쓰세요.' },
@@ -464,8 +468,8 @@
         worksheet: {
           title: '범례로 기호 읽기',
           items: [
-            { type: 'figure', prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', options: W(MULBIT, { mode: 'legend', names: true, legendIcons: ['field', 'orchard', 'factory', 'temple', 'bridge'] }), figures: [{ caption: '물빛마을 지도 (범례 채우기)' }], answer: '논, 과수원, 공장, 절, 다리' },
-            { type: 'figure', prompt: '이름 없는 지도에서 학교와 우체국을 찾아 ○ 하고, 그 사이에 있는 시설을 쓰세요. 논 기호에는 모두 √ 하세요.', tool: 'map', options: W(MULBIT, { names: false }), figures: [{ caption: '물빛마을 지도 (이름 없음)' }], answer: '학교와 우체국 사이에 다리가 있다. 논 기호 4개(강 남쪽 3개, 강 북쪽 서쪽 끝 1개)' },
+            { type: 'figure', wide: true, prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', options: W(MULBIT, { mode: 'legend', names: true, legendIcons: ['field', 'orchard', 'factory', 'temple', 'bridge'] }), figures: [{ caption: '물빛마을 지도 (범례 채우기)' }], answer: '논, 과수원, 공장, 절, 다리' },
+            { type: 'figure', wide: true, prompt: '이름 없는 지도에서 학교와 우체국을 찾아 ○ 하고, 그 사이에 있는 시설을 쓰세요. 논 기호에는 모두 √ 하세요.', tool: 'map', options: W(MULBIT, { names: false }), figures: [{ caption: '물빛마을 지도 (이름 없음)' }], answer: '학교와 우체국 사이에 다리가 있다. 논 기호 4개(강 남쪽 3개, 강 북쪽 서쪽 끝 1개)' },
             { type: 'choice', prompt: '봄나루 마을 지도에서 두 겹 동그라미 기호의 뜻에 ○ 하세요.', options: ['시청', '마을 회관', '우체국'], answer: '마을 회관' },
             { type: 'table', prompt: '2번 지도에서 범례를 보고 기호를 세어 표를 채우세요.', columns: ['기호의 뜻', '개수', '모여 있는 곳(학교의 어느 쪽)'], cells: [['논', '', ''], ['과수원', '', ''], ['공장', '', '']], answer: '논 4개 남서쪽, 과수원 2개 북동쪽, 공장 1개 남동쪽' },
             { type: 'short', prompt: '위 표를 보고 물빛마을이 어떤 곳인지 두 문장으로 쓰세요.', answer: '예: 물빛마을에는 논과 과수원이 많아요. 그래서 농사를 많이 짓는 마을이에요.' },
@@ -473,7 +477,7 @@
           easy: {
             note: '범례 → 지도 순서로 봐요. 범례에서 모양을 먼저 찾고, 지도에서 같은 모양을 찾아요.',
             items: [
-              { type: 'figure', prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', options: W(MULBIT, { mode: 'legend', names: true, legendIcons: ['field', 'orchard', 'factory'] }), figures: [{ caption: '물빛마을 지도 (범례 채우기)' }], answer: '논, 과수원, 공장' },
+              { type: 'figure', wide: true, prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', options: W(MULBIT, { mode: 'legend', names: true, legendIcons: ['field', 'orchard', 'factory'] }), figures: [{ caption: '물빛마을 지도 (범례 채우기)' }], answer: '논, 과수원, 공장' },
               { type: 'choice', prompt: '기호의 뜻을 알려면 어디를 봐야 할까요?', options: ['범례', '축척', '지도 제목'], answer: '범례' },
               { type: 'blank', prompt: '빈칸을 채우세요.', text: '같은 모양 기호라도 지도마다 뜻이 다를 수 있으니 ___를 먼저 읽어요.', answer: '범례' },
               { type: 'draw', prompt: '우리 학교를 나타낼 나만의 기호를 그려 보세요.' },
@@ -564,7 +568,7 @@
         worksheet: {
           title: '영상지도와 일반 지도 견주기',
           items: [
-            { type: 'figure', prompt: '두 지도에서 같은 곳을 찾아 같은 번호를 쓰세요. (① 숲 ② 해수욕장 ③ 다리)', tool: 'map', options: BARAM_MAP, figures: [{ options: W(BARAM_PHOTO, { places: [], roads: [] }), caption: '영상지도로 본 바람골' }, { caption: '일반 지도로 본 바람골' }], answer: '숲은 왼쪽 위, 해수욕장은 모래사장 자리, 다리는 강 가운데' },
+            { type: 'figure', wide: true, prompt: '두 지도에서 같은 곳을 찾아 같은 번호를 쓰세요. (① 숲 ② 해수욕장 ③ 다리)', tool: 'map', options: BARAM_MAP, figures: [{ options: W(BARAM_PHOTO, { places: [], roads: [] }), caption: '영상지도로 본 바람골' }, { caption: '일반 지도로 본 바람골' }], answer: '숲은 왼쪽 위, 해수욕장은 모래사장 자리, 다리는 강 가운데' },
             { type: 'table', prompt: '두 지도가 더 잘 보여 주는 것을 쓰세요.', columns: ['영상지도', '일반 지도'], rows: 2, answer: '영상지도: 실제 색·숲과 논밭의 넓이 / 일반 지도: 시설의 이름·기호·자리' },
             { type: 'choice', prompt: '영상지도에서 찾기 어려운 것에 ○ 하세요.', options: ['넓은 숲', '바다', '마을 속 우체국'], answer: '마을 속 우체국' },
             { type: 'short', prompt: '우리 학교를 디지털 지도에서 찾을 때 영상 보기와 일반 보기 가운데 무엇을 먼저 쓰고 싶은지, 까닭과 함께 쓰세요.' },
@@ -572,7 +576,7 @@
           easy: {
             note: '영상지도 = 하늘에서 찍은 실제 모습, 일반 지도 = 기호와 이름으로 그린 지도.',
             items: [
-              { type: 'figure', prompt: '일반 지도에서 해수욕장과 다리를 찾아 ○ 하세요.', tool: 'map', options: BARAM_MAP, figures: [{ caption: '일반 지도로 본 바람골' }], answer: '해수욕장: 바닷가, 다리: 강 위' },
+              { type: 'figure', wide: true, prompt: '일반 지도에서 해수욕장과 다리를 찾아 ○ 하세요.', tool: 'map', options: BARAM_MAP, figures: [{ caption: '일반 지도로 본 바람골' }], answer: '해수욕장: 바닷가, 다리: 강 위' },
               { type: 'choice', prompt: '실제 색이 보이는 지도에 ○ 하세요.', options: ['영상지도', '일반 지도'], answer: '영상지도' },
               { type: 'choice', prompt: '시설의 이름이 보이는 지도에 ○ 하세요.', options: ['영상지도', '일반 지도'], answer: '일반 지도' },
               { type: 'draw', prompt: '하늘에서 내려다본 우리 학교 운동장의 모습을 그려 보세요.' },
@@ -666,7 +670,7 @@
         worksheet: {
           title: '방위로 길 안내하기',
           items: [
-            { type: 'figure', prompt: '학교 1층 지도를 보고 표를 채우세요.', tool: 'map', options: SCHOOL, figures: [{ caption: '푸른초등학교 1층' }], answer: '아래 표 답 참고' },
+            { type: 'figure', wide: true, prompt: '학교 1층 지도를 보고 표를 채우세요.', tool: 'map', options: SCHOOL, figures: [{ caption: '푸른초등학교 1층' }], answer: '아래 표 답 참고' },
             { type: 'table', prompt: '출발과 안내를 보고 닿는 곳을 쓰세요.', columns: ['출발', '안내', '닿는 곳'], cells: [['보건실', '동쪽으로 3칸', ''], ['교무실', '남쪽으로 3칸', ''], ['4학년 1반', '동쪽으로 3칸, 남쪽으로 3칸', '']], answer: '급식실, 운동장, 급식실' },
             { type: 'blank', prompt: '안내 글의 빈칸에 방위를 쓰세요.', text: '운동장에서 ___쪽으로 다섯 칸 가면 보건실이에요. 보건실에서 ___쪽으로 세 칸 가면 4학년 1반이에요.', answer: '서, 북' },
             { type: 'choice', prompt: '보건실에서 볼 때 도서실은 북동쪽이에요. 도서실에서 볼 때 보건실은 어느 쪽인가요?', options: ['북동', '남서', '남동', '북서'], answer: '남서' },
@@ -675,7 +679,7 @@
           easy: {
             note: '북쪽을 보고 서면 오른팔이 동쪽, 왼팔이 서쪽, 등 뒤가 남쪽이에요.',
             items: [
-              { type: 'figure', prompt: '학교 1층 지도를 보고 표를 채우세요.', tool: 'map', options: SCHOOL, figures: [{ caption: '푸른초등학교 1층' }], answer: '아래 표 답 참고' },
+              { type: 'figure', wide: true, prompt: '학교 1층 지도를 보고 표를 채우세요.', tool: 'map', options: SCHOOL, figures: [{ caption: '푸른초등학교 1층' }], answer: '아래 표 답 참고' },
               { type: 'table', prompt: '출발과 안내를 보고 닿는 곳을 쓰세요.', columns: ['출발', '안내', '닿는 곳'], cells: [['보건실', '동쪽으로 3칸', ''], ['도서실', '서쪽으로 3칸', '']], answer: '급식실, 4학년 1반' },
               { type: 'choice', prompt: '"오른쪽으로 가요"보다 정확한 말에 ○ 하세요.', options: ['동쪽으로 가요', '저쪽으로 가요'], answer: '동쪽으로 가요' },
               { type: 'short', prompt: '우리 교실에서 화장실까지 가는 길을 방위를 넣어 쓰세요.' },
@@ -768,7 +772,7 @@
         worksheet: {
           title: '길 안내 글 고치기',
           items: [
-            { type: 'figure', prompt: '별빛동네 지도를 보고 아래 안내 글을 고치세요.', tool: 'map', options: BYEOLBIT, figures: [{ caption: '별빛동네' }], answer: '아래 문항 답 참고' },
+            { type: 'figure', wide: true, prompt: '별빛동네 지도를 보고 아래 안내 글을 고치세요.', tool: 'map', options: W(BYEOLBIT, { legend: false, title: '' }), figures: [{ caption: '별빛동네' }], answer: '아래 문항 답 참고' },
             { type: 'table', prompt: '지도에서 안내대로 따라가 보고, 틀린 곳을 쓴 뒤 바르게 고쳐 쓰세요.', columns: ['친구의 안내 글', '틀린 곳(방위·칸 수·출발 장소)', '고친 안내 글'], cells: [['우체국에서 북쪽으로 두 칸 가면 학교', '', ''], ['공원에서 서쪽으로 네 칸 가면 소방서', '', ''], ['우리 집에서 동쪽으로 다섯 칸 가면 시장', '', '']], answer: '방위 — 우체국에서 남쪽으로 두 칸, 방위 — 공원에서 동쪽으로 네 칸, 칸 수 — 우리 집에서 동쪽으로 여섯 칸' },
             { type: 'blank', prompt: '안내 글을 읽고 닿는 곳을 쓰세요.', text: '우리 집에서 북쪽으로 두 칸, 이어서 동쪽으로 세 칸 가면 ___에 닿아요.', answer: '학교' },
             { type: 'choice', prompt: '좋은 안내 글에 꼭 들어가야 하는 것이 아닌 것에 ○ 하세요.', options: ['출발 장소', '방위', '칸 수(걸음 수)', '내가 좋아하는 색'], answer: '내가 좋아하는 색' },
@@ -777,7 +781,7 @@
           easy: {
             note: '안내 글에서 출발 장소, 방위, 칸 수에 밑줄을 그어 보세요.',
             items: [
-              { type: 'figure', prompt: '별빛동네 지도를 보고 아래 문제를 풀어요.', tool: 'map', options: BYEOLBIT, figures: [{ caption: '별빛동네' }], answer: '아래 문항 답 참고' },
+              { type: 'figure', wide: true, prompt: '별빛동네 지도를 보고 아래 문제를 풀어요.', tool: 'map', options: W(BYEOLBIT, { legend: false, title: '' }), figures: [{ caption: '별빛동네' }], answer: '아래 문항 답 참고' },
               { type: 'blank', prompt: '바른 방위를 쓰세요.', text: '학교에서 도서관은 ___쪽에 있어요.', answer: '동' },
               { type: 'choice', prompt: '더 좋은 안내 글에 ○ 하세요.', options: ['학교에서 동쪽으로 세 칸', '학교에서 오른쪽으로 쭉'], answer: '학교에서 동쪽으로 세 칸' },
               { type: 'short', prompt: '우리 교실에서 운동장까지 가는 길을 방위를 넣어 쓰세요.' },
@@ -867,15 +871,15 @@
         worksheet: {
           title: '걸음 수와 방위로 안내하기',
           items: [
-            { type: 'figure', prompt: '마당 지도를 보고 정문에서 놀이터, 본관에서 체육관까지 걸음 수를 쓰세요.', tool: 'map', options: W(YARD, { mode: 'scale' }), figures: [{ caption: '푸른초등학교 마당 (한 칸 10걸음)' }], answer: '50걸음, 50걸음' },
-            { type: 'figure', prompt: '북쪽 화살표가 오른쪽을 가리키는 지도예요. 북쪽 화살표를 보고 지도의 위·아래·왼쪽·오른쪽 가장자리 옆에 방위를 쓰세요.', tool: 'map', options: W(YARD, { north: 90 }), figures: [{ caption: '돌아간 마당 지도' }], answer: '위 서, 아래 동, 왼쪽 남, 오른쪽 북' },
+            { type: 'figure', wide: true, prompt: '마당 지도를 보고 정문에서 놀이터, 본관에서 체육관까지 걸음 수를 쓰세요.', tool: 'map', options: W(YARD, { mode: 'scale' }), figures: [{ caption: '푸른초등학교 마당 (한 칸 10걸음)' }], answer: '50걸음, 50걸음' },
+            { type: 'figure', wide: true, prompt: '북쪽 화살표가 오른쪽을 가리키는 지도예요. 북쪽 화살표를 보고 지도의 위·아래·왼쪽·오른쪽 가장자리 옆에 방위를 쓰세요.', tool: 'map', options: W(YARD, { north: 90 }), figures: [{ caption: '돌아간 마당 지도' }], answer: '위 서, 아래 동, 왼쪽 남, 오른쪽 북' },
             { type: 'blank', prompt: '빈칸을 채우세요.', text: '한 칸이 10걸음이면 40걸음은 ___칸이에요. 북쪽이 오른쪽인 지도에서 화면 위쪽은 ___쪽이에요.', answer: '4, 서' },
             { type: 'table', prompt: '우리 학교 마당 안내문을 써 보세요.', columns: ['출발', '방위', '걸음 수', '닿는 곳'], rows: 2, answer: '학생마다 다름 — 짝이 따라가 닿았는지 확인' },
           ],
           easy: {
             note: '10걸음 = 한 칸. 북쪽 화살표가 오른쪽이면 지도를 돌려 화살표가 위로 오게 들고 읽어요.',
             items: [
-              { type: 'figure', prompt: '칸 번호를 보고 정문에서 놀이터까지 몇 칸인지 세세요.', tool: 'map', options: W(YARD, { mode: 'scale', showCells: true, from: '정문', to: '놀이터' }), figures: [{ caption: '푸른초등학교 마당 (한 칸 10걸음)' }], answer: '5칸, 50걸음' },
+              { type: 'figure', wide: true, prompt: '칸 번호를 보고 정문에서 놀이터까지 몇 칸인지 세세요.', tool: 'map', options: W(YARD, { mode: 'scale', showCells: true, from: '정문', to: '놀이터' }), figures: [{ caption: '푸른초등학교 마당 (한 칸 10걸음)' }], answer: '5칸, 50걸음' },
               { type: 'blank', prompt: '빈칸을 채우세요.', text: '한 칸이 10걸음이면 3칸은 ___걸음이에요.', answer: '30' },
               { type: 'choice', prompt: '북쪽 화살표가 오른쪽을 가리키면 화면 오른쪽은?', options: ['북쪽', '동쪽'], answer: '북쪽' },
               { type: 'short', prompt: '우리 교실에서 정문까지 몇 걸음쯤일지 어림해 쓰세요.' },
@@ -967,7 +971,7 @@
         worksheet: {
           title: '시·군의 자리와 이웃',
           items: [
-            { type: 'figure', prompt: '가람도 지도를 보고 아래 물음에 답하세요.', tool: 'map', options: GARAM, figures: [{ caption: '가람도' }], answer: '아래 문항 답 참고' },
+            { type: 'figure', wide: true, prompt: '가람도 지도를 보고 아래 물음에 답하세요.', tool: 'map', options: W(GARAM, GARAM_WS), figures: [{ caption: '가람도' }], answer: '아래 문항 답 참고' },
             { type: 'table', prompt: '지역마다 맞닿은 이웃 지역을 쓰세요.', columns: ['지역', '맞닿은 이웃 지역'], cells: [['나래시', ''], ['은빛군', ''], ['가람시', '']], answer: '나래시: 솔빛군·들꽃군 / 은빛군: 들꽃군·가람시·한별시 / 가람시: 솔빛군·한별시·들꽃군·은빛군' },
             { type: 'blank', prompt: '도청에서 본 방위를 쓰세요.', text: '도청에서 나래시청은 ___쪽, 은빛군청은 ___쪽, 한별시청은 ___쪽에 있어요.', answer: '북서, 남동, 북동' },
             { type: 'choice', prompt: '모서리 한 점만 닿은 두 지역에 ○ 하세요.', options: ['나래시와 가람시', '나래시와 솔빛군', '가람시와 은빛군'], answer: '나래시와 가람시' },
@@ -976,7 +980,7 @@
           easy: {
             note: '굵은 경계선을 함께 쓰면 맞닿은 이웃이에요. 모서리 한 점만 닿으면 이웃이 아니에요.',
             items: [
-              { type: 'figure', prompt: '가람도 지도에서 나래시를 찾아 색칠하세요.', tool: 'map', options: GARAM, figures: [{ caption: '가람도' }], answer: '왼쪽 위 네 칸' },
+              { type: 'figure', wide: true, prompt: '가람도 지도에서 나래시를 찾아 색칠하세요.', tool: 'map', options: W(GARAM, GARAM_WS), figures: [{ caption: '가람도' }], answer: '왼쪽 위 네 칸' },
               { type: 'choice', prompt: '나래시와 맞닿은 곳에 ○ 하세요.', options: ['솔빛군', '한별시'], answer: '솔빛군' },
               { type: 'blank', prompt: '빈칸을 채우세요.', text: '도청에서 은빛군청은 ___쪽에 있어요.', answer: '남동' },
               { type: 'short', prompt: '우리 학교는 어느 시·도에 있는지 쓰세요.' },
@@ -1066,7 +1070,7 @@
         worksheet: {
           title: '읍·면의 자리 설명하기',
           items: [
-            { type: 'figure', prompt: '솔빛군 지도를 보고 군청이 있는 읍에 ○, 그 읍과 맞닿지 않은 면에 △ 하세요.', tool: 'map', options: SOLBIT, figures: [{ caption: '솔빛군' }], answer: '○ 솔빛읍, △ 달내면' },
+            { type: 'figure', wide: true, prompt: '솔빛군 지도를 보고 군청이 있는 읍에 ○, 그 읍과 맞닿지 않은 면에 △ 하세요.', tool: 'map', options: SOLBIT, figures: [{ caption: '솔빛군' }], answer: '○ 솔빛읍, △ 달내면' },
             { type: 'blank', prompt: '빈칸을 채우세요.', text: '군청에서 북쪽 두 칸에는 ___면, 남쪽 한 칸에는 ___면, 동쪽 두 칸에는 ___면이 있어요.', answer: '봉우리, 들녘, 강가' },
             { type: 'table', prompt: '주소를 큰 곳부터 나누어 쓰세요.', columns: ['도(특별시·광역시)', '시·군·구', '읍·면·동'], cells: [['가람도', '솔빛군', '샘골면'], ['', '', '']], answer: '둘째 줄은 우리 학교 주소 — 학생마다 다름' },
             { type: 'choice', prompt: '강가면이 지도에서 크게 보이는 까닭에 ○ 하세요.', options: ['땅이 넓어서', '가장 중요해서', '사람이 많아서'], answer: '땅이 넓어서' },
@@ -1075,7 +1079,7 @@
           easy: {
             note: '큰 곳부터: 도 → 시·군 → 읍·면 → 마을. 자리는 방위와 이웃으로 말해요.',
             items: [
-              { type: 'figure', prompt: '솔빛군 지도에서 군청이 있는 읍에 ○ 하세요.', tool: 'map', options: SOLBIT, figures: [{ caption: '솔빛군' }], answer: '솔빛읍' },
+              { type: 'figure', wide: true, prompt: '솔빛군 지도에서 군청이 있는 읍에 ○ 하세요.', tool: 'map', options: SOLBIT, figures: [{ caption: '솔빛군' }], answer: '솔빛읍' },
               { type: 'blank', prompt: '빈칸을 채우세요.', text: '군청에서 북쪽으로 두 칸 가면 ___면이에요.', answer: '봉우리' },
               { type: 'choice', prompt: '더 넓은 지역에 ○ 하세요.', options: ['솔빛군', '샘골면'], answer: '솔빛군' },
               { type: 'short', prompt: '우리 학교가 있는 시·군·구 이름을 쓰세요.' },
@@ -1169,7 +1173,7 @@
         worksheet: {
           title: '인구와 넓이 자료 견주기',
           items: [
-            { type: 'figure', prompt: '인구 지도를 보고 가장 진한 지역과 가장 옅은 지역을 쓰세요.', tool: 'map', options: W(GARAM_POP, { regionValues: true }), figures: [{ caption: '가람도 지역별 인구(만 명)' }], answer: '가장 진한 곳 가람시, 옅은 곳 솔빛군·들꽃군·은빛군(가장 적은 곳 솔빛군)' },
+            { type: 'figure', wide: true, prompt: '인구 지도를 보고 가장 진한 지역과 가장 옅은 지역을 쓰세요.', tool: 'map', options: W(GARAM_POP, GARAM_POP_WS), figures: [{ caption: '가람도 지역별 인구(만 명)' }], answer: '가장 진한 곳 가람시, 옅은 곳 솔빛군·들꽃군·은빛군(가장 적은 곳 솔빛군)' },
             { type: 'table', prompt: '두 지역의 자료를 표로 정리하세요.', columns: ['지역', '인구(만 명)', '넓이(칸)'], cells: [['나래시', '', ''], ['은빛군', '', '']], answer: '나래시 32·4, 은빛군 9·7' },
             { type: 'blank', prompt: '표를 보고 빈칸을 채우세요.', text: '은빛군은 나래시보다 넓이가 ___지만, 인구는 ___요.', answer: '넓, 적어' },
             { type: 'choice', prompt: '자료로 알 수 있는 사실에 ○ 하세요.', options: ['가람시는 인구가 가장 많아요', '가람시가 가장 살기 좋아요', '은빛군 사람들은 외로워요'], answer: '가람시는 인구가 가장 많아요' },
@@ -1178,7 +1182,7 @@
           easy: {
             note: '색이 진할수록 인구가 많아요. 사실은 자료에 쓰여 있는 것, 생각은 사람마다 다른 것.',
             items: [
-              { type: 'figure', prompt: '인구 지도에서 가장 진한 지역을 찾아 ○ 하세요.', tool: 'map', options: W(GARAM_POP, { regionValues: true }), figures: [{ caption: '가람도 지역별 인구(만 명)' }], answer: '가람시' },
+              { type: 'figure', wide: true, prompt: '인구 지도에서 가장 진한 지역을 찾아 ○ 하세요.', tool: 'map', options: W(GARAM_POP, GARAM_POP_WS), figures: [{ caption: '가람도 지역별 인구(만 명)' }], answer: '가람시' },
               { type: 'choice', prompt: '더 넓은 지역에 ○ 하세요.', options: ['은빛군(7칸)', '나래시(4칸)'], answer: '은빛군(7칸)' },
               { type: 'choice', prompt: '사실에 ○ 하세요.', options: ['가람시 인구는 45만 명이에요', '가람시가 가장 멋져요'], answer: '가람시 인구는 45만 명이에요' },
               { type: 'short', prompt: '우리 반에서 가장 많은 친구가 좋아하는 과목을 어떻게 알 수 있을지 쓰세요.' },
@@ -1275,7 +1279,7 @@
         worksheet: {
           title: '자료로 지역 소개하기',
           items: [
-            { type: 'figure', prompt: '들꽃군 기온 그래프를 보고 가장 더운 달과 가장 추운 달을 쓰세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '들꽃군 월별 평균 기온', data: DEUL_TEMP, unit: '°C', scale: 2, xLabel: '달' }, figures: [{ caption: '들꽃군 월별 평균 기온' }], answer: '가장 더운 달 7월(26°C), 가장 추운 달 1월(3°C)' },
+            { type: 'table', prompt: '들꽃군 월별 평균 기온 표를 보고 가장 더운 달 칸에는 ○, 가장 추운 달 칸에는 △ 를 쓰세요.', columns: ['달', '1월', '3월', '5월', '7월', '9월', '11월'], cells: [['기온(°C)', '3', '7', '18', '26', '22', '9'], ['표시', '', '', '', '', '', '']], answer: '7월 칸 ○(가장 더운 달 26°C), 1월 칸 △(가장 추운 달 3°C)' },
             { type: 'table', prompt: '두 지역의 기온을 견주어 표를 채우세요.', columns: ['달', '들꽃군(°C)', '한별시(°C)', '더 따뜻한 곳'], cells: [['1월', '3', '1', ''], ['7월', '26', '24', '']], answer: '두 달 모두 들꽃군' },
             { type: 'blank', prompt: '자료를 보고 소개 문장을 완성하세요.', text: '들꽃군은 가람도의 ___쪽에 있고, 가장 더운 달은 ___이에요.', answer: '서, 7월' },
             { type: 'choice', prompt: '자료로 뒷받침되는 문장에 ○ 하세요.', options: ['들꽃군 5월 평균 기온은 18°C예요', '들꽃군은 언제나 날씨가 좋아요', '들꽃군 사람들은 모두 친절해요'], answer: '들꽃군 5월 평균 기온은 18°C예요' },
@@ -1284,7 +1288,7 @@
           easy: {
             note: '가장 긴 막대 = 가장 높은 기온. 소개 문장은 자료에서 찾은 사실로 써요.',
             items: [
-              { type: 'figure', prompt: '그래프에서 가장 긴 막대에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '들꽃군 월별 평균 기온', data: DEUL_TEMP, unit: '°C', scale: 2, xLabel: '달' }, figures: [{ caption: '들꽃군 월별 평균 기온' }], answer: '7월' },
+              { type: 'table', prompt: '들꽃군 월별 평균 기온 표에서 가장 높은 기온 칸 아래에 ○ 를 쓰세요.', columns: ['달', '1월', '3월', '5월', '7월', '9월', '11월'], cells: [['기온(°C)', '3', '7', '18', '26', '22', '9'], ['표시', '', '', '', '', '', '']], answer: '7월 칸 ○' },
               { type: 'blank', prompt: '빈칸을 채우세요.', text: '들꽃군에서 가장 더운 달은 ___이에요.', answer: '7월' },
               { type: 'choice', prompt: '자료로 알 수 있는 것에 ○ 하세요.', options: ['7월 기온', '사람들의 마음'], answer: '7월 기온' },
               { type: 'short', prompt: '우리 지역의 좋은 점 하나를 쓰세요.' },
@@ -1378,8 +1382,8 @@
         worksheet: {
           title: '땅의 높낮이와 쓰임',
           items: [
-            { type: 'figure', prompt: '산들마을 지도에서 가장 높은 곳에 ○, 강이 바다와 만나는 곳에 △ 하세요.', tool: 'map', options: SANDEUL, figures: [{ caption: '산들마을 (점이 많을수록 높은 땅)' }], answer: '○ 높은봉(북서쪽 끝), △ 남동쪽 바닷가' },
-            { type: 'figure', prompt: '등고선만 있는 지도에서 높은 곳일수록 진하게 색칠하세요.', tool: 'map', options: W(SANDEUL, { terrainView: 'contour', names: false }), figures: [{ caption: '등고선으로 본 산들마을' }], answer: '북서쪽으로 갈수록 진하게' },
+            { type: 'figure', wide: true, prompt: '산들마을 지도에서 가장 높은 곳에 ○, 강이 바다와 만나는 곳에 △ 하세요.', tool: 'map', options: W(SANDEUL, { title: '', legend: false }), figures: [{ caption: '산들마을 (점이 많을수록 높은 땅)' }], answer: '○ 높은봉(북서쪽 끝), △ 남동쪽 바닷가' },
+            { type: 'figure', wide: true, prompt: '등고선만 있는 지도에서 높은 곳일수록 진하게 색칠하세요.', tool: 'map', options: W(SANDEUL, { terrainView: 'contour', names: false, title: '', legend: false }), figures: [{ caption: '등고선으로 본 산들마을' }], answer: '북서쪽으로 갈수록 진하게' },
             { type: 'table', prompt: '땅의 모습과 쓰임, 그 까닭을 쓰세요.', columns: ['땅의 모습', '쓰임', '까닭'], cells: [['강가 낮은 땅', '논', ''], ['바닷가', '', ''], ['언덕', '', '']], answer: '논: 물을 대기 쉽고 평평해서 / 바닷가: 항구·해수욕장, 배가 드나들 수 있어서 / 언덕: 과수원, 비탈에서도 나무를 기를 수 있어서' },
             { type: 'choice', prompt: '등고선이 여러 겹 모인 곳에 대한 설명에 ○ 하세요.', options: ['높은 곳이에요', '바다예요', '평평한 들이에요'], answer: '높은 곳이에요' },
             { type: 'short', prompt: '우리 지역의 산이나 강 하나를 골라, 그 둘레 땅이 어떻게 쓰이는지 쓰세요.' },
@@ -1387,7 +1391,7 @@
           easy: {
             note: '층(점)이 많을수록 높은 땅이에요. 강물은 높은 곳에서 낮은 곳으로 흘러요.',
             items: [
-              { type: 'figure', prompt: '산들마을 지도에서 가장 높은 곳에 ○ 하세요.', tool: 'map', options: SANDEUL, figures: [{ caption: '산들마을 (점이 많을수록 높은 땅)' }], answer: '높은봉' },
+              { type: 'figure', wide: true, prompt: '산들마을 지도에서 가장 높은 곳에 ○ 하세요.', tool: 'map', options: W(SANDEUL, { title: '', legend: false }), figures: [{ caption: '산들마을 (점이 많을수록 높은 땅)' }], answer: '높은봉' },
               { type: 'choice', prompt: '논이 많은 곳에 ○ 하세요.', options: ['강가 낮은 땅', '높은 산'], answer: '강가 낮은 땅' },
               { type: 'choice', prompt: '항구가 있는 곳에 ○ 하세요.', options: ['바닷가', '산꼭대기'], answer: '바닷가' },
               { type: 'draw', prompt: '산에서 바다까지 흐르는 강을 그려 보세요.' },
@@ -1589,7 +1593,7 @@
         worksheet: {
           title: '우리 지역 안내 카드',
           items: [
-            { type: 'figure', prompt: '누리시 지도를 보고 시청의 북쪽·동쪽에 있는 곳과 시청에서 기차역까지의 거리를 쓰세요.', tool: 'map', options: NURI, figures: [{ caption: '누리시 (한 칸 200m)' }], answer: '북쪽 박물관, 동쪽 시장, 기차역까지 600m' },
+            { type: 'figure', wide: true, prompt: '누리시 지도를 보고 시청의 북쪽·동쪽에 있는 곳과 시청에서 기차역까지의 거리를 쓰세요.', tool: 'map', options: W(NURI, { legend: false, title: '' }), figures: [{ caption: '누리시 (한 칸 200m)' }], answer: '북쪽 박물관, 동쪽 시장, 기차역까지 600m' },
             { type: 'draw', prompt: '안내 카드: 우리 지역 그림 지도를 그리고 방위표와 범례를 넣으세요.' },
             { type: 'short', prompt: '안내 카드: 우리 지역의 자리를 방위와 맞닿은 이웃 지역을 넣어 한 문장으로 쓰세요.' },
             { type: 'table', prompt: '안내 카드: 우리 지역 자료 하나와 출처를 쓰세요.', columns: ['자료', '출처'], rows: 1, answer: '학생마다 다름 — 14차시에 찾은 자료' },
@@ -1598,7 +1602,7 @@
           easy: {
             note: '안내 카드 = 그림 지도(방위표·범례) + 자리 설명 + 자료와 출처. 우리 집 주소·전화번호는 넣지 않아요.',
             items: [
-              { type: 'figure', prompt: '누리시 지도에서 시청의 북쪽에 있는 곳을 쓰세요.', tool: 'map', options: NURI, figures: [{ caption: '누리시' }], answer: '박물관' },
+              { type: 'figure', wide: true, prompt: '누리시 지도에서 시청의 북쪽에 있는 곳을 쓰세요.', tool: 'map', options: W(NURI, { legend: false, title: '' }), figures: [{ caption: '누리시' }], answer: '박물관' },
               { type: 'draw', prompt: '우리 학교 둘레를 그리고 방위표(북쪽 화살표)를 넣으세요.' },
               { type: 'blank', prompt: '빈칸을 채우세요.', text: '우리 학교는 ___(시·도)에 있어요.', answer: '학생마다 다름' },
               { type: 'choice', prompt: '안내 카드에 넣지 않는 것에 ○ 하세요.', options: ['우리 집 전화번호', '방위표'], answer: '우리 집 전화번호' },
