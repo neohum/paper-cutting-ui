@@ -1,64 +1,62 @@
-/* 차시 플레이어 — paper-cutting-ui 토큰(파스텔 레이어드 종이). 인쇄는 classroom-ui exam.css가 맡는다. */
+/* 차시 플레이어 — paper-cutting-ui(engine/papercut-tokens.css)의 종이 층·카드스톡 단추·파인 칸·리본 머리·접힌 모서리.
+   인쇄는 classroom-ui exam.css가 맡는다(아래 인쇄 규칙은 손대지 않는다). */
 :root {
-  --pc-cream: #F8F4EC; --pc-paper: #FFFDF9; --pc-ink: #3D352E; --pc-muted: #635A50;
-  --pc-mint: #A3D8C3; --pc-mint-light: #EAF7F1; --pc-mint-dark: #275C46; --pc-mint-layer: #82C2A8;
-  --pc-peach: #F7BA9E; --pc-peach-light: #FDF1EA; --pc-peach-dark: #6E3B21; --pc-peach-layer: #E69D7B;
-  --pc-lavender: #D7CBEB; --pc-lavender-light: #F4F0FA; --pc-lavender-dark: #473B6B; --pc-lavender-layer: #B8A6D9;
-  --pc-buttercup: #FEE396; --pc-buttercup-light: #FFF9E8; --pc-buttercup-dark: #6E530F; --pc-buttercup-layer: #EDC96C;
-  --pc-sky: #BDE0EA; --pc-sky-light: #EDF7FA; --pc-sky-dark: #204C5A;
-  --pc-rose: #F5B8BE; --pc-rose-light: #FDF0F1; --pc-rose-dark: #702830;
-  --pc-shadow-tint: 46, 30, 20;
-  --pc-shadow-contact: 0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48);
-  --pc-shadow-elevated: 0 4.5px 10px rgba(var(--pc-shadow-tint), 0.26);
-  --pc-shadow-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  --font: 'Nanum Gothic', -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  /* 색·그림자·종이 층 토큰은 ../engine/papercut-tokens.css(paper-cutting-ui)에서 온다 */
+  --font: var(--pc-font);
   --fs: 17px;
 }
 html[data-grade="1"], html[data-grade="2"] { --fs: 19px; }
 html[data-role="teacher"] { --fs: 21px; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--pc-cream); color: var(--pc-ink); font-family: var(--font); font-size: var(--fs); line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; }
+body { margin: 0; color: var(--pc-ink); font-family: var(--font); font-size: var(--fs); line-height: 1.6; word-break: keep-all; overflow-wrap: break-word; }
 h1, h2 { margin: 0; text-wrap: balance; line-height: 1.3; }
 h1 { font-size: 1.3em; } h2 { font-size: 1.15em; }
 p { margin: 0; text-wrap: pretty; }
 :focus-visible { outline: 3px solid var(--pc-lavender-dark); outline-offset: 2px; }
 .pl-app { max-width: 1200px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; }
 .pl-muted { color: var(--pc-muted); font-size: 0.85em; }
-.pl-error { padding: 24px; background: var(--pc-rose-light); border-radius: 16px; }
-.pc-card { background: var(--pc-paper); border-radius: 20px; box-shadow: var(--pc-shadow-bevel), var(--pc-shadow-contact), var(--pc-shadow-elevated); }
+.pl-error { padding: 24px; background: var(--pc-rose-light); border: 1px solid var(--pc-rose); border-radius: var(--pc-radius-md); }
+/* 종이 시트: 윗종이 아래로 크라프트 두 장이 비친다 */
+.pc-card { background: var(--pc-paper); border: 1px solid rgba(var(--pc-shadow-tint), 0.08); border-radius: var(--pc-radius-md); box-shadow: var(--pc-paper-shadow-lg); }
 
-.pl-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 8px 18px; border: 1px solid rgba(var(--pc-shadow-tint), 0.18); border-radius: 14px; background: var(--pc-paper); color: var(--pc-ink); font: inherit; font-weight: 700; line-height: 1; cursor: pointer; text-decoration: none; white-space: nowrap; box-shadow: var(--pc-shadow-bevel), var(--pc-shadow-contact); }
-.pl-btn:hover { background-image: linear-gradient(rgba(255,255,255,.35), rgba(255,255,255,.35)); } /* 들썩임(transform) 대신 밝기 — 마우스 아래에서 단추가 떨리지 않게 */
-.pl-btn:active { transform: translateY(1px); box-shadow: var(--pc-shadow-contact); }
+/* 카드스톡 단추(색지·밑판·스티칭·눌림)는 papercut-tokens.css. 여기서는 크기와 색지만 정한다 */
+.pl-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 8px 18px; border-radius: 12px; font: inherit; font-weight: 700; line-height: 1; cursor: pointer; text-decoration: none; white-space: nowrap; }
 .pl-btn:disabled { opacity: 0.55; cursor: default; transform: none; }
-.pl-btn--primary { background: var(--pc-mint); border-color: var(--pc-mint-layer); color: #173A2C; box-shadow: var(--pc-shadow-bevel), 0 3px 0 var(--pc-mint-layer), var(--pc-shadow-contact); }
+.pl-btn--primary { --pc-face: var(--pc-mint); --pc-face-ink: #173A2C; --pc-base: var(--pc-mint-layer); --pc-seam: rgba(39, 92, 70, 0.38); border-color: var(--pc-mint-layer); border-top-color: rgba(255, 255, 255, 0.9); }
 .pl-btn .fi { line-height: 1; display: inline-flex; }
-.pl-chip { display: inline-flex; align-items: center; justify-content: center; line-height: 1; padding: 6px 12px; border-radius: 999px; background: var(--pc-lavender-light); color: var(--pc-lavender-dark); font-weight: 800; font-size: 0.8em; }
+/* 리본 머리: 라벤더 색지 띠, 오른쪽 끝은 제비꼬리 칼선. 잘라 낸 모양이라 그림자 대신 안쪽 림·밑단으로 두께를 낸다 */
+.pl-chip { display: inline-flex; align-items: center; justify-content: center; line-height: 1; padding: 6px 20px 6px 12px; border-radius: 4px 0 0 4px; background: var(--pc-lavender); color: var(--pc-lavender-dark); font-weight: 800; font-size: 0.8em; clip-path: var(--pc-ribbon-cut); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), inset 0 -2px 0 var(--pc-lavender-layer); white-space: nowrap; }
 
-input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border: 1px solid #CFC5B5; background: #fff; color: var(--pc-ink); min-height: 48px; }
+/* 파인 입력 칸(홈 바닥·안쪽 그림자·초점 띠)은 papercut-tokens.css */
+input, textarea { padding: 10px 12px; min-height: 48px; }
 
 /* 상단 */
-.pl-top { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: flex-start; padding: 16px 20px; background: var(--pc-lavender-light); box-shadow: var(--pc-shadow-bevel), 0 4px 0 var(--pc-lavender-layer), var(--pc-shadow-contact), var(--pc-shadow-elevated); }
+/* 머리말: 라벤더 색지 시트가 라벤더 밑판 위에 얹히고, 가장자리 안쪽에 박음선 */
+.pl-top { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: flex-start; padding: 16px 20px; background: var(--pc-lavender-light); border-color: rgba(71, 59, 107, 0.14); box-shadow: var(--pc-shadow-bevel), 0 4px 0 var(--pc-lavender-layer), 0 5px 0 rgba(var(--pc-shadow-tint), 0.22), var(--pc-shadow-elevated); outline: 1.5px dashed rgba(71, 59, 107, 0.28); outline-offset: -7px; }
 .pl-top__title { display: grid; gap: 6px; flex: 1 1 420px; min-width: 0; }
 .pl-top__side { display: grid; gap: 8px; justify-items: end; }
 .pl-goal b { color: var(--pc-lavender-dark); margin-right: 6px; }
-.pl-level { display: inline-flex; gap: 4px; padding: 4px; border-radius: 14px; background: var(--pc-paper); }
+/* 난이도: 파인 홈 안의 종이 조각 셋. 고른 조각은 버터컵 색지로 솟는다 */
+.pl-level { display: inline-flex; gap: 4px; padding: 4px; border-radius: 14px; background: var(--pc-well); box-shadow: var(--pc-shadow-well); }
 .pl-level__b { min-height: 44px; min-width: 64px; display: inline-flex; align-items: center; justify-content: center; line-height: 1; border: 0; border-radius: 10px; background: transparent; font: inherit; font-weight: 700; color: var(--pc-muted); cursor: pointer; }
-.pl-level__b[aria-pressed="true"] { background: var(--pc-buttercup); color: var(--pc-buttercup-dark); box-shadow: var(--pc-shadow-contact); }
+.pl-level__b[aria-pressed="true"] { background: var(--pc-buttercup); color: var(--pc-buttercup-dark); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 0 var(--pc-buttercup-layer), var(--pc-shadow-contact); }
+.pl-level__b:not([aria-pressed="true"]):hover { background: rgba(255, 253, 249, 0.6); }
 
 /* 단계 */
 .pl-steps { display: flex; gap: 8px; }
-.pl-step { min-height: 52px; display: grid; place-items: center; gap: 0; border: 0; border-radius: 14px; background: var(--pc-paper); font: inherit; font-weight: 800; color: var(--pc-muted); cursor: pointer; box-shadow: var(--pc-shadow-contact); min-width: 0; padding: 4px 8px; }
+/* 단계 칸: 카드스톡 탭. 지금 단계는 피치 색지, 마친 단계는 오른쪽 위 모서리를 접어 둔다 */
+.pl-step { position: relative; overflow: hidden; min-height: 52px; display: grid; place-items: center; gap: 0; border: 1px solid rgba(var(--pc-shadow-tint), 0.12); border-top-color: rgba(255, 255, 255, 0.95); border-radius: 12px; background: var(--pc-paper); font: inherit; font-weight: 800; color: var(--pc-muted); cursor: pointer; box-shadow: var(--pc-shadow-bevel), 0 3px 0 var(--pc-kraft), 0 3.8px 0 rgba(var(--pc-shadow-tint), 0.24); min-width: 0; padding: 4px 8px; margin-bottom: 4px; }
 .pl-step small { font-weight: 400; font-size: 0.75em; }
-.pl-step.is-on { background: var(--pc-peach); color: var(--pc-peach-dark); box-shadow: 0 3px 0 var(--pc-peach-layer), var(--pc-shadow-contact); }
+.pl-step.is-on { background: var(--pc-peach); color: var(--pc-peach-dark); border-color: var(--pc-peach-layer); border-top-color: rgba(255, 255, 255, 0.85); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 3px 0 var(--pc-peach-layer), 0 3.8px 0 rgba(var(--pc-shadow-tint), 0.28), var(--pc-shadow-contact); }
 .pl-step.is-done { background: var(--pc-mint-light); color: var(--pc-mint-dark); }
+.pl-step.is-done::after { content: ""; position: absolute; top: 0; right: 0; width: 16px; height: 16px; background: linear-gradient(225deg, var(--pc-cream) 50%, var(--pc-mint) 50%); border-bottom-left-radius: 4px; box-shadow: -1px 1px 2px rgba(var(--pc-shadow-tint), 0.28); pointer-events: none; }
 .pl-timer { padding: 10px 16px; display: flex; align-items: center; gap: 8px; }
-.pl-timer.is-late { background: var(--pc-rose-light); }
+.pl-timer.is-late { background: var(--pc-rose-light); border-color: var(--pc-rose); }
 .pl-stage { outline: none; }
 .pl-card { padding: 20px; display: grid; gap: 14px; }
 .pl-art { max-width: 760px; width: 100%; margin: 0 auto; }
 .pl-say { font-size: 1.1em; font-weight: 700; text-align: center; }
-.pl-teacher { background: var(--pc-buttercup-light); border: 1px solid var(--pc-buttercup-layer); border-radius: 14px; padding: 12px 14px; }
+.pl-teacher { background: var(--pc-buttercup-light); border: 1px solid var(--pc-buttercup-layer); border-radius: 12px; padding: 12px 14px; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-buttercup-layer); }
 .pl-teacher b { color: var(--pc-buttercup-dark); display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; }
 .pl-demo { max-width: 360px; margin: 0 auto; width: 100%; }
 .pl-nav { display: flex; justify-content: flex-end; }
@@ -74,31 +72,35 @@ input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border
 .pl-work > .pl-side--fb { grid-row: 3; }
 .pl-work > .pl-side--actions { grid-row: 4; align-self: start; }
 @media (max-width: 820px) { .pl-work { grid-template-columns: 1fr; } }
-.pl-tool { background: var(--pc-sky-light); border-radius: 18px; padding: 10px; min-width: 0; }
+/* 교구 받침: 하늘색 종이를 칼로 파낸 홈 — 교구 조각이 그 안에 놓인다 */
+.pl-tool { background: var(--pc-sky-light); border-radius: var(--pc-radius-md); padding: 10px; min-width: 0; box-shadow: var(--pc-shadow-well); }
 .pl-tool--exit { max-width: 560px; } /* 출구 교구도 단추 44px·글자 12px 이상이 되게 넉넉히 */
 .pl-side { display: grid; gap: 12px; }
 .pl-dots { display: flex; gap: 8px; list-style: none; padding: 0; margin: 0; }
-.pl-dots li { width: 18px; height: 18px; border-radius: 50%; background: #E6DED0; }
-.pl-dots li.is-on { background: var(--pc-peach); box-shadow: 0 0 0 3px var(--pc-peach-light); }
-.pl-dots li.is-ok { background: var(--pc-mint); }
+/* 문항 점: 비었으면 펀치 구멍, 지금은 피치 종이 점, 맞힌 것은 민트 종이 점 */
+.pl-dots li { width: 18px; height: 18px; border-radius: 50%; background: var(--pc-well); box-shadow: inset 0 1.5px 2px rgba(var(--pc-shadow-tint), 0.30); }
+.pl-dots li.is-on { background: var(--pc-peach); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1.5px 0 var(--pc-peach-layer), 0 0 0 3px var(--pc-peach-light); }
+.pl-dots li.is-ok { background: var(--pc-mint); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1.5px 0 var(--pc-mint-layer); }
 .pl-prompt { font-size: 1.15em; font-weight: 800; }
 .pl-feedback { min-height: 28px; }
 .pl-feedback.is-ok { color: var(--pc-mint-dark); font-weight: 800; }
 .pl-feedback.is-no { color: var(--pc-rose-dark); font-weight: 700; }
-.pl-hint { margin-top: 6px; color: var(--pc-ink); background: var(--pc-buttercup-light); border-radius: 12px; padding: 8px 12px; font-weight: 400; }
+.pl-hint { margin-top: 6px; color: var(--pc-ink); background: var(--pc-buttercup-light); border: 1px solid var(--pc-buttercup-layer); border-radius: 10px; padding: 8px 12px; font-weight: 400; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-buttercup-layer); }
 .pl-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.pl-suggest { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--pc-lavender-light); padding: 10px 12px; border-radius: 14px; }
+.pl-suggest { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; background: var(--pc-lavender-light); padding: 10px 12px; border: 1.5px dashed var(--pc-lavender-layer); border-radius: 12px; }
 .pl-exit { display: grid; gap: 14px; }
-.pl-q { border: 1px solid #E6DED0; border-radius: 16px; padding: 12px 16px; margin: 0; display: grid; gap: 10px; }
+.pl-q { border: 1px solid var(--pc-kraft); border-radius: var(--pc-radius-md); padding: 12px 16px; margin: 0; display: grid; gap: 10px; background: var(--pc-paper-cream); box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-kraft); }
 .pl-q legend { font-weight: 800; padding: 0 6px; }
-.pl-qn { display: inline-flex; align-items: center; justify-content: center; line-height: 1; width: 28px; height: 28px; border-radius: 50%; background: var(--pc-peach); margin-right: 4px; }
+.pl-qn { display: inline-flex; align-items: center; justify-content: center; line-height: 1; width: 28px; height: 28px; border-radius: 50%; background: var(--pc-peach); color: var(--pc-peach-dark); margin-right: 4px; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 2px 0 var(--pc-peach-layer); }
 .pl-choices, .pl-mood { display: flex; flex-wrap: wrap; gap: 8px; }
-.pl-choice { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 6px 14px; border-radius: 14px; background: var(--pc-cream); cursor: pointer; }
-.pl-choice input { min-height: 0; width: 22px; height: 22px; }
-.pl-choice:has(input:checked) { background: var(--pc-mint-light); box-shadow: 0 0 0 2px var(--pc-mint-layer); }
-.pl-done { background: var(--pc-mint-light); border-radius: 16px; padding: 16px; display: grid; gap: 8px; text-align: center; }
+/* 고르기 칸: 카드스톡 조각 + 종이 접기 체크 칩(papercut-tokens.css) */
+.pl-choice { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 14px; border: 1px solid rgba(var(--pc-shadow-tint), 0.12); border-radius: 12px; background: var(--pc-paper); cursor: pointer; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-kraft); }
+.pl-choice input { min-height: 0; }
+.pl-choice:has(input:checked) { background: var(--pc-mint-light); border-color: var(--pc-mint-layer); box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-mint-layer), 0 0 0 2px var(--pc-mint-layer); }
+/* 완료 상자: 민트 색지 시트, 안쪽 박음선 */
+.pl-done { background: var(--pc-mint-light); border: 1px solid var(--pc-mint-layer); border-radius: var(--pc-radius-md); padding: 20px 16px; display: grid; gap: 8px; text-align: center; box-shadow: var(--pc-shadow-bevel), 0 3px 0 var(--pc-mint-layer), var(--pc-shadow-elevated); outline: 1.5px dashed rgba(39, 92, 70, 0.32); outline-offset: -7px; }
 .pl-stars { font-size: 2em; color: var(--pc-buttercup-dark); display: flex; gap: 8px; justify-content: center; }
-.pl-code { width: 100%; font-family: ui-monospace, monospace; font-size: 0.75em; }
+.pl-code { width: 100%; font-family: var(--pc-font-mono); font-size: 0.75em; }
 .pl-foot { text-align: center; }
 .pl-print-bar { display: flex; gap: 8px; justify-content: flex-end; }
 
@@ -124,26 +126,28 @@ input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border
 .pl-top__title .pl-chip { justify-self: start; }
 
 /* 2회차: 읽어 주기·소리 설정·안전 약속·교사 메모·활동 바로 가기·완료 화면 */
-.pl-read { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; vertical-align: middle; border: 0; border-radius: 50%; background: var(--pc-sky-light); color: var(--pc-sky-dark); cursor: pointer; line-height: 1; }
+.pl-read { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; vertical-align: middle; border: 1px solid var(--pc-sky-layer); border-radius: 50%; background: var(--pc-sky-light); color: var(--pc-sky-dark); cursor: pointer; line-height: 1; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-sky-layer); }
+.pl-read:active { transform: translateY(2px); box-shadow: inset 0 1px 2px rgba(var(--pc-shadow-tint), 0.2); }
 .pl-prefs { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
-.pl-pref { display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; min-height: 44px; padding: 6px 12px; border-radius: 12px; border: 1px solid rgba(var(--pc-shadow-tint), 0.16); background: var(--pc-paper); font: inherit; font-size: 0.8em; color: var(--pc-ink); cursor: pointer; white-space: nowrap; }
+.pl-pref { display: inline-flex; align-items: center; justify-content: center; gap: 6px; line-height: 1; min-height: 44px; padding: 6px 12px; border-radius: 10px; border: 1px solid rgba(var(--pc-shadow-tint), 0.14); border-top-color: rgba(255, 255, 255, 0.95); background: var(--pc-paper); font: inherit; font-size: 0.8em; color: var(--pc-ink); cursor: pointer; white-space: nowrap; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-kraft), 0 2.6px 0 rgba(var(--pc-shadow-tint), 0.2); }
 .pl-pref[aria-pressed="false"] { color: var(--pc-muted); }
-.pl-safety { background: var(--pc-rose-light); border: 1px solid var(--pc-rose); border-radius: 14px; padding: 10px 14px; }
+.pl-safety { background: var(--pc-rose-light); border: 1px solid var(--pc-rose); border-radius: 12px; padding: 10px 14px; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-rose); }
 .pl-safety b { color: var(--pc-rose-dark); display: inline-flex; align-items: center; gap: 6px; }
 .pl-safety ul { margin: 6px 0 0; padding-left: 20px; }
-.pl-notes { background: var(--pc-lavender-light); border-radius: 14px; padding: 10px 14px; }
+.pl-notes { background: var(--pc-lavender-light); border: 1.5px dashed var(--pc-lavender-layer); border-radius: 12px; padding: 10px 14px; }
 .pl-notes summary { cursor: pointer; font-weight: 700; color: var(--pc-lavender-dark); min-height: 32px; }
 .pl-jump { display: flex; flex-wrap: wrap; gap: 6px; }
 .pl-btn--small { min-height: 44px; padding: 6px 12px; font-size: 0.85em; }
-.pl-jump [aria-pressed="true"] { background: var(--pc-peach-light); box-shadow: 0 0 0 2px var(--pc-peach-layer); }
+.pl-jump [aria-pressed="true"] { --pc-face: var(--pc-peach-light); --pc-base: var(--pc-peach-layer); background: var(--pc-peach-light); box-shadow: inset 0 0 0 2px var(--pc-peach-layer), 0 3px 0 var(--pc-peach-layer); }
 .pl-step:disabled { opacity: 0.55; cursor: not-allowed; }
-.pl-star { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: #EFE8DC; color: #B5AA9A; line-height: 1; }
+.pl-star { display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: var(--pc-well); color: #9C907F; line-height: 1; box-shadow: var(--pc-shadow-well); }
 .pl-star.is-on { background: var(--pc-buttercup); color: var(--pc-buttercup-dark); box-shadow: 0 3px 0 var(--pc-buttercup-layer); }
-.pl-short { background: var(--pc-paper); border: 2px dashed var(--pc-peach-layer); border-radius: 16px; padding: 12px; display: grid; gap: 4px; }
-.pl-short__code { font-family: ui-monospace, 'SF Mono', monospace; font-size: 2em; font-weight: 800; letter-spacing: 0.08em; color: var(--pc-peach-dark); white-space: nowrap; overflow-x: auto; }
-.pl-warn { background: var(--pc-buttercup-light); border: 1px solid var(--pc-buttercup-layer); border-radius: 12px; padding: 8px 12px; font-weight: 700; }
+/* 짧은 제출 코드: 우표처럼 천공 테두리를 두른 종이 */
+.pl-short { background: var(--pc-paper); border: 2px dashed var(--pc-peach-layer); border-radius: 8px; padding: 12px; display: grid; gap: 4px; box-shadow: 0 0 0 4px var(--pc-paper), 0 0 0 5px var(--pc-kraft), var(--pc-shadow-elevated); margin: 5px; }
+.pl-short__code { font-family: var(--pc-font-mono); font-size: 2em; font-weight: 800; letter-spacing: 0.08em; color: var(--pc-peach-dark); white-space: nowrap; overflow-x: auto; }
+.pl-warn { background: var(--pc-buttercup-light); border: 1px solid var(--pc-buttercup-layer); border-radius: 10px; padding: 8px 12px; font-weight: 700; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-buttercup-layer); }
 .pl-review .pl-ok { color: var(--pc-mint-dark); font-weight: 700; } .pl-review .pl-no { color: var(--pc-rose-dark); font-weight: 700; }
-.pl-toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); background: var(--pc-mint-light); padding: 12px 18px; border-radius: 14px; box-shadow: var(--pc-shadow-elevated); z-index: 20; max-width: calc(100% - 32px); }
+.pl-toast { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); background: var(--pc-mint-light); border: 1px solid var(--pc-mint-layer); padding: 12px 18px; border-radius: 12px; box-shadow: var(--pc-paper-shadow-lg); z-index: 20; max-width: calc(100% - 32px); }
 .ws-answer { color: #702830; font-weight: 700; margin-top: 2mm; }
 .ws-figs--wide { grid-template-columns: 1fr; }
 /* 좁은 화면(휴대폰·200% 확대): 문항을 교구 위로, 확인 단추는 아래에 붙여 둔다 */
@@ -170,7 +174,7 @@ input, textarea { font: inherit; padding: 10px 12px; border-radius: 12px; border
 @media (max-height: 480px) and (min-width: 821px) { .pl-tool .pk-stage { max-height: none; } }
 .pl-art .pk-stage { max-height: 42vh; }
 /* 생성 그림: 벡터 장면과 같은 칸·같은 비율. 비율이 다른 그림도 늘어나지 않게 잘라 맞춘다 */
-.pl-art__img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: 16px; background: #F8F4EC; }
+.pl-art__img { display: block; width: 100%; height: auto; object-fit: contain; border-radius: var(--pc-radius-md); background: var(--pc-cream); }
 .pl-art .pl-art__img { max-height: 42vh; }
 @media print { .pl-art__img { display: none; } }
 .pl-nav--top { margin-bottom: -4px; }
@@ -195,18 +199,18 @@ html[data-role="teacher"] .pl-demo { max-width: 720px; } /* 전자칠판 시연�
 .pl-btn[aria-disabled="true"]:active { transform: none; }
 .pl-feedback .pl-read, .pl-note .pl-read, .pl-conclude .pl-read { width: 40px; height: 40px; }
 .pl-fb__t { vertical-align: middle; }
-.pl-note { margin: 0; padding: 6px 12px; border-radius: 12px; background: var(--pc-sky-light); color: var(--pc-sky-dark); font-weight: 700; }
+.pl-note { margin: 0; padding: 6px 12px; border: 1px solid var(--pc-sky-layer); border-radius: 10px; background: var(--pc-sky-light); color: var(--pc-sky-dark); font-weight: 700; box-shadow: var(--pc-shadow-bevel); }
 /* 예상 → 관찰 → 정리 */
-.pl-predict { display: grid; gap: 8px; background: var(--pc-peach-light); border: 1px solid var(--pc-peach); border-radius: 14px; padding: 10px 12px; }
+.pl-predict { display: grid; gap: 8px; background: var(--pc-peach-light); border: 1px solid var(--pc-peach); border-radius: 12px; padding: 10px 12px; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-peach); }
 .pl-predict__q b { color: var(--pc-peach-dark); display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; }
 .pl-predict__opts { display: flex; flex-wrap: wrap; gap: 8px; }
 .pl-predict__o { white-space: normal; text-align: left; line-height: 1.3; }
-.pl-predict__o[aria-pressed="true"] { background: var(--pc-peach); color: var(--pc-peach-dark); box-shadow: 0 0 0 2px var(--pc-peach-layer); }
+.pl-predict__o[aria-pressed="true"] { --pc-face: var(--pc-peach); --pc-face-ink: var(--pc-peach-dark); --pc-base: var(--pc-peach-layer); background: var(--pc-peach); color: var(--pc-peach-dark); box-shadow: inset 0 0 0 2px var(--pc-peach-layer), 0 3px 0 var(--pc-peach-layer); }
 .pl-predict__o:disabled { opacity: 1; }
 .pl-predict__o:disabled:not([aria-pressed="true"]) { opacity: 0.5; }
 .pl-more { display: grid; gap: 8px; justify-items: start; }
 .pl-more:empty, #suggest:empty { display: none; }
-.pl-conclude { display: grid; gap: 8px; background: var(--pc-mint-light); border-radius: 14px; padding: 10px 12px; width: 100%; }
+.pl-conclude { display: grid; gap: 8px; background: var(--pc-mint-light); border: 1px solid var(--pc-mint-layer); border-radius: 12px; padding: 10px 12px; width: 100%; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-mint-layer); }
 .pl-conclude p .fi { color: var(--pc-mint-dark); }
 
 /* 4회차: 교구 안 고르기 단추의 '고름' 모양. 교구는 단추에 .pl-btn(또는 .pk-choice)과 aria-pressed="true"
@@ -237,12 +241,12 @@ html[data-role="teacher"] .pl-demo { max-width: 720px; } /* 전자칠판 시연�
 @media (max-width: 480px) {
   .pl-app { gap: 8px; }
   /* 머리말 두 줄: [과목][제목……] / [목표][쉬움 기본 도전][소리][반·번호]. 묶음 div는 풀어(display: contents) 한 격자에 놓는다 */
-  .pl-top { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); align-items: center; gap: 6px; padding: 6px 10px; }
+  .pl-top { display: grid; grid-template-columns: auto auto auto minmax(0, 1fr); align-items: center; gap: 6px; padding: 8px 10px; outline-offset: -5px; }
   .pl-top__title, .pl-top__side { display: contents; }
-  .pl-top__title .pl-chip { grid-row: 1; grid-column: 1; padding: 4px 8px; font-size: 0.7em; }
+  .pl-top__title .pl-chip { grid-row: 1; grid-column: 1; padding: 4px 15px 4px 8px; font-size: 0.7em; }
   .pl-top__title h1 { grid-row: 1; grid-column: 2 / -1; min-width: 0; font-size: 1.05em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .pl-goal { grid-row: 2; grid-column: 1; font-size: 0.85em; }
-  .pl-goal > summary { min-height: 44px; padding: 0 8px; border-radius: 10px; background: var(--pc-paper); white-space: nowrap; }
+  .pl-goal > summary { min-height: 44px; padding: 0 8px; border-radius: 10px; background: var(--pc-paper); white-space: nowrap; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-kraft); }
   /* 펼치면 셋째 줄 전체에 목표 글(접으려면 '목표'를 다시 누른다) */
   .pl-goal[open] { grid-row: 3; grid-column: 1 / -1; }
   .pl-goal[open] > summary { min-height: 36px; }
