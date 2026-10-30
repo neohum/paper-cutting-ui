@@ -15,6 +15,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
+import { randomBytes } from 'node:crypto';
 import { chromium } from 'playwright-core';
 import { staticLesson, itemAt, targetLeak, findChrome, ignorableConsole, SUBJECT_MARK } from './check-lesson.mjs';
 import { PII } from './classroom-hub.mjs';
@@ -393,7 +394,9 @@ function printTextSizes() {
 }
 
 async function submitTwice(P, lid, F) {
-  const cls = `cu-${Date.now() % 100000}`;
+  // 허브는 결과를 메모리에 계속 쌓는다 — Date.now()%100000 은 100초마다 같은 값이 돌아와 앞 단원 결과와 섞였다.
+  // 플레이어가 학급 코드를 12자로 자르므로(player.js) 'cu-' + 무작위 16진 9자리로 맞춘다
+  const cls = `cu-${randomBytes(5).toString('hex').slice(0, 9)}`;
   const collect = encodeURIComponent(`${hub}/api/tools/edu-lesson:${lid}/submissions`);
   for (const seat of ['1', '']) {
     await P.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${encodeURIComponent(lid)}&class=${cls}${seat ? `&seat=${seat}` : ''}&collect=${collect}`);
