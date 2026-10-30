@@ -99,7 +99,7 @@ function packageOf(l, assetPath) {
   const code = (l.standards || []).find((s) => STD.test(s));
   if (!code) return null;
   return {
-    schemaVersion: '1.0.0', packageId: l.id, title: `${l.grade}학년 ${l.subject} ${l.title}`.slice(0, 120),
+    schemaVersion: '1.0.0', packageId: pluginSlug(l.id), title: `${l.grade}학년 ${l.subject} ${l.title}`.slice(0, 120),
     summary: `${l.unitTitle} · ${l.objective}`.slice(0, 600), schoolLevel: 'elementary', gradeLevels: [`elem-${l.grade}`],
     subjectCategory: CATEGORY[l.subject], curriculumAchievementCode: code,
     stages: l.stages.map((s) => ({
@@ -114,7 +114,7 @@ function packageOf(l, assetPath) {
     license: 'CC-BY-SA-4.0', createdAt: new Date().toISOString(),
   };
 }
-// 플러그인 id 는 all_market edulinker-plugin.v3 계약상 [a-z0-9-] 만 된다 — 국어 독서·매체 단원 id 의 한글만 영문으로 바꾼다
+// 플러그인 id·꾸러미 id 는 all_market edulinker-plugin.v3·lesson-package.v1 계약상 [a-z0-9-] 만 된다 — 국어 독서·매체 단원 id 의 한글만 영문으로 바꾼다
 const pluginSlug = (id) => String(id).replace(/독서/g, 'reading').replace(/매체/g, 'media');
 function pluginOf({ id, name, description, title, entrySha, grades, subjects, standards }) {
   return {
@@ -227,7 +227,7 @@ for (const u of units) {
     const entrySha = sha(readFileSync(join(out, 'index.html')));
     writeFileSync(join(out, 'edulinker.plugin.json'), `${JSON.stringify(pluginOf({ id: `kr.paperkit.unit.${pluginSlug(u.id)}`, name: `${u.grade}학년 ${u.subject} · ${u.unitTitle}`, description: `${u.unitTitle} — ${rows.length}차시 40분 수업(움직이는 페이퍼커팅 교구). ${u.flow || ''}`, title: u.unitTitle, entrySha, grades: [u.grade], subjects: [SLUG[u.subject]], standards: rows.flatMap((r) => r.l.standards || []) }), null, 2)}\n`);
     mkdirSync(join(out, 'packages'), { recursive: true });
-    for (const r of rows) { const p = packageOf(r.l, r.file); if (p) writeFileSync(join(out, 'packages', `${r.id}.json`), `${JSON.stringify(p.packageId === r.id ? p : { ...p, packageId: r.id }, null, 2)}\n`); }
+    for (const r of rows) { const p = packageOf(r.l, r.file); if (p) writeFileSync(join(out, 'packages', `${r.id}.json`), `${JSON.stringify(p.packageId === pluginSlug(r.id) ? p : { ...p, packageId: pluginSlug(r.id) }, null, 2)}\n`); }
     makeZip(zip, out);
   }
   if (existsSync(join(out, 'edulinker.plugin.json'))) {
