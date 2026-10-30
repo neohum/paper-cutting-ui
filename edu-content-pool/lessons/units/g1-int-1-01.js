@@ -1387,7 +1387,7 @@
     worksheet: {
       title: '그림 악보',
       items: [
-        { type: 'figure', wide: true, prompt: '이 그림 악보를 어떻게 칠지 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'l', x: 100, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'l', x: 220, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 320, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 380, y: 200, r: 0 }] }, caption: '__________' }], answer: '세게 두 번(느리게), 여리게 두 번(빠르게)' },
+        { type: 'figure', wide: true, prompt: '이 그림 악보를 어떻게 칠지 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'l', x: 100, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'l', x: 220, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 320, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 380, y: 200, r: 0 }] }, caption: '__________' }], answer: '세게 두 번(느리게), 여리게 두 번(빠르게)' },
         { type: 'choice', prompt: '큰 동그라미는 어떤 소리일까요?', options: ['센 소리', '여린 소리'], answer: '센 소리' },
         { type: 'draw', wide: true, prompt: '나만의 그림 악보를 그리세요.' },
         { type: 'short', prompt: '내 그림 악보를 말로 쓰세요. (예: 세게 둘, 여리게 둘)' },

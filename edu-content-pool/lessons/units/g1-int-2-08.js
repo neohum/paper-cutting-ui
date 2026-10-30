@@ -1794,7 +1794,7 @@
       items: [
         { type: 'table', prompt: '들은 소리와 내가 맞힌 것을 쓰세요.', columns: ['소리 흉내말', '내가 맞힌 것', '진짜'], rows: 3 },
         { type: 'choice', prompt: '"졸졸졸" 소리를 낸 것에 ○ 하세요.', options: ['물', '종이', '열쇠'], answer: '물' },
-        { type: 'figure', prompt: '소리를 들을 때 쓰는 곳에 ○ 하세요.', tool: 'body', options: { mode: 'parts', parts: SENSE }, figures: [{ caption: '' }] },
+        { type: 'figure', wide: true, prompt: '소리를 들을 때 쓰는 곳에 ○ 하세요.', tool: 'body', options: { wide: true, mode: 'parts', parts: SENSE }, figures: [{ caption: '' }] },
         { type: 'short', prompt: '집에서 눈을 감고 들어 보고 싶은 소리를 쓰세요.' },
       ],
       easy: {
@@ -2449,7 +2449,7 @@
       items: [
         { type: 'table', prompt: '솔방울에 대해 알게 된 것을 쓰세요.', columns: ['눈으로 알았어요', '만져서 알았어요'], rows: 2 },
         { type: 'choice', prompt: '눈을 감고도 알 수 있는 것에 ○ 하세요.', options: ['딱딱해요', '갈색이에요'], answer: '딱딱해요' },
-        { type: 'figure', prompt: '만져서 알 때 쓰는 곳에 ○ 하세요.', tool: 'body', options: { mode: 'parts', parts: SENSE }, figures: [{ caption: '' }] },
+        { type: 'figure', wide: true, prompt: '만져서 알 때 쓰는 곳에 ○ 하세요.', tool: 'body', options: { wide: true, mode: 'parts', parts: SENSE }, figures: [{ caption: '' }] },
         { type: 'draw', prompt: '내가 살펴본 솔방울을 그려 보세요.' },
       ],
       easy: {
@@ -2777,7 +2777,7 @@
       items: [
         { type: 'table', prompt: '감각마다 솔방울에 대해 알게 된 것을 쓰세요.', columns: ['감각', '알게 된 것'], cells: [['눈', ''], ['귀', ''], ['코', ''], ['피부', '']] },
         { type: 'choice', prompt: '냄새를 맡는 좋은 방법에 ○ 하세요.', options: ['손으로 부채질해 맡아요', '코에 바짝 대고 세게 맡아요'], answer: '손으로 부채질해 맡아요' },
-        { type: 'figure', prompt: '오늘 쓴 곳에 모두 ○ 하세요.', tool: 'body', options: { mode: 'parts', parts: SENSE }, figures: [{ caption: '' }] },
+        { type: 'figure', wide: true, prompt: '오늘 쓴 곳에 모두 ○ 하세요.', tool: 'body', options: { wide: true, mode: 'parts', parts: SENSE }, figures: [{ caption: '' }] },
         { type: 'short', prompt: '오늘 새로 알게 된 솔방울 이야기를 쓰세요.' },
       ],
       easy: {

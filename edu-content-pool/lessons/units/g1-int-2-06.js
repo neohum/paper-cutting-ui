@@ -1210,7 +1210,7 @@
     worksheet: {
       title: '그림 안내판 만들기',
       items: [
-        { type: 'figure', prompt: '보기 안내판의 뜻을 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true }, state: { pieces: [{ shape: 'circle', color: '파랑', size: 'm', x: 220, y: 160, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 280, y: 220, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 340, y: 160, r: 0 }] }, caption: '뜻: ____________' }], answer: '손 씻는 곳(물)' },
+        { type: 'figure', wide: true, prompt: '보기 안내판의 뜻을 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: { pieces: [{ shape: 'circle', color: '파랑', size: 'm', x: 220, y: 160, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 280, y: 220, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 340, y: 160, r: 0 }] }, caption: '뜻: ____________' }], answer: '손 씻는 곳(물)' },
         { type: 'choice', prompt: '안내판이 꼭 필요한 곳에 ○ 하세요.', options: ['미끄러운 현관', '내 필통 안', '내 신발 속'], answer: '미끄러운 현관' },
         { type: 'check', prompt: '내 안내판에서 잘한 점에 ✓ 하세요.', options: ['모양이 크게 보여요', '색이 분명해요', '짝이 뜻을 맞혔어요'] },
         { type: 'draw', prompt: '우리 반에 붙일 그림 안내판을 그려 보세요. 글자 없이 그림으로만 그려요.' },
@@ -2560,7 +2560,7 @@
     worksheet: {
       title: '모양으로 꾸민 얼굴',
       items: [
-        { type: 'figure', prompt: '보기 얼굴에서 쓴 모양을 모두 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true }, state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 240, y: 180, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 320, y: 180, r: 0 }, { shape: 'triangle', color: '주황', size: 's', x: 280, y: 210, r: 0 }, { shape: 'semi', color: '빨강', size: 'm', x: 280, y: 250, r: 0 }] }, caption: '쓴 모양: ____________' }], answer: '동그라미, 세모, 반달' },
+        { type: 'figure', wide: true, prompt: '보기 얼굴에서 쓴 모양을 모두 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 240, y: 180, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 320, y: 180, r: 0 }, { shape: 'triangle', color: '주황', size: 's', x: 280, y: 210, r: 0 }, { shape: 'semi', color: '빨강', size: 'm', x: 280, y: 250, r: 0 }] }, caption: '쓴 모양: ____________' }], answer: '동그라미, 세모, 반달' },
         { type: 'choice', prompt: '웃는 입에 알맞은 모양에 ○ 하세요.', options: ['반달', '별', '네모'], answer: '반달' },
         { type: 'draw', prompt: '색종이를 오려 붙여 내 얼굴을 꾸미세요.' },
         { type: 'short', prompt: '내가 꾸민 얼굴의 표정을 쓰세요.' },
@@ -3226,7 +3226,7 @@
     worksheet: {
       title: '되풀이 무늬 띠',
       items: [
-        { type: 'figure', wide: true, prompt: '되풀이되는 묶음을 ○로 묶고, 다음에 올 조각을 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'm', x: 60, y: 200, r: 0 }, { shape: 'triangle', color: '초록', size: 'm', x: 120, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 180, y: 200, r: 0 }, { shape: 'triangle', color: '초록', size: 'm', x: 240, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 300, y: 200, r: 0 }] }, caption: '다음 조각: ________' }], answer: '초록 세모' },
+        { type: 'figure', wide: true, prompt: '되풀이되는 묶음을 ○로 묶고, 다음에 올 조각을 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'm', x: 60, y: 200, r: 0 }, { shape: 'triangle', color: '초록', size: 'm', x: 120, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 180, y: 200, r: 0 }, { shape: 'triangle', color: '초록', size: 'm', x: 240, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 300, y: 200, r: 0 }] }, caption: '빨강 동그라미 · 초록 세모 · 빨강 동그라미 · 초록 세모 · 빨강 동그라미 · ? 다음 조각: ________' }], answer: '초록 세모' },
         { type: 'blank', prompt: '빈칸을 채우세요.', text: '★ ● ★ ● ★ ___', answer: '●' },
         { type: 'draw', wide: true, prompt: '두 가지 모양으로 되풀이 무늬 띠를 그리세요.' },
         { type: 'short', prompt: '내 무늬 띠의 묶음을 쓰세요.' },
@@ -3729,7 +3729,7 @@
       items: [
         { type: 'short', prompt: '내가 고친 곳을 쓰세요.' },
         { type: 'table', prompt: '고치기 전과 뒤를 견주어 쓰세요.', columns: ['고치기 전', '고친 뒤'], cells: [['', '']] },
-        { type: 'figure', prompt: '빠진 날개를 그려 나비를 고치세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ options: { readOnly: true, guide: 'vertical' }, state: { pieces: [{ shape: 'heart', color: '분홍', size: 'l', x: 200, y: 180, r: 270 }, { shape: 'circle', color: '노랑', size: 's', x: 280, y: 200, r: 0 }] }, caption: '오른쪽 날개 그리기' }], answer: '오른쪽에 같은 거리, 반대 방향의 하트 날개' },
+        { type: 'figure', wide: true, prompt: '빠진 날개를 그려 나비를 고치세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ options: { readOnly: true, printColors: false, guide: 'vertical' }, state: { pieces: [{ shape: 'heart', color: '분홍', size: 'l', x: 200, y: 180, r: 270 }, { shape: 'circle', color: '노랑', size: 's', x: 280, y: 200, r: 0 }] }, caption: '오른쪽 날개 그리기' }], answer: '오른쪽에 같은 거리, 반대 방향의 하트 날개' },
         { type: 'choice', prompt: '작품을 고칠 때 잘된 곳은 어떻게 하나요?', options: ['그대로 둬요', '모두 다시 해요'], answer: '그대로 둬요' },
       ],
       easy: {

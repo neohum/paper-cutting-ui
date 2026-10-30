@@ -1017,7 +1017,7 @@
             levels: CARD_LV,
             items: [
               { prompt: '안부 전화의 차례대로 카드를 놓아 보세요.', toolOptions: { cards: [{ id: '끝', text: '"안녕히 계세요"', motif: 'moon' }, { id: '인사', text: '"할머니, 저 서아예요"', motif: 'sun' }, { id: '안부', text: '"잘 지내세요?"', motif: 'flower' }, { id: '소식', text: '"저 줄넘기 열 번 했어요"', motif: 'star' }] },
-                target: { order: ['인사', ['안부', '소식'], ['안부', '소식'], '끝'] }, difficulty: 0.15,
+                target: { order: ['인사', ['안부', '소식'], '끝'] }, difficulty: 0.15,
                 levels: { easy: { state: { at: { '인사': 0 } } } } },
               { prompt: '전화 말풍선 빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['보고 싶어요', '안녕히 계세요', '빨리 끊어요'], slots: [{ id: 'b1', who: '하준', motif: 'house', label: '이모, 정말 ___.' }, { id: 'b2', who: '하준', motif: 'house', label: '또 전화할게요. ___.' }] },
                 target: { fill: { b1: '보고 싶어요', b2: '안녕히 계세요' } }, difficulty: 0.15 },

@@ -550,7 +550,7 @@
     worksheet: {
       title: '옛날 마을, 지금 마을',
       items: [
-        { type: 'figure', wide: true, prompt: '옛날 마을 그림이에요. 지금도 그대로일 것에 ○, 바뀔 것에 △ 하세요.', tool: 'collage', figures: [{ options: { readOnly: true }, state: OLD_VILLAGE, caption: '산 · 해 · 초가집' }], answer: '산·해 ○, 초가집 △' },
+        { type: 'figure', wide: true, prompt: '옛날 마을 그림이에요. 지금도 그대로일 것에 ○, 바뀔 것에 △ 하세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: OLD_VILLAGE, caption: '산 · 해 · 초가집' }], answer: '산·해 ○, 초가집 △' },
         { type: 'table', prompt: '옛날 모습과 지금 모습을 쓰세요.', columns: ['옛날', '지금'], cells: [['초가집', ''], ['흙길', ''], ['나룻배', '']] },
         { type: 'choice', prompt: '마을은 어떻게 바뀌었을까요?', options: ['하루 만에', '오랜 시간 조금씩'], answer: '오랜 시간 조금씩' },
         { type: 'draw', prompt: '옛날 마을 그림을 지금 마을로 바꾸어 그려 보세요. 그대로인 것은 남겨요.' },
@@ -812,7 +812,7 @@
     worksheet: {
       title: '옛날·지금·앞으로 탈것',
       items: [
-        { type: 'figure', wide: true, prompt: '문장을 옛날, 지금, 앞으로 차례로 번호를 쓰세요.', tool: 'timeline', figures: [{ options: { mode: 'order', axis: ['옛날', '앞으로'], slots: THREE, cards: ['지금은 버스를 타요', '앞으로는 하늘을 나는 버스를 탈지도 몰라요', '옛날에는 소달구지를 탔어요'], shuffle: false }, caption: '' }], answer: '소달구지 → 버스 → 하늘을 나는 버스' },
+        { type: 'figure', wide: true, prompt: '문장을 옛날, 지금, 앞으로 차례로 번호를 쓰세요.', tool: 'timeline', figures: [{ options: { mode: 'order', axis: ['옛날', '앞으로'], slots: THREE, cards: ['지금 버스', '앞으로 하늘 버스', '옛날 소달구지'], shuffle: false }, caption: '' }], answer: '소달구지 → 버스 → 하늘을 나는 버스' },
         { type: 'table', prompt: '탈것 하나를 골라 차례로 쓰세요.', columns: ['옛날에는', '지금은', '앞으로는'], rows: 1 },
         { type: 'choice', prompt: '설명할 때 가장 먼저 쓰는 말머리에 ○ 하세요.', options: ['앞으로는', '옛날에는', '지금은'], answer: '옛날에는' },
         { type: 'draw', prompt: '앞으로의 탈것을 상상해 그리고, 지금 탈것에서 바꾼 곳에 ○ 하세요.' },
@@ -980,7 +980,7 @@
     worksheet: {
       title: '학용품 이야기 발표',
       items: [
-        { type: 'figure', wide: true, prompt: '문장을 차례대로 번호를 쓰세요.', tool: 'timeline', figures: [{ options: { mode: 'order', axis: ['옛날', '앞으로'], slots: THREE, cards: ['지금은 연필로 써요', '옛날에는 붓에 먹물을 묻혀 썼어요', '앞으로는 말하는 대로 글자가 써질지도 몰라요'], shuffle: false }, caption: '' }], answer: '붓 → 연필 → 말하는 대로' },
+        { type: 'figure', wide: true, prompt: '문장을 차례대로 번호를 쓰세요.', tool: 'timeline', figures: [{ options: { mode: 'order', axis: ['옛날', '앞으로'], slots: THREE, cards: ['지금 연필', '옛날 붓', '앞으로 말로 쓰기'], shuffle: false }, caption: '' }], answer: '붓 → 연필 → 말하는 대로' },
         { type: 'table', prompt: '내가 고른 학용품 이야기를 쓰세요.', columns: ['옛날에는', '지금은', '앞으로는'], rows: 1 },
         { type: 'check', prompt: '발표할 때 지킨 것에 ✓ 하세요.', options: ['무엇을 설명할지 먼저 말했어요', '옛날부터 차례로 말했어요', '친구 쪽을 보며 말했어요'] },
         { type: 'short', prompt: '짝의 발표에서 가장 재미있던 상상을 쓰세요.' },
@@ -1564,7 +1564,7 @@
       title: '교과를 넘어 이어지는 배움',
       items: [
         { type: 'figure', wide: true, prompt: '배운 것과 쓰는 활동을 선으로 이으세요.', tool: 'mindmap', figures: [{ options: { mode: 'match', topic: '교과를 넘어 이어요', slots: [{ id: 's1', label: '수 세기' }, { id: 's2', label: '글자 쓰기' }], cards: ['관찰한 꽃 이름 적기', '줄넘기 횟수 세기'] }, caption: '' }], answer: '수 세기-줄넘기 횟수 세기, 글자 쓰기-관찰한 꽃 이름 적기' },
-        { type: 'figure', prompt: '되풀이되는 묶음을 ○로 묶고, 다음에 올 조각을 그리세요.', tool: 'collage', figures: [{ state: { pieces: [{ shape: 'circle', color: '빨강', size: 'm', x: 80, y: 200, r: 0 }, { shape: 'triangle', color: '파랑', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 240, y: 200, r: 0 }, { shape: 'triangle', color: '파랑', size: 'm', x: 320, y: 200, r: 0 }] }, caption: '동그라미 · 세모 · 동그라미 · 세모 · ?' }], answer: '동그라미' },
+        { type: 'figure', wide: true, prompt: '되풀이되는 묶음을 ○로 묶고, 다음에 올 조각을 그리세요.', tool: 'collage', figures: [{ options: { printColors: false }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'm', x: 80, y: 200, r: 0 }, { shape: 'triangle', color: '파랑', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 240, y: 200, r: 0 }, { shape: 'triangle', color: '파랑', size: 'm', x: 320, y: 200, r: 0 }] }, caption: '동그라미 · 세모 · 동그라미 · 세모 · ?' }], answer: '동그라미' },
         { type: 'choice', prompt: '바른 생각에 ○ 하세요.', options: ['배운 것은 다른 교과에도 쓰여요', '배운 것은 그 교과에서만 써요'], answer: '배운 것은 다른 교과에도 쓰여요' },
         { type: 'short', prompt: '국어에서 배운 것을 다른 시간에 써 본 일을 쓰세요.' },
       ],
@@ -1572,7 +1572,7 @@
         note: '묶음을 손가락으로 감싸 봐요.',
         items: [
           { type: 'choice', prompt: '줄넘기 횟수를 셀 때 쓰는 배움에 ○ 하세요.', options: ['수 세기', '그림 그리기'], answer: '수 세기' },
-          { type: 'figure', prompt: '다음에 올 조각을 그리세요.', tool: 'collage', figures: [{ state: { pieces: [{ shape: 'circle', color: '빨강', size: 'm', x: 120, y: 200, r: 0 }, { shape: 'triangle', color: '파랑', size: 'm', x: 220, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 320, y: 200, r: 0 }] }, caption: '동그라미 · 세모 · 동그라미 · ?' }], answer: '세모' },
+          { type: 'figure', wide: true, prompt: '다음에 올 조각을 그리세요.', tool: 'collage', figures: [{ options: { printColors: false }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'm', x: 120, y: 200, r: 0 }, { shape: 'triangle', color: '파랑', size: 'm', x: 220, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'm', x: 320, y: 200, r: 0 }] }, caption: '동그라미 · 세모 · 동그라미 · ?' }], answer: '세모' },
           { type: 'draw', prompt: '되풀이 무늬로 액자를 꾸며 보세요.' },
         ],
       },
@@ -1732,7 +1732,7 @@
       title: '차례와 그래프 읽기',
       items: [
         { type: 'figure', wide: true, prompt: '1학년 단원과 이어지는 2학년 단원을 선으로 이으세요.', tool: 'mindmap', figures: [{ options: { mode: 'match', topic: '이어지는 단원', slots: [{ id: 's1', label: '100까지의 수' }, { id: 's2', label: '여러 가지 모양' }], cards: ['여러 가지 도형', '세 자리 수'] }, caption: '' }], answer: '100까지의 수-세 자리 수, 여러 가지 모양-여러 가지 도형' },
-        { type: 'figure', prompt: '별을 세어 빈칸에 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '2학년에 해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 7 }, { label: '길이 재기', value: 5 }, { label: '시각 읽기', value: 4 }] }, caption: '곱셈구구 ___명, 길이 재기 ___명' }], answer: '7명, 5명' },
+        { type: 'figure', wide: true, prompt: '별을 세어 빈칸에 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '2학년에 해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 7 }, { label: '길이 재기', value: 5 }, { label: '시각 읽기', value: 4 }] }, caption: '곱셈구구 ___명, 길이 재기 ___명' }], answer: '7명, 5명' },
         { type: 'choice', prompt: '2학년 수학에 있는 단원에 ○ 하세요.', options: ['곱셈구구', '9까지의 수', '50까지의 수'], answer: '곱셈구구' },
         { type: 'short', prompt: '2학년에 가장 해 보고 싶은 것과 그 까닭을 쓰세요.' },
       ],
@@ -1740,7 +1740,7 @@
         note: '별 하나는 한 명이에요. 하나씩 짚으며 세요.',
         items: [
           { type: 'choice', prompt: '2학년에 배우는 것에 ○ 하세요.', options: ['곱셈구구', '9까지의 수'], answer: '곱셈구구' },
-          { type: 'figure', prompt: '별을 세어 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 3 }, { label: '길이 재기', value: 2 }] }, caption: '곱셈구구 ___명' }], answer: '3명' },
+          { type: 'figure', wide: true, prompt: '별을 세어 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '해 보고 싶은 것', unit: '명', icon: 'star', icons: [{ value: 1, name: '1명' }], data: [{ label: '곱셈구구', value: 3 }, { label: '길이 재기', value: 2 }] }, caption: '곱셈구구 ___명' }], answer: '3명' },
           { type: 'draw', prompt: '2학년에 해 보고 싶은 것을 그려 보세요.' },
         ],
       },
@@ -3572,7 +3572,7 @@
       items: [
         { type: 'short', prompt: '자료: "달팽이는 상추 같은 채소 잎을 먹어요. 축축하고 그늘진 곳을 좋아해요." 달팽이가 좋아하는 곳을 쓰세요.' },
         { type: 'choice', prompt: '자료: "긴 더듬이 끝에 눈이 있어요." 달팽이 눈은 어디에 있나요?', options: ['긴 더듬이 끝', '껍데기 안', '배 밑'], answer: '긴 더듬이 끝' },
-        { type: 'figure', prompt: '그림을 세어 빈칸에 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '달팽이가 먹은 상추 잎', unit: '장', icon: 'circle', icons: [{ value: 1, name: '1장' }], data: [{ label: '목', value: 3 }, { label: '금', value: 5 }] }, caption: '목요일 ___장, 금요일 ___장' }], answer: '3장, 5장' },
+        { type: 'figure', wide: true, prompt: '그림을 세어 빈칸에 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '달팽이가 먹은 상추 잎', unit: '장', icon: 'circle', icons: [{ value: 1, name: '1장' }], data: [{ label: '목', value: 3 }, { label: '금', value: 5 }] }, caption: '목요일 ___장, 금요일 ___장' }], answer: '3장, 5장' },
         { type: 'short', prompt: '우리 모둠 물음 가운데 책이나 그림 자료로 찾은 답을 쓰세요.' },
       ],
       easy: {

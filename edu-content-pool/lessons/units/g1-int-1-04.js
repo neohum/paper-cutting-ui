@@ -723,7 +723,7 @@
     worksheet: {
       title: '짝과 거울 놀이',
       items: [
-        { type: 'figure', prompt: '점선을 거울로 보고, 오른쪽에 거울 자세를 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'm', x: 160, y: 80, r: 0 }, { shape: 'rect', color: '파랑', size: 'l', x: 160, y: 180, r: 90 }, { shape: 'rect', color: '빨강', size: 'm', x: 100, y: 120, r: 315 }] }, caption: '리더 자세 보고 거울 자세 그리기' }] },
+        { type: 'figure', wide: true, prompt: '점선을 거울로 보고, 오른쪽에 거울 자세를 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical', printColors: false }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'm', x: 160, y: 80, r: 0 }, { shape: 'rect', color: '파랑', size: 'l', x: 160, y: 180, r: 90 }, { shape: 'rect', color: '빨강', size: 'm', x: 100, y: 120, r: 315 }] }, caption: '리더 자세 보고 거울 자세 그리기' }] },
         { type: 'choice', prompt: '마주 본 짝이 오른손을 들었어요. 거울이 된 나는 어느 손을 드나요?', options: ['오른손', '왼손'], answer: '왼손' },
         { type: 'check', prompt: '거울 놀이에서 지킨 약속에 ✓ 하세요.', options: ['천천히 움직였어요', '짝의 눈을 보았어요', '리더를 바꾸어 했어요'] },
         { type: 'draw', prompt: '짝과 거울 놀이를 하는 모습을 그려 보세요.' },
@@ -1909,7 +1909,7 @@
       title: '새 달리기 길',
       items: [
         { type: 'short', prompt: '지난 길에서 바꾼 점을 쓰세요.' },
-        { type: 'figure', prompt: '가운데 선을 보고, 오른쪽에 똑같은 길을 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ state: { pieces: [{ shape: 'triangle', color: '주황', size: 'm', x: 200, y: 100, r: 0 }, { shape: 'triangle', color: '주황', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 200, y: 300, r: 0 }] }, caption: '왼쪽 길 보고 오른쪽 길 그리기' }] },
+        { type: 'figure', wide: true, prompt: '가운데 선을 보고, 오른쪽에 똑같은 길을 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical', printColors: false }, figures: [{ state: { pieces: [{ shape: 'triangle', color: '주황', size: 'm', x: 200, y: 100, r: 0 }, { shape: 'triangle', color: '주황', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 200, y: 300, r: 0 }] }, caption: '왼쪽 길 보고 오른쪽 길 그리기' }] },
         { type: 'choice', prompt: '길을 안전하게 바꾸는 방법에 ○ 하세요.', options: ['고깔을 더 놓아요', '눈을 감고 달려요', '고깔을 밟아요'], answer: '고깔을 더 놓아요' },
         { type: 'check', prompt: '오늘 해낸 것에 ✓ 하세요.', options: ['바꿀 점을 말했어요', '새 길을 꾸몄어요', '새 길을 달려 보았어요'] },
       ],

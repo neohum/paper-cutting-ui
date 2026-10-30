@@ -205,7 +205,7 @@
     worksheet: {
       title: '바르게 앉아요',
       items: [
-        { type: 'figure', prompt: '바르게 앉을 때 등받이에 붙여 곧게 펴는 곳에 ○ 하세요.', tool: 'body', figures: [{ options: { mode: 'parts', parts: ['목', '어깨', '허리', '무릎', '발목'] }, caption: '' }], answer: '허리' },
+        { type: 'figure', wide: true, prompt: '바르게 앉을 때 등받이에 붙여 곧게 펴는 곳에 ○ 하세요.', tool: 'body', figures: [{ options: { wide: true, mode: 'parts', parts: ['목', '어깨', '허리', '무릎', '발목'] }, caption: '' }], answer: '허리' },
         { type: 'check', prompt: '바르게 앉은 모습에 모두 ✓ 하세요.', options: ['등을 등받이에 붙여요', '다리를 꼬아요', '두 발을 바닥에 붙여요', '턱을 괴어요'] },
         { type: 'choice', prompt: '글씨를 쓸 때 눈과 공책 사이는 얼마나 띄울까요?', options: ['바짝 붙여요', '한 뼘쯤 띄워요', '팔 길이만큼 멀리 해요'], answer: '한 뼘쯤 띄워요' },
         { type: 'draw', prompt: '의자에 바르게 앉은 내 모습을 그려 보세요.' },
@@ -650,7 +650,7 @@
       title: '칭찬을 세 갈래로',
       items: [
         { type: 'table', prompt: '칭찬 카드를 알맞은 칸에 쓰세요: 혼자 이를 닦았어요 / 친구를 일으켜 줬어요 / 물을 잠갔어요', columns: ['나를 돌본 일', '남을 도운 일', '아낀 일'], rows: 1 },
-        { type: 'figure', prompt: '그림표에서 가장 많은 갈래에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '칭찬 상자', unit: '장', data: [['나를 돌본 일', 4], ['남을 도운 일', 6], ['아낀 일', 2]], icons: [{ value: 1, name: '1장' }], icon: 'star' }, caption: '' }], answer: '남을 도운 일' },
+        { type: 'figure', wide: true, prompt: '그림표에서 가장 많은 갈래에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '칭찬 상자', unit: '장', data: [['나를 돌본 일', 4], ['남을 도운 일', 6], ['아낀 일', 2]], icons: [{ value: 1, name: '1장' }], icon: 'star' }, caption: '' }], answer: '남을 도운 일' },
         { type: 'choice', prompt: '함께 쓰는 것을 아낀 일에 ○ 하세요.', options: ['혼자 옷을 입었어요', '색종이를 나누어 썼어요', '친구를 도왔어요'], answer: '색종이를 나누어 썼어요' },
         { type: 'short', prompt: '내일 해 보고 싶은 칭찬할 일을 쓰세요.' },
       ],
@@ -1883,7 +1883,7 @@
       title: '몸이 좋아하는 일',
       items: [
         { type: 'table', prompt: '내가 하루에 하는 일을 나누어 쓰세요.', columns: ['몸에 좋은 일', '지나치면 해로운 일'], rows: 3 },
-        { type: 'figure', prompt: '화면을 오래 보면 힘든 곳에 ○ 하세요.', tool: 'body', figures: [{ options: { mode: 'parts', parts: ['눈', '귀', '피부', '허리', '무릎'] }, caption: '' }], answer: '눈' },
+        { type: 'figure', wide: true, prompt: '화면을 오래 보면 힘든 곳에 ○ 하세요.', tool: 'body', figures: [{ options: { wide: true, mode: 'parts', parts: ['눈', '귀', '피부', '허리', '무릎'] }, caption: '' }], answer: '눈' },
         { type: 'choice', prompt: '재미있지만 지나치면 해로운 일에 ○ 하세요.', options: ['과자 한 봉지 다 먹기', '손 씻기'], answer: '과자 한 봉지 다 먹기' },
         { type: 'short', prompt: '내가 줄여야 할 일 하나와 줄이는 방법을 쓰세요.' },
       ],

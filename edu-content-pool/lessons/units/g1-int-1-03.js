@@ -60,6 +60,11 @@
   function KR(names, extra) {
     return merge({ grid: [6, 6], heights: KR_HEIGHTS, heightLegend: false, title: '우리나라 칸 지도', places: names.map(function (n) { return KR_PLACES[n]; }) }, extra);
   }
+  // 활동지용 낮은 칸 지도: 그림 높이가 52mm로 막혀 있어 6줄이면 글자가 5.5pt 밑으로 줄어든다. 4줄만 두고 아래쪽 장소는 4째 줄로 올린다.
+  var KR_SHORT_AT = { 부산: [4, 3], 제주도: [1, 3] };
+  function KR4(names, extra) {
+    return merge({ grid: [6, 4], heights: KR_HEIGHTS.slice(0, 4), heightLegend: false, legend: false, title: '우리나라 칸 지도', places: names.map(function (n) { var p = KR_PLACES[n]; return KR_SHORT_AT[n] ? { name: p.name, icon: p.icon, at: KR_SHORT_AT[n] } : p; }) }, extra);
+  }
   // 세계 칸 지도(어림): 나라 자리만 어림해 놓았다.
   var W_PLACES = {
     우리나라: { name: '우리나라', icon: 'capital', at: [5, 1] },
@@ -310,7 +315,7 @@
     worksheet: {
       title: '우리나라 칸 지도',
       items: [
-        { type: 'figure', wide: true, prompt: '수도에 ○, 가장 큰 섬에 △ 하세요.', tool: 'map', figures: [{ options: KR(['서울', '부산', '제주도', '독도']), caption: '' }], answer: '서울 ○, 제주도 △' },
+        { type: 'figure', wide: true, prompt: '수도에 ○, 가장 큰 섬에 △ 하세요.', tool: 'map', figures: [{ options: KR4(['서울', '부산', '제주도', '독도']), caption: '' }], answer: '서울 ○, 제주도 △' },
         { type: 'choice', prompt: '동해에 있는 우리 섬에 ○ 하세요.', options: ['독도', '제주도', '서울'], answer: '독도' },
         { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '우리나라는 ___ 쪽이 바다예요.', answer: '세' },
         { type: 'short', prompt: '지도를 보고 궁금해진 것을 물음으로 쓰세요.' },
@@ -732,7 +737,7 @@
       items: [
         { type: 'table', prompt: '계절마다 볼 수 있는 것을 쓰거나 그리세요.', columns: ['봄', '여름', '가을', '겨울'], rows: 1 },
         { type: 'choice', prompt: '겨울을 알려 주는 단서에 ○ 하세요.', options: ['두꺼운 털모자', '반소매 옷', '진달래'], answer: '두꺼운 털모자' },
-        { type: 'figure', wide: true, prompt: '가장 높은 곳에 ○ 하세요.', tool: 'map', figures: [{ options: KR(['서울', '부산', '백두산'], { mode: 'terrain', heightLegend: true }), caption: '' }], answer: '백두산 칸' },
+        { type: 'figure', wide: true, prompt: '가장 높은 곳에 ○ 하세요.', tool: 'map', figures: [{ options: KR4(['서울', '부산', '백두산'], { mode: 'terrain', heightLegend: true }), caption: '' }], answer: '백두산 칸' },
         { type: 'short', prompt: '내가 좋아하는 계절과 그 까닭을 쓰세요.' },
       ],
       easy: {
