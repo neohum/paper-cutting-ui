@@ -1591,7 +1591,7 @@
         worksheet: {
           title: '강강술래',
           items: [
-            { type: 'figure', prompt: '덕석몰기 장면 카드에 일어나는 차례 번호를 쓰세요.', tool: 'story', wide: true, options: { cards: [{ id: 'center', text: '가운데 모이기', motif: 'star' }, { id: 'circle', text: '큰 원 그리기', motif: 'moon' }, { id: 'unroll', text: '반대로 풀기', motif: 'wave' }, { id: 'roll', text: '안으로 감기', motif: 'leaf' }], slots: 4 }, figures: [{ state: {}, caption: '1 (     ) → 2 (     ) → 3 (     ) → 4 (     )' }], answer: '큰 원 → 안으로 감기 → 가운데 모이기 → 반대로 풀기' },
+            { type: 'figure', prompt: '덕석몰기 장면 카드에 일어나는 차례 번호를 쓰세요.', tool: 'story', wide: true, options: { cards: [{ id: 'center', text: '모이기', motif: 'star' }, { id: 'circle', text: '원 그리기', motif: 'moon' }, { id: 'unroll', text: '풀기', motif: 'wave' }, { id: 'roll', text: '감기', motif: 'leaf' }], slots: 4 }, figures: [{ state: {}, caption: '1 (     ) → 2 (     ) → 3 (     ) → 4 (     )' }], answer: '큰 원 → 안으로 감기 → 가운데 모이기 → 반대로 풀기' },
             { type: 'table', prompt: '빠르기마다 돈 바퀴 수와 느낌을 쓰세요.', columns: ['빠르기', '바퀴 수', '느낌'], cells: [['늦은 가락', '', ''], ['중간 가락', '', ''], ['잦은 가락', '', '']] },
             { type: 'choice', prompt: '강강술래를 주로 하던 때에 ○ 하세요.', options: ['한가위 밤', '한여름 낮', '설날 아침'], answer: '한가위 밤' },
             { type: 'short', prompt: '강강술래에서 가장 아름답다고 느낀 장면과 그 까닭을 쓰세요.' },
@@ -1901,7 +1901,7 @@
           title: '우리 모둠 작품 짜기',
           items: [
             { type: 'table', prompt: '우리 모둠 작품의 장면을 쓰세요.', columns: ['', '처음', '가운데', '끝'], cells: [['장면', '', '', ''], ['움직임(크기·빠르기)', '', '', ''], ['대형', '', '', '']] },
-            { type: 'figure', prompt: '접는 선을 기준으로 양쪽이 같도록 오른쪽에 친구 자리(○)를 그려 넣으세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ state: { pieces: [{ shape: 'circle', color: '파랑', size: 'm', x: 220, y: 120, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 220, y: 280, r: 0 }] }, caption: '' }], answer: '오른쪽 (340,120)·(400,200)·(340,280) 자리에 ○' },
+            { type: 'figure', wide: true, prompt: '접는 선을 기준으로 양쪽이 같도록 오른쪽에 친구 자리(○)를 그려 넣으세요.', tool: 'collage', options: { guide: 'vertical', printColors: false }, figures: [{ state: { pieces: [{ shape: 'circle', color: '파랑', size: 'm', x: 220, y: 120, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 220, y: 280, r: 0 }] }, caption: '' }], answer: '오른쪽 (340,120)·(400,200)·(340,280) 자리에 ○' },
             { type: 'choice', prompt: '작품에서 가장 크고 힘찬 장면이 오기 좋은 곳에 ○ 하세요.', options: ['처음', '가운데', '끝'], answer: '가운데' },
             { type: 'draw', prompt: '우리 모둠의 끝 대형을 위에서 본 모습으로 그리세요(한 사람 = ○).' },
           ],
@@ -2105,7 +2105,7 @@
               items: [
                 { prompt: '세 부분마다 처음과 견주어 자란 만큼 나에게 별(1~5개)을 주어 적어요.', toolOptions: { fields: [{ label: '리듬과 움직임', unit: '개', max: 5 }, { label: '도구와 움직임', unit: '개', max: 5 }, { label: '감상과 바꾸기', unit: '개', max: 5 }] }, target: { records: true }, levels: { challenge: { toolOptions: { fields: [{ label: '리듬과 움직임', unit: '개', max: 5 }, { label: '도구와 움직임', unit: '개', max: 5 }, { label: '감상과 바꾸기', unit: '개', max: 5 }, { label: '가장 많은 별과 가장 적은 별의 차이', unit: '개', max: 5 }] } } }, difficulty: 0.1 },
                 { prompt: '단원을 돌아보며 해낸 것을 자기 평가 목록에 표시해요.', target: { selfCheck: ['박과 센 박에 맞춰 움직일 수 있어요', '도구와 몸짓을 함께 움직여 흐름을 만들 수 있어요', '마음에 남은 움직임을 근거 들어 말할 수 있어요', '마음에 든 동작을 내 방식으로 바꿀 수 있어요'] }, difficulty: 0.1 },
-                { prompt: '마무리 표현을 단원에서 배운 차례대로 이어 하도록 카드를 놓아요.', toolOptions: { cards: ['리본으로 8박 흐름', '마음에 든 동작 바꾸어 보이기', '박에 맞춰 걷다 멈추기', '굿거리에 부채 펴기'] }, target: { order: ['박에 맞춰 걷다 멈추기', '리본으로 8박 흐름', '마음에 든 동작 바꾸어 보이기', '굿거리에 부채 펴기'] }, levels: { easy: { state: { order: ['박에 맞춰 걷다 멈추기', '리본으로 8박 흐름', '마음에 든 동작 바꾸어 보이기', '굿거리에 부채 펴기'] } } }, difficulty: 0.2,
+                { prompt: '마무리 표현을 단원에서 배운 차례대로 이어 하도록 카드를 놓아요.', toolOptions: { cards: ['리본으로 8박 흐름', '마음에 든 동작 바꾸어 보이기', '박에 맞춰 걷다 멈추기', '굿거리에 부채 펴기'] }, target: { order: ['박에 맞춰 걷다 멈추기', '리본으로 8박 흐름', '마음에 든 동작 바꾸어 보이기', '굿거리에 부채 펴기'] }, levels: { easy: { state: { order: ['리본으로 8박 흐름', '박에 맞춰 걷다 멈추기', '마음에 든 동작 바꾸어 보이기', '굿거리에 부채 펴기'] } } }, difficulty: 0.2,
                   hints: ['단원은 몸으로 박을 느끼는 것에서 시작해 도구를 들고 움직였고, 뒤쪽에서는 감상한 동작으로 내 표현과 작품을 만들었어요. 활동지에 적힌 차시 번호를 떠올려 보세요.', '동작 바꾸기와 부채 펴기 가운데 어느 시간을 먼저 했는지 활동지를 넘겨 확인해 보세요.'] },
               ],
             },

@@ -1570,7 +1570,7 @@
     worksheet: {
       title: '세 갈래 물음',
       items: [
-        { type: 'figure', wide: true, prompt: '물음 카드가 들어갈 칸을 선으로 이으세요.', tool: 'mindmap', figures: [{ options: { topic: '무엇을 묻나요?', slots: ['먹이 물음', '사는 곳 물음', '생김새 물음'], cards: ['벌은 무엇을 먹을까?', '벌집은 어디에 있을까?', '벌 날개는 몇 장일까?'] }, caption: '' }], answer: '먹이-무엇을 먹을까, 사는 곳-벌집은 어디에, 생김새-날개는 몇 장' },
+        { type: 'figure', wide: true, prompt: '물음 카드가 들어갈 칸을 선으로 이으세요.', tool: 'mindmap', figures: [{ options: { cardW: 140, cardH: 44, topic: '무엇을 묻나요?', slots: ['먹이 물음', '사는 곳 물음', '생김새 물음'], cards: ['무엇을 먹을까?', '어디에 살까?', '날개는 몇 장?'] }, caption: '' }], answer: '먹이-무엇을 먹을까, 사는 곳-어디에 살까, 생김새-날개는 몇 장' },
         { type: 'table', prompt: '내가 고른 생물에게 할 물음을 칸마다 하나씩 쓰세요.', columns: ['먹이 물음', '사는 곳 물음', '생김새 물음'], rows: 1 },
         { type: 'short', prompt: '내 물음의 답을 어디에서 살펴볼지 쓰세요.' },
         { type: 'choice', prompt: '"지렁이는 낮에 어디에 숨을까?"는 어떤 물음인가요?', options: ['먹이 물음', '사는 곳 물음', '생김새 물음'], answer: '사는 곳 물음' },
@@ -1703,8 +1703,8 @@
             items: [
               { prompt: '개미와 달팽이 물음을 답을 찾는 방법으로 나누어 보세요.', toolOptions: { topic: '어떻게 알까?', slots: ['살펴서 알아요', '찾아봐야 알아요'], cards: ['개미는 줄지어 다닐까?', '달팽이 껍데기는 무슨 색일까?', '개미집 속에는 방이 몇 개일까?', '달팽이는 겨울에 어떻게 지낼까?'] },
                 target: { sort: { '살펴서 알아요': ['개미는 줄지어 다닐까?', '달팽이 껍데기는 무슨 색일까?'], '찾아봐야 알아요': ['개미집 속에는 방이 몇 개일까?', '달팽이는 겨울에 어떻게 지낼까?'] } }, difficulty: 0.25 },
-              { prompt: '민들레와 참새 물음을 답을 찾는 방법으로 나누어 보세요.', toolOptions: { topic: '어떻게 알까?', slots: ['살펴서 알아요', '찾아봐야 알아요'], cards: ['민들레 꽃잎은 무슨 색일까?', '참새는 운동장에서 무엇을 쪼을까?', '참새는 몇 년을 살까?', '민들레 씨는 가장 멀리 어디까지 갈까?'] },
-                target: { sort: { '살펴서 알아요': ['민들레 꽃잎은 무슨 색일까?', '참새는 운동장에서 무엇을 쪼을까?'], '찾아봐야 알아요': ['참새는 몇 년을 살까?', '민들레 씨는 가장 멀리 어디까지 갈까?'] } }, difficulty: 0.3,
+              { prompt: '민들레와 참새 물음을 답을 찾는 방법으로 나누어 보세요.', toolOptions: { topic: '어떻게 알까?', slots: ['살펴서 알아요', '찾아봐야 알아요'], cards: ['민들레 꽃잎은 무슨 색일까?', '참새는 운동장에서 무엇을 쪼아 먹을까?', '참새는 몇 년을 살까?', '민들레 씨는 가장 멀리 어디까지 갈까?'] },
+                target: { sort: { '살펴서 알아요': ['민들레 꽃잎은 무슨 색일까?', '참새는 운동장에서 무엇을 쪼아 먹을까?'], '찾아봐야 알아요': ['참새는 몇 년을 살까?', '민들레 씨는 가장 멀리 어디까지 갈까?'] } }, difficulty: 0.3,
                 predict: { q: '참새가 몇 년을 사는지 오늘 살펴서 알 수 있을까요?', options: ['알 수 있어요', '찾아봐야 해요'], answer: 1 },
                 conclude: '오랜 시간이나 보이지 않는 곳을 묻는 물음은 책이나 어른께 찾아봐요.' },
               { prompt: '물음을 나누어 보세요. 물음이 아닌 카드는 남겨요.', toolOptions: { topic: '어떻게 알까?', slots: ['살펴서 알아요', '찾아봐야 알아요'], cards: ['나비 날개는 몇 장일까?', '나비는 알을 몇 개 낳을까?', '나비가 예뻐요.'] },
@@ -1875,8 +1875,8 @@
             task: '막연한 물음을 자세한 물음과 잇거나, 자세한 물음을 골라요.',
             levels: CARD_LV,
             items: [
-              { prompt: '막연한 물음마다 더 자세하게 바꾼 물음을 이어 보세요.', toolOptions: { mode: 'match', topic: '자세하게 바꾸기', slots: [{ id: 's1', label: '민들레는 왜 그래?' }, { id: 's2', label: '참새는?' }, { id: 's3', label: '달팽이 신기해?' }], cards: ['민들레꽃은 왜 저녁에 오므릴까?', '참새는 하루에 몇 번 먹이를 쪼을까?', '달팽이는 어디로 기어갈까?'] },
-                target: { match: { s1: '민들레꽃은 왜 저녁에 오므릴까?', s2: '참새는 하루에 몇 번 먹이를 쪼을까?', s3: '달팽이는 어디로 기어갈까?' } }, difficulty: 0.2 },
+              { prompt: '막연한 물음마다 더 자세하게 바꾼 물음을 이어 보세요.', toolOptions: { mode: 'match', topic: '자세하게 바꾸기', slots: [{ id: 's1', label: '민들레는 왜 그래?' }, { id: 's2', label: '참새는?' }, { id: 's3', label: '달팽이 신기해?' }], cards: ['민들레꽃은 왜 저녁에 오므릴까?', '참새는 하루에 몇 번 먹이를 쪼아 먹을까?', '달팽이는 어디로 기어갈까?'] },
+                target: { match: { s1: '민들레꽃은 왜 저녁에 오므릴까?', s2: '참새는 하루에 몇 번 먹이를 쪼아 먹을까?', s3: '달팽이는 어디로 기어갈까?' } }, difficulty: 0.2 },
               { prompt: '물음을 자세한 물음과 막연한 물음으로 나누어 보세요.', toolOptions: { topic: '어떤 물음일까?', slots: ['자세한 물음', '막연한 물음'], cards: ['무당벌레 등의 점은 몇 개일까?', '거미는 거미줄을 어디에 칠까?', '무당벌레는 어때?', '거미는?'] },
                 target: { sort: { '자세한 물음': ['무당벌레 등의 점은 몇 개일까?', '거미는 거미줄을 어디에 칠까?'], '막연한 물음': ['무당벌레는 어때?', '거미는?'] } }, difficulty: 0.15,
                 predict: { q: '"거미는?"이라고 물으면 무엇을 살펴볼지 알 수 있을까요?', options: ['알 수 있어요', '알기 어려워요'], answer: 1 },
@@ -2831,8 +2831,8 @@
             items: [
               { prompt: '걱정되는 일을 쓰레기·물·공기 걱정으로 나누어 보세요.', toolOptions: { topic: '무엇이 걱정될까?', slots: ['쓰레기', '물', '공기'], cards: ['운동장 구석에 페트병이 쌓였어요', '수돗물을 틀어 놓고 이를 닦아요', '미세먼지로 바깥 놀이를 못 해요'] },
                 target: { sort: { '쓰레기': ['운동장 구석에 페트병이 쌓였어요'], '물': ['수돗물을 틀어 놓고 이를 닦아요'], '공기': ['미세먼지로 바깥 놀이를 못 해요'] } }, difficulty: 0.1 },
-              { prompt: '걱정되는 일을 더 많이 나누어 보세요.', toolOptions: { topic: '무엇이 걱정될까?', slots: ['쓰레기', '물', '공기'], cards: ['급식 반찬이 많이 버려져요', '바닷가에 비닐봉지가 떠다녀요', '비가 안 와서 저수지가 말랐어요', '하천에 기름이 둥둥 떠 있어요', '자동차 연기로 목이 따가워요'] },
-                target: { sort: { '쓰레기': ['급식 반찬이 많이 버려져요', '바닷가에 비닐봉지가 떠다녀요'], '물': ['비가 안 와서 저수지가 말랐어요', '하천에 기름이 둥둥 떠 있어요'], '공기': ['자동차 연기로 목이 따가워요'] } }, difficulty: 0.25,
+              { prompt: '걱정되는 일을 더 많이 나누어 보세요.', toolOptions: { topic: '무엇이 걱정될까?', slots: ['쓰레기', '물', '공기'], cards: ['급식 반찬이 많이 버려져요', '공원 풀밭에 과자 봉지가 버려져 있어요', '비가 안 와서 저수지가 말랐어요', '하천에 기름이 둥둥 떠 있어요', '자동차 연기로 목이 따가워요'] },
+                target: { sort: { '쓰레기': ['급식 반찬이 많이 버려져요', '공원 풀밭에 과자 봉지가 버려져 있어요'], '물': ['비가 안 와서 저수지가 말랐어요', '하천에 기름이 둥둥 떠 있어요'], '공기': ['자동차 연기로 목이 따가워요'] } }, difficulty: 0.25,
                 hints: ['카드마다 무엇이 버려지거나, 모자라거나, 더러워지는지 먼저 찾아요.', '어긋난 카드를 짚어 보세요. 바닷가 비닐봉지는 물 위에 있지만 버려진 물건이에요.', '반찬·비닐봉지는 쓰레기, 저수지·기름 하천은 물, 자동차 연기는 공기예요.'],
                 levels: { easy: { prompt: '걱정되는 일을 더 많이 나누어 보세요. 카드가 세 장이에요.', toolOptions: { cards: ['급식 반찬이 많이 버려져요', '비가 안 와서 저수지가 말랐어요', '자동차 연기로 목이 따가워요'] },
                   target: { sort: { '쓰레기': ['급식 반찬이 많이 버려져요'], '물': ['비가 안 와서 저수지가 말랐어요'], '공기': ['자동차 연기로 목이 따가워요'] } } } } },
@@ -2860,7 +2860,7 @@
         id: 'wrapup', title: '정리', minutes: 7,
         teacher: '"칠판에 붙은 걱정 그림 가운데 쓰레기 걱정은 몇 장인가요? 물 걱정은요?" 함께 세어 본다. 출구 첫 문항을 틀린 학생에게는 카드에서 \'무엇이\' 아픈지 먼저 찾게 한다. 다음 시간에는 이 걱정을 물음으로 바꿔 본다고 알린다.',
         exitTicket: [
-          { type: 'tool', tool: 'mindmap', options: { topic: '무엇이 걱정될까?', slots: ['쓰레기', '물', '공기'], cards: ['공원 벤치에 컵라면 용기가 남아 있어요', '샤워기 물을 오래 틀어 놓아요', '쓰레기를 태우는 냄새가 나요'] }, prompt: '걱정되는 일을 나누어 보세요.', target: { sort: { '쓰레기': ['공원 벤치에 컵라면 용기가 남아 있어요'], '물': ['샤워기 물을 오래 틀어 놓아요'], '공기': ['쓰레기를 태우는 냄새가 나요'] } }, difficulty: 0.2 },
+          { type: 'tool', tool: 'mindmap', options: { topic: '무엇이 걱정될까?', slots: ['쓰레기', '물', '공기'], cards: ['공원 벤치에 컵라면 용기가 남아 있어요', '샤워기 물을 오래 틀어 놓아요', '공장 굴뚝 연기로 하늘이 뿌예요'] }, prompt: '걱정되는 일을 나누어 보세요.', target: { sort: { '쓰레기': ['공원 벤치에 컵라면 용기가 남아 있어요'], '물': ['샤워기 물을 오래 틀어 놓아요'], '공기': ['공장 굴뚝 연기로 하늘이 뿌예요'] } }, difficulty: 0.2 },
           { type: 'choice', prompt: '오늘 찾은 걱정과 거리가 먼 것은 무엇인가요?', options: ['개울에 버려진 캔', '새는 수도꼭지', '좋아하는 만화가 끝났어요'], answer: 2, difficulty: 0.1, explain: '만화가 끝난 것은 내 마음의 일이고, 땅·물·공기가 아파하는 일은 아니에요.' },
           MOOD,
         ],
@@ -3321,12 +3321,912 @@
     teacherNotes: '자주 보이는 어려움: ① 다시 쓰려고 멀쩡한 새 물건을 자르려 한다 → 다시 쓰기는 버릴 물건이 재료라는 것을 짚는다. ② 장식에만 몰두해 쓸모를 잊는다 → "이 작품을 어디에 쓸까요?"라고 묻는다. ③ 재료가 모자란다 → 일주일 전 가정에 깨끗한 휴지 심·작은 상자를 모아 달라고 안내한다. 페트병은 미리 반으로 잘라 자른 면에 테이프를 감아 둔다.',
   }));
 
+  // ───────────────────────── 39~43차시: 교실·급식·집의 쓰레기를 세어 읽기(관찰과 자료 읽기) ─────────────────────────
+
+  // 쓰레기를 직접 만지거나 분리배출장에 가는 차시의 안전 약속
+  var TRASH = ['쓰레기는 비닐장갑을 끼고 만져요.', '뾰족하거나 깨진 것이 보이면 만지지 말고 선생님께 알려요.', '다 센 뒤에는 장갑을 벗고 손을 비누로 씻어요.'];
+  var ONE = function (unit) { return [{ value: 1, name: '1' + unit }]; };
+
+  lessons.push(L(39, {
+    title: '교실 휴지통 쓰레기를 종류별로 세어 표에 적기',
+    objective: '교실에서 하루 동안 나온 쓰레기를 종이·플라스틱·비닐로 나누어 세어 표에 적고, 가장 많이 나온 종류를 찾을 수 있다.',
+    illustration: ART('children in gloves sorting classroom trash into three paper trays for paper, plastic and vinyl, counting with their fingers', '세어 보면 알아요', [
+      { motif: 'star', x: 120, y: 100, s: 0.5 }, { motif: 'house', x: 400, y: 212 }, { motif: 'leaf', x: 90, y: 230 }]),
+    safety: TRASH,
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"34차시에 별표한 물음이 있었지요. \'우리 반 휴지통에는 무엇이 가장 많을까?\' 오늘은 이 물음의 답을 직접 세어서 찾아요." 어제 하루 모아 둔 교실 쓰레기 봉투를 보여 준다. "눈으로만 보면 무엇이 가장 많을 것 같나요?" 두세 명의 어림을 칠판 구석에 적어 둔다. 시연 단추로 쓰레기 카드가 종이·플라스틱·비닐 칸에 나뉘는 모습을 보여 준다.',
+        student: '휴지통에 무엇이 가장 많을지 어림해서 짝에게 말해 봐요.',
+        demo: { tool: 'mindmap', options: { topic: '무엇으로 만들었을까?', slots: ['종이', '플라스틱', '비닐'], cards: ['찢어진 알림장', '빈 물약 컵', '김 봉지'], shuffle: false }, sequence: [{ sort: { '종이': ['찢어진 알림장'], '플라스틱': ['빈 물약 컵'], '비닐': ['김 봉지'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 쓰레기 종류 나누기', minutes: 11, tool: 'mindmap',
+            teacher: '"이 쓰레기는 무엇으로 만들었나요? 종이는 쉽게 찢어지고, 플라스틱은 딱딱하고, 비닐은 얇고 바스락거려요." 깨끗한 실물(이면지, 요구르트 병, 과자 봉지)을 하나씩 들어 보이며 만져 보게 한다. 귤껍질처럼 먹고 남은 것은 세 칸 어디에도 들어가지 않는다는 것을 짚는다.',
+            task: '쓰레기 카드를 무엇으로 만들었는지에 따라 종이, 플라스틱, 비닐로 나누어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '교실 쓰레기 카드를 종이·플라스틱·비닐로 나누어 보세요.', toolOptions: { topic: '무엇으로 만들었을까?', slots: ['종이', '플라스틱', '비닐'], cards: ['구겨진 이면지', '요구르트 병', '과자 봉지'] },
+                target: { sort: { '종이': ['구겨진 이면지'], '플라스틱': ['요구르트 병'], '비닐': ['과자 봉지'] } }, difficulty: 0.1,
+                hints: ['카드마다 쉽게 찢어지는지, 딱딱한지, 얇고 바스락거리는지 떠올려요.', '칸이 어긋난 카드가 있어요. 그 물건을 손으로 구기면 어떻게 될지 떠올려 봐요.', '이면지는 종이, 요구르트 병은 플라스틱, 과자 봉지는 비닐이에요.'],
+                levels: { challenge: { prompt: '교실 쓰레기 카드를 나누어 보세요. 세 칸 어디에도 들어가지 않는 쓰레기는 남겨요.', toolOptions: { cards: ['구겨진 이면지', '요구르트 병', '과자 봉지', '먹다 남은 귤껍질'] } } } },
+              { prompt: '쓰레기 카드가 더 많아요. 무엇으로 만들었는지에 따라 나누어 보세요.', toolOptions: { topic: '무엇으로 만들었을까?', slots: ['종이', '플라스틱', '비닐'], cards: ['색종이 자투리', '다 쓴 공책 한 장', '플라스틱 숟가락', '부러진 플라스틱 자', '사탕 비닐 껍질', '빵 봉지'] },
+                target: { sort: { '종이': ['색종이 자투리', '다 쓴 공책 한 장'], '플라스틱': ['플라스틱 숟가락', '부러진 플라스틱 자'], '비닐': ['사탕 비닐 껍질', '빵 봉지'] } }, difficulty: 0.2,
+                hints: ['카드마다 쉽게 찢어지는지, 딱딱한지, 얇고 바스락거리는지 떠올려요.', '칸이 어긋난 카드를 짚어 보세요. 그 물건이 찢어지는지, 딱딱한지 다시 따져요.', '색종이·공책은 종이, 숟가락·자는 플라스틱, 사탕 껍질·빵 봉지는 비닐이에요.'],
+                levels: {
+                  easy: { prompt: '쓰레기 카드 세 장을 무엇으로 만들었는지에 따라 나누어 보세요.', toolOptions: { cards: ['색종이 자투리', '플라스틱 숟가락', '빵 봉지'] }, target: { sort: { '종이': ['색종이 자투리'], '플라스틱': ['플라스틱 숟가락'], '비닐': ['빵 봉지'] } } },
+                  challenge: { prompt: '쓰레기 카드를 나누어 보세요. 세 칸 어디에도 들어가지 않는 쓰레기는 남겨요.', toolOptions: { cards: ['색종이 자투리', '다 쓴 공책 한 장', '플라스틱 숟가락', '부러진 플라스틱 자', '사탕 비닐 껍질', '빵 봉지', '먹다 남은 빵 조각'] } },
+                } },
+              { prompt: '쓰레기를 세어 보면 좋은 점만 골라 보세요.', toolOptions: { mode: 'pick', topic: '세어 보면 좋아요', cards: ['무엇이 가장 많이 나오는지 알 수 있어요', '나중에 줄었는지 견주어 볼 수 있어요', '세기만 하면 쓰레기가 없어져요', '세면 휴지통이 저절로 깨끗해져요'] },
+                target: { pick: ['무엇이 가장 많이 나오는지 알 수 있어요', '나중에 줄었는지 견주어 볼 수 있어요'] }, difficulty: 0.15,
+                hints: ['세어 본 수로 무엇을 알게 되는지 생각해요. 세는 것만으로 쓰레기가 바뀌는지도 따져요.', '고른 것 가운데 세기만 해도 저절로 일어난다는 말이 있는지 살펴봐요.', '가장 많은 것을 알 수 있다는 말과 나중에 견주어 볼 수 있다는 말이에요.'],
+                predict: { q: '쓰레기를 꼭 세어 봐야 할까요?', options: ['필요 없어요', '세어야 알아요'], answer: 1 },
+                conclude: '세어 보면 무엇이 많은지 알고, 무엇부터 줄일지 정할 수 있어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 센 수를 표와 그림그래프로', minutes: 16, tool: 'chart',
+            teacher: '모둠마다 비닐장갑을 끼고 쓰레기를 종이·플라스틱·비닐 쟁반에 나눈 뒤 하나씩 옆으로 옮기며 센다. "센 것은 옆으로 옮겨야 두 번 세지 않아요." 센 수를 활동지 표에 적게 한다. 그다음 화면에서 2반의 표를 그림그래프로 옮긴다. "그림 하나가 쓰레기 한 개예요. 표의 수만큼 그림을 놓았는지 손가락으로 짚어 보세요." 2반·3반 수는 지어낸 예시라고 알려 준다.',
+            task: '모둠에서 쓰레기를 나누어 세고 활동지 표에 적어요. 그다음 표를 보고 그림그래프를 완성하고 가장 많은 종류를 찾아요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: '모둠 친구와 장갑을 끼고 쓰레기를 종류별로 나누어 세어요. 센 수를 활동지 표에 적고 "다 했어요"를 누르세요.', free: true, talk: true },
+              { prompt: '2반이 센 쓰레기 표를 보고 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '2반 하루 쓰레기', data: [['종이', 9], ['플라스틱', 4], ['비닐', 6]], unit: '개', xLabel: '종류', yLabel: '쓰레기 수', icon: 'square', icons: ONE('개') },
+                target: { build: true }, difficulty: 0.15,
+                levels: {
+                  easy: { toolOptions: { given: [0] } },
+                  challenge: { prompt: '2반이 센 쓰레기 표를 보고 그림그래프를 완성해 보세요. 종류가 넷이에요.', toolOptions: { data: [['종이', 9], ['플라스틱', 4], ['비닐', 6], ['캔', 2]] } },
+                } },
+              { prompt: '3반 그림그래프를 보고 가장 많이 나온 쓰레기를 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '3반 하루 쓰레기', data: [['종이', 5], ['플라스틱', 8], ['비닐', 3]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), choices: ['종이', '플라스틱', '비닐'], question: '가장 많이 나온 쓰레기는?', why: ['종이보다 그림이 더 많은 줄이 있어요.', '', '비닐 줄은 그림이 가장 짧아요.'], explain: '플라스틱 줄의 그림이 8개로 가장 길어요.' },
+                target: { pick: 1 }, difficulty: 0.1,
+                levels: { easy: { toolOptions: { showTable: true } } } },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '모둠마다 센 수를 칠판 표에 모아 적는다. "처음에 어림한 것과 세어 본 것이 같았나요?" 어림과 다른 모둠이 있으면 세어 보아야 알 수 있다는 것을 짚는다. 출구 첫 문항을 틀린 학생에게는 그림을 손가락으로 짚으며 세게 한다. 다음 시간에는 급식에서 남는 반찬을 세어 본다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '4반 하루 쓰레기', data: [['종이', 7], ['플라스틱', 2], ['비닐', 5]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), choices: ['종이', '플라스틱', '비닐'], question: '가장 적게 나온 쓰레기는?', explain: '플라스틱 줄의 그림이 2개로 가장 짧아요.' }, prompt: '4반 그림그래프를 보고 가장 적게 나온 쓰레기를 골라 보세요.', target: { pick: 1 }, difficulty: 0.15 },
+          { type: 'choice', prompt: '쓰레기를 세어 보아야 하는 까닭으로 알맞은 것은 무엇인가요?', options: ['무엇이 가장 많은지 알 수 있어요', '세면 쓰레기가 사라져요'], answer: 0, difficulty: 0.1, explain: '세어 보면 무엇이 많은지 알고, 무엇부터 줄일지 정할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 반 쓰레기 세기',
+      items: [
+        { type: 'table', prompt: '우리 모둠이 센 쓰레기 수를 쓰세요.', columns: ['종류', '센 수'], cells: [['종이', ''], ['플라스틱', ''], ['비닐', '']] },
+        { type: 'short', prompt: '우리 모둠에서 가장 많이 나온 쓰레기를 쓰세요.' },
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 종류마다 쓰레기 수를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '5반 하루 쓰레기', data: [['종이', 6], ['플라스틱', 3], ['비닐', 4]], unit: '개', icon: 'square', icons: ONE('개') }, caption: '종이 (   )개, 플라스틱 (   )개, 비닐 (   )개' }], answer: '종이 6개, 플라스틱 3개, 비닐 4개' },
+        { type: 'choice', prompt: '비닐 쓰레기에 ○ 하세요.', options: ['빵 봉지', '요구르트 병', '이면지'], answer: '빵 봉지' },
+        { type: 'short', prompt: '처음에 어림한 것과 세어 본 결과가 같았나요? 쓰세요.' },
+      ],
+      easy: {
+        note: '센 것은 옆으로 옮겨요. 그림 하나가 쓰레기 한 개예요.',
+        items: [
+          { type: 'table', prompt: '우리 모둠이 센 쓰레기 수를 쓰세요.', columns: ['종류', '센 수'], cells: [['종이', ''], ['플라스틱', ''], ['비닐', '']] },
+          { type: 'choice', prompt: '종이 쓰레기에 ○ 하세요.', options: ['구겨진 이면지', '과자 봉지'], answer: '구겨진 이면지' },
+          { type: 'figure', wide: true, prompt: '그림을 세어 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '쓰레기 수', data: [['종이', 4], ['비닐', 2]], unit: '개', icon: 'square', icons: ONE('개') }, caption: '종이 (   )개, 비닐 (   )개' }], answer: '종이 4개, 비닐 2개' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '카드가 세 장으로 줄고 맞는 칸에 초록 테두리가 생겨요. 그림그래프는 한 줄이 미리 그려져 있고, 읽기 문항에는 표도 함께 보여요.',
+      base: '모두 놓은 뒤 확인을 눌러요. 표의 수만큼 그림을 놓고 줄 길이로 가장 많은 것을 찾아요.',
+      challenge: '세 칸 어디에도 들어가지 않는 함정 카드가 있어요. 그림그래프는 종류가 넷이에요.',
+    },
+    teacherNotes: '준비: 전날 하루 동안 교실 휴지통 쓰레기를 따로 모아 두고, 음식물·코 푼 휴지·뾰족한 것은 미리 빼 둔다. 모둠마다 비닐장갑과 쟁반 세 개를 준비한다. 자주 보이는 어려움: ① 센 것을 또 센다 → 하나씩 옆 쟁반으로 옮기며 세게 한다. ② 어림한 수를 그대로 적는다 → "세어 보지 않으면 알 수 없어요"라고 짚는다. ③ 쓰레기는 세어 볼 필요가 없다고 여긴다(이 차시의 핵심 오개념) → 세어 본 수로 무엇부터 줄일지 정할 수 있다는 것을 칠판 표로 보여 준다.',
+  }));
+
+  lessons.push(L(40, {
+    title: '급식에서 남은 반찬 세어 그림그래프 그리기',
+    objective: '급식에서 반찬을 남긴 친구 수를 적은 표를 그림그래프로 나타내고, 가장 많이 남은 반찬과 두 반찬의 차이를 읽을 수 있다.',
+    illustration: ART('a school lunch tray made of paper with rice, soup and side dishes, next to a picture graph of little person icons on a board', '어떤 반찬이 남을까요?', [
+      { motif: 'sun', x: 120, y: 100, s: 0.5 }, { motif: 'flower', x: 380, y: 226 }, { motif: 'leaf', x: 90, y: 230 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"남긴 반찬은 어디로 갈까요? 음식물 쓰레기도 쓰레기예요." 39차시에 쓰레기를 종류별로 나누고 옮기며 센 방법을 떠올리게 한다. "어제 선생님이 잔반통 앞에서 반찬마다 남긴 그릇 수를 세어 두었어요. 누가 남겼는지는 적지 않았어요." 시연 단추로 표의 수만큼 그림이 쌓이는 모습을 보여 준다.',
+        student: '우리 반에서 가장 많이 남는 반찬이 무엇일지 어림해 봐요.',
+        demo: { tool: 'chart', options: { type: 'picture', title: '반찬을 남긴 친구', data: [['밥', 2], ['국', 4]], unit: '명', xLabel: '반찬', yLabel: '친구 수', icon: 'person', icons: ONE('명'), showTable: true }, sequence: [{ build: true }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 표를 보고 그림그래프 그리기', minutes: 14, tool: 'chart',
+            teacher: '"표에서 한 줄을 읽고, 그 수만큼 그림을 놓은 다음 다음 줄로 가요." 그림을 다 놓은 뒤 표의 수와 그림 수를 하나씩 짚어 견주게 한다. 차이를 묻는 문항에서는 "두 줄의 그림을 하나씩 짝지어 보고, 짝이 없는 그림을 세어 보세요." 큰 수를 그대로 답하는 학생에게는 "몇 명이에요?"가 아니라 "몇 명 더 많아요?"라고 다시 읽어 준다.',
+            task: '반찬을 남긴 친구 수 표를 보고 그림그래프를 완성하고, 두 반찬의 차이를 읽어요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: '1반 표를 보고 반찬을 남긴 친구 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '1반 반찬을 남긴 친구', data: [['밥', 3], ['국', 5], ['김치', 8]], unit: '명', xLabel: '반찬', yLabel: '친구 수', icon: 'person', icons: ONE('명') },
+                target: { build: true }, difficulty: 0.15,
+                levels: {
+                  easy: { toolOptions: { given: [0] } },
+                  challenge: { prompt: '1반 표를 보고 반찬을 남긴 친구 그림그래프를 완성해 보세요. 반찬이 넷이에요.', toolOptions: { data: [['밥', 3], ['국', 5], ['김치', 8], ['나물', 6]] } },
+                } },
+              { prompt: '2반 표를 보고 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '2반 반찬을 남긴 친구', data: [['멸치볶음', 7], ['미역국', 2], ['깍두기', 5], ['잡곡밥', 4]], unit: '명', xLabel: '반찬', yLabel: '친구 수', icon: 'person', icons: ONE('명') },
+                target: { build: true }, difficulty: 0.2,
+                levels: { easy: { toolOptions: { given: [0, 1] } } } },
+              { prompt: '그래프를 보고, 김치를 남긴 친구가 밥을 남긴 친구보다 몇 명 더 많은지 써 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '3반 반찬을 남긴 친구', data: [['밥', 2], ['국', 4], ['김치', 9]], unit: '명', xLabel: '반찬', icon: 'person', icons: ONE('명'), question: '김치는 밥보다 몇 명 더 많나요?', explain: '김치 9명에서 밥 2명을 빼면 7명이에요.' },
+                target: { value: 7 }, difficulty: 0.3, hints: ['두 줄의 그림을 하나씩 짝지어 보고, 짝이 없는 그림을 세어요.', '두 줄을 각각 다시 세어 보세요. 긴 줄에서 짝이 없는 그림만 세어요.'],
+                levels: { easy: { prompt: '그래프를 보고, 김치를 남긴 친구가 밥을 남긴 친구보다 몇 명 더 많은지 써 보세요. 줄이 두 개예요.', toolOptions: { data: [['밥', 2], ['김치', 5]], explain: '김치 5명에서 밥 2명을 빼면 3명이에요.' }, target: { value: 3 } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 우리 반 남은 반찬 읽기', minutes: 13, tool: 'chart',
+            teacher: '선생님이 어제 잔반통 앞에서 센 우리 반 표를 칠판에 붙인다. 모둠마다 붙임딱지로 칠판 그림그래프를 함께 만든다. "남긴 친구를 찾는 것이 아니에요. 어떤 반찬이 많이 남는지 알아보는 거예요." 화면 문항은 다른 반의 예시 그래프라고 알려 준다.',
+            task: '모둠이 함께 우리 반 그림그래프를 붙임딱지로 만들고, 화면의 그래프를 읽어 물음에 답해요.',
+            levels: { easy: { showTable: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '선생님이 센 우리 반 표를 보고, 모둠 친구와 붙임딱지로 칠판에 그림그래프를 만들어요. 다 만들면 "다 했어요"를 누르세요.', free: true, talk: true },
+              { prompt: '4반 그림그래프를 보고 가장 적게 남은 반찬을 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '4반 반찬을 남긴 친구', data: [['콩밥', 6], ['된장국', 4], ['시금치', 9], ['달걀말이', 1]], unit: '명', xLabel: '반찬', icon: 'person', icons: ONE('명'), choices: ['콩밥', '된장국', '시금치', '달걀말이'], question: '가장 적게 남은 반찬은?', why: ['콩밥은 그림이 꽤 많아요.', '된장국보다 그림이 더 적은 줄이 있어요.', '시금치 줄은 그림이 가장 길어요.', ''], explain: '달걀말이 줄의 그림이 1개로 가장 짧아요.' },
+                target: { pick: 3 }, difficulty: 0.15 },
+              { prompt: '5반 그림그래프를 보고 표의 빈칸에 친구 수를 써 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '5반 반찬을 남긴 친구', data: [['밥', 4], ['국', 6], ['나물', 8]], unit: '명', xLabel: '반찬', icon: 'person', icons: ONE('명'), tableBlanks: [0, 1, 2] },
+                target: { table: true }, difficulty: 0.2,
+                predict: { q: '나물이 가장 많이 남는다면 무엇부터 해 볼까요?', options: ['나물 줄이기', '밥 줄이기'], answer: 0 },
+                conclude: '가장 많이 남는 반찬을 알면, 그 반찬을 먹을 만큼만 받는 일부터 해 볼 수 있어요.' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"우리 반 칠판 그래프에서 가장 긴 줄은 어느 반찬인가요?" 함께 읽고 그 까닭을 두세 명에게 묻는다(맵다, 양이 많다 등). 남긴 친구를 탓하는 말이 나오면 바로 멈춘다. 출구 첫 문항을 틀린 학생에게는 줄 길이를 먼저 견주게 한다. 다음 시간에는 집에서 모은 재활용품을 센다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '6반 반찬을 남긴 친구', data: [['밥', 3], ['생선', 7], ['오이무침', 5]], unit: '명', xLabel: '반찬', icon: 'person', icons: ONE('명'), choices: ['밥', '생선', '오이무침'], question: '가장 많이 남은 반찬은?', explain: '생선 줄의 그림이 7개로 가장 길어요.' }, prompt: '6반 그림그래프를 보고 가장 많이 남은 반찬을 골라 보세요.', target: { pick: 1 }, difficulty: 0.15 },
+          { type: 'choice', prompt: '남은 반찬을 세어 보면 무엇을 할 수 있나요?', options: ['가장 많이 남는 반찬부터 줄일 방법을 찾아요', '세어 봐도 아무 쓸모가 없어요'], answer: 0, difficulty: 0.1, explain: '무엇이 가장 많이 남는지 알면 그것부터 줄일 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '남은 반찬 그림그래프',
+      items: [
+        { type: 'table', prompt: '칠판의 우리 반 표를 옮겨 쓰세요.', columns: ['반찬', '남긴 친구 수'], rows: 4 },
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 반찬마다 남긴 친구 수를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '7반 반찬을 남긴 친구', data: [['밥', 2], ['국', 6], ['버섯', 8]], unit: '명', icon: 'person', icons: ONE('명') }, caption: '밥 (   )명, 국 (   )명, 버섯 (   )명' }], answer: '밥 2명, 국 6명, 버섯 8명' },
+        { type: 'blank', prompt: '위 그래프에서 버섯을 남긴 친구는 밥을 남긴 친구보다 (   )명 더 많아요.', answer: '6' },
+        { type: 'short', prompt: '우리 반에서 가장 많이 남은 반찬은 무엇이고, 왜 남았을지 쓰세요.' },
+      ],
+      easy: {
+        note: '그림 하나가 친구 한 명이에요. 하나씩 짚으며 세어요.',
+        items: [
+          { type: 'figure', wide: true, prompt: '그림을 세어 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '남긴 친구', data: [['밥', 1], ['국', 4]], unit: '명', icon: 'person', icons: ONE('명') }, caption: '밥 (   )명, 국 (   )명' }], answer: '밥 1명, 국 4명' },
+          { type: 'choice', prompt: '위 그래프에서 더 많이 남은 것에 ○ 하세요.', options: ['밥', '국'], answer: '국' },
+          { type: 'short', prompt: '내가 자주 남기는 반찬을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '그림그래프에 한두 줄이 미리 그려져 있어요. 차이 문항은 줄이 두 개이고, 읽기 문항에는 표도 함께 보여요.',
+      base: '표의 수만큼 그림을 놓고, 두 줄의 그림을 짝지어 차이를 읽어요.',
+      challenge: '반찬이 넷인 그래프를 그려요. 차이를 읽은 뒤 짝에게 "어떻게 셌는지" 말해요.',
+    },
+    teacherNotes: '준비: 전날 급식 시간에 잔반통 앞에서 반찬마다 남긴 그릇 수만 세어 표로 만든다(누가 남겼는지는 적지 않는다). 알레르기·종교 때문에 먹지 않는 반찬은 표에서 뺀다. 자주 보이는 어려움: ① 남긴 친구를 찾아 탓한다 → 사람이 아니라 반찬을 세는 것이라고 짚는다. ② 차이를 구할 때 큰 수를 그대로 답한다 → 두 줄의 그림을 짝지어 짝이 없는 그림만 세게 한다. ③ 쓰레기는 세어 볼 필요가 없다고 여긴다 → 가장 많이 남는 반찬을 알면 무엇부터 줄일지 정할 수 있다고 말한다.',
+  }));
+
+  lessons.push(L(41, {
+    title: '집에서 모은 재활용품을 바르게 세고 그래프 읽기',
+    objective: '물건을 바르게 세는 방법과 차례를 고르고, 가족이 일주일 동안 모은 재활용품 그림그래프를 읽어 가장 많은 것과 두 종류의 차이를 말할 수 있다.',
+    illustration: ART('a family veranda with paper boxes, plastic bottles, cans and vinyl bags stacked in neat rows, a child counting them on a clipboard', '우리 집 재활용품', [
+      { motif: 'house', x: 400, y: 212 }, { motif: 'star', x: 120, y: 100, s: 0.5 }, { motif: 'leaf', x: 90, y: 230 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"준호가 집 베란다의 페트병을 세었는데, 두 번 세니까 수가 달랐어요. 왜 그랬을까요?" 생각을 두세 명에게 듣는다. "오늘은 바르게 세는 방법을 정하고, 집에서 모은 재활용품 그래프를 읽어요." 시연 단추로 세는 방법 가운데 알맞은 것이 표시되는 모습을 보여 준다.',
+        student: '물건을 셀 때 수가 헷갈렸던 적을 짝에게 말해 봐요.',
+        demo: { tool: 'kitchen', options: { mode: 'checklist', title: '바르게 세기', items: [{ id: 'move', text: '센 것은 옆으로 옮겨요' }, { id: 'guess', text: '눈으로 대충 보고 적어요' }] }, sequence: [{ checklist: ['move'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 바르게 세는 방법과 차례', minutes: 12, tool: 'kitchen',
+            teacher: '"어떻게 하면 같은 것을 두 번 세지 않을까요?" 연필 열 자루를 책상에 흩어 놓고, 옮기지 않고 세는 것과 옮기며 세는 것을 두 학생이 해 보게 한다. 세는 차례를 놓을 때는 "나누지 않고 세면 무엇이 몇 개인지 알 수 있을까요?"라고 묻는다.',
+            task: '바르게 세는 방법을 골라 표시하고, 세어 기록하는 차례대로 카드를 놓아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '바르게 세는 방법만 골라 표시해 보세요.', toolOptions: { mode: 'checklist', title: '바르게 세기', items: [{ id: 'move', text: '센 것은 옆으로 옮겨 놓아요' }, { id: 'one', text: '한 종류씩 따로 세어요' }, { id: 'guess', text: '눈으로 대충 보고 적어요' }, { id: 'twice', text: '아까 센 것을 또 세어요' }] },
+                target: { checklist: ['move', 'one'] }, difficulty: 0.1,
+                hints: ['방법마다 같은 것을 두 번 세거나 빠뜨리지 않게 해 주는지 따져요.', '고른 것 가운데 수가 틀리게 될 수 있는 방법이 있는지 살펴봐요.', '옮겨 놓기와 한 종류씩 세기, 이 두 가지가 바르게 세는 방법이에요.'] },
+              { prompt: '재활용품을 세어 기록하는 차례대로 카드를 놓아 보세요.', toolOptions: { mode: 'order', cards: [{ id: 'sort', text: '종류별로 나누어 놓아요' }, { id: 'count', text: '하나씩 옮기며 세어요' }, { id: 'table', text: '센 수를 표에 적어요' }, { id: 'graph', text: '표를 보고 그래프를 그려요' }] },
+                target: { order: ['sort', 'count', 'table', 'graph'] }, difficulty: 0.2,
+                hints: ['무엇을 먼저 해야 다음 일을 할 수 있는지 따져요. 표가 없으면 그래프를 그릴 수 있을까요?', '자리가 어긋난 카드가 있어요. 세기 전에 먼저 해 두어야 할 일이 무엇인지 생각해요.', '나누기 → 옮기며 세기 → 표에 적기 → 그래프 그리기 차례예요.'],
+                levels: { easy: { prompt: '재활용품을 세어 기록하는 차례대로 카드 세 장을 놓아 보세요.', toolOptions: { cards: [{ id: 'sort', text: '종류별로 나누어 놓아요' }, { id: 'count', text: '하나씩 옮기며 세어요' }, { id: 'table', text: '센 수를 표에 적어요' }] }, target: { order: ['sort', 'count', 'table'] } } } },
+              { prompt: '집 기록표에 꼭 적어야 할 것만 골라 표시해 보세요.', toolOptions: { mode: 'checklist', title: '재활용품 기록표', items: [{ id: 'day', text: '센 날짜' }, { id: 'kind', text: '재활용품 종류' }, { id: 'num', text: '센 수' }, { id: 'brand', text: '과자 이름' }, { id: 'color', text: '페트병 뚜껑 색' }] },
+                target: { checklist: ['day', 'kind', 'num'] }, difficulty: 0.2,
+                hints: ['나중에 "무엇이 며칠에 몇 개"였는지 알려면 무엇이 있어야 하는지 따져요.', '고른 것 가운데 몇 개인지 아는 데 쓰이지 않는 것이 있는지 살펴봐요.', '날짜, 종류, 센 수 세 가지예요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 우리 집 재활용품 그래프 읽기', minutes: 15, tool: 'chart',
+            teacher: '"준호네가 일주일 동안 모은 재활용품이에요. 무엇이 가장 많나요? 왜 그럴까요?" 읽은 뒤 까닭을 짐작하게 하되, 그래프만으로는 까닭을 알 수 없다는 것도 짚는다. 끝에 사흘 동안 집에서 재활용품을 세어 올 기록표(활동지)를 나누어 주고, 누구와 셀지 정하게 한다.',
+            task: '가족의 재활용품 그림그래프를 읽고 물음에 답해요. 그리고 집에서 셀 기록표를 받아요.',
+            levels: { easy: { showTable: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '준호네 그래프를 보고 일주일 동안 가장 많이 모은 재활용품을 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '준호네 일주일 재활용품', data: [['종이 상자', 6], ['페트병', 11], ['캔', 4], ['비닐', 8]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), choices: ['종이 상자', '페트병', '캔', '비닐'], question: '가장 많이 모은 것은?', why: ['종이 상자보다 그림이 더 많은 줄이 있어요.', '', '캔 줄은 그림이 가장 짧아요.', '비닐보다 그림이 더 많은 줄이 있어요.'], explain: '페트병 줄의 그림이 11개로 가장 길어요.' },
+                target: { pick: 1 }, difficulty: 0.15 },
+              { prompt: '준호네 그래프에서 비닐은 캔보다 몇 개 더 많은지 써 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '준호네 일주일 재활용품', data: [['종이 상자', 6], ['페트병', 11], ['캔', 4], ['비닐', 8]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), question: '비닐은 캔보다 몇 개 더 많나요?', explain: '비닐 8개에서 캔 4개를 빼면 4개예요.' },
+                target: { value: 4 }, difficulty: 0.3, hints: ['두 줄의 그림을 하나씩 짝지어 보고, 짝이 없는 그림을 세어요.', '두 줄을 각각 다시 세어 보세요. 긴 줄에서 짝이 없는 그림만 세어요.'], },
+              { prompt: '서아네 그래프를 보고 가장 적게 모은 재활용품을 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '서아네 일주일 재활용품', data: [['종이 상자', 9], ['페트병', 5], ['캔', 3], ['비닐', 7]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), choices: ['종이 상자', '페트병', '캔', '비닐'], question: '가장 적게 모은 것은?', why: ['종이 상자 줄은 그림이 가장 길어요.', '페트병보다 그림이 더 적은 줄이 있어요.', '', '비닐은 그림이 꽤 많아요.'], explain: '캔 줄의 그림이 3개로 가장 짧아요.' },
+                target: { pick: 2 }, difficulty: 0.15,
+                predict: { q: '두 집에서 가장 많이 모은 것이 같을까요?', options: ['같아요', '달라요'], answer: 1 },
+                conclude: '집마다 많이 나오는 재활용품이 달라요. 그래서 우리 집을 직접 세어 봐야 알아요.' },
+              { prompt: '집에서 사흘 동안 셀 기록표를 받고, 누구와 함께 셀지 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"준호네와 서아네는 많이 모은 것이 같았나요?" 집마다 다르다는 것을 짚고, 우리 집은 세어 보아야 안다고 말한다. 출구 첫 문항을 틀린 학생에게는 두 줄의 그림을 짝지어 짝 없는 그림을 세게 한다. 사흘 뒤 기록표를 가져오면 43차시 전에 칠판에 모은다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '하준네 일주일 재활용품', data: [['종이 상자', 5], ['페트병', 9], ['캔', 2]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), question: '페트병은 종이 상자보다 몇 개 더 많나요?', explain: '페트병 9개에서 종이 상자 5개를 빼면 4개예요.' }, prompt: '하준네 그래프에서 페트병은 종이 상자보다 몇 개 더 많은지 써 보세요.', target: { value: 4 }, difficulty: 0.3 },
+          { type: 'choice', prompt: '같은 것을 두 번 세지 않으려면 어떻게 할까요?', options: ['센 것은 옆으로 옮겨요', '눈으로 대충 보고 적어요', '빨리 소리 내어 세어요'], answer: 0, difficulty: 0.1, explain: '센 것을 옆으로 옮겨 두면 다시 세지 않아요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 집 재활용품 기록표',
+      items: [
+        { type: 'table', prompt: '집에서 사흘 동안 모은 재활용품을 세어 쓰세요.', columns: ['종류', '첫째 날', '둘째 날', '셋째 날'], cells: [['종이 상자', '', '', ''], ['페트병', '', '', ''], ['캔', '', '', ''], ['비닐', '', '', '']] },
+        { type: 'check', prompt: '바르게 세는 방법에 모두 ✓ 하세요.', options: ['센 것은 옆으로 옮겨요', '한 종류씩 따로 세어요', '대충 보고 적어요'] },
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 종류마다 수를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '민지네 재활용품', data: [['종이 상자', 7], ['페트병', 4], ['캔', 5]], unit: '개', icon: 'square', icons: ONE('개') }, caption: '종이 상자 (   )개, 페트병 (   )개, 캔 (   )개' }], answer: '종이 상자 7개, 페트병 4개, 캔 5개' },
+        { type: 'short', prompt: '사흘 동안 우리 집에서 가장 많이 나온 재활용품을 쓰세요.' },
+      ],
+      easy: {
+        note: '종류별로 나누고, 센 것은 옆으로 옮겨요.',
+        items: [
+          { type: 'table', prompt: '집에서 모은 재활용품을 세어 쓰세요.', columns: ['종류', '센 수'], cells: [['종이 상자', ''], ['페트병', ''], ['캔', '']] },
+          { type: 'choice', prompt: '바르게 세는 방법에 ○ 하세요.', options: ['센 것은 옆으로 옮겨요', '대충 보고 적어요'], answer: '센 것은 옆으로 옮겨요' },
+          { type: 'short', prompt: '가장 많이 나온 재활용품을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '고르기 칸에 초록 테두리가 생기고, 차례 카드는 세 장이에요. 그래프 읽기 문항에는 표도 함께 보여요.',
+      base: '바르게 세는 방법과 차례를 정하고, 그래프를 읽어 가장 많은 것과 차이를 말해요.',
+      challenge: '그래프를 읽은 뒤 두 집의 그래프를 견주어 다른 점을 짝에게 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 셀 때마다 수가 다르다 → 센 것은 옆으로 옮기고, 한 종류씩 세게 한다. ② 그래프만 보고 까닭(왜 페트병이 많은지)을 안다고 말한다 → 그래프는 수만 알려 주고 까닭은 가족에게 여쭤봐야 한다고 짚는다. ③ 집 기록을 부담스러워한다 → 사흘 가운데 하루만 적어도 괜찮다고 말해 준다. 가정 안내: 깨끗이 씻은 재활용품만 세고, 깨진 병은 만지지 않도록 부탁한다.',
+  }));
+
+  lessons.push(L(42, {
+    title: '이면지함을 놓기 전과 뒤 종이 쓰레기 견주기',
+    objective: '이면지함을 놓기 전과 놓은 뒤의 종이 쓰레기 그림그래프를 견주어 줄어든 수를 읽고, 알아낸 것을 한 문장으로 말할 수 있다.',
+    illustration: ART('a classroom scrap paper box made of a decorated cardboard box, next to a picture graph whose rows get shorter week by week', '줄었을까요?', [
+      { motif: 'leaf', x: 120, y: 226 }, { motif: 'star', x: 120, y: 96, s: 0.5 }, { motif: 'house', x: 400, y: 212 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"2반은 둘째 주 월요일에 교실에 이면지함을 놓았어요. 종이 쓰레기가 줄었을까요? 어떻게 알 수 있을까요?" "느낌으로"와 "세어 둔 수로" 가운데 손을 들게 한다. "놓기 전에 세어 둔 수가 있어야 놓은 뒤와 견줄 수 있어요." 시연 단추로 주마다 그림이 줄어드는 그래프를 보여 준다.',
+        student: '이면지함을 놓으면 종이 쓰레기가 어떻게 될지 어림해 봐요.',
+        demo: { tool: 'chart', options: { type: 'picture', title: '2반 종이 쓰레기', data: [['놓기 전', 10], ['놓은 뒤', 6]], unit: '개', xLabel: '때', yLabel: '쓰레기 수', icon: 'square', icons: ONE('개'), showTable: true }, sequence: [{ build: true }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 전과 뒤 그래프 견주기', minutes: 14, tool: 'chart',
+            teacher: '"이면지함은 둘째 주부터 있었어요. 첫째 주는 놓기 전이고, 둘째·셋째 주는 놓은 뒤예요." 칠판에 세로 선을 그어 전과 뒤를 나눈다. 몇 개 줄었는지 묻는 문항에서는 두 줄을 짝지어 짝 없는 그림을 세게 한다.',
+            task: '전과 뒤의 그림그래프를 읽고, 언제 가장 적은지와 몇 개 줄었는지 답해요.',
+            levels: { easy: { showTable: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '2반 그래프를 보고 종이 쓰레기가 가장 적은 주를 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '2반 주마다 종이 쓰레기', data: [['첫째 주', 12], ['둘째 주', 8], ['셋째 주', 5]], unit: '개', xLabel: '주', icon: 'square', icons: ONE('개'), choices: ['첫째 주', '둘째 주', '셋째 주'], question: '가장 적은 주는?', why: ['첫째 주 줄은 그림이 가장 길어요.', '둘째 주보다 그림이 더 적은 줄이 있어요.', ''], explain: '셋째 주 줄의 그림이 5개로 가장 짧아요.' },
+                target: { pick: 2 }, difficulty: 0.1 },
+              { prompt: '2반 그래프에서 첫째 주보다 셋째 주에 종이 쓰레기가 몇 개 줄었는지 써 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '2반 주마다 종이 쓰레기', data: [['첫째 주', 12], ['둘째 주', 8], ['셋째 주', 5]], unit: '개', xLabel: '주', icon: 'square', icons: ONE('개'), question: '첫째 주보다 셋째 주에 몇 개 줄었나요?', explain: '첫째 주 12개에서 셋째 주 5개를 빼면 7개예요.' },
+                target: { value: 7 }, difficulty: 0.35, hints: ['두 줄의 그림을 하나씩 짝지어 보고, 짝이 없는 그림을 세어요.', '두 줄을 각각 다시 세어 보세요. 긴 줄에서 짝이 없는 그림만 세어요.'], },
+              { prompt: '3반은 "먹을 만큼 받기" 약속을 했어요. 약속 뒤에 반찬을 남긴 친구가 몇 명 줄었는지 써 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '3반 반찬을 남긴 친구', data: [['약속 전 주', 10], ['약속 뒤 주', 6]], unit: '명', xLabel: '때', icon: 'person', icons: ONE('명'), question: '약속 뒤에 몇 명 줄었나요?', explain: '약속 전 10명에서 약속 뒤 6명을 빼면 4명이에요.' },
+                target: { value: 4 }, difficulty: 0.3, hints: ['두 줄의 그림을 하나씩 짝지어 보고, 짝이 없는 그림을 세어요.', '두 줄을 각각 다시 세어 보세요. 긴 줄에서 짝이 없는 그림만 세어요.'],
+                predict: { q: '약속 뒤에 남긴 친구가 줄었을까요?', options: ['줄었어요', '늘었어요'], answer: 0 },
+                conclude: '약속 전과 뒤에 세어 둔 수를 견주면 약속이 도움이 되었는지 알 수 있어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 알아낸 것을 문장으로 말하기', minutes: 13, tool: 'story',
+            teacher: '"그래프를 읽고 알아낸 것을 친구에게 한 문장으로 말해 볼까요?" \'언제\'와 \'어떻게 되었는지\'가 문장에 들어가야 한다고 칠판에 적는다. 마지막에는 39차시에 센 우리 반 표를 보고 알아낸 것을 짝에게 말하게 한다.',
+            task: '그래프에서 알아낸 것을 문장 빈칸에 알맞은 카드를 넣어 완성해요. 그리고 우리 반 기록으로 문장을 말해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '2반 종이 쓰레기 그래프(첫째 주 12개, 둘째 주 8개, 셋째 주 5개)를 보고 문장을 완성해 보세요. 이면지함은 둘째 주에 놓았어요.', toolOptions: { mode: 'fill', cards: ['첫째 주', '셋째 주', '줄었어요', '늘었어요'], slots: [{ id: 'b1', label: '이면지함을 놓기 전인 ___에 가장 많았어요.' }, { id: 'b2', label: '이면지함을 놓은 뒤 종이 쓰레기가 ___.' }] },
+                target: { fill: { b1: '첫째 주', b2: '줄었어요' } }, difficulty: 0.15,
+                hints: ['빈칸마다 그래프에서 "언제"와 "어떻게 되었는지"를 찾아 넣어요.', '어긋난 빈칸이 있어요. 이면지함을 놓기 전은 어느 주뿐인지 다시 봐요.', '놓기 전은 첫째 주이고, 놓은 뒤 그림 줄이 짧아졌으니 줄었어요.'],
+                levels: { challenge: { toolOptions: { cards: ['첫째 주', '셋째 주', '줄었어요', '늘었어요', '모두 없어졌어요'] } } } },
+              { prompt: '3반 반찬 그래프(약속 전 주 10명, 약속 뒤 주 6명)를 보고 문장을 완성해 보세요.', toolOptions: { mode: 'fill', cards: [{ id: '10', text: '10', big: true }, { id: '6', text: '6', big: true }, { id: '4', text: '4', big: true }], slots: [{ id: 'b1', label: '약속 전 주에는 반찬을 남긴 친구가 ___명이었어요.' }, { id: 'b2', label: '약속 뒤에는 남긴 친구가 ___명 줄었어요.' }] },
+                target: { fill: { b1: '10', b2: '4' } }, difficulty: 0.25,
+                hints: ['첫 빈칸은 그래프에서 읽은 수, 둘째 빈칸은 두 수의 차이예요.', '어긋난 빈칸이 있어요. "줄었어요" 앞에는 약속 뒤에 남긴 수가 아니라 줄어든 만큼이 들어가요.', '약속 전은 10명이고, 10명에서 6명이 되었으니 4명 줄었어요.'] },
+              { prompt: '39차시에 센 우리 반 쓰레기 표를 보고 "~가 가장 많았어요"로 알아낸 것을 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"이면지함이 도움이 되었는지 어떻게 알았나요?" 두세 명이 말하게 하고, 놓기 전에 세어 둔 수가 있었기 때문이라는 것을 짚는다. 출구 첫 문항을 틀린 학생에게는 두 줄의 그림을 짝지어 짝 없는 그림을 세게 한다. 다음 시간에는 학교 분리배출함을 살펴본다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '4반 휴지를 쓴 장수', data: [['손수건 쓰기 전', 9], ['손수건 쓴 뒤', 4]], unit: '장', xLabel: '때', icon: 'square', icons: ONE('장'), question: '손수건을 쓴 뒤 휴지가 몇 장 줄었나요?', explain: '9장에서 4장을 빼면 5장이에요.' }, prompt: '4반 그래프를 보고 손수건을 쓴 뒤 휴지가 몇 장 줄었는지 써 보세요.', target: { value: 5 }, difficulty: 0.3 },
+          { type: 'choice', prompt: '이면지함이 도움이 되었는지 어떻게 알 수 있나요?', options: ['놓기 전과 뒤에 센 수를 견주어 봐요', '느낌으로 알 수 있어요'], answer: 0, difficulty: 0.1, explain: '전과 뒤에 세어 둔 수를 견주어 보아야 정말 줄었는지 알 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '전과 뒤 견주기',
+      items: [
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 주마다 종이 쓰레기 수를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '5반 종이 쓰레기', data: [['첫째 주', 11], ['둘째 주', 7], ['셋째 주', 6]], unit: '개', icon: 'square', icons: ONE('개') }, caption: '첫째 주 (   )개, 둘째 주 (   )개, 셋째 주 (   )개' }], answer: '첫째 주 11개, 둘째 주 7개, 셋째 주 6개' },
+        { type: 'blank', prompt: '위 그래프에서 첫째 주보다 셋째 주에 (   )개 줄었어요.', answer: '5' },
+        { type: 'choice', prompt: '위 그래프에서 알아낸 것으로 알맞은 문장에 ○ 하세요.', options: ['종이 쓰레기가 주마다 줄었어요', '종이 쓰레기가 주마다 늘었어요', '셋째 주에 가장 많았어요'], answer: '종이 쓰레기가 주마다 줄었어요' },
+        { type: 'short', prompt: '우리 반 쓰레기 표를 보고 알아낸 것을 한 문장으로 쓰세요.' },
+      ],
+      easy: {
+        note: '두 줄의 그림을 하나씩 짝지어 보고, 짝이 없는 그림을 세어요.',
+        items: [
+          { type: 'figure', wide: true, prompt: '그림을 세어 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '종이 쓰레기', data: [['놓기 전', 6], ['놓은 뒤', 3]], unit: '개', icon: 'square', icons: ONE('개') }, caption: '놓기 전 (   )개, 놓은 뒤 (   )개' }], answer: '놓기 전 6개, 놓은 뒤 3개' },
+          { type: 'choice', prompt: '위 그래프에서 종이 쓰레기는 어떻게 되었나요?', options: ['줄었어요', '늘었어요'], answer: '줄었어요' },
+          { type: 'short', prompt: '우리 반에서 가장 많이 나온 쓰레기를 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '그래프 읽기 문항에는 표도 함께 보여요. 문장 칸에 맞게 넣으면 초록 테두리가 생겨요.',
+      base: '그래프를 읽고 줄어든 수를 구해 알아낸 것을 문장으로 완성해요.',
+      challenge: '문장 카드에 그래프로 말할 수 없는 함정 카드가 섞여 있어요. 우리 반 기록으로 문장을 두 개 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① "줄었어요" 앞에 뒤의 수(6)를 넣는다 → 줄어든 만큼은 두 수의 차이라고 짚고, 그림을 짝지어 보게 한다. ② 놓기 전에 세지 않았는데 줄었다고 말한다 → 견줄 수가 있어야 줄었는지 안다는 것을 짚는다. ③ 그래프 수를 우리 반 기록으로 여긴다 → 2·3·4반은 지어낸 예시라고 알려 준다. 우리 반도 이면지함을 놓았다면, 놓은 뒤 일주일 동안 종이 쓰레기를 세어 47차시에 견준다.',
+  }));
+
+  lessons.push(L(43, {
+    title: '학교 분리배출함에 잘못 들어간 것 살펴 세기',
+    objective: '분리배출함에 잘못 들어간 물건을 눈으로 찾아 수거함별로 세어 그림그래프로 나타내고, 잘못 들어간 것이 가장 많은 수거함을 찾을 수 있다.',
+    illustration: ART('a row of paper-cut recycling bins for paper, plastic, cans and vinyl, with a few wrong items peeking out, children looking with a clipboard', '잘못 들어갔어요', [
+      { motif: 'tree', x: 410, y: 212 }, { motif: 'cloud', x: 360, y: 96, color: 'cream' }, { motif: 'leaf', x: 90, y: 230 }]),
+    safety: ['분리배출장에서는 수거함 안에 손을 넣지 않고 눈으로만 살펴봐요.', '줄을 서서 선생님을 따라 다니고, 수거차가 오면 멈춰 서요.', '교실에 돌아오면 손을 비누로 씻어요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"37차시에 분리배출하는 방법을 배웠지요. 그런데 학교 분리배출함에는 정말 잘 나누어 들어 있을까요?" 미리 찍어 둔 수거함 사진 한 장을 띄워 잘못 들어간 물건이 보이는지 묻는다. "오늘은 잘못 들어간 것을 찾아 세어 봐요. 세어 보면 어느 수거함부터 알려야 할지 알 수 있어요." 시연 단추로 잘못 들어간 물건 카드가 골라지는 모습을 보여 준다.',
+        student: '분리배출함에 잘못 넣은 물건을 본 적이 있는지 짝에게 말해 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'pick', topic: '종이함에 잘못 들어갔어요', cards: ['신문지', '우유 빨대'], shuffle: false }, sequence: [{ pick: ['우유 빨대'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 잘못 들어간 물건 찾기', minutes: 11, tool: 'mindmap',
+            teacher: '"이 수거함에 들어가야 할 것은 무엇으로 만든 물건인가요? 그것과 다른 것으로 만든 물건이 잘못 들어간 거예요." 39차시에 쓰레기를 무엇으로 만들었는지 따진 방법을 그대로 쓰게 한다.',
+            task: '수거함 안을 살펴본 카드에서 잘못 들어간 물건만 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '종이 수거함 안을 보았어요. 잘못 들어간 물건만 골라 보세요.', toolOptions: { mode: 'pick', topic: '종이함에 잘못 들어갔어요', cards: ['신문지', '종이 상자', '과자 봉지', '플라스틱 컵'] },
+                target: { pick: ['과자 봉지', '플라스틱 컵'] }, difficulty: 0.1,
+                hints: ['이 수거함은 무엇으로 만든 물건을 모으는 곳인지 먼저 떠올려요. 그것과 다른 것으로 만든 물건을 찾아요.', '고른 것 가운데 이 수거함에 맞게 들어간 물건이 있는지, 빠뜨린 물건이 있는지 살펴봐요.', '신문지와 종이 상자는 맞게 들어갔고, 과자 봉지와 플라스틱 컵이 잘못 들어갔어요.'] },
+              { prompt: '플라스틱 수거함 안을 보았어요. 잘못 들어간 물건만 골라 보세요.', toolOptions: { mode: 'pick', topic: '플라스틱함에 잘못 들어갔어요', cards: ['페트병', '요구르트 병', '유리병', '이면지', '음료 캔'] },
+                target: { pick: ['유리병', '이면지', '음료 캔'] }, difficulty: 0.2,
+                hints: ['이 수거함은 무엇으로 만든 물건을 모으는 곳인지 먼저 떠올려요. 그것과 다른 것으로 만든 물건을 찾아요.', '고른 것 가운데 이 수거함에 맞게 들어간 물건이 있는지, 빠뜨린 물건이 있는지 살펴봐요.', '페트병과 요구르트 병만 플라스틱이고, 유리병·이면지·음료 캔이 잘못 들어갔어요.'],
+                levels: { easy: { prompt: '플라스틱 수거함 안을 보았어요. 카드 세 장에서 잘못 들어간 물건만 골라 보세요.', toolOptions: { cards: ['페트병', '유리병', '이면지'] }, target: { pick: ['유리병', '이면지'] } } } },
+              { prompt: '캔 수거함 안을 보았어요. 잘못 들어간 물건만 골라 보세요.', toolOptions: { mode: 'pick', topic: '캔함에 잘못 들어갔어요', cards: ['음료 캔', '참치 통조림 캔', '비닐봉지', '종이컵'] },
+                target: { pick: ['비닐봉지', '종이컵'] }, difficulty: 0.15,
+                hints: ['이 수거함은 무엇으로 만든 물건을 모으는 곳인지 먼저 떠올려요. 그것과 다른 것으로 만든 물건을 찾아요.', '고른 것 가운데 이 수거함에 맞게 들어간 물건이 있는지, 빠뜨린 물건이 있는지 살펴봐요.', '음료 캔과 통조림 캔은 맞게 들어갔고, 비닐봉지와 종이컵이 잘못 들어갔어요.'],
+                levels: { challenge: { prompt: '캔 수거함 안을 보았어요. 카드가 더 많아요. 잘못 들어간 물건만 모두 골라 보세요.', toolOptions: { cards: ['음료 캔', '참치 통조림 캔', '빈 과일 통조림 캔', '비닐봉지', '종이컵', '플라스틱 뚜껑'] }, target: { pick: ['비닐봉지', '종이컵', '플라스틱 뚜껑'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 살펴본 것을 세어 그래프로', minutes: 16, tool: 'chart',
+            teacher: '모둠마다 수거함 하나를 맡아 선생님과 분리배출장에 가서, 잘못 들어간 물건을 눈으로만 찾아 활동지 표에 바를 정 대신 동그라미로 하나씩 표시한다. 교실에 돌아와 화면에서 2학년 1반의 예시 표를 그림그래프로 옮기고 읽는다. "어느 수거함에 잘못 들어간 것이 가장 많은지 알면, 무엇부터 알려야 할지 정할 수 있어요."',
+            task: '맡은 수거함에서 잘못 들어간 물건을 세어 적어요. 그다음 표를 그림그래프로 옮기고 가장 많은 수거함을 찾아요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: '선생님과 분리배출장에 가서, 모둠이 맡은 수거함에 잘못 들어간 물건을 눈으로만 찾아 활동지 표에 세어 적어요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+              { prompt: '1반이 살펴본 표를 보고 잘못 들어간 물건 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '1반이 찾은 잘못 들어간 물건', data: [['종이함', 5], ['플라스틱함', 8], ['캔함', 2], ['비닐함', 4]], unit: '개', xLabel: '수거함', yLabel: '물건 수', icon: 'square', icons: ONE('개') },
+                target: { build: true }, difficulty: 0.2,
+                levels: { easy: { toolOptions: { given: [0, 1] } } } },
+              { prompt: '3반 그래프를 보고 잘못 들어간 물건이 가장 많은 수거함을 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '3반이 찾은 잘못 들어간 물건', data: [['종이함', 3], ['플라스틱함', 6], ['캔함', 7], ['비닐함', 2]], unit: '개', xLabel: '수거함', icon: 'square', icons: ONE('개'), choices: ['종이함', '플라스틱함', '캔함', '비닐함'], question: '가장 많은 수거함은?', why: ['종이함은 그림이 적은 편이에요.', '플라스틱함보다 그림이 하나 더 많은 줄이 있어요.', '', '비닐함 줄은 그림이 가장 짧아요.'], explain: '캔함 줄의 그림이 7개로 가장 길어요.' },
+                target: { pick: 2 }, difficulty: 0.2,
+                levels: { easy: { toolOptions: { showTable: true } } },
+                predict: { q: '잘못 들어간 것이 가장 많은 수거함부터 알리면 좋을까요?', options: ['좋아요', '상관없어요'], answer: 0 },
+                conclude: '세어 보면 어느 수거함부터 바르게 넣자고 알릴지 정할 수 있어요.' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '모둠마다 센 수를 칠판 표에 모은다. "우리 학교에서 잘못 들어간 것이 가장 많은 수거함은 어디인가요?" 함께 읽는다. 출구 첫 문항을 틀린 학생에게는 줄의 그림을 하나씩 짚으며 세게 한다. 다음 시간에는 지금까지 알아낸 것으로 우리 반이 할 일을 정한다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '4반이 찾은 잘못 들어간 물건', data: [['종이함', 4], ['플라스틱함', 9], ['비닐함', 6]], unit: '개', xLabel: '수거함', icon: 'square', icons: ONE('개'), question: '비닐함에 잘못 들어간 물건은 몇 개인가요?', explain: '비닐함 줄의 그림은 6개예요.' }, prompt: '4반 그래프를 보고 비닐함에 잘못 들어간 물건 수를 써 보세요.', target: { value: 6 }, difficulty: 0.15 },
+          { type: 'choice', prompt: '종이 수거함에 잘못 들어간 것은 무엇인가요?', options: ['헌 공책', '비닐봉지', '종이 상자'], answer: 1, difficulty: 0.1, explain: '비닐봉지는 종이가 아니라 비닐로 만들었어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '분리배출함 살펴보기',
+      items: [
+        { type: 'table', prompt: '우리 모둠이 맡은 수거함에서 잘못 들어간 물건을 쓰고 세어 보세요.', columns: ['맡은 수거함', '잘못 들어간 물건', '센 수'], rows: 3 },
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 수거함마다 잘못 들어간 물건 수를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '5반이 찾은 잘못 들어간 물건', data: [['종이함', 6], ['플라스틱함', 3], ['캔함', 5]], unit: '개', icon: 'square', icons: ONE('개') }, caption: '종이함 (   )개, 플라스틱함 (   )개, 캔함 (   )개' }], answer: '종이함 6개, 플라스틱함 3개, 캔함 5개' },
+        { type: 'choice', prompt: '플라스틱 수거함에 잘못 들어간 것에 ○ 하세요.', options: ['페트병', '유리병', '요구르트 병'], answer: '유리병' },
+        { type: 'short', prompt: '우리 학교에서 잘못 들어간 것이 가장 많은 수거함을 쓰세요.' },
+      ],
+      easy: {
+        note: '그 수거함과 다른 것으로 만든 물건이 잘못 들어간 거예요. 눈으로만 살펴봐요.',
+        items: [
+          { type: 'table', prompt: '맡은 수거함에서 잘못 들어간 물건 수를 쓰세요.', columns: ['맡은 수거함', '센 수'], rows: 2 },
+          { type: 'choice', prompt: '종이 수거함에 잘못 들어간 것에 ○ 하세요.', options: ['신문지', '과자 봉지'], answer: '과자 봉지' },
+          { type: 'draw', prompt: '잘못 들어간 물건을 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '카드 수가 줄고 맞게 고르면 초록 테두리가 생겨요. 그림그래프는 두 줄이 미리 그려져 있고, 읽기 문항에는 표도 함께 보여요.',
+      base: '잘못 들어간 물건을 모두 골라 세고, 그림그래프를 완성해 가장 많은 수거함을 찾아요.',
+      challenge: '헷갈리는 카드가 더 있어요. 그래프를 읽은 뒤 가장 적은 수거함과 몇 개 차이인지도 말해요.',
+    },
+    teacherNotes: '준비: 행정실·시설 담당에게 분리배출장 방문 시간을 미리 알린다. 분리배출장이 멀거나 날씨가 나쁘면 선생님이 전날 수거함 네 곳을 찍은 사진을 모둠마다 나누어 주고 사진에서 센다. 자주 보이는 어려움: ① 수거함에 손을 넣어 꺼내려 한다 → 눈으로만 본다는 약속을 출발 전에 다시 말한다. ② 맞게 들어간 물건까지 센다 → "이 수거함과 다른 것으로 만든 것만"이라는 기준을 되풀이한다. ③ 잘못 넣은 사람을 탓한다 → 잘 몰라서 그랬을 수 있으니 알려 주면 된다고 짚는다.',
+  }));
+
+  // ───────────────────────── 44~48차시: 알아낸 것으로 할 일 정해 알리고 돌아보기(탐구 결과 설명·단원 정리) ─────────────────────────
+
+  lessons.push(L(44, {
+    title: '알아낸 것으로 우리 반이 함께 할 일 정하기',
+    objective: '세어서 알아낸 것에 알맞은 할 일을 잇고, 우리 반이 함께 할 일 하나를 손을 들어 정할 수 있다.',
+    illustration: ART('children raising paper hands to vote, a board with three action cards: a scrap paper box, a small rice bowl and a picture sign on a bin', '함께 할 일을 정해요', [
+      { motif: 'star', x: 120, y: 96, s: 0.5 }, { motif: 'heart', x: 380, y: 100, s: 0.5 }, { motif: 'flower', x: 130, y: 226 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '39~43차시에 세어서 알아낸 것을 칠판에 다시 붙인다(가장 많은 쓰레기, 가장 많이 남은 반찬, 잘못 들어간 것이 가장 많은 수거함). "하준이는 \'이제 다 알았으니까 어른들이 해결해 줄 때까지 기다리면 돼\'라고 해요. 정말 그럴까요?" 두세 명의 생각을 듣고, 알아낸 것은 할 일을 정하는 데 쓰인다고 말한다. 시연 단추로 알아낸 것 옆에 할 일 카드가 이어지는 모습을 보여 준다.',
+        student: '칠판의 알아낸 것 가운데 가장 마음이 쓰이는 것을 짝에게 말해 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '알아낸 것과 할 일', slots: [{ id: 's1', label: '휴지를 많이 써요' }], cards: ['손수건을 써요', '휴지를 더 사요'], shuffle: false }, sequence: [{ match: { s1: '손수건을 써요' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 알아낸 것과 할 일 잇기', minutes: 13, tool: 'mindmap',
+            teacher: '"이 할 일을 하면 알아낸 것이 좋아질까요? 종이가 많다면 종이를 줄이는 일이어야겠지요." 알아낸 것의 낱말(종이, 나물, 플라스틱함)이 할 일에도 이어지는지 찾게 한다. 쓰레기통을 더 놓는 일처럼 쓰레기를 줄이지 못하는 일은 고르지 않는다는 것을 짚는다.',
+            task: '알아낸 것 옆에 그것을 좋아지게 할 일 카드를 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '알아낸 것과 알맞은 할 일을 이어 보세요.', toolOptions: { mode: 'match', topic: '알아낸 것과 할 일', slots: [{ id: 's1', label: '교실 쓰레기는 종이가 가장 많아요' }, { id: 's2', label: '급식에서 나물이 가장 많이 남아요' }, { id: 's3', label: '플라스틱함에 잘못 들어간 것이 많아요' }], cards: ['이면지함을 만들어 종이를 다시 써요', '나물은 먹을 만큼만 받아요', '플라스틱함 앞에 넣을 것 그림을 붙여요'] },
+                target: { match: { s1: '이면지함을 만들어 종이를 다시 써요', s2: '나물은 먹을 만큼만 받아요', s3: '플라스틱함 앞에 넣을 것 그림을 붙여요' } }, difficulty: 0.15,
+                hints: ['알아낸 것마다 무엇이 문제인지 찾고, 그 문제를 줄이는 할 일을 찾아요.', '짝이 어긋난 곳이 있어요. 알아낸 것과 할 일에 같은 낱말이 들어 있는지 견주어 봐요.', '종이는 이면지함, 나물은 먹을 만큼 받기, 플라스틱함은 그림 붙이기와 이어져요.'],
+                levels: { challenge: { prompt: '알아낸 것과 알맞은 할 일을 이어 보세요. 쓰레기를 줄이지 못하는 카드는 남겨요.', toolOptions: { cards: ['이면지함을 만들어 종이를 다시 써요', '나물은 먹을 만큼만 받아요', '플라스틱함 앞에 넣을 것 그림을 붙여요', '교실에 쓰레기통을 하나 더 놓아요'] } } } },
+              { prompt: '집에서 알아낸 것과 알맞은 할 일을 이어 보세요.', toolOptions: { mode: 'match', topic: '알아낸 것과 할 일', slots: [{ id: 's1', label: '우리 집은 페트병이 가장 많이 나와요' }, { id: 's2', label: '우리 집은 비닐봉지가 많이 나와요' }], cards: ['물통에 물을 담아 다녀요', '장 볼 때 장바구니를 들고 가요'] },
+                target: { match: { s1: '물통에 물을 담아 다녀요', s2: '장 볼 때 장바구니를 들고 가요' } }, difficulty: 0.15,
+                hints: ['알아낸 것마다 무엇이 많이 나오는지 찾고, 그것을 덜 쓰게 하는 일을 찾아요.', '짝이 어긋난 곳이 있어요. 그 일을 하면 무엇이 덜 나오는지 따져 봐요.', '물통은 페트병을, 장바구니는 비닐봉지를 줄여요.'] },
+              { prompt: '알아낸 것과 이어지고, 우리 반이 날마다 할 수 있는 할 일만 골라 보세요.', toolOptions: { mode: 'pick', topic: '우리 반 할 일 후보', cards: ['종이가 많으니 이면지 뒷면을 먼저 써요', '종이가 많으니 종이를 아예 안 써요', '나물이 남으니 나물을 몰래 버려요', '나물이 남으니 한 입씩은 먹어 봐요'] },
+                target: { pick: ['종이가 많으니 이면지 뒷면을 먼저 써요', '나물이 남으니 한 입씩은 먹어 봐요'] }, difficulty: 0.2,
+                hints: ['카드마다 정말 날마다 할 수 있는 일인지, 쓰레기를 줄이는 일인지 함께 따져요.', '고른 것 가운데 지킬 수 없는 일이나 쓰레기를 숨기기만 하는 일이 있는지 살펴봐요.', '이면지 뒷면 먼저 쓰기와 한 입씩 먹어 보기, 두 가지예요.'],
+                predict: { q: '"종이를 아예 안 써요"를 날마다 지킬 수 있을까요?', options: ['지킬 수 있어요', '어려워요'], answer: 1 },
+                conclude: '할 일은 알아낸 것과 이어지고, 우리가 날마다 지킬 수 있는 것으로 골라요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 함께 할 일 하나 정하기', minutes: 14, tool: 'emotion',
+            teacher: '"하준이처럼 기다리자는 친구에게는 뭐라고 말할까요?" 보기를 고른 뒤 결과를 소리 내어 읽게 한다. 그다음 칠판의 할 일 후보 세 가지에 손을 들어 하나를 정한다(한 사람 한 번). "내가 고른 일이 뽑히지 않아도 함께 해요. 내가 고른 일은 집에서 해 볼 수 있어요."',
+            task: '이야기를 읽고 알맞은 말이나 행동을 골라 결과를 봐요. 그리고 우리 반 할 일을 손을 들어 정해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '하준이가 어른들이 해결해 줄 때까지 기다리자고 해요. 어떤 말을 해 줄까요?', toolOptions: { mode: 'branch', who: '민지', situation: '하준이가 "쓰레기는 교장 선생님이 해결해 주실 거야. 우리는 기다리면 돼."라고 말해요.', choices: [
+                { id: 'wait', text: '"맞아, 기다리자" 하고 말해요', result: '기다리는 동안에도 종이 쓰레기가 날마다 쌓여요.', mood: '걱정', why: '어른을 기다리는 동안에도 쓰레기는 날마다 생겨요.' },
+                { id: 'start', text: '"우리가 알아낸 걸로 오늘부터 이면지함을 쓰자" 하고 말해요', result: '하준이가 "그럼 내가 이면지함을 꾸밀게" 하고 말해요.', mood: '뿌듯함' },
+                { id: 'blame', text: '"너는 맨날 종이를 버리잖아" 하고 탓해요', result: '하준이가 기분이 상해 함께 하지 않아요.', mood: '속상함', why: '탓하는 말보다 함께 할 일을 말하는 것이 좋아요.' }] }, target: { choice: 'start' }, difficulty: 0.1,
+                levels: { easy: { toolOptions: { choices: [
+                  { id: 'wait', text: '"맞아, 기다리자" 하고 말해요', result: '기다리는 동안에도 종이 쓰레기가 날마다 쌓여요.', mood: '걱정', why: '어른을 기다리는 동안에도 쓰레기는 날마다 생겨요.' },
+                  { id: 'start', text: '"우리가 알아낸 걸로 오늘부터 이면지함을 쓰자" 하고 말해요', result: '하준이가 "그럼 내가 이면지함을 꾸밀게" 하고 말해요.', mood: '뿌듯함' }] } } } },
+              { prompt: '투표에서 내가 고른 할 일이 뽑히지 않았어요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '서아는 "나물 한 입 먹어 보기"를 골랐는데, 우리 반은 "이면지 뒷면 먼저 쓰기"로 정했어요.', choices: [
+                { id: 'join', text: '정한 일을 함께 하고, 내 생각은 집에서 해 봐요', result: '반 친구들과 이면지를 쓰고, 집에서는 나물을 한 입씩 먹어 봐요.', mood: '뿌듯함' },
+                { id: 'quit', text: '내 것이 안 뽑혔으니 아무것도 안 해요', result: '서아만 빠져서 이면지함이 덜 채워져요.', mood: '속상함', why: '정한 일은 모두 함께 해야 힘이 모여요.' },
+                { id: 'again', text: '될 때까지 다시 투표하자고 떼를 써요', result: '친구들이 지쳐서 할 일을 시작하지 못해요.', mood: '화남', why: '함께 정한 것은 따르고, 내 생각은 다른 곳에서 해 볼 수 있어요.' }] }, target: { choice: 'join' }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'join', text: '정한 일을 함께 하고, 내 생각은 집에서 해 봐요', result: '반 친구들과 이면지를 쓰고, 집에서는 나물을 한 입씩 먹어 봐요.', mood: '뿌듯함' },
+                  { id: 'quit', text: '내 것이 안 뽑혔으니 아무것도 안 해요', result: '서아만 빠져서 이면지함이 덜 채워져요.', mood: '속상함', why: '정한 일은 모두 함께 해야 힘이 모여요.' },
+                  { id: 'again', text: '될 때까지 다시 투표하자고 떼를 써요', result: '친구들이 지쳐서 할 일을 시작하지 못해요.', mood: '화남', why: '함께 정한 것은 따르고, 내 생각은 다른 곳에서 해 볼 수 있어요.' },
+                  { id: 'secret', text: '함께 하는 척하고 몰래 나물만 해요', result: '이면지함은 덜 채워지고, 친구들은 서아를 믿기 어려워해요.', mood: '걱정', why: '함께 정한 일은 정말로 해야 결과를 견줄 수 있어요.' }] } } } },
+              { prompt: '칠판의 할 일 후보 가운데 하나에 손을 들어 우리 반 할 일을 정해요. 다 정하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '뽑힌 할 일을 칠판 가운데 크게 쓰고, "언제부터, 누가, 어떻게" 할지 함께 정한다. 출구 첫 문항을 틀린 학생에게는 그림을 줄마다 세게 한다. 다음 시간에는 이 할 일을 알리는 포스터를 만든다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '2반 할 일 투표', data: [['이면지함 쓰기', 9], ['손수건 쓰기', 5], ['먹을 만큼 받기', 7]], unit: '명', xLabel: '할 일', icon: 'person', icons: ONE('명'), choices: ['이면지함 쓰기', '손수건 쓰기', '먹을 만큼 받기'], question: '2반이 함께 할 일로 뽑힌 것은?', explain: '이면지함 쓰기 줄의 그림이 9개로 가장 많아요.' }, prompt: '2반 투표 그래프를 보고 뽑힌 할 일을 골라 보세요.', target: { pick: 0 }, difficulty: 0.15 },
+          { type: 'choice', prompt: '알아낸 것이 있을 때 어떻게 하면 좋을까요?', options: ['어른이 해결해 줄 때까지 기다려요', '알아낸 것으로 우리가 할 일을 정해요'], answer: 1, difficulty: 0.1, explain: '알아낸 것을 바탕으로 우리가 지금 할 수 있는 일을 정하면 바로 시작할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 반 할 일 정하기',
+      items: [
+        { type: 'table', prompt: '알아낸 것에 알맞은 할 일을 쓰세요.', columns: ['알아낸 것', '할 일'], cells: [['종이 쓰레기가 가장 많아요', ''], ['나물이 가장 많이 남아요', ''], ['페트병이 많이 나와요', '']] },
+        { type: 'choice', prompt: '쓰레기를 줄이는 할 일에 ○ 하세요.', options: ['쓰레기통을 더 놓아요', '이면지 뒷면을 먼저 써요', '쓰레기를 서랍에 숨겨요'], answer: '이면지 뒷면을 먼저 써요' },
+        { type: 'short', prompt: '우리 반이 정한 할 일을 쓰세요.' },
+        { type: 'short', prompt: '"어른이 해결해 줄 때까지 기다리자"는 친구에게 해 줄 말을 쓰세요.' },
+      ],
+      easy: {
+        note: '알아낸 것과 같은 낱말이 들어간 할 일을 찾아요.',
+        items: [
+          { type: 'choice', prompt: '종이 쓰레기가 많을 때 할 일에 ○ 하세요.', options: ['이면지를 다시 써요', '장바구니를 들어요'], answer: '이면지를 다시 써요' },
+          { type: 'short', prompt: '우리 반이 정한 할 일을 쓰세요.' },
+          { type: 'draw', prompt: '그 일을 하는 우리 반 모습을 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 자리에 놓으면 초록 테두리가 생기고, 이야기 보기가 두 개예요.',
+      base: '모두 놓은 뒤 확인을 눌러요. 고른 말의 결과를 소리 내어 읽어요.',
+      challenge: '쓰레기를 줄이지 못하는 함정 카드가 있어요. 이야기 보기가 넷이고 헷갈리는 보기가 있어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 어른들이 해결해 줄 때까지 기다리면 된다고 여긴다(이 차시의 핵심 오개념) → 기다리는 동안 쌓이는 쓰레기를 39차시 표의 수로 어림해 보게 한다. ② 너무 큰 할 일(종이 아예 안 쓰기)을 고른다 → 날마다 지킬 수 있는지 묻는다. ③ 투표에서 진 학생이 속상해한다 → 그 할 일은 집에서 해 보고 47차시에 이야기해 달라고 말해 준다. 투표는 한 사람이 한 번만 손을 들고, 선생님이 센 수를 칠판 표에 적는다.',
+  }));
+
+  lessons.push(L(45, {
+    title: '우리 반 할 일을 알리는 포스터 만들기',
+    objective: '알아낸 것과 할 일이 한눈에 보이도록 포스터에 넣을 말을 고르고, 색종이 조각으로 할 일이 보이는 포스터를 꾸며 만들 수 있다.',
+    illustration: ART('a cheerful paper-cut poster on a classroom wall with a scrap paper box, green leaves and a big heart, children pasting colored paper pieces', '함께 해요!', [
+      { motif: 'leaf', x: 120, y: 226 }, { motif: 'star', x: 120, y: 96, s: 0.5 }, { motif: 'flower', x: 380, y: 226 }]),
+    safety: ['가위를 쓸 때는 날을 몸 반대쪽으로 하고, 건넬 때는 손잡이를 내밀어요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '복도에 붙은 안내문 두 장(글씨가 빽빽한 것, 짧은 말과 그림이 있는 것)을 띄운다. "지나가다 한눈에 알 수 있는 것은 어느 쪽인가요?" 포스터의 세 가지 약속(짧게, 할 일이 보이게, 탓하지 않게)을 칠판에 적는다. 시연 단추로 포스터에 넣을 말이 골라지는 모습을 보여 준다.',
+        student: '복도에서 본 안내문 가운데 기억에 남는 것을 짝에게 말해 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'pick', topic: '포스터에 넣을 말', cards: ['종이는 이면지함에!', '종이를 버리는 친구는 나빠요'], shuffle: false }, sequence: [{ pick: ['종이는 이면지함에!'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 포스터에 넣을 말 고르기', minutes: 11, tool: 'mindmap',
+            teacher: '"이 말은 짧은가요? 무엇을 하라는지 보이나요? 누구를 탓하지는 않나요?" 칠판의 세 가지 약속으로 카드마다 따지게 한다. 맞는 말이라도 너무 길면 포스터에는 맞지 않는다는 것을 짚는다.',
+            task: '포스터에 넣기 알맞은 말을 고르고, 알아낸 것과 할 일 자리에 나누어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '이면지함 포스터에 넣기 알맞은 말만 골라 보세요.', toolOptions: { mode: 'pick', topic: '포스터에 넣을 말', cards: ['종이는 이면지함에!', '뒷면도 한 번 더 써요', '첫째 주에 열두 개였던 종이 쓰레기가 이면지함을 놓은 뒤 셋째 주에는 다섯 개로 줄었어요', '종이를 버리는 친구는 나빠요'] },
+                target: { pick: ['종이는 이면지함에!', '뒷면도 한 번 더 써요'] }, difficulty: 0.15,
+                hints: ['카드마다 짧은지, 할 일이 보이는지, 누구를 탓하지 않는지 세 가지를 따져요.', '고른 것 가운데 너무 길거나 친구를 탓하는 말이 있는지 살펴봐요.', '"종이는 이면지함에!"와 "뒷면도 한 번 더 써요"가 짧고 할 일이 보여요.'] },
+              { prompt: '포스터의 말을 알아낸 것과 함께 할 일로 나누어 보세요.', toolOptions: { topic: '포스터 자리', slots: ['알아낸 것', '함께 할 일'], cards: ['우리 반 쓰레기는 종이가 가장 많아요', '종이는 이면지함에 넣어요', '급식에서 나물이 가장 많이 남아요', '나물은 먹을 만큼만 받아요'] },
+                target: { sort: { '알아낸 것': ['우리 반 쓰레기는 종이가 가장 많아요', '급식에서 나물이 가장 많이 남아요'], '함께 할 일': ['종이는 이면지함에 넣어요', '나물은 먹을 만큼만 받아요'] } }, difficulty: 0.2,
+                hints: ['카드마다 세어서 안 것을 말하는지, 앞으로 하자는 일을 말하는지 따져요.', '칸이 어긋난 카드가 있어요. 하자는 말인지, 무엇이 많다고 안 것인지 다시 봐요.', '"가장 많아요·가장 많이 남아요"는 알아낸 것, "넣어요·받아요"는 함께 할 일이에요.'],
+                levels: { easy: { prompt: '포스터의 말 두 장을 알아낸 것과 함께 할 일로 나누어 보세요.', toolOptions: { cards: ['우리 반 쓰레기는 종이가 가장 많아요', '종이는 이면지함에 넣어요'] }, target: { sort: { '알아낸 것': ['우리 반 쓰레기는 종이가 가장 많아요'], '함께 할 일': ['종이는 이면지함에 넣어요'] } } } } },
+              { prompt: '물 아끼기 포스터에 넣기 알맞은 말만 골라 보세요.', toolOptions: { mode: 'pick', topic: '물 아끼기 포스터', cards: ['손 씻을 때 물을 잠가요!', '양치는 컵으로!', '물을 펑펑 쓰는 사람은 나빠요', '물은 투명하고 냄새가 없어요'] },
+                target: { pick: ['손 씻을 때 물을 잠가요!', '양치는 컵으로!'] }, difficulty: 0.15,
+                hints: ['카드마다 짧은지, 할 일이 보이는지, 누구를 탓하지 않는지 세 가지를 따져요.', '고른 것 가운데 할 일이 아니라 물에 대한 사실만 말한 것이나 탓하는 말이 있는지 살펴봐요.', '물을 잠그자는 말과 컵으로 양치하자는 말이에요.'],
+                predict: { q: '"물은 투명해요"는 알리는 포스터에 알맞을까요?', options: ['알맞아요', '아니에요'], answer: 1 },
+                conclude: '맞는 말이어도 할 일이 보이지 않으면 알리는 포스터에는 알맞지 않아요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 포스터 그림 꾸미기', minutes: 16, tool: 'collage',
+            teacher: '"포스터를 본 사람이 무엇을 하라는지 그림만 보고도 알 수 있을까요?" 화면에서 그림을 꾸며 본 뒤 모둠마다 4절 도화지에 고른 말을 크게 쓰고 색종이를 오려 붙여 포스터를 만든다. 말은 연필로 먼저 쓰고 사인펜으로 덧쓰게 한다.',
+            task: '조건에 맞게 포스터 그림을 꾸며요. 다 꾸미면 모둠 포스터를 도화지에 만들어요.',
+            levels: { easy: { shapes: ['square', 'rect', 'heart', 'leaf'], colors: ['갈색', '노랑', '초록', '빨강'] }, base: {}, challenge: { rotStep: 90 } },
+            items: [
+              { prompt: '이면지함 포스터 그림을 꾸며요. 갈색 긴 네모 상자를 한 개, 노랑 네모 종이를 세 개 이상 붙여요.', target: { has: [{ shape: 'rect', color: '갈색', n: 1 }, { shape: 'square', color: '노랑', min: 3 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '이면지함 포스터 그림을 꾸며요. 갈색 긴 네모 상자를 한 개, 노랑 네모 종이를 네 개 이상, 빨강 하트를 두 개 붙여요.', target: { has: [{ shape: 'rect', color: '갈색', n: 1 }, { shape: 'square', color: '노랑', min: 4 }, { shape: 'heart', color: '빨강', n: 2 }] } } } },
+              { prompt: '포스터 테두리를 꾸며요. 세로 접는 선을 기준으로 양쪽이 똑같게 초록 나뭇잎을 두 개 이상 붙여요.', target: { symmetry: 'vertical', has: [{ shape: 'leaf', color: '초록', min: 2 }] }, difficulty: 0.25 },
+              { prompt: '우리 반 할 일 포스터를 마음껏 꾸미고, 해낸 것을 점검해 보세요.', target: { selfCheck: ['할 일이 보이는 그림을 넣었어요', '조각을 네 개 이상 붙였어요', '모둠 포스터에 짧은 말을 크게 썼어요'], minPieces: 4 }, difficulty: 0.1 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '모둠 포스터를 칠판에 나란히 붙이고, 칠판의 세 가지 약속으로 서로의 포스터를 한 가지씩 칭찬하게 한다. 출구 첫 문항을 틀린 학생에게는 세 가지 약속을 하나씩 짚으며 다시 따지게 한다. 다음 시간에는 이 포스터를 들고 다른 반과 가족에게 알린다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', topic: '분리배출 포스터', cards: ['플라스틱은 씻어서 플라스틱함에!', '페트병은 뚜껑을 따로!', '아무렇게나 버리는 사람은 부끄러워요', '플라스틱은 가벼워요'] }, prompt: '분리배출 포스터에 넣기 알맞은 말만 골라 보세요.', target: { pick: ['플라스틱은 씻어서 플라스틱함에!', '페트병은 뚜껑을 따로!'] }, difficulty: 0.2 },
+          { type: 'choice', prompt: '포스터의 말로 가장 알맞은 것은 무엇인가요?', options: ['급식은 먹을 만큼만!', '반찬을 남기는 친구는 나빠요', '급식실은 1층에 있어요'], answer: 0, difficulty: 0.1, explain: '짧고, 할 일이 보이고, 누구를 탓하지 않는 말이에요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '할 일 포스터 계획',
+      items: [
+        { type: 'check', prompt: '포스터의 말을 고를 때 볼 것에 모두 ✓ 하세요.', options: ['짧아요', '할 일이 보여요', '누구를 탓하지 않아요'] },
+        { type: 'table', prompt: '포스터에 넣을 말을 쓰세요.', columns: ['알아낸 것', '함께 할 일'], rows: 1 },
+        { type: 'choice', prompt: '포스터에 알맞은 말에 ○ 하세요.', options: ['종이는 이면지함에!', '종이를 버리면 나빠요', '종이는 나무로 만들어요'], answer: '종이는 이면지함에!' },
+        { type: 'draw', prompt: '우리 모둠 포스터의 그림을 미리 그려 보세요.' },
+      ],
+      easy: {
+        note: '포스터의 말은 짧게, 할 일이 보이게 써요.',
+        items: [
+          { type: 'choice', prompt: '포스터에 알맞은 말에 ○ 하세요.', options: ['양치는 컵으로!', '물을 쓰는 사람은 나빠요'], answer: '양치는 컵으로!' },
+          { type: 'short', prompt: '우리 반 할 일을 짧게 쓰세요.' },
+          { type: 'draw', prompt: '포스터 그림을 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '고르기 칸에 초록 테두리가 생기고 나누기 카드가 두 장이에요. 꾸미기는 모양 네 가지·색 네 가지에서 골라요.',
+      base: '세 가지 약속으로 말을 고르고, 조건에 맞게 포스터 그림을 꾸며요.',
+      challenge: '꾸미기 조건이 하나 더 붙고 조각을 90°씩만 돌릴 수 있어요. 모둠 포스터에 알아낸 수를 한 줄 넣어요.',
+    },
+    teacherNotes: '준비: 모둠마다 4절 도화지, 색종이, 풀, 가위, 사인펜. 자주 보이는 어려움: ① 알아낸 것을 길게 다 쓰려 한다 → "지나가는 친구가 3초 안에 읽을 수 있을까요?"라고 묻는다. ② 탓하는 말(○○는 나빠요)을 쓴다 → "함께 해요"로 바꿔 쓰게 한다. ③ 그림 꾸미기에 시간을 다 쓴다 → 말을 먼저 쓰고 그림은 남은 시간에 붙이게 한다. 출구의 분리배출 포스터 말은 43차시와 이어진다.',
+  }));
+
+  lessons.push(L(46, {
+    title: '다른 반과 가족에게 우리 할 일 알리기',
+    objective: '알아낸 것과 할 일을 "~해서 ~해요" 차례로 알리는 말을 완성하고, 듣는 사람의 물음에 근거를 들어 답할 수 있다.',
+    illustration: ART('two children holding a paper poster in front of another classroom door, other children listening with curious faces', '우리 할 일을 알려요', [
+      { motif: 'house', x: 400, y: 212 }, { motif: 'star', x: 120, y: 96, s: 0.5 }, { motif: 'heart', x: 120, y: 226, s: 0.5 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"포스터를 붙이기만 하면 다른 반 친구들이 왜 해야 하는지 알까요?" 알리는 말에는 \'알아낸 것\'과 \'그래서 할 일\'이 함께 들어가야 한다고 칠판에 적는다. "누가 \'그거 해서 뭐가 달라져?\' 하고 물으면 무엇을 보여 줄까요?" 42차시의 그래프를 다시 띄운다. 시연 단추로 알리는 말의 빈칸이 채워지는 모습을 보여 준다.',
+        student: '우리 반 할 일을 누구에게 알리고 싶은지 짝에게 말해 봐요.',
+        demo: { tool: 'story', options: { mode: 'fill', cards: ['손수건', '휴지통'], slots: [{ id: 'b1', label: '휴지를 아끼려고 ___을 써요.' }], shuffle: false }, sequence: [{ fill: { b1: '손수건' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 알리는 말 완성하기', minutes: 12, tool: 'story',
+            teacher: '"빈칸에 무엇을 넣어야 듣는 사람이 \'아, 그래서 하는구나\' 하고 알까요?" 문항에 적힌 수를 먼저 소리 내어 읽게 한다. 완성한 뒤 짝과 번갈아 한 사람은 알리고 한 사람은 듣게 한다.',
+            task: '알아낸 것과 할 일이 들어간 알리는 말을 빈칸에 알맞은 카드를 넣어 완성해요. 그리고 짝에게 알려 봐요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '2반 민지가 1반에 알리러 가요. 2반은 종이 쓰레기 12개, 비닐 쓰레기 4개를 셌어요. 알리는 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['종이', '비닐', '이면지함', '뒷면도'], slots: [{ id: 'b1', label: '우리 반 쓰레기를 세어 보니 ___ 쓰레기가 가장 많았어요.' }, { id: 'b2', label: '그래서 교실에 ___을 만들었어요.' }, { id: 'b3', label: '종이를 버리기 전에 ___ 한 번 더 써 주세요.' }] },
+                target: { fill: { b1: '종이', b2: '이면지함', b3: '뒷면도' } }, difficulty: 0.2,
+                hints: ['문항의 센 수에서 무엇이 가장 많은지 먼저 찾고, 그다음 빈칸마다 앞뒤 말과 이어지는 카드를 찾아요.', '어긋난 빈칸이 있어요. 첫 빈칸은 센 수가 더 큰 쪽이에요.', '종이가 12개로 가장 많아서 이면지함을 만들었고, 뒷면도 한 번 더 써 달라고 해요.'],
+                levels: { easy: { prompt: '2반은 종이 쓰레기 12개, 비닐 쓰레기 4개를 셌어요. 알리는 말 두 빈칸을 채워 보세요.', toolOptions: { cards: ['종이', '비닐', '이면지함'], slots: [{ id: 'b1', label: '우리 반 쓰레기를 세어 보니 ___ 쓰레기가 가장 많았어요.' }, { id: 'b2', label: '그래서 교실에 ___을 만들었어요.' }] }, target: { fill: { b1: '종이', b2: '이면지함' } } } } },
+              { prompt: '3반 서아가 가족에게 알려요. 3반은 나물을 남긴 친구가 9명, 밥을 남긴 친구가 2명이었어요. 알리는 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['나물', '밥', '먹을', '많이'], slots: [{ id: 'b1', label: '급식에서 ___이 가장 많이 남았어요.' }, { id: 'b2', label: '그래서 우리 반은 ___ 만큼만 받기로 했어요.' }] },
+                target: { fill: { b1: '나물', b2: '먹을' } }, difficulty: 0.2,
+                hints: ['문항의 수에서 무엇이 가장 많이 남았는지 찾고, 남지 않게 하려면 어떻게 받아야 할지 떠올려요.', '어긋난 빈칸이 있어요. 많이 받으면 남는 음식이 줄어들까요?', '나물이 9명으로 가장 많이 남아서, 먹을 만큼만 받기로 했어요.'],
+                levels: { challenge: { toolOptions: { cards: ['나물', '밥', '먹을', '많이', '남길'] } } } },
+              { prompt: '우리 반 포스터를 들고 짝에게 "알아낸 것 → 그래서 할 일" 차례로 알려 봐요. 서로 바꿔 한 번씩 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 물음에 답하고 알리러 가기', minutes: 15, tool: 'emotion',
+            teacher: '"듣는 사람이 귀찮다고 하거나 소용없다고 하면 어떻게 답할까요?" 화를 내기보다 알아낸 수를 보여 주는 답이 힘이 있다는 것을 짚는다. 문항을 마치면 모둠 대표 두 명이 포스터를 들고 옆 반(미리 약속한 반)에 가서 1분 동안 알리고, 나머지는 교실에서 가족에게 할 말을 활동지에 쓴다.',
+            task: '이야기를 읽고 듣는 사람에게 알맞게 답하는 말을 골라요. 그리고 모둠 대표가 옆 반에 알리러 가요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '1반 친구가 "그거 해서 뭐가 달라져?" 하고 물어요. 어떻게 답할까요?', toolOptions: { mode: 'branch', who: '민지', situation: '민지가 이면지함을 알리자, 1반 친구가 "그거 해서 뭐가 달라져?" 하고 물어요.', choices: [
+                { id: 'data', text: '"우리 반은 이면지함을 놓고 종이 쓰레기가 7개 줄었어" 하고 그래프를 보여 줘요', result: '1반 친구가 "우리 반도 세어 볼래" 하고 말해요.', mood: '뿌듯함' },
+                { id: 'dunno', text: '"몰라, 그냥 해" 하고 말해요', result: '1반 친구가 왜 해야 하는지 몰라서 하지 않아요.', mood: '걱정', why: '까닭을 알아야 듣는 사람도 함께 해요.' },
+                { id: 'angry', text: '"너도 그냥 해!" 하고 소리쳐요', result: '1반 친구가 기분이 상해 돌아가요.', mood: '화남', why: '소리치기보다 알아낸 것을 보여 주는 것이 좋아요.' }] }, target: { choice: 'data' }, difficulty: 0.15,
+                levels: { easy: { toolOptions: { choices: [
+                  { id: 'data', text: '"우리 반은 이면지함을 놓고 종이 쓰레기가 7개 줄었어" 하고 그래프를 보여 줘요', result: '1반 친구가 "우리 반도 세어 볼래" 하고 말해요.', mood: '뿌듯함' },
+                  { id: 'dunno', text: '"몰라, 그냥 해" 하고 말해요', result: '1반 친구가 왜 해야 하는지 몰라서 하지 않아요.', mood: '걱정', why: '까닭을 알아야 듣는 사람도 함께 해요.' }] } } } },
+              { prompt: '동생이 "이면지 쓰기 귀찮아" 하고 말해요. 어떻게 답할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '준호가 집에서 이면지를 쓰자고 하자, 동생이 "귀찮아. 새 종이가 더 좋아." 하고 말해요.', choices: [
+                { id: 'easy', text: '"버리기 전에 뒤집어 보기만 하면 돼. 같이 해 볼까?" 하고 말해요', result: '동생이 그림을 다 그린 종이를 뒤집어 한 번 더 그려요.', mood: '기쁨' },
+                { id: 'scare', text: '"안 하면 혼날 거야" 하고 겁을 줘요', result: '동생이 무서워서 울어요.', mood: '속상함', why: '겁을 주면 즐겁게 함께 하기 어려워요.' },
+                { id: 'giveup', text: '"그럼 하지 마" 하고 그만둬요', result: '집의 종이 쓰레기는 그대로예요.', mood: '걱정', why: '쉬운 방법을 알려 주면 동생도 해 볼 수 있어요.' }] }, target: { choice: 'easy' }, difficulty: 0.15 },
+              { prompt: '모둠 대표는 포스터를 들고 옆 반에 가서 1분 동안 알리고, 나머지는 가족에게 할 말을 활동지에 써요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '다녀온 대표에게 "옆 반 친구들은 어떤 물음을 했나요?"라고 묻고, 받은 물음을 칠판에 적는다. 답하기 어려웠던 물음은 47차시에 다시 세어 본 뒤 답하자고 말한다. 출구 첫 문항을 틀린 학생에게는 문항의 수를 먼저 소리 내어 읽게 한다. 오늘 활동지에 쓴 말로 집에서 가족에게 알려 보게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { mode: 'fill', cards: ['페트병', '캔', '물통'], slots: [{ id: 'b1', label: '우리 집은 ___이 가장 많이 나와요.' }, { id: 'b2', label: '그래서 ___에 물을 담아 다녀요.' }] }, prompt: '하준네는 페트병 11개, 캔 3개가 나왔어요. 알리는 말을 완성해 보세요.', target: { fill: { b1: '페트병', b2: '물통' } }, difficulty: 0.2 },
+          { type: 'choice', prompt: '"그거 해서 뭐가 달라져?"라는 물음에 가장 알맞은 답은 무엇인가요?', options: ['세어 본 수가 줄어든 것을 보여 줘요', '그냥 하라고 말해요', '대답하지 않아요'], answer: 0, difficulty: 0.1, explain: '알아낸 수를 보여 주면 듣는 사람도 까닭을 알 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 할 일 알리기',
+      items: [
+        { type: 'table', prompt: '알리는 말을 차례대로 쓰세요.', columns: ['알아낸 것', '그래서 할 일', '함께 해 달라는 말'], rows: 1 },
+        { type: 'short', prompt: '가족에게 알릴 말을 쓰세요.' },
+        { type: 'choice', prompt: '"귀찮아"라는 동생에게 알맞은 말에 ○ 하세요.', options: ['뒤집어 보기만 하면 돼. 같이 해 볼까?', '안 하면 혼날 거야', '그럼 하지 마'], answer: '뒤집어 보기만 하면 돼. 같이 해 볼까?' },
+        { type: 'short', prompt: '옆 반 친구에게 받은 물음과 내 답을 쓰세요.' },
+      ],
+      easy: {
+        note: '"~해서 ~해요"로 말해요.',
+        items: [
+          { type: 'short', prompt: '우리 반에서 가장 많았던 쓰레기를 쓰세요.' },
+          { type: 'short', prompt: '그래서 우리 반이 하는 일을 쓰세요.' },
+          { type: 'choice', prompt: '알맞은 답에 ○ 하세요.', options: ['종이 쓰레기가 줄었어', '몰라, 그냥 해'], answer: '종이 쓰레기가 줄었어' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '빈칸이 둘이고 맞는 칸에 초록 테두리가 생겨요. 이야기 보기가 두 개예요.',
+      base: '알아낸 것과 할 일을 넣어 알리는 말을 완성하고, 물음에 근거를 들어 답해요.',
+      challenge: '헷갈리는 함정 카드가 더 있어요. 옆 반 친구의 물음에 수를 넣어 답해요.',
+    },
+    teacherNotes: '준비: 옆 반 담임과 알리러 갈 시간(1분 남짓)을 미리 약속한다. 자주 보이는 어려움: ① 할 일만 말하고 까닭(알아낸 것)을 빼먹는다 → "왜 해야 해요?"라고 되묻는다. ② 반대하는 말에 화를 낸다 → 알아낸 수를 보여 주는 답으로 바꿔 말하게 한다. ③ 어른들이 해결해 줄 일이라는 말을 듣고 흔들린다 → 우리 반이 줄인 수를 다시 보여 준다. 모든 학생이 다른 반에 갈 필요는 없고, 대표가 아닌 학생은 가족에게 알리는 말을 준비한다.',
+  }));
+
+  lessons.push(L(47, {
+    title: '일주일 실천 뒤 다시 세어 달라진 것 확인하기',
+    objective: '함께 할 일을 일주일 실천한 뒤 다시 센 수를 처음 수와 견주어 달라진 것을 말하고, 잘 되지 않은 일에 알맞은 다음 방법을 고를 수 있다.',
+    illustration: ART('two paper picture graphs side by side, before and after, with the after row shorter, and children cheering beside a scrap paper box', '달라졌을까요?', [
+      { motif: 'sun', x: 120, y: 100, s: 0.5 }, { motif: 'leaf', x: 90, y: 230 }, { motif: 'flower', x: 380, y: 226 }]),
+    safety: TRASH,
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"44차시에 정한 할 일을 일주일 동안 했어요. 쓰레기가 줄었을까요?" 줄었다, 그대로다, 늘었다에 손을 들게 한다. "느낌이 아니라 39차시처럼 다시 세어 보아야 알 수 있어요." 39차시 표를 칠판에 다시 붙인다. 시연 단추로 실천 전과 뒤 그래프를 보여 준다.',
+        student: '일주일 동안 할 일을 지킨 날을 손가락으로 세어 봐요.',
+        demo: { tool: 'chart', options: { type: 'picture', title: '실천 전과 뒤', data: [['전', 8], ['뒤', 5]], unit: '개', xLabel: '때', yLabel: '쓰레기 수', icon: 'square', icons: ONE('개'), showTable: true }, sequence: [{ build: true }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 다시 세어 견주기', minutes: 14, tool: 'chart',
+            teacher: '모둠마다 장갑을 끼고 어제 모은 교실 쓰레기를 39차시와 같은 방법(나누기, 옮기며 세기)으로 다시 세어 활동지 표의 \'뒤\' 칸에 적는다. "같은 방법으로 세어야 견줄 수 있어요." 그다음 화면에서 1반·2반의 예시 그래프를 읽는다. 할 일과 이어진 쓰레기가 더 많이 줄었는지 살펴보게 한다.',
+            task: '같은 방법으로 다시 세어 적고, 실천 전과 뒤의 그래프를 읽어 달라진 것을 찾아요.',
+            levels: { easy: { showTable: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '모둠에서 장갑을 끼고 39차시와 같은 방법으로 쓰레기를 다시 세어 활동지 표에 적어요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+              { prompt: '1반은 이면지함을 썼어요. 그래프를 보고 종이 쓰레기가 몇 개 줄었는지 써 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '1반 실천 전과 뒤', data: [['종이 (전)', 10], ['종이 (뒤)', 4], ['비닐 (전)', 6], ['비닐 (뒤)', 5]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), question: '종이 쓰레기는 몇 개 줄었나요?', explain: '종이 (전) 10개에서 종이 (뒤) 4개를 빼면 6개예요.' },
+                target: { value: 6 }, difficulty: 0.3, hints: ['두 줄의 그림을 하나씩 짝지어 보고, 짝이 없는 그림을 세어요.', '두 줄을 각각 다시 세어 보세요. 긴 줄에서 짝이 없는 그림만 세어요.'], },
+              { prompt: '같은 1반 그래프에서 더 많이 줄어든 쓰레기를 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '1반 실천 전과 뒤', data: [['종이 (전)', 10], ['종이 (뒤)', 4], ['비닐 (전)', 6], ['비닐 (뒤)', 5]], unit: '개', xLabel: '종류', icon: 'square', icons: ONE('개'), choices: ['종이', '비닐'], question: '더 많이 줄어든 것은?', why: ['', '비닐은 한 개만 줄었어요.'], explain: '종이는 6개, 비닐은 1개 줄었어요.' },
+                target: { pick: 0 }, difficulty: 0.25,
+                predict: { q: '이면지함을 쓰면 무엇이 더 줄어들까요?', options: ['종이', '비닐'], answer: 0 },
+                conclude: '할 일과 이어진 쓰레기가 더 많이 줄었어요. 할 일이 도움이 되었다는 뜻이에요.' },
+              { prompt: '2반은 "먹을 만큼 받기"를 했어요. 그래프를 보고 나물을 남긴 친구가 다시 늘어난 주를 골라 보세요.', toolOptions: { type: 'picture', mode: 'read', title: '2반 나물을 남긴 친구', data: [['1주', 9], ['2주', 5], ['3주', 7]], unit: '명', xLabel: '주', icon: 'person', icons: ONE('명'), choices: ['1주', '2주', '3주'], question: '다시 늘어난 주는?', why: ['1주는 약속을 하기 전이에요.', '2주는 1주보다 줄었어요.', ''], explain: '3주는 2주보다 그림이 2개 많아졌어요.' },
+                target: { pick: 2 }, difficulty: 0.25 },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 잘 되지 않을 때 다음 방법', minutes: 13, tool: 'emotion',
+            teacher: '"줄지 않거나 다시 늘었다면 할 일을 그만둬야 할까요?" 까닭을 찾아 방법을 바꾸면 된다는 것을 짚는다. 마지막 문항은 내 실천을 돌아보는 것이라 맞고 틀림이 없다고 말한다.',
+            task: '잘 되지 않은 이야기를 읽고 다음 방법을 골라요. 그리고 내가 얼마나 지켰는지 골라요.',
+            levels: { easy: { steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '2반은 3주에 나물을 남긴 친구가 다시 늘었어요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '2반은 "먹을 만큼 받기"를 했는데, 3주에 나물을 남긴 친구가 다시 늘었어요.', choices: [
+                { id: 'why', text: '왜 늘었는지 친구들에게 묻고, 받을 때 "조금만요"라고 말하기로 해요', result: '4주에는 나물을 남긴 친구가 다시 줄었어요.', mood: '뿌듯함' },
+                { id: 'stop', text: '소용없으니 그만해요', result: '나물은 다시 많이 남아요.', mood: '걱정', why: '한 번 늘었다고 그만두면 줄어든 것까지 되돌아가요.' },
+                { id: 'name', text: '남긴 친구 이름을 칠판에 적어요', result: '친구들이 속상해하고 급식 시간이 즐겁지 않아요.', mood: '속상함', why: '탓하기보다 까닭을 찾아 방법을 바꾸는 것이 좋아요.' }] }, target: { choice: 'why' }, difficulty: 0.15 },
+              { prompt: '이면지함이 꽉 차서 친구들이 종이를 그냥 버려요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '이면지함이 꽉 차서 더 넣을 자리가 없어요. 친구들이 종이를 그냥 휴지통에 버려요.', choices: [
+                { id: 'duty', text: '다 쓴 이면지를 묶어 종이함에 내고, 이면지함 당번을 정해요', result: '이면지함에 다시 자리가 생겨 친구들이 종이를 넣어요.', mood: '기쁨' },
+                { id: 'remove', text: '이면지함을 치워요', result: '종이 쓰레기가 처음처럼 많아져요.', mood: '걱정', why: '문제가 생기면 치우기보다 고쳐서 계속해요.' },
+                { id: 'wait', text: '선생님이 비워 주실 때까지 기다려요', result: '며칠 동안 종이가 휴지통으로 가요.', mood: '걱정', why: '우리가 할 수 있는 일은 기다리지 않고 바로 해요.' }] }, target: { choice: 'duty' }, difficulty: 0.15 },
+              { prompt: '일주일 동안 우리 반 할 일을 내가 얼마나 지켰는지 골라 보세요. 맞고 틀림이 없어요.', toolOptions: { mode: 'scale', situation: '일주일 동안 우리 반이 정한 할 일을 해 보았어요.', feeling: '뿌듯함', scaleLabels: { 1: '조금 지켰어요', 5: '날마다 지켰어요' }, ask: '나는 할 일을 얼마나 지켰나요?' }, target: { level: 'any' }, difficulty: 0.05,
+                levels: { easy: { toolOptions: { scaleLabels: ['조금 지켰어요', '거의 지켰어요', '날마다 지켰어요'] } } } },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '모둠마다 다시 센 수를 칠판 표의 \'뒤\' 칸에 모아 적고, \'전\' 칸과 견주어 줄어든 쓰레기에 동그라미를 한다. 줄지 않은 것이 있으면 다음 방법을 한 가지 정한다. 출구 첫 문항을 틀린 학생에게는 두 줄의 그림을 짝지어 짝 없는 그림을 세게 한다. 다음 시간에는 단원 전체를 돌아본다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'chart', options: { type: 'picture', mode: 'read', title: '3반 휴지를 쓴 장수', data: [['손수건 쓰기 전', 11], ['손수건 쓴 뒤', 6]], unit: '장', xLabel: '때', icon: 'square', icons: ONE('장'), question: '휴지는 몇 장 줄었나요?', explain: '11장에서 6장을 빼면 5장이에요.' }, prompt: '3반 그래프를 보고 손수건을 쓴 뒤 휴지가 몇 장 줄었는지 써 보세요.', target: { value: 5 }, difficulty: 0.3 },
+          { type: 'choice', prompt: '할 일을 했는데 쓰레기가 줄지 않았어요. 어떻게 할까요?', options: ['까닭을 찾아 방법을 바꿔요', '소용없으니 그만둬요', '어른이 해결해 줄 때까지 기다려요'], answer: 0, difficulty: 0.1, explain: '줄지 않은 까닭을 찾아 방법을 바꾸면 다시 해 볼 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '실천 전과 뒤',
+      items: [
+        { type: 'table', prompt: '실천 전(39차시)과 뒤에 센 수를 쓰세요.', columns: ['종류', '전', '뒤'], cells: [['종이', '', ''], ['플라스틱', '', ''], ['비닐', '', '']] },
+        { type: 'short', prompt: '가장 많이 줄어든 쓰레기와 줄어든 수를 쓰세요.' },
+        { type: 'choice', prompt: '할 일이 잘 되지 않을 때 알맞은 것에 ○ 하세요.', options: ['까닭을 찾아 방법을 바꿔요', '그만둬요', '친구를 탓해요'], answer: '까닭을 찾아 방법을 바꿔요' },
+        { type: 'short', prompt: '다음 주에 바꿔 볼 방법을 쓰세요.' },
+      ],
+      easy: {
+        note: '전과 뒤의 수를 나란히 쓰고 견주어요.',
+        items: [
+          { type: 'table', prompt: '종이 쓰레기 수를 쓰세요.', columns: ['전', '뒤'], rows: 1 },
+          { type: 'short', prompt: '종이 쓰레기는 줄었나요, 그대로인가요, 늘었나요? 쓰세요.' },
+          { type: 'draw', prompt: '할 일을 지킨 내 모습을 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '그래프 읽기 문항에 표도 함께 보이고, 마음 크기는 세 칸이에요.',
+      base: '같은 방법으로 다시 세어 견주고, 잘 되지 않은 일에 다음 방법을 골라요.',
+      challenge: '그래프를 읽은 뒤 종이와 비닐이 각각 몇 개 줄었는지 짝에게 말하고, 우리 반 표에서도 같은 방법으로 견주어요.',
+    },
+    teacherNotes: '준비: 전날 교실 쓰레기를 39차시와 똑같이 하루 모으고, 음식물·코 푼 휴지·뾰족한 것은 빼 둔다. 자주 보이는 어려움: ① 다른 방법으로 세어 견준다 → 같은 방법·같은 하루치로 세어야 견줄 수 있다고 짚는다. ② 줄지 않으면 실패라고 느낀다 → 까닭을 찾는 것도 탐구라고 말해 준다. ③ 남긴 친구를 탓한다 → 사람이 아니라 방법을 바꾼다고 짚는다. 마음 크기 문항은 맞고 틀림이 없다.',
+  }));
+
+  lessons.push(L(48, {
+    title: '자연 단원 돌아보며 배운 차례 새로 써 보기',
+    objective: '단원에서 탐구한 차례를 정리하고, 처음 보는 걱정에 그 차례를 써 보며 나의 배움과 실천을 스스로 돌아볼 수 있다.',
+    illustration: ART('a paper-cut path through a garden with signposts for living things, questions, counting and a poster, and a child looking back proudly along the path', '우리가 걸어온 길', [
+      { motif: 'tree', x: 410, y: 212 }, { motif: 'flower', x: 130, y: 226 }, { motif: 'bird', x: 340, y: 100 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '단원에서 만든 것들(화분 기록, 생물 소개 카드, 쓰레기 그래프, 포스터)을 칠판에 나란히 붙인다. "이 가운데 가장 기억에 남는 것은 무엇인가요? 왜 그런가요?" 두세 명의 이야기를 듣는다. "오늘은 우리가 걱정을 알아보고 할 일을 정한 차례를 정리하고, 처음 보는 걱정에도 써 봐요." 시연 단추로 탐구 차례 카드가 놓이는 모습을 보여 준다.',
+        student: '단원에서 가장 기억에 남는 활동을 짝에게 말해 봐요.',
+        demo: { tool: 'story', options: { mode: 'order', cards: ['걱정되는 일 찾기', '알아볼 물음 만들기'], shuffle: false }, sequence: [{ order: ['걱정되는 일 찾기', '알아볼 물음 만들기'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 탐구한 차례 정리하고 새로 써 보기', minutes: 14, tool: 'story',
+            teacher: '"이 일을 하려면 앞에서 무엇이 먼저 있어야 할까요?" 물음이 없으면 알아볼 방법을 고를 수 없고, 세어 보지 않으면 할 일을 정할 근거가 없다는 것을 짚는다. 두 번째 문항은 처음 보는 걱정에 같은 차례를 써 보는 것이다.',
+            task: '우리가 탐구한 차례대로 카드를 놓아요. 그리고 처음 보는 걱정에도 같은 차례를 써 봐요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '33~47차시에 우리가 한 일을 먼저 한 것부터 차례대로 놓아 보세요.', toolOptions: { mode: 'order', cards: ['걱정되는 일 찾기', '알아볼 물음 만들기', '알아볼 방법 고르기', '세어서 그래프로 나타내기', '할 일 정해 알리기'] },
+                target: { order: ['걱정되는 일 찾기', '알아볼 물음 만들기', '알아볼 방법 고르기', '세어서 그래프로 나타내기', '할 일 정해 알리기'] }, difficulty: 0.2,
+                hints: ['카드마다 그 일을 하려면 앞에서 무엇이 먼저 있어야 하는지 따져요.', '자리가 어긋난 카드가 있어요. 물음이 없는데 방법을 고를 수 있을까요?', '걱정 찾기 → 물음 만들기 → 방법 고르기 → 세어 나타내기 → 할 일 정해 알리기예요.'],
+                levels: { easy: { prompt: '33~47차시에 우리가 한 일을 먼저 한 것부터 세 장 놓아 보세요.', toolOptions: { cards: ['걱정되는 일 찾기', '세어서 그래프로 나타내기', '할 일 정해 알리기'] }, target: { order: ['걱정되는 일 찾기', '세어서 그래프로 나타내기', '할 일 정해 알리기'] } } } },
+              { prompt: '4반은 수도꼭지가 걱정돼요. 4반이 탐구할 차례대로 카드를 놓아 보세요.', toolOptions: { mode: 'order', cards: ['수도꼭지가 열려 있어 걱정돼요', '하루에 몇 번 열려 있을까?', '쉬는 시간마다 세어 봐요', '점심 뒤에 가장 많았어요', '점심 뒤 수도 당번을 정해요'] },
+                target: { order: ['수도꼭지가 열려 있어 걱정돼요', '하루에 몇 번 열려 있을까?', '쉬는 시간마다 세어 봐요', '점심 뒤에 가장 많았어요', '점심 뒤 수도 당번을 정해요'] }, difficulty: 0.3,
+                hints: ['카드마다 걱정·물음·방법·알아낸 것·할 일 가운데 무엇인지 먼저 이름 붙여 봐요.', '자리가 어긋난 카드가 있어요. 세어 보기 전에 "가장 많았다"는 것을 알 수 있을까요?', '걱정 → 물음(몇 번?) → 세어 보기 → 점심 뒤가 가장 많음 → 당번 정하기 차례예요.'],
+                levels: { easy: { prompt: '4반은 수도꼭지가 걱정돼요. 탐구할 차례대로 카드 세 장을 놓아 보세요.', toolOptions: { cards: ['수도꼭지가 열려 있어 걱정돼요', '쉬는 시간마다 세어 봐요', '점심 뒤 수도 당번을 정해요'] }, target: { order: ['수도꼭지가 열려 있어 걱정돼요', '쉬는 시간마다 세어 봐요', '점심 뒤 수도 당번을 정해요'] } } } },
+              { prompt: '17~32차시에 생물을 탐구한 차례대로 카드를 놓아 보세요.', toolOptions: { mode: 'order', cards: ['살펴볼 생물 고르기', '궁금한 것을 물음으로 만들기', '사흘 동안 살펴보고 기록하기', '알아낸 것 소개하기'] },
+                target: { order: ['살펴볼 생물 고르기', '궁금한 것을 물음으로 만들기', '사흘 동안 살펴보고 기록하기', '알아낸 것 소개하기'] }, difficulty: 0.2,
+                hints: ['카드마다 그 일을 하려면 앞에서 무엇이 먼저 있어야 하는지 따져요.', '자리가 어긋난 카드가 있어요. 살펴보기 전에 소개할 수 있을까요?', '생물 고르기 → 물음 만들기 → 사흘 관찰 → 소개하기 차례예요.'],
+                predict: { q: '생물 탐구와 쓰레기 탐구의 차례는 비슷할까요?', options: ['비슷해요', '전혀 달라요'], answer: 0 },
+                conclude: '무엇을 탐구하든 궁금한 것을 물음으로 만들고, 살펴보거나 세어서 알아낸 것을 나누어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 나의 배움 돌아보기', minutes: 13, tool: 'emotion',
+            teacher: '"첫 문항만 고르는 문항이고, 나머지는 맞고 틀림이 없어요. 내가 정말 할 수 있는 만큼 골라요." 고른 뒤 가장 낮게 고른 것 하나를 활동지에 쓰고, 그것을 더 잘하려면 무엇을 할지 짝과 이야기하게 한다.',
+            task: '처음 보는 상황에서 할 일을 고르고, 단원에서 배운 것을 내가 얼마나 할 수 있는지 골라요.',
+            levels: { easy: { steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '방학에 바닷가에서 쓰레기를 많이 봤어요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '민지', situation: '민지가 가족과 바닷가에 갔는데, 모래밭에 쓰레기가 많이 있어요.', choices: [
+                { id: 'count', text: '어떤 쓰레기가 많은지 살펴보고, 가족과 장갑을 끼고 조금 주워요', result: '페트병이 가장 많다는 것을 알고, 다음에는 물통을 챙기기로 해요.', mood: '뿌듯함' },
+                { id: 'notmine', text: '우리 동네가 아니니까 상관없어요', result: '쓰레기는 그대로 바다로 쓸려 가요.', mood: '걱정', why: '바다는 모두가 함께 쓰는 곳이에요.' },
+                { id: 'wait', text: '어른들이 치울 때까지 기다려요', result: '그사이 물새가 비닐을 물고 날아가요.', mood: '걱정', why: '어린이도 지금 할 수 있는 일이 있어요.' }] }, target: { choice: 'count' }, difficulty: 0.15 },
+              { prompt: '둘레의 생물과 서로 도우며 사는 법을 내가 얼마나 알게 되었는지 골라 보세요. 맞고 틀림이 없어요.', toolOptions: { mode: 'scale', situation: '단원에서 화분을 돌보고 둘레의 생물을 살펴보았어요.', feeling: '뿌듯함', scaleLabels: { 1: '조금 알아요', 5: '잘 알아요' }, ask: '생물과 함께 사는 법을 얼마나 알게 되었나요?' }, target: { level: 'any' }, difficulty: 0.05,
+                levels: { easy: { toolOptions: { scaleLabels: ['조금 알아요', '보통이에요', '잘 알아요'] } } } },
+              { prompt: '궁금한 것을 물음으로 만들고 세어서 알아보는 것을 내가 얼마나 할 수 있는지 골라 보세요. 맞고 틀림이 없어요.', toolOptions: { mode: 'scale', situation: '걱정을 물음으로 바꾸고, 쓰레기를 세어 그래프로 나타내 보았어요.', feeling: '뿌듯함', scaleLabels: { 1: '도움이 필요해요', 5: '혼자 할 수 있어요' }, ask: '물음을 만들고 세어 알아보는 것을 얼마나 할 수 있나요?' }, target: { level: 'any' }, difficulty: 0.05,
+                levels: { easy: { toolOptions: { scaleLabels: ['도움이 필요해요', '조금 할 수 있어요', '혼자 할 수 있어요'] } } } },
+              { prompt: '우리 반이 정한 할 일을 앞으로도 얼마나 이어 가고 싶은지 골라 보세요. 맞고 틀림이 없어요.', toolOptions: { mode: 'scale', situation: '우리 반이 정한 할 일을 일주일 동안 해 보고 달라진 것을 확인했어요.', feeling: '신남', ask: '앞으로도 얼마나 이어 가고 싶나요?' }, target: { level: 'any' }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"단원을 마치며 한 가지 약속을 정해 볼까요? 우리 반 할 일 가운데 앞으로도 이어 갈 것 하나를 골라요." 칠판에 적고 박수로 마무리한다. 출구 첫 문항을 틀린 학생에게는 카드마다 걱정·물음·방법 가운데 무엇인지 이름 붙이게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { mode: 'order', cards: ['빈 교실 불이 켜져 있어 걱정돼요', '불이 켜진 날은 며칠일까?', '일주일 동안 날마다 세어 봐요'] }, prompt: '5반이 탐구할 차례대로 카드를 놓아 보세요.', target: { order: ['빈 교실 불이 켜져 있어 걱정돼요', '불이 켜진 날은 며칠일까?', '일주일 동안 날마다 세어 봐요'] }, difficulty: 0.15 },
+          { type: 'choice', prompt: '지구의 걱정에 대한 생각으로 알맞은 것은 무엇인가요?', options: ['어린이와 상관없어요', '세어 보고 알아낸 것으로 어린이도 할 일을 정할 수 있어요', '어른이 해결해 줄 때까지 기다려요'], answer: 1, difficulty: 0.1, explain: '우리 반처럼 세어 보고 알아낸 것으로 지금 할 수 있는 일을 정해요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '자연 단원 돌아보기',
+      items: [
+        { type: 'table', prompt: '단원에서 한 일을 돌아보고 쓰세요.', columns: ['가장 기억에 남는 활동', '새로 알게 된 것', '앞으로 이어 갈 일'], rows: 1 },
+        { type: 'check', prompt: '단원에서 내가 해 본 것에 ✓ 하세요.', options: ['화분이나 생물을 돌보았어요', '궁금한 것을 물음으로 만들었어요', '쓰레기를 세어 그래프로 나타냈어요', '할 일을 친구나 가족에게 알렸어요'] },
+        { type: 'short', prompt: '돌아보기에서 가장 낮게 고른 것과, 더 잘하려고 할 일을 쓰세요.' },
+        { type: 'draw', prompt: '단원을 마친 내 모습이나 가장 기억에 남는 장면을 그리세요.' },
+      ],
+      easy: {
+        note: '맞고 틀림이 없어요. 내 생각을 써요.',
+        items: [
+          { type: 'short', prompt: '가장 기억에 남는 활동을 쓰세요.' },
+          { type: 'short', prompt: '앞으로도 이어 갈 일을 쓰세요.' },
+          { type: 'draw', prompt: '가장 기억에 남는 장면을 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '차례 카드가 세 장이고 맞는 자리에 초록 테두리가 생겨요. 돌아보기는 세 칸에서 골라요.',
+      base: '탐구 차례를 정리하고 처음 보는 걱정에 같은 차례를 써 봐요. 배움을 다섯 칸에서 골라요.',
+      challenge: '차례를 놓은 뒤 4반 카드 가운데 걱정·물음·방법·알아낸 것·할 일이 각각 무엇인지 짝에게 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 알아낸 것을 세어 보기 전에 놓는다 → "세어 보기 전에 가장 많은 것을 알 수 있을까요?"라고 묻는다. ② 돌아보기를 모두 가장 높게 고른다 → 맞고 틀림이 없으니 정말 할 수 있는 만큼 고르라고 다시 말한다. ③ 지구 문제는 어린이와 상관없다는 생각이 남아 있다 → 우리 반이 줄인 수를 다시 보여 준다. 돌아보기 결과는 교사 화면에서 학생별로 보고, 낮게 고른 영역은 다음 단원 시작 때 짧게 다시 짚는다.',
+  }));
+
   // ── 차시 끝 ──
 
   PaperLessons.registerUnit({
     id: 'g2-int-1-02', schema: 'edu-unit.v1', catalogUnit: UNIT,
     grade: 2, subject: '통합교과', unitTitle: TITLE,
-    flow: 'FLOW',
+    flow: '1~16차시(바른 생활)는 둘레의 생물과 사람이 서로 돕는 일을 알고, 화분 돌보기·물과 종이 아끼기를 실천한 뒤 달라진 것을 돌아본다. 17~32차시(슬기로운 생활)는 살펴볼 생물을 골라 물음을 만들고, 사흘 동안 관찰·기록한 것을 읽어 알아낸 것을 소개한다. 33~38차시는 둘레에서 걱정되는 일(쓰레기·물·공기)을 찾아 알아볼 물음과 방법으로 바꾸고, 어린이도 지금 할 일이 있음을 확인한다. 39~43차시는 교실·급식·집·분리배출함의 쓰레기를 직접 세어 표와 그림그래프로 나타내고 견주어 읽는다. 44~48차시는 알아낸 것으로 우리 반 할 일을 정해 포스터와 말로 알리고, 일주일 실천 뒤 다시 세어 달라진 것을 확인한 다음 단원 전체를 돌아본다.',
     refs: {},
     lessons: lessons,
   });

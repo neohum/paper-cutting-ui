@@ -15,6 +15,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
+import { randomBytes } from 'node:crypto';
 import { chromium } from 'playwright-core';
 import { staticLesson, itemAt, targetLeak, findChrome, ignorableConsole, SUBJECT_MARK } from './check-lesson.mjs';
 import { PII } from './classroom-hub.mjs';
@@ -28,7 +29,7 @@ const shots = arg('--shots', null);
 const target = argv.find((a, i) => !a.startsWith('--') && !['--hub', '--shots'].includes(argv[i - 1]));
 if (!target && !flag('--all')) { console.error('usage: check-unit.mjs <unitId>|--all [--hub URL] [--shots dir] [--no-pdf] [--static]'); process.exit(2); }
 
-const UNIT_ID = /^g[1-6]-(kor|math|int|soc|mor|sci|pe|mus|art|eng|prac)-[12]-\d{2}$/;
+const UNIT_ID = /^g[1-6]-(kor|math|int|soc|mor|sci|pe|mus|art|eng|prac)-[12]-(\d{2}|독서|매체)$/;
 const SUBJECT_CODE = { 국어: 'kor', 수학: 'math', 통합교과: 'int', 사회: 'soc', 도덕: 'mor', 과학: 'sci', 체육: 'pe', 음악: 'mus', 미술: 'art', 영어: 'eng', 실과: 'prac' };
 const two = (n) => String(n).padStart(2, '0');
 const norm = (t) => String(t ?? '').replace(/\s+/g, ' ').trim();
@@ -81,7 +82,7 @@ export function staticUnit(id, unit) {
   if (unit.id !== id) U('단원', `registerUnit id '${unit.id}' ≠ 파일 이름 '${id}'`);
   if (unit.schema !== 'edu-unit.v1') U('단원', `schema가 'edu-unit.v1'이 아님: ${unit.schema}`);
   const sample = id.startsWith('_');
-  if (!sample && !UNIT_ID.test(id)) U('단원', `단원 id 형식이 아님(g<학년>-<과목>-<학기>-<두 자리>): ${id}`);
+  if (!sample && !UNIT_ID.test(id)) U('단원', `단원 id 형식이 아님(g<학년>-<과목>-<학기>-<두 자리|독서|매체>): ${id}`);
   const idx = index.get(id);
   if (!sample && !idx) U('단원', 'units-index.json에 없는 단원');
   if (idx) {
@@ -229,12 +230,27 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
                 // 말하기만 하는 짝 활동(talk: true)은 교구를 움직이지 않아도 '다 했어요'가 된다(player.js) — 조각이 없어도 된다
                 if (it0.talk) continue;
                 open(x, y, 'base');
+                // 플레이어는 교구 상태가 한 번은 바뀌어야 '다 했어요'를 받는다(player.js) — 조각이 있는지가 아니라 실제로 상태가 바뀌는지 본다
+                // (check-lesson.mjs nudge와 같은 키: Enter·→·↑·Space, 단추는 누르기, 입력 칸은 값 넣기)
                 const box = document.querySelector('#tool');
-                if (!box.querySelector('[tabindex="0"], button, input, select, textarea, [role="button"]')) row.problems.push('짝 활동 교구에 키보드로 움직일 조각이 없음 — 교구를 움직이지 않는 말하기 활동이면 talk: true, 아니면 그 문항에 toolOptions(카드·칸 등)를 준다');
+                const T0 = S.tool; const before = JSON.stringify(T0.getState());
+                const moved = () => JSON.stringify(T0.getState()) !== before;
+                let ok = false;
+                for (const el of [...box.querySelectorAll('[tabindex="0"], button, input, select, textarea, [role="button"]')].slice(0, 8)) {
+                  if (el.disabled) continue;
+                  if (/^(INPUT|TEXTAREA)$/.test(el.tagName)) { el.value = '1'; el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true })); }
+                  else if (el.tagName === 'SELECT') { el.selectedIndex = (el.selectedIndex + 1) % Math.max(1, el.options.length); el.dispatchEvent(new Event('change', { bubbles: true })); }
+                  else for (const key of ['Enter', 'ArrowRight', 'ArrowUp', ' ']) { el.focus(); el.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true })); if (moved()) break; }
+                  if (!moved() && (el.tagName === 'BUTTON' || el.getAttribute('role') === 'button')) el.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+                  if (moved()) { ok = true; break; }
+                }
+                if (!ok) row.problems.push('짝 활동 교구를 움직여도 상태가 바뀌지 않음(학생이 \'다 했어요\'를 누를 수 없음) — 교구를 움직이지 않는 말하기 활동이면 talk: true, 아니면 그 문항에 toolOptions(카드·칸 등)를 준다');
                 continue;
               }
-              // 단계마다 판정: 문항 target을 바꾼 단계뿐 아니라 toolOptions·state만 바꾼 단계(함정 카드를 더한 도전 등)도 그 판으로 풀리는지 본다
-              const levels = ['base', ...Object.keys(it0.levels || {}).filter((lv) => lv !== 'base' && ['target', 'toolOptions', 'state'].some((k) => it0.levels[lv][k] != null))];
+              // 단계마다 판정: 문항 target을 바꾼 단계뿐 아니라 toolOptions·state만 바꾼 단계(함정 카드를 더한 도전 등)도 그 판으로 풀리는지 본다.
+              // 활동 단위 levels(예: 쉬움 단계에서 고르개 모양·색을 줄임)도 학생 판을 바꾸므로 그 단계를 연다 — 빠뜨리면 쉬움 판에 없는 재료를 요구해도 통과한다
+              const actLv = acts[x].levels || {};
+              const levels = ['base', ...['easy', 'challenge'].filter((lv) => (it0.levels?.[lv] && ['target', 'toolOptions', 'state'].some((k) => it0.levels[lv][k] != null)) || (actLv[lv] && Object.keys(actLv[lv]).length))];
               for (const lv of levels) {
                 const it = Fl.itemAt(it0, lv); const tag = lv === 'base' ? '' : ` (levels.${lv})`;
                 let T = open(x, y, lv);
@@ -245,7 +261,10 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
                   row.hint1 = { text: h.hint, via: h.via, from: h.from || '' }; row.target = it.target;
                   T = open(x, y, lv);
                   // 스스로 점검(selfCheck)·아무 크기나 되는 척도(level: 'any')는 틀린 답이 없다 — wrongAnswer가 null이어도 된다(TOOLS.md)
-                  const selfAssess = it.target && typeof it.target === 'object' && (it.target.selfCheck != null || it.target.level === 'any');
+                  // 척도 전 범위([1, steps])를 정답으로 둔 '내 마음 크기' 문항도 같다
+                  const steps = (it.toolOptions && it.toolOptions.steps) || (acts[x].options && acts[x].options.steps) || 5;
+                  const lvAll = Array.isArray(it.target?.level) && it.target.level[0] <= 1 && it.target.level[1] >= steps;
+                  const selfAssess = it.target && typeof it.target === 'object' && (it.target.selfCheck != null || it.target.level === 'any' || lvAll);
                   if (typeof T.wrongAnswer === 'function') {
                     const w = T.wrongAnswer(it.target);
                     if (w == null && selfAssess) row.notes = (row.notes || []).concat('스스로 점검 문항 — 틀린 답 검사를 건너뜀');
@@ -335,6 +354,10 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
         await W.waitForSelector('.edu-exam-sheet', { timeout: 6000 }).catch(() => F(`활동지${v ? '(쉬운)' : ''}`, '활동지가 그려지지 않음'));
         const empty = await W.evaluate(() => [...document.querySelectorAll('.ws-fig')].filter((x) => !x.children.length).length);
         if (empty) F(`활동지${v ? '(쉬운)' : ''}`, `그림 칸 ${empty}개가 비어 있음`);
+        await W.emulateMedia({ media: 'print' });
+        // 그림 칸 안 글자의 인쇄 크기: 3열 칸(약 60mm)에 지도·카드처럼 글이 많은 그림을 넣으면 4pt 안팎으로 찍혀 읽을 수 없다
+        for (const s of await W.evaluate(printTextSizes)) F(`활동지${v ? '(쉬운)' : ''}`, `${s.no}번 그림(${s.tool}) 글자가 인쇄에서 약 ${s.pt}pt — 읽을 수 없음. 그 figure 문항에 wide: true를 준다`);
+        await W.emulateMedia({ media: 'screen' });
         if (!opts.noPdf) {
           await W.emulateMedia({ media: 'print' });
           const pdf = await W.pdf({ format: 'A4', printBackground: true, path: shots ? join(shots, `${lid}-ws${v ? '-easy' : ''}.pdf`) : undefined });
@@ -353,8 +376,29 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
   }
 }
 
+// 브라우저 안에서 돈다(인쇄 매체로 바꾼 뒤): 활동지 그림마다 SVG 글자의 인쇄 크기(pt) 가운뎃값.
+// 글 조각이 3개 이상이고 가운뎃값이 5.5pt 아래인 그림만 돌려준다(번호는 활동지 문항 번호가 아니라 그림 칸 차례).
+function printTextSizes() {
+  const min = 5.5;
+  const out = [];
+  [...document.querySelectorAll('.ws-fig')].forEach((f, i) => {
+    const pts = [...f.querySelectorAll('svg text')].filter((t) => t.textContent.trim() && t.getAttribute('display') !== 'none').map((t) => {
+      const svg = t.ownerSVGElement; const vb = svg && svg.viewBox && svg.viewBox.baseVal; const r = svg.getBoundingClientRect();
+      const s = vb && vb.width && vb.height ? Math.min(r.width / vb.width, r.height / vb.height) : 1;
+      return parseFloat(getComputedStyle(t).fontSize) * s * 0.75;
+    }).filter((x) => x > 0).sort((a, b) => a - b);
+    if (pts.length < 3) return;
+    const med = pts[Math.floor(pts.length / 2)];
+    const tool = ([...(f.querySelector('.pk-tool') || f).classList].find((c) => c.startsWith('pk-tool--')) || 'pk-tool--?').slice(9);
+    if (med < min) out.push({ no: i + 1, tool, pt: med.toFixed(1) });
+  });
+  return out;
+}
+
 async function submitTwice(P, lid, F) {
-  const cls = `cu-${Date.now() % 100000}`;
+  // 허브는 결과를 메모리에 계속 쌓는다 — Date.now()%100000 은 100초마다 같은 값이 돌아와 앞 단원 결과와 섞였다.
+  // 플레이어가 학급 코드를 12자로 자르므로(player.js) 'cu-' + 무작위 16진 9자리로 맞춘다
+  const cls = `cu-${randomBytes(5).toString('hex').slice(0, 9)}`;
   const collect = encodeURIComponent(`${hub}/api/tools/edu-lesson:${lid}/submissions`);
   for (const seat of ['1', '']) {
     await P.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${encodeURIComponent(lid)}&class=${cls}${seat ? `&seat=${seat}` : ''}&collect=${collect}`);

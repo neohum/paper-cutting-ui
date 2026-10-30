@@ -36,6 +36,9 @@
   var MOOD = { type: 'mood', prompt: '오늘 공부를 마친 내 마음은 어떤가요?' };
   // 카드 판 교구 단계: 쉬움은 맞는 칸에 초록 테두리·틀린 칸은 바로 되돌림, 도전은 문항마다 함정 카드나 카드를 더 넣는다
   var CARD_LV = { easy: { live: true, instant: true }, base: {}, challenge: {} };
+  // 하루 시간 띠(timeline): 기본 1단계 힌트가 '옛날·요즘' 말을 써서, 하루의 때를 읽게 하는 글로 바꾼다
+  var DAY_H = '카드에서 때를 알려 주는 말(몇 시, 언제 같은 말)을 먼저 찾아 소리 내어 읽고, 하루 가운데 언제 하는 일인지 견주어 놓아요.';
+  var DAY_LV = { easy: { live: true, instant: true, hint1: DAY_H }, base: { hint1: DAY_H }, challenge: { hint1: DAY_H } };
   var SCALE_LV = { easy: { live: true, instant: true, steps: 3 }, base: {}, challenge: {} };
 
   var lessons = [];
@@ -75,18 +78,20 @@
           },
           {
             id: 'a2', title: '활동 2. 도움을 받았을 때 내 마음', minutes: 13, tool: 'emotion',
-            teacher: '"비 오는 날 친구가 우산을 씌워 주면 마음이 어떤 날씨일까요?" 마음 이름 대신 "좋았어요"라고만 말하는 학생에게 "좋은 마음 가운데 어떤 마음일까? 기쁨일까, 고마움일까?" 하고 고르게 한다. 도움을 받은 뒤 고맙다고 말하는 것도 상대에게 마음을 돌려주는 일이라는 것을 짚는다.',
-            task: '도움을 받은 일을 읽고 그때의 마음을 고르거나, 어떻게 할지 골라요.',
+            teacher: '"비 오는 날 친구가 우산을 씌워 주면 마음이 어떤 날씨일까요?" 마음 이름 대신 "좋았어요"라고만 말하는 학생에게 "좋은 마음 가운데 어떤 마음일까? 기쁨일까, 고마움일까?" 하고 고르게 한다. 도움을 받은 뒤 고맙다고 말하는 것도 상대에게 마음을 돌려주는 일이라는 것을 짚는다. 활동 끝 2분은 짝과 마주 서서 "고맙습니다" 인사를 허리 숙여 해 보게 하고, 말없이 고개만 끄덕이는 짝에게는 무엇이 고마웠는지 한 마디 붙이게 한다.',
+            task: '도움을 받은 일을 읽고 그때의 마음을 고르거나, 어떻게 할지 골라요. 끝에 짝과 고맙다는 인사를 몸짓으로 해 봐요.',
             levels: SCALE_LV,
             items: [
               { prompt: '두 일에 어울리는 마음 카드를 놓아 보세요.', toolOptions: { cards: ['고마움', '속상함', '신남'], slots: [{ id: 's1', label: '비 오는 날 친구가 우산을 씌워 주었어요' }, { id: 's2', label: '아끼던 우산이 바람에 망가졌어요' }] },
-                target: { match: { s1: '고마움', s2: '속상함' } }, difficulty: 0.1 },
+                target: { match: { s1: '고마움', s2: '속상함' } }, difficulty: 0.1,
+                levels: { challenge: { prompt: '세 일에 어울리는 마음 카드를 놓아 보세요.', toolOptions: { cards: ['고마움', '속상함', '신남', '미안함'], slots: [{ id: 's1', label: '비 오는 날 친구가 우산을 씌워 주었어요' }, { id: 's2', label: '아끼던 우산이 바람에 망가졌어요' }, { id: 's3', label: '내가 친구 우산을 밟아 망가뜨렸어요' }] }, target: { match: { s1: '고마움', s2: '속상함', s3: '미안함' } } } } },
               { prompt: '길을 잃었을 때 경찰관이 집까지 데려다주셨어요. 고마운 마음의 크기를 골라 보세요.', toolOptions: { mode: 'scale', situation: '시장에서 엄마를 잃어버렸는데, 경찰관이 손을 잡고 집까지 데려다주셨어요.', feeling: '고마움', after: '이만큼 고마울 때는 "고맙습니다" 하고 꼭 말해요.' }, target: { level: [3, 5] }, difficulty: 0.1,
                 levels: { easy: { prompt: '길을 잃었을 때 경찰관이 집까지 데려다주셨어요. 고마운 마음을 세 칸에서 골라 보세요.', target: { level: [2, 3] } } } },
               { prompt: '보안관 선생님이 떨어뜨린 실내화 주머니를 주워 주셨어요. 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '교문에서 보안관 선생님이 내가 떨어뜨린 실내화 주머니를 주워 주셨어요.', choices: [
                 { id: 'thank', text: '"고맙습니다" 하고 인사해요', result: '선생님이 웃으며 손을 흔들어 주세요.', mood: '기쁨' },
                 { id: 'grab', text: '말없이 받아서 뛰어가요', result: '선생님은 내 마음을 알 수 없어요.', mood: '걱정', why: '말하지 않으면 고마운 마음이 전해질까요?' },
                 { id: 'mine', text: '"내 거예요!" 하고 낚아채요', result: '도와준 선생님이 머쓱해져요.', mood: '속상함', why: '도와준 사람이 그 말을 들으면 어떤 마음일까요?' }] }, target: { choice: 'thank' }, difficulty: 0.05 },
+              { prompt: '짝에게 나를 도와준 사람과 그분이 한 일을 말하고, 고맙다는 인사를 몸짓과 함께 해 보세요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -121,7 +126,7 @@
     differentiation: {
       easy: '맞는 칸에 놓으면 초록 테두리가 생기고 틀리면 카드가 돌아와요. 마음 크기는 세 칸이에요.',
       base: '모두 놓은 뒤 확인을 눌러 스스로 고쳐요.',
-      challenge: '관계없는 사람 카드와 고를 카드가 더 섞여 있어요.',
+      challenge: '관계없는 사람 카드와 고를 카드가 더 섞여 있고, 마음 카드 짝 짓기에 미안한 장면이 하나 더 있어요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 도와준 사람을 떠올리지 못한다(도움을 특별한 일로만 여김) → 급식·보건실·횡단보도처럼 매일 있는 장면을 먼저 건넨다. ② 사람 이름을 말하려 한다 → 이름 대신 하는 일(조리사 선생님)로 말하게 한다. ③ "좋았어요"로만 마음을 말한다 → 고마움·기쁨처럼 마음 이름을 골라 말하게 한다.',
   }));
@@ -150,7 +155,8 @@
               { prompt: '이야기 장면 세 장을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: '흉년', text: '제주에 큰 흉년이 들었어요', motif: 'cloud' }, { id: '쌀', text: '만덕이 쌀을 사 왔어요', motif: 'wave' }, { id: '나눔', text: '사람들에게 쌀을 나누었어요', motif: 'flower' }], slots: ['처음', '가운데', '끝'] },
                 target: { order: ['흉년', '쌀', '나눔'] }, difficulty: 0.05 },
               { prompt: '네 장면을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: '굶주림', text: '사람들이 굶주렸어요', motif: 'cloud' }, { id: '고마움', text: '사람들이 고마워했어요', motif: 'star' }, { id: '흉년', text: '비바람에 곡식이 쓰러졌어요', motif: 'leaf' }, { id: '쌀', text: '만덕이 쌀을 사 왔어요', motif: 'wave' }] },
-                target: { order: ['흉년', '굶주림', '쌀', '고마움'] }, difficulty: 0.15 },
+                target: { order: ['흉년', '굶주림', '쌀', '고마움'] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '네 장면을 차례대로 놓아 보세요. 이야기에 없는 카드는 남겨요.', toolOptions: { slots: 4, cards: [{ id: '굶주림', text: '사람들이 굶주렸어요', motif: 'cloud' }, { id: '고마움', text: '사람들이 고마워했어요', motif: 'star' }, { id: '흉년', text: '비바람에 곡식이 쓰러졌어요', motif: 'leaf' }, { id: '쌀', text: '만덕이 쌀을 사 왔어요', motif: 'wave' }, { id: '비싸게', text: '만덕이 쌀을 비싸게 팔았어요', motif: 'house' }] } } } },
               { prompt: '만덕이 돈을 모은 때부터 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: '나눔', text: '쌀을 나누어 주었어요', motif: 'flower' }, { id: '장사', text: '장사를 해서 돈을 모았어요', motif: 'house' }, { id: '흉년', text: '제주에 흉년이 들었어요', motif: 'cloud' }, { id: '쌀', text: '모은 돈으로 쌀을 샀어요', motif: 'wave' }] },
                 target: { order: ['장사', '흉년', '쌀', '나눔'] }, difficulty: 0.2,
                 predict: { q: '만덕은 쌀을 살 돈이 어디서 났을까요?', options: ['장사로 모았어요', '임금님이 주었어요', '잘 모르겠어요'], answer: 0 },
@@ -159,16 +165,18 @@
           },
           {
             id: 'a2', title: '활동 2. 만덕과 이웃의 마음 알기', minutes: 13, tool: 'emotion',
-            teacher: '"굶는 이웃을 보았을 때 만덕의 마음은 어땠을까요?" 이야기 속 말(사람들이 굶주렸어요)을 손가락으로 짚고 마음을 고르게 한다. "만덕이 쌀을 나눈 건 칭찬을 받으려고였을까요?" 하고 물어, 걱정하는 마음에서 시작했다는 것을 이야기에서 찾게 한다.',
-            task: '만덕과 제주 사람들의 마음을 고르고, 만덕이 한 일을 골라요.',
+            teacher: '"굶는 이웃을 보았을 때 만덕의 마음은 어땠을까요?" 이야기 속 말(사람들이 굶주렸어요)을 손가락으로 짚고 마음을 고르게 한다. "만덕이 쌀을 나눈 건 칭찬을 받으려고였을까요?" 하고 물어, 걱정하는 마음에서 시작했다는 것을 이야기에서 찾게 한다. 활동 끝 3분은 짝끼리 만덕과 제주 사람이 되어 빈손으로 쌀 자루를 건네고 받게 한다. 받는 사람이 "고맙습니다", 주는 사람이 "힘내세요"처럼 마음이 담긴 말을 하는지 둘러보며 듣는다.',
+            task: '만덕과 제주 사람들의 마음을 고르고, 만덕이 한 일을 골라요. 끝에 짝과 쌀을 나누는 장면을 몸짓으로 해 봐요.',
             levels: CARD_LV,
             items: [
               { prompt: '빈칸에 들어갈 만덕의 마음 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['걱정', '신남', '편안함'], slots: [{ id: 'b1', label: '굶는 이웃을 보고 만덕은 ___을 느꼈어요.' }] },
-                target: { fill: { b1: '걱정' } }, difficulty: 0.1 },
+                target: { fill: { b1: '걱정' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['걱정', '신남', '편안함', '심심함'] } } } },
               { prompt: '제주 사람들의 마음에 어울리는 카드를 놓아 보세요.', toolOptions: { cards: ['고마움', '슬픔', '화남'], slots: [{ id: 's1', label: '먹을 것이 없어 배고파요' }, { id: 's2', label: '만덕이 준 쌀로 밥을 지었어요' }] },
                 target: { match: { s1: '슬픔', s2: '고마움' } }, difficulty: 0.1 },
               { prompt: '김만덕이 한 일만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '만덕이 한 일', cards: ['모은 돈으로 쌀을 샀어요', '쌀을 비싸게 팔았어요', '굶는 사람에게 쌀을 나누었어요', '쌀을 혼자 숨겨 두었어요'] },
                 target: { pick: ['모은 돈으로 쌀을 샀어요', '굶는 사람에게 쌀을 나누었어요'] }, difficulty: 0.1 },
+              { prompt: '짝과 만덕과 제주 사람이 되어, 쌀을 건네고 받는 장면을 말과 몸짓으로 해 보세요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -203,7 +211,7 @@
     differentiation: {
       easy: '맞는 칸에 놓으면 초록 테두리가 생기고 틀리면 카드가 돌아와요.',
       base: '모두 놓은 뒤 확인을 눌러요. "그래서"로 이어 읽으며 차례를 고쳐요.',
-      challenge: '네 장면을 놓고, 만덕이 돈을 모은 때부터 이야기를 이어요.',
+      challenge: '이야기에 없는 함정 장면을 골라내며 네 장면을 놓고, 만덕이 돈을 모은 때부터 이야기를 이어요. 마음 카드도 더 섞여 있어요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 결과(나눔)를 먼저 놓는다 → 까닭과 결과를 \'그래서\'로 이어 읽게 한다. ② "만덕은 부자라서 쉽게 나누었다"고 여긴다 → 장사로 애써 모은 돈이었다는 것을 다시 들려준다. ③ 흉년을 모른다 → 비바람에 쓰러진 벼 그림을 보여 준다.',
   }));
@@ -230,7 +238,8 @@
             levels: CARD_LV,
             items: [
               { prompt: '방정환 이야기 세 장면을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: '날', text: '어린이날을 만드는 데 앞장섰어요', motif: 'star' }, { id: '옛날', text: '아이를 함부로 대하는 어른이 많았어요', motif: 'cloud' }, { id: '생각', text: '아이도 소중하다고 생각했어요', motif: 'flower' }], slots: ['처음', '가운데', '끝'] },
-                target: { order: ['옛날', '생각', '날'] }, difficulty: 0.1 },
+                target: { order: ['옛날', '생각', '날'] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '방정환 이야기 세 장면을 차례대로 놓아 보세요. 이야기에 없는 카드는 남겨요.', toolOptions: { cards: [{ id: '날', text: '어린이날을 만드는 데 앞장섰어요', motif: 'star' }, { id: '옛날', text: '아이를 함부로 대하는 어른이 많았어요', motif: 'cloud' }, { id: '생각', text: '아이도 소중하다고 생각했어요', motif: 'flower' }, { id: '숙제', text: '아이들에게 숙제를 많이 냈어요', motif: 'house' }] } } } },
               { prompt: '방정환의 말풍선 빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['이야기', '숙제', '심부름'], slots: [{ id: 'b1', who: '방정환', motif: 'flower', label: '오늘은 재미있는 ___를 들려줄게요.' }] },
                 target: { fill: { b1: '이야기' } }, difficulty: 0.1 },
               { prompt: '방정환이 어린이를 위해 한 일만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '방정환이 한 일', cards: ['\'어린이\'라는 말을 널리 썼어요', '아이들에게 이야기를 들려주었어요', '아이들에게 일을 많이 시켰어요', '어린이날을 만드는 데 앞장섰어요'] },
@@ -239,8 +248,8 @@
           },
           {
             id: 'a2', title: '활동 2. 존중받을 때와 무시당할 때', minutes: 13, tool: 'emotion',
-            teacher: '"\'넌 어려서 몰라\' 하는 말을 들으면 마음이 어떤 날씨일까요?" 방정환이 왜 어린이를 존중하자고 했는지 학생 자신의 마음에서 찾게 한다. 동생이나 어린 친구에게 같은 말을 한 적이 있는지도 떠올려, 나도 어린 사람을 존중할 수 있다는 것을 짚는다.',
-            task: '어린이가 존중받을 때와 무시당할 때의 마음을 고르고, 어떻게 할지 골라요.',
+            teacher: '"\'넌 어려서 몰라\' 하는 말을 들으면 마음이 어떤 날씨일까요?" 방정환이 왜 어린이를 존중하자고 했는지 학생 자신의 마음에서 찾게 한다. 동생이나 어린 친구에게 같은 말을 한 적이 있는지도 떠올려, 나도 어린 사람을 존중할 수 있다는 것을 짚는다. 활동 끝 3분은 짝끼리 1분씩 좋아하는 놀이 이야기를 하고, 듣는 사람은 끼어들지 않고 끝까지 듣게 한다. 말하는 도중에 끼어든 짝이 있으면 "방정환은 어린이의 말을 어떻게 들었을까요?" 하고 묻는다.',
+            task: '어린이가 존중받을 때와 무시당할 때의 마음을 고르고, 어떻게 할지 골라요. 끝에 짝의 말을 끝까지 들어 주는 연습을 해요.',
             levels: CARD_LV,
             items: [
               { prompt: '두 말을 들었을 때의 마음 카드를 놓아 보세요.', toolOptions: { cards: ['뿌듯함', '속상함', '놀람'], slots: [{ id: 's1', label: '"네 생각도 들어 볼게" 하고 말해 주었어요' }, { id: 's2', label: '"넌 어려서 몰라도 돼" 하고 말했어요' }] },
@@ -251,6 +260,7 @@
               { prompt: '빈칸에 들어갈 마음 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['기쁨', '화남', '무서움'], slots: [{ id: 'b1', label: '어른이 내 말을 끝까지 들어 주어서 ___을 느꼈어요.' }] },
                 target: { fill: { b1: '기쁨' } }, difficulty: 0.1,
                 levels: { challenge: { toolOptions: { cards: ['기쁨', '화남', '무서움', '걱정'] } } } },
+              { prompt: '짝과 번갈아 하고 싶은 이야기를 하고, 듣는 사람은 눈을 보며 끝까지 들은 뒤 "네 생각을 들려줘서 고마워" 하고 말해 보세요.', free: true, talk: true },
             ],
           },
         ],
@@ -314,15 +324,16 @@
               { prompt: '이야기 장면 세 장을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: '등불', text: '밤에 등불을 들고 살폈어요', motif: 'moon' }, { id: '전쟁', text: '전쟁으로 다친 군인이 많았어요', motif: 'cloud' }, { id: '병원', text: '나이팅게일이 병원에 갔어요', motif: 'house' }], slots: ['처음', '가운데', '끝'] },
                 target: { order: ['전쟁', '병원', '등불'] }, difficulty: 0.1 },
               { prompt: '네 장면을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: '병원', text: '병원에 가 보니 더러웠어요', motif: 'house' }, { id: '이름', text: '\'등불을 든 여인\'이라 불렸어요', motif: 'star' }, { id: '청소', text: '병원을 깨끗하게 치웠어요', motif: 'leaf' }, { id: '등불', text: '밤에도 군인을 살폈어요', motif: 'moon' }] },
-                target: { order: ['병원', '청소', '등불', '이름'] }, difficulty: 0.2 },
+                target: { order: ['병원', '청소', '등불', '이름'] }, difficulty: 0.2,
+                levels: { challenge: { prompt: '네 장면을 차례대로 놓아 보세요. 이야기에 없는 카드는 남겨요.', toolOptions: { slots: 4, cards: [{ id: '병원', text: '병원에 가 보니 더러웠어요', motif: 'house' }, { id: '이름', text: '\'등불을 든 여인\'이라 불렸어요', motif: 'star' }, { id: '청소', text: '병원을 깨끗하게 치웠어요', motif: 'leaf' }, { id: '등불', text: '밤에도 군인을 살폈어요', motif: 'moon' }, { id: '집', text: '더러워서 집으로 돌아갔어요', motif: 'cloud' }] } } } },
               { prompt: '나이팅게일의 말풍선 빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['깨끗해야', '시끄러워야', '어두워야'], slots: [{ id: 'b1', who: '나이팅게일', motif: 'house', label: '병원이 ___ 아픈 사람이 빨리 나아요.' }] },
                 target: { fill: { b1: '깨끗해야' } }, difficulty: 0.15 },
             ],
           },
           {
             id: 'a2', title: '활동 2. 한 일과 까닭 잇기', minutes: 14, tool: 'mindmap',
-            teacher: '"나이팅게일은 왜 병원을 깨끗이 치웠을까요?" 손을 씻는 까닭과 견주어 말하게 한다(더러우면 병이 옮아요). 까닭을 \'시켜서\'라고만 말하는 학생에게 "아무도 시키지 않았다면 그래도 했을까요?" 하고 묻는다. 남을 돕는 사람은 상대가 무엇이 필요한지 먼저 살핀다는 것을 짚는다.',
-            task: '나이팅게일이 한 일마다 그렇게 한 까닭 카드를 이어요.',
+            teacher: '"나이팅게일은 왜 병원을 깨끗이 치웠을까요?" 손을 씻는 까닭과 견주어 말하게 한다(더러우면 병이 옮아요). 까닭을 \'시켜서\'라고만 말하는 학생에게 "아무도 시키지 않았다면 그래도 했을까요?" 하고 묻는다. 남을 돕는 사람은 상대가 무엇이 필요한지 먼저 살핀다는 것을 짚는다. 활동 끝 3분은 짝끼리 한 사람은 군인, 한 사람은 손전등 대신 주먹을 등불처럼 든 나이팅게일이 되어 살피는 장면을 하게 한다. 살피는 사람이 상대의 대답을 듣고 무엇을 해 줄지 말하는지 본다.',
+            task: '나이팅게일이 한 일마다 그렇게 한 까닭 카드를 이어요. 끝에 짝과 등불을 들고 살피는 장면을 몸짓으로 해 봐요.',
             levels: CARD_LV,
             items: [
               { prompt: '나이팅게일이 한 일과 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '왜 그랬을까?', slots: [{ id: 's1', label: '병원을 깨끗하게 치웠어요' }, { id: 's2', label: '밤에도 등불을 들고 다녔어요' }], cards: ['더러우면 병이 옮아서', '밤에 아픈 군인이 있는지 보려고'] },
@@ -332,13 +343,14 @@
               { prompt: '나이팅게일처럼 아픈 친구를 돕는 일만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '아픈 친구 돕기', cards: ['보건실에 같이 가 줘요', '아픈 친구 앞에서 크게 떠들어요', '물을 떠다 줘요', '아픈 친구 간식을 먹어요'] },
                 target: { pick: ['보건실에 같이 가 줘요', '물을 떠다 줘요'] }, difficulty: 0.1,
                 levels: { challenge: { toolOptions: { cards: ['보건실에 같이 가 줘요', '아픈 친구 앞에서 크게 떠들어요', '물을 떠다 줘요', '아픈 친구 간식을 먹어요', '친구 가방을 대신 들어 줘요'] }, prompt: '아픈 친구를 돕는 일만 모두 바구니에 넣어 보세요. 세 가지예요.', target: { pick: ['보건실에 같이 가 줘요', '물을 떠다 줘요', '친구 가방을 대신 들어 줘요'] } } } },
+              { prompt: '짝과 나이팅게일과 다친 군인이 되어, 등불을 든 몸짓으로 "어디가 아파요?" 하고 살피는 장면을 해 보세요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
       },
       {
         id: 'wrapup', title: '정리', minutes: 7,
-        teacher: '"나이팅게일은 왜 \'등불을 든 여인\'이라고 불렸나요?" 이야기에서 찾아 말하게 한다. 출구 질문 2번은 오늘 배운 인물이 아니라 우리 둘레의 사람 이야기라는 것만 알려 준다. 다음 시간에는 아프리카에서 아픈 사람과 아이들을 도운 인물을 만난다.',
+        teacher: '"나이팅게일은 왜 \'등불을 든 여인\'이라고 불렸나요?" 이야기에서 찾아 말하게 한다. 출구 질문 1번은 오늘 배운 인물이 아니라 우리 둘레의 사람 이야기라는 것만 알려 준다. 다음 시간에는 아프리카에서 아픈 사람과 아이들을 도운 인물을 만난다.',
         exitTicket: [
           { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '왜 그랬을까?', slots: [{ id: 'e1', label: '소방관이 불이 난 집에 들어갔어요' }, { id: 'e2', label: '보건 선생님이 상처를 씻었어요' }], cards: ['안에 있는 사람을 구하려고', '상처에 병균이 들어가지 않게'] }, prompt: '한 일과 그렇게 한 까닭을 이어 보세요.', target: { match: { e1: '안에 있는 사람을 구하려고', e2: '상처에 병균이 들어가지 않게' } }, difficulty: 0.15 },
           { type: 'choice', prompt: '나이팅게일이 밤에도 등불을 들고 다닌 까닭은?', options: ['아픈 군인을 살피려고', '밤하늘을 보려고', '잠이 오지 않아서'], answer: 0, difficulty: 0.1, explain: '밤에 아픈 군인이 있는지 살피려고 등불을 들고 다녔어요.' },
@@ -403,16 +415,18 @@
           },
           {
             id: 'a2', title: '활동 2. 톤즈 사람들의 마음 짐작하기', minutes: 12, tool: 'emotion',
-            teacher: '"아파도 병원이 너무 멀면 마음이 어떨까요?" 톤즈 사람의 자리에 서서 마음을 고르게 한다. "신부님은 그 마음을 알았기 때문에 무엇을 했을까요?" 하고 이어 물어, 남을 도운 까닭이 상대의 어려움을 알아차린 데서 시작했다는 것을 짚는다.',
-            task: '톤즈 사람들과 이태석 신부의 마음을 짐작해 골라요.',
+            teacher: '"아파도 병원이 너무 멀면 마음이 어떨까요?" 톤즈 사람의 자리에 서서 마음을 고르게 한다. "신부님은 그 마음을 알았기 때문에 무엇을 했을까요?" 하고 이어 물어, 남을 도운 까닭이 상대의 어려움을 알아차린 데서 시작했다는 것을 짚는다. 활동 끝 3분은 짝끼리 붕대 감기·칠판에 글씨 쓰기·나팔 불기 가운데 하나를 말없이 몸짓으로 보여 주고 맞히게 한다. 맞힌 뒤 "그 일로 누가 도움을 받았나요?"까지 말하게 한다.',
+            task: '톤즈 사람들과 이태석 신부의 마음을 짐작해 골라요. 끝에 짝과 신부님이 한 일을 몸짓으로 알아맞혀요.',
             levels: SCALE_LV,
             items: [
               { prompt: '두 장면에 어울리는 마음 카드를 놓아 보세요.', toolOptions: { cards: ['걱정', '신남', '외로움'], slots: [{ id: 's1', label: '아이가 아픈데 병원이 아주 멀어요' }, { id: 's2', label: '처음으로 나팔을 불어 소리가 났어요' }] },
                 target: { match: { s1: '걱정', s2: '신남' } }, difficulty: 0.1 },
               { prompt: '빈칸에 들어갈 신부님의 마음 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['걱정', '심심함', '화남'], slots: [{ id: 'b1', label: '아파도 치료받지 못하는 사람을 보고 신부님은 ___을 느꼈을 거예요.' }] },
-                target: { fill: { b1: '걱정' } }, difficulty: 0.1 },
+                target: { fill: { b1: '걱정' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['걱정', '심심함', '화남', '신남', '편안함'] } } } },
               { prompt: '학교가 생겨 처음 글자를 배운 톤즈 아이의 기쁜 마음 크기를 골라 보세요.', toolOptions: { mode: 'scale', situation: '톤즈에 학교가 생겨, 한 번도 학교에 가 보지 못한 아이가 처음으로 자기 이름을 썼어요.', feeling: '기쁨', after: '배울 수 있는 것은 이렇게 큰 기쁨이 될 수 있어요.' }, target: { level: [3, 5] }, difficulty: 0.1,
                 levels: { easy: { prompt: '처음 글자를 배운 톤즈 아이의 기쁜 마음을 세 칸에서 골라 보세요.', target: { level: [2, 3] } } } },
+              { prompt: '짝과 번갈아 이태석 신부가 한 일 하나(치료·가르침·음악)를 몸짓으로 보여 주고 알아맞혀 보세요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -491,7 +505,8 @@
             items: [
               { prompt: '짝에게 우리 동네 숨은 도우미를 몸짓으로 보여 주고, 서로 맞혔으면 "다 했어요"를 누르세요.', free: true },
               { prompt: '두 장면에 어울리는 마음 카드를 놓아 보세요.', toolOptions: { cards: ['편안함', '걱정', '신남'], slots: [{ id: 's1', label: '눈길이 미끄러워 넘어질 것 같아요' }, { id: 's2', label: '모래를 뿌린 길을 걸어요' }] },
-                target: { match: { s1: '걱정', s2: '편안함' } }, difficulty: 0.1 },
+                target: { match: { s1: '걱정', s2: '편안함' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['편안함', '걱정', '신남', '심심함', '미안함'] } } } },
               { prompt: '엘리베이터 앞에서 짐을 든 이웃이 와요. 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '엘리베이터를 탔는데, 양손에 짐을 든 이웃 할아버지가 걸어오세요.', choices: [
                 { id: 'hold', text: '열림 단추를 누르고 기다려요', result: '할아버지가 "고맙다" 하고 타세요.', mood: '고마움' },
                 { id: 'close', text: '얼른 닫힘 단추를 눌러요', result: '할아버지가 다음 엘리베이터를 오래 기다리세요.', mood: '속상함', why: '양손에 짐을 든 할아버지는 단추를 누르기 어려워요.' }] }, target: { choice: 'hold' }, difficulty: 0.05 },
@@ -570,17 +585,19 @@
           },
           {
             id: 'a2', title: '활동 2. 어린이도 지금 할 수 있을까', minutes: 13, tool: 'mindmap',
-            teacher: '"이 일은 2학년인 내가 오늘 할 수 있나요, 어른이 되어야 할 수 있나요?" 카드마다 손을 들어 투표한 뒤 나누게 한다. 칠판에 적어 둔 \'어린이는 아직 못 해요\'를 다시 읽고 "정말 그런가요?" 하고 묻는다. 어른의 일로 나눈 것도 어린이가 도울 수 있는 작은 몫(병원 대신 아픈 친구 곁 지키기)이 있다는 것을 덧붙인다.',
-            task: '돕는 일 카드를 어린이가 지금 할 수 있는 일과 어른이 되어야 할 수 있는 일로 나누어요.',
+            teacher: '"이 일은 2학년인 내가 오늘 할 수 있나요, 어른이 되어야 할 수 있나요?" 카드마다 손을 들어 투표한 뒤 나누게 한다. 칠판에 적어 둔 \'어린이는 아직 못 해요\'를 다시 읽고 "정말 그런가요?" 하고 묻는다. 어른의 일로 나눈 것도 어린이가 도울 수 있는 작은 몫(병원 대신 아픈 친구 곁 지키기)이 있다는 것을 덧붙인다. 활동 끝 3분은 짝끼리 오늘 해 볼 일 하나를 정해 몸짓으로 보여 주게 한다. 어른의 일을 고른 짝에게는 그 가운데 어린이가 할 수 있는 작은 몫을 다시 찾게 한다.',
+            task: '돕는 일 카드를 어린이가 지금 할 수 있는 일과 어른이 되어야 할 수 있는 일로 나누어요. 끝에 짝과 오늘 해 볼 일을 정해 몸짓으로 보여 줘요.',
             levels: CARD_LV,
             items: [
               { prompt: '네 가지 일을 나누어 보세요.', toolOptions: { topic: '누가 할 수 있을까?', slots: ['어린이도 지금 할 수 있어요', '어른이 되어야 할 수 있어요'], cards: ['친구에게 연필을 빌려줘요', '병원에서 수술을 해요', '동생 신발 끈을 묶어 줘요', '학교 건물을 지어요'] },
-                target: { sort: { '어린이도 지금 할 수 있어요': ['친구에게 연필을 빌려줘요', '동생 신발 끈을 묶어 줘요'], '어른이 되어야 할 수 있어요': ['병원에서 수술을 해요', '학교 건물을 지어요'] } }, difficulty: 0.1 },
+                target: { sort: { '어린이도 지금 할 수 있어요': ['친구에게 연필을 빌려줘요', '동생 신발 끈을 묶어 줘요'], '어른이 되어야 할 수 있어요': ['병원에서 수술을 해요', '학교 건물을 지어요'] } }, difficulty: 0.1,
+                levels: { challenge: { prompt: '네 가지 일을 나누어 보세요. 누구도 하면 안 되는 일은 카드 칸에 남겨요.', toolOptions: { cards: ['친구에게 연필을 빌려줘요', '병원에서 수술을 해요', '동생 신발 끈을 묶어 줘요', '학교 건물을 지어요', '친구 물건을 몰래 가져가요'] } } } },
               { prompt: '다섯 가지 일을 나누어 보세요.', toolOptions: { topic: '누가 할 수 있을까?', slots: ['어린이도 지금 할 수 있어요', '어른이 되어야 할 수 있어요'], cards: ['혼자 있는 친구에게 말을 걸어요', '버스를 운전해요', '화분에 물을 줘요', '불난 집에 들어가 불을 꺼요', '떨어진 물건을 주워 줘요'] },
                 target: { sort: { '어린이도 지금 할 수 있어요': ['혼자 있는 친구에게 말을 걸어요', '화분에 물을 줘요', '떨어진 물건을 주워 줘요'], '어른이 되어야 할 수 있어요': ['버스를 운전해요', '불난 집에 들어가 불을 꺼요'] } }, difficulty: 0.15 },
               { prompt: '어린이가 혼자 하면 위험해서 어른께 알려야 하는 일만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '어른께 알려요', cards: ['깨진 유리 조각 치우기', '친구 우산 같이 쓰기', '물에 빠진 사람 구하러 들어가기', '친구 가방 들어 주기'] },
                 target: { pick: ['깨진 유리 조각 치우기', '물에 빠진 사람 구하러 들어가기'] }, difficulty: 0.2,
                 conclude: '위험한 일은 어른께 바로 알리는 것이 어린이가 도울 수 있는 방법이에요.' },
+              { prompt: '짝과 오늘 해 볼 돕는 일을 하나씩 정하고, 그 일을 하는 몸짓을 보여 준 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -737,10 +754,11 @@
             task: '그림일기 문장을 차례대로 놓고, 빈칸에 알맞은 낱말을 넣어요.',
             levels: CARD_LV,
             items: [
-              { prompt: '그림일기 문장 세 개를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'feel', text: '동생이 웃어서 나도 뿌듯했다', motif: 'star' }, { id: 'when', text: '아침에 현관에서', motif: 'house' }, { id: 'act', text: '동생 신발 끈을 묶어 주었다', motif: 'leaf' }], slots: ['언제·어디서', '한 일', '내 마음'] },
+              { prompt: '그림일기 문장 세 개를 차례대로 놓아 보세요.', toolOptions: { hint1: '그림일기는 언제·어디서 → 한 일 → (들은 말) → 내 마음 차례로 써요. 카드마다 이 가운데 무엇을 말하는지 먼저 찾아요.', cards: [{ id: 'feel', text: '동생이 웃어서 나도 뿌듯했다', motif: 'star' }, { id: 'when', text: '아침에 현관에서', motif: 'house' }, { id: 'act', text: '동생 신발 끈을 묶어 주었다', motif: 'leaf' }], slots: ['언제·어디서', '한 일', '내 마음'] },
                 target: { order: ['when', 'act', 'feel'] }, difficulty: 0.1 },
-              { prompt: '그림일기 문장 네 개를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'said', text: '할머니가 "고맙다" 하셨다', motif: 'flower' }, { id: 'when', text: '저녁에 시장 앞에서', motif: 'house' }, { id: 'feel', text: '내 마음이 따뜻했다', motif: 'sun' }, { id: 'act', text: '할머니 장바구니를 들었다', motif: 'leaf' }], slots: ['언제·어디서', '한 일', '상대가 한 말', '내 마음'] },
-                target: { order: ['when', 'act', 'said', 'feel'] }, difficulty: 0.15 },
+              { prompt: '그림일기 문장 네 개를 차례대로 놓아 보세요.', toolOptions: { hint1: '그림일기는 언제·어디서 → 한 일 → (들은 말) → 내 마음 차례로 써요. 카드마다 이 가운데 무엇을 말하는지 먼저 찾아요.', cards: [{ id: 'said', text: '할머니가 "고맙다" 하셨다', motif: 'flower' }, { id: 'when', text: '저녁에 시장 앞에서', motif: 'house' }, { id: 'feel', text: '내 마음이 따뜻했다', motif: 'sun' }, { id: 'act', text: '할머니 장바구니를 들었다', motif: 'leaf' }], slots: ['언제·어디서', '한 일', '상대가 한 말', '내 마음'] },
+                target: { order: ['when', 'act', 'said', 'feel'] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '그림일기 문장 네 개를 차례대로 놓아 보세요. 이 일기와 맞지 않는 문장은 남겨요.', toolOptions: { cards: [{ id: 'said', text: '할머니가 "고맙다" 하셨다', motif: 'flower' }, { id: 'when', text: '저녁에 시장 앞에서', motif: 'house' }, { id: 'feel', text: '내 마음이 따뜻했다', motif: 'sun' }, { id: 'act', text: '할머니 장바구니를 들었다', motif: 'leaf' }, { id: 'pass', text: '할머니를 못 본 척 지나갔다', motif: 'cloud' }] } } } },
               { prompt: '일기 빈칸 두 곳에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['연필을', '간식을', '"고마워"', '"저리 가"'], slots: [{ id: 'b1', who: '나', motif: 'star', label: '짝이 연필을 잃어버려서 내 ___ 빌려주었다.' }, { id: 'b2', who: '짝', motif: 'flower', label: '짝이 ___ 하고 웃었다.' }] },
                 target: { fill: { b1: '연필을', b2: '"고마워"' } }, difficulty: 0.15 },
             ],
@@ -755,10 +773,11 @@
               challenge: {},
             },
             items: [
-              { prompt: '나와 도움을 받은 사람을 노랑 큰 동그라미 얼굴 두 개로 붙여 보세요.', target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 2 }] }, difficulty: 0.05 },
-              { prompt: '두 얼굴 사이에 고마운 마음을 분홍 하트로 세 개 넘게 붙여 보세요.', state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '노랑', size: 'l', x: 400, y: 200, r: 0 }] }, target: { has: [{ shape: 'heart', color: '분홍', min: 3 }] }, difficulty: 0.1 },
-              { prompt: '내가 도운 장면을 조각 다섯 개 넘게 써서 꾸미고 점검해 보세요.', target: { selfCheck: ['도운 나와 상대가 보여요', '두 사람의 표정을 붙였어요', '무슨 장면인지 짝에게 말했어요'], minPieces: 5 }, difficulty: 0.1 },
-              { prompt: '활동지 그림일기 칸에 그림을 그리고 네 문장을 썼으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '나와 도움을 받은 사람을 노랑 큰 동그라미 얼굴 두 개로 붙여 보세요.', target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 2 }] }, difficulty: 0.05,
+                levels: { challenge: { prompt: '노랑 큰 동그라미 얼굴 두 개를 붙이고, 얼굴마다 검정 작은 동그라미 눈을 두 개씩 붙여 보세요.', target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 2 }, { shape: 'circle', color: '검정', size: 's', n: 4 }] } } } },
+              { prompt: '두 얼굴 사이에 고마운 마음을 분홍 하트로 적어도 세 개 붙여 보세요.', state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '노랑', size: 'l', x: 400, y: 200, r: 0 }] }, target: { has: [{ shape: 'heart', color: '분홍', min: 3 }] }, difficulty: 0.1 },
+              { prompt: '내가 도운 장면을 조각 적어도 다섯 개 써서 꾸미고 점검해 보세요.', target: { selfCheck: ['도운 나와 상대가 보여요', '두 사람의 표정을 붙였어요', '무슨 장면인지 짝에게 말했어요'], minPieces: 5 }, difficulty: 0.1 },
+              { prompt: '활동지 그림일기 칸에 그림을 그리고 네 문장을 썼으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -793,7 +812,7 @@
     differentiation: {
       easy: '모양 세 가지, 색 네 가지만 나와요. 일기는 세 문장으로 써요.',
       base: '문장 네 개를 차례대로 쓰고, 장면을 색종이로 꾸며요.',
-      challenge: '모든 모양과 색을 쓰고, 일기에 상대가 한 말을 따옴표로 넣어요.',
+      challenge: '일기와 맞지 않는 함정 문장을 골라내고, 얼굴에 눈까지 붙여요. 모든 모양과 색을 쓰고, 일기에 상대가 한 말을 따옴표로 넣어요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 마음부터 쓴다 → 손가락 네 개 차례를 다시 꼽는다. ② 도운 일이 없다고 말한다 → 8차시 교실 도우미 일이나 오늘 아침 일을 함께 떠올린다. ③ 그림에만 시간을 다 쓴다 → 판 꾸미기 7분, 활동지 8분으로 나누어 알린다.',
   }));
@@ -821,6 +840,7 @@
             levels: CARD_LV,
             items: [
               { prompt: '혼자 안전하게 할 수 있는 일만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '혼자 할 수 있어요', cards: ['내 이불 개기', '칼로 과일 자르기', '빨래 개기', '가스레인지 켜기'] },
+                levels: { challenge: { toolOptions: { cards: ['내 이불 개기', '칼로 과일 자르기', '빨래 개기', '가스레인지 켜기', '뜨거운 다리미 옮기기'] } } },
                 target: { pick: ['내 이불 개기', '빨래 개기'] }, difficulty: 0.05 },
               { prompt: '다섯 가지 일을 나누어 보세요.', toolOptions: { topic: '집안일', slots: ['혼자 할 수 있어요', '어른과 함께 해요'], cards: ['신발 정리하기', '뜨거운 국 옮기기', '화분에 물 주기', '높은 선반 위 그릇 꺼내기', '장난감 정리하기'] },
                 target: { sort: { '혼자 할 수 있어요': ['신발 정리하기', '화분에 물 주기', '장난감 정리하기'], '어른과 함께 해요': ['뜨거운 국 옮기기', '높은 선반 위 그릇 꺼내기'] } }, difficulty: 0.15 },
@@ -834,15 +854,17 @@
             id: 'a2', title: '활동 2. 하루 가운데 언제 도울까', minutes: 14, tool: 'timeline',
             teacher: '"이불은 언제 개는 게 알맞을까요? 수저는요?" 하루 띠를 손가락으로 왼쪽(아침)에서 오른쪽(밤)으로 따라가며 때마다 할 일을 짝 짓게 한다. 우리 집은 다르다고 말하는 학생에게는 "카드에 적힌 때를 잘 읽어요. 밥 먹기 \'전\'인가요, \'뒤\'인가요?" 하고 글자를 짚게 한다.',
             task: '하루 띠의 때마다 그때 하기 알맞은 돕는 일 카드를 놓아요.',
-            levels: CARD_LV,
+            levels: DAY_LV,
             items: [
               { prompt: '하루 띠의 때마다 알맞은 돕는 일을 놓아 보세요.', toolOptions: { mode: 'match', axis: ['아침', '밤'], slots: [{ id: 't1', label: '일어나서' }, { id: 't2', label: '저녁 먹기 전' }, { id: 't3', label: '저녁 먹은 뒤' }], cards: ['빈 그릇을 싱크대로 옮겨요', '내 이불을 개요', '수저를 놓아요'] },
                 target: { match: { t1: '내 이불을 개요', t2: '수저를 놓아요', t3: '빈 그릇을 싱크대로 옮겨요' } }, difficulty: 0.1 },
               { prompt: '학교 다녀온 뒤부터 잘 때까지 알맞은 일을 놓아 보세요.', toolOptions: { mode: 'match', axis: ['오후', '밤'], slots: [{ id: 't1', label: '학교 다녀와서' }, { id: 't2', label: '빨래가 다 마르면' }, { id: 't3', label: '자기 전에' }], cards: ['마른 빨래를 개요', '내일 입을 옷을 꺼내 둬요', '실내화 주머니를 제자리에 걸어요'] },
                 target: { match: { t1: '실내화 주머니를 제자리에 걸어요', t2: '마른 빨래를 개요', t3: '내일 입을 옷을 꺼내 둬요' } }, difficulty: 0.15,
                 levels: { challenge: { toolOptions: { cards: ['마른 빨래를 개요', '내일 입을 옷을 꺼내 둬요', '실내화 주머니를 제자리에 걸어요', '가스레인지로 라면을 끓여요'] } } } },
-              { prompt: '동생과 함께하는 주말 아침, 돕는 일을 차례대로 놓아 보세요.', toolOptions: { mode: 'order', axis: ['먼저', '나중'], cards: ['동생과 함께 세수해요', '동생을 깨워요', '동생과 아침밥을 먹어요'] },
-                target: { order: ['동생을 깨워요', '동생과 함께 세수해요', '동생과 아침밥을 먹어요'] }, difficulty: 0.1 },
+              { prompt: '주말 아침에 동생의 이부자리 정리를 도와요. 하는 차례대로 놓아 보세요.', toolOptions: { mode: 'order', axis: ['먼저', '나중'], cards: ['동생과 이불을 함께 개요', '동생을 깨워요', '갠 이불을 장롱에 넣어요'] },
+                target: { order: ['동생을 깨워요', '동생과 이불을 함께 개요', '갠 이불을 장롱에 넣어요'] }, difficulty: 0.1,
+                hints: ['어떤 일을 하려면 먼저 끝나 있어야 하는 일이 있어요. 카드마다 "이걸 하려면 무엇이 먼저 되어 있어야 할까?" 하고 물어요.', '동생이 누워 자는 채로 이불을 갤 수 있을까요? 개지 않은 이불을 장롱에 넣을 수 있을까요?', '깨우기 → 함께 개기 → 장롱에 넣기 차례예요.'],
+                levels: { challenge: { prompt: '주말 아침에 동생의 이부자리 정리를 도와요. 하는 차례대로 놓고, 할 일이 아닌 카드는 남겨요.', toolOptions: { slots: 3, cards: ['동생과 이불을 함께 개요', '동생을 깨워요', '갠 이불을 장롱에 넣어요', '동생 이불 위에서 뛰어요'] } } } },
             ],
           },
         ],
@@ -944,7 +966,7 @@
     worksheet: {
       title: '이웃을 도울 곳',
       items: [
-        { type: 'figure', prompt: '동네 지도를 보고 쓰레기를 주울 수 있는 곳 하나에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '버스 정류장', icon: 'bus', at: [0, 1] }, { name: '놀이터', icon: 'park', at: [2, 2] }, { name: '도서관', icon: 'library', at: [4, 0] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '버스 정류장, 놀이터 등' },
+        { type: 'figure', wide: true, prompt: '동네 지도를 보고 쓰레기를 주울 수 있는 곳 하나에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '버스 정류장', icon: 'bus', at: [0, 1] }, { name: '놀이터', icon: 'park', at: [2, 2] }, { name: '도서관', icon: 'library', at: [4, 0] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '버스 정류장, 놀이터 등' },
         { type: 'choice', prompt: '놀이터에서 깨진 병 조각을 보면 어떻게 할까요?', options: ['어른께 알려요', '손으로 주워요', '발로 차요'], answer: '어른께 알려요' },
         { type: 'table', prompt: '우리 동네에서 이웃을 도울 곳과 할 일을 쓰세요.', columns: ['곳', '내가 할 일'], rows: 2 },
         { type: 'short', prompt: '이웃에게 해 보고 싶은 인사말을 쓰세요.' },
@@ -1009,7 +1031,8 @@
               { prompt: '서아의 마음 카드를 장면에 놓아 보세요.', toolOptions: { cards: ['속상함', '놀람', '기쁨'], slots: [{ id: 's1', label: '그린 그림이 바람에 날아갔어요' }, { id: 's2', label: '하준이가 갑자기 달려 나갔어요' }, { id: 's3', label: '하준이가 그림을 잡아다 주었어요' }] },
                 target: { match: { s1: '속상함', s2: '놀람', s3: '기쁨' } }, difficulty: 0.15 },
               { prompt: '할아버지는 길을 몰라 걱정하시다가, 지우가 길을 알려 드리자 편안해지셨고, 헤어질 때 고마워하셨어요. 차례대로 놓아 보세요.', toolOptions: { mode: 'order', cards: ['편안함', '고마움', '걱정'] },
-                target: { order: ['걱정', '편안함', '고마움'] }, difficulty: 0.2 },
+                target: { order: ['걱정', '편안함', '고마움'] }, difficulty: 0.2,
+                levels: { challenge: { prompt: '할아버지는 길을 몰라 걱정하시다가, 지우가 길을 알려 드리자 편안해지셨고, 헤어질 때 고마워하셨어요. 차례대로 놓고, 이야기에 없는 마음은 남겨요.', toolOptions: { slots: 3, cards: ['편안함', '고마움', '걱정', '화남'] } } } },
             ],
           },
         ],
@@ -1068,7 +1091,7 @@
             id: 'a1', title: '활동 1. 아무도 안 볼 때 어떻게 할까', minutes: 13, tool: 'emotion',
             teacher: '"아무도 안 보니까 그냥 지나가도 될까요?" 보기를 고른 뒤 결과를 소리 내어 읽고 "그 일로 누가 편해졌나요?" 하고 묻는다. 칭찬을 받지 못하면 소용없다고 말하는 학생에게 도움을 받은 사람이 누구인지 결과 칸에서 찾게 한다.',
             task: '아무도 보지 않는 상황을 읽고, 어떻게 할지 골라 결과를 봐요.',
-            levels: { easy: {}, base: {}, challenge: {} },
+            levels: SCALE_LV,
             items: [
               { prompt: '쉬는 시간이 끝났는데 교실 바닥에 크레파스가 굴러다녀요. 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '친구들이 모두 운동장에 나갔어요. 교실 바닥에 크레파스가 여기저기 굴러다녀요.', choices: [
                 { id: 'tidy', text: '크레파스를 주워 통에 넣어요', result: '돌아온 친구들이 걸려 넘어지지 않았어요.', mood: '편안함' },
@@ -1089,8 +1112,8 @@
             task: '카드를 읽고 다른 사람에게 도움이 된 일과 도움이 되지 않은 일로 나누어요.',
             levels: CARD_LV,
             items: [
-              { prompt: '네 가지 일을 나누어 보세요.', toolOptions: { topic: '누가 편해졌을까?', slots: ['도움이 되었어요', '도움이 되지 않았어요'], cards: ['칭찬은 못 받았지만 길이 깨끗해졌어요', '칭찬받으려고 친구 필통을 숨겼다 찾아 줬어요', '아무도 몰랐지만 동생이 넘어지지 않았어요', '선생님이 볼 때만 정리했어요'] },
-                target: { sort: { '도움이 되었어요': ['칭찬은 못 받았지만 길이 깨끗해졌어요', '아무도 몰랐지만 동생이 넘어지지 않았어요'], '도움이 되지 않았어요': ['칭찬받으려고 친구 필통을 숨겼다 찾아 줬어요', '선생님이 볼 때만 정리했어요'] } }, difficulty: 0.2 },
+              { prompt: '네 가지 일을 나누어 보세요.', toolOptions: { topic: '누가 편해졌을까?', slots: ['도움이 되었어요', '도움이 되지 않았어요'], cards: ['칭찬은 못 받았지만 길이 깨끗해졌어요', '칭찬받으려고 친구 필통을 숨겼다 찾아 줬어요', '아무도 몰랐지만 동생이 넘어지지 않았어요', '치우는 척하며 쓰레기를 책상 밑에 숨겼어요'] },
+                target: { sort: { '도움이 되었어요': ['칭찬은 못 받았지만 길이 깨끗해졌어요', '아무도 몰랐지만 동생이 넘어지지 않았어요'], '도움이 되지 않았어요': ['칭찬받으려고 친구 필통을 숨겼다 찾아 줬어요', '치우는 척하며 쓰레기를 책상 밑에 숨겼어요'] } }, difficulty: 0.2 },
               { prompt: '아무도 몰랐지만 누군가에게 도움이 된 일만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '몰래 한 도움', cards: ['밤사이 쌓인 눈을 몰래 쓸었어요', '친구 신발장을 몰래 어질렀어요', '잃어버린 장갑을 주워 분실함에 넣었어요', '몰래 친구 간식을 먹었어요'] },
                 target: { pick: ['밤사이 쌓인 눈을 몰래 쓸었어요', '잃어버린 장갑을 주워 분실함에 넣었어요'] }, difficulty: 0.1 },
               { prompt: '몰래 한 도움과 도움을 받은 사람을 이어 보세요.', toolOptions: { mode: 'match', topic: '누가 도움을 받았을까?', slots: [{ id: 's1', label: '분실함에 장갑을 넣었어요' }, { id: 's2', label: '현관의 눈을 쓸었어요' }], cards: ['장갑을 잃어버린 친구', '아침에 걸어오는 사람들'] },
@@ -1113,7 +1136,7 @@
     worksheet: {
       title: '아무도 몰라도',
       items: [
-        { type: 'choice', prompt: '도움이 된 일에 ○ 하세요.', options: ['선생님이 볼 때만 정리했어요', '아무도 몰랐지만 바닥의 휴지를 주웠어요', '칭찬받으려고 물건을 숨겼어요'], answer: '아무도 몰랐지만 바닥의 휴지를 주웠어요' },
+        { type: 'choice', prompt: '도움이 된 일에 ○ 하세요.', options: ['치우는 척하며 쓰레기를 책상 밑에 숨겼어요', '아무도 몰랐지만 바닥의 휴지를 주웠어요', '칭찬받으려고 물건을 숨겼어요'], answer: '아무도 몰랐지만 바닥의 휴지를 주웠어요' },
         { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '칭찬을 받지 않아도 누군가 ___졌다면 뜻이 있는 도움이에요.', answer: '편해' },
         { type: 'table', prompt: '아무도 모르게 할 수 있는 도움과 도움을 받을 사람을 쓰세요.', columns: ['몰래 할 도움', '도움을 받을 사람'], rows: 2 },
         { type: 'short', prompt: '이야기 속 하준이에게 해 주고 싶은 말을 쓰세요.' },
@@ -1237,7 +1260,8 @@
             task: '투표 결과 표를 보고 동그라미를 놓아 그림그래프를 완성해요.',
             levels: { easy: { showValues: true }, base: {}, challenge: {} },
             items: [
-              { prompt: '투표 표를 보고 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '우리 반이 함께 할 일', data: [['화분 물 주기', 4], ['책 읽어 주기', 7], ['낙엽 쓸기', 3]], unit: '명', xLabel: '할 일', yLabel: '고른 사람 수', icons: [{ value: 1, name: '1명' }], given: [0] }, target: { build: true }, difficulty: 0.1 },
+              { prompt: '투표 표를 보고 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '우리 반이 함께 할 일', data: [['화분 물 주기', 4], ['책 읽어 주기', 7], ['낙엽 쓸기', 3]], unit: '명', xLabel: '할 일', yLabel: '고른 사람 수', icons: [{ value: 1, name: '1명' }], given: [0] }, target: { build: true }, difficulty: 0.1,
+                levels: { challenge: { prompt: '투표 표를 보고 그림그래프의 세 줄을 모두 그려 보세요.', toolOptions: { given: [] } } } },
               { prompt: '네 가지 할 일의 투표 표를 보고 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '우리 반이 함께 할 일', data: [['화분 물 주기', 5], ['책 읽어 주기', 8], ['낙엽 쓸기', 6], ['감사 편지', 4]], unit: '명', xLabel: '할 일', yLabel: '고른 사람 수', icons: [{ value: 1, name: '1명' }] }, target: { build: true }, difficulty: 0.15,
                 levels: { easy: { toolOptions: { given: [0, 1] } } } },
               { prompt: '옆 반 투표 표를 보고 그림그래프를 완성해 보세요.', toolOptions: { type: 'picture', title: '옆 반이 함께 할 일', data: [['재활용 나누기', 9], ['응원 쪽지', 6], ['책 정리', 7]], unit: '명', xLabel: '할 일', yLabel: '고른 사람 수', icons: [{ value: 1, name: '1명' }] }, target: { build: true }, difficulty: 0.2 },
@@ -1271,14 +1295,14 @@
       title: '우리 반 투표 그림그래프',
       items: [
         { type: 'table', prompt: '우리 반 투표 결과를 표에 쓰세요.', columns: ['할 일', '고른 사람 수'], rows: 4 },
-        { type: 'figure', prompt: '그림그래프를 보고 가장 많은 사람이 고른 일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '함께 할 일', unit: '명', data: [['화분 물 주기', 5], ['책 읽어 주기', 8], ['낙엽 쓸기', 3]], icons: [{ value: 1, name: '1명' }] }, caption: '가장 많은 일: ________' }], answer: '책 읽어 주기' },
+        { type: 'figure', wide: true, prompt: '그림그래프를 보고 가장 많은 사람이 고른 일을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '함께 할 일', unit: '명', data: [['화분 물 주기', 5], ['책 읽어 주기', 8], ['낙엽 쓸기', 3]], icons: [{ value: 1, name: '1명' }] }, caption: '가장 많은 일: ________' }], answer: '책 읽어 주기' },
         { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '이 그림그래프에서 동그라미 하나는 ___ 명이에요.', answer: '한' },
         { type: 'short', prompt: '우리 반이 정한 일을 언제, 어떻게 할지 쓰세요.' },
       ],
       easy: {
         note: '동그라미를 손가락으로 하나씩 짚으며 세어요.',
         items: [
-          { type: 'figure', prompt: '더 많은 사람이 고른 일에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', unit: '명', data: [['물 주기', 3], ['책 읽기', 6]], icons: [{ value: 1, name: '1명' }] }, caption: '' }], answer: '책 읽기' },
+          { type: 'figure', wide: true, prompt: '더 많은 사람이 고른 일에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', unit: '명', data: [['물 주기', 3], ['책 읽기', 6]], icons: [{ value: 1, name: '1명' }] }, caption: '' }], answer: '책 읽기' },
           { type: 'short', prompt: '우리 반이 함께 할 일을 쓰세요.' },
           { type: 'draw', prompt: '함께 하는 모습을 그려 보세요.' },
         ],
@@ -1287,7 +1311,7 @@
     differentiation: {
       easy: '그래프 줄 끝에 수가 보이고, 미리 놓인 줄이 더 많아요.',
       base: '표를 보고 동그라미를 놓고, 그래프를 읽어 답해요.',
-      challenge: '몇 명 더 많은지, 모두 몇 명인지 셈까지 해요.',
+      challenge: '미리 그려 둔 줄 없이 그래프를 모두 그리고, 몇 명 더 많은지, 모두 몇 명인지 셈까지 해요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 동그라미를 줄 맞추지 않아 길이로 견주지 못한다 → 왼쪽부터 빈틈없이 놓게 한다. ② 가장 많은 일과 두 번째로 많은 일을 헷갈린다 → 많은 차례대로 손가락을 접으며 센다. ③ 자기가 고른 일이 뽑히지 않아 속상해한다 → 다음 주에 해 볼 일로 남겨 둔다. 수학 \'표와 그래프\' 단원을 배우기 전이면 칠판에서 동그라미 붙임 딱지로 먼저 해 본다.',
   }));
@@ -1330,7 +1354,8 @@
             items: [
               { prompt: '한 주 동안 함께 한 일을 떠올리고, 내 뿌듯한 마음의 크기를 내 생각대로 골라 보세요.', toolOptions: { mode: 'scale', situation: '우리 반이 한 주 동안 1학년 동생들에게 그림책을 읽어 주었어요.', feeling: '뿌듯함', after: '내가 고른 크기와 까닭을 짝에게 말해 봐요.' }, target: { level: 'any' }, difficulty: 0.05 },
               { prompt: '다짐 문장의 빈칸에 알맞은 마음 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['뿌듯함', '짜증', '심심함'], slots: [{ id: 'b1', label: '동생들이 웃는 것을 보니 ___을 느꼈어요. 다음 주에도 할래요.' }] },
-                target: { fill: { b1: '뿌듯함' } }, difficulty: 0.1 },
+                target: { fill: { b1: '뿌듯함' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['뿌듯함', '짜증', '심심함', '미안함', '무서움'] } } } },
               { prompt: '당번 날 친구가 아파서 결석했어요. 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '오늘 책 읽어 주기 당번인 서아가 아파서 학교에 오지 못했어요.', choices: [
                 { id: 'skip', text: '서아 당번이니 오늘은 쉬어요', result: '1학년 동생들이 기다리다 실망했어요.', mood: '슬픔', why: '함께 하기로 한 일은 누가 이어 가면 좋을까요?' },
                 { id: 'cover', text: '내가 대신 읽어 주겠다고 해요', result: '동생들이 이야기를 듣고 즐거워했어요.', mood: '기쁨' }] }, target: { choice: 'cover' }, difficulty: 0.1 },
@@ -1417,9 +1442,10 @@
               challenge: {},
             },
             items: [
-              { prompt: '낮 하늘이에요. 노랑 큰 동그라미 해 한 개와 하양 동그라미 구름 두 개 넘게 붙여 보세요.', target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 1 }, { shape: 'circle', color: '하양', min: 2 }] }, difficulty: 0.05 },
-              { prompt: '밤 하늘이에요. 노랑 반원 달 한 개와 별 세 개 넘게 붙여 보세요.', toolOptions: { bg: '파랑' }, target: { has: [{ shape: 'semi', color: '노랑', n: 1 }, { shape: 'star', min: 3 }] }, difficulty: 0.15 },
-              { prompt: '해와 달을 한 판에 함께 붙여 낮과 밤 그림을 만들어 보세요. 별은 두 개 넘게 붙여요.', target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 1 }, { shape: 'semi', color: '노랑', n: 1 }, { shape: 'star', min: 2 }] }, difficulty: 0.2 },
+              { prompt: '낮 하늘이에요. 노랑 큰 동그라미 해 한 개와 하양 동그라미 구름 적어도 두 개 붙여 보세요.', target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 1 }, { shape: 'circle', color: '하양', min: 2 }] }, difficulty: 0.05 },
+              { prompt: '밤 하늘이에요. 노랑 반원 달 한 개와 별 적어도 세 개 붙여 보세요.', toolOptions: { bg: '파랑' }, target: { has: [{ shape: 'semi', color: '노랑', n: 1 }, { shape: 'star', min: 3 }] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '밤 하늘이에요. 노랑 반원 달 한 개와 하양 작은 별 적어도 세 개를 붙이고, 노랑 동그라미 해는 붙이지 않아요.', target: { has: [{ shape: 'semi', color: '노랑', n: 1 }, { shape: 'star', color: '하양', size: 's', min: 3 }, { shape: 'circle', color: '노랑', max: 0 }] } } } },
+              { prompt: '해와 달을 한 판에 함께 붙여 낮과 밤 그림을 만들어 보세요. 별은 적어도 두 개 붙여요.', target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 1 }, { shape: 'semi', color: '노랑', n: 1 }, { shape: 'star', min: 2 }] }, difficulty: 0.2 },
             ],
           },
         ],
@@ -1454,7 +1480,7 @@
     differentiation: {
       easy: '판에 동그라미·반원·별과 세 가지 색만 나와요. 맞는 가지에 초록 테두리가 생겨요.',
       base: '모두 나눈 뒤 확인을 눌러요. 낮과 밤 그림을 색종이로 꾸며요.',
-      challenge: '낮과 밤 어느 쪽도 아닌 함정 카드가 섞여 있어요. 모든 모양과 색을 써요.',
+      challenge: '낮과 밤 어느 쪽도 아닌 함정 카드가 섞여 있어요. 모든 모양과 색을 쓰고, 밤 하늘에는 해를 붙이지 않고 작은 하양 별만 붙여요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 별과 달은 밤에만 하늘에 있다고 여긴다 → 낮달 사진을 보여 주고, 별은 햇빛이 밝아 안 보이는 것이라고 짚는다. ② 낮·밤 어느 쪽도 아닌 것(비, 나무)을 억지로 넣는다 → 언제나 있는 것은 남긴다고 다시 말한다. ③ 낮과 밤 그림을 한쪽에 섞는다 → 판 가운데에 손가락으로 선을 그어 나누게 한다.',
   }));
@@ -1478,12 +1504,13 @@
             id: 'a1', title: '활동 1. 내 하루를 시간 띠에 놓기', minutes: 13, tool: 'timeline',
             teacher: '"점심은 학교에 가기 전에 먹나요, 학교에서 먹나요?" 시간 띠의 왼쪽이 아침, 오른쪽이 밤이라는 것을 손으로 쓸어 보이며 짚는다. 숙제와 저녁 차례가 집마다 다르다고 말하는 학생에게는 카드에 적힌 \'저녁밥을 먹고\'처럼 차례를 알려 주는 말을 찾게 한다.',
             task: '내 하루 카드를 아침부터 밤까지 시간 띠에 차례대로 놓아요.',
-            levels: CARD_LV,
+            levels: DAY_LV,
             items: [
               { prompt: '하루 카드 세 장을 아침부터 차례대로 놓아 보세요.', toolOptions: { axis: ['아침', '밤'], cards: ['잠자리에 들어요', '일어나 세수해요', '학교에서 공부해요'] },
                 target: { order: ['일어나 세수해요', '학교에서 공부해요', '잠자리에 들어요'] }, difficulty: 0.05 },
               { prompt: '하루 카드 네 장을 차례대로 놓아 보세요.', toolOptions: { axis: ['아침', '밤'], cards: ['학교에서 점심을 먹어요', '아침밥을 먹어요', '저녁밥을 먹어요', '집에 돌아와요'] },
-                target: { order: ['아침밥을 먹어요', '학교에서 점심을 먹어요', '집에 돌아와요', '저녁밥을 먹어요'] }, difficulty: 0.1 },
+                target: { order: ['아침밥을 먹어요', '학교에서 점심을 먹어요', '집에 돌아와요', '저녁밥을 먹어요'] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '하루 카드 네 장을 차례대로 놓아 보세요. 하루에 맞지 않는 카드는 남겨요.', toolOptions: { slots: 4, cards: ['학교에서 점심을 먹어요', '아침밥을 먹어요', '저녁밥을 먹어요', '집에 돌아와요', '새벽 3시에 학교에 가요'] } } } },
               { prompt: '하루 카드 다섯 장을 차례대로 놓아 보세요.', toolOptions: { axis: ['아침', '밤'], cards: ['저녁밥을 먹고 이를 닦아요', '학교 끝나고 태권도에 가요', '책가방을 메고 집을 나서요', '이를 닦고 잠자리에 누워요', '일어나 이불을 개요'] },
                 target: { order: ['일어나 이불을 개요', '책가방을 메고 집을 나서요', '학교 끝나고 태권도에 가요', '저녁밥을 먹고 이를 닦아요', '이를 닦고 잠자리에 누워요'] }, difficulty: 0.2 },
             ],
@@ -1578,10 +1605,11 @@
             task: '물음 문장의 빈칸에 알맞은 묻는 말 카드를 넣어요.',
             levels: CARD_LV,
             items: [
-              { prompt: '빈칸에 알맞은 묻는 말 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['몇 시에', '누구와', '무엇을'], slots: [{ id: 'b1', who: '민지', motif: 'sun', label: '아침 ___ 일어나세요?' }] },
+              { prompt: '빈칸에 알맞은 묻는 말 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['몇 시에', '누구를', '무엇을'], slots: [{ id: 'b1', who: '민지', motif: 'sun', label: '아침 ___ 일어나세요?' }] },
                 target: { fill: { b1: '몇 시에' } }, difficulty: 0.05 },
-              { prompt: '두 물음의 빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['무엇을', '어디에서', '몇 시에'], slots: [{ id: 'b1', who: '준호', motif: 'moon', label: '밤에 일할 때 ___ 하세요?' }, { id: 'b2', who: '준호', motif: 'house', label: '___ 일하세요? 병원인가요?' }] },
-                target: { fill: { b1: '무엇을', b2: '어디에서' } }, difficulty: 0.15 },
+              { prompt: '두 물음의 빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['무엇을', '어디에서', '몇 시에'], slots: [{ id: 'b1', who: '준호', motif: 'moon', label: '밤에 일할 때 ___ 하세요? 환자를 돌보세요?' }, { id: 'b2', who: '준호', motif: 'house', label: '___ 일하세요? 병원인가요?' }] },
+                target: { fill: { b1: '무엇을', b2: '어디에서' } }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['무엇을', '어디에서', '몇 시에', '누구를'] } } } },
               { prompt: '까닭을 묻는 물음을 만들어 보세요.', toolOptions: { mode: 'fill', cards: ['왜', '언제', '어디에서'], slots: [{ id: 'b1', who: '서아', motif: 'star', label: '___ 밤에 빵을 구우세요? 까닭이 궁금해요.' }] },
                 target: { fill: { b1: '왜' } }, difficulty: 0.1 },
               { prompt: '짝과 내가 만든 물음 하나씩을 서로 묻고 대답해 보았으면 "다 했어요"를 누르세요.', free: true },
@@ -1660,7 +1688,7 @@
             task: '인터뷰 부탁 차례를 정하고, 짝과 역할을 나누어 부탁하는 말을 해 봐요.',
             levels: CARD_LV,
             items: [
-              { prompt: '인터뷰를 부탁하는 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'thanks', text: '"고맙습니다" 인사해요', motif: 'flower' }, { id: 'hello', text: '"안녕하세요" 인사해요', motif: 'sun' }, { id: 'ask', text: '하루를 여쭈어봐도 되는지 물어요', motif: 'star' }, { id: 'me', text: '"2학년 3반 민지예요" 소개해요', motif: 'house' }] },
+              { prompt: '인터뷰를 부탁하는 차례대로 놓아 보세요.', toolOptions: { hint1: '어른께 부탁할 때 처음 만나서 하는 말과, 부탁을 마치며 하는 말이 무엇인지 먼저 떠올려 보고 양 끝에 놓아요.', cards: [{ id: 'thanks', text: '"고맙습니다" 인사해요', motif: 'flower' }, { id: 'hello', text: '"안녕하세요" 인사해요', motif: 'sun' }, { id: 'ask', text: '하루를 여쭈어봐도 되는지 물어요', motif: 'star' }, { id: 'me', text: '"2학년 3반 민지예요" 소개해요', motif: 'house' }] },
                 target: { order: ['hello', 'me', 'ask', 'thanks'] }, difficulty: 0.15 },
               { prompt: '부탁하는 말의 빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['여쭈어봐도', '물어봐', '알려 줘'], slots: [{ id: 'b1', who: '민지', motif: 'flower', label: '선생님의 하루를 ___ 될까요?' }] },
                 target: { fill: { b1: '여쭈어봐도' } }, difficulty: 0.1,
@@ -1684,7 +1712,7 @@
       title: '하루를 알아볼 분',
       items: [
         { type: 'table', prompt: '우리 학교에서 일하시는 분과 만날 곳을 쓰세요.', columns: ['하시는 일', '만날 곳'], rows: 3 },
-        { type: 'figure', wide: true, prompt: '부탁하는 차례대로 빈칸에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cards: [{ id: 'ask', text: '여쭈어봐도 될까요?', motif: 'star' }, { id: 'thanks', text: '고맙습니다', motif: 'flower' }, { id: 'hello', text: '안녕하세요', motif: 'sun' }, { id: 'me', text: '저는 민지예요', motif: 'house' }], shuffle: false }, caption: '' }], answer: '안녕하세요 1, 저는 민지예요 2, 여쭈어봐도 될까요? 3, 고맙습니다 4' },
+        { type: 'figure', wide: true, prompt: '부탁하는 차례대로 빈칸에 1, 2, 3, 4를 쓰세요.', tool: 'story', figures: [{ options: { cardW: 104, cardH: 100, cards: [{ id: 'ask', text: '여쭈어봐도 될까요?', motif: 'star' }, { id: 'thanks', text: '고맙습니다', motif: 'flower' }, { id: 'hello', text: '안녕하세요', motif: 'sun' }, { id: 'me', text: '저는 민지예요', motif: 'house' }], shuffle: false }, caption: '' }], answer: '안녕하세요 1, 저는 민지예요 2, 여쭈어봐도 될까요? 3, 고맙습니다 4' },
         { type: 'choice', prompt: '공손하게 부탁하는 말에 ○ 하세요.', options: ['"하루를 여쭈어봐도 될까요?"', '"하루 말해 봐"'], answer: '"하루를 여쭈어봐도 될까요?"' },
         { type: 'short', prompt: '우리 모둠이 하루를 알아볼 분을 쓰세요.' },
       ],
@@ -1745,9 +1773,9 @@
               challenge: { bg: '파랑' },
             },
             items: [
-              { prompt: '갈색 건물에 노랑 네모 창문을 세 개 넘게 붙여 불 켜진 곳을 만들어 보세요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 280, y: 240, r: 0 }] }, target: { has: [{ shape: 'square', color: '노랑', min: 3 }] }, difficulty: 0.05 },
-              { prompt: '건물 위 밤 하늘에 노랑 반원 달 한 개와 하양 별 두 개 넘게 붙여 보세요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 280, y: 280, r: 0 }, { shape: 'square', color: '노랑', size: 's', x: 240, y: 280, r: 0 }] }, target: { has: [{ shape: 'semi', color: '노랑', n: 1 }, { shape: 'star', color: '하양', min: 2 }] }, difficulty: 0.15 },
-              { prompt: '밤에도 문을 여는 곳 하나를 골라 조각 다섯 개 넘게 써서 꾸미고 점검해 보세요.', target: { selfCheck: ['불 켜진 창문을 붙였어요', '밤 하늘을 꾸몄어요', '그림을 보고 만든 물음을 짝에게 말했어요'], minPieces: 5 }, difficulty: 0.1 },
+              { prompt: '갈색 건물에 노랑 네모 창문을 적어도 세 개 붙여 불 켜진 곳을 만들어 보세요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 280, y: 240, r: 0 }] }, target: { has: [{ shape: 'square', color: '노랑', min: 3 }] }, difficulty: 0.05 },
+              { prompt: '건물 위 밤 하늘에 노랑 반원 달 한 개와 하양 별 적어도 두 개 붙여 보세요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 280, y: 280, r: 0 }, { shape: 'square', color: '노랑', size: 's', x: 240, y: 280, r: 0 }] }, target: { has: [{ shape: 'semi', color: '노랑', n: 1 }, { shape: 'star', color: '하양', min: 2 }] }, difficulty: 0.15 },
+              { prompt: '밤에도 문을 여는 곳 하나를 골라 조각 적어도 다섯 개 써서 꾸미고 점검해 보세요.', target: { selfCheck: ['불 켜진 창문을 붙였어요', '밤 하늘을 꾸몄어요', '그림을 보고 만든 물음을 짝에게 말했어요'], minPieces: 5 }, difficulty: 0.1 },
             ],
           },
         ],
@@ -1813,7 +1841,8 @@
               { prompt: '다섯 물음을 나누어 보세요.', toolOptions: { topic: '인터뷰 물음', slots: ['여쭈어볼 물음', '여쭈지 않을 물음'], cards: ['점심은 언제 드세요?', '한 달에 돈을 얼마나 버세요?', '일을 마치면 무엇을 하세요?', '통장 비밀번호가 뭐예요?', '왜 이 일을 하게 되셨어요?'] },
                 target: { sort: { '여쭈어볼 물음': ['점심은 언제 드세요?', '일을 마치면 무엇을 하세요?', '왜 이 일을 하게 되셨어요?'], '여쭈지 않을 물음': ['한 달에 돈을 얼마나 버세요?', '통장 비밀번호가 뭐예요?'] } }, difficulty: 0.15 },
               { prompt: '조리사 선생님께 여쭈어볼 물음만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '조리사 선생님께', cards: ['급식은 몇 시부터 만드세요?', '하루에 밥을 몇 그릇이나 푸세요?', '어젯밤에 무슨 꿈을 꾸셨어요?', '휴대 전화를 보여 주세요.'] },
-                target: { pick: ['급식은 몇 시부터 만드세요?', '하루에 밥을 몇 그릇이나 푸세요?'] }, difficulty: 0.1 },
+                target: { pick: ['급식은 몇 시부터 만드세요?', '하루에 밥을 몇 그릇이나 푸세요?'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['급식은 몇 시부터 만드세요?', '하루에 밥을 몇 그릇이나 푸세요?', '어젯밤에 무슨 꿈을 꾸셨어요?', '휴대 전화를 보여 주세요.', '집 현관 비밀번호가 뭐예요?'] } } } },
             ],
           },
           {
@@ -1822,7 +1851,7 @@
             task: '물음을 하루 차례대로 놓고, 대답을 놓쳤을 때 쓰는 말을 익힌 뒤 짝과 연습 인터뷰를 해요.',
             levels: CARD_LV,
             items: [
-              { prompt: '물음을 하루 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'lunch', text: '점심은 언제 드세요?', motif: 'sun' }, { id: 'wake', text: '몇 시에 일어나세요?', motif: 'star' }, { id: 'end', text: '일은 몇 시에 끝나요?', motif: 'moon' }, { id: 'start', text: '몇 시에 일을 시작하세요?', motif: 'house' }] },
+              { prompt: '물음을 하루 차례대로 놓아 보세요.', toolOptions: { hint1: '물음마다 하루 가운데 언제 일을 묻는지 찾아요. 하루를 아침에 일어날 때부터 차례로 떠올려 견주어 놓아요.', cards: [{ id: 'lunch', text: '점심은 언제 드세요?', motif: 'sun' }, { id: 'wake', text: '몇 시에 일어나세요?', motif: 'star' }, { id: 'end', text: '일은 몇 시에 끝나요?', motif: 'moon' }, { id: 'start', text: '몇 시에 일을 시작하세요?', motif: 'house' }] },
                 target: { order: ['wake', 'start', 'lunch', 'end'] }, difficulty: 0.15 },
               { prompt: '대답을 잘 못 들었을 때 하는 말의 빈칸을 채워 보세요.', toolOptions: { mode: 'fill', cards: ['한 번 더', '빨리', '크게 좀'], slots: [{ id: 'b1', who: '하준', motif: 'flower', label: '죄송하지만, ___ 말씀해 주시겠어요?' }] },
                 target: { fill: { b1: '한 번 더' } }, difficulty: 0.1,
@@ -1887,8 +1916,8 @@
           {
             id: 'a1', title: '활동 1. 인터뷰 기록을 시간 띠에 놓기', minutes: 13, tool: 'timeline',
             teacher: '"기록에서 \'10시부터\', \'12시에\'처럼 시각을 알려 주는 말에 밑줄을 그어 볼까요?" 활동지 기록에 밑줄을 그은 뒤 카드를 놓게 한다. 우리가 급식을 먹는 12시만 떠올리고 조리사 선생님이 그 전부터 일하신 것을 놓치는 학생에게 "밥은 언제부터 만드셨지요?" 하고 기록을 다시 짚는다.',
-            task: '인터뷰 기록을 읽고 조리사 선생님이 하신 일을 시간 띠에 차례대로 놓아요.',
-            levels: CARD_LV,
+            task: '기록: 아침 7시 30분 학교에 와요 → 재료를 씻고 다듬어요 → 10시부터 밥과 반찬을 만들어요 → 12시 급식을 나누어 줘요 → 1시 30분 설거지와 청소 → 오후 3시 집에 가요. 기록을 읽고 하신 일을 시간 띠에 차례대로 놓아요.',
+            levels: DAY_LV,
             items: [
               { prompt: '조리사 선생님의 일을 차례대로 놓아 보세요.', toolOptions: { axis: ['아침', '오후'], cards: ['급식을 나누어 줘요', '재료를 씻고 다듬어요', '밥과 반찬을 만들어요'] },
                 target: { order: ['재료를 씻고 다듬어요', '밥과 반찬을 만들어요', '급식을 나누어 줘요'] }, difficulty: 0.05 },
@@ -1902,7 +1931,7 @@
           {
             id: 'a2', title: '활동 2. 일하는 시각을 시계로 나타내기', minutes: 14, tool: 'clock',
             teacher: '"12시에는 긴바늘과 짧은바늘이 어디를 가리킬까요?" 수학 시간에 배운 \'몇 시\', \'몇 시 30분\'을 떠올리게 한다. 30분을 만들 때 짧은바늘을 숫자에 딱 맞추는 학생에게 "30분이면 짧은바늘은 두 숫자 사이 가운데쯤이에요" 하고 짚는다.',
-            task: '조리사 선생님이 일하시는 시각을 시계에 나타내거나 읽어요.',
+            task: '기록: 아침 7시 30분 학교에 와요 → 재료를 씻고 다듬어요 → 10시부터 밥과 반찬을 만들어요 → 12시 급식을 나누어 줘요 → 1시 30분 설거지와 청소 → 오후 3시 집에 가요. 기록 속 시각을 시계에 나타내거나 읽어요.',
             levels: {
               easy: { minuteStep: 30, showMinuteNumbers: true, hourZone: true },
               base: { minuteStep: 30 },
@@ -1930,13 +1959,13 @@
     worksheet: {
       title: '조리사 선생님의 하루',
       items: [
-        { type: 'table', prompt: '인터뷰 기록을 읽고 시각과 하신 일을 쓰세요.', columns: ['시각', '하신 일'], cells: [['아침 7시 30분', ''], ['10시', ''], ['낮 12시', ''], ['오후 3시', '']] },
+        { type: 'table', prompt: '기록: 아침 7시 30분 학교에 와요 → 재료를 씻고 다듬어요 → 10시부터 밥과 반찬을 만들어요 → 12시 급식을 나누어 줘요 → 1시 30분 설거지와 청소 → 오후 3시 집에 가요. 기록을 읽고 시각마다 하신 일을 쓰세요.', columns: ['시각', '하신 일'], cells: [['아침 7시 30분', ''], ['10시', ''], ['낮 12시', ''], ['오후 3시', '']] },
         { type: 'figure', prompt: '시계에 12시를 그려 넣으세요.', tool: 'clock', options: { hideHands: true }, figures: [{ state: { h: 12, m: 0 }, caption: '12시' }], answer: '긴바늘 12, 짧은바늘 12' },
         { type: 'choice', prompt: '조리사 선생님이 설거지를 하시는 때에 ○ 하세요.', options: ['급식을 나누어 준 뒤', '학교에 오시기 전'], answer: '급식을 나누어 준 뒤' },
         { type: 'short', prompt: '우리 모둠이 인터뷰한 분이 가장 먼저 하시는 일을 쓰세요.' },
       ],
       easy: {
-        note: '\'몇 시에\'라는 말에 밑줄을 그어 보세요.',
+        note: '기록: 아침 7시 30분 학교에 와요 → 재료를 씻고 다듬어요 → 10시부터 밥과 반찬을 만들어요 → 12시 급식을 나누어 줘요 → 1시 30분 설거지와 청소 → 오후 3시 집에 가요. 시각에 밑줄을 그어 보세요.',
         items: [
           { type: 'choice', prompt: '급식을 나누어 주시는 시각에 ○ 하세요.', options: ['12시', '밤 9시'], answer: '12시' },
           { type: 'choice', prompt: '먼저 하시는 일에 ○ 하세요.', options: ['재료 씻기', '설거지'], answer: '재료 씻기' },
@@ -1978,6 +2007,7 @@
               { prompt: '다섯 사람을 일하는 때로 나누어 보세요.', toolOptions: { topic: '언제 일할까?', slots: ['주로 낮에 일해요', '밤에 일해요'], cards: ['밤 12시에 불을 끄러 나간 소방관', '밤에 손님을 맞는 편의점 점원', '낮에 버스를 운전하는 기사님', '오후에 책을 빌려주는 사서', '밤하늘 별을 살피는 천문대 연구원'] },
                 target: { sort: { '주로 낮에 일해요': ['낮에 버스를 운전하는 기사님', '오후에 책을 빌려주는 사서'], '밤에 일해요': ['밤 12시에 불을 끄러 나간 소방관', '밤에 손님을 맞는 편의점 점원', '밤하늘 별을 살피는 천문대 연구원'] } }, difficulty: 0.15 },
               { prompt: '내가 잠자는 밤 12시에 일하고 있는 사람만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '밤 12시에 일해요', cards: ['밤새 순찰하는 경찰관', '오후 5시에 퇴근한 은행원', '새벽까지 환자를 돌보는 의사', '저녁 6시에 문을 닫은 꽃집 주인'] },
+                levels: { challenge: { toolOptions: { cards: ['밤새 순찰하는 경찰관', '오후 5시에 퇴근한 은행원', '새벽까지 환자를 돌보는 의사', '저녁 6시에 문을 닫은 꽃집 주인', '오후 4시에 수업을 마친 선생님'] } } },
                 target: { pick: ['밤새 순찰하는 경찰관', '새벽까지 환자를 돌보는 의사'] }, difficulty: 0.15,
                 predict: { q: '밤 12시에도 일하는 사람이 있을까요?', options: ['있어요', '아무도 없어요'], answer: 0 },
                 conclude: '모두 잠든 밤에도 우리를 지키고 돌보는 사람들이 일하고 있어요.' },
@@ -1990,7 +2020,8 @@
             levels: SCALE_LV,
             items: [
               { prompt: '밤에 동생이 아팠던 두 장면에 어울리는 마음 카드를 놓아 보세요.', toolOptions: { cards: ['편안함', '걱정', '신남'], slots: [{ id: 's1', label: '밤에 동생이 열이 나요' }, { id: 's2', label: '응급실 의사 선생님이 동생을 치료해 주셨어요' }] },
-                target: { match: { s1: '걱정', s2: '편안함' } }, difficulty: 0.05 },
+                target: { match: { s1: '걱정', s2: '편안함' } }, difficulty: 0.05,
+                levels: { challenge: { toolOptions: { cards: ['편안함', '걱정', '신남', '심심함', '미안함'] } } } },
               { prompt: '밤새 순찰하는 경찰관 덕분에 마음 놓고 잘 수 있어요. 편안한 마음의 크기를 골라 보세요.', toolOptions: { mode: 'scale', situation: '밤에 바람 소리가 무서웠는데, 창밖에 순찰차 불빛이 지나가는 것을 보았어요.', feeling: '편안함', after: '밤에 일하는 분들 덕분에 우리는 마음 놓고 잘 수 있어요.' }, target: { level: [3, 5] }, difficulty: 0.1,
                 levels: { easy: { prompt: '순찰하는 경찰관 덕분에 마음 놓고 잘 수 있어요. 편안한 마음을 세 칸에서 골라 보세요.', target: { level: [2, 3] } } } },
               { prompt: '밤늦게 편의점에서 일하는 점원께 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '저녁 늦게 가족과 편의점에 갔어요. 점원이 피곤해 보이지만 웃으며 계산해 주세요.', choices: [
@@ -2053,8 +2084,8 @@
           {
             id: 'a1', title: '활동 1. 소방관의 하루를 차례로 놓기', minutes: 13, tool: 'timeline',
             teacher: '"이 하루는 저녁에 시작해서 다음 날 낮에 끝나요. 시간 띠 왼쪽 끝이 저녁이에요." 시작이 아침이 아니라는 것을 손으로 짚어 보인다. 잠자기를 맨 앞에 놓는 학생에게 "소방관은 밤새 일한 뒤에 잠을 잤지요?" 하고 기록을 다시 읽게 한다.',
-            task: '소방관의 하루 기록을 읽고 일한 차례대로 놓거나 때에 따라 나누어요.',
-            levels: CARD_LV,
+            task: '기록: 저녁 6시 소방서에 와요 → 소방차와 장비를 살펴요 → 밤 11시 출동해요 → 새벽에 젖은 장비를 닦아요 → 아침 9시 일을 넘기고 집에 가요 → 낮에 잠을 자요. 기록을 읽고 일한 차례대로 놓거나 때에 따라 나누어요.',
+            levels: DAY_LV,
             items: [
               { prompt: '소방관의 하루를 차례대로 놓아 보세요.', toolOptions: { axis: ['저녁', '다음 날'], cards: ['아침 9시에 집에 가요', '저녁 6시에 소방서에 와요', '밤 11시에 출동해요'] },
                 target: { order: ['저녁 6시에 소방서에 와요', '밤 11시에 출동해요', '아침 9시에 집에 가요'] }, difficulty: 0.05 },
@@ -2068,7 +2099,7 @@
           {
             id: 'a2', title: '활동 2. 기록 속 시각 읽기', minutes: 14, tool: 'clock',
             teacher: '"시계를 보고 소방관이 무엇을 하는 시각인지 기록에서 찾아봐요." 짧은바늘부터 읽게 한다. 밤 11시와 낮 11시가 시계로는 같다는 것을 묻는 학생에게 "시계는 같아요. 그래서 기록에 \'밤\', \'아침\'을 함께 적어요" 하고 짚는다.',
-            task: '시계를 보고 기록 속 시각을 고르거나, 기록의 시각을 시계에 만들어요.',
+            task: '기록: 저녁 6시 소방서에 와요 → 소방차와 장비를 살펴요 → 밤 11시 출동해요 → 새벽에 젖은 장비를 닦아요 → 아침 9시 일을 넘기고 집에 가요 → 낮에 잠을 자요. 기록 속 시각을 시계에서 고르거나 만들어요.',
             levels: {
               easy: { hourZone: true, showMinuteNumbers: true, minuteStep: 30 },
               base: { minuteStep: 30 },
@@ -2096,13 +2127,13 @@
     worksheet: {
       title: '소방관의 밤과 낮',
       items: [
-        { type: 'table', prompt: '소방관의 기록을 읽고 시각과 한 일을 쓰세요.', columns: ['시각', '한 일'], cells: [['저녁 6시', ''], ['밤 11시', ''], ['아침 9시', ''], ['낮', '']] },
+        { type: 'table', prompt: '기록: 저녁 6시 소방서에 와요 → 소방차와 장비를 살펴요 → 밤 11시 출동해요 → 새벽에 젖은 장비를 닦아요 → 아침 9시 일을 넘기고 집에 가요 → 낮에 잠을 자요. 기록을 읽고 시각마다 한 일을 쓰세요.', columns: ['시각', '한 일'], cells: [['저녁 6시', ''], ['밤 11시', ''], ['아침 9시', ''], ['낮', '']] },
         { type: 'figure', prompt: '시계를 보고 소방관이 무엇을 하는 시각인지 쓰세요.', tool: 'clock', options: { readOnly: true }, figures: [{ state: { h: 11, m: 0 }, caption: '밤 (    )시: ________' }], answer: '11시, 출동해요' },
         { type: 'choice', prompt: '소방관이 잠을 자는 때에 ○ 하세요.', options: ['다음 날 낮', '밤 11시'], answer: '다음 날 낮' },
         { type: 'short', prompt: '소방관에게 묻고 싶은 것을 하나 쓰세요.' },
       ],
       easy: {
-        note: '이 하루는 저녁에 시작해요.',
+        note: '이 하루는 저녁에 시작해요. 기록: 저녁 6시 소방서에 와요 → 소방차와 장비를 살펴요 → 밤 11시 출동해요 → 새벽에 젖은 장비를 닦아요 → 아침 9시 일을 넘기고 집에 가요 → 낮에 잠을 자요.',
         items: [
           { type: 'choice', prompt: '소방관이 출동한 때에 ○ 하세요.', options: ['밤', '낮'], answer: '밤' },
           { type: 'choice', prompt: '소방관이 잠을 잔 때에 ○ 하세요.', options: ['낮', '밤 11시'], answer: '낮' },
@@ -2137,12 +2168,12 @@
             id: 'a1', title: '활동 1. 새벽·낮·밤에 일하는 사람', minutes: 12, tool: 'timeline',
             teacher: '"카드에 적힌 시각을 보고 하루 띠의 어느 칸에 놓을지 정해요." 새벽은 해가 뜨기 전 아주 이른 때라는 것을 알려 준다. 새벽 4시를 \'밤\'에 놓는 학생에게 "새벽 4시는 날이 밝기 전 아침 쪽이에요. 오늘은 새벽 칸에 따로 놓아요" 하고 칸 이름을 짚는다.',
             task: '카드에 적힌 시각을 읽고 하루 띠의 새벽·낮·밤 칸에 나누어 놓아요.',
-            levels: CARD_LV,
+            levels: DAY_LV,
             items: [
               { prompt: '네 사람을 일하는 때에 따라 나누어 보세요.', toolOptions: { mode: 'sort', axis: ['새벽', '밤'], slots: ['새벽', '낮', '밤'], cards: ['새벽 4시에 빵을 굽는 제빵사', '낮 12시에 점심을 차리는 조리사', '밤 11시에 환자를 살피는 간호사', '새벽 5시에 거리를 청소하는 환경미화원'] },
                 target: { sort: { '새벽': ['새벽 4시에 빵을 굽는 제빵사', '새벽 5시에 거리를 청소하는 환경미화원'], '낮': ['낮 12시에 점심을 차리는 조리사'], '밤': ['밤 11시에 환자를 살피는 간호사'] } }, difficulty: 0.1 },
-              { prompt: '다섯 사람을 일하는 때에 따라 나누어 보세요.', toolOptions: { mode: 'sort', axis: ['새벽', '밤'], slots: ['새벽', '낮', '밤'], cards: ['새벽 5시에 우유를 배달하는 배달원', '오후 2시에 편지를 나르는 집배원', '밤 10시에 순찰하는 경찰관', '새벽 4시 50분에 첫 버스를 모는 기사님', '오후 3시에 수업을 마친 선생님'] },
-                target: { sort: { '새벽': ['새벽 5시에 우유를 배달하는 배달원', '새벽 4시 50분에 첫 버스를 모는 기사님'], '낮': ['오후 2시에 편지를 나르는 집배원', '오후 3시에 수업을 마친 선생님'], '밤': ['밤 10시에 순찰하는 경찰관'] } }, difficulty: 0.15 },
+              { prompt: '다섯 사람을 일하는 때에 따라 나누어 보세요.', toolOptions: { mode: 'sort', axis: ['새벽', '밤'], slots: ['새벽', '낮', '밤'], cards: ['새벽 5시에 우유를 배달하는 배달원', '오후 2시에 편지를 나르는 집배원', '밤 10시에 순찰하는 경찰관', '새벽 4시 50분에 첫 버스를 모는 기사님', '오후 3시에 내일 수업을 준비하는 선생님'] },
+                target: { sort: { '새벽': ['새벽 5시에 우유를 배달하는 배달원', '새벽 4시 50분에 첫 버스를 모는 기사님'], '낮': ['오후 2시에 편지를 나르는 집배원', '오후 3시에 내일 수업을 준비하는 선생님'], '밤': ['밤 10시에 순찰하는 경찰관'] } }, difficulty: 0.15 },
               { prompt: '새벽에 일하는 사람 덕분에 아침에 볼 수 있는 것을 이어 보세요.', toolOptions: { mode: 'match', slots: [{ id: 's1', label: '새벽에 빵을 굽는 제빵사' }, { id: 's2', label: '새벽에 거리를 쓰는 환경미화원' }], cards: ['갓 구운 아침 빵', '깨끗한 등굣길'] },
                 target: { match: { s1: '갓 구운 아침 빵', s2: '깨끗한 등굣길' } }, difficulty: 0.1,
                 levels: { challenge: { toolOptions: { cards: ['갓 구운 아침 빵', '깨끗한 등굣길', '밤하늘의 별'] } } } },
@@ -2154,10 +2185,11 @@
             task: '환경미화원의 하루 기록을 듣고 장면 카드를 차례대로 놓고, 빈칸을 채워요.',
             levels: CARD_LV,
             items: [
-              { prompt: '환경미화원의 하루를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'truck', text: '쓰레기를 차에 실어요', motif: 'house' }, { id: 'wake', text: '새벽 4시에 일어나요', motif: 'moon' }, { id: 'sweep', text: '새벽 5시에 거리를 쓸어요', motif: 'leaf' }] },
+              { prompt: '환경미화원의 하루를 차례대로 놓아 보세요.', toolOptions: { hint1: '카드에서 때를 알려 주는 말(몇 시, 해가 뜨면 같은 말)을 먼저 찾아 소리 내어 읽고, 이른 때부터 놓아요.', cards: [{ id: 'truck', text: '쓰레기를 차에 실어요', motif: 'house' }, { id: 'wake', text: '새벽 4시에 일어나요', motif: 'moon' }, { id: 'sweep', text: '새벽 5시에 거리를 쓸어요', motif: 'leaf' }] },
                 target: { order: ['wake', 'sweep', 'truck'] }, difficulty: 0.05 },
-              { prompt: '네 장면을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'rest', text: '낮 1시쯤 집에서 쉬어요', motif: 'sun' }, { id: 'sweep', text: '새벽 5시에 거리를 쓸어요', motif: 'leaf' }, { id: 'wake', text: '새벽 4시에 일어나요', motif: 'moon' }, { id: 'truck', text: '해가 뜨면 쓰레기를 실어요', motif: 'house' }] },
-                target: { order: ['wake', 'sweep', 'truck', 'rest'] }, difficulty: 0.15 },
+              { prompt: '네 장면을 차례대로 놓아 보세요.', toolOptions: { hint1: '카드에서 때를 알려 주는 말(몇 시, 해가 뜨면 같은 말)을 먼저 찾아 소리 내어 읽고, 이른 때부터 놓아요.', cards: [{ id: 'rest', text: '낮 1시쯤 집에서 쉬어요', motif: 'sun' }, { id: 'sweep', text: '새벽 5시에 거리를 쓸어요', motif: 'leaf' }, { id: 'wake', text: '새벽 4시에 일어나요', motif: 'moon' }, { id: 'truck', text: '해가 뜨면 쓰레기를 실어요', motif: 'house' }] },
+                target: { order: ['wake', 'sweep', 'truck', 'rest'] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '네 장면을 차례대로 놓아 보세요. 기록에 없는 카드는 남겨요.', toolOptions: { slots: 4, cards: [{ id: 'rest', text: '낮 1시쯤 집에서 쉬어요', motif: 'sun' }, { id: 'sweep', text: '새벽 5시에 거리를 쓸어요', motif: 'leaf' }, { id: 'wake', text: '새벽 4시에 일어나요', motif: 'moon' }, { id: 'truck', text: '해가 뜨면 쓰레기를 실어요', motif: 'house' }, { id: 'school', text: '오후에 학교에서 공부해요', motif: 'star' }] } } } },
               { prompt: '기록을 읽고 빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['거리를 쓸고', '잠을 자고', '학교에 가고'], slots: [{ id: 'b1', who: '환경미화원', motif: 'leaf', label: '내가 아침 7시에 일어날 때, 환경미화원은 ___ 있어요.' }] },
                 target: { fill: { b1: '거리를 쓸고' } }, difficulty: 0.15 },
             ],
@@ -2217,8 +2249,8 @@
           {
             id: 'a1', title: '활동 1. 시각마다 한 일 짝 짓기', minutes: 13, tool: 'timeline',
             teacher: '"새벽 6시에는 무엇을 하셨다고 적혀 있나요?" 기록을 다시 보며 시각 눈금마다 카드를 놓게 한다. 기억으로만 놓는 학생에게 활동지 기록의 그 줄을 손가락으로 짚고 놓게 한다. 같은 일(환자 살피기)을 두 번 한 것도 기록에서 찾게 한다.',
-            task: '간호사 선생님의 기록을 읽고 시각 눈금마다 그때 한 일 카드를 놓아요.',
-            levels: CARD_LV,
+            task: '기록: 밤 10시 병원에 와서 낮 근무 간호사에게 이야기를 들어요 → 밤 12시·새벽 3시 병실을 돌며 환자를 살펴요 → 새벽 6시 아침 약을 챙겨요 → 아침 7시 다음 간호사에게 전하고 집에 가요 → 낮에 잠을 자요. 시각 눈금마다 그때 한 일 카드를 놓아요.',
+            levels: DAY_LV,
             items: [
               { prompt: '기록을 보고 세 시각에 한 일을 놓아 보세요.', toolOptions: { mode: 'match', axis: ['밤', '아침'], slots: [{ id: 't1', label: '밤 10시' }, { id: 't2', label: '새벽 6시' }, { id: 't3', label: '아침 7시' }], cards: ['아침 약을 챙겨요', '병원에 와요', '다음 간호사에게 전하고 집에 가요'] },
                 target: { match: { t1: '병원에 와요', t2: '아침 약을 챙겨요', t3: '다음 간호사에게 전하고 집에 가요' } }, difficulty: 0.1 },
@@ -2232,11 +2264,12 @@
           {
             id: 'a2', title: '활동 2. 기록과 맞는 문장 찾기', minutes: 13, tool: 'mindmap',
             teacher: '"이 문장이 기록에 있는 내용인가요? 기록의 어느 줄에서 찾았나요?" 문장마다 근거 줄을 짚게 한다. \'간호사는 밤에 잠을 잔다\'처럼 내 생각으로 고르는 학생에게 기록에서 잠자는 때를 다시 찾게 한다.',
-            task: '간호사 선생님의 기록을 읽고 기록과 맞는 문장만 골라요.',
+            task: '기록: 밤 10시 병원에 와서 낮 근무 간호사에게 이야기를 들어요 → 밤 12시·새벽 3시 병실을 돌며 환자를 살펴요 → 새벽 6시 아침 약을 챙겨요 → 아침 7시 다음 간호사에게 전하고 집에 가요 → 낮에 잠을 자요. 기록과 맞는 문장만 골라요.',
             levels: CARD_LV,
             items: [
               { prompt: '기록과 맞는 문장만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '기록과 맞아요', cards: ['밤 10시에 병원에 가요', '밤에 집에서 잠을 자요', '새벽 6시에 약을 챙겨요', '낮 12시에 병원에 가요'] },
-                target: { pick: ['밤 10시에 병원에 가요', '새벽 6시에 약을 챙겨요'] }, difficulty: 0.1 },
+                target: { pick: ['밤 10시에 병원에 가요', '새벽 6시에 약을 챙겨요'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['밤 10시에 병원에 가요', '밤에 집에서 잠을 자요', '새벽 6시에 약을 챙겨요', '낮 12시에 병원에 가요', '아침 7시에 병원에 와요'] } } } },
               { prompt: '기록에 맞는 문장과 맞지 않는 문장으로 나누어 보세요.', toolOptions: { topic: '간호사의 밤 기록', slots: ['기록과 맞아요', '기록과 달라요'], cards: ['환자를 두 번 살펴요', '아침 7시에 집에 가요', '밤새 한 번도 일어나지 않아요', '혼자서만 일하고 아무에게도 전하지 않아요'] },
                 target: { sort: { '기록과 맞아요': ['환자를 두 번 살펴요', '아침 7시에 집에 가요'], '기록과 달라요': ['밤새 한 번도 일어나지 않아요', '혼자서만 일하고 아무에게도 전하지 않아요'] } }, difficulty: 0.2 },
               { prompt: '기록에서 알 수 있는 것만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '기록에서 알 수 있어요', cards: ['간호사 선생님이 낮에 자는 까닭', '간호사 선생님이 좋아하는 음식', '환자를 살피는 시각', '간호사 선생님의 집 주소'] },
@@ -2259,13 +2292,13 @@
     worksheet: {
       title: '간호사 선생님의 밤 근무 기록',
       items: [
-        { type: 'table', prompt: '기록을 읽고 시각마다 한 일을 쓰세요.', columns: ['시각', '한 일'], cells: [['밤 10시', ''], ['밤 12시', ''], ['새벽 6시', ''], ['아침 7시', '']] },
+        { type: 'table', prompt: '기록: 밤 10시 병원에 와서 낮 근무 간호사에게 이야기를 들어요 → 밤 12시·새벽 3시 병실을 돌며 환자를 살펴요 → 새벽 6시 아침 약을 챙겨요 → 아침 7시 다음 간호사에게 전하고 집에 가요 → 낮에 잠을 자요. 기록을 읽고 시각마다 한 일을 쓰세요.', columns: ['시각', '한 일'], cells: [['밤 10시', ''], ['밤 12시', ''], ['새벽 6시', ''], ['아침 7시', '']] },
         { type: 'check', prompt: '기록과 맞는 문장에 모두 ✓ 하세요.', options: ['밤 10시에 병원에 가요', '밤에 집에서 자요', '새벽 6시에 약을 챙겨요', '낮에 잠을 자요'] },
         { type: 'short', prompt: '기록에 없어서 더 여쭈어보고 싶은 것을 쓰세요.' },
         { type: 'short', prompt: '우리 모둠이 인터뷰한 분이 가장 바쁜 시각과 하시는 일을 쓰세요.' },
       ],
       easy: {
-        note: '기록에서 시각에 밑줄을 그어요.',
+        note: '기록: 밤 10시 병원에 와서 낮 근무 간호사에게 이야기를 들어요 → 밤 12시·새벽 3시 병실을 돌며 환자를 살펴요 → 새벽 6시 아침 약을 챙겨요 → 아침 7시 다음 간호사에게 전하고 집에 가요 → 낮에 잠을 자요. 시각에 밑줄을 그어요.',
         items: [
           { type: 'choice', prompt: '간호사 선생님이 병원에 가는 시각에 ○ 하세요.', options: ['밤 10시', '낮 12시'], answer: '밤 10시' },
           { type: 'choice', prompt: '간호사 선생님이 잠을 자는 때에 ○ 하세요.', options: ['낮', '밤'], answer: '낮' },
@@ -2306,8 +2339,8 @@
             items: [
               { prompt: '나와 간호사 선생님의 하루를 견준 문장을 나누어 보세요.', toolOptions: { topic: '나와 간호사', slots: ['같은 점', '다른 점'], cards: ['둘 다 일어나면 세수를 해요', '나는 밤에 자고 간호사는 낮에 자요', '둘 다 하루에 밥을 세 번 먹어요', '나는 낮에 학교에 가고 간호사는 밤에 병원에 가요'] },
                 target: { sort: { '같은 점': ['둘 다 일어나면 세수를 해요', '둘 다 하루에 밥을 세 번 먹어요'], '다른 점': ['나는 밤에 자고 간호사는 낮에 자요', '나는 낮에 학교에 가고 간호사는 밤에 병원에 가요'] } }, difficulty: 0.1 },
-              { prompt: '나와 제빵사의 하루를 견준 문장을 나누어 보세요.', toolOptions: { topic: '나와 제빵사', slots: ['같은 점', '다른 점'], cards: ['나는 7시에 일어나고 제빵사는 새벽 3시에 일어나요', '둘 다 낮에 바쁘게 움직여요', '둘 다 잠을 자야 힘이 나요', '나는 저녁 9시에 자고 제빵사는 저녁 7시에 자요', '나는 빵을 먹고 제빵사는 빵을 만들어요'] },
-                target: { sort: { '같은 점': ['둘 다 낮에 바쁘게 움직여요', '둘 다 잠을 자야 힘이 나요'], '다른 점': ['나는 7시에 일어나고 제빵사는 새벽 3시에 일어나요', '나는 저녁 9시에 자고 제빵사는 저녁 7시에 자요', '나는 빵을 먹고 제빵사는 빵을 만들어요'] } }, difficulty: 0.2 },
+              { prompt: '나와 제빵사의 하루를 견준 문장을 나누어 보세요.', toolOptions: { topic: '나와 제빵사', slots: ['같은 점', '다른 점'], cards: ['나는 7시에 일어나고 제빵사는 새벽 3시에 일어나요', '둘 다 밥을 먹기 전에 손을 씻어요', '둘 다 잠을 자야 힘이 나요', '나는 저녁 9시에 자고 제빵사는 저녁 7시에 자요', '나는 빵을 먹고 제빵사는 빵을 만들어요'] },
+                target: { sort: { '같은 점': ['둘 다 밥을 먹기 전에 손을 씻어요', '둘 다 잠을 자야 힘이 나요'], '다른 점': ['나는 7시에 일어나고 제빵사는 새벽 3시에 일어나요', '나는 저녁 9시에 자고 제빵사는 저녁 7시에 자요', '나는 빵을 먹고 제빵사는 빵을 만들어요'] } }, difficulty: 0.2 },
               { prompt: '밤 10시 두 사람의 모습을 빈칸에 넣어 보세요.', toolOptions: { mode: 'match', topic: '밤 10시', slots: [{ id: 's1', label: '밤 10시의 나' }, { id: 's2', label: '밤 10시의 간호사 선생님' }], cards: ['잠자리에 들어요', '병원에서 일을 시작해요'] },
                 target: { match: { s1: '잠자리에 들어요', s2: '병원에서 일을 시작해요' } }, difficulty: 0.05,
                 levels: { challenge: { toolOptions: { slots: [{ id: 's1', label: '밤 10시의 나' }, { id: 's2', label: '밤 10시의 간호사 선생님' }, { id: 's3', label: '낮 1시의 간호사 선생님' }], cards: ['잠자리에 들어요', '병원에서 일을 시작해요', '집에서 잠을 자요'] }, prompt: '두 시각, 두 사람의 모습을 이어 보세요.', target: { match: { s1: '잠자리에 들어요', s2: '병원에서 일을 시작해요', s3: '집에서 잠을 자요' } } } } },
@@ -2486,12 +2519,13 @@
             task: '고마운 말의 차례를 정하고 빈칸을 채운 뒤, 인터뷰한 분께 드릴 말을 내 말로 써요.',
             levels: CARD_LV,
             items: [
-              { prompt: '고마운 말 세 문장을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'feel', text: '덕분에 아침이 든든해요', motif: 'sun' }, { id: 'call', text: '조리사 선생님께', motif: 'house' }, { id: 'did', text: '매일 따뜻한 점심을 만들어 주셔서 감사합니다', motif: 'flower' }], slots: ['부르는 말', '해 주신 일', '내 마음'] },
+              { prompt: '고마운 말 세 문장을 차례대로 놓아 보세요.', toolOptions: { hint1: '고마운 말은 누구에게 하는 말인지 부르는 말로 시작해요. 카드마다 부르는 말인지, 해 주신 일인지, 내 마음인지 먼저 나눠 봐요.', cards: [{ id: 'feel', text: '덕분에 배가 든든해요', motif: 'sun' }, { id: 'call', text: '조리사 선생님께', motif: 'house' }, { id: 'did', text: '매일 따뜻한 점심을 만들어 주셔서 감사합니다', motif: 'flower' }], slots: ['부르는 말', '해 주신 일', '내 마음'] },
                 target: { order: ['call', 'did', 'feel'] }, difficulty: 0.1 },
-              { prompt: '고마운 말 네 문장을 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'wish', text: '늘 건강하세요', motif: 'star' }, { id: 'did', text: '밤에 우리 동네를 지켜 주셔서 감사합니다', motif: 'moon' }, { id: 'call', text: '지구대 경찰관님께', motif: 'house' }, { id: 'feel', text: '덕분에 마음 놓고 잠을 자요', motif: 'sun' }], slots: ['부르는 말', '해 주신 일', '내 마음', '바라는 말'] },
-                target: { order: ['call', 'did', 'feel', 'wish'] }, difficulty: 0.15 },
-              { prompt: '빈칸에 알맞은 카드를 넣어 고마운 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['쓸어 주셔서', '자랑해 주셔서', '든든해요', '귀찮아요'], slots: [{ id: 'b1', who: '나', motif: 'leaf', label: '새벽에 등굣길을 깨끗하게 ___ 감사합니다.' }, { id: 'b2', who: '나', motif: 'sun', label: '덕분에 학교 가는 길이 ___.' }] },
-                target: { fill: { b1: '쓸어 주셔서', b2: '든든해요' } }, difficulty: 0.15 },
+              { prompt: '고마운 말 네 문장을 차례대로 놓아 보세요.', toolOptions: { hint1: '고마운 말은 누구에게 하는 말인지 부르는 말로 시작해요. 카드마다 부르는 말인지, 해 주신 일인지, 내 마음인지 먼저 나눠 봐요.', cards: [{ id: 'wish', text: '늘 건강하세요', motif: 'star' }, { id: 'did', text: '밤에 우리 동네를 지켜 주셔서 감사합니다', motif: 'moon' }, { id: 'call', text: '지구대 경찰관님께', motif: 'house' }, { id: 'feel', text: '덕분에 마음 놓고 잠을 자요', motif: 'sun' }], slots: ['부르는 말', '해 주신 일', '내 마음', '바라는 말'] },
+                target: { order: ['call', 'did', 'feel', 'wish'] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '고마운 말 네 문장을 차례대로 놓아 보세요. 고마운 말에 어울리지 않는 카드는 남겨요.', toolOptions: { cards: [{ id: 'wish', text: '늘 건강하세요', motif: 'star' }, { id: 'did', text: '밤에 우리 동네를 지켜 주셔서 감사합니다', motif: 'moon' }, { id: 'call', text: '지구대 경찰관님께', motif: 'house' }, { id: 'feel', text: '덕분에 마음 놓고 잠을 자요', motif: 'sun' }, { id: 'noisy', text: '순찰차 소리가 시끄러워요', motif: 'cloud' }] } } } },
+              { prompt: '빈칸에 알맞은 카드를 넣어 고마운 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['쓸어 주셔서', '자랑해 주셔서', '상쾌해요', '귀찮아요'], slots: [{ id: 'b1', who: '나', motif: 'leaf', label: '새벽에 등굣길을 깨끗하게 ___ 감사합니다.' }, { id: 'b2', who: '나', motif: 'sun', label: '덕분에 학교 가는 길이 ___.' }] },
+                target: { fill: { b1: '쓸어 주셔서', b2: '상쾌해요' } }, difficulty: 0.15 },
               { prompt: '활동지에 모둠이 인터뷰한 분께 드릴 말을 네 부분으로 쓰고 짝에게 읽어 주었으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -2553,9 +2587,9 @@
             task: '발표 문장을 차례대로 놓고, 우리 모둠 발표 내용을 같은 점과 다른 점으로 정리해요.',
             levels: CARD_LV,
             items: [
-              { prompt: '발표 문장 세 개를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'diff', text: '나와 달리 낮에 잠을 자요', motif: 'sun' }, { id: 'who', text: '우리는 경비원 아저씨를 만났어요', motif: 'house' }, { id: 'day', text: '아저씨는 밤새 아파트를 돌아요', motif: 'moon' }], slots: ['누구를', '그분의 하루', '나와 다른 점'] },
+              { prompt: '발표 문장 세 개를 차례대로 놓아 보세요.', toolOptions: { hint1: '발표는 듣는 친구가 처음 듣는다고 생각하고, 누구 이야기인지부터 알려 줘요. 카드마다 무엇을 알려 주는 문장인지 먼저 찾아요.', cards: [{ id: 'diff', text: '나와 달리 낮에 잠을 자요', motif: 'sun' }, { id: 'who', text: '우리는 경비원 아저씨를 만났어요', motif: 'house' }, { id: 'day', text: '아저씨는 밤새 아파트를 돌아요', motif: 'moon' }], slots: ['누구를', '그분의 하루', '나와 다른 점'] },
                 target: { order: ['who', 'day', 'diff'] }, difficulty: 0.1 },
-              { prompt: '발표 문장 네 개를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'felt', text: '새벽에 길이 깨끗한 까닭을 알게 되어 고마웠어요', motif: 'flower' }, { id: 'day', text: '그분은 새벽 5시부터 거리를 쓸어요', motif: 'leaf' }, { id: 'diff', text: '나는 그때 자고 있어요', motif: 'moon' }, { id: 'who', text: '우리는 환경미화원을 만났어요', motif: 'house' }], slots: ['누구를', '그분의 하루', '나와 다른 점', '느낀 점'] },
+              { prompt: '발표 문장 네 개를 차례대로 놓아 보세요.', toolOptions: { hint1: '발표는 듣는 친구가 처음 듣는다고 생각하고, 누구 이야기인지부터 알려 줘요. 카드마다 무엇을 알려 주는 문장인지 먼저 찾아요.', cards: [{ id: 'felt', text: '새벽에 길이 깨끗한 까닭을 알게 되어 고마웠어요', motif: 'flower' }, { id: 'day', text: '그분은 새벽 5시부터 거리를 쓸어요', motif: 'leaf' }, { id: 'diff', text: '나는 그때 자고 있어요', motif: 'moon' }, { id: 'who', text: '우리는 환경미화원을 만났어요', motif: 'house' }], slots: ['누구를', '그분의 하루', '나와 다른 점', '느낀 점'] },
                 target: { order: ['who', 'day', 'diff', 'felt'] }, difficulty: 0.15 },
               { prompt: '발표에 넣을 문장의 빈칸을 채워 보세요.', toolOptions: { mode: 'fill', cards: ['낮에', '밤에', '새벽에'], slots: [{ id: 'b1', who: '나', motif: 'moon', label: '나는 밤에 자고, 경비원 아저씨는 ___ 자요.' }] },
                 target: { fill: { b1: '낮에' } }, difficulty: 0.1,
@@ -2570,7 +2604,7 @@
             items: [
               { prompt: '발표를 들을 때 할 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '발표를 들을 때', items: [{ id: 'look', text: '발표하는 친구를 바라봐요' }, { id: 'talk', text: '옆 친구와 다른 이야기를 해요' }, { id: 'note', text: '나와 다른 점을 하나 적어요' }, { id: 'laugh', text: '틀린 말에 크게 웃어요' }] },
                 target: { checklist: ['look', 'note'] }, difficulty: 0.05,
-                levels: { challenge: { toolOptions: { items: [{ id: 'look', text: '발표하는 친구를 바라봐요' }, { id: 'talk', text: '옆 친구와 다른 이야기를 해요' }, { id: 'note', text: '나와 다른 점을 하나 적어요' }, { id: 'laugh', text: '틀린 말에 크게 웃어요' }, { id: 'ask', text: '끝난 뒤에 손을 들고 물어요' }] }, prompt: '발표를 들을 때 할 일만 모두 표시해 보세요. 세 가지예요.', target: { checklist: ['look', 'note', 'ask'] } } } },
+                levels: { easy: { toolOptions: { items: [{ id: 'look', text: '발표하는 친구를 바라봐요' }, { id: 'talk', text: '옆 친구와 다른 이야기를 해요' }, { id: 'note', text: '나와 다른 점을 하나 적어요' }] } }, challenge: { toolOptions: { items: [{ id: 'look', text: '발표하는 친구를 바라봐요' }, { id: 'talk', text: '옆 친구와 다른 이야기를 해요' }, { id: 'note', text: '나와 다른 점을 하나 적어요' }, { id: 'laugh', text: '틀린 말에 크게 웃어요' }, { id: 'ask', text: '끝난 뒤에 손을 들고 물어요' }] }, prompt: '발표를 들을 때 할 일만 모두 표시해 보세요. 세 가지예요.', target: { checklist: ['look', 'note', 'ask'] } } } },
               { prompt: '우리 모둠 차례에 2분 동안 발표했으면 "다 했어요"를 누르세요.', free: true },
               { prompt: '다른 세 모둠의 발표를 듣고 활동지에 \'나와 다른 점\'을 하나씩 적었으면 "다 했어요"를 누르세요.', free: true },
             ],
@@ -2633,9 +2667,9 @@
             task: '감사 카드 만드는 차례를 정해요.',
             levels: CARD_LV,
             items: [
-              { prompt: '감사 카드 만드는 차례 세 단계를 놓아 보세요.', toolOptions: { cards: [{ id: 'write', text: '안쪽에 고마운 말을 써요', motif: 'star' }, { id: 'fold', text: '종이를 반으로 접어요', motif: 'leaf' }, { id: 'front', text: '앞면에 그림을 꾸며요', motif: 'flower' }] },
-                target: { order: ['fold', 'front', 'write'] }, difficulty: 0.05 },
-              { prompt: '감사 카드 만들고 전하는 차례 네 단계를 놓아 보세요.', toolOptions: { cards: [{ id: 'give', text: '두 손으로 드리며 인사해요', motif: 'sun' }, { id: 'write', text: '안쪽에 고마운 말을 써요', motif: 'star' }, { id: 'name', text: '맨 아래에 내 이름을 써요', motif: 'house' }, { id: 'fold', text: '종이를 반으로 접어요', motif: 'leaf' }] },
+              { prompt: '감사 카드 만드는 차례 세 단계를 놓아 보세요.', toolOptions: { hint1: '카드마다 "이 일을 하려면 무엇이 먼저 되어 있어야 할까?" 하고 물어 보고, 맨 먼저 할 일부터 놓아요.', cards: [{ id: 'write', text: '접은 종이 안쪽에 고마운 말을 써요', motif: 'star' }, { id: 'pick', text: '카드로 쓸 색도화지를 골라요', motif: 'flower' }, { id: 'fold', text: '고른 종이를 반으로 접어요', motif: 'leaf' }] },
+                target: { order: ['pick', 'fold', 'write'] }, difficulty: 0.05 },
+              { prompt: '감사 카드 만들고 전하는 차례 네 단계를 놓아 보세요.', toolOptions: { hint1: '카드마다 "이 일을 하려면 무엇이 먼저 되어 있어야 할까?" 하고 물어 보고, 맨 먼저 할 일부터 놓아요.', cards: [{ id: 'give', text: '두 손으로 드리며 인사해요', motif: 'sun' }, { id: 'write', text: '안쪽에 고마운 말을 써요', motif: 'star' }, { id: 'name', text: '맨 아래에 내 이름을 써요', motif: 'house' }, { id: 'fold', text: '종이를 반으로 접어요', motif: 'leaf' }] },
                 target: { order: ['fold', 'write', 'name', 'give'] }, difficulty: 0.15 },
               { prompt: '카드를 전할 때 하는 말의 빈칸을 채워 보세요.', toolOptions: { mode: 'fill', cards: ['받아 주세요', '가져가세요', '버려 주세요'], slots: [{ id: 'b1', who: '나', motif: 'sun', label: '"고마운 마음을 담았어요. ___."' }] },
                 target: { fill: { b1: '받아 주세요' } }, difficulty: 0.05,
@@ -2652,9 +2686,10 @@
               challenge: {},
             },
             items: [
-              { prompt: '카드 앞면에 빨강 하트 두 개와 노랑 별 한 개 넘게 붙여 보세요.', target: { has: [{ shape: 'heart', color: '빨강', min: 2 }, { shape: 'star', color: '노랑', min: 1 }] }, difficulty: 0.05 },
-              { prompt: '그분이 하시는 일을 떠올릴 수 있게 조각 여섯 개 넘게 써서 앞면을 꾸미고 점검해 보세요.', target: { selfCheck: ['그분이 하시는 일이 그림에 보여요', '고마운 마음을 나타내는 모양을 넣었어요', '짝에게 무슨 그림인지 말했어요'], minPieces: 6 }, difficulty: 0.1 },
-              { prompt: '실제 카드를 만들고 안쪽에 고마운 말과 내 이름을 썼으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '카드 앞면에 빨강 하트 두 개와 노랑 별 적어도 한 개 붙여 보세요.', target: { has: [{ shape: 'heart', color: '빨강', min: 2 }, { shape: 'star', color: '노랑', min: 1 }] }, difficulty: 0.05,
+                levels: { challenge: { prompt: '카드 앞면에 빨강 하트 두 개와 노랑 별 적어도 한 개를 붙이고, 노랑 별 하나를 하트에 겹쳐 붙여 보세요.', target: { has: [{ shape: 'heart', color: '빨강', min: 2 }, { shape: 'star', color: '노랑', min: 1 }], overlap: 1 } } } },
+              { prompt: '그분이 하시는 일을 떠올릴 수 있게 조각 적어도 여섯 개 써서 앞면을 꾸미고 점검해 보세요.', target: { selfCheck: ['그분이 하시는 일이 그림에 보여요', '고마운 마음을 나타내는 모양을 넣었어요', '짝에게 무슨 그림인지 말했어요'], minPieces: 6 }, difficulty: 0.1 },
+              { prompt: '실제 카드를 만들고 안쪽에 고마운 말과 내 이름을 썼으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2689,7 +2724,7 @@
     differentiation: {
       easy: '맞는 자리에 초록 테두리가 생겨요. 조각 모양과 색이 적어요. 고마운 말은 한 문장이에요.',
       base: '카드를 꾸미고 고마운 말을 네 부분으로 써요.',
-      challenge: '함정 카드가 섞여 있어요. 모든 모양과 색을 쓸 수 있고, 그분이 하시는 일을 그림 두 가지로 나타내요.',
+      challenge: '함정 카드가 섞여 있어요. 모든 모양과 색을 쓸 수 있고, 별을 하트에 겹쳐 붙이며, 그분이 하시는 일을 그림 두 가지로 나타내요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 꾸미기에만 시간을 쓴다 → 꾸미기 8분, 쓰기 4분으로 나누어 알린다. ② 고마운 말을 다시 처음부터 쓰려 한다 → 30차시 활동지를 옮겨 쓰게 한다. ③ 학교 밖 분께 혼자 전하러 가려 한다 → 어른과 함께 간다는 약속을 정리에서 꼭 짚는다. 카드를 전한 뒤의 소감은 다음 날 아침 시간에 짧게 나눈다.',
   }));
@@ -2732,7 +2767,8 @@
             task: '동네 지도에서 작품을 볼 수 있는 곳에 핀을 꽂고, 교실과 복도의 작품을 실제로 둘러봐요.',
             levels: { easy: { readout: true }, base: {}, challenge: {} },
             items: [
-              { prompt: '작품을 보러 갈 수 있는 곳에 핀을 꽂아 보세요.', toolOptions: { grid: [5, 3], places: [{ name: '시립 미술관', icon: 'museum', at: [3, 1] }, { name: '시장', icon: 'market', at: [1, 0] }, { name: '공원', icon: 'park', at: [0, 2] }] }, target: { place: '시립 미술관' }, difficulty: 0.05 },
+              { prompt: '작품을 보러 갈 수 있는 곳에 핀을 꽂아 보세요.', toolOptions: { grid: [5, 3], places: [{ name: '시립 미술관', icon: 'museum', at: [3, 1] }, { name: '시장', icon: 'market', at: [1, 0] }, { name: '공원', icon: 'park', at: [0, 2] }] }, target: { place: '시립 미술관' }, difficulty: 0.05,
+                levels: { challenge: { toolOptions: { grid: [6, 4], places: [{ name: '시립 미술관', icon: 'museum', at: [4, 1] }, { name: '시장', icon: 'market', at: [1, 0] }, { name: '공원', icon: 'park', at: [0, 3] }, { name: '병원', icon: 'hospital', at: [2, 2] }, { name: '우체국', icon: 'post', at: [5, 3] }] } } } },
               { prompt: '옛날 사람이 쓰던 물건을 보러 갈 곳에 핀을 꽂아 보세요.', toolOptions: { grid: [5, 3], places: [{ name: '역사 박물관', icon: 'museum', at: [4, 2] }, { name: '우체국', icon: 'post', at: [2, 0] }, { name: '소방서', icon: 'fire', at: [0, 1] }, { name: '아파트', icon: 'apartment', at: [2, 2] }] }, target: { place: '역사 박물관' }, difficulty: 0.1 },
               { prompt: '교실 뒤 게시판과 복도 작품을 6분 동안 눈으로 둘러보고 마음에 드는 작품을 하나 정했으면 "다 했어요"를 누르세요.', free: true },
             ],
@@ -2753,7 +2789,7 @@
       title: '작품을 볼 수 있는 곳',
       items: [
         { type: 'check', prompt: '작품을 볼 수 있는 곳에 모두 ✓ 하세요.', options: ['미술관', '세탁소', '박물관', '학교 작품 게시판', '주유소'] },
-        { type: 'figure', prompt: '지도에서 작품을 보러 갈 수 있는 곳을 찾아 이름을 쓰세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '어린이 미술관', icon: 'museum', at: [1, 1] }, { name: '시장', icon: 'market', at: [3, 0] }, { name: '병원', icon: 'hospital', at: [4, 2] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '어린이 미술관' },
+        { type: 'figure', wide: true, prompt: '지도에서 작품을 보러 갈 수 있는 곳을 찾아 이름을 쓰세요.', tool: 'map', options: { grid: [5, 3], places: [{ name: '어린이 미술관', icon: 'museum', at: [1, 1] }, { name: '시장', icon: 'market', at: [3, 0] }, { name: '병원', icon: 'hospital', at: [4, 2] }] }, figures: [{ caption: '우리 동네 지도' }], answer: '어린이 미술관' },
         { type: 'table', prompt: '오늘 둘러본 작품 가운데 마음에 든 것을 쓰세요.', columns: ['작품을 본 곳', '누구의 무엇', '마음에 든 까닭'], rows: 1 },
         { type: 'short', prompt: '가 보고 싶은 전시를 쓰세요.' },
       ],
@@ -2829,7 +2865,7 @@
         id: 'wrapup', title: '정리', minutes: 8,
         teacher: '"우리 반 전시장 약속을 세 가지로 정한다면 무엇이 좋을까요?" 학생 의견을 모아 칠판에 \'우리 반 전시장 약속\' 세 줄을 적고 교실에 붙인다. 다음 시간에는 전시 안내문을 읽고 언제 갈 수 있는지 알아본다.',
         exitTicket: [
-          { type: 'tool', tool: 'mindmap', options: { topic: '전시장 약속', slots: ['지켜요', '하면 안 돼요'], cards: ['안내판을 보고 사진을 찍어요', '그림에 바짝 얼굴을 대요'] }, prompt: '두 행동을 지킬 일과 하면 안 되는 일로 나누어 보세요.', target: { sort: { '지켜요': ['안내판을 보고 사진을 찍어요'], '하면 안 돼요': ['그림에 바짝 얼굴을 대요'] } }, difficulty: 0.1 },
+          { type: 'tool', tool: 'mindmap', options: { topic: '전시장 약속', slots: ['지켜요', '하면 안 돼요'], cards: ['사진을 찍어도 되는지 안내판을 먼저 봐요', '그림에 바짝 얼굴을 대요'] }, prompt: '두 행동을 지킬 일과 하면 안 되는 일로 나누어 보세요.', target: { sort: { '지켜요': ['사진을 찍어도 되는지 안내판을 먼저 봐요'], '하면 안 돼요': ['그림에 바짝 얼굴을 대요'] } }, difficulty: 0.1 },
           { type: 'choice', prompt: '전시장에서 작품을 만지면 안 되는 까닭은?', options: ['손때가 묻어 작품이 상할 수 있어서', '작품이 뜨거워서', '만지면 돈을 내야 해서'], answer: 0, difficulty: 0.1, explain: '손때나 힘 때문에 작품이 상할 수 있어요.' },
           MOOD,
         ],
@@ -2878,11 +2914,12 @@
           {
             id: 'a1', title: '활동 1. 갈 수 있는 때와 갈 수 없는 때', minutes: 14, tool: 'mindmap',
             teacher: '"요일 먼저, 그다음 시각을 봐요." 두 단계로 따지게 한다. \'토요일 오후 5시 30분\'을 갈 수 있다고 고르는 학생에게 "문은 6시까지 열려 있지만 들어가는 시각은 언제까지라고 적혀 있나요?" 하고 안내문의 그 줄을 짚게 한다.',
-            task: '전시 안내문을 읽고 전시를 보러 갈 수 있는 때를 골라요.',
+            task: '안내문: 화요일~일요일 오전 10시~오후 6시에 열어요 · 들어가는 것은 오후 5시까지 · 월요일은 쉬어요. 안내문을 읽고 전시를 보러 갈 수 있는 때를 골라요.',
             levels: CARD_LV,
             items: [
               { prompt: '안내문을 보고 갈 수 있는 때만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '갈 수 있어요', cards: ['화요일 오후 2시', '월요일 오후 2시', '일요일 오전 10시 30분', '목요일 밤 8시'] },
-                target: { pick: ['화요일 오후 2시', '일요일 오전 10시 30분'] }, difficulty: 0.1 },
+                target: { pick: ['화요일 오후 2시', '일요일 오전 10시 30분'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['화요일 오후 2시', '월요일 오후 2시', '일요일 오전 10시 30분', '목요일 밤 8시', '금요일 오후 5시 30분'] } } } },
               { prompt: '갈 수 있는 때와 갈 수 없는 때로 나누어 보세요.', toolOptions: { topic: '어린이 그림 전시', slots: ['갈 수 있어요', '갈 수 없어요'], cards: ['토요일 오후 4시', '토요일 오후 5시 30분', '월요일 오전 10시', '금요일 오전 9시', '수요일 오후 3시'] },
                 target: { sort: { '갈 수 있어요': ['토요일 오후 4시', '수요일 오후 3시'], '갈 수 없어요': ['토요일 오후 5시 30분', '월요일 오전 10시', '금요일 오전 9시'] } }, difficulty: 0.25 },
               { prompt: '갈 수 없는 때와 그 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '왜 못 갈까요?', slots: [{ id: 's1', label: '월요일 오후 1시' }, { id: 's2', label: '목요일 오전 8시' }, { id: 's3', label: '일요일 오후 5시 30분' }], cards: ['쉬는 날이에요', '아직 문을 열지 않았어요', '들어가는 시각이 지났어요'] },
@@ -2911,7 +2948,7 @@
         id: 'wrapup', title: '정리', minutes: 8,
         teacher: '"우리 가족이 이 전시를 보러 간다면 언제가 좋을까요?" 두세 명이 요일과 시각을 말하고, 친구들이 안내문에 맞는지 엄지로 표시한다. 다음 시간에는 전시장 안내도를 보고 길을 찾는다.',
         exitTicket: [
-          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', basket: '갈 수 있어요', cards: ['금요일 오후 1시', '월요일 오후 1시', '수요일 오전 7시'] }, prompt: '어린이 그림 전시 안내문을 떠올려, 갈 수 있는 때를 골라 보세요.', target: { pick: ['금요일 오후 1시'] }, difficulty: 0.1 },
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', basket: '갈 수 있어요', cards: ['금요일 오후 1시', '화요일 오후 1시', '수요일 오전 7시'] }, prompt: '곤충 사진 전시 안내문: 수요일~일요일 오전 9시~오후 4시에 열어요, 월요일·화요일은 쉬어요. 갈 수 있는 때를 골라 보세요.', target: { pick: ['금요일 오후 1시'] }, difficulty: 0.1 },
           { type: 'choice', prompt: '안내문에서 \'쉬는 날\'을 보는 까닭은?', options: ['그날은 문을 열지 않아서', '그날은 표가 공짜라서', '그날만 작품이 바뀌어서'], answer: 0, difficulty: 0.1, explain: '쉬는 날에는 문을 열지 않으니 다른 날에 가야 해요.' },
           MOOD,
         ],
@@ -2920,13 +2957,13 @@
     worksheet: {
       title: '전시 안내문 읽기',
       items: [
-        { type: 'table', prompt: '안내문을 읽고 빈칸을 채우세요.', columns: ['알아볼 것', '안내문 내용'], cells: [['여는 날', ''], ['여는 시각', ''], ['들어가는 마지막 시각', ''], ['쉬는 날', '']] },
+        { type: 'table', prompt: '안내문: 화요일~일요일 오전 10시~오후 6시에 열어요 · 들어가는 것은 오후 5시까지 · 월요일은 쉬어요. 안내문을 읽고 빈칸을 채우세요.', columns: ['알아볼 것', '안내문 내용'], cells: [['여는 날', ''], ['여는 시각', ''], ['들어가는 마지막 시각', ''], ['쉬는 날', '']] },
         { type: 'check', prompt: '갈 수 있는 때에 모두 ✓ 하세요.', options: ['화요일 오후 2시', '월요일 오후 2시', '토요일 오전 11시', '일요일 오후 5시 30분'] },
         { type: 'figure', prompt: '시계가 가리키는 시각을 쓰고, 이 시각에 들어갈 수 있는지 ○, × 하세요.', tool: 'clock', options: { readOnly: true }, figures: [{ state: { h: 10, m: 30 }, caption: '(    )시 (    )분 → ○ / ×' }], answer: '10시 30분, ○' },
         { type: 'short', prompt: '우리 가족이 전시를 보러 갈 요일과 시각을 쓰세요.' },
       ],
       easy: {
-        note: '쉬는 날: 월요일 · 여는 시각: 오전 10시~오후 6시',
+        note: '안내문: 화요일~일요일 오전 10시~오후 6시에 열어요 · 들어가는 것은 오후 5시까지 · 월요일은 쉬어요.',
         items: [
           { type: 'choice', prompt: '쉬는 날에 ○ 하세요.', options: ['월요일', '수요일'], answer: '월요일' },
           { type: 'choice', prompt: '갈 수 있는 때에 ○ 하세요.', options: ['수요일 오후 2시', '월요일 오후 2시'], answer: '수요일 오후 2시' },
@@ -2963,7 +3000,8 @@
             task: '전시장 안내도를 보고 알맞은 곳에 핀을 꽂아요.',
             levels: { easy: { readout: true }, base: {}, challenge: {} },
             items: [
-              { prompt: '그림을 보러 갈 곳에 핀을 꽂아 보세요.', toolOptions: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [2, 0] }, { name: '쉼터', icon: 'park', at: [4, 2] }] }, target: { place: '그림 전시실' }, difficulty: 0.05 },
+              { prompt: '그림을 보러 갈 곳에 핀을 꽂아 보세요.', toolOptions: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [2, 0] }, { name: '쉼터', icon: 'park', at: [4, 2] }] }, target: { place: '그림 전시실' }, difficulty: 0.05,
+                levels: { challenge: { toolOptions: { places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '조각 전시실', icon: 'museum', at: [1, 0] }, { name: '그림 전시실', icon: 'museum', at: [3, 0] }, { name: '쉼터', icon: 'park', at: [4, 2] }, { name: '안내 데스크', icon: 'office', at: [2, 2] }] } } } },
               { prompt: '다리가 아파 잠깐 앉아 쉬고 싶어요. 쉴 곳에 핀을 꽂아 보세요.', toolOptions: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [1, 0] }, { name: '조각 전시실', icon: 'museum', at: [3, 0] }, { name: '쉼터', icon: 'park', at: [4, 2] }, { name: '안내 데스크', icon: 'office', at: [1, 2] }] }, target: { place: '쉼터' }, difficulty: 0.1 },
               { prompt: '친구와 떨어졌어요. 도움을 받을 수 있는 곳에 핀을 꽂아 보세요.', toolOptions: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [1, 0] }, { name: '조각 전시실', icon: 'museum', at: [3, 0] }, { name: '쉼터', icon: 'park', at: [4, 2] }, { name: '안내 데스크', icon: 'office', at: [2, 2] }] }, target: { place: '안내 데스크' }, difficulty: 0.15 },
               { prompt: '안내도를 보고 물음에 답해 보세요.', toolOptions: { grid: [5, 3], title: '어린이 미술관 안내도', readOnly: true, places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [1, 0] }, { name: '조각 전시실', icon: 'museum', at: [3, 0] }, { name: '쉼터', icon: 'park', at: [4, 2] }], ask: { q: '돌로 만든 작품을 보려면 어디로 갈까요?', choices: ['그림 전시실', '조각 전시실', '쉼터'] } }, target: { pick: 1 }, difficulty: 0.15 },
@@ -2975,9 +3013,10 @@
             task: '전시장에서 관람하는 차례를 정해요.',
             levels: CARD_LV,
             items: [
-              { prompt: '관람 차례 세 장을 놓아 보세요.', toolOptions: { cards: [{ id: 'room', text: '전시실에서 작품을 봐요', motif: 'flower' }, { id: 'map', text: '들어가서 안내도를 봐요', motif: 'house' }, { id: 'out', text: '나가는 곳으로 나와요', motif: 'sun' }] },
+              { prompt: '관람 차례 세 장을 놓아 보세요.', toolOptions: { hint1: '전시장에 들어갈 때, 보는 동안, 나올 때 하는 일을 나누어 보고 들어갈 때 할 일부터 놓아요.', cards: [{ id: 'room', text: '전시실에서 작품을 봐요', motif: 'flower' }, { id: 'map', text: '들어가서 안내도를 봐요', motif: 'house' }, { id: 'out', text: '나가는 곳으로 나와요', motif: 'sun' }] },
                 target: { order: ['map', 'room', 'out'] }, difficulty: 0.05 },
               { prompt: '우리 반은 그림 전시실을 먼저, 조각 전시실을 다음에 보기로 했어요. 관람 차례 다섯 장을 놓아 보세요.', toolOptions: { cards: [{ id: 'rest', text: '쉼터에서 본 것을 이야기해요', motif: 'leaf' }, { id: 'room1', text: '그림 전시실을 봐요', motif: 'flower' }, { id: 'map', text: '안내도에서 차례를 정해요', motif: 'house' }, { id: 'out', text: '나가는 곳으로 나와요', motif: 'sun' }, { id: 'room2', text: '조각 전시실을 봐요', motif: 'star' }] },
+                levels: { challenge: { prompt: '우리 반은 그림 전시실을 먼저, 조각 전시실을 다음에 보기로 했어요. 관람 차례 다섯 장을 놓고, 전시장에서 하지 않을 일은 남겨요.', toolOptions: { slots: 5, cards: [{ id: 'rest', text: '쉼터에서 본 것을 이야기해요', motif: 'leaf' }, { id: 'room1', text: '그림 전시실을 봐요', motif: 'flower' }, { id: 'map', text: '안내도에서 차례를 정해요', motif: 'house' }, { id: 'out', text: '나가는 곳으로 나와요', motif: 'sun' }, { id: 'room2', text: '조각 전시실을 봐요', motif: 'star' }, { id: 'touch', text: '조각을 손으로 만져 봐요', motif: 'cloud' }] } } },
                 target: { order: ['map', 'room1', 'room2', 'rest', 'out'] }, difficulty: 0.2,
                 hints: ['오늘 정한 차례는 그림 전시실이 먼저, 조각 전시실이 다음이에요.', '전시실을 다 본 뒤에 쉼터에서 쉬어요.', '안내도 → 그림 → 조각 → 쉼터 → 나가는 곳이에요.'] },
               { prompt: '빈칸에 알맞은 카드를 넣어 보세요.', toolOptions: { mode: 'fill', cards: ['안내 데스크', '쉼터', '전시실'], slots: [{ id: 'b1', who: '나', motif: 'house', label: '길을 잃으면 ___ 에 가서 도움을 청해요.' }] },
@@ -2999,7 +3038,7 @@
     worksheet: {
       title: '전시장 안내도',
       items: [
-        { type: 'figure', prompt: '안내도를 보고 그림을 보러 갈 곳에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [2, 0] }, { name: '조각 전시실', icon: 'museum', at: [4, 0] }, { name: '쉼터', icon: 'park', at: [3, 2] }] }, figures: [{ caption: '어린이 미술관 안내도' }], answer: '그림 전시실' },
+        { type: 'figure', wide: true, prompt: '안내도를 보고 그림을 보러 갈 곳에 ○ 하세요.', tool: 'map', options: { grid: [5, 3], title: '어린이 미술관 안내도', places: [{ name: '들어가는 곳', icon: 'dot', at: [0, 2] }, { name: '그림 전시실', icon: 'museum', at: [2, 0] }, { name: '조각 전시실', icon: 'museum', at: [4, 0] }, { name: '쉼터', icon: 'park', at: [3, 2] }] }, figures: [{ caption: '어린이 미술관 안내도' }], answer: '그림 전시실' },
         { type: 'table', prompt: '우리 모둠의 관람 차례를 쓰세요.', columns: ['차례', '갈 곳'], cells: [['1', ''], ['2', ''], ['3', ''], ['4', '']] },
         { type: 'choice', prompt: '길을 잃었을 때 갈 곳에 ○ 하세요.', options: ['안내 데스크', '전시실 안쪽 구석'], answer: '안내 데스크' },
         { type: 'short', prompt: '안내도에서 가장 가 보고 싶은 곳과 까닭을 쓰세요.' },
@@ -3016,7 +3055,7 @@
     differentiation: {
       easy: '지도에 핀 자리 이름이 보이고, 차례 카드가 맞으면 초록 테두리가 생겨요.',
       base: '장소 이름을 읽고 핀을 꽂아요.',
-      challenge: '장소가 늘고, 다섯 단계 관람 차례를 정해요.',
+      challenge: '장소가 늘고, 전시장에서 하지 않을 함정 카드를 골라내며 다섯 단계 관람 차례를 정해요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 안내도의 기호만 보고 이름을 읽지 않는다 → 이름을 소리 내어 읽고 핀을 꽂게 한다. ② 안내도를 실제 그림처럼 옆에서 본 것으로 여긴다 → 교실을 위에서 본 그림을 그려 견주어 본다. ③ 길을 잃으면 혼자 찾아다니려 한다 → 그 자리에서 기다리거나 안내 데스크로 간다는 약속을 정한다.',
   }));
@@ -3057,9 +3096,10 @@
             task: '이름표 차례를 정하고, 카드 종이에 내 작품 이름표를 써서 작품 옆에 붙여요.',
             levels: CARD_LV,
             items: [
-              { prompt: '이름표에 쓰는 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'year', text: '2026년', motif: 'sun' }, { id: 'title', text: '「우리 동네 밤」', motif: 'moon' }, { id: 'maker', text: '2학년 별빛반 하늘', motif: 'star' }], slots: ['작품 이름', '만든 사람', '만든 때'] },
+              { prompt: '이름표에 쓰는 차례대로 놓아 보세요.', toolOptions: { hint1: '이름표 칸의 이름(작품 이름·만든 사람…)을 먼저 읽고, 카드마다 어느 칸의 내용인지 찾아 놓아요.', cards: [{ id: 'year', text: '2026년', motif: 'sun' }, { id: 'title', text: '「우리 동네 밤」', motif: 'moon' }, { id: 'maker', text: '2학년 별빛반 하늘', motif: 'star' }], slots: ['작품 이름', '만든 사람', '만든 때'] },
                 target: { order: ['title', 'maker', 'year'] }, difficulty: 0.1 },
-              { prompt: '네 줄 이름표를 차례대로 놓아 보세요.', toolOptions: { cards: [{ id: 'stuff', text: '색종이와 풀', motif: 'leaf' }, { id: 'maker', text: '2학년 별빛반 바다', motif: 'star' }, { id: 'title', text: '「고마운 급식실」', motif: 'house' }, { id: 'year', text: '2026년 11월', motif: 'sun' }], slots: ['작품 이름', '만든 사람', '만든 때', '재료'] },
+              { prompt: '네 줄 이름표를 차례대로 놓아 보세요.', toolOptions: { hint1: '이름표 칸의 이름(작품 이름·만든 사람…)을 먼저 읽고, 카드마다 어느 칸의 내용인지 찾아 놓아요.', cards: [{ id: 'stuff', text: '색종이와 풀', motif: 'leaf' }, { id: 'maker', text: '2학년 별빛반 바다', motif: 'star' }, { id: 'title', text: '「고마운 급식실」', motif: 'house' }, { id: 'year', text: '2026년 11월', motif: 'sun' }], slots: ['작품 이름', '만든 사람', '만든 때', '재료'] },
+                levels: { challenge: { prompt: '네 줄 이름표를 차례대로 놓아 보세요. 이름표에 쓰지 않는 카드는 남겨요.', toolOptions: { cards: [{ id: 'stuff', text: '색종이와 풀', motif: 'leaf' }, { id: 'maker', text: '2학년 별빛반 바다', motif: 'star' }, { id: 'title', text: '「고마운 급식실」', motif: 'house' }, { id: 'year', text: '2026년 11월', motif: 'sun' }, { id: 'home', text: '우리 집 주소', motif: 'cloud' }] } } },
                 target: { order: ['title', 'maker', 'year', 'stuff'] }, difficulty: 0.15 },
               { prompt: '카드 종이에 내 작품 이름표를 네 줄로 쓰고 작품 옆에 붙였으면 "다 했어요"를 누르세요.', free: true },
             ],
@@ -3123,7 +3163,8 @@
             levels: CARD_LV,
             items: [
               { prompt: '네 장을 두 가지 전시로 나누어 보세요.', toolOptions: { topic: '두 가지 전시', slots: ['직접 가서 봐요', '화면으로 봐요'], cards: ['집에서 밤에도 볼 수 있어요', '작품 앞에 서 볼 수 있어요', '먼 나라 미술관도 볼 수 있어요', '조각을 빙 돌며 볼 수 있어요'] },
-                target: { sort: { '직접 가서 봐요': ['작품 앞에 서 볼 수 있어요', '조각을 빙 돌며 볼 수 있어요'], '화면으로 봐요': ['집에서 밤에도 볼 수 있어요', '먼 나라 미술관도 볼 수 있어요'] } }, difficulty: 0.1 },
+                target: { sort: { '직접 가서 봐요': ['작품 앞에 서 볼 수 있어요', '조각을 빙 돌며 볼 수 있어요'], '화면으로 봐요': ['집에서 밤에도 볼 수 있어요', '먼 나라 미술관도 볼 수 있어요'] } }, difficulty: 0.1,
+                levels: { challenge: { prompt: '네 장을 두 가지 전시로 나누어 보세요. 어느 전시에서도 할 수 없는 일은 카드 칸에 남겨요.', toolOptions: { cards: ['집에서 밤에도 볼 수 있어요', '작품 앞에 서 볼 수 있어요', '먼 나라 미술관도 볼 수 있어요', '조각을 빙 돌며 볼 수 있어요', '작품을 마음대로 만질 수 있어요'] } } } },
               { prompt: '여섯 장을 두 가지 전시와 둘 다로 나누어 보세요.', toolOptions: { topic: '두 가지 전시', slots: ['직접 가서 봐요', '화면으로 봐요', '둘 다'], cards: ['쉬는 날에도 볼 수 있어요', '붓 자국 두께를 눈앞에서 봐요', '작품 이름표를 읽을 수 있어요', '화면을 키워 작은 곳을 크게 봐요', '전시장 약속을 지켜야 해요', '느낀 점을 이야기할 수 있어요'] },
                 target: { sort: { '직접 가서 봐요': ['붓 자국 두께를 눈앞에서 봐요', '전시장 약속을 지켜야 해요'], '화면으로 봐요': ['쉬는 날에도 볼 수 있어요', '화면을 키워 작은 곳을 크게 봐요'], '둘 다': ['작품 이름표를 읽을 수 있어요', '느낀 점을 이야기할 수 있어요'] } }, difficulty: 0.25 },
               { prompt: '친구의 바람과 알맞은 전시를 이어 보세요.', toolOptions: { mode: 'match', topic: '어떤 전시가 좋을까요?', slots: [{ id: 's1', label: '"프랑스 미술관 그림을 오늘 보고 싶어요"' }, { id: 's2', label: '"큰 조각을 둘레를 돌며 보고 싶어요"' }], cards: ['화면으로 보는 온라인 전시', '직접 가서 보는 전시'] },
@@ -3140,9 +3181,10 @@
               challenge: {},
             },
             items: [
-              { prompt: '알림판 가운데에 큰 네모 액자 한 개를 붙이고, 둘레에 노랑 별을 세 개 넘게 붙여 보세요.', target: { has: [{ shape: 'square', size: 'l', n: 1 }, { shape: 'star', color: '노랑', min: 3 }] }, difficulty: 0.1 },
-              { prompt: '조각을 여섯 개 넘게 써서 알림판 그림을 꾸미고 점검해 보세요.', target: { selfCheck: ['전시라는 것이 그림으로 보여요', '멀리서도 눈에 띄는 색을 썼어요', '전시 이름을 쓸 빈자리를 남겼어요'], minPieces: 6 }, difficulty: 0.1 },
-              { prompt: '모둠 도화지 알림판에 전시 이름·여는 날·여는 곳을 쓰고 그림을 붙였으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '알림판 가운데에 큰 네모 액자 한 개를 붙이고, 둘레에 노랑 별을 적어도 세 개 붙여 보세요.', target: { has: [{ shape: 'square', size: 'l', n: 1 }, { shape: 'star', color: '노랑', min: 3 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '큰 네모 액자 한 개, 노랑 별 꼭 네 개, 빨강 하트 적어도 두 개로 알림판을 꾸며 보세요.', target: { has: [{ shape: 'square', size: 'l', n: 1 }, { shape: 'star', color: '노랑', n: 4 }, { shape: 'heart', color: '빨강', min: 2 }] } } } },
+              { prompt: '조각을 적어도 여섯 개 써서 알림판 그림을 꾸미고 점검해 보세요.', target: { selfCheck: ['전시라는 것이 그림으로 보여요', '멀리서도 눈에 띄는 색을 썼어요', '전시 이름을 쓸 빈자리를 남겼어요'], minPieces: 6 }, difficulty: 0.1 },
+              { prompt: '모둠 도화지 알림판에 전시 이름·여는 날·여는 곳을 쓰고 그림을 붙였으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -3177,7 +3219,7 @@
     differentiation: {
       easy: '맞는 가지에 초록 테두리가 생겨요. 조각 모양과 색이 적어요.',
       base: '두 가지 전시로 나누고 알림판을 꾸며요.',
-      challenge: '\'둘 다\' 가지가 생겨요. 모든 모양과 색을 쓸 수 있어요.',
+      challenge: '\'둘 다\' 가지와 어느 전시에도 맞지 않는 함정 카드가 있어요. 모든 모양과 색을 쓰고, 별 개수를 꼭 맞추어 알림판을 꾸며요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 온라인 전시가 늘 더 좋다(또는 나쁘다)고 단정한다 → 두 쪽의 좋은 점을 하나씩 말하게 한다. ② 알림판에 그림만 그리고 날짜·곳을 빠뜨린다 → 칠판의 세 가지를 체크하며 만든다. ③ 온라인 전시를 혼자 찾아 들어가려 한다 → 누리집은 선생님이나 보호자와 함께 연다고 알려 준다.',
   }));
@@ -3220,9 +3262,10 @@
             task: '천천히 보는 차례를 정하고, 짝과 「수련」을 그 차례로 보며 찾은 것을 적어요.',
             levels: CARD_LV,
             items: [
-              { prompt: '천천히 보는 차례 세 장을 놓아 보세요.', toolOptions: { cards: [{ id: 'small', text: '작은 것을 찾아요', motif: 'star' }, { id: 'whole', text: '그림 전체를 봐요', motif: 'sun' }, { id: 'people', text: '사람이나 동물을 찾아요', motif: 'flower' }], slots: ['먼저', '다음', '그다음'] },
+              { prompt: '천천히 보는 차례 세 장을 놓아 보세요.', toolOptions: { hint1: '그림을 볼 때 넓게 보다가 점점 좁혀 자세히 보는 차례를 떠올리고, 다 본 뒤에 하는 일을 마지막에 놓아요.', cards: [{ id: 'small', text: '작은 것을 찾아요', motif: 'star' }, { id: 'whole', text: '그림 전체를 봐요', motif: 'sun' }, { id: 'people', text: '사람이나 동물을 찾아요', motif: 'flower' }], slots: ['먼저', '다음', '그다음'] },
                 target: { order: ['whole', 'people', 'small'] }, difficulty: 0.1 },
-              { prompt: '천천히 보는 차례 네 장을 놓아 보세요.', toolOptions: { cards: [{ id: 'ask', text: '궁금한 것을 말해요', motif: 'moon' }, { id: 'small', text: '작은 것을 찾아요', motif: 'star' }, { id: 'whole', text: '그림 전체를 봐요', motif: 'sun' }, { id: 'people', text: '사람이나 동물을 찾아요', motif: 'flower' }], slots: ['1', '2', '3', '4'] },
+              { prompt: '천천히 보는 차례 네 장을 놓아 보세요.', toolOptions: { hint1: '그림을 볼 때 넓게 보다가 점점 좁혀 자세히 보는 차례를 떠올리고, 다 본 뒤에 하는 일을 마지막에 놓아요.', cards: [{ id: 'ask', text: '궁금한 것을 말해요', motif: 'moon' }, { id: 'small', text: '작은 것을 찾아요', motif: 'star' }, { id: 'whole', text: '그림 전체를 봐요', motif: 'sun' }, { id: 'people', text: '사람이나 동물을 찾아요', motif: 'flower' }], slots: ['1', '2', '3', '4'] },
+                levels: { challenge: { prompt: '천천히 보는 차례 네 장을 놓아 보세요. 천천히 보는 방법이 아닌 카드는 남겨요.', toolOptions: { cards: [{ id: 'ask', text: '궁금한 것을 말해요', motif: 'moon' }, { id: 'small', text: '작은 것을 찾아요', motif: 'star' }, { id: 'whole', text: '그림 전체를 봐요', motif: 'sun' }, { id: 'people', text: '사람이나 동물을 찾아요', motif: 'flower' }, { id: 'skip', text: '1초 보고 다음 그림으로 가요', motif: 'cloud' }] } } },
                 target: { order: ['whole', 'people', 'small', 'ask'] }, difficulty: 0.15 },
               { prompt: '짝과 「수련」을 2분 동안 천천히 보고 찾은 것 세 가지를 활동지에 적었으면 "다 했어요"를 누르세요.', free: true },
             ],
@@ -3304,10 +3347,11 @@
               challenge: {},
             },
             items: [
-              { prompt: '「별이 빛나는 밤」처럼 파란 바탕에 노랑 동그라미 별을 다섯 개 넘게, 노랑 반원 달을 한 개 붙여 보세요.', toolOptions: { bg: '파랑' }, target: { has: [{ shape: 'circle', color: '노랑', min: 5 }, { shape: 'semi', color: '노랑', n: 1 }] }, difficulty: 0.1 },
-              { prompt: '「수련」처럼 파란 바탕에 초록 동그라미 잎을 네 개 넘게, 분홍 꽃을 두 개 넘게 붙여 보세요.', toolOptions: { bg: '파랑' }, state: { pieces: [] }, target: { has: [{ shape: 'circle', color: '초록', min: 4 }, { color: '분홍', min: 2 }] }, difficulty: 0.15 },
+              { prompt: '「별이 빛나는 밤」처럼 파란 바탕에 노랑 동그라미 별을 적어도 다섯 개, 노랑 반원 달을 한 개 붙여 보세요.', toolOptions: { bg: '파랑' }, target: { has: [{ shape: 'circle', color: '노랑', min: 5 }, { shape: 'semi', color: '노랑', n: 1 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '「별이 빛나는 밤」처럼 파란 바탕에 노랑 동그라미 별 적어도 다섯 개, 노랑 반원 달 한 개, 높이 솟은 나무로 검정 세모 한 개를 붙여 보세요.', target: { has: [{ shape: 'circle', color: '노랑', min: 5 }, { shape: 'semi', color: '노랑', n: 1 }, { shape: 'triangle', color: '검정', n: 1 }] } } } },
+              { prompt: '「수련」처럼 파란 바탕에 초록 동그라미 잎을 적어도 네 개, 분홍 꽃을 적어도 두 개 붙여 보세요.', toolOptions: { bg: '파랑' }, state: { pieces: [] }, target: { has: [{ shape: 'circle', color: '초록', min: 4 }, { color: '분홍', min: 2 }] }, difficulty: 0.15 },
               { prompt: '고른 그림을 따라 만든 판에 그림에 없던 나만의 것을 더하고 점검해 보세요.', toolOptions: { bg: '파랑' }, target: { selfCheck: ['그림 속 색을 따라 썼어요', '그림 속 모양을 따라 썼어요', '그림에 없던 나만의 것을 하나 더했어요'], minPieces: 7 }, difficulty: 0.15 },
-              { prompt: '도화지에 실제 색종이를 찢어 붙여 따라 만들기를 마쳤으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '도화지에 실제 색종이를 찢어 붙여 따라 만들기를 마쳤으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -3342,9 +3386,720 @@
     differentiation: {
       easy: '맞는 칸에 초록 테두리가 생겨요. 조각 모양과 색이 적어요.',
       base: '그림 속 색과 모양을 찾아 따라 만들어요.',
-      challenge: '함정 카드가 섞여 있어요. 모든 모양과 색을 쓸 수 있고, 나만의 것을 두 가지 더해요.',
+      challenge: '함정 카드가 섞여 있어요. 모든 모양과 색을 쓸 수 있고, 검정 나무까지 따라 만든 뒤 나만의 것을 두 가지 더해요.',
     },
     teacherNotes: '그림 자료: 고흐 「별이 빛나는 밤」(1889)과 모네 「수련」(1906 무렵)은 저작권 보호 기간이 끝난 작품이다. 자주 보이는 어려움: ① 똑같이 만들지 못해 속상해한다 → 따라 만들기는 베끼기가 아니라고 다시 알려 준다. ② 색은 따라 했지만 모양을 아무렇게나 붙인다 → 그림의 그 자리를 다시 가리키게 한다. ③ 나만의 것을 더하지 않는다 → "이 그림 속에 내가 있다면 어디에 있을까요?" 하고 묻는다.',
+  }));
+
+  // 정답이 없는 스스로 평가 눈금(level 'any')의 힌트 — 교구 기본 글은 '인물이 겪은 일'·'1에서 5'를 말해 쉬움(3칸)·자기 평가와 어긋난다
+  var SELF_H = ['그 상황을 떠올려 보고, 지금 내 마음에 가장 가까운 눈금을 골라요.', '정답이 없는 문항이에요. 눈금 하나를 골라 눌러요.', '어느 눈금이든 내 마음이면 맞아요. 고른 까닭을 짝에게 말해 봐요.'];
+
+  lessons.push(L(41, {
+    title: '「서당」 속 사람들의 마음 짐작하기',
+    objective: '김홍도의 「서당」에서 얼굴 표정과 몸짓을 단서로 그림 속 사람의 마음을 짐작하고, 그 사람에게 해 줄 말을 고를 수 있다.',
+    illustration: ART('children looking at a large print of an old Korean ink painting of a village schoolroom where a small boy wipes his tears in front of a teacher while the other boys laugh', '그림 속 마음 읽기', [
+      { motif: 'house', x: 120, y: 216, color: 'peach' }, { motif: 'tree', x: 380, y: 214 }, { motif: 'flower', x: 250, y: 228, color: 'lavender' }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '김홍도의 「서당」을 크게 띄운다. "서당은 옛날 아이들이 글을 배우던 곳이에요. 1분 동안 말없이 보고, 가운데 아이의 얼굴을 살펴봐요." 1분 뒤 "가운데 아이는 지금 어떤 마음일까요? 그렇게 생각한 까닭은 그림 어디에 있나요?" 하고 묻는다. 까닭 없이 "슬퍼요"라고만 말하면 "손은 무엇을 하고 있나요?" 하고 단서로 돌아가게 한다. 시연 단추로 \'선생님이 입꼬리를 올리고 웃어요\' 옆에 기쁨 카드가 놓이는 모습을 보여 준다.',
+        student: '그림 속 가운데 아이의 얼굴과 손을 1분 동안 살펴봐요.',
+        demo: { tool: 'emotion', options: { cards: ['기쁨', '걱정'], slots: [{ id: 's1', label: '선생님이 입꼬리를 올리고 웃어요' }], shuffle: false }, sequence: [{ match: { s1: '기쁨' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 얼굴과 몸짓에서 마음 찾기', minutes: 14, tool: 'emotion',
+            teacher: '「서당」을 계속 띄워 둔다. "마음은 그림에 글로 쓰여 있지 않아요. 얼굴, 손, 몸이 어디를 향하는지가 단서예요." 카드를 놓기 전에 그 사람을 손가락으로 가리키게 한다. 옷 색이나 그림 크기처럼 마음과 상관없는 것을 단서로 고르는 학생에게 "내가 슬플 때 옷 색이 바뀌나요?" 하고 되묻는다. 아이가 왜 우는지는 그림만으로 다 알 수 없으니, 단서로 짐작한 것이면 받아 준다.',
+            task: '「서당」 속 사람의 얼굴과 몸짓을 보고 마음을 짐작해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '「서당」 속 두 사람의 마음을 짐작해 카드를 놓아 보세요.', toolOptions: { cards: ['슬픔', '즐거움', '화남'], slots: [{ id: 's1', label: '손등으로 눈물을 닦는 가운데 아이' }, { id: 's2', label: '입을 벌리고 웃는 둘레 아이들' }] },
+                target: { match: { s1: '슬픔', s2: '즐거움' } }, difficulty: 0.05,
+                levels: { challenge: { toolOptions: { cards: ['슬픔', '즐거움', '화남', '뿌듯함'] } } } },
+              { prompt: '마음을 짐작한 까닭이 된 단서를 이어 보세요.', toolOptions: { slots: [{ id: 's1', label: '가운데 아이가 슬퍼 보여요' }, { id: 's2', label: '둘레 아이들이 즐거워 보여요' }], cards: ['눈물을 닦고 있어요', '입을 벌리고 웃어요', '옷이 하얀색이에요'], weather: false },
+                target: { match: { s1: '눈물을 닦고 있어요', s2: '입을 벌리고 웃어요' } }, difficulty: 0.15,
+                hints: ['그 마음일 때 얼굴이나 손이 어떻게 되는지 떠올려 보세요.', '옷 색은 마음을 알려 주는 단서일까요? 얼굴과 손을 말하는 카드를 찾아요.', '슬플 때는 눈물을 닦고, 즐거울 때는 입을 벌리고 웃어요.'] },
+              { prompt: '사람의 마음을 짐작할 때 볼 단서만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '마음 단서', cards: ['얼굴 표정', '손이 하는 일', '몸이 향한 쪽', '그림을 그린 해', '종이의 크기'], weather: false },
+                target: { pick: ['얼굴 표정', '손이 하는 일', '몸이 향한 쪽'] }, difficulty: 0.2,
+                hints: ['내 마음이 바뀌면 내 몸에서 무엇이 달라지는지 떠올려 보세요.', '그림 바깥의 것(만든 때, 종이)은 그림 속 사람의 마음과 상관이 있을까요?', '얼굴 표정, 손이 하는 일, 몸이 향한 쪽이 마음 단서예요.'],
+                levels: { easy: { toolOptions: { cards: ['얼굴 표정', '손이 하는 일', '그림을 그린 해'] }, prompt: '마음을 짐작할 때 볼 단서만 바구니에 넣어 보세요. 두 가지예요.', target: { pick: ['얼굴 표정', '손이 하는 일'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 그림 속 사람에게 반응하기', minutes: 13, tool: 'emotion',
+            teacher: '"그림 속 아이가 우리 반 친구라면 무슨 말을 해 줄까요?" 웃는 아이들처럼 놀리는 쪽을 고른 학생에게 "놀림을 들은 아이의 얼굴은 어떻게 바뀔까요?" 하고 묻는다. 걱정되는 마음의 크기는 사람마다 달라도 된다고 말해 준다. 끝으로 짝과 그림 속 사람의 몸짓을 따라 하며 마음을 말하게 한다(4분).',
+            task: '그림 속 아이에게 해 줄 말을 고르고, 짝과 몸짓을 따라 하며 마음을 말해요.',
+            levels: SCALE_LV,
+            items: [
+              { prompt: '가운데 아이에게 어떤 말을 해 주면 좋을까요?', toolOptions: { mode: 'branch', situation: '「서당」 가운데 아이가 훈장님 앞에서 훌쩍이며 눈물을 닦고 있어요.', choices: [
+                { id: 'cheer', text: '"다음에는 잘할 수 있을 거야" 하고 힘을 줘요', result: '아이가 눈물을 그치고 고개를 들어요.', mood: '고마움' },
+                { id: 'tease', text: '"울보다!" 하고 같이 놀려요', result: '아이가 더 크게 울어요.', mood: '슬픔', why: '놀리는 말을 들으면 우는 아이의 마음은 어떨까요?' },
+                { id: 'turn', text: '못 본 척 고개를 돌려요', result: '아이는 혼자라고 느껴요.', mood: '외로움', why: '아무도 봐 주지 않으면 아이의 마음은 어떨까요?' }] }, target: { choice: 'cheer' }, difficulty: 0.05,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'loud', text: '"울지 마, 뚝!" 하고 크게 말해요', result: '아이가 깜짝 놀라 더 움츠러들어요.', mood: '무서움', why: '큰 소리로 그치라고 하면 우는 아이의 마음이 나아질까요?' },
+                  { id: 'cheer', text: '"다음에는 잘할 수 있을 거야" 하고 힘을 줘요', result: '아이가 눈물을 그치고 고개를 들어요.', mood: '고마움' },
+                  { id: 'tease', text: '"울보다!" 하고 같이 놀려요', result: '아이가 더 크게 울어요.', mood: '슬픔', why: '놀리는 말을 들으면 우는 아이의 마음은 어떨까요?' },
+                  { id: 'turn', text: '못 본 척 고개를 돌려요', result: '아이는 혼자라고 느껴요.', mood: '외로움', why: '아무도 봐 주지 않으면 아이의 마음은 어떨까요?' }] } } } },
+              { prompt: '그림 속 아이를 보는 내 걱정의 크기를 내 생각대로 골라 보세요.', toolOptions: { mode: 'scale', situation: '「서당」 가운데 아이가 혼자 눈물을 닦고 있어요.', feeling: '걱정', after: '내가 고른 크기와 그 까닭을 짝에게 말해 봐요.' }, target: { level: 'any' }, difficulty: 0.05, hints: SELF_H },
+              { prompt: '짝과 번갈아 그림 속 한 사람의 몸짓을 따라 해요. 짝은 누구인지 맞히고 그 사람의 마음을 말해요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"「서당」 아이들의 마음을 짐작해 보니 그림이 처음과 어떻게 다르게 보였나요?" 두세 명의 대답을 듣는다. 아이가 왜 우는지는 그림만으로 다 알 수 없고, 글을 다 외우지 못해서라는 짐작이 널리 알려져 있다고 덧붙인다. 다음 시간에는 그림 속에서 들릴 것 같은 소리를 떠올려 본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { cards: ['기쁨', '속상함'], slots: [{ id: 'e1', label: '그림 속 아이가 상장을 들고 활짝 웃어요' }, { id: 'e2', label: '그림 속 아이가 깨진 그릇 앞에서 고개를 숙였어요' }] }, prompt: '그림 속 아이의 마음을 짐작해 카드를 놓아 보세요.', target: { match: { e1: '기쁨', e2: '속상함' } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '그림 속 사람의 마음을 짐작할 때 무엇을 보면 좋을까요?', options: ['그림을 넣은 액자', '얼굴 표정과 몸짓', '그림의 값'], answer: 1, difficulty: 0.1, explain: '얼굴 표정과 손, 몸짓이 마음을 알려 주는 단서예요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '그림 속 마음 짐작하기',
+      items: [
+        { type: 'figure', wide: true, prompt: '「서당」 속 사람과 어울리는 마음을 선으로 이으세요.', tool: 'emotion', figures: [{ options: { cards: ['즐거움', '슬픔'], slots: [{ id: 's1', label: '눈물을 닦는 아이' }, { id: 's2', label: '입을 벌리고 웃는 아이들' }], shuffle: false }, caption: '' }], answer: '눈물을 닦는 아이-슬픔, 웃는 아이들-즐거움' },
+        { type: 'table', prompt: '그림 속 사람의 마음과 그렇게 짐작한 단서를 쓰세요.', columns: ['그림 속 사람', '마음', '단서'], rows: 2 },
+        { type: 'choice', prompt: '마음을 짐작할 때 볼 단서에 ○ 하세요.', options: ['그림을 그린 해', '얼굴 표정', '종이의 크기'], answer: '얼굴 표정' },
+        { type: 'short', prompt: '가운데 아이에게 해 주고 싶은 말을 쓰세요.' },
+      ],
+      easy: {
+        note: '얼굴, 손, 몸이 마음을 알려 줘요.',
+        items: [
+          { type: 'choice', prompt: '눈물을 닦는 아이의 마음에 ○ 하세요.', options: ['신남', '슬픔'], answer: '슬픔' },
+          { type: 'short', prompt: '아이에게 해 주고 싶은 말을 한 가지 쓰세요.' },
+          { type: 'draw', prompt: '슬플 때 내 얼굴을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 단서 카드가 적어요. 마음 크기는 세 칸에서 골라요.',
+      base: '그림 속 사람을 가리킨 뒤 얼굴·손·몸을 단서로 마음을 짐작해요.',
+      challenge: '함정 마음 카드와 그럴듯한 보기가 더 있어요. 짐작한 마음마다 단서를 두 가지씩 말해요.',
+    },
+    teacherNotes: '그림 자료: 김홍도 「서당」(『단원 풍속도첩』, 1700년대 후반, 국립중앙박물관 소장, 보물)은 저작권 보호 기간이 끝난 작품이다. 교구 화면에는 그림이 나오지 않으므로 교사 화면에 그림을 계속 띄워 둔다. 아이가 우는 까닭은 그림에 적혀 있지 않으므로 하나로 정하지 않는다. 자주 보이는 어려움: ① 까닭 없이 마음만 말한다 → "그림 어디를 보고 알았나요?" 하고 손가락으로 가리키게 한다. ② 웃는 아이들 편을 들어 놀리는 말을 고른다 → 놀림을 들은 아이의 표정을 몸으로 해 보게 한다. ③ 몸짓 따라 하기가 장난이 된다 → 따라 한 뒤 3초 동안 멈추는 약속을 먼저 정한다.',
+  }));
+
+  lessons.push(L(42, {
+    title: '그림 속 소리 상상하고 몸으로 따라 하기',
+    objective: '옛 그림을 보고 그림 속에서 들릴 것 같은 소리와 사람의 자세를 찾아, 모둠 친구들과 소리와 몸짓으로 나타낼 수 있다.',
+    illustration: ART('a group of children frozen in poses copying people from an old painting of a wrestling match while other children cup their ears to listen, a large print of the painting on the wall', '그림 속 소리 듣기', [
+      { motif: 'bird', x: 130, y: 96 }, { motif: 'mountain', x: 360, y: 200 }, { motif: 'tree', x: 240, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '김홍도의 「씨름」을 다시 띄운다. "그림 속 구경꾼 사이에 내가 앉아 있다고 생각해 봐요. 무슨 소리가 들릴까요?" 1분 동안 말없이 보게 한 뒤 두세 명의 대답을 듣는다. "그 소리는 그림 속 누가, 무엇이 내는 소리인가요?" 하고 소리의 주인을 가리키게 한다. 시연 단추로 \'우산을 쓴 사람이 걷는 그림\'과 \'톡톡 빗소리\'가 이어지는 모습을 보여 준다.',
+        student: '그림 속에 들어가 앉아 있다고 생각하고 들릴 소리를 떠올려 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '그림 속 소리', slots: [{ id: 's1', label: '우산을 쓴 사람이 걷는 그림' }], cards: ['톡톡 빗소리'], shuffle: false }, sequence: [{ match: { s1: '톡톡 빗소리' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 28,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 그림과 소리, 그림과 자세 잇기', minutes: 13, tool: 'mindmap',
+            teacher: '「씨름」, 정선의 「인왕제색도」, 밀레의 「이삭 줍는 사람들」을 나란히 띄운다. "「인왕제색도」는 비가 그친 뒤의 인왕산을 그린 그림이에요." 그림마다 무엇이 있는지 먼저 말한 뒤 카드를 고르게 한다. 그림에 없는 것에서 나는 소리를 고르는 학생에게 "그 소리를 내는 것이 그림 어디에 있나요?" 하고 묻는다. 자세 카드는 읽은 뒤 제자리에서 직접 해 보고 고르게 한다.',
+            task: '그림을 보고 들릴 것 같은 소리와 따라 할 자세를 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '그림마다 들릴 것 같은 소리를 이어 보세요.', toolOptions: { mode: 'match', topic: '그림 속 소리', slots: [{ id: 's1', label: '김홍도 「씨름」' }, { id: 's2', label: '정선 「인왕제색도」' }, { id: 's3', label: '밀레 「이삭 줍는 사람들」' }], cards: ['"와아!" 구경꾼들의 소리', '비 그친 산에 물 흐르는 소리', '들판에서 이삭 줍는 조용한 소리'] },
+                target: { match: { s1: '"와아!" 구경꾼들의 소리', s2: '비 그친 산에 물 흐르는 소리', s3: '들판에서 이삭 줍는 조용한 소리' } }, difficulty: 0.1,
+                hints: ['그림 속에 무엇이 있는지 먼저 떠올리고, 그것에서 날 수 있는 소리를 찾아요.', '그림 속 사람·산·들판 가운데 그 소리를 낼 수 있는 것이 있는지 다시 봐요.', '씨름 구경꾼은 소리치고, 비 그친 산에는 물이 흐르고, 들판에서는 이삭을 조용히 주워요.'],
+                levels: { challenge: { toolOptions: { cards: ['"와아!" 구경꾼들의 소리', '비 그친 산에 물 흐르는 소리', '들판에서 이삭 줍는 조용한 소리', '자동차 경적 소리'] } } } },
+              { prompt: '그림 속 사람과 따라 할 자세를 이어 보세요.', toolOptions: { mode: 'match', topic: '그림 속 자세', slots: [{ id: 's1', label: '「씨름」의 씨름꾼' }, { id: 's2', label: '「이삭 줍는 사람들」의 세 사람' }, { id: 's3', label: '「서당」의 가운데 아이' }], cards: ['두 팔로 상대를 붙잡아요', '허리를 굽혀 땅에서 주워요', '손등으로 눈을 비벼요'] },
+                target: { match: { s1: '두 팔로 상대를 붙잡아요', s2: '허리를 굽혀 땅에서 주워요', s3: '손등으로 눈을 비벼요' } }, difficulty: 0.15,
+                hints: ['그림 속 사람이 무엇을 하고 있는지 떠올리고, 그 일을 할 때의 몸을 생각해요.', '자세 카드를 직접 해 보고, 그 몸이 그림 속 일과 어울리는지 다시 봐요.', '씨름꾼은 상대를 붙잡고, 이삭 줍는 사람은 허리를 굽히고, 서당 아이는 눈을 비벼요.'],
+                levels: { challenge: { toolOptions: { cards: ['두 팔로 상대를 붙잡아요', '허리를 굽혀 땅에서 주워요', '손등으로 눈을 비벼요', '두 팔을 벌리고 날아요'] } } } },
+              { prompt: '「이삭 줍는 사람들」 속에서 들릴 것 같은 소리만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '들릴 것 같은 소리', cards: ['바람이 들판을 스치는 소리', '사각사각 이삭 줍는 소리', '자동차 경적 소리', '휴대 전화 벨 소리'] },
+                target: { pick: ['바람이 들판을 스치는 소리', '사각사각 이삭 줍는 소리'] }, difficulty: 0.15,
+                hints: ['그림 속 들판에 있는 것과, 그림을 그린 옛날에 있었던 것만 떠올려요.', '그림이 그려진 옛날 들판에 그 물건이 있었을까요?', '바람과 이삭 줍는 손에서 나는 소리만 들릴 수 있어요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 모둠 소리 그림 만들기', minutes: 15, tool: 'story',
+            teacher: '"소리 그림은 그림 속 자세로 멈춘 채, 그 그림에서 들릴 소리를 내는 놀이예요." 차례를 정한 뒤 모둠(4명)마다 그림 하나를 고르고 자세 맡을 사람과 소리 맡을 사람을 나누어 5분 연습한다. 모둠마다 30초씩 보여 주고 다른 모둠이 어떤 그림인지 맞힌다(6모둠 약 6분). 소리가 너무 커지면 "그림 속 사람들도 이렇게 크게 소리쳤을까요?" 하고 크기를 조절하게 한다.',
+            task: '모둠이 그림 하나를 골라 자세와 소리로 나타내고, 다른 모둠의 소리 그림을 맞혀요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '모둠 소리 그림을 보여 주는 차례를 놓아 보세요.', toolOptions: { cards: [{ id: 'pose', text: '그림 속 자세로 멈춰요', motif: 'flower' }, { id: 'guess', text: '친구들이 그림을 맞혀요', motif: 'sun' }, { id: 'pick', text: '모둠이 그림 하나를 골라요', motif: 'star' }, { id: 'sound', text: '멈춘 채 소리를 내요', motif: 'bird' }], slots: ['1', '2', '3', '4'] },
+                levels: { challenge: { prompt: '모둠 소리 그림을 보여 주는 차례를 놓아 보세요. 소리 그림에서 하지 않을 일은 남겨요.', toolOptions: { cards: [{ id: 'pose', text: '그림 속 자세로 멈춰요', motif: 'flower' }, { id: 'guess', text: '친구들이 그림을 맞혀요', motif: 'sun' }, { id: 'pick', text: '모둠이 그림 하나를 골라요', motif: 'star' }, { id: 'sound', text: '멈춘 채 소리를 내요', motif: 'bird' }, { id: 'tell', text: '그림 이름을 먼저 말해 줘요', motif: 'cloud' }] } } },
+                target: { order: ['pick', 'pose', 'sound', 'guess'] }, difficulty: 0.1,
+                hints: ['보여 주기 전에 할 일과, 다 보여 준 뒤에 할 일을 먼저 나눠 봐요.', '소리는 자세로 멈춘 다음에 내요. 맞히기는 언제 할 수 있을까요?', '그림 고르기 → 자세로 멈추기 → 소리 내기 → 친구들이 맞히기예요.'] },
+              { prompt: '모둠이 그림 하나를 골라 자세 맡을 사람과 소리 맡을 사람을 나누어 연습해요.', free: true, talk: true },
+              { prompt: '모둠마다 30초씩 소리 그림을 보여 주고, 다른 모둠은 어떤 그림인지 맞혀요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"친구 모둠의 소리 그림을 보고 나니, 그 그림이 어떻게 다르게 느껴졌나요?" 두세 명의 대답을 듣는다. 그림을 보며 소리와 몸짓으로 반응하는 것도 작품을 즐기는 한 가지 방법이라고 정리한다. 다음 시간에는 우리 반 작품을 작은 미술관처럼 걸어 두고 둘러본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '그림 속 소리', slots: [{ id: 'e1', label: '눈 쌓인 마을 길 그림' }, { id: 'e2', label: '파도치는 바닷가 그림' }], cards: ['뽀드득 눈 밟는 소리', '철썩 파도 소리'] }, prompt: '그림마다 들릴 것 같은 소리를 이어 보세요.', target: { match: { e1: '뽀드득 눈 밟는 소리', e2: '철썩 파도 소리' } }, difficulty: 0.05 },
+          { type: 'choice', prompt: '그림을 보고 소리를 떠올릴 때 알맞은 것은?', options: ['그림 속에 있는 것에서 날 소리를 떠올려요', '그림과 상관없는 소리를 크게 내요', '눈을 감고 아무 소리나 말해요'], answer: 0, difficulty: 0.1, explain: '그림 속 사람·물건·자연에서 날 소리를 떠올려요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '그림 속 소리와 자세',
+      items: [
+        { type: 'figure', wide: true, prompt: '그림과 들릴 것 같은 소리를 선으로 이으세요.', tool: 'mindmap', figures: [{ options: { mode: 'match', topic: '그림 속 소리', slots: [{ id: 's1', label: '「씨름」' }, { id: 's2', label: '「이삭 줍는 사람들」' }], cards: ['이삭 줍는 조용한 소리', '구경꾼들의 소리'], shuffle: false }, caption: '' }], answer: '「씨름」-구경꾼들의 소리, 「이삭 줍는 사람들」-이삭 줍는 조용한 소리' },
+        { type: 'table', prompt: '우리 모둠의 소리 그림을 쓰세요.', columns: ['고른 그림', '내가 맡은 일', '낸 소리나 자세'], rows: 1 },
+        { type: 'check', prompt: '소리 그림을 보여 줄 때 지킨 것에 모두 ✓ 하세요.', options: ['자세로 멈추었어요', '그림에 어울리는 소리를 냈어요', '다른 모둠이 할 때 조용히 보았어요'] },
+        { type: 'short', prompt: '친구 모둠의 소리 그림 가운데 가장 잘 맞힌 그림과 까닭을 쓰세요.' },
+      ],
+      easy: {
+        note: '그림 속에 있는 것에서 소리가 나요.',
+        items: [
+          { type: 'choice', prompt: '「씨름」에서 들릴 것 같은 소리에 ○ 하세요.', options: ['자동차 소리', '구경꾼들의 소리'], answer: '구경꾼들의 소리' },
+          { type: 'short', prompt: '내가 낸 소리를 흉내 내는 말로 쓰세요.' },
+          { type: 'draw', prompt: '내가 따라 한 그림 속 자세를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생겨요. 자세 카드는 직접 해 보고 골라요.',
+      base: '그림마다 무엇이 있는지 말한 뒤 소리와 자세를 이어요.',
+      challenge: '함정 카드가 섞여 있어요. 모둠에서 소리를 두 가지 겹쳐 내 봐요.',
+    },
+    teacherNotes: '그림 자료: 김홍도 「씨름」·「서당」(『단원 풍속도첩』, 보물), 정선 「인왕제색도」(1751, 국보, 비가 그친 뒤의 인왕산을 그림), 밀레 「이삭 줍는 사람들」(1857, 오르세 미술관)은 모두 저작권 보호 기간이 끝난 작품이다. 교구 화면에는 그림이 나오지 않으므로 교사 화면에 띄워 둔다. 자주 보이는 어려움: ① 그림과 상관없는 우스운 소리를 낸다 → 그 소리를 내는 것이 그림 어디에 있는지 가리키게 한다. ② 자세를 오래 멈추지 못한다 → 셋을 세는 동안만 멈추게 한다. ③ 발표 시간이 길어진다 → 모둠마다 30초 타이머를 쓴다.',
+  }));
+
+  lessons.push(L(43, {
+    title: '우리 반 작은 미술관 둘러보고 마음에 든 작품 남기기',
+    objective: '친구 작품을 한 작품씩 멈추어 살피며 본 것과 느낀 것을 붙임쪽지에 남기고, 마음에 든 작품 하나를 골라 그림으로 남길 수 있다.',
+    illustration: ART('a classroom turned into a small gallery with children’s paper collages hung on the wall, children standing still in front of one artwork each and sticking small notes beside them', '우리 반 작은 미술관', [
+      { motif: 'house', x: 120, y: 216, color: 'mint' }, { motif: 'star', x: 250, y: 96, s: 0.5 }, { motif: 'flower', x: 380, y: 228, color: 'buttercup' }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '40차시에 만든 작품을 이름표와 함께 교실 벽에 걸어 두고 "오늘 우리 교실은 작은 미술관이에요" 하고 연다. "전시를 다 봤다는 건 무슨 뜻일까요? 한 바퀴 빨리 돈 것과 한 작품씩 멈춰 본 것은 같을까요?" 하고 묻고 두세 명의 생각을 듣는다. 시연 단추로 \'이 작품에는 별이 많아요\'가 \'살펴본 흔적\' 바구니에 들어가는 모습을 보여 준다.',
+        student: '작품 앞에서 멈추어 보는 것과 지나가는 것이 어떻게 다른지 생각해 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'pick', basket: '살펴본 흔적', cards: ['이 작품에는 별이 많아요', '휙 지나갔어요'], shuffle: false }, sequence: [{ pick: ['이 작품에는 별이 많아요'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 28,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 한 작품씩 살피고 쪽지 남기기', minutes: 13, tool: 'mindmap',
+            teacher: '"작품을 정말 살펴보았는지는 무엇으로 알 수 있을까요? 그 작품에 대해 말할 수 있으면 본 거예요." 붙임쪽지에는 본 것 한 줄, 느낀 것 한 줄을 쓴다고 알려 준다. 본 것과 느낀 것을 헷갈리면 "눈으로 세거나 가리킬 수 있으면 본 것, 내 마음이 어땠는지면 느낀 것"이라고 기준을 말한다. 화면 활동을 마치면 한 작품 앞에 1분씩 머물며 세 작품에 쪽지를 남기게 한다.',
+            task: '한 작품씩 살핀 흔적을 고르고, 쪽지 말을 본 것과 느낀 것으로 나눠요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '작품을 하나씩 살펴보았다는 것을 알 수 있는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '살펴본 흔적', cards: ['이 작품은 별이 소용돌이처럼 돌아요', '이 작품 구석에 작은 하트가 있어요', '나는 열 작품을 다 지나갔어요', '내가 제일 먼저 끝났어요'] },
+                target: { pick: ['이 작품은 별이 소용돌이처럼 돌아요', '이 작품 구석에 작은 하트가 있어요'] }, difficulty: 0.1,
+                hints: ['그 말을 한 친구가 작품 속 무엇을 말하고 있는지 찾아보세요.', '몇 개를 지나갔는지, 누가 먼저 끝났는지는 작품에 대한 말일까요?', '작품 속 별과 하트를 말한 두 말이 살펴본 흔적이에요.'] },
+              { prompt: '붙임쪽지 말을 본 것과 느낀 것으로 나누어 보세요.', toolOptions: { slots: ['본 것', '느낀 것'], topic: '붙임쪽지', cards: ['노란 별이 다섯 개 있어요', '파란 바탕이 넓어요', '보니까 마음이 편해요', '밤하늘이 신나 보여요'] },
+                target: { sort: { '본 것': ['노란 별이 다섯 개 있어요', '파란 바탕이 넓어요'], '느낀 것': ['보니까 마음이 편해요', '밤하늘이 신나 보여요'] } }, difficulty: 0.15,
+                hints: ['눈으로 세거나 가리킬 수 있는 말인지, 내 마음을 말한 것인지 따져 봐요.', '마음이나 느낌을 나타내는 말이 들어 있는 카드를 다시 봐요.', '별의 수와 바탕은 본 것, 편함과 신남은 느낀 것이에요.'],
+                levels: { challenge: { toolOptions: { cards: ['노란 별이 다섯 개 있어요', '파란 바탕이 넓어요', '보니까 마음이 편해요', '밤하늘이 신나 보여요', '빨리 다음 작품으로 가요'] }, prompt: '붙임쪽지 말을 본 것과 느낀 것으로 나누어 보세요. 어디에도 맞지 않는 카드는 남겨 두세요.' } } },
+              { prompt: '작은 미술관을 잘 둘러본 친구만 골라 보세요.', toolOptions: { mode: 'pick', basket: '잘 둘러보았어요', cards: ['하준: 세 작품 앞에서 오래 보고 쪽지를 남겼어요', '서아: 1분 만에 모든 작품을 지나갔어요', '지우: 한 작품의 색과 모양을 짝에게 말했어요', '준호: 작품을 보지 않고 친구와 놀았어요'] },
+                target: { pick: ['하준: 세 작품 앞에서 오래 보고 쪽지를 남겼어요', '지우: 한 작품의 색과 모양을 짝에게 말했어요'] }, difficulty: 0.15,
+                hints: ['둘러본 뒤에 그 작품에 대해 말할 수 있는 친구를 찾아요.', '빨리 지나간 친구는 작품에 대해 무엇을 말할 수 있을까요?', '오래 보고 쪽지를 남긴 친구와 색과 모양을 말한 친구예요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 마음에 든 작품 그림으로 남기기', minutes: 15, tool: 'collage',
+            teacher: '"둘러본 작품 가운데 마음에 든 작품 하나를 엽서에 남겨요. 똑같이 베끼지 않아도 돼요. 가장 눈에 띈 색과 모양을 남겨요." 판에서 두 친구의 엽서를 먼저 만들어 본 뒤 내 엽서를 만든다. 끝으로 실제 엽서 종이에 크레파스로 그리고 작품 이름과 고른 까닭을 쓴다(7분). 친구 작품을 고르지 못하는 학생에게 "쪽지를 가장 길게 쓴 작품은 무엇이었나요?" 하고 묻는다.',
+            task: '마음에 든 작품에서 가장 눈에 띈 색과 모양을 골라 엽서로 남겨요.',
+            levels: {
+              easy: { shapes: ['star', 'circle', 'heart'], colors: ['노랑', '파랑', '빨강'] },
+              base: { shapes: ['circle', 'square', 'triangle', 'semi', 'star', 'heart', 'leaf'], colors: ['노랑', '파랑', '빨강', '초록', '분홍', '검정'] },
+              challenge: {},
+            },
+            items: [
+              { prompt: '민지는 큰 노랑 별이 마음에 들었어요. 큰 노랑 별 한 개와 작은 파랑 동그라미 세 개를 붙여 보세요.', toolOptions: { bg: '하양' }, target: { has: [{ shape: 'star', color: '노랑', size: 'l', n: 1 }, { shape: 'circle', color: '파랑', size: 's', n: 3 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '민지는 큰 노랑 별이 마음에 들었어요. 큰 노랑 별 한 개, 작은 파랑 동그라미 세 개, 초록 나뭇잎 두 개를 붙여 보세요.', target: { has: [{ shape: 'star', color: '노랑', size: 'l', n: 1 }, { shape: 'circle', color: '파랑', size: 's', n: 3 }, { shape: 'leaf', color: '초록', n: 2 }] } } },
+                hints: ['문제 글에서 모양·색·크기와 개수를 하나씩 찾아, 한 가지씩 차례로 붙여요.', '붙인 조각의 모양·색·크기와 개수를 문제 글과 하나씩 견주어 봐요.', '크기를 크게로 고른 노랑 별 1개, 작게로 고른 파랑 동그라미 3개예요.'] },
+              { prompt: '준호는 빨강 하트가 많은 작품을 골랐어요. 빨강 하트 네 개와 노랑 동그라미 두 개를 붙여 보세요.', toolOptions: { bg: '하양' }, target: { has: [{ shape: 'heart', color: '빨강', n: 4 }, { shape: 'circle', color: '노랑', n: 2 }] }, difficulty: 0.15,
+                hints: ['문제 글에서 모양·색과 개수를 하나씩 찾아, 한 가지씩 차례로 붙여요.', '붙인 조각을 모양과 색별로 세어 문제 글의 개수와 견주어 봐요.', '빨강 하트 4개와 노랑 동그라미 2개를 붙여요.'] },
+              { prompt: '내가 고른 작품을 엽서로 남기고 점검해 보세요.', toolOptions: { bg: '하양' }, target: { selfCheck: ['작품에서 가장 눈에 띈 색을 썼어요', '작품 속 모양을 하나 넣었어요', '고른 까닭을 짝에게 말했어요'], minPieces: 4 }, difficulty: 0.1 },
+              { prompt: '엽서 종이에 고른 작품을 크레파스로 그리고, 작품 이름과 고른 까닭을 썼으면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"내가 고른 작품과 고른 까닭을 한 문장으로 말해 볼까요?" 세 명 정도 엽서를 들고 말한다. 붙임쪽지는 작품을 만든 친구에게 돌려주어 읽게 한다. 다음 시간에는 본 것을 친구에게 자세히 이야기하는 방법을 배운다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { slots: ['본 것', '느낀 것'], topic: '「수련」 쪽지', cards: ['초록 잎이 동그래요', '물이 시원해 보여요'] }, prompt: '「수련」을 보고 쓴 쪽지 말을 나누어 보세요.', target: { sort: { '본 것': ['초록 잎이 동그래요'], '느낀 것': ['물이 시원해 보여요'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '전시를 잘 보았다고 할 수 있는 것은?', options: ['빨리 한 바퀴 돌았어요', '작품을 하나씩 멈추어 살폈어요', '가장 먼저 나왔어요'], answer: 1, difficulty: 0.1, explain: '빨리 지나가면 작품에 대해 말할 것이 남지 않아요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '작은 미술관 둘러보기',
+      items: [
+        { type: 'table', prompt: '세 작품 앞에서 본 것과 느낀 것을 쓰세요.', columns: ['작품 이름', '본 것', '느낀 것'], rows: 3 },
+        { type: 'check', prompt: '작은 미술관에서 내가 한 것에 모두 ✓ 하세요.', options: ['한 작품 앞에서 1분 동안 멈추었어요', '쪽지를 세 장 남겼어요', '작품을 손으로 만지지 않았어요'] },
+        { type: 'choice', prompt: '느낀 것을 쓴 쪽지에 ○ 하세요.', options: ['하트가 세 개 있어요', '보니까 기분이 좋아요', '바탕이 노래요'], answer: '보니까 기분이 좋아요' },
+        { type: 'draw', prompt: '마음에 든 작품을 엽서로 그려 보세요.' },
+        { type: 'short', prompt: '그 작품을 고른 까닭을 쓰세요.' },
+      ],
+      easy: {
+        note: '본 것은 눈으로 가리킬 수 있는 것, 느낀 것은 내 마음이에요.',
+        items: [
+          { type: 'choice', prompt: '본 것을 쓴 쪽지에 ○ 하세요.', options: ['별이 다섯 개 있어요', '마음이 편해요'], answer: '별이 다섯 개 있어요' },
+          { type: 'short', prompt: '마음에 든 작품의 이름을 쓰세요.' },
+          { type: 'draw', prompt: '그 작품에서 가장 눈에 띈 것을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생겨요. 엽서 판의 모양과 색이 세 가지씩이에요.',
+      base: '쪽지 말을 본 것과 느낀 것으로 나누고, 고른 작품을 엽서로 남겨요.',
+      challenge: '어디에도 맞지 않는 함정 카드가 있고, 따라 만들 조각이 하나 더 늘어요. 쪽지를 적어도 네 장 남기고, 엽서에 고른 까닭을 두 가지 써요.',
+    },
+    teacherNotes: '준비물: 40차시 작품과 이름표, 붙임쪽지(한 사람에 세 장), 엽서 크기 종이, 크레파스. 작품이 없는 학생은 39~40차시 그림 인쇄본을 걸어 둔다. 쪽지에는 놀리는 말을 쓰지 않는 약속을 먼저 한다. 자주 보이는 어려움: ① 한 바퀴 빨리 돌고 "다 봤어요" 한다 → 한 작품 앞에서 1분 타이머가 울릴 때까지 머물게 한다. ② 쪽지에 "좋아요"만 쓴다 → 본 것 한 줄을 먼저 쓰게 한다. ③ 자기 작품 앞에만 서 있다 → 내 작품은 고르지 않는 약속을 둔다.',
+  }));
+
+  lessons.push(L(44, {
+    title: '본 작품을 네 가지로 자세히 들려주기',
+    objective: '전시에서 본 작품을 작품 이름, 본 것, 있던 자리, 느낌의 네 가지로 친구에게 자세히 이야기할 수 있다.',
+    illustration: ART('two children sitting face to face, one describing an artwork with hand gestures while the other listens and counts on her fingers, small framed paintings floating above them', '자세히 들려주기', [
+      { motif: 'star', x: 130, y: 96, s: 0.5 }, { motif: 'flower', x: 250, y: 228, color: 'rose' }, { motif: 'tree', x: 380, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '두 말을 들려준다. ① "그림이 좋았어요." ② "「별이 빛나는 밤」 위쪽에 노란 별이 소용돌이처럼 돌고 있어서 신기했어요." "어느 말을 들으면 그림이 눈앞에 떠오르나요?" 그리고 "전시에서 본 것은 말할 거리가 못 된다고 여기는 친구도 있어요. 하지만 본 것을 자세히 들려주면 듣는 친구도 그 작품을 같이 볼 수 있어요" 하고 말한다. 시연 단추로 \'어떤 작품인가요?\' 옆에 \'「서당」\' 카드가 놓이는 모습을 보여 준다.',
+        student: '두 말 가운데 그림이 더 잘 떠오르는 말을 골라 손을 들어요.',
+        demo: { tool: 'story', options: { mode: 'match', slots: [{ id: 's1', label: '어떤 작품인가요?' }], cards: ['「서당」'], shuffle: false }, sequence: [{ match: { s1: '「서당」' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 자세히 말하는 네 가지', minutes: 14, tool: 'story',
+            teacher: '칠판에 네 가지(작품 이름 → 본 것 → 있던 자리 → 느낌)를 적는다. "\'좋았어요\'만 들으면 친구는 어떤 그림인지 알 수 있을까요?" 네 가지 가운데 빠진 것을 찾는 질문을 한다. 느낌만 길게 말하는 학생에게 "무엇을 보고 그렇게 느꼈나요?" 하고 본 것을 먼저 말하게 한다.',
+            task: '자세히 말한 것을 고르고, 네 가지 물음에 맞는 대답을 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '듣는 친구가 그림을 떠올릴 수 있게 자세히 말한 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '자세한 말', cards: ['그림이 좋았어요', '파란 하늘에 노란 별이 소용돌이처럼 돌았어요', '재미있었어요', '「씨름」 가운데서 두 사람이 서로 붙잡고 있었어요'] },
+                levels: { challenge: { toolOptions: { cards: ['그림이 좋았어요', '파란 하늘에 노란 별이 소용돌이처럼 돌았어요', '재미있었어요', '「씨름」 가운데서 두 사람이 서로 붙잡고 있었어요', '정말정말 멋졌어요'] } } },
+                target: { pick: ['파란 하늘에 노란 별이 소용돌이처럼 돌았어요', '「씨름」 가운데서 두 사람이 서로 붙잡고 있었어요'] }, difficulty: 0.1,
+                hints: ['그 말만 듣고 눈을 감았을 때 그림이 떠오르는지 생각해 봐요.', '색, 모양, 사람이 하는 일이 들어 있는 말인지 다시 봐요.', '별이 소용돌이처럼 돈 말과 씨름하는 두 사람을 말한 것이 자세한 말이에요.'] },
+              { prompt: '묻는 말과 알맞은 대답을 이어 보세요.', toolOptions: { mode: 'match', slots: [{ id: 's1', label: '어떤 작품인가요?' }, { id: 's2', label: '무엇이 보였나요?' }, { id: 's3', label: '어디에 있었나요?' }, { id: 's4', label: '어떤 느낌이었나요?' }], cards: ['「별이 빛나는 밤」', '노란 별', '하늘 위쪽에', '신기했어요'] },
+                target: { match: { s1: '「별이 빛나는 밤」', s2: '노란 별', s3: '하늘 위쪽에', s4: '신기했어요' } }, difficulty: 0.15,
+                hints: ['묻는 말의 \'무엇\', \'어디\', \'어떤\'이 무엇을 묻는지 먼저 살펴봐요.', '자리를 묻는 말에는 \'~에\'로 끝나는 대답이 어울려요. 나머지도 다시 봐요.', '작품 이름 → 노란 별 → 하늘 위쪽에 → 신기했어요 차례로 이어요.'] },
+              { prompt: '「수련」을 본 준호가 할 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['모네의 「수련」', '김홍도의 「씨름」', '초록 잎', '편안했어요'], slots: [{ id: 's1', who: '준호', label: '나는 ___ 그림을 보았어요.' }, { id: 's2', who: '준호', label: '연못 물 위에 동그란 ___ 여러 장이 떠 있었어요.' }, { id: 's3', who: '준호', label: '잔잔한 물빛을 보니 마음이 ___.' }] },
+                target: { fill: { s1: '모네의 「수련」', s2: '초록 잎', s3: '편안했어요' } }, difficulty: 0.2,
+                hints: ['준호가 본 작품이 무엇인지 문항 글에서 먼저 찾아요.', '물 위에 떠 있을 수 있는 것과 마음을 나타내는 말을 나눠 봐요.', '모네의 「수련」 → 초록 잎 → 편안했어요예요.'],
+                levels: { easy: { toolOptions: { cards: ['모네의 「수련」', '초록 잎', '편안했어요'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 짝에게 들려주고 들어 주기', minutes: 13, tool: 'emotion',
+            teacher: '먼저 짝이 "그건 말할 거리도 아니야"라고 할 때를 함께 생각한다. 그다음 43차시에 고른 작품을 네 가지로 짝에게 1분 동안 들려주고, 듣는 짝은 들은 가지 수를 손가락으로 세어 준다. 역할을 바꾸어 한 번 더 한다(모두 6분). 세 가지 이하이면 빠진 것을 짝이 물어봐 준다.',
+            task: '본 것을 들려줄 때의 마음가짐을 고르고, 짝에게 네 가지로 들려줘요.',
+            levels: SCALE_LV,
+            items: [
+              { prompt: '하준이는 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '하준', situation: '하준이가 전시에서 본 그림 이야기를 하려는데, 짝이 "그건 말할 거리도 아니야" 했어요.', choices: [
+                { id: 'tell', text: '"들어 보면 너도 그 그림이 보일 거야" 하고 이야기해요', result: '짝이 귀를 기울이고 질문을 해요.', mood: '기쁨' },
+                { id: 'stop', text: '"맞아, 별것 아니야" 하고 그만둬요', result: '하준이가 본 멋진 그림을 아무도 몰라요.', mood: '속상함', why: '본 것을 들려주면 듣는 친구는 무엇을 얻을까요?' },
+                { id: 'angry', text: '"너랑 말 안 해!" 하고 화를 내요', result: '두 친구 모두 기분이 상해요.', mood: '화남', why: '화를 내면 그림 이야기를 나눌 수 있을까요?' }] }, target: { choice: 'tell' }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'short', text: '"그냥 좋았어" 한마디만 하고 끝내요', result: '짝은 어떤 그림인지 떠올리지 못해요.', mood: '걱정', why: '한마디만 들으면 짝이 그림을 떠올릴 수 있을까요?' },
+                  { id: 'tell', text: '"들어 보면 너도 그 그림이 보일 거야" 하고 이야기해요', result: '짝이 귀를 기울이고 질문을 해요.', mood: '기쁨' },
+                  { id: 'stop', text: '"맞아, 별것 아니야" 하고 그만둬요', result: '하준이가 본 멋진 그림을 아무도 몰라요.', mood: '속상함', why: '본 것을 들려주면 듣는 친구는 무엇을 얻을까요?' },
+                  { id: 'angry', text: '"너랑 말 안 해!" 하고 화를 내요', result: '두 친구 모두 기분이 상해요.', mood: '화남', why: '화를 내면 그림 이야기를 나눌 수 있을까요?' }] } } } },
+              { prompt: '43차시에 고른 작품을 네 가지로 짝에게 1분 동안 들려줘요. 듣는 짝은 들은 가지 수를 손가락으로 세어 줘요.', free: true, talk: true },
+              { prompt: '짝에게 들려준 뒤 내 뿌듯함의 크기를 내 생각대로 골라 보세요.', toolOptions: { mode: 'scale', situation: '짝에게 내가 본 작품을 네 가지로 들려주었어요.', feeling: '뿌듯함', after: '빠뜨린 것이 있었다면 다음에 무엇을 더 말할지 생각해 봐요.' }, target: { level: 'any' }, difficulty: 0.05, hints: SELF_H },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"짝이 들려준 이야기 가운데 가장 기억에 남는 것은 무엇인가요?" 두세 명이 짝에게 들은 작품 이야기를 대신 들려주고, 짝은 빠진 것이 있으면 덧붙인다. 다음 시간에는 같은 그림을 보고 서로 다르게 느낀 것을 나눈다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { mode: 'pick', basket: '자세한 말', cards: ['멋있었어요', '「서당」 가운데 아이가 손등으로 눈물을 닦고 있었어요', '그냥 그랬어요'] }, prompt: '친구가 그림을 떠올릴 수 있는 말을 골라 보세요.', target: { pick: ['「서당」 가운데 아이가 손등으로 눈물을 닦고 있었어요'] }, difficulty: 0.05 },
+          { type: 'choice', prompt: '전시에서 본 것을 친구에게 자세히 들려주면 어떻게 될까요?', options: ['듣는 친구도 그 작품을 떠올릴 수 있어요', '말할 거리가 못 돼서 친구가 지루해해요', '작품이 없어져요'], answer: 0, difficulty: 0.1, explain: '본 것을 자세히 들려주면 듣는 친구도 그 작품을 함께 볼 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '네 가지로 들려주기',
+      items: [
+        { type: 'table', prompt: '내가 들려줄 작품을 네 가지로 쓰세요.', columns: ['네 가지', '내가 쓸 말'], cells: [['작품 이름', ''], ['본 것', ''], ['있던 자리', ''], ['느낌', '']] },
+        { type: 'choice', prompt: '더 자세히 말한 것에 ○ 하세요.', options: ['그림이 예뻤어요', '연못 위에 초록 잎이 떠 있어서 시원했어요'], answer: '연못 위에 초록 잎이 떠 있어서 시원했어요' },
+        { type: 'check', prompt: '짝에게 들려줄 때 한 것에 모두 ✓ 하세요.', options: ['작품 이름을 말했어요', '본 것을 말했어요', '있던 자리를 말했어요', '느낌을 말했어요'] },
+        { type: 'short', prompt: '짝이 들려준 작품 이야기에서 기억나는 것을 쓰세요.' },
+      ],
+      easy: {
+        note: '이름 → 본 것 → 자리 → 느낌 차례로 말해요.',
+        items: [
+          { type: 'choice', prompt: '그림이 더 잘 떠오르는 말에 ○ 하세요.', options: ['좋았어요', '노란 별이 하늘에 있었어요'], answer: '노란 별이 하늘에 있었어요' },
+          { type: 'short', prompt: '내가 본 작품의 이름을 쓰세요.' },
+          { type: 'draw', prompt: '그 작품에서 본 것을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생겨요. 빈칸 카드에 함정 카드가 없어요.',
+      base: '네 가지 물음에 맞는 대답을 찾고, 짝에게 네 가지로 들려줘요.',
+      challenge: '두루뭉술한 함정 카드와 그럴듯한 보기가 더 있어요. 들려줄 때 본 것을 적어도 두 가지 말해요.',
+    },
+    teacherNotes: '그림 자료: 고흐 「별이 빛나는 밤」(1889), 모네 「수련」(1906 무렵), 김홍도 「씨름」·「서당」은 저작권 보호 기간이 끝난 작품이다. 칠판의 네 가지(작품 이름·본 것·있던 자리·느낌)는 45~47차시에도 쓰므로 남겨 둔다. 자주 보이는 어려움: ① "좋았어요"만 말한다 → "무엇을 보고 좋았나요?" 하고 본 것으로 돌아가게 한다. ② 자리를 말하지 못한다 → 위쪽·아래쪽·가운데·구석 같은 말을 칠판에 적어 둔다. ③ 듣는 짝이 끼어든다 → 1분 동안은 손가락만 세는 약속을 둔다.',
+  }));
+
+  lessons.push(L(45, {
+    title: '같은 그림을 다르게 느낀 까닭 듣고 받아 주기',
+    objective: '같은 작품을 보고 친구가 나와 다르게 느낀 까닭을 듣고, "그렇게 볼 수도 있구나" 하고 받아들이는 말을 할 수 있다.',
+    illustration: ART('three children in front of a swirling starry night painting print, one smiling with arms raised, one hugging herself a little scared, one calm with eyes half closed, speech bubbles above them', '같은 그림, 다른 느낌', [
+      { motif: 'tree', x: 120, y: 214 }, { motif: 'house', x: 380, y: 216, color: 'sky' }, { motif: 'star', x: 250, y: 100, s: 0.5 }], true),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '고흐의 「별이 빛나는 밤」을 띄우고 30초 동안 보게 한 뒤 묻는다. "이 그림을 보니 신나는 사람? 조금 무서운 사람? 편안한 사람?" 손이 여러 곳에서 올라가는 것을 함께 본다. "같은 그림인데 왜 느낌이 다를까요?" 한 사람만 맞고 나머지는 틀렸다고 여기는 학생이 있으면 그 생각을 칠판에 적어 두고 오늘 끝에 다시 본다. 시연 단추로 \'「수련」의 물빛이 잔잔해요\' 옆에 편안함 카드가 놓이는 모습을 보여 준다.',
+        student: '「별이 빛나는 밤」을 보고 든 느낌에 손을 들어요.',
+        demo: { tool: 'emotion', options: { cards: ['편안함', '화남'], slots: [{ id: 's1', label: '「수련」의 물빛이 잔잔해요' }], shuffle: false }, sequence: [{ match: { s1: '편안함' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 친구마다 다르게 느낀 까닭 찾기', minutes: 13, tool: 'mindmap',
+            teacher: '「별이 빛나는 밤」과 「씨름」을 띄워 두고 카드의 까닭이 그림 어디에 있는지 가리키게 한다. "민지는 신난다고 했어요. 그림 어디를 보고 그랬을까요?" 느낌이 다른 까닭은 보는 곳과 떠올린 것이 달라서라는 것을 짚는다. \'선생님과 같은 느낌이 정답\'이라고 여기는 학생에게 "선생님도 이 그림이 조금 무서워요. 그럼 민지는 틀렸을까요?" 하고 되묻는다.',
+            task: '친구가 느낀 것과 그 까닭을 잇고, 감상에 대한 맞는 생각을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '친구들이 「별이 빛나는 밤」을 보고 느낀 것과 그 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '「별이 빛나는 밤」', slots: [{ id: 's1', label: '민지: 신나요' }, { id: 's2', label: '준호: 조금 무서워요' }, { id: 's3', label: '서아: 편안해요' }], cards: ['소용돌이가 춤추는 것 같아서', '커다란 검은 나무가 어두워서', '마을 집들이 조용히 잠든 것 같아서'] },
+                target: { match: { s1: '소용돌이가 춤추는 것 같아서', s2: '커다란 검은 나무가 어두워서', s3: '마을 집들이 조용히 잠든 것 같아서' } }, difficulty: 0.1,
+                hints: ['친구마다 그림의 어느 곳을 보았는지 떠올려 보세요.', '그 느낌이 들 만한 모습인지 카드와 느낌을 한 번 더 견주어 봐요.', '춤추는 소용돌이는 신남, 어두운 나무는 무서움, 잠든 마을은 편안함이에요.'] },
+              { prompt: '친구들이 「씨름」을 보고 느낀 것과 그 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '「씨름」', slots: [{ id: 's1', label: '하준: 가슴이 떨려요' }, { id: 's2', label: '지우: 웃음이 나요' }], cards: ['내가 씨름꾼이 된 것 같아서', '구경꾼들 얼굴이 재미있어서', '종이가 누래서'] },
+                target: { match: { s1: '내가 씨름꾼이 된 것 같아서', s2: '구경꾼들 얼굴이 재미있어서' } }, difficulty: 0.15,
+                hints: ['그 느낌이 들려면 그림 속 무엇을 보았거나 무엇을 떠올렸을지 생각해 봐요.', '종이 색이 그 느낌의 까닭이 될까요? 그림 속 사람을 말한 카드를 다시 봐요.', '씨름꾼이 된 것 같으면 떨리고, 구경꾼 얼굴이 재미있으면 웃음이 나요.'] },
+              { prompt: '같은 그림을 보고 느낀 것에 대해 맞는 생각만 골라 보세요.', toolOptions: { mode: 'pick', basket: '맞는 생각', cards: ['사람마다 다르게 느낄 수 있어요', '까닭을 들으면 친구 생각을 알 수 있어요', '선생님과 같은 느낌만 정답이에요', '나와 다르면 틀린 거예요'] },
+                levels: { challenge: { toolOptions: { cards: ['사람마다 다르게 느낄 수 있어요', '까닭을 들으면 친구 생각을 알 수 있어요', '선생님과 같은 느낌만 정답이에요', '나와 다르면 틀린 거예요', '많은 친구가 고른 느낌만 맞아요'] } } },
+                target: { pick: ['사람마다 다르게 느낄 수 있어요', '까닭을 들으면 친구 생각을 알 수 있어요'] }, difficulty: 0.15,
+                hints: ['오늘 손을 들었을 때 느낌이 몇 가지로 나뉘었는지 떠올려 보세요.', '느낌에 정답이 하나뿐이라면 손이 여러 곳에서 올라갔을까요?', '느낌은 사람마다 다를 수 있고, 까닭을 들으면 친구를 알게 돼요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 다른 감상 받아 주기', minutes: 14, tool: 'emotion',
+            teacher: '"친구가 나와 다르게 느꼈을 때 어떤 말을 들으면 기분이 좋을까요?" 받아 주는 말을 함께 읽고 따라 말한다. 모둠 감상 나누기(6분)에서는 한 사람씩 「씨름」을 보고 느낌 한 낱말과 까닭을 말하고, 나머지는 "그렇게 볼 수도 있구나" 하고 받아 준다. "틀렸어"라는 말이 나오면 멈추고 "까닭을 물어볼까요?" 하고 바꾸어 말하게 한다.',
+            task: '다른 감상을 받아 주는 말을 고르고, 모둠에서 감상을 나누며 받아 줘요.',
+            levels: SCALE_LV,
+            items: [
+              { prompt: '친구가 나와 다르게 느꼈을 때 받아 주는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '받아 주는 말', cards: ['"그렇게 볼 수도 있구나"', '"왜 그렇게 느꼈어?"', '"네 생각은 틀렸어"', '"그게 뭐가 무서워?"'], weather: false },
+                levels: { challenge: { toolOptions: { cards: ['"그렇게 볼 수도 있구나"', '"왜 그렇게 느꼈어?"', '"네 생각은 틀렸어"', '"그게 뭐가 무서워?"', '"그런 생각은 이상해"'] } } },
+                target: { pick: ['"그렇게 볼 수도 있구나"', '"왜 그렇게 느꼈어?"'] }, difficulty: 0.1,
+                hints: ['그 말을 들은 친구가 다시 말하고 싶어질지 떠올려 봐요.', '친구의 느낌을 깎아내리는 말이 섞여 있지 않은지 다시 봐요.', '"그렇게 볼 수도 있구나"와 까닭을 묻는 말이 받아 주는 말이에요.'] },
+              { prompt: '지우는 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '지우', situation: '하준이는 「수련」이 지루하다고 했어요. 지우는 「수련」이 정말 좋아요.', choices: [
+                { id: 'ask', text: '지루한 까닭을 묻고, 내가 좋은 까닭도 말해요', result: '두 친구가 그림을 한 번 더 함께 봐요.', mood: '기쁨' },
+                { id: 'force', text: '좋다고 말할 때까지 우겨요', result: '하준이가 더 말하기 싫어져요.', mood: '화남', why: '우기면 하준이가 왜 그렇게 느꼈는지 알 수 있을까요?' },
+                { id: 'sulk', text: '말없이 토라져요', result: '두 친구 모두 기분이 상해요.', mood: '속상함', why: '말하지 않으면 서로의 생각을 알 수 있을까요?' }] }, target: { choice: 'ask' }, difficulty: 0.1 },
+              { prompt: '모둠에서 한 사람씩 「씨름」을 보고 느낌 한 낱말과 까닭을 말해요. 다른 친구들은 "그렇게 볼 수도 있구나" 하고 받아 줘요.', free: true, talk: true },
+              { prompt: '친구의 다른 느낌을 듣고 그림이 새롭게 보여 놀란 정도를 내 생각대로 골라 보세요.', toolOptions: { mode: 'scale', situation: '나는 편안하게 본 그림을 친구는 무섭다고 했어요. 까닭을 듣고 그림을 다시 보았어요.', feeling: '놀람', after: '친구 덕분에 새로 보인 것을 짝에게 말해 봐요.' }, target: { level: 'any' }, difficulty: 0.05, hints: SELF_H },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"오늘 들은 느낌 가운데 나와 가장 달랐던 것은 무엇이었나요? 그 까닭을 듣고 어떤 생각이 들었나요?" 두세 명의 대답을 듣는다. 출구 질문을 마친 뒤 도입 때 칠판에 적어 둔 생각을 다시 읽고 지금은 어떻게 생각하는지 묻는다. 다음 시간에는 묻는 말을 골라 짝의 감상을 더 깊이 들어 본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { mode: 'branch', situation: '서아는 「서당」이 재미있다고 했고, 준호는 「서당」이 슬프다고 했어요.', ask: '두 친구의 느낌을 어떻게 생각하나요?', choices: [
+            { id: 'both', text: '둘 다 그렇게 느낄 수 있어요', result: '두 친구가 서로의 까닭을 물어봐요.', mood: '기쁨' },
+            { id: 'only1', text: '서아만 맞게 느꼈어요', result: '준호가 속상해해요.', mood: '속상함', why: '준호에게도 그렇게 느낀 까닭이 있지 않을까요?' },
+            { id: 'only2', text: '준호만 맞게 느꼈어요', result: '서아가 속상해해요.', mood: '속상함', why: '서아에게도 그렇게 느낀 까닭이 있지 않을까요?' }] }, prompt: '두 친구의 느낌을 어떻게 생각하는지 골라 보세요.', target: { choice: 'both' }, difficulty: 0.1 },
+          { type: 'choice', prompt: '친구가 나와 다르게 느꼈어요. 알맞은 말은?', options: ['"네 까닭이 궁금해"', '"너는 틀렸어"', '"내 말을 따라 해"'], answer: 0, difficulty: 0.05, explain: '까닭을 물으면 친구가 무엇을 보았는지 알 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '같은 그림, 다른 느낌',
+      items: [
+        { type: 'table', prompt: '「별이 빛나는 밤」을 보고 느낀 것과 까닭을 쓰세요.', columns: ['누구', '느낌', '까닭'], cells: [['나', '', ''], ['짝', '', ''], ['모둠 친구', '', '']] },
+        { type: 'choice', prompt: '받아 주는 말에 ○ 하세요.', options: ['"그건 틀렸어"', '"그렇게 볼 수도 있구나"', '"몰라"'], answer: '"그렇게 볼 수도 있구나"' },
+        { type: 'check', prompt: '모둠 감상 나누기에서 내가 한 것에 모두 ✓ 하세요.', options: ['느낌과 까닭을 함께 말했어요', '친구 말을 끝까지 들었어요', '"그렇게 볼 수도 있구나"라고 말했어요'] },
+        { type: 'short', prompt: '친구의 느낌을 듣고 그림에서 새로 보인 것을 쓰세요.' },
+      ],
+      easy: {
+        note: '느낌은 사람마다 달라도 돼요.',
+        items: [
+          { type: 'choice', prompt: '친구가 나와 다르게 느꼈을 때 할 말에 ○ 하세요.', options: ['"왜 그렇게 느꼈어?"', '"틀렸어"'], answer: '"왜 그렇게 느꼈어?"' },
+          { type: 'short', prompt: '「별이 빛나는 밤」을 보고 든 내 느낌을 한 낱말로 쓰세요.' },
+          { type: 'draw', prompt: '그 느낌이 든 그림 속 부분을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생겨요. 마음 크기는 세 칸에서 골라요.',
+      base: '친구가 느낀 것과 까닭을 잇고, 받아 주는 말을 골라요.',
+      challenge: '함정 생각 카드와 받아 주지 않는 말이 더 섞여 있어요. 모둠 감상 나누기에서 친구의 까닭을 한 번 더 묻고, 들은 까닭을 활동지에 써요.',
+    },
+    teacherNotes: '그림 자료: 고흐 「별이 빛나는 밤」(1889), 모네 「수련」(1906 무렵), 김홍도 「씨름」·「서당」은 저작권 보호 기간이 끝난 작품이다. 감상에는 정답이 없지만, 까닭은 그림 속에서 찾을 수 있어야 한다는 것을 함께 지킨다. 자주 보이는 어려움: ① 친구 느낌을 고쳐 주려 한다 → 고치기 전에 까닭을 먼저 묻게 한다. ② 친구를 따라 같은 느낌만 말한다 → 쪽지에 먼저 내 느낌을 적고 말하게 한다. ③ 무서운 느낌을 말한 친구를 놀린다 → 선생님도 같은 느낌이 들 수 있다고 말해 준다.',
+  }));
+
+  lessons.push(L(46, {
+    title: '물음을 골라 짝의 감상 인터뷰하기',
+    objective: '짝이 길게 대답할 수 있는 물음을 골라 감상을 인터뷰하고, 들은 감상을 "제 짝은 ~래요"로 다른 친구에게 전할 수 있다.',
+    illustration: ART('two children holding a paper microphone, one asking and the other answering while pointing at a framed painting, a small notebook with question marks between them', '감상 인터뷰', [
+      { motif: 'flower', x: 120, y: 228, color: 'peach' }, { motif: 'cloud', x: 300, y: 96 }, { motif: 'tree', x: 380, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '두 가지 짧은 대화를 학생 한 명과 해 보인다. ① "그림 봤어?" "응." ② "그림에서 누가 제일 눈에 띄었어?" "가운데서 우는 아이요. 친구들이 웃어서 더 슬퍼 보였어요." "어느 물음에 대답이 더 길었나요? 왜 그럴까요?" 21~22차시에 인터뷰 물음을 만든 경험을 떠올리게 한다. 시연 단추로 \'그림에서 무슨 색이 가장 많았어?\'가 바구니에 들어가는 모습을 보여 준다.',
+        student: '두 대화 가운데 대답이 더 긴 쪽을 손가락으로 표시해요.',
+        demo: { tool: 'mindmap', options: { mode: 'pick', basket: '길게 대답할 물음', cards: ['그림에서 무슨 색이 가장 많았어?', '봤어?'], shuffle: false }, sequence: [{ pick: ['그림에서 무슨 색이 가장 많았어?'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 28,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 감상을 끌어내는 물음 고르기', minutes: 12, tool: 'mindmap',
+            teacher: '"\'응\'이나 \'아니\'로 끝나는 물음은 대답이 짧아요. \'무엇·누가·어디·왜·어떤\'이 들어간 물음은 대답이 길어요." 물음 카드를 소리 내어 읽고, 대답을 직접 해 보며 고르게 한다. 본 것을 묻는 물음과 느낌을 묻는 물음을 섞어 쓰면 감상을 더 자세히 들을 수 있다고 알려 준다.',
+            task: '짝이 길게 대답할 물음을 고르고, 대답에 맞는 물음을 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '짝이 길게 대답할 수 있는 물음만 골라 보세요.', toolOptions: { mode: 'pick', basket: '길게 대답할 물음', cards: ['어디가 가장 마음에 들었어?', '그걸 보고 무슨 생각이 났어?', '좋았어?', '다 봤어?'] },
+                target: { pick: ['어디가 가장 마음에 들었어?', '그걸 보고 무슨 생각이 났어?'] }, difficulty: 0.1,
+                hints: ['물음마다 "응"이나 "아니"로 대답이 끝나는지 직접 대답해 봐요.', '\'어디\'나 \'무슨\' 같은 말이 들어 있는 물음을 다시 찾아봐요.', '마음에 든 곳을 묻는 물음과 떠오른 생각을 묻는 물음이에요.'] },
+              { prompt: '짝의 대답을 읽고, 어떤 물음에 한 대답인지 이어 보세요.', toolOptions: { mode: 'match', topic: '대답에 맞는 물음', slots: [{ id: 's1', label: '「서당」 가운데 우는 아이요.' }, { id: 's2', label: '친구들이 웃어서 아이가 더 속상할 것 같았어요.' }, { id: 's3', label: '박물관에 가서 진짜 그림을 보고 싶어요.' }], cards: ['누가 가장 눈에 띄었어?', '보면서 무슨 생각이 들었어?', '다음에 무엇을 해 보고 싶어?'] },
+                target: { match: { s1: '누가 가장 눈에 띄었어?', s2: '보면서 무슨 생각이 들었어?', s3: '다음에 무엇을 해 보고 싶어?' } }, difficulty: 0.15,
+                hints: ['대답이 사람인지, 생각인지, 앞으로 할 일인지 먼저 나눠 봐요.', '\'누가\'에는 사람, \'무슨 생각\'에는 생각을 대답해요. 남은 것을 맞춰 봐요.', '우는 아이는 누가, 속상할 것 같다는 생각, 박물관은 해 보고 싶은 일이에요.'],
+                levels: { challenge: { toolOptions: { cards: ['누가 가장 눈에 띄었어?', '보면서 무슨 생각이 들었어?', '다음에 무엇을 해 보고 싶어?', '그림 봤어?'] } } } },
+              { prompt: '물음을 본 것을 묻는 물음과 느낌을 묻는 물음으로 나누어 보세요.', toolOptions: { slots: ['본 것을 묻는 물음', '느낌을 묻는 물음'], topic: '감상 물음', cards: ['무슨 색이 보였어?', '어떤 사람이 있었어?', '보니까 어떤 기분이었어?', '그림 속에 들어가면 어떤 마음일 것 같아?'] },
+                target: { sort: { '본 것을 묻는 물음': ['무슨 색이 보였어?', '어떤 사람이 있었어?'], '느낌을 묻는 물음': ['보니까 어떤 기분이었어?', '그림 속에 들어가면 어떤 마음일 것 같아?'] } }, difficulty: 0.15,
+                hints: ['대답이 눈으로 가리킬 수 있는 것인지, 마음인지 떠올려 봐요.', '\'기분\'이나 \'마음\'을 묻는 물음이 어느 칸에 있는지 다시 봐요.', '색과 사람은 본 것, 기분과 마음은 느낌을 묻는 물음이에요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 짝 인터뷰하고 들은 감상 전하기', minutes: 16, tool: 'story',
+            teacher: '인터뷰 차례를 정한 뒤 종이 마이크를 쥐고 짝 인터뷰를 한다(한 사람 2분씩, 물음 세 가지). 짝이 "몰라"라고 하면 "그림에서 무슨 색이 보여?"처럼 쉬운 본 것 물음부터 다시 묻게 한다. 인터뷰가 끝나면 모둠에서 "제 짝은 ~을 보고 ~라고 느꼈대요"로 짝의 감상을 전한다(6분). 내 생각을 섞어 전하는 학생에게 "짝이 정말 그렇게 말했나요?" 하고 묻는다.',
+            task: '인터뷰 차례를 정하고, 짝을 인터뷰한 뒤 들은 감상을 모둠에 전해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '인터뷰하는 차례를 놓아 보세요.', toolOptions: { cards: [{ id: 'listen', text: '대답을 끝까지 들어요', motif: 'leaf' }, { id: 'hello', text: '인사해요', motif: 'sun' }, { id: 'thanks', text: '고맙다고 말해요', motif: 'flower' }, { id: 'ask', text: '물음을 하나 물어요', motif: 'star' }, { id: 'repeat', text: '들은 대답을 다시 말해 줘요', motif: 'bird' }], slots: ['1', '2', '3', '4', '5'] },
+                levels: { challenge: { prompt: '인터뷰하는 차례를 놓아 보세요. 인터뷰할 때 하지 않을 일은 남겨요.', toolOptions: { cards: [{ id: 'listen', text: '대답을 끝까지 들어요', motif: 'leaf' }, { id: 'hello', text: '인사해요', motif: 'sun' }, { id: 'thanks', text: '고맙다고 말해요', motif: 'flower' }, { id: 'ask', text: '물음을 하나 물어요', motif: 'star' }, { id: 'repeat', text: '들은 대답을 다시 말해 줘요', motif: 'bird' }, { id: 'cut', text: '대답 중간에 끼어들어요', motif: 'cloud' }] } } },
+                target: { order: ['hello', 'ask', 'listen', 'repeat', 'thanks'] }, difficulty: 0.15,
+                hints: ['인터뷰를 시작할 때와 끝낼 때 하는 말을 먼저 찾아 양 끝에 놓아 봐요.', '대답을 다시 말해 주려면 그 전에 무엇을 해야 할까요?', '인사 → 물음 → 끝까지 듣기 → 다시 말해 주기 → 고맙다는 말이에요.'] },
+              { prompt: '지우는 「수련」을 보고 시원하다고 느꼈대요. 지우의 감상을 전하는 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['「수련」', '「씨름」', '시원하다고', '무섭다고'], slots: [{ id: 's1', who: '나', label: '제 짝 지우는 ___ 을 보았대요.' }, { id: 's2', who: '나', label: '그리고 ___ 느꼈대요.' }] },
+                target: { fill: { s1: '「수련」', s2: '시원하다고' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['「수련」', '「씨름」', '「별이 빛나는 밤」', '시원하다고', '무섭다고', '신난다고'] } } },
+                hints: ['짝이 말한 작품과 느낌을 문항 글에서 먼저 찾아요.', '전하는 말에는 내 생각이 아니라 짝이 말한 것을 넣어요.', '「수련」을 보고 시원하다고 느꼈대요.'] },
+              { prompt: '종이 마이크로 짝에게 고른 물음 세 가지를 묻고, 대답을 활동지에 적어요. 역할을 바꿔서 한 번 더 해요.', free: true, talk: true },
+              { prompt: '모둠에서 "제 짝은 ~을 보고 ~라고 느꼈대요"로 짝의 감상을 전해요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"인터뷰로 들은 짝의 감상 가운데 나는 생각하지 못한 것이 있었나요?" 두세 명의 대답을 듣는다. 인터뷰를 받은 학생에게 "끝까지 들어 줄 때 기분이 어땠나요?" 하고 묻는다. 다음 시간에는 또 가 보고 싶은 전시를 골라 까닭을 말한다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', basket: '길게 대답할 물음', cards: ['그림 속 하늘은 어떤 색이었어?', '봤어?', '재밌었어?'] }, prompt: '친구가 길게 대답할 수 있는 물음을 골라 보세요.', target: { pick: ['그림 속 하늘은 어떤 색이었어?'] }, difficulty: 0.05 },
+          { type: 'choice', prompt: '인터뷰에서 친구가 대답하는 동안 나는 어떻게 할까요?', options: ['끝까지 들어요', '내 이야기를 먼저 해요', '다른 곳을 봐요'], answer: 0, difficulty: 0.05, explain: '끝까지 들어야 친구의 감상을 다시 전할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '짝 감상 인터뷰',
+      items: [
+        { type: 'table', prompt: '짝에게 물은 것과 짝의 대답을 쓰세요.', columns: ['내가 물은 것', '짝의 대답'], rows: 3 },
+        { type: 'choice', prompt: '짝이 길게 대답할 수 있는 물음에 ○ 하세요.', options: ['봤어?', '그림 속 누가 눈에 띄었어?', '좋았어?'], answer: '그림 속 누가 눈에 띄었어?' },
+        { type: 'blank', prompt: '짝의 감상을 전하는 말을 완성하세요.', text: '제 짝은 ___을 보고 ___ 느꼈대요.' },
+        { type: 'short', prompt: '짝에게 들은 감상 가운데 나는 생각하지 못한 것을 쓰세요.' },
+      ],
+      easy: {
+        note: '\'누가·무엇·어디·왜\'가 들어간 물음은 대답이 길어요.',
+        items: [
+          { type: 'choice', prompt: '대답이 더 길게 나오는 물음에 ○ 하세요.', options: ['봤어?', '무슨 색이 보였어?'], answer: '무슨 색이 보였어?' },
+          { type: 'short', prompt: '짝에게 물어볼 물음을 하나 쓰세요.' },
+          { type: 'draw', prompt: '짝이 말한 그림 속 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생겨요. 인터뷰는 물음 두 가지로 해요.',
+      base: '길게 대답할 물음을 골라 짝을 인터뷰하고 들은 감상을 전해요.',
+      challenge: '함정 물음 카드와 인터뷰에서 하지 않을 일 카드가 있어요. 인터뷰에서 짝의 대답을 듣고 "왜?"를 한 번 더 물어요.',
+    },
+    teacherNotes: '준비물: 종이 마이크(종이를 말아 만든 것). 21~22차시에 만든 인터뷰 물음 목록을 떠올리게 하면 좋다. 활동지의 빈칸(blank) 문항은 짝의 대답에 따라 답이 달라진다. 자주 보이는 어려움: ① "응/아니" 물음만 한다 → \'누가·무엇·어디·왜\' 낱말 카드를 책상에 놓아 준다. ② 짝의 말을 끊고 내 생각을 말한다 → 마이크를 쥔 사람만 말하는 약속을 둔다. ③ 전할 때 내 생각을 섞는다 → "짝이 한 말 그대로"를 먼저 말하고, 내 생각은 따로 말하게 한다.',
+  }));
+
+  lessons.push(L(47, {
+    title: '또 가 보고 싶은 전시 고르고 까닭 말하기',
+    objective: '여러 전시 가운데 또 가 보고 싶은 전시를 하나 골라, "왜냐하면"을 넣어 그 까닭을 말할 수 있다.',
+    illustration: ART('children in front of a board with small posters of different exhibitions such as old paintings, picture book art and pottery, each child pointing at one poster and talking', '또 가 보고 싶은 전시', [
+      { motif: 'house', x: 120, y: 216, color: 'lavender' }, { motif: 'flower', x: 250, y: 228, color: 'buttercup' }, { motif: 'house', x: 380, y: 216, color: 'peach' }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '33차시에 찾은 전시와 38차시에 만든 알림판을 다시 보여 준다. "또 가 보고 싶은 전시가 있나요? 왜요?" "그냥요"라고 하면 "그 전시에서 무엇을 보고 싶은데요?" 하고 한 번 더 묻는다. "가 보고 싶은 까닭을 말하면 친구도 그 전시가 궁금해져요." 시연 단추로 \'공룡을 좋아하는 하준\' 옆에 \'공룡 화석 전시\'가 이어지는 모습을 보여 준다.',
+        student: '또 가 보고 싶은 전시를 하나 떠올려 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '가 보고 싶은 전시', slots: [{ id: 's1', label: '공룡을 좋아하는 하준' }], cards: ['공룡 화석 전시'], shuffle: false }, sequence: [{ match: { s1: '공룡 화석 전시' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 28,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 좋아하는 것과 어울리는 전시 찾기', minutes: 13, tool: 'mindmap',
+            teacher: '"좋아하는 것이나 궁금한 것이 있으면 가 보고 싶은 전시를 고르기 쉬워요." 전시 이름을 읽고 그 전시에서 무엇을 볼 수 있을지 먼저 말하게 한다. \'그림책 그림 전시\'는 그림책에 실린 그림을 걸어 두는 전시라고 알려 준다. \'그냥요\'를 까닭으로 고르는 학생에게 "그냥요를 들은 친구는 그 전시가 궁금해질까요?" 하고 묻는다.',
+            task: '친구가 좋아하는 것과 어울리는 전시를 잇고, 까닭이 되는 말을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '친구가 좋아하는 것과 어울리는 전시를 이어 보세요.', toolOptions: { mode: 'match', topic: '어울리는 전시', slots: [{ id: 's1', label: '민지: 옛날 사람들 이야기가 궁금해요' }, { id: 's2', label: '준호: 그림책 읽기를 좋아해요' }, { id: 's3', label: '서아: 흙으로 만든 그릇이 좋아요' }], cards: ['옛 그림 전시', '그림책 그림 전시', '도자기 전시'] },
+                target: { match: { s1: '옛 그림 전시', s2: '그림책 그림 전시', s3: '도자기 전시' } }, difficulty: 0.1,
+                hints: ['친구가 좋아하는 것을 볼 수 있는 전시가 어디일지 떠올려 봐요.', '전시 이름 속에 친구가 좋아하는 것이 들어 있는지 한 번 더 견주어 봐요.', '옛날 이야기는 옛 그림, 그림책은 그림책 그림, 그릇은 도자기 전시예요.'],
+                levels: { challenge: { toolOptions: { cards: ['옛 그림 전시', '그림책 그림 전시', '도자기 전시', '자동차 전시'] } } } },
+              { prompt: '가 보고 싶은 까닭을 말한 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '까닭을 말했어요', cards: ['「씨름」을 진짜 크기로 보고 싶어서요', '도자기 만드는 모습을 직접 보고 싶어서요', '그냥요', '몰라요'] },
+                target: { pick: ['「씨름」을 진짜 크기로 보고 싶어서요', '도자기 만드는 모습을 직접 보고 싶어서요'] }, difficulty: 0.1,
+                hints: ['그 말을 들은 친구가 전시에 가고 싶은 까닭을 알 수 있는지 생각해 봐요.', '무엇을 보고 싶은지가 들어 있지 않은 말이 섞여 있어요.', '진짜 크기의 「씨름」과 도자기 만드는 모습을 말한 것이 까닭이에요.'] },
+              { prompt: '하준이는 흙으로 컵을 만들어 본 뒤 옛 그릇이 궁금해졌어요. 하준이의 말을 완성해 보세요.', toolOptions: { mode: 'fill', cards: ['도자기 전시', '옛 그릇 모양이 궁금하기', '빛 그림 전시', '빛이 움직이는 게 좋기'], slots: [{ id: 's1', label: '나는 ___ 에 또 가 보고 싶어요.' }, { id: 's2', label: '왜냐하면 ___ 때문이에요.' }] },
+                target: { fill: { s1: '도자기 전시', s2: '옛 그릇 모양이 궁금하기' } }, difficulty: 0.15,
+                hints: ['하준이가 무엇을 해 보고 무엇이 궁금해졌는지 문항 글에서 찾아요.', '고른 전시와 까닭이 서로 어울리는지 한 번 더 봐요.', '도자기 전시에, 옛 그릇 모양이 궁금하기 때문이에요.'],
+                levels: { easy: { toolOptions: { cards: ['도자기 전시', '옛 그릇 모양이 궁금하기', '빛 그림 전시'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 내가 가 보고 싶은 전시 말하기', minutes: 15, tool: 'emotion',
+            teacher: '짝과 가 보고 싶은 전시가 다를 때를 먼저 생각한다. 그다음 짝에게 "나는 ○○ 전시에 또 가 보고 싶어요. 왜냐하면 ~ 때문이에요."로 말하고, 짝은 "거기서 무엇을 제일 보고 싶어?" 하고 한 번 더 물어 준다(4분). 끝으로 활동지에 가족에게 보낼 \'같이 가요\' 쪽지를 쓴다(5분). 가 본 전시가 없는 학생은 33~38차시에 알아본 전시나 우리 반 작은 미술관에서 고르게 한다.',
+            task: '가 보고 싶은 전시와 까닭을 짝에게 말하고, 가족에게 보낼 쪽지를 써요.',
+            levels: SCALE_LV,
+            items: [
+              { prompt: '서아는 어떻게 말하면 좋을까요?', toolOptions: { mode: 'branch', who: '서아', situation: '서아는 도자기 전시에 가고 싶고, 짝 지우는 그림책 그림 전시에 가고 싶어 해요.', choices: [
+                { id: 'reason', text: '"나는 옛 그릇이 궁금해서 가고 싶어. 너는 왜?" 하고 물어요', result: '두 친구가 서로의 까닭을 듣고 둘 다 궁금해져요.', mood: '기쁨' },
+                { id: 'mock', text: '"그림책 그림 전시는 시시해" 하고 말해요', result: '지우가 속상해서 말을 안 해요.', mood: '속상함', why: '지우가 가고 싶은 까닭을 들어 보았나요?' },
+                { id: 'follow', text: '내 생각은 말하지 않고 짝을 따라가요', result: '서아가 보고 싶던 그릇은 아무도 몰라요.', mood: '걱정', why: '내가 가고 싶은 까닭도 말해 볼 수 있지 않을까요?' }] }, target: { choice: 'reason' }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [
+                  { id: 'only', text: '"도자기 전시가 더 좋아" 하고 까닭 없이 말해요', result: '지우는 서아가 왜 그 전시를 고르는지 몰라요.', mood: '걱정', why: '까닭을 말하지 않으면 지우가 서아 마음을 알 수 있을까요?' },
+                  { id: 'mock', text: '"그림책 그림 전시는 시시해" 하고 말해요', result: '지우가 속상해서 말을 안 해요.', mood: '속상함', why: '지우가 가고 싶은 까닭을 들어 보았나요?' },
+                  { id: 'reason', text: '"나는 옛 그릇이 궁금해서 가고 싶어. 너는 왜?" 하고 물어요', result: '두 친구가 서로의 까닭을 듣고 둘 다 궁금해져요.', mood: '기쁨' },
+                  { id: 'follow', text: '내 생각은 말하지 않고 짝을 따라가요', result: '서아가 보고 싶던 그릇은 아무도 몰라요.', mood: '걱정', why: '내가 가고 싶은 까닭도 말해 볼 수 있지 않을까요?' }] } } } },
+              { prompt: '내가 고른 전시에 가 보고 싶은 마음의 크기를 내 생각대로 골라 보세요.', toolOptions: { mode: 'scale', situation: '또 가 보고 싶은 전시를 하나 골랐어요.', feeling: '설렘', after: '가장 보고 싶은 것을 짝에게 말해 봐요.' }, target: { level: 'any' }, difficulty: 0.05, hints: SELF_H },
+              { prompt: '짝에게 "나는 ○○ 전시에 또 가 보고 싶어요. 왜냐하면 ~ 때문이에요."로 말해요. 짝은 무엇을 제일 보고 싶은지 한 번 더 물어 줘요.', free: true, talk: true },
+              { prompt: '활동지에 가족에게 보낼 \'같이 가요\' 쪽지를 썼으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"친구가 고른 전시 가운데 나도 가 보고 싶어진 곳이 있나요?" 두세 명의 대답을 듣는다. \'같이 가요\' 쪽지는 집에 가져가 가족에게 전하게 한다. 다음 시간은 단원을 마무리하며 지금까지 배운 것을 돌아본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '어울리는 전시', slots: [{ id: 'e1', label: '별과 달을 좋아하는 지우' }, { id: 'e2', label: '옛날 옷이 궁금한 하준' }], cards: ['밤하늘 그림 전시', '옛날 옷 전시'] }, prompt: '친구가 좋아하는 것과 어울리는 전시를 이어 보세요.', target: { match: { e1: '밤하늘 그림 전시', e2: '옛날 옷 전시' } }, difficulty: 0.05 },
+          { type: 'choice', prompt: '가 보고 싶은 전시를 말할 때 까닭을 함께 말하면?', options: ['친구가 내 마음을 더 잘 알 수 있어요', '말이 길어져서 좋지 않아요', '까닭은 없어도 돼요'], answer: 0, difficulty: 0.1, explain: '까닭을 들으면 친구도 그 전시가 궁금해질 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '또 가 보고 싶은 전시',
+      items: [
+        { type: 'blank', prompt: '내가 또 가 보고 싶은 전시와 까닭을 쓰세요.', text: '나는 ___ 에 또 가 보고 싶어요. 왜냐하면 ___ 때문이에요.' },
+        { type: 'choice', prompt: '까닭을 말한 것에 ○ 하세요.', options: ['그냥요', '옛 그릇을 직접 보고 싶어서요', '몰라요'], answer: '옛 그릇을 직접 보고 싶어서요' },
+        { type: 'table', prompt: '짝이 가 보고 싶은 전시와 까닭을 쓰세요.', columns: ['짝이 고른 전시', '까닭'], rows: 1 },
+        { type: 'short', prompt: '가족에게 보낼 \'같이 가요\' 쪽지를 쓰세요.' },
+      ],
+      easy: {
+        note: '"왜냐하면"을 넣어 까닭을 말해요.',
+        items: [
+          { type: 'choice', prompt: '까닭이 들어 있는 말에 ○ 하세요.', options: ['그냥요', '그림을 크게 보고 싶어서요'], answer: '그림을 크게 보고 싶어서요' },
+          { type: 'short', prompt: '또 가 보고 싶은 전시의 이름을 쓰세요.' },
+          { type: 'draw', prompt: '그 전시에서 보고 싶은 것을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 빈칸 카드에 함정 카드가 하나뿐이에요. 마음 크기는 세 칸에서 골라요.',
+      base: '어울리는 전시를 잇고, "왜냐하면"을 넣어 까닭을 말해요.',
+      challenge: '함정 전시 카드와 까닭 없이 말하는 그럴듯한 보기가 있어요. 까닭을 두 가지 말하고, 짝의 까닭을 한 번 더 물어요.',
+    },
+    teacherNotes: '전시 이름은 특정 기관의 실제 전시가 아니라 종류를 나타낸 것이다. 지역 미술관·박물관의 어린이 전시를 함께 찾아보면 좋다. 가족과 전시에 가기 어려운 학생도 있으므로 온라인 전시(38차시)나 학교 안 전시도 고를 수 있게 한다. 자주 보이는 어려움: ① "그냥요", "재밌어서요"로 끝낸다 → "그 전시에서 무엇을 보고 싶은데요?" 하고 묻는다. ② 친구가 고른 전시를 깎아내린다 → 45차시의 받아 주는 말을 다시 떠올리게 한다. ③ 고를 전시가 떠오르지 않는다 → 알림판(38차시)에서 고르게 한다.',
+  }));
+
+  lessons.push(L(48, {
+    title: '인물·하루·전시를 돌아보고 스스로 평가하기',
+    objective: '단원에서 만난 인물, 하루를 알아본 사람들, 미술 전시에서 배운 것을 묶어 말하고, 내가 잘한 것과 더 해 볼 일을 스스로 평가할 수 있다.',
+    illustration: ART('a classroom table displaying a picture diary, a thank-you card, and a painted postcard side by side, children sitting around it sharing what they learned', '우리가 만난 사람과 작품', [
+      { motif: 'flower', x: 120, y: 228, color: 'rose' }, { motif: 'house', x: 250, y: 216, color: 'mint' }, { motif: 'star', x: 380, y: 96, s: 0.5 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '단원에서 만든 그림일기(9차시), 감사 카드(32차시), 엽서(43차시)를 칠판 앞에 나란히 놓는다. "이번 단원에서 우리는 세 갈래 길을 다녀왔어요. 이야기 속 인물을 만나고, 여러 사람의 하루를 알아보고, 미술 전시를 둘러보았어요." 시연 단추로 \'톤즈 아이들을 치료한 이태석\'이 \'이야기 속 인물\' 칸에 들어가는 모습을 보여 준다.',
+        student: '세 가지 가운데 가장 기억에 남는 것을 하나 떠올려 봐요.',
+        demo: { tool: 'mindmap', options: { slots: ['이야기 속 인물'], topic: '우리 단원', cards: ['톤즈 아이들을 치료한 이태석'], shuffle: false }, sequence: [{ sort: { '이야기 속 인물': ['톤즈 아이들을 치료한 이태석'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 단원 세 갈래 묶기', minutes: 14, tool: 'mindmap',
+            teacher: '"카드에 적힌 일이 이야기로 만난 사람인지, 하루를 알아본 사람인지, 전시에서 한 일인지 생각해 봐요." 칸 이름을 먼저 소리 내어 읽는다. 소방관과 간호사도 다른 사람을 돕지만 이 단원에서는 \'하루\'를 알아본 사람이었다는 것을 떠올리게 한다. 바른 생각을 고를 때는 그렇게 생각한 차시를 함께 떠올리게 한다.',
+            task: '단원에서 만난 것을 세 갈래로 묶고, 배운 것과 바른 생각을 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '카드를 단원의 세 갈래로 나누어 보세요.', toolOptions: { slots: ['이야기 속 인물', '하루를 알아본 사람', '전시에서 한 일'], topic: '우리 단원', cards: ['흉년에 쌀을 나눈 김만덕', '어린이날을 만든 방정환', '밤에 출동을 기다리는 소방관', '밤새 환자를 돌보는 간호사', '「씨름」을 천천히 오래 보기', '친구와 다른 감상 받아 주기'] },
+                target: { sort: { '이야기 속 인물': ['흉년에 쌀을 나눈 김만덕', '어린이날을 만든 방정환'], '하루를 알아본 사람': ['밤에 출동을 기다리는 소방관', '밤새 환자를 돌보는 간호사'], '전시에서 한 일': ['「씨름」을 천천히 오래 보기', '친구와 다른 감상 받아 주기'] } }, difficulty: 0.15,
+                hints: ['옛날 이야기로 들은 사람, 하루 시간표를 알아본 사람, 작품을 보며 한 일로 나눠 봐요.', '소방관과 간호사는 이야기로 만났나요, 하루를 알아보았나요?', '김만덕·방정환은 이야기 속 인물, 소방관·간호사는 하루, 「씨름」 보기와 감상 받아 주기는 전시예요.'],
+                levels: { easy: { toolOptions: { cards: ['흉년에 쌀을 나눈 김만덕', '밤에 출동을 기다리는 소방관', '「씨름」을 천천히 오래 보기'] }, prompt: '카드 세 장을 단원의 세 갈래로 나누어 보세요.', target: { sort: { '이야기 속 인물': ['흉년에 쌀을 나눈 김만덕'], '하루를 알아본 사람': ['밤에 출동을 기다리는 소방관'], '전시에서 한 일': ['「씨름」을 천천히 오래 보기'] } } } } },
+              { prompt: '단원의 세 갈래에서 배운 것과 지금 할 수 있는 일을 이어 보세요.', toolOptions: { mode: 'match', topic: '배운 것과 할 일', slots: [{ id: 's1', label: '이야기 속 인물에게 배운 것' }, { id: 's2', label: '사람들의 하루에서 배운 것' }, { id: 's3', label: '미술 전시에서 배운 것' }], cards: ['어려운 사람을 먼저 도와요', '밤에도 일하는 분께 고마워해요', '작품을 천천히 오래 봐요'] },
+                target: { match: { s1: '어려운 사람을 먼저 도와요', s2: '밤에도 일하는 분께 고마워해요', s3: '작품을 천천히 오래 봐요' } }, difficulty: 0.1,
+                hints: ['세 갈래마다 어떤 차시를 했는지 하나씩 떠올려 봐요.', '그 갈래에서 만난 사람이나 작품과 이어지는 일인지 다시 견주어 봐요.', '인물은 돕기, 하루는 고마워하기, 전시는 천천히 보기예요.'] },
+              { prompt: '이 단원에서 알게 된 바른 생각만 모두 골라 보세요.', toolOptions: { mode: 'pick', basket: '바른 생각', cards: ['돕는 일은 누구나 할 수 있어요', '사람마다 일하는 때가 달라요', '전시는 빨리 한 바퀴 돌면 다 본 거예요', '같은 그림도 사람마다 다르게 느낄 수 있어요'] },
+                target: { pick: ['돕는 일은 누구나 할 수 있어요', '사람마다 일하는 때가 달라요', '같은 그림도 사람마다 다르게 느낄 수 있어요'] }, difficulty: 0.15,
+                hints: ['카드마다 그 생각을 배운 차시를 떠올리고, 그때 무엇을 알게 되었는지 견주어 봐요.', '작은 미술관을 둘러볼 때 빨리 지나간 친구는 작품에 대해 말할 수 있었나요?', '빨리 한 바퀴 돌기만 빼고 세 가지가 바른 생각이에요.'],
+                levels: { challenge: { toolOptions: { cards: ['돕는 일은 누구나 할 수 있어요', '사람마다 일하는 때가 달라요', '전시는 빨리 한 바퀴 돌면 다 본 거예요', '같은 그림도 사람마다 다르게 느낄 수 있어요', '밤에는 아무도 일하지 않아요'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 스스로 평가하고 다짐하기', minutes: 13, tool: 'emotion',
+            teacher: '"이번에는 정답이 없어요. 내가 한 만큼 솔직하게 골라요." 세 갈래마다 눈금을 고른 뒤 그렇게 고른 까닭을 활동지에 한 줄씩 쓰게 한다. 낮게 고른 학생에게는 "다음에 하나만 더 해 본다면 무엇을 할까요?" 하고 다짐으로 잇는다. 끝으로 짝에게 가장 기억에 남는 시간과 앞으로 더 해 볼 일을 말하게 한다(4분).',
+            task: '세 갈래마다 내가 한 만큼을 솔직하게 고르고, 짝에게 다짐을 말해요.',
+            levels: SCALE_LV,
+            items: [
+              { prompt: '이야기 속 인물처럼 내가 다른 사람을 도운 만큼 뿌듯함의 크기를 골라 보세요.', toolOptions: { mode: 'scale', situation: '이번 단원에서 교실·집·동네에서 다른 사람을 도와 보았어요.', feeling: '뿌듯함', after: '가장 기억에 남는 도운 일을 활동지에 써요.' }, target: { level: 'any' }, difficulty: 0.05, hints: SELF_H },
+              { prompt: '일하는 분들께 고마운 마음을 전한 만큼 크기를 골라 보세요.', toolOptions: { mode: 'scale', situation: '감사 카드와 전할 말로 일하는 분들께 고마운 마음을 전했어요.', feeling: '고마움', after: '고마운 마음을 더 전하고 싶은 분을 떠올려 봐요.' }, target: { level: 'any' }, difficulty: 0.05, hints: SELF_H },
+              { prompt: '작품을 천천히 보고 자세히 들려준 만큼 자신감의 크기를 골라 보세요.', toolOptions: { mode: 'scale', situation: '작품을 한 작품씩 오래 보고, 본 것을 네 가지로 친구에게 들려주었어요.', feeling: '자신감', after: '다음 전시에서 더 해 볼 것을 생각해 봐요.' }, target: { level: 'any' }, difficulty: 0.05, hints: SELF_H },
+              { prompt: '짝에게 이 단원에서 가장 기억에 남는 시간과 앞으로 더 해 볼 일 한 가지를 말해요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"이 단원을 한 문장으로 말한다면 어떻게 말할까요?" 세 명 정도의 문장을 듣고 칠판에 적는다. 짝에게 말한 다짐 가운데 한 가지를 활동지 맨 아래에 쓰게 한다. 단원에서 만든 그림일기·감사 카드·엽서를 모아 집에 가져가 가족에게 보여 주게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '사람과 한 일', slots: [{ id: 'e1', label: '이태석 신부' }, { id: 'e2', label: '소방관' }], cards: ['톤즈에서 아이들을 치료하고 가르쳤어요', '밤에도 불이 나면 출동해요'] }, prompt: '사람과 그 사람이 한 일을 이어 보세요.', target: { match: { e1: '톤즈에서 아이들을 치료하고 가르쳤어요', e2: '밤에도 불이 나면 출동해요' } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '이 단원에서 배운 것을 내일 해 본다면 무엇이 알맞을까요?', options: ['급식을 만들어 주신 분께 고맙다고 인사해요', '전시장에서 뛰어다녀요', '도움이 필요한 친구를 못 본 척해요'], answer: 0, difficulty: 0.05, explain: '우리를 위해 일하는 분께 고마운 마음을 전할 수 있어요.' },
+          { type: 'short', prompt: '이 단원에서 앞으로 더 해 보고 싶은 일 한 가지를 써 보세요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '6. 인물 단원 돌아보기',
+      items: [
+        { type: 'table', prompt: '세 갈래마다 가장 기억에 남는 것을 쓰세요.', columns: ['갈래', '가장 기억에 남는 것'], cells: [['이야기 속 인물', ''], ['하루를 알아본 사람', ''], ['미술 전시', '']] },
+        { type: 'check', prompt: '이 단원에서 내가 한 것에 ✓ 하세요.', options: ['다른 사람을 도와 보았어요', '일하는 분께 고마운 마음을 전했어요', '작품을 천천히 오래 보았어요', '친구의 다른 감상을 받아 주었어요'] },
+        { type: 'choice', prompt: '전시를 잘 보는 방법에 ○ 하세요.', options: ['한 바퀴 빨리 돌아요', '한 작품씩 멈추어 살펴요', '작품을 손으로 만져요'], answer: '한 작품씩 멈추어 살펴요' },
+        { type: 'short', prompt: '앞으로 더 해 볼 일 한 가지를 쓰세요.' },
+      ],
+      easy: {
+        note: '인물 → 하루 → 전시 차례로 떠올려 봐요.',
+        items: [
+          { type: 'choice', prompt: '흉년에 쌀을 나눈 사람에 ○ 하세요.', options: ['김만덕', '고흐'], answer: '김만덕' },
+          { type: 'short', prompt: '이 단원에서 가장 재미있었던 시간을 쓰세요.' },
+          { type: 'draw', prompt: '앞으로 해 보고 싶은 일을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '카드가 세 장이고 맞는 칸에 초록 테두리가 생겨요. 마음 크기는 세 칸에서 골라요.',
+      base: '여섯 장을 세 갈래로 나누고, 배운 것과 할 일을 이어요.',
+      challenge: '함정 생각 카드가 더 있어요. 스스로 평가한 까닭을 갈래마다 한 줄씩 써요.',
+    },
+    teacherNotes: '이 차시는 단원 정리이므로 1~47차시에서 만든 결과물(그림일기·감사 카드·엽서·붙임쪽지)을 미리 모아 둔다. 스스로 평가 눈금은 정답이 없으며(어느 칸이나 맞음), 낮게 고른 학생을 나무라지 않고 다짐으로 잇는다. 결과 화면의 눈금 값은 다음 학기 상담 자료로만 쓴다. 자주 보이는 어려움: ① 소방관·간호사를 \'이야기 속 인물\'에 넣는다 → 그분들은 이야기가 아니라 하루를 알아본 사람이라는 것을 차시 결과물로 보여 준다. ② 스스로 평가를 모두 가장 높게 고른다 → 그렇게 고른 까닭을 한 줄 쓰게 한다. ③ 다짐이 막연하다(착하게 살기) → "내일 할 수 있는 일"로 좁혀 말하게 한다.',
   }));
 
   // @@NEXT@@

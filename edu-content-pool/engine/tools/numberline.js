@@ -49,6 +49,8 @@
   'use strict';
   const EPS = 1e-6;
   const r6 = (v) => Math.round(v * 1e6) / 1e6;
+  // '3이에요'·'2예요'·'3/4이에요'(4분의 3)·'오른쪽이에요' — 끝 글자(수는 읽는 소리)의 받침을 따라
+  const isIt = (w) => { const s = String(w).replace(/[’'"”)\]\s]+$/, '').replace(/(\d+)\/\d+$/, '$1'); const c = s.charCodeAt(s.length - 1); const has = c >= 0xac00 && c <= 0xd7a3 ? (c - 0xac00) % 28 > 0 : /[013678]$/.test(s); return `${w}${has ? '이에요' : '예요'}`; };
   const gcd = (a, b) => (b ? gcd(b, a % b) : Math.abs(a));
   // '3/4', '1 1/2', '0.75', 3 → 수. 못 읽으면 NaN
   function parseNum(v) {
@@ -440,7 +442,7 @@
           if (s.from == null) return { correct: false, incomplete: true, feedback: '먼저 출발점을 수직선 위에 놓아요.' };
           if (!s.hops.length) return { correct: false, incomplete: true, feedback: '화살표로 뛰어 세어 보세요.' };
           const { end } = posOf();
-          if (tf != null && tickOf(s.from) !== tickOf(tf)) return { correct: false, feedback: '출발점이 문제와 달라요. 어디에서 시작하는지 다시 읽어 보세요.', hint: '문제에서 처음 수(출발점)를 먼저 찾아 수직선에 놓아요.', h3: `출발점은 ${fmt(tf)}이에요.` };
+          if (tf != null && tickOf(s.from) !== tickOf(tf)) return { correct: false, feedback: '출발점이 문제와 달라요. 어디에서 시작하는지 다시 읽어 보세요.', hint: '문제에서 처음 수(출발점)를 먼저 찾아 수직선에 놓아요.', h3: `출발점은 ${isIt(fmt(tf))}.` };
           if (ts != null) {
             const diff = s.hops.find((h) => Math.abs(Math.abs(h) - ts) > EPS);
             if (diff != null) return { correct: false, feedback: `한 번에 뛴 크기가 문제와 달라요. 화살표 위의 수를 살펴보세요.`, hint: '화살표 하나가 몇만큼인지 문제와 견주어 보세요. 모든 화살표의 크기가 같아야 해요.', h3: `한 번에 ${fmt(ts)}씩 뛰어요.` };
@@ -452,7 +454,7 @@
           if (ts != null && t.count != null && t.size != null && s.hops.some((h) => h < 0) && te == null) return { correct: false, feedback: '뒤로 뛴 화살표가 있어요. 문제는 몇씩 커지는지 물어요.', hint: '앞으로(오른쪽으로) 뛰면 커지고, 뒤로 뛰면 작아져요.', h3: '화살표를 모두 앞으로 뛰어요.' };
           if (te != null && tickOf(end) !== tickOf(te)) {
             const d = tickOf(end) - tickOf(te);
-            return { correct: false, feedback: o.revealAfterCheck ? `도착한 곳이 알맞은 수보다 ${d > 0 ? '커요' : '작아요'}.` : `도착한 곳이 알맞은 수보다 ${d > 0 ? '오른쪽' : '왼쪽'}이에요. 더하면 앞으로, 빼면 뒤로 뛰어요.`, hint: `도착한 곳이 알맞은 수보다 ${d > 0 ? '커요' : '작아요'}. 화살표의 크기와 방향을 다시 보세요.`, h3: `${fmt(s.from)}에서 ${fmtSigned(r6(te - s.from))}만큼 가면 ${fmt(te)}이에요.` };
+            return { correct: false, feedback: o.revealAfterCheck ? `도착한 곳이 알맞은 수보다 ${d > 0 ? '커요' : '작아요'}.` : `도착한 곳이 알맞은 수보다 ${d > 0 ? '오른쪽' : '왼쪽'}이에요. 더하면 앞으로, 빼면 뒤로 뛰어요.`, hint: `도착한 곳이 알맞은 수보다 ${d > 0 ? '커요' : '작아요'}. 화살표의 크기와 방향을 다시 보세요.`, h3: `${fmt(s.from)}에서 ${fmtSigned(r6(te - s.from))}만큼 가면 ${isIt(fmt(te))}.` };
           }
           return { correct: true, feedback: `맞아요! ${fmt(s.from)}에서 ${s.hops.length}번 뛰어 ${fmt(end)}에 왔어요.` };
         }
@@ -465,7 +467,7 @@
             const why = mk && Number.isFinite(pv) && tickOf(pv) - tickOf(mk.v) !== 0 && Math.abs(tickOf(pv) - tickOf(mk.v)) === 1 ? '한 칸 차이가 나요. 눈금 선이 아니라 칸을 세어 보세요.' : '작은 눈금 한 칸이 얼마인지 먼저 알아보고 다시 읽어 보세요.';
             return { correct: false, feedback: (o.why && o.why[pick]) || why, hint: '큰 눈금 사이가 몇 칸으로 나뉘었는지 세고, 가까운 큰 눈금에서부터 세어 보세요.', h3: mk ? `${fmt(min)}에서 ${tickOf(mk.v)}칸 간 곳이에요. 한 칸은 ${unitTxt}만큼이에요.` : '가까운 큰 눈금에서부터 칸을 세어 보세요.' };
           }
-          return { correct: true, feedback: `맞아요! ${o.choices[t.pick]}이에요.` };
+          return { correct: true, feedback: `맞아요! ${isIt(o.choices[t.pick])}.` };
         }
         const want = tv(t.value);
         if (answer == null || answer === '') return { correct: false, incomplete: true, feedback: '점이 나타내는 수를 써요.' };
@@ -476,8 +478,8 @@
           const fb = Math.abs(d) === 1 ? '한 칸 차이가 나요. 눈금 선이 아니라 칸을 세어 보세요.' : '작은 눈금 한 칸이 얼마인지 다시 알아보세요.';
           return { correct: false, feedback: fb, hint: `쓴 수가 점보다 ${d > 0 ? '커요' : '작아요'}. 가까운 큰 눈금에서 칸을 다시 세어 보세요.`, h3: `${fmt(min)}에서 ${tickOf(want)}칸 간 곳이에요. 한 칸은 ${unitTxt}만큼이에요.` };
         }
-        if (t.form === 'frac' && !/\//.test(answer) && !isInt(want)) return { correct: false, feedback: '크기는 맞아요! 이번에는 분수로 써요.', hint: '분모는 1을 몇 칸으로 나누었는지예요.', h3: `분수로 쓰면 ${fmt(want)}이에요.` };
-        if (t.form === 'dec' && /\//.test(answer)) return { correct: false, feedback: '크기는 맞아요! 이번에는 소수로 써요.', hint: '분모가 10이면 소수 첫째 자리 수예요.', h3: `소수로 쓰면 ${String(Math.round(want * 1000) / 1000)}이에요.` };
+        if (t.form === 'frac' && !/\//.test(answer) && !isInt(want)) return { correct: false, feedback: '크기는 맞아요! 이번에는 분수로 써요.', hint: '분모는 1을 몇 칸으로 나누었는지예요.', h3: `분수로 쓰면 ${isIt(fmt(want))}.` };
+        if (t.form === 'dec' && /\//.test(answer)) return { correct: false, feedback: '크기는 맞아요! 이번에는 소수로 써요.', hint: '분모가 10이면 소수 첫째 자리 수예요.', h3: `소수로 쓰면 ${isIt(String(Math.round(want * 1000) / 1000))}.` };
         return { correct: true, feedback: `맞아요! 점이 나타내는 수: ${answer}` };
       }
 

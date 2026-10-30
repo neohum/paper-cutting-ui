@@ -51,7 +51,8 @@
   }
 
   // 차시 id 모양: 소문자·숫자·붙임표. 맨 앞 '_'는 검사용 차시(_tool-*, _sample)만 쓴다
-  const ID = /^_?[a-z0-9][a-z0-9-]*$/;
+  // 국어 독서·매체 단원만 단원 이름에 한글이 들어간다(units-index: g3-kor-1-독서-01)
+  const ID = /^_?[a-z0-9](?:[a-z0-9-]|독서|매체)*$/;
   // opts.tools=false: 교사 화면처럼 교구 없이 차시 구조만 필요할 때(짧은 제출 코드 풀기)
   async function load(id, opts = {}) {
     if (!ID.test(String(id))) throw new Error('차시 id 형식이 아닙니다');

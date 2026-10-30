@@ -352,7 +352,7 @@
     worksheet: {
       title: '세마치장단',
       items: [
-        { type: 'figure', prompt: '빈칸에 들어갈 구음을 쓰세요.', tool: 'keyboard', options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '', '', '덕', '쿵', '', ''] }, caption: '넷째 칸 ___, 여덟째 칸 ___' }], answer: '넷째 칸 덩, 여덟째 칸 덕' },
+        { type: 'figure', prompt: '빈칸에 들어갈 구음을 쓰세요.', tool: 'keyboard', wide: true, options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '', '', '덕', '쿵', '', ''] }, caption: '넷째 칸 ___, 여덟째 칸 ___' }], answer: '넷째 칸 덩, 여덟째 칸 덕' },
         { type: 'table', prompt: '구음과 치는 법을 쓰세요.', columns: ['구음', '장구로 칠 때', '무릎으로 칠 때'], cells: [['덩', '', ''], ['쿵', '', ''], ['덕', '', '']] },
         { type: 'choice', prompt: '세마치장단 한 장단의 칸 수에 ○ 하세요.', options: ['6칸', '9칸', '12칸'], answer: '9칸' },
         { type: 'short', prompt: '세마치장단을 무릎으로 칠 때 가장 어려웠던 칸과 그 까닭을 쓰세요.' },
@@ -360,7 +360,7 @@
       easy: {
         note: '덩 = 두 무릎 함께, 쿵 = 왼 무릎, 덕 = 오른 무릎. 굵은 금마다 한 박이에요.',
         items: [
-          { type: 'figure', prompt: '세마치장단을 손가락으로 짚으며 읽어 보세요.', tool: 'keyboard', options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '덩', '', '덕', '쿵', '덕', ''] }, caption: '덩은 몇 번? ___번' }], answer: '2번' },
+          { type: 'figure', prompt: '세마치장단을 손가락으로 짚으며 읽어 보세요.', tool: 'keyboard', wide: true, options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '덩', '', '덕', '쿵', '덕', ''] }, caption: '덩은 몇 번? ___번' }], answer: '2번' },
           { type: 'choice', prompt: '두 무릎을 함께 치는 구음에 ○ 하세요.', options: ['덩', '덕'], answer: '덩' },
           { type: 'blank', prompt: '빈칸을 채우세요.', text: '세마치장단은 ___박이에요.', answer: '세' },
           { type: 'short', prompt: '무릎장단을 쳐 본 느낌을 쓰세요.' },
@@ -1259,7 +1259,7 @@
       title: '음악 기록 정리',
       items: [
         { type: 'table', prompt: '내 사흘 기록을 표로 정리하세요.', columns: ['날', '들은 음악 수', '함께한 장면 수'], cells: [['첫째 날', '', ''], ['둘째 날', '', ''], ['셋째 날', '', ''], ['합계', '', '']] },
-        { type: 'figure', prompt: '표를 보고 막대그래프를 완성하세요.', tool: 'chart', wide: true, figures: [{ options: { type: 'bar', title: '장소별 들은 음악', data: [['집', 6], ['학교', 4], ['동네', 2]], unit: '곡', xLabel: '장소', yLabel: '음악 수', given: [0] }, caption: '집 6곡, 학교 4곡, 동네 2곡' }], answer: '학교 막대 4칸, 동네 막대 2칸' },
+        { type: 'table', prompt: '표를 보고, 장소마다 곡 수만큼 칸에 ■ 를 그려 막대그래프를 완성하세요. (집 6곡, 학교 4곡, 동네 2곡 · 첫 줄은 해 놓았어요)', columns: ['장소', '1', '2', '3', '4', '5', '6'], cells: [['집', '■', '■', '■', '■', '■', '■'], ['학교', '', '', '', '', '', ''], ['동네', '', '', '', '', '', '']], answer: '학교 4칸, 동네 2칸' },
         { type: 'choice', prompt: '기록장을 잘 쓴 줄에 ○ 하세요.', options: ['아리랑', '학교 · 음악 시간 · 아리랑을 반 모두 불렀어요 · ○', '노래'], answer: '학교 · 음악 시간 · 아리랑을 반 모두 불렀어요 · ○' },
         { type: 'short', prompt: '내 그래프를 보고 알게 된 점을 한 문장으로 쓰세요.' },
       ],
@@ -1267,7 +1267,7 @@
         note: '막대그래프는 눈금 한 칸이 몇인지 먼저 봐요.',
         items: [
           { type: 'table', prompt: '들은 음악 수를 쓰세요.', columns: ['첫째 날', '둘째 날', '셋째 날'], cells: [['', '', '']] },
-          { type: 'figure', prompt: '막대그래프를 보고 가장 많은 곳에 ○ 하세요.', tool: 'chart', wide: true, figures: [{ options: { type: 'bar', title: '장소별 들은 음악', data: [['집', 5], ['학교', 3]], unit: '곡', xLabel: '장소', yLabel: '음악 수', given: [0, 1] }, caption: '' }], answer: '집' },
+          { type: 'table', prompt: '막대(■)가 가장 긴 곳의 마지막 칸에 ○ 하세요.', columns: ['장소', '1', '2', '3', '4', '5', '○'], cells: [['집', '■', '■', '■', '■', '■', ''], ['학교', '■', '■', '■', '', '', '']], answer: '집' },
           { type: 'choice', prompt: '기록장에 꼭 적을 것은?', options: ['들은 장면', '가수 이름'], answer: '들은 장면' },
           { type: 'short', prompt: '가장 많이 들은 곳을 쓰세요.' },
         ],
@@ -1961,7 +1961,7 @@
       title: '나의 음악 생활 그래프',
       items: [
         { type: 'table', prompt: '내 일지를 세어 표로 쓰세요.', columns: ['함께 노래', '악기 연주', '몸 표현', '듣기'], cells: [['', '', '', '']] },
-        { type: 'figure', prompt: '표를 보고 막대그래프를 완성하세요.', tool: 'chart', wide: true, figures: [{ options: { type: 'bar', title: '나의 음악 활동', data: [['함께 노래', 5], ['악기 연주', 2], ['몸 표현', 3], ['듣기', 6]], unit: '번', xLabel: '활동', yLabel: '횟수', given: [0] }, caption: '함께 노래 5번, 악기 연주 2번, 몸 표현 3번, 듣기 6번' }], answer: '악기 2칸, 몸 표현 3칸, 듣기 6칸' },
+        { type: 'table', prompt: '표를 보고, 활동마다 횟수만큼 칸에 ■ 를 그려 막대그래프를 완성하세요. (함께 노래 5번, 악기 연주 2번, 몸 표현 3번, 듣기 6번 · 첫 줄은 해 놓았어요)', columns: ['활동', '1', '2', '3', '4', '5', '6'], cells: [['함께 노래', '■', '■', '■', '■', '■', ''], ['악기 연주', '', '', '', '', '', ''], ['몸 표현', '', '', '', '', '', ''], ['듣기', '', '', '', '', '', '']], answer: '악기 2칸, 몸 표현 3칸, 듣기 6칸' },
         { type: 'choice', prompt: '그래프에서 가장 적게 한 활동은?', options: ['함께 노래', '악기 연주', '듣기'], answer: '악기 연주' },
         { type: 'short', prompt: '가장 적게 한 활동을 늘릴 방법을 쓰세요.' },
         { type: 'figure', prompt: '컵 리듬을 손으로 쳐 보고, 쉼표에 ○ 하고 마디마다 박 수를 쓰세요.', tool: 'keyboard', options: { mode: 'rhythm', meter: 4, measures: 2 }, figures: [{ state: { rhythm: ['q', 'e', 'e', 'qr', 'q', 'h', 'q', 'q'] }, caption: '첫째 마디 ___박, 둘째 마디 ___박' }], answer: '4박, 4박 / 첫째 마디 넷째 블록(쉼표)에 ○' },
@@ -1969,7 +1969,7 @@
       easy: {
         note: '높은 막대 = 많이 한 활동, 낮은 막대 = 늘려 볼 활동. 컵 리듬: 쿵(컵 내려놓기) = 1박, 톡톡 = 1박, 쉼표 = 컵 들고 멈추기.',
         items: [
-          { type: 'figure', prompt: '가장 높은 막대에 ○ 하세요.', tool: 'chart', wide: true, figures: [{ options: { type: 'bar', title: '나의 음악 활동', data: [['노래', 4], ['악기', 2], ['몸 표현', 1]], unit: '번', xLabel: '활동', yLabel: '횟수', given: [0, 1, 2] }, caption: '' }], answer: '노래' },
+          { type: 'table', prompt: '막대(■)가 가장 긴 활동의 마지막 칸에 ○ 하세요.', columns: ['활동', '1', '2', '3', '4', '○'], cells: [['노래', '■', '■', '■', '■', ''], ['악기', '■', '■', '', '', ''], ['몸 표현', '■', '', '', '', '']], answer: '노래' },
           { type: 'choice', prompt: '낮은 막대는 무엇을 알려 주나요?', options: ['늘려 볼 활동', '못하는 것'], answer: '늘려 볼 활동' },
           { type: 'choice', prompt: '컵 리듬의 쉼표에서는 어떻게 할까요?', options: ['컵을 든 채 멈춰요', '컵을 세게 쳐요'], answer: '컵을 든 채 멈춰요' },
           { type: 'short', prompt: '다음에 늘리고 싶은 활동을 쓰세요.' },
@@ -2062,7 +2062,7 @@
       title: '1. 연주 단원 정리',
       items: [
         { type: 'table', prompt: '단원 활동을 묶음마다 하나씩 쓰고, 나를 1~3점으로 평가하세요.', columns: ['묶음', '내가 한 활동', '점수', '까닭'], cells: [['몸으로 표현', '', '', ''], ['놀이', '', '', ''], ['생활 속 연주', '', '', '']] },
-        { type: 'figure', prompt: '세마치장단의 빈칸에 들어갈 구음을 쓰세요.', tool: 'keyboard', options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '덩', '', '', '쿵', '', ''] }, caption: '여섯째 칸 ___, 여덟째 칸 ___' }], answer: '여섯째 칸 덕, 여덟째 칸 덕' },
+        { type: 'figure', prompt: '세마치장단의 빈칸에 들어갈 구음을 쓰세요.', tool: 'keyboard', wide: true, options: { mode: 'janggu', beats: 9, group: 3, jangdan: '세마치' }, figures: [{ state: { strokes: ['덩', '', '', '덩', '', '', '쿵', '', ''] }, caption: '여섯째 칸 ___, 여덟째 칸 ___' }], answer: '여섯째 칸 덕, 여덟째 칸 덕' },
         { type: 'choice', prompt: '고칠 말에 ○ 하세요.', options: ['쉼표에서도 박은 흘러가요', '잘하는 사람만 음악회에 나가요', '가족과 함께 노래하는 것도 연주 활동이에요'], answer: '잘하는 사람만 음악회에 나가요' },
         { type: 'table', prompt: '다음 음악 활동 계획을 쓰세요.', columns: ['무엇을', '언제', '어디서', '누구와'], cells: [['', '', '', '']] },
         { type: 'short', prompt: '이 단원을 배우고 나서 음악에 대해 달라진 생각을 쓰세요.' },

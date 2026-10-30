@@ -97,7 +97,7 @@
               { prompt: '운동장, 교무실, 화장실에 어울리는 물음을 이어 보세요.', toolOptions: { mode: 'match', topic: '어디가 궁금할까?', slots: [{ id: 's1', label: '운동장' }, { id: 's2', label: '교무실' }, { id: 's3', label: '화장실' }], cards: ['철봉은 몇 개 있을까?', '선생님들은 여기서 무슨 일을 하실까?', '손 씻는 물은 어디서 나올까?'] },
                 target: { match: { s1: '철봉은 몇 개 있을까?', s2: '선생님들은 여기서 무슨 일을 하실까?', s3: '손 씻는 물은 어디서 나올까?' } }, difficulty: 0.15,
                 levels: { challenge: { toolOptions: { cards: ['철봉은 몇 개 있을까?', '선생님들은 여기서 무슨 일을 하실까?', '손 씻는 물은 어디서 나올까?', '운동장이 넓어요.'] } } } },
-              { prompt: '내가 궁금한 곳을 골라 "○○는 무엇을 하는 곳일까?"로 물음을 지어 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '내가 궁금한 곳을 골라 "○○는 무엇을 하는 곳일까?"로 물음을 지어 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -180,7 +180,7 @@
               { prompt: '도서실 물음을 세어 볼 것과 여쭤볼 것으로 나누어 보세요.', toolOptions: { topic: '도서실 알아보기', slots: ['가서 세어 봐요', '그곳 어른께 여쭤봐요'], cards: ['책상은 몇 개일까?', '사서 선생님은 책을 어떻게 고르실까?', '창문은 몇 개일까?', '책은 언제까지 돌려줘야 할까?'] },
                 target: { sort: { '가서 세어 봐요': ['책상은 몇 개일까?', '창문은 몇 개일까?'], '그곳 어른께 여쭤봐요': ['사서 선생님은 책을 어떻게 고르실까?', '책은 언제까지 돌려줘야 할까?'] } }, difficulty: 0.2,
                 levels: { challenge: { toolOptions: { cards: ['책상은 몇 개일까?', '사서 선생님은 책을 어떻게 고르실까?', '창문은 몇 개일까?', '책은 언제까지 돌려줘야 할까?', '도서실은 조용해요.'] } } } },
-              { prompt: '짝과 "○○ 선생님, ○○○○?" 하고 여쭤보는 말을 번갈아 연습해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝과 "○○ 선생님, ○○○○?" 하고 여쭤보는 말을 번갈아 연습해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -263,7 +263,7 @@
                 levels: { challenge: { toolOptions: { cards: ['꽃에 물은 누가 줄까?', '그네는 몇 명이 탈 수 있을까?', '교문은 언제 닫힐까?', '꽃이 예뻐요.'] } } } },
               { prompt: '바깥 곳에 대한 묻는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '학교 밖 물음', cards: ['운동장 흙은 왜 노랄까?', '나무가 커요.', '텃밭에는 무엇을 심었을까?', '건널목 신호등은 언제 바뀔까?', '놀이터가 좋아요.'] },
                 target: { pick: ['운동장 흙은 왜 노랄까?', '텃밭에는 무엇을 심었을까?', '건널목 신호등은 언제 바뀔까?'] }, difficulty: 0.2 },
-              { prompt: '창밖 바깥 곳 하나를 골라 "○○에서는 ○○○까?" 물음을 지어 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '창밖 바깥 곳 하나를 골라 "○○에서는 ○○○까?" 물음을 지어 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -348,7 +348,7 @@
                 { id: 'push', text: '나도 돌아서 밀어요', result: '둘 다 계단에서 넘어질 수 있어요.', mood: '무서움', why: '계단에서 밀면 어떻게 될까요?' },
                 { id: 'say', text: '손잡이를 잡고 "밀지 마" 하고 말해요', result: '친구가 멈추고 둘 다 안전하게 내려가요.', mood: '편안함' },
                 { id: 'hurry', text: '빨리 뛰어 내려가요', result: '발을 헛디뎌 구를 수 있어요.', mood: '무서움', why: '계단을 뛰면 발이 어떻게 될까요?' }] }, target: { choice: 'say' }, difficulty: 0.15 },
-              { prompt: '교실 뒤에서 \'뛰는 친구를 보고 멈추기\'를 짝과 천천히 몸으로 해 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '교실 뒤에서 \'뛰는 친구를 보고 멈추기\'를 짝과 천천히 몸으로 해 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -437,7 +437,7 @@
                 hints: ['구급상자 몸통과 십자 무늬를 어떤 조각으로 만들지 먼저 정해요.', '몸통은 큰 네모 한 장이에요. 십자는 긴 네모 두 장을 하나는 돌려서 겹쳐요.', '하양 네모를 크게 붙이고, 빨강 긴 네모 두 장을 붙인 뒤 한 장을 돌려요.'] },
               { prompt: '음악실 큰북이에요. 갈색 큰 동그라미 하나와 갈색 긴 네모 북채 두 개를 붙여 보세요.', target: { has: [{ shape: 'circle', color: '갈색', size: 'l', n: 1 }, { shape: 'rect', color: '갈색', n: 2 }] }, difficulty: 0.15 },
               { prompt: '도서실 책꽂이예요. 긴 네모 책을 네 권 이상 나란히 꽂아 보세요.', target: { has: [{ shape: 'rect', min: 4 }] }, difficulty: 0.15 },
-              { prompt: '둘러본 곳에서 본 물건 하나를 활동지에 크게 그려요. 다 그리면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '둘러본 곳에서 본 물건 하나를 활동지에 크게 그려요. 다 그리면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -522,7 +522,7 @@
               { prompt: '안내판: "보건실: 다쳤을 때 오세요. 점심시간에는 2층 교무실로." 안내판으로 답을 알 수 있는 물음만 골라 보세요.', toolOptions: { mode: 'pick', basket: '안내판으로 알 수 있어요', cards: ['언제 보건실에 갈까?', '점심시간에는 어디로 갈까?', '보건 선생님은 몇 살일까?', '침대는 몇 개일까?'] },
                 target: { pick: ['언제 보건실에 갈까?', '점심시간에는 어디로 갈까?'] }, difficulty: 0.25,
                 hints: ['안내판에 쓰인 말을 한 줄씩 다시 읽어 봐요.', '안내판에 없는 것(나이, 침대 수)은 안내판으로 알 수 없어요.', '\'다쳤을 때\'와 \'점심시간에는\'이 쓰여 있어요. 그 두 물음을 골라요.'] },
-              { prompt: '모둠과 교실 앞 복도의 안내판 하나를 찾아 읽고, 알게 된 것을 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '모둠과 교실 앞 복도의 안내판 하나를 찾아 읽고, 알게 된 것을 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -607,7 +607,7 @@
               { prompt: '그림책을 빌리고 싶어요. 가야 할 곳의 기호에 핀을 꽂아 보세요.', toolOptions: { places: [{ name: '급식실', icon: 'market', at: [1, 2], legend: '급식실' }, { name: '도서실', icon: 'library', at: [3, 0] }, { name: '화단', icon: 'forest', at: [0, 1], legend: '화단' }] }, target: { place: '도서실' }, difficulty: 0.15 },
               { prompt: '상추가 자라는 곳을 보러 가요. 그곳 기호에 핀을 꽂아 보세요.', toolOptions: { places: [{ name: '화단', icon: 'forest', at: [1, 0], legend: '화단' }, { name: '텃밭', icon: 'field', at: [3, 2], legend: '텃밭' }, { name: '운동장', icon: 'park', at: [2, 1], legend: '운동장' }] }, target: { place: '텃밭' }, difficulty: 0.2,
                 predict: { q: '꽃이 있는 화단과 채소가 자라는 텃밭은 같은 곳일까요?', options: ['같아요', '달라요'], answer: 1 } },
-              { prompt: '교실 칠판 옆 우리 학교 안내도에서 보건실과 도서실을 찾아 짝에게 짚어 보여요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '교실 칠판 옆 우리 학교 안내도에서 보건실과 도서실을 찾아 짝에게 짚어 보여요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -694,7 +694,7 @@
               { prompt: '"나무껍질을 만져 보니 거칠거칠해요." 무엇으로 알았는지 골라 보세요.', target: { parts: ['피부'] }, difficulty: 0.15,
                 hints: ['만져서 알게 된 것은 몸의 어디로 느낄까요?', '눈으로 보기만 해서는 거칠거칠한지 잘 몰라요. 손에 닿은 느낌이에요.', '손에 닿는 느낌은 피부로 알아요. 피부를 골라요.'] },
               { prompt: '"급식실 앞에서 고소한 냄새가 나고 달그락 소리가 들려요." 무엇으로 알았는지 모두 골라 보세요.', target: { parts: ['코', '귀'] }, difficulty: 0.2 },
-              { prompt: '본 것은 그림으로, 들은 것은 \'짹짹\'처럼 소리 흉내말로 활동지 기록 칸에 적어요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '본 것은 그림으로, 들은 것은 \'짹짹\'처럼 소리 흉내말로 활동지 기록 칸에 적어요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -778,7 +778,7 @@
               { prompt: '듣는 친구가 알 수 있게 말한 카드를 모두 골라 보세요.', toolOptions: { mode: 'pick', basket: '잘 알아듣는 말', cards: ['도서실 창가에 그림책이 있어요', '저기 가면 있어', '운동장 옆에 체육 창고가 있어요', '그냥 좋았어', '급식실에서 식판을 두 손으로 들어요'] },
                 target: { pick: ['도서실 창가에 그림책이 있어요', '운동장 옆에 체육 창고가 있어요', '급식실에서 식판을 두 손으로 들어요'] }, difficulty: 0.2,
                 hints: ['그 말만 듣고 어느 곳, 어떤 물건인지 떠오르는지 하나씩 읽어 봐요.', '\'저기\', \'그거\', \'그냥\'처럼 가리키기만 하는 말은 함께 가지 않은 친구가 알 수 없어요.', '곳 이름(도서실, 운동장, 급식실)이 들어간 카드 세 장을 골라요.'] },
-              { prompt: '손가락 세 개를 접으며 \'간 곳 → 본 것 → 알게 된 것\'을 짝에게 말해요. 서로 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '손가락 세 개를 접으며 \'간 곳 → 본 것 → 알게 된 것\'을 짝에게 말해요. 서로 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -861,7 +861,7 @@
                 levels: { easy: { prompt: '교실에서 보건실까지 가는 차례대로 놓아 보세요. 카드가 세 장이에요.', toolOptions: { slots: ['1', '2', '3'], cards: [{ id: 'door', text: '교실 문을 열고 나가요', motif: 'house' }, { id: 'stair', text: '손잡이 잡고 계단을 내려가요', motif: 'mountain' }, { id: 'knock', text: '보건실 문을 똑똑 두드려요', motif: 'star' }] }, target: { order: ['door', 'stair', 'knock'] } } } },
               { prompt: '아침에 집에서 교실까지 오는 차례대로 놓아 보세요.', toolOptions: { slots: ['1', '2', '3', '4'], cards: [{ id: 'cross', text: '초록불에 건널목을 건너요', motif: 'sun' }, { id: 'gate', text: '교문으로 들어와요', motif: 'house' }, { id: 'shoe', text: '현관에서 실내화로 갈아 신어요', motif: 'leaf' }, { id: 'up', text: '계단을 걸어 올라가요', motif: 'mountain' }] },
                 target: { order: ['cross', 'gate', 'shoe', 'up'] }, difficulty: 0.15 },
-              { prompt: '교실 바닥 테이프 길을 짝과 천천히 걸으며 조심할 곳마다 "손잡이!", "멈춤!"을 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '교실 바닥 테이프 길을 짝과 천천히 걸으며 조심할 곳마다 "손잡이!", "멈춤!"을 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -942,7 +942,7 @@
               { prompt: '급식실 소개 말을 차례대로 놓아 보세요.', toolOptions: { slots: ['인사', '곳 이름', '하는 일', '지킬 약속'], cards: [{ id: 'hi', text: '안녕? 같이 가자.', motif: 'sun' }, { id: 'name', text: '여기는 급식실이야.', motif: 'house' }, { id: 'do', text: '점심을 먹는 곳이야.', motif: 'star' }, { id: 'rule', text: '줄을 서서 기다려야 해.', motif: 'leaf' }] },
                 target: { order: ['hi', 'name', 'do', 'rule'] }, difficulty: 0.15,
                 levels: { easy: { prompt: '급식실 소개 말을 차례대로 놓아 보세요. 카드가 세 장이에요.', toolOptions: { slots: ['곳 이름', '하는 일', '지킬 약속'], cards: [{ id: 'name', text: '여기는 급식실이야.', motif: 'house' }, { id: 'do', text: '점심을 먹는 곳이야.', motif: 'star' }, { id: 'rule', text: '줄을 서서 기다려야 해.', motif: 'leaf' }] }, target: { order: ['name', 'do', 'rule'] } } } },
-              { prompt: '짝과 새 친구·안내하는 친구 역할을 나누어 교실 한 곳을 소개하고, 역할을 바꾸어요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝과 새 친구·안내하는 친구 역할을 나누어 교실 한 곳을 소개하고, 역할을 바꾸어요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1020,7 +1020,7 @@
               { prompt: '친구가 발표하는데 옆 친구가 말을 걸어요. 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '하준이네 모둠이 발표하는데, 옆 친구가 "이거 봐!" 하고 말을 걸어요.', choices: [
                 { id: 'talk', text: '옆 친구와 이야기해요', result: '하준이네 발표를 놓치고, 하준이가 속상해요.', mood: '속상함', why: '발표하는 하준이의 마음을 떠올려 봐요.' },
                 { id: 'later', text: '"끝나고 보자" 하고 작게 말해요', result: '발표를 끝까지 듣고 물음도 할 수 있어요.', mood: '편안함' }] }, target: { choice: 'later' }, difficulty: 0.05 },
-              { prompt: '모둠 발표 차례가 되면 \'간 곳 → 본 것 → 알게 된 것\'을 손가락으로 세며 발표하고, 물음 하나에 답해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '모둠 발표 차례가 되면 \'간 곳 → 본 것 → 알게 된 것\'을 손가락으로 세며 발표하고, 물음 하나에 답해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
               { prompt: '발표하는 친구의 마음에 어울리는 카드를 놓아 보세요.', toolOptions: { cards: ['고마움', '속상함'], slots: [{ id: 's1', label: '친구들이 내 발표를 끝까지 들어 줬어요' }, { id: 's2', label: '발표하는데 친구들이 떠들었어요' }] }, target: { match: { s1: '고마움', s2: '속상함' } }, difficulty: 0.1 },
             ],
           },
@@ -1115,7 +1115,7 @@
               { prompt: '느리게 쿵… 쿵… 두드리는 소리예요. 리듬 듣기를 누르고 블록으로 놓아 보세요.', toolOptions: { pattern: ['h', 'h'] }, target: { rhythm: ['h', 'h'] }, difficulty: 0.1 },
               { prompt: '느리게 시작해서 빨라지는 소리예요. 리듬 듣기를 누르고 블록으로 놓아 보세요.', toolOptions: { pattern: ['h', 'e', 'e', 'e', 'e'] }, target: { rhythm: ['h', 'e', 'e', 'e', 'e'] }, difficulty: 0.25,
                 conclude: '같은 마디 안에서도 소리가 느려졌다 빨라졌다 할 수 있어요.' },
-              { prompt: '선생님 북소리가 빠르면 종종걸음, 느리면 큰 걸음으로 제자리에서 걸어요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '선생님 북소리가 빠르면 종종걸음, 느리면 큰 걸음으로 제자리에서 걸어요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1200,7 +1200,7 @@
                 levels: { easy: { prompt: '쾅 톡 톡이 되풀이돼요. 빈칸 하나를 채워 보세요.', toolOptions: { seq: ['쾅', '톡', '톡', '쾅', '톡', '톡', null] }, target: { fill: ['쾅'] } }, challenge: { toolOptions: { palette: ['쾅', '톡', '쿵'] } } } },
               { prompt: '쾅과 톡으로 묶음이 되풀이되는 나만의 소리 무늬를 만들어 보세요.', toolOptions: { mode: 'make', palette: ['쾅', '톡'], length: 6 }, target: { rule: 'repeat', minRepeats: 2, uses: 2 }, difficulty: 0.2,
                 levels: { challenge: { prompt: '쾅·톡·쿵을 모두 써서 세 칸 묶음이 되풀이되는 소리 무늬를 만들어 보세요.', toolOptions: { palette: ['쾅', '톡', '쿵'], length: 9 }, target: { rule: 'repeat', period: 3, minRepeats: 3, uses: 3 } } } },
-              { prompt: '내가 만든 무늬를 \'쾅\'은 무릎 세게, \'톡\'은 손가락 살짝으로 짝에게 쳐 줘요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '내가 만든 무늬를 \'쾅\'은 무릎 세게, \'톡\'은 손가락 살짝으로 짝에게 쳐 줘요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1280,7 +1280,7 @@
             items: [
               { prompt: '짝짝 짝짝짝 리듬이에요. 리듬 듣기를 누르고 블록으로 놓아 보세요.', toolOptions: { pattern: ['q', 'q', 'e', 'e', 'q'] }, target: { rhythm: ['q', 'q', 'e', 'e', 'q'] }, difficulty: 0.2,
                 levels: { easy: { prompt: '짝짝짝짝 짝 리듬이에요. 리듬 듣기를 누르고 블록으로 놓아 보세요.', toolOptions: { pattern: ['e', 'e', 'e', 'e', 'h'] }, target: { rhythm: ['e', 'e', 'e', 'e', 'h'] } } } },
-              { prompt: '놓은 리듬을 손뼉으로 세게 한 번, 손가락으로 여리게 한 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '놓은 리듬을 손뼉으로 세게 한 번, 손가락으로 여리게 한 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
               { prompt: '빠른 리듬 다음에 느린 리듬이 와요. 리듬 듣기를 누르고 블록으로 놓아 보세요.', toolOptions: { pattern: ['e', 'e', 'e', 'e', 'h'] }, target: { rhythm: ['e', 'e', 'e', 'e', 'h'] }, difficulty: 0.2,
                 levels: { easy: { prompt: '느린 리듬 다음에 빠른 리듬이 와요. 리듬 듣기를 누르고 블록으로 놓아 보세요.', toolOptions: { pattern: ['h', 'e', 'e', 'e', 'e'] }, target: { rhythm: ['h', 'e', 'e', 'e', 'e'] } }, challenge: { prompt: '빠른 리듬, 보통 리듬, 빠른 리듬이에요. 리듬 듣기를 누르고 블록으로 놓아 보세요.', toolOptions: { pattern: ['e', 'e', 'q', 'q', 'e', 'e'] }, target: { rhythm: ['e', 'e', 'q', 'q', 'e', 'e'] } } },
                 predict: { q: '이 리듬을 여리게 치면 블록이 바뀔까요?', options: ['바뀌어요', '그대로예요'], answer: 1 },
@@ -1369,7 +1369,7 @@
               { prompt: '\'큰 동그라미, 작은 동그라미\' 묶음으로 시작했어요. 같은 차례로 두 번 더 이어 붙여 보세요.', state: { pieces: [{ shape: 'circle', color: '빨강', size: 'l', x: 80, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 160, y: 200, r: 0 }] }, target: { repeat: { times: 3, unit: 2 } }, difficulty: 0.25,
                 hints: ['한 묶음이 어떤 조각으로 되는지 먼저 정해요.', '큰 동그라미 다음에 작은 동그라미, 이 차례를 그대로 이어 가요. 색도 묶음마다 같게 해요.', '큰-작은, 큰-작은, 큰-작은 차례로 왼쪽부터 여섯 조각을 붙여요.'] },
               { prompt: '여린 소리를 세 번 이상, 센 소리를 한 번 이상 내는 그림 악보를 만들어요. 작은 동그라미 셋 이상, 큰 동그라미 하나 이상이에요.', target: { has: [{ shape: 'circle', size: 's', min: 3 }, { shape: 'circle', size: 'l', min: 1 }] }, difficulty: 0.2 },
-              { prompt: '긴 종이 띠에 내 그림 악보를 붙이고 짝이 손뼉으로 읽어 줘요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '긴 종이 띠에 내 그림 악보를 붙이고 짝이 손뼉으로 읽어 줘요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1387,7 +1387,7 @@
     worksheet: {
       title: '그림 악보',
       items: [
-        { type: 'figure', wide: true, prompt: '이 그림 악보를 어떻게 칠지 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'l', x: 100, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'l', x: 220, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 320, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 380, y: 200, r: 0 }] }, caption: '__________' }], answer: '세게 두 번(느리게), 여리게 두 번(빠르게)' },
+        { type: 'figure', wide: true, prompt: '이 그림 악보를 어떻게 칠지 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: { pieces: [{ shape: 'circle', color: '빨강', size: 'l', x: 100, y: 200, r: 0 }, { shape: 'circle', color: '빨강', size: 'l', x: 220, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 320, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 's', x: 380, y: 200, r: 0 }] }, caption: '__________' }], answer: '세게 두 번(느리게), 여리게 두 번(빠르게)' },
         { type: 'choice', prompt: '큰 동그라미는 어떤 소리일까요?', options: ['센 소리', '여린 소리'], answer: '센 소리' },
         { type: 'draw', wide: true, prompt: '나만의 그림 악보를 그리세요.' },
         { type: 'short', prompt: '내 그림 악보를 말로 쓰세요. (예: 세게 둘, 여리게 둘)' },
@@ -1464,7 +1464,7 @@
               { prompt: '"우리 학교~" 하고 부르는 가락이에요. 가락 듣기를 누르고 똑같이 쳐 보세요.', toolOptions: { melody: ['솔', '라', '솔', '미'] }, target: { notes: ['솔', '라', '솔', '미'] }, difficulty: 0.25,
                 predict: { q: '"우리 학교~"의 둘째 소리는 첫 소리보다 높을까요, 낮을까요?', options: ['높아요', '낮아요'], answer: 0 },
                 conclude: '귀로 높낮이를 먼저 듣고 손으로 그리면 건반을 찾기 쉬워요.' },
-              { prompt: '짝이 "○○야~" 하고 이름 가락을 부르면, 나는 메아리처럼 똑같이 불러 줘요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝이 "○○야~" 하고 이름 가락을 부르면, 나는 메아리처럼 똑같이 불러 줘요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1545,7 +1545,7 @@
               { prompt: '선생님 리듬(짝 짝짝 짝 짝)을 거북 메아리로 바꾸면 두 마디가 돼요. 블록 하나하나를 두 배 길이로 바꾸어 놓아 보세요.', toolOptions: { measures: 2, pattern: ['q', 'e', 'e', 'q', 'q'] }, target: { rhythm: ['h', 'q', 'q', 'h', 'h'] }, difficulty: 0.3,
                 levels: { easy: { prompt: '선생님 리듬(짝 짝짝 짝 짝)의 앞부분 짝 짝짝을 거북 메아리로 두 배 길이로 바꾸어 한 마디에 놓아 보세요.', toolOptions: { measures: 1 }, target: { rhythm: ['h', 'q', 'q'] } } } },
               { prompt: '내가 바꾼 메아리를 마디가 모두 4박이 되게 놓고, 해낸 것을 표시해요.', toolOptions: { measures: 2 }, target: { beats: true, selfCheck: ['선생님 리듬을 먼저 그대로 쳐 보았어요', '빠르기를 바꾸어 다시 쳐 보았어요', '짝에게 들려주고 토끼인지 거북인지 맞혀 보게 했어요'] }, difficulty: 0.2 },
-              { prompt: '짝이 바꾼 메아리를 듣고 토끼(빠르게)인지 거북(느리게)인지 맞혀요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝이 바꾼 메아리를 듣고 토끼(빠르게)인지 거북(느리게)인지 맞혀요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1624,7 +1624,7 @@
                 levels: { easy: { prompt: '"딩 동 댕"을 거꾸로, 아래에서 위로 올라가게 바꾸어 쳐 보세요. 미에서 시작해 높은도로 끝나요.', target: { notes: ['미', '솔', '높은도'] } } } },
               { prompt: '높은도로 끝나는 세 음 흉내 가락을 내 마음대로 지어 보세요.', target: { compose: { length: 3, endOn: '높은도' } }, difficulty: 0.2 },
               { prompt: '학교 소리 하나를 골라 네 음 넘게 흉내 가락을 짓고, 해낸 것을 표시해요.', target: { selfCheck: ['흉내 낼 학교 소리를 골랐어요', '지은 가락을 목소리로도 불러 보았어요', '짝이 무슨 소리인지 맞혀 보았어요'], minNotes: 4 }, difficulty: 0.15 },
-              { prompt: '짝에게 내 흉내 가락을 들려주고 무슨 학교 소리인지 맞혀 보게 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝에게 내 흉내 가락을 들려주고 무슨 학교 소리인지 맞혀 보게 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1691,7 +1691,7 @@
                 levels: { challenge: { toolOptions: { palette: ['반가워!', '반가워', '안녕!'] } } } },
               { prompt: '크게·작게가 되풀이되는 나만의 메아리 줄을 만들어 보세요.', toolOptions: { mode: 'make', palette: ['학교!', '학교'], length: 6 }, target: { rule: 'repeat', minRepeats: 2, uses: 2 }, difficulty: 0.2,
                 levels: { challenge: { prompt: '\'학교!\', \'학교\', \'친구\'를 모두 써서 세 칸 묶음이 되풀이되는 메아리 줄을 만들어 보세요.', toolOptions: { palette: ['학교!', '학교', '친구'], length: 9 }, target: { rule: 'repeat', period: 3, minRepeats: 3, uses: 3 } } } },
-              { prompt: '내가 만든 메아리 줄을 짝과 크게·작게 목소리로 읽어 줘요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '내가 만든 메아리 줄을 짝과 크게·작게 목소리로 읽어 줘요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -1788,7 +1788,7 @@
                 target: { fill: { f1: '세기', f2: '작아' } }, difficulty: 0.15 },
               { prompt: '바꾸어 내기 놀이를 하는 차례대로 놓아 보세요.', toolOptions: { slots: ['1', '2', '3', '4'], cards: [{ id: 'copy', text: '처음 소리를 그대로 따라 내요', motif: 'cloud' }, { id: 'pick', text: '바꿀 것을 하나 골라요', motif: 'star' }, { id: 'play', text: '바꾼 소리를 짝에게 들려줘요', motif: 'bird' }, { id: 'tell', text: '무엇이 달라졌는지 말해요', motif: 'sun' }] },
                 target: { order: ['copy', 'pick', 'play', 'tell'] }, difficulty: 0.15 },
-              { prompt: '짝에게 내가 바꾼 소리를 들려주고 "나는 ○○를 바꾸었어"라고 말해요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝에게 내가 바꾼 소리를 들려주고 "나는 ○○를 바꾸었어"라고 말해요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1869,7 +1869,7 @@
               { prompt: '서아 가락이에요. 가락 듣기를 누르고 똑같이 쳐 보세요.', toolOptions: { melody: ['솔', '미', '미', '높은도'] }, target: { notes: ['솔', '미', '미', '높은도'] }, difficulty: 0.25,
                 levels: { base: { prompt: '서아 가락이에요. 가락 듣기를 누르고 똑같이 쳐 보세요. 낮은 도도 나와요.', toolOptions: { melody: ['솔', '미', '미', '도'] }, target: { notes: ['솔', '미', '미', '도'] } }, challenge: { prompt: '서아 가락이에요. 가락 듣기를 누르고 똑같이 쳐 보세요. 낮은 도도 나와요.', toolOptions: { melody: ['솔', '미', '미', '도'] }, target: { notes: ['솔', '미', '미', '도'] } } } },
               { prompt: '민지 가락이에요. 가락 듣기를 누르고 똑같이 쳐 보세요.', toolOptions: { melody: ['미', '파', '솔', '미'] }, target: { notes: ['미', '파', '솔', '미'] }, difficulty: 0.25 },
-              { prompt: '원으로 앉아 한 사람씩 4박 소리를 내고, 모두 똑같이 따라 해요. 한 바퀴 돌면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '원으로 앉아 한 사람씩 4박 소리를 내고, 모두 똑같이 따라 해요. 한 바퀴 돌면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1949,7 +1949,7 @@
               { prompt: '다시 할 때의 마음과 행동을 이어 보세요.', toolOptions: { mode: 'match', topic: '다시 해 봐요', slots: [{ id: 's1', label: '틀린 곳을 찾았을 때' }, { id: 's2', label: '고쳐서 다시 맞았을 때' }], cards: ['그 곳만 다시 들어요', '뿌듯해서 한 번 더 쳐요'] },
                 target: { match: { s1: '그 곳만 다시 들어요', s2: '뿌듯해서 한 번 더 쳐요' } }, difficulty: 0.15,
                 levels: { challenge: { toolOptions: { cards: ['그 곳만 다시 들어요', '뿌듯해서 한 번 더 쳐요', '처음부터 모두 지워요'] } } } },
-              { prompt: '고른 방법으로 22차시에 어려웠던 리듬을 짝과 다시 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '고른 방법으로 22차시에 어려웠던 리듬을 짝과 다시 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2115,7 +2115,7 @@
                 levels: { challenge: { toolOptions: { cards: ['무릎 톡톡', '안녕! 외치기', '딩동 허밍', '트라이앵글 땡'] } } } },
               { prompt: '비 오는 등굣길을 몸으로만 꾸밀 소리를 골라 보세요.', toolOptions: { mode: 'pick', basket: '몸으로 내는 빗소리', cards: ['손가락으로 책상 톡톡', '탬버린 흔들기', '손바닥 비비기 쓱쓱', '실로폰 치기'] },
                 target: { pick: ['손가락으로 책상 톡톡', '손바닥 비비기 쓱쓱'] }, difficulty: 0.2 },
-              { prompt: '모둠이 고른 목소리·몸 소리로 학교 가는 길을 처음부터 끝까지 들려줘요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '모둠이 고른 목소리·몸 소리로 학교 가는 길을 처음부터 끝까지 들려줘요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2196,7 +2196,7 @@
                 levels: { challenge: { prompt: '쿵·짝·탁을 모두 써서 세 칸 묶음이 되풀이되는 몸 악기 무늬를 만들어 보세요.', toolOptions: { palette: ['쿵', '짝', '탁'], length: 9 }, target: { rule: 'repeat', period: 3, minRepeats: 3, uses: 3 } } } },
               { prompt: '탁과 짝으로 네 칸 묶음이 두 번 되풀이되는 무늬를 만들어 보세요.', toolOptions: { mode: 'make', palette: ['탁', '짝'], length: 8 }, target: { rule: 'repeat', period: 4, minRepeats: 2, uses: 2 }, difficulty: 0.3,
                 levels: { easy: { prompt: '탁과 짝으로 두 칸 묶음이 되풀이되는 무늬를 만들어 보세요.', toolOptions: { length: 6 }, target: { rule: 'repeat', period: 2, minRepeats: 3, uses: 2 } } } },
-              { prompt: '내가 만든 무늬를 몸으로 짝에게 들려주고, 짝이 따라 하게 해요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '내가 만든 무늬를 몸으로 짝에게 들려주고, 짝이 따라 하게 해요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2265,7 +2265,7 @@
               { prompt: '같은 필통으로 낸 소리예요. 낸 방법과 소리를 이어 보세요.', toolOptions: { mode: 'match', topic: '필통 하나로', slots: [{ id: 's1', label: '두드려요' }, { id: 's2', label: '흔들어요' }, { id: 's3', label: '문질러요' }], cards: ['통통', '달그락달그락', '스윽스윽'] },
                 target: { match: { s1: '통통', s2: '달그락달그락', s3: '스윽스윽' } }, difficulty: 0.2,
                 conclude: '물건 하나로도 내는 방법에 따라 여러 가지 소리를 낼 수 있어요.' },
-              { prompt: '물건 바구니에서 하나를 골라 소리를 세 가지 넘게 내 보세요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '물건 바구니에서 하나를 골라 소리를 세 가지 넘게 내 보세요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -2279,7 +2279,7 @@
                 levels: { challenge: { toolOptions: { cards: ['손가락으로 상자 톡톡', '주먹으로 책상 똑똑', '종이 문지르기 쉬익', '필통 흔들기 달그락'] } } } },
               { prompt: '기차가 칙칙폭폭 달려가는 장면에 쓸 소리만 골라 보세요.', toolOptions: { mode: 'pick', basket: '기차 장면 소리', cards: ['손바닥 비비기 칙칙', '자로 상자 두드리기 폭폭', '트라이앵글 땡', '노래 랄랄라'] },
                 target: { pick: ['손바닥 비비기 칙칙', '자로 상자 두드리기 폭폭'] }, difficulty: 0.2 },
-              { prompt: '모둠이 고른 장면을 물건 소리로 들려주고, 다른 모둠이 맞히게 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '모둠이 고른 장면을 물건 소리로 들려주고, 다른 모둠이 맞히게 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2360,7 +2360,7 @@
                 target: { pick: ['발끝 구르기 톡톡톡', '자로 책상 탁탁 빠르게'] }, difficulty: 0.25 },
               { prompt: '고른 소리가 무엇에서 났는지 나누어 보세요.', toolOptions: { topic: '어디서 난 소리?', slots: ['몸', '물건'], cards: ['발끝 구르기 톡톡톡', '자로 책상 탁탁', '손뼉 짝짝', '필통 흔들기 달그락'] },
                 target: { sort: { '몸': ['발끝 구르기 톡톡톡', '손뼉 짝짝'], '물건': ['자로 책상 탁탁', '필통 흔들기 달그락'] } }, difficulty: 0.15 },
-              { prompt: '내 장면과 소리를 정해 짝에게 들려주고 "왜냐하면"을 넣어 까닭을 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '내 장면과 소리를 정해 짝에게 들려주고 "왜냐하면"을 넣어 까닭을 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2439,8 +2439,8 @@
             levels: RHY_LV,
             items: [
               { prompt: '고른 소리로 칠 네 박 리듬을 짓고, 들려준 뒤 해낸 것을 표시해요.', toolOptions: { measures: 1 }, target: { beats: true, selfCheck: ['고른 소리로 내 리듬을 쳐 보았어요', '예비 박을 세고 시작했어요'] }, difficulty: 0.1 },
-              { prompt: '내 리듬을 고른 소리로 두 번 이어서 짝에게 들려줘요. 다 하면 "다 했어요"를 누르세요.', free: true },
-              { prompt: '짝 리듬도 짝이 고른 소리로 함께 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '내 리듬을 고른 소리로 두 번 이어서 짝에게 들려줘요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+              { prompt: '짝 리듬도 짝이 고른 소리로 함께 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2520,7 +2520,7 @@
                 target: { order: ['count', 'me', 'you', 'bow'] }, difficulty: 0.1 },
               { prompt: '짝이 칠 때 나는 무엇을 할까요? 알맞은 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '짝 차례에 하는 일', cards: ['마음속으로 박을 세어요', '짝 소리를 들어요', '내 소리를 크게 덮어 쳐요', '딴짓을 해요'] },
                 target: { pick: ['마음속으로 박을 세어요', '짝 소리를 들어요'] }, difficulty: 0.1 },
-              { prompt: '짝과 여덟 박 주고받기를 다섯 번 이어서 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝과 여덟 박 주고받기를 다섯 번 이어서 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2600,7 +2600,7 @@
                 target: { pick: ['짝 소리를 들으며 쳐요', '서로 다른 소리(무릎·손뼉)를 써요', '박을 함께 세고 시작해요'] }, difficulty: 0.25 },
               { prompt: '혼자 칠 때와 겹쳐 칠 때 들리는 것을 나누어 보세요.', toolOptions: { topic: '무엇이 들리나?', slots: ['혼자 칠 때', '겹쳐 칠 때'], cards: ['내 손뼉 소리만 들려요', '무릎 소리와 손뼉 소리가 함께 들려요', '소리가 하나라 조용해요', '소리가 풍성해져요'] },
                 target: { sort: { '혼자 칠 때': ['내 손뼉 소리만 들려요', '소리가 하나라 조용해요'], '겹쳐 칠 때': ['무릎 소리와 손뼉 소리가 함께 들려요', '소리가 풍성해져요'] } }, difficulty: 0.2 },
-              { prompt: '짝과 역할(박 지키기·리듬)을 바꾸어 동시에 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '짝과 역할(박 지키기·리듬)을 바꾸어 동시에 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2748,8 +2748,8 @@
             items: [
               { prompt: '오늘 칠 리듬이에요. 리듬 듣기를 누르고 그대로 놓아 보세요.', toolOptions: { measures: 1, pattern: ['q', 'q', 'e', 'e', 'q'] }, target: { rhythm: ['q', 'q', 'e', 'e', 'q'] }, difficulty: 0.2,
                 levels: { easy: { prompt: '오늘 칠 리듬이에요. 리듬 듣기를 누르고 그대로 놓아 보세요. 2박 블록이 있어요.', toolOptions: { pattern: ['q', 'q', 'h'] }, target: { rhythm: ['q', 'q', 'h'] } } } },
-              { prompt: '놓은 리듬을 자리에서 혼자 작게 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
-              { prompt: '같은 리듬을 모둠이 둥글게 서서 함께 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '놓은 리듬을 자리에서 혼자 작게 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+              { prompt: '같은 리듬을 모둠이 둥글게 서서 함께 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -2765,7 +2765,7 @@
               { prompt: '이럴 때는 혼자가 좋을까요, 함께가 좋을까요? 이어 보세요.', toolOptions: { mode: 'match', topic: '언제가 좋을까?', slots: [{ id: 's1', label: '새 리듬을 처음 익힐 때' }, { id: 's2', label: '운동회에서 응원할 때' }], cards: ['혼자 천천히', '모두 함께'] },
                 target: { match: { s1: '혼자 천천히', s2: '모두 함께' } }, difficulty: 0.2,
                 conclude: '혼자 할 때와 함께 할 때는 저마다 좋은 점이 있어요.' },
-              { prompt: '혼자와 함께 가운데 오늘 더 좋았던 쪽을 짝에게 말하고, 다른 쪽의 좋은 점도 하나 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '혼자와 함께 가운데 오늘 더 좋았던 쪽을 짝에게 말하고, 다른 쪽의 좋은 점도 하나 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -2847,7 +2847,7 @@
               { prompt: '그 말을 들은 친구의 마음에 어울리는 카드를 놓아 보세요.', toolOptions: { cards: ['고마움', '속상함', '기쁨'], slots: [{ id: 's1', label: '"괜찮아, 다시 하자"를 들었어요' }, { id: 's2', label: '"너는 빠져!"를 들었어요' }, { id: 's3', label: '"우리 같이 해냈다!"를 들었어요' }] },
                 target: { match: { s1: '고마움', s2: '속상함', s3: '기쁨' } }, difficulty: 0.15,
                 levels: { easy: { prompt: '그 말을 들은 친구의 마음에 어울리는 카드를 놓아 보세요. 두 장이에요.', toolOptions: { cards: ['고마움', '속상함'], slots: [{ id: 's1', label: '"괜찮아, 다시 하자"를 들었어요' }, { id: 's2', label: '"너는 빠져!"를 들었어요' }] }, target: { match: { s1: '고마움', s2: '속상함' } } } } },
-              { prompt: '모둠 합주를 한 번 하고, 모둠 친구에게 힘이 되는 말을 하나씩 건네요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '모둠 합주를 한 번 하고, 모둠 친구에게 힘이 되는 말을 하나씩 건네요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
               { prompt: '합주를 끝낸 뒤 친구에게 어떻게 말할까요?', toolOptions: { mode: 'branch', situation: '모둠 합주가 끝났어요. 중간에 조금 틀렸지만 끝까지 함께 쳤어요.', choices: [
                 { id: 'thanks', text: '"끝까지 같이 해 줘서 고마워" 하고 말해요', result: '모두 웃으며 다음에도 함께 하자고 해요.', mood: '뿌듯함' },
                 { id: 'blame', text: '"누가 틀렸어?" 하고 찾아내요', result: '틀린 친구가 고개를 숙이고 분위기가 가라앉아요.', mood: '서운함', why: '틀린 친구를 찾으면 그 친구 마음은 어떨까요?' }] }, target: { choice: 'thanks' }, difficulty: 0.1 },
@@ -2933,7 +2933,7 @@
                 target: { pick: ['"여기 한 박 남는 것 같아, 같이 세어 볼까?"', '"이 블록을 빼면 어때?"'] }, difficulty: 0.15 },
               { prompt: '틀린 곳을 함께 고치는 차례대로 놓아 보세요.', toolOptions: { mode: 'match', topic: '함께 고치기', slots: [{ id: 's1', label: '먼저' }, { id: 's2', label: '그다음' }, { id: 's3', label: '마지막' }], cards: ['마디마다 박을 함께 세어요', '블록을 빼거나 더해요', '고친 리듬을 함께 쳐요'] },
                 target: { match: { s1: '마디마다 박을 함께 세어요', s2: '블록을 빼거나 더해요', s3: '고친 리듬을 함께 쳐요' } }, difficulty: 0.15 },
-              { prompt: '모둠이 고친 리듬을 다시 함께 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '모둠이 고친 리듬을 다시 함께 두 번 쳐 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -3000,7 +3000,7 @@
                 hints: ['놀이 이름에 \'짝\'·\'모둠\'이 있는지 살펴요.', '짝이나 모둠이 있어야 하는 놀이는 함께 한 놀이예요.', '주고받기·메아리 놀이·겹쳐 치기는 함께, 네 박 짓기·가락 짓기·그림 악보는 혼자 했어요.'] },
               { prompt: '놀이와 그 놀이에서 재미있었던 점을 이어 보세요.', toolOptions: { mode: 'match', topic: '무엇이 재미있었나?', slots: [{ id: 's1', label: '메아리 놀이' }, { id: 's2', label: '몸 악기' }, { id: 's3', label: '모둠 합주' }], cards: ['술래가 되어 바꾸어 냈어요', '발과 손으로 쿵 짝을 쳤어요', '지휘에 맞춰 함께 들어갔어요'] },
                 target: { match: { s1: '술래가 되어 바꾸어 냈어요', s2: '발과 손으로 쿵 짝을 쳤어요', s3: '지휘에 맞춰 함께 들어갔어요' } }, difficulty: 0.15 },
-              { prompt: '가장 재미있었던 놀이와 그 까닭을 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '가장 재미있었던 놀이와 그 까닭을 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -3013,7 +3013,7 @@
                 target: { fill: { f1: '함께', f2: '여럿이 치면' } }, difficulty: 0.15 },
               { prompt: '준호가 정한 다음 놀이 이야기예요. 빈칸을 채워 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '준호', motif: 'bird', label: '다음에는 가락 짓기를 ___ 해 보고 싶어요.' }, { id: 'f2', who: '준호', motif: 'bird', label: '왜냐하면 ___ 천천히 생각할 수 있으니까요.' }], cards: ['혼자', '함께', '내 빠르기로', '친구 빠르기로'] },
                 target: { fill: { f1: '혼자', f2: '내 빠르기로' } }, difficulty: 0.2 },
-              { prompt: '다음에 해 볼 놀이를 정해 별 스티커로 다음 놀이판에 붙이고, 까닭을 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '다음에 해 볼 놀이를 정해 별 스티커로 다음 놀이판에 붙이고, 까닭을 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -3089,7 +3089,7 @@
                 hints: ['물건 전체를 손가락으로 따라 그려 보세요.', '모서리가 없으면 동그라미, 모서리가 넷이면 네모, 셋이면 세모예요.', '시계·축구공은 동그라미, 칠판·문은 네모, 표지판·미끄럼틀 지붕은 세모예요.'] },
               { prompt: '동그라미 모양이 가장 눈에 띄는 학교 물건만 골라 보세요.', toolOptions: { mode: 'pick', basket: '동그라미 물건', cards: ['훌라후프', '사물함', '접시', '책상', '단추'] },
                 target: { pick: ['훌라후프', '접시', '단추'] }, difficulty: 0.2 },
-              { prompt: '학교에서 그려 보고 싶은 물건 하나를 정해, 짝에게 가장 눈에 띄는 모양을 손가락으로 그려 보여 줘요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '학교에서 그려 보고 싶은 물건 하나를 정해, 짝에게 가장 눈에 띄는 모양을 손가락으로 그려 보여 줘요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -3168,7 +3168,7 @@
                 levels: { challenge: { toolOptions: { cards: ['토끼', '나비', '책상', '물고기'] } } } },
               { prompt: '닮은 까닭을 모양으로 말한 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '모양으로 말한 까닭', cards: ['"끝이 뾰족해서 별 같아요"', '"그냥 좋아서요"', '"둥글고 넓적해서 접시 같아요"', '"재미있어서요"'] },
                 target: { pick: ['"끝이 뾰족해서 별 같아요"', '"둥글고 넓적해서 접시 같아요"'] }, difficulty: 0.2 },
-              { prompt: '운동장이나 창밖에서 구름·얼룩·그림자 하나를 찾아, 무엇과 닮았는지 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '운동장이나 창밖에서 구름·얼룩·그림자 하나를 찾아, 무엇과 닮았는지 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -3179,7 +3179,7 @@
             items: [
               { prompt: '하양 큰 동그라미 구름이에요. 귀 두 개(작은 세모 또는 나뭇잎)를 붙여 동물로 바꾸어 보세요.', state: { pieces: [{ shape: 'circle', color: '하양', size: 'l', x: 280, y: 220, r: 0 }] }, target: { pieces: { min: 3 }, selfCheck: ['귀 두 개를 붙였어요', '무엇인지 짝에게 말했어요'] }, difficulty: 0.15 },
               { prompt: '하양 구름 두 개가 붙어 있어요. 조각을 두 개 넘게 덧붙여 내가 떠올린 것으로 바꾸어 보세요.', state: { pieces: [{ shape: 'circle', color: '하양', size: 'l', x: 240, y: 200, r: 0 }, { shape: 'circle', color: '하양', size: 'm', x: 340, y: 200, r: 0 }] }, target: { pieces: { min: 5 }, selfCheck: ['구름을 다른 것으로 바꾸었어요', '닮은 까닭을 모양으로 말했어요'] }, difficulty: 0.2 },
-              { prompt: '색종이를 손으로 찢어 구름 모양을 만들고, 크레파스로 덧그려 무엇과 닮았는지 나타내요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '색종이를 손으로 찢어 구름 모양을 만들고, 크레파스로 덧그려 무엇과 닮았는지 나타내요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -3246,7 +3246,7 @@
                 hints: ['낱말을 소리 내어 읽고 몸짓으로 나타내 봐요.', '눈으로만 알 수 있는 빛깔은 색, 손으로 그릴 수 있으면 모양, 팔을 벌려 나타내면 크기예요.', '노랗다·파랗다는 색, 동그랗다·세모나다는 모양, 작다·커다랗다는 크기예요.'] },
               { prompt: '설명과 학교 물건을 이어 보세요.', toolOptions: { mode: 'match', topic: '무엇일까?', slots: [{ id: 's1', label: '초록색이고 네모나고 커요' }, { id: 's2', label: '노랗고 동그랗고 작아요' }, { id: 's3', label: '빨갛고 세모나고 커요' }], cards: ['칠판', '탁구공', '멈춤 표지판'] },
                 target: { match: { s1: '칠판', s2: '탁구공', s3: '멈춤 표지판' } }, difficulty: 0.2 },
-              { prompt: '학교 물건 하나를 골라 색·모양·크기로 설명하고, 짝이 맞히게 해요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '학교 물건 하나를 골라 색·모양·크기로 설명하고, 짝이 맞히게 해요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -3325,7 +3325,7 @@
                 hints: ['색종이 두 장을 겹쳐 들고 멀리서 보세요.', '비슷한 색끼리는 흐릿하고, 아주 다른 색끼리는 또렷해요.', '보라-노랑, 초록-빨강, 검정-하양은 또렷하고, 하양-연한 노랑, 파랑-남색, 분홍-빨강은 흐릿해요.'] },
               { prompt: '눈에 잘 띄어야 하는 학교 물건만 골라 보세요.', toolOptions: { mode: 'pick', basket: '눈에 잘 띄어야 해요', cards: ['비상구 표지', '횡단보도 앞 멈춤 표지판', '교실 커튼', '소화기 안내판'] },
                 target: { pick: ['비상구 표지', '횡단보도 앞 멈춤 표지판', '소화기 안내판'] }, difficulty: 0.25 },
-              { prompt: '색종이 두 장을 겹쳐 들고 교실 뒤에서 짝에게 보여 주며, 또렷한지 흐릿한지 견주어 봐요. 다 하면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '색종이 두 장을 겹쳐 들고 교실 뒤에서 짝에게 보여 주며, 또렷한지 흐릿한지 견주어 봐요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -3337,7 +3337,7 @@
               { prompt: '빨강과 초록처럼 서로 반대되는 색 두 조각이 맞닿게 붙여 보세요.', target: { contrast: 'complement' }, difficulty: 0.2,
                 levels: { easy: { prompt: '빨강과 초록처럼 서로 반대되는 색 두 조각이 맞닿게 붙여 보세요. 빨강 위에 초록, 노랑 위에 보라도 좋아요.', toolOptions: { colors: ['빨강', '초록', '노랑', '보라', '하양'] } } } },
               { prompt: '밝은 색과 어두운 색이 맞닿게 붙여, 멀리서도 또렷한 안내 그림을 만들어 보세요.', target: { contrast: 'light-dark' }, difficulty: 0.2,
-                hints: ['하양·노랑은 밝은 색, 검정·보라·파랑은 어두운 색이에요.', '어두운 색 큰 조각을 바탕으로 놓고, 그 위에 밝은 색 조각을 겹쳐요.', '검정 큰 네모 위에 하양 별 하나를 겹쳐 붙여요.'] },
+                hints: ['하양·노랑·분홍은 밝은 색, 검정·보라·갈색은 어두운 색이에요.', '어두운 색 큰 조각을 바탕으로 놓고, 그 위에 밝은 색 조각을 겹쳐요.', '검정 큰 네모 위에 하양 별 하나를 겹쳐 붙여요.'] },
               { prompt: '화장실·도서실·보건실 가운데 한 곳의 안내 그림을 또렷한 색으로 만들고, 해낸 것을 표시해요.', target: { pieces: { min: 2 }, selfCheck: ['바탕과 그림 색이 또렷하게 달라요', '교실 뒤에서 보아도 잘 보였어요'] }, difficulty: 0.15 },
             ],
           },
@@ -3376,6 +3376,668 @@
       challenge: '모든 색에서 골라 만들고, 흐릿한 친구 작품에서 한 조각 색만 바꿀 곳을 찾아 줘요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 좋아하는 색이 언제나 잘 보인다고 여긴다 → 같은 색을 다른 바탕 두 곳에 놓고 멀리서 견준다. ② 반대색 낱말을 외우려 한다 → 직접 겹쳐 보고 또렷한지로 고르게 한다. ③ 조각이 맞닿지 않고 떨어져 있다 → 바탕 조각 위에 겹치거나 붙여야 맞닿는다고 알려 준다. 색 구별이 어려운 학생이 있으면 밝고 어두운 색 짝으로 활동하게 한다.',
+  }));
+
+  // ───────────────────────── 41~44차시: 자세히 본 것을 크게 나타내고, 상상한 것을 덧붙이기 ─────────────────────────
+
+  // 쉬움은 꼭 쓰는 모양·색·두 크기만, 기본은 반원·보통 크기와 10색, 도전은 모든 조각
+  var ART2_LV = {
+    easy: { shapes: ['circle', 'square', 'rect', 'triangle', 'leaf', 'heart', 'star'], colors: ['빨강', '노랑', '초록', '파랑', '분홍', '갈색', '검정', '하양'], sizes: ['s', 'l'] },
+    base: { shapes: ['circle', 'square', 'rect', 'triangle', 'semi', 'leaf', 'heart', 'star'], sizes: ['s', 'm', 'l'] },
+    challenge: {},
+  };
+  // 화단에서 살펴보는 차시의 안전 약속
+  var GARDEN_SAFE = ['꽃과 잎은 꺾지 않고 눈으로만 봐요.', '돋보기로 해를 보지 않아요.', '화단 안으로 들어가지 않고 둘레에서 봐요.'];
+
+  lessons.push(L(41, {
+    title: '교실 화분을 자세히 보고 종이 가득 크게 나타내기',
+    objective: '교실 화분을 가까이에서 살펴 잎·줄기·화분에서 본 것을 말하고, 종이 가운데에 크게 나타낼 수 있다.',
+    illustration: ART('a big paper potted plant filling the center of a sheet, with a tiny pot drawn in the corner of another sheet beside it for comparison', '종이 가득 크게', [
+      { motif: 'leaf', x: 120, y: 110 }, { motif: 'leaf', x: 380, y: 120 }, { motif: 'flower', x: 240, y: 222, color: 'mint' }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '화분을 종이 구석에 콩알만 하게 그린 그림과 종이 가득 크게 그린 그림을 나란히 보여 준다. "어느 그림에서 잎 모양이 잘 보이나요?" 큰 그림을 이끌어 낸 뒤 "작게 그리면 자세히 본 것을 넣을 자리가 없어요. 오늘은 가까이 보고, 크게 나타내요." 모둠마다 교실 화분 하나를 책상 가운데에 놓는다. 시연 단추로 화분이 판 가득 붙는 모습을 보여 준다.',
+        student: '두 그림을 견주어 보고, 화분이 더 잘 보이는 그림을 손으로 가리켜요.',
+        demo: { tool: 'collage', options: { readOnly: true }, sequence: [{ has: [{ shape: 'square', color: '갈색', size: 'l', n: 1 }, { shape: 'leaf', color: '초록', size: 'l', n: 2 }] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 화분을 가까이 보고 말하기', minutes: 12, tool: 'mindmap',
+            teacher: '"코가 닿지 않을 만큼 가까이 가서 봐요. 잎 끝은 어떤가요? 줄기에는 무엇이 있나요?" 학생이 말한 것을 잎·줄기·화분 칸으로 칠판에 적는다. "초록색이에요"만 말하는 학생에게 "손가락으로 잎 가장자리를 따라가 보면 어떤가요?" 하고 모양을 말하게 한다. 잎은 만지지 않고 손가락으로 공중에서 따라 그리게 한다.',
+            task: '화분을 가까이 보고 알게 된 것을 잎·줄기·화분으로 나누고, 크게 그린 그림을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '화분을 가까이 보고 알게 된 것을 잎·줄기·화분으로 나누어 보세요.', toolOptions: { topic: '가까이 본 화분', slots: ['잎', '줄기', '화분'], cards: ['가장자리가 톱니처럼 들쭉날쭉해요', '잎맥이 갈래갈래 뻗어 있어요', '여러 잎을 매달고 위로 뻗어요', '마디가 볼록볼록 나 있어요', '흙이 담겨 있어요', '바닥에 물 빠지는 구멍이 있어요'] },
+                target: { sort: { '잎': ['가장자리가 톱니처럼 들쭉날쭉해요', '잎맥이 갈래갈래 뻗어 있어요'], '줄기': ['여러 잎을 매달고 위로 뻗어요', '마디가 볼록볼록 나 있어요'], '화분': ['흙이 담겨 있어요', '바닥에 물 빠지는 구멍이 있어요'] } }, difficulty: 0.25,
+                levels: { easy: { prompt: '화분을 가까이 보고 알게 된 것을 잎과 화분으로 나누어 보세요.', toolOptions: { slots: ['잎', '화분'], cards: ['가장자리가 톱니처럼 들쭉날쭉해요', '잎맥이 갈래갈래 뻗어 있어요', '흙이 담겨 있어요', '바닥에 물 빠지는 구멍이 있어요'] }, target: { sort: { '잎': ['가장자리가 톱니처럼 들쭉날쭉해요', '잎맥이 갈래갈래 뻗어 있어요'], '화분': ['흙이 담겨 있어요', '바닥에 물 빠지는 구멍이 있어요'] } } } },
+                hints: ['카드를 읽고 화분의 어디를 보아야 알 수 있는지 떠올려요.', '톱니·잎맥은 잎에서, 마디는 줄기에서, 흙과 구멍은 화분에서 보여요.', '잎: 톱니 가장자리·잎맥, 줄기: 잎 매달기·마디, 화분: 흙·물 빠지는 구멍이에요.'] },
+              { prompt: '종이 가운데에 크게 그린 그림만 골라 보세요.', toolOptions: { mode: 'pick', basket: '크게 그린 그림', cards: ['종이 가운데에 꽉 차게 그린 화분', '종이 구석에 콩알만 하게 그린 화분', '종이 가운데에 크게 그린 사물함', '종이 아래 끝에 조그맣게 그린 사물함'] },
+                target: { pick: ['종이 가운데에 꽉 차게 그린 화분', '종이 가운데에 크게 그린 사물함'] }, difficulty: 0.15 },
+              { prompt: '모둠 화분을 가까이 보고, 잎·줄기·화분에서 찾은 것을 하나씩 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 판 가득 화분 만들기', minutes: 14, tool: 'collage',
+            teacher: '"가장 큰 화분부터 판 가운데 아래쪽에 붙이고, 그 위로 줄기와 잎을 크게 붙여요." 작은 조각만 고르는 학생에게 "판의 반이 넘게 차도록 해 볼까요?" 하고 묻는다. 끝 문항은 종이에 크레파스로 그려도 된다.',
+            task: '화분·줄기·잎 조각을 크게 골라 판 가운데에 붙여요.',
+            levels: ART2_LV,
+            items: [
+              { prompt: '갈색 큰 네모 화분 하나, 초록 긴 네모 줄기 하나, 초록 큰 나뭇잎 세 개를 붙여 보세요.', target: { has: [{ shape: 'square', color: '갈색', size: 'l', n: 1 }, { shape: 'rect', color: '초록', n: 1 }, { shape: 'leaf', color: '초록', size: 'l', n: 3 }] }, difficulty: 0.2,
+                hints: ['화분·줄기·잎을 하나씩 짚으며 모양·색·크기를 골라요.', '화분은 갈색 큰 네모, 줄기는 초록 긴 네모, 잎은 초록 큰 나뭇잎이에요.', '갈색 큰 네모 1개, 초록 긴 네모 1개, 초록 큰 나뭇잎 3개를 붙여요.'] },
+              { prompt: '화분에 꽃이 피었어요. 노랑 큰 동그라미 꽃 가운데 하나와 노랑 나뭇잎 꽃잎 여섯 개를 붙여 보세요.', state: { pieces: [{ shape: 'square', color: '갈색', size: 'l', x: 280, y: 320, r: 0 }, { shape: 'rect', color: '초록', size: 'l', x: 280, y: 220, r: 90 }] },
+                target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 1 }, { shape: 'leaf', color: '노랑', n: 6 }] }, difficulty: 0.25 },
+              { prompt: '교실에서 본 식물이나 물건 하나를 판 가운데에 크게 만들고, 해낸 것을 표시해요.', target: { pieces: { min: 3 }, selfCheck: ['판 가운데에 놓았어요', '판의 반이 넘게 차도록 크게 만들었어요'] }, difficulty: 0.15 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '두세 명의 작품을 보여 주며 "가까이 보고 찾은 것을 어디에 넣었나요?" 하고 묻는다. 크게 만들어 잎맥·톱니까지 넣은 작품을 함께 칭찬한다. 다음 시간에는 학교 화단에 나가 돋보기로 꽃과 잎을 본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'collage', options: { shapes: ['circle', 'square', 'leaf'], colors: ['갈색', '초록', '빨강'], sizes: ['s', 'l'] }, prompt: '갈색 큰 네모 하나와 초록 큰 나뭇잎 두 개를 붙여 보세요.', target: { has: [{ shape: 'square', color: '갈색', size: 'l', n: 1 }, { shape: 'leaf', color: '초록', size: 'l', n: 2 }], pieces: { n: 3 } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '자세히 본 것이 잘 보이게 그리려면?', options: ['종이 가운데에 크게', '종이 구석에 작게'], answer: 0, difficulty: 0.1, explain: '크게 그려야 자세히 본 것을 넣을 자리가 생겨요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '종이 가득 화분',
+      items: [
+        { type: 'table', prompt: '화분을 가까이 보고 알게 된 것을 쓰세요.', columns: ['잎', '줄기', '화분'], rows: 2 },
+        { type: 'choice', prompt: '바닥에 물 빠지는 구멍이 있는 곳은?', options: ['잎', '화분'], answer: '화분' },
+        { type: 'draw', prompt: '교실 화분을 종이 가득 크게 그리세요.' },
+        { type: 'short', prompt: '내 그림에 넣은 자세히 본 것 하나를 쓰세요.' },
+      ],
+      easy: {
+        note: '가까이 보고, 크게 그려요.',
+        items: [
+          { type: 'choice', prompt: '잎맥이 있는 곳은?', options: ['잎', '화분'], answer: '잎' },
+          { type: 'choice', prompt: '더 잘 보이는 그림은?', options: ['크게 그린 그림', '작게 그린 그림'], answer: '크게 그린 그림' },
+          { type: 'draw', prompt: '잎 하나를 종이 가득 크게 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '잎과 화분 두 칸으로 나누고, 조각 고르개가 단순해요.',
+      base: '잎·줄기·화분 세 칸으로 나누고 크기를 맞추어 붙여요.',
+      challenge: '모든 조각에서 골라 만들고, 잎맥·마디처럼 가까이 보아야 보이는 것을 두 가지 넣어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 종이 구석에 작게 그린다 → 종이 가운데에 손바닥을 대 보고 "손바닥보다 크게" 그리게 한다. ② 색만 말하고 모양은 말하지 않는다 → 손가락으로 공중에서 가장자리를 따라 그리게 한다. ③ 화분 잎을 뜯거나 만진다 → 눈으로만 본다고 약속한다. 화분은 모둠마다 하나씩, 잎이 넓고 잎맥이 잘 보이는 것으로 준비한다.',
+  }));
+
+  lessons.push(L(42, {
+    title: '돋보기로 화단의 꽃과 잎 보고 크게 키워 꾸미기',
+    objective: '학교 화단의 꽃과 잎을 돋보기로 살펴 가까이 보아야 보이는 부분을 찾고, 그 부분을 크게 키워 꾸밀 수 있다.',
+    illustration: ART('children with paper magnifying glasses looking closely at flowers and leaves in a school flower bed, one leaf drawn huge with visible veins', '돋보기로 보아요', [
+      { motif: 'flower', x: 120, y: 224, color: 'rose' }, { motif: 'flower', x: 360, y: 226, color: 'buttercup' }, { motif: 'leaf', x: 240, y: 216 }]),
+    safety: GARDEN_SAFE,
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '돋보기로 교실 바닥 먼지나 연필 끝을 보여 준다. "눈으로 볼 때와 무엇이 다르게 보이나요?" "오늘은 화단에서 돋보기로만 보이는 것을 찾아요." 돋보기로 해를 보면 눈을 다친다는 약속을 먼저 함께 말한다. 시연 단추로 본 모습과 어디인지 잇는 모습을 보여 준다.',
+        student: '돋보기로 연필 끝을 보고, 눈으로 볼 때와 다른 점을 말해요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '어디를 보았나?', slots: [{ id: 's1', label: '가는 털이 보송보송 난 초록 조각' }], cards: ['나뭇잎'], shuffle: false }, sequence: [{ match: { s1: '나뭇잎' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 돋보기로 본 것 찾기', minutes: 13, tool: 'mindmap',
+            teacher: '화단 둘레에 모둠별로 서서 돋보기를 돌려 쓴다(한 사람 한 번에 열을 셀 동안). "가까이 보니 새로 보이는 것이 있나요?" 학생이 찾은 것을 교사가 사진으로 찍어 두고 교실에서 판과 함께 본다. \'꽃이 예뻐요\'처럼 멀리서도 알 수 있는 말에는 "돋보기로 보아야만 보이는 것은요?" 하고 되묻는다.',
+            task: '돋보기로 본 모습이 어디인지 잇고, 가까이 보아야 보이는 것을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '돋보기로 본 모습이 어디인지 이어 보세요.', toolOptions: { mode: 'match', topic: '어디를 보았나?', slots: [{ id: 's1', label: '가는 줄이 갈래갈래 뻗은 초록 조각' }, { id: 's2', label: '노란 가루가 묻은 가운데 부분' }, { id: 's3', label: '꺼끌꺼끌 갈라진 갈색 껍질' }], cards: ['나뭇잎', '꽃', '나무줄기'] },
+                target: { match: { s1: '나뭇잎', s2: '꽃', s3: '나무줄기' } }, difficulty: 0.2,
+                levels: { challenge: { toolOptions: { cards: ['나뭇잎', '꽃', '나무줄기', '돌멩이'] } } },
+                hints: ['설명의 색과 모양 낱말을 짚어 보세요.', '초록 줄은 잎에, 노란 가루는 꽃 가운데에, 갈색 껍질은 나무에 있어요.', '초록 줄 조각-나뭇잎, 노란 가루-꽃, 갈색 껍질-나무줄기예요.'] },
+              { prompt: '돋보기로 가까이 보아야 알 수 있는 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '가까이 보아야 보여요', cards: ['잎에 난 가는 털', '꽃잎의 가는 줄무늬', '화단이 학교 어디에 있는지', '화단에 나무가 몇 그루인지'] },
+                target: { pick: ['잎에 난 가는 털', '꽃잎의 가는 줄무늬'] }, difficulty: 0.2 },
+              { prompt: '화단에서 돋보기로 꽃이나 잎 하나를 보고, 새로 보인 것을 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 작은 것을 크게 키워 꾸미기', minutes: 14, tool: 'collage',
+            teacher: '"돋보기로 본 것처럼, 작은 꽃 하나를 판 가득 키워요." 꽃잎 수를 세며 붙이게 하고, 잎맥은 큰 잎 위에 겹쳐 붙이게 한다. "실제 꽃보다 훨씬 크지요? 크게 키우면 작아서 안 보이던 것까지 보여 줄 수 있어요."',
+            task: '돋보기로 본 꽃과 잎을 판 가득 크게 키워 붙여요.',
+            levels: ART2_LV,
+            items: [
+              { prompt: '돋보기로 본 꽃을 크게 키워요. 큰 동그라미 꽃 가운데 하나와 큰 하트 꽃잎 다섯 개를 붙여 보세요.', target: { has: [{ shape: 'circle', size: 'l', n: 1 }, { shape: 'heart', size: 'l', n: 5 }] }, difficulty: 0.2 },
+              { prompt: '잎 하나를 크게 키워요. 초록 큰 나뭇잎 하나 위에 잎맥(작은 긴 네모) 세 개를 겹쳐 붙여 보세요.', target: { has: [{ shape: 'leaf', color: '초록', size: 'l', n: 1 }, { shape: 'rect', size: 's', n: 3 }], overlap: 3 }, difficulty: 0.3,
+                hints: ['큰 잎을 먼저 붙이고, 그 위에 가는 조각을 얹어요.', '작은 긴 네모를 끌어 잎 위에 놓아야 겹쳐요. 잎 밖에 있으면 겹친 것이 아니에요.', '초록 큰 나뭇잎 1개를 붙이고, 작은 긴 네모 3개를 모두 그 잎 위로 옮겨요.'] },
+              { prompt: '화단에서 돋보기로 본 것 하나를 판 가득 크게 만들고, 해낸 것을 표시해요.', target: { pieces: { min: 3 }, selfCheck: ['돋보기로 본 부분을 넣었어요', '실제보다 크게 키웠어요'] }, difficulty: 0.15 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '찍어 둔 사진과 학생 작품을 나란히 보여 주며 "돋보기로 보고 무엇을 새로 알게 되었나요?" 하고 묻는다. 두세 명이 말한다. 다음 시간에는 학교 물건에 상상한 것을 덧붙여 본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', basket: '가까이 보아야 보여요', cards: ['개미 다리의 마디', '운동장이 얼마나 넓은지', '꽃받침의 잔털'] }, prompt: '돋보기로 가까이 보아야 알 수 있는 것만 골라 보세요.', target: { pick: ['개미 다리의 마디', '꽃받침의 잔털'] }, difficulty: 0.15 },
+          { type: 'choice', prompt: '작은 꽃잎 무늬를 잘 보여 주려면 어떻게 그릴까요?', options: ['실제보다 크게 키워 그려요', '실제보다 더 작게 그려요'], answer: 0, difficulty: 0.1, explain: '크게 키우면 작아서 안 보이던 무늬까지 보여 줄 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '돋보기로 본 화단',
+      items: [
+        { type: 'table', prompt: '돋보기로 본 것을 쓰세요.', columns: ['무엇을 보았나요', '새로 보인 것'], rows: 3 },
+        { type: 'choice', prompt: '돋보기로 보면 안 되는 것은?', options: ['해', '나뭇잎'], answer: '해' },
+        { type: 'draw', prompt: '돋보기로 본 꽃이나 잎 하나를 종이 가득 크게 그리세요.' },
+        { type: 'short', prompt: '돋보기로 보아서 새로 알게 된 것을 쓰세요.' },
+      ],
+      easy: {
+        note: '돋보기로 가까이 보면 작은 것이 보여요.',
+        items: [
+          { type: 'choice', prompt: '노란 가루가 묻은 곳은?', options: ['꽃 가운데', '나무줄기'], answer: '꽃 가운데' },
+          { type: 'choice', prompt: '꽃과 잎은?', options: ['눈으로만 봐요', '꺾어서 봐요'], answer: '눈으로만 봐요' },
+          { type: 'draw', prompt: '돋보기로 본 잎을 크게 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '잇기 카드가 딱 맞는 세 장이고, 조각 고르개가 단순해요.',
+      base: '돋보기로 본 꽃과 잎을 크기를 맞추어 키워 붙여요.',
+      challenge: '함정 카드(돌멩이)가 섞인 잇기를 하고, 돋보기로 본 것 두 가지를 한 작품에 넣어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 돋보기를 눈에 너무 붙이거나 너무 멀리 든다 → 돋보기를 눈 가까이 두고 물건 쪽으로 천천히 다가가게 한다. ② 꽃을 꺾어 가져오려 한다 → 눈으로만 보고 사진은 교사가 찍는다. ③ 실제보다 크게 그리면 틀린다고 여긴다 → 돋보기 속 모습도 실제보다 크다는 것을 함께 확인한다. 날씨가 나쁘면 교실 화분과 교사가 미리 따 온 낙엽으로 대신한다.',
+  }));
+
+  lessons.push(L(43, {
+    title: '학교 물건에 상상한 것 덧붙여 새 물건 만들기',
+    objective: '학교 물건을 본 대로 만든 뒤 상상한 것을 덧붙여 새 물건으로 바꾸고, 실제와 다른 그림도 멋진 작품임을 말할 수 있다.',
+    illustration: ART('a yellow paper school bus with big bird wings flying over a school, and a wooden chair with wheels rolling below', '하늘을 나는 버스', [
+      { motif: 'cloud', x: 140, y: 90 }, { motif: 'bird', x: 340, y: 84 }, { motif: 'house', x: 400, y: 216, color: 'peach', s: 0.8 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '해를 파랑으로 칠하고 웃는 얼굴을 그린 그림을 보여 준다. "이 그림은 틀린 그림일까요?" 여러 생각을 들은 뒤 "본 대로 그린 그림도, 상상을 덧붙인 그림도 모두 멋진 작품이에요. 다만 무엇을 상상했는지 말할 수 있으면 더 좋아요." 시연 단추로 본 대로 그린 곳과 상상한 곳이 나뉘는 모습을 보여 준다.',
+        student: '파란 해 그림을 보고, 틀린 그림인지 내 생각을 말해요.',
+        demo: { tool: 'mindmap', options: { topic: '하늘을 나는 학교 버스', slots: ['본 대로', '상상해서'], cards: ['동그란 바퀴', '새처럼 펼친 날개'], shuffle: false }, sequence: [{ sort: { '본 대로': ['동그란 바퀴'], '상상해서': ['새처럼 펼친 날개'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 본 대로와 상상해서', minutes: 11, tool: 'mindmap',
+            teacher: '"진짜 학교 버스에도 있는 것은 \'본 대로\', 진짜 버스에는 없는데 그린 사람이 떠올린 것은 \'상상해서\'에 놓아요." \'실제와 다르면 틀린 그림\'이라고 말하는 학생에게 "그린 사람이 일부러 바꾼 거라면요?" 하고 되묻는다.',
+            task: '상상 그림에서 본 대로 그린 곳과 상상해서 덧붙인 곳을 나누고, 상상 그림에 맞는 말을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '\'하늘을 나는 학교 버스\' 그림에서 본 대로 그린 곳과 상상해서 덧붙인 곳을 나누어 보세요.', toolOptions: { topic: '하늘을 나는 학교 버스', slots: ['본 대로', '상상해서'], cards: ['네모난 창문', '동그란 바퀴', '새처럼 펼친 날개', '무지개색 꼬리'] },
+                target: { sort: { '본 대로': ['네모난 창문', '동그란 바퀴'], '상상해서': ['새처럼 펼친 날개', '무지개색 꼬리'] } }, difficulty: 0.15,
+                levels: { challenge: { prompt: '\'하늘을 나는 학교 버스\' 그림에서 본 대로 그린 곳과 상상해서 덧붙인 곳을 나누어 보세요. 카드가 여섯 장이에요.', toolOptions: { cards: ['네모난 창문', '동그란 바퀴', '새처럼 펼친 날개', '무지개색 꼬리', '운전대', '구름을 뿜는 굴뚝'] }, target: { sort: { '본 대로': ['네모난 창문', '동그란 바퀴', '운전대'], '상상해서': ['새처럼 펼친 날개', '무지개색 꼬리', '구름을 뿜는 굴뚝'] } } } },
+                hints: ['진짜 학교 버스를 떠올려 보세요. 그 버스에도 있나요?', '진짜 버스에 있으면 본 대로, 없으면 상상해서예요.', '창문·바퀴(·운전대)는 본 대로, 날개·무지개 꼬리(·굴뚝)는 상상해서예요.'] },
+              { prompt: '상상 그림에 대해 맞는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '맞는 말', cards: ['실제와 달라도 멋진 그림이에요', '무엇을 덧붙였는지 말할 수 있어요', '실제와 다르면 틀린 그림이에요', '본 것만 그려야 해요'] },
+                target: { pick: ['실제와 달라도 멋진 그림이에요', '무엇을 덧붙였는지 말할 수 있어요'] }, difficulty: 0.2 },
+              { prompt: '교실 물건 하나를 골라 "이 물건이 ○○ 한다면?" 하고 상상한 것을 짝에게 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 학교 물건을 새 물건으로 바꾸기', minutes: 15, tool: 'collage',
+            teacher: '"판에 본 대로 만든 학교 물건이 있어요. 상상한 것을 덧붙여 새 물건으로 바꾸어 봐요." 다 바꾼 학생에게 "무엇을 덧붙였나요? 그러면 이 물건은 무엇을 할 수 있나요?" 하고 묻는다. 끝 문항은 내가 고른 물건을 처음부터 만든다.',
+            task: '본 대로 만든 학교 물건에 상상한 조각을 덧붙여 새 물건으로 바꾸어요.',
+            levels: ART2_LV,
+            items: [
+              { prompt: '노랑 학교 버스예요. 세모 날개 두 개를 덧붙여 하늘을 나는 버스로 바꾸어 보세요.', state: { pieces: [{ shape: 'rect', color: '노랑', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 220, y: 260, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 340, y: 260, r: 0 }] },
+                target: { has: [{ shape: 'triangle', min: 2 }], pieces: { min: 5 } }, difficulty: 0.15 },
+              { prompt: '갈색 의자예요. 동그라미 바퀴 네 개를 덧붙여 굴러다니는 의자로 바꾸어 보세요.', state: { pieces: [{ shape: 'square', color: '갈색', size: 'l', x: 280, y: 160, r: 0 }, { shape: 'rect', color: '갈색', size: 'm', x: 240, y: 260, r: 90 }, { shape: 'rect', color: '갈색', size: 'm', x: 320, y: 260, r: 90 }] },
+                target: { has: [{ shape: 'circle', n: 4 }] }, difficulty: 0.2,
+                levels: { easy: { state: { pieces: [{ shape: 'square', color: '갈색', size: 'l', x: 280, y: 160, r: 0 }, { shape: 'rect', color: '갈색', size: 'l', x: 240, y: 260, r: 90 }, { shape: 'rect', color: '갈색', size: 'l', x: 320, y: 260, r: 90 }] } } } },
+              { prompt: '학교 물건 하나를 본 대로 만들고 상상한 것을 덧붙여, 무엇을 할 수 있게 되었는지 짝에게 말해요.', target: { pieces: { min: 4 }, selfCheck: ['학교 물건을 본 대로 만들었어요', '상상한 조각을 덧붙였어요', '무엇을 할 수 있게 되었는지 짝에게 말했어요'] }, difficulty: 0.15 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '새 물건 작품을 서너 개 보여 주며 "이 물건은 무엇을 할 수 있나요?" 하고 만든 친구가 말하게 한다. 실제와 다르게 만든 작품마다 무엇을 상상했는지 박수와 함께 들어 준다. 다음 시간에는 학교 나무 앞에서 "만약 ~라면?" 하고 물으며 상상해 본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '다리가 달린 책가방', slots: ['본 대로', '상상해서'], cards: ['어깨에 메는 끈', '걸어가는 두 다리'] }, prompt: '\'다리가 달린 책가방\' 그림에서 본 대로 그린 곳과 상상해서 덧붙인 곳을 나누어 보세요.', target: { sort: { '본 대로': ['어깨에 메는 끈'], '상상해서': ['걸어가는 두 다리'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '친구가 교실 시계에 날개를 그렸어요. 어떻게 말해 줄까요?', options: ['"시계에는 날개가 없어. 틀렸어."', '"날개를 덧붙여서 날아다니는 시계가 됐네!"'], answer: 1, difficulty: 0.1, explain: '실제와 다르게 그린 것도 상상을 덧붙인 멋진 그림이에요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '새 물건 만들기',
+      items: [
+        { type: 'table', prompt: '내가 바꾼 학교 물건을 쓰세요.', columns: ['학교 물건', '덧붙인 것', '할 수 있게 된 일'], rows: 2 },
+        { type: 'choice', prompt: '실제와 다르게 그린 그림은?', options: ['상상을 덧붙인 그림이에요', '틀린 그림이에요'], answer: '상상을 덧붙인 그림이에요' },
+        { type: 'draw', prompt: '학교 물건 하나를 그리고, 상상한 것을 덧붙여 새 물건으로 바꾸세요.' },
+        { type: 'short', prompt: '내 새 물건의 이름을 지어 쓰세요.' },
+      ],
+      easy: {
+        note: '본 대로 그리고, 상상한 것을 하나 덧붙여요.',
+        items: [
+          { type: 'choice', prompt: '진짜 버스에 있는 것은?', options: ['바퀴', '날개'], answer: '바퀴' },
+          { type: 'choice', prompt: '날개 달린 버스 그림은?', options: ['멋진 상상 그림', '틀린 그림'], answer: '멋진 상상 그림' },
+          { type: 'draw', prompt: '의자에 상상한 것 하나를 덧붙여 그리세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '카드 네 장으로 나누고, 의자 다리가 크게 놓여 있어 바퀴 자리가 잘 보여요.',
+      base: '본 대로·상상해서를 나누고 판의 물건에 조각을 덧붙여요.',
+      challenge: '카드 여섯 장을 나누고, 덧붙인 조각으로 물건이 할 수 있게 된 일을 두 가지 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 실제와 다르게 그리면 틀린 그림이라고 여긴다 → 도입의 파란 해 그림처럼 일부러 바꾼 그림을 여러 장 보여 준다. ② 덧붙이기만 하고 무엇이 되었는지 말하지 못한다 → "이제 이 물건은 무엇을 할 수 있나요?" 하고 묻는다. ③ 처음부터 상상만 하다 물건이 무엇인지 알 수 없게 된다 → 본 대로 먼저, 상상은 그다음이라는 차례를 지키게 한다.',
+  }));
+
+  lessons.push(L(44, {
+    title: '"만약 ~라면?" 물으며 학교 나무를 상상 나무로 꾸미기',
+    objective: '학교 나무를 보며 "만약 ~라면?" 하고 상상 물음을 만들고, 그 물음에서 떠오른 것을 덧붙여 나만의 상상 나무를 꾸밀 수 있다.',
+    illustration: ART('a big paper school tree with star-shaped fruits and heart leaves, a child under it with a speech bubble asking what if', '만약 ~라면?', [
+      { motif: 'tree', x: 120, y: 214 }, { motif: 'star', x: 360, y: 90, s: 0.7 }, { motif: 'bird', x: 300, y: 70 }]),
+    safety: WALK_SAFE,
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '운동장 가장자리 나무 앞에 모인다(교실에서 창밖 나무를 보아도 된다). "이 나무에서 무엇이 보이나요?" 줄기·가지·잎을 말한 뒤 "그럼, 만약 이 나무에 사탕이 열린다면? 만약 이 나무가 걸을 수 있다면?" 하고 묻는다. "\'만약 ~라면?\' 하고 물으면 상상이 시작돼요." 시연 단추로 물음과 상상 그림이 이어지는 모습을 보여 준다.',
+        student: '학교 나무를 보고 보이는 것을 말한 뒤, 선생님의 "만약" 물음에 떠오른 것을 말해요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '만약 ~라면?', slots: [{ id: 's1', label: '만약 학교 나무에 사탕이 열린다면?' }], cards: ['알록달록 사탕이 매달린 나무'], shuffle: false }, sequence: [{ match: { s1: '알록달록 사탕이 매달린 나무' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. "만약 ~라면?" 물음 만들기', minutes: 11, tool: 'mindmap',
+            teacher: '"\'만약 ~라면?\' 물음은 보이는 것을 묻지 않고, 아직 없는 것을 떠올리게 해요." \'나무는 무슨 색이에요?\'처럼 보이는 것을 묻는 말과 견주게 한다. 학생이 만든 물음을 칠판 나무 그림 둘레에 붙인다.',
+            task: '"만약" 물음과 떠오른 그림을 잇고, 상상을 여는 물음을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '"만약" 물음과 떠오른 그림을 이어 보세요.', toolOptions: { mode: 'match', topic: '만약 ~라면?', slots: [{ id: 's1', label: '만약 미끄럼틀이 물로 되어 있다면?' }, { id: 's2', label: '만약 교실 시계에 얼굴이 있다면?' }, { id: 's3', label: '만약 학교 나무가 걸을 수 있다면?' }], cards: ['물이 흘러내리는 미끄럼틀', '눈과 입이 있는 시계', '뿌리로 걸어가는 나무'] },
+                target: { match: { s1: '물이 흘러내리는 미끄럼틀', s2: '눈과 입이 있는 시계', s3: '뿌리로 걸어가는 나무' } }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['물이 흘러내리는 미끄럼틀', '눈과 입이 있는 시계', '뿌리로 걸어가는 나무', '잎이 초록인 나무'] } } } },
+              { prompt: '상상을 여는 "만약" 물음만 골라 보세요.', toolOptions: { mode: 'pick', basket: '상상을 여는 물음', cards: ['만약 구름이 솜사탕이라면?', '만약 신발장이 노래를 한다면?', '나무에 잎이 몇 장이에요?', '운동장은 무슨 색이에요?'] },
+                target: { pick: ['만약 구름이 솜사탕이라면?', '만약 신발장이 노래를 한다면?'] }, difficulty: 0.2,
+                hints: ['보이는 것을 묻는 말과 아직 없는 것을 떠올리게 하는 말을 견주어요.', '"만약 ~라면?"으로 묻는 말이 상상을 열어요.', '구름이 솜사탕이라면, 신발장이 노래한다면 — 이 두 물음을 골라요.'] },
+              { prompt: '학교 나무를 보며 "만약 ~라면?" 물음을 하나 만들어 짝에게 묻고, 짝의 대답을 들어요. 바꾸어 해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 상상 나무 꾸미기', minutes: 15, tool: 'collage',
+            teacher: '"판에 학교 나무가 있어요. 내 \'만약\' 물음에서 떠오른 것을 덧붙여 상상 나무로 만들어요." 두 번째 문항은 접는 선 양쪽이 똑같은 나무다. 짝 조각을 접는 선에서 같은 칸만큼 떨어지게 놓도록 손가락으로 칸을 세게 한다.',
+            task: '학교 나무에 상상한 열매와 무늬를 덧붙여 나만의 상상 나무를 꾸며요.',
+            levels: ART2_LV,
+            items: [
+              { prompt: '만약 나무에 별이 열린다면? 학교 나무에 별 열매를 네 개 넘게 매달아 보세요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 280, y: 300, r: 90 }, { shape: 'circle', color: '초록', size: 'l', x: 280, y: 160, r: 0 }] },
+                target: { has: [{ shape: 'star', min: 5 }] }, difficulty: 0.15 },
+              { prompt: '접는 선 양쪽이 똑같은 상상 나무예요. 하트 열매 한 쌍을 선 양쪽에 짝지어 붙여 보세요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 280, y: 300, r: 90 }, { shape: 'circle', color: '초록', size: 'l', x: 280, y: 160, r: 0 }] },
+                target: { symmetry: 'vertical', has: [{ shape: 'heart', min: 2 }] }, difficulty: 0.35,
+                hints: ['접는 선을 거울이라고 생각해요.', '한쪽에 하트를 붙였으면, 같은 색·크기 하트를 반대쪽 같은 칸 수만큼 떨어진 곳에 붙여요.', '왼쪽 하트가 선에서 세 칸 떨어져 있으면, 오른쪽에도 세 칸 떨어진 같은 높이에 같은 하트를 놓아요.'] },
+              { prompt: '내가 만든 "만약" 물음으로 상상 나무를 꾸미고, 해낸 것을 표시해요.', target: { pieces: { min: 4 }, selfCheck: ['줄기와 잎을 크게 만들었어요', '"만약" 물음에서 떠오른 것을 덧붙였어요', '내 물음을 짝에게 말해 주었어요'] }, difficulty: 0.15 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '상상 나무 작품을 칠판에 숲처럼 모아 붙인다. "이 나무는 어떤 \'만약\' 물음에서 나왔을까요?" 반 친구들이 짐작하고 만든 친구가 답한다. 다음 시간에는 그동안 만든 과정을 돌아보며 재미있었던 때를 이야기한다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', basket: '상상을 여는 물음', cards: ['만약 책가방이 하늘을 난다면?', '책가방은 무슨 색이에요?', '만약 연필이 춤을 춘다면?'] }, prompt: '상상을 여는 "만약" 물음만 골라 보세요.', target: { pick: ['만약 책가방이 하늘을 난다면?', '만약 연필이 춤을 춘다면?'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '"만약 운동장이 바다라면?"에서 떠오른 그림은?', options: ['물고기가 헤엄치는 운동장', '흙이 깔린 운동장'], answer: 0, difficulty: 0.1, explain: '"만약" 물음은 아직 없는 것을 떠올리게 해요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '상상 나무',
+      items: [
+        { type: 'short', prompt: '학교 나무를 보고 "만약 ~라면?" 물음을 하나 쓰세요.' },
+        { type: 'choice', prompt: '상상을 여는 물음은?', options: ['만약 나무가 말을 한다면?', '나무가 몇 그루예요?'], answer: '만약 나무가 말을 한다면?' },
+        { type: 'draw', prompt: '내 물음에서 떠오른 상상 나무를 종이 가득 그리세요.' },
+        { type: 'table', prompt: '내 상상 나무를 소개하세요.', columns: ['덧붙인 것', '그렇게 한 까닭'], rows: 2 },
+      ],
+      easy: {
+        note: '"만약 ~라면?" 하고 물어요.',
+        items: [
+          { type: 'choice', prompt: '상상 물음은?', options: ['만약 나무에 사탕이 열린다면?', '나무는 무슨 색이에요?'], answer: '만약 나무에 사탕이 열린다면?' },
+          { type: 'draw', prompt: '나무에 열렸으면 하는 것을 그리세요.' },
+          { type: 'short', prompt: '내 나무에 열린 것을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '딱 맞는 카드 세 장으로 잇고, 조각 고르개가 단순해요.',
+      base: '"만약" 물음을 고르고, 별·하트 열매를 덧붙여 꾸며요.',
+      challenge: '함정 카드가 섞인 잇기를 하고, 대칭 나무에 하트 말고 다른 조각 짝도 더 붙여요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① "만약"을 붙였지만 보이는 것을 묻는다(만약 나무가 초록이라면?) → "지금도 그렇지 않나요? 아직 없는 것을 떠올려 봐요." ② 대칭 나무에서 짝 조각의 거리가 다르다 → 접는 선에서 칸을 손가락으로 세게 한다. ③ 나무 앞에서 가지를 당긴다 → 나무는 눈으로만 본다. 바깥이 어려우면 창밖 나무로 한다.',
+  }));
+
+  // ───────────────────────── 45~48차시: 만드는 과정 돌아보기, 친구 작품의 좋은 점, 고쳐 다시 하기, 단원 정리 ─────────────────────────
+
+  lessons.push(L(45, {
+    title: '만드는 중간에 멈추어 재미있었던 때 말하기',
+    objective: '작품을 만드는 중간과 다 만든 뒤에 멈추어, 가장 재미있었던 때를 "~할 때 ~했어요"로 말할 수 있다.',
+    illustration: ART('a half-finished paper playground swing on a desk, two children pausing with glue sticks in hand and talking happily', '만들다 멈추고 말해요', [
+      { motif: 'star', x: 120, y: 86, s: 0.6 }, { motif: 'flower', x: 380, y: 226, color: 'peach' }, { motif: 'tree', x: 90, y: 214 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '반쯤 만든 선생님 작품을 들어 보인다. "선생님은 아직 다 못 만들었어요. 그런데 벌써 이야기하고 싶은 게 있어요. 다 만들기 전에 이야기해도 될까요?" 대답을 들은 뒤 "줄을 붙일 때 그네가 진짜처럼 흔들려 보여서 재미있었어요." 하고 \'~할 때 ~했어요\' 틀로 말해 준다. 시연 단추로 지금까지 해 온 일이 차례대로 놓이는 모습을 보여 준다.',
+        student: '선생님 작품을 보고, 다 만들기 전에도 이야기할 수 있는지 내 생각을 말해요.',
+        demo: { tool: 'timeline', options: { axis: ['먼저', '나중'], cards: ['자세히 살펴보기', '상상한 것 덧붙이기'], slots: 2, shuffle: false }, sequence: [{ order: ['자세히 살펴보기', '상상한 것 덧붙이기'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 지금까지 해 온 일 떠올리기', minutes: 11, tool: 'timeline',
+            teacher: '37차시부터 만든 작품을 책상에 꺼내 놓게 한다. "무엇부터 했지요? 그때 가장 재미있었던 것은?" 작품을 짚으며 차례를 떠올리게 한다. \'재미있었어요\'만 말하는 학생에게 "무엇을 할 때요?" 하고 되묻는다.',
+            task: '지금까지 해 온 일을 차례대로 놓고, 재미있었던 때를 말한 것을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '우리가 해 온 일을 한 차례대로 놓아 보세요.', toolOptions: { axis: ['먼저', '나중'], cards: ['눈에 띄는 모양 찾기', '종이 가득 크게 만들기', '상상한 것 덧붙이기'], slots: 3 },
+                target: { order: ['눈에 띄는 모양 찾기', '종이 가득 크게 만들기', '상상한 것 덧붙이기'] }, difficulty: 0.2,
+                levels: { challenge: { prompt: '우리가 해 온 일을 한 차례대로 놓아 보세요. 오늘 하는 일까지 넷이에요.', toolOptions: { cards: ['눈에 띄는 모양 찾기', '종이 가득 크게 만들기', '상상한 것 덧붙이기', '재미있었던 때 말하기'], slots: 4 }, target: { order: ['눈에 띄는 모양 찾기', '종이 가득 크게 만들기', '상상한 것 덧붙이기', '재미있었던 때 말하기'] } } },
+                hints: ['책상에 꺼낸 작품을 만든 날 차례로 늘어놓아 보세요.', '먼저 살펴보고, 그다음 크게 만들고, 그 뒤에 바꾸었어요.', '모양 찾기 → 크게 만들기 → 상상 덧붙이기(→ 오늘 재미있었던 때 말하기) 차례예요.'] },
+              { prompt: '재미있었던 때를 콕 집어 말한 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '재미있었던 때', cards: ['"잎을 크게 붙일 때 신났어요"', '"버스에 날개를 달 때 웃음이 났어요"', '"다 했어요"', '"몰라요"'] },
+                target: { pick: ['"잎을 크게 붙일 때 신났어요"', '"버스에 날개를 달 때 웃음이 났어요"'] }, difficulty: 0.15,
+                hints: ['\'무엇을 할 때\'가 들어 있는 말을 찾아요.', '"다 했어요", "몰라요"에는 무엇을 할 때인지가 없어요.', '잎을 크게 붙일 때, 날개를 달 때 — 이 두 말을 골라요.'] },
+              { prompt: '지난 작품 하나를 짝에게 보여 주며 "~할 때 ~했어요"로 재미있었던 때를 말해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 만들다 멈추어 말하기', minutes: 15, tool: 'collage',
+            teacher: '"오늘은 운동장 그네를 만들어요. 기둥 두 개를 붙이면 손을 멈추고 짝에게 지금까지 재미있었던 점을 말해요. 그리고 다시 이어 만들어요." 교사가 손뼉을 두 번 치면 모두 멈추고 짝과 30초 이야기하게 한다. 다 만든 뒤에도 한 번 더 말한다.',
+            task: '그네와 놀이 기구를 만들며, 중간에 멈추어 짝과 재미있었던 점을 말해요.',
+            levels: ART2_LV,
+            items: [
+              { prompt: '운동장 그네를 만들어요. 갈색 긴 네모 기둥 두 개, 검정 긴 네모 줄 두 개, 빨강 네모 앉는 판 하나를 붙여 보세요.', target: { has: [{ shape: 'rect', color: '갈색', n: 2 }, { shape: 'rect', color: '검정', n: 2 }, { shape: 'square', color: '빨강', n: 1 }] }, difficulty: 0.2,
+                hints: ['기둥·줄·앉는 판을 하나씩 짚으며 모양과 색을 골라요.', '기둥은 갈색 긴 네모, 줄은 검정 긴 네모, 앉는 판은 빨강 네모예요.', '갈색 긴 네모 2개, 검정 긴 네모 2개, 빨강 네모 1개를 붙여요.'] },
+              { prompt: '그네에 상상한 것을 덧붙여요. 손뼉 소리에 멈추어 짝에게 말하고, 이어서 끝까지 꾸며 해낸 것을 표시해요.', state: { pieces: [{ shape: 'rect', color: '갈색', size: 'l', x: 180, y: 200, r: 90 }, { shape: 'rect', color: '갈색', size: 'l', x: 380, y: 200, r: 90 }, { shape: 'rect', color: '검정', size: 's', x: 260, y: 220, r: 90 }, { shape: 'rect', color: '검정', size: 's', x: 300, y: 220, r: 90 }, { shape: 'square', color: '빨강', size: 's', x: 280, y: 280, r: 0 }] },
+                target: { pieces: { min: 6 }, selfCheck: ['만드는 중간에 멈추어 짝에게 말했어요', '다 만든 뒤에도 짝에게 말했어요'] }, difficulty: 0.15 },
+              { prompt: '종이에 크레파스로 미끄럼틀이나 시소를 그리다가, 반쯤 그렸을 때 짝에게 재미있는 점을 말하고 이어서 그려요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 만드는 중간에 짝과 이야기해 보니 어땠나요?" 두세 명이 말한다. 짝의 말을 듣고 생각이 바뀌어 더 꾸민 학생이 있으면 함께 듣는다. 다음 시간에는 친구 작품을 둘러보며 좋은 점을 찾아 말해 준다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', basket: '재미있었던 때', cards: ['"구름에 귀를 붙일 때 웃겼어요"', '"그냥요"', '"돋보기로 잎을 볼 때 신기했어요"'] }, prompt: '재미있었던 때를 콕 집어 말한 것만 골라 보세요.', target: { pick: ['"구름에 귀를 붙일 때 웃겼어요"', '"돋보기로 잎을 볼 때 신기했어요"'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '그림을 다 그리기 전에도 재미있었던 때를 말할 수 있을까요?', options: ['네, 그리는 중간에도 말할 수 있어요', '아니요, 다 그린 뒤에만 말해요'], answer: 0, difficulty: 0.1, explain: '만드는 중간에도, 다 만든 뒤에도 이야기할 수 있어요.' },
+          { type: 'tool', tool: 'emotion', options: { mode: 'scale', steps: 3, situation: '그네를 만들다 멈추고 짝과 이야기했어요.', feeling: '즐거움', ask: '오늘 만들기는 얼마나 즐거웠나요?' }, prompt: '오늘 만들기가 얼마나 즐거웠는지 솔직하게 골라 보세요. 정답은 없어요.', target: { level: 'any' }, difficulty: 0.05 },
+        ],
+      },
+    ],
+    worksheet: {
+      title: '재미있었던 때',
+      items: [
+        { type: 'table', prompt: '만들면서 재미있었던 때를 쓰세요.', columns: ['언제', '무엇을 할 때', '어떤 마음'], cells: [['만드는 중간', '', ''], ['다 만든 뒤', '', '']] },
+        { type: 'choice', prompt: '재미있었던 때를 잘 말한 것은?', options: ['"줄을 붙일 때 신났어요"', '"몰라요"'], answer: '"줄을 붙일 때 신났어요"' },
+        { type: 'draw', prompt: '만들면서 가장 재미있었던 때의 내 모습을 그리세요.' },
+        { type: 'short', prompt: '"~할 때 ~했어요"로 한 문장을 쓰세요.' },
+      ],
+      easy: {
+        note: '"~할 때 ~했어요"로 말해요.',
+        items: [
+          { type: 'choice', prompt: '다 만들기 전에도 말할 수 있나요?', options: ['네', '아니요'], answer: '네' },
+          { type: 'draw', prompt: '재미있었던 때를 그리세요.' },
+          { type: 'short', prompt: '무엇을 할 때 재미있었나요?' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '차례 카드가 셋이고, 맞는 칸에 놓으면 바로 초록 테두리가 보여요. 조각 고르개가 단순해요.',
+      base: '세 일을 차례대로 놓고, 그네를 만들며 중간에 멈추어 말해요.',
+      challenge: '오늘 일까지 네 카드를 차례대로 놓고, 짝 말을 듣고 바꾼 점까지 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 다 만든 뒤에만 말할 수 있다고 여겨 멈추기를 싫어한다 → 교사가 먼저 반쯤 만든 작품으로 말하는 본을 보인다. ② "재미있었어요"만 말한다 → "무엇을 할 때요?" 하고 되물어 \'~할 때\'를 채우게 한다. ③ 멈춘 뒤 다시 시작하지 못한다 → 손뼉 두 번 멈춤, 한 번 다시 시작으로 신호를 정해 둔다.',
+  }));
+
+  lessons.push(L(46, {
+    title: '친구 작품을 둘러보고 좋은 점 콕 집어 말해 주기',
+    objective: '친구 작품을 보고 크기·색·상상한 것 가운데 좋은 점 하나를 콕 집어 말해 줄 수 있다.',
+    illustration: ART('a small classroom gallery of paper artworks on desks, children walking around and one child giving a thumbs up with a speech bubble', '좋은 점을 말해요', [
+      { motif: 'star', x: 120, y: 80, s: 0.7 }, { motif: 'star', x: 380, y: 76, s: 0.6 }, { motif: 'flower', x: 240, y: 228, color: 'rose' }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '교사 작품 하나를 들고 두 가지 말을 들려준다. "그냥 예뻐." / "잎을 종이 가득 크게 붙여서 잎맥까지 잘 보여." "어느 말을 들으면 무엇이 좋았는지 더 잘 알 수 있나요?" "좋은 점은 크기·색·상상한 것 가운데 하나를 콕 집어 말해요." 시연 단추로 작품과 좋은 점이 이어지는 모습을 보여 준다.',
+        student: '두 말을 듣고, 무엇이 좋은지 더 잘 알 수 있는 말을 골라 손을 들어요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '어디가 좋을까?', slots: [{ id: 's1', label: '종이 가득 크게 만든 해바라기' }], cards: ['크게 만들어 잘 보여요'], shuffle: false }, sequence: [{ match: { s1: '크게 만들어 잘 보여요' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 작품의 좋은 점 찾기', minutes: 14, tool: 'mindmap',
+            teacher: '모둠(네 명) 책상에 작품을 펼쳐 놓고, 시계 방향으로 한 칸씩 옮겨 가며 친구 작품을 본다(한 작품에 1분). "크기·색·상상한 것 가운데 어디가 좋은가요?" 좋은 점 낱말 카드(크게·또렷한 색·상상)를 모둠마다 놓아 두고 짚으며 말하게 한다. 고칠 점부터 말하는 학생에게는 "오늘은 좋은 점만 찾아요." 하고 돌려 준다.',
+            task: '작품과 좋은 점을 잇고, 좋은 점을 콕 집어 말한 것을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '작품과 그 작품의 좋은 점을 이어 보세요.', toolOptions: { mode: 'match', topic: '어디가 좋을까?', slots: [{ id: 's1', label: '바퀴를 달아 굴러다니는 의자' }, { id: 's2', label: '검정 바탕에 하양 별을 붙인 안내판' }, { id: 's3', label: '판 가득 크게 키운 나뭇잎' }], cards: ['상상한 것을 덧붙였어요', '맞닿은 색이 또렷해요', '크게 만들어 잘 보여요'] },
+                target: { match: { s1: '상상한 것을 덧붙였어요', s2: '맞닿은 색이 또렷해요', s3: '크게 만들어 잘 보여요' } }, difficulty: 0.2,
+                levels: { challenge: { toolOptions: { cards: ['상상한 것을 덧붙였어요', '맞닿은 색이 또렷해요', '크게 만들어 잘 보여요', '그냥 예뻐요'] } } },
+                hints: ['작품마다 크기·색·상상한 것 가운데 무엇이 눈에 띄는지 보세요.', '바퀴는 진짜 의자에 없는 것, 검정과 하양은 아주 다른 색, 판 가득은 크기예요.', '의자-상상한 것, 안내판-또렷한 색, 나뭇잎-크게 만들었어요.'] },
+              { prompt: '좋은 점을 콕 집어 말한 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '콕 집은 칭찬', cards: ['"잎맥까지 넣어서 진짜 같아"', '"노랑과 보라가 맞닿아 멀리서도 보여"', '"그냥 예뻐"', '"내 것이 더 좋아"'] },
+                target: { pick: ['"잎맥까지 넣어서 진짜 같아"', '"노랑과 보라가 맞닿아 멀리서도 보여"'] }, difficulty: 0.2 },
+              { prompt: '모둠 친구 작품을 돌아가며 보고, 한 사람에게 좋은 점 하나를 콕 집어 말해 줘요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 듣는 친구의 마음 헤아리기', minutes: 13, tool: 'emotion',
+            teacher: '"내 말을 들은 친구는 어떤 마음일까요?" 고른 뒤 결과를 함께 읽는다. 마음에 들지 않는 곳이 보여도 먼저 좋은 점을 말하고, 바꾸면 좋을 점은 \'~하면 더 좋을 것 같아\'로 부드럽게 말하게 한다. 친구 작품은 허락 없이 만지지 않는다.',
+            task: '칭찬을 들은 친구의 마음을 헤아리고, 친구에게 할 알맞은 말을 골라요.',
+            levels: { easy: { live: true, instant: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '그 말을 들은 친구의 마음에 어울리는 카드를 놓아 보세요.', toolOptions: { cards: ['뿌듯함', '속상함'], slots: [{ id: 's1', label: '"별 열매가 가득해서 반짝반짝해!"를 들었어요' }, { id: 's2', label: '"이게 뭐야, 이상해."를 들었어요' }] },
+                target: { match: { s1: '뿌듯함', s2: '속상함' } }, difficulty: 0.1 },
+              { prompt: '준호의 상상 나무를 보고 어떻게 말할까요?', toolOptions: { mode: 'branch', situation: '준호가 만든 상상 나무에 별 열매가 가득해요. 그런데 줄기가 조금 삐뚤어요.', choices: [
+                { id: 'point', text: '"별 열매가 가득해서 반짝반짝해 보여!" 하고 말해요', result: '준호가 웃으며 별을 하나 더 붙여요.', mood: '뿌듯함' },
+                { id: 'blame', text: '"줄기가 삐뚤어. 이상해." 하고 말해요', result: '준호가 작품을 가방에 넣어 버려요.', mood: '속상함', why: '삐뚠 곳만 들은 준호의 마음을 떠올려 봐요.' },
+                { id: 'vague', text: '"응, 좋네." 하고 지나가요', result: '준호가 무엇이 좋은지 몰라 고개를 갸웃해요.', mood: '걱정', why: '무엇이 좋은지 콕 집어 말해 봐요.' }] }, target: { choice: 'point' }, difficulty: 0.15 },
+              { prompt: '민지 작품의 색이 흐릿해요. 어떻게 말할까요?', toolOptions: { mode: 'branch', situation: '민지가 꽃을 판 가득 크게 만들었는데, 하양 바탕에 연한 노랑 꽃이라 멀리서 잘 안 보여요.', choices: [
+                { id: 'kind', text: '"꽃이 커서 좋아. 바탕을 진한 색으로 하면 더 또렷할 것 같아."', result: '민지가 고개를 끄덕이고 바탕을 보라로 바꾸어요.', mood: '고마움' },
+                { id: 'grab', text: '민지 작품의 바탕을 내가 떼어 바꾸어 줘요', result: '민지가 깜짝 놀라 작품을 끌어안아요.', mood: '놀람', why: '친구 작품은 친구가 고쳐요. 말로 도와요.' },
+                { id: 'hurt', text: '"흐릿해서 하나도 안 보여."', result: '민지가 시무룩해져요.', mood: '속상함', why: '좋은 점부터 말해 주면 민지 마음은 어떨까요?' }] }, target: { choice: 'kind' }, difficulty: 0.2 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 친구에게 들은 좋은 점 가운데 기억에 남는 말은 무엇인가요?" 서너 명이 말한다. 들은 좋은 점을 붙임쪽지에 적어 작품 옆에 붙여 둔다. 다음 시간에는 들은 말을 살려 내 작품을 고쳐 다시 만든다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '어디가 좋을까?', slots: [{ id: 's1', label: '구름에 귀를 붙여 토끼로 바꾼 작품' }, { id: 's2', label: '종이 가득 크게 만든 화분' }], cards: ['상상한 것을 덧붙였어요', '크게 만들어 잘 보여요'] }, prompt: '작품과 그 작품의 좋은 점을 이어 보세요.', target: { match: { s1: '상상한 것을 덧붙였어요', s2: '크게 만들어 잘 보여요' } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '친구 작품의 좋은 점을 잘 말한 것은?', options: ['"날개를 달아서 버스가 날 것 같아!"', '"좋네."'], answer: 0, difficulty: 0.1, explain: '무엇이 좋은지 콕 집어 말하면 친구가 잘 알 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '좋은 점 찾기',
+      items: [
+        { type: 'table', prompt: '친구 작품의 좋은 점을 쓰세요.', columns: ['친구 작품', '좋은 점(크기·색·상상)'], rows: 3 },
+        { type: 'choice', prompt: '좋은 점을 콕 집어 말한 것은?', options: ['"검정 바탕이라 하양 별이 또렷해"', '"그냥 예뻐"'], answer: '"검정 바탕이라 하양 별이 또렷해"' },
+        { type: 'short', prompt: '친구에게 들은 좋은 점을 쓰세요.' },
+        { type: 'draw', prompt: '좋은 점을 말해 준 친구 작품을 떠올려 그리세요.' },
+      ],
+      easy: {
+        note: '크기·색·상상 가운데 하나를 골라 말해요.',
+        items: [
+          { type: 'choice', prompt: '더 좋은 칭찬은?', options: ['"크게 만들어 잘 보여"', '"좋네"'], answer: '"크게 만들어 잘 보여"' },
+          { type: 'choice', prompt: '친구 작품은?', options: ['허락 없이 만지지 않아요', '내가 고쳐 줘요'], answer: '허락 없이 만지지 않아요' },
+          { type: 'short', prompt: '친구 작품의 좋은 점 하나를 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '좋은 점 카드가 딱 맞는 세 장이고, 맞게 놓으면 바로 초록 테두리가 보여요.',
+      base: '작품과 좋은 점을 잇고, 친구에게 할 말을 골라요.',
+      challenge: '함정 카드(그냥 예뻐요)가 섞인 잇기를 하고, 좋은 점 다음에 \'~하면 더 좋을 것 같아\'를 한 가지 덧붙여 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① "예뻐", "좋아"로만 말한다 → 크기·색·상상 낱말 카드를 짚으며 말하게 한다. ② 고칠 점부터 말해 친구가 속상해한다 → 오늘은 좋은 점 먼저라고 약속한다. ③ 작품을 보며 친구 작품을 만진다 → 손은 등 뒤로 하고 둘러본다. 모둠 안에서 돌려 보면 한 작품에 1분씩 4분이면 끝나 26명 모두가 칭찬을 듣는다.',
+  }));
+
+  lessons.push(L(47, {
+    title: '들은 말을 살려 내 작품 고쳐 다시 만들기',
+    objective: '내 작품에서 고칠 곳 한 군데를 정해 알맞은 방법으로 고쳐 다시 만들고, 처음과 달라진 점을 말할 수 있다.',
+    illustration: ART('a child comparing a first paper artwork with a small faded flower in the corner and a remade one with a big bright flower filling the page', '고쳐 다시 만들어요', [
+      { motif: 'flower', x: 120, y: 226, color: 'lavender' }, { motif: 'flower', x: 380, y: 226, color: 'buttercup' }, { motif: 'star', x: 240, y: 80, s: 0.6 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '지난 시간 작품 옆에 붙인 붙임쪽지(좋은 점)를 읽어 보게 한다. 교사 작품 두 장(처음 것, 고친 것)을 보여 주며 "무엇이 달라졌나요?" 하고 묻는다. "다시 만들 때는 처음부터 다 바꾸지 않고, 고칠 곳 한 군데를 정해요." 시연 단추로 고칠 점과 방법이 이어지는 모습을 보여 준다.',
+        student: '내 작품 옆 붙임쪽지를 읽고, 처음 작품과 고친 작품의 다른 점을 찾아요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '어떻게 고칠까?', slots: [{ id: 's1', label: '종이 구석에 작게 만들었어요' }], cards: ['가운데로 옮기고 크게 바꾸어요'], shuffle: false }, sequence: [{ match: { s1: '가운데로 옮기고 크게 바꾸어요' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 고칠 곳과 방법 정하기', minutes: 10, tool: 'mindmap',
+            teacher: '"내 작품에서 한 군데만 고친다면 어디일까요?" 짝과 서로의 작품을 보며 고칠 곳을 하나씩 정하게 한다. 처음부터 버리고 새로 하겠다는 학생에게는 붙임쪽지의 좋은 점을 읽어 주며 "좋은 점은 남기고 한 군데만 바꿔 봐요." 하고 말한다.',
+            task: '고칠 점과 고치는 방법을 잇고, 다시 하기 전에 할 일을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '고칠 점과 알맞은 방법을 이어 보세요.', toolOptions: { mode: 'match', topic: '어떻게 고칠까?', slots: [{ id: 's1', label: '종이 구석에 작게 만들었어요' }, { id: 's2', label: '바탕과 그림 색이 비슷해 흐릿해요' }, { id: 's3', label: '본 대로만 만들어 심심해요' }], cards: ['가운데로 옮기고 크게 바꾸어요', '바탕을 아주 다른 색으로 바꾸어요', '상상한 것을 하나 덧붙여요'] },
+                target: { match: { s1: '가운데로 옮기고 크게 바꾸어요', s2: '바탕을 아주 다른 색으로 바꾸어요', s3: '상상한 것을 하나 덧붙여요' } }, difficulty: 0.2,
+                levels: { challenge: { toolOptions: { cards: ['가운데로 옮기고 크게 바꾸어요', '바탕을 아주 다른 색으로 바꾸어요', '상상한 것을 하나 덧붙여요', '처음 작품을 구겨 버려요'] } } },
+                hints: ['고칠 점이 크기·색·상상 가운데 무엇에 대한 말인지 보세요.', '작은 것은 크게, 흐릿한 색은 다른 색으로, 심심하면 상상을 더해요.', '구석에 작게-크게 바꾸기, 흐릿해요-다른 색 바탕, 심심해요-상상 덧붙이기예요.'] },
+              { prompt: '다시 만들기 전에 할 일만 골라 보세요.', toolOptions: { mode: 'pick', basket: '다시 하기 전에', cards: ['친구가 말해 준 좋은 점 떠올리기', '고칠 곳 한 군데 정하기', '친구 작품 똑같이 따라 하기', '처음 작품 구겨 버리기'] },
+                target: { pick: ['친구가 말해 준 좋은 점 떠올리기', '고칠 곳 한 군데 정하기'] }, difficulty: 0.15 },
+              { prompt: '내 종이 작품을 짝에게 보여 주고, 고칠 곳 한 군데와 방법을 함께 정해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 고쳐 다시 만들기', minutes: 16, tool: 'collage',
+            teacher: '"판에 고칠 곳이 있는 작품이 있어요. 정한 방법대로 한 군데를 고쳐요." 조각 색은 바꿀 수 없으니 떼고 새로 붙여 제자리로 끌어 옮긴 뒤 \'아래로\' 단추로 바탕 조각을 뒤로 보내게 한다. 끝 문항은 내 종이 작품을 고쳐 다시 만든다.',
+            task: '고칠 곳이 있는 작품을 정한 방법대로 고치고, 내 작품도 고쳐 다시 만들어요.',
+            levels: ART2_LV,
+            items: [
+              { prompt: '구석에 작게 만든 화분이에요. 작은 조각을 모두 떼고, 갈색 큰 네모와 초록 큰 나뭇잎으로 크게 다시 만들어 보세요.', state: { pieces: [{ shape: 'square', color: '갈색', size: 's', x: 60, y: 360, r: 0 }, { shape: 'leaf', color: '초록', size: 's', x: 60, y: 320, r: 0 }] },
+                target: { has: [{ shape: 'square', color: '갈색', size: 'l', n: 1 }, { shape: 'leaf', color: '초록', size: 'l', min: 1 }, { size: 's', max: 0 }] }, difficulty: 0.25,
+                hints: ['처음 작품에서 작은 조각이 어디 있는지 찾아요.', '작은 조각은 \'떼기\'로 없애고, 큰 크기를 골라 새로 붙여요.', '작은 네모·작은 잎을 떼고, 갈색 큰 네모 1개와 초록 큰 나뭇잎을 붙여요.'] },
+              { prompt: '하양 바탕에 노랑 별이라 흐릿해요. 바탕을 어두운 색 조각으로 바꾸어 별이 또렷하게 보이게 해 보세요.', state: { pieces: [{ shape: 'square', color: '하양', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'star', color: '노랑', size: 'm', x: 280, y: 200, r: 0 }] },
+                target: { contrast: 'light-dark', has: [{ shape: 'star', color: '노랑', n: 1 }] }, difficulty: 0.3,
+                hints: ['노랑은 밝은 색이에요. 밝은 색 옆에는 어떤 색이 와야 또렷할까요?', '하양도 밝은 색이라 흐릿해요. 하양 바탕을 떼고 검정·보라·갈색 같은 어두운 색 바탕을 붙여요.', '하양 네모를 떼고 검정 큰 네모를 붙여 별이 있는 가운데로 옮긴 뒤, \'아래로\'를 눌러 별 뒤로 보내요.'] },
+              { prompt: '내 작품 하나를 골라 고칠 곳 한 군데를 고쳐 다시 만들고, 해낸 것을 표시해요.', target: { pieces: { min: 3 }, selfCheck: ['고칠 곳 한 군데를 정했어요', '그곳을 고쳐 다시 만들었어요', '처음과 달라진 점을 짝에게 말했어요'] }, difficulty: 0.15 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '처음 작품과 고친 작품을 나란히 놓고 짝에게 보여 준다. 두세 명이 앞에 나와 "무엇을 고쳤나요? 고치고 나니 어떤가요?"에 답한다. 다음 시간에는 학교 단원 전체에서 한 일을 돌아본다고 예고한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '어떻게 고칠까?', slots: [{ id: 's1', label: '작게 그려 잎맥이 안 보여요' }, { id: 's2', label: '진짜와 똑같기만 해요' }], cards: ['크게 다시 그려요', '상상한 것을 덧붙여요'] }, prompt: '고칠 점과 알맞은 방법을 이어 보세요.', target: { match: { s1: '크게 다시 그려요', s2: '상상한 것을 덧붙여요' } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '작품을 다시 만들 때 좋은 방법은?', options: ['고칠 곳 한 군데를 정해 고쳐요', '친구 작품을 똑같이 따라 해요'], answer: 0, difficulty: 0.1, explain: '좋은 점은 남기고 한 군데를 고치면 내 작품이 더 나아져요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '고쳐 다시 만들기',
+      items: [
+        { type: 'table', prompt: '내 작품을 어떻게 고쳤는지 쓰세요.', columns: ['고칠 곳', '고친 방법', '달라진 점'], rows: 1 },
+        { type: 'choice', prompt: '바탕과 그림 색이 비슷해 흐릿하면?', options: ['바탕을 아주 다른 색으로 바꾸어요', '더 작게 만들어요'], answer: '바탕을 아주 다른 색으로 바꾸어요' },
+        { type: 'draw', prompt: '고친 내 작품을 그리세요.' },
+        { type: 'short', prompt: '고치고 나서 좋아진 점을 쓰세요.' },
+      ],
+      easy: {
+        note: '한 군데만 골라 고쳐요.',
+        items: [
+          { type: 'choice', prompt: '구석에 작게 그렸으면?', options: ['크게 다시 그려요', '그대로 둬요'], answer: '크게 다시 그려요' },
+          { type: 'draw', prompt: '고친 내 작품을 그리세요.' },
+          { type: 'short', prompt: '무엇을 고쳤나요?' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '딱 맞는 방법 카드 세 장으로 잇고, 조각 고르개가 단순해요.',
+      base: '고칠 점과 방법을 잇고, 판의 작품 두 개를 정한 방법대로 고쳐요.',
+      challenge: '함정 카드가 섞인 잇기를 하고, 내 작품을 고친 뒤 처음과 달라진 점을 두 가지 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 처음부터 다 버리고 새로 하려 한다 → 붙임쪽지의 좋은 점을 읽어 주고 한 군데만 고치게 한다. ② 조각 색을 바꾸는 단추를 찾는다 → 떼고 새로 붙인 뒤 \'아래로\'로 순서를 바꾼다고 보여 준다. ③ 고친 뒤 무엇이 나아졌는지 말하지 못한다 → 처음 작품과 나란히 놓고 견주게 한다. 처음 작품은 버리지 않고 함께 보관해 48차시에 쓴다.',
+  }));
+
+  lessons.push(L(48, {
+    title: '학교 단원에서 한 일 묶어 보고 스스로 돌아보기',
+    objective: '학교 단원에서 한 일을 학교 둘러보기·소리 놀이·살펴보고 꾸미기로 묶어 말하고, 내 배움을 스스로 돌아볼 수 있다.',
+    illustration: ART('a paper school building with three open windows showing a map with a magnifier, a little drum with sound waves, and a colorful imaginary tree', '학교에서 한 일', [
+      { motif: 'house', x: 240, y: 214, color: 'buttercup' }, { motif: 'tree', x: 90, y: 214 }, { motif: 'star', x: 380, y: 84, s: 0.7 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '단원 동안 만든 학교 지도·그림 악보·작품을 교실 둘레에 세 묶음으로 펼쳐 둔다. "이 묶음들은 무엇을 할 때 만든 것일까요?" 묶음마다 이름(학교 둘러보기, 소리 놀이, 살펴보고 꾸미기)을 함께 붙인다. 시연 단추로 한 일이 묶음으로 나뉘는 모습을 보여 준다.',
+        student: '교실 둘레에 펼친 작품 묶음을 보고, 무엇을 할 때 만든 것인지 말해요.',
+        demo: { tool: 'mindmap', options: { topic: '학교 단원에서 한 일', slots: ['학교 둘러보기', '소리 놀이'], cards: ['학교 지도 기호 읽기', '메아리 따라 내기'], shuffle: false }, sequence: [{ sort: { '학교 둘러보기': ['학교 지도 기호 읽기'], '소리 놀이': ['메아리 따라 내기'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 한 일을 묶어 보기', minutes: 13, tool: 'mindmap',
+            teacher: '"이 일을 할 때 무엇을 들고 있었나요? 지도? 악기? 색종이?" 들고 있던 것을 떠올려 묶음을 정하게 한다. 안전 약속은 단원 내내 지킨 것이니 하나씩 소리 내어 읽고 몸으로 흉내 내어 보게 한다.',
+            task: '학교 단원에서 한 일을 세 묶음으로 나누고, 지켜 온 안전 약속을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '학교 단원에서 한 일을 세 묶음으로 나누어 보세요.', toolOptions: { topic: '학교 단원에서 한 일', slots: ['학교 둘러보기', '소리 놀이', '살펴보고 꾸미기'], cards: ['학교 안내판 읽기', '안전한 길 지도에 짚기', '빠르기 바꾸어 따라 하기', '네 박 소리 짓기', '구름 보고 닮은 것 떠올리기', '상상 나무 꾸미기'] },
+                target: { sort: { '학교 둘러보기': ['학교 안내판 읽기', '안전한 길 지도에 짚기'], '소리 놀이': ['빠르기 바꾸어 따라 하기', '네 박 소리 짓기'], '살펴보고 꾸미기': ['구름 보고 닮은 것 떠올리기', '상상 나무 꾸미기'] } }, difficulty: 0.25,
+                levels: { easy: { prompt: '학교 단원에서 한 일을 두 묶음으로 나누어 보세요.', toolOptions: { slots: ['학교 둘러보기', '살펴보고 꾸미기'], cards: ['학교 안내판 읽기', '안전한 길 지도에 짚기', '구름 보고 닮은 것 떠올리기', '상상 나무 꾸미기'] }, target: { sort: { '학교 둘러보기': ['학교 안내판 읽기', '안전한 길 지도에 짚기'], '살펴보고 꾸미기': ['구름 보고 닮은 것 떠올리기', '상상 나무 꾸미기'] } } } },
+                hints: ['그 일을 할 때 손에 무엇을 들고 있었는지 떠올려요.', '지도·안내판은 둘러보기, 악기·손뼉은 소리 놀이, 색종이·돋보기는 살펴보고 꾸미기예요.', '안내판·지도는 둘러보기, 빠르기·네 박은 소리 놀이, 구름·상상 나무는 살펴보고 꾸미기예요.'] },
+              { prompt: '학교 단원에서 지켜 온 안전 약속만 골라 보세요.', toolOptions: { mode: 'pick', basket: '안전 약속', cards: ['복도에서는 오른쪽으로 천천히 걸어요', '가위는 날을 닫아서 들고 다녀요', '돋보기로 해를 바라봐요', '계단에서 뛰어 내려가요'] },
+                target: { pick: ['복도에서는 오른쪽으로 천천히 걸어요', '가위는 날을 닫아서 들고 다녀요'] }, difficulty: 0.15 },
+              { prompt: '단원에서 가장 마음에 드는 내 작품이나 활동 하나를 골라 짝에게 소개해요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 내 배움 돌아보기', minutes: 13, tool: 'emotion',
+            teacher: '"정답은 없어요. 내 마음에 가장 가까운 칸을 골라요." 칸을 고른 학생 몇에게 까닭을 묻되, 작은 칸을 고른 학생에게도 "어떤 점이 어려웠는지 말해 주어 고마워요." 하고 받아 준다. 고른 칸은 다음 단원 수업을 준비하는 데 쓴다.',
+            task: '세 묶음에서 한 일을 떠올리며 내 마음의 크기를 솔직하게 골라요.',
+            levels: { easy: { steps: 3 }, base: { steps: 3 }, challenge: { steps: 5 } },
+            items: [
+              { prompt: '학교를 둘러보며 물음의 답을 찾아낸 나는 얼마나 뿌듯한가요? 솔직하게 골라요.', toolOptions: { mode: 'scale', situation: '궁금한 곳을 골라 물음을 만들고, 학교를 둘러보며 답을 찾았어요.', feeling: '뿌듯함', ask: '답을 찾아낸 나는 얼마나 뿌듯한가요?' }, target: { level: 'any' }, difficulty: 0.05 },
+              { prompt: '친구와 함께 소리를 바꾸어 내던 때는 얼마나 신났나요? 솔직하게 골라요.', toolOptions: { mode: 'scale', situation: '친구와 빠르기·세기를 바꾸어 소리를 내고, 네 박 소리를 겹쳐 연주했어요.', feeling: '신남', ask: '함께 소리 낼 때 얼마나 신났나요?' }, target: { level: 'any' }, difficulty: 0.05 },
+              { prompt: '상상한 것을 덧붙여 꾸밀 때 나는 얼마나 자신 있었나요? 솔직하게 골라요.', toolOptions: { mode: 'scale', situation: '자세히 살펴본 것을 크게 만들고, 상상한 것을 덧붙여 꾸몄어요.', feeling: '자신감', ask: '상상을 덧붙일 때 얼마나 자신 있었나요?' }, target: { level: 'any' }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"학교 단원에서 내가 할 수 있게 된 것 하나를 말해 볼까요?" 서너 명이 말한다. 작품 묶음은 교실 뒤 \'우리 학교\' 게시판에 붙인다. 다음 단원에서도 궁금한 것을 물음으로 만들고, 살펴보고, 친구와 함께 나타내 보자고 말하며 마친다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '학교 단원에서 한 일', slots: ['학교 둘러보기', '살펴보고 꾸미기'], cards: ['특별실 둘러보기', '돋보기로 꽃 보기'] }, prompt: '학교 단원에서 한 일을 두 묶음으로 나누어 보세요.', target: { sort: { '학교 둘러보기': ['특별실 둘러보기'], '살펴보고 꾸미기': ['돋보기로 꽃 보기'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '학교에서 궁금한 곳이 생기면 어떻게 할까요?', options: ['물음을 만들고 살펴보며 답을 찾아요', '궁금해도 그냥 지나가요'], answer: 0, difficulty: 0.1, explain: '물음을 만들고 살펴보면 답을 찾을 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '학교 단원 돌아보기',
+      items: [
+        { type: 'table', prompt: '묶음마다 내가 한 일을 하나씩 쓰세요.', columns: ['묶음', '내가 한 일'], cells: [['학교 둘러보기', ''], ['소리 놀이', ''], ['살펴보고 꾸미기', '']] },
+        { type: 'choice', prompt: '\'네 박 소리 짓기\'는 어느 묶음일까요?', options: ['학교 둘러보기', '소리 놀이', '살펴보고 꾸미기'], answer: '소리 놀이' },
+        { type: 'draw', prompt: '학교 단원에서 가장 즐거웠던 때를 그리세요.' },
+        { type: 'short', prompt: '학교 단원에서 내가 할 수 있게 된 것 하나를 쓰세요.' },
+      ],
+      easy: {
+        note: '둘러보기, 소리 놀이, 꾸미기를 떠올려요.',
+        items: [
+          { type: 'choice', prompt: '\'학교 안내판 읽기\'는?', options: ['학교 둘러보기', '소리 놀이'], answer: '학교 둘러보기' },
+          { type: 'draw', prompt: '가장 즐거웠던 때를 그리세요.' },
+          { type: 'short', prompt: '할 수 있게 된 것 하나를 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '두 묶음으로 나누고, 마음 눈금이 세 칸이에요.',
+      base: '세 묶음으로 나누고, 마음 눈금 세 칸에서 골라요.',
+      challenge: '세 묶음으로 나누고, 마음 눈금 다섯 칸에서 골라 까닭을 한 문장으로 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 오래전 차시(학교 둘러보기)를 떠올리지 못한다 → 그때 만든 학교 지도·안내판 그림을 손에 들려 준다. ② 마음 눈금을 친구와 똑같이 고른다 → 정답이 없고 친구 칸은 보지 않는다고 약속한다. ③ 할 수 있게 된 것을 말하지 못한다 → "처음에는 못 했는데 지금은 할 수 있는 것"으로 바꾸어 묻는다. 학생이 고른 마음 칸은 교사 화면에서 보고 다음 단원 모둠 짜기에 쓴다.',
   }));
 
   // ── 차시 끝 ──

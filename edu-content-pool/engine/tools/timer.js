@@ -10,13 +10,17 @@
  * 안전 점검  | safety: ['운동장에 돌이 없어요', …]                     | safety: [true|false, …]      | safety: true(모두 확인)
  * 스스로 점검 | (target.selfCheck)                                      | checks: [true|false, …]      | selfCheck: ['…', …]
  * 그 밖의 옵션: title(판 머리 글), unit(기록 기본 단위, 기본 '회'), showTotal(전체 시간 보기 — revealAfterCheck이면 맞힌 뒤에 보임),
- *              workStep(기본 5초), restStep(기본 5초), print
+ *              workStep(기본 5초), restStep(기본 5초), print,
+ *              doneLabel(칸이 하나도 없는 판 — 짝·모둠 free 문항 — 에 나오는 '해 보았어요' 표시 글, 기본 '짝·모둠과 함께 해 보았어요'. 상태에 done: true|false)
  * target 칸은 섞어 쓸 수 있다 — 모두 맞아야 정답(예: { safety: true, order: [...] }).
  * 키보드: 수 칸은 ←/→·↑/↓ 또는 −/+ 단추, 카드는 ←/→로 자리를 옮기고 Enter로 골라 다른 카드와 바꾼다, 점검은 Enter/Space.
  * 예: { prompt: '30초 운동하고 10초 쉬기를 4번 하도록 타이머를 맞추세요.', toolOptions: { plan: { work: 20, rest: 20, rounds: 2 } }, target: { plan: { work: 30, rest: 10, rounds: 4 } } }
  */
 (function (K) {
   'use strict';
+  // 받침에 맞는 조사(따옴표 뒤·수 뒤도) — '‘손 씻기’를', '‘줄넘기 3번’을'
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)\]\s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
+  const jq = (w, a, b) => `‘${w}’${jo(w, a, b).slice(String(w).length)}`;
   const levelOf = (opts) => {
     const want = opts && Number.isInteger(opts.level) ? opts.level : 1;
     const a = opts && Number.isFinite(opts.attempts) ? opts.attempts : null;
@@ -41,14 +45,14 @@
     if (t.safety) {
       const items = o.safety || []; const got = s.safety || []; const n = items.filter((_, i) => got[i]).length;
       if (!n) return { correct: false, incomplete: true, feedback: '활동하기 전에 안전 점검부터 해요. 확인한 것을 눌러 표시해요.', hint: '둘레를 살펴보고 하나씩 표시해요.', part: 'safety' };
-      if (n < items.length) { const left = items.find((_, i) => !got[i]); return { correct: false, feedback: `안전 점검이 ${items.length - n}개 남았어요. 모두 확인해야 활동을 시작해요.`, hint: `‘${left}’를 확인했나요?`, part: 'safety', left }; }
+      if (n < items.length) { const left = items.find((_, i) => !got[i]); return { correct: false, feedback: `안전 점검이 ${items.length - n}개 남았어요. 모두 확인해야 활동을 시작해요.`, hint: `${jq(left, '을', '를')} 확인했나요?`, part: 'safety', left }; }
     }
     if (t.order) {
       const got = s.order || []; const want = t.order;
       const i = want.findIndex((x, k) => got[k] !== x);
       if (i >= 0) {
         const there = got[i]; const j = want.indexOf(there);
-        return { correct: false, feedback: `${i + 1}번째 자리에 ‘${there}’ 카드가 왔어요. ${j > i ? '이 활동은 더 나중에 해요.' : '이 활동은 더 먼저 해요.'}`, hint: `‘${there}’를 언제 하는지 떠올려 자리를 옮겨요.`, part: 'order', at: i };
+        return { correct: false, feedback: `${i + 1}번째 자리에 ‘${there}’ 카드가 왔어요. ${j > i ? '이 활동은 더 나중에 해요.' : '이 활동은 더 먼저 해요.'}`, hint: `${jq(there, '을', '를')} 언제 하는지 떠올려 자리를 옮겨요.`, part: 'order', at: i };
       }
     }
     if (t.plan || t.total != null) {
@@ -76,7 +80,7 @@
     if (t.selfCheck) {
       const got = s.checks || []; const left = t.selfCheck.filter((_, i) => !got[i]);
       if (left.length === t.selfCheck.length && parts.length === 1) return { correct: false, incomplete: true, feedback: '활동을 마치고 스스로 점검 목록에서 해낸 것을 표시해요.', hint: '해낸 것만 하나씩 눌러요.', part: 'self' };
-      if (left.length) return { correct: false, feedback: `아직 표시하지 않은 점검 항목이 ${left.length}개 있어요.`, hint: `‘${left[0]}’를 해 보았는지 떠올리고 표시해요.`, part: 'self', left };
+      if (left.length) return { correct: false, feedback: `아직 표시하지 않은 점검 항목이 ${left.length}개 있어요.`, hint: `${jq(left[0], '을', '를')} 해 보았는지 떠올리고 표시해요.`, part: 'self', left };
     }
     const said = t.order ? '활동 차례가 꼭 맞아요' : t.plan || t.total != null ? `타이머를 알맞게 맞추었어요(전체 ${fmt(totalOf(s.plan || PLAN0))})` : t.records != null ? '기록을 모두 적었어요' : t.safety ? '안전 점검을 모두 마쳤어요' : '스스로 점검을 마쳤어요';
     return { correct: true, feedback: `맞아요! ${said}.` };
@@ -153,7 +157,7 @@
     if (r.part === 'plan' && t.plan) { const NAME = { work: '운동 시간', rest: '쉬는 시간', rounds: '되풀이 횟수' }; const k = r.key; return { hint: r.swap ? `운동 ${t.plan.work}초, 쉬기 ${t.plan.rest}초로 넣어요.` : `${NAME[k]}${jong(NAME[k]) ? '을' : '를'} ${t.plan[k]}${k === 'rounds' ? '번으' : '초'}로 맞추어요.`, correct: false }; }
     if (r.part === 'total') { const p = solve(t, o).plan; return { hint: `예를 들어 운동 ${p.work}초, 쉬기 ${p.rest}초, ${p.rounds}번이면 ${p.rounds}×${p.work} + ${Math.max(0, p.rounds - 1)}×${p.rest} = ${totalOf(p)}초예요.`, correct: false }; }
     if (r.part === 'records' && Array.isArray(t.records)) { const fs = fieldsOf(o); return { hint: `${fs[r.at] ? fs[r.at].label : `${r.at + 1}번째`} 칸은 ${ieyo(`${t.records[r.at]}${fs[r.at] ? fs[r.at].unit : ''}`)}.`, correct: false }; }
-    if ((r.part === 'self' || r.part === 'safety') && r.left) return { hint: `‘${Array.isArray(r.left) ? r.left[0] : r.left}’를 직접 해 보고, 했으면 눌러 표시해요.`, correct: false };
+    if ((r.part === 'self' || r.part === 'safety') && r.left) return { hint: `${jq(Array.isArray(r.left) ? r.left[0] : r.left, '을', '를')} 직접 해 보고, 했으면 눌러 표시해요.`, correct: false };
     return { hint: r.hint || r.feedback, correct: false };
   }
   function distance(a, b) {
@@ -175,6 +179,9 @@
       let target = null; let revealed = false;
       let plan = planOf(o, null); let order = cardsOf(o, null); const fields = fieldsOf(o); let records = fields.map(() => null);
       let safety = (o.safety || []).map(() => false); let checks = []; let picked = -1;
+      // 칸이 하나도 없는 판(짝·모둠이 몸으로 하는 free 문항 — 판정할 target이 없다)에는 '해 보았어요' 표시 하나를 둔다.
+      // 그래야 학생이 판에 한 일을 남기고 '다 했어요'를 누를 수 있다. 다른 칸이 하나라도 있으면 나오지 않는다.
+      let done = false;
       let run = null; let beep = false; let sw = null;
       const narrow = !print && typeof matchMedia === 'function' && matchMedia('(max-width: 820px)').matches;
       const W = 560;
@@ -253,14 +260,14 @@
           const tap = () => {
             if (picked < 0) { picked = i; drawCards(); say(`‘${label}’ 카드를 골랐어요. 바꿀 자리의 카드를 눌러요.`); focusCard(i); return; }
             if (picked === i) { picked = -1; drawCards(); focusCard(i); return; }
-            const j = picked; [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`‘${order[i]}’와 ‘${order[j]}’의 자리를 바꾸었어요.`); focusCard(i);
+            const j = picked; [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`${jq(order[i], '과', '와')} ‘${order[j]}’의 자리를 바꾸었어요.`); focusCard(i);
           };
           g.addEventListener('click', tap);
           g.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tap(); return; }
             const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (!d) return;
             e.preventDefault(); const j = i + d; if (j < 0 || j >= order.length) return;
-            [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`‘${order[j]}’를 ${j + 1}번째 자리로 옮겼어요.`); focusCard(j);
+            [order[i], order[j]] = [order[j], order[i]]; picked = -1; changed(`${jq(order[j], '을', '를')} ${j + 1}번째 자리로 옮겼어요.`); focusCard(j);
           });
         });
       }
@@ -290,6 +297,7 @@
       const spin = (k, i, label, val, unit) => `<span style="display:inline-flex;align-items:center;gap:6px;flex-wrap:nowrap"><b style="min-width:4.2em">${esc(label)}</b><button type="button" class="pl-btn pl-btn--small" data-bump="${k}" data-i="${i}" data-d="-1" tabindex="0" aria-label="${esc(label)} 줄이기" style="min-width:44px;min-height:44px"><i class="fi fi-rr-minus" aria-hidden="true"></i></button><span role="spinbutton" tabindex="0" data-k="${k}" data-i="${i}" aria-label="${esc(label)}" ${val == null ? 'aria-valuetext="아직 안 적음"' : `aria-valuenow="${val}"`} style="display:inline-block;min-width:3.2em;min-height:44px;line-height:44px;text-align:center;font-size:21px;font-weight:800;border-radius:10px;background:#FFFDF8">${val == null ? '?' : val}</span><button type="button" class="pl-btn pl-btn--small" data-bump="${k}" data-i="${i}" data-d="1" tabindex="0" aria-label="${esc(label)} 늘리기" style="min-width:44px;min-height:44px"><i class="fi fi-rr-plus" aria-hidden="true"></i></button><span>${esc(unit)}</span></span>`;
       const chk = (k, i, text, on, icon) => `<button type="button" class="pl-btn pl-btn--small" data-chk="${k}" data-i="${i}" role="checkbox" aria-checked="${!!on}" tabindex="0" style="justify-content:flex-start;white-space:normal;text-align:left;line-height:1.35;min-height:44px;${on ? 'font-weight:800;background:var(--pc-mint-light,#EAF7F1)' : 'font-weight:500'}"><i class="fi ${on ? 'fi-rr-checkbox' : icon}" aria-hidden="true"></i> ${esc(text)}</button>`;
       const selfItems = () => (target && target.selfCheck) || o.selfCheck || null;
+      const bare = () => !plan && !order.length && !fields.length && !(o.safety && o.safety.length) && !selfItems();
       function paintHtml() {
         if (!html) return;
         const out = [];
@@ -297,6 +305,7 @@
         if (plan) out.push(`<div role="group" aria-label="타이머 맞추기" style="display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center"><b style="flex-basis:100%"><i class="fi fi-rr-stopwatch" aria-hidden="true"></i> 타이머 맞추기</b>${spin('work', 0, '운동', plan.work, '초')}${spin('rest', 0, '쉬기', plan.rest, '초')}${spin('rounds', 0, '횟수', plan.rounds, '번')}<span style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="pl-btn pl-btn--small" data-tm="start" tabindex="0" style="min-height:44px"><i class="fi ${run && !run.paused ? 'fi-rr-pause' : 'fi-rr-play'}" aria-hidden="true"></i> ${run && !run.paused ? '멈춤' : run ? '이어 하기' : '시작'}</button><button type="button" class="pl-btn pl-btn--small" data-tm="stop" tabindex="0" style="min-height:44px"><i class="fi fi-rr-stop" aria-hidden="true"></i> 처음</button><button type="button" class="pl-btn pl-btn--small" data-tm="beep" aria-pressed="${beep}" tabindex="0" style="min-height:44px"><i class="fi fi-rr-volume" aria-hidden="true"></i> 신호음</button></span></div>`);
         if (fields.length) out.push(`<div role="group" aria-label="기록판" style="display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center"><b style="flex-basis:100%"><i class="fi fi-rr-edit" aria-hidden="true"></i> 기록판</b>${fields.map((f, i) => spin('rec', i, f.label, records[i], f.unit)).join('')}${o.stopwatch ? `<span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button type="button" class="pl-btn pl-btn--small" data-tm="sw" tabindex="0" style="min-height:44px"><i class="fi fi-rr-stopwatch" aria-hidden="true"></i> ${sw && sw.on ? '멈추기' : '시간 재기'}</button><b class="tm-sw" style="font-size:20px;min-width:4em">${sw ? `${sw.sec.toFixed(1)}초` : '0.0초'}</b><button type="button" class="pl-btn pl-btn--small" data-tm="swput" tabindex="0" style="min-height:44px"><i class="fi fi-rr-arrow-small-down" aria-hidden="true"></i> 기록에 넣기</button></span>` : ''}</div>`);
         if (selfItems()) out.push(`<div role="group" aria-label="스스로 점검" style="display:grid;gap:6px"><b><i class="fi fi-rr-list-check" aria-hidden="true"></i> 스스로 점검 — 해낸 것을 눌러 표시해요</b>${selfItems().map((x, i) => chk('self', i, x, checks[i], 'fi-rr-square')).join('')}</div>`);
+        if (bare()) out.push(`<div role="group" aria-label="해 본 것 표시" style="display:grid;gap:6px">${chk('done', 0, o.doneLabel || '짝·모둠과 함께 해 보았어요', done, 'fi-rr-square')}</div>`);
         html.innerHTML = out.join('');
       }
       function bump(k, i, d, refocus) {
@@ -316,7 +325,9 @@
         const b = e.target.closest('button'); if (!b) return;
         if (b.dataset.bump) { bump(b.dataset.bump, Number(b.dataset.i), Number(b.dataset.d), `[data-bump="${b.dataset.bump}"][data-i="${b.dataset.i}"][data-d="${b.dataset.d}"]`); return; }
         if (b.dataset.chk) {
-          const i = Number(b.dataset.i); const arr = b.dataset.chk === 'safety' ? safety : checks; arr[i] = !arr[i];
+          const i = Number(b.dataset.i);
+          if (b.dataset.chk === 'done') { done = !done; changed(done ? '표시했어요.' : '표시를 지웠어요.'); const f = html.querySelector('[data-chk="done"]'); if (f) f.focus(); return; }
+          const arr = b.dataset.chk === 'safety' ? safety : checks; arr[i] = !arr[i];
           changed(arr[i] ? '표시했어요.' : '표시를 지웠어요.');
           const f = html.querySelector(`[data-chk="${b.dataset.chk}"][data-i="${i}"]`); if (f) f.focus(); return;
         }
@@ -362,6 +373,7 @@
         if (fields.length) s.records = records.slice();
         if (o.safety) s.safety = safety.slice();
         if (selfItems()) s.checks = selfItems().map((_, i) => !!checks[i]);
+        if (bare()) s.done = done;
         return s;
       }
       function changed(text) {
@@ -378,7 +390,7 @@
         order = s.order && s.order.length ? s.order.slice() : cards;
         records = fields.map((_, i) => (s.records && s.records[i] != null ? Number(s.records[i]) : null));
         safety = (o.safety || []).map((_, i) => !!(s.safety && s.safety[i]));
-        checks = (s.checks || []).map(Boolean); picked = -1; revealed = false;
+        checks = (s.checks || []).map(Boolean); done = !!s.done; picked = -1; revealed = false;
         resize(); buildRing(); stopRun(); if (msg) msg.textContent = '';
         drawCards(); paintRing(); paintHtml();
       }

@@ -6,17 +6,20 @@
  * | 칸                                   | 뜻 (판정 규칙)                                                                                   |
  * | ------------------------------------ | ------------------------------------------------------------------------------------------------ |
  * | symmetry: 'vertical' | 'horizontal'  | 가운데 접는 선(세로/가로)을 기준으로 모든 조각에 같은 모양·색·크기의 짝이 같은 거리·뒤집힌 방향에 있다 |
- * | repeat: { times, unit?, axis? }      | 왼쪽→오른쪽(axis 'y'면 위→아래) 순서로 한 묶음(unit개 이상, 기본 2)이 times번 넘게 똑같이 되풀이된다 |
+ * | repeat: { times, unit?, axis? }      | 왼쪽→오른쪽(axis 'y'면 위→아래) 순서로 한 묶음(unit개 이상, 기본 2)이 times번 이상 똑같이 되풀이된다 |
  * | contrast: 'complement'|'warm-cool'|'light-dark' | 보색(빨강-초록·주황-파랑·노랑-보라)/따뜻한-차가운/밝은-어두운 색 조각이 서로 맞닿거나 겹친다 |
- * | has: [{ shape?, color?, size?, n?, min?, max? }] | 그런 조각의 개수(n = 꼭 그만큼, min/max = 범위)                                         |
+ * | has: [{ shape?, color?, size?, n?, min?, max? }] | 그런 조각의 개수(n = 꼭 그만큼, min/max = 범위, max: 0 = 그런 조각을 붙이지 않기)                                         |
  * | pieces: { n?, min?, max? }           | 전체 조각 수                                                                                     |
- * | overlap: n                           | 겹친 조각 짝이 n쌍 넘게                                                                          |
+ * | overlap: n                           | 겹친 조각 짝이 n쌍 이상                                                                          |
  * | match: [조각, …]                     | 보기 작품과 똑같이(모양·색·크기·자리·방향) — '보고 따라 만들기'                                   |
- * | selfCheck: ['…'], minPieces?         | 자유 작품: 조각을 minPieces(기본 1)개 넘게 붙이고 점검 목록을 모두 표시                           |
+ * | selfCheck: ['…'], minPieces?         | 자유 작품: 조각을 minPieces(기본 1)개 이상 붙이고 점검 목록을 모두 표시                           |
  *
  * 옵션: shapes(고르개 모양, 기본 ['circle','square','triangle','rect','semi','star','heart','leaf']), colors(기본 10색), sizes(['s','m','l']),
  *       guide(접는 선 보이기 — symmetry 문항은 기본으로 보임; 'vertical'|'horizontal'|false), bg(판 바탕색 이름), maxPieces(기본 24),
- *       rotStep(돌리기 각, 기본 45), readOnly(작품 보기만 — 활동지·감상), print
+ *       rotStep(돌리기 각, 기본 45 — 도전 단계 차이로 쓰려면 90·30처럼 45가 아닌 값), readOnly(작품 보기만 — 활동지·감상), print
+ * 단계(쉬움·도전) 차이로 쓰기 좋은 옵션: shapes·colors·sizes(고르개를 줄이거나 넓히기 — 목표의 모양·색·크기는 그 단계 고르개에 있어야 한다:
+ *   T.achievable(target)이 알려 주고 check-unit이 단계마다 본다), guide(접는 선 보이기/숨기기), maxPieces, rotStep.
+ * 'light-dark' 밝기 표: 밝은 색 = 노랑·분홍·하양, 어두운 색 = 보라·갈색·검정, 중간 = 빨강·주황·초록·파랑(중간 색끼리나 중간+밝은 색은 대비로 보지 않는다).
  * 모양: circle 동그라미, square 네모, rect 긴 네모, triangle 세모, semi 반원, star 별, heart 하트, leaf 나뭇잎, diamond 마름모
  * 색: 빨강 주황 노랑 초록 파랑 보라 분홍 갈색 검정 하양 / 크기: s 작게, m 보통, l 크게
  * 상태: { pieces: [{ shape, color, size, x, y, r }, …](뒤에 있을수록 위에 붙음), checks?: [true|false…] }  — 판은 560×400, 가운데 (280, 200), x·y는 20의 배수
@@ -177,7 +180,7 @@
     if (t.match) return withChecks({ pieces: t.match.map((p) => P0(p.shape, p.color, p.size || 'm', p.x, p.y, p.r || 0)) }, t);
     // 1) 재료 목록
     let base = [];
-    for (const q of t.has || []) { const n = q.n != null ? q.n : q.min != null ? q.min : 1; for (let i = 0; i < n; i++) base.push(P0(q.shape || shapes[0], q.color || colors[(base.length) % colors.length], q.size || 'm', 0, 0)); }
+    for (const q of t.has || []) { const n = q.n != null ? q.n : q.min != null ? q.min : q.max === 0 ? 0 : 1; for (let i = 0; i < n; i++) base.push(P0(q.shape || shapes[0], q.color || colors[(base.length) % colors.length], q.size || 'm', 0, 0)); }
     if (t.contrast) {
       const rule = CONTRAST[t.contrast] ? t.contrast : 'complement';
       const pick = rule === 'complement' ? ['빨강', '초록'] : rule === 'warm-cool' ? ['주황', '파랑'] : ['노랑', '보라'];
@@ -185,7 +188,12 @@
       if (!has) { const allowed = (q) => !(t.has || []).some((h) => h.n != null && matches(q, h)); for (const c of pick) { const q = P0(shapes[0], c, 'm', 0, 0); if (allowed(q)) base.push(q); } }
     }
     const needN = Math.max(t.pieces ? (t.pieces.n ?? t.pieces.min ?? 1) : 1, t.selfCheck ? t.minPieces || 1 : 1, t.overlap ? t.overlap * 2 : 1);
-    const pad = () => { const c = colors[(base.length + 2) % colors.length]; return P0(shapes[base.length % shapes.length], c, 'm', 0, 0); };
+    // 채움 조각은 '이만큼까지만'(max·n) 조건에 걸리지 않는 것으로 고른다(has max:0 = 그런 조각은 붙이지 않기)
+    const capped = (q) => (t.has || []).some((h) => (h.max != null || h.n != null) && matches(q, h) && base.filter((p) => matches(p, h)).length >= (h.n != null ? h.n : h.max));
+    const pad = () => {
+      for (let k = 0; k < shapes.length * colors.length; k++) { const q = P0(shapes[(base.length + k) % shapes.length], colors[(base.length + 2 + k) % colors.length], 'm', 0, 0); if (!capped(q)) return q; }
+      return P0(shapes[base.length % shapes.length], colors[(base.length + 2) % colors.length], 'm', 0, 0);
+    };
     let pieces = [];
     if (t.repeat) {
       const rp = t.repeat; const L = Math.max(rp.unit || 2, 2); const times = rp.times || 3;
@@ -229,6 +237,27 @@
       }
     }
     return withChecks({ pieces }, t);
+  }
+  // 이 판의 고르개(shapes·colors·sizes)로 목표를 만들 수 있는가 — 없는 모양·색·크기를 요구하면 까닭 한 문장, 되면 null.
+  // solve()는 고르개를 거치지 않고 조각을 놓으므로, 검사기(check-unit)가 단계(쉬움·도전)마다 이것으로 고르개 밖 목표를 잡는다.
+  function achievable(t, o) {
+    t = t || {}; o = o || {};
+    const shapes = (o.shapes || SH0).filter((k) => SHAPES[k]); const colors = (o.colors || Object.keys(COLORS)).filter((k) => COLORS[k]);
+    const sizes = (o.sizes || ['s', 'm', 'l']).filter((k) => SIZES[k]);
+    const miss = [];
+    const need = (q, what) => {
+      if (q.shape && !shapes.includes(q.shape)) miss.push(`모양 ‘${(SHAPES[q.shape] || { name: q.shape }).name}’`);
+      if (q.color && !colors.includes(q.color)) miss.push(`색 ‘${q.color}’`);
+      if (q.size && !sizes.includes(q.size)) miss.push(`크기 ‘${(SIZES[q.size] || { name: q.size }).name}’`);
+      return what;
+    };
+    for (const q of t.has || []) if ((q.n ?? q.min ?? (q.max === 0 ? 0 : 1)) > 0) need(q);
+    for (const p of t.match || []) need(p);
+    if (t.contrast) {
+      const rule = CONTRAST[t.contrast] ? t.contrast : 'complement';
+      if (!colors.some((a) => colors.some((b) => a !== b && pairOK(rule, { color: a }, { color: b })))) miss.push(`${CONTRAST[rule]} 짝`);
+    }
+    return miss.length ? `이 단계의 고르개에 목표의 ${[...new Set(miss)].slice(0, 3).join(', ')}이(가) 없음` : null;
   }
   const withChecks = (s, t) => (t.selfCheck ? Object.assign(s, { checks: t.selfCheck.map(() => true) }) : s);
 
@@ -481,6 +510,7 @@
         },
         hint(t, opts) { return hintFor(state(), t || target, o, opts); },
         wrongAnswer(t) { return wrongAnswer(t || target, o, state()); },
+        achievable(t) { return achievable(t || target, o); },
         distance,
         async demo(t) {
           const s = solve(t || target, o); load({});

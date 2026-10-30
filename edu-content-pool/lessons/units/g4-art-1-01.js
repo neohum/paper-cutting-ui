@@ -213,7 +213,7 @@
       title: '같은 대상, 다르게 보기',
       items: [
         { type: 'table', prompt: '같은 대상을 보고 친구와 내가 찾은 것을 살핀 점마다 쓰세요.', columns: ['살핀 점', '친구가 찾은 것', '내가 찾은 것'], cells: [['색', '', ''], ['모양', '', ''], ['만진 느낌', '', '']] },
-        { type: 'figure', prompt: '해바라기 꽃잎을 더 그려 넣고, 씨가 박힌 무늬를 가운데에 그리세요.', tool: 'collage', figures: [{ state: { pieces: [{ shape: 'circle', color: '갈색', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'leaf', color: '노랑', size: 'm', x: 280, y: 100, r: 0 }, { shape: 'leaf', color: '노랑', size: 'm', x: 380, y: 200, r: 90 }] }, caption: '해바라기 완성하기' }], answer: '꽃잎이 가운데 둘레를 돌며 붙고, 씨는 빙글빙글 도는 무늬' },
+        { type: 'figure', wide: true, prompt: '해바라기 꽃잎을 더 그려 넣고, 씨가 박힌 무늬를 가운데에 그리세요.', tool: 'collage', options: { printColors: false }, figures: [{ state: { pieces: [{ shape: 'circle', color: '갈색', size: 'l', x: 280, y: 200, r: 0 }, { shape: 'leaf', color: '노랑', size: 'm', x: 280, y: 100, r: 0 }, { shape: 'leaf', color: '노랑', size: 'm', x: 380, y: 200, r: 90 }] }, caption: '해바라기 완성하기' }], answer: '꽃잎이 가운데 둘레를 돌며 붙고, 씨는 빙글빙글 도는 무늬' },
         { type: 'choice', prompt: '"꼬리를 세우고 천천히 걸어"는 무엇을 살핀 말인가요?', options: ['색', '움직임', '냄새', '소리'], answer: '움직임' },
         { type: 'short', prompt: '친구와 내가 다르게 본 점을 한 가지 쓰고, 왜 다르게 보았을지 쓰세요.' },
       ],
@@ -329,7 +329,7 @@
       items: [
         { type: 'table', prompt: '눈을 가리고 만지거나 들은 물건의 느낌을 쓰세요.', columns: ['물건', '만진 느낌', '들린 소리'], cells: [['솜', '', ''], ['', '', ''], ['', '', '']] },
         { type: 'choice', prompt: '"가시가 빽빽하고 손끝이 따끔해요"는 어느 물건일까요?', options: ['솜', '밤송이', '조약돌', '스펀지'], answer: '밤송이' },
-        { type: 'figure', prompt: '아래 조각들이 주는 느낌을 그림 밑에 쓰세요.', tool: 'collage', figures: [
+        { type: 'figure', wide: true, prompt: '아래 조각들이 주는 느낌을 그림 밑에 쓰세요.', tool: 'collage', options: { printColors: false }, figures: [
           { state: { pieces: [{ shape: 'triangle', color: '갈색', size: 'm', x: 220, y: 200, r: 0 }, { shape: 'triangle', color: '갈색', size: 'm', x: 280, y: 160, r: 45 }, { shape: 'triangle', color: '갈색', size: 'm', x: 340, y: 200, r: 90 }] }, caption: '느낌: ________' },
           { state: { pieces: [{ shape: 'circle', color: '하양', size: 'l', x: 240, y: 200, r: 0 }, { shape: 'circle', color: '하양', size: 'l', x: 320, y: 200, r: 0 }, { shape: 'circle', color: '하양', size: 'm', x: 280, y: 160, r: 0 }] }, caption: '느낌: ________' }], answer: '따가워요(거칠어요), 폭신해요(부드러워요)' },
         { type: 'draw', prompt: '조약돌의 매끈하고 단단한 느낌을 모양으로 그리세요.' },
@@ -442,7 +442,7 @@
       title: '가까이서, 멀리서',
       items: [
         { type: 'table', prompt: '같은 대상을 멀리서 볼 때와 가까이서 볼 때 보이는 것을 쓰세요.', columns: ['대상', '멀리서 보면', '가까이서 보면'], cells: [['나무', '', ''], ['우리 학교 건물', '', ''], ['', '', '']] },
-        { type: 'figure', prompt: '되풀이되는 묶음을 ○로 묶고, 다음에 올 두 조각을 그리세요.', tool: 'collage', figures: [{ state: { pieces: [{ shape: 'rect', color: '빨강', size: 'm', x: 80, y: 200, r: 0 }, { shape: 'rect', color: '갈색', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'rect', color: '빨강', size: 'm', x: 240, y: 200, r: 0 }, { shape: 'rect', color: '갈색', size: 'm', x: 320, y: 200, r: 0 }] }, caption: '빨강 · 갈색 · 빨강 · 갈색 · …' }], answer: '빨강 긴 네모, 갈색 긴 네모' },
+        { type: 'figure', wide: true, prompt: '되풀이되는 묶음을 ○로 묶고, 다음에 올 두 조각을 그리세요.', tool: 'collage', options: { printColors: false }, figures: [{ state: { pieces: [{ shape: 'rect', color: '빨강', size: 'm', x: 80, y: 200, r: 0 }, { shape: 'rect', color: '갈색', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'rect', color: '빨강', size: 'm', x: 240, y: 200, r: 0 }, { shape: 'rect', color: '갈색', size: 'm', x: 320, y: 200, r: 0 }] }, caption: '빨강 · 갈색 · 빨강 · 갈색 · …' }], answer: '빨강 긴 네모, 갈색 긴 네모' },
         { type: 'choice', prompt: '멀리서 보아야 더 잘 보이는 것에 ○ 하세요.', options: ['산의 전체 모양', '모래 알갱이의 색', '나무껍질의 갈라진 무늬', '개미의 다리'], answer: '산의 전체 모양' },
         { type: 'draw', prompt: '동그란 돋보기 칸 안에, 가까이서 본 무늬 하나를 크게 그리세요.' },
       ],
@@ -736,7 +736,7 @@
             teacher: '"접는 선이 코가 있는 자리예요. 왼쪽 귀가 접는 선에서 몇 칸 떨어져 있나요? 오른쪽 귀도 같은 칸만큼 떨어져야 해요." 판의 점을 세게 한다. 물고기 문항에서는 "옆모습은 대칭이 아니어도 돼요"라고 말해, 앞모습과 옆모습의 차이를 직접 만들어 보게 한다.',
             task: '앞에서 본 얼굴은 접는 선 양쪽이 같게, 옆에서 본 모습은 보이는 대로 조각을 놓아요.',
             levels: {
-              easy: { shapes: ['circle', 'triangle', 'square', 'heart'], colors: ['노랑', '주황', '검정', '분홍', '하양'], sizes: ['s', 'm', 'l'] },
+              easy: { shapes: ['circle', 'triangle', 'square', 'heart', 'leaf'], colors: ['노랑', '주황', '검정', '분홍', '하양'], sizes: ['s', 'm', 'l'] },
               base: { shapes: ['circle', 'triangle', 'square', 'heart', 'leaf', 'semi'] },
               challenge: { guide: false },
             },
@@ -766,7 +766,7 @@
     worksheet: {
       title: '앞모습과 옆모습',
       items: [
-        { type: 'figure', prompt: '접는 선을 기준으로 고양이 얼굴의 나머지 반쪽을 그리세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 220, r: 0 }, { shape: 'triangle', color: '노랑', size: 'm', x: 220, y: 140, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 240, y: 200, r: 0 }] }, caption: '앞에서 본 고양이 완성하기' }], answer: '오른쪽 귀(340, 140)와 오른쪽 눈(320, 200)이 접는 선에서 같은 거리' },
+        { type: 'figure', wide: true, prompt: '접는 선을 기준으로 고양이 얼굴의 나머지 반쪽을 그리세요.', tool: 'collage', options: { guide: 'vertical', printColors: false }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 220, r: 0 }, { shape: 'triangle', color: '노랑', size: 'm', x: 220, y: 140, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 240, y: 200, r: 0 }] }, caption: '앞에서 본 고양이 완성하기' }], answer: '오른쪽 귀(340, 140)와 오른쪽 눈(320, 200)이 접는 선에서 같은 거리' },
         { type: 'table', prompt: '짝의 얼굴을 앞과 옆에서 보고 보이는 것을 쓰세요.', columns: ['방향', '보이는 눈의 수', '보이는 귀의 수', '눈에 띄는 점'], cells: [['앞', '', '', ''], ['옆', '', '', '']] },
         { type: 'choice', prompt: '버스를 옆에서 본 모습에 ○ 하세요.', options: ['넓은 앞유리와 불빛 두 개', '창문이 길게 줄지어 있어요', '뒷유리 아래 번호판'], answer: '창문이 길게 줄지어 있어요' },
         { type: 'draw', prompt: '좋아하는 동물 하나를 앞에서 본 모습과 옆에서 본 모습으로 나란히 그리세요.' },
@@ -774,14 +774,14 @@
       easy: {
         note: '앞모습은 코를 가운데 두고 양쪽이 같아요. 옆모습은 한쪽만 보여요.',
         items: [
-          { type: 'figure', prompt: '나머지 반쪽 얼굴을 그리세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 220, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 240, y: 200, r: 0 }] }, caption: '반쪽 완성하기' }] },
+          { type: 'figure', wide: true, prompt: '나머지 반쪽 얼굴을 그리세요.', tool: 'collage', options: { guide: 'vertical', printColors: false }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 280, y: 220, r: 0 }, { shape: 'circle', color: '검정', size: 's', x: 240, y: 200, r: 0 }] }, caption: '반쪽 완성하기' }] },
           { type: 'choice', prompt: '옆에서 본 고양이는 눈이 몇 개 보이나요?', options: ['하나', '둘'], answer: '하나' },
           { type: 'draw', prompt: '좋아하는 동물을 앞에서 본 모습으로 그리세요.' },
         ],
       },
     },
     differentiation: {
-      easy: '카드를 맞는 칸에 놓으면 초록 테두리가 생기고, 색종이는 모양 네 가지·색 다섯 가지예요.',
+      easy: '카드를 맞는 칸에 놓으면 초록 테두리가 생기고, 색종이는 모양 다섯 가지·색 다섯 가지예요.',
       base: '스스로 나눈 뒤 확인하고, 모양 여섯 가지를 써요.',
       challenge: '보이는 모습이 아닌 카드가 섞여 있어요. 대칭 작품은 접는 선이 보이지 않아 칸을 세어 짝 자리를 찾고, 귀 하나만 있는 얼굴·지느러미 달린 물고기처럼 더 많은 조각을 놓아요.',
     },
@@ -1720,7 +1720,7 @@
     worksheet: {
       title: '되풀이 무늬',
       items: [
-        { type: 'figure', prompt: '되풀이 묶음을 ○로 묶고, 빈칸에 알맞은 조각을 그리세요.', tool: 'pattern', figures: [{ options: { seq: ['star:buttercup', 'heart:rose', 'heart:rose', 'star:buttercup', 'heart:rose', null, 'star:buttercup', null, null] }, caption: '빈칸 세 곳 채우기' }], answer: '하트, 하트, 하트' },
+        { type: 'figure', wide: true, prompt: '되풀이 묶음을 ○로 묶고, 빈칸에 알맞은 조각을 그리세요.', tool: 'pattern', figures: [{ options: { seq: ['star:buttercup', 'heart:rose', 'heart:rose', 'star:buttercup', 'heart:rose', null, 'star:buttercup', null, null] }, caption: '빈칸 세 곳 채우기' }], answer: '하트, 하트, 하트' },
         { type: 'table', prompt: '집이나 학교에서 찾은 되풀이 무늬를 쓰세요.', columns: ['찾은 곳', '한 묶음', '무늬가 하는 일'], cells: [['포장지', '', ''], ['', '', ''], ['', '', '']] },
         { type: 'choice', prompt: '되풀이 무늬로 꾸민 것이 아닌 것에 ○ 하세요.', options: ['줄무늬 목도리', '꽃무늬 벽지', '비상구 표시', '별무늬 포장지'], answer: '비상구 표시' },
         { type: 'draw', prompt: '내 필통을 꾸밀 되풀이 무늬를 띠 모양으로 그리세요.' },
@@ -2035,7 +2035,7 @@
     worksheet: {
       title: '갈래별로 몇 개 찾았나',
       items: [
-        { type: 'figure', prompt: '그림그래프를 읽고 갈래마다 찾은 수를 쓰세요. 큰 그림은 10개, 작은 그림은 1개예요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '우리 반이 찾은 생활 속 미술', data: [['알려 주기', 9], ['꾸며 주기', 12], ['쓰기 편하게', 4]], unit: '개', xLabel: '하는 일', icons: [{ value: 10, name: '10개' }, { value: 1, name: '1개' }] }, caption: '알려 주기 ___개 · 꾸며 주기 ___개 · 쓰기 편하게 ___개' }], answer: '알려 주기 9개, 꾸며 주기 12개, 쓰기 편하게 4개' },
+        { type: 'table', prompt: '그림그래프를 읽고 갈래마다 큰 그림(10개)과 작은 그림(1개) 수를 세어 찾은 수를 쓰세요.', columns: ['갈래','큰 그림(10개)','작은 그림(1개)','찾은 수'], cells: [['알려 주기','0개','9개',''],['꾸며 주기','1개','2개',''],['쓰기 편하게','0개','4개','']], answer: '알려 주기 9개, 꾸며 주기 12개, 쓰기 편하게 4개' },
         { type: 'table', prompt: '세 갈래에 더 찾은 것과, 세 갈래 어디에도 들지 않아 새 갈래에 넣은 것을 쓰세요.', columns: ['갈래', '더 찾은 수', '대표 예'], cells: [['알려 주는', '', ''], ['꾸며 주는', '', ''], ['쓰기 편하게', '', ''], ['새 갈래: 기분을 만드는', '', '']] },
         { type: 'choice', prompt: '쓰기 편하게 돕는 미술을 적게 찾은 까닭으로 알맞은 것에 ○ 하세요.', options: ['생활에 하나도 없어서', '손잡이·홈처럼 작아 눈에 덜 띄어서', '미술이 아니어서'], answer: '손잡이·홈처럼 작아 눈에 덜 띄어서' },
         { type: 'short', prompt: '적게 찾은 갈래의 미술을 더 찾으려면 어디를 어떻게 살펴볼지 쓰세요.' },

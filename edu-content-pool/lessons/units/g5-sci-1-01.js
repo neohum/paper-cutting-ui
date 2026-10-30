@@ -322,7 +322,7 @@
         title: '지층 모형 나타내기',
         items: [
           { type: 'figure', wide: true, prompt: '모래 → 자갈 → 진흙 차례로 부은 모형이에요. 층 자리 칸에 재료 이름을 쓰세요.', tool: 'story', figures: [{ options: { printCards: false, slots: ['맨 아래 층', '가운데 층', '맨 위 층'], cards: ['보기'] }, caption: '' }], answer: '맨 아래 모래, 가운데 자갈, 맨 위 진흙' },
-          { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 완성하세요.', tool: 'chart', figures: [{ options: { type: 'bar', title: '우리 모둠 모형의 층 두께', data: [['모래층', 4], ['자갈층', 2], ['진흙층', 3]], unit: 'cm', xLabel: '층(아래부터)', yLabel: '두께', scale: 1, given: [0] }, caption: '' }], answer: '자갈층 2 cm, 진흙층 3 cm' },
+          { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 층 이름, 세로에 두께(cm)를 쓰고, 한 칸을 1 cm로 해요. (모래층 4 cm, 자갈층 2 cm, 진흙층 3 cm)' },
           { type: 'draw', prompt: '오늘 만든(본) 지층 모형을 그리고, 층마다 재료 이름을 쓰고, 쌓인 차례를 화살표로 나타내세요.' },
           { type: 'choice', prompt: '지층에서 가장 나중에 쌓인 층에 ○ 하세요.', options: ['맨 아래층', '가운데 층', '맨 위층'], answer: '맨 위층' },
           { type: 'short', prompt: '"맨 위층이 가장 먼저 쌓였다."는 말이 틀린 까닭을 써 보세요.', answer: '재료는 아래부터 차례로 쌓이므로 아래층이 먼저 쌓이고 맨 위층이 가장 나중에 쌓였다.' },
@@ -808,7 +808,7 @@
         title: '퇴적암 관찰 정리',
         items: [
           { type: 'table', prompt: '세 퇴적암을 관찰한 결과를 표로 정리하세요.', columns: ['암석', '알갱이 크기', '만졌을 때 느낌', '주된 알갱이'], cells: [['이암', '', '', ''], ['사암', '', '', ''], ['역암', '', '', '']], answer: '이암: 아주 작음·매끄러움·진흙 / 사암: 중간·까끌까끌함·모래 / 역암: 큼·울퉁불퉁함·자갈과 모래' },
-          { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 완성하세요.', tool: 'chart', figures: [{ options: { type: 'bar', title: '우리 모둠이 모은 퇴적암', data: [['이암', 4], ['사암', 6], ['역암', 3]], unit: '개', xLabel: '암석', yLabel: '시료 수', scale: 1, given: [0] }, caption: '' }], answer: '사암 6개, 역암 3개' },
+          { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 암석 이름, 세로에 시료 수(개)를 쓰고, 한 칸을 1개로 해요. (이암 4개, 사암 6개, 역암 3개)' },
           { type: 'draw', prompt: '세 퇴적암을 알갱이가 큰 차례로 그리고, 그 아래에 이름을 쓰세요.' },
           { type: 'short', prompt: '위 표에서 세 암석을 나눈 기준을 한 문장으로 쓰세요.', answer: '알갱이의 크기에 따라 작으면 이암, 모래만 하면 사암, 자갈이 섞이면 역암으로 나누었다.' },
         ],
@@ -1312,7 +1312,8 @@
         items: [
           { type: 'draw', prompt: '화석이 만들어지는 과정을 네 컷으로 그리고, 컷마다 일어난 일을 한 줄로 쓰세요.' },
           { type: 'figure', wide: true, prompt: '나뭇잎 화석이 만들어지는 컷이에요. 빈 칸에 알맞은 장면을 쓰세요.', tool: 'story', figures: [{ options: { printCards: false, slots: ['1컷', '2컷', '3컷', '4컷'], cards: ['보기'] }, caption: '1컷 잎이 호수에 떨어져요 → 2컷 (      ) → 3컷 (      ) → 4컷 암석을 쪼개니 잎 자국이 보여요' }], answer: '2컷 고운 진흙에 덮여요, 3컷 쌓여 굳어 암석에 잎 자국이 남아요' },
-          { type: 'figure', wide: true, prompt: '그래프를 보고 물음에 답하세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', title: '층마다 나온 물고기 화석 수', data: [['맨 아래층', 7], ['가운데 층', 1], ['맨 위층', 0]], unit: '개', xLabel: '층(아래부터)', yLabel: '화석 수', scale: 1 }, caption: '물고기 화석이 나오지 않은 층 (          ), 물고기 화석이 나온 층이 쌓일 때의 환경 (          )' }], answer: '맨 위층, 물속(강·호수·바다)' },
+          { type: 'table', prompt: '층마다 나온 물고기 화석 수를 보고, 화석이 나오지 않은 층 칸에 ○ 를 쓰세요.', columns: ['층(아래부터)', '맨 아래층', '가운데 층', '맨 위층'], cells: [['물고기 화석 수(개)', '7', '1', '0'], ['나오지 않은 층', '', '', '']], answer: '맨 위층 칸 ○' },
+          { type: 'short', prompt: '물고기 화석이 나온 층이 쌓일 때의 환경은 어땠을지 쓰세요.', answer: '물속(강·호수·바다)이었다.' },
           { type: 'choice', prompt: '화석이 만들어지는 과정에서 생물이 묻힌 뒤에 일어나는 일에 ○ 하세요.', options: ['퇴적물이 쌓여 굳어요', '생물이 다시 살아나요', '물 위로 떠올라요'], answer: '퇴적물이 쌓여 굳어요' },
           { type: 'short', prompt: '"화석은 생물이 바로 돌로 바뀐 것이다."라는 친구의 말을 고쳐 써 보세요.', answer: '생물이 퇴적물에 묻히고, 퇴적물이 아주 오랜 시간 쌓여 굳는 동안 생물의 몸이나 흔적이 암석 속에 남은 것이다.' },
         ],

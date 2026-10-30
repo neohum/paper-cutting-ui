@@ -43,6 +43,7 @@
 - **`o.print`가 참이면 활동지 그림이다.**
   - 정답이 드러나는 표기(디지털 숫자, 각도 값, 결과 문구)는 숨긴다.
   - 인쇄 흑백 처리는 CSS가 한다. `.pk-face`는 흰 바탕 검은 칼선(굵기 1px, `vector-effect: non-scaling-stroke` — `sx`/`sy`로 늘인 조각도 선만 남는다), `.pk-under`는 숨김.
+  - 활동지 그림 칸은 기본 3열(약 60mm)이고 글자 키우기(위)는 인쇄에서 돌지 않는다. viewBox가 600 안팎인 지도·카드 판은 그 칸에서 글자가 4pt 안팎이 된다 — 교구가 글자만 키우면 칸 안 배치가 깨지므로, 글을 읽어야 하는 그림은 차시가 figure 문항에 `wide: true`를 준다. `check-unit.mjs`가 그림 칸 글자의 인쇄 크기 가운뎃값이 5.5pt 아래면 실패로 알린다.
 - `kit.transform(g, { sx, sy })`로 한 방향만 늘일 수 있다. 직접 `transform` 속성을 쓰지 않는다.
 - 자체 소리를 내면 `kit.soundOn()`이 거짓일 때 소리를 끈다. 출구 질문 교구는 `exitTicket[].state`로 시작 상태를 받는다.
 - 조작이 끝날 때마다 `kit.recorder.log('<id>', state)`를 남긴다. 한 문장 상태 안내는 `kit.announce(text)`로 한다.

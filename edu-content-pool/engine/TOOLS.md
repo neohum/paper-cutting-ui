@@ -13,6 +13,9 @@
 
 - `T.achievable(target)`: 지금 판(카드·칸)으로 target을 만들 수 없으면 까닭 한 문장(없는 카드 id·칸 id), 만들 수 있으면 null. `check-unit.mjs`가 단계(easy/base/challenge)마다 부른다 — toolOptions만 바꾼 단계도 그 판으로 풀리는지 본다.
 - 1단계 기본 힌트는 판을 보고 고른다: timeline은 축 이름이 시간(옛날·먼저·아침…)일 때만 '일이 일어난 차례' 말을, 아니면 축 양 끝 이름으로 말한다. lifecycle은 한살이(가운데 글·생물 모티프)일 때만 '자라는 차례' 말을 쓴다. kitchen sort는 칸이 식품군일 때만 식품군 말을, matter sort는 칸이 물질 성질일 때만 성질 말을 쓴다. story fill은 칸에 who가 있을 때만 인물 말을, mindmap match는 '어울리는 카드'로 말한다(근거 잇기 차시는 문항 hints로 '근거'를 적는다). timer order는 카드가 운동 동작일 때만 체육 말을 쓴다. 차시마다 다른 말이 필요하면 hint1·문항 hints를 쓴다.
+- 카드가 한 장도 없는 판(짝·모둠이 말로 하는 free 문항)에는 '해 보았어요' 표시 하나가 나온다(`doneLabel`로 글을 바꿈, 상태에 `done`). timer도 칸이 하나도 없으면 같다. 교구를 전혀 움직이지 않는 말하기 문항은 `talk: true`가 더 알맞다.
+- `check-unit.mjs`는 free 문항마다 교구를 키보드·단추로 실제로 움직여 상태가 바뀌는지 본다(플레이어는 상태가 한 번 바뀌어야 '다 했어요'를 받는다). 스스로 점검(`selfCheck`)·척도 `level: 'any'`·척도 전 범위(`level: [1, steps]`)는 틀린 답 검사를 건너뛴다.
+- 활동지 그림 칸은 3열(약 58mm 폭, 높이 52mm 이하)이라 지도·카드처럼 글이 많은 그림은 글자가 작게 찍힌다. 글을 읽어야 하는 그림은 그 figure 문항에 `wide: true`를 준다. `check-unit.mjs`는 그림 칸 글자(3개 이상)의 인쇄 크기 가운뎃값이 5.5pt 아래면 실패로 알린다.
 
 ## story
 

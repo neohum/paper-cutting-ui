@@ -40,6 +40,8 @@
  */
 (function (K) {
   'use strict';
+  // 받침에 맞는 조사(수 뒤도: '3을', '2를')
+  const jo = (w, a, b) => { const s = String(w).replace(/[’'"”)\]\s]+$/, ''); const c = s.charCodeAt(s.length - 1); if (c >= 0xac00 && c <= 0xd7a3) return `${w}${(c - 0xac00) % 28 ? a : b}`; return `${w}${/[013678]$/.test(s) ? a : b}`; };
   // ── cards-b 공통(이 블록은 emotion·wordcards·kitchen·economy 네 파일에 글자 하나 다르지 않게 들어 있다 — 먼저 읽힌 파일의 것을 쓴다.
   //    고칠 때는 네 파일을 함께 고친다. tests/edu-tools-cards-b.test.mjs가 네 블록이 같은지 본다) ──
   if (!K.cardsB) K.cardsB = (function () {
@@ -280,6 +282,7 @@
     [/뿌듯|자랑|자신/, 'star', 'buttercup'], [/편안|편해|평온|차분|든든/, 'leaf', 'mint'],
   ];
   const moodOf = (s) => { const t = String(s || '').trim(); const m = MOODS.find(([re]) => re.test(t)); return m ? { motif: m[1], color: m[2] } : null; };
+  const feltBoard = ({ cards, slots }) => cards.some((c) => moodOf(c.name)) || slots.some((x) => moodOf(x.label));
   function weatherize(list, isCard) {
     if (list == null || typeof list === 'number') return list;
     return arr(list).map((x) => {
@@ -319,9 +322,9 @@
         },
         hintAt(t, lv) {
           const v = M.verdict(t); const [a, b] = range(t);
-          if (v.incomplete) return lv >= 3 ? `눈금 ${a === b ? a : `${a}에서 ${b} 사이`}를 골라요.` : '아직 고르지 않았어요. 먼저 눈금 하나를 눌러요.';
+          if (v.incomplete) return lv >= 3 ? `눈금 ${a === b ? jo(a, '을', '를') : `${a}에서 ${b} 사이를`} 골라요.` : '아직 고르지 않았어요. 먼저 눈금 하나를 눌러요.';
           if (lv === 2) return v.dir > 0 ? `지금 고른 눈금 ${level}은(는) 조금 커요. 같은 일을 겪은 친구라면 마음이 얼마나 움직일지 떠올려 봐요.` : `지금 고른 눈금 ${level}은(는) 조금 작아요. 인물이 얼마나 놀라거나 속상했을지 떠올려 봐요.`;
-          return `이 상황에는 눈금 ${a === b ? a : `${a}에서 ${b} 사이`}가 어울려요.`;
+          return `이 상황에는 눈금 ${a === b ? jo(a, '이', '가') : `${a}에서 ${b} 사이가`} 어울려요.`;
         },
         solution(t) { const [a, b] = range(t); return { level: Math.round((a + b) / 2) }; },
         wrongAnswer(t) { const [a, b] = range(t); if (b < n) return { level: n }; if (a > 1) return { level: 1 }; return null; },
@@ -510,9 +513,12 @@
       name: '마음 날씨 카드',
       mode: 'match',
       label: '마음 날씨 카드. 상황에 어울리는 마음 카드를 놓아요.',
+      // 마음 낱말 카드·칸(기쁨·속상함…)이 있을 때만 '마음 날씨'를 말한다 — 체육 감상·생활 분류처럼 마음 낱말이 없는 짝 잇기·나누기는 중립 글
       hints: {
-        match: '상황 속 인물이 무엇을 겪었는지 먼저 읽고, 내가 그 자리에 있다면 마음이 어떤 날씨일지 떠올려 짝 지어요.',
-        sort: '카드의 일을 겪으면 마음이 어떨지 떠올리고, 같은 마음 날씨 칸에 모아요.',
+        match: (look) => (feltBoard(look) ? '상황 속 인물이 무엇을 겪었는지 먼저 읽고, 내가 그 자리에 있다면 마음이 어떤 날씨일지 떠올려 짝 지어요.'
+          : '왼쪽 칸의 글을 먼저 읽고, 그것과 가장 잘 어울리는 카드를 하나씩 찾아 옆에 놓아요.'),
+        sort: (look) => (feltBoard(look) ? '카드의 일을 겪으면 마음이 어떨지 떠올리고, 같은 마음 날씨 칸에 모아요.'
+          : '칸 이름을 먼저 소리 내어 읽고, 카드를 하나씩 보며 그 칸에 맞는지 따져 넣어요.'),
         pick: '카드마다 그 말이나 행동을 들은 사람의 마음이 어떨지 생각해 보고, 조건에 맞는 것만 골라요.',
         order: '마음이 바뀌게 된 까닭을 찾아, 먼저 든 마음부터 차례로 놓아요.',
         fill: '빈칸에 마음 낱말을 넣고 문장을 소리 내어 읽어, 인물의 마음과 어울리는지 들어 봐요.',

@@ -525,7 +525,7 @@
               { prompt: '높게·중간·낮게를 써서 묶음이 되풀이되는 나만의 높이 차례를 만들어요.', toolOptions: { mode: 'make', palette: ['높게', '중간', '낮게'], length: 6 }, target: { rule: 'repeat', minRepeats: 2, uses: 2 }, difficulty: 0.25,
                 hints: ['먼저 두세 칸을 한 묶음으로 정하고, 그 묶음을 똑같이 되풀이해요.', '첫 묶음과 다음 묶음을 칸마다 견주어 보세요. 다른 칸이 있나요?', '예를 들어 높게·낮게를 한 묶음으로 정하면 높게·낮게·높게·낮게·높게·낮게처럼 채워요.'],
                 levels: { challenge: { prompt: '높게·중간·낮게를 모두 써서, 세 칸 묶음이 되풀이되는 높이 차례를 만들어요.', toolOptions: { length: 9 }, target: { rule: 'repeat', period: 3, minRepeats: 3, uses: 3 } } } },
-              { prompt: '짝과 내가 만든 높이 차례를 바꾸어 읽고, 그 차례대로 몸으로 해 봐요.', free: true },
+              { prompt: '짝과 내가 만든 높이 차례를 바꾸어 읽고, 그 차례대로 몸으로 해 봐요.', free: true, talk: true },
             ],
           },
         ],
@@ -723,7 +723,7 @@
     worksheet: {
       title: '짝과 거울 놀이',
       items: [
-        { type: 'figure', prompt: '점선을 거울로 보고, 오른쪽에 거울 자세를 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'm', x: 160, y: 80, r: 0 }, { shape: 'rect', color: '파랑', size: 'l', x: 160, y: 180, r: 90 }, { shape: 'rect', color: '빨강', size: 'm', x: 100, y: 120, r: 315 }] }, caption: '리더 자세 보고 거울 자세 그리기' }] },
+        { type: 'figure', wide: true, prompt: '점선을 거울로 보고, 오른쪽에 거울 자세를 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical', printColors: false }, figures: [{ state: { pieces: [{ shape: 'circle', color: '노랑', size: 'm', x: 160, y: 80, r: 0 }, { shape: 'rect', color: '파랑', size: 'l', x: 160, y: 180, r: 90 }, { shape: 'rect', color: '빨강', size: 'm', x: 100, y: 120, r: 315 }] }, caption: '리더 자세 보고 거울 자세 그리기' }] },
         { type: 'choice', prompt: '마주 본 짝이 오른손을 들었어요. 거울이 된 나는 어느 손을 드나요?', options: ['오른손', '왼손'], answer: '왼손' },
         { type: 'check', prompt: '거울 놀이에서 지킨 약속에 ✓ 하세요.', options: ['천천히 움직였어요', '짝의 눈을 보았어요', '리더를 바꾸어 했어요'] },
         { type: 'draw', prompt: '짝과 거울 놀이를 하는 모습을 그려 보세요.' },
@@ -1209,7 +1209,7 @@
                 levels: { easy: { toolOptions: { perRow: 3 } } } },
               { prompt: '\'걷기, 달리기, 멈추기\'가 되풀이되는 신호예요. 빈칸을 채워요.', toolOptions: { seq: ['걷기', '달리기', '멈추기', '걷기', null, '멈추기', null, '달리기', null] }, target: { fill: ['달리기', '걷기', '멈추기'] }, difficulty: 0.25,
                 levels: { easy: { toolOptions: { perRow: 3 } } } },
-              { prompt: '선생님 북소리에 맞추어 강당을 걷다가 달리다가 멈추어요. 짝은 신호에 맞게 바꾸었는지 봐 줘요.', free: true },
+              { prompt: '선생님 북소리에 맞추어 강당을 걷다가 달리다가 멈추어요. 짝은 신호에 맞게 바꾸었는지 봐 줘요.', free: true, talk: true },
             ],
           },
         ],
@@ -1909,7 +1909,7 @@
       title: '새 달리기 길',
       items: [
         { type: 'short', prompt: '지난 길에서 바꾼 점을 쓰세요.' },
-        { type: 'figure', prompt: '가운데 선을 보고, 오른쪽에 똑같은 길을 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical' }, figures: [{ state: { pieces: [{ shape: 'triangle', color: '주황', size: 'm', x: 200, y: 100, r: 0 }, { shape: 'triangle', color: '주황', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 200, y: 300, r: 0 }] }, caption: '왼쪽 길 보고 오른쪽 길 그리기' }] },
+        { type: 'figure', wide: true, prompt: '가운데 선을 보고, 오른쪽에 똑같은 길을 그려 완성하세요.', tool: 'collage', options: { guide: 'vertical', printColors: false }, figures: [{ state: { pieces: [{ shape: 'triangle', color: '주황', size: 'm', x: 200, y: 100, r: 0 }, { shape: 'triangle', color: '주황', size: 'm', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 'm', x: 200, y: 300, r: 0 }] }, caption: '왼쪽 길 보고 오른쪽 길 그리기' }] },
         { type: 'choice', prompt: '길을 안전하게 바꾸는 방법에 ○ 하세요.', options: ['고깔을 더 놓아요', '눈을 감고 달려요', '고깔을 밟아요'], answer: '고깔을 더 놓아요' },
         { type: 'check', prompt: '오늘 해낸 것에 ✓ 하세요.', options: ['바꿀 점을 말했어요', '새 길을 꾸몄어요', '새 길을 달려 보았어요'] },
       ],
@@ -2211,6 +2211,9 @@
                 hints: ['뛰려면 먼저 몸을 어떻게 해야 할까요?', '내려앉는 것은 뛴 다음일까요, 뛰기 전일까요?', '몸 낮추기 → 바닥 밀며 뛰기 → 무릎 굽혀 내려앉기 → 멈추어 둘레 보기 차례예요.'] },
               { prompt: '앞으로 멀리 뛰고 내려앉는 차례대로 카드를 놓아 보세요.', toolOptions: { cards: ['팔을 앞으로 흔들며 뛰어요', '두 팔을 뒤로 보내며 몸을 낮추어요', '무릎을 굽히며 두 발로 앞에 내려앉아요', '내려앉은 곳에서 일어나 줄 뒤로 걸어가요'] },
                 target: { order: ['두 팔을 뒤로 보내며 몸을 낮추어요', '팔을 앞으로 흔들며 뛰어요', '무릎을 굽히며 두 발로 앞에 내려앉아요', '내려앉은 곳에서 일어나 줄 뒤로 걸어가요'] }, difficulty: 0.2,
+                hints: ['내 몸으로 천천히 따라 해 보세요. 발이 바닥을 떠나기 전에 하는 일, 떠 있을 때 하는 일, 바닥에 닿은 뒤 하는 일로 나누어 생각해요.',
+                  '뛰려면 먼저 몸을 웅크려 힘을 모아야 해요. 땅에 닿기 전에 줄 뒤로 걸어갈 수는 없어요.',
+                  '\'두 팔을 뒤로 보내며 몸을 낮추어요\' 다음에 \'팔을 앞으로 흔들며 뛰어요\', 그다음에 내려앉고, 맨 끝에 줄 뒤로 걸어가요.'],
                 levels: { challenge: { prompt: '앞으로 멀리 뛰고 내려앉는 차례대로 카드를 놓아 보세요. 카드가 더 많아요.', toolOptions: { cards: ['팔을 앞으로 흔들며 뛰어요', '두 팔을 뒤로 보내며 몸을 낮추어요', '무릎을 굽히며 두 발로 앞에 내려앉아요', '내려앉은 곳에서 일어나 줄 뒤로 걸어가요', '출발선에 두 발을 모으고 서요'] },
                   target: { order: ['출발선에 두 발을 모으고 서요', '두 팔을 뒤로 보내며 몸을 낮추어요', '팔을 앞으로 흔들며 뛰어요', '무릎을 굽히며 두 발로 앞에 내려앉아요', '내려앉은 곳에서 일어나 줄 뒤로 걸어가요'] } } } },
               { prompt: '매트 위에서 제자리 뛰기를 세 번 해요. 짝은 내려앉는 소리가 조용했는지, 무릎을 굽혔는지 봐 줘요.', free: true, talk: true },
@@ -2296,7 +2299,7 @@
                 levels: { easy: { toolOptions: { perRow: 3 } } } },
               { prompt: '\'두 발, 한 발, 한 발\'이 되풀이되는 칸 줄이에요. 빈칸을 채워요.', toolOptions: { seq: ['두 발', '한 발', '한 발', '두 발', null, null, '두 발', '한 발', null] }, target: { fill: ['한 발', '한 발', '한 발'] }, difficulty: 0.25,
                 levels: { easy: { toolOptions: { perRow: 3 } } } },
-              { prompt: '채운 칸 줄 하나를 골라 바닥 칸에서 뛰어요. 짝은 한 발·두 발을 줄대로 디뎠는지 봐 줘요.', free: true },
+              { prompt: '채운 칸 줄 하나를 골라 바닥 칸에서 뛰어요. 짝은 한 발·두 발을 줄대로 디뎠는지 봐 줘요.', free: true, talk: true },
             ],
           },
           {
@@ -2306,9 +2309,10 @@
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
               { prompt: '한 발·두 발을 써서 묶음이 되풀이되는 우리 모둠 칸 줄을 만들어요.', toolOptions: { mode: 'make', palette: ['한 발', '두 발'], length: 6 }, target: { rule: 'repeat', minRepeats: 2, uses: 2 }, difficulty: 0.2,
+                hints: ['먼저 몇 칸을 한 묶음으로 정하고, 그 묶음을 똑같이 되풀이해요.', '첫 묶음과 다음 묶음을 칸마다 견주어 보세요. 다른 칸이 있나요?', '정한 묶음을 첫 칸부터 끝 칸까지 같은 차례로 되풀이해요. 묶음 칸 수와 쓸 낱말 수는 문제를 다시 읽고 맞추어요.'],
                 levels: { challenge: { prompt: '한 발·두 발·쉬기를 모두 써서, 세 칸 묶음이 되풀이되는 칸 줄을 만들어요.', toolOptions: { palette: ['한 발', '두 발', '쉬기'], length: 9 }, target: { rule: 'repeat', period: 3, minRepeats: 3, uses: 3 } } } },
               { prompt: '옆 모둠이 만든 \'두 발, 한 발, 두 발\' 칸 줄이에요. 빈칸을 채워 이어 뛸 수 있게 해요.', toolOptions: { seq: ['두 발', '한 발', '두 발', '두 발', '한 발', null, '두 발', null, null] }, target: { fill: ['두 발', '한 발', '두 발'] }, difficulty: 0.2 },
-              { prompt: '모둠이 만든 칸 줄대로 분필 칸을 그리고 차례로 뛰어요. 앞 친구가 끝 칸을 지나면 출발해요.', free: true },
+              { prompt: '모둠이 만든 칸 줄대로 분필 칸을 그리고 차례로 뛰어요. 앞 친구가 끝 칸을 지나면 출발해요.', free: true, talk: true },
             ],
           },
         ],
@@ -2967,6 +2971,7 @@
             items: [
               { prompt: '\'멀리, 높이\'가 되풀이되는 뛰기 길이에요. 빈칸을 채워요.', toolOptions: { seq: ['멀리', '높이', '멀리', null, '멀리', null] }, target: { fill: ['높이', '높이'] }, difficulty: 0.1 },
               { prompt: '멀리·높이를 써서 묶음이 되풀이되는 우리 모둠 뛰기 길을 만들어요.', toolOptions: { mode: 'make', palette: ['멀리', '높이'], length: 6 }, target: { rule: 'repeat', minRepeats: 2, uses: 2 }, difficulty: 0.2,
+                hints: ['먼저 몇 칸을 한 묶음으로 정하고, 그 묶음을 똑같이 되풀이해요.', '첫 묶음과 다음 묶음을 칸마다 견주어 보세요. 다른 칸이 있나요?', '정한 묶음을 첫 칸부터 끝 칸까지 같은 차례로 되풀이해요. 묶음 칸 수와 쓸 낱말 수는 문제를 다시 읽고 맞추어요.'],
                 levels: { challenge: { prompt: '멀리·높이·쉬기를 모두 써서, 세 칸 묶음이 되풀이되는 뛰기 길을 만들어요.', toolOptions: { palette: ['멀리', '높이', '쉬기'], length: 9 }, target: { rule: 'repeat', period: 3, minRepeats: 3, uses: 3 } } } },
               { prompt: '만든 뛰기 길을 바닥에 놓고 모둠이 차례로 뛰어요. 무서운 칸은 친구에게 말해 바닥 줄로 바꿔요.', free: true, talk: true },
             ],
@@ -3421,7 +3426,701 @@
     teacherNotes: '자주 보이는 어려움: ① 핀과 과녁을 붙여 놓아 두 놀이가 겹친다 → 실제로 놓아 보고 공 길이 겹치는지 보게 한다. ② 핀을 다시 세우러 뛰어간다 → 줍기 차례에 신호로만 가게 한다. ③ 꾸미기에 시간을 다 쓴다 → 꾸미기 시간을 정해 두고 해 보는 시간을 남긴다.',
   }));
 
-  // @@NEXT@@
+  // ───────────────────────── 41~44차시: 짝과 공 주고받기 ─────────────────────────
+
+  lessons.push(L(41, {
+    title: '짝 이름을 부르고 가슴 쪽으로 공 보내기',
+    objective: '짝과 마주 서서 이름 부르기·준비 보기·가슴 쪽으로 보내기 차례대로 공을 주고받을 수 있다.',
+    illustration: ART('two first graders facing each other three steps apart, one calling a name and gently tossing a soft paper ball toward the other child\'s chest, the other child holding hands out like a basket', '준비됐어? 보낸다!', [
+      { motif: 'tree', x: 70, y: 214 }, { motif: 'flower', x: 410, y: 230 }, { motif: 'bird', x: 320, y: 90 }]),
+    safety: [TOOL, SPACE, '말랑한 공이나 콩주머니로 시작하고, 짝이 "준비됐어!" 해야 보내요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '선생님이 학생 한 명과 마주 선다. 첫 번째는 아무 말 없이 갑자기 공을 보내 놓치게 하고, 두 번째는 "하준아, 준비됐어?" 하고 묻고 가슴 쪽으로 살살 보낸다. "어느 공이 받기 쉬웠을까요? 왜 그럴까요?" "잘 던지기만 하면 받는 건 친구가 알아서 할 일일까요?" 손을 들게 한 뒤, 오늘은 받는 친구를 생각하며 보내는 법을 찾는다고 말한다.',
+        student: '두 손을 모아 공을 받을 "손 바구니"를 만들어 보여 줘요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 공 주고받기 차례 놓고 해 보기', minutes: 13, tool: 'story',
+            teacher: '"짝이 공을 잘 받으려면 무엇부터 해야 할까요?" 카드를 놓은 뒤 그 차례대로 세 걸음 떨어져 주고받는다. 이름을 부르지 않고 바로 보내는 짝이 있으면 멈추고 "짝이 내 공을 기다리고 있었나요?"라고 묻는다.',
+            task: '공 주고받기 차례 카드를 놓고, 주는 사람과 받는 사람이 할 일을 나눈 뒤 짝과 그 차례대로 주고받아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '짝에게 공을 보내는 차례대로 카드를 놓아 보세요.', toolOptions: { cards: ['짝 가슴 쪽으로 살살 보내요', '짝 이름을 불러요', '짝이 공을 두 손으로 잡아요', '짝이 손 바구니를 만들었는지 봐요'] },
+                target: { order: ['짝 이름을 불러요', '짝이 손 바구니를 만들었는지 봐요', '짝 가슴 쪽으로 살살 보내요', '짝이 공을 두 손으로 잡아요'] }, difficulty: 0.15,
+                hints: ['공을 보내기 전에 짝이 나를 보고 있어야 해요. 무엇을 먼저 할까요?', '짝이 준비되었는지는 이름을 부른 뒤에 볼 수 있어요. 차례를 다시 보세요.', '이름 부르기 → 손 바구니 보기 → 가슴 쪽으로 보내기 → 두 손으로 잡기 차례예요.'],
+                levels: { challenge: { prompt: '공을 보내고 받는 차례대로 카드를 놓아 보세요. 받은 뒤의 일도 있어요.', toolOptions: { cards: ['짝 가슴 쪽으로 살살 보내요', '짝 이름을 불러요', '짝이 공을 두 손으로 잡아요', '짝이 손 바구니를 만들었는지 봐요', '짝이 "받았어!" 하고 말해요'] },
+                  target: { order: ['짝 이름을 불러요', '짝이 손 바구니를 만들었는지 봐요', '짝 가슴 쪽으로 살살 보내요', '짝이 공을 두 손으로 잡아요', '짝이 "받았어!" 하고 말해요'] } } } },
+              { prompt: '공을 주는 사람이 할 일과 받는 사람이 할 일로 나누어 보세요.', toolOptions: { mode: 'sort', slots: ['주는 사람', '받는 사람'], cards: ['짝 이름을 불러요', '손 바구니를 만들어요', '가슴 쪽으로 살살 보내요', '오는 공을 끝까지 봐요'] },
+                target: { sort: { '주는 사람': ['짝 이름을 불러요', '가슴 쪽으로 살살 보내요'], '받는 사람': ['손 바구니를 만들어요', '오는 공을 끝까지 봐요'] } }, difficulty: 0.15,
+                hints: ['카드마다 공을 가진 사람이 하는지, 공을 기다리는 사람이 하는지 보세요.', '손 바구니는 공이 오기 전에 누가 만들까요?', '이름 부르기·살살 보내기는 주는 사람, 손 바구니·끝까지 보기는 받는 사람이 해요.'] },
+              { prompt: '짝과 세 걸음 떨어져 마주 서요. 놓은 차례대로 다섯 번 주고받고, 역할을 바꾸어 다섯 번 더 해요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 받는 친구를 생각하는 마음', minutes: 13, tool: 'emotion',
+            teacher: '"준호가 세게 던지고 \'못 받은 건 네 탓이야\' 했어요. 정말 받는 친구 탓일까요?" 고른 뒤 결과를 함께 읽는다. "주는 사람도 받기 좋게 보내야 끊기지 않아요." 마음 카드를 놓을 때는 받는 친구 자리에서 생각해 보게 한다.',
+            task: '세게 던진 친구에게 어떻게 할지 고르고, 주고받기에서 생긴 일에 어울리는 마음을 놓은 뒤 받는 친구를 생각하는 말을 골라요.',
+            levels: { easy: { live: true, instant: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '준호가 세게 던지고 "못 받은 건 네 탓이야" 해요. 내가 준호라면 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '준호가 공을 있는 힘껏 던졌어요. 짝이 놓치자 "못 받은 건 네 탓이야!" 하고 말해요.', choices: [
+                { id: 'blame', text: '"받는 건 네 몫이야" 하고 또 세게 던져요', result: '짝이 또 놓치고, 공이 무서워 뒤로 물러났어요.', mood: '속상함', why: '받는 친구가 잡기 좋은 공이었을까요?' },
+                { id: 'adjust', text: '"미안, 이번엔 가슴 쪽으로 살살 보낼게" 하고 말해요', result: '짝이 공을 두 손으로 쏙 받고 웃었어요.', mood: '기쁨' }] }, target: { choice: 'adjust' }, difficulty: 0.1,
+                hints: ['공이 끊긴 까닭이 받는 사람에게만 있는지 생각해 보세요.', '세게 던진 공을 받는 친구 마음은 어땠을까요?', '주는 사람이 힘을 줄여 가슴 쪽으로 보내면 받기 쉬워져요.'] },
+              { prompt: '공을 주고받다 생긴 일에 어울리는 마음 카드를 놓아 보세요.', toolOptions: { cards: ['고마움', '미안함', '걱정'], slots: [{ id: 's1', label: '짝이 받기 좋게 살살 보내 줬어요' }, { id: 's2', label: '내가 세게 보내 짝이 놓쳤어요' }, { id: 's3', label: '공이 얼굴 쪽으로 올까 봐 마음이 쓰여요' }] },
+                target: { match: { s1: '고마움', s2: '미안함', s3: '걱정' } }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['고마움', '미안함', '걱정', '화남'] } } } },
+              { prompt: '공을 보내기 전에 받는 친구를 생각하는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '받는 친구를 생각해요', cards: ['"준비됐어? 보낸다!"', '"천천히 보낼게"', '"알아서 받아!"', '"빨리 잡아, 느림보야"'] },
+                target: { pick: ['"준비됐어? 보낸다!"', '"천천히 보낼게"'] }, difficulty: 0.1 },
+              { prompt: '짝과 다시 다섯 번 주고받아요. 보내기 전에 고른 말을 꼭 하고, 짝은 "준비됐어!"로 대답해요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 짝이 보낸 공 가운데 가장 받기 좋았던 공은 어떤 공이었나요?" 두세 명이 손으로 공이 온 높이를 보여 주며 말하게 한다. 다음 시간에는 짝의 자세에 따라 굴려 주기와 던져 주기를 골라 본다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { cards: ['가슴 쪽으로 보내요', '손 바구니를 봐요', '이름을 불러요'] }, prompt: '세 카드를 공 보내기 차례대로 놓아 보세요.', target: { order: ['이름을 불러요', '손 바구니를 봐요', '가슴 쪽으로 보내요'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '서아가 던진 공을 짝이 놓쳤어요. 서아가 할 일로 알맞은 것은?', options: ['"네가 못 받았잖아" 하고 말해요', '다음에는 더 살살, 가슴 쪽으로 보내요'], answer: 1, difficulty: 0.1, explain: '주는 사람도 받기 좋게 보내야 공이 이어져요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '공 주고받기 차례',
+      items: [
+        { type: 'table', prompt: '공 보내기 차례를 쓰세요.', columns: ['차례', '하는 일'], cells: [['1', ''], ['2', '손 바구니를 봐요'], ['3', ''], ['4', '두 손으로 잡아요']] },
+        { type: 'choice', prompt: '받는 친구를 생각하는 말에 ○ 하세요.', options: ['"천천히 보낼게"', '"알아서 받아!"'], answer: '"천천히 보낼게"' },
+        { type: 'check', prompt: '오늘 해낸 것에 ✓ 하세요.', options: ['짝 이름을 불렀어요', '손 바구니를 만들었어요', '가슴 쪽으로 보냈어요', '두 손으로 받았어요'] },
+        { type: 'draw', prompt: '손 바구니로 공을 받는 내 모습을 그려 보세요.' },
+      ],
+      easy: {
+        note: '이름 부르고, 손 보고, 가슴 쪽으로!',
+        items: [
+          { type: 'choice', prompt: '공을 보내기 전에 할 일은?', options: ['짝 이름 부르기', '바로 세게 던지기'], answer: '짝 이름 부르기' },
+          { type: 'choice', prompt: '공은 짝의 어디로 보낼까요?', options: ['가슴 쪽', '얼굴 쪽'], answer: '가슴 쪽' },
+          { type: 'draw', prompt: '손 바구니를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 틀린 자리는 바로 되돌아가요. 말랑한 콩주머니로 두 걸음 떨어져 해요.',
+      base: '네 장 차례를 놓고 주는 일·받는 일을 나눈 뒤, 세 걸음 떨어져 주고받아요.',
+      challenge: '받은 뒤의 일까지 다섯 장 차례를 놓고, 마음 카드 가운데 하나를 골라내요. 네 걸음까지 넓혀 봐요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① "받는 건 친구 몫"이라며 세게 던진다 → 역할을 바꾸어 세게 오는 공을 직접 받아 보게 한다. ② 공을 눈으로 보지 않고 손만 내민다 → "공이 손에 들어올 때까지 눈으로 따라가요"라고 말한다. ③ 이름을 부르고 대답을 듣기 전에 보낸다 → "준비됐어!" 대답을 들은 뒤 보내는 약속을 정한다.',
+  }));
+
+  lessons.push(L(42, {
+    title: '짝의 자세 보고 굴려 줄지 던져 줄지 고르기',
+    objective: '짝이 앉았는지 섰는지, 사이에 무엇이 있는지 보고 굴려 주기와 던져 주기 가운데 받기 좋은 방법을 골라 보낼 수 있다.',
+    illustration: ART('one pair of children sitting on the floor with legs apart rolling a ball between them, and another pair standing and tossing a beanbag underhand over a small paper box', '앉으면 굴려, 서면 던져', [
+      { motif: 'sun', x: 90, y: 66, s: 0.6 }, { motif: 'tree', x: 420, y: 214 }, { motif: 'leaf', x: 300, y: 232 }]),
+    safety: [TOOL, SPACE, '앉아서 굴릴 때는 다리를 벌려 공이 밖으로 나가지 않게 해요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '짝 한 명은 바닥에 다리를 벌리고 앉고, 한 명은 서 있게 한다. "앉아 있는 친구에게 공을 높이 던지면 어떻게 될까요?" 대답을 들은 뒤 선생님이 앉은 학생에게는 굴려 주고, 선 학생에게는 아래에서 위로 살살 던져 준다. "받는 친구 자세를 보고 보내는 방법을 골라요."',
+        student: '바닥에 다리를 벌리고 앉아, 굴러오는 공을 받을 자세를 만들어 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 굴려 줄까, 던져 줄까', minutes: 13, tool: 'mindmap',
+            teacher: '"짝이 바닥에 앉아 있으면 공이 어디로 와야 받기 쉬울까요?" 카드를 나눈 뒤 짝과 앉아서 굴려 주기, 서서 던져 주기를 해 본다. 37차시처럼 바구니·핀을 보는 것이 아니라, 이번에는 받는 짝의 자세를 보고 고른다고 짚는다.',
+            task: '짝의 자세와 둘 사이 모습을 보고 굴려 줄지 던져 줄지 나누고, 던져 줄 때 받기 좋은 공을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '짝의 모습을 보고 굴려 줄 때와 던져 줄 때로 나누어 보세요.', toolOptions: { topic: '짝에게 어떻게 보낼까?', slots: ['굴려 줘요', '던져 줘요'], cards: ['짝이 다리를 벌리고 바닥에 앉아 있어요', '짝이 서서 손 바구니를 만들었어요', '짝이 쪼그려 앉아 손을 바닥에 댔어요', '짝과 나 사이에 낮은 상자가 있어요'] },
+                target: { sort: { '굴려 줘요': ['짝이 다리를 벌리고 바닥에 앉아 있어요', '짝이 쪼그려 앉아 손을 바닥에 댔어요'], '던져 줘요': ['짝이 서서 손 바구니를 만들었어요', '짝과 나 사이에 낮은 상자가 있어요'] } }, difficulty: 0.15,
+                hints: ['짝의 손이 바닥 가까이 있는지, 가슴 앞에 있는지 보세요.', '사이에 상자가 있으면 바닥으로 굴린 공은 어떻게 될까요?', '앉아서 손이 바닥에 있으면 굴려 주고, 서 있거나 사이가 막혀 있으면 던져 줘요.'],
+                levels: { challenge: { prompt: '여섯 모습을 굴려 줄 때와 던져 줄 때로 나누어 보세요.', toolOptions: { cards: ['짝이 다리를 벌리고 바닥에 앉아 있어요', '짝이 서서 손 바구니를 만들었어요', '짝이 쪼그려 앉아 손을 바닥에 댔어요', '짝과 나 사이에 낮은 상자가 있어요', '짝이 바닥 길 끝에 앉아 기다려요', '짝이 줄 너머에 서서 손을 내밀어요'] },
+                  target: { sort: { '굴려 줘요': ['짝이 다리를 벌리고 바닥에 앉아 있어요', '짝이 쪼그려 앉아 손을 바닥에 댔어요', '짝이 바닥 길 끝에 앉아 기다려요'], '던져 줘요': ['짝이 서서 손 바구니를 만들었어요', '짝과 나 사이에 낮은 상자가 있어요', '짝이 줄 너머에 서서 손을 내밀어요'] } } } } },
+              { prompt: '서 있는 짝에게 던져 줄 때, 받기 좋은 공만 골라 보세요.', toolOptions: { mode: 'pick', basket: '받기 좋은 공', cards: ['아래에서 위로 살살 올려 보내요', '짝 가슴 높이로 보내요', '머리 위로 높이 띄워요', '발 쪽으로 세게 보내요'] },
+                target: { pick: ['아래에서 위로 살살 올려 보내요', '짝 가슴 높이로 보내요'] }, difficulty: 0.15 },
+              { prompt: '짝과 앉아서 굴려 주기를 다섯 번, 일어서서 아래에서 위로 던져 주기를 다섯 번 해요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 거리를 넓히며 받은 수 세기', minutes: 13, tool: 'timer',
+            teacher: '"두 걸음에서 네 걸음으로 멀어지면 힘을 어떻게 바꿀까요?" 거리마다 다섯 번 보내고 짝이 받은 수를 센다. 멀어졌다고 있는 힘껏 던지는 학생에게 "짝 가슴까지 갈 만큼만 조금 더"라고 말한다. 마지막에 판을 맞추어 정해진 시간 동안 주고받는다.',
+            task: '두 걸음과 네 걸음에서 다섯 번씩 보내고 짝이 받은 수를 적은 뒤, 판에 맞추어 주고받기 연습을 해요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: '두 걸음, 네 걸음 떨어져 다섯 번씩 던져 주고, 짝이 받은 수를 칸에 적어요.', toolOptions: { title: '짝이 받은 수', fields: ['두 걸음', '네 걸음'], unit: '번' }, target: { records: true }, difficulty: 0.1,
+                levels: { easy: { prompt: '두 걸음 떨어져 다섯 번 던져 주고, 짝이 받은 수를 칸에 적어요.', toolOptions: { fields: ['두 걸음'] } }, challenge: { prompt: '두 걸음, 네 걸음, 여섯 걸음 떨어져 다섯 번씩 던져 주고, 짝이 받은 수를 칸에 적어요.', toolOptions: { fields: ['두 걸음', '네 걸음', '여섯 걸음'] } } } },
+              { prompt: '운동 칸은 주고받기, 쉬기 칸은 짝과 자리 바꾸기예요. 운동 30초, 쉬기 10초, 4번으로 판을 맞추어요.', toolOptions: { title: '주고받고 자리 바꾸기', plan: { work: 20, rest: 20, rounds: 2 } }, target: { plan: { work: 30, rest: 10, rounds: 4 } }, difficulty: 0.2,
+                levels: { easy: { state: { plan: { work: 30, rest: 20, rounds: 4 } } }, challenge: { prompt: '운동 칸은 주고받기, 쉬기 칸은 짝과 자리 바꾸기예요. 운동 35초, 쉬기 15초, 3번으로 판을 맞추어요.', target: { plan: { work: 35, rest: 15, rounds: 3 } } } } },
+              { prompt: '맞춘 판대로 주고받아요. 쉬기 신호가 울리면 걸어서 짝과 자리를 바꾸고, 다음 판은 한 걸음 더 떨어져요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"짝이 멀어졌을 때 힘을 얼마나 바꾸었나요?" 두세 명이 팔 동작으로 보여 주게 한다. 짝이 공을 잘 받았던 거리와 놓쳤던 거리를 손을 들어 견주어 본다. 다음 시간에는 끊기지 않고 열 번 이어 주고받기에 도전한다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '짝에게 어떻게 보낼까?', slots: ['굴려 줘요', '던져 줘요'], cards: ['짝이 무릎을 꿇고 바닥에 손을 댔어요', '짝이 서서 "준비됐어!" 하고 손을 내밀어요'] }, prompt: '두 카드를 굴려 줄 때와 던져 줄 때로 나누어 보세요.', target: { sort: { '굴려 줘요': ['짝이 무릎을 꿇고 바닥에 손을 댔어요'], '던져 줘요': ['짝이 서서 "준비됐어!" 하고 손을 내밀어요'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '짝이 두 걸음에서 네 걸음으로 멀어졌어요. 어떻게 보낼까요?', options: ['짝 가슴까지 갈 만큼 조금 더 힘을 줘요', '있는 힘껏 세게 던져요'], answer: 0, difficulty: 0.1, explain: '멀어지면 짝 가슴까지 닿을 만큼만 힘을 조금 더 줘요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '굴려 줄까, 던져 줄까',
+      items: [
+        { type: 'table', prompt: '짝의 모습에 맞게 어떻게 보낼지 쓰세요(굴려 줘요/던져 줘요).', columns: ['짝의 모습', '어떻게 보낼까'], cells: [['바닥에 다리를 벌리고 앉았어요', ''], ['서서 손 바구니를 만들었어요', ''], ['사이에 낮은 상자가 있어요', '']] },
+        { type: 'table', prompt: '거리마다 다섯 번 가운데 짝이 받은 수를 쓰세요.', columns: ['거리', '받은 수(번)'], cells: [['두 걸음', ''], ['네 걸음', '']] },
+        { type: 'choice', prompt: '서 있는 짝에게 받기 좋은 공에 ○ 하세요.', options: ['가슴 높이로 살살', '머리 위로 높이'], answer: '가슴 높이로 살살' },
+        { type: 'short', prompt: '멀어진 짝에게 보낼 때 무엇을 바꾸었는지 쓰세요.' },
+      ],
+      easy: {
+        note: '앉으면 굴려 주고, 서면 던져 줘요.',
+        items: [
+          { type: 'choice', prompt: '짝이 바닥에 앉아 있어요.', options: ['굴려 줘요', '던져 줘요'], answer: '굴려 줘요' },
+          { type: 'choice', prompt: '짝이 서서 손을 내밀어요.', options: ['굴려 줘요', '던져 줘요'], answer: '던져 줘요' },
+          { type: 'draw', prompt: '앉아서 공을 굴려 주는 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '나누기는 맞는 칸에 초록 테두리가 생기고, 두 걸음 한 곳만 기록해요. 판은 쉬기 시간만 맞추면 돼요.',
+      base: '네 모습을 나누고, 두 거리에서 받은 수를 적은 뒤 주고받기 판을 맞추어요.',
+      challenge: '모습 카드가 여섯 장이고, 여섯 걸음까지 넓혀 기록하며 다른 판을 맞추어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 앉은 짝에게도 던진다 → 앉은 짝의 손 높이를 손으로 짚어 보게 한다. ② 멀어지면 있는 힘껏 던진다 → 짝 가슴까지만 가는 힘을 먼저 빈손으로 흉내 내게 한다. ③ 굴린 공이 옆으로 샌다 → 공을 두 손으로 잡고 짝 쪽으로 밀어 보내게 한다.',
+  }));
+
+  lessons.push(L(43, {
+    title: '끊기지 않고 열 번 주고받기 도전',
+    objective: '짝과 함께 수를 세며 공을 주고받고, 놓치면 다시 시작하는 약속을 지키며 열 번 이어 주고받기에 도전할 수 있다.',
+    illustration: ART('two children passing a ball back and forth with paper number bubbles from one to ten floating between them, ending in a joyful high five', '하나, 둘, … 열!', [
+      { motif: 'star', x: 120, y: 90, s: 0.7 }, { motif: 'tree', x: 420, y: 214 }, { motif: 'flower', x: 70, y: 232 }]),
+    safety: [TOOL, SPACE, '놓친 공은 뛰지 말고 걸어서 주워 와요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"짝과 공을 몇 번이나 이어서 주고받을 수 있을까요?" 학생 두 명이 나와 시범을 보이고 모두 함께 수를 센다. "중간에 놓치면 어떻게 할까요? 놓친 친구 탓일까요?" 대답을 들은 뒤 "놓치면 함께 \'괜찮아!\' 하고 하나부터 다시 세요"라는 약속을 정한다.',
+        student: '시범을 보는 동안 손가락을 하나씩 펴며 함께 수를 세어요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 열 번 도전 차례와 다시 하기', minutes: 12, tool: 'story',
+            teacher: '"열 번 도전을 어떻게 시작하고 끝낼까요?" 차례를 놓은 뒤 공을 놓쳤을 때 할 일도 차례로 놓는다. "놓친 자리에서 이어 세면 될까요?" 묻고, 하나부터 다시 세는 까닭은 \'끊기지 않고\' 열 번이기 때문이라고 짚는다.',
+            task: '열 번 도전 차례와 공을 놓쳤을 때 다시 하는 차례를 놓고, 짝과 첫 도전을 해 봐요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '열 번 이어 주고받기 도전의 차례대로 카드를 놓아 보세요.', toolOptions: { cards: ['열까지 세면 하이파이브해요', '짝과 세 걸음 떨어져 마주 서요', '주고받을 때마다 함께 수를 세요', '"준비됐어?" 하고 묻고 첫 공을 보내요'] },
+                target: { order: ['짝과 세 걸음 떨어져 마주 서요', '"준비됐어?" 하고 묻고 첫 공을 보내요', '주고받을 때마다 함께 수를 세요', '열까지 세면 하이파이브해요'] }, difficulty: 0.15,
+                hints: ['도전을 시작하기 전에 어디에 서야 할까요?', '수를 세는 것은 첫 공을 보낸 뒤일까요, 앞일까요?', '마주 서기 → 묻고 첫 공 보내기 → 함께 수 세기 → 열에서 하이파이브 차례예요.'] },
+              { prompt: '도전하다 공을 놓쳤어요. 다시 하는 차례대로 카드를 놓아 보세요.', toolOptions: { cards: ['"하나!" 하고 다시 세며 보내요', '걸어가서 공을 주워요', '제자리로 돌아와 짝과 눈을 맞춰요'] },
+                target: { order: ['걸어가서 공을 주워요', '제자리로 돌아와 짝과 눈을 맞춰요', '"하나!" 하고 다시 세며 보내요'] }, difficulty: 0.15,
+                hints: ['공이 내 손에 없으면 보낼 수 없어요. 무엇부터 할까요?', '공을 보내기 전에 짝이 준비됐는지 어떻게 알까요?', '공 줍기 → 제자리에서 눈 맞추기 → 하나부터 다시 세며 보내기 차례예요.'],
+                levels: { challenge: { prompt: '공을 놓친 뒤 다시 하는 차례대로 카드를 놓아 보세요. 놓친 수부터 이어 세지 않아요.', toolOptions: { cards: ['"하나!" 하고 다시 세며 보내요', '걸어가서 공을 주워요', '제자리로 돌아와 짝과 눈을 맞춰요', '"괜찮아, 다시 하자!" 하고 말해요'] },
+                  target: { order: ['"괜찮아, 다시 하자!" 하고 말해요', '걸어가서 공을 주워요', '제자리로 돌아와 짝과 눈을 맞춰요', '"하나!" 하고 다시 세며 보내요'] } } } },
+              { prompt: '짝과 첫 도전을 해요. 놓치면 놓은 차례대로 다시 하고, 가장 길게 이어진 수를 기억해요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 도전 기록 적기', minutes: 14, tool: 'timer',
+            teacher: '"세 번 도전해서 놓치기 전까지 이어진 수를 적어요." 도전마다 짝이 함께 센 수를 적게 한다. 기록이 줄어든 짝에게 "놓친 뒤 다시 할 때 무엇을 바꿔 볼까요?"라고 묻는다. 열을 넘긴 짝은 한 걸음 더 떨어져 도전하게 한다.',
+            task: '도전 전 안전을 점검하고, 세 번 도전하며 이어진 수를 적은 뒤 친구 기록을 옮겨 적어요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: '다시 도전하기 전에 확인한 것을 눌러 표시해요.', toolOptions: { safety: ['둘레 친구와 팔이 닿지 않아요', '공이 굴러갈 쪽에 물건이 없어요', '짝이 "준비됐어!" 하고 대답했어요'] }, target: { safety: true }, difficulty: 0.05 },
+              { prompt: '세 번 도전하며 놓치기 전까지 이어진 수를 칸에 적어요.', toolOptions: { title: '열 번 도전 기록', fields: ['1번째 도전', '2번째 도전', '3번째 도전'], unit: '번' }, target: { records: true }, difficulty: 0.1,
+                levels: { easy: { prompt: '두 번 도전하며 놓치기 전까지 이어진 수를 칸에 적어요.', toolOptions: { fields: ['1번째 도전', '2번째 도전'] } } } },
+              { prompt: '하준이네 기록이에요: 1번째 4번, 2번째 7번, 3번째 10번. 칸에 그대로 옮겨 적어요.', toolOptions: { title: '하준이네 도전 기록', fields: ['1번째 도전', '2번째 도전', '3번째 도전'], unit: '번' }, target: { records: [4, 7, 10] }, difficulty: 0.2 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"열까지 간 짝도, 아직 못 간 짝도 있어요. 기록이 늘어난 짝은 무엇이 달라졌나요?" 두세 짝의 이야기를 듣는다. 다음 시간에는 마주 보는 두 줄로 모둠 친구 모두에게 공을 보낸다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'timer', options: { title: '서아네 도전 기록', fields: ['1번째 도전', '2번째 도전'], unit: '번' }, prompt: '서아네 기록이에요: 1번째 6번, 2번째 9번. 칸에 그대로 옮겨 적어 보세요.', target: { records: [6, 9] }, difficulty: 0.15 },
+          { type: 'choice', prompt: '여섯까지 세었는데 공을 놓쳤어요. 다시 보낼 때 무엇이라고 셀까요?', options: ['"하나!"', '"일곱!"'], answer: 0, difficulty: 0.15, explain: '끊기지 않고 열 번이 목표라서 놓치면 하나부터 다시 세요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '열 번 이어 주고받기',
+      items: [
+        { type: 'table', prompt: '도전마다 이어진 수를 쓰세요.', columns: ['도전', '이어진 수(번)'], cells: [['1번째', ''], ['2번째', ''], ['3번째', '']] },
+        { type: 'choice', prompt: '공을 놓쳤을 때 먼저 할 일에 ○ 하세요.', options: ['걸어가서 공을 주워요', '바로 "일곱!" 하고 보내요'], answer: '걸어가서 공을 주워요' },
+        { type: 'short', prompt: '기록이 가장 길었던 도전에서 잘된 점을 쓰세요.' },
+        { type: 'draw', prompt: '열까지 세고 짝과 하이파이브하는 모습을 그려 보세요.' },
+      ],
+      easy: {
+        note: '놓치면 "괜찮아!" 하고 하나부터 다시!',
+        items: [
+          { type: 'short', prompt: '가장 길게 이어진 수를 쓰세요.' },
+          { type: 'choice', prompt: '공을 놓치면?', options: ['하나부터 다시 세요', '그만해요'], answer: '하나부터 다시 세요' },
+          { type: 'draw', prompt: '짝과 공을 주고받는 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '차례는 맞는 칸에 초록 테두리가 생기고, 도전은 두 번만 기록해요. 두 걸음 떨어져 말랑한 공으로 해요.',
+      base: '도전 차례와 다시 하기 차례를 놓고, 세 번 도전을 기록해요.',
+      challenge: '다시 하기에 "괜찮아" 말하기까지 넣어 놓고, 열을 넘기면 한 걸음 더 떨어져 도전해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 놓친 수부터 이어 센다 → \'끊기지 않고\'의 뜻을 손뼉 치기로 보여 준다(멈추면 처음부터). ② 기록을 늘리려 서두르다 세게 보낸다 → 수를 천천히 함께 세는 박자에 맞추어 보내게 한다. ③ 놓친 친구를 탓한다 → 주는 사람·받는 사람이 함께 만드는 기록이라고 말한다.',
+  }));
+
+  lessons.push(L(44, {
+    title: '마주 보는 두 줄로 모둠 친구 모두에게 공 보내기',
+    objective: '마주 보는 두 줄 대형을 만들고, 정한 차례대로 이름을 부르며 모둠 친구 모두에게 공을 보낼 수 있다.',
+    illustration: ART('six children standing in two facing lines with a dotted zigzag path showing a ball going from one line to the other, a basket of balls at the end', '지그재그로 보내요', [
+      { motif: 'sun', x: 90, y: 66, s: 0.6 }, { motif: 'tree', x: 420, y: 214 }, { motif: 'bird', x: 300, y: 90 }]),
+    safety: [TOOL, SPACE, '공을 받을 친구만 손을 내밀고, 다른 친구는 손을 내리고 기다려요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"짝 둘이 아니라 모둠 여섯 명이 공을 주고받으려면 어떻게 서면 좋을까요?" 학생 여섯 명을 앞으로 불러 섞여 서게 한 뒤 공을 보내 보면 누구에게 갈지 헷갈린다. 다시 마주 보는 두 줄로 세운다. "앞에 마주 선 친구가 누구인지 손으로 가리켜 볼까요?"',
+        student: '모둠 친구와 마주 보는 두 줄로 서 보고, 내 앞 친구를 손으로 가리켜요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 마주 보는 두 줄 대형 꾸미기', minutes: 13, tool: 'collage',
+            teacher: '"동그라미 하나가 친구 한 명이에요. 가운데 접는 선을 사이에 두고, 왼쪽 친구마다 오른쪽에 마주 선 친구가 있게 놓아요." 판을 꾸민 뒤 그대로 강당에 선다. 한쪽에만 친구를 몰아 놓은 모둠에게 "이 친구는 누구에게 공을 받을까요?"라고 묻는다.',
+            task: '접는 선을 사이에 두고 친구 동그라미를 마주 보게 놓아 모둠 대형을 꾸미고, 꾸민 대로 서 봐요.',
+            levels: {
+              easy: { shapes: ['circle', 'square'], colors: ['파랑', '노랑'], sizes: ['m'] },
+              base: { shapes: ['circle', 'square', 'triangle'], colors: ['파랑', '노랑', '빨강', '초록'], sizes: ['s', 'm'] },
+              challenge: {},
+            },
+            items: [
+              { prompt: '접는 선 양쪽에 친구 동그라미가 세 개씩 마주 보게 놓아 보세요.', target: { symmetry: 'vertical', has: [{ shape: 'circle', n: 6 }] }, difficulty: 0.2,
+                hints: ['동그라미 하나가 친구 한 명이에요. 접는 선을 거울이라고 생각해 보세요.', '왼쪽 동그라미마다 오른쪽 같은 높이, 같은 거리에 동그라미가 있나요? 몇 개인지도 세어 보세요.', '왼쪽에 위아래로 세 개를 놓고, 오른쪽에도 같은 높이·같은 거리에 세 개를 놓아요.'] },
+              { prompt: '친구 동그라미 여섯 개가 마주 보고, 공 바구니 네모 하나가 접는 선 위에 있는 대형을 꾸며 보세요.', target: { symmetry: 'vertical', has: [{ shape: 'circle', n: 6 }, { shape: 'square', n: 1 }] }, difficulty: 0.25,
+                hints: ['바구니는 두 줄 모두에게 가까워야 해요. 접는 선과 어떤 자리가 좋을까요?', '네모가 접는 선 위에 있나요? 한쪽으로 치우치면 양쪽이 같지 않아요.', '동그라미는 양쪽에 세 개씩 마주 보게, 네모는 접는 선 바로 위에 놓아요.'],
+                levels: { challenge: { prompt: '파란 동그라미 넷이 마주 보고, 노란 동그라미 둘이 그 아래에 마주 보며, 네모 바구니가 접는 선 위에 있게 꾸며 보세요.', target: { symmetry: 'vertical', has: [{ shape: 'circle', color: '파랑', n: 4 }, { shape: 'circle', color: '노랑', n: 2 }, { shape: 'square', n: 1 }] } } } },
+              { prompt: '우리 모둠 대형을 꾸미고 그대로 서 본 뒤, 해낸 것을 모두 표시해요.', target: { selfCheck: ['내 자리 동그라미를 손가락으로 짚었어요', '마주 선 친구 이름을 말했어요', '꾸민 대로 강당에 서 보았어요'], minPieces: 6 }, difficulty: 0.1 },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 지그재그 공 보내기 차례', minutes: 13, tool: 'pattern',
+            teacher: '"왼쪽 줄 민지가 오른쪽 줄 준호에게, 준호가 다시 왼쪽 줄 서아에게 보내요. 공이 지그재그로 가요." 차례 줄의 빈칸을 채운 뒤, 그 차례대로 이름을 부르며 보낸다. 차례가 아닌 친구가 손을 내밀면 "지금 공을 받을 사람은 누구일까요?"라고 묻는다.',
+            task: '공을 받을 차례 줄의 규칙을 찾아 빈칸을 채우고, 모둠이 그 차례대로 이름을 부르며 공을 보내요.',
+            levels: { easy: { perRow: 3 }, base: {}, challenge: { revealAfterCheck: true } },
+            items: [
+              { prompt: '공을 받을 차례예요. \'민지, 준호, 서아\'가 되풀이돼요. 빈칸을 채워요.', toolOptions: { seq: ['민지', '준호', '서아', '민지', null, '서아', null, '준호', '서아'] }, target: { fill: ['준호', '민지'] }, difficulty: 0.15 },
+              { prompt: '여섯 명 모둠의 차례예요. 왼쪽 줄과 오른쪽 줄이 번갈아 받아요. 빈칸을 채워요.', toolOptions: { seq: ['왼쪽 줄', '오른쪽 줄', null, '오른쪽 줄', '왼쪽 줄', null, '왼쪽 줄', null] }, target: { fill: ['왼쪽 줄', '오른쪽 줄', '오른쪽 줄'] }, difficulty: 0.1,
+                levels: { easy: { toolOptions: { perRow: 2 } } } },
+              { prompt: '\'하준, 하준, 서아\'처럼 하준이가 두 번 받고 서아가 받는 차례가 되풀이돼요. 빈칸을 채워요.', toolOptions: { seq: ['하준', '하준', '서아', '하준', null, '서아', null, '하준', null] }, target: { fill: ['하준', '하준', '서아'] }, difficulty: 0.25 },
+              { prompt: '채운 차례 하나를 골라 모둠이 이름을 부르며 공을 보내요. 받을 사람만 손 바구니를 만들어요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"모둠 친구 모두가 공을 받았나요? 한 번도 못 받은 친구는 없었나요?" 모둠마다 손을 들어 확인한다. 받지 못한 친구가 있었다면 차례를 어떻게 바꾸면 좋을지 한 가지씩 말하게 한다. 다음 시간에는 공 주고받기가 가장 잘된 때를 떠올려 본다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'collage', options: { shapes: ['circle', 'square'], colors: ['파랑', '노랑'], sizes: ['m'] }, prompt: '접는 선 양쪽에 친구 동그라미가 두 개씩 마주 보게 놓아 보세요.', target: { symmetry: 'vertical', has: [{ shape: 'circle', n: 4 }] }, difficulty: 0.15 },
+          { type: 'choice', prompt: '지그재그로 공을 보낼 때, 공을 받을 친구는 누구일까요?', options: ['이름이 불린 친구', '공에 가장 가까운 친구'], answer: 0, difficulty: 0.1, explain: '이름이 불린 친구만 손 바구니를 만들어 받아요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '모둠 공 보내기',
+      items: [
+        { type: 'draw', prompt: '우리 모둠이 마주 보고 선 두 줄 대형을 그려 보세요. 친구는 동그라미로 그려요.' },
+        { type: 'figure', prompt: '공 받을 차례의 빈칸에 들어갈 이름을 쓰세요.', tool: 'pattern', figures: [{ options: { seq: ['민지', '준호', '민지', '준호', null, null] }, caption: '빈칸: ___, ___' }], answer: '민지, 준호' },
+        { type: 'choice', prompt: '공을 받을 차례가 아닐 때 알맞은 것에 ○ 하세요.', options: ['손을 내리고 기다려요', '먼저 손을 뻗어 잡아요'], answer: '손을 내리고 기다려요' },
+        { type: 'short', prompt: '모둠 공 보내기에서 지킬 약속 하나를 쓰세요.' },
+      ],
+      easy: {
+        note: '이름이 불린 친구만 손 바구니!',
+        items: [
+          { type: 'choice', prompt: '공을 받을 친구는?', options: ['이름이 불린 친구', '가까운 친구'], answer: '이름이 불린 친구' },
+          { type: 'short', prompt: '내 앞에 마주 선 친구 이름을 쓰세요.' },
+          { type: 'draw', prompt: '두 줄로 마주 선 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '모양·색이 적고 크기는 한 가지예요. 차례 줄은 묶음마다 한 줄씩 보여요.',
+      base: '여섯 친구와 바구니로 마주 보는 대형을 꾸미고, 세 가지 차례 줄을 채워요.',
+      challenge: '색까지 맞추어 대형을 꾸미고, 차례 정답은 확인한 뒤에만 보여요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 한 줄에 친구를 몰아 놓아 마주 선 짝이 없는 친구가 생긴다 → 판의 접는 선을 기준으로 양쪽 수를 세어 보게 한다. ② 차례가 아닌데 손을 뻗는다 → 이름이 불린 친구만 손 바구니를 만드는 약속을 정한다. ③ 같은 친구에게만 계속 보낸다 → 차례 줄을 칠판에 붙여 두고 손가락으로 따라가며 보낸다.',
+  }));
+
+  // ───────────────────────── 45~48차시: 잘된 때·도운 말 돌아보기와 단원 정리 ─────────────────────────
+
+  lessons.push(L(45, {
+    title: '공 주고받기가 가장 잘된 때 떠올리기',
+    objective: '공 주고받기가 가장 잘 이어졌던 때를 떠올려 말하고, 잘 이어진 까닭과 끊긴 까닭을 나눌 수 있다.',
+    illustration: ART('two children sitting together and looking at a paper thought bubble showing themselves passing a ball smoothly, with a big counting number ten and a star sticker', '언제 가장 잘됐을까?', [
+      { motif: 'star', x: 110, y: 92 }, { motif: 'tree', x: 420, y: 214 }, { motif: 'flower', x: 300, y: 230 }]),
+    safety: [TOOL, SPACE, STOP],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"지난 세 시간 동안 공을 주고받았어요. 이름 부르기, 굴려 주기, 열 번 도전, 모둠 지그재그 가운데 언제 가장 잘 이어졌나요?" 네 가지 놀이를 칠판에 붙이고 손가락으로 고르게 한다. "그때 왜 잘되었을까요? 오늘은 그 까닭을 찾아봐요."',
+        student: '공 주고받기가 가장 잘된 놀이를 떠올려 손가락으로 몇 번째인지 보여 줘요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 잘 이어진 까닭, 끊긴 까닭', minutes: 13, tool: 'mindmap',
+            teacher: '"공이 잘 이어졌을 때 우리는 무엇을 했나요? 끊겼을 때는요?" 카드를 나눈 뒤 끊긴 까닭 카드 하나를 골라 \'어떻게 바꾸면 이어질까\'를 짝과 말해 보게 한다. 끊긴 까닭을 받는 친구에게만 돌리는 학생에게 "주는 사람이 바꿀 것은 없었을까요?"라고 묻는다.',
+            task: '공 주고받기 장면을 잘 이어진 까닭과 끊긴 까닭으로 나누고, 짝과 가장 잘된 때를 말해요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '공 주고받기 장면을 잘 이어진 까닭과 끊긴 까닭으로 나누어 보세요.', toolOptions: { topic: '공 주고받기', slots: ['잘 이어졌어요', '끊겼어요'], cards: ['서로 이름을 부르고 보냈어요', '짝이 딴 곳을 볼 때 보냈어요', '짝 가슴 쪽으로 살살 보냈어요', '세게 던져 공이 짝 머리 위로 갔어요'] },
+                target: { sort: { '잘 이어졌어요': ['서로 이름을 부르고 보냈어요', '짝 가슴 쪽으로 살살 보냈어요'], '끊겼어요': ['짝이 딴 곳을 볼 때 보냈어요', '세게 던져 공이 짝 머리 위로 갔어요'] } }, difficulty: 0.15,
+                hints: ['카드마다 그렇게 하면 짝이 공을 받기 쉬웠을지 떠올려 보세요.', '짝이 딴 곳을 보고 있었거나 공이 머리 위로 갔다면 받을 수 있었을까요?', '이름 부르기·가슴 쪽 살살은 잘 이어진 까닭, 딴 곳 볼 때 보내기·세게 던지기는 끊긴 까닭이에요.'],
+                levels: { challenge: { prompt: '여섯 장면을 잘 이어진 까닭과 끊긴 까닭으로 나누어 보세요.', toolOptions: { cards: ['서로 이름을 부르고 보냈어요', '짝이 딴 곳을 볼 때 보냈어요', '짝 가슴 쪽으로 살살 보냈어요', '세게 던져 공이 짝 머리 위로 갔어요', '오는 공을 끝까지 보며 받았어요', '한 손을 뻗어 잡으려 했어요'] },
+                  target: { sort: { '잘 이어졌어요': ['서로 이름을 부르고 보냈어요', '짝 가슴 쪽으로 살살 보냈어요', '오는 공을 끝까지 보며 받았어요'], '끊겼어요': ['짝이 딴 곳을 볼 때 보냈어요', '세게 던져 공이 짝 머리 위로 갔어요', '한 손을 뻗어 잡으려 했어요'] } } } } },
+              { prompt: '민지네 짝의 이야기예요. 공이 끊긴 까닭을 바꾸어 줄 방법만 골라 보세요.', toolOptions: { mode: 'pick', basket: '이렇게 바꿔요', cards: ['보내기 전에 "준비됐어?" 하고 물어요', '힘을 줄여 아래에서 위로 보내요', '더 빨리 세게 보내요', '못 받으면 짝을 바꿔요'] },
+                target: { pick: ['보내기 전에 "준비됐어?" 하고 물어요', '힘을 줄여 아래에서 위로 보내요'] }, difficulty: 0.15 },
+              { prompt: '짝에게 공 주고받기가 가장 잘된 때와 그때 무엇을 했는지 말해요. 짝은 끝까지 듣고 "그때 기분은 어땠어?" 하고 물어봐요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 잘된 때의 마음과 다시 해 보기', minutes: 13, tool: 'emotion',
+            teacher: '"잘 이어졌을 때와 아쉽게 끊겼을 때 마음은 어땠나요?" 마음 카드를 놓은 뒤, 마음 크기에는 정답이 없다고 말한다. 마지막에는 찾은 까닭 하나를 넣어 짝과 다시 주고받아 보게 한다.',
+            task: '공 주고받기에서 생긴 일에 어울리는 마음을 놓고, 내 마음 크기를 고른 뒤 잘된 까닭 하나를 넣어 다시 주고받아요.',
+            levels: { easy: { live: true, instant: true, steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '공 주고받기에서 생긴 일에 어울리는 마음 카드를 놓아 보세요.', toolOptions: { cards: ['뿌듯함', '아쉬움', '놀람'], slots: [{ id: 's1', label: '짝과 열까지 세고 해냈어요' }, { id: 's2', label: '아홉에서 공을 놓쳤어요' }, { id: 's3', label: '공이 바닥에 튀어 갑자기 내 쪽으로 왔어요' }] },
+                target: { match: { s1: '뿌듯함', s2: '아쉬움', s3: '놀람' } }, difficulty: 0.2,
+                hints: ['카드마다 그 일이 끝까지 잘되었는지, 아깝게 안 되었는지, 생각지 못하게 일어났는지 보세요.', '아홉에서 놓친 일은 거의 다 했는데 안 된 일이에요. 그때 마음은요?', '열까지 해낸 일은 뿌듯함, 아홉에서 놓친 일은 아쉬움, 공이 갑자기 온 일은 놀람이에요.'],
+                levels: { challenge: { toolOptions: { cards: ['뿌듯함', '아쉬움', '놀람', '외로움'] } } } },
+              { prompt: '공 주고받기가 가장 잘된 때를 떠올리면 내 마음은 얼마나 뿌듯한가요? 내 마음대로 골라요.', toolOptions: { mode: 'scale', situation: '공 주고받기가 가장 잘 이어졌던 때를 떠올려요.', feeling: '뿌듯함', steps: 5, after: '솔직하게 골랐어요. 그때 무엇을 잘했는지 짝에게 말해 줘요.' }, target: { level: 'any' }, difficulty: 0.05 },
+              { prompt: '찾은 \'잘 이어진 까닭\' 하나를 정해 짝과 다시 열 번 도전을 해요. 이번 도전에서 무엇이 달라졌는지 말해요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 찾은 \'잘 이어진 까닭\'을 한 가지씩 말해 볼까요?" 칠판에 모아 \'우리 반 공 주고받기 비법\'으로 붙인다. 다음 시간에는 공을 놓친 친구에게 힘이 되는 말을 찾아본다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '공 주고받기', slots: ['잘 이어졌어요', '끊겼어요'], cards: ['옆 친구와 떠들며 보냈어요', '두 손으로 손 바구니를 만들어 받았어요'] }, prompt: '두 장면을 잘 이어진 까닭과 끊긴 까닭으로 나누어 보세요.', target: { sort: { '잘 이어졌어요': ['두 손으로 손 바구니를 만들어 받았어요'], '끊겼어요': ['옆 친구와 떠들며 보냈어요'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '공이 자꾸 끊겨요. 주는 사람이 바꿀 수 있는 것은?', options: ['짝이 준비됐는지 보고 살살 보내요', '받는 친구가 알아서 잘 받으면 돼요'], answer: 0, difficulty: 0.1, explain: '주는 사람도 받기 좋게 보내면 공이 더 잘 이어져요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '공 주고받기가 잘된 때',
+      items: [
+        { type: 'short', prompt: '공 주고받기가 가장 잘된 때를 쓰세요.' },
+        { type: 'table', prompt: '잘 이어진 까닭과 끊긴 까닭을 하나씩 쓰세요.', columns: ['잘 이어진 까닭', '끊긴 까닭'], rows: 1 },
+        { type: 'choice', prompt: '공이 잘 이어지는 방법에 ○ 하세요.', options: ['이름을 부르고 보내요', '짝이 딴 곳을 볼 때 보내요'], answer: '이름을 부르고 보내요' },
+        { type: 'draw', prompt: '공 주고받기가 가장 잘된 때를 그려 보세요.' },
+      ],
+      easy: {
+        note: '이름 부르고, 살살, 끝까지 보기!',
+        items: [
+          { type: 'choice', prompt: '공이 잘 이어진 까닭은?', options: ['가슴 쪽으로 살살', '머리 위로 세게'], answer: '가슴 쪽으로 살살' },
+          { type: 'short', prompt: '가장 즐거웠던 공 놀이 이름을 쓰세요.' },
+          { type: 'draw', prompt: '공을 주고받는 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '나누기는 맞는 칸에 초록 테두리가 생기고, 마음 크기는 세 칸에서 골라요.',
+      base: '네 장면을 나누고 바꿀 방법을 고른 뒤, 다섯 칸에서 내 마음을 골라요.',
+      challenge: '장면 카드와 마음 카드가 더 있어 골라내야 해요. 다시 도전에서 달라진 점을 까닭과 함께 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 끊긴 까닭을 모두 받는 친구에게 돌린다 → 주는 사람 카드를 함께 읽고 바꿀 점을 찾게 한다. ② 잘된 때를 "몰라요"로 끝낸다 → 칠판의 네 놀이 가운데 하나를 고르게 한 뒤 그때 무엇을 했는지 묻는다. ③ 기록이 가장 높았던 때만 잘된 때라고 여긴다 → 즐거웠던 때, 친구와 잘 맞았던 때도 잘된 때라고 말한다.',
+  }));
+
+  lessons.push(L(46, {
+    title: '공을 놓친 친구에게 힘이 되는 말 찾기',
+    objective: '공을 놓친 친구에게 아무 말도 하지 않거나 탓하는 대신, 힘이 되는 말과 행동을 골라 해 볼 수 있다.',
+    illustration: ART('a child who dropped a ball looking down, and a partner walking over with a warm paper speech bubble saying it is okay, other children giving a thumbs up', '괜찮아, 다시 하자!', [
+      { motif: 'sun', x: 90, y: 66, s: 0.6 }, { motif: 'tree', x: 420, y: 214 }, { motif: 'flower', x: 300, y: 230 }]),
+    safety: [TOOL, SPACE, '놓친 공은 걸어서 함께 주워 와요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"열 번 도전에서 공을 놓쳤을 때, 짝이 아무 말도 안 하면 어떤 마음이 들까요?" 대답을 듣는다. "아무 말도 안 하는 게 친구를 위한 걸까요?" 손을 들게 한 뒤, 말이 없으면 친구는 내가 화났다고 여길 수 있다고 짚는다. "오늘은 놓친 친구에게 힘이 되는 말을 찾아요."',
+        student: '공을 놓쳤을 때 듣고 싶은 말을 마음속으로 하나 떠올려 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 놓친 친구에게 어떻게 할까', minutes: 13, tool: 'emotion',
+            teacher: '"서아가 아홉에서 공을 놓쳤어요. 어떻게 하면 좋을까요?" 보기를 고른 뒤 결과를 함께 읽는다. \'아무 말 없이 공만 주워 오기\'를 고른 학생에게 "서아는 그때 내 마음을 알 수 있을까요?"라고 묻는다. 말을 나눌 때는 \'듣는 친구 마음\'을 기준으로 삼는다.',
+            task: '공을 놓친 친구에게 어떻게 할지 고르고, 말을 힘이 나는 말과 속상해지는 말로 나눈 뒤 짝과 놓친 장면을 해 봐요.',
+            levels: { easy: { live: true, instant: true }, base: {}, challenge: {} },
+            items: [
+              { prompt: '서아가 아홉에서 공을 놓치고 고개를 숙였어요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '열 번 도전에서 서아가 아홉에서 공을 놓쳤어요. 서아가 고개를 숙이고 서 있어요.', choices: [
+                { id: 'silent', text: '아무 말 없이 공만 주워 와요', result: '서아는 내가 화난 줄 알고 다음 공도 무서워했어요.', mood: '걱정', why: '말이 없으면 서아는 내 마음을 어떻게 짐작할까요?' },
+                { id: 'cheer', text: '"괜찮아, 거의 다 했어! 다시 하자" 하고 말해요', result: '서아가 고개를 들고 "응!" 하며 손 바구니를 만들었어요.', mood: '고마움' },
+                { id: 'blame', text: '"너 때문에 다 망했어" 하고 말해요', result: '서아가 울먹이며 그만하고 싶다고 했어요.', mood: '속상함', why: '이 말을 들은 서아의 마음을 떠올려 봐요.' }] }, target: { choice: 'cheer' }, difficulty: 0.1,
+                hints: ['서아가 다시 공을 받고 싶어지려면 무엇이 필요할지 생각해 보세요.', '아무 말도 하지 않으면 서아는 내 마음을 알 수 있을까요?', '"괜찮아, 다시 하자"처럼 힘이 나는 말을 해 주면 서아가 다시 할 수 있어요.'] },
+              { prompt: '공을 놓친 친구가 들었을 때 힘이 나는 말과 속상해지는 말로 나누어 보세요.', toolOptions: { mode: 'sort', slots: ['힘이 나는 말', '속상해지는 말'], cards: ['괜찮아, 다시 해 보자', '또 놓쳤어?', '거의 다 했어!', '너랑 안 할래'] },
+                target: { sort: { '힘이 나는 말': ['괜찮아, 다시 해 보자', '거의 다 했어!'], '속상해지는 말': ['또 놓쳤어?', '너랑 안 할래'] } }, difficulty: 0.15,
+                hints: ['내가 공을 놓쳤을 때 이 말을 들으면 어떤 마음일지 하나씩 떠올려 보세요.', '\'또\'라는 말을 들으면 놓친 친구 마음은 어떨까요?', '괜찮아·거의 다 했어는 힘이 나는 말, 또 놓쳤어·너랑 안 할래는 속상해지는 말이에요.'],
+                levels: { challenge: { prompt: '여섯 말을 힘이 나는 말과 속상해지는 말로 나누어 보세요.', toolOptions: { cards: ['괜찮아, 다시 해 보자', '또 놓쳤어?', '거의 다 했어!', '너랑 안 할래', '내가 더 살살 보낼게', '빨리 좀 해'] },
+                  target: { sort: { '힘이 나는 말': ['괜찮아, 다시 해 보자', '거의 다 했어!', '내가 더 살살 보낼게'], '속상해지는 말': ['또 놓쳤어?', '너랑 안 할래', '빨리 좀 해'] } } } } },
+              { prompt: '짝과 번갈아 일부러 공을 놓치는 장면을 해요. 짝은 고른 힘이 나는 말을 하고 함께 공을 주워 와요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 상황에 맞는 말 고르고 해 보기', minutes: 13, tool: 'story',
+            teacher: '"같은 \'괜찮아\'도 어울리는 때가 있어요." 상황마다 어울리는 말을 놓게 한다. 부탁하는 말을 고를 때는 "듣는 짝이 기분 나쁘지 않게 부탁하려면?"이라고 묻는다. 마지막에 모둠이 열 번 도전을 하며 고른 말을 실제로 써 본다.',
+            task: '공 놀이 상황에 어울리는 말을 놓고, 친구에게 부탁할 때 쓰는 말을 고른 뒤 모둠 도전에서 그 말을 써 봐요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '공 놀이 상황마다 어울리는 말 카드를 놓아 보세요.', toolOptions: { mode: 'match', slots: [{ id: 's1', label: '짝이 공을 놓쳐 속상해해요' }, { id: 's2', label: '짝과 열 번을 해냈어요' }, { id: 's3', label: '짝이 보낸 공이 너무 세게 와요' }], cards: ['"괜찮아, 다시 하자"', '"우리 해냈다!"', '"조금만 살살 보내 줄래?"'] },
+                target: { match: { s1: '"괜찮아, 다시 하자"', s2: '"우리 해냈다!"', s3: '"조금만 살살 보내 줄래?"' } }, difficulty: 0.15,
+                hints: ['상황마다 짝이 지금 어떤 마음일지 먼저 떠올려 보세요.', '공이 세게 올 때는 짝에게 무엇을 바라야 할까요?', '속상한 짝에게는 "괜찮아, 다시 하자", 해냈을 때는 "우리 해냈다!", 공이 셀 때는 "조금만 살살 보내 줄래?"예요.'],
+                levels: { challenge: { toolOptions: { cards: ['"괜찮아, 다시 하자"', '"우리 해냈다!"', '"조금만 살살 보내 줄래?"', '"왜 그렇게 던져!"'] } } } },
+              { prompt: '짝에게 부탁할 때 짝의 마음이 상하지 않는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '부탁하는 말', cards: ['"가슴 쪽으로 보내 줄 수 있어?"', '"한 번만 더 천천히 해 줄래?"', '"세게 던지지 마, 바보야"', '"똑바로 좀 던져!"'] },
+                target: { pick: ['"가슴 쪽으로 보내 줄 수 있어?"', '"한 번만 더 천천히 해 줄래?"'] }, difficulty: 0.15 },
+              { prompt: '모둠이 지그재그로 열 번 도전을 해요. 누가 놓치면 모두 함께 힘이 나는 말을 하고, 하나부터 다시 세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 들은 말 가운데 가장 힘이 났던 말은 무엇인가요?" 두세 명에게 듣고, 그 말을 해 준 친구에게 "고마워"라고 말하게 한다. 다음 시간에는 힘이 나는 말을 하며 다시 도전하고 달라진 점을 찾는다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { mode: 'sort', slots: ['힘이 나는 말', '속상해지는 말'], cards: ['다음엔 될 거야!', '너는 맨날 놓치잖아'] }, prompt: '두 말을 힘이 나는 말과 속상해지는 말로 나누어 보세요.', target: { sort: { '힘이 나는 말': ['다음엔 될 거야!'], '속상해지는 말': ['너는 맨날 놓치잖아'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '하준이가 공을 놓쳤어요. 아무 말도 하지 않는 것이 가장 좋을까요?', options: ['네, 가만히 있는 게 좋아요', '아니요, 힘이 나는 말을 해 줘요'], answer: 1, difficulty: 0.1, explain: '말이 없으면 친구는 내가 화났다고 여길 수 있어요. 힘이 나는 말이 친구를 도와요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '힘이 되는 말',
+      items: [
+        { type: 'table', prompt: '말을 듣는 친구 마음을 떠올려 나누어 쓰세요.', columns: ['힘이 나는 말', '속상해지는 말'], rows: 2 },
+        { type: 'choice', prompt: '공을 놓친 친구에게 할 말에 ○ 하세요.', options: ['"거의 다 했어!"', '"또 놓쳤어?"', '(아무 말도 안 해요)'], answer: '"거의 다 했어!"' },
+        { type: 'short', prompt: '짝에게 공을 살살 보내 달라고 부탁하는 말을 쓰세요.' },
+        { type: 'short', prompt: '오늘 친구에게 들은 힘이 나는 말을 쓰세요.' },
+      ],
+      easy: {
+        note: '놓친 친구에게는 "괜찮아, 다시 하자!"',
+        items: [
+          { type: 'choice', prompt: '힘이 나는 말은?', options: ['괜찮아', '또 놓쳤어?'], answer: '괜찮아' },
+          { type: 'short', prompt: '친구에게 해 준 힘이 나는 말을 쓰세요.' },
+          { type: 'draw', prompt: '친구에게 힘이 나는 말을 하는 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '나누기와 짝 짓기에서 맞는 칸에 초록 테두리가 생기고, 틀린 자리는 바로 되돌아가요.',
+      base: '말 네 장을 나누고, 세 상황에 어울리는 말을 놓은 뒤 부탁하는 말을 골라요.',
+      challenge: '말 카드가 더 많고 상황에 맞지 않는 말 하나를 골라내야 해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 놓친 친구에게 아무 말도 안 하는 것이 낫다고 여긴다 → 말없이 공만 주워 오는 장면을 해 보고, 놓친 쪽의 마음을 들어 본다. ② 힘이 나는 말을 장난처럼 크게 외친다 → 친구 눈을 보고 보통 목소리로 말하게 한다. ③ 부탁을 명령처럼 한다 → "~해 줄래?"로 끝맺는 말을 함께 연습한다.',
+  }));
+
+  lessons.push(L(47, {
+    title: '힘이 되는 말과 함께 다시 도전하고 달라진 점 찾기',
+    objective: '힘이 되는 말을 나누며 다시 공 주고받기에 도전하고, 오늘 친구를 도운 말이나 행동을 하나 골라 말할 수 있다.',
+    illustration: ART('a small group of children cheering each other while passing a ball, paper hearts and speech bubbles floating, one child helping another pick up the ball', '도와주니 달라졌어요', [
+      { motif: 'star', x: 120, y: 92, s: 0.7 }, { motif: 'tree', x: 420, y: 214 }, { motif: 'flower', x: 70, y: 232 }]),
+    safety: [TOOL, SPACE, STOP],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"지난 시간에 찾은 힘이 나는 말을 기억하나요?" 칠판에 붙여 둔 말을 함께 읽는다. "오늘은 두 번 도전해요. 첫 번째는 그냥, 두 번째는 힘이 나는 말과 도움을 주고받으며 해요. 무엇이 달라지는지 찾아봐요."',
+        student: '지난 시간에 들은 힘이 나는 말 하나를 짝에게 속삭여 줘요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 두 번 도전하고 기록 견주기', minutes: 14, tool: 'timer',
+            teacher: '"첫 도전은 수만 세고 해요. 두 번째 도전은 놓치면 힘이 나는 말을 하고 같이 주워요." 두 도전 모두 놓치기 전까지 이어진 수를 적게 한다. 두 번째가 더 적게 나온 짝에게 "기록 말고 달라진 것은 없었나요? 마음은요?"라고 묻는다.',
+            task: '첫 도전과 힘이 나는 말을 나누며 한 두 번째 도전의 기록을 적고, 오늘 해낸 것을 점검해요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: '첫 도전과 힘이 나는 말을 하며 한 두 번째 도전에서 이어진 수를 칸에 적어요.', toolOptions: { title: '두 번의 도전 기록', fields: ['첫 도전', '말하며 한 도전'], unit: '번' }, target: { records: true }, difficulty: 0.1 },
+              { prompt: '준호네 기록이에요: 첫 도전 5번, 말하며 한 도전 8번. 칸에 그대로 옮겨 적어요.', toolOptions: { title: '준호네 도전 기록', fields: ['첫 도전', '말하며 한 도전'], unit: '번' }, target: { records: [5, 8] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '준호네 기록이에요: 첫 도전 5번, 말하며 한 도전 8번, 한 걸음 더 떨어진 도전 6번. 칸에 그대로 옮겨 적어요.', toolOptions: { fields: ['첫 도전', '말하며 한 도전', '한 걸음 더'] }, target: { records: [5, 8, 6] } } } },
+              { prompt: '오늘 두 번의 도전을 돌아보고, 해낸 것을 모두 표시해요.', toolOptions: { title: '오늘의 도전 점검' }, target: { selfCheck: ['두 번 도전했어요', '도전마다 이어진 수를 셌어요', '두 번째 도전에서 힘이 나는 말을 했어요'] }, difficulty: 0.05 },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 친구를 도운 말과 행동', minutes: 12, tool: 'emotion',
+            teacher: '"입으로 한 것은 말, 몸으로 한 것은 행동이에요." 오늘 본 도움을 말과 행동으로 나눈다. 그다음 "오늘 내가 친구를 도운 말이나 행동 하나"를 짝에게 말하게 한다. 마음 크기는 정답이 없으니 내 마음대로 고르라고 말한다.',
+            task: '친구를 도운 일을 말과 행동으로 나누고, 도움을 받았을 때 내 마음 크기를 고른 뒤 내가 도운 일 하나를 짝에게 말해요.',
+            levels: { easy: { live: true, instant: true, steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '친구를 도운 일을 말로 도운 것과 행동으로 도운 것으로 나누어 보세요.', toolOptions: { mode: 'sort', slots: ['말로 도왔어요', '행동으로 도왔어요'], cards: ['"괜찮아, 다시 하자" 하고 말했어요', '놓친 공을 함께 주워 왔어요', '"거의 다 했어!" 하고 말했어요', '짝 앞으로 한 걸음 다가가 주었어요'] },
+                target: { sort: { '말로 도왔어요': ['"괜찮아, 다시 하자" 하고 말했어요', '"거의 다 했어!" 하고 말했어요'], '행동으로 도왔어요': ['놓친 공을 함께 주워 왔어요', '짝 앞으로 한 걸음 다가가 주었어요'] } }, difficulty: 0.15,
+                hints: ['카드마다 입으로 한 일인지, 몸을 움직여 한 일인지 보세요.', '따옴표 안의 말을 했다면 입으로 한 일이에요. 공을 줍거나 다가간 것은요?', '괜찮아·거의 다 했어는 말로, 공 함께 줍기·한 걸음 다가가기는 행동으로 도운 일이에요.'],
+                levels: { challenge: { prompt: '여섯 가지 도운 일을 말로 도운 것과 행동으로 도운 것으로 나누어 보세요.', toolOptions: { cards: ['"괜찮아, 다시 하자" 하고 말했어요', '놓친 공을 함께 주워 왔어요', '"거의 다 했어!" 하고 말했어요', '짝 앞으로 한 걸음 다가가 주었어요', '"내가 더 살살 보낼게" 하고 말했어요', '넘어진 친구에게 손을 내밀어 일으켜 줬어요'] },
+                  target: { sort: { '말로 도왔어요': ['"괜찮아, 다시 하자" 하고 말했어요', '"거의 다 했어!" 하고 말했어요', '"내가 더 살살 보낼게" 하고 말했어요'], '행동으로 도왔어요': ['놓친 공을 함께 주워 왔어요', '짝 앞으로 한 걸음 다가가 주었어요', '넘어진 친구에게 손을 내밀어 일으켜 줬어요'] } } } } },
+              { prompt: '도전하다 친구의 도움을 받았을 때 내 마음은 얼마나 고마웠나요? 내 마음대로 골라요.', toolOptions: { mode: 'scale', situation: '공을 놓쳤을 때 친구가 말이나 행동으로 도와준 때를 떠올려요.', feeling: '고마움', steps: 5, after: '솔직하게 골랐어요. 도와준 친구에게 고맙다고 말해 줘요.' }, target: { level: 'any' }, difficulty: 0.05 },
+              { prompt: '오늘 내가 친구를 도운 말이나 행동 하나를 짝에게 말해요. 짝은 "고마워" 하고 대답해요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"두 번째 도전에서 기록 말고도 달라진 것이 있었나요?" 기록이 늘어난 짝과 마음이 편해진 짝의 이야기를 함께 듣는다. 다음 시간에는 지금까지의 몸 탐험 전체를 돌아보며 탐험 지도를 완성한다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { mode: 'sort', slots: ['말로 도왔어요', '행동으로 도왔어요'], cards: ['"힘내!" 하고 응원했어요', '굴러간 공을 대신 주워 줬어요'] }, prompt: '두 도운 일을 말과 행동으로 나누어 보세요.', target: { sort: { '말로 도왔어요': ['"힘내!" 하고 응원했어요'], '행동으로 도왔어요': ['굴러간 공을 대신 주워 줬어요'] } }, difficulty: 0.1 },
+          { type: 'choice', prompt: '두 번째 도전 기록이 첫 도전보다 적었어요. 힘이 나는 말은 쓸모없었을까요?', options: ['네, 기록이 줄었으니 쓸모없어요', '아니요, 마음이 편해지고 다시 할 힘이 났어요'], answer: 1, difficulty: 0.15, explain: '힘이 나는 말은 기록뿐 아니라 친구 마음을 도와요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '친구를 도운 말과 행동',
+      items: [
+        { type: 'table', prompt: '두 번의 도전에서 이어진 수를 쓰세요.', columns: ['도전', '이어진 수(번)'], cells: [['첫 도전', ''], ['말하며 한 도전', '']] },
+        { type: 'table', prompt: '오늘 친구를 도운 일을 하나씩 쓰세요.', columns: ['말로 도왔어요', '행동으로 도왔어요'], rows: 1 },
+        { type: 'short', prompt: '두 번째 도전에서 달라진 점을 쓰세요.' },
+        { type: 'draw', prompt: '친구를 도운 내 모습을 그려 보세요.' },
+      ],
+      easy: {
+        note: '말로도, 행동으로도 친구를 도울 수 있어요.',
+        items: [
+          { type: 'choice', prompt: '행동으로 도운 것은?', options: ['공을 함께 주웠어요', '"괜찮아" 하고 말했어요'], answer: '공을 함께 주웠어요' },
+          { type: 'short', prompt: '오늘 친구에게 한 힘이 나는 말을 쓰세요.' },
+          { type: 'draw', prompt: '친구를 돕는 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '나누기는 맞는 칸에 초록 테두리가 생기고, 마음 크기는 세 칸에서 골라요.',
+      base: '두 도전을 기록하고 친구 기록을 옮긴 뒤, 도운 일 네 가지를 말과 행동으로 나누어요.',
+      challenge: '한 걸음 더 떨어진 기록까지 옮기고, 도운 일 여섯 가지를 나누어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 두 번째 기록이 줄어 힘이 나는 말이 소용없다고 여긴다 → 기록 말고 마음이 어땠는지 물어 달라진 점을 찾게 한다. ② 손 내밀기·박수 같은 응원을 말로 도운 것이라고 여긴다 → 입으로 했는지 몸으로 했는지 직접 해 보며 가른다. ③ 도운 일이 생각나지 않는다 → 짝에게 "내가 오늘 너를 도운 적 있니?" 하고 물어보게 한다.',
+  }));
+
+  lessons.push(L(48, {
+    title: '몸 탐험 지도 완성하고 다음 탐험 정하기',
+    objective: '제자리 움직임·걷기와 달리기·뛰기·도구 다루기 탐험에서 한 움직임을 나누어 정리하고, 내 마음을 돌아보며 다음에 해 볼 탐험을 정할 수 있다.',
+    illustration: ART('a large paper explorer map with four regions for balancing, running, jumping and ball play, connected by a dotted trail, children placing their flag stickers on the map', '몸 탐험 지도', [
+      { motif: 'star', x: 110, y: 92 }, { motif: 'mountain', x: 420, y: 210 }, { motif: 'flower', x: 70, y: 232 }]),
+    safety: [SPACE, FLOOR, STOP],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"몸 탐험대가 마지막 탐험지에 왔어요. 지금까지 네 곳을 탐험했지요?" 탐험 지도의 네 곳(제자리 움직임, 걷기·달리기, 뛰기, 도구 다루기)을 차례로 짚는다. "가장 즐거웠던 곳은 어디인가요? 가장 많이 자란 곳은요?" 손가락으로 지도를 가리키게 한다.',
+        student: '탐험 지도의 네 곳 가운데 가장 즐거웠던 곳을 손가락으로 짚어 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 탐험 지도에 움직임 붙이기', minutes: 14, tool: 'mindmap',
+            teacher: '"이 움직임은 어느 탐험지에서 했을까요?" 카드를 나눈 뒤, 탐험지마다 한 움직임씩 모두 함께 몸으로 다시 해 본다. 헷갈리는 카드는 "발이 자리를 떠났나요? 도구를 썼나요?"라고 묻는다.',
+            task: '움직임 카드를 네 탐험지로 나누고, 탐험한 차례를 놓은 뒤 탐험지마다 한 움직임을 짝에게 보여 줘요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '움직임 카드를 몸 탐험 지도의 네 곳으로 나누어 보세요.', toolOptions: { topic: '몸 탐험 지도', slots: ['제자리 움직임', '걷기·달리기', '뛰기', '도구 다루기'], cards: ['한 발로 서서 버티기', '고깔 사이로 지그재그 달리기', '무릎을 굽혀 사뿐히 내려앉기', '짝과 공 열 번 주고받기'] },
+                target: { sort: { '제자리 움직임': ['한 발로 서서 버티기'], '걷기·달리기': ['고깔 사이로 지그재그 달리기'], '뛰기': ['무릎을 굽혀 사뿐히 내려앉기'], '도구 다루기': ['짝과 공 열 번 주고받기'] } }, difficulty: 0.15,
+                hints: ['카드마다 발이 자리를 떠났는지, 도구를 썼는지 먼저 보세요.', '내려앉기는 무엇을 한 뒤에 하는 움직임일까요?', '한 발 버티기는 제자리, 지그재그 달리기는 걷기·달리기, 내려앉기는 뛰기, 공 주고받기는 도구 다루기예요.'],
+                levels: { challenge: { prompt: '여덟 움직임 카드를 몸 탐험 지도의 네 곳으로 나누어 보세요.', toolOptions: { cards: ['한 발로 서서 버티기', '고깔 사이로 지그재그 달리기', '무릎을 굽혀 사뿐히 내려앉기', '짝과 공 열 번 주고받기', '거울 놀이로 짝 자세 따라 하기', '배턴을 건네며 이어달리기', '줄 높이를 한 칸씩 올려 넘기', '바구니에 콩주머니 던져 넣기'] },
+                  target: { sort: { '제자리 움직임': ['한 발로 서서 버티기', '거울 놀이로 짝 자세 따라 하기'], '걷기·달리기': ['고깔 사이로 지그재그 달리기', '배턴을 건네며 이어달리기'], '뛰기': ['무릎을 굽혀 사뿐히 내려앉기', '줄 높이를 한 칸씩 올려 넘기'], '도구 다루기': ['짝과 공 열 번 주고받기', '바구니에 콩주머니 던져 넣기'] } } } } },
+              { prompt: '우리가 몸 탐험을 한 차례대로 탐험지 카드를 놓아 보세요.', toolOptions: { mode: 'order', slots: ['첫째', '둘째', '셋째', '넷째'], cards: ['뛰기', '도구 다루기', '제자리 움직임', '걷기·달리기'] },
+                target: { order: ['제자리 움직임', '걷기·달리기', '뛰기', '도구 다루기'] }, difficulty: 0.15,
+                hints: ['탐험 지도에서 맨 처음 우리 몸이 출발한 곳은 자리를 옮기지 않는 곳이었어요.', '공과 콩주머니를 쓴 탐험은 언제였나요? 가장 최근이었지요?', '제자리 움직임 → 걷기·달리기 → 뛰기 → 도구 다루기 차례예요.'] },
+              { prompt: '짝에게 탐험지마다 한 움직임씩, 모두 네 가지를 몸으로 보여 줘요. 짝은 어느 탐험지인지 맞혀요.', free: true, talk: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 내 마음 돌아보고 다음 탐험 정하기', minutes: 12, tool: 'emotion',
+            teacher: '"몸 탐험을 마친 지금, 나는 내 몸으로 할 수 있는 것이 얼마나 늘었다고 느끼나요?" 마음 크기에는 정답이 없다고 말한다. 다음 탐험의 약속을 고른 뒤, 해 보고 싶은 탐험을 하나씩 정해 짝에게 말하게 한다.',
+            task: '몸 탐험에서 자란 내 마음 크기를 고르고, 다음 탐험에서 지킬 약속을 고른 뒤 해 볼 탐험을 짝에게 말해요.',
+            levels: { easy: { live: true, instant: true, steps: 3 }, base: {}, challenge: {} },
+            items: [
+              { prompt: '몸 탐험을 마치고, 내 몸으로 할 수 있는 것이 늘어 얼마나 뿌듯한가요? 내 마음대로 골라요.', toolOptions: { mode: 'scale', situation: '제자리 움직임부터 도구 다루기까지 네 탐험을 떠올려요.', feeling: '뿌듯함', steps: 5, after: '솔직하게 골랐어요. 가장 많이 자란 탐험을 짝에게 말해 줘요.' }, target: { level: 'any' }, difficulty: 0.05 },
+              { prompt: '다음 몸 탐험에서도 지킬 약속만 골라 보세요.', toolOptions: { mode: 'pick', basket: '다음 탐험 약속', cards: ['움직이기 전에 둘레를 살펴요', '어지러우면 멈추고 말해요', '친구보다 세게만 하려 해요', '신호 없이 먼저 도구를 들어요'] },
+                target: { pick: ['움직이기 전에 둘레를 살펴요', '어지러우면 멈추고 말해요'] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '다음 몸 탐험에서도 지킬 약속만 모두 골라 보세요.', toolOptions: { cards: ['움직이기 전에 둘레를 살펴요', '어지러우면 멈추고 말해요', '친구보다 세게만 하려 해요', '신호 없이 먼저 도구를 들어요', '놓친 친구에게 힘이 나는 말을 해요', '일등만 잘한 거라고 말해요'] },
+                  target: { pick: ['움직이기 전에 둘레를 살펴요', '어지러우면 멈추고 말해요', '놓친 친구에게 힘이 나는 말을 해요'] } } } },
+              { prompt: '다음에 더 해 보고 싶은 탐험 하나와 그 까닭을 짝에게 말하고, 그 움직임을 한 번 보여 줘요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"우리 반 몸 탐험 지도에 내 깃발 붙임딱지를 붙여요. 다음에 더 탐험하고 싶은 곳에 붙여요." 붙임딱지가 가장 많은 곳을 함께 세어 보고, 다음 체육 놀이 시간에 그 탐험을 이어 간다고 알린다. "네 곳을 모두 탐험한 우리 모두가 몸 탐험대예요."',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '몸 탐험 지도', slots: ['제자리 움직임', '걷기·달리기', '뛰기', '도구 다루기'], cards: ['몸으로 ㅅ 글자 만들고 멈추기', '사방치기 칸 뛰어넘기'] }, prompt: '두 움직임을 몸 탐험 지도의 알맞은 곳에 놓아 보세요.', target: { sort: { '제자리 움직임': ['몸으로 ㅅ 글자 만들고 멈추기'], '뛰기': ['사방치기 칸 뛰어넘기'] } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '몸 탐험에서 \'잘한 것\'은 무엇일까요?', options: ['친구보다 빠르고 세게만 하기', '약속을 지키며 어제의 나보다 한 걸음 더 해 보기'], answer: 1, difficulty: 0.1, explain: '몸 탐험은 친구와 겨루기보다 약속을 지키며 내 몸으로 새로 해 보는 것이에요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '나의 몸 탐험 지도',
+      items: [
+        { type: 'table', prompt: '탐험지마다 기억나는 움직임을 하나씩 쓰세요.', columns: ['탐험지', '기억나는 움직임'], cells: [['제자리 움직임', ''], ['걷기·달리기', ''], ['뛰기', ''], ['도구 다루기', '']] },
+        { type: 'short', prompt: '가장 많이 자랐다고 느끼는 탐험과 그 까닭을 쓰세요.' },
+        { type: 'short', prompt: '다음에 더 해 보고 싶은 탐험을 쓰세요.' },
+        { type: 'draw', prompt: '몸 탐험대가 된 내 모습을 그려 보세요.' },
+      ],
+      easy: {
+        note: '네 곳을 모두 탐험했어요!',
+        items: [
+          { type: 'choice', prompt: '공을 주고받은 탐험은?', options: ['도구 다루기', '제자리 움직임'], answer: '도구 다루기' },
+          { type: 'short', prompt: '가장 즐거웠던 탐험을 쓰세요.' },
+          { type: 'draw', prompt: '즐거웠던 탐험 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '나누기와 차례는 맞는 칸에 초록 테두리가 생기고, 마음 크기는 세 칸에서 골라요.',
+      base: '네 움직임을 탐험지로 나누고 차례를 놓은 뒤, 다음 탐험 약속을 골라요.',
+      challenge: '움직임 여덟 장을 나누고, 약속 카드도 더 많아 골라내야 해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 뛰기와 제자리 움직임을 헷갈린다 → "발이 바닥을 떠났다가 내려앉았나요?"라고 물어 뛰기 탐험의 움직임을 떠올리게 한다. ② 다음 탐험을 "다 좋아요"로 끝낸다 → 지도에서 하나만 짚게 한 뒤 그 까닭을 묻는다. ③ 잘한 것을 일등·기록으로만 말한다 → 약속을 지킨 것, 무섭다고 말한 것, 친구를 도운 것도 탐험에서 자란 것이라고 짚는다.',
+  }));
+
+  // pattern 교구의 기본 1단계 힌트는 '색과 모양'을 말한다. 이 단원의 차례 줄은 낱말(높게·걷기·한 발·이름…)이라
+  // 힌트를 직접 단 문항이 아니면 낱말 줄에 맞는 세 단계 힌트를 단다. 3단계(풀이)만 되풀이 묶음을 말한다.
+  function wordPatternHints(it) {
+    var o = it.toolOptions || {};
+    if (o.mode === 'make') {
+      return ['먼저 두세 칸을 한 묶음으로 정하고, 그 묶음을 똑같이 되풀이해요.',
+        '첫 묶음과 다음 묶음을 칸마다 견주어 보세요. 다른 칸이 있나요?',
+        '예를 들어 ' + o.palette[0] + '·' + o.palette[1] + '를 한 묶음으로 정하면 ' + [0, 1, 0, 1, 0, 1].map(function (k) { return o.palette[k]; }).join('·') + '처럼 채워요.'];
+    }
+    var seq = o.seq.slice(); var fill = it.target.fill.slice();
+    for (var i = 0; i < seq.length; i++) if (seq[i] == null) seq[i] = fill.shift();
+    var p = 1;
+    while (p < seq.length && !seq.every(function (w, k) { return w === seq[k % p]; })) p++;
+    return ['낱말 줄을 소리 내어 읽으며 똑같이 되풀이되는 묶음을 찾아요. 묶음이 몇 칸인지 손뼉으로 세어 보세요.',
+      '빈칸 바로 앞 칸이 묶음의 몇 번째인지 짚어 보세요. 빈칸에는 묶음의 그다음 낱말이 와요.',
+      '\'' + seq.slice(0, p).join(', ') + '\' 묶음이 되풀이돼요. 빈칸 앞에서 이어지는 차례대로 채워요.'];
+  }
+  lessons.forEach(function (l) {
+    l.stages[1].activities.forEach(function (a) {
+      if (a.tool !== 'pattern') return;
+      a.items.forEach(function (it) {
+        if (it.free || it.hints) return;
+        var lv = it.levels || {};
+        // 단계별로 줄이나 목표가 바뀌는 문항은 3단계 풀이가 단계마다 달라지므로 직접 써야 한다
+        if (Object.keys(lv).some(function (k) { return lv[k].target || (lv[k].toolOptions && lv[k].toolOptions.seq); })) return;
+        it.hints = wordPatternHints(it);
+      });
+    });
+  });
 
   PaperLessons.registerUnit({
     id: 'g1-int-1-04', schema: 'edu-unit.v1', catalogUnit: UNIT,

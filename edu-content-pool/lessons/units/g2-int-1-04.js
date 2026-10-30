@@ -94,8 +94,8 @@
                 target: { sort: { '바닷속': ['산호초 숲'], '우주': ['달', '화성'], '얼음으로 덮인 곳': ['남극'] } }, difficulty: 0.1 },
               { prompt: '다섯 곳을 알맞은 가지에 나누어 보세요.', toolOptions: { topic: '가 보기 어려운 곳', slots: ['바닷속', '우주', '얼음으로 덮인 곳'], cards: ['아주 깊은 바다 밑바닥', '북극', '우주 정거장', '해초 숲', '빙하'] },
                 target: { sort: { '바닷속': ['아주 깊은 바다 밑바닥', '해초 숲'], '우주': ['우주 정거장'], '얼음으로 덮인 곳': ['북극', '빙하'] } }, difficulty: 0.2 },
-              { prompt: '가 보기 어려운 곳만 나누어 보세요. 쉽게 갈 수 있는 곳은 카드 칸에 남겨요.', toolOptions: { topic: '가 보기 어려운 곳', slots: ['바닷속', '우주', '얼음으로 덮인 곳'], cards: ['토성', '바닷속 동굴', '얼어붙은 북극 바다', '우리 동네 놀이터'] },
-                target: { sort: { '바닷속': ['바닷속 동굴'], '우주': ['토성'], '얼음으로 덮인 곳': ['얼어붙은 북극 바다'] } }, difficulty: 0.25,
+              { prompt: '가 보기 어려운 곳만 나누어 보세요. 쉽게 갈 수 있는 곳은 카드 칸에 남겨요.', toolOptions: { topic: '가 보기 어려운 곳', slots: ['바닷속', '우주', '얼음으로 덮인 곳'], cards: ['토성', '바닷속 동굴', '하얀 얼음 벌판', '우리 동네 놀이터'] },
+                target: { sort: { '바닷속': ['바닷속 동굴'], '우주': ['토성'], '얼음으로 덮인 곳': ['하얀 얼음 벌판'] } }, difficulty: 0.25,
                 predict: { q: '"우리 동네 놀이터"는 어디에 놓을까요?', options: ['바닷속', '우주', '아무 데도 안 놓아요'], answer: 2 },
                 conclude: '놀이터는 언제든 갈 수 있어서 가 보기 어려운 곳이 아니에요.' },
             ],
@@ -123,7 +123,7 @@
         id: 'wrapup', title: '정리', minutes: 7,
         teacher: '"오늘 나눈 곳 가운데 내가 가장 궁금한 곳은 어디예요? 왜 궁금해요?" 서너 명이 한 문장으로 말한다. 고른 곳을 활동지에 그려 두게 하고, 다음 시간에는 그곳에 대해 묻고 싶은 말을 만든다고 알린다.',
         exitTicket: [
-          { type: 'tool', tool: 'mindmap', options: { topic: '가 보기 어려운 곳', slots: ['바닷속', '우주', '얼음으로 덮인 곳'], cards: ['목성', '바닷속 화산', '빙산'] }, prompt: '세 곳을 알맞은 가지에 나누어 보세요.', target: { sort: { '바닷속': ['바닷속 화산'], '우주': ['목성'], '얼음으로 덮인 곳': ['빙산'] } }, difficulty: 0.15 },
+          { type: 'tool', tool: 'mindmap', options: { topic: '가 보기 어려운 곳', slots: ['바닷속', '우주', '얼음으로 덮인 곳'], cards: ['목성', '바닷속 화산', '얼음 동굴'] }, prompt: '세 곳을 알맞은 가지에 나누어 보세요.', target: { sort: { '바닷속': ['바닷속 화산'], '우주': ['목성'], '얼음으로 덮인 곳': ['얼음 동굴'] } }, difficulty: 0.15 },
           { type: 'choice', prompt: '깊은 바닷속에 가 볼 수 없다면 어떻게 알아볼까요?', options: ['알아볼 수 없어요', '바닷속 책과 영상을 찾아봐요', '잠을 자며 기다려요'], answer: 1, difficulty: 0.1, explain: '가 볼 수 없는 곳도 책과 영상으로 알아볼 수 있어요.' },
           MOOD,
         ],
@@ -535,7 +535,7 @@
                 { id: 'laugh', text: '"그것도 몰라?" 하고 놀려요', result: '서아가 속상해서 더 묻지 않아요.', mood: '속상함', why: '놀리면 친구가 함께 알아보고 싶지 않을 거예요.' }] }, target: { choice: 'check' }, difficulty: 0.15 },
               { prompt: '믿을 만한 자료를 찾는 방법만 골라 보세요.', toolOptions: { mode: 'pick', basket: '확인하는 방법', cards: ['누가 만든 자료인지 살펴봐요', '두 자료를 견주어 봐요', '재미있는 영상만 믿어요', '선생님이나 어른께 여쭈어요'] },
                 target: { pick: ['누가 만든 자료인지 살펴봐요', '두 자료를 견주어 봐요', '선생님이나 어른께 여쭈어요'] }, difficulty: 0.2,
-                levels: { easy: { prompt: '믿을 만한 자료를 찾는 방법 두 가지를 골라 보세요.', toolOptions: { cards: ['두 자료를 견주어 봐요', '재미있는 영상만 믿어요', '선생님이나 어른께 여쭈어요'] }, target: { pick: ['두 자료를 견주어 봐요', '선생님이나 어른께 여쭈어요'] } } } },
+                levels: { easy: { prompt: '믿을 만한 자료를 찾는 방법 두 가지를 골라 보세요.', toolOptions: { cards: ['두 자료를 견주어 봐요', '재미있는 영상만 믿어요', '선생님이나 어른께 여쭈어요'] }, target: { pick: ['두 자료를 견주어 봐요', '선생님이나 어른께 여쭈어요'] } }, challenge: { toolOptions: { cards: ['누가 만든 자료인지 살펴봐요', '두 자료를 견주어 봐요', '재미있는 영상만 믿어요', '선생님이나 어른께 여쭈어요', '본 사람이 많은 영상은 그냥 믿어요'] } } } },
             ],
           },
         ],
@@ -1448,7 +1448,8 @@
               { prompt: '무궁화 꽃이 피었습니다 놀이와 같은 점, 다른 점으로 나누어 보세요.', toolOptions: { mode: 'sort', cards: ['술래가 돌아보면 멈춰요', '외치는 말이 일본말이에요', '움직이면 술래에게 걸려요', '놀이 이름이 오뚝이 인형 이야기예요'], slots: ['같은 점', '다른 점'] },
                 target: { sort: { '같은 점': ['술래가 돌아보면 멈춰요', '움직이면 술래에게 걸려요'], '다른 점': ['외치는 말이 일본말이에요', '놀이 이름이 오뚝이 인형 이야기예요'] } }, difficulty: 0.2 },
               { prompt: '놀이할 때 지킬 안전 약속만 골라 보세요.', toolOptions: { mode: 'pick', basket: '안전 약속', cards: ['걸어서만 다가가요', '술래를 밀지 않아요', '빨리 가려고 뛰어요', '넓은 곳에서 해요'] },
-                target: { pick: ['걸어서만 다가가요', '술래를 밀지 않아요', '넓은 곳에서 해요'] }, difficulty: 0.1 },
+                target: { pick: ['걸어서만 다가가요', '술래를 밀지 않아요', '넓은 곳에서 해요'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['걸어서만 다가가요', '술래를 밀지 않아요', '빨리 가려고 뛰어요', '넓은 곳에서 해요', '술래 등을 세게 쳐서 알려요'] } } } },
             ],
           },
           {
@@ -1793,6 +1794,7 @@
                 target: { sort: { '해 보기 전': ['이름이 이상해서 재미없을 것 같아', '처음 보는 거라 하기 싫어'], '해 본 뒤': ['우리 놀이랑 비슷해서 금방 익혔어', '다른 나라 놀이를 더 해 보고 싶어'] } }, difficulty: 0.15 },
               { prompt: '달라진 마음을 말한 문장만 골라 보세요.', toolOptions: { mode: 'pick', basket: '달라진 마음', cards: ['처음엔 낯설었는데 해 보니 재미있었어', '걱정했는데 친구가 도와줘서 편해졌어', '오리 오리 거위는 둥글게 앉아요', '만칼라 콩은 48개예요'] },
                 target: { pick: ['처음엔 낯설었는데 해 보니 재미있었어', '걱정했는데 친구가 도와줘서 편해졌어'] }, difficulty: 0.2,
+                levels: { challenge: { toolOptions: { cards: ['처음엔 낯설었는데 해 보니 재미있었어', '걱정했는데 친구가 도와줘서 편해졌어', '오리 오리 거위는 둥글게 앉아요', '만칼라 콩은 48개예요', '다루마상가 고론다는 처음부터 끝까지 재미있었어'] } } },
                 predict: { q: '"만칼라 콩은 48개예요"는 마음을 말한 문장일까요?', options: ['마음을 말했어요', '놀이를 설명했어요'], answer: 1 },
                 conclude: '달라진 마음은 \'처음에는 ~했는데 해 보니 ~\'처럼 전과 뒤를 함께 말해요.' },
               { prompt: '짝에게 "처음에는 ~했는데 해 보니 ~" 틀로 내 마음을 말했으면 "다 했어요"를 누르세요.', free: true },
@@ -1862,6 +1864,7 @@
                 target: { sort: { '존중하는 행동': ['다른 점을 알고 그대로 받아들여요', '좋아하는 것을 물어봐요', '도움이 필요한지 먼저 물어요'], '존중이 아닌 행동': ['"우리랑 달라" 하며 끼워 주지 않아요', '아무 말 없이 모른 척해요'] } }, difficulty: 0.25 },
               { prompt: '존중에 대해 바르게 생각한 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '바른 생각', cards: ['다른 점을 궁금해하는 것도 존중이에요', '다른 점을 놀리지 않고 함께해요', '다른 점은 말하지 않고 모른 척하면 돼요'] },
                 target: { pick: ['다른 점을 궁금해하는 것도 존중이에요', '다른 점을 놀리지 않고 함께해요'] }, difficulty: 0.25,
+                levels: { challenge: { toolOptions: { cards: ['다른 점을 궁금해하는 것도 존중이에요', '다른 점을 놀리지 않고 함께해요', '다른 점은 말하지 않고 모른 척하면 돼요', '친구가 나와 똑같아지게 바꿔 줘요'] } } },
                 predict: { q: '모른 척하면 존중한 것일까요?', options: ['존중이에요', '존중이 아니에요'], answer: 1 },
                 conclude: '존중은 다른 점을 모른 척하는 것이 아니라, 알고 받아들이며 함께하는 거예요.' },
             ],
@@ -1964,7 +1967,8 @@
               { prompt: '상황과 그때 지킬 약속을 이어 보세요.', toolOptions: { mode: 'match', topic: '약속대로 하면', slots: [{ id: 's1', label: '친구가 처음 보는 놀이를 가져왔어요' }, { id: 's2', label: '친구가 다른 나라 노래를 불러요' }] , cards: ['"어떻게 하는 놀이야?" 하고 함께 해 봐요', '"무슨 뜻이야?" 하고 물어요'] },
                 target: { match: { s1: '"어떻게 하는 놀이야?" 하고 함께 해 봐요', s2: '"무슨 뜻이야?" 하고 물어요' } }, difficulty: 0.1 },
               { prompt: '약속을 지키기 어려웠던 날 다음에 할 일만 골라 보세요.', toolOptions: { mode: 'pick', basket: '다음에 할 일', cards: ['포스터를 보고 약속을 떠올려요', '친구에게 먼저 사과해요', '어차피 못 지키니 그만둬요'] },
-                target: { pick: ['포스터를 보고 약속을 떠올려요', '친구에게 먼저 사과해요'] }, difficulty: 0.15 },
+                target: { pick: ['포스터를 보고 약속을 떠올려요', '친구에게 먼저 사과해요'] }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['포스터를 보고 약속을 떠올려요', '친구에게 먼저 사과해요', '어차피 못 지키니 그만둬요', '못 지킨 날은 달력에 아무것도 안 써요'] } } } },
               { prompt: '약속 달력을 보며 지킨 날과 못 지킨 날, 다음에 할 일을 짝에게 말했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -2164,7 +2168,7 @@
       title: '반짝반짝 작은 별의 모양',
       items: [
         { type: 'table', prompt: '줄마다 가락을 듣고 같은 가락이면 같은 모양을 그리세요.', columns: ['첫째', '둘째', '셋째', '넷째', '다섯째', '여섯째'], cells: [['★', '●', '▲', '', '', '']] },
-        { type: 'figure', wide: true, prompt: '첫째 줄 첫 음 \'도\'를 칠 건반에 ○ 하세요.', tool: 'keyboard', figures: [{ options: { mode: 'melody', from: '도', to: '높은도', printNames: true }, caption: '' }], answer: '맨 왼쪽 건반' },
+        { type: 'figure', wide: true, prompt: '첫째 줄 가락 \'도도솔솔라라솔\'에서 가장 높은 음의 건반에 ○ 하세요.', tool: 'keyboard', figures: [{ options: { mode: 'melody', from: '도', to: '높은도', printNames: true }, caption: '' }], answer: '라' },
         { type: 'choice', prompt: '같은 가락이 되풀이되면 좋은 점에 ○ 하세요.', options: ['노래를 외우기 쉬워요', '노래가 짧아져요', '박이 빨라져요'], answer: '노래를 외우기 쉬워요' },
         { type: 'short', prompt: '같은 가락이 되풀이되는 다른 노래를 하나 쓰세요.' },
       ],
@@ -2287,13 +2291,13 @@
             task: '쿵짝짝 띠의 빈칸을 채우고 띠를 만든 뒤, 자장가에 맞춰 쿵짝짝을 쳐요.',
             levels: { easy: { palette: ['쿵', '짝'] }, base: { palette: ['쿵', '짝'] }, challenge: { palette: ['쿵', '짝', '쉬'] } },
             items: [
-              { prompt: '쿵짝짝이 되풀이되는 띠예요. 빈칸 세 곳을 채워 보세요.', toolOptions: { seq: ['쿵', '짝', '짝', '쿵', null, '짝', '쿵', null, null], palette: ['쿵', '짝'] }, target: { fill: ['짝', '짝', '짝'] }, difficulty: 0.2,
+              { prompt: '쿵짝짝이 되풀이되는 띠예요. 빈칸 세 곳을 채워 보세요.', toolOptions: { seq: ['쿵', '짝', '짝', '쿵', null, '짝', '쿵', null, null] }, target: { fill: ['짝', '짝', '짝'] }, difficulty: 0.2,
                 levels: { easy: { prompt: '쿵짝짝이 되풀이되는 띠예요. 빈칸 한 곳을 채워 보세요.', toolOptions: { seq: ['쿵', '짝', '짝', '쿵', '짝', '짝', '쿵', '짝', null] }, target: { fill: ['짝'] } } },
                 hints: ['처음부터 세 조각씩 묶어 손으로 쳐 보며 빈칸을 찾아요.', '쿵이 몇 칸마다 오는지 세어 보세요. 빈칸 자리가 쿵 자리인가요?', '쿵 다음에는 짝이 두 번 와요. 빈칸 세 곳은 모두 짝이에요.'] },
-              { prompt: '쿵짝짝이 세 번 되풀이되는 띠를 만들어 보세요.', toolOptions: { mode: 'make', length: 9, palette: ['쿵', '짝'] }, target: { rule: 'core', core: ['쿵', '짝', '짝'] }, difficulty: 0.25,
+              { prompt: '쿵짝짝이 세 번 되풀이되는 띠를 만들어 보세요.', toolOptions: { mode: 'make', length: 9 }, target: { rule: 'core', core: ['쿵', '짝', '짝'] }, difficulty: 0.25,
                 levels: { easy: { prompt: '쿵짝짝이 두 번 되풀이되는 띠를 만들어 보세요.', toolOptions: { length: 6 } } },
                 hints: ['쿵으로 시작하는 세 박 묶음을 하나 정하고, 그 묶음을 똑같이 이어 붙여요.', '1·4·7번째 칸에만 쿵이 있는지 보세요.', '쿵, 짝, 짝을 차례로 세 번 놓아요.'] },
-              { prompt: '브람스 자장가를 들으며 모둠과 함께 쿵(무릎) 짝(손뼉) 짝(손뼉)을 끝까지 쳤으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '브람스 자장가를 들으며 모둠과 함께 쿵(무릎) 짝(손뼉) 짝(손뼉)을 끝까지 쳤으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
           {
@@ -2391,7 +2395,7 @@
               { prompt: '프레르 자크 노래 모양 띠의 빈칸 세 곳을 채워 보세요.', toolOptions: { seq: ['star', null, 'circle', null, 'triangle', 'triangle', 'heart', null] }, target: { fill: ['star', 'circle', 'heart'] }, difficulty: 0.25,
                 levels: { easy: { prompt: '프레르 자크 노래 모양 띠의 빈칸 두 곳을 채워 보세요.', toolOptions: { seq: ['star', null, 'circle', 'circle', 'triangle', 'triangle', 'heart', null] }, target: { fill: ['star', 'heart'] } } },
                 hints: ['이 노래는 같은 가락이 어떻게 되풀이됐는지 떠올리며 칸을 두 개씩 묶어 봐요.', '빈칸마다 바로 앞 칸을 보세요. 그 가락이 한 번만 나왔나요?', '가락마다 두 번씩 나와요. 둘째 칸은 별, 넷째 칸은 동그라미, 여덟째 칸은 하트예요.'] },
-              { prompt: '두 모둠이 두 마디씩 늦추어 프레르 자크를 돌림으로 흥얼거렸으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '두 모둠이 두 마디씩 늦추어 프레르 자크를 돌림으로 흥얼거렸으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -3027,7 +3031,8 @@
               { prompt: '모둠 발표 차례대로 놓아 보세요.', toolOptions: { mode: 'order', cards: ['노래 들려주기', '인사하고 노래 제목 말하기', '들은 친구들의 느낌 듣기'], slots: ['처음', '그다음', '마지막'] },
                 target: { order: ['인사하고 노래 제목 말하기', '노래 들려주기', '들은 친구들의 느낌 듣기'] }, difficulty: 0.1 },
               { prompt: '음악회에서 들을 때 알맞은 태도만 골라 보세요.', toolOptions: { mode: 'pick', basket: '감상 태도', cards: ['노래가 끝나면 박수를 쳐요', '발표하는 모둠을 바라보며 들어요', '노래 중간에 큰 소리로 따라 해요', '옆 친구와 이야기해요'] },
-                target: { pick: ['노래가 끝나면 박수를 쳐요', '발표하는 모둠을 바라보며 들어요'] }, difficulty: 0.1 },
+                target: { pick: ['노래가 끝나면 박수를 쳐요', '발표하는 모둠을 바라보며 들어요'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['노래가 끝나면 박수를 쳐요', '발표하는 모둠을 바라보며 들어요', '노래 중간에 큰 소리로 따라 해요', '옆 친구와 이야기해요', '좋아하는 노래가 아니면 귀를 막아요'] } } } },
               { prompt: '모둠 노래와 들려줄 방법을 정하고 한 번 연습했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -3079,6 +3084,1017 @@
       challenge: '친구 발표에서 찾은 것을 두 가지 들어 느낌을 말하고, 활동지 표를 모두 채워요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 노래 중간에 박수를 친다 → 끝 인사를 신호로 정한다. ② 발표 모둠이 실수하면 웃는다 → 실수해도 끝까지 하는 것이 멋진 발표라고 미리 말한다. ③ 느낌을 \'좋았어요\'로만 말한다 → 칠판의 다섯 낱말(되풀이·센 박·빠르기·세기·높낮이) 가운데 하나를 넣어 말하게 한다. 스스로 돌아보기는 맞고 틀림을 따지지 않는다.',
+  }));
+
+  // ───────────────────────── 37~40차시: 세계의 그림에서 눈에 띈 곳·아는 것 찾기 ─────────────────────────
+  // 작품은 화면에 싣지 않는다. 교사가 미술관 공개 자료(크게)를 칠판 화면에 띄우고, 학생 기기 문항은 말로 적은 단서로 풀 수 있게 쓴다.
+
+  // 콜라주 단계: 쉬움은 모양·색 고르개를 줄이고(문항이 요구하는 것은 모두 남김), 도전은 고르개 전부.
+  function COL(easyShapes, easyColors, baseShapes, baseColors, easySizes) {
+    return {
+      easy: { shapes: easyShapes, colors: easyColors, sizes: easySizes || ['s', 'm', 'l'] },
+      base: { shapes: baseShapes, colors: baseColors },
+      challenge: {},
+    };
+  }
+
+  lessons.push(L(37, {
+    title: '별이 빛나는 밤에서 먼저 눈에 띈 곳 짚고 까닭 말하기',
+    objective: '고흐의 \'별이 빛나는 밤\'을 보고 가장 먼저 눈에 띈 곳을 손가락으로 짚고, 그곳이 눈에 띈 까닭을 크기·색·움직임으로 말할 수 있다.',
+    illustration: ART('a child pointing at a swirling night sky painting with a glowing yellow crescent moon and a tall dark cypress tree, framed on a paper museum wall', '어디가 먼저 보여요?', [
+      { motif: 'moon', x: 360, y: 70, s: 0.7 }, { motif: 'star', x: 220, y: 60, s: 0.5 }, { motif: 'tree', x: 90, y: 200 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '미술관 공개 자료로 고흐의 \'별이 빛나는 밤\'(1889)을 크게 띄우고 10초 동안 조용히 보게 한 뒤 가린다. "가장 먼저 눈에 들어온 곳이 어디였어요?" 서너 명의 대답을 칠판에 적는다. "그림은 어른만 알 수 있을까요? 여러분 눈이 먼저 찾은 곳이 바로 그림 보기의 시작이에요." 시연 단추로 \'노랗게 빛나는 달\'에 \'밝게 빛나서\' 카드가 놓이는 모습을 보여 준다.',
+        student: '그림을 10초 보고, 가장 먼저 본 곳을 마음속으로 정해요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '먼저 눈에 띈 까닭', slots: [{ id: 's1', label: '노랗게 빛나는 달' }], cards: ['밝게 빛나서'], shuffle: false }, sequence: [{ match: { s1: '밝게 빛나서' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 눈에 띈 곳과 까닭 잇기', minutes: 13, tool: 'mindmap',
+            teacher: '그림을 다시 띄워 두고 카드 글을 함께 읽는다. "커서 눈에 띌까요, 밝아서 눈에 띌까요?" 하고 왼쪽 글의 꾸미는 말(노랗게, 아주 크고 까만)에 밑줄을 치게 한다. 둘째 문항 전에는 호쿠사이의 \'가나가와 해변의 높은 파도\'(1831년 무렵)를 띄워 같은 방법으로 본다. "먼저 본 곳은 사람마다 달라도 돼요. 까닭을 말할 수 있으면 잘 본 거예요."',
+            task: '그림에서 눈에 띈 곳과 그 까닭 카드를 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '별이 빛나는 밤에서 친구들이 먼저 본 곳이에요. 알맞은 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '먼저 눈에 띈 까닭', slots: [{ id: 's1', label: '노랗게 빛나는 달' }, { id: 's2', label: '아주 크고 까만 나무' }], cards: ['밝게 빛나서', '크고 진한 색이라서'] },
+                target: { match: { s1: '밝게 빛나서', s2: '크고 진한 색이라서' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['밝게 빛나서', '크고 진한 색이라서', '작고 흐려서'] } } } },
+              { prompt: '호쿠사이의 파도 그림에서 먼저 본 곳이에요. 알맞은 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '먼저 눈에 띈 까닭', slots: [{ id: 's1', label: '그림을 가득 채운 높은 파도' }, { id: 's2', label: '파란 물결 끝의 하얀 물보라' }], cards: ['가장 크게 그려서', '진한 색 옆에 밝은 색이라서', '작고 흐려서'] },
+                target: { match: { s1: '가장 크게 그려서', s2: '진한 색 옆에 밝은 색이라서' } }, difficulty: 0.2,
+                hints: ['왼쪽 글에서 크기를 말하는 낱말과 색을 말하는 낱말을 찾아봐요.', '높은 파도는 크기 이야기예요, 하얀 물보라는 색 이야기예요. 카드도 그렇게 나누어 봐요.', '높은 파도에는 \'가장 크게 그려서\', 하얀 물보라에는 \'진한 색 옆에 밝은 색이라서\'를 놓아요.'] },
+              { prompt: '그림을 볼 때 맞는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '맞는 말', cards: ['먼저 본 곳은 사람마다 달라도 돼요', '어린이도 그림을 보고 말할 수 있어요', '그림은 어른만 알 수 있어요'] },
+                target: { pick: ['먼저 본 곳은 사람마다 달라도 돼요', '어린이도 그림을 보고 말할 수 있어요'] }, difficulty: 0.1,
+                predict: { q: '모두 같은 곳을 먼저 볼까요?', options: ['같아요', '다를 수 있어요'], answer: 1 },
+                conclude: '먼저 눈에 띈 곳은 사람마다 다를 수 있고, 어린이도 까닭을 들어 그림을 말할 수 있어요.' },
+              { prompt: '짝과 칠판 그림 앞에서 먼저 본 곳을 손가락으로 짚고 "○○이 ~해서 먼저 보였어"로 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 눈에 띄는 밤하늘 꾸미기', minutes: 13, tool: 'collage',
+            teacher: '"고흐처럼 달을 가장 먼저 눈에 띄게 하려면 어떻게 붙일까요?" 크게, 밝게, 진한 것 옆에 밝은 것 — 세 가지 방법을 칠판에 적는다. 작은 별을 달보다 크게 붙이는 학생에게 "그러면 무엇이 먼저 보일까요?" 하고 묻는다.',
+            task: '색종이 조각으로 밤하늘을 꾸며 보고 싶은 것을 눈에 띄게 만들어요.',
+            levels: COL(['circle', 'star', 'leaf'], ['노랑', '하양', '검정', '파랑'], ['circle', 'star', 'leaf', 'rect', 'triangle'], ['노랑', '하양', '검정', '파랑', '보라', '주황'], ['s', 'l']),
+            items: [
+              { prompt: '밤하늘에서 달이 가장 먼저 눈에 띄도록 큰 노랑 동그라미를 하나 붙여 보세요. 하양 별 두 개는 그대로 두어요.', toolOptions: { bg: '파랑' }, state: { pieces: [{ shape: 'star', color: '하양', size: 's', x: 100, y: 80, r: 0 }, { shape: 'star', color: '하양', size: 's', x: 460, y: 300, r: 0 }] },
+                target: { has: [{ shape: 'circle', color: '노랑', size: 'l', n: 1 }, { shape: 'star', color: '하양', min: 2 }] }, difficulty: 0.1 },
+              { prompt: '달보다 작은 별을 적어도 4개 붙여 보세요. 별은 작게 골라요.', toolOptions: { bg: '파랑' }, state: { pieces: [{ shape: 'circle', color: '노랑', size: 'l', x: 420, y: 100, r: 0 }] },
+                target: { has: [{ shape: 'star', size: 's', min: 4 }, { shape: 'circle', color: '노랑', size: 'l', n: 1 }] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '작은 별을 적어도 6개 붙여요. 별은 하양과 노랑을 모두 써요.', target: { has: [{ shape: 'star', size: 's', min: 6 }, { shape: 'star', color: '하양', min: 1 }, { shape: 'star', color: '노랑', min: 1 }, { shape: 'circle', color: '노랑', size: 'l', n: 1 }] } } } },
+              { prompt: '까만 나무 조각에 밝은 색 조각을 맞대어 붙여, 나무가 또렷하게 보이게 해 보세요.', state: { pieces: [{ shape: 'leaf', color: '검정', size: 'l', x: 140, y: 220, r: 90 }] },
+                target: { contrast: 'light-dark' }, difficulty: 0.2,
+                levels: { challenge: { prompt: '까만 나무에 밝은 조각을 맞대고, 조각을 모두 적어도 4개 써서 밤 풍경을 만들어요.', target: { contrast: 'light-dark', pieces: { min: 4 } } } },
+                conclude: '진한 색 바로 옆에 밝은 색을 놓으면 둘 다 또렷하게 보여요.' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 그림에서 무엇이 먼저 눈에 띄었고 왜 그랬나요?" 두세 명이 한 문장으로 말한다. 짝이 꾸민 밤하늘을 보고 먼저 눈에 띈 조각을 짚어 주게 한다. 다음 시간에는 그림 속에서 아는 것을 찾아 이름을 댄다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '먼저 눈에 띈 까닭', slots: [{ id: 's1', label: '그림 한가운데 커다란 배' }, { id: 's2', label: '어두운 밤에 반짝이는 등불' }], cards: ['가장 크게 그려서', '어두운 곳에서 밝게 빛나서'] }, prompt: '친구가 그린 그림에서 먼저 본 곳이에요. 알맞은 까닭을 이어 보세요.', target: { match: { s1: '가장 크게 그려서', s2: '어두운 곳에서 밝게 빛나서' } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '그림을 보고 느낌을 말할 수 있는 사람은?', options: ['어른만', '어린이도 누구나', '그림을 그린 화가만'], answer: 1, difficulty: 0.1, explain: '그림은 누구나 보고 먼저 본 곳과 까닭을 말할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '먼저 눈에 띈 곳',
+      items: [
+        { type: 'figure', wide: true, prompt: '어느 조각이 가장 먼저 눈에 띄나요? ○ 하고 까닭을 쓰세요.', tool: 'collage', figures: [{ options: { readOnly: true, printColors: false }, state: { pieces: [{ shape: 'star', color: '하양', size: 's', x: 100, y: 100, r: 0 }, { shape: 'star', color: '하양', size: 's', x: 180, y: 300, r: 0 }, { shape: 'circle', color: '노랑', size: 'l', x: 380, y: 160, r: 0 }, { shape: 'star', color: '하양', size: 's', x: 480, y: 320, r: 0 }] }, caption: '까닭: ____________' }], answer: '큰 동그라미 — 가장 크게 그려서' },
+        { type: 'short', prompt: '별이 빛나는 밤에서 내가 가장 먼저 본 곳을 쓰세요.' },
+        { type: 'check', prompt: '그곳이 눈에 띈 까닭에 모두 ✓ 하세요.', options: ['크게 그려서', '밝은 색이라서', '움직이는 것 같아서', '진한 색 옆에 있어서'] },
+        { type: 'draw', prompt: '내가 먼저 본 곳을 크게 그려 보세요.' },
+      ],
+      easy: {
+        note: '크게, 밝게 그린 것이 먼저 보여요.',
+        items: [
+          { type: 'choice', prompt: '먼저 눈에 띄는 것에 ○ 하세요.', options: ['아주 큰 달', '아주 작은 점'], answer: '아주 큰 달' },
+          { type: 'short', prompt: '내가 먼저 본 곳을 쓰세요.' },
+          { type: 'draw', prompt: '밤하늘에 크고 밝은 달을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 색종이 고르개가 네 가지 색으로 줄어요.',
+      base: '눈에 띈 곳과 까닭을 잇고, 크기·밝기로 눈에 띄는 밤하늘을 꾸며요.',
+      challenge: '함정 카드가 섞이고, 별을 적어도 6개 두 가지 색으로 붙이거나 조각을 더 써서 풍경을 만들어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 그림은 어른만 이해한다고 여겨 말하지 않는다 → "어디가 먼저 보였어?"처럼 정답 없는 물음부터 묻는다. ② 까닭을 "예뻐서"로만 말한다 → 크다·밝다·진하다·움직인다 네 낱말을 칠판에 두고 고르게 한다. ③ 친구와 먼저 본 곳이 다르면 틀렸다고 여긴다 → 까닭이 있으면 모두 맞다고 말해 준다. 작품은 고흐 \'별이 빛나는 밤\'(1889, 저작권 만료)을 미술관 공개 자료로 보여 준다.',
+  }));
+
+  lessons.push(L(38, {
+    title: '과일과 채소로 된 얼굴 그림에서 아는 것 이름 대기',
+    objective: '아르침볼도의 \'여름\'에서 얼굴 곳곳에 숨은 과일·채소를 찾아 이름을 대고, 과일·채소처럼 보이는 조각으로 얼굴을 꾸밀 수 있다.',
+    illustration: ART('a playful portrait face made of paper fruits and vegetables: a peach cheek, a cucumber nose, leafy hair, framed in a paper gallery frame', '무엇으로 만든 얼굴?', [
+      { motif: 'leaf', x: 120, y: 90 }, { motif: 'flower', x: 380, y: 210 }, { motif: 'leaf', x: 360, y: 90 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '아르침볼도의 \'여름\'(1573)을 미술관 공개 자료로 띄운다. 처음에는 멀리서 보이게 작게, 다음에는 크게 보여 준다. "멀리서 보면 무엇이 보이나요? 가까이서 보니 무엇으로 되어 있나요?" "여러분이 아는 과일 하나를 찾았다면, 벌써 이 그림을 읽고 있는 거예요." 시연 단추로 \'볼\'에 \'복숭아\' 카드가 놓이는 모습을 보여 준다.',
+        student: '그림 속에서 내가 아는 과일이나 채소를 하나 찾아 손가락으로 짚어요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '여름 얼굴', slots: [{ id: 'cheek', label: '볼' }], cards: ['복숭아'], shuffle: false }, sequence: [{ match: { cheek: '복숭아' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 26,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 얼굴 속 과일·채소 찾기', minutes: 12, tool: 'mindmap',
+            teacher: '그림을 크게 띄워 두고 얼굴 부분을 하나씩 손으로 짚는다. "볼은 둥글고 발그레하지요. 그림 속 볼 자리에 무엇이 있나요?" 모양이 닮은 것끼리 이어 보게 한다. 모르는 과일이 나오면 "몰라도 괜찮아요. 아는 것부터 찾아요"라고 말한다.',
+            task: '얼굴 부분과 그 자리에 있는 과일·채소를 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '여름 얼굴 그림의 볼과 코 자리에 있는 것을 이어 보세요. 모양이 닮은 것을 찾아요.', toolOptions: { mode: 'match', topic: '여름 얼굴', slots: [{ id: 'cheek', label: '둥글고 발그레한 볼' }, { id: 'nose', label: '길쭉한 코' }], cards: ['복숭아', '오이'] },
+                target: { match: { cheek: '복숭아', nose: '오이' } }, difficulty: 0.1,
+                hints: ['얼굴 부분의 모양과 과일·채소의 모양을 견주어 봐요.', '둥근 것은 둥근 것끼리, 길쭉한 것은 길쭉한 것끼리 이어 보세요.', '둥근 볼에는 복숭아, 길쭉한 코에는 오이를 놓아요.'] },
+              { prompt: '볼, 코, 옷 자리에 있는 것을 이어 보세요. 옷은 여름 들판에서 거둔 것을 엮었어요.', toolOptions: { mode: 'match', topic: '여름 얼굴', slots: [{ id: 'cheek', label: '둥글고 발그레한 볼' }, { id: 'nose', label: '길쭉한 코' }, { id: 'coat', label: '엮어 만든 옷' }], cards: ['복숭아', '오이', '엮은 밀짚'] },
+                target: { match: { cheek: '복숭아', nose: '오이', coat: '엮은 밀짚' } }, difficulty: 0.2,
+                levels: { challenge: { toolOptions: { cards: ['복숭아', '오이', '엮은 밀짚', '아이스크림'] } } },
+                hints: ['얼굴 부분마다 모양과 쓰임이 닮은 것을 찾아봐요.', '옷처럼 엮을 수 있는 것은 어느 카드일까요?', '볼에는 복숭아, 코에는 오이, 옷에는 엮은 밀짚을 놓아요.'] },
+              { prompt: '그림 속에서 아는 것을 찾아 이름을 댄 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '이름을 댄 말', cards: ['볼이 복숭아로 되어 있어요', '코가 오이예요', '어려운 그림이라 안 볼래요'] },
+                target: { pick: ['볼이 복숭아로 되어 있어요', '코가 오이예요'] }, difficulty: 0.1,
+                conclude: '아는 것을 하나씩 찾아 이름을 대면 어려워 보이는 그림도 읽을 수 있어요.' },
+              { prompt: '짝과 번갈아 그림 속에서 아는 과일·채소를 하나씩 짚으며 이름을 댔으면 "다 했어요"를 누르세요. 더 찾지 못하면 그림을 다시 봐요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 과일·채소 조각으로 얼굴 꾸미기', minutes: 14, tool: 'collage',
+            teacher: '"화가는 과일과 채소로 얼굴을 만들었어요. 우리는 색종이 조각을 과일·채소처럼 써 볼까요?" 빨강 동그라미는 사과, 초록 나뭇잎은 상추처럼 쓸 수 있다고 예를 든다. 다 만든 학생은 짝에게 조각마다 무슨 과일인지 이름을 말하게 한다.',
+            task: '주황 얼굴판에 과일·채소처럼 보이는 조각을 붙여 얼굴을 꾸며요.',
+            levels: COL(['circle', 'leaf', 'semi', 'rect'], ['빨강', '주황', '노랑', '초록', '갈색'], ['circle', 'leaf', 'semi', 'rect', 'triangle', 'heart', 'diamond'], ['빨강', '주황', '노랑', '초록', '갈색', '보라', '분홍']),
+            items: [
+              { prompt: '사과 볼을 만들어요. 빨강 동그라미 2개를 붙여 보세요.', state: { pieces: [{ shape: 'circle', color: '주황', size: 'l', x: 280, y: 200, r: 0 }] },
+                target: { has: [{ shape: 'circle', color: '빨강', n: 2 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '사과 볼 2개(빨강 동그라미)와 바나나 입(노랑 반원 1개)을 붙여 보세요.', target: { has: [{ shape: 'circle', color: '빨강', n: 2 }, { shape: 'semi', color: '노랑', n: 1 }] } } } },
+              { prompt: '상추 머리카락을 만들어요. 초록 나뭇잎을 적어도 4장 붙여 보세요.', state: { pieces: [{ shape: 'circle', color: '주황', size: 'l', x: 280, y: 220, r: 0 }] },
+                target: { has: [{ shape: 'leaf', color: '초록', min: 4 }] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '초록 나뭇잎을 적어도 6장 붙이고, 갈색 긴 네모 하나로 콩깍지 눈썹도 만들어요.', target: { has: [{ shape: 'leaf', color: '초록', min: 6 }, { shape: 'rect', color: '갈색', n: 1 }] } } } },
+              { prompt: '나만의 과일·채소 얼굴을 완성하고 점검해요.', target: { selfCheck: ['과일·채소처럼 보이는 조각을 적어도 세 가지 붙였어요', '짝에게 조각마다 무슨 과일·채소인지 말했어요', '작품에 제목을 붙였어요'], minPieces: 5 }, difficulty: 0.1 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 그림에서 찾은 과일·채소 이름을 말해 볼까요?" 칠판에 모아 쓴다. 두세 명이 자기 얼굴 작품을 들고 "볼은 사과, 머리카락은 상추예요"처럼 소개한다. 다음 시간에는 우리나라 옛 그림 속 사람들이 무엇을 하는지 찾는다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'match', topic: '채소 얼굴', slots: [{ id: 'eye', label: '동그랗고 까만 눈' }, { id: 'mouth', label: '빨갛고 길쭉한 입' }], cards: ['검은콩', '빨간 고추', '하얀 무'] }, prompt: '채소로 얼굴을 만들어요. 모양과 색이 닮은 것을 이어 보세요.', target: { match: { eye: '검은콩', mouth: '빨간 고추' } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '그림 속에서 아는 것을 찾아 이름을 대면?', options: ['그림을 읽기 시작한 거예요', '어른이 아니라서 소용없어요', '그림을 다 본 거예요'], answer: 0, difficulty: 0.1, explain: '아는 것 하나를 찾는 것이 그림 보기의 시작이에요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '여름 얼굴에서 찾은 것',
+      items: [
+        { type: 'table', prompt: '그림에서 찾은 과일·채소를 쓰세요.', columns: ['얼굴 부분', '찾은 과일·채소'], cells: [['볼', ''], ['코', ''], ['옷', '']] },
+        { type: 'short', prompt: '그림에서 내가 더 찾은 과일이나 채소를 쓰세요.' },
+        { type: 'choice', prompt: '그림을 보는 바른 생각에 ○ 하세요.', options: ['아는 것부터 하나씩 찾아요', '어려우면 보지 않아요'], answer: '아는 것부터 하나씩 찾아요' },
+        { type: 'draw', prompt: '내가 좋아하는 과일·채소로 얼굴을 그려 보세요.' },
+      ],
+      easy: {
+        note: '모양이 닮은 것을 찾아요.',
+        items: [
+          { type: 'choice', prompt: '둥근 볼과 닮은 것에 ○ 하세요.', options: ['복숭아', '오이'], answer: '복숭아' },
+          { type: 'short', prompt: '그림에서 찾은 과일 하나를 쓰세요.' },
+          { type: 'draw', prompt: '과일로 얼굴을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 색종이 고르개가 다섯 가지 색으로 줄어요.',
+      base: '얼굴 부분과 과일·채소를 잇고, 조각으로 과일·채소 얼굴을 꾸며요.',
+      challenge: '함정 카드가 섞이고, 얼굴에 바나나 입과 콩깍지 눈썹까지 조건을 더 지켜 꾸며요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 처음 보는 과일이 있어 "모르겠어요"로 멈춘다 → 아는 것부터 찾게 하고 모르는 것은 교사가 이름을 알려 준다. ② 얼굴로만 보고 과일을 찾지 못한다 → 그림을 크게 확대해 한 부분만 보여 준다. ③ 조각을 아무렇게나 붙인다 → "이 조각은 무슨 과일이야?" 하고 물어 이름을 붙이게 한다. 작품은 아르침볼도 \'여름\'(1573, 루브르 박물관, 저작권 만료)을 공개 자료로 보여 준다.',
+  }));
+
+  lessons.push(L(39, {
+    title: '김홍도의 씨름 그림에서 사람들이 하는 일 찾기',
+    objective: '김홍도의 \'씨름\'에서 사람들이 무엇을 하는지 찾아 말하고, 그림 속 모습을 멈춤 동작으로 따라 하며 세계 여러 나라에도 씨름이 있음을 알 수 있다.',
+    illustration: ART('a circle of paper people in traditional Korean hanbok and gat hats watching two wrestlers grappling in the center, a boy carrying a tray of taffy at the side', '무엇을 하고 있나요?', [
+      { motif: 'tree', x: 80, y: 200 }, { motif: 'tree', x: 400, y: 200 }, { motif: 'bird', x: 240, y: 70 }]),
+    safety: ['멈춤 동작은 친구 몸을 밀거나 당기지 않고 손을 가볍게 얹기만 해요.', '책상을 밀어 둔 넓은 자리에서 해요.'],
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '국립중앙박물관 공개 자료로 김홍도의 \'씨름\'을 띄운다. "200년도 더 전에 우리나라 화가 김홍도가 그린 그림이에요. 사람들이 무엇을 하고 있나요?" 손을 들어 하나씩 말하게 한다. 시연 단추로 \'가운데에서 서로 붙잡은 두 사람\'에 \'씨름을 해요\' 카드가 놓이는 모습을 보여 준다.',
+        student: '그림 속 사람 한 명을 골라 무엇을 하는지 마음속으로 말해 봐요.',
+        demo: { tool: 'mindmap', options: { mode: 'match', topic: '씨름 그림', slots: [{ id: 's1', label: '가운데에서 서로 붙잡은 두 사람' }], cards: ['씨름을 해요'], shuffle: false }, sequence: [{ match: { s1: '씨름을 해요' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 그림 속 사람들이 하는 일 찾기', minutes: 13, tool: 'mindmap',
+            teacher: '그림을 띄워 두고 "가운데 두 사람, 둘레에 앉은 사람들, 엿판을 멘 아이를 찾아 손가락으로 짚어 봐요." 짚은 뒤 하는 일을 카드로 잇게 한다. 옛날 물건을 나눌 때는 "이 그림은 휴대 전화가 없던 아주 옛날에 그렸어요"라고 짚는다.',
+            task: '그림 속 사람과 하는 일을 잇고, 옛날 그림에 있을 수 있는 것을 나누어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '씨름 그림 속 사람들과 하는 일을 이어 보세요.', toolOptions: { mode: 'match', topic: '씨름 그림', slots: [{ id: 's1', label: '가운데에서 서로 붙잡은 두 사람' }, { id: 's2', label: '둘레에 빙 둘러앉은 사람들' }, { id: 's3', label: '엿판을 멘 아이' }], cards: ['씨름을 해요', '구경을 해요', '엿을 팔아요'] },
+                target: { match: { s1: '씨름을 해요', s2: '구경을 해요', s3: '엿을 팔아요' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['씨름을 해요', '구경을 해요', '엿을 팔아요', '잠을 자요'] } } } },
+              { prompt: '아주 옛날에 그린 그림이에요. 그림에 있을 수 있는 것과 없는 것을 나누어 보세요.', toolOptions: { topic: '옛날 그림', slots: ['있을 수 있어요', '있을 수 없어요'], cards: ['갓', '부채', '짚신', '휴대 전화', '운동화'] },
+                target: { sort: { '있을 수 있어요': ['갓', '부채', '짚신'], '있을 수 없어요': ['휴대 전화', '운동화'] } }, difficulty: 0.2,
+                hints: ['그림을 그린 때가 아주 옛날이라는 것을 떠올려요. 그때에도 있던 물건일까요?', '전기나 기계로 만든 물건은 그때 있었을까요? 그런 카드를 다시 보세요.', '갓·부채·짚신은 옛날에도 있었고, 휴대 전화·운동화는 없었어요.'] },
+              { prompt: '짝과 그림 속 사람 한 명을 골라 "이 사람은 ~를 하고 있어"라고 말하고, 짝이 그 사람을 찾아 짚었으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 멈춤 동작과 세계의 씨름', minutes: 14, tool: 'map',
+            teacher: '모둠마다 그림 속 한 장면(씨름하는 두 사람, 구경꾼, 엿장수)을 골라 3초 멈춤 동작을 만든다. 씨름하는 두 사람은 서로 어깨에 손만 가볍게 얹고 밀지 않는다. 다른 모둠이 어느 사람인지 맞힌다(6분). 이어 "다른 나라에도 씨름이 있을까요?" 하고 몽골의 부흐, 스위스의 슈빙겐을 소개하고 세계 지도에서 찾는다.',
+            task: '그림 속 장면을 멈춤 동작으로 만들고, 세계 지도에서 씨름을 하는 나라를 찾아요.',
+            levels: MAP_LV,
+            items: [
+              { prompt: '모둠이 그림 속 한 장면을 3초 멈춤 동작으로 보여 주고, 다른 모둠이 어느 사람인지 맞혔으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '김홍도가 씨름 그림을 그린 우리나라에 핀을 꽂아 보세요.', toolOptions: WORLD(), target: { place: '우리나라' }, difficulty: 0.05 },
+              { prompt: '몽골 사람들은 \'부흐\'라는 씨름을 해요. 몽골 점이 있는 대륙에 핀을 꽂아 보세요.', toolOptions: WORLD({ places: [KOREA, { name: '몽골', icon: 'dot', at: [3, 0] }] }), target: { region: '아시아' }, difficulty: 0.15,
+                hints: ['몽골이라고 쓰인 점을 먼저 찾고, 그 점을 둘러싼 굵은 선 안쪽에 꽂아요.', '핀이 꽂힌 칸과 몽골 점이 같은 선 안에 있는지 보세요.', '몽골 점은 우리나라와 같은 아시아 대륙 안에 있어요. 핀을 그 대륙 칸으로 옮겨요.'] },
+              { prompt: '스위스 사람들은 톱밥 위에서 \'슈빙겐\'이라는 씨름을 해요. 스위스 점이 있는 대륙에 핀을 꽂아 보세요.', toolOptions: WORLD({ places: [KOREA, { name: '스위스', icon: 'dot', at: [0, 0] }] }), target: { region: '유럽' }, difficulty: 0.2,
+                hints: ['스위스라고 쓰인 점을 먼저 찾고, 그 점을 둘러싼 굵은 선 안쪽에 꽂아요.', '핀이 꽂힌 칸의 대륙 이름을 읽어 보세요. 스위스 점과 같은 선 안에 있나요?', '스위스 점은 지도 왼쪽 위 유럽 대륙 안에 있어요. 핀을 그 대륙 칸으로 옮겨요.'],
+                conclude: '씨름처럼 맞붙어 겨루는 놀이는 세계 여러 나라에 있어요.' },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"씨름 그림에서 찾은 사람과 하는 일을 말해 볼까요?" 두세 명이 말한다. 멈춤 동작을 하며 알게 된 점(구경꾼도 저마다 다른 자세였다)을 짧게 나눈다. 다음 시간에는 또 다른 나라의 그림에서 아는 모양을 찾는다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '옛날 그림', slots: ['있을 수 있어요', '있을 수 없어요'], cards: ['한복', '등잔불', '자동차', '텔레비전'] }, prompt: '아주 옛날에 그린 그림이에요. 그림에 있을 수 있는 것과 없는 것을 나누어 보세요.', target: { sort: { '있을 수 있어요': ['한복', '등잔불'], '있을 수 없어요': ['자동차', '텔레비전'] } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '그림 속에서 아는 것을 찾는 좋은 방법은?', options: ['사람마다 무엇을 하는지 하나씩 찾아요', '처음 본 그림은 그냥 넘겨요', '가장 큰 것 하나만 봐요'], answer: 0, difficulty: 0.1, explain: '사람과 물건을 하나씩 짚으며 찾으면 그림 속 이야기가 보여요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '씨름 그림 속 사람들',
+      items: [
+        { type: 'table', prompt: '그림 속 사람들이 하는 일을 쓰세요.', columns: ['누구', '하는 일'], cells: [['가운데 두 사람', ''], ['둘레에 앉은 사람들', ''], ['엿판을 멘 아이', '']] },
+        { type: 'choice', prompt: '옛날 그림에 있을 수 없는 것에 ○ 하세요.', options: ['갓', '부채', '휴대 전화'], answer: '휴대 전화' },
+        { type: 'short', prompt: '우리 모둠이 멈춤 동작으로 나타낸 사람과 그 사람이 하는 일을 쓰세요.' },
+        { type: 'draw', prompt: '그림 속에서 가장 재미있었던 사람을 그려 보세요.' },
+      ],
+      easy: {
+        note: '가운데, 둘레, 옆을 차례로 봐요.',
+        items: [
+          { type: 'choice', prompt: '둘레에 앉은 사람들이 하는 일에 ○ 하세요.', options: ['구경을 해요', '잠을 자요'], answer: '구경을 해요' },
+          { type: 'short', prompt: '그림에서 찾은 물건 하나를 쓰세요.' },
+          { type: 'draw', prompt: '씨름하는 모습을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 지도에 핀 자리 이름이 보여요.',
+      base: '사람과 하는 일을 잇고, 옛날 물건을 나누고, 세계 지도에서 씨름하는 나라를 찾아요.',
+      challenge: '함정 카드가 섞이고, 지도에 대륙 이름이 보이지 않아요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 가운데 두 사람만 보고 둘레를 보지 않는다 → 그림 둘레를 손가락으로 한 바퀴 따라가게 한다. ② 멈춤 동작에서 실제로 밀어 넘어뜨린다 → 손만 얹는 약속을 먼저 시범 보인다. ③ 옛날 그림이라 지금과 같다고 여긴다 → 등잔불·짚신처럼 지금은 잘 쓰지 않는 물건을 짚어 준다. 작품은 김홍도 \'씨름\'(조선 후기, 국립중앙박물관, 저작권 만료)을 공개 자료로 보여 준다.',
+  }));
+
+  lessons.push(L(40, {
+    title: '몬드리안의 구성에서 아는 모양 찾아 네모 작품 만들기',
+    objective: '몬드리안의 \'구성\'에서 아는 모양과 색을 찾아 이름을 대고, 곧은 줄과 빨강·파랑·노랑 네모로 비슷한 작품을 만들 수 있다.',
+    illustration: ART('a paper collage of thick black straight lines dividing red, blue, yellow and white rectangles, a child holding a paper square up to compare', '어떤 모양이 보여요?', [
+      { motif: 'house', x: 100, y: 200 }, { motif: 'star', x: 380, y: 80, s: 0.5 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '몬드리안의 \'구성\' 연작 가운데 하나를 미술관 공개 자료로 띄운다. "이 그림에서 여러분이 아는 모양을 찾아볼까요?" 네모, 곧은 줄, 빨강·파랑·노랑을 학생 입에서 나오게 한다. "앞에서 본 별이 빛나는 밤, 여름, 씨름과 무엇이 달라요?" 시연 단추로 \'까만 곧은 줄\'이 \'있어요\' 가지에 놓이는 모습을 보여 준다.',
+        student: '그림에서 네모를 하나 찾아 손가락으로 따라 그려 봐요.',
+        demo: { tool: 'mindmap', options: { topic: '구성 그림', slots: ['있어요', '없어요'], cards: ['까만 곧은 줄'], shuffle: false }, sequence: [{ sort: { '있어요': ['까만 곧은 줄'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 아는 모양과 색 찾기', minutes: 12, tool: 'mindmap',
+            teacher: '"구성 그림에는 구불구불한 선이 있나요? 동그라미가 있나요?" 그림 위를 손가락으로 따라가며 확인하게 한다. 지금까지 본 그림을 함께 떠올릴 때는 칠판에 네 그림의 이름을 적어 두고 하나씩 가리킨다.',
+            task: '구성 그림에 있는 것을 찾아 나누고, 그림마다 찾은 것을 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '몬드리안의 구성 그림에 있는 것과 없는 것을 나누어 보세요.', toolOptions: { topic: '구성 그림', slots: ['있어요', '없어요'], cards: ['까만 곧은 줄', '빨간 네모', '노란 네모', '동그라미', '구불구불한 선'] },
+                target: { sort: { '있어요': ['까만 곧은 줄', '빨간 네모', '노란 네모'], '없어요': ['동그라미', '구불구불한 선'] } }, difficulty: 0.15,
+                hints: ['구성 그림의 선을 손가락으로 따라가 봐요. 휘어진 곳이 있나요?', '구성 그림에 있는 모양은 모서리가 있는 모양이에요. 둥근 카드는 다시 보세요.', '곧은 줄과 네모는 있어요. 동그라미와 구불구불한 선은 없어요.'] },
+              { prompt: '지금까지 본 그림에서 찾은 것이에요. 어느 그림인지 이어 보세요.', toolOptions: { mode: 'match', topic: '어느 그림?', slots: [{ id: 'w1', label: '노란 달과 빙글빙글 하늘' }, { id: 'w2', label: '복숭아 볼과 오이 코' }, { id: 'w3', label: '빨강·파랑·노랑 네모' }], cards: ['별이 빛나는 밤', '여름', '구성'] },
+                target: { match: { w1: '별이 빛나는 밤', w2: '여름', w3: '구성' } }, difficulty: 0.2,
+                levels: { challenge: { toolOptions: { cards: ['별이 빛나는 밤', '여름', '구성', '씨름'] } } } },
+              { prompt: '교실에서 구성 그림처럼 곧은 줄과 네모로 된 것(창문, 책꽂이 등)을 두 가지 찾아 짝에게 이름을 댔으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 네모로만 만드는 작품', minutes: 15, tool: 'collage',
+            teacher: '"몬드리안은 곧은 줄과 네모만으로 그림을 그렸어요. 우리는 네모 조각과 긴 네모 조각으로 만들어 볼까요?" 까만 긴 네모는 곧은 줄로 쓴다. 동그라미를 붙이려는 학생에게 "구성 그림에 동그라미가 있었나요?" 하고 되묻는다.',
+            task: '네모와 긴 네모 조각으로 몬드리안 같은 작품을 만들어요.',
+            levels: COL(['square', 'rect'], ['빨강', '파랑', '노랑', '검정', '하양'], ['square', 'rect', 'circle', 'triangle', 'leaf'], ['빨강', '파랑', '노랑', '검정', '하양', '초록', '보라', '주황']),
+            items: [
+              { prompt: '빨강·파랑·노랑 네모를 적어도 하나씩, 까만 긴 네모를 적어도 2개 붙여 보세요.', target: { has: [{ shape: 'square', color: '빨강', min: 1 }, { shape: 'square', color: '파랑', min: 1 }, { shape: 'square', color: '노랑', min: 1 }, { shape: 'rect', color: '검정', min: 2 }] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '빨강·파랑·노랑 네모를 적어도 하나씩, 까만 긴 네모를 적어도 2개 붙여요. 동그라미와 세모는 쓰지 않아요.', target: { has: [{ shape: 'square', color: '빨강', min: 1 }, { shape: 'square', color: '파랑', min: 1 }, { shape: 'square', color: '노랑', min: 1 }, { shape: 'rect', color: '검정', min: 2 }, { shape: 'circle', n: 0 }, { shape: 'triangle', n: 0 }] } } } },
+              { prompt: '빨간 네모가 가장 먼저 눈에 띄게 만들어요. 큰 빨강 네모 1개, 작은 파랑 네모와 작은 노랑 네모를 적어도 하나씩 붙여 보세요.', target: { has: [{ shape: 'square', color: '빨강', size: 'l', n: 1 }, { shape: 'square', color: '파랑', size: 's', min: 1 }, { shape: 'square', color: '노랑', size: 's', min: 1 }] }, difficulty: 0.2,
+                conclude: '크게 붙인 색이 먼저 눈에 띄어요. 몬드리안도 네모의 크기를 다르게 했어요.' },
+              { prompt: '나만의 네모 작품을 완성하고 점검해요.', target: { selfCheck: ['곧은 모양 조각만 썼어요', '빨강·파랑·노랑을 모두 썼어요', '가장 눈에 띄게 하고 싶은 네모를 크게 붙였어요'], minPieces: 5 }, difficulty: 0.1 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"37차시부터 본 네 그림에서 아는 것을 찾아 이름을 댈 수 있게 되었나요?" 그림마다 하나씩 학생이 말하게 한다. 짝의 네모 작품을 보고 가장 먼저 눈에 띈 네모를 짚어 준다. 다음 시간부터는 그림을 보고 든 느낌을 말과 몸짓으로 나타낸다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '네모 작품', slots: ['있어요', '없어요'], cards: ['파란 네모', '까만 곧은 줄', '하트', '물결 모양'] }, prompt: '친구가 몬드리안처럼 네모와 곧은 줄로만 만든 작품이에요. 있을 것과 없을 것을 나누어 보세요.', target: { sort: { '있어요': ['파란 네모', '까만 곧은 줄'], '없어요': ['하트', '물결 모양'] } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '몬드리안의 구성 그림에서 찾을 수 있는 모양은?', options: ['곧은 줄과 네모', '동그라미와 하트', '구불구불한 선'], answer: 0, difficulty: 0.1, explain: '구성 그림은 곧은 줄과 빨강·파랑·노랑·하양 네모로 되어 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '네모로 만든 그림',
+      items: [
+        { type: 'check', prompt: '몬드리안의 구성 그림에 있는 것에만 모두 ✓ 하세요.', options: ['곧은 줄', '동그라미', '네모', '빨강', '초록', '노랑'], answer: '곧은 줄, 네모, 빨강, 노랑' },
+        { type: 'table', prompt: '그림마다 내가 찾은 것을 하나씩 쓰세요.', columns: ['그림', '내가 찾은 것'], cells: [['별이 빛나는 밤', ''], ['여름', ''], ['씨름', ''], ['구성', '']] },
+        { type: 'short', prompt: '교실에서 찾은 곧은 줄과 네모로 된 물건을 쓰세요.' },
+        { type: 'draw', prompt: '곧은 줄과 네모로만 나만의 그림을 그리고 빨강·파랑·노랑을 칠하세요.' },
+      ],
+      easy: {
+        note: '곧은 줄과 네모를 찾아요.',
+        items: [
+          { type: 'choice', prompt: '구성 그림에 있는 모양에 ○ 하세요.', options: ['네모', '동그라미'], answer: '네모' },
+          { type: 'short', prompt: '구성 그림에 있는 색 하나를 쓰세요.' },
+          { type: 'draw', prompt: '네모 세 개로 그림을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 고르개가 네모·긴 네모와 다섯 색만 보여요.',
+      base: '구성 그림의 모양을 찾고, 네모 조각으로 크기가 다른 작품을 만들어요.',
+      challenge: '함정 카드가 섞이고, 모든 모양이 보이는 고르개에서 동그라미·세모 없이 만들어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 네모와 긴 네모를 같은 것으로 본다 → 두 조각을 나란히 대어 견주게 한다. ② 그림이 쉬워 보여 "나도 그리겠다"며 대충 본다 → 줄의 굵기와 네모 크기가 저마다 다르다는 것을 찾게 한다. ③ 앞 차시 그림을 헷갈린다 → 칠판에 네 그림을 작게 붙여 둔다. 작품은 몬드리안 \'구성\' 연작(1920~1930년대, 저작권 만료)을 공개 자료로 보여 준다.',
+  }));
+
+  // ───────────────────────── 41~44차시: 그림을 보고 든 느낌과 상상한 이야기 나타내기 ─────────────────────────
+
+  lessons.push(L(41, {
+    title: '높은 파도 그림을 보고 든 느낌을 말과 몸짓으로 나타내기',
+    objective: '호쿠사이의 \'가나가와 해변의 높은 파도\'를 보고 든 느낌을 느낌 낱말과 몸짓으로 나타내고, 그림 속에서 있었을 일을 상상해 한 문장으로 말할 수 있다.',
+    illustration: ART('a huge curling paper wave with white claw-like foam towering over three small rowing boats, a tiny snowy mountain in the distance', '어떤 느낌이 들어요?', [
+      { motif: 'wave', x: 160, y: 200 }, { motif: 'wave', x: 320, y: 214 }, { motif: 'mountain', x: 250, y: 190, s: 0.5 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '호쿠사이의 \'가나가와 해변의 높은 파도\'(1831년 무렵)를 크게 띄운다. "눈을 감고 이 그림 속 배에 탔다고 생각해 봐요. 무슨 소리가 들려요? 내 몸은 어떻게 될 것 같아요?" 두세 명의 느낌 낱말을 칠판에 적는다. 시연 단추로 친구의 말에 \'걱정\' 카드가 놓이는 모습을 보여 준다.',
+        student: '그림 속 배에 탔다고 생각하고 떠오른 느낌 낱말 하나를 정해요.',
+        demo: { tool: 'emotion', options: { cards: ['걱정'], slots: [{ id: 's1', label: '"배가 뒤집힐까 봐 가슴이 콩닥콩닥해"' }], shuffle: false }, sequence: [{ match: { s1: '걱정' } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 느낌 낱말과 몸짓 찾기', minutes: 13, tool: 'emotion',
+            teacher: '"친구 말 속에서 마음을 알려 주는 낱말을 찾아봐요. \'콩닥콩닥\', \'깜짝\' 같은 말이요." 몸짓 문항은 교사가 먼저 몸짓을 해 보이고 어떤 느낌인지 묻는다. 반 전체가 일어나 교사의 \'잔잔한 바다\'·\'높은 파도\' 신호에 맞추어 팔로 물결을 만든다(3분).',
+            task: '친구의 말과 몸짓에 어울리는 느낌 카드를 놓고, 파도 몸짓을 해 봐요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '파도 그림을 본 친구들의 말이에요. 어울리는 느낌 카드를 놓아 보세요.', toolOptions: { cards: ['걱정', '놀람'], slots: [{ id: 's1', label: '"배가 뒤집힐까 봐 가슴이 콩닥콩닥해"' }, { id: 's2', label: '"파도가 이렇게 큰 줄 몰라서 깜짝 놀랐어"' }] },
+                target: { match: { s1: '걱정', s2: '놀람' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['걱정', '놀람', '편안함'] } } } },
+              { prompt: '느낌을 몸짓으로 나타냈어요. 몸짓에 어울리는 느낌 카드를 놓아 보세요.', toolOptions: { cards: ['놀람', '무서움', '신남'], slots: [{ id: 's1', label: '눈을 동그랗게 뜨고 입을 크게 벌려요' }, { id: 's2', label: '몸을 웅크리고 덜덜 떨어요' }, { id: 's3', label: '폴짝폴짝 뛰며 손뼉을 쳐요' }] },
+                target: { match: { s1: '놀람', s2: '무서움', s3: '신남' } }, difficulty: 0.2 },
+              { prompt: '반 친구들과 \'잔잔한 바다\'와 \'높은 파도\' 신호에 맞추어 팔로 물결을 만들고, 짝에게 그때 느낌 낱말을 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 그림 속 이야기 상상하기', minutes: 14, tool: 'emotion',
+            teacher: '"그림에 보이는 것과 내가 상상한 것은 달라요. 배 세 척은 보이지만, 사람들이 어디에 가는지는 그림에 쓰여 있지 않지요." 두 친구의 이야기가 다를 때 "누구 이야기가 맞을까요?" 하고 물은 뒤, 그림 하나에 이야기는 여러 개일 수 있다고 짚는다.',
+            task: '보이는 것과 상상한 이야기를 나누고, 서로 다른 이야기를 받아들여요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '민지가 파도 그림을 보고 한 말이에요. 그림에 보이는 것과 상상한 이야기로 나누어 보세요.', toolOptions: { mode: 'sort', slots: ['그림에 보이는 것', '상상한 이야기'], cards: ['배가 세 척 있어요', '사람들이 배에 엎드려 있어요', '사람들은 물고기를 팔러 가요', '파도가 배를 잡으려는 괴물 같아요'] },
+                target: { sort: { '그림에 보이는 것': ['배가 세 척 있어요', '사람들이 배에 엎드려 있어요'], '상상한 이야기': ['사람들은 물고기를 팔러 가요', '파도가 배를 잡으려는 괴물 같아요'] } }, difficulty: 0.2,
+                hints: ['눈으로 세거나 짚을 수 있으면 보이는 것, 그림에 없는 까닭이나 생각이면 상상이에요.', '물고기를 팔러 가는지, 괴물인지 그림에 쓰여 있나요? 그 카드를 다시 보세요.', '배 세 척과 엎드린 사람들은 보이는 것, 물고기 팔러 가기와 괴물은 상상이에요.'] },
+              { prompt: '준호는 "배가 가라앉는 이야기", 서아는 "배가 무사히 돌아가는 이야기"를 떠올렸어요. 어떻게 생각해요?', toolOptions: { mode: 'branch', situation: '같은 파도 그림을 보고 준호와 서아가 서로 다른 이야기를 떠올렸어요.', choices: [
+                { id: 'both', text: '둘 다 그림을 보고 상상한 이야기예요', result: '두 친구가 서로의 이야기를 듣고 그림을 다시 보았어요.', mood: '기쁨' },
+                { id: 'one', text: '준호 이야기만 맞아요', result: '서아가 자기 이야기를 말하기 싫어졌어요.', mood: '속상함', why: '그림에 이야기가 하나만 정해져 있을까요?' },
+                { id: 'none', text: '그림에는 이야기가 없어요', result: '아무도 상상한 이야기를 말하지 않았어요.', mood: '걱정', why: '그림을 보고 이야기를 떠올리는 것도 그림 보기예요.' }] }, target: { choice: 'both' }, difficulty: 0.15,
+                predict: { q: '그림 하나에 이야기는 몇 개일까요?', options: ['하나뿐', '여러 개'], answer: 1 },
+                conclude: '그림 하나를 보고도 사람마다 서로 다른 이야기를 상상할 수 있어요.' },
+              { prompt: '짝에게 "파도가 지나간 다음에는 ~했을 거야"로 내가 상상한 이야기를 한 문장 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 파도 그림을 보고 어떤 느낌이 들었나요? 몸짓으로도 보여 줄래요?" 두세 명이 느낌 낱말과 몸짓을 함께 보여 준다. 서로 다른 이야기를 떠올린 친구 둘을 뽑아 이야기를 들어 본다. 다음 시간에는 공원 그림 속 사람의 이야기를 차례대로 지어 본다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { cards: ['기쁨', '슬픔', '화남'], slots: [{ id: 's1', label: '"꽃밭이 환해서 기분이 좋아"' }, { id: 's2', label: '"혼자 남은 강아지가 안쓰러워 눈물이 날 것 같아"' }] }, prompt: '다른 그림을 본 친구들의 말이에요. 어울리는 느낌 카드를 놓아 보세요.', target: { match: { s1: '기쁨', s2: '슬픔' } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '그림 하나를 보고 상상한 이야기는?', options: ['사람마다 여러 가지일 수 있어요', '하나로 정해져 있어요', '화가에게 물어봐야만 알아요'], answer: 0, difficulty: 0.1, explain: '그림을 보고 떠올린 이야기는 사람마다 다를 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '파도 그림의 느낌과 이야기',
+      items: [
+        { type: 'table', prompt: '파도 그림을 보고 든 느낌을 쓰세요.', columns: ['느낌 낱말', '어울리는 몸짓'], rows: 2 },
+        { type: 'choice', prompt: '그림에 보이는 것에 ○ 하세요.', options: ['배에 엎드린 사람들', '사람들이 가는 곳'], answer: '배에 엎드린 사람들' },
+        { type: 'short', prompt: '파도가 지나간 다음에 어떤 일이 있었을지 상상해 쓰세요.' },
+        { type: 'draw', prompt: '내가 상상한 다음 장면을 그려 보세요.' },
+      ],
+      easy: {
+        note: '마음을 알려 주는 낱말을 찾아요.',
+        items: [
+          { type: 'choice', prompt: '"깜짝 놀랐어"의 느낌에 ○ 하세요.', options: ['놀람', '편안함'], answer: '놀람' },
+          { type: 'short', prompt: '파도 그림을 보고 든 느낌 낱말 하나를 쓰세요.' },
+          { type: 'draw', prompt: '파도 몸짓을 하는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 틀린 카드는 바로 돌아와요.',
+      base: '친구의 말과 몸짓에서 느낌을 찾고, 보이는 것과 상상한 이야기를 나누어요.',
+      challenge: '함정 느낌 카드가 섞여 있어요. 짝과 서로 다른 이야기를 하나씩 더 지어 견주어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 느낌을 "좋아요·싫어요"로만 말한다 → 칠판에 걱정·놀람·무서움·신남·편안함 날씨 카드를 붙여 두고 고르게 한다. ② 상상한 것을 그림에 있는 것처럼 말한다 → "그림에서 손가락으로 짚을 수 있어요?" 하고 묻는다. ③ 친구 이야기가 다르면 틀렸다고 한다 → 그림 하나에 이야기는 여러 개라고 말해 준다. 몸짓은 제자리에서 팔만 크게 움직이고 뛰어다니지 않는다. 작품은 호쿠사이 \'가나가와 해변의 높은 파도\'(1831년 무렵, 저작권 만료)를 공개 자료로 보여 준다.',
+  }));
+
+  lessons.push(L(42, {
+    title: '공원 그림 속 사람의 하루를 차례대로 지어 말하기',
+    objective: '쇠라의 \'그랑드자트섬의 일요일 오후\'에서 한 사람을 골라 그 사람에게 있었을 일을 처음·가운데·끝 차례로 상상해 말하고 멈춤 동작으로 나타낼 수 있다.',
+    illustration: ART('a sunny riverside park made of tiny paper dots, people with parasols resting on the grass, a lady walking a small monkey on a leash, sailboats on the river', '이 사람에게 무슨 일이?', [
+      { motif: 'tree', x: 90, y: 190 }, { motif: 'tree', x: 400, y: 190 }, { motif: 'wave', x: 240, y: 230 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '쇠라의 \'그랑드자트섬의 일요일 오후\'(1884~1886)를 띄우고, 한 부분을 크게 확대해 "가까이서 보니 무엇으로 그렸나요?" 하고 묻는다(작은 색 점). 다시 전체를 보이며 양산을 쓴 사람, 낚시하는 사람, 원숭이 줄을 잡은 사람을 함께 찾는다. "이 사람은 오늘 아침에 무엇을 했을까요?" 시연 단추로 이야기 카드가 \'처음\' 자리에 놓이는 모습을 보여 준다.',
+        student: '그림에서 이야기를 지어 보고 싶은 사람 한 명을 골라요.',
+        demo: { tool: 'story', options: { cards: ['아침에 배를 타고 섬에 왔어요', '풀밭에 앉아 쉬었어요'], slots: ['처음', '끝'], shuffle: false }, sequence: [{ order: ['아침에 배를 타고 섬에 왔어요', '풀밭에 앉아 쉬었어요'] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 그림 속 사람의 이야기 차례 정하기', minutes: 13, tool: 'story',
+            teacher: '"이야기에는 처음, 가운데, 끝이 있어요. \'아침에\', \'해가 질 무렵\' 같은 때를 알려 주는 말과 \'그래서\'처럼 일이 이어지는 까닭을 찾아봐요." 카드를 소리 내어 읽게 한 뒤 놓게 한다. 이야기는 친구들이 상상한 것이고 그림에 쓰여 있는 것이 아니라는 것도 함께 말한다.',
+            task: '친구들이 상상한 그림 속 사람의 이야기를 차례대로 놓아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '양산을 쓴 사람의 하루를 민지가 상상했어요. 차례대로 놓아 보세요.', toolOptions: { slots: ['처음', '가운데', '끝'], cards: ['아침에 엄마와 배를 타고 섬에 왔어요', '양산 아래 풀밭에 앉아 강을 보았어요', '해가 질 무렵 배를 타고 집에 갔어요'] },
+                target: { order: ['아침에 엄마와 배를 타고 섬에 왔어요', '양산 아래 풀밭에 앉아 강을 보았어요', '해가 질 무렵 배를 타고 집에 갔어요'] }, difficulty: 0.1 },
+              { prompt: '원숭이 줄을 잡은 사람의 이야기를 준호가 상상했어요. 차례대로 놓아 보세요.', toolOptions: { slots: ['처음', '가운데', '끝'], cards: ['줄에 묶인 원숭이가 나비를 보았어요', '원숭이가 나비를 따라 깡충 뛰었어요', '주인이 웃으며 원숭이를 안아 주었어요'] },
+                target: { order: ['줄에 묶인 원숭이가 나비를 보았어요', '원숭이가 나비를 따라 깡충 뛰었어요', '주인이 웃으며 원숭이를 안아 주었어요'] }, difficulty: 0.15,
+                levels: { challenge: { prompt: '원숭이 줄을 잡은 사람의 이야기를 준호가 네 장으로 상상했어요. 차례대로 놓아 보세요.', toolOptions: { slots: ['처음', '그다음', '그다음', '끝'], cards: ['줄에 묶인 원숭이가 나비를 보았어요', '원숭이가 나비를 따라 깡충 뛰었어요', '나비를 쫓다 줄이 다리에 감겼어요', '주인이 줄을 풀고 원숭이를 안아 주었어요'] }, target: { order: ['줄에 묶인 원숭이가 나비를 보았어요', '원숭이가 나비를 따라 깡충 뛰었어요', '나비를 쫓다 줄이 다리에 감겼어요', '주인이 줄을 풀고 원숭이를 안아 주었어요'] } } } },
+              { prompt: '낚시하는 사람의 이야기를 서아가 상상했어요. 차례대로 놓아 보세요.', toolOptions: { slots: 4, cards: ['낚싯대를 강물에 드리웠어요', '한참 동안 조용히 기다렸어요', '낚싯줄이 쑥 당겨졌어요', '작은 물고기를 낚았어요'] },
+                target: { order: ['낚싯대를 강물에 드리웠어요', '한참 동안 조용히 기다렸어요', '낚싯줄이 쑥 당겨졌어요', '작은 물고기를 낚았어요'] }, difficulty: 0.25,
+                levels: { easy: { prompt: '낚시하는 사람의 이야기를 서아가 상상했어요. 세 장을 차례대로 놓아 보세요.', toolOptions: { slots: 3, cards: ['낚싯대를 강물에 드리웠어요', '낚싯줄이 쑥 당겨졌어요', '작은 물고기를 낚았어요'] }, target: { order: ['낚싯대를 강물에 드리웠어요', '낚싯줄이 쑥 당겨졌어요', '작은 물고기를 낚았어요'] } } },
+                conclude: '이야기는 앞의 일 때문에 다음 일이 생기도록 차례를 지어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 멈춤 그림과 다음 장면 몸짓', minutes: 14, tool: 'emotion',
+            teacher: '모둠마다 그림 속 사람 하나를 골라 10초 멈춤 동작을 만든다. 교사가 "움직여!" 하면 그 사람의 다음 장면을 3초 동안 몸짓으로 보여 주고 다시 멈춘다. 다른 모둠은 어떤 이야기였는지 말한다(모둠마다 1분, 6모둠 6분). 같은 사람으로 다른 이야기를 지은 모둠이 있으면 함께 견준다.',
+            task: '그림 속 사람으로 멈춤 동작과 다음 장면 몸짓을 만들고, 다른 이야기를 받아들여요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '모둠이 그림 속 사람으로 10초 멈춤 동작을 하고, "움직여!" 신호에 다음 장면 몸짓을 보여 주었으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '다른 모둠이 같은 낚시하는 사람으로 "물고기를 놓친 이야기"를 보여 주었어요. 어떻게 말할까요?', toolOptions: { mode: 'branch', situation: '우리 모둠은 물고기를 낚은 이야기, 다른 모둠은 물고기를 놓친 이야기를 몸짓으로 보여 주었어요.', choices: [
+                { id: 'ask', text: '"너희 이야기도 재미있다. 왜 놓쳤다고 정했어?" 하고 물어요', result: '다른 모둠이 낚싯줄이 끊어지는 장면을 상상했다고 알려 주었어요.', mood: '기쁨' },
+                { id: 'wrong', text: '"틀렸어, 물고기를 낚아야 해" 하고 말해요', result: '다른 모둠 친구들이 몸짓을 그만두었어요.', mood: '속상함', why: '그림 속 사람의 이야기가 하나로 정해져 있을까요?' }] }, target: { choice: 'ask' }, difficulty: 0.1 },
+              { prompt: '내가 고른 사람의 이야기를 처음·가운데·끝 세 문장으로 짝에게 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 지은 이야기 가운데 처음·가운데·끝이 또렷한 이야기를 들어 볼까요?" 두 명이 말한다. 같은 사람으로 서로 다른 이야기가 나왔던 것을 떠올리게 한다. 다음 시간에는 연못 그림의 느낌을 색과 몸짓으로 나타낸다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { slots: ['처음', '가운데', '끝'], cards: ['강가에 돗자리를 폈어요', '돗자리에 앉아 도시락을 먹었어요', '돗자리를 접어 집으로 갔어요'] }, prompt: '강가 그림을 보고 하준이 상상한 이야기예요. 차례대로 놓아 보세요.', target: { order: ['강가에 돗자리를 폈어요', '돗자리에 앉아 도시락을 먹었어요', '돗자리를 접어 집으로 갔어요'] }, difficulty: 0.15 },
+          { type: 'choice', prompt: '친구가 같은 사람으로 나와 다른 이야기를 지었어요.', options: ['그럴 수 있어요', '내 이야기만 맞아요', '친구가 그림을 잘못 봤어요'], answer: 0, difficulty: 0.1, explain: '그림 속 사람의 이야기는 보는 사람마다 다르게 상상할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '그림 속 사람의 이야기',
+      items: [
+        { type: 'short', prompt: '내가 고른 그림 속 사람을 쓰세요.' },
+        { type: 'table', prompt: '그 사람의 이야기를 차례대로 쓰세요.', columns: ['차례', '있었던 일'], cells: [['처음', ''], ['가운데', ''], ['끝', '']] },
+        { type: 'choice', prompt: '이야기 차례를 알려 주는 말에 ○ 하세요.', options: ['해가 질 무렵', '파란색'], answer: '해가 질 무렵' },
+        { type: 'draw', prompt: '이야기의 끝 장면을 그려 보세요.' },
+      ],
+      easy: {
+        note: '처음에 한 일, 나중에 한 일을 떠올려요.',
+        items: [
+          { type: 'choice', prompt: '처음에 오는 일에 ○ 하세요.', options: ['아침에 공원에 왔어요', '저녁에 집에 갔어요'], answer: '아침에 공원에 왔어요' },
+          { type: 'short', prompt: '내가 고른 사람이 한 일을 하나 쓰세요.' },
+          { type: 'draw', prompt: '그림 속 사람을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 자리에 초록 테두리가 생기고, 낚시 이야기는 세 장으로 줄어요.',
+      base: '세 장·네 장 이야기를 차례대로 놓고, 멈춤 동작과 다음 장면 몸짓을 해요.',
+      challenge: '낚시 이야기 네 장을 놓고, 짝과 같은 사람으로 서로 다른 끝을 지어 견주어요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 이야기를 한 장면만 말한다 → "그다음에는?"을 두 번 물어 세 장면으로 늘린다. ② 멈춤 동작 중에 웃거나 움직인다 → 교사가 10초를 소리 내어 세며 멈춤을 연습한다. ③ 다른 모둠 이야기를 틀렸다고 한다 → 같은 사람으로 이야기가 둘 나온 것을 칭찬하며 견주게 한다. 작품은 쇠라 \'그랑드자트섬의 일요일 오후\'(1884~1886, 저작권 만료)를 공개 자료로 보여 준다. 이야기는 모두 학생이 상상한 것이며 작품에 정해진 이야기가 아니다.',
+  }));
+
+  lessons.push(L(43, {
+    title: '수련 연못 그림의 느낌을 색과 몸짓으로 나타내기',
+    objective: '모네의 \'수련\'을 보고 든 느낌을 말하고, 그 느낌에 어울리는 색 조각과 몸짓으로 나타낼 수 있다.',
+    illustration: ART('a calm paper pond in soft blues and greens with floating water lilies in pink and white, gentle reflections of clouds on the water', '연못은 어떤 느낌?', [
+      { motif: 'flower', x: 160, y: 210 }, { motif: 'flower', x: 320, y: 220 }, { motif: 'leaf', x: 240, y: 230 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '모네의 \'수련\' 연작 가운데 하나를 띄우고 1분 동안 조용히 보게 한다. "이 연못 앞에 서 있으면 내 마음은 어떨 것 같아요? 어떤 색이 많이 보여요?" 학생들이 말한 색과 느낌을 칠판 두 칸에 나누어 적는다. "지난 시간 파도 그림과 느낌이 같나요, 다른가요?" 시연 단추로 파랑 조각이 붙는 모습을 보여 준다.',
+        student: '연못 그림에서 가장 많이 보이는 색과 그때 느낌을 하나씩 떠올려요.',
+        demo: { tool: 'collage', options: { shapes: ['circle', 'leaf'], colors: ['파랑', '초록'] }, sequence: [{ has: [{ color: '파랑', min: 2 }, { color: '초록', min: 2 }] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 연못의 느낌을 색 조각으로', minutes: 14, tool: 'collage',
+            teacher: '"차분하고 조용한 느낌에는 어떤 색이 어울릴까요?" 파랑·초록처럼 차가운 색을 판에 붙여 보이고, 빨강·주황을 가득 붙였을 때와 견주게 한다. 수련 꽃을 붙일 때는 잎 위에 꽃을 겹쳐 물 위에 떠 있는 모습을 만든다.',
+            task: '연못의 느낌에 어울리는 색 조각을 붙이고 수련 꽃을 겹쳐 꾸며요.',
+            levels: COL(['circle', 'leaf', 'heart', 'semi'], ['파랑', '초록', '보라', '분홍', '하양'], ['circle', 'leaf', 'heart', 'semi', 'square', 'star'], ['파랑', '초록', '보라', '분홍', '하양', '빨강', '주황']),
+            items: [
+              { prompt: '조용한 연못 느낌을 파랑과 초록 조각으로 나타내요. 파랑을 적어도 2개, 초록을 적어도 2개 붙여 보세요.', toolOptions: { bg: '하양' },
+                target: { has: [{ color: '파랑', min: 2 }, { color: '초록', min: 2 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '조용한 연못 느낌을 나타내요. 파랑과 초록을 적어도 3개씩 붙이고, 빨강·주황은 쓰지 않아요.', target: { has: [{ color: '파랑', min: 3 }, { color: '초록', min: 3 }, { color: '빨강', n: 0 }, { color: '주황', n: 0 }] } } } },
+              { prompt: '물 위에 뜬 수련처럼 초록 나뭇잎 위에 분홍 하트 꽃을 겹쳐 붙여 보세요.', state: { pieces: [{ shape: 'circle', color: '파랑', size: 'l', x: 160, y: 200, r: 0 }, { shape: 'circle', color: '파랑', size: 'l', x: 400, y: 220, r: 0 }] },
+                target: { has: [{ shape: 'leaf', color: '초록', min: 1 }, { shape: 'heart', color: '분홍', min: 1 }], overlap: 1 }, difficulty: 0.2,
+                levels: { challenge: { prompt: '수련 두 송이를 만들어요. 초록 나뭇잎 2장 위에 분홍 하트를 하나씩 겹쳐 붙여 보세요.', target: { has: [{ shape: 'leaf', color: '초록', min: 2 }, { shape: 'heart', color: '분홍', min: 2 }], overlap: 2 } } },
+                conclude: '조각을 겹치면 꽃이 잎 위에 떠 있는 것처럼 보여요.' },
+              { prompt: '나만의 조용한 연못을 완성하고 점검해요.', target: { selfCheck: ['차분한 느낌의 색을 많이 썼어요', '수련 꽃을 잎 위에 겹쳐 붙였어요', '내 연못의 느낌을 낱말로 짝에게 말했어요'], minPieces: 5 }, difficulty: 0.1 },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 연못의 느낌을 몸짓으로', minutes: 13, tool: 'emotion',
+            teacher: '교사가 "바람이 살랑" 하면 수련이 피듯 두 손을 천천히 펴고, "물고기가 톡" 하면 손끝을 살짝 튕기게 한다(4분). "천천히 움직일 때와 빨리 움직일 때 느낌이 어떻게 달라요?" 몸짓 빠르기와 느낌을 이어 말하게 한다.',
+            task: '연못 몸짓을 해 보고, 몸짓과 친구의 말에 어울리는 느낌을 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '선생님 신호에 맞추어 수련이 피는 몸짓을 천천히 하고, 짝에게 그때 느낌 낱말을 말했으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '몸짓에 어울리는 느낌 카드를 놓아 보세요.', toolOptions: { cards: ['편안함', '신남'], slots: [{ id: 's1', label: '수련처럼 아주 천천히 두 손을 펴요' }, { id: 's2', label: '폴짝폴짝 빠르게 뛰어요' }] },
+                target: { match: { s1: '편안함', s2: '신남' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['편안함', '신남', '화남'] } } } },
+              { prompt: '그림을 본 친구들의 말이에요. 어울리는 느낌 카드를 놓아 보세요.', toolOptions: { cards: ['편안함', '놀람', '슬픔'], slots: [{ id: 's1', label: '"파랑과 초록이 가득해서 마음이 차분해져"' }, { id: 's2', label: '"빨간 꽃이 확 눈에 띄어 깜짝 놀랐어"' }] },
+                target: { match: { s1: '편안함', s2: '놀람' } }, difficulty: 0.15 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"파도 그림과 수련 그림은 느낌이 어떻게 달랐나요? 색은요?" 두세 명이 말한다. 짝의 연못 작품을 보고 느낌 낱말 하나를 말해 준다. 다음 시간에는 마티스처럼 색종이를 오려 붙여 하늘을 나는 이야기를 만든다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'emotion', options: { cards: ['슬픔', '신남', '무서움'], slots: [{ id: 's1', label: '어깨를 축 늘어뜨리고 천천히 걸어요' }, { id: 's2', label: '두 팔을 크게 벌리고 빙글빙글 돌며 웃어요' }] }, prompt: '몸짓에 어울리는 느낌 카드를 놓아 보세요.', target: { match: { s1: '슬픔', s2: '신남' } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '조용하고 차분한 느낌을 나타내기에 어울리는 색은?', options: ['파랑과 초록', '빨강과 주황', '까만색만'], answer: 0, difficulty: 0.15, explain: '파랑·초록 같은 차가운 색은 차분한 느낌을 줄 때가 많아요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '수련 연못의 느낌',
+      items: [
+        { type: 'short', prompt: '수련 그림을 보고 든 느낌을 쓰세요.' },
+        { type: 'check', prompt: '내 연못 작품에 쓴 색에 모두 ✓ 하세요.', options: ['파랑', '초록', '보라', '분홍', '하양'] },
+        { type: 'table', prompt: '두 그림의 느낌을 견주어 쓰세요.', columns: ['그림', '많이 보인 색', '느낌'], cells: [['높은 파도', '', ''], ['수련', '', '']] },
+        { type: 'draw', prompt: '내가 느낀 연못의 모습을 색칠해 그려 보세요.' },
+      ],
+      easy: {
+        note: '천천히, 조용히, 차분히 — 어떤 색이 어울릴까요?',
+        items: [
+          { type: 'choice', prompt: '천천히 손을 펴는 몸짓의 느낌에 ○ 하세요.', options: ['편안함', '화남'], answer: '편안함' },
+          { type: 'short', prompt: '수련 그림에서 많이 보인 색을 쓰세요.' },
+          { type: 'draw', prompt: '연못에 뜬 꽃을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 색종이 고르개가 차분한 색 다섯 가지로 줄어요.',
+      base: '차분한 색으로 연못을 꾸미고 수련 꽃을 겹쳐 붙인 뒤, 몸짓과 느낌을 이어요.',
+      challenge: '빨강·주황 없이 조각을 더 붙이고 수련 두 송이를 겹쳐 만들어요. 함정 느낌 카드가 섞여요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 좋아하는 색만 골라 느낌과 상관없이 붙인다 → "이 색을 보면 마음이 어때?" 하고 묻는다. ② 겹치기를 못 한다 → 잎을 먼저 붙이고 꽃을 끌어 잎 위에 놓게 한다. ③ 차가운 색은 슬픈 색이라고만 여긴다 → 같은 파랑도 시원하고 편안할 수 있다고 말해 준다. 색과 느낌의 짝은 정답이 아니라 흔히 그렇게 느낀다는 것임을 덧붙인다. 작품은 모네 \'수련\' 연작(1890년대~1920년대, 저작권 만료)을 공개 자료로 보여 준다.',
+  }));
+
+  lessons.push(L(44, {
+    title: '마티스처럼 오려 붙여 하늘을 나는 이야기 장면 만들기',
+    objective: '마티스의 \'이카로스\'를 보고 그림 속에서 있었을 일을 상상해 말하고, 색종이 조각을 오려 붙이듯 내가 상상한 하늘 장면을 만들 수 있다.',
+    illustration: ART('a black paper-cut figure with a small red heart floating in a deep blue sky full of yellow star bursts, scissors and colored paper scraps nearby', '하늘을 날아요', [
+      { motif: 'star', x: 120, y: 80, s: 0.6 }, { motif: 'star', x: 380, y: 90, s: 0.6 }, { motif: 'star', x: 260, y: 60, s: 0.4 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '마티스의 \'이카로스\'(1947, 책 \'재즈\')를 띄운다. "이 그림은 붓으로 그리지 않았어요. 물감을 칠한 종이를 가위로 오려 붙였어요. 무엇이 보이나요?" 까만 사람, 빨간 점, 노란 별 모양, 파란 바탕을 찾게 한다. "이 사람은 날고 있을까요, 떨어지고 있을까요, 춤추고 있을까요?" 여러 대답을 칠판에 적는다.',
+        student: '그림 속 사람이 무엇을 하는 것 같은지 한 가지 떠올려요.',
+        demo: { tool: 'collage', options: { shapes: ['star', 'heart'], colors: ['노랑', '빨강'], bg: '파랑' }, sequence: [{ has: [{ shape: 'star', color: '노랑', min: 2 }, { shape: 'heart', color: '빨강', n: 1 }] }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 이카로스 이야기와 내가 상상한 이야기', minutes: 12, tool: 'story',
+            teacher: '아주 오래된 그리스 옛이야기를 짧게 들려준다. "이카로스는 깃털을 밀랍으로 붙여 날개를 만들었어요. 하늘을 날다가 해 가까이 너무 높이 올라가 밀랍이 녹았고, 바다로 떨어졌대요." 이어 "그런데 옛이야기를 몰라도 이 그림을 보고 다른 이야기를 떠올릴 수 있을까요?" 하고 묻고, 그림만 보고 떠올린 말을 고르게 한다.',
+            task: '옛이야기를 차례대로 놓고, 그림만 보고 떠올릴 수 있는 이야기를 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '선생님이 들려준 이카로스 이야기를 차례대로 놓아 보세요.', toolOptions: { slots: 4, cards: ['깃털과 밀랍으로 날개를 만들었어요', '날개를 달고 하늘로 날아올랐어요', '해 가까이 너무 높이 날았어요', '밀랍이 녹아 바다로 떨어졌어요'] },
+                target: { order: ['깃털과 밀랍으로 날개를 만들었어요', '날개를 달고 하늘로 날아올랐어요', '해 가까이 너무 높이 날았어요', '밀랍이 녹아 바다로 떨어졌어요'] }, difficulty: 0.2,
+                levels: { easy: { prompt: '선생님이 들려준 이카로스 이야기를 세 장으로 차례대로 놓아 보세요.', toolOptions: { slots: 3, cards: ['깃털과 밀랍으로 날개를 만들었어요', '해 가까이 너무 높이 날았어요', '밀랍이 녹아 바다로 떨어졌어요'] }, target: { order: ['깃털과 밀랍으로 날개를 만들었어요', '해 가까이 너무 높이 날았어요', '밀랍이 녹아 바다로 떨어졌어요'] } } } },
+              { prompt: '옛이야기를 몰라도 그림만 보고 떠올릴 수 있는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '그림을 보고 떠올린 말', cards: ['별 사이를 춤추며 날아요', '하늘에서 떨어지고 있어요', '빨간 심장이 콩닥콩닥 뛰어요', '옛이야기 말고는 생각하면 안 돼요'] },
+                target: { pick: ['별 사이를 춤추며 날아요', '하늘에서 떨어지고 있어요', '빨간 심장이 콩닥콩닥 뛰어요'] }, difficulty: 0.15,
+                hints: ['그림을 보고 떠올린 말인지, 생각을 막는 말인지 견주어 봐요.', '그림 하나에 이야기가 하나만 있어야 할까요? 그런 말 카드를 다시 보세요.', '춤추며 날기, 떨어지기, 콩닥콩닥 심장은 모두 그림을 보고 떠올릴 수 있어요. 생각을 막는 말만 빼요.'],
+                conclude: '옛이야기가 있는 그림도 보는 사람마다 다른 이야기를 떠올릴 수 있어요.' },
+              { prompt: '짝에게 "이 사람은 ~하고 있는 것 같아. 왜냐하면 ~"으로 내가 상상한 이야기를 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 오려 붙여 하늘 장면 만들기', minutes: 15, tool: 'collage',
+            teacher: '판과 함께 실제 색종이와 안전 가위도 쓴다. 먼저 판에서 장면을 만들어 본 뒤 남는 시간에 색종이로 별 모양을 오려 활동지에 붙인다. "마티스처럼 가위로 그리듯 오려요. 반듯하지 않아도 괜찮아요." 가위는 날을 닫아 손잡이 쪽으로 건넨다.',
+            task: '파란 하늘판에 조각을 붙여 내가 상상한 하늘을 나는 장면을 만들어요.',
+            levels: COL(['star', 'heart', 'circle', 'rect', 'leaf'], ['노랑', '빨강', '검정', '하양'], ['star', 'heart', 'circle', 'rect', 'leaf', 'triangle', 'semi'], ['노랑', '빨강', '검정', '하양', '주황', '초록', '분홍']),
+            items: [
+              { prompt: '마티스처럼 파란 하늘에 노랑 별을 적어도 4개, 빨강 하트를 하나 붙여 보세요.', toolOptions: { bg: '파랑' },
+                target: { has: [{ shape: 'star', color: '노랑', min: 4 }, { shape: 'heart', color: '빨강', n: 1 }] }, difficulty: 0.1,
+                levels: { challenge: { prompt: '작은 노랑 별과 큰 노랑 별을 적어도 2개씩 붙이고, 빨강 하트를 하나 붙여 보세요.', target: { has: [{ shape: 'star', color: '노랑', size: 's', min: 2 }, { shape: 'star', color: '노랑', size: 'l', min: 2 }, { shape: 'heart', color: '빨강', n: 1 }] } } } },
+              { prompt: '하늘을 나는 사람의 몸을 까만 조각 적어도 3개로 만들고, 빨강 하트를 몸 위에 겹쳐 붙여 보세요.', toolOptions: { bg: '파랑' },
+                target: { has: [{ color: '검정', min: 3 }, { shape: 'heart', color: '빨강', n: 1 }], overlap: 1 }, difficulty: 0.2,
+                conclude: '조각을 겹쳐 붙이면 하트가 몸 안에 있는 것처럼 보여요.' },
+              { prompt: '내가 상상한 하늘 장면을 완성하고 점검해요.', target: { selfCheck: ['내가 상상한 이야기가 장면에 담겼어요', '짝에게 장면의 이야기를 한 문장으로 말했어요', '작품에 제목을 붙였어요'], minPieces: 5 }, difficulty: 0.1 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"같은 그림을 보고 어떤 이야기들이 나왔나요?" 서로 다른 이야기 서너 가지를 칠판에 모은다. 가위와 색종이 조각을 정리한다. 다음 시간부터는 친구와 느낌을 나누고, 나와 다른 느낌을 받아들이는 연습을 한다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'story', options: { slots: ['처음', '가운데', '끝'], cards: ['아기 새가 둥지 끝에 섰어요', '날개를 퍼덕이며 뛰어내렸어요', '하늘을 빙빙 날았어요'] }, prompt: '새 그림을 보고 서아가 상상한 이야기예요. 차례대로 놓아 보세요.', target: { order: ['아기 새가 둥지 끝에 섰어요', '날개를 퍼덕이며 뛰어내렸어요', '하늘을 빙빙 날았어요'] }, difficulty: 0.15 },
+          { type: 'choice', prompt: '마티스는 이카로스를 어떻게 만들었나요?', options: ['색칠한 종이를 오려 붙였어요', '돌을 깎았어요', '사진을 찍었어요'], answer: 0, difficulty: 0.1, explain: '마티스는 물감을 칠한 종이를 가위로 오려 붙여 작품을 만들었어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '하늘을 나는 이야기',
+      items: [
+        { type: 'short', prompt: '이카로스 그림을 보고 내가 상상한 이야기를 한 문장으로 쓰세요.' },
+        { type: 'choice', prompt: '그림을 보고 상상한 이야기에 대한 생각에 ○ 하세요.', options: ['사람마다 달라도 돼요', '옛이야기와 같아야 해요'], answer: '사람마다 달라도 돼요' },
+        { type: 'check', prompt: '내 장면에 넣은 것에 모두 ✓ 하세요.', options: ['별', '하트', '하늘을 나는 사람', '구름', '해'] },
+        { type: 'draw', prompt: '색종이를 오려 붙이거나 그려서 내가 상상한 하늘 장면을 만드세요.' },
+      ],
+      easy: {
+        note: '그림 속 사람이 무엇을 하는지 떠올려요.',
+        items: [
+          { type: 'choice', prompt: '마티스 그림에서 보이는 것에 ○ 하세요.', options: ['노란 별 모양', '자동차'], answer: '노란 별 모양' },
+          { type: 'short', prompt: '그림 속 사람이 무엇을 하는 것 같은지 쓰세요.' },
+          { type: 'draw', prompt: '하늘을 나는 나를 그려 보세요.' },
+        ],
+      },
+    },
+    safety: ['안전 가위만 쓰고, 날을 닫아 손잡이 쪽으로 건네요.', '가위를 든 채 자리에서 일어나 다니지 않아요.'],
+    differentiation: {
+      easy: '이카로스 이야기가 세 장으로 줄고, 색종이 고르개가 네 가지 색만 보여요.',
+      base: '네 장 이야기를 차례대로 놓고, 별과 하트로 하늘을 나는 장면을 만들어요.',
+      challenge: '크기가 다른 별을 섞어 붙이고, 내 장면의 이야기를 처음·끝 두 문장으로 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 옛이야기를 듣고 나면 그 이야기만 맞다고 여긴다 → "그림만 본 사람은 어떤 이야기를 떠올릴까?" 하고 다시 묻는다. ② 가위질이 서툴러 오리기를 포기한다 → 반듯하지 않은 모양도 마티스 작품처럼 멋지다고 말해 준다. ③ 겹치기 조건을 못 맞춘다 → 하트를 끌어 까만 조각 위에 놓게 한다. 이카로스는 그리스 옛이야기이고, 작품은 마티스 \'이카로스\'(1947, 마티스 1954년 사망 — 저작권 만료)를 미술관 공개 자료로 화면에만 보여 준다.',
+  }));
+
+  // ───────────────────────── 45~48차시: 친구의 다른 느낌 받아들이고 다시 보기·단원 정리 ─────────────────────────
+
+  lessons.push(L(45, {
+    title: '해바라기 그림을 보고 친구와 다른 느낌과 그 까닭 찾기',
+    objective: '고흐의 \'해바라기\'를 보고 친구가 말한 느낌에서 나와 다른 점을 찾고, 친구가 그렇게 느낀 까닭을 그림에서 찾아 말할 수 있다.',
+    illustration: ART('a vase full of paper sunflowers in warm yellows, some blooming and some drooping, two children beside it with different thought bubbles, one sunny and one with a falling leaf', '느낌이 달라요', [
+      { motif: 'flower', x: 200, y: 200 }, { motif: 'flower', x: 280, y: 190 }, { motif: 'leaf', x: 360, y: 220 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '고흐의 \'해바라기\'(1888)를 띄운다. "이 그림을 보면 어떤 느낌이 들어요?" 서로 다른 느낌이 나오도록 다섯 명쯤 듣고 칠판에 적는다(따뜻해요, 쓸쓸해요…). "같은 그림인데 왜 느낌이 다를까요? 누가 틀린 걸까요?" 시연 단추로 \'따뜻해요\' 카드가 \'나와 같은 느낌\'에 놓이는 모습을 보여 준다.',
+        student: '해바라기 그림을 보고 든 내 느낌을 한 낱말로 정해요.',
+        demo: { tool: 'mindmap', options: { topic: '내 느낌: 따뜻해', slots: ['나와 같은 느낌', '나와 다른 느낌'], cards: ['따뜻해요'], shuffle: false }, sequence: [{ sort: { '나와 같은 느낌': ['따뜻해요'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 나와 다른 느낌과 그 까닭 찾기', minutes: 13, tool: 'mindmap',
+            teacher: '"친구의 느낌이 나와 다르면, 친구는 그림에서 무엇을 보았을까요?" 그림을 띄워 두고 고개 숙인 시든 꽃, 꽃병 가득한 꽃, 노랑·주황 색을 함께 짚는다. 다른 느낌에도 그림 속 까닭이 있다는 것을 강조한다.',
+            task: '친구들의 느낌을 나와 같은 것과 다른 것으로 나누고, 그렇게 느낀 까닭을 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '내 느낌은 "노랑이 가득해서 따뜻하고 신나"예요. 친구들의 말을 나누어 보세요.', toolOptions: { topic: '내 느낌: 따뜻하고 신나', slots: ['나와 같은 느낌', '나와 다른 느낌'], cards: ['따뜻해요', '신나요', '시든 꽃이 있어 쓸쓸해요', '꽃이 너무 많아 북적북적해요'] },
+                target: { sort: { '나와 같은 느낌': ['따뜻해요', '신나요'], '나와 다른 느낌': ['시든 꽃이 있어 쓸쓸해요', '꽃이 너무 많아 북적북적해요'] } }, difficulty: 0.15 },
+              { prompt: '친구들은 그림에서 무엇을 보고 그렇게 느꼈을까요? 느낌과 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '그렇게 느낀 까닭', slots: [{ id: 's1', label: '"쓸쓸해"' }, { id: 's2', label: '"따뜻해"' }, { id: 's3', label: '"북적북적해"' }], cards: ['고개 숙인 시든 꽃', '노랑과 주황이 가득한 색', '꽃병 가득 꽂힌 많은 꽃'] },
+                target: { match: { s1: '고개 숙인 시든 꽃', s2: '노랑과 주황이 가득한 색', s3: '꽃병 가득 꽂힌 많은 꽃' } }, difficulty: 0.2,
+                levels: { challenge: { toolOptions: { cards: ['고개 숙인 시든 꽃', '노랑과 주황이 가득한 색', '꽃병 가득 꽂힌 많은 꽃', '하늘을 나는 새'] } } },
+                hints: ['느낌 낱말과 어울리는 그림 속 모습을 찾아봐요.', '쓸쓸함은 기운 없는 모습, 북적북적은 많은 것과 어울려요. 놓은 카드를 다시 보세요.', '쓸쓸해 — 시든 꽃, 따뜻해 — 노랑·주황 색, 북적북적해 — 많은 꽃을 이어요.'],
+                conclude: '나와 다른 느낌에도 그림 속에 까닭이 있어요.' },
+              { prompt: '짝에게 해바라기 그림의 느낌과 까닭을 묻고, "너는 ~를 보고 ~하게 느꼈구나"로 나와 다른 점을 말했으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 다른 느낌을 받아들이는 말', minutes: 14, tool: 'emotion',
+            teacher: '모둠 네 명이 돌아가며 해바라기의 느낌을 한 낱말씩 말하고, 다음 사람은 앞사람의 느낌을 "○○는 ~하게 느꼈구나"로 받아 준 뒤 자기 느낌을 말한다(5분). "친구 느낌을 따라 내 느낌을 바꿀 필요는 없어요. 받아들이는 것과 따라 하는 것은 달라요."',
+            task: '모둠에서 느낌을 받아 주는 말을 해 보고, 다른 느낌을 들었을 때 알맞은 말을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '모둠 친구들과 돌아가며 해바라기의 느낌을 말하고, 앞 친구의 느낌을 "~하게 느꼈구나"로 받아 주었으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '나는 "신나"라고 느꼈는데 하준이는 "쓸쓸해"라고 했어요. 어떻게 말할까요?', toolOptions: { mode: 'branch', situation: '해바라기 그림을 보고 나는 "신나", 하준이는 "쓸쓸해"라고 느꼈어요.', choices: [
+                { id: 'accept', text: '"너는 시든 꽃을 보았구나. 나도 다시 볼게" 하고 말해요', result: '하준이가 시든 꽃을 짚어 주어 그림을 새롭게 보았어요.', mood: '기쁨' },
+                { id: 'laugh', text: '"해바라기가 왜 쓸쓸해? 이상해" 하고 말해요', result: '하준이가 다음부터 느낌을 말하지 않았어요.', mood: '속상함', why: '나와 다른 느낌을 이상하다고 하면 친구 마음이 어떨까요?' },
+                { id: 'copy', text: '내 느낌은 말하지 않고 "나도 쓸쓸해" 하고 따라 해요', result: '내 느낌은 아무도 모르게 되었어요.', mood: '걱정', why: '친구 느낌을 받아들여도 내 느낌은 그대로 말할 수 있어요.' }] }, target: { choice: 'accept' }, difficulty: 0.15 },
+              { prompt: '그때의 마음에 어울리는 카드를 놓아 보세요.', toolOptions: { cards: ['고마움', '속상함', '무서움'], slots: [{ id: 's1', label: '친구가 내 느낌을 듣고 "그럴 수 있구나" 했을 때' }, { id: 's2', label: '친구가 내 느낌을 듣고 비웃었을 때' }] },
+                target: { match: { s1: '고마움', s2: '속상함' } }, difficulty: 0.1 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"오늘 친구에게서 들은 느낌 가운데 나와 가장 달랐던 것은 무엇인가요? 친구는 그림에서 무엇을 보았대요?" 두세 명이 말한다. 다음 시간에는 처음 본 그림을 다시 보며 새로 든 생각을 찾는다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '내 느낌: 조용하고 쓸쓸해', slots: ['나와 같은 느낌', '나와 다른 느낌'], cards: ['조용해요', '쓸쓸해요', '포근해요', '신나요'] }, prompt: '눈 덮인 마을 그림을 보고 내 느낌은 "조용하고 쓸쓸해"예요. 친구들의 말을 나누어 보세요.', target: { sort: { '나와 같은 느낌': ['조용해요', '쓸쓸해요'], '나와 다른 느낌': ['포근해요', '신나요'] } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '친구가 나와 다른 느낌을 말하면?', options: ['"너는 그렇게 느꼈구나" 하고 받아들여요', '"틀렸어" 하고 말해요', '내 느낌을 바로 친구 것으로 바꿔요'], answer: 0, difficulty: 0.1, explain: '다른 느낌을 받아들이면서 내 느낌도 그대로 말할 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '친구와 다른 느낌',
+      items: [
+        { type: 'table', prompt: '해바라기 그림의 느낌을 쓰세요.', columns: ['', '느낌', '그림에서 본 까닭'], cells: [['나', '', ''], ['짝', '', '']] },
+        { type: 'short', prompt: '짝의 느낌에서 나와 다른 점을 쓰세요.' },
+        { type: 'choice', prompt: '다른 느낌을 들었을 때 알맞은 말에 ○ 하세요.', options: ['"너는 그렇게 느꼈구나"', '"그건 이상해"'], answer: '"너는 그렇게 느꼈구나"' },
+        { type: 'draw', prompt: '해바라기 그림에서 내 느낌을 만든 부분을 그려 보세요.' },
+      ],
+      easy: {
+        note: '친구는 그림에서 무엇을 보았을까요?',
+        items: [
+          { type: 'choice', prompt: '"쓸쓸해"라고 느낀 친구가 본 것에 ○ 하세요.', options: ['시든 꽃', '노란 색'], answer: '시든 꽃' },
+          { type: 'short', prompt: '내 느낌 낱말을 쓰세요.' },
+          { type: 'draw', prompt: '해바라기를 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 고른 말의 결과가 바로 보여요.',
+      base: '나와 다른 느낌을 나누고 그 까닭을 그림에서 찾아 이어요.',
+      challenge: '짝의 느낌과 까닭을 듣고, 그 까닭을 그림에서 직접 짚어 반 친구들에게 소개해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 나와 다른 느낌을 틀렸다고 말한다 → "친구는 그림에서 무엇을 보았을까?" 하고 까닭을 찾게 한다. ② 친구 느낌을 듣고 내 느낌을 바로 바꾼다 → 받아들이기와 따라 하기는 다르다고 말해 준다. ③ 느낌만 말하고 까닭을 말하지 못한다 → "그림 어디를 보고 그렇게 느꼈어?" 하고 손가락으로 짚게 한다. 작품은 고흐 \'해바라기\'(1888, 저작권 만료)를 공개 자료로 보여 준다.',
+  }));
+
+  lessons.push(L(46, {
+    title: '별이 빛나는 밤을 다시 보고 새로 든 생각 말하기',
+    objective: '37차시에 본 \'별이 빛나는 밤\'을 다시 보고 처음에 못 본 것과 새로 든 생각을 찾아 말하며, 다시 보면 느낌이 바뀌어도 된다는 것을 알 수 있다.',
+    illustration: ART('a child looking again at a swirling starry night painting through a paper magnifying glass, discovering tiny lit windows of a sleepy village and a church spire', '다시 보니 보여요', [
+      { motif: 'moon', x: 380, y: 70, s: 0.6 }, { motif: 'house', x: 200, y: 210 }, { motif: 'star', x: 120, y: 70, s: 0.5 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '\'별이 빛나는 밤\'을 10초만 보여 주고 가린 뒤 "37차시에 처음 이 그림을 보았을 때 무엇이 먼저 보였었나요?" 하고 묻는다. "오늘은 아주 천천히 다시 볼 거예요. 처음과 다른 것이 보이면 생각이 바뀌어도 괜찮아요." 시연 단추로 \'달\' 카드가 \'처음 볼 때\' 가지에 놓이는 모습을 보여 준다.',
+        student: '37차시에 처음 보았을 때 먼저 본 곳을 떠올려요.',
+        demo: { tool: 'mindmap', options: { topic: '민지의 다시 보기', slots: ['처음 볼 때 본 것', '다시 볼 때 새로 본 것'], cards: ['달'], shuffle: false }, sequence: [{ sort: { '처음 볼 때 본 것': ['달'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 처음 본 것과 다시 보고 찾은 것', minutes: 13, tool: 'mindmap',
+            teacher: '그림을 넷으로 나누어 한 부분씩 크게 확대해 보여 준다(하늘, 나무, 마을, 산). "처음에 이것도 보았나요?" 하고 묻는다. 민지의 말을 소리 내어 읽고, \'처음엔\'과 \'다시 보니\' 뒤에 오는 낱말에 밑줄을 치게 한다.',
+            task: '처음 본 것과 다시 보고 새로 찾은 것을 나누고, 마음이 바뀐 차례를 놓아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '민지: "처음엔 달과 까만 나무만 보였어. 다시 보니 작은 마을 불빛과 뾰족한 교회 지붕이 보였어." 나누어 보세요.', toolOptions: { topic: '민지의 다시 보기', slots: ['처음 볼 때 본 것', '다시 볼 때 새로 본 것'], cards: ['달', '까만 나무', '작은 마을 불빛', '뾰족한 교회 지붕'] },
+                target: { sort: { '처음 볼 때 본 것': ['달', '까만 나무'], '다시 볼 때 새로 본 것': ['작은 마을 불빛', '뾰족한 교회 지붕'] } }, difficulty: 0.15,
+                hints: ['민지의 말에서 \'처음엔\' 뒤와 \'다시 보니\' 뒤를 나누어 읽어 봐요.', '\'다시 보니\' 뒤에 나온 것만 새로 본 것이에요. 놓은 카드를 견주어 보세요.', '달과 까만 나무는 처음 본 것, 마을 불빛과 교회 지붕은 다시 보고 찾은 것이에요.'] },
+              { prompt: '민지: "처음엔 까만 나무가 무서웠어. 다시 보니 빙글빙글 하늘이 신났어. 마지막엔 마을 불빛을 보니 편안해졌어." 마음이 바뀐 차례대로 놓아 보세요.', toolOptions: { mode: 'order', cards: ['무서움', '신남', '편안함'], slots: ['처음', '다시 볼 때', '마지막'] },
+                target: { order: ['무서움', '신남', '편안함'] }, difficulty: 0.2 },
+              { prompt: '그림을 다시 볼 때 맞는 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '맞는 말', cards: ['다시 보면 느낌이 바뀌어도 괜찮아요', '다시 보면 처음에 못 본 것을 찾을 수 있어요', '한 번 말한 느낌은 바꾸면 안 돼요'] },
+                target: { pick: ['다시 보면 느낌이 바뀌어도 괜찮아요', '다시 보면 처음에 못 본 것을 찾을 수 있어요'] }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['다시 보면 느낌이 바뀌어도 괜찮아요', '다시 보면 처음에 못 본 것을 찾을 수 있어요', '한 번 말한 느낌은 바꾸면 안 돼요', '다시 볼 때는 처음 본 곳만 봐요'] } } },
+                predict: { q: '한 번 말한 느낌을 바꿔도 될까요?', options: ['돼요', '안 돼요'], answer: 0 },
+                conclude: '그림을 다시 보면 새로운 것을 찾고, 느낌도 바뀔 수 있어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 짝과 다시 보기 놀이', minutes: 14, tool: 'emotion',
+            teacher: '짝끼리 그림을 10초 보고 가린 뒤 기억나는 것을 번갈아 말한다. 다시 1분 동안 보며 새로 찾은 것을 두 가지씩 덧붙인다(6분). 처음 느낌과 달라진 학생에게 "다시 보니 무엇 때문에 바뀌었어요?" 하고 묻는다.',
+            task: '짝과 다시 보기 놀이를 하고, 느낌이 바뀌었을 때 알맞은 말을 골라요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '짝과 그림을 10초 보고 기억나는 것을 말한 뒤, 다시 보며 새로 찾은 것을 두 가지씩 말했으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '처음에 "무서워"라고 말했는데 다시 보니 편안해졌어요. 어떻게 말할까요?', toolOptions: { mode: 'branch', situation: '처음에는 까만 나무를 보고 "무서워"라고 말했어요. 다시 보니 마을 불빛이 보여 마음이 편안해졌어요.', choices: [
+                { id: 'change', text: '"다시 보니 생각이 바뀌었어. 이제는 편안해" 하고 말해요', result: '친구들도 마을 불빛을 찾아보며 그림을 다시 보았어요.', mood: '편안함' },
+                { id: 'stick', text: '처음에 무섭다고 했으니 계속 무섭다고 말해요', result: '새로 찾은 마을 불빛 이야기를 아무도 듣지 못했어요.', mood: '걱정', why: '다시 보고 느낌이 바뀌면 바뀐 느낌을 말해도 돼요.' }] }, target: { choice: 'change' }, difficulty: 0.1 },
+              { prompt: '그림을 다시 보고 새로 든 생각을 활동지에 쓰고 짝에게 읽어 주었으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"다시 보니 무엇이 새로 보였나요? 느낌이 바뀐 사람이 있나요?" 두세 명이 말하게 하고, 바뀐 느낌을 말한 학생을 칭찬한다. 다음 시간에는 우리가 만든 색종이 작품으로 작은 미술관을 연다고 알린다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '준호의 다시 보기', slots: ['처음 볼 때 본 것', '다시 볼 때 새로 본 것'], cards: ['큰 파도', '멀리 작은 산', '배 안의 사람들'] }, prompt: '준호: "처음엔 큰 파도만 보였어. 다시 보니 멀리 작은 산과 배 안의 사람들이 보였어." 나누어 보세요.', target: { sort: { '처음 볼 때 본 것': ['큰 파도'], '다시 볼 때 새로 본 것': ['멀리 작은 산', '배 안의 사람들'] } }, difficulty: 0.15 },
+          { type: 'choice', prompt: '그림을 다시 보고 느낌이 바뀌었어요. 어떻게 할까요?', options: ['바뀐 느낌을 말해도 돼요', '처음 느낌만 말해야 해요', '아무 말도 하지 않아요'], answer: 0, difficulty: 0.1, explain: '다시 보며 새로 찾은 것이 있으면 생각과 느낌이 바뀔 수 있어요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '다시 보니 보여요',
+      items: [
+        { type: 'table', prompt: '별이 빛나는 밤을 보고 쓰세요.', columns: ['', '본 것', '느낌'], cells: [['처음 볼 때', '', ''], ['다시 볼 때', '', '']] },
+        { type: 'short', prompt: '다시 보고 새로 든 생각을 쓰세요.' },
+        { type: 'choice', prompt: '다시 보고 느낌이 바뀌면?', options: ['바뀐 느낌을 말해도 돼요', '처음 느낌만 말해야 해요'], answer: '바뀐 느낌을 말해도 돼요' },
+        { type: 'draw', prompt: '다시 보고 새로 찾은 부분을 크게 그려 보세요.' },
+      ],
+      easy: {
+        note: '천천히 다시 보면 새로운 것이 보여요.',
+        items: [
+          { type: 'short', prompt: '처음 볼 때 본 것 하나를 쓰세요.' },
+          { type: 'short', prompt: '다시 보고 새로 찾은 것 하나를 쓰세요.' },
+          { type: 'draw', prompt: '새로 찾은 것을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 틀린 카드는 바로 돌아와요.',
+      base: '처음 본 것과 새로 본 것을 나누고, 마음이 바뀐 차례를 놓아요.',
+      challenge: '새로 찾은 것을 적어도 세 가지 말하고, 느낌이 바뀐 까닭을 그림에서 짚어 설명해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 다시 보아도 "똑같아요"라고 한다 → 그림을 넷으로 나누어 한 부분씩 크게 보여 준다. ② 처음 느낌을 바꾸면 틀린 것이라 여긴다 → 화가도 그림을 여러 번 고쳐 그린다고 말해 준다. ③ 새로 찾은 것을 말하지 못한다 → "가장 작은 것을 찾아볼까?" 하고 범위를 좁혀 준다.',
+  }));
+
+  lessons.push(L(47, {
+    title: '우리 반 작은 미술관에서 친구 작품에 느낌 쪽지 붙이기',
+    objective: '친구의 색종이 작품을 보고 찾은 것과 느낌을 쪽지에 써 붙이고, 내 작품에 나와 다른 느낌의 쪽지를 받았을 때 받아들이는 말을 할 수 있다.',
+    illustration: ART('a classroom wall turned into a tiny paper art gallery with colorful cut-paper artworks, children sticking small paper notes beside each artwork', '우리 반 미술관', [
+      { motif: 'star', x: 100, y: 80, s: 0.5 }, { motif: 'flower', x: 380, y: 220 }, { motif: 'house', x: 120, y: 210, s: 0.7 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '38·40·43·44차시에 만든 색종이 작품(또는 화면 작품을 인쇄한 것)을 교실 벽과 책상에 전시해 둔다. "오늘은 우리 반이 미술관이에요. 미술관에서는 작품을 어떻게 볼까요?" 천천히 걷기, 손대지 않기, 작은 목소리를 약속한다. 시연 단추로 쪽지에 쓸 말이 \'찾은 것\' 가지에 놓이는 모습을 보여 준다.',
+        student: '내 작품 옆에 이름표를 놓고, 친구가 꼭 찾아 주었으면 하는 곳을 하나 정해요.',
+        demo: { tool: 'mindmap', options: { topic: '감상 쪽지', slots: ['찾은 것', '느낌'], cards: ['하트가 몸 한가운데 있어요'], shuffle: false }, sequence: [{ sort: { '찾은 것': ['하트가 몸 한가운데 있어요'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 감상 쪽지 쓰고 붙이기', minutes: 14, tool: 'mindmap',
+            teacher: '"좋은 감상 쪽지에는 작품에서 찾은 것 하나와 내 느낌 하나가 들어가요." 칠판에 \'○○이 보여요. ~한 느낌이에요.\' 틀을 적는다. 반 전체가 동시에 둘러보며 친구 작품 세 개에 쪽지를 붙인다(8분). "이상해", "내 것이 더 멋져" 같은 말은 쪽지에 쓰지 않는다.',
+            task: '감상 쪽지에 쓸 말을 고르고 나누어 본 뒤, 친구 작품에 쪽지를 붙여요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '친구 작품에 붙일 쪽지로 알맞은 말만 골라 보세요.', toolOptions: { mode: 'pick', basket: '감상 쪽지', cards: ['빨간 하트가 먼저 눈에 띄어요', '별이 많아서 신나는 느낌이에요', '이상해, 다시 만들어', '내 것이 더 멋져'] },
+                target: { pick: ['빨간 하트가 먼저 눈에 띄어요', '별이 많아서 신나는 느낌이에요'] }, difficulty: 0.1 },
+              { prompt: '쪽지에 쓴 말을 작품에서 찾은 것과 느낌으로 나누어 보세요.', toolOptions: { topic: '감상 쪽지', slots: ['찾은 것', '느낌'], cards: ['파란 하늘에 별이 다섯 개 있어요', '조용하고 포근한 느낌이에요', '하트가 몸 한가운데 있어요', '보고 있으니 신나요'] },
+                target: { sort: { '찾은 것': ['파란 하늘에 별이 다섯 개 있어요', '하트가 몸 한가운데 있어요'], '느낌': ['조용하고 포근한 느낌이에요', '보고 있으니 신나요'] } }, difficulty: 0.15,
+                hints: ['작품에서 손가락으로 짚을 수 있는 것과 내 마음을 말한 것을 견주어 봐요.', '\'느낌이에요\', \'신나요\'처럼 마음을 말한 카드를 다시 보세요.', '별 다섯 개와 하트 자리는 찾은 것, 포근함과 신남은 느낌이에요.'] },
+              { prompt: '미술관을 천천히 둘러보며 친구 작품 세 개에 \'찾은 것 + 느낌\' 쪽지를 붙였으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 받은 쪽지 읽고 받아들이기', minutes: 13, tool: 'emotion',
+            teacher: '자기 자리로 돌아와 받은 쪽지를 읽는다. "내가 생각한 것과 다른 느낌의 쪽지가 있나요? 친구는 내 작품에서 무엇을 보았을까요?" 그 쪽지를 들고 내 작품을 다시 보게 한다. 쪽지를 하나도 받지 못한 학생이 없도록 교사가 미리 살핀다.',
+            task: '받은 쪽지를 읽고, 나와 다른 느낌의 쪽지를 받아들이는 말과 마음을 찾아요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '나는 신나게 만들었는데 서아가 "쓸쓸해 보여"라는 쪽지를 붙였어요. 어떻게 말할까요?', toolOptions: { mode: 'branch', situation: '나는 신나는 장면을 만들었는데, 서아의 쪽지에 "쓸쓸해 보여"라고 쓰여 있어요.', choices: [
+                { id: 'ask', text: '"그렇게도 보이는구나. 어디가 쓸쓸해 보였어?" 하고 물어요', result: '서아가 까만 조각이 혼자 떨어져 있어서라고 알려 주었어요. 작품을 새롭게 보았어요.', mood: '기쁨' },
+                { id: 'tear', text: '쪽지를 떼어 버려요', result: '서아가 내 작품을 다시 보러 오지 않았어요.', mood: '속상함', why: '나와 다른 느낌의 쪽지도 내 작품을 새로 보게 해 줘요.' }] }, target: { choice: 'ask' }, difficulty: 0.1 },
+              { prompt: '쪽지를 받았을 때 마음에 어울리는 카드를 놓아 보세요.', toolOptions: { cards: ['뿌듯함', '속상함', '무서움'], slots: [{ id: 's1', label: '꼭 찾아 주길 바랐던 곳을 친구가 찾아 주었어요' }, { id: 's2', label: '친구가 까닭 없이 "이상해"라고만 썼어요' }] },
+                target: { match: { s1: '뿌듯함', s2: '속상함' } }, difficulty: 0.1,
+                levels: { challenge: { toolOptions: { cards: ['뿌듯함', '속상함', '무서움', '화남'] } } } },
+              { prompt: '받은 쪽지 가운데 나와 다르게 느낀 쪽지를 하나 골라, 그 친구가 본 곳을 내 작품에서 찾아 짚었으면 "다 했어요"를 누르세요.', free: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"받은 쪽지 가운데 가장 기억에 남는 쪽지는 무엇인가요? 왜 그런가요?" 두세 명이 말한다. 전시한 작품은 다음 시간 단원 전시회까지 그대로 둔다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { mode: 'pick', basket: '감상 쪽지', cards: ['노란 해가 크게 보여요', '따뜻한 느낌이 들어요', '너무 못 만들었어'] }, prompt: '하준이의 해 그림에 붙일 쪽지로 알맞은 말만 골라 보세요.', target: { pick: ['노란 해가 크게 보여요', '따뜻한 느낌이 들어요'] }, difficulty: 0.1 },
+          { type: 'choice', prompt: '내 작품에 나와 다른 느낌의 쪽지가 붙었어요.', options: ['친구가 무엇을 보았는지 물어봐요', '쪽지를 떼어 버려요', '친구에게 화를 내요'], answer: 0, difficulty: 0.1, explain: '다른 느낌의 쪽지는 내 작품을 새롭게 보게 해 줘요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '우리 반 작은 미술관',
+      items: [
+        { type: 'table', prompt: '친구 작품에 붙인 쪽지를 옮겨 쓰세요.', columns: ['친구 작품', '찾은 것', '느낌'], rows: 3 },
+        { type: 'short', prompt: '내가 받은 쪽지 가운데 나와 다르게 느낀 쪽지를 옮겨 쓰세요.' },
+        { type: 'short', prompt: '그 친구는 내 작품에서 무엇을 보았을지 쓰세요.' },
+        { type: 'check', prompt: '미술관 약속을 지킨 것에 모두 ✓ 하세요.', options: ['천천히 걸었어요', '작품에 손대지 않았어요', '작은 목소리로 말했어요', '쪽지에 찾은 것과 느낌을 썼어요'] },
+      ],
+      easy: {
+        note: '○○이 보여요. ~한 느낌이에요.',
+        items: [
+          { type: 'choice', prompt: '감상 쪽지로 알맞은 말에 ○ 하세요.', options: ['별이 반짝여서 신나요', '이상해'], answer: '별이 반짝여서 신나요' },
+          { type: 'short', prompt: '친구 작품에서 찾은 것 하나를 쓰세요.' },
+          { type: 'draw', prompt: '가장 마음에 든 친구 작품을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 칸에 초록 테두리가 생기고, 쪽지는 칠판의 틀을 보고 따라 써요.',
+      base: '찾은 것과 느낌을 넣은 쪽지를 세 장 붙이고, 다른 느낌의 쪽지를 받아들여요.',
+      challenge: '함정 마음 카드가 섞이고, 쪽지에 그렇게 느낀 까닭까지 넣어 다섯 장 붙여요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 쪽지에 "예뻐요"만 쓴다 → 칠판의 \'○○이 보여요. ~한 느낌이에요.\' 틀을 짚어 준다. ② 친한 친구 작품에만 쪽지를 붙인다 → 모둠마다 붙일 작품 구역을 나누어 준다. ③ 다른 느낌의 쪽지를 받고 속상해한다 → 그 쪽지가 작품을 새롭게 보게 해 준다고 말하고 함께 작품을 다시 본다. 쪽지에 친구 이름 대신 \'○번 작품\'처럼 번호를 쓴다.',
+  }));
+
+  lessons.push(L(48, {
+    title: '세계 단원을 돌아보며 우리 반 세계 전시회 열기',
+    objective: '세계 단원에서 한 일을 네 갈래(궁금한 세계 알아보기·다른 나라 생활 존중하기·세계 노래 듣기·세계 그림 보기)로 묶어 말하고, 전시회에서 친구에게 소개한 뒤 나의 배움을 스스로 돌아볼 수 있다.',
+    illustration: ART('a cheerful classroom world exhibition with a paper globe in the center, music picture scores, cut-paper artworks and flags of friendship around it, children guiding visitors', '우리 반 세계 전시회', [
+      { motif: 'star', x: 100, y: 80, s: 0.5 }, { motif: 'flower', x: 400, y: 220 }, { motif: 'bird', x: 360, y: 80 }]),
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 5,
+        teacher: '교실을 네 구역으로 나누어 단원 결과물을 전시해 둔다(탐구 그림 카드, 존중 약속, 그림 악보, 색종이 작품). "1차시부터 오늘까지 세계 단원에서 무엇을 했는지 떠올려 볼까요?" 구역마다 한 가지씩 학생이 말하게 한다. 시연 단추로 \'세계 지도에서 남극 찾기\' 카드가 \'궁금한 세계 알아보기\' 가지에 놓이는 모습을 보여 준다.',
+        student: '세계 단원에서 가장 기억에 남는 활동 하나를 떠올려요.',
+        demo: { tool: 'mindmap', options: { topic: '세계 단원', slots: ['궁금한 세계 알아보기', '세계 그림 보기'], cards: ['세계 지도에서 남극 찾기'], shuffle: false }, sequence: [{ sort: { '궁금한 세계 알아보기': ['세계 지도에서 남극 찾기'] } }] },
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 단원에서 한 일 묶기', minutes: 12, tool: 'mindmap',
+            teacher: '네 가지 이름을 칠판에 적고, 카드마다 "이 활동을 할 때 무엇을 보았나요? 들었나요? 함께 놀았나요?" 하고 떠올리게 한다. 존중하기 활동은 다른 나라 옷·음식·인사·놀이를 함께 해 본 것이라고 짚는다.',
+            task: '단원에서 한 활동을 네 갈래로 묶고, 배운 태도에 어울리는 말을 이어요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '세계 단원에서 한 활동을 알맞은 가지에 묶어 보세요.', toolOptions: { topic: '세계 단원', slots: ['궁금한 세계 알아보기', '다른 나라 생활 존중하기', '세계 노래 듣기', '세계 그림 보기'], cards: ['세계 지도에서 남극 찾기', '만칼라 놀이 하기', '런던 다리 센 박에 무릎 치기', '별이 빛나는 밤 감상하기'] },
+                target: { sort: { '궁금한 세계 알아보기': ['세계 지도에서 남극 찾기'], '다른 나라 생활 존중하기': ['만칼라 놀이 하기'], '세계 노래 듣기': ['런던 다리 센 박에 무릎 치기'], '세계 그림 보기': ['별이 빛나는 밤 감상하기'] } }, difficulty: 0.15 },
+              { prompt: '다른 활동도 알맞은 가지에 묶어 보세요.', toolOptions: { topic: '세계 단원', slots: ['궁금한 세계 알아보기', '다른 나라 생활 존중하기', '세계 노래 듣기', '세계 그림 보기'], cards: ['알아낸 것과 상상한 것 나누기', '여러 나라 인사말로 인사하기', '노래 빠르기를 걸음으로 나타내기', '과일 얼굴 그림에서 과일 찾기'] },
+                target: { sort: { '궁금한 세계 알아보기': ['알아낸 것과 상상한 것 나누기'], '다른 나라 생활 존중하기': ['여러 나라 인사말로 인사하기'], '세계 노래 듣기': ['노래 빠르기를 걸음으로 나타내기'], '세계 그림 보기': ['과일 얼굴 그림에서 과일 찾기'] } }, difficulty: 0.2 },
+              { prompt: '이런 때 어울리는 말을 이어 보세요.', toolOptions: { mode: 'match', topic: '서로 존중하는 말', slots: [{ id: 's1', label: '친구가 우리와 다른 나라 음식을 좋아해요' }, { id: 's2', label: '친구가 같은 그림을 나와 다르게 느꼈어요' }], cards: ['"그 음식 맛이 궁금해"', '"너는 그렇게 느꼈구나"'] },
+                target: { match: { s1: '"그 음식 맛이 궁금해"', s2: '"너는 그렇게 느꼈구나"' } }, difficulty: 0.15,
+                levels: { challenge: { toolOptions: { cards: ['"그 음식 맛이 궁금해"', '"너는 그렇게 느꼈구나"', '"그건 이상해"'] } } },
+                conclude: '세계를 알아볼 때도, 친구와 다를 때도 궁금해하고 받아들이는 마음이 필요해요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 세계 전시회 열고 돌아보기', minutes: 15, tool: 'emotion',
+            teacher: '모둠이 반씩 나뉘어 절반은 자기 구역 안내를, 절반은 관람을 하고 4분 뒤 바꾼다(8분). 안내하는 학생은 결과물 하나를 들고 "이것은 ~를 알아본 거예요" 한 문장으로 소개한다. 이어 스스로 돌아보기 두 가지를 한다 — 내 마음의 크기라 정답이 없다고 미리 알린다.',
+            task: '전시회에서 우리 모둠 결과물을 소개하고 둘러본 뒤, 단원을 마친 내 마음을 돌아봐요.',
+            levels: CARD_LV,
+            items: [
+              { prompt: '전시회에서 우리 모둠 결과물 하나를 한 문장으로 소개하고, 다른 구역도 둘러보았으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '세계 단원을 마친 지금, 세계가 더 궁금해진 마음의 크기를 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', situation: '세계의 궁금한 곳, 여러 나라 생활, 노래와 그림을 만났어요.', feeling: '설렘', after: '더 궁금한 나라가 있다면 책과 지도로 계속 찾아보세요.' }, target: { level: 'any' }, difficulty: 0.05 },
+              { prompt: '친구와 다른 생각과 느낌을 받아들일 수 있게 된 내가 뿌듯한 마음의 크기를 솔직하게 골라 보세요. 정답은 없어요.', toolOptions: { mode: 'scale', situation: '다른 나라 생활과 친구의 다른 느낌을 "그럴 수 있구나" 하고 받아들여 보았어요.', feeling: '뿌듯함', after: '앞으로도 다른 생각을 만나면 먼저 궁금해해 보세요.' }, target: { level: 'any' }, difficulty: 0.05 },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 8,
+        teacher: '"세계 단원에서 새로 알게 된 것 하나, 앞으로 해 보고 싶은 것 하나를 말해 볼까요?" 서너 명이 말한다. 전시한 결과물은 집에 가져가 가족에게 소개하게 한다. 단원을 마친 것을 함께 박수로 축하한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'mindmap', options: { topic: '세계 단원', slots: ['궁금한 세계 알아보기', '다른 나라 생활 존중하기', '세계 노래 듣기', '세계 그림 보기'], cards: ['펭귄 책 자료 읽기', '다루마상가 고론다 하기', '프레르 자크에서 되풀이 가락 찾기', '몬드리안처럼 네모 작품 만들기'] }, prompt: '세계 단원에서 한 활동을 알맞은 가지에 묶어 보세요.', target: { sort: { '궁금한 세계 알아보기': ['펭귄 책 자료 읽기'], '다른 나라 생활 존중하기': ['다루마상가 고론다 하기'], '세계 노래 듣기': ['프레르 자크에서 되풀이 가락 찾기'], '세계 그림 보기': ['몬드리안처럼 네모 작품 만들기'] } }, difficulty: 0.2 },
+          { type: 'choice', prompt: '다른 나라 사람들의 생활이 우리와 다를 때 알맞은 생각은?', options: ['다른 까닭이 있을 거예요', '우리 생활만 옳아요', '다른 것은 틀린 거예요'], answer: 0, difficulty: 0.1, explain: '날씨와 생활이 달라서 옷·음식·집이 다를 수 있어요. 다름은 틀림이 아니에요.' },
+          MOOD,
+        ],
+      },
+    ],
+    worksheet: {
+      title: '세계 단원 돌아보기',
+      items: [
+        { type: 'table', prompt: '세계 단원에서 한 일을 갈래마다 하나씩 쓰세요.', columns: ['갈래', '내가 한 일'], cells: [['궁금한 세계 알아보기', ''], ['다른 나라 생활 존중하기', ''], ['세계 노래 듣기', ''], ['세계 그림 보기', '']] },
+        { type: 'short', prompt: '세계 단원에서 새로 알게 된 것을 쓰세요.' },
+        { type: 'short', prompt: '앞으로 더 알아보고 싶은 나라나 곳을 쓰세요.' },
+        { type: 'draw', prompt: '세계 단원에서 가장 즐거웠던 장면을 그려 보세요.' },
+      ],
+      easy: {
+        note: '알아보기, 존중하기, 노래, 그림 — 네 가지를 떠올려요.',
+        items: [
+          { type: 'choice', prompt: '세계 그림 보기에서 한 활동에 ○ 하세요.', options: ['별이 빛나는 밤 감상하기', '만칼라 놀이 하기'], answer: '별이 빛나는 밤 감상하기' },
+          { type: 'short', prompt: '가장 기억에 남는 활동을 쓰세요.' },
+          { type: 'draw', prompt: '가장 즐거웠던 장면을 그려 보세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 가지에 초록 테두리가 생기고, 스스로 돌아보기는 솔직하게 고르기만 하면 돼요.',
+      base: '단원 활동을 네 갈래로 묶고, 전시회에서 결과물을 한 문장으로 소개해요.',
+      challenge: '함정 카드가 섞이고, 전시회에서 두 갈래를 이어 소개해요(예: 노래와 그림에서 모두 \'다시 보기·다시 듣기\'를 했어요).',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 활동 이름만 듣고 어느 갈래인지 떠올리지 못한다 → 구역마다 결과물을 들어 보이며 함께 떠올린다. ② 전시회 안내를 길게 하려다 막힌다 → \'이것은 ~예요. ~를 알게 되었어요.\' 두 문장 틀을 준다. ③ 스스로 돌아보기에서 친구 눈치를 본다 → 마음의 크기는 맞고 틀림이 없다고 다시 말한다. 전시물에 학생 이름 대신 모둠 번호를 붙인다.',
   }));
 
   // ── 차시 끝 ──

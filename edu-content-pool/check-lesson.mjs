@@ -154,7 +154,7 @@ export function standardsCheck(l, opts = {}) {
 export const PROMPT_HEAD = 'Layered paper-cut illustration of ';
 export const PROMPT_TAIL = ', with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.';
 // 단원 차시 id('<단원 id>-<두 자리>', 예: g1-int-2-06-01)는 lessons/units/<단원 id>.js 안에 있다
-export const UNIT_LESSON_ID = /^(g\d-[a-z]+-[12]-\d{2})-\d{2}$/;
+export const UNIT_LESSON_ID = /^(g\d-[a-z]+-[12]-(?:\d{2}|독서|매체))-\d{2}$/;
 export function unitOfLesson(id) {
   const m = UNIT_LESSON_ID.exec(id || '');
   return m && !existsSync(join(here, 'lessons/data', `${id}.js`)) && existsSync(join(here, 'lessons/units', `${m[1]}.js`)) ? m[1] : null;

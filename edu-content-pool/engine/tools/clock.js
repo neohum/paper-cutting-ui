@@ -97,6 +97,8 @@
       };
       const fmtOf = (s) => `${s.h}시${s.m ? ` ${s.m}분` : ''}`;
       const fmt = () => fmtOf(state());
+      // '12시예요'·'9시 40분이에요' — 정각(시)은 받침이 없다
+      const isIt = (w) => `${w}${/시$/.test(w) ? '예요' : '이에요'}`;
       const showTime = () => o.showDigital === true && !o.print && (!o.revealAfterCheck || revealed);
       // 바늘 위치를 그대로 말로(스크린리더): 시각을 계산해 주지 않고, 눈으로 보이는 것만 알려 준다
       const pointText = (deg, short) => {
@@ -157,7 +159,7 @@
           const b = e.target.closest('button[data-i]'); if (!b) return;
           pick = Number(b.dataset.i); paintPick(); kit.tick();
           kit.recorder.log('clock', state());
-          kit.announce(`${choices[pick]}을 골랐어요.`);
+          { const w = String(choices[pick]); const k = w.charCodeAt(w.length - 1); kit.announce(`${w}${k >= 0xac00 && k <= 0xd7a3 && (k - 0xac00) % 28 === 0 ? '를' : '을'} 골랐어요.`); }
         });
         // 보기는 라디오 묶음처럼: 화살표가 옆 보기로 옮기며 고른다
         bar.addEventListener('keydown', (e) => {
@@ -314,7 +316,7 @@
           if (readOnly || (t && t.pick != null)) {
             if (pick == null) return { correct: false, incomplete: true, feedback: '시계를 보고 아래에서 시각을 하나 골라요.' };
             const shown = state();
-            if (pick === t.pick) return { correct: true, feedback: `맞아요! 긴바늘은 ${shown.m}분, 짧은바늘은 ${shown.h}시를 나타내서 ${fmtOf(shown)}이에요.` };
+            if (pick === t.pick) return { correct: true, feedback: `맞아요! 긴바늘은 ${shown.m}분, 짧은바늘은 ${shown.h}시를 나타내서 ${isIt(fmtOf(shown))}.` };
             const said = parse(choices[pick]);
             const why = said && diagnose(said, shown, true);
             return { correct: false, feedback: why || '다시 볼까요? 짧은바늘부터 읽어요.', hint: h2() };
@@ -330,8 +332,8 @@
                 : `시와 분은 맞지만 짧은바늘 자리가 맞지 않아요. 분이 지난 만큼만 ${next} 쪽으로 옮겨요.`, hint: h2() };
             }
           }
-          if (ok) return { correct: true, feedback: `맞아요! ${fmt()}이에요.` };
-          const now = `지금 시계는 ${fmt()}이에요.`;
+          if (ok) return { correct: true, feedback: `맞아요! ${isIt(fmt())}.` };
+          const now = `지금 시계는 ${isIt(fmt())}.`;
           const why = diagnose(s, t);
           if (why) return { correct: false, feedback: `${now} ${why}`, hint: h2() };
           if (s.m === tm) return { correct: false, feedback: `${now} 긴바늘은 맞았어요. 짧은바늘을 다시 보세요.`, hint: h2() };

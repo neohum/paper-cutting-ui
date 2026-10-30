@@ -168,9 +168,9 @@
             items: [
               { prompt: '나를 알아보는 좋은 방법만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '나를 알아보는 방법', weather: false, cards: ['여러 활동을 직접 해 보기', '가족에게 내 장점 묻기', '진로 흥미 검사 해 보기', '인기 순위로 꿈 정하기', '친구 꿈을 그대로 따르기'] }, hints: ['그 방법이 나의 흥미·적성을 직접 알려 주는지, 다른 사람의 기준을 그대로 따르는 것인지 따져 골라요.'], target: { pick: ['여러 활동을 직접 해 보기', '가족에게 내 장점 묻기', '진로 흥미 검사 해 보기'] }, difficulty: 0.15,
                 levels: { easy: { toolOptions: { live: true, instant: true } }, challenge: { toolOptions: { cards: ['여러 활동을 직접 해 보기', '가족에게 내 장점 묻기', '진로 흥미 검사 해 보기', '인기 순위로 꿈 정하기', '친구 꿈을 그대로 따르기', '하루 만에 꿈 정하기'] } } } },
-              { prompt: '준호는 검사 결과와 친구들 꿈이 달라 고민이에요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '흥미 검사에서 \'탐구형\'이 나왔어요. 그런데 친구들은 다 같이 유튜버가 되자고 해요.', feeling: '걱정', choices: [
+              { prompt: '준호는 검사 결과와 친구들 꿈이 달라 고민이에요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '흥미 검사에서 \'탐구형\'이 나왔어요. 그런데 친구들은 다 같이 인터넷 방송인이 되자고 해요.', feeling: '걱정', choices: [
                 { id: 'mix', text: '검사 결과와 내가 해 본 일을 함께 살펴요', result: '실험 동아리를 해 보며 내 흥미를 확인해요.', mood: '뿌듯함' },
-                { id: 'follow', text: '친구들처럼 유튜버로 정해요', result: '나는 왜 그 일을 하는지 모르게 돼요.', mood: '걱정', why: '친구의 흥미와 내 흥미가 같은지 먼저 따져 봐요.' },
+                { id: 'follow', text: '친구들처럼 인터넷 방송인으로 정해요', result: '나는 왜 그 일을 하는지 모르게 돼요.', mood: '걱정', why: '친구의 흥미와 내 흥미가 같은지 먼저 따져 봐요.' },
                 { id: 'only', text: '검사 결과만 보고 바로 직업을 정해요', result: '해 보지도 않은 일로 꿈이 굳어져요.', mood: '걱정', why: '검사는 참고 자료예요. 직접 해 본 경험도 함께 봐요.' }] }, target: { choice: 'mix' }, difficulty: 0.2 },
               { prompt: '민지는 잘하는 일과 좋아하는 일이 달라요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '민지', situation: '수학 문제는 잘 풀지만 그림 그리기가 훨씬 좋아요. 무엇을 보고 진로를 찾을지 고민돼요.', choices: [
                 { id: 'both', text: '둘을 함께 쓰는 일을 찾아봐요', result: '그림과 계산을 함께 쓰는 디자인·건축 일을 알게 돼요.', mood: '신남' },
@@ -813,7 +813,7 @@
       title: '옷차림 돌아보기',
       items: [
         { type: 'table', prompt: '입어 본 옷차림을 돌아보고 고친 계획을 쓰세요.', columns: ['불편했던 점', '까닭(날씨·활동·옷 상태)', '고친 계획'], rows: 3 },
-        { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 그리세요. (날씨 3번, 활동 1번, 옷 상태 2번)', tool: 'chart', figures: [{ options: { type: 'bar', title: '불편했던 까닭', data: [['날씨', 3], ['활동', 1], ['옷 상태', 2]], unit: '번', max: 5, scale: 1, given: [] }, caption: '' }], answer: '날씨 3칸, 활동 1칸, 옷 상태 2칸' },
+        { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 까닭, 세로에 횟수(번)를 쓰고, 한 칸을 1번으로 해요. (날씨 3번, 활동 1번, 옷 상태 2번)' },
         { type: 'choice', prompt: '\'아침엔 춥고 낮엔 더웠어요\'를 고친 계획으로 알맞은 것에 ○ 하세요.', options: ['두꺼운 패딩만 입기', '얇은 옷을 겹쳐 입기', '옷 색 바꾸기'], answer: '얇은 옷을 겹쳐 입기' },
         { type: 'short', prompt: '옷차림 계획을 입어 보고 고쳐 쓰면 무엇이 좋은지 쓰세요.' },
       ],
@@ -1121,7 +1121,7 @@
       title: '우리 집 한 주 가정일 기록',
       items: [
         { type: 'table', prompt: '한 주 동안 우리 집 가족이 가정일을 한 시간(분)을 쓰세요. 이름 대신 관계(아빠·엄마·나)로 써요.', columns: ['가족', '한 일', '걸린 시간(분)'], rows: 4 },
-        { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 그리세요. (아빠 300분, 엄마 360분, 나 60분)', tool: 'chart', figures: [{ options: { type: 'bar', title: '한 주 가정일 시간', data: [['아빠', 300], ['엄마', 360], ['나', 60]], unit: '분', max: 420, scale: 60, given: [] }, caption: '' }], answer: '아빠 5칸, 엄마 6칸, 나 1칸 (한 칸 60분)' },
+        { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 가족, 세로에 시간(분)을 쓰고, 한 칸을 60분으로 해요. (아빠 300분, 엄마 360분, 나 60분)' },
         { type: 'table', prompt: '해 보기 전 짐작한 시간과 실제 시간을 적어 견주세요.', columns: ['가정일', '짐작(분)', '실제(분)', '차이(분)'], rows: 3 },
         { type: 'short', prompt: '짐작과 실제 시간의 차이가 생긴 까닭을 쓰세요.' },
       ],
@@ -1129,7 +1129,7 @@
         note: '그래프의 눈금 한 칸이 몇 분인지 먼저 확인해요.',
         items: [
           { type: 'table', prompt: '우리 집 가족이 한 가정일을 쓰세요.', columns: ['가족', '한 일'], rows: 3 },
-          { type: 'figure', wide: true, prompt: '표를 보고 막대그래프를 그리세요. (가 30분, 나 10분)', tool: 'chart', figures: [{ options: { type: 'bar', title: '가정일 시간', data: [['가', 30], ['나', 10]], unit: '분', max: 40, scale: 10, given: [] }, caption: '' }], answer: '가 3칸, 나 1칸' },
+          { type: 'draw', prompt: '표를 보고 막대그래프를 그리세요. 가로에 이름, 세로에 시간(분)을 쓰고, 한 칸을 10분으로 해요. (가 30분, 나 10분)' },
           { type: 'choice', prompt: '해 보지 않은 일은 시간을 어떻게 짐작하기 쉬운가요? ○ 하세요.', options: ['짧게', '길게'], answer: '짧게' },
           { type: 'short', prompt: '내가 직접 재어 본 일과 걸린 시간을 쓰세요.' },
         ],
