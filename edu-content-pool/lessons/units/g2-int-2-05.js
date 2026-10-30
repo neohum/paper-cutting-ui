@@ -760,7 +760,7 @@
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
               { prompt: '비 오는 날 우산을 쓸 때 지킬 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '우산 바르게 쓰기', items: [{ id: 'look', text: '펴기 전에 둘레를 살펴요' }, { id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }] },
-                target: { checklist: ['look', 'down', 'shake'] }, difficulty: 0.05, levels: { challenge: { toolOptions: { items: [{ id: 'look', text: '펴기 전에 둘레를 살펴요' }, { id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }, { id: 'spin', text: '친구 옆에서 우산을 빙글빙글 돌려 물을 털어요' }] } }, easy: { toolOptions: { items: [{ id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }] }, target: { checklist: ['down', 'shake'] } } } },
+                target: { checklist: ['look', 'down', 'shake'] }, difficulty: 0.05, levels: { challenge: { toolOptions: { items: [{ id: 'look', text: '펴기 전에 둘레를 살펴요' }, { id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }, { id: 'spin', text: '친구 옆에서 우산을 빙글빙글 돌려 물을 털어요' }] } }, easy: { prompt: '우산을 쓸 때 지킬 일만 표시해 보세요. 하면 안 되는 일은 표시하지 않아요.', toolOptions: { items: [{ id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }] }, target: { checklist: ['down', 'shake'] } } } },
               { prompt: '미세먼지가 나쁜 날 지킬 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '미세먼지 나쁜 날', items: [{ id: 'mask', text: '밖에 나갈 때 마스크를 써요' }, { id: 'in', text: '운동장 대신 교실에서 놀아요' }, { id: 'open', text: '창문을 하루 종일 활짝 열어 둬요' }, { id: 'wash', text: '집에 오면 손과 얼굴을 씻어요' }] },
                 target: { checklist: ['mask', 'in', 'wash'] }, difficulty: 0.15,
                 levels: { challenge: { toolOptions: { items: [{ id: 'mask', text: '밖에 나갈 때 마스크를 써요' }, { id: 'in', text: '운동장 대신 교실에서 놀아요' }, { id: 'open', text: '창문을 하루 종일 활짝 열어 둬요' }, { id: 'wash', text: '집에 오면 손과 얼굴을 씻어요' }, { id: 'run', text: '밖에서 오래 달리기를 해요' }] } } } },
@@ -894,7 +894,7 @@
     worksheet: {
       title: '하루의 기온과 옷',
       items: [
-        { type: 'figure', prompt: '그래프를 보고 가장 따뜻한 때를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', title: '어느 날 기온', data: [['아침', 6], ['낮', 15], ['저녁', 9]], unit: '도', xLabel: '때', yLabel: '기온' }, caption: '가장 따뜻한 때: (        )' }], answer: '낮' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 가장 따뜻한 때를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', max: 15, scale: 15, title: '어느 날 기온', data: [['아침', 6], ['낮', 15], ['저녁', 9]], unit: '도', yLabel: '기온' }, caption: '가장 따뜻한 때: (        )' }], answer: '낮' },
         { type: 'table', prompt: '오늘 교실 온도계 숫자를 두 번 적으세요.', columns: ['아침', '점심'], rows: 1 },
         { type: 'short', prompt: '아침과 낮의 기온이 많이 다른 날 어떻게 입으면 좋을지 쓰세요.' },
         { type: 'check', prompt: '겉옷을 벗었을 때 할 일에 ✓ 하세요.', options: ['소매를 펴서 걸어요', '바닥에 던져 둬요', '저녁에 다시 입어요'] },
@@ -902,7 +902,7 @@
       easy: {
         note: '막대가 높을수록 따뜻해요.',
         items: [
-          { type: 'figure', prompt: '막대가 가장 높은 때에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', title: '어느 날 기온', data: [['아침', 6], ['낮', 15], ['저녁', 9]], unit: '도', xLabel: '때', yLabel: '기온' }, caption: '아침 · 낮 · 저녁' }], answer: '낮' },
+          { type: 'figure', wide: true, prompt: '막대가 가장 높은 때에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', max: 15, scale: 15, title: '어느 날 기온', data: [['아침', 6], ['낮', 15], ['저녁', 9]], unit: '도', yLabel: '기온' }, caption: '아침 · 낮 · 저녁' }], answer: '낮' },
           { type: 'choice', prompt: '쌀쌀한 아침에 입을 것에 ○ 하세요.', options: ['겉옷', '수영복'], answer: '겉옷' },
           { type: 'draw', prompt: '겉옷을 의자에 바르게 건 모습을 그리세요.' },
         ],
@@ -1804,7 +1804,7 @@
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
               { prompt: '다가오는 겨울에 해야 할 습관만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '겨울 습관', items: [{ id: 'ice', text: '빙판길을 천천히 걸어요' }, { id: 'layer', text: '옷을 여러 겹 입어요' }, { id: 'fan', text: '부채를 들고 다녀요' }, { id: 'heater', text: '난로와 한 걸음 떨어져요' }] },
-                target: { checklist: ['ice', 'layer', 'heater'] }, difficulty: 0.1, levels: { easy: { toolOptions: { items: [{ id: 'ice', text: '빙판길을 천천히 걸어요' }, { id: 'fan', text: '부채를 들고 다녀요' }, { id: 'heater', text: '난로와 한 걸음 떨어져요' }] }, target: { checklist: ['ice', 'heater'] } } } },
+                target: { checklist: ['ice', 'layer', 'heater'] }, difficulty: 0.1, levels: { easy: { prompt: '다가오는 겨울에 해야 할 습관만 표시해 보세요. 겨울에 맞지 않는 것은 표시하지 않아요.', toolOptions: { items: [{ id: 'ice', text: '빙판길을 천천히 걸어요' }, { id: 'fan', text: '부채를 들고 다녀요' }, { id: 'heater', text: '난로와 한 걸음 떨어져요' }] }, target: { checklist: ['ice', 'heater'] } } } },
               { prompt: '계절과 상관없이 언제나 하는 습관만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '언제나 하는 습관', items: [{ id: 'wash', text: '밖에서 돌아오면 손을 씻어요' }, { id: 'sleep', text: '밤에 일찍 자요' }, { id: 'sled', text: '눈썰매를 타요' }, { id: 'sun', text: '햇볕을 피해 그늘에 있어요' }] },
                 target: { checklist: ['wash', 'sleep'] }, difficulty: 0.2, levels: { challenge: { toolOptions: { items: [{ id: 'wash', text: '밖에서 돌아오면 손을 씻어요' }, { id: 'sleep', text: '밤에 일찍 자요' }, { id: 'sled', text: '눈썰매를 타요' }, { id: 'sun', text: '햇볕을 피해 그늘에 있어요' }, { id: 'scarf', text: '목도리를 둘러요' }] } } } },
               { prompt: '짝과 다가오는 겨울에 이어 갈 습관 하나를 정하고 새끼손가락을 걸어 약속해요. 다 했으면 "다 했어요"를 누르세요.', free: true },
@@ -2399,7 +2399,7 @@
             levels: CARD_LV,
             items: [
               { prompt: '달 카드를 알맞은 계절에 나누어 보세요.', toolOptions: { mode: 'sort', axis: ['봄', '겨울'], slots: ['봄', '여름', '가을', '겨울'], cards: ['4월', '7월', '10월', '1월'] },
-                target: { sort: { '봄': ['4월'], '여름': ['7월'], '가을': ['10월'], '겨울': ['1월'] } }, difficulty: 0.1, levels: { challenge: { toolOptions: { cards: ['4월', '7월', '10월', '1월', '6월', '9월'] }, target: { sort: { '봄': ['4월'], '여름': ['7월', '6월'], '가을': ['10월', '9월'], '겨울': ['1월'] } } } },
+                target: { sort: { '봄': ['4월'], '여름': ['7월'], '가을': ['10월'], '겨울': ['1월'] } }, difficulty: 0.1, levels: { challenge: { prompt: '달 카드를 알맞은 계절에 나누어 보세요. 6월과 9월 카드도 어느 계절에 가까운지 생각해요.', toolOptions: { cards: ['4월', '7월', '10월', '1월', '6월', '9월'] }, target: { sort: { '봄': ['4월'], '여름': ['7월', '6월'], '가을': ['10월', '9월'], '겨울': ['1월'] } } } },
                 hints: ['달력에서 꽃이 피는 달, 물놀이하는 달, 단풍 드는 달, 눈 오는 달을 떠올려 나누어요.', '흔들리는 카드의 달에 무슨 일이 있었는지 떠올려 보세요. 그때 날씨는 어땠나요?', '봄 3~5월, 여름 6~8월, 가을 9~11월, 겨울 12~2월이에요.'] },
               { prompt: '달 카드를 알맞은 계절에 나누어 보세요.', toolOptions: { mode: 'sort', axis: ['봄', '겨울'], slots: ['봄', '여름', '가을', '겨울'], cards: ['5월', '8월', '11월', '2월', '3월', '12월'] },
                 target: { sort: { '봄': ['5월', '3월'], '여름': ['8월'], '가을': ['11월'], '겨울': ['2월', '12월'] } }, difficulty: 0.25,
@@ -2919,7 +2919,7 @@
     worksheet: {
       title: '옷차림 그림그래프',
       items: [
-        { type: 'figure', prompt: '그래프를 보고 가장 많이 입은 옷을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '11월 우리 반 옷차림', data: [['반소매', 0], ['긴소매', 4], ['두꺼운 겉옷', 7]], unit: '명', xLabel: '옷차림', yLabel: '입은 사람', icons: [{ value: 1, name: '1명' }], icon: 'person' }, caption: '가장 많이 입은 옷: (        )' }], answer: '두꺼운 겉옷' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 가장 많이 입은 옷을 쓰세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '11월 우리 반 옷차림', data: [['반소매', 0], ['긴소매', 4], ['두꺼운 겉옷', 7]], unit: '명', xLabel: '옷차림', yLabel: '입은 사람', icons: [{ value: 1, name: '1명' }], icon: 'person' }, caption: '가장 많이 입은 옷: (        )' }], answer: '두꺼운 겉옷' },
         { type: 'table', prompt: '오늘 우리 반 옷차림을 세어 쓰세요.', columns: ['반소매', '긴소매', '두꺼운 겉옷'], rows: 1 },
         { type: 'choice', prompt: '9월보다 11월에 줄어든 옷은?', options: ['반소매', '두꺼운 겉옷'], answer: '반소매' },
         { type: 'short', prompt: '두 그래프를 견주어 알게 된 것을 한 문장으로 쓰세요.' },
@@ -2927,7 +2927,7 @@
       easy: {
         note: '사람 그림 하나 = 1명. 높이 쌓일수록 많아요.',
         items: [
-          { type: 'figure', prompt: '사람 그림이 가장 많은 옷에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '9월 우리 반 옷차림', data: [['반소매', 8], ['긴소매', 3]], unit: '명', xLabel: '옷차림', yLabel: '입은 사람', icons: [{ value: 1, name: '1명' }], icon: 'person' }, caption: '반소매 · 긴소매' }], answer: '반소매' },
+          { type: 'figure', wide: true, prompt: '사람 그림이 가장 많은 옷에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'picture', mode: 'read', title: '9월 우리 반 옷차림', data: [['반소매', 8], ['긴소매', 3]], unit: '명', xLabel: '옷차림', yLabel: '입은 사람', icons: [{ value: 1, name: '1명' }], icon: 'person' }, caption: '반소매 · 긴소매' }], answer: '반소매' },
           { type: 'choice', prompt: '오늘 내 옷차림에 ○ 하세요.', options: ['반소매', '긴소매', '두꺼운 겉옷'] },
           { type: 'draw', prompt: '오늘 내 옷차림을 그리세요.' },
         ],
@@ -3170,15 +3170,15 @@
     worksheet: {
       title: '한 달 날씨 기록',
       items: [
-        { type: 'figure', prompt: '그래프를 보고 가장 많았던 날씨를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', title: '어느 해 7월 날씨', data: [['맑은 날', 9], ['흐린 날', 7], ['비 온 날', 15]], unit: '일', xLabel: '날씨', yLabel: '날수' }, caption: '가장 많았던 날씨: (        )' }], answer: '비 온 날' },
-        { type: 'figure', prompt: '그래프를 보고 가장 적었던 날씨를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', title: '같은 해 1월 날씨', data: [['맑은 날', 16], ['흐린 날', 9], ['눈 온 날', 6]], unit: '일', xLabel: '날씨', yLabel: '날수' }, caption: '가장 적었던 날씨: (        )' }], answer: '눈 온 날' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 가장 많았던 날씨를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', max: 15, scale: 15, title: '어느 해 7월 날씨', data: [['맑은 날', 9], ['흐린 날', 7], ['비 온 날', 15]], unit: '일', yLabel: '날수' }, caption: '가장 많았던 날씨: (        )' }], answer: '비 온 날' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 가장 적었던 날씨를 쓰세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', max: 16, scale: 16, title: '같은 해 1월 날씨', data: [['맑은 날', 16], ['흐린 날', 9], ['눈 온 날', 6]], unit: '일', yLabel: '날수' }, caption: '가장 적었던 날씨: (        )' }], answer: '눈 온 날' },
         { type: 'table', prompt: '오늘부터 닷새 동안 하늘을 보고 날씨를 쓰세요.', columns: ['날짜', '날씨'], rows: 5 },
         { type: 'short', prompt: '두 달의 그래프를 견주어 알게 된 것을 쓰세요.' },
       ],
       easy: {
         note: '막대가 길수록 그 날씨인 날이 많아요.',
         items: [
-          { type: 'figure', prompt: '막대가 가장 긴 날씨에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', title: '어느 해 7월 날씨', data: [['맑은 날', 9], ['비 온 날', 15]], unit: '일', xLabel: '날씨', yLabel: '날수' }, caption: '맑은 날 · 비 온 날' }], answer: '비 온 날' },
+          { type: 'figure', wide: true, prompt: '막대가 가장 긴 날씨에 ○ 하세요.', tool: 'chart', figures: [{ options: { type: 'bar', mode: 'read', max: 15, scale: 15, title: '어느 해 7월 날씨', data: [['맑은 날', 9], ['비 온 날', 15]], unit: '일', yLabel: '날수' }, caption: '맑은 날 · 비 온 날' }], answer: '비 온 날' },
           { type: 'choice', prompt: '비가 많이 오는 달에 챙길 것에 ○ 하세요.', options: ['우비', '손난로'], answer: '우비' },
           { type: 'draw', prompt: '오늘 하늘을 그리세요.' },
         ],

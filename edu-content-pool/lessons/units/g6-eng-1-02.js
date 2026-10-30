@@ -3986,6 +3986,698 @@
         teacherNotes: '자주 보이는 어려움: ① 나누어 맡은 부분만 하고 다른 사람 부분은 읽어 보지 않는다(주제 오개념) → 올리기 전에 모둠원 모두가 끝까지 읽었다는 표시를 하게 한다. ② 결과물에 한 사람 이름만 쓰거나, 한 사람이 다 해 버린다 → Made by Group ○과 함께 활동지에 각자 한 일을 적게 한다. ③ 학급 밖 공개 게시판에 학생 이름·사진을 올린다 → 모둠 번호만 쓰고, 공개 범위는 학급으로 둔다(개인정보).',
       }),
 
+      // ───────────────────────── 39차시 (core) ─────────────────────────
+      lesson(39, S10, {
+        title: '진행자·기록자·발표자가 하는 말 구분하기',
+        objective: '모둠 대화에서 진행자·기록자·발표자가 각각 어떤 영어 문장을 쓰는지 구분하고, 자기가 맡은 역할의 문장을 자기 차례에 말할 수 있다.',
+        illustration: {
+          prompt: PROMPT('three children at a round table wearing paper badges labeled leader, writer and speaker, with speech bubbles in different colors'),
+          scene: SC('Leader · Writer · Speaker', 'Who speaks now?', [{ motif: 'star', x: 120, y: 70 }, { motif: 'house', x: 90, y: 216, color: 'peach' }, { motif: 'flower', x: 400, y: 224 }]),
+        },
+        stages: [
+          {
+            id: 'intro', title: '도입', minutes: 6,
+            teacher: '세 학생을 앞으로 불러 "우리 모둠은 점심 메뉴를 정해요"라고 하고 역할 없이 동시에 말하게 한다. 금방 시끄러워진다. "누가 말을 시작하고, 누가 적고, 누가 모둠 생각을 알릴지 정하면 어떨까요?" 칠판에 leader(진행자), writer(기록자), speaker(발표자)를 쓴다. "역할이 있어도 영어로 말하는 일은 잘하는 친구에게 미루면 안 돼요. 내 역할의 말은 내가 해요."라고 먼저 규칙을 말한다.',
+            student: '모둠에서 여럿이 한꺼번에 말하면 어떤 일이 생길까요? 역할을 나누면 무엇이 좋아질까요?',
+          },
+          {
+            id: 'main', title: '전개', minutes: 27,
+            activities: [
+              {
+                id: 'a1', title: '활동 1. 문장을 말하는 역할별로 나누기', minutes: 12, tool: 'wordcards',
+                teacher: '"문장을 소리 내어 읽고, 이 말은 모둠에서 누가 할지 생각해요." Let us start.를 기록자에게 놓는 학생에게 "말을 시작하고 차례를 정하는 사람은 누구일까요?"라고 묻는다. Our group thinks ~.를 진행자에게 놓는 학생에게는 "모둠의 결과를 반 친구에게 알리는 사람이 누구인지" 되짚는다. 나눈 뒤 세 역할의 첫 문장을 한 줄씩 따라 읽게 한다.',
+                task: '모둠 대화 문장을 진행자·기록자·발표자 칸으로 나누어요. 나눈 문장은 소리 내어 읽어요.',
+                levels: LV({ mode: 'sort', slots: [{ id: 'leader', label: 'Leader(진행자)' }, { id: 'writer', label: 'Writer(기록자)' }, { id: 'speaker', label: 'Speaker(발표자)' }] }),
+                items: [
+                  { prompt: '점심 메뉴를 정하는 모둠의 문장을 역할별로 나누어 보세요.',
+                    toolOptions: { cards: ['Let us start. Who is first?', 'Time is up. Let us finish.', 'Can you say that again? I will write it.', 'I wrote down three ideas.', 'Our group chose noodles.', 'We chose it because it is easy to share.'] },
+                    target: { sort: { leader: ['Let us start. Who is first?', 'Time is up. Let us finish.'], writer: ['Can you say that again? I will write it.', 'I wrote down three ideas.'], speaker: ['Our group chose noodles.', 'We chose it because it is easy to share.'] } }, difficulty: 0.15,
+                    hints: ['이 말은 시작과 차례를 알리는지, 받아 적는지, 모둠 결과를 반 친구에게 알리는지 따져 보세요.'] },
+                  { prompt: '학급 공원 청소 계획을 세우는 모둠의 문장을 역할별로 나누어 보세요.',
+                    toolOptions: { cards: ['Mina, what is your idea?', 'Let us hear Jun next.', 'How do you spell recycle?', 'I will write the plan on the sheet.', 'We will pick up trash on Friday.', 'Thank you for listening.'] },
+                    target: { sort: { leader: ['Mina, what is your idea?', 'Let us hear Jun next.'], writer: ['How do you spell recycle?', 'I will write the plan on the sheet.'], speaker: ['We will pick up trash on Friday.', 'Thank you for listening.'] } }, difficulty: 0.2,
+                    hints: ['이름을 부르며 차례를 주는 말과 철자를 묻는 말, 모둠 소식을 알리는 말로 나뉘어요.'] },
+                  { prompt: '운동회 응원 구호를 정하는 모둠의 문장을 역할별로 나누어 보세요.',
+                    toolOptions: { cards: ['Does everybody agree?', 'Please speak one by one.', 'Wait, I have not finished writing.', 'Our cheer has three words.', 'Our idea is a red flag.', 'Can I read our list?'] },
+                    target: { sort: { leader: ['Does everybody agree?', 'Please speak one by one.'], writer: ['Wait, I have not finished writing.', 'Can I read our list?'], speaker: ['Our cheer has three words.', 'Our idea is a red flag.'] } }, difficulty: 0.25,
+                    hints: ['적는 데 시간이 더 필요하다고 말하거나 적은 것을 읽어 주자고 하는 말은 어느 역할일까요?'] },
+                ],
+              },
+              {
+                id: 'a2', title: '활동 2. 상황에 맞는 역할의 말 짝 짓기', minutes: 15, tool: 'wordcards',
+                teacher: '"상황을 읽고 지금 어느 역할이 무엇이라고 말할까요?" 두 사람이 동시에 말하는 상황에서 발표자의 말을 고르는 학생에게 "시작을 정리하는 것은 진행자의 일이에요"라고 짚는다. 짝 지은 뒤 역할 카드를 목에 걸고 마지막 문제를 실제로 말해 본다. 모두 말하고 나서 "내 역할의 영어를 내가 했나요?"를 모둠에서 서로 묻고 답한다.',
+                task: '모둠 대화 상황과 그때 쓰는 말을 짝 지어요. 짝 지은 문장을 역할 카드를 들고 말해요.',
+                levels: LV({ mode: 'match' }),
+                items: [
+                  { prompt: '모둠이 시끄러울 때, 못 알아들었을 때, 결과를 알릴 때 알맞은 말을 이어 보세요.',
+                    toolOptions: { slots: [{ id: 's1', label: '여럿이 한꺼번에 말해요(진행자)' }, { id: 's2', label: '친구의 말을 못 알아들었어요(기록자)' }, { id: 's3', label: '반 친구에게 결과를 알려요(발표자)' }], cards: [{ id: 'a', text: 'One at a time, please.' }, { id: 'b', text: 'Can you spell it for me?' }, { id: 'c', text: 'Our group likes the park.' }] },
+                    target: { match: { s1: 'a', s2: 'b', s3: 'c' } }, difficulty: 0.15,
+                    hints: ['상황 끝의 역할을 보고 그 역할이 하는 일을 떠올려 이어요.'] },
+                  { prompt: '시작할 때, 적고 있을 때, 발표를 끝냈을 때 알맞은 말을 이어 보세요.',
+                    toolOptions: { slots: [{ id: 's1', label: '아직 아무도 시작하지 않았어요(진행자)' }, { id: 's2', label: '의견 세 개를 적고 있어요(기록자)' }, { id: 's3', label: '발표를 끝냈어요(발표자)' }], cards: [{ id: 'a', text: 'Shall we begin?' }, { id: 'b', text: 'I have three ideas on my paper.' }, { id: 'c', text: 'That is all. Thank you.' }, { id: 'x', text: 'Please do it for me.', why: '내 역할의 영어를 친구에게 미루는 말이에요.' }] },
+                    target: { match: { s1: 'a', s2: 'b', s3: 'c' } }, difficulty: 0.2,
+                    hints: ['남는 카드가 하나 있어요. 내 역할을 남에게 맡기는 말은 쓰지 않아요.'] },
+                  { prompt: '말이 한쪽으로 쏠렸을 때, 결정을 확인할 때, 이유를 알릴 때 알맞은 말을 이어 보세요.',
+                    toolOptions: { slots: [{ id: 's1', label: '민지가 말을 많이 했어요(진행자)' }, { id: 's2', label: '결정한 것을 다시 확인해요(기록자)' }, { id: 's3', label: '이유까지 알려요(발표자)' }], cards: [{ id: 'a', text: 'Jun, what do you think?' }, { id: 'b', text: 'So we chose the blue one, right?' }, { id: 'c', text: 'We chose blue because it is cool.' }] },
+                    target: { match: { s1: 'a', s2: 'b', s3: 'c' } }, difficulty: 0.25,
+                    hints: ['말을 안 한 친구에게 차례를 넘기는 말은 누구의 일일까요?'] },
+                  { prompt: '세 사람이 진행자·기록자·발표자를 맡아 "우리 반 대표 간식"을 정하고, 각자 자기 역할의 문장을 한 번씩 영어로 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'wrapup', title: '정리', minutes: 7,
+            teacher: '먼저 출구 질문을 푼다. 푼 뒤 "오늘 내가 맡은 역할의 첫 문장은 무엇이었나요?"를 한 사람씩 말하게 한다. 영어가 서툰 학생이 기록자나 발표자를 피하지 않도록, 다음 시간에 역할을 바꾼다고 알린다.',
+            exitTicket: [
+              { type: 'tool', tool: 'wordcards', options: { mode: 'sort', slots: [{ id: 'leader', label: 'Leader' }, { id: 'speaker', label: 'Speaker' }], cards: ['Who wants to start?', 'Our group likes soccer.', 'Let us hear Sora.', 'We chose it because it is fun.'] }, prompt: '문장을 진행자와 발표자의 말로 나누어 보세요.', target: { sort: { leader: ['Who wants to start?', 'Let us hear Sora.'], speaker: ['Our group likes soccer.', 'We chose it because it is fun.'] } }, difficulty: 0.15 },
+              { type: 'choice', prompt: '발표자를 맡은 민지의 말로 알맞은 것은 무엇일까요?', options: ['Our group chose the zoo.', 'Who is next?', 'How do you spell it?'], answer: 0, difficulty: 0.1, explain: '모둠이 정한 것을 반 친구에게 알리는 사람이 발표자예요.' },
+              MOOD('오늘 내 역할의 영어를 말하는 것은 어땠나요?'),
+            ],
+          },
+        ],
+        worksheet: {
+          title: '내가 맡은 역할의 말',
+          items: [
+            { type: 'table', prompt: '역할마다 쓰는 문장을 하나씩 쓰세요.', columns: ['역할', '영어 문장'], cells: [['Leader', ''], ['Writer', ''], ['Speaker', '']] },
+            { type: 'choice', prompt: '진행자의 말에 ○ 하세요.', options: ['Let us start.', 'I wrote it down.', 'Our group likes fish.'], answer: 'Let us start.' },
+            { type: 'blank', prompt: 'One at a ______, please. (한 번에)', answer: 'time' },
+            { type: 'short', prompt: '오늘 모둠에서 내가 맡은 역할과 그때 한 영어 문장을 쓰세요.' },
+          ],
+          easy: {
+            note: 'Leader: Let us start. / Writer: Can you spell it? / Speaker: Our group ~.',
+            items: [
+              { type: 'choice', prompt: '모둠 결과를 알리는 사람에 ○ 하세요.', options: ['Leader', 'Speaker'], answer: 'Speaker' },
+              { type: 'blank', prompt: 'Can you ______ it? (철자를 말하다)', answer: 'spell' },
+              { type: 'short', prompt: '내가 맡은 역할을 우리말로 쓰세요.' },
+            ],
+          },
+        },
+        differentiation: {
+          easy: '나누기·잇기가 맞으면 초록 테두리가 생겨요. 어렵지 않게 확인해 보세요.',
+          base: '여섯 문장을 세 역할로 나누고, 상황과 말을 이은 뒤 스스로 확인해요.',
+          challenge: '잇기에 역할을 친구에게 미루는 함정 문장이 섞여요.',
+        },
+        teacherNotes: '자주 보이는 어려움: ① 역할을 맡고도 영어로 말하는 일은 잘하는 친구에게 미룬다(주제 오개념) → 세 역할 모두 영어 문장 하나를 직접 말하게 하고, 역할 카드마다 첫 문장을 적어 둔다. ② 진행자가 혼자 다 말한다 → 차례를 넘기는 말(What do you think?)을 쓰게 한다. ③ 기록자가 영어를 못 쓴다고 피한다 → 낱말 몇 개만 적어도 된다고 알려 준다. 학생 이름은 가명 한두 글자만 쓴다.',
+      }),
+
+      // ───────────────────────── 40차시 (practice) ─────────────────────────
+      lesson(40, S10, {
+        title: '짧은 대화를 차례대로 이어 내 차례에 말하기',
+        objective: '모둠 대화의 시작-의견-확인-마무리 순서를 알고, 대화 빈칸에 자기 역할에 알맞은 말을 골라 넣어 자기 차례에 말할 수 있다.',
+        illustration: {
+          prompt: PROMPT('a chain of paper speech bubbles numbered one to four passing between four children around a small table'),
+          scene: SC('First · Next · Then · Last', 'My turn!', [{ motif: 'cloud', x: 110, y: 50 }, { motif: 'tree', x: 80, y: 214 }, { motif: 'flower', x: 400, y: 224 }]),
+        },
+        stages: [
+          {
+            id: 'intro', title: '도입', minutes: 6,
+            teacher: '지난 시간 역할 말을 떠올리게 한다. 칠판에 "Shall we begin? / I think we should ... / So we chose ..., right? / Thank you." 네 문장을 순서 없이 붙이고 "모둠 대화는 어떤 차례로 흐를까요?" 하고 묻는다. 학생이 제 순서를 말하면 맞는지 소리 내어 읽어 확인한다. "차례를 알면 내 차례가 언제인지 알고, 그때 내 영어를 말할 수 있어요."라고 말한다.',
+            student: '모둠 대화에서 내 차례가 언제인지 알려면 대화의 차례를 알아야 해요. 어떤 차례일까요?',
+          },
+          {
+            id: 'main', title: '전개', minutes: 27,
+            activities: [
+              {
+                id: 'a1', title: '활동 1. 대화 문장을 차례대로 놓기', minutes: 11, tool: 'wordcards',
+                teacher: '"처음엔 시작하는 말, 다음엔 의견, 그다음엔 확인, 마지막엔 마무리 인사예요." 확인하는 말을 의견보다 앞에 놓는 학생에게 "확인할 의견이 아직 없는데 확인할 수 있을까요?"라고 묻는다. 놓은 뒤 네 문장을 네 사람이 한 줄씩 읽어 대화를 만들어 보게 한다.',
+                task: '모둠 대화 문장을 일어나는 차례대로 놓고, 한 줄씩 나누어 읽어요.',
+                levels: LV({ mode: 'order' }),
+                items: [
+                  { prompt: '반 노래 고르기 대화를 차례대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['Shall we choose a class song?', 'I like the slow one.', 'So we pick the slow one, right?', 'Yes. Let us tell the class.'] },
+                    target: { order: ['Shall we choose a class song?', 'I like the slow one.', 'So we pick the slow one, right?', 'Yes. Let us tell the class.'] }, difficulty: 0.15,
+                    hints: ['시작하는 말 다음에 의견이 오고, 의견을 확인한 뒤 마무리해요.'] },
+                  { prompt: '소풍 도시락 정하기 대화를 차례대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['Let us talk about the lunch box.', 'I want rice balls.', 'Okay, rice balls. I will write it.', 'Good. Our group is done.'] },
+                    target: { order: ['Let us talk about the lunch box.', 'I want rice balls.', 'Okay, rice balls. I will write it.', 'Good. Our group is done.'] }, difficulty: 0.2,
+                    hints: ['받아 적겠다는 말은 의견이 나온 뒤에 해요.'] },
+                  { prompt: '발표 순서 정하기 대화를 차례대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['Who will speak first?', 'I can speak first.', 'Then Ho speaks second.', 'Great. Let us practice once.'] },
+                    target: { order: ['Who will speak first?', 'I can speak first.', 'Then Ho speaks second.', 'Great. Let us practice once.'] }, difficulty: 0.25,
+                    hints: ['묻는 말이 먼저, 대답은 그다음이에요. 연습하자는 말이 마무리예요.'] },
+                ],
+              },
+              {
+                id: 'a2', title: '활동 2. 내 역할의 빈칸에 말 채우기', minutes: 16, tool: 'wordcards',
+                teacher: '"빈칸은 내 역할의 말이에요. 앞뒤 문장을 읽고 내가 할 말을 골라요." 발표자 빈칸에 Who is next?를 넣는 학생에게 "그 말은 누구의 일이었지요?" 하고 되묻는다. 채운 대화는 세 사람이 역할을 나누어 소리 내어 읽는다. 마지막 활동은 역할을 바꾸어 한 번 더 한다.',
+                task: '대화의 빈칸에 알맞은 말을 넣어요. 완성한 대화를 역할을 나누어 읽어요.',
+                levels: LV({ mode: 'fill' }),
+                items: [
+                  { prompt: '"우리 반 게시판 그림 정하기" 대화의 빈칸을 채워 보세요.',
+                    toolOptions: { cards: ['Let us start.', 'I will write it.', 'We chose a tree.'], slots: [{ id: 'b1', label: 'Leader: ___' }, { id: 'b2', label: 'Writer: ___' }, { id: 'b3', label: 'Speaker: ___' }] },
+                    target: { fill: { b1: 'Let us start.', b2: 'I will write it.', b3: 'We chose a tree.' } }, difficulty: 0.15,
+                    hints: ['세 사람이 서로 다른 일을 해요. 역할 이름을 먼저 읽어요.'] },
+                  { prompt: '"쉬는 시간 놀이 정하기" 대화의 빈칸을 채워 보세요.',
+                    toolOptions: { cards: ['Sora, your idea?', 'Wait, say it slowly.', 'We like tag.', { id: 'x', text: 'You say it for us.', why: '발표자의 영어를 친구에게 미루는 말이에요.' }], slots: [{ id: 'b1', label: 'Leader: ___' }, { id: 'b2', label: 'Writer: ___' }, { id: 'b3', label: 'Speaker: ___' }] },
+                    target: { fill: { b1: 'Sora, your idea?', b2: 'Wait, say it slowly.', b3: 'We like tag.' } }, difficulty: 0.2,
+                    hints: ['함정 카드는 내 일을 남에게 맡기는 말이에요.'] },
+                  { prompt: '"환경 포스터 문구 정하기" 대화의 빈칸을 채워 보세요.',
+                    toolOptions: { cards: ['Does everyone agree?', 'Is it "save water"?', 'Our poster says save water.', 'Time is up.'], slots: [{ id: 'b1', label: 'Leader: ___ (모두의 생각을 묻는다)' }, { id: 'b2', label: 'Writer: ___ (적을 문구를 확인한다)' }, { id: 'b3', label: 'Speaker: ___ (반에 알린다)' }] },
+                    target: { fill: { b1: 'Does everyone agree?', b2: 'Is it "save water"?', b3: 'Our poster says save water.' } }, difficulty: 0.25,
+                    hints: ['남는 카드 하나는 시간을 알리는 말이에요. 괄호의 설명에 맞는 말을 찾아요.'] },
+                  { prompt: '이번에는 역할을 바꾸어 "우리 반 규칙 하나"를 정하고, 자기 역할의 문장을 영어로 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'wrapup', title: '정리', minutes: 7,
+            teacher: '먼저 출구 질문을 푼다. 푼 뒤 오늘 역할을 바꾸어 해 본 소감을 한 사람씩 말한다. "처음 맡은 역할과 바꾼 역할 중 어느 쪽 영어가 더 어려웠나요?"라고 묻고, 다음 시간에 말을 안 하는 친구를 모둠에 끌어들이는 말을 배운다고 알린다.',
+            exitTicket: [
+              { type: 'tool', tool: 'wordcards', options: { mode: 'order', cards: ['Shall we begin?', 'I think we need a map.', 'So we need a map, right?', 'Thank you, everyone.'] }, prompt: '대화를 차례대로 놓아 보세요.', target: { order: ['Shall we begin?', 'I think we need a map.', 'So we need a map, right?', 'Thank you, everyone.'] }, difficulty: 0.15 },
+              { type: 'choice', prompt: '"So we chose the red one, right?"는 대화의 어디에 알맞을까요?', options: ['시작할 때', '의견을 들은 뒤 확인할 때', '인사하고 헤어질 때'], answer: 1, difficulty: 0.15, explain: '정한 것을 다시 묻는 확인의 말이에요.' },
+              MOOD('오늘 대화 차례를 알고 말하는 것은 어땠나요?'),
+            ],
+          },
+        ],
+        worksheet: {
+          title: '대화 차례와 내 말',
+          items: [
+            { type: 'table', prompt: '모둠 대화 한 판을 차례대로 쓰세요.', columns: ['차례', '영어 문장'], cells: [['시작', ''], ['의견', ''], ['확인', ''], ['마무리', '']] },
+            { type: 'choice', prompt: '마무리하는 말에 ○ 하세요.', options: ['Thank you, everyone.', 'Shall we begin?'], answer: 'Thank you, everyone.' },
+            { type: 'blank', prompt: 'Shall we ______? (시작하다)', answer: 'begin' },
+            { type: 'short', prompt: '오늘 내가 맡았던 두 역할과 각각의 영어 문장을 쓰세요.' },
+          ],
+          easy: {
+            note: '시작: Shall we begin? / 마무리: Thank you.',
+            items: [
+              { type: 'choice', prompt: '대화를 시작하는 말에 ○ 하세요.', options: ['Shall we begin?', 'Thank you.'], answer: 'Shall we begin?' },
+              { type: 'blank', prompt: 'Thank ______, everyone. (너희에게)', answer: 'you' },
+              { type: 'short', prompt: '내가 오늘 한 역할을 우리말로 쓰세요.' },
+            ],
+          },
+        },
+        differentiation: {
+          easy: '차례와 빈칸이 맞으면 초록 테두리가 생겨요.',
+          base: '네 문장을 차례대로 놓고 세 빈칸을 채운 뒤 스스로 확인해요.',
+          challenge: '빈칸 채우기에 역할을 미루는 함정 문장과 시간을 알리는 문장이 섞여요.',
+        },
+        teacherNotes: '자주 보이는 어려움: ① 역할을 맡고도 영어로 말하는 일은 잘하는 친구에게 미룬다(주제 오개념) → 역할을 바꾸어 한 번 더 하여 모두가 두 역할의 영어를 말해 보게 한다. ② 대화 차례를 몰라 아무 때나 말한다 → 네 차례(시작·의견·확인·마무리)를 책상 위 카드로 두고 가리키며 말하게 한다. ③ 큰 소리로 읽기만 하고 서로 듣지 않는다 → 다음 사람이 앞사람의 말을 한 번 되풀이하게 한다.',
+      }),
+
+      // ───────────────────────── 41차시 (extend) ─────────────────────────
+      lesson(41, S10, {
+        title: '말이 없는 친구를 대화로 이끌고 내 영어는 내가 말하기',
+        objective: '모둠에서 말을 안 하는 친구에게 영어로 차례를 넘기는 말을 고르고, 영어 말하기를 친구에게 미루려는 상황에서 스스로 짧게라도 말하는 문장을 고를 수 있다.',
+        illustration: {
+          prompt: PROMPT('a shy child at a table being gently invited by two friends holding paper speech bubbles with question marks and smiles'),
+          scene: SC('What do you think?', 'I can say it too.', [{ motif: 'star', x: 330, y: 70 }, { motif: 'house', x: 90, y: 216, color: 'sky' }, { motif: 'tree', x: 410, y: 214 }]),
+        },
+        stages: [
+          {
+            id: 'intro', title: '도입', minutes: 6,
+            teacher: '다음 상황을 말해 준다. 한 모둠에서 발표자가 된 학생이 "Mina, you speak English well. You do it."라며 친구에게 발표를 넘겼다. "이 말을 들은 민지의 마음은 어떨까요? 발표자인 학생은 오늘 영어를 몇 번 말했을까요?" 학생들이 답하면 "역할은 내가 하려고 맡은 거예요. 영어가 서툴러도 한 문장은 내가 말해요. 친구가 말이 없을 때는 이끌어 주어요."라고 말한다.',
+            student: '영어를 잘하는 친구에게 내 역할의 말을 넘기면 나와 친구에게 어떤 일이 생길까요?',
+          },
+          {
+            id: 'main', title: '전개', minutes: 27,
+            activities: [
+              {
+                id: 'a1', title: '활동 1. 말이 없는 친구에게 건네는 말 고르기', minutes: 12, tool: 'wordcards',
+                teacher: '"말이 없는 친구가 부끄러워서 그럴 수 있어요. 대답하기 쉬운 질문으로 부드럽게 불러요." Why are you so quiet?처럼 몰아붙이는 말을 고르는 학생에게 "이 말을 들으면 친구가 편하게 말할 수 있을까요?"라고 묻는다. 고른 말은 부드러운 말투로 짝에게 말해 본다.',
+                task: '말이 없는 친구를 초대하는 말만 바구니에 넣어요. 고른 말은 부드러운 말투로 말해요.',
+                levels: LV({ mode: 'pick', basket: '친구를 초대하는 말' }),
+                items: [
+                  { prompt: '조용히 앉아 있는 친구에게 건넬 말만 골라 보세요.',
+                    toolOptions: { cards: [{ id: 'a', text: 'What do you think, Jun?' }, { id: 'b', text: 'Do you want to try?' }, { id: 'c', text: 'Why are you so quiet?', why: '몰아붙이는 느낌이라 친구가 더 말하기 어려워요.' }, { id: 'd', text: 'Never mind. I will do it.', why: '친구의 기회를 가로채는 말이에요.' }] },
+                    target: { pick: ['a', 'b'] }, difficulty: 0.15,
+                    hints: ['말을 들은 친구가 기분 좋게 대답할 수 있는지 상상해 보세요.'] },
+                  { prompt: '의견을 못 정하는 친구에게 건넬 말만 골라 보세요.',
+                    toolOptions: { cards: [{ id: 'a', text: 'Take your time.' }, { id: 'b', text: 'You can say one word.' }, { id: 'c', text: 'Hurry up!', why: '재촉하면 친구가 더 긴장해요.' }, { id: 'd', text: 'You are slow.', why: '친구를 탓하는 말이에요.' }] },
+                    target: { pick: ['a', 'b'] }, difficulty: 0.2,
+                    hints: ['친구가 편안하게 시간을 가질 수 있게 하는 말을 찾아요.'] },
+                  { prompt: '영어가 어렵다는 친구에게 건넬 말만 골라 보세요.',
+                    toolOptions: { cards: [{ id: 'a', text: 'Let us say it together.' }, { id: 'b', text: 'I will help you with the first word.' }, { id: 'c', text: 'Then you just listen.', why: '말할 기회를 없애는 말이에요.' }, { id: 'd', text: 'Your English is bad.', why: '친구를 깎아내리는 말이에요.' }] },
+                    target: { pick: ['a', 'b'] }, difficulty: 0.25,
+                    hints: ['함께 하거나 도와주는 말을 골라요. 말할 기회를 빼앗는 말은 고르지 않아요.'] },
+                ],
+              },
+              {
+                id: 'a2', title: '활동 2. 미루지 않고 내 영어 말하기', minutes: 15, tool: 'emotion',
+                teacher: '"친구가 영어를 미루라고 하거나 내가 미루고 싶을 때, 어떤 말이 좋을까요?" 첫 보기를 고르는 학생에게 "Please say it for me.를 들은 친구의 마음과 나의 연습은 어떻게 될까요?"라고 되묻는다. 결과를 읽은 뒤 고른 말을 직접 소리 내어 말한다. 마지막 활동에서는 단어 하나로 시작해도 된다고 알려 준다.',
+                task: '영어로 말해야 하는 상황에서 어떻게 말할지 고르고, 결과를 읽어요. 고른 말은 소리 내어 말해요.',
+                levels: { easy: { mode: 'branch' }, base: { mode: 'branch' }, challenge: { mode: 'branch' } },
+                items: [
+                  { prompt: '발표자인 나는 발표 첫 문장이 어려워요. 어떻게 말할까요?',
+                    toolOptions: { who: '나', situation: '"Our group likes ... I do not know the next word."', feeling: '걱정', choices: [
+                      { id: 'a', text: 'Sorry, can you help me with one word?', result: '친구가 낱말을 알려 주고, 내가 문장을 끝까지 말해요.', mood: '편안함' },
+                      { id: 'b', text: 'Please say it for me.', result: '친구가 대신 말하고 나는 한 문장도 말하지 못해요.', mood: '속상함', why: '내 역할의 영어를 친구가 대신하면 내 연습이 사라져요.' },
+                      { id: 'c', text: '...', result: '모둠이 말없이 기다려요.', mood: '놀람', why: '아무 말도 안 하면 모둠이 도울 수 없어요.' }] },
+                    target: { choice: 'a' }, difficulty: 0.15,
+                    hints: ['도움을 받더라도 문장은 내가 끝까지 말하는 선택을 찾아요.'],
+                    levels: { easy: { toolOptions: { choices: [
+                      { id: 'a', text: 'Sorry, can you help me with one word?', result: '친구가 낱말을 알려 주고, 내가 문장을 끝까지 말해요.', mood: '편안함' },
+                      { id: 'b', text: 'Please say it for me.', result: '친구가 대신 말하고 나는 한 문장도 말하지 못해요.', mood: '속상함', why: '내 역할의 영어를 친구가 대신하면 내 연습이 사라져요.' }] } } } },
+                  { prompt: '친구 Ella가 "You are good at English. You talk for our group."라고 해요. 기록자인 나는 어떻게 말할까요?',
+                    toolOptions: { who: 'Ella', situation: '"You are good at English. You talk for our group."', feeling: '당황', choices: [
+                      { id: 'a', text: 'Thank you. But we all talk. I will write, you speak.', result: 'Ella가 웃으며 자기 몫을 말해요.', mood: '기쁨' },
+                      { id: 'b', text: 'Okay. I will do everything.', result: '나만 바쁘고 Ella는 말할 기회를 잃어요.', mood: '속상함', why: '혼자 다 하면 친구의 연습 기회가 없어져요.' },
+                      { id: 'c', text: 'No. I will not talk.', result: '모둠 분위기가 어색해져요.', mood: '놀람', why: '거절하는 말이 거칠어서 모둠이 불편해져요.' }] },
+                    target: { choice: 'a' }, difficulty: 0.2,
+                    hints: ['고마운 마음을 말하고, 모두가 말하자고 부드럽게 제안하는 말을 찾아요.'] },
+                  { prompt: '친구 Ho가 영어가 어려워 "I cannot." 하고 고개를 숙였어요. 진행자인 나는 어떻게 말할까요?',
+                    toolOptions: { who: 'Ho', situation: '"I cannot."', feeling: '걱정', choices: [
+                      { id: 'a', text: 'It is okay. Say one word first. I will wait.', result: 'Ho가 낱말 하나를 말하고 웃어요.', mood: '기쁨' },
+                      { id: 'b', text: 'Then I will say yours.', result: 'Ho의 몫을 내가 말하고 Ho는 조용해요.', mood: '속상함', why: 'Ho의 영어를 대신 말하면 Ho가 말할 기회를 잃어요.' },
+                      { id: 'c', text: 'You must try now!', result: 'Ho가 더 움츠러들어요.', mood: '놀람', why: '다그치면 말하기가 더 어려워져요.' }] },
+                    target: { choice: 'a' }, difficulty: 0.25,
+                    hints: ['말하기 쉬운 작은 걸음을 제안하고 기다려 주는 선택을 찾아요.'] },
+                  { prompt: '세 사람 모둠에서 말이 적은 친구를 한 번 이상 부르며 "우리 반 이야기책 제목"을 정해요. 모두 영어 문장을 한 번 이상 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'wrapup', title: '정리', minutes: 7,
+            teacher: '먼저 출구 질문을 푼다. 푼 뒤 "오늘 내 영어를 내가 말했나요? 친구를 불러 준 적이 있나요?"를 손으로 답하게 한다. 말을 안 한 학생을 지적하지 않고, 작은 낱말 하나라도 말했다면 충분하다고 말한다. 다음 시간에는 모둠 활동이 끝난 뒤 내 역할을 얼마나 했는지 돌아본다고 알린다.',
+            exitTicket: [
+              { type: 'tool', tool: 'wordcards', options: { mode: 'pick', basket: '친구를 초대하는 말', cards: [{ id: 'a', text: 'What do you think?' }, { id: 'b', text: 'Take your time.' }, { id: 'c', text: 'You are slow.' }] }, prompt: '조용한 친구를 초대하는 말만 골라 보세요.', target: { pick: ['a', 'b'] }, difficulty: 0.15 },
+              { type: 'choice', prompt: '발표자인 내가 낱말이 생각나지 않을 때 가장 좋은 말은 무엇일까요?', options: ['Can you help me with one word?', 'Please say it for me.', 'I will not talk.'], answer: 0, difficulty: 0.15, explain: '도움을 받아도 문장은 내가 끝까지 말해요.' },
+              MOOD('오늘 내 영어를 스스로 말한 것은 어땠나요?'),
+            ],
+          },
+        ],
+        worksheet: {
+          title: '친구 초대하기와 내 영어 말하기',
+          items: [
+            { type: 'table', prompt: '말이 없는 친구에게 건넬 말과 막힐 때 내가 할 말을 쓰세요.', columns: ['상황', '영어 문장'], cells: [['친구를 초대할 때', ''], ['낱말이 막힐 때', '']] },
+            { type: 'choice', prompt: '친구를 초대하는 말에 ○ 하세요.', options: ['What do you think?', 'Hurry up!'], answer: 'What do you think?' },
+            { type: 'blank', prompt: 'Take your ______. (시간)', answer: 'time' },
+            { type: 'short', prompt: '오늘 내 영어를 내가 말한 순간 하나를 쓰세요.' },
+          ],
+          easy: {
+            note: '초대: What do you think? / 도움: Can you help me?',
+            items: [
+              { type: 'choice', prompt: '도움을 부탁하는 말에 ○ 하세요.', options: ['Can you help me?', 'Say it for me.'], answer: 'Can you help me?' },
+              { type: 'blank', prompt: 'What do you ______? (생각하다)', answer: 'think' },
+              { type: 'short', prompt: '조용한 친구에게 해 주고 싶은 말을 우리말로 쓰세요.' },
+            ],
+          },
+        },
+        differentiation: {
+          easy: '고르기가 맞으면 초록 테두리가 생겨요. 상황 고르기는 보기가 두 개로 줄어요.',
+          base: '네 보기 중 알맞은 두 말을 고르고, 세 보기 중 알맞은 말을 골라 확인해요.',
+          challenge: '몰아붙이는 말과 가로채는 말이 함께 섞여 있어요.',
+        },
+        teacherNotes: '자주 보이는 어려움: ① 역할을 맡고도 영어로 말하는 일은 잘하는 친구에게 미룬다(주제 오개념) → 잘하는 친구는 도움을 주는 사람이지 대신 말하는 사람이 아니라고 알려 준다. ② 영어를 잘하는 학생이 혼자 다 말한다 → 모든 모둠원이 영어 문장을 한 번씩 말했는지 표시하게 한다. ③ 말을 안 하는 친구를 놀린다 → 몰아붙이는 말이 왜 문제인지 오늘 활동 1의 설명으로 짚는다.',
+      }),
+
+      // ───────────────────────── 42차시 (extend) ─────────────────────────
+      lesson(42, S10, {
+        title: '모둠 과업을 마치고 내 역할을 얼마나 했는지 돌아보기',
+        objective: '모둠 활동을 마친 뒤 대화 기록을 듣고 어느 역할이 한 말인지 찾고, 모둠 결과 보고를 완성하며 자기 역할을 얼마나 해냈는지 정직하게 표시할 수 있다.',
+        illustration: {
+          prompt: PROMPT('three children checking paper checklists with stars after finishing a group task, a small report card held up by one child'),
+          scene: SC('My Role Check', 'I did my part!', [{ motif: 'star', x: 120, y: 70 }, { motif: 'tree', x: 90, y: 214 }, { motif: 'flower', x: 400, y: 224 }]),
+        },
+        stages: [
+          {
+            id: 'intro', title: '도입', minutes: 6,
+            teacher: '교사가 모둠 대화 한 토막을 영어로 읽어 준다: "Let us start. ... I will write it. ... Our group chose a kite." "방금 세 문장은 각각 어느 역할이 한 말일까요?" 손가락 세 개 중 하나로 답하게 한다. "활동이 끝나면 내가 맡은 역할을 얼마나 했는지 돌아봐요. 잘했다고만 하지 않고 정말 한 만큼 표시해요."라고 말한다.',
+            student: '모둠 활동이 끝난 뒤 내 역할을 얼마나 했는지 돌아보면 무엇이 좋을까요?',
+          },
+          {
+            id: 'main', title: '전개', minutes: 27,
+            activities: [
+              {
+                id: 'a1', title: '활동 1. 대화를 듣고 어느 역할의 말인지 찾기', minutes: 11, tool: 'wordcards',
+                teacher: '"듣기 단추를 누르고 말하는 내용을 잘 들어요. 말하는 사람이 무슨 일을 하고 있는지 생각해요." 소리가 안 나는 기기에서는 문항 문장을 두 번 읽어 준다. 진행자 말에 발표자를 고르는 학생에게 "차례를 정하는 말과 결과를 알리는 말은 어떻게 다를까요?"라고 묻는다.',
+                task: '듣기 단추를 눌러 들은 말을 하는 역할을 골라요.',
+                levels: { easy: { mode: 'listen' }, base: { mode: 'listen' }, challenge: { mode: 'listen' } },
+                items: [
+                  { prompt: '듣기 단추를 눌러 들어요. 이 말을 한 사람은 누구인가요?',
+                    toolOptions: { say: 'Sora, what is your idea? Then Tom will speak.', words: [{ en: 'leader', ko: '진행자', big: 'L' }, { en: 'writer', ko: '기록자', big: 'W' }, { en: 'speaker', ko: '발표자', big: 'S' }] },
+                    target: { listen: 'leader' }, difficulty: 0.15,
+                    levels: { easy: { toolOptions: { words: [{ en: 'leader', ko: '진행자', big: 'L' }, { en: 'speaker', ko: '발표자', big: 'S' }] } } } },
+                  { prompt: '듣기 단추를 눌러 들어요. 이 말을 한 사람은 누구인가요?',
+                    toolOptions: { say: 'Wait, I have written two ideas. Can you say the third one slowly?', words: [{ en: 'leader', ko: '진행자', big: 'L' }, { en: 'writer', ko: '기록자', big: 'W' }, { en: 'speaker', ko: '발표자', big: 'S' }] },
+                    target: { listen: 'writer' }, difficulty: 0.2 },
+                  { prompt: '듣기 단추를 눌러 들어요. 이 말을 한 사람은 누구인가요?',
+                    toolOptions: { say: 'Hello, everyone. Our group made a poster about the sea. Thank you for listening.', words: [{ en: 'leader', ko: '진행자', big: 'L' }, { en: 'writer', ko: '기록자', big: 'W' }, { en: 'speaker', ko: '발표자', big: 'S' }] },
+                    target: { listen: 'speaker' }, difficulty: 0.25 },
+                ],
+              },
+              {
+                id: 'a2', title: '활동 2. 모둠 결과 보고서 빈칸 채우기', minutes: 16, tool: 'wordcards',
+                teacher: '"모둠 과업이 끝나면 결과를 짧은 보고로 정리해요. 누가 어떤 일을 했는지 함께 적어요." 한 사람 이름만 적는 학생에게 "다른 역할도 있었나요?"라고 묻는다. 마지막 활동에서 지난 시간에 한 모둠 대화를 보고서로 정리하고, 다 쓴 뒤 자기 역할을 얼마나 했는지 활동지에 표시한다. 표시는 정직하게 하며 점수가 아니라 다음에 해낼 목표를 찾기 위한 것임을 알려 준다.',
+                task: '모둠 결과 보고서의 빈칸에 알맞은 카드를 넣어요. 완성한 보고를 소리 내어 읽어요.',
+                levels: LV({ mode: 'fill' }),
+                items: [
+                  { prompt: '모둠 메모: 진행자 Jun, 기록자 Mina, 발표자 Sora, 정한 것은 파란 깃발. 보고서 빈칸을 채워 보세요.',
+                    toolOptions: { cards: ['Jun', 'Mina', 'Sora', 'a blue flag'], slots: [{ id: 'b1', label: 'Leader: ___' }, { id: 'b2', label: 'Writer: ___' }, { id: 'b3', label: 'Speaker: ___' }, { id: 'b4', label: 'We chose ___.' }] },
+                    target: { fill: { b1: 'Jun', b2: 'Mina', b3: 'Sora', b4: 'a blue flag' } }, difficulty: 0.15,
+                    hints: ['메모에서 역할 이름과 사람 이름이 어떻게 짝인지 먼저 찾아요.'] },
+                  { prompt: '모둠 메모: 진행자 Ho, 기록자 Ella, 발표자 Tom, 정한 것은 책 바꾸기. 보고서 빈칸을 채워 보세요.',
+                    toolOptions: { cards: ['Ho', 'Ella', 'Tom', 'a book swap', { id: 'x', text: 'a talent show', why: '메모에서 정한 것은 책 바꾸기예요.' }], slots: [{ id: 'b1', label: 'Leader: ___' }, { id: 'b2', label: 'Writer: ___' }, { id: 'b3', label: 'Speaker: ___' }, { id: 'b4', label: 'We chose ___.' }] },
+                    target: { fill: { b1: 'Ho', b2: 'Ella', b3: 'Tom', b4: 'a book swap' } }, difficulty: 0.25,
+                    hints: ['메모에서 정한 것을 찾으세요. 마지막 칸은 정한 것 하나만 넣어요.'],
+                    levels: { easy: { toolOptions: { cards: ['Ho', 'Ella', 'Tom', 'a book swap'] } } } },
+                  { prompt: '모둠 메모: 기록자 Mina는 의견 셋을 적었고 발표자 Jun은 영어 두 문장을 말했다. 각자 한 일을 보고서 빈칸에 채워 보세요.',
+                    toolOptions: { cards: ['wrote three ideas', 'said two sentences', 'asked who is next'], slots: [{ id: 'b1', label: 'Mina ___.' }, { id: 'b2', label: 'Jun ___.' }, { id: 'b3', label: 'Sora (leader) ___.' }] },
+                    target: { fill: { b1: 'wrote three ideas', b2: 'said two sentences', b3: 'asked who is next' } }, difficulty: 0.2,
+                    hints: ['세 사람의 일이 서로 달라요. 진행자의 일은 메모에 직접 안 나오지만 남는 카드가 알려 줘요.'] },
+                  { prompt: '지난 시간에 한 모둠 대화를 보고서로 정리해요. 우리 모둠이 정한 것과 각자 한 일을 영어로 말하고, 활동지에 내 역할을 얼마나 했는지 표시해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'wrapup', title: '정리', minutes: 7,
+            teacher: '먼저 출구 질문을 푼다. 마지막 자기 점검은 오늘 정말 한 만큼 고르면 된다고 말한다. 푼 뒤 모둠에서 "이번에 잘한 것 하나, 다음에 더 해 볼 것 하나"를 서로 이야기한다. 39~42차시를 "역할 말 알기 → 대화 차례 → 서로 이끌기 → 돌아보기"로 칠판에 정리한다.',
+            exitTicket: [
+              { type: 'tool', tool: 'wordcards', options: { mode: 'sort', slots: [{ id: 'leader', label: 'Leader' }, { id: 'writer', label: 'Writer' }], cards: ['Who is next?', 'How do you spell it?', 'Let us begin.', 'I wrote it.'] }, prompt: '문장을 진행자와 기록자의 말로 나누어 보세요.', target: { sort: { leader: ['Who is next?', 'Let us begin.'], writer: ['How do you spell it?', 'I wrote it.'] } }, difficulty: 0.15 },
+              { type: 'choice', prompt: '자기 역할을 돌아볼 때 알맞은 태도는 무엇일까요?', options: ['한 만큼 정직하게 표시한다', '무조건 가장 높게 표시한다', '친구 것을 보고 똑같이 표시한다'], answer: 0, difficulty: 0.1, explain: '다음에 해낼 목표를 찾으려면 한 만큼 정직하게 표시해야 해요.' },
+              SELF('모둠 대화에서 내 역할 하기', '뿌듯함', '내가 맡은 역할의 영어를 내가 말했나요?', '모둠 활동에서 내 역할을 한 만큼 정직하게 골라 보세요.'),
+            ],
+          },
+        ],
+        worksheet: {
+          title: '내 역할 점검표',
+          items: [
+            { type: 'table', prompt: '오늘 모둠 대화를 돌아보며 쓰세요.', columns: ['항목', '내용'], cells: [['내 역할', ''], ['내가 말한 영어 문장', ''], ['다음에 더 해 볼 것', '']] },
+            { type: 'choice', prompt: '기록자가 한 일에 ○ 하세요.', options: ['I wrote three ideas.', 'Our group chose a flag.'], answer: 'I wrote three ideas.' },
+            { type: 'blank', prompt: 'Leader: Who is ______? (다음)', answer: 'next' },
+            { type: 'short', prompt: '오늘 내 역할을 얼마나 했는지 이유와 함께 한 문장으로 쓰세요.' },
+          ],
+          easy: {
+            note: '내 역할: Leader / Writer / Speaker',
+            items: [
+              { type: 'choice', prompt: '오늘 내 역할에 ○ 하세요.', options: ['Leader', 'Writer', 'Speaker'], answer: 'Leader' },
+              { type: 'blank', prompt: 'Our group ______ a flag. (골랐다)', answer: 'chose' },
+              { type: 'short', prompt: '다음에 더 해 보고 싶은 것을 우리말로 쓰세요.' },
+            ],
+          },
+        },
+        differentiation: {
+          easy: '듣기와 채우기가 맞으면 초록 테두리가 생겨요. 첫 듣기와 둘째 보고서는 보기가 줄어요.',
+          base: '세 대화를 듣고 역할을 고르고 세 보고서 빈칸을 스스로 채워요.',
+          challenge: '보고서에 메모와 다른 것을 말하는 함정 카드가 섞여요.',
+        },
+        teacherNotes: '자주 보이는 어려움: ① 역할을 맡고도 영어로 말하는 일은 잘하는 친구에게 미룬다(주제 오개념) → 돌아보기에 "내가 말한 영어 문장"을 반드시 적게 한다. ② 자기 점검을 모두 가장 높게 표시한다 → 점수가 아니라 다음 목표를 찾는 표시라고 알려 준다. ③ 친구의 표시를 비교하며 놀린다 → 점검표는 자기 것만 보게 한다. 듣기 소리가 없으면 문항 문장을 교사가 두 번 읽어 준다.',
+      }),
+
+      // ───────────────────────── 43차시 (core) ─────────────────────────
+      lesson(43, S10, {
+        title: '짝에게 받은 좋은 점과 고칠 점으로 내 말 고치기',
+        objective: '짝이 준 의견을 좋은 점과 고칠 점으로 나누고, 고칠 점을 반영한 문장을 골라 자기 표현을 고쳐 다시 말할 수 있다.',
+        illustration: {
+          prompt: PROMPT('two children facing each other, one speaking and one holding a green paper card for good points and an orange card for points to fix'),
+          scene: SC('Good point · Fix it', 'Say it again!', [{ motif: 'star', x: 330, y: 70 }, { motif: 'house', x: 90, y: 216, color: 'peach' }, { motif: 'flower', x: 410, y: 224 }]),
+        },
+        stages: [
+          {
+            id: 'intro', title: '도입', minutes: 6,
+            teacher: '교사가 자기소개 한 문장을 일부러 어색하게 말한다: "I like play soccer." 학생들에게 "좋았던 점 하나, 고치면 좋을 점 하나를 말해 줄래요?" 하고 묻는다. 학생이 "like 다음에 playing이나 to play"라고 하면 고쳐서 다시 말한다. "친구의 의견을 듣고 나서 처음 그대로 다시 말하면 의견이 도움이 되었을까요? 의견을 받으면 고쳐서 다시 말해요."라고 말한다.',
+            student: '친구가 고칠 점을 알려 주었을 때 처음 그대로 다시 말하면 어떤 일이 생길까요?',
+          },
+          {
+            id: 'main', title: '전개', minutes: 27,
+            activities: [
+              {
+                id: 'a1', title: '활동 1. 친구 의견을 좋은 점과 고칠 점으로 나누기', minutes: 11, tool: 'wordcards',
+                teacher: '"친구 의견에는 잘한 점을 말해 주는 것도 있고, 고치면 좋을 점을 말해 주는 것도 있어요." 고칠 점을 말하는 의견을 좋은 점에 놓는 학생에게 "이 말을 들으면 무엇을 바꾸어야 하나요?"라고 묻는다. 나눈 뒤 좋은 점을 말한 친구에게는 "Thank you."를 말하게 한다.',
+                task: '친구의 의견을 좋은 점과 고칠 점으로 나누어요. 의견을 받은 뒤에는 Thank you.라고 말해요.',
+                levels: LV({ mode: 'sort', slots: [{ id: 'good', label: '좋은 점' }, { id: 'fix', label: '고칠 점' }] }),
+                items: [
+                  { prompt: '"나의 하루" 발표를 들은 짝의 의견을 나누어 보세요.',
+                    toolOptions: { cards: ['Your voice was loud and clear.', 'I liked your first sentence.', 'Please add the time.', 'Can you say "went", not "go"?'] },
+                    target: { sort: { good: ['Your voice was loud and clear.', 'I liked your first sentence.'], fix: ['Please add the time.', 'Can you say "went", not "go"?'] } }, difficulty: 0.15,
+                    hints: ['칭찬은 이미 잘한 것을 말하고, 부탁은 바꿀 것을 말해요.'] },
+                  { prompt: '"좋아하는 동물" 발표를 들은 짝의 의견을 나누어 보세요.',
+                    toolOptions: { cards: ['Your picture helped me.', 'You smiled a lot.', 'Please tell me why you like it.', 'Can you speak a little slower?'] },
+                    target: { sort: { good: ['Your picture helped me.', 'You smiled a lot.'], fix: ['Please tell me why you like it.', 'Can you speak a little slower?'] } }, difficulty: 0.2,
+                    hints: ['"~해 줄래?"나 "~해 주세요"로 끝나는 말은 어느 쪽일까요?'] },
+                  { prompt: '"우리 동네 소개" 발표를 들은 짝의 의견을 나누어 보세요.',
+                    toolOptions: { cards: ['I liked the park part.', 'Your ending was nice.', 'Can you add where it is?', 'Please use "there is" here.', 'I could not hear the last line.'] },
+                    target: { sort: { good: ['I liked the park part.', 'Your ending was nice.'], fix: ['Can you add where it is?', 'Please use "there is" here.', 'I could not hear the last line.'] } }, difficulty: 0.25,
+                    hints: ['들리지 않았다는 말도 고칠 점이에요. 칭찬과 고칠 점을 다시 살펴요.'] },
+                ],
+              },
+              {
+                id: 'a2', title: '활동 2. 의견을 반영해 고친 문장 찾기', minutes: 16, tool: 'wordcards',
+                teacher: '"의견을 들은 뒤 문장은 달라졌을까요? 의견대로 바뀐 문장을 이어요." 의견은 있는데 처음 문장 그대로인 카드를 고르는 학생에게 "처음 문장과 비교하면 무엇이 바뀌었나요?"라고 묻는다. 마지막 활동에서는 실제 짝과 서로의 한 문장 발표를 듣고, 좋은 점과 고칠 점을 하나씩 주고 받은 뒤 고쳐서 다시 말한다.',
+                task: '짝의 의견과 그 의견을 반영해 고친 문장을 이어요. 고친 문장은 소리 내어 말해요.',
+                levels: LV({ mode: 'match' }),
+                items: [
+                  { prompt: '처음 문장: "I like dogs." 의견에 맞게 고친 문장을 이어 보세요.',
+                    toolOptions: { slots: [{ id: 'c1', label: 'Please tell me why.' }, { id: 'c2', label: 'Please say it two times.' }], cards: [{ id: 'a', text: 'I like dogs because they are friendly.' }, { id: 'b', text: 'I like dogs! I like dogs!' }, { id: 'x', text: 'I like dogs.', why: '처음 문장과 똑같아서 의견이 반영되지 않았어요.' }] },
+                    target: { match: { c1: 'a', c2: 'b' } }, difficulty: 0.2,
+                    hints: ['의견이 요구하는 것을 문장에서 찾아요. 처음 문장 그대로인 카드는 고친 것이 아니에요.'] },
+                  { prompt: '처음 문장: "I go to the park." 의견에 맞게 고친 문장을 이어 보세요.',
+                    toolOptions: { slots: [{ id: 'c1', label: 'It happened yesterday.' }, { id: 'c2', label: 'Please add who you went with.' }, { id: 'c3', label: 'Please add which park.' }], cards: [{ id: 'a', text: 'I went to the park yesterday.' }, { id: 'b', text: 'I went to the park with my cousin.' }, { id: 'c', text: 'I went to the big park by the river.' }] },
+                    target: { match: { c1: 'a', c2: 'b', c3: 'c' } }, difficulty: 0.25,
+                    hints: ['"어제 있었던 일"이라는 의견은 동사 모양도 바꾸어야 해요.'] },
+                  { prompt: '처음 문장: "She likes it." 의견에 맞게 고친 문장을 이어 보세요.',
+                    toolOptions: { slots: [{ id: 'c1', label: 'Who is she?' }, { id: 'c2', label: 'What does she like?' }], cards: [{ id: 'a', text: 'My sister likes it.' }, { id: 'b', text: 'She likes the red cap.' }, { id: 'x', text: 'She likes it a lot.', why: '의견은 누구인지, 무엇인지를 물었어요. 정도를 더한 것은 의견을 반영한 것이 아니에요.' }] },
+                    target: { match: { c1: 'a', c2: 'b' } }, difficulty: 0.25,
+                    hints: ['의견이 묻는 것을 문장에 직접 넣은 카드를 찾으세요.'] },
+                  { prompt: '짝에게 "내가 가고 싶은 곳" 한 문장을 말하고, 좋은 점 하나와 고칠 점 하나를 받아요. 받은 의견을 반영해 고쳐서 다시 말하고 서로 바꾸어 해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'wrapup', title: '정리', minutes: 7,
+            teacher: '먼저 출구 질문을 푼다. 푼 뒤 "의견을 받고 무엇을 바꾸어 다시 말했나요?"를 짝에게 한 문장으로 말하게 한다. 바꾸지 않고 그대로 다시 말한 학생은 의견을 하나 골라 반영하도록 다시 해 보게 한다. 다음 시간에는 도움이 되었던 의견을 짚어 적는다고 알린다.',
+            exitTicket: [
+              { type: 'tool', tool: 'wordcards', options: { mode: 'sort', slots: [{ id: 'good', label: '좋은 점' }, { id: 'fix', label: '고칠 점' }], cards: ['You spoke clearly.', 'Please add the place.', 'I liked your idea.', 'Can you use "because"?'] }, prompt: '의견을 좋은 점과 고칠 점으로 나누어 보세요.', target: { sort: { good: ['You spoke clearly.', 'I liked your idea.'], fix: ['Please add the place.', 'Can you use "because"?'] } }, difficulty: 0.15 },
+              { type: 'choice', prompt: '"Please add the time."라는 의견을 받았어요. 고친 문장으로 알맞은 것은 무엇일까요?', options: ['I played soccer at 4 p.m.', 'I played soccer.', 'I like soccer.'], answer: 0, difficulty: 0.15, explain: '의견이 시각을 넣으라고 했으니 시각이 들어간 문장이에요.' },
+              MOOD('친구 의견을 받고 다시 말하는 것은 어땠나요?'),
+            ],
+          },
+        ],
+        worksheet: {
+          title: '받은 의견과 고친 말',
+          items: [
+            { type: 'table', prompt: '짝에게 받은 의견과 고친 문장을 쓰세요.', columns: ['항목', '영어 문장'], cells: [['처음 문장', ''], ['좋은 점', ''], ['고칠 점', ''], ['고친 문장', '']] },
+            { type: 'choice', prompt: '고칠 점을 말한 의견에 ○ 하세요.', options: ['Please add the place.', 'I liked it.'], answer: 'Please add the place.' },
+            { type: 'blank', prompt: 'Can you ______ the time? (더하다)', answer: 'add' },
+            { type: 'short', prompt: '짝이 준 의견 중 내가 반영한 것을 한 문장으로 쓰세요.' },
+          ],
+          easy: {
+            note: '좋은 점: I liked ~. / 고칠 점: Please add ~.',
+            items: [
+              { type: 'choice', prompt: '좋은 점을 말한 의견에 ○ 하세요.', options: ['I liked your voice.', 'Please add the day.'], answer: 'I liked your voice.' },
+              { type: 'blank', prompt: 'Please ______ the place. (더하다)', answer: 'add' },
+              { type: 'short', prompt: '짝에게 받은 의견을 우리말로 쓰세요.' },
+            ],
+          },
+        },
+        differentiation: {
+          easy: '나누기·잇기가 맞으면 초록 테두리가 생겨요.',
+          base: '네 의견과 세 의견 나누기, 의견과 고친 문장 잇기를 스스로 확인해요.',
+          challenge: '잇기에 처음 문장과 같거나 의견과 다른 곳을 고친 함정 카드가 섞여요.',
+        },
+        teacherNotes: '자주 보이는 어려움: ① 의견을 받고도 고치지 않고 처음 그대로 다시 말한다(주제 오개념) → 고친 문장에서 처음과 달라진 낱말에 밑줄을 긋게 한다. ② 의견이 많아 모두 고치려다 포기한다 → 한 번에 한 가지 의견만 고치게 한다. ③ 고칠 점을 말했다고 서운해한다 → 의견은 말을 향한 것이지 사람을 향한 것이 아님을 말해 준다. 학생 이름은 가명 한두 글자만 쓴다.',
+      }),
+
+      // ───────────────────────── 44차시 (practice) ─────────────────────────
+      lesson(44, S10, {
+        title: '의견을 반영해 다시 말하고 도움이 된 의견 기록하기',
+        objective: '짝의 의견을 반영한 다시 말하기 글을 순서대로 놓고, 의견을 반영한 문장만 골라 도움이 된 의견을 짚어 기록할 수 있다.',
+        illustration: {
+          prompt: PROMPT('a child rewriting a speech draft on a paper note while a friend points to a highlighted helpful comment, with a small notebook beside them'),
+          scene: SC('My Second Try', 'This helped me.', [{ motif: 'cloud', x: 110, y: 50 }, { motif: 'tree', x: 90, y: 214 }, { motif: 'star', x: 400, y: 70 }]),
+        },
+        stages: [
+          {
+            id: 'intro', title: '도입', minutes: 6,
+            teacher: '지난 시간 학생 한 쌍의 처음 문장과 고친 문장을 칠판에 나란히 쓴다. "무엇이 어떻게 달라졌지요?" 하고 물은 뒤 "의견이 도움이 되었는지는 고친 뒤에 말이 더 알아듣기 쉬워졌는지로 알 수 있어요."라고 말한다. "오늘은 고친 말을 한 번 더 듣고, 어떤 의견이 가장 도움이 되었는지 적어요."라고 말한다.',
+            student: '내 말이 고친 뒤에 더 알아듣기 쉬워졌나요? 어떤 의견 덕분이었는지 생각해 보세요.',
+          },
+          {
+            id: 'main', title: '전개', minutes: 27,
+            activities: [
+              {
+                id: 'a1', title: '활동 1. 다시 말하기 글을 차례대로 놓기', minutes: 10, tool: 'wordcards',
+                teacher: '"고친 글은 처음 인사, 하고 싶은 말, 의견을 반영한 부분, 마무리 순서예요." 반영한 부분을 인사보다 앞에 놓는 학생에게 "발표는 보통 어떻게 시작할까요?"라고 묻는다. 순서를 놓은 뒤 짝에게 한 줄씩 말해 본다.',
+                task: '다시 말하기 글 문장을 알맞은 순서로 놓고, 짝에게 소리 내어 말해요.',
+                levels: LV({ mode: 'order' }),
+                items: [
+                  { prompt: '"내 방" 소개 글을 순서대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['Hello, this is my room.', 'It has a small blue desk.', 'It is by the window because I like the sun.', 'Thank you for listening.'] },
+                    target: { order: ['Hello, this is my room.', 'It has a small blue desk.', 'It is by the window because I like the sun.', 'Thank you for listening.'] }, difficulty: 0.15,
+                    hints: ['인사와 마무리를 먼저 정하고, 가운데는 책상 설명 뒤에 까닭을 놓아요.'] },
+                  { prompt: '"내가 좋아하는 계절" 글을 순서대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['My favorite season is fall.', 'The leaves turn red and yellow.', 'I walk with my dog in the park.', 'That is why I like fall.'] },
+                    target: { order: ['My favorite season is fall.', 'The leaves turn red and yellow.', 'I walk with my dog in the park.', 'That is why I like fall.'] }, difficulty: 0.2,
+                    hints: ['"That is why"는 이유를 모아 말하는 마지막에 와요.'] },
+                  { prompt: '"주말에 한 일" 글을 순서대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['Last Saturday, I visited my uncle.', 'We made kimbap together.', 'It was a little salty.', 'I want to cook again next time.'] },
+                    target: { order: ['Last Saturday, I visited my uncle.', 'We made kimbap together.', 'It was a little salty.', 'I want to cook again next time.'] }, difficulty: 0.25,
+                    hints: ['지난 일을 시간 순서대로 말하고, 앞으로의 마음은 마지막에 놓아요.'] },
+                ],
+              },
+              {
+                id: 'a2', title: '활동 2. 의견을 반영한 문장 고르기', minutes: 9, tool: 'wordcards',
+                teacher: '"받은 의견을 정말 반영한 문장만 골라요." 처음과 거의 같은 문장을 고르는 학생에게 "의견이 부탁한 것이 이 문장에 들어 있나요?"라고 되묻는다. 고른 문장은 소리 내어 말한다.',
+                task: '의견을 반영한 문장만 바구니에 넣어요. 고른 문장은 소리 내어 말해요.',
+                levels: LV({ mode: 'pick', basket: '의견을 반영한 문장' }),
+                items: [
+                  { prompt: '의견: "Please add why you like it." 처음 문장: "I like pizza." 의견을 반영한 문장만 골라 보세요.',
+                    toolOptions: { cards: [{ id: 'a', text: 'I like pizza because it is hot and cheesy.' }, { id: 'b', text: 'I like pizza since it is warm.' }, { id: 'c', text: 'I like pizza.', why: '처음 문장과 같아요.' }, { id: 'd', text: 'I like pizza very much.', why: '정도만 더했고 까닭이 없어요.' }] },
+                    target: { pick: ['a', 'b'] }, difficulty: 0.2,
+                    hints: ['까닭을 말하는 낱말이 들어 있는 문장을 찾아요.'] },
+                  { prompt: '의견: "Please say when." 처음 문장: "We have a test." 의견을 반영한 문장만 골라 보세요.',
+                    toolOptions: { cards: [{ id: 'a', text: 'We have a test on Friday.' }, { id: 'b', text: 'We have a test tomorrow.' }, { id: 'c', text: 'We have a big test.', why: '언제인지 알려 주지 않아요.' }, { id: 'd', text: 'We have a test in the room.', why: '곳을 말했어요. 의견은 때를 물었어요.' }] },
+                    target: { pick: ['a', 'b'] }, difficulty: 0.2,
+                    hints: ['때를 알려 주는 낱말을 찾으세요.'] },
+                  { prompt: '의견: "Can you speak in the past?" 처음 문장: "I eat noodles." 의견을 반영한 문장만 골라 보세요.',
+                    toolOptions: { cards: [{ id: 'a', text: 'I ate noodles last night.' }, { id: 'b', text: 'I ate noodles with Ho.' }, { id: 'c', text: 'I eat noodles every day.', why: '현재형이에요. 의견은 지난 일로 바꾸라고 했어요.' }, { id: 'd', text: 'I will eat noodles.', why: '앞으로의 일이에요.' }] },
+                    target: { pick: ['a', 'b'] }, difficulty: 0.25,
+                    hints: ['동사 모양이 바뀌었는지 보세요.'] },
+                ],
+              },
+              {
+                id: 'a3', title: '활동 3. 도움이 된 의견을 짚어 기록하기', minutes: 8, tool: 'wordcards',
+                teacher: '"내가 받은 의견 중 무엇이 가장 도움이 되었는지 짚어 기록해요. 이유도 한 마디 적어요." 모두 도움이 되었다고 하는 학생에게 "그중 내 말이 가장 많이 달라진 의견은 어느 것인가요?"라고 묻는다. 학습지에 한 줄로 쓰고 짝과 읽어 본다.',
+                task: '짝이 준 의견 중 도움이 된 의견을 빈칸에 넣어 기록해요.',
+                levels: LV({ mode: 'fill' }),
+                items: [
+                  { prompt: '기록: 짝이 준 의견 중 도움이 된 것을 빈칸에 넣어 보세요.',
+                    toolOptions: { cards: ['Please add the time.', 'It became clearer.', 'I added "at 4 p.m."'], slots: [{ id: 'b1', label: '도움이 된 의견: ___' }, { id: 'b2', label: '내가 고친 것: ___' }, { id: 'b3', label: '고친 뒤: ___' }] },
+                    target: { fill: { b1: 'Please add the time.', b2: 'I added "at 4 p.m."', b3: 'It became clearer.' } }, difficulty: 0.2,
+                    hints: ['의견, 고친 일, 결과의 차례를 떠올려요.'] },
+                  { prompt: '기록: 짝이 준 의견 중 도움이 된 것을 빈칸에 넣어 보세요.',
+                    toolOptions: { cards: ['Please tell me why.', 'I added "because".', 'My idea became easier to follow.'], slots: [{ id: 'b1', label: '도움이 된 의견: ___' }, { id: 'b2', label: '내가 고친 것: ___' }, { id: 'b3', label: '고친 뒤: ___' }] },
+                    target: { fill: { b1: 'Please tell me why.', b2: 'I added "because".', b3: 'My idea became easier to follow.' } }, difficulty: 0.2,
+                    hints: ['고친 뒤에는 말이 어떻게 달라졌는지 써요.'] },
+                  { prompt: '내가 받은 의견 중 도움이 된 것을 활동지에 영어로 한 줄 쓰고 짝에게 읽어 주어요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'wrapup', title: '정리', minutes: 7,
+            teacher: '먼저 출구 질문을 푼다. 푼 뒤 두세 학생이 도움이 된 의견과 고친 점을 말한다. "의견을 받으면 고쳐서 다시 말해 본다"는 순서를 칠판에 쓴다. 다음 시간에는 단원 전체를 하나의 발표로 묶는다고 알린다.',
+            exitTicket: [
+              { type: 'tool', tool: 'wordcards', options: { mode: 'pick', basket: '의견을 반영한 문장', cards: [{ id: 'a', text: 'I went there on Sunday.' }, { id: 'b', text: 'I went there.' }, { id: 'c', text: 'I like Sunday.' }] }, prompt: '의견: "Please say when." 반영한 문장만 골라 보세요.', target: { pick: ['a'] }, difficulty: 0.15 },
+              { type: 'choice', prompt: '의견을 받은 뒤 가장 알맞은 행동은 무엇일까요?', options: ['의견을 반영해 고쳐 다시 말한다', '처음 그대로 다시 말한다', '의견을 듣지 않는다'], answer: 0, difficulty: 0.1, explain: '의견은 고쳐 말하기 위해 받는 거예요.' },
+              MOOD('도움이 된 의견을 짚어 기록하는 것은 어땠나요?'),
+            ],
+          },
+        ],
+        worksheet: {
+          title: '다시 말하기 기록',
+          items: [
+            { type: 'table', prompt: '의견을 받고 고친 기록을 쓰세요.', columns: ['항목', '내용'], cells: [['받은 의견', ''], ['고친 문장', ''], ['도움이 된 점', '']] },
+            { type: 'choice', prompt: '의견을 반영한 문장에 ○ 하세요. (의견: Please say when.)', options: ['I ate lunch at noon.', 'I ate lunch.'], answer: 'I ate lunch at noon.' },
+            { type: 'blank', prompt: 'It became ______. (더 분명한)', answer: 'clearer' },
+            { type: 'short', prompt: '도움이 된 의견과 이유를 한 문장으로 쓰세요.' },
+          ],
+          easy: {
+            note: '의견: Please add ~. → 고친 문장에 ~를 넣어요.',
+            items: [
+              { type: 'choice', prompt: '의견을 반영한 것에 ○ 하세요. (의견: Please add the day.)', options: ['I went on Monday.', 'I went.'], answer: 'I went on Monday.' },
+              { type: 'blank', prompt: 'I added "______". (because)', answer: 'because' },
+              { type: 'short', prompt: '도움이 된 의견을 우리말로 쓰세요.' },
+            ],
+          },
+        },
+        differentiation: {
+          easy: '순서 놓기·고르기·채우기가 맞으면 초록 테두리가 생겨요.',
+          base: '세 글 순서 놓기와 의견 반영 문장 고르기, 기록 채우기를 스스로 확인해요.',
+          challenge: '고르기에 정도만 더하거나 다른 곳을 고친 함정 문장이 섞여요.',
+        },
+        teacherNotes: '자주 보이는 어려움: ① 의견을 받고도 고치지 않고 처음 그대로 다시 말한다(주제 오개념) → 처음 문장과 고친 문장을 나란히 두고 달라진 낱말에 동그라미를 치게 한다. ② 도움이 된 의견을 못 고르고 모두 쓴다 → 하나만 고르고 이유 한 마디를 적게 한다. ③ 의견과 다른 곳을 고친다 → 의견이 부탁한 것을 먼저 소리 내어 읽고 고치게 한다.',
+      }),
+
+      // ───────────────────────── 45차시 (wrap) ─────────────────────────
+      lesson(45, S10, {
+        title: '단원 말하기를 하나의 발표로 묶고 돌아보기',
+        objective: '이 단원에서 익힌 말하기 기능(까닭·계획·정보 묻기·모둠 역할·의견 반영)을 구분하고, 짧은 발표 글을 차례로 놓아 한 번에 말한 뒤 자기 말하기를 정직하게 돌아볼 수 있다.',
+        illustration: {
+          prompt: PROMPT('a bright stage made of paper layers with a child giving a short talk, five paper icons floating above for reason, plan, question, group and feedback'),
+          scene: SC('My Speaking Talk', 'Reason · Plan · Ask · Group', [{ motif: 'star', x: 120, y: 70 }, { motif: 'tree', x: 90, y: 214 }, { motif: 'flower', x: 400, y: 224 }]),
+        },
+        stages: [
+          {
+            id: 'intro', title: '도입', minutes: 6,
+            teacher: '이 단원에서 한 말하기를 칠판에 다섯 낱말로 쓴다: because(까닭), will(계획), ask(묻기), roles(모둠 역할), feedback(의견). "오늘은 이 다섯 가지를 한 발표에 모두 담아 보아요. 어떤 문장에 어떤 기능이 들어 있는지부터 찾아볼까요?" 아직 헷갈리는 기능이 있다면 손을 들게 하고 오늘 그 기능을 다시 연습한다고 말한다.',
+            student: '이 단원에서 배운 말하기 다섯 가지를 떠올려 보고, 가장 자신 있는 것과 아직 어려운 것을 하나씩 생각해요.',
+          },
+          {
+            id: 'main', title: '전개', minutes: 27,
+            activities: [
+              {
+                id: 'a1', title: '활동 1. 문장이 어떤 말하기 기능인지 나누기', minutes: 12, tool: 'wordcards',
+                teacher: '"문장마다 어떤 일을 하는지 살펴요. because가 있으면 까닭, will이나 going to가 있으면 계획이에요." 계획 문장을 까닭에 놓는 학생에게 "다음에 할 일을 말하고 있나요, 왜 그런지를 말하고 있나요?"라고 묻는다. 나눈 뒤 각 칸에서 가장 마음에 드는 문장 하나를 소리 내어 읽는다.',
+                task: '문장을 말하기 기능별로 나누어요. 나눈 문장은 소리 내어 읽어요.',
+                levels: LV({ mode: 'sort', slots: [{ id: 'reason', label: '까닭 말하기' }, { id: 'plan', label: '계획 말하기' }, { id: 'ask', label: '정보 묻기' }, { id: 'group', label: '모둠 대화' }] }),
+                items: [
+                  { prompt: '문장을 네 기능으로 나누어 보세요.',
+                    toolOptions: { cards: ['I am happy because it is Friday.', 'I will visit my aunt tomorrow.', 'What time does it start?', 'Let us hear Mina next.'] },
+                    target: { sort: { reason: ['I am happy because it is Friday.'], plan: ['I will visit my aunt tomorrow.'], ask: ['What time does it start?'], group: ['Let us hear Mina next.'] } }, difficulty: 0.2,
+                    hints: ['낱말 because, will, 묻는 말(What), 차례를 넘기는 말을 단서로 삼아요.'] },
+                  { prompt: '문장을 네 기능으로 나누어 보세요.',
+                    toolOptions: { cards: ['I felt tired because I ran a lot.', 'We are going to bake cookies.', 'Where is the library?', 'Please speak one by one.'] },
+                    target: { sort: { reason: ['I felt tired because I ran a lot.'], plan: ['We are going to bake cookies.'], ask: ['Where is the library?'], group: ['Please speak one by one.'] } }, difficulty: 0.25,
+                    hints: ['한 사람씩 말하자는 부탁은 어떤 자리에서 쓰는 말인지 떠올려요.'] },
+                  { prompt: '문장을 네 기능으로 나누어 보세요.',
+                    toolOptions: { cards: ['I like it because it is quiet.', 'I will clean the room on Sunday.', 'How much is the ticket?', 'Our group chose a blue flag.'] },
+                    target: { sort: { reason: ['I like it because it is quiet.'], plan: ['I will clean the room on Sunday.'], ask: ['How much is the ticket?'], group: ['Our group chose a blue flag.'] } }, difficulty: 0.25,
+                    hints: ['모둠이 정한 결과를 알리는 말은 어느 칸일까요?'] },
+                ],
+              },
+              {
+                id: 'a2', title: '활동 2. 발표 글 순서대로 놓고 한 번에 말하기', minutes: 15, tool: 'wordcards',
+                teacher: '"발표 글은 인사, 까닭이 담긴 소개, 앞으로의 계획, 마무리 순서예요." 계획을 소개보다 앞에 놓는 학생에게 "무엇에 대한 계획인지 먼저 알려 주어야 하지 않을까요?"라고 되묻는다. 마지막 활동에서는 짝에게 발표를 하고 의견을 받아 한 곳을 고쳐 다시 말한다.',
+                task: '짧은 발표 글을 순서대로 놓고, 완성한 글을 한 번에 소리 내어 말해요.',
+                levels: LV({ mode: 'order' }),
+                items: [
+                  { prompt: '"우리 학교 축제" 발표 글을 순서대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['Hello, I am Jun.', 'I like the school festival because it is fun.', 'Next year, I will join the dance team.', 'Thank you for listening.'] },
+                    target: { order: ['Hello, I am Jun.', 'I like the school festival because it is fun.', 'Next year, I will join the dance team.', 'Thank you for listening.'] }, difficulty: 0.2,
+                    hints: ['인사 다음에 까닭이 담긴 소개, 그다음 계획, 마지막에 감사를 놓아요.'] },
+                  { prompt: '"우리 모둠 발표" 글을 순서대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['Hello, we are Group 2.', 'We chose a recycling box because it helps the earth.', 'Mina wrote the plan and Ho asked the questions.', 'We will put it in our classroom.'] },
+                    target: { order: ['Hello, we are Group 2.', 'We chose a recycling box because it helps the earth.', 'Mina wrote the plan and Ho asked the questions.', 'We will put it in our classroom.'] }, difficulty: 0.25,
+                    hints: ['모둠 소개 뒤에 정한 것과 까닭, 각자 한 일, 앞으로의 계획 순서예요.'] },
+                  { prompt: '"의견을 받고 고친 발표" 글을 순서대로 놓아 보세요.',
+                    toolOptions: { mode: 'order', cards: ['My first talk was short.', 'My partner said, "Please add why."', 'I added "because it is useful".', 'Now my talk is clearer.'] },
+                    target: { order: ['My first talk was short.', 'My partner said, "Please add why."', 'I added "because it is useful".', 'Now my talk is clearer.'] }, difficulty: 0.25,
+                    hints: ['처음 발표, 받은 의견, 고친 일, 그 결과의 순서를 따라가요.'] },
+                  { prompt: '이 단원에서 가장 마음에 드는 주제 하나를 골라 짝에게 인사-까닭-계획-마무리가 있는 짧은 발표를 해요. 짝의 의견을 받아 한 곳을 고치고 다시 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
+                ],
+              },
+            ],
+          },
+          {
+            id: 'wrapup', title: '정리', minutes: 7,
+            teacher: '먼저 출구 질문을 푼다. 마지막 자기 평가는 단원에서 정말 한 만큼 고르면 된다고 말한다. 푼 뒤 "이 단원에서 가장 많이 늘어난 말하기 한 가지"를 짝과 나눈다. 아직 어려운 기능은 쉬는 시간 말하기 놀이에서 계속 연습하자고 알린다. 단원 전체를 "마음과 까닭 → 계획 → 듣고 답하기 → 막힐 때 전략 → 묻고 답하기 → 모둠 → 의견 반영"으로 정리한다.',
+            exitTicket: [
+              { type: 'tool', tool: 'wordcards', options: { mode: 'sort', slots: [{ id: 'reason', label: '까닭 말하기' }, { id: 'plan', label: '계획 말하기' }], cards: ['I am tired because I woke up early.', 'I will sleep early tonight.', 'She is sad because it rained.', 'We are going to camp next week.'] }, prompt: '문장을 까닭과 계획으로 나누어 보세요.', target: { sort: { reason: ['I am tired because I woke up early.', 'She is sad because it rained.'], plan: ['I will sleep early tonight.', 'We are going to camp next week.'] } }, difficulty: 0.15 },
+              { type: 'choice', prompt: '친구에게 받은 의견을 가장 잘 쓴 사람은 누구일까요?', options: ['의견을 반영해 고쳐 다시 말한 사람', '의견을 듣고 처음 그대로 말한 사람', '의견을 받지 않은 사람'], answer: 0, difficulty: 0.1, explain: '의견은 고쳐 다시 말하는 데 쓰는 거예요.' },
+              SELF('단원 말하기 돌아보기', '뿌듯함', '까닭, 계획, 묻기, 모둠 역할, 의견 고치기 중 스스로 해 본 것이 있나요?', '이 단원에서 한 말하기를 정직하게 돌아보며 골라 보세요.'),
+            ],
+          },
+        ],
+        worksheet: {
+          title: '단원 말하기 돌아보기',
+          items: [
+            { type: 'table', prompt: '단원 말하기 기능마다 내가 말해 본 영어 문장을 쓰세요.', columns: ['기능', '영어 문장'], cells: [['까닭(because)', ''], ['계획(will)', ''], ['묻기(What / Where)', ''], ['모둠 대화', '']] },
+            { type: 'choice', prompt: '계획을 말하는 문장에 ○ 하세요.', options: ['I will visit Seoul.', 'I am happy because it is sunny.'], answer: 'I will visit Seoul.' },
+            { type: 'blank', prompt: 'I am happy ______ it is sunny. (왜냐하면)', answer: 'because' },
+            { type: 'short', prompt: '이 단원에서 가장 많이 늘어난 말하기 한 가지와 이유를 쓰세요.' },
+          ],
+          easy: {
+            note: '까닭: because / 계획: will / 묻기: What, Where',
+            items: [
+              { type: 'choice', prompt: '까닭을 말하는 낱말에 ○ 하세요.', options: ['because', 'tomorrow'], answer: 'because' },
+              { type: 'blank', prompt: 'I ______ visit my aunt. (~할 거예요)', answer: 'will' },
+              { type: 'short', prompt: '이 단원에서 재미있었던 말하기를 우리말로 쓰세요.' },
+            ],
+          },
+        },
+        differentiation: {
+          easy: '나누기와 순서 놓기가 맞으면 초록 테두리가 생겨요.',
+          base: '세 문장 묶음 나누기와 세 발표 글 순서 놓기를 스스로 확인해요.',
+          challenge: '나누기에 겉모습이 비슷한 문장이 섞여 있어요.',
+        },
+        teacherNotes: '자주 보이는 어려움: ① 의견을 받고도 고치지 않고 처음 그대로 다시 말한다(주제 오개념) → 발표를 두 번 하게 하고 두 번째에 달라진 부분을 짝이 찾게 한다. ② 단원 기능을 문장 모양으로만 구분한다 → 문장이 하는 일(까닭·계획·묻기)을 먼저 말하게 한다. ③ 자기 평가를 모두 가장 높게 한다 → 한 만큼 정직하게 고르는 것이 다음 학습에 도움이 된다고 말해 준다. 학생 이름은 가명 한두 글자만 쓴다.',
+      }),
+
       // @@NEXT@@
     ],
   });

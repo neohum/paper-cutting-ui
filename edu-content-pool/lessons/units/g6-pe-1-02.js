@@ -184,7 +184,7 @@
           title: '예보 보고 계획 바꾸기',
           items: [
             { type: 'table', prompt: '예보를 보고 바꿀 준비물과 계획을 쓰세요.', columns: ['예보', '더 챙길 것', '바꿀 계획'], cells: [['낮 기온 32도', '', ''], ['오후 소나기', '', ''], ['아침 기온 2도', '', '']] },
-            { type: 'figure', prompt: '구간 타이머를 보고 걷기·쉬기·횟수를 빈칸에 쓰세요.', tool: 'timer', options: { plan: { work: 120, rest: 30, rounds: 3 } }, figures: [{ state: {}, caption: '걷기 ___초, 쉬기 ___초, ___번' }], answer: '120, 30, 3' },
+            { type: 'figure', wide: true, prompt: '구간 타이머를 보고 걷기·쉬기·횟수를 빈칸에 쓰세요.', tool: 'timer', options: { plan: { work: 120, rest: 30, rounds: 3 } }, figures: [{ state: {}, caption: '걷기 ___초, 쉬기 ___초, ___번' }], answer: '120, 30, 3' },
             { type: 'blank', prompt: '전체 시간을 구하세요.', text: '걷기 60초, 쉬기 20초를 4번 하면 전체 시간은 ___초예요.', answer: '300' },
             { type: 'choice', prompt: '예보가 맑음일 때 알맞은 것에 ○ 하세요.', options: ['장소를 살피지 않아도 된다', '그날 장소의 상태를 직접 살핀다', '준비물을 모두 빼도 된다'], answer: '그날 장소의 상태를 직접 살핀다' },
             { type: 'check', prompt: '오늘 걷기에서 지킨 것에 ✓ 하세요.', options: ['계획한 쉬는 시간에 그늘에서 쉬었어요', '물을 마셨어요', '물웅덩이를 피해 걸었어요'] },
@@ -261,7 +261,7 @@
           title: '생태형 스포츠의 종류',
           items: [
             { type: 'table', prompt: '종류마다 활동 이름과 조심할 자연 조건을 쓰세요.', columns: ['종류', '활동 두 가지', '조심할 자연 조건'], cells: [['땅(산과 들)', '', ''], ['물(강과 바다)', '', ''], ['눈과 얼음', '', '']] },
-            { type: 'figure', prompt: '지도에서 스키를 타기 알맞은 곳에 ○, 카누를 탈 곳에 △ 하세요.', tool: 'map', options: { mode: 'terrain', grid: [6, 4], heights: [[3, 4, 3, 1, 0, -1], [2, 3, 2, 1, 0, -1], [1, 1, 1, 0, 0, -1], [0, 0, 0, 0, 0, -1]], rivers: [[[2, 1], [2, 2], [3, 2], [4, 2]]], places: [{ name: '우리 동네', icon: 'city', at: [0, 3] }] }, figures: [{ state: {}, caption: '○ 스키, △ 카누' }], answer: '○ 가장 높은 땅, △ 강이 흐르는 칸' },
+            { type: 'figure', wide: true, prompt: '지도에서 스키를 타기 알맞은 곳에 ○, 카누를 탈 곳에 △ 하세요.', tool: 'map', options: { mode: 'terrain', grid: [6, 4], heights: [[3, 4, 3, 1, 0, -1], [2, 3, 2, 1, 0, -1], [1, 1, 1, 0, 0, -1], [0, 0, 0, 0, 0, -1]], rivers: [[[2, 1], [2, 2], [3, 2], [4, 2]]], places: [{ name: '우리 동네', icon: 'city', at: [0, 3] }] }, figures: [{ state: {}, caption: '○ 스키, △ 카누' }], answer: '○ 가장 높은 땅, △ 강이 흐르는 칸' },
             { type: 'choice', prompt: '"눈썰매"는 어느 종류인가요?', options: ['땅(산과 들)', '물(강과 바다)', '눈과 얼음'], answer: '눈과 얼음' },
             { type: 'short', prompt: '맑은 날에도 생태형 스포츠에 준비가 필요한 까닭을 한 가지 쓰세요.' },
           ],
@@ -409,7 +409,7 @@
         worksheet: {
           title: '학교 지도로 지점 찾기',
           items: [
-            { type: 'figure', prompt: '학교 지도에서 "정문에서 서쪽으로 한 칸"인 곳에 ○ 하세요.', tool: 'map', options: SCHOOL, figures: [{ state: {}, caption: '정문에서 서쪽으로 한 칸' }], answer: '정문 왼쪽 칸' },
+            { type: 'figure', wide: true, prompt: '학교 지도에서 "정문에서 서쪽으로 한 칸"인 곳에 ○ 하세요.', tool: 'map', options: SCHOOL, figures: [{ state: {}, caption: '정문에서 서쪽으로 한 칸' }], answer: '정문 왼쪽 칸' },
             { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '지도에서 위쪽은 ___쪽이고, 북쪽과 서쪽 사이를 ___이라고 해요.', answer: '북, 북서' },
             { type: 'table', prompt: '오늘 오리엔티어링 기록을 쓰세요.', columns: ['걸린 시간(초)', '찾은 지점 수', '가장 찾기 어려웠던 지점'], rows: 1 },
             { type: 'choice', prompt: '오리엔티어링에서 지점 표시를 찾은 뒤에 할 일에 ○ 하세요.', options: ['표시를 가져온다', '도장만 찍고 표시는 그대로 둔다', '표시를 다른 곳에 숨긴다'], answer: '도장만 찍고 표시는 그대로 둔다' },
@@ -562,7 +562,7 @@
           title: '처음과 끝 견주기',
           items: [
             { type: 'table', prompt: '활동한 곳에서 달라진 것과 그 까닭을 쓰세요.', columns: ['달라진 곳', '까닭이 된 행동', '사람 / 날씨'], rows: 3 },
-            { type: 'figure', prompt: '그래프를 보고 물음에 답하세요.', tool: 'chart', options: { type: 'line', mode: 'read', title: '화단 둘레 맨땅 길의 길이', unit: 'm', data: [['1주', 0], ['2주', 1], ['3주', 3], ['4주', 6]] }, figures: [{ state: {}, caption: '3주와 4주 사이에 ___m 늘었어요.' }], answer: '3' },
+            { type: 'figure', wide: true, prompt: '그래프를 보고 물음에 답하세요.', tool: 'chart', options: { type: 'line', mode: 'read', title: '화단 둘레 맨땅 길의 길이', unit: 'm', max: 6, scale: 3, data: [['1주', 0], ['2주', 1], ['3주', 3], ['4주', 6]] }, figures: [{ state: {}, caption: '3주와 4주 사이에 ___m 늘었어요.' }], answer: '3' },
             { type: 'blank', prompt: '우리 학교 화단 가장자리 맨땅 길이를 재어 쓰세요.', text: '맨땅 길이: ___m ___cm', answer: '잰 값' },
             { type: 'short', prompt: '"자연은 넓으니 한두 사람의 행동은 상관없다"는 말에 대한 내 생각을 근거를 들어 쓰세요.' },
           ],
@@ -787,7 +787,7 @@
         worksheet: {
           title: '힘을 내는 곳, 조절하는 까닭',
           items: [
-            { type: 'figure', prompt: '그림에서 원반을 던질 때 쓰는 팔의 관절 세 곳에 ○ 하세요.', tool: 'body', options: { mode: 'parts', parts: ['어깨', '팔꿈치', '손목', '허리', '무릎', '발목'] }, figures: [{ state: {}, caption: '팔의 관절 세 곳' }], answer: '어깨, 팔꿈치, 손목' },
+            { type: 'choice', prompt: '원반을 던질 때 쓰는 팔의 관절 세 곳이 모두 들어 있는 것에 ○ 하세요.', options: ['어깨, 팔꿈치, 손목', '허리, 무릎, 발목', '어깨, 무릎, 손목'], answer: '어깨, 팔꿈치, 손목' },
             { type: 'table', prompt: '짝과 주고받기를 해 보고 쓴 힘과 결과를 쓰세요.', columns: ['거리', '쓴 몸의 곳', '받은 횟수(3번 중)'], cells: [['3걸음', '', ''], ['10걸음', '', '']] },
             { type: 'choice', prompt: '오르기에서 힘을 아끼는 방법에 ○ 하세요.', options: ['팔을 굽혀 매달린다', '다리를 펴며 몸을 밀어 올린다', '손잡이를 있는 힘껏 쥔다'], answer: '다리를 펴며 몸을 밀어 올린다' },
             { type: 'short', prompt: '힘을 상황에 맞게 조절해야 하는 까닭을 한 가지 쓰세요.' },
@@ -1160,7 +1160,7 @@
           title: '잘된 때를 되짚어요',
           items: [
             { type: 'table', prompt: '내 다섯 번 기록과 메모를 쓰세요.', columns: ['시도', '들어갔나요(○/×)', '힘(살살·알맞게·힘껏)', '원반 모양'], cells: [['1회', '', '', ''], ['2회', '', '', ''], ['3회', '', '', ''], ['4회', '', '', ''], ['5회', '', '', '']] },
-            { type: 'figure', prompt: '민지의 기록 그래프에서 가장 잘된 시도에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '훌라후프와 원반 사이 거리(m)', unit: 'm', max: 6, scale: 1, data: [['1회', 5], ['2회', 3], ['3회', 1], ['4회', 6], ['5회', 2]] }, figures: [{ state: {}, caption: '막대가 짧을수록 가까워요' }], answer: '3회' },
+            { type: 'figure', wide: true, prompt: '민지의 기록 그래프에서 가장 잘된 시도에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '훌라후프와 원반 사이 거리(m)', unit: 'm', max: 6, scale: 2, data: [['1회', 5], ['2회', 3], ['3회', 1], ['4회', 6], ['5회', 2]] }, figures: [{ state: {}, caption: '막대가 짧을수록 가까워요' }], answer: '3회' },
             { type: 'short', prompt: '가장 잘된 시도의 힘과 방향을 내 말로 쓰세요.' },
             { type: 'short', prompt: '"잘된 동작은 되풀이하면 저절로 나온다"는 말에 대한 내 생각을 쓰세요.' },
           ],
@@ -1473,7 +1473,7 @@
         worksheet: {
           title: '우리 학교 디스크 골프 코스',
           items: [
-            { type: 'figure', prompt: '학교 지도에서 "느티나무 숲에서 동쪽으로 한 칸"인 곳에 ① 을 쓰세요.', tool: 'map', options: SCHOOL, figures: [{ state: {}, caption: '바구니 자리' }], answer: '느티나무 숲 오른쪽 칸' },
+            { type: 'figure', wide: true, prompt: '학교 지도에서 "느티나무 숲에서 동쪽으로 한 칸"인 곳에 ① 을 쓰세요.', tool: 'map', options: SCHOOL, figures: [{ state: {}, caption: '바구니 자리' }], answer: '느티나무 숲 오른쪽 칸' },
             { type: 'table', prompt: '시험 던지기 기록을 쓰세요.', columns: ['홀', '던진 횟수', '고칠 점'], cells: [['1번', '', ''], ['2번', '', ''], ['3번', '', '']] },
             { type: 'choice', prompt: '바구니를 두면 안 되는 곳에 ○ 하세요.', options: ['넓은 흙바닥', '유리창 바로 앞', '나무 사이가 넓은 잔디'], answer: '유리창 바로 앞' },
             { type: 'short', prompt: '코스 계획에 정리할 사람을 넣는 까닭을 쓰세요.' },
@@ -1639,7 +1639,7 @@
           title: '돌아가도 괜찮아요',
           items: [
             { type: 'table', prompt: '홀마다 쓴 전략과 던진 횟수를 쓰세요.', columns: ['홀', '홀 상황', '쓴 전략', '던진 횟수'], cells: [['1번', '', '', ''], ['2번', '', '', ''], ['3번', '', '', '']] },
-            { type: 'figure', prompt: '그래프에서 더 적게 던진 친구에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '나무가 막은 홀에서 넣기까지 던진 횟수', unit: '번', max: 8, scale: 1, data: [['도윤', 7], ['서연', 3]] }, figures: [{ state: {}, caption: '막대가 짧을수록 적게 던졌어요' }], answer: '서연' },
+            { type: 'figure', wide: true, prompt: '그래프에서 더 적게 던진 친구에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '나무가 막은 홀에서 넣기까지 던진 횟수', unit: '번', max: 8, scale: 8, data: [['도윤', 7], ['서연', 3]] }, figures: [{ state: {}, caption: '막대가 짧을수록 적게 던졌어요' }], answer: '서연' },
             { type: 'choice', prompt: '바구니가 세 걸음 앞일 때 알맞은 전략에 ○ 하세요.', options: ['있는 힘껏 던진다', '힘을 빼고 가볍게 밀어 넣는다', '등을 돌리고 던진다'], answer: '힘을 빼고 가볍게 밀어 넣는다' },
             { type: 'short', prompt: '"세게 던질수록 적게 던진다"는 말이 틀린 까닭을 쓰세요.' },
           ],
@@ -1802,7 +1802,7 @@
           title: '계절이 바뀌면 다시 살펴요',
           items: [
             { type: 'table', prompt: '계절마다 숲길의 조건과 바꿀 계획을 쓰세요.', columns: ['계절', '달라진 조건', '바꿀 장소나 장비'], cells: [['봄', '', ''], ['여름', '', ''], ['가을', '', ''], ['겨울', '', '']] },
-            { type: 'figure', prompt: '그래프에서 비 온 날이 가장 많은 달에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '달마다 비 온 날 수(가상의 고장)', unit: '일', max: 20, scale: 2, data: [['3월', 6], ['4월', 8], ['5월', 10], ['6월', 12], ['7월', 16]] }, figures: [{ state: {}, caption: '막대가 길수록 비 온 날이 많아요' }], answer: '7월' },
+            { type: 'figure', wide: true, prompt: '그래프에서 비 온 날이 가장 많은 달에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '달마다 비 온 날 수(가상의 고장)', unit: '일', max: 20, scale: 5, data: [['3월', 6], ['4월', 8], ['5월', 10], ['6월', 12], ['7월', 16]] }, figures: [{ state: {}, caption: '막대가 길수록 비 온 날이 많아요' }], answer: '7월' },
             { type: 'blank', prompt: '오늘 걸으며 찾은 것을 쓰세요.', text: '오늘 숲길은 지난번과 달리 ___________________.' },
             { type: 'short', prompt: '"한 번 정한 장소는 계절이 바뀌어도 그대로 쓰면 된다"는 말을 고쳐 쓰세요.' },
           ],
@@ -1966,7 +1966,7 @@
           title: '우리 학교 운동 시설',
           items: [
             { type: 'table', prompt: '둘러본 시설을 쓰세요.', columns: ['시설', '할 수 있는 운동', '있어서 좋은 점(근거)'], rows: 3 },
-            { type: 'figure', prompt: '학교 지도에서 비 오는 날 쓸 수 있는 시설에 ○ 하세요.', tool: 'map', options: SCHOOL, figures: [{ state: {}, caption: '실내 운동 시설' }], answer: '체육관' },
+            { type: 'figure', wide: true, prompt: '학교 지도에서 비 오는 날 쓸 수 있는 시설에 ○ 하세요.', tool: 'map', options: SCHOOL, figures: [{ state: {}, caption: '실내 운동 시설' }], answer: '체육관' },
             { type: 'choice', prompt: '근거가 있는 말에 ○ 하세요.', options: ['숲길 덕분에 그늘에서 걸을 수 있다', '숲길은 그냥 있다', '숲길은 멋지다'], answer: '숲길 덕분에 그늘에서 걸을 수 있다' },
             { type: 'short', prompt: '"운동 시설은 원래 있는 것이니 살펴볼 필요가 없다"는 말을 고쳐 쓰세요.' },
           ],
@@ -2053,7 +2053,7 @@
           title: '우리 마을 운동 시설',
           items: [
             { type: 'table', prompt: '마을 운동 시설을 조사해 쓰세요.', columns: ['시설', '자리(학교에서 어느 쪽)', '할 수 있는 운동', '가 본 적(○/×)'], rows: 4 },
-            { type: 'figure', prompt: '그래프에서 가장 적게 가 본 시설에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '가 본 마을 운동 시설(손든 사람 수)', unit: '명', max: 20, scale: 2, data: [['근린공원', 18], ['체육 센터', 8], ['자전거 길', 12], ['수영장', 4]] }, figures: [{ state: {}, caption: '막대가 짧을수록 적어요' }], answer: '수영장' },
+            { type: 'figure', wide: true, prompt: '그래프에서 가장 적게 가 본 시설에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '가 본 마을 운동 시설(손든 사람 수)', unit: '명', max: 20, scale: 10, data: [['근린공원', 18], ['체육 센터', 8], ['자전거 길', 12], ['수영장', 4]] }, figures: [{ state: {}, caption: '막대가 짧을수록 적어요' }], answer: '수영장' },
             { type: 'blank', prompt: '그래프를 읽고 쓰세요.', text: '근린공원에 가 본 사람은 수영장보다 ___명 많아요.', answer: '14' },
             { type: 'short', prompt: '가 보고 싶은 마을 시설과 그 까닭을 쓰세요.' },
           ],
@@ -2525,7 +2525,7 @@
           title: '우리 모둠 제안서',
           items: [
             { type: 'table', prompt: '제안서를 짜임에 맞게 쓰세요.', columns: ['짜임', '내용'], cells: [['문제', ''], ['근거', ''], ['제안', ''], ['우리가 할 일', '']] },
-            { type: 'figure', prompt: '그래프에서 가장 많이 기다린 요일에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '쉬는 시간 철봉 앞에서 기다린 사람 수', unit: '명', max: 14, scale: 2, data: [['월', 8], ['화', 10], ['수', 12], ['목', 6], ['금', 10]] }, figures: [{ state: {}, caption: '막대가 길수록 많이 기다렸어요' }], answer: '수' },
+            { type: 'figure', wide: true, prompt: '그래프에서 가장 많이 기다린 요일에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '쉬는 시간 철봉 앞에서 기다린 사람 수', unit: '명', max: 15, scale: 5, data: [['월', 8], ['화', 10], ['수', 12], ['목', 6], ['금', 10]] }, figures: [{ state: {}, caption: '막대가 길수록 많이 기다렸어요' }], answer: '수' },
             { type: 'blank', prompt: '발표 시간을 구하세요.', text: '2분씩 발표하고 30초씩 바꾸며 세 모둠이 하면 ___초예요.', answer: '420' },
             { type: 'short', prompt: '제안 가운데 우리가 먼저 할 수 있는 일을 쓰세요.' },
           ],
@@ -2614,7 +2614,7 @@
           title: '한 계단씩 올라요',
           items: [
             { type: 'table', prompt: '내 기록과 목표를 쓰세요.', columns: ['오늘 기록', '다음 주 목표', '한 달 뒤 목표', '지나치지 않은 까닭'], rows: 1 },
-            { type: 'figure', prompt: '준호의 기록 그래프를 보고 다음 주 점을 어림해 찍어 보세요.', tool: 'chart', options: { type: 'line', mode: 'read', title: '준호의 원반 받기(10번 중 받은 수)', unit: '번', max: 10, scale: 1, data: [['1주', 4], ['2주', 5], ['3주', 6], ['4주', 7]] }, figures: [{ state: {}, caption: '한 주에 몇 번씩 늘었나요?' }], answer: '5주 8번쯤' },
+            { type: 'figure', wide: true, prompt: '준호의 기록 그래프를 보고 다음 주 점을 어림해 찍어 보세요.', tool: 'chart', options: { type: 'line', mode: 'read', title: '준호의 원반 받기(10번 중 받은 수)', unit: '번', max: 9, scale: 3, data: [['1주', 4], ['2주', 5], ['3주', 6], ['4주', 7]] }, figures: [{ state: {}, caption: '한 주에 몇 번씩 늘었나요?' }], answer: '5주 8번쯤' },
             { type: 'choice', prompt: '지금 10번 중 6번 받는 친구에게 알맞은 다음 주 목표에 ○ 하세요.', options: ['10번 중 7번', '10번 중 20번', '반에서 1등'], answer: '10번 중 7번' },
             { type: 'short', prompt: '상대 팀이 잘한 점을 근거를 들어 칭찬하는 말로 쓰세요.' },
           ],
@@ -2850,7 +2850,7 @@
           title: '우리 팀 목표 시간',
           items: [
             { type: 'table', prompt: '우리 팀 기록과 목표를 쓰세요.', columns: ['지난 기록(분)', '오늘 목표(분)', '오늘 기록(분)', '연습한 방법을 썼나요'], rows: 1 },
-            { type: 'figure', prompt: '그래프에서 가장 빨리 찾은 경기에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '한 팀이 지점 네 곳을 찾는 데 걸린 시간(분)', unit: '분', max: 20, scale: 2, data: [['1회', 18], ['2회', 16], ['3회', 15]] }, figures: [{ state: {}, caption: '막대가 짧을수록 빨라요' }], answer: '3회' },
+            { type: 'figure', wide: true, prompt: '그래프에서 가장 빨리 찾은 경기에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '한 팀이 지점 네 곳을 찾는 데 걸린 시간(분)', unit: '분', max: 20, scale: 10, data: [['1회', 18], ['2회', 16], ['3회', 15]] }, figures: [{ state: {}, caption: '막대가 짧을수록 빨라요' }], answer: '3회' },
             { type: 'choice', prompt: '목표 시간을 줄이는 안전한 방법에 ○ 하세요.', options: ['지도 북쪽 맞추기 연습', '모퉁이 뛰어 돌기', '화단 가로지르기'], answer: '지도 북쪽 맞추기 연습' },
             { type: 'short', prompt: '다른 팀에게 전한 칭찬을 쓰세요.' },
           ],
@@ -3012,7 +3012,7 @@
           title: '얼마나 다가갔을까?',
           items: [
             { type: 'table', prompt: '내 한 달 기록을 쓰세요.', columns: ['1주', '2주', '3주', '4주', '목표', '남은 수'], rows: 1 },
-            { type: 'figure', prompt: '서연이 그래프에 목표 8번 선을 가로로 그어 보세요.', tool: 'chart', options: { type: 'line', mode: 'read', title: '서연이의 원반 받기(10번 중 받은 수)', unit: '번', max: 10, scale: 1, data: [['1주', 5], ['2주', 6], ['3주', 6], ['4주', 8]] }, figures: [{ state: {}, caption: '목표 8번' }], answer: '4주 점이 선에 닿아요' },
+            { type: 'figure', wide: true, prompt: '서연이 그래프에 목표 8번 선을 가로로 그어 보세요.', tool: 'chart', options: { type: 'line', mode: 'read', title: '서연이의 원반 받기(10번 중 받은 수)', unit: '번', max: 8, scale: 4, data: [['1주', 5], ['2주', 6], ['3주', 6], ['4주', 8]] }, figures: [{ state: {}, caption: '목표 8번' }], answer: '4주 점이 선에 닿아요' },
             { type: 'blank', prompt: '준호의 기록을 판단하세요.', text: '준호는 2번에서 5번으로 ___번 늘었고, 목표 7번까지 ___번 남았어요.', answer: '3, 2' },
             { type: 'short', prompt: '"목표를 못 이루면 노력한 과정은 남는 것이 없다"는 말을 내 기록으로 고쳐 쓰세요.' },
           ],
@@ -3252,6 +3252,7 @@
             { type: 'table', prompt: '우리 팀 역할표를 쓰세요.', columns: ['역할', '맡은 사람', '하는 일', '맡고 싶은 까닭'], cells: [['지도 담당', '', '', ''], ['시간 담당', '', '', ''], ['안전 담당', '', '', ''], ['기록 담당', '', '', '']] },
             { type: 'choice', prompt: '"경계선 쪽을 살펴 팀을 멈추게 한다"는 어느 역할의 일인지 ○ 하세요.', options: ['지도 담당', '안전 담당', '기록 담당'], answer: '안전 담당' },
             { type: 'short', prompt: '역할을 한 사람이 정할 때와 함께 정할 때 무엇이 다른지 쓰세요.' },
+            { type: 'short', prompt: '역할을 맡은 뒤 힘들었던 일과 팀원에게 부탁하고 싶은 도움을 한 가지 쓰세요.' },
           ],
           easy: {
             note: '지도·시간·안전·기록, 네 역할.',
@@ -3338,6 +3339,7 @@
             { type: 'table', prompt: '두 계주를 견주어 쓰세요.', columns: ['방법', '기록(초)', '좋았던 점', '아쉬웠던 점'], cells: [['혼자 정한 계주', '', '', ''], ['함께 정한 계주', '', '', '']] },
             { type: 'blank', prompt: '의논과 준비 시간을 구하세요.', text: '의논 60초, 준비 30초를 두 번 하면 모두 ___초예요.', answer: '150' },
             { type: 'short', prompt: '함께 정할 때 시간을 줄이는 방법을 쓰세요.' },
+            { type: 'short', prompt: '혼자 정한 계주보다 함께 정한 계주가 나아진 점이나 그렇지 않았던 점을 기록으로 말해 보세요.' },
           ],
           easy: {
             note: '혼자 정하기: 빠름. 함께 정하기: 모두의 생각.',
@@ -3380,8 +3382,9 @@
                 { prompt: '팀 회의 카드를 알맞은 순서로 놓아요.', toolOptions: { cards: ['견주어 하나로 정하기', '정한 것을 모두 다시 말하기', '회의 주제 말하기', '한 사람씩 돌아가며 의견 말하기'] }, target: { order: ['회의 주제 말하기', '한 사람씩 돌아가며 의견 말하기', '견주어 하나로 정하기', '정한 것을 모두 다시 말하기'] }, levels: { easy: { state: { order: ['회의 주제 말하기', '견주어 하나로 정하기', '한 사람씩 돌아가며 의견 말하기', '정한 것을 모두 다시 말하기'] } } }, difficulty: 0.15,
                   hints: ['무엇을 정할지 모르면 의견을 낼 수 없어요. 무엇이 맨 앞일까요?', '의견을 다 들어야 견줄 수 있고, 정한 뒤에야 다시 말할 수 있어요.', '주제 → 돌아가며 의견 → 견주어 정하기 → 다시 말하기예요.'] },
                 { prompt: '한 사람이 의견 말하기 20초, 막대 넘기기 5초로 네 명이 하도록 타이머를 맞춰요.', toolOptions: { plan: { work: 10, rest: 10, rounds: 2 } }, target: { plan: { work: 20, rest: 5, rounds: 4 } }, difficulty: 0.2 },
-                { prompt: '회의할 때 지킬 약속만 골라요.', toolOptions: { mode: 'pick', topic: '회의 약속', cards: ['말하기 막대를 든 사람만 말해요', '친구 의견에 "그건 별로야" 대신 "나는 이렇게 생각해"라고 말해요', '먼저 말한 사람의 의견으로 정해요', '말하기 싫으면 끝까지 아무 말도 안 해요'] }, target: { pick: ['말하기 막대를 든 사람만 말해요', '친구 의견에 "그건 별로야" 대신 "나는 이렇게 생각해"라고 말해요'] }, difficulty: 0.15,
+                { prompt: '회의할 때 지킬 약속 두 가지를 모두 지키겠다고 표시해요.', toolOptions: { safety: ['말하기 막대를 든 사람만 말해요', '친구 의견에 "그건 별로야" 대신 "나는 이렇게 생각해"라고 말해요'] }, target: { safety: true }, difficulty: 0.15,
                   conclude: '회의는 주제 → 돌아가며 의견 → 견주어 정하기 → 다시 말하기 순서로, 막대를 든 사람만 말해요.' },
+                { prompt: '회의를 마치고 우리 팀이 한 것을 스스로 점검해 표시해요.', target: { selfCheck: ['모두 한 번씩 의견을 말했어요', '정한 작전을 모두 다시 말했어요', '말하기 막대를 든 사람만 말했어요'] }, difficulty: 0.1 },
               ],
             },
             {
@@ -3393,7 +3396,7 @@
                 { prompt: '회의에서 나온 말을 회의 순서의 알맞은 걸음과 이어요.', toolOptions: { mode: 'match', topic: '회의의 어느 걸음?', slots: [{ id: 's1', label: '회의 주제 말하기' }, { id: 's2', label: '돌아가며 의견 말하기' }, { id: 's3', label: '견주어 하나로 정하기' }, { id: 's4', label: '정한 것을 다시 말하기' }], cards: ['"상대가 가운데를 막으면 어떻게 할지 정하자"', '"나는 양옆 빈 곳으로 달리는 게 좋다고 생각해"', '"두 의견 가운데 양옆 달리기가 더 많으니 그걸로 하자"', '"우리 작전은 양옆 빈 곳으로 달리기!"'] }, target: { match: { s1: '"상대가 가운데를 막으면 어떻게 할지 정하자"', s2: '"나는 양옆 빈 곳으로 달리는 게 좋다고 생각해"', s3: '"두 의견 가운데 양옆 달리기가 더 많으니 그걸로 하자"', s4: '"우리 작전은 양옆 빈 곳으로 달리기!"' } }, levels: { easy: { state: { at: { '"상대가 가운데를 막으면 어떻게 할지 정하자"': 0 } } } }, difficulty: 0.2,
                   hints: ['"정하자"로 시작하면 주제, "나는 ~라고 생각해"는 의견이에요.', '여럿을 견주는 말과 모두 함께 외치는 말을 구별해요.', '주제·의견·견주기·다시 말하기가 차례로 하나씩이에요.'] },
                 { prompt: '회의 순서대로 작전을 정하고 경기에서 써 보아요. 다 했으면 표시해요.', free: true, toolOptions: { doneLabel: '회의로 정한 작전으로 경기했어요' }, difficulty: 0.1 },
-                { prompt: '경기 뒤 우리 팀 회의를 스스로 점검해 표시해요.', target: { selfCheck: ['모두 한 번씩 의견을 말했어요', '정한 작전을 모두 다시 말했어요', '경기에서 정한 작전을 썼어요'] }, difficulty: 0.1 },
+                { prompt: '경기 중 기록 담당이 살펴볼 일만 골라요.', toolOptions: { mode: 'pick', topic: '작전이 쓰였나', cards: ['정한 작전대로 양옆 빈 곳으로 달렸는지', '작전을 말한 사람이 몇 번 던졌는지만', '경기 중 작전이 바뀌면 팀에 알렸는지', '점수가 낮은 친구가 누구인지'] }, target: { pick: ['정한 작전대로 양옆 빈 곳으로 달렸는지', '경기 중 작전이 바뀌면 팀에 알렸는지'] }, difficulty: 0.15 },
               ],
             },
           ],
@@ -3412,6 +3415,7 @@
             { type: 'table', prompt: '우리 팀 회의 기록을 쓰세요.', columns: ['회의 걸음', '나온 말'], cells: [['회의 주제', ''], ['나온 의견들', ''], ['정한 것', ''], ['다시 말한 작전', '']] },
             { type: 'blank', prompt: '돌아가며 말하는 시간을 구하세요.', text: '한 사람 20초, 막대 넘기기 5초로 네 명이 하면 모두 ___초예요.', answer: '95' },
             { type: 'short', prompt: '회의에서 지킬 약속 두 가지를 쓰세요.' },
+            { type: 'short', prompt: '우리 팀 회의에서 네 걸음 중 가장 시간이 오래 걸린 걸음과 그 까닭을 쓰세요.' },
           ],
           easy: {
             note: '주제 → 의견 → 정하기 → 다시 말하기.',
@@ -3497,6 +3501,7 @@
             { type: 'table', prompt: '짝 돕기 기록을 쓰세요.', columns: ['짝이 어려워한 점', '내가 보여 준 방법', '해 준 말', '전 기록', '뒤 기록'], rows: 1 },
             { type: 'choice', prompt: '원반이 자꾸 옆으로 휘는 친구에게 알맞은 말에 ○ 하세요.', options: ['"원반을 땅과 나란히 눕혀 봐"', '"그냥 세게 던져"', '"내가 대신 던질게"'], answer: '"원반을 땅과 나란히 눕혀 봐"' },
             { type: 'short', prompt: '대신 해 주는 것과 돕는 것이 어떻게 다른지 쓰세요.' },
+            { type: 'short', prompt: '짝에게 방법을 보여 준 뒤 짝이 해 보는 동안 내가 기다린 때를 떠올려 쓰세요.' },
           ],
           easy: {
             note: '보여 주기 → 말하기 → 기다리기.',
@@ -3571,6 +3576,7 @@
             { type: 'table', prompt: '판마다 기록을 쓰세요.', columns: ['판', '점수', '못 받은 사람 수', '바꾼 규칙'], cells: [['1판', '', '', ''], ['2판', '', '', ''], ['3판', '', '', '']] },
             { type: 'blank', prompt: '전체 놀이 시간을 구하세요.', text: '놀이 180초, 살피기 60초를 세 판 하면 모두 ___초예요.', answer: '660' },
             { type: 'short', prompt: '우리 팀이 정한 배려 규칙 두 가지를 쓰세요.' },
+            { type: 'short', prompt: '모두가 한 번씩 던질 수 있게 우리 팀이 바꾼 방법이 효과가 있었는지 쓰세요.' },
           ],
           easy: {
             note: '안 받은 친구에게, 친구에 맞게 던지기.',
@@ -3655,8 +3661,9 @@
           title: '모두의 목소리',
           items: [
             { type: 'table', prompt: '우리 팀 회의에서 자리마다 말한 횟수를 쓰세요(이름 대신 번호).', columns: ['1번', '2번', '3번', '4번', '5번'], rows: 1 },
-            { type: 'figure', prompt: '그래프를 보고 말한 횟수가 가장 적은 자리에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '작전 회의에서 자리마다 말한 횟수', unit: '번', max: 10, scale: 1, data: [['1번', 8], ['2번', 1], ['3번', 5], ['4번', 0], ['5번', 4]] }, figures: [{ state: {}, caption: '자리마다 말한 횟수' }], answer: '4번' },
+            { type: 'figure', wide: true, prompt: '그래프를 보고 말한 횟수가 가장 적은 자리에 ○ 하세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: '작전 회의에서 자리마다 말한 횟수', unit: '번', max: 10, scale: 5, data: [['1번', 8], ['2번', 1], ['3번', 5], ['4번', 0], ['5번', 4]] }, figures: [{ state: {}, caption: '자리마다 말한 횟수' }], answer: '4번' },
             { type: 'short', prompt: '"틀린 말을 할까 봐 걱정했어요"라는 친구를 돕는 말을 쓰세요.' },
+            { type: 'short', prompt: '말한 횟수가 적은 자리의 친구가 더 말하기 쉽도록 팀이 할 수 있는 일을 쓰세요.' },
           ],
           easy: {
             note: '기다리기 · 안심시키기 · 골라 묻기.',

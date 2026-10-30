@@ -1968,6 +1968,8 @@
     { name: 'Bakery', icon: 'market', at: [3, 1] }, { name: 'Hospital', icon: 'hospital', at: [4, 1] },
     { name: 'Post office', icon: 'post', at: [1, 3] }, { name: 'House', icon: 'house', at: [3, 3] }, { name: 'Bank', icon: 'office', at: [4, 3] }, { name: 'Station', icon: 'station', at: [5, 3] },
   ] };
+  // 활동지용: 인쇄 그림은 높이가 52mm로 제한돼 4줄 칸 그림은 글자가 너무 작아지므로, 장소가 있는 두 줄(1·3행)만 남긴 2줄 판을 쓴다
+  const TOWN_WS = Object.assign({}, TOWN, { grid: [6, 2], places: TOWN.places.map((p) => Object.assign({}, p, { at: [p.at[0], (p.at[1] - 1) / 2] })) });
   const TOWN_ASK = (q, choices, why) => Object.assign({}, TOWN, { mode: 'pin', readOnly: true, ask: { q, choices, why } });
   L.push(lesson(20, '[6영02-02]', {
     title: '그림에서 보이는 것만 골라 영어로 말하기',
@@ -2061,7 +2063,7 @@
     worksheet: {
       title: '그림에서 짚을 수 있는 것',
       items: [
-        { type: 'figure', wide: true, prompt: '그림에서 확인되는 문장을 그림 칸에 이어 보세요(선으로 이어요).', tool: 'wordcards', figures: [{ options: { mode: 'sort', shuffle: false, slots: [{ id: 'p1', label: '그림 ①', motif: 'bird' }, { id: 'p2', label: '그림 ②', motif: 'house' }], cards: [{ id: 'c1', text: 'There is a bird.' }, { id: 'x1', text: 'The bird is singing a song.' }, { id: 'c2', text: 'I can see a house.' }, { id: 'x2', text: 'The house is very old.' }] }, caption: '' }], answer: 'There is a bird. → ① / I can see a house. → ②' },
+        { type: 'figure', wide: true, prompt: '그림에서 확인되는 문장을 그림 칸에 이어 보세요(선으로 이어요).', tool: 'wordcards', figures: [{ options: { mode: 'sort', shuffle: false, slots: [{ id: 'p1', label: '그림 ①', motif: 'bird' }, { id: 'p2', label: '그림 ②', motif: 'house' }], cards: [{ id: 'c1', text: 'There is a bird.' }, { id: 'x1', text: 'It sings a song.' }, { id: 'c2', text: 'I see a house.' }, { id: 'x2', text: 'It is old.' }] }, caption: '' }], answer: 'There is a bird. → ① / I can see a house. → ②' },
         { type: 'choice', prompt: '그림만으로는 알 수 없는 것에 ○ 하세요.', options: ['물건의 색깔', '사람의 이름', '물건이 몇 개인지'], answer: '사람의 이름' },
         { type: 'table', prompt: '그림을 보고 확인되면 ○, 알 수 없으면 × 하세요. (그림: 해와 나무)', columns: ['문장', '○ / ×'], cells: [['I can see the sun.', ''], ['The tree is my favorite.', ''], ['There is a tree.', '']], answer: '○ / × / ○' },
         { type: 'short', prompt: '우리 교실 창밖을 보고, 확인되는 것을 영어 문장 두 개로 쓰세요.' },
@@ -2159,7 +2161,7 @@
     worksheet: {
       title: '마을 그림 자리 말하기',
       items: [
-        { type: 'figure', wide: true, prompt: '마을 그림을 보고 아래 문장에 답하세요.', tool: 'map', figures: [{ options: TOWN, caption: 'Our Town' }] },
+        { type: 'figure', wide: true, prompt: '마을 그림을 보고 아래 문장에 답하세요.', tool: 'map', figures: [{ options: TOWN_WS, caption: 'Our Town' }] },
         { type: 'table', prompt: '그림과 맞으면 ○, 그림과 다르면 ×, 그림으로 알 수 없으면 ? 를 쓰세요.', columns: ['문장', '○ / × / ?'], cells: [['The park is next to the library.', ''], ['The bank is next to the school.', ''], ['The school is very big.', ''], ['The house is between the post office and the bank.', '']], answer: '○ / × / ? / ○' },
         { type: 'blank', prompt: '그림을 보고 빈칸에 장소 이름을 쓰세요.', text: 'The school is between the library and the ______.', answer: 'bakery' },
         { type: 'short', prompt: '마을 그림을 보고 between을 넣어 문장 하나를 쓰세요.' },
@@ -2262,7 +2264,7 @@
     worksheet: {
       title: '근거를 짚는 수수께끼',
       items: [
-        { type: 'figure', wide: true, prompt: '마을 그림을 보고 아래 수수께끼의 답에 ○ 하세요.', tool: 'map', figures: [{ options: TOWN, caption: 'Our Town' }] },
+        { type: 'figure', wide: true, prompt: '마을 그림을 보고 아래 수수께끼의 답에 ○ 하세요.', tool: 'map', figures: [{ options: TOWN_WS, caption: 'Our Town' }] },
         { type: 'table', prompt: '수수께끼의 답을 쓰세요.', columns: ['수수께끼', '답'], cells: [['It is between the school and the hospital.', ''], ['It is on the top street. It is next to the park.', ''], ['It is between the house and the station.', '']], answer: 'Bakery / Library / Bank' },
         { type: 'choice', prompt: '답이 한 곳으로 정해지는 수수께끼에 ○ 하세요.', options: ['It is next to the school.', 'It is between the park and the school.'], answer: 'It is between the park and the school.' },
         { type: 'short', prompt: '우리 학교 안의 한 곳(예: 과학실)을 답으로 하는 두 문장 수수께끼를 쓰세요.' },
@@ -3082,8 +3084,8 @@
     worksheet: {
       title: '그래프 → 표 → 견주는 문장',
       items: [
-        { type: 'figure', prompt: '그래프를 보고 아래 표를 채우세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: 'Our Pencils', unit: 'cm', xLabel: '친구', yLabel: '길이', data: [['Minji', 14], ['Junho', 9], ['Sora', 17]], scale: 2 }, figures: [{ caption: '세 친구의 연필 길이' }] },
-        { type: 'table', prompt: '그래프의 값을 표로 옮기세요.', columns: ['Minji', 'Junho', 'Sora'], cells: [['', '', '']], answer: '14 / 9 / 17' },
+        { type: 'figure', wide: true, prompt: '그래프를 보고 아래 표를 채우세요.', tool: 'chart', options: { type: 'bar', mode: 'read', title: 'Our Pencils', unit: 'cm', data: [['Minji', 15], ['Junho', 10], ['Sora', 20]], scale: 10 }, figures: [{ caption: '세 친구의 연필 길이' }] },
+        { type: 'table', prompt: '그래프의 값을 표로 옮기세요.', columns: ['Minji', 'Junho', 'Sora'], cells: [['', '', '']], answer: '15 / 10 / 20' },
         { type: 'choice', prompt: '그래프와 맞는 문장에 ○ 하세요.', options: ["Junho's pencil is shorter than Sora's.", "Junho's pencil is longer than Minji's."], answer: "Junho's pencil is shorter than Sora's." },
         { type: 'short', prompt: '표를 보고 -er than을 써서 견주는 문장을 하나 더 쓰세요.' },
       ],
@@ -3204,10 +3206,627 @@
     teacherNotes: '자주 보이는 어려움: ① 하나가 크면 무게도 무겁다고 짐작한다 → 기준마다 값을 따로 견준다. ② but과 and를 아무 데나 쓴다 → 반대쪽 차이 but, 같은 쪽 차이 and. ③ 결국 어느 것이 더 좋다고 결론을 내리려 한다 → 오늘은 다른 점 설명까지. 문항의 값은 견주기 쉽게 정한 예시 값이다. 과일의 단맛은 모둠이 맛본 결과로 정한 것이라 일반 사실로 외우게 하지 않는다. 이 차시로 비교 표현 부분(29~31차시)을 마친다.',
   }));
 
+  // ───────────── 32~34차시 위치 표현으로 길 안내 ─────────────
+  // 거리 그림(칸 지도) — 32~34차시가 함께 쓴다. 한 칸 = 한 블록, 가운데 길(행 2)을 사이에 두고 위·아래 줄이 마주 본다(across from).
+  // 걷는 사람이 오른쪽(동쪽)을 보고 출발하면 왼쪽(turn left) = 지도의 위쪽, 오른쪽(turn right) = 지도의 아래쪽이다.
+  const STREET = { grid: [6, 4], legend: false, title: 'Maple Street', roads: [[[0, 2], [5, 2]]], places: [
+    { name: 'Fire station', icon: 'fire', at: [4, 0] },
+    { name: 'Market', icon: 'market', at: [0, 1] }, { name: 'Library', icon: 'library', at: [2, 1] }, { name: 'Museum', icon: 'museum', at: [3, 1] }, { name: 'Park', icon: 'park', at: [4, 1] },
+    { name: 'Station', icon: 'station', at: [0, 3] }, { name: 'Post office', icon: 'post', at: [2, 3] }, { name: 'Bank', icon: 'office', at: [3, 3] }, { name: 'School', icon: 'school', at: [4, 3] }, { name: 'Hospital', icon: 'hospital', at: [5, 3] },
+  ] };
+  // 활동지용 3줄 판(윗줄·길·아랫줄) — 4줄 판은 인쇄에서 글자가 너무 작다. Fire station은 뺀다
+  const STREET_WS = Object.assign({}, STREET, { grid: [6, 3], roads: [[[0, 1], [5, 1]]], places: STREET.places.filter((p) => p.at[1] > 0).map((p) => Object.assign({}, p, { at: [p.at[0], p.at[1] - 1] })) });
+  const STREET_PIN = Object.assign({}, STREET, { mode: 'pin' });
+  const STREET_ASK = (q, choices, why) => Object.assign({}, STREET, { mode: 'pin', readOnly: true, ask: { q, choices, why } });
+
+  L.push(lesson(32, '[6영02-05]', {
+    title: '곧장 가요·왼쪽으로 돌아요로 출발점에서 목적지까지 길 안내하기',
+    objective: '출발점과 보는 방향을 정한 뒤 Go straight, Turn left, Turn right를 블록 수와 함께 차례대로 말해 목적지까지 길을 안내하고, 안내를 듣고 지도에서 도착한 곳을 찾을 수 있다.',
+    illustration: {
+      prompt: PROMPT('a child standing at a paper map street corner pointing straight ahead while a friend holds arrows that turn left and right'),
+      scene: SCENE('Go straight. Turn left.', '걷는 사람의 왼쪽·오른쪽', [{ motif: 'house', x: 80, y: 218, color: 'sky' }, { motif: 'tree', x: 410, y: 214 }]),
+    },
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '교실 문 앞에 학생 한 명을 문 쪽을 보고 서게 한 뒤 "Go straight three steps. Turn left. Stop." 하고 말해 걷게 한다. 그 학생이 칠판 쪽(칠판은 학생의 왼쪽)으로 도는지 확인하고 "왼쪽은 누구의 왼쪽인가요?"라고 묻는다. 학생들이 칠판에서 보이는 왼쪽을 말하면 "길 안내의 left·right는 걷는 사람이 보는 방향에서 정해져요."라고 정리한다. 오늘은 거리 그림에서 출발점과 보는 방향을 먼저 정하고 안내하는 방법을 배운다고 알린다.',
+        student: '친구가 선생님의 길 안내를 듣고 걷는 것을 보고, 왼쪽이 누구의 왼쪽인지 말해 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 길 안내 말과 뜻 짝 짓기', minutes: 13, tool: 'wordcards',
+            teacher: '"Go straight." 하며 두 팔을 앞으로 뻗고, "Turn left." 하며 몸을 왼쪽으로 돌리는 동작을 보여 준다. 학생도 의자에서 일어나 같은 동작을 하며 카드를 놓게 한다. 마지막 문항에서 두 동작의 차례가 바뀐 카드를 고르는 학생에게 "먼저 돌고 가나요, 먼저 가고 돌나요?"라고 되묻는다. 말의 차례가 길의 차례라는 점을 짚는다.',
+            task: '왼쪽 우리말 뜻에 맞는 길 안내 영어 카드를 옆에 놓아요. 놓은 카드를 몸으로 해 보며 소리 내어 읽어요.',
+            levels: LV({ mode: 'match' }),
+            items: [
+              { prompt: '길 안내 말과 뜻을 짝 지어 보세요.',
+                toolOptions: { slots: [{ id: 'q1', label: '곧장 가요' }, { id: 'q2', label: '왼쪽으로 돌아요' }, { id: 'q3', label: '오른쪽으로 돌아요' }],
+                  cards: [{ id: 'c1', text: 'Go straight.' }, { id: 'c2', text: 'Turn left.' }, { id: 'c3', text: 'Turn right.' }] },
+                target: { match: { q1: 'c1', q2: 'c2', q3: 'c3' } }, difficulty: 0.1,
+                hints: ['straight는 곧장, left는 왼쪽, right는 오른쪽이에요. 몸을 움직여 보며 뜻을 떠올려 보세요.'] },
+              { prompt: '블록 수와 멈춤을 말하는 안내와 뜻을 짝 지어 보세요.',
+                toolOptions: { slots: [{ id: 'q1', label: '한 블록만 가요' }, { id: 'q2', label: '모퉁이에서 돌아요' }, { id: 'q3', label: '거기서 멈춰요' }],
+                  cards: [{ id: 'c1', text: 'Go one block.' }, { id: 'c2', text: 'Turn at the corner.' }, { id: 'c3', text: 'Stop there.' }] },
+                target: { match: { q1: 'c1', q2: 'c2', q3: 'c3' } }, difficulty: 0.15,
+                hints: ['block은 길 한 칸, corner는 길이 꺾이는 곳, stop은 멈추라는 말이에요.'] },
+              { prompt: '두 동작을 이은 안내와 뜻을 짝 지어 보세요. 동작의 차례를 잘 보세요.',
+                toolOptions: { slots: [{ id: 'q1', label: '두 블록 곧장 가고 나서 오른쪽으로 돌아요' }, { id: 'q2', label: '곧장 가다가 모퉁이에서 왼쪽으로 돌아요' }, { id: 'q3', label: '먼저 오른쪽으로 돌고 나서 두 블록 가요' }],
+                  cards: [{ id: 'c1', text: 'Go straight two blocks and turn right.' }, { id: 'c2', text: 'Go straight and turn left at the corner.' }, { id: 'c3', text: 'Turn right and go two blocks.' }] },
+                target: { match: { q1: 'c1', q2: 'c2', q3: 'c3' } }, difficulty: 0.3,
+                hints: ['and 앞의 동작이 먼저예요. 우리말 뜻에서 먼저 하는 동작이 영어 문장의 앞쪽에 있는지 보세요.'],
+                predict: { q: 'Go straight and turn right. 와 Turn right and go straight. 는 같은 길일까요?', options: ['네, 같아요', '아니요, 동작의 차례가 달라서 다른 길이에요'], answer: 1 },
+                conclude: '길 안내는 말한 차례대로 걸어요. 동작의 차례가 바뀌면 다른 곳에 도착해요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 출발점에서 안내대로 걸어 도착한 곳에 핀 꽂기', minutes: 14, tool: 'map',
+            teacher: '"안내를 들으면 먼저 출발점을 짚고, 보는 방향을 손가락으로 그어요. 그다음 한 문장씩 걸어요." 출발점에 핀이 없으면 지도 위에 손가락을 올리게 한다. 오른쪽을 보고 서서 Turn left를 지도의 왼쪽으로 가는 학생에게 "지도 속 사람이 되어 보세요. 오른쪽을 보고 있는 사람의 왼쪽은 어느 쪽인가요?"라고 묻는다. 마지막 짝 활동은 교실의 한 곳을 정하고 출발점·방향·길 안내를 영어로 말하면 짝이 걸어서 도착한 곳을 맞힌다.',
+            task: '출발점에서 보는 방향대로 안내 문장을 하나씩 따라가 도착한 곳에 핀을 꽂아요. 꽂은 뒤 짝에게 어디를 지나왔는지 말해요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: 'Station에서 지도의 오른쪽을 보고 서 있어요. "Go straight two blocks. Turn left. Go two blocks." 도착한 곳에 핀을 꽂아 보세요.',
+                toolOptions: STREET_PIN, target: { place: 'Library' }, difficulty: 0.2,
+                hints: ['먼저 출발점에서 오른쪽을 보고 선 사람을 떠올려 보세요. 안내를 한 문장씩 나누어 따라가요.', '곧장 두 블록을 간 곳에서, 오른쪽을 보고 있는 사람이 왼쪽으로 돌면 지도의 어느 쪽을 보게 되는지 생각해 보세요.', '두 블록 간 곳에서 지도의 위쪽으로 두 블록 올라간 곳에 핀을 꽂아요.'] },
+              { prompt: 'Station에서 지도의 오른쪽을 보고 서 있어요. "Go straight four blocks. Turn left. Go two blocks." 도착한 곳에 핀을 꽂아 보세요.',
+                toolOptions: STREET_PIN, target: { place: 'Park' }, difficulty: 0.25,
+                hints: ['안내를 한 문장씩 나누어 따라가요. 몇 블록을 가는지 숫자를 먼저 표시해 보세요.', '네 블록 곧장 간 곳이 어디인지 먼저 짚고, 거기서 왼쪽으로 도는 쪽을 생각해 보세요.', '네 블록 간 곳에서 지도의 위쪽으로 두 블록 올라간 곳에 핀을 꽂아요.'] },
+              { prompt: 'Market에서 지도의 오른쪽을 보고 서 있어요. "Go straight two blocks. Turn right. Go two blocks." 도착한 곳에 핀을 꽂아 보세요.',
+                toolOptions: STREET_PIN, target: { place: 'Post office' }, difficulty: 0.3,
+                hints: ['이번에는 오른쪽으로 돌아요. 오른쪽을 보고 있는 사람의 오른쪽이 지도의 어느 쪽인지 먼저 정해 보세요.', '두 블록 간 곳을 먼저 짚은 뒤 돌아요.', '두 블록 간 곳에서 지도의 아래쪽으로 두 블록 내려간 곳에 핀을 꽂아요.'],
+                levels: { challenge: { prompt: 'Hospital에서 지도의 왼쪽을 보고 서 있어요. "Go straight one block. Turn right. Go three blocks." 도착한 곳에 핀을 꽂아 보세요.',
+                  target: { place: 'Fire station' } } } },
+              { prompt: '교실 안의 한 곳을 정하고, 출발점과 보는 방향을 말한 뒤 Go straight·Turn left·Turn right로 길을 안내해요. 짝이 걸어서 도착하면 바꾸어 한 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"길을 안내할 때 가장 먼저 정할 두 가지는 무엇이었나요?" 출발점과 보는 방향이 나오는지 듣는다. 출구 1번에서 지도의 왼쪽으로 가 버린 학생에게는 오른쪽을 보고 직접 몸을 돌려 보게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'map', options: STREET_PIN, prompt: 'Hospital에서 지도의 왼쪽을 보고 서 있어요. "Go straight two blocks. Turn right. Go two blocks." 도착한 곳에 핀을 꽂아 보세요.', target: { place: 'Museum' }, difficulty: 0.3 },
+          { type: 'choice', prompt: '"두 블록 곧장 가서 왼쪽으로 돌아요"를 영어로 바르게 말한 것은 무엇일까요?', options: ['Turn left and go two blocks.', 'Go straight two blocks and turn left.', 'Go two blocks and turn straight.'], answer: 1, difficulty: 0.2, explain: '말한 차례가 걷는 차례예요. 곧장 두 블록을 먼저 가고 나서 왼쪽으로 돌아요.' },
+          { type: 'short', prompt: '교실 문에서 내 자리까지 가는 길을 Go straight와 Turn left/right를 넣어 두 문장으로 쓰세요.' },
+        ],
+      },
+    ],
+    worksheet: {
+      title: '출발점에서 목적지까지',
+      items: [
+        { type: 'figure', wide: true, prompt: '거리 그림을 보고 아래 길 안내를 따라가 도착한 곳에 ○ 하세요. (Station에서 오른쪽을 보고 출발)', tool: 'map', figures: [{ options: STREET_WS, caption: 'Maple Street' }] },
+        { type: 'table', prompt: '길 안내를 따라가 도착한 곳의 이름을 쓰세요. (Station에서 오른쪽을 보고 출발)', columns: ['길 안내', '도착한 곳'], cells: [['Go straight three blocks. Turn left. Go two blocks.', ''], ['Go straight two blocks. Turn left. Go two blocks.', ''], ['Go straight five blocks. Stop.', '']], answer: 'Museum / Library / Hospital' },
+        { type: 'choice', prompt: '오른쪽을 보고 서서 Turn left 하면 지도에서 어느 쪽을 보게 되나요?', options: ['위쪽', '아래쪽'], answer: '위쪽' },
+        { type: 'blank', prompt: '빈칸을 채워 길 안내를 완성하세요.', text: 'Go ______ two blocks. Then turn right.', answer: 'straight' },
+        { type: 'short', prompt: '학교 정문에서 우리 교실까지 가는 길을 Go straight, Turn left/right를 넣어 쓰세요.' },
+      ],
+      easy: {
+        note: '걷는 사람이 보는 방향에서 left와 right를 정해요.',
+        items: [
+          { type: 'choice', prompt: '"곧장 가요"에 ○ 하세요.', options: ['Go straight.', 'Turn left.'], answer: 'Go straight.' },
+          { type: 'choice', prompt: '"오른쪽으로 돌아요"에 ○ 하세요.', options: ['Turn left.', 'Turn right.'], answer: 'Turn right.' },
+          { type: 'short', prompt: 'Go ______ two blocks. 빈칸에 알맞은 낱말을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '힌트를 누르면 먼저 출발점을 짚고 보는 방향을 정하게 하고, 한 문장씩 나누어 따라가게 해요.',
+      base: '안내 문장을 스스로 따라가 핀을 꽂거나 골라 확인해요.',
+      challenge: '지도의 왼쪽을 보고 출발하는 안내를 따라가고, 블록 수가 세 개 이상인 안내를 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 지도의 왼쪽·오른쪽을 그대로 쓴다 → 걷는 사람의 방향을 몸으로 돌려 확인한다. ② turn만 하고 몇 블록 가는지 빼먹는다 → "몇 블록이요?"를 되묻는다. ③ 동작의 차례를 바꿔 말한다 → 말한 차례대로 걸어 확인한다. 거리 그림의 블록 수는 안내를 연습하기 쉽게 정한 값이며 실제 거리가 아니다. 이 차시는 위치 표현 길 안내(32~34차시)의 시작이다.',
+  }));
+
+  // ───────────── 33차시 (practice) 위치 말로 도착한 곳 알리기 ─────────────
+  L.push(lesson(33, '[6영02-05]', {
+    title: 'next to·across from으로 도착한 곳 덧붙여 안내하기',
+    objective: '길 안내 끝에 next to, across from을 넣어 도착한 곳을 알리고, 안내를 듣고 거리 그림에서 맞는 곳에 핀을 꽂을 수 있다.',
+    illustration: {
+      prompt: PROMPT('a paper street with buildings on both sides facing each other and a child pointing at one building with a pin'),
+      scene: SCENE('It is across from the bank.', '마주 보는 곳도 알려요', [{ motif: 'tree', x: 70, y: 214 }, { motif: 'house', x: 400, y: 218, color: 'sky' }]),
+    },
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"지난 시간에는 Go straight와 Turn left로 걸었어요. 그런데 길이 맞아도 도착한 곳이 맞는지 어떻게 확인할까요?" 학생이 "건물 이름을 말해요"라고 하면 "그 건물 옆에는 무엇이 있나요?" 하고 되묻는다. 칠판에 거리 그림을 그리고 "It is next to the school. It is across from the park." 두 문장을 들려준다. next to는 같은 줄에서 붙어 있을 때, across from은 길을 사이에 두고 마주 볼 때 쓴다고 표시한다.',
+        student: '선생님의 두 문장을 듣고, next to와 across from이 거리 그림에서 어디를 가리키는지 손가락으로 짚어 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 그림으로 맞는 위치 설명 고르기', minutes: 13, tool: 'map',
+            teacher: '"문장에 나온 두 장소를 먼저 짚어요. 그 사이에 칸이 비어 있는지 보세요." 이웃한 칸이 아니면 next to가 아니라는 점을 한 번 보여 준다. 길 건너편이 아니라 바로 위나 아래 줄에 있다고 across from을 고르는 학생에게 "가운데에 길이 있나요?"라고 묻는다. 고른 뒤 짝에게 "Because there is a road between them."처럼 까닭을 말하게 한다.',
+            task: '거리 그림을 보고 장소 이름을 가리키는 문장 가운데 그림과 맞는 것을 하나 골라요. 고른 까닭을 손가락으로 짚어 짝에게 보여요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: '거리 그림에서 Library는 어디일까요? 그림과 맞는 문장을 골라 보세요.',
+                toolOptions: STREET_ASK('그림과 맞는 문장은?', ['It is across from the Post office.', 'It is next to the Market.', 'It is between the Park and the School.'], ['', 'Market과 Library 사이에 빈 칸이 있어서 next to가 아니에요.', 'Park와 School 사이에 있는 곳은 Library가 아니에요.']),
+                target: { pick: 0 }, difficulty: 0.2,
+                hints: ['문장에 나온 장소를 지도에서 먼저 찾아 Library와 같은 줄인지, 길 건너편인지 보세요.', 'next to는 사이에 빈 칸이 없어야 해요.', 'Library 바로 아래 줄, 길 건너편에 있는 곳을 찾아보세요.'] },
+              { prompt: '거리 그림에서 Bank는 어디일까요? 그림과 맞는 문장을 골라 보세요.',
+                toolOptions: STREET_ASK('그림과 맞는 문장은?', ['It is next to the Hospital.', 'It is next to the School and across from the Museum.', 'It is across from the Park.'], ['Hospital과 Bank 사이에 School이 있어서 next to가 아니에요.', '', 'Park의 건너편에 있는 곳은 Bank가 아니에요.']),
+                target: { pick: 1 }, difficulty: 0.25,
+                hints: ['보기마다 장소를 하나씩 찾아 Bank와 이웃한지, 건너편인지 확인해 보세요.', '두 가지를 말한 문장은 둘 다 맞아야 해요.', 'Bank 바로 옆에 School이 있고, 길 건너편에 Museum이 있는지 짚어 보세요.'] },
+              { prompt: '거리 그림에서 Hospital은 어디일까요? 그림과 맞는 문장을 골라 보세요.',
+                toolOptions: STREET_ASK('그림과 맞는 문장은?', ['It is next to the School, at the end of the street.', 'It is across from the Park.', 'It is next to the Bank.'], ['', 'Park의 건너편에 있는 곳은 School이에요.', 'Hospital과 Bank 사이에 School이 있어요.']),
+                target: { pick: 0 }, difficulty: 0.25,
+                hints: ['보기마다 말한 장소를 Hospital 곁에서 찾아 보세요.', '길의 끝에 있다는 말도 그림으로 확인할 수 있어요.', 'Hospital은 길의 오른쪽 끝에 있고 바로 왼쪽에 이웃한 장소가 있어요.'] },
+              { prompt: '거리 그림에서 Station의 건너편에 있는 곳은 어디일까요? 그림과 맞는 문장을 골라 보세요.',
+                toolOptions: STREET_ASK('Station 건너편에 있는 곳은?', ['The Market is across from the Station.', 'The Library is across from the Station.', 'The Fire station is across from the Station.'], ['', 'Library는 Post office의 건너편이에요.', 'Fire station은 길 건너편이 아니라 Park의 위쪽에 있어요.']),
+                target: { pick: 0 }, difficulty: 0.3,
+                hints: ['Station에서 길을 가로질러 바로 맞은편 칸을 보세요.', '같은 세로 줄에서 길을 사이에 둔 칸이 건너편이에요.', 'Station이 있는 세로 줄의 위쪽 칸을 보세요.'] },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 길 안내와 위치 말을 함께 듣고 목적지 찾기', minutes: 14, tool: 'map',
+            teacher: '"길 안내는 도착할 곳까지 데려다주고, 위치 말은 도착한 곳이 맞는지 확인해 줘요." 안내를 먼저 따라가 핀을 꽂고, 마지막 문장과 핀이 맞는지 점검하게 한다. 위치 말이 맞지 않아 이상하다고 느낀 학생에게는 "어디에서 길을 잘못 따라갔을까요?" 하고 출발점에서 다시 걷게 한다. 마지막 짝 활동은 안내 두 문장에 위치 말을 한 문장 붙여 짝에게 말하고, 짝이 그림에서 짚어 맞는지 "Is it the Bank?"처럼 되묻는다.',
+            task: '길 안내를 따라가 핀을 꽂고, 마지막 위치 말이 도착한 곳과 맞는지 확인해요. 맞지 않으면 처음부터 다시 걸어요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: 'Station에서 지도의 오른쪽을 보고 서 있어요. "Go straight three blocks. Turn left. Go two blocks. It is next to the Library." 도착한 곳에 핀을 꽂아 보세요.',
+                toolOptions: STREET_PIN, target: { place: 'Museum' }, difficulty: 0.25,
+                hints: ['안내를 한 문장씩 따라가 핀을 꽂은 뒤 마지막 문장과 맞는지 확인해 보세요.', '세 블록 간 곳에서 지도의 위쪽으로 돌아요. 마지막 문장은 확인용이에요.', '세 블록 간 곳에서 위로 두 블록 올라간 곳에 핀을 꽂아요.'] },
+              { prompt: 'Hospital에서 지도의 왼쪽을 보고 서 있어요. "Go straight one block. Turn right. Go two blocks. It is next to the Museum." 도착한 곳에 핀을 꽂아 보세요.',
+                toolOptions: STREET_PIN, target: { place: 'Park' }, difficulty: 0.3,
+                hints: ['왼쪽을 보고 있는 사람의 오른쪽이 지도의 어느 쪽인지 먼저 정해 보세요.', '한 블록 간 곳을 먼저 짚고 나서 돌아요. 마지막 문장은 확인용이에요.', '한 블록 간 곳에서 위로 두 블록 올라간 곳에 핀을 꽂아요.'] },
+              { prompt: 'Market에서 지도의 오른쪽을 보고 서 있어요. "Go straight three blocks. Turn right. Go two blocks. It is next to the School." 도착한 곳에 핀을 꽂아 보세요.',
+                toolOptions: STREET_PIN, target: { place: 'Bank' }, difficulty: 0.35,
+                hints: ['오른쪽을 보고 서서 오른쪽으로 돌면 지도의 어느 쪽인지 정하세요.', '세 블록 간 곳을 먼저 짚어요. 마지막 문장과 맞는지 확인해요.', '세 블록 간 곳에서 아래로 두 블록 내려간 곳에 핀을 꽂아요.'],
+                predict: { q: '마지막 문장 "It is next to the School."만 들으면 도착한 곳이 하나로 정해질까요?', options: ['네, 하나로 정해져요', '아니요, School 옆에는 두 곳이 있어서 길 안내도 필요해요'], answer: 1 },
+                conclude: '위치 말 하나는 답이 여럿일 수 있어요. 길 안내와 함께 쓰면 도착한 곳이 하나로 정해져요.' },
+              { prompt: '출발점과 보는 방향을 정하고, 길 안내 두 문장에 next to나 across from 한 문장을 붙여 짝에게 말해요. 짝이 그림에서 짚어 맞으면 바꾸어 한 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"위치 말을 붙이니 무엇이 좋아졌나요?" 도착한 곳이 맞는지 확인할 수 있다는 말을 듣고 출구 질문을 푼다. 출구 2번에서 across from을 고른 학생에게는 두 장소 사이에 길이 있는지 다시 짚게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'map', options: STREET_PIN, prompt: 'Post office에서 지도의 오른쪽을 보고 서 있어요. "Go straight one block. Turn left. Go two blocks. It is across from the Bank." 도착한 곳에 핀을 꽂아 보세요.', target: { place: 'Museum' }, difficulty: 0.3 },
+          { type: 'choice', prompt: 'School과 Hospital은 같은 줄에 붙어 있어요. 바르게 말한 것은 무엇일까요?', options: ['The Hospital is across from the School.', 'The Hospital is next to the School.', 'The Hospital is between the School.'], answer: 1, difficulty: 0.15, explain: '길 건너편이 아니라 같은 줄에서 이웃해 있어서 next to를 써요.' },
+          { type: 'short', prompt: 'Park를 알리는 위치 말을 거리 그림을 보고 한 문장 쓰세요.' },
+        ],
+      },
+    ],
+    worksheet: {
+      title: '도착한 곳을 알리는 위치 말',
+      items: [
+        { type: 'figure', wide: true, prompt: '거리 그림을 보고 아래 문장이 가리키는 곳에 ○ 하세요.', tool: 'map', figures: [{ options: STREET_WS, caption: 'Maple Street' }] },
+        { type: 'table', prompt: '문장이 가리키는 곳의 이름을 쓰세요.', columns: ['문장', '곳'], cells: [['It is across from the Library.', ''], ['It is next to the Bank and the Hospital.', ''], ['It is across from the Station.', '']], answer: 'Post office / School / Market' },
+        { type: 'choice', prompt: '길을 사이에 두고 마주 볼 때 쓰는 말에 ○ 하세요.', options: ['next to', 'across from'], answer: 'across from' },
+        { type: 'blank', prompt: '빈칸을 채워 문장을 완성하세요. (Park는 Museum 바로 옆)', text: 'The Park is ______ to the Museum.', answer: 'next' },
+        { type: 'short', prompt: '교실에서 내 자리를 next to나 across from을 넣어 한 문장으로 쓰세요.' },
+      ],
+      easy: {
+        note: '붙어 있으면 next to, 길을 사이에 두고 마주 보면 across from.',
+        items: [
+          { type: 'choice', prompt: '바로 옆에 붙어 있을 때 쓰는 말에 ○ 하세요.', options: ['next to', 'across from'], answer: 'next to' },
+          { type: 'choice', prompt: '길 건너편에 있을 때 쓰는 말에 ○ 하세요.', options: ['next to', 'across from'], answer: 'across from' },
+          { type: 'short', prompt: 'It is ______ from the Bank. 빈칸에 알맞은 낱말을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '힌트를 누르면 보기마다 두 장소를 먼저 짚게 하고, 같은 줄인지 건너편인지 나누어 보게 해요.',
+      base: '문장을 읽고 스스로 고르거나 핀을 꽂아 확인해요.',
+      challenge: '위치 말이 둘인 문장을 만들고, 길 안내에 위치 말을 붙여 목적지를 하나로 좁혀요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 빈 칸이 사이에 있어도 next to라고 한다 → 사이에 칸이 없어야 next to. ② 바로 위·아래 줄이라 across from이라고 한다 → 사이에 길이 있어야 한다. ③ 위치 말 하나로 목적지가 정해진다고 생각한다 → 길 안내와 함께 쓴다. 거리 그림의 가게 이름은 연습용 예시이며 실제 가게가 아니다. 32차시의 Go straight·Turn left를 다시 쓴다.',
+  }));
+
+  // ───────────── 34차시 (extend) 길 묻고 안내하고 고치기 ─────────────
+  L.push(lesson(34, '[6영02-05]', {
+    title: '길을 묻고 안내를 되풀이해 확인하며 틀린 안내 고치기',
+    objective: '"Excuse me. How do I get to ~?"로 길을 묻고 안내를 되풀이해 확인하며, 안내 속 틀린 단계를 가려내 바르게 고쳐 말할 수 있다.',
+    illustration: {
+      prompt: PROMPT('two children on a paper street one asking for directions with a question bubble and the other pointing with an arrow'),
+      scene: SCENE('Excuse me. How do I get to the library?', '묻고 확인해요', [{ motif: 'star', x: 90, y: 80, color: 'buttercup' }, { motif: 'tree', x: 400, y: 214 }]),
+    },
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"길을 모르는 친구가 \'Where library?\' 하고 물으면 어떤 점이 아쉬울까요?" 학생들이 정중하지 않다고 하면 "Excuse me. How do I get to the library?"를 들려주고 따라 하게 한다. 이어서 일부러 "Go straight. Turn left. Go..." 하다가 말을 멈추어 듣는 사람이 확인하려면 어떻게 말하면 좋은지 묻는다. "So, I go straight and turn left, right?"로 되풀이해 확인할 수 있다고 알려 준다.',
+        student: '길을 묻는 말과 안내를 되풀이해 확인하는 말을 따라 해 보고, 왜 되풀이해 확인하는지 말해 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 길 묻고 안내하고 확인하는 대화 차례대로 놓기', minutes: 13, tool: 'wordcards',
+            teacher: '"누가 먼저 말을 걸었나요? 안내를 듣고 난 다음에는 무엇을 하나요?" 대화는 부름, 질문, 안내, 확인, 감사의 차례로 이어진다고 알려 준다. 안내 문장을 질문 앞에 두는 학생에게 "무슨 질문에 대한 대답인가요?"라고 되묻는다. 놓은 뒤 둘씩 역할을 나누어 대화 전체를 읽는다.',
+            task: '길을 묻고 안내하고 확인하는 대화 카드를 차례대로 놓아요. 놓은 뒤 짝과 역할을 나누어 읽어요.',
+            levels: LV({ mode: 'order', shuffle: true }),
+            items: [
+              { prompt: '도서관 가는 길을 묻는 대화를 차례대로 놓아 보세요.',
+                toolOptions: { cards: ['Thank you so much!', 'Go straight two blocks.', 'Excuse me. How do I get to the library?', 'Then turn left. It is next to the park.'] },
+                target: { order: ['Excuse me. How do I get to the library?', 'Go straight two blocks.', 'Then turn left. It is next to the park.', 'Thank you so much!'] }, difficulty: 0.2,
+                hints: ['먼저 말을 거는 사람이 무엇을 묻는지 생각해 보세요. 그 질문에 대한 안내가 뒤따라요.'] },
+              { prompt: '안내를 되풀이해 확인하는 대화를 차례대로 놓아 보세요.',
+                toolOptions: { cards: ['Yes, that is right.', 'Go straight one block and turn right.', 'So, I go straight one block and turn right, right?', 'Great. Thank you!'] },
+                target: { order: ['Go straight one block and turn right.', 'So, I go straight one block and turn right, right?', 'Yes, that is right.', 'Great. Thank you!'] }, difficulty: 0.25,
+                hints: ['되풀이해 확인하는 말은 안내를 들은 뒤에 와요. 확인하는 말에 대한 대답을 그다음에 놓아요.'] },
+              { prompt: '모르는 안내를 다시 부탁하는 대화를 차례대로 놓아 보세요.',
+                toolOptions: { cards: ['Go straight three blocks. Then turn left.', 'Sorry, could you say that again, please?', 'Sure. Go straight three blocks. Then turn left.', 'Excuse me. Where is the post office?', 'I see. Thank you.'] },
+                target: { order: ['Excuse me. Where is the post office?', 'Go straight three blocks. Then turn left.', 'Sorry, could you say that again, please?', 'Sure. Go straight three blocks. Then turn left.', 'I see. Thank you.'] }, difficulty: 0.35,
+                hints: ['처음 안내를 못 알아들었을 때 다시 부탁하는 순서를 생각해 보세요.'],
+                levels: { challenge: { prompt: '모르는 안내를 다시 부탁하고 되풀이해 확인하는 대화를 차례대로 놓아 보세요.',
+                  toolOptions: { cards: ['Go straight three blocks. Then turn left.', 'Sorry, could you say that again, please?', 'Sure. Go straight three blocks. Then turn left.', 'Excuse me. Where is the post office?', 'So, three blocks and turn left, right?', 'Yes. Thank you.'] },
+                  target: { order: ['Excuse me. Where is the post office?', 'Go straight three blocks. Then turn left.', 'Sorry, could you say that again, please?', 'Sure. Go straight three blocks. Then turn left.', 'So, three blocks and turn left, right?', 'Yes. Thank you.'] } } } },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 틀린 안내 단계 찾아 고쳐 말하기', minutes: 14, tool: 'map',
+            teacher: '"안내를 한 문장씩 걸어 보세요. 어느 문장에서 도착할 곳과 달라졌나요?" 출발점과 보는 방향을 먼저 정한 뒤 문장마다 손가락으로 걷게 한다. 두 번째 문장을 틀렸다고 하는 학생에게 "그 문장까지 걸은 자리가 맞나요?"라고 되묻는다. 고른 단계를 바르게 고쳐 영어로 말하게 하고, 마지막 짝 활동에서는 짝의 안내를 일부러 한 단계 틀리게 말하고 바른 안내와 견주게 한다.',
+            task: '안내를 한 문장씩 걸어 도착할 곳과 달라지는 단계 하나를 골라요. 고른 단계를 바르게 고쳐 짝에게 말해요.',
+            levels: { easy: {}, base: {}, challenge: {} },
+            items: [
+              { prompt: 'Station에서 지도의 오른쪽을 보고 서서 Library로 가려고 해요. 틀린 단계 하나를 골라 보세요.',
+                toolOptions: STREET_ASK('틀린 단계는?', ['Go straight two blocks.', 'Turn right.', 'Go two blocks.'], ['', '오른쪽을 보고 있을 때 Library로 가려면 위쪽으로 돌아야 해요.', '']),
+                target: { pick: 1 }, difficulty: 0.25,
+                hints: ['한 문장씩 걸어 보며 어디에서 Library와 멀어지는지 찾아보세요.', '돌 때 지도의 어느 쪽으로 가는지 확인해 보세요.', 'Library는 곧장 간 곳에서 위쪽에 있어요. 오른쪽을 보고 있는 사람은 위쪽을 보려면 어느 쪽으로 돌아야 할까요?'] },
+              { prompt: 'Hospital에서 지도의 왼쪽을 보고 서서 Museum으로 가려고 해요. 틀린 단계 하나를 골라 보세요.',
+                toolOptions: STREET_ASK('틀린 단계는?', ['Go straight two blocks.', 'Turn left.', 'Go two blocks.'], ['', '왼쪽을 보고 있을 때 위쪽으로 가려면 오른쪽으로 돌아야 해요.', '']),
+                target: { pick: 1 }, difficulty: 0.3,
+                hints: ['왼쪽을 보고 선 사람이 되어 한 문장씩 걸어 보세요.', '곧장 두 블록 간 곳에서 위쪽으로 가려면 어느 쪽으로 돌아야 하는지 보세요.', '왼쪽을 보고 있는 사람의 왼쪽은 지도의 아래쪽이에요.'] },
+              { prompt: 'Station에서 오른쪽을 보고 서서 Hospital로 가려고 해요. 틀린 단계 하나를 골라 보세요.',
+                toolOptions: STREET_ASK('틀린 단계는?', ['Go straight five blocks.', 'Stop.', 'It is next to the Bank.'], ['', '', 'Hospital 옆에는 Bank가 아니라 School이 있어요.']),
+                target: { pick: 2 }, difficulty: 0.3,
+                hints: ['걸어서 도착한 곳에서 마지막 문장이 맞는지 확인해 보세요.', '위치 말도 그림과 맞아야 해요.', '도착한 곳의 바로 옆 장소를 그림에서 짚어 보세요.'],
+                levels: { challenge: { prompt: 'Market에서 오른쪽을 보고 서서 Bank로 가려고 해요. "Go straight three blocks. Turn left. Go two blocks." 틀린 단계 하나를 골라 보세요.',
+                  toolOptions: STREET_ASK('틀린 단계는?', ['Go straight three blocks.', 'Turn left.', 'Go two blocks.'], ['', 'Bank는 지도의 아래쪽에 있어서 오른쪽으로 돌아야 해요.', '']),
+                  target: { pick: 1 } } } },
+              { prompt: '짝이 한 단계를 일부러 틀리게 길을 안내하고, 나는 한 문장씩 따라가다가 "Wait, ..." 하고 틀린 단계를 짚어 바르게 고쳐 말해요. 바꾸어 한 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"길을 되풀이해 확인하니 무엇이 좋았나요?" 틀린 단계를 일찍 찾을 수 있다는 말을 듣고 출구 질문을 푼다. 출구 2번에서 안내를 되풀이하지 않고 \"Yes\"만 고른 학생에게는 \"어느 단계를 확인했나요?\"라고 묻는다.',
+        exitTicket: [
+          { type: 'tool', tool: 'wordcards', options: { mode: 'order', shuffle: false, cards: ['Go straight two blocks. Then turn right.', 'Excuse me. How do I get to the school?', 'So, two blocks and turn right, right?'] }, prompt: '길을 묻고 안내하고 확인하는 대화를 차례대로 놓아 보세요.', target: { order: ['Excuse me. How do I get to the school?', 'Go straight two blocks. Then turn right.', 'So, two blocks and turn right, right?'] }, difficulty: 0.2 },
+          { type: 'choice', prompt: '안내를 들은 뒤 확인하는 말로 알맞은 것은 무엇일까요?', options: ['So, I go straight and turn left, right?', 'Where is the library?', 'Goodbye.'], answer: 0, difficulty: 0.2, explain: '들은 안내를 내 말로 되풀이하면 틀린 단계를 바로 찾을 수 있어요.' },
+          { type: 'short', prompt: '"Go straight two blocks. Turn right." 안내를 듣고 확인하는 말을 한 문장 쓰세요.' },
+        ],
+      },
+    ],
+    worksheet: {
+      title: '길 묻고 확인하기',
+      items: [
+        { type: 'table', prompt: '대화 카드에 1~4 번호를 쓰세요.', columns: ['대화', '번호'], cells: [['Thank you!', ''], ['Go straight two blocks.', ''], ['Excuse me. Where is the bank?', ''], ['So, two blocks, right?', '']], answer: '4 / 2 / 1 / 3' },
+        { type: 'choice', prompt: '길을 정중하게 묻는 말에 ○ 하세요.', options: ['Where bank?', 'Excuse me. How do I get to the bank?'], answer: 'Excuse me. How do I get to the bank?' },
+        { type: 'blank', prompt: '빈칸을 채워 되풀이해 확인하는 말을 완성하세요.', text: 'So, I go straight and turn ______, right?', answer: 'left' },
+        { type: 'short', prompt: '"Go straight one block. Turn left. Go two blocks." 안내에서 한 단계를 틀리게 고쳐 쓰고, 바른 안내와 견주어 보세요.' },
+      ],
+      easy: {
+        note: '묻기 → 안내 → 되풀이해 확인 → 감사 차례예요.',
+        items: [
+          { type: 'choice', prompt: '길을 묻는 첫말에 ○ 하세요.', options: ['Excuse me.', 'Thank you.'], answer: 'Excuse me.' },
+          { type: 'choice', prompt: '안내를 들은 뒤 마지막에 하는 말에 ○ 하세요.', options: ['Thank you.', 'How do I get there?'], answer: 'Thank you.' },
+          { type: 'short', prompt: 'So, I go ______ and turn right, right? 빈칸에 알맞은 낱말을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 자리에 초록 테두리가 생기고, 틀린 단계를 고르면 까닭을 말해 주고 되돌려요.',
+      base: '다 놓거나 고른 뒤 확인을 눌러 스스로 고쳐요.',
+      challenge: '대화를 여섯 장으로 놓고, 단계가 하나 틀린 긴 안내에서 틀린 곳을 찾아 고쳐 말해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 질문 없이 안내부터 말한다 → Excuse me로 먼저 부른다. ② 안내를 듣고도 되풀이하지 않는다 → 한 단계씩 확인해 틀린 곳을 일찍 찾게 한다. ③ 틀린 단계를 찾았는데 고치지 못한다 → 지도에서 도는 쪽을 몸으로 돌려 확인한다. 이 차시로 위치 표현 길 안내(32~34차시)를 마치고, 35~37차시 방법 설명문 쓰기와 이어진다.',
+  }));
+
+  // ───────────── 35~37차시 방법 설명문 쓰기 ─────────────
+  const PARTS = [{ id: 'need', label: 'You need (준비물)' }, { id: 'step', label: 'Steps (할 일)' }];
+
+  L.push(lesson(35, '[6영02-05]', {
+    title: '준비물과 할 일을 나누어 방법 설명문의 틀 세우기',
+    objective: '방법 설명문이 제목·준비물(You need)·단계(First, Then, Finally)로 짜인다는 것을 알고, 문장을 준비물과 할 일로 나누고 제목부터 마지막 단계까지 차례대로 놓을 수 있다.',
+    illustration: {
+      prompt: PROMPT('a paper recipe card with a title, a list of things to prepare and numbered steps, next to a small paper bookmark and a bean plant in a cup'),
+      scene: SCENE('How to Make a Bookmark', '제목 · 준비물 · 단계', [{ motif: 'star', x: 90, y: 80, color: 'buttercup' }, { motif: 'tree', x: 400, y: 214 }]),
+    },
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"만드는 방법을 글로 써 주면 선생님이 없어도 따라 할 수 있어요. 어떤 글이 따라 하기 쉬울까요?" 요리 설명 카드를 보여 주고 "제목, 준비물, 단계가 다 있나요?"라고 묻는다. 준비물 없이 단계만 있으면 "중간에 가위가 없어서 멈추게 돼요."라고 짚는다. 칠판에 How to Make a Bookmark를 쓰고 You need와 Steps를 두 줄로 나누어 보인다.',
+        student: '만드는 방법 카드에 무엇이 빠지면 따라 하기 어려운지 말해 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 준비물과 할 일 나누어 놓기', minutes: 13, tool: 'wordcards',
+            teacher: '"손에 들 수 있는 것은 준비물, 손으로 하는 일은 할 일이에요." 물건 이름은 명사구, 할 일은 동사로 시작한다는 점을 짚는다. Put soil in the cup. 같은 문장을 준비물 칸에 두는 학생에게 "그 문장은 가지고 가는 것인가요, 하는 일인가요?"라고 묻는다. 고른 뒤 You need와 Steps를 나누어 소리 내어 읽게 한다.',
+            task: '카드를 준비물 칸과 할 일 칸에 나누어 놓아요. 놓은 카드를 You need와 Steps로 나누어 소리 내어 읽어요.',
+            levels: LV({ mode: 'sort', shuffle: false, slots: PARTS }),
+            items: [
+              { prompt: '책갈피 만드는 방법이에요. 카드를 준비물 칸과 할 일 칸에 나누어 보세요.',
+                toolOptions: { slots: PARTS, cards: ['a piece of paper', 'colored pencils', 'Cut the paper into a long strip.', 'Draw a picture on the strip.'] },
+                target: { sort: { need: ['a piece of paper', 'colored pencils'], step: ['Cut the paper into a long strip.', 'Draw a picture on the strip.'] } }, difficulty: 0.15,
+                hints: ['가방에서 꺼내 놓을 수 있는 것은 준비물이에요. 동사로 시작해 하는 일을 말하는 문장은 할 일이에요.'] },
+              { prompt: '콩 심는 방법이에요. 카드를 준비물 칸과 할 일 칸에 나누어 보세요.',
+                toolOptions: { slots: PARTS, cards: ['a small cup', 'some soil', 'a bean', 'Put soil in the cup.', 'Press the bean into the soil.', 'Water it every day.'] },
+                target: { sort: { need: ['a small cup', 'some soil', 'a bean'], step: ['Put soil in the cup.', 'Press the bean into the soil.', 'Water it every day.'] } }, difficulty: 0.25,
+                hints: ['a, some으로 시작하는 말은 물건 이름이에요. 동사로 시작하는 문장은 할 일이에요.'] },
+              { prompt: '레모네이드 만드는 방법이에요. 카드를 준비물 칸과 할 일 칸에 나누어 보세요.',
+                toolOptions: { slots: PARTS, cards: ['a lemon', 'cold water', 'a spoon', 'Squeeze the lemon into a glass.', 'Add the water.', 'Stir it with the spoon.'] },
+                target: { sort: { need: ['a lemon', 'cold water', 'a spoon'], step: ['Squeeze the lemon into a glass.', 'Add the water.', 'Stir it with the spoon.'] } }, difficulty: 0.25,
+                hints: ['카드마다 "이것을 준비한다"인지 "이것을 한다"인지 말해 보세요.'],
+                predict: { q: '준비물이 하나도 적혀 있지 않은 방법 글을 따라 하면 어떻게 될까요?', options: ['문제없이 따라 할 수 있어요', '중간에 필요한 것이 없어 멈출 수 있어요'], answer: 1 },
+                conclude: '준비물을 먼저 적어 두면 읽는 사람이 필요한 것을 미리 챙길 수 있어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 제목·준비물·단계 차례대로 놓기', minutes: 14, tool: 'wordcards',
+            teacher: '"방법 글을 읽을 때 눈이 가는 차례를 생각해 보세요. 무엇을 만드는지 먼저, 그다음 필요한 것, 마지막에 할 일이에요." 카드 속 First, Then, Finally를 단서로 삼아 단계의 차례를 놓게 한다. 단계 카드를 준비물 앞에 두는 학생에게 "준비물이 없는데 첫 단계를 할 수 있나요?"라고 묻는다. 마지막 짝 활동은 간단한 만들기 하나를 정해 제목, 준비물 한 줄, 단계 두 줄을 말하게 하고 짝이 부분마다 손가락으로 표시한다.',
+            task: '방법 설명문 카드를 제목, 준비물, 단계 차례대로 놓아요. 놓은 뒤 처음부터 끝까지 소리 내어 읽어요.',
+            levels: LV({ mode: 'order', shuffle: true }),
+            items: [
+              { prompt: '종이 부채 만드는 방법 카드를 차례대로 놓아 보세요.',
+                toolOptions: { cards: ['Finally, hold the stick and wave it.', 'How to Make a Paper Fan', 'First, fold the paper back and forth.', 'You need: a piece of paper and a stick.'] },
+                target: { order: ['How to Make a Paper Fan', 'You need: a piece of paper and a stick.', 'First, fold the paper back and forth.', 'Finally, hold the stick and wave it.'] }, difficulty: 0.2,
+                hints: ['제목, 준비물, 단계 순서예요. 단계는 First가 먼저, Finally가 마지막이에요.'] },
+              { prompt: '이 닦는 방법 카드를 차례대로 놓아 보세요.',
+                toolOptions: { cards: ['Then, brush your teeth in small circles.', 'First, put toothpaste on your brush.', 'How to Brush Your Teeth', 'Finally, rinse your mouth with water.', 'You need: a toothbrush and toothpaste.'] },
+                target: { order: ['How to Brush Your Teeth', 'You need: a toothbrush and toothpaste.', 'First, put toothpaste on your brush.', 'Then, brush your teeth in small circles.', 'Finally, rinse your mouth with water.'] }, difficulty: 0.25,
+                hints: ['제목이 맨 위, 준비물이 그다음이에요. 단계는 First, Then, Finally 순서예요.'] },
+              { prompt: '운동화 끈 묶는 방법 카드를 차례대로 놓아 보세요.',
+                toolOptions: { cards: ['Next, make a loop with each lace.', 'First, cross the two laces.', 'How to Tie Your Shoes', 'Finally, pull both loops tight.', 'You need: a pair of shoes with laces.', 'Tip: Sit down to make it easier.'] },
+                target: { order: ['How to Tie Your Shoes', 'You need: a pair of shoes with laces.', 'First, cross the two laces.', 'Next, make a loop with each lace.', 'Finally, pull both loops tight.', 'Tip: Sit down to make it easier.'] }, difficulty: 0.35,
+                hints: ['Tip은 단계를 다 끝낸 뒤 덧붙이는 한마디예요. 단계 안에서는 차례 말이 단서예요.'],
+                levels: { challenge: { prompt: '운동화 끈 묶는 방법 카드를 차례대로 놓아 보세요. (단계 말이 같은 단어로 시작하지 않아요)',
+                  toolOptions: { cards: ['Make a loop with each lace.', 'Cross the two laces.', 'How to Tie Your Shoes', 'Pull both loops tight.', 'You need: a pair of shoes with laces.'] },
+                  target: { order: ['How to Tie Your Shoes', 'You need: a pair of shoes with laces.', 'Cross the two laces.', 'Make a loop with each lace.', 'Pull both loops tight.'] } } } },
+              { prompt: '간단한 만들기 하나(예: 별 접기, 연필꽂이)를 골라 제목과 준비물 한 줄, 단계 두 줄을 영어로 짝에게 말해요. 짝은 제목·준비물·단계를 손가락으로 하나씩 표시해요. 바꾸어 한 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"방법 설명문은 어떤 세 부분으로 되어 있었나요?" 제목, 준비물, 단계를 손가락 세 개로 세어 보게 한다. 출구 1번에서 단계 문장을 준비물 칸에 둔 학생에게는 동사로 시작하는지 다시 확인하게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'wordcards', options: { mode: 'sort', shuffle: false, slots: PARTS, cards: ['a bowl', 'two eggs', 'Break the eggs into the bowl.', 'Mix them well.'] }, prompt: '카드를 준비물 칸과 할 일 칸에 나누어 보세요.', target: { sort: { need: ['a bowl', 'two eggs'], step: ['Break the eggs into the bowl.', 'Mix them well.'] } }, difficulty: 0.2 },
+          { type: 'choice', prompt: '방법 설명문에서 준비물 줄에 알맞은 것은 무엇일까요?', options: ['You need: a glass and a spoon.', 'First, stir the water.', 'How to Make Lemonade'], answer: 0, difficulty: 0.2, explain: '필요한 물건을 한 줄로 적은 것이 준비물 줄이에요.' },
+          { type: 'short', prompt: '내가 만들 수 있는 것 하나를 골라 How to Make ... 제목과 You need ... 한 줄을 쓰세요.' },
+        ],
+      },
+    ],
+    worksheet: {
+      title: '방법 설명문의 틀',
+      items: [
+        { type: 'table', prompt: '책갈피 만드는 글에서 알맞은 칸에 번호를 쓰세요. (1 제목 2 준비물 3 단계)', columns: ['문장', '번호'], cells: [['How to Make a Bookmark', ''], ['You need: paper and a pencil.', ''], ['First, cut the paper into a strip.', '']], answer: '1 / 2 / 3' },
+        { type: 'choice', prompt: '준비물에 ○ 하세요.', options: ['a small cup', 'Put soil in the cup.'], answer: 'a small cup' },
+        { type: 'blank', prompt: '빈칸에 알맞은 차례 말을 쓰세요.', text: '______, put soil in the cup. Then, press a bean into the soil.', answer: 'First' },
+        { type: 'short', prompt: '내가 잘 아는 만들기나 하는 방법의 제목과 준비물을 한 줄씩 쓰세요.' },
+      ],
+      easy: {
+        note: '제목 → 준비물 → 단계 순서예요.',
+        items: [
+          { type: 'choice', prompt: '맨 위에 쓰는 것에 ○ 하세요.', options: ['제목', '마지막 단계'], answer: '제목' },
+          { type: 'choice', prompt: '"a spoon"은 어느 칸일까요?', options: ['준비물', '할 일'], answer: '준비물' },
+          { type: 'short', prompt: 'How to ______ a Bookmark. 빈칸에 알맞은 낱말을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 자리에 초록 테두리가 생기고, 틀린 칸에 두면 까닭을 말해 주고 되돌려요.',
+      base: '다 놓은 뒤 확인을 눌러 스스로 고쳐요.',
+      challenge: '차례 말이 없는 단계 카드를 순서대로 놓고, 마지막에 Tip을 덧붙인 글을 완성해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 준비물과 할 일을 섞어 한 문장에 넣는다 → 준비물은 You need 줄, 할 일은 Steps 줄로 나눈다. ② 단계에 차례 말이 없어 순서를 알 수 없다 → First, Then, Finally를 붙여 본다. ③ 제목 없이 바로 단계를 쓴다 → 무엇을 만드는 글인지 제목으로 먼저 알린다. 만들기는 가위·칼 같은 날카로운 도구 없이 종이와 연필로 하는 것을 고르게 한다. 11~13차시의 차례 말하기를 글로 옮기는 시작이며, 이 차시로 방법 설명문의 틀(35차시)을 마친다.',
+  }));
+
+  // ───────────── 36차시 (practice) 빠진 단계와 흐릿한 동작어 고치기 ─────────────
+  L.push(lesson(36, '[6영02-05]', {
+    title: '동작 낱말 빈칸을 채우고 빠진 단계를 찾아 방법 설명문 고쳐 쓰기',
+    objective: '방법 설명문의 단계에 알맞은 동작 낱말을 넣고, 단계 사이에서 빠진 단계를 찾아 바르게 보태어 읽는 사람이 따라 할 수 있는 글로 고칠 수 있다.',
+    illustration: {
+      prompt: PROMPT('a child checking a paper how-to card with a missing step shown as an empty paper slot and a pencil about to fill it in'),
+      scene: SCENE('First, ___ the paper.', '동작 낱말 · 빠진 단계', [{ motif: 'star', x: 90, y: 80, color: 'buttercup' }, { motif: 'house', x: 400, y: 218, color: 'sky' }]),
+    },
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"선생님이 쓴 연필꽂이 만드는 글을 따라 해 보세요. First, get a can. Finally, put pencils in it." 두 단계만 읽어 주고 "중간에 무엇을 해야 하나요?"라고 묻는다. 학생들이 "종이를 붙여요?" 하고 중간 단계를 말하면 "그 단계가 빠지면 읽는 사람은 멈춰요."라고 정리한다. 오늘은 빠진 단계와 알맞은 동작 낱말을 찾아 방법 글을 고친다고 알린다.',
+        student: '선생님의 두 단계 글을 따라 해 보고, 중간에 빠진 일이 무엇인지 말해 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 단계에 알맞은 동작 낱말 넣기', minutes: 13, tool: 'wordcards',
+            teacher: '"단계마다 손이 무엇을 하는지 먼저 몸으로 해 보세요. 그 동작을 말하는 낱말이 빈칸에 들어가요." fold, pour처럼 동작 낱말은 문장 앞에서 동사로 쓰인다는 것을 짚는다. 남는 카드(예: jump)를 넣는 학생에게 "그 동작이 이 방법에 필요한가요?"라고 묻는다. 채운 뒤에는 단계를 하나씩 몸짓하며 읽게 한다.',
+            task: '단계 문장의 빈칸에 알맞은 동작 낱말 카드를 넣어요. 남는 카드는 그대로 두고, 채운 단계를 몸짓하며 읽어요.',
+            levels: LV({ mode: 'fill', shuffle: false }),
+            items: [
+              { prompt: '종이 부채 만드는 방법이에요. 빈칸에 알맞은 동작 낱말을 넣어 보세요.',
+                toolOptions: { slots: [{ id: 's1', label: 'First, ___ the paper in half.' }, { id: 's2', label: 'Then, ___ a stick to the end.' }, { id: 's3', label: 'Finally, ___ the fan to cool your face.' }], cards: ['fold', 'tape', 'wave', 'eat'] },
+                target: { fill: { s1: 'fold', s2: 'tape', s3: 'wave' } }, difficulty: 0.2,
+                hints: ['단계마다 손이 어떤 동작을 하는지 몸으로 해 보며 낱말을 골라 보세요.'] },
+              { prompt: '화분에 물 주는 방법이에요. 빈칸에 알맞은 동작 낱말을 넣어 보세요.',
+                toolOptions: { slots: [{ id: 's1', label: 'First, ___ a cup with water.' }, { id: 's2', label: 'Then, ___ the water on the soil slowly.' }, { id: 's3', label: 'Finally, ___ the plant near the window.' }], cards: ['fill', 'pour', 'put', 'jump'] },
+                target: { fill: { s1: 'fill', s2: 'pour', s3: 'put' } }, difficulty: 0.25,
+                hints: ['컵에 물을 채우는 일, 흙 위로 물을 흘려 보내는 일, 화분을 어디에 두는 일을 차례로 떠올려 보세요.'] },
+              { prompt: '이 닦는 방법이에요. 빈칸에 알맞은 동작 낱말을 넣어 보세요.',
+                toolOptions: { slots: [{ id: 's1', label: 'First, ___ toothpaste on your brush.' }, { id: 's2', label: 'Then, ___ your teeth in small circles.' }, { id: 's3', label: 'Finally, ___ your mouth with water.' }], cards: ['put', 'brush', 'rinse', 'drink'] },
+                target: { fill: { s1: 'put', s2: 'brush', s3: 'rinse' } }, difficulty: 0.25,
+                hints: ['칫솔에 하는 일, 이에 하는 일, 입에 하는 일을 따로 떠올려 보세요.'],
+                predict: { q: '"Do it." 처럼 흐릿한 동작 말로도 읽는 사람이 따라 할 수 있을까요?', options: ['네, 충분해요', '아니요, 무엇을 하는지 분명한 동작 낱말이 필요해요'], answer: 1 },
+                conclude: '단계마다 fold, pour, brush처럼 무엇을 하는지 분명하게 보이는 동작 낱말을 써야 따라 할 수 있어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 단계 사이에 빠진 단계 찾아 보태기', minutes: 14, tool: 'wordcards',
+            teacher: '"앞 단계와 뒤 단계를 이어 읽어 보세요. 건너뛰어도 손이 움직일까요?" 앞뒤를 번갈아 손으로 해 보며 중간에 필요한 일을 찾게 한다. 뒤 단계를 그대로 한 번 더 고르는 학생에게 "이 단계는 이미 뒤에 있지 않나요?"라고 묻는다. 마지막 짝 활동은 네 단계 글을 써서 한 단계를 일부러 빼고, 짝이 읽으며 멈춘 곳을 짚어 빠진 단계를 말하게 한다.',
+            task: '단계 글에서 비어 있는 자리에 꼭 필요한 단계 하나를 바구니에 넣어요. 넣은 뒤 앞뒤를 이어 소리 내어 읽어요.',
+            levels: LV(PICK('빠진 단계')),
+            items: [
+              { prompt: '신발 끈 묶는 방법이에요. "First, hold the laces in both hands. Then, ___. Finally, pull both loops tight." 빈자리에 알맞은 단계 하나를 골라 보세요.',
+                toolOptions: { cards: [{ id: 'c1', text: 'Cross the laces and make a loop.' }, { id: 'c2', text: 'Wear red shoes.', why: '신발 색은 끈 묶는 방법과 상관없어요.' }, { id: 'c3', text: 'Finally, go home.', why: '마지막 단계는 이미 뒤에 있어요.' }] },
+                target: { pick: ['c1'] }, difficulty: 0.2,
+                hints: ['앞 단계에서 끈을 잡았고 뒤 단계에서는 고리를 당겨요. 그 사이에 해야 할 일을 생각해 보세요.'] },
+              { prompt: '카드 만드는 방법이에요. "First, fold a piece of paper in half. Then, ___. Finally, write a message inside." 빈자리에 알맞은 단계 하나를 골라 보세요.',
+                toolOptions: { cards: [{ id: 'c1', text: 'Draw a picture on the front.' }, { id: 'c2', text: 'Throw the paper away.', why: '종이를 버리면 카드를 만들 수 없어요.' }, { id: 'c3', text: 'Fold a piece of paper in half.', why: '이미 첫 단계에 있어요.' }] },
+                target: { pick: ['c1'] }, difficulty: 0.25,
+                hints: ['접은 종이가 있고 속에 글을 쓰기 전, 카드의 겉모양에 필요한 일을 생각해 보세요.'] },
+              { prompt: '페트병 분리배출 방법이에요. "First, empty the bottle. Then, ___. Finally, put it in the recycling bin." 빈자리에 알맞은 단계 하나를 골라 보세요.',
+                toolOptions: { cards: [{ id: 'c1', text: 'Take off the label and rinse the bottle.' }, { id: 'c2', text: 'Fill the bottle with juice.', why: '비운 병에 다시 채우면 분리배출을 할 수 없어요.' }, { id: 'c3', text: 'Put it in the recycling bin.', why: '이미 마지막 단계에 있어요.' }] },
+                target: { pick: ['c1'] }, difficulty: 0.25,
+                hints: ['병을 비우고 나서 통에 넣기 전에 깨끗하게 하려면 무엇을 할지 생각해 보세요.'],
+                levels: { challenge: { prompt: '페트병 분리배출 방법이에요. "First, empty the bottle. Then, ___. Next, ___. Finally, put it in the recycling bin." 빈자리 두 곳에 필요한 단계를 모두 골라 보세요.',
+                  toolOptions: { cards: [{ id: 'c1', text: 'Take off the label.' }, { id: 'c2', text: 'Fill the bottle with juice.', why: '비운 병에 다시 채우면 분리배출을 할 수 없어요.' }, { id: 'c3', text: 'Rinse the bottle with water.' }, { id: 'c4', text: 'Draw on the bottle.', why: '분리배출과 상관없는 일이에요.' }] },
+                  target: { pick: ['c1', 'c3'] } } } },
+              { prompt: '아는 방법 하나를 네 단계로 짧게 써요. 한 단계를 일부러 빼고 짝에게 읽어 줘요. 짝이 따라 하다 멈춘 곳을 짚으면 빠진 단계를 말한 뒤 바꾸어 한 다음 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"빠진 단계를 어떻게 찾았나요?" 앞 단계와 뒤 단계를 이어 읽었다는 말을 듣고 출구 질문을 푼다. 출구 2번에서 마지막 단계를 고른 학생에게는 앞뒤를 번갈아 몸짓하게 한다.',
+        exitTicket: [
+          { type: 'tool', tool: 'wordcards', options: { mode: 'fill', shuffle: false, slots: [{ id: 's1', label: 'First, ___ two slices of bread.' }, { id: 's2', label: 'Then, ___ jam on one slice.' }], cards: ['take', 'spread', 'sleep'] }, prompt: '빈칸에 알맞은 동작 낱말을 넣어 보세요.', target: { fill: { s1: 'take', s2: 'spread' } }, difficulty: 0.25 },
+          { type: 'choice', prompt: '"First, get a cup. Then, ___. Finally, drink the water." 빈칸에 알맞은 단계는 무엇일까요?', options: ['Fill the cup with water.', 'Go to bed.', 'Get a cup.'], answer: 0, difficulty: 0.2, explain: '컵을 가지고 물을 마시는 사이에 컵에 물을 채우는 일이 필요해요.' },
+          { type: 'short', prompt: '"First, open the door. Finally, go outside." 가운데 들어갈 빠진 단계를 영어로 한 문장 쓰세요.' },
+        ],
+      },
+    ],
+    worksheet: {
+      title: '빠진 단계 고쳐 쓰기',
+      items: [
+        { type: 'choice', prompt: '무엇을 하는지 분명한 단계에 ○ 하세요.', options: ['Then, do it.', 'Then, pour the water.'], answer: 'Then, pour the water.' },
+        { type: 'blank', prompt: '빈칸에 알맞은 동작 낱말을 쓰세요.', text: 'First, ______ the paper in half.', answer: 'fold' },
+        { type: 'table', prompt: '단계 글을 읽고 빠진 단계가 들어갈 번호에 ○ 하세요. 1 First, get a cup. 2 Finally, drink the water.', columns: ['자리', '○'], cells: [['1번 앞', ''], ['1번과 2번 사이', ''], ['2번 뒤', '']], answer: '1번과 2번 사이' },
+        { type: 'short', prompt: '"First, get a cup. Finally, drink the water." 가운데 들어갈 단계를 영어로 쓰세요.' },
+      ],
+      easy: {
+        note: '앞 단계와 뒤 단계를 이어 읽어 보세요.',
+        items: [
+          { type: 'choice', prompt: '동작 낱말에 ○ 하세요.', options: ['fold', 'paper'], answer: 'fold' },
+          { type: 'choice', prompt: '"Then, ___ the water." 빈칸에 알맞은 낱말에 ○ 하세요.', options: ['pour', 'blue'], answer: 'pour' },
+          { type: 'short', prompt: 'First, ______ a cup. 빈칸에 알맞은 낱말을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 자리에 초록 테두리가 생기고, 맞지 않는 단계를 고르면 까닭을 말해 주고 되돌려요.',
+      base: '다 채우거나 고른 뒤 확인을 눌러 스스로 고쳐요.',
+      challenge: '빈자리가 둘인 글에서 필요한 단계를 모두 찾고, 내 글에서 한 단계를 빼 짝이 찾게 해요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① do it, that처럼 흐릿한 말을 쓴다 → 몸으로 해 보고 동작 낱말로 바꾼다. ② 빠진 단계를 앞뒤 단계에서 복사해 쓴다 → 이미 있는 단계는 다시 쓰지 않는다. ③ 단계 사이에 필요한 일을 건너뛴다 → 앞뒤를 번갈아 따라 하며 멈춘 곳을 찾는다. 13차시의 "막히는 단계 고치기"를 글로 옮긴 차시이며, 페트병 방법은 분리배출 예시일 뿐 실제로 병을 자르지 않는다.',
+  }));
+
+  // ───────────── 37차시 (wrap) 방법 설명문 완성과 단원 되돌아보기 ─────────────
+  const UNIT_PARTS = [{ id: 'sound', label: '말소리 (강세·억양)' }, { id: 'order', label: '순서 말하기' }, { id: 'see', label: '보고 묘사·비교' }, { id: 'guide', label: '길·방법 안내' }];
+
+  L.push(lesson(37, '[6영02-05]', {
+    title: '좋은 방법 설명문 가려 쓰고 단원 전체 말하기를 스스로 돌아보기',
+    objective: '제목·준비물·단계·분명한 동작 낱말을 갖춘 방법 설명문을 가려내고 내 글을 점검해 쓰며, 이 단원에서 배운 말하기를 네 갈래로 묶어 내 실력을 솔직하게 평가할 수 있다.',
+    illustration: {
+      prompt: PROMPT('a paper checklist with four check boxes beside a how-to card, a child holding a pencil and smiling'),
+      scene: SCENE('Title. You need. Steps.', '내 글을 점검해요', [{ motif: 'star', x: 90, y: 80, color: 'buttercup' }, { motif: 'tree', x: 400, y: 214 }]),
+    },
+    stages: [
+      {
+        id: 'intro', title: '도입', minutes: 6,
+        teacher: '"이 단원에서 영어로 말하는 연습을 많이 했어요. 소리, 순서, 보고 말하기, 안내하기 가운데 가장 재미있었던 것은 무엇인가요?" 손을 들어 보게 한다. "듣는 사람이 알아듣게 말했는지가 이 단원의 기준이었어요." 하고 오늘은 방법 설명문을 점검하고 단원 전체를 돌아본다고 알린다. 칠판에 제목, 준비물, 단계, 동작 낱말 네 칸의 점검표를 그린다.',
+        student: '이 단원에서 가장 재미있었던 말하기와 "듣는 사람이 알아듣게"의 뜻을 말해 봐요.',
+      },
+      {
+        id: 'main', title: '전개', minutes: 27,
+        activities: [
+          {
+            id: 'a1', title: '활동 1. 단원에서 배운 말을 네 갈래로 묶기', minutes: 13, tool: 'wordcards',
+            teacher: '"문장 하나마다 어느 시간에 배운 말인지 떠올려 보세요." 대문자가 힘줄 낱말, 차례 말이 순서 말하기, 모양·크기를 견주는 말이 보고 묘사, 방향·위치 말이 안내라는 단서를 짚는다. 길 안내를 순서 말하기에 두는 학생에게 "First, Then이 들어 있나요, 방향을 말하나요?"라고 되묻는다. 놓은 뒤 문장을 하나씩 말투를 살려 소리 내어 읽게 한다.',
+            task: '문장 카드를 어느 시간에 배운 말인지 네 칸에 나누어 놓아요. 놓은 문장을 말투를 살려 소리 내어 읽어요.',
+            levels: LV({ mode: 'sort', shuffle: false, slots: UNIT_PARTS }),
+            items: [
+              { prompt: '문장 카드를 단원에서 배운 갈래에 따라 나누어 보세요.',
+                toolOptions: { slots: UNIT_PARTS, cards: ['I like HIKING.', 'First, wash your hands.', 'My bag is bigger than yours.', 'Turn left at the bank.'] },
+                target: { sort: { sound: ['I like HIKING.'], order: ['First, wash your hands.'], see: ['My bag is bigger than yours.'], guide: ['Turn left at the bank.'] } }, difficulty: 0.2,
+                hints: ['대문자가 있는지, 차례 말이 있는지, 견주는 말이 있는지, 방향을 말하는지 하나씩 살펴보세요.'] },
+              { prompt: '문장 카드를 단원에서 배운 갈래에 따라 나누어 보세요.',
+                toolOptions: { slots: UNIT_PARTS, cards: ['No, I said BLUE, not green.', 'After that, we ate lunch.', 'It is small and round, and it is made of wood.', 'Go straight two blocks.'] },
+                target: { sort: { sound: ['No, I said BLUE, not green.'], order: ['After that, we ate lunch.'], see: ['It is small and round, and it is made of wood.'], guide: ['Go straight two blocks.'] } }, difficulty: 0.25,
+                hints: ['After that은 차례 말, 모양·재료를 말하면 보고 묘사예요. 대문자는 힘준 낱말이에요.'] },
+              { prompt: '문장 카드를 단원에서 배운 갈래에 따라 나누어 보세요.',
+                toolOptions: { slots: UNIT_PARTS, cards: ['Finally, put the lid on.', 'The ruler is longer than the pencil.', 'It is across from the library.', 'Is it a PEN or a pencil?'] },
+                target: { sort: { sound: ['Is it a PEN or a pencil?'], order: ['Finally, put the lid on.'], see: ['The ruler is longer than the pencil.'], guide: ['It is across from the library.'] } }, difficulty: 0.3,
+                hints: ['문장마다 어느 시간에 배운 말인지 한 가지씩 떠올려 보세요. 마지막은 힘주어 고르게 하는 질문이에요.'],
+                predict: { q: '한 문장이 두 갈래에 걸치기도 할까요? 예를 들어 Turn LEFT at the bank. 는요?', options: ['아니요, 한 문장은 한 갈래만 있어요', '네, 말소리와 안내가 함께 쓰일 수 있어요'], answer: 1 },
+                conclude: '말은 여러 힘이 함께 쓰여요. 오늘은 문장이 가장 뚜렷하게 보여 주는 갈래로 나누어 보았어요.' },
+            ],
+          },
+          {
+            id: 'a2', title: '활동 2. 좋은 방법 설명문 가려 점검표로 내 글 확인하기', minutes: 14, tool: 'wordcards',
+            teacher: '"점검표 네 칸을 하나씩 읽어요. 제목, 준비물, 차례 말, 분명한 동작 낱말." 보기마다 네 칸에 ○를 하나씩 표시하며 가장 많이 갖춘 글을 고르게 한다. 짧고 단계가 많아 보이는 글만 고르는 학생에게 "준비물이 있나요? 동작 낱말이 분명한가요?"라고 묻는다. 마지막 짝 활동은 내 글(제목, 준비물, 세 단계)을 쓰고 점검표로 스스로 확인한 뒤 짝에게 읽어 주고, 짝이 따라 해 보며 막힌 곳을 알려 준다.',
+            task: '네 칸 점검표를 모두 갖춘 방법 설명문 하나를 바구니에 넣어요. 그다음 내 글을 같은 점검표로 확인해요.',
+            levels: LV(PICK('좋은 설명문')),
+            items: [
+              { prompt: '연필꽂이 만드는 방법 글 세 개예요. 제목·준비물·차례 말·분명한 동작 낱말을 모두 갖춘 글 하나를 골라 보세요.',
+                toolOptions: { cards: [{ id: 'c1', text: 'How to Make a Pencil Holder. You need: a can and colored paper. First, wrap the paper around the can. Then, tape it. Finally, put pencils in it.' }, { id: 'c2', text: 'Make a pencil holder. Do it well. Done.', why: '제목 형식과 준비물이 없고 동작이 분명하지 않아요.' }, { id: 'c3', text: 'How to Make a Pencil Holder. First, wrap the paper around the can. Then, do that. Finally, enjoy.', why: '준비물이 없고 do that이 흐릿해요.' }] },
+                target: { pick: ['c1'] }, difficulty: 0.25,
+                hints: ['보기마다 제목, 준비물, 차례 말, 분명한 동작 낱말을 하나씩 찾아 ○를 쳐 보세요.'] },
+              { prompt: '이름표 만드는 방법 글 세 개예요. 네 칸 점검표를 모두 갖춘 글 하나를 골라 보세요.',
+                toolOptions: { cards: [{ id: 'c1', text: 'How to Make a Name Card. First, write your name. Then, color it. Finally, show it.', why: '준비물 줄이 없어요.' }, { id: 'c2', text: 'How to Make a Name Card. You need: a card and a marker. First, write your name. Then, draw a star. Finally, hold it up.' }, { id: 'c3', text: 'You need: a card and a marker. Write your name. Draw a star. Hold it up.', why: '제목과 차례 말이 없어요.' }] },
+                target: { pick: ['c2'] }, difficulty: 0.3,
+                hints: ['제목이 있는지, 준비물 줄이 있는지, First·Then·Finally가 있는지 차례로 확인해 보세요.'] },
+              { prompt: '씨앗 심는 방법 글 네 개예요. 네 칸 점검표를 모두 갖춘 글을 모두 골라 보세요.',
+                toolOptions: { cards: [{ id: 'c1', text: 'How to Plant a Seed. You need: a cup, soil, and a seed. First, put soil in the cup. Then, press the seed in. Finally, water it.' }, { id: 'c2', text: 'How to Plant a Seed. First, put soil in the cup. Then, do it. Finally, water it.', why: '준비물이 없고 do it이 흐릿해요.' }, { id: 'c3', text: 'How to Plant a Seed. You need: a pot, soil, and a seed. First, fill the pot with soil. Next, drop the seed in. Finally, pour water slowly.' }, { id: 'c4', text: 'Plant a seed. You need: soil. Put it in the cup. Water it.', why: '제목 형식과 차례 말이 없어요.' }] },
+                target: { pick: ['c1', 'c3'] }, difficulty: 0.35,
+                hints: ['모든 칸을 갖춘 글이 둘이에요. 보기마다 네 칸 점검표를 하나씩 확인해 보세요.'],
+                levels: { easy: { prompt: '씨앗 심는 방법 글 세 개예요. 네 칸 점검표를 모두 갖춘 글 하나를 골라 보세요.',
+                  toolOptions: { cards: [{ id: 'c1', text: 'How to Plant a Seed. You need: a cup, soil, and a seed. First, put soil in the cup. Then, press the seed in. Finally, water it.' }, { id: 'c2', text: 'How to Plant a Seed. First, put soil in the cup. Then, do it. Finally, water it.', why: '준비물이 없고 do it이 흐릿해요.' }, { id: 'c4', text: 'Plant a seed. You need: soil. Put it in the cup. Water it.', why: '제목 형식과 차례 말이 없어요.' }] },
+                  target: { pick: ['c1'] } } } },
+              { prompt: '내가 잘 아는 방법 하나를 골라 제목, 준비물, 세 단계를 영어로 쓰고 네 칸 점검표로 스스로 확인해요. 짝에게 읽어 주어 따라 하게 하고, 막힌 곳을 고친 뒤 "다 했어요"를 누르세요.', free: true, talk: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'wrapup', title: '정리', minutes: 7,
+        teacher: '"가장 자신 있게 된 것과 아직 어려운 것을 하나씩 떠올려 보세요." 출구 질문을 푼 뒤 마지막 두 칸에는 내 실력을 솔직하게 고르라고 말한다. "어느 칸을 골라도 괜찮아요. 다음에 무엇을 더 연습할지 정하려고 고르는 거예요." 자신 없는 칸이 많은 학생에게는 가장 쉬웠던 시간의 활동을 다시 해 보라고 권한다.',
+        exitTicket: [
+          { type: 'choice', prompt: '방법 설명문에서 가장 먼저 쓰는 것은 무엇일까요?', options: ['How to Make a Fan (제목)', 'Finally, wave it.', 'You need: paper.'], answer: 0, difficulty: 0.15, explain: '제목으로 무엇을 만드는 글인지 먼저 알려요.' },
+          { type: 'tool', tool: 'emotion', options: SELF('제목·준비물·단계를 갖춘 방법 설명문을 영어로 썼어요'), prompt: '내 방법 설명문 쓰기는 어느 정도였나요? 솔직하게 골라 보세요.', target: { level: 'any' } },
+          { type: 'tool', tool: 'emotion', options: SELF('이 단원에서 듣는 사람이 알아듣게 영어로 말했어요'), prompt: '이 단원 전체에서 내 영어 말하기는 어느 정도였나요? 솔직하게 골라 보세요.', target: { level: 'any' } },
+        ],
+      },
+    ],
+    worksheet: {
+      title: '내 방법 설명문 점검과 단원 돌아보기',
+      items: [
+        { type: 'table', prompt: '내 방법 설명문을 점검표로 확인하고 ○ 하세요.', columns: ['점검', '○'], cells: [['제목이 있어요 (How to ...)', ''], ['준비물 줄이 있어요 (You need: ...)', ''], ['First, Then, Finally가 있어요', ''], ['동작 낱말이 분명해요', '']] },
+        { type: 'choice', prompt: '"First, wash your hands." 는 단원에서 배운 어느 갈래일까요?', options: ['순서 말하기', '보고 묘사·비교'], answer: '순서 말하기' },
+        { type: 'blank', prompt: '빈칸에 알맞은 낱말을 쓰세요.', text: 'How ______ Make a Paper Boat', answer: 'to' },
+        { type: 'short', prompt: '내가 만들 수 있는 것 하나의 방법을 제목, 준비물, 세 단계로 영어로 쓰세요.' },
+        { type: 'short', prompt: '이 단원에서 가장 자신 있게 된 말하기 하나와 더 연습하고 싶은 말하기 하나를 한국어로 쓰세요.' },
+      ],
+      easy: {
+        note: '네 칸 점검표를 하나씩 확인해 보세요.',
+        items: [
+          { type: 'choice', prompt: '방법 설명문에서 준비물을 알리는 줄에 ○ 하세요.', options: ['You need: a cup.', 'Finally, drink.'], answer: 'You need: a cup.' },
+          { type: 'choice', prompt: '맨 처음 단계에 쓰는 차례 말에 ○ 하세요.', options: ['First', 'Finally'], answer: 'First' },
+          { type: 'short', prompt: 'How ______ Make a Fan. 빈칸에 알맞은 낱말을 쓰세요.' },
+        ],
+      },
+    },
+    differentiation: {
+      easy: '맞는 자리에 초록 테두리가 생기고, 갖추지 못한 글을 고르면 까닭을 말해 주고 되돌려요.',
+      base: '문장을 갈래별로 놓거나 고른 뒤 확인을 눌러 스스로 고쳐요.',
+      challenge: '점검표를 모두 갖춘 글을 둘 찾고, 내 글에 Tip 한 줄을 덧붙여 짝에게 읽어 줘요.',
+    },
+    teacherNotes: '자주 보이는 어려움: ① 단계가 많으면 좋은 글이라고 생각한다 → 네 칸 점검표를 하나씩 확인한다. ② 자기 평가에서 모든 칸에 같은 점수를 준다 → 가장 쉬웠던 활동과 가장 어려웠던 활동을 구체적으로 말하게 한다. ③ 점검표로 확인하지 않고 쓴 글을 다 되었다고 한다 → 짝이 따라 해 본 결과를 근거로 고친다. 자기 평가는 점수가 아니라 다음 연습을 정하는 근거이므로 성적에 넣지 않는다. 이 차시로 단원(1~37차시)을 마친다.',
+  }));
+
   PaperLessons.registerUnit({
     id: 'g5-eng-2-03', schema: 'edu-unit.v1', catalogUnit: CAT,
     grade: 5, subject: '영어', unitTitle: '3. 말하기',
-    flow: '1~7차시는 말소리로, 뜻을 담은 낱말에 힘을 주고(강세), 묻는 말의 답이 되는 낱말·긴 낱말의 힘준 마디·강조해 바꾼 뜻까지 넓힌 뒤, 끝을 올리고 내리는 억양으로 묻기·알리기·놀라기·고르게 하기를 구분한다. 8~13차시는 친구를 서너 문장으로 소개하고 되물음에 한 문장을 보태며, First·Then·After that·Finally로 손 씻기·샌드위치·아침 일과의 순서를 말하고 짝이 따라 하며 빠진 단계를 찾는다. 14~16차시는 앞의 강세·덩이를 모아 세 문장 발표를 리듬 있게 하고 스스로 어색한 곳을 짚는다. 17~28차시는 실물·그림·동작·물건을 보고 확인되는 것만 영어 문장으로 말하고 쓰며, 모양·쓰임·크기를 빠뜨리지 않는다. 29~37차시는 -er than 비교, 위치·방향 말로 길 안내, 단계가 드러나는 방법 설명문으로 마무리하고, 마지막 시간에 단원 전체를 스스로 평가한다. 단원 내내 "듣는 사람이 알아듣게"를 기준으로 짝 말하기를 반드시 넣는다.',
+    flow: '1~7차시는 말소리로, 뜻을 담은 낱말에 힘을 주고(강세), 묻는 말의 답이 되는 낱말·긴 낱말의 힘준 마디·강조해 바꾼 뜻까지 넓힌 뒤, 끝을 올리고 내리는 억양으로 묻기·알리기·놀라기·고르게 하기를 구분한다. 8~13차시는 친구를 서너 문장으로 소개하고 되물음에 한 문장을 보태며, First·Then·After that·Finally로 손 씻기·샌드위치·아침 일과의 순서를 말하고 짝이 따라 하며 빠진 단계를 찾는다. 14~16차시는 앞의 강세·덩이를 모아 세 문장 발표를 리듬 있게 하고 스스로 어색한 곳을 짚는다. 17~28차시는 실물·그림·동작·물건을 보고 확인되는 것만 영어 문장으로 말하고 쓰며, 모양·쓰임·크기를 빠뜨리지 않는다. 29~31차시는 -er than으로 두 물건을 견주고 표·그래프의 값과 두 기준(but)까지 넓히고, 32~34차시는 같은 거리 그림에서 Go straight·Turn left/right로 길을 안내하고 next to·across from으로 도착한 곳을 알리며 틀린 단계를 고치고, 35~37차시는 방법 설명문을 제목·준비물·단계로 짜 동작 낱말과 빠진 단계를 점검한 뒤 마지막 시간에 점검표로 내 글과 단원 전체를 스스로 평가한다. 단원 내내 "듣는 사람이 알아듣게"를 기준으로 짝 말하기를 반드시 넣는다.',
     refs: {},
     lessons: L,
   });
