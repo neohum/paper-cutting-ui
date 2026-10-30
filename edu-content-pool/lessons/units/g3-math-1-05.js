@@ -231,10 +231,10 @@ PaperLessons.registerUnit({
           teacher: '"초바늘이 8을 가리켜요. 몇 초일까요?" 먼저 40초로 바꾸게 한 뒤 시, 분, 초 순서로 말하게 한다. 보기에서 "3시 10분 4초"를 고른 학생은 초바늘 숫자를 그대로 초로 읽은 것이다.',
           levels: { easy: { hourZone: true, showMinuteNumbers: true }, base: { showMinuteNumbers: true }, challenge: { showMinuteMarks: false } },
           items: [
-            { prompt: '짧은바늘이 3과 4 사이, 긴바늘이 2, 초바늘이 4예요. 시각을 골라 보세요.', state: { h: 3, m: 10 }, toolOptions: { readOnly: true, choices: ['3시 10분 20초', '3시 10분 4초', '3시 2분 20초'] }, target: { pick: 0, h: 3, m: 10 } },
-            { prompt: '짧은바늘이 7과 8 사이, 긴바늘이 9, 초바늘이 11이에요. 시각을 골라 보세요.', state: { h: 7, m: 45 }, toolOptions: { readOnly: true, choices: ['7시 45분 11초', '7시 9분 55초', '7시 45분 55초'] }, target: { pick: 2, h: 7, m: 45 } },
-            { prompt: '짧은바늘이 9와 10 사이, 긴바늘이 6, 초바늘도 6이에요. 시각을 골라 보세요.', state: { h: 9, m: 30 }, toolOptions: { readOnly: true, choices: ['9시 30분 6초', '9시 6분 30초', '9시 30분 30초'] }, target: { pick: 2, h: 9, m: 30 } },
-            { prompt: '더 해 보기: 짧은바늘이 1과 2 사이, 긴바늘이 11, 초바늘이 3이에요. 시각을 골라 보세요.', state: { h: 1, m: 55 }, toolOptions: { readOnly: true, choices: ['1시 55분 15초', '2시 55분 15초', '1시 11분 3초'] }, target: { pick: 0, h: 1, m: 55 }, extra: true },
+            { prompt: '시계에는 짧은바늘과 긴바늘만 그려져 있어요. 짧은바늘은 3과 4 사이, 긴바늘은 2에 있고, 초바늘은 4를 가리켰다고 해요. 시각을 골라 보세요.', state: { h: 3, m: 10 }, toolOptions: { readOnly: true, choices: ['3시 10분 20초', '3시 10분 4초', '3시 2분 20초'] }, target: { pick: 0, h: 3, m: 10 } },
+            { prompt: '시계에는 짧은바늘과 긴바늘만 그려져 있어요. 짧은바늘은 7과 8 사이, 긴바늘은 9에 있고, 초바늘은 11을 가리켰다고 해요. 시각을 골라 보세요.', state: { h: 7, m: 45 }, toolOptions: { readOnly: true, choices: ['7시 45분 11초', '7시 9분 55초', '7시 45분 55초'] }, target: { pick: 2, h: 7, m: 45 } },
+            { prompt: '시계에는 짧은바늘과 긴바늘만 그려져 있어요. 짧은바늘은 9와 10 사이, 긴바늘은 6에 있고, 초바늘도 6을 가리켰다고 해요. 시각을 골라 보세요.', state: { h: 9, m: 30 }, toolOptions: { readOnly: true, choices: ['9시 30분 6초', '9시 6분 30초', '9시 30분 30초'] }, target: { pick: 2, h: 9, m: 30 } },
+            { prompt: '더 해 보기: 시계에는 짧은바늘과 긴바늘만 그려져 있어요. 짧은바늘은 1과 2 사이, 긴바늘은 11에 있고, 초바늘은 3을 가리켰다고 해요. 시각을 골라 보세요.', state: { h: 1, m: 55 }, toolOptions: { readOnly: true, choices: ['1시 55분 15초', '2시 55분 15초', '1시 11분 3초'] }, target: { pick: 0, h: 1, m: 55 }, extra: true },
           ] },
       ],
       wrapT: '"시각을 말할 때 어느 바늘부터 읽으면 좋을까요? 초바늘은 어떻게 읽었나요?" 시, 분, 초 순서와 "숫자에 5를 곱한다"를 짝에게 설명하게 한다. 출구 2번을 틀린 학생은 짧은바늘이 두 숫자 사이일 때 어느 숫자를 읽는지 다음 시간에 다시 묻는다.',
@@ -246,7 +246,7 @@ PaperLessons.registerUnit({
       ws: { title: '시계의 시·분·초', items: [
         { type: 'figure', prompt: '시계를 보고 몇 시 몇 분인지 쓰세요.', tool: 'clock', figures: [
           { state: { h: 2, m: 35 }, caption: BLANK + '시 ' + BLANK + '분' }, { state: { h: 10, m: 50 }, caption: BLANK + '시 ' + BLANK + '분' }, { state: { h: 5, m: 15 }, caption: BLANK + '시 ' + BLANK + '분' }], answer: '2시 35분, 10시 50분, 5시 15분' },
-        { type: 'table', prompt: '초바늘이 가리키는 숫자를 보고 몇 초인지 쓰세요.', columns: ['초바늘 숫자', '1', '5', '8', '12'], cells: [['몇 초', '5초', '', '', '']], answer: '25초, 40초, 60초' },
+        { type: 'table', prompt: '초바늘이 12에서 출발해 아래 숫자까지 도는 데 걸린 시간은 몇 초인지 쓰세요. 숫자 12는 한 바퀴를 다 돌아 온 때예요.', columns: ['초바늘 숫자', '1', '5', '8', '12'], cells: [['몇 초', '5초', '', '', '']], answer: '25초, 40초, 60초' },
         { type: 'choice', prompt: '초바늘이 4를 가리켜요. 몇 초일까요?', options: ['4초', '20초', '40초'], answer: '20초' },
         { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '시각은 시, 분, 초 순서로 읽고, 초바늘 숫자 한 칸은 ______초예요.', answer: '5' },
         { type: 'short', prompt: '초바늘이 숫자 3에 있는데 3초라고 쓴 친구에게 어떻게 말해 줄지 써 보세요.' },

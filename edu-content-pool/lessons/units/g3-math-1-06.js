@@ -292,7 +292,7 @@ PaperLessons.registerUnit({
         { type: 'figure', prompt: '점이 나타내는 분수를 쓰세요.', tool: 'numberline', wide: true, figures: [
           { options: { mode: 'read', min: 0, max: 1, step: 1, sub: 5, format: 'frac', labels: 'ends', marks: [3 / 5] }, caption: BLANK + '분의 ' + BLANK },
           { options: { mode: 'read', min: 0, max: 1, step: 1, sub: 8, format: 'frac', labels: 'ends', marks: [6 / 8] }, caption: BLANK + '분의 ' + BLANK }], answer: '5분의 3, 8분의 6' },
-        { type: 'figure', prompt: '같은 분수를 색칠한 띠 그림으로 나타낸 것을 보고 분수를 쓰세요.', tool: 'fraction', figures: [
+        { type: 'figure', prompt: '같은 분수를 색칠한 띠 그림과 원 그림으로 나타냈어요. 그림을 보고 분수를 쓰세요.', tool: 'fraction', figures: [
           fig('strip', 7, 4, BLANK + '분의 ' + BLANK), fig('pizza', 6, 5, BLANK + '분의 ' + BLANK)], answer: '7분의 4, 6분의 5' },
         { type: 'choice', prompt: '0과 1 사이를 5칸으로 나눈 수직선에서 두 번째 눈금의 분수에 ○ 하세요.', options: ['2분의 5', '5분의 2', '7분의 5'], answer: '5분의 2' },
         { type: 'blank', prompt: '빈칸에 알맞은 수를 쓰세요.', text: '0과 1 사이를 ______칸으로 똑같이 나누면 한 칸은 1/______이에요.', answer: '같은 수(예: 8, 8)' },
