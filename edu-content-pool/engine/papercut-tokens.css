@@ -1,0 +1,184 @@
+/* paper-cutting-ui 토큰과 기본 요소 — edu-content-pool(수업 플레이어·교사 화면·카탈로그) 공통.
+   원본은 저장소 루트 papercut.css · DESIGN.md 이다. 전부 복사하지 않고 이 화면들이 쓰는 토큰과 요소만 옮겼다.
+   런처 교실 허브 CSP(font-src 'self')에서도 그대로 보이도록 웹 글꼴 없이 시스템 글꼴 스택만 쓴다.
+   요소: 카드스톡 단추(.pl-btn·.pc-btn — 색지 윗면 + 밑판 + 스티칭) · 파인 입력 칸(input·textarea·select)
+         · 종이 시트(.pc-card) · 리본 머리(--pc-ribbon-cut) · 종이 접기 체크(접힌 모서리 체크 칩). */
+:root {
+  /* 바탕·종이 */
+  --pc-cream: #F8F4EC;          /* 무광 크림 작업대 */
+  --pc-paper: #FFFDF9;          /* 올린 종이 한 장 */
+  --pc-paper-cream: #FAF6ED;
+  --pc-kraft: #E2DAC8;          /* 크라프트 밑판·칼선 */
+  --pc-kraft-mid: #D8CAB8;
+  --pc-kraft-deep: #B9A58C;
+  --pc-well: #EDE8DE;           /* 칼로 파낸 홈 바닥 */
+  /* 잉크 — 보조 글자는 크림·파스텔 바탕 모두에서 4.5:1 이상(#7D7368은 미달) */
+  --pc-ink: #3D352E;
+  --pc-muted: #635A50;
+  /* 파스텔 색지: 윗면(-light) · 색지(기본) · 밑판(-layer) · 잉크(-dark) */
+  --pc-mint: #A3D8C3; --pc-mint-light: #EAF7F1; --pc-mint-dark: #275C46; --pc-mint-layer: #82C2A8;
+  --pc-peach: #F7BA9E; --pc-peach-light: #FDF1EA; --pc-peach-dark: #6E3B21; --pc-peach-layer: #E69D7B;
+  --pc-lavender: #D7CBEB; --pc-lavender-light: #F4F0FA; --pc-lavender-dark: #473B6B; --pc-lavender-layer: #B8A6D9;
+  --pc-buttercup: #FEE396; --pc-buttercup-light: #FFF9E8; --pc-buttercup-dark: #6E530F; --pc-buttercup-layer: #EDC96C;
+  --pc-sky: #BDE0EA; --pc-sky-light: #EDF7FA; --pc-sky-dark: #204C5A; --pc-sky-layer: #98C8D6;
+  --pc-rose: #F5B8BE; --pc-rose-light: #FDF0F1; --pc-rose-dark: #702830; --pc-rose-layer: #DE939B;
+  /* 그림자: 315° 빛, 번트 엄버 2단(칼선 접촉 48% + 들뜬 층) */
+  --pc-shadow-tint: 46, 30, 20;
+  --pc-shadow-contact: 0 1.2px 2px rgba(var(--pc-shadow-tint), 0.48);
+  --pc-shadow-elevated: 0 4.5px 10px rgba(var(--pc-shadow-tint), 0.26);
+  --pc-shadow-bevel: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  /* 종이 층: 윗종이 아래로 크라프트 두 장이 비친다 */
+  --pc-paper-shadow-sm:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0.8px 1px 0 var(--pc-kraft-mid),
+    1.5px 2px 0 var(--pc-kraft-deep),
+    2px 2.6px 0 rgba(var(--pc-shadow-tint), 0.30),
+    3.5px 4.5px 7px rgba(var(--pc-shadow-tint), 0.14);
+  --pc-paper-shadow-lg:
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    1px 1px 0 var(--pc-kraft-mid),
+    1.8px 2px 0 var(--pc-kraft-deep),
+    2.6px 3px 0 rgba(var(--pc-shadow-tint), 0.34),
+    3.8px 4.5px 1.5px rgba(var(--pc-shadow-tint), 0.16),
+    5.5px 7px 12px rgba(var(--pc-shadow-tint), 0.10);
+  /* 파인 홈(입력 칸·교구 받침) */
+  --pc-shadow-well:
+    inset 0 1.8px 3px rgba(var(--pc-shadow-tint), 0.30),
+    inset 0 4px 10px rgba(var(--pc-shadow-tint), 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.95);
+  --pc-stitch: rgba(var(--pc-shadow-tint), 0.22);
+  /* 리본 머리 끝의 제비꼬리 칼선(오른쪽) */
+  --pc-ribbon-cut: polygon(0 0, 100% 0, calc(100% - 9px) 50%, 100% 100%, 0 100%);
+  /* 모양 */
+  --pc-radius-sm: 10px;
+  --pc-radius-md: 16px;
+  --pc-radius-lg: 24px;
+  --pc-radius-pill: 999px;
+  --pc-focus: #473B6B;
+  --pc-ease-fold: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --pc-ease-glide: cubic-bezier(0.25, 1, 0.5, 1);
+  /* 시스템 글꼴만(외부 글꼴 금지). 한글 글꼴을 라틴 기본값보다 앞에 둔다 */
+  --pc-font: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', 'Noto Sans KR', 'Nanum Gothic', system-ui, sans-serif;
+  --pc-font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* 무광 크림 작업대: 아주 옅은 종이 결(점) — 이미지 파일 없이 */
+body {
+  background-color: var(--pc-cream);
+  background-image: radial-gradient(rgba(var(--pc-shadow-tint), 0.035) 0.8px, transparent 0.9px);
+  background-size: 7px 7px;
+  font-family: var(--pc-font);
+  color: var(--pc-ink);
+}
+
+/* 키보드 초점: 크림 틈 + 라벤더 잉크 박음선(두 겹) */
+:focus-visible { outline: 3px solid var(--pc-focus); outline-offset: 2px; }
+
+/* ---- 카드스톡 단추: 색지 윗면 · 3px 밑판 · 안쪽 스티칭. 누르면 밑판에 붙는다 ---- */
+.pl-btn, .pc-btn {
+  --pc-face: var(--pc-paper);
+  --pc-face-ink: var(--pc-ink);
+  --pc-base: var(--pc-kraft);
+  --pc-seam: var(--pc-stitch);
+  position: relative;
+  isolation: isolate;
+  background-color: var(--pc-face);
+  color: var(--pc-face-ink);
+  border: 1px solid rgba(var(--pc-shadow-tint), 0.16);
+  border-top-color: rgba(255, 255, 255, 0.95);
+  box-shadow:
+    inset 0 1.2px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1.2px 0 rgba(var(--pc-shadow-tint), 0.08),
+    0 3px 0 var(--pc-base),
+    0 3.8px 0 rgba(var(--pc-shadow-tint), 0.28),
+    0 6px 10px rgba(var(--pc-shadow-tint), 0.14);
+  transition: transform 0.14s var(--pc-ease-glide), box-shadow 0.14s ease, background-color 0.2s ease;
+}
+.pl-btn::after, .pc-btn::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1.2px dashed var(--pc-seam);
+  border-radius: inherit;
+  pointer-events: none;
+}
+/* 들썩임 대신 밝기 — 마우스 아래에서 단추가 떨리지 않게 */
+.pl-btn:hover, .pc-btn:hover { background-image: linear-gradient(rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.32)); }
+.pl-btn:active, .pc-btn:active {
+  transform: translateY(3px);
+  box-shadow:
+    inset 0 1.5px 3px rgba(var(--pc-shadow-tint), 0.22),
+    0 0 0 var(--pc-base),
+    0 1px 1.5px rgba(var(--pc-shadow-tint), 0.30);
+}
+
+/* ---- 파인 입력 칸: 칼로 파낸 홈. 초점이면 민트 띠 ---- */
+:where(input:not([type="radio"], [type="checkbox"], [type="file"], [type="range"], [type="color"]), textarea, select) {
+  font: inherit;
+  color: var(--pc-ink);
+  background-color: var(--pc-well);
+  border: 1px solid transparent;
+  border-radius: var(--pc-radius-sm);
+  box-shadow: var(--pc-shadow-well);
+}
+:where(input:not([type="radio"], [type="checkbox"], [type="file"], [type="range"], [type="color"]), textarea, select):focus {
+  background-color: var(--pc-paper);
+  box-shadow: inset 0 1.5px 3px rgba(var(--pc-shadow-tint), 0.18), 0 0 0 3px var(--pc-mint), 0 1px 0 #fff;
+}
+:where(input, textarea)::placeholder { color: var(--pc-muted); opacity: 1; }
+
+/* ---- 종이 접기 체크: 네모 색지 칩. 고르면 민트로 바뀌고 오른쪽 위 모서리가 접힌다 ---- */
+.pl-choice input[type="radio"], .pl-choice input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  position: relative;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+  border: 1.5px solid var(--pc-kraft-deep);
+  background: var(--pc-paper);
+  box-shadow: var(--pc-shadow-bevel), 0 1px 0 var(--pc-kraft-mid);
+  cursor: pointer;
+  overflow: hidden;
+}
+.pl-choice input[type="radio"]::before, .pl-choice input[type="checkbox"]::before {
+  /* 체크 표시: 종이 띠 두 개를 ㄴ자로 붙인 모양(테두리로 그림) */
+  content: "";
+  position: absolute;
+  left: 7px; top: 3px;
+  width: 6px; height: 11px;
+  border: solid var(--pc-mint-dark);
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg) scale(0.4);
+  opacity: 0;
+  transition: transform 0.18s var(--pc-ease-fold), opacity 0.1s ease;
+}
+.pl-choice input[type="radio"]::after, .pl-choice input[type="checkbox"]::after {
+  /* 접힌 모서리: 뒷면 색지가 삼각형으로 드러난다 */
+  content: "";
+  position: absolute;
+  top: 0; right: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0;
+  border-color: transparent var(--pc-paper) transparent transparent;
+  box-shadow: -1px 1px 2px rgba(var(--pc-shadow-tint), 0.25);
+  transition: border-width 0.18s var(--pc-ease-fold);
+}
+.pl-choice input:checked { background: var(--pc-mint); border-color: var(--pc-mint-dark); }
+.pl-choice input:checked::before { opacity: 1; transform: rotate(45deg) scale(1); }
+.pl-choice input:checked::after { border-width: 0 8px 8px 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+  .pl-btn:active, .pc-btn:active { transform: none; }
+}
+
+@media print {
+  body { background: #fff !important; background-image: none !important; }
+  .pl-btn, .pc-btn { box-shadow: none; }
+  .pl-btn::after, .pc-btn::after { display: none; }
+}

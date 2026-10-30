@@ -55,7 +55,7 @@ export function bundleStale(id) {
   if (!existsSync(entry)) return { reason: 'missing', newer: [] };
   const built = statSync(entry).mtimeMs;
   let l; try { l = loadLesson(`${id}.js`); } catch (e) { return { reason: `lesson-unreadable: ${e.message}`, newer: [] }; }
-  const src = ['engine/paperkit.js', 'engine/paperkit.css', 'lessons/registry.js', 'lessons/player.js', 'lessons/player.css', 'lessons/player.html', `lessons/data/${id}.js`, CARDS, ...toolsOf(l).map((t) => `engine/tools/${t}.js`)];
+  const src = ['engine/paperkit.js', 'engine/paperkit.css', 'engine/papercut-tokens.css', 'lessons/registry.js', 'lessons/player.js', 'lessons/player.css', 'lessons/player.html', `lessons/data/${id}.js`, CARDS, ...toolsOf(l).map((t) => `engine/tools/${t}.js`)];
   const newer = src.filter((rel) => existsSync(join(here, rel)) && statSync(join(here, rel)).mtimeMs > built + 1);
   return newer.length ? { reason: 'stale', newer } : null;
 }
@@ -76,7 +76,7 @@ function playerHTML(lessonId, title) {
 }
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const VENDOR = ['vendor/classroom-ui/exam.css', 'vendor/classroom-ui/print.css', 'vendor/uicons/css/uicons-regular-rounded.css', 'vendor/uicons/webfonts/uicons-regular-rounded.woff2', 'vendor/uicons/LICENSE.txt'];
-const ENGINE = ['engine/paperkit.js', 'engine/paperkit.css'];
+const ENGINE = ['engine/paperkit.js', 'engine/paperkit.css', 'engine/papercut-tokens.css'];
 const PLAYER = ['lessons/registry.js', 'lessons/player.js', 'lessons/player.css'];
 
 function copyAll(out, rels) {
@@ -141,6 +141,7 @@ function unitIndexHTML(unit, rows) {
   <title>${esc(`${unit.grade}학년 ${unit.subject} · ${unit.unitTitle}`)}</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="vendor/uicons/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="engine/papercut-tokens.css">
   <link rel="stylesheet" href="engine/paperkit.css">
   <link rel="stylesheet" href="lessons/player.css">
   <style>
