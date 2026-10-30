@@ -166,27 +166,27 @@
             task: '친구의 상황을 읽고, 날씨에 맞게 입는 방법을 골라요.',
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
-              { prompt: '눈 오는 아침이에요. 준호는 어떻게 입으면 좋을까요?', toolOptions: { mode: 'branch', who: '준호', situation: '눈이 오는 아침, 준호는 좋아하는 반소매 티셔츠를 입고 싶어요.', choices: [
+              { prompt: '눈 오는 아침이에요. 준호는 어떻게 입으면 좋을까요?', toolOptions: { mode: 'branch', who: '준호', situation: '눈이 오는 아침, 준호는 좋아하는 반소매 티셔츠를 입고 싶어요.', success: '맞아요! 좋아하는 옷 위에 외투를 입으면 눈 오는 날에도 따뜻해요.', choices: [
                 { id: 'coat', text: '반소매 위에 두꺼운 외투를 입어요', result: '따뜻하게 눈 놀이를 해요', mood: '신남' },
                 { id: 'only', text: '반소매만 입고 나가요', result: '몸이 덜덜 떨리고 콧물이 나요', mood: '걱정', why: '눈 오는 날 반소매만 입으면 몸이 어떻게 될지 떠올려 봐요.' },
                 { id: 'hold', text: '외투를 손에 들고만 가요', result: '손에 든 외투는 몸을 데워 주지 못해요', mood: '속상함', why: '외투는 입어야 따뜻해요.' }] },
-                target: { choice: 'coat' }, difficulty: 0.05,
+                target: { choice: 'coat' }, hints: ['눈 오는 아침 바깥은 얼마나 추울지 먼저 떠올려 보고, 보기마다 그렇게 입으면 몸이 어떨지 따져요.','고른 방법대로 나가면 바깥에서 몸이 따뜻할까요? 옷은 들고 있을 때와 입었을 때가 같을까요?','반소매 위에 두꺼운 외투를 입어요. 좋아하는 옷도 입고, 몸도 따뜻해요.'], difficulty: 0.05,
                 levels: { easy: { toolOptions: { choices: [
                   { id: 'coat', text: '반소매 위에 두꺼운 외투를 입어요', result: '따뜻하게 눈 놀이를 해요', mood: '신남' },
                   { id: 'only', text: '반소매만 입고 나가요', result: '몸이 덜덜 떨리고 콧물이 나요', mood: '걱정', why: '눈 오는 날 반소매만 입으면 몸이 어떻게 될지 떠올려 봐요.' }] } } } },
-              { prompt: '아주 더운 날 체육 시간이에요. 민지는 어떻게 입으면 좋을까요?', toolOptions: { mode: 'branch', who: '민지', situation: '햇볕이 쨍쨍한 날, 민지가 운동장 체육 시간에 나가요.', choices: [
+              { prompt: '아주 더운 날 체육 시간이에요. 민지는 어떻게 입으면 좋을까요?', toolOptions: { mode: 'branch', who: '민지', situation: '햇볕이 쨍쨍한 날, 민지가 운동장 체육 시간에 나가요.', success: '맞아요! 더운 날에는 얇은 옷을 입고 모자로 햇볕을 가려요.', choices: [
                 { id: 'hat', text: '반소매 옷에 모자를 써요', result: '시원하게 뛰어놀아요', mood: '기쁨' },
                 { id: 'hood', text: '두꺼운 후드 티셔츠를 입어요', result: '땀이 줄줄 나고 어지러워요', mood: '걱정', why: '더운 날 두꺼운 옷을 입으면 몸에 열이 쌓여요.' },
                 { id: 'scarf', text: '목도리를 둘러요', result: '목에 땀띠가 나요', mood: '속상함', why: '목도리는 추운 날 목을 따뜻하게 하는 옷이에요.' }] },
-                target: { choice: 'hat' }, difficulty: 0.05,
+                target: { choice: 'hat' }, hints: ['햇볕이 쨍쨍한 날 운동장에서 뛰면 몸이 어떻게 될지 먼저 떠올리고, 보기마다 그 옷을 입은 모습을 생각해요.','고른 옷을 입고 뛰면 땀이 많이 날까요, 시원할까요? 그 옷은 어느 계절에 입는 옷인가요?','반소매 옷에 모자를 써요. 얇은 옷은 시원하고, 모자는 뜨거운 햇볕을 가려 줘요.'], difficulty: 0.05,
                 levels: { easy: { toolOptions: { choices: [
                   { id: 'hat', text: '반소매 옷에 모자를 써요', result: '시원하게 뛰어놀아요', mood: '기쁨' },
                   { id: 'hood', text: '두꺼운 후드 티셔츠를 입어요', result: '땀이 줄줄 나고 어지러워요', mood: '걱정', why: '더운 날 두꺼운 옷을 입으면 몸에 열이 쌓여요.' }] } } } },
-              { prompt: '아침은 쌀쌀하고 낮에는 따뜻해진대요. 하준이는 어떻게 입으면 좋을까요?', toolOptions: { mode: 'branch', who: '하준', situation: '선선한 가을 아침이에요. 낮에는 따뜻해진다고 해요.', choices: [
+              { prompt: '아침은 쌀쌀하고 낮에는 따뜻해진대요. 하준이는 어떻게 입으면 좋을까요?', toolOptions: { mode: 'branch', who: '하준', situation: '선선한 가을 아침이에요. 낮에는 따뜻해진다고 해요.', success: '맞아요! 아침에는 겉옷을 입고, 낮에 더우면 벗으면 돼요.', choices: [
                 { id: 'layer', text: '얇은 겉옷을 입고, 더우면 벗어요', result: '아침에도 낮에도 알맞아요', mood: '편안함' },
                 { id: 'heavy', text: '두꺼운 외투만 입어요', result: '낮에 너무 더워 땀이 나요', mood: '짜증', why: '낮에는 따뜻해진대요. 두꺼운 외투는 낮에 어떨까요?' },
                 { id: 'thin', text: '반소매만 입어요', result: '아침에 오들오들 떨어요', mood: '걱정', why: '아침은 쌀쌀하대요. 아침에 나설 때를 떠올려 봐요.' }] },
-                target: { choice: 'layer' }, difficulty: 0.2,
+                target: { choice: 'layer' }, hints: ['아침 날씨와 낮 날씨가 어떻게 다른지 먼저 짚고, 두 때에 모두 알맞은 방법을 찾아요.','고른 방법은 쌀쌀한 아침에도, 따뜻한 낮에도 알맞나요? 한 때만 생각하지 않았는지 보세요.','얇은 겉옷을 입고, 더우면 벗어요. 입고 벗기 쉬운 옷이 날씨가 바뀌는 날에 알맞아요.'], difficulty: 0.2,
                 levels: { challenge: { toolOptions: { choices: [
                   { id: 'layer', text: '얇은 겉옷을 입고, 더우면 벗어요', result: '아침에도 낮에도 알맞아요', mood: '편안함' },
                   { id: 'heavy', text: '두꺼운 외투만 입어요', result: '낮에 너무 더워 땀이 나요', mood: '짜증', why: '낮에는 따뜻해진대요. 두꺼운 외투는 낮에 어떨까요?' },
@@ -270,11 +270,11 @@
             levels: CARD_LV,
             items: [
               { prompt: '물에 들어가려는 준호에게 해 줄 말을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '민지', label: '물에 들어가기 전에 ___ 해.' }, { id: 'f2', who: '민지', label: '물에는 ___ 함께 들어가.' }], cards: ['준비 운동을', '낮잠을', '어른과', '혼자서'] },
-                target: { fill: { f1: '준비 운동을', f2: '어른과' } }, difficulty: 0.05 },
+                target: { fill: { f1: '준비 운동을', f2: '어른과' } }, difficulty: 0.05, levels: { challenge: { toolOptions: { cards: ['준비 운동을', '낮잠을', '어른과', '혼자서', '친구 몰래'] } } } },
               { prompt: '언 길을 걷는 친구에게 해 줄 말을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '서아', label: '길이 꽁꽁 얼었어. ___ 걸어.' }, { id: 'f2', who: '서아', label: '주머니에서 ___ 빼고 걸어.' }], cards: ['천천히', '뛰어서', '손을', '발을'] },
                 target: { fill: { f1: '천천히', f2: '손을' } }, difficulty: 0.1 },
               { prompt: '황사가 심한 날, 하준이에게 해 줄 말을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '준호', label: '오늘은 ___ 놀자.' }, { id: 'f2', who: '준호', label: '집에 가면 손과 얼굴을 ___.' }], cards: ['교실에서', '운동장에서', '씻자', '그대로 두자'] },
-                target: { fill: { f1: '교실에서', f2: '씻자' } }, difficulty: 0.15 },
+                target: { fill: { f1: '교실에서', f2: '씻자' } }, difficulty: 0.15, levels: { challenge: { toolOptions: { cards: ['교실에서', '운동장에서', '씻자', '그대로 두자', '바닷가에서'] } } } },
               { prompt: '모둠 친구와 펭귄 걸음으로 교실 뒤를 한 바퀴 걸어요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -677,7 +677,7 @@
               { prompt: '날씨와 알맞은 준비물을 이어 보세요.', toolOptions: { mode: 'match', topic: '날씨와 준비물', slots: [{ id: 'rain', label: '오늘 비가 와요', motif: 'cloud' }, { id: 'sun', label: '햇볕이 쨍쨍하고 더워요', motif: 'sun' }, { id: 'snow', label: '눈이 오고 바람이 차요', motif: 'snow' }], cards: ['우산', '모자와 물병', '장갑과 목도리'] },
                 target: { match: { rain: '우산', sun: '모자와 물병', snow: '장갑과 목도리' } }, difficulty: 0.05 },
               { prompt: '아침은 맑고 오후에 비가 온대요. 챙길 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '가방에 넣을 것', cards: ['접는 우산', '얇은 비옷', '물놀이 튜브', '털장갑'] },
-                target: { pick: ['접는 우산', '얇은 비옷'] }, difficulty: 0.15,
+                target: { pick: ['접는 우산', '얇은 비옷'] }, difficulty: 0.15, levels: { challenge: { toolOptions: { cards: ['접는 우산', '얇은 비옷', '물놀이 튜브', '털장갑', '물안경'] } } },
                 predict: { q: '아침이 맑으면 오후도 맑을까요?', options: ['꼭 맑아요', '바뀔 수 있어요'], answer: 1 },
                 conclude: '날씨는 하루 동안 바뀔 수 있어요. 아침 하늘과 함께 일기 예보도 살펴요.' },
               { prompt: '날씨를 알려면 집을 나서기 전에 무엇을 할까요? 알맞은 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '집을 나서기 전에', cards: ['창밖 하늘을 봐요', '일기 예보를 들어요', '어제 입은 옷을 그대로 입어요', '달력의 그림을 봐요'] },
@@ -760,12 +760,12 @@
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
               { prompt: '비 오는 날 우산을 쓸 때 지킬 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '우산 바르게 쓰기', items: [{ id: 'look', text: '펴기 전에 둘레를 살펴요' }, { id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }] },
-                target: { checklist: ['look', 'down', 'shake'] }, difficulty: 0.05 },
+                target: { checklist: ['look', 'down', 'shake'] }, difficulty: 0.05, levels: { challenge: { toolOptions: { items: [{ id: 'look', text: '펴기 전에 둘레를 살펴요' }, { id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }, { id: 'spin', text: '친구 옆에서 우산을 빙글빙글 돌려 물을 털어요' }] } }, easy: { toolOptions: { items: [{ id: 'down', text: '우산 끝을 아래로 들고 걸어요' }, { id: 'swing', text: '우산을 휘두르며 장난쳐요' }, { id: 'shake', text: '교실에 들기 전에 물기를 털어요' }] }, target: { checklist: ['down', 'shake'] } } } },
               { prompt: '미세먼지가 나쁜 날 지킬 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '미세먼지 나쁜 날', items: [{ id: 'mask', text: '밖에 나갈 때 마스크를 써요' }, { id: 'in', text: '운동장 대신 교실에서 놀아요' }, { id: 'open', text: '창문을 하루 종일 활짝 열어 둬요' }, { id: 'wash', text: '집에 오면 손과 얼굴을 씻어요' }] },
                 target: { checklist: ['mask', 'in', 'wash'] }, difficulty: 0.15,
                 levels: { challenge: { toolOptions: { items: [{ id: 'mask', text: '밖에 나갈 때 마스크를 써요' }, { id: 'in', text: '운동장 대신 교실에서 놀아요' }, { id: 'open', text: '창문을 하루 종일 활짝 열어 둬요' }, { id: 'wash', text: '집에 오면 손과 얼굴을 씻어요' }, { id: 'run', text: '밖에서 오래 달리기를 해요' }] } } } },
               { prompt: '바람이 세게 부는 날 지킬 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '바람이 센 날', items: [{ id: 'strap', text: '모자 끈을 묶어요' }, { id: 'sign', text: '간판과 공사장 옆을 피해 걸어요' }, { id: 'open', text: '우산을 펴고 뛰어다녀요' }, { id: 'coat', text: '비가 오면 우산 대신 비옷을 입어요' }] },
-                target: { checklist: ['strap', 'sign', 'coat'] }, difficulty: 0.2 },
+                target: { checklist: ['strap', 'sign', 'coat'] }, difficulty: 0.2, levels: { challenge: { toolOptions: { items: [{ id: 'strap', text: '모자 끈을 묶어요' }, { id: 'sign', text: '간판과 공사장 옆을 피해 걸어요' }, { id: 'open', text: '우산을 펴고 뛰어다녀요' }, { id: 'coat', text: '비가 오면 우산 대신 비옷을 입어요' }, { id: 'wall', text: '높은 담 위에 올라가 바람을 맞아요' }] } } } },
               { prompt: '짝과 우산을 펴고, 끝을 아래로 들고 걷고, 물기를 털어 접어 보세요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -775,23 +775,23 @@
             task: '날씨가 갑자기 바뀐 상황을 읽고, 가장 알맞은 행동을 골라요.',
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
-              { prompt: '학교 끝날 때 소나기가 쏟아져요. 민지는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '민지', situation: '집에 가려는데 소나기가 쏟아져요. 우산이 없어요.', choices: [
+              { prompt: '학교 끝날 때 소나기가 쏟아져요. 민지는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '민지', situation: '집에 가려는데 소나기가 쏟아져요. 우산이 없어요.', success: '맞아요! 어른께 알리고 기다리면 비가 그치거나 도움을 받을 수 있어요.', choices: [
                 { id: 'wait', text: '선생님께 알리고 학교에서 기다려요', result: '비가 그칠 때까지 안전하게 기다려요', mood: '편안함' },
                 { id: 'run', text: '비를 맞으며 집까지 뛰어가요', result: '흠뻑 젖고 미끄러질 뻔해요', mood: '걱정', why: '비 오는 길에서 뛰면 미끄러질 수 있어요.' }] },
-                target: { choice: 'wait' }, difficulty: 0.05 },
-              { prompt: '운동장에서 놀다가 천둥이 쳐요. 준호는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '운동장에서 놀고 있는데 하늘이 번쩍이고 천둥이 쳐요.', choices: [
+                target: { choice: 'wait' }, hints: ['소나기가 쏟아질 때 밖으로 나가면 어떤 일이 생길지 먼저 떠올려요. 도와줄 어른이 누구인지도 생각해요.','고른 방법대로 하면 몸이 젖거나 미끄러지지 않을까요? 소나기는 오래 오는 비인가요?','선생님께 알리고 학교에서 기다려요. 소나기는 금방 그치는 일이 많고, 선생님이 도와주실 수 있어요.'], difficulty: 0.05, levels: { challenge: { toolOptions: { choices: [{ id: 'wait', text: '선생님께 알리고 학교에서 기다려요', result: '비가 그칠 때까지 안전하게 기다려요', mood: '편안함' }, { id: 'run', text: '비를 맞으며 집까지 뛰어가요', result: '흠뻑 젖고 미끄러질 뻔해요', mood: '걱정', why: '비 오는 길에서 뛰면 미끄러질 수 있어요.' }, { id: 'bag', text: '가방을 머리에 쓰고 빨리 뛰어가요', result: '가방도 젖고 길에서 미끄러질 뻔해요', mood: '걱정', why: '가방으로는 비를 다 막지 못하고, 비 오는 길에서 뛰면 미끄러워요.' }] } } } },
+              { prompt: '운동장에서 놀다가 천둥이 쳐요. 준호는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '운동장에서 놀고 있는데 하늘이 번쩍이고 천둥이 쳐요.', success: '맞아요! 번개가 칠 때는 바로 건물 안으로 들어가야 안전해요.', choices: [
                 { id: 'in', text: '바로 건물 안으로 들어가요', result: '안전하게 천둥이 멎기를 기다려요', mood: '편안함' },
                 { id: 'tree', text: '큰 나무 아래에서 비를 피해요', result: '번개는 높은 나무에 잘 떨어져 위험해요', mood: '무서움', why: '번개는 높은 곳에 잘 떨어져요. 나무 아래는 위험해요.' },
                 { id: 'play', text: '그냥 계속 놀아요', result: '넓은 운동장에 혼자 있으면 위험해요', mood: '무서움', why: '천둥이 치면 넓은 곳에 있지 않아요.' }] },
-                target: { choice: 'in' }, difficulty: 0.15,
+                target: { choice: 'in' }, hints: ['번개가 치는 날 바깥에서 어디가 가장 안전한지 먼저 생각해요. 높이 솟은 것 곁은 어떨지도 떠올려요.','고른 곳은 지붕과 벽이 있는 곳인가요? 큰 나무처럼 높은 것 아래는 번개가 칠 때 위험해요.','바로 건물 안으로 들어가요. 나무 아래나 운동장은 번개가 칠 때 위험해요.'], difficulty: 0.15,
                 levels: { easy: { toolOptions: { choices: [
                   { id: 'in', text: '바로 건물 안으로 들어가요', result: '안전하게 천둥이 멎기를 기다려요', mood: '편안함' },
                   { id: 'play', text: '그냥 계속 놀아요', result: '넓은 운동장에 혼자 있으면 위험해요', mood: '무서움', why: '천둥이 치면 넓은 곳에 있지 않아요.' }] } } } },
-              { prompt: '친구가 우산이 없어 비를 맞고 있어요. 하준이는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '비 오는 길, 같은 쪽으로 가는 친구가 우산 없이 서 있어요.', choices: [
+              { prompt: '친구가 우산이 없어 비를 맞고 있어요. 하준이는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '비 오는 길, 같은 쪽으로 가는 친구가 우산 없이 서 있어요.', success: '맞아요! 함께 쓰면 친구도 나도 비를 덜 맞아요.', choices: [
                 { id: 'share', text: '같이 쓰자고 말하고 우산을 함께 써요', result: '둘 다 덜 젖고 친구가 고마워해요', mood: '고마움' },
                 { id: 'pass', text: '못 본 척 지나가요', result: '친구가 비를 맞고 속상해해요', mood: '속상함', why: '우산이 없는 친구의 마음을 떠올려 봐요.' },
                 { id: 'give', text: '내 우산을 주고 나는 비를 맞아요', result: '이번에는 내가 흠뻑 젖어요', mood: '걱정', why: '함께 쓰면 둘 다 덜 젖을 수 있어요.' }] },
-                target: { choice: 'share' }, difficulty: 0.2 },
+                target: { choice: 'share' }, hints: ['보기마다 그렇게 하면 친구와 내가 비를 얼마나 맞게 될지 둘 다 떠올려 봐요.','고른 방법대로 하면 두 사람 가운데 누가 비를 맞나요? 둘 다 덜 젖는 방법이 있을까요?','같이 쓰자고 말하고 우산을 함께 써요. 친구도 나도 비를 덜 맞아요.'], difficulty: 0.2 },
             ],
           },
         ],
@@ -960,7 +960,7 @@
                 target: { order: ['긴 종이를 가로로 놓아요', '앞뒤로 번갈아 접어요', '한쪽 끝을 테이프로 묶어요', '펼쳐서 부쳐요'] }, difficulty: 0.1 },
               { prompt: '색종이로 종이 부채를 접어 짝에게 바람을 보내 보세요. 다 했으면 "다 했어요"를 누르세요.', free: true },
               { prompt: '부채를 바르게 쓰는 방법만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '부채 바르게 쓰기', items: [{ id: 'soft', text: '얼굴 앞에서 살살 부쳐요' }, { id: 'hit', text: '부채로 친구를 톡톡 쳐요' }, { id: 'fold', text: '다 쓰면 접어서 넣어 둬요' }] },
-                target: { checklist: ['soft', 'fold'] }, difficulty: 0.05 },
+                target: { checklist: ['soft', 'fold'] }, difficulty: 0.05, levels: { challenge: { toolOptions: { items: [{ id: 'soft', text: '얼굴 앞에서 살살 부쳐요' }, { id: 'hit', text: '부채로 친구를 톡톡 쳐요' }, { id: 'fold', text: '다 쓰면 접어서 넣어 둬요' }, { id: 'eye', text: '친구 얼굴 가까이에서 세게 흔들어요' }] } } } },
             ],
           },
         ],
@@ -1042,7 +1042,7 @@
                 predict: { q: '언 손을 난로에 바로 대면 어떻게 될까요?', options: ['빨리 녹아 좋아요', '데일 수 있어요'], answer: 1 },
                 conclude: '언 손은 뜨거움을 잘 못 느껴 데일 수 있어요. 실내에서 비비거나 몸에 대어 천천히 녹여요.' },
               { prompt: '난로 곁에서 지킬 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '난로 곁 약속', items: [{ id: 'step', text: '난로와 한 걸음 넘게 떨어져요' }, { id: 'glove', text: '젖은 장갑을 난로 위에 올려 말려요' }, { id: 'run', text: '난로 둘레에서 뛰지 않아요' }, { id: 'tell', text: '난로가 이상하면 어른께 알려요' }] },
-                target: { checklist: ['step', 'run', 'tell'] }, difficulty: 0.15 },
+                target: { checklist: ['step', 'run', 'tell'] }, difficulty: 0.15, levels: { challenge: { toolOptions: { items: [{ id: 'step', text: '난로와 한 걸음 넘게 떨어져요' }, { id: 'glove', text: '젖은 장갑을 난로 위에 올려 말려요' }, { id: 'run', text: '난로 둘레에서 뛰지 않아요' }, { id: 'tell', text: '난로가 이상하면 어른께 알려요' }, { id: 'paper', text: '난로 바로 옆에 종이 상자를 쌓아 둬요' }] } } } },
               { prompt: '모두 일어나 몸 데우기 체조를 해요. 제자리 걷기, 팔 돌리기, 손 비비기를 한 뒤 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -1202,22 +1202,22 @@
             task: '상황을 읽고 에너지를 아끼는 행동을 골라요. 모둠별로 교실을 살펴요.',
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
-              { prompt: '체육 시간이라 교실이 비어요. 난방기가 켜져 있어요. 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '모두 체육관에 가서 교실이 비어요. 난방기가 켜져 있어요.', choices: [
+              { prompt: '체육 시간이라 교실이 비어요. 난방기가 켜져 있어요. 어떻게 할까요?', toolOptions: { mode: 'branch', situation: '모두 체육관에 가서 교실이 비어요. 난방기가 켜져 있어요.', success: '맞아요! 아무도 없는 교실의 난방기를 끄면 에너지를 아껴요.', choices: [
                 { id: 'tell', text: '선생님께 난방기가 켜져 있다고 알려요', result: '선생님이 끄시고 칭찬해 주셔요', mood: '뿌듯함' },
                 { id: 'leave', text: '그냥 두고 나가요', result: '빈 교실에서 에너지가 새어 나가요', mood: '걱정', why: '아무도 없는 교실의 난방은 누구를 위한 것일까요?' }] },
-                target: { choice: 'tell' }, difficulty: 0.05 },
-              { prompt: '서아는 추워서 난방을 세게 틀고 싶어요. 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '서아', situation: '서아가 춥다고 해요. 반소매 옷을 입고 있어요.', choices: [
+                target: { choice: 'tell' }, hints: ['아무도 없는 교실에서 난방기가 돌아가면 그 따뜻한 바람은 누구에게 쓰일지 생각해요.','고른 방법대로 하면 빈 교실에서 난방기가 계속 돌아가나요? 2학년이 직접 끄기 어려우면 누구에게 말하면 될까요?','선생님께 난방기가 켜져 있다고 알려요. 빈 교실의 난방기를 끄면 에너지를 아껴요.'], difficulty: 0.05 },
+              { prompt: '서아는 추워서 난방을 세게 틀고 싶어요. 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '서아', situation: '서아가 춥다고 해요. 반소매 옷을 입고 있어요.', success: '맞아요! 옷을 먼저 챙겨 입으면 난방을 덜 써도 따뜻해요.', choices: [
                 { id: 'wear', text: '겉옷을 먼저 입어 봐요', result: '금세 따뜻해지고 에너지도 아껴요', mood: '편안함' },
                 { id: 'max', text: '난방을 가장 세게 틀어요', result: '교실이 너무 더워지고 에너지를 많이 써요', mood: '짜증', why: '기계를 켜기 전에 내가 먼저 할 수 있는 일이 있어요.' },
                 { id: 'open', text: '창문을 열고 난방을 세게 틀어요', result: '따뜻한 공기가 밖으로 빠져나가요', mood: '걱정', why: '창문이 열리면 따뜻한 공기가 어디로 갈까요?' }] },
-                target: { choice: 'wear' }, difficulty: 0.15,
+                target: { choice: 'wear' }, hints: ['서아가 왜 추운지 먼저 살펴요. 지금 입은 옷은 어떤 옷인가요?','고른 방법은 에너지를 많이 쓰나요, 적게 쓰나요? 창문을 열고 난방을 틀면 따뜻한 공기가 어디로 갈까요?','겉옷을 먼저 입어 봐요. 옷으로 몸을 데우면 난방을 세게 틀지 않아도 돼요.'], difficulty: 0.15,
                 levels: { easy: { toolOptions: { choices: [
                   { id: 'wear', text: '겉옷을 먼저 입어 봐요', result: '금세 따뜻해지고 에너지도 아껴요', mood: '편안함' },
                   { id: 'max', text: '난방을 가장 세게 틀어요', result: '교실이 너무 더워지고 에너지를 많이 써요', mood: '짜증', why: '기계를 켜기 전에 내가 먼저 할 수 있는 일이 있어요.' }] } } } },
-              { prompt: '쉬는 시간에 창문을 열어 환기했어요. 다음에 할 일은?', toolOptions: { mode: 'branch', situation: '쉬는 시간에 창문을 잠깐 열어 공기를 바꾸었어요. 이제 수업이 시작돼요.', choices: [
+              { prompt: '쉬는 시간에 창문을 열어 환기했어요. 다음에 할 일은?', toolOptions: { mode: 'branch', situation: '쉬는 시간에 창문을 잠깐 열어 공기를 바꾸었어요. 이제 수업이 시작돼요.', success: '맞아요! 공기를 바꾼 뒤에는 창문을 닫아야 따뜻한 공기가 새지 않아요.', choices: [
                 { id: 'close', text: '창문을 닫고 수업을 시작해요', result: '깨끗한 공기에 교실도 다시 따뜻해져요', mood: '편안함' },
                 { id: 'keep', text: '창문을 계속 열어 둬요', result: '교실이 점점 추워지고 난방이 헛돌아요', mood: '걱정', why: '환기는 잠깐이면 돼요. 오래 열면 따뜻함이 빠져나가요.' }] },
-                target: { choice: 'close' }, difficulty: 0.15 },
+                target: { choice: 'close' }, hints: ['창문을 연 까닭이 무엇이었는지 떠올리고, 그 일이 끝났는지 생각해요.','공기는 이미 바뀌었어요. 겨울에 창문을 계속 열어 두면 난방한 따뜻한 공기는 어떻게 될까요?','창문을 닫고 수업을 시작해요. 환기는 잠깐, 그 뒤에는 닫아야 에너지를 아껴요.'], difficulty: 0.15, levels: { challenge: { toolOptions: { choices: [{ id: 'close', text: '창문을 닫고 수업을 시작해요', result: '깨끗한 공기에 교실도 다시 따뜻해져요', mood: '편안함' }, { id: 'keep', text: '창문을 계속 열어 둬요', result: '교실이 점점 추워지고 난방이 헛돌아요', mood: '걱정', why: '환기는 잠깐이면 돼요. 오래 열면 따뜻함이 빠져나가요.' }, { id: 'max', text: '창문을 닫고 난방을 가장 세게 틀어요', result: '교실이 너무 더워지고 에너지를 많이 써요', mood: '짜증', why: '창문을 닫으면 교실은 곧 다시 따뜻해져요. 난방을 세게 틀 까닭이 없어요.' }] } } } },
               { prompt: '모둠별로 교실을 한 바퀴 돌며 문과 빈 곳 전등을 살피고 결과를 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -1297,12 +1297,12 @@
             items: [
               { prompt: '활동지 실천표에 이번 주 약속 세 가지를 적어요. 다 적었으면 "다 했어요"를 누르세요.', free: true },
               { prompt: '내가 정한 약속을 한 주 동안 지킬 자신이 얼마나 있나요? 지금 마음을 골라 보세요.', toolOptions: { mode: 'scale', situation: '이번 주 계절 생활 약속 세 가지를 정했어요.', feeling: '설렘', ask: '지킬 자신은 얼마나 될까요?', scaleLabels: { 1: '조금', 5: '아주 많이' }, after: '어떤 마음이든 괜찮아요. 날마다 ○ 하며 키워 가요.' }, target: { level: 'any' }, difficulty: 0 },
-              { prompt: '약속을 하루 잊었어요. 하준이는 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '하준', situation: '하준이가 어제 손 씻기 약속을 잊었어요. 실천표 한 칸이 비었어요.', choices: [
+              { prompt: '약속을 하루 잊었어요. 하준이는 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '하준', situation: '하준이가 어제 손 씻기 약속을 잊었어요. 실천표 한 칸이 비었어요.', success: '맞아요! 하루 잊었어도 오늘 다시 지키면 돼요.', choices: [
                 { id: 'again', text: '오늘 다시 지키고 ○ 해요', result: '다시 이어 가는 힘이 생겨요', mood: '뿌듯함' },
                 { id: 'quit', text: '하루 잊었으니 실천표를 버려요', result: '약속이 습관이 되지 못해요', mood: '속상함', why: '하루 잊어도 다시 하면 돼요.' },
                 { id: 'fake', text: '어제 칸에도 몰래 ○ 해요', result: '실천표가 내 모습을 알려 주지 못해요', mood: '걱정', why: '실천표는 내 모습을 그대로 보여 줄 때 쓸모가 있어요.' }] },
-                target: { choice: 'again' }, difficulty: 0.1,
-                levels: { easy: { toolOptions: { choices: [
+                target: { choice: 'again' }, hints: ['실천표는 무엇을 하려고 쓰는지 먼저 떠올려요. 하루 빈 칸이 있으면 실천표는 쓸모가 없어질까요?','고른 방법대로 하면 습관이 이어질까요? 하지 않은 날에 ○ 하면 실천표가 사실과 맞을까요?','오늘 다시 지키고 ○ 해요. 빈 칸은 그대로 두고, 오늘부터 다시 이어 가요.'], difficulty: 0.1,
+                levels: { challenge: { toolOptions: { choices: [{ id: 'again', text: '오늘 다시 지키고 ○ 해요', result: '다시 이어 가는 힘이 생겨요', mood: '뿌듯함' }, { id: 'quit', text: '하루 잊었으니 실천표를 버려요', result: '약속이 습관이 되지 못해요', mood: '속상함', why: '하루 잊어도 다시 하면 돼요.' }, { id: 'fake', text: '어제 칸에도 몰래 ○ 해요', result: '실천표가 내 모습을 알려 주지 못해요', mood: '걱정', why: '실천표는 내 모습을 그대로 보여 줄 때 쓸모가 있어요.' }, { id: 'later', text: '다음 주 월요일부터 다시 시작해요', result: '그사이 며칠이 그냥 지나가요', mood: '걱정', why: '잊은 것을 알았으면 바로 오늘 다시 하면 돼요.' }] } }, easy: { toolOptions: { choices: [
                   { id: 'again', text: '오늘 다시 지키고 ○ 해요', result: '다시 이어 가는 힘이 생겨요', mood: '뿌듯함' },
                   { id: 'quit', text: '하루 잊었으니 실천표를 버려요', result: '약속이 습관이 되지 못해요', mood: '속상함', why: '하루 잊어도 다시 하면 돼요.' }] } } } },
             ],
@@ -1370,7 +1370,7 @@
             items: [
               { prompt: '학교 둘레를 걸으며 달라진 것을 활동지에 세 가지 적어요. 교실에 돌아오면 "다 했어요"를 누르세요.', free: true },
               { prompt: '화단과 나무 카드를 여름 모습과 지금 모습으로 나누어 보세요.', toolOptions: { topic: '화단과 나무', slots: ['여름에 봤어요', '지금 봐요'], cards: ['해바라기가 활짝 폈어요', '매미가 맴맴 울었어요', '나뭇잎이 붉게 물들었어요', '꽃이 지고 씨가 맺혔어요'] },
-                target: { sort: { '여름에 봤어요': ['해바라기가 활짝 폈어요', '매미가 맴맴 울었어요'], '지금 봐요': ['나뭇잎이 붉게 물들었어요', '꽃이 지고 씨가 맺혔어요'] } }, difficulty: 0.1 },
+                target: { sort: { '여름에 봤어요': ['해바라기가 활짝 폈어요', '매미가 맴맴 울었어요'], '지금 봐요': ['나뭇잎이 붉게 물들었어요', '꽃이 지고 씨가 맺혔어요'] } }, difficulty: 0.1, levels: { challenge: { prompt: '화단과 나무 카드를 여름 모습과 지금 모습으로 나누어 보세요. 여름에도 지금도 보지 못한 카드는 남겨 두세요.', toolOptions: { cards: ['해바라기가 활짝 폈어요', '매미가 맴맴 울었어요', '나뭇잎이 붉게 물들었어요', '꽃이 지고 씨가 맺혔어요', '눈사람이 서 있어요'] } } } },
               { prompt: '운동장의 사람 모습 카드를 여름 모습과 지금 모습으로 나누어 보세요.', toolOptions: { topic: '운동장의 사람들', slots: ['여름에 봤어요', '지금 봐요'], cards: ['그늘에 모여 쉬어요', '수돗가에서 얼굴을 씻어요', '겉옷을 입고 뛰어요', '햇볕이 드는 곳에 모여요'] },
                 target: { sort: { '여름에 봤어요': ['그늘에 모여 쉬어요', '수돗가에서 얼굴을 씻어요'], '지금 봐요': ['겉옷을 입고 뛰어요', '햇볕이 드는 곳에 모여요'] } }, difficulty: 0.2,
                 predict: { q: '여름에는 그늘, 지금은 햇볕을 찾아요. 왜 달라졌을까요?', options: ['날씨가 바뀌어서', '운동장이 바뀌어서'], answer: 0 },
@@ -1467,18 +1467,18 @@
             task: '덜 지킨 약속을 지킬 새 방법을 고르고, 한 주 동안의 내 실천을 돌아봐요.',
             levels: { easy: { steps: 3 }, base: {}, challenge: {} },
             items: [
-              { prompt: '민지는 손 씻기를 자꾸 잊어요. 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '민지', situation: '민지는 바깥 놀이 뒤에 손 씻기를 자꾸 잊어요.', choices: [
+              { prompt: '민지는 손 씻기를 자꾸 잊어요. 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '민지', situation: '민지는 바깥 놀이 뒤에 손 씻기를 자꾸 잊어요.', success: '맞아요! 눈에 잘 띄는 곳의 그림이 잊지 않게 도와줘요.', choices: [
                 { id: 'note', text: '교실 문에 손 씻기 그림을 붙여요', result: '들어올 때마다 그림을 보고 기억해요', mood: '뿌듯함' },
                 { id: 'drop', text: '손 씻기 약속을 지워 버려요', result: '감기를 막는 습관이 사라져요', mood: '걱정', why: '지키기 어려운 약속은 지우기보다 방법을 바꿔 봐요.' },
                 { id: 'blame', text: '알려 주지 않은 친구 탓을 해요', result: '친구도 속상하고 약속도 그대로예요', mood: '속상함', why: '내 약속은 내가 기억할 방법을 찾아요.' }] },
-                target: { choice: 'note' }, difficulty: 0.1,
+                target: { choice: 'note' }, hints: ['민지가 언제 잊는지 먼저 짚고, 그때 떠올리게 도와줄 방법을 찾아요.','고른 방법대로 하면 민지가 다음에는 손을 씻게 될까요? 약속을 지우거나 남 탓을 하면 습관이 생길까요?','교실 문에 손 씻기 그림을 붙여요. 들어올 때마다 그림을 보고 떠올릴 수 있어요.'], difficulty: 0.1,
                 levels: { easy: { toolOptions: { choices: [
                   { id: 'note', text: '교실 문에 손 씻기 그림을 붙여요', result: '들어올 때마다 그림을 보고 기억해요', mood: '뿌듯함' },
                   { id: 'drop', text: '손 씻기 약속을 지워 버려요', result: '감기를 막는 습관이 사라져요', mood: '걱정', why: '지키기 어려운 약속은 지우기보다 방법을 바꿔 봐요.' }] } } } },
-              { prompt: '준호는 나갈 때 전등 끄기를 잊어요. 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '준호', situation: '준호는 방을 나갈 때 전등 끄기를 자꾸 잊어요.', choices: [
+              { prompt: '준호는 나갈 때 전등 끄기를 잊어요. 어떻게 하면 좋을까요?', toolOptions: { mode: 'branch', who: '준호', situation: '준호는 방을 나갈 때 전등 끄기를 자꾸 잊어요.', success: '맞아요! 서로 물어 주는 짝이 있으면 잊지 않고 끌 수 있어요.', choices: [
                 { id: 'pair', text: '"불 껐니?" 하고 서로 묻는 짝을 정해요', result: '짝이 물어봐 주어 잊지 않아요', mood: '고마움' },
                 { id: 'never', text: '전등을 아예 켜지 않아요', result: '어두워서 넘어질 뻔해요', mood: '무서움', why: '필요할 때는 켜고, 나갈 때 끄면 돼요.' }] },
-                target: { choice: 'pair' }, difficulty: 0.15 },
+                target: { choice: 'pair' }, hints: ['준호가 언제 잊는지 먼저 짚고, 그때 떠올리게 도와줄 방법을 찾아요.','전등을 아예 켜지 않으면 어두운 방에서 어떻게 될까요? 필요할 때 켜고 나갈 때 끄는 방법을 찾아요.','\'불 껐니?\' 하고 서로 묻는 짝을 정해요. 필요할 때는 켜고, 나갈 때는 잊지 않고 꺼요.'], difficulty: 0.15, levels: { challenge: { toolOptions: { choices: [{ id: 'pair', text: '\"불 껐니?\" 하고 서로 묻는 짝을 정해요', result: '짝이 물어봐 주어 잊지 않아요', mood: '고마움' }, { id: 'never', text: '전등을 아예 켜지 않아요', result: '어두워서 넘어질 뻔해요', mood: '무서움', why: '필요할 때는 켜고, 나갈 때 끄면 돼요.' }, { id: 'wait', text: '가족이 대신 꺼 주기를 기다려요', result: '빈방에 불이 오래 켜져 있어요', mood: '걱정', why: '내 약속은 내가 지킬 방법을 찾아요.' }] } } } },
               { prompt: '한 주 동안 내 약속을 얼마나 지켰는지 지금 마음을 골라 보세요.', toolOptions: { mode: 'scale', situation: '한 주 동안 실천표에 ○를 했어요.', feeling: '뿌듯함', ask: '나는 약속을 얼마나 지켰나요?', scaleLabels: { 1: '조금', 5: '아주 많이' }, after: '덜 지킨 약속은 새 방법으로 다시 해 봐요.' }, target: { level: 'any' }, difficulty: 0 },
               { prompt: '짝과 실천표를 바꾸어 보고, 친구가 잘 지킨 약속을 하나 칭찬해 주세요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
@@ -1562,7 +1562,7 @@
                 target: { order: ['옷을 바닥에 펼쳐요', '양쪽 소매를 안으로 접어요', '아래에서 위로 반 접어요', '상자에 넣고 이름표를 붙여요'] }, difficulty: 0.1 },
               { prompt: '짝과 함께 티셔츠 한 장을 개어 상자에 넣어 보세요. 다 했으면 "다 했어요"를 누르세요.', free: true },
               { prompt: '겨울 외투를 꺼내 입기 전에 할 일만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '외투 꺼내기', items: [{ id: 'size', text: '입어 보고 작지 않은지 살펴요' }, { id: 'zip', text: '단추나 지퍼가 잘 되는지 봐요' }, { id: 'dust', text: '먼지를 털고 바람을 쐬어요' }, { id: 'tag', text: '이름표를 떼어 버려요' }] },
-                target: { checklist: ['size', 'zip', 'dust'] }, difficulty: 0.15 },
+                target: { checklist: ['size', 'zip', 'dust'] }, difficulty: 0.15, levels: { challenge: { toolOptions: { items: [{ id: 'size', text: '입어 보고 작지 않은지 살펴요' }, { id: 'zip', text: '단추나 지퍼가 잘 되는지 봐요' }, { id: 'dust', text: '먼지를 털고 바람을 쐬어요' }, { id: 'tag', text: '이름표를 떼어 버려요' }, { id: 'heat', text: '외투를 난로 위에 걸쳐 말려요' }] } } } },
             ],
           },
         ],
@@ -1626,7 +1626,7 @@
               { prompt: '가족 일과 그 일을 하는 계절을 이어 보세요.', toolOptions: { mode: 'match', topic: '계절과 가족 일', slots: [{ id: 'spr', label: '땅이 녹는 봄' }, { id: 'sum', label: '무더운 여름' }, { id: 'aut', label: '곡식이 익는 가을' }, { id: 'win', label: '추위가 오기 전 초겨울' }], cards: ['텃밭에 씨앗을 심어요', '대나무 돗자리를 깔아요', '벼를 거두어요', '김장을 해요'] },
                 target: { match: { spr: '텃밭에 씨앗을 심어요', sum: '대나무 돗자리를 깔아요', aut: '벼를 거두어요', win: '김장을 해요' } }, difficulty: 0.15 },
               { prompt: '김장을 하는 까닭으로 알맞은 것만 골라 보세요.', toolOptions: { mode: 'pick', basket: '김장하는 까닭', cards: ['겨울 내내 먹을 김치를 마련해요', '배추가 맛있게 자란 때예요', '여름 더위를 식혀요', '물놀이를 하려고요'] },
-                target: { pick: ['겨울 내내 먹을 김치를 마련해요', '배추가 맛있게 자란 때예요'] }, difficulty: 0.2 },
+                target: { pick: ['겨울 내내 먹을 김치를 마련해요', '배추가 맛있게 자란 때예요'] }, difficulty: 0.2, levels: { challenge: { toolOptions: { cards: ['겨울 내내 먹을 김치를 마련해요', '배추가 맛있게 자란 때예요', '여름 더위를 식혀요', '물놀이를 하려고요', '봄꽃을 보려고요'] } } } },
               { prompt: '가족에게 들은 계절 이야기를 활동지에 한 줄로 적어요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -1722,7 +1722,7 @@
               { prompt: '눈 덮인 산을 꾸며 보세요. 세모를 두 개 넘게, 하양 조각을 세 개 넘게 붙여요.', target: { has: [{ shape: 'triangle', min: 2 }, { color: '하양', min: 3 }] }, difficulty: 0.1,
                 levels: { challenge: { prompt: '눈 덮인 산을 꾸며 보세요. 세모 두 개 넘게, 하양 조각 세 개 넘게, 밤하늘에 노랑 별도 하나 붙여요.', target: { has: [{ shape: 'triangle', min: 2 }, { color: '하양', min: 3 }, { shape: 'star', color: '노랑', min: 1 }] } } } },
               { prompt: '겨울에 하고 싶은 일을 조각으로 꾸미고, 해낸 것을 점검 목록에 표시해요.', target: { selfCheck: ['겨울에 할 수 있는 일을 골랐어요', '겨울 날씨가 보이게 꾸몄어요', '짝에게 하고 싶은 까닭을 말했어요'], minPieces: 4 }, difficulty: 0.1 },
-              { prompt: '활동지에 겨울에 하고 싶은 일을 크레파스로 그려요. 다 그렸으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '활동지에 겨울에 하고 싶은 일을 크레파스로 그려요. 다 그렸으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -1804,9 +1804,9 @@
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
               { prompt: '다가오는 겨울에 해야 할 습관만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '겨울 습관', items: [{ id: 'ice', text: '빙판길을 천천히 걸어요' }, { id: 'layer', text: '옷을 여러 겹 입어요' }, { id: 'fan', text: '부채를 들고 다녀요' }, { id: 'heater', text: '난로와 한 걸음 떨어져요' }] },
-                target: { checklist: ['ice', 'layer', 'heater'] }, difficulty: 0.1 },
+                target: { checklist: ['ice', 'layer', 'heater'] }, difficulty: 0.1, levels: { easy: { toolOptions: { items: [{ id: 'ice', text: '빙판길을 천천히 걸어요' }, { id: 'fan', text: '부채를 들고 다녀요' }, { id: 'heater', text: '난로와 한 걸음 떨어져요' }] }, target: { checklist: ['ice', 'heater'] } } } },
               { prompt: '계절과 상관없이 언제나 하는 습관만 표시해 보세요.', toolOptions: { mode: 'checklist', title: '언제나 하는 습관', items: [{ id: 'wash', text: '밖에서 돌아오면 손을 씻어요' }, { id: 'sleep', text: '밤에 일찍 자요' }, { id: 'sled', text: '눈썰매를 타요' }, { id: 'sun', text: '햇볕을 피해 그늘에 있어요' }] },
-                target: { checklist: ['wash', 'sleep'] }, difficulty: 0.2 },
+                target: { checklist: ['wash', 'sleep'] }, difficulty: 0.2, levels: { challenge: { toolOptions: { items: [{ id: 'wash', text: '밖에서 돌아오면 손을 씻어요' }, { id: 'sleep', text: '밤에 일찍 자요' }, { id: 'sled', text: '눈썰매를 타요' }, { id: 'sun', text: '햇볕을 피해 그늘에 있어요' }, { id: 'scarf', text: '목도리를 둘러요' }] } } } },
               { prompt: '짝과 다가오는 겨울에 이어 갈 습관 하나를 정하고 새끼손가락을 걸어 약속해요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -1887,7 +1887,7 @@
               { prompt: '나 반의 투표 결과예요. 가장 적은 사람이 고른 약속은 무엇인가요?', toolOptions: { type: 'picture', mode: 'read', title: '나 반 겨울 약속 투표', data: [['천천히 걷기', 8], ['물 마시기', 4], ['겉옷 입기', 11]], unit: '명', xLabel: '약속', yLabel: '고른 사람', icons: [{ value: 1, name: '1명' }], icon: 'person', choices: ['천천히 걷기', '물 마시기', '겉옷 입기'], question: '가장 적게 고른 약속은?' },
                 target: { pick: 1 }, difficulty: 0.15 },
               { prompt: '다 반의 투표 결과예요. 손 씻기를 고른 사람은 몇 명인가요?', toolOptions: { type: 'picture', mode: 'read', title: '다 반 겨울 약속 투표', data: [['손 씻기', 7], ['난로 조심', 10], ['문 닫기', 6]], unit: '명', xLabel: '약속', yLabel: '고른 사람', icons: [{ value: 1, name: '1명' }], icon: 'person', choices: ['6명', '7명', '10명'], question: '손 씻기를 고른 사람은?' },
-                target: { pick: 1 }, difficulty: 0.2 },
+                target: { pick: 1 }, difficulty: 0.2, levels: { challenge: { prompt: '다 반의 투표 결과예요. 난로 조심을 고른 사람은 문 닫기를 고른 사람보다 몇 명 더 많나요?', toolOptions: { choices: ['3명', '4명', '6명'], question: '난로 조심은 문 닫기보다 몇 명 더 많을까요?' }, target: { pick: 1 } } } },
             ],
           },
         ],
@@ -1922,7 +1922,7 @@
     differentiation: {
       easy: '그래프에 수가 함께 보여요. 고르기는 맞으면 초록 테두리가 생겨요.',
       base: '그래프의 그림을 세어 고르고 확인을 눌러요.',
-      challenge: '아직 막연한 약속 카드가 섞여 있고, 그림 수를 세어 답해야 해요.',
+      challenge: '아직 막연한 약속 카드가 섞여 있고, 그림 수를 세어 두 약속의 차이까지 답해요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 좋은 말이면 다 약속이라고 여긴다 → "내일 이 약속을 지켰는지 어떻게 알 수 있을까?"로 묻는다. ② 그림그래프의 그림을 하나하나 세다가 틀린다 → 다섯 개씩 묶어 세게 한다. ③ 표가 적은 모둠이 속상해한다 → 표가 적은 약속도 다음 달 약속으로 남긴다. 투표는 붙임 딱지로 하고 누가 무엇을 골랐는지는 적지 않는다.',
   }));
@@ -1948,11 +1948,11 @@
             task: '처음 보는 상황을 읽고, 배운 계절 생활 방법을 골라요.',
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
-              { prompt: '가을 운동회 날이에요. 서아는 어떻게 준비할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '가을 운동회 날이에요. 아침은 쌀쌀하고 낮에는 햇볕이 따갑대요.', choices: [
+              { prompt: '가을 운동회 날이에요. 서아는 어떻게 준비할까요?', toolOptions: { mode: 'branch', who: '서아', situation: '가을 운동회 날이에요. 아침은 쌀쌀하고 낮에는 햇볕이 따갑대요.', success: '맞아요! 쌀쌀한 아침과 따가운 낮을 모두 생각해 챙겼어요.', choices: [
                 { id: 'ok', text: '얇은 겉옷에 모자, 물병을 챙겨요', result: '아침에도 낮에도 알맞게 뛰어요', mood: '신남' },
                 { id: 'coat', text: '두꺼운 외투만 입고 가요', result: '낮에 땀이 줄줄 나요', mood: '짜증', why: '낮에는 햇볕이 따갑대요. 낮의 날씨를 떠올려 봐요.' },
                 { id: 'none', text: '아침 날씨만 보고 물병은 두고 가요', result: '낮에 목이 말라 힘들어요', mood: '걱정', why: '날씨는 하루 동안 바뀌어요. 낮도 생각해요.' }] },
-                target: { choice: 'ok' }, difficulty: 0.15,
+                target: { choice: 'ok' }, hints: ['아침 날씨와 낮 날씨를 둘 다 짚고, 운동회에서 뛰면 몸이 어떻게 될지도 떠올려요.','고른 방법은 아침에만 맞나요, 낮에만 맞나요? 낮에 뛰고 나면 무엇이 필요할까요?','얇은 겉옷에 모자, 물병을 챙겨요. 아침엔 겉옷, 낮엔 모자와 물이 필요해요.'], difficulty: 0.15,
                 levels: { challenge: { toolOptions: { choices: [
                   { id: 'ok', text: '얇은 겉옷에 모자, 물병을 챙겨요', result: '아침에도 낮에도 알맞게 뛰어요', mood: '신남' },
                   { id: 'coat', text: '두꺼운 외투만 입고 가요', result: '낮에 땀이 줄줄 나요', mood: '짜증', why: '낮에는 햇볕이 따갑대요. 낮의 날씨를 떠올려 봐요.' },
@@ -1960,19 +1960,19 @@
                   { id: 'short', text: '반소매에 모자, 물병을 챙겨요', result: '아침 줄서기 때 오들오들 떨어요', mood: '걱정', why: '아침은 쌀쌀하대요. 아침에 나설 때도 떠올려 봐요.' }] } }, easy: { toolOptions: { choices: [
                   { id: 'ok', text: '얇은 겉옷에 모자, 물병을 챙겨요', result: '아침에도 낮에도 알맞게 뛰어요', mood: '신남' },
                   { id: 'coat', text: '두꺼운 외투만 입고 가요', result: '낮에 땀이 줄줄 나요', mood: '짜증', why: '낮에는 햇볕이 따갑대요. 낮의 날씨를 떠올려 봐요.' }] } } } },
-              { prompt: '눈이 온 다음 날 아침이에요. 준호는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '밤새 눈이 왔어요. 학교 앞 길이 반들반들 얼었어요.', choices: [
+              { prompt: '눈이 온 다음 날 아침이에요. 준호는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '밤새 눈이 왔어요. 학교 앞 길이 반들반들 얼었어요.', success: '맞아요! 언 길에서는 손을 빼고 천천히 걸어야 넘어져도 덜 다쳐요.', choices: [
                 { id: 'slow', text: '장갑을 끼고 손을 빼고 천천히 걸어요', result: '미끄러지지 않고 학교에 와요', mood: '편안함' },
                 { id: 'slide', text: '언 길에서 미끄럼을 타며 와요', result: '넘어져 무릎을 다칠 뻔해요', mood: '무서움', why: '언 길에서 미끄럼을 타면 넘어질 수 있어요.' }] },
-                target: { choice: 'slow' }, difficulty: 0.05,
+                target: { choice: 'slow' }, hints: ['반들반들 언 길에서 걸으면 어떤 일이 생기기 쉬운지 먼저 떠올려요.','고른 방법대로 하면 넘어질 때 손으로 몸을 짚을 수 있나요? 길에서 미끄럼을 타면 어떻게 될까요?','장갑을 끼고 손을 빼고 천천히 걸어요. 넘어져도 손으로 짚을 수 있어요.'], difficulty: 0.05,
                 levels: { challenge: { toolOptions: { choices: [
                   { id: 'slow', text: '장갑을 끼고 손을 빼고 천천히 걸어요', result: '미끄러지지 않고 학교에 와요', mood: '편안함' },
                   { id: 'slide', text: '언 길에서 미끄럼을 타며 와요', result: '넘어져 무릎을 다칠 뻔해요', mood: '무서움', why: '언 길에서 미끄럼을 타면 넘어질 수 있어요.' },
                   { id: 'pocket', text: '손이 시려 주머니에 넣고 빨리 걸어요', result: '미끄러질 때 손을 짚지 못해 크게 넘어질 수 있어요', mood: '무서움', why: '언 길에서는 손을 주머니에서 빼고 천천히 걸어요.' }] } } } },
-              { prompt: '여름 캠프에서 친구가 땡볕에 오래 있었어요. 하준이는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '여름 캠프에서 친구가 땡볕 아래 오래 놀다가 얼굴이 빨개졌어요.', choices: [
+              { prompt: '여름 캠프에서 친구가 땡볕에 오래 있었어요. 하준이는 어떻게 할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '여름 캠프에서 친구가 땡볕 아래 오래 놀다가 얼굴이 빨개졌어요.', success: '맞아요! 더위에 지친 친구는 그늘에서 쉬게 하고 어른께 알려요.', choices: [
                 { id: 'shade', text: '그늘로 데려가고 선생님께 알려요', result: '친구가 쉬고 나아져요', mood: '고마움' },
                 { id: 'more', text: '더 놀자고 손을 끌어요', result: '친구가 어지러워 주저앉아요', mood: '걱정', why: '더위를 먹은 친구는 먼저 쉬어야 해요.' },
                 { id: 'ice', text: '얼음물을 한꺼번에 많이 마시게 해요', result: '친구 배가 아파요', mood: '속상함', why: '물은 조금씩 마셔야 해요. 먼저 그늘로 가요.' }] },
-                target: { choice: 'shade' }, difficulty: 0.15 },
+                target: { choice: 'shade' }, hints: ['얼굴이 빨개진 친구의 몸이 지금 어떤 상태일지 먼저 떠올리고, 누구의 도움이 필요한지 생각해요.','고른 방법대로 하면 친구 몸의 열이 내려갈까요? 차가운 물을 한꺼번에 많이 마시면 배가 괜찮을까요?','그늘로 데려가고 선생님께 알려요. 시원한 곳에서 쉬고, 물은 조금씩 마셔요.'], difficulty: 0.15 },
               { prompt: '처음 보는 생활 카드를 더운 날과 추운 날로 나누어 보세요.', toolOptions: { mode: 'sort', cards: ['오이 냉국을 먹어요', '털 실내화를 신어요', '방충망을 닫아요', '가습기를 켜요'], slots: ['더운 날', '추운 날'], weather: false },
                 target: { sort: { '더운 날': ['오이 냉국을 먹어요', '방충망을 닫아요'], '추운 날': ['털 실내화를 신어요', '가습기를 켜요'] } }, difficulty: 0.15,
                 levels: { challenge: { prompt: '처음 보는 생활 카드를 더운 날과 추운 날로 나누어 보세요. 날씨와 상관없는 카드는 남겨요.', toolOptions: { cards: ['오이 냉국을 먹어요', '털 실내화를 신어요', '방충망을 닫아요', '가습기를 켜요', '밥 먹기 전에 손을 씻어요'] } } } },
@@ -1995,7 +1995,7 @@
         id: 'wrapup', title: '정리', minutes: 8,
         teacher: '"더 노력할 것 하나를 정했나요?" 실천표 아래에 적게 한다. "다음 시간부터는 계절과 생활이 어떻게 이어지는지 궁금한 것을 직접 알아보는 탐구를 해요." 단원 뒷부분을 미리 알린다.',
         exitTicket: [
-          { type: 'tool', tool: 'emotion', options: { mode: 'branch', situation: '아침에 맑았는데 예보에 오후 소나기가 있어요.', choices: [{ id: 'take', text: '접는 우산을 챙겨요', result: '오후 소나기에도 젖지 않아요', mood: '편안함' }, { id: 'skip', text: '맑으니 그냥 가요', result: '오후에 흠뻑 젖어요', mood: '속상함', why: '날씨는 하루 동안 바뀌어요.' }] }, prompt: '어떻게 하면 좋을지 골라 보세요.', target: { choice: 'take' }, difficulty: 0.1 },
+          { type: 'tool', tool: 'emotion', options: { mode: 'branch', situation: '아침에 맑았는데 예보에 오후 소나기가 있어요.', success: '맞아요! 지금 하늘뿐 아니라 예보도 보고 챙겼어요.', choices: [{ id: 'take', text: '접는 우산을 챙겨요', result: '오후 소나기에도 젖지 않아요', mood: '편안함' }, { id: 'skip', text: '맑으니 그냥 가요', result: '오후에 흠뻑 젖어요', mood: '속상함', why: '날씨는 하루 동안 바뀌어요.' }] }, prompt: '어떻게 하면 좋을지 골라 보세요.', target: { choice: 'take' }, hints: ['지금 하늘만 볼지, 예보도 함께 볼지 생각해요.','오후에 소나기가 오면 고른 방법으로 집에 갈 때 어떻게 될까요?','접는 우산을 챙겨요. 아침이 맑아도 예보에 비가 있으면 우산이 필요해요.'], difficulty: 0.1 },
           { type: 'choice', prompt: '계절이 바뀌면 우리 생활은 어떻게 하면 좋을까요?', options: ['언제나 똑같이 지내요', '날씨에 맞게 바꾸어 지내요', '여름에만 바꾸어요'], answer: 1, difficulty: 0.1, explain: '계절과 날씨에 맞게 옷·먹을거리·습관을 바꾸면 건강하고 안전해요.' },
           { type: 'short', prompt: '이번 겨울에 꼭 지킬 계절 생활 약속 하나를 쓰세요.' },
           MOOD,
@@ -2070,7 +2070,7 @@
               { prompt: '개구리에 대한 물음 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '민지', label: '개구리는 겨울에 땅속에서 어떻게 ___?' }], cards: ['지낼까요', '지냈어요'] },
                 target: { fill: { f1: '지낼까요' } }, difficulty: 0.05 },
               { prompt: '은행나무에 대한 물음 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '준호', label: '은행잎은 가을에 ___ 색으로 바뀔까요?' }, { id: 'f2', who: '준호', label: '노란 잎은 ___ 다 떨어질까요?' }], cards: ['무슨', '누가', '언제쯤', '누구를'] },
-                target: { fill: { f1: '무슨', f2: '언제쯤' } }, difficulty: 0.2 },
+                target: { fill: { f1: '무슨', f2: '언제쯤' } }, difficulty: 0.2, levels: { challenge: { toolOptions: { cards: ['무슨', '누가', '언제쯤', '누구를', '어디'] } } } },
               { prompt: '사람의 생활에 대한 물음 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '서아', label: '사람들은 겨울에 따뜻한 음식을 ___ 먹을까요?' }, { id: 'f2', who: '서아', label: '옛날 아이들의 겨울 놀이는 ___ 것이었을까요?' }], cards: ['왜', '어떤', '누구가', '어디가'] },
                 target: { fill: { f1: '왜', f2: '어떤' } }, difficulty: 0.2,
                 levels: { easy: { prompt: '사람의 생활에 대한 물음 문장을 완성해 보세요.', toolOptions: { slots: [{ id: 'f1', who: '서아', label: '사람들은 겨울에 따뜻한 음식을 ___ 먹을까요?' }], cards: ['왜', '누구가'] }, target: { fill: { f1: '왜' } } } } },
@@ -2399,7 +2399,7 @@
             levels: CARD_LV,
             items: [
               { prompt: '달 카드를 알맞은 계절에 나누어 보세요.', toolOptions: { mode: 'sort', axis: ['봄', '겨울'], slots: ['봄', '여름', '가을', '겨울'], cards: ['4월', '7월', '10월', '1월'] },
-                target: { sort: { '봄': ['4월'], '여름': ['7월'], '가을': ['10월'], '겨울': ['1월'] } }, difficulty: 0.1,
+                target: { sort: { '봄': ['4월'], '여름': ['7월'], '가을': ['10월'], '겨울': ['1월'] } }, difficulty: 0.1, levels: { challenge: { toolOptions: { cards: ['4월', '7월', '10월', '1월', '6월', '9월'] }, target: { sort: { '봄': ['4월'], '여름': ['7월', '6월'], '가을': ['10월', '9월'], '겨울': ['1월'] } } } },
                 hints: ['달력에서 꽃이 피는 달, 물놀이하는 달, 단풍 드는 달, 눈 오는 달을 떠올려 나누어요.', '흔들리는 카드의 달에 무슨 일이 있었는지 떠올려 보세요. 그때 날씨는 어땠나요?', '봄 3~5월, 여름 6~8월, 가을 9~11월, 겨울 12~2월이에요.'] },
               { prompt: '달 카드를 알맞은 계절에 나누어 보세요.', toolOptions: { mode: 'sort', axis: ['봄', '겨울'], slots: ['봄', '여름', '가을', '겨울'], cards: ['5월', '8월', '11월', '2월', '3월', '12월'] },
                 target: { sort: { '봄': ['5월', '3월'], '여름': ['8월'], '가을': ['11월'], '겨울': ['2월', '12월'] } }, difficulty: 0.25,
@@ -2484,7 +2484,7 @@
             items: [
               { prompt: '곰에 대한 물음 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '하준', label: '곰은 겨울잠을 자기 전에 ___ 많이 먹을까요?' }, { id: 'f2', who: '하준', label: '곰은 봄이 온 것을 ___ 알까요?' }], cards: ['왜', '어떻게', '누구가', '어디를'] },
                 target: { fill: { f1: '왜', f2: '어떻게' } }, difficulty: 0.15,
-                levels: { easy: { prompt: '곰에 대한 물음 문장을 완성해 보세요.', toolOptions: { slots: [{ id: 'f1', who: '하준', label: '곰은 겨울잠을 자기 전에 ___ 많이 먹을까요?' }], cards: ['왜', '누구가'] }, target: { fill: { f1: '왜' } } } } },
+                levels: { challenge: { toolOptions: { cards: ['왜', '어떻게', '누구가', '어디를', '무엇이'] } }, easy: { prompt: '곰에 대한 물음 문장을 완성해 보세요.', toolOptions: { slots: [{ id: 'f1', who: '하준', label: '곰은 겨울잠을 자기 전에 ___ 많이 먹을까요?' }], cards: ['왜', '누구가'] }, target: { fill: { f1: '왜' } } } } },
               { prompt: '기러기에 대한 물음 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '서아', label: '기러기는 겨울을 나고 ___ 떠날까요?' }], cards: ['어디로', '무엇을'] },
                 target: { fill: { f1: '어디로' } }, difficulty: 0.1 },
               { prompt: '모둠별로 동물 하나의 겨울나기를 몸으로 흉내 내고, 다른 모둠이 맞혀요. 다 했으면 "다 했어요"를 누르세요.', free: true },
@@ -2568,7 +2568,7 @@
               { prompt: '논에서 하는 일과 그 까닭을 이어 보세요.', toolOptions: { mode: 'match', topic: '왜 그때 할까?', slots: [{ id: 'plant', label: '봄에 모를 심어요' }, { id: 'cut', label: '가을에 벼를 베어요' }], cards: ['날이 따뜻해져 모가 잘 자라서', '벼가 다 여물어서'] },
                 target: { match: { plant: '날이 따뜻해져 모가 잘 자라서', cut: '벼가 다 여물어서' } }, difficulty: 0.15 },
               { prompt: '계절과 쌀·밥상이 이어지는 물음만 골라 보세요.', toolOptions: { mode: 'pick', basket: '계절과 밥상 물음', cards: ['추석에 왜 햅쌀로 송편을 빚을까요?', '겨울에는 논에서 무엇을 할까요?', '벼는 무슨 색 모자를 좋아할까요?', '쌀은 하얀색이에요.'] },
-                target: { pick: ['추석에 왜 햅쌀로 송편을 빚을까요?', '겨울에는 논에서 무엇을 할까요?'] }, difficulty: 0.2 },
+                target: { pick: ['추석에 왜 햅쌀로 송편을 빚을까요?', '겨울에는 논에서 무엇을 할까요?'] }, difficulty: 0.2, levels: { challenge: { toolOptions: { cards: ['추석에 왜 햅쌀로 송편을 빚을까요?', '겨울에는 논에서 무엇을 할까요?', '벼는 무슨 색 모자를 좋아할까요?', '쌀은 하얀색이에요.', '논에는 물이 있어요.'] } } } },
               { prompt: '모둠에서 쌀알을 흰 종이에 펼쳐 돋보기로 살피고, 본 모양을 하나씩 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -2631,7 +2631,7 @@
             levels: CARD_LV,
             items: [
               { prompt: '하준이의 탐구 계획서를 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'where', who: '하준', label: '살필 곳: 학교 ___ 앞' }, { id: 'how', who: '하준', label: '방법: 잎을 ___ 기록해요.' }], cards: ['은행나무', '급식실', '사진으로 찍어', '노래로 불러'] },
-                target: { fill: { where: '은행나무', how: '사진으로 찍어' } }, difficulty: 0.1 },
+                target: { fill: { where: '은행나무', how: '사진으로 찍어' } }, difficulty: 0.1, levels: { challenge: { toolOptions: { cards: ['은행나무', '급식실', '사진으로 찍어', '노래로 불러', '바람에 날려'] } } } },
               { prompt: '서아의 탐구 계획서를 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'q', who: '서아', label: '물음: 교실은 아침과 낮에 얼마나 ___?' }, { id: 'how', who: '서아', label: '방법: ___ 숫자를 읽어 적어요.' }, { id: 'when', who: '서아', label: '언제: 닷새 동안 아침과 ___' }], cards: ['다를까요', '좋아요', '온도계의', '시계의', '점심에', '꿈속에서'] },
                 target: { fill: { q: '다를까요', how: '온도계의', when: '점심에' } }, difficulty: 0.25,
                 levels: { easy: { prompt: '서아의 탐구 계획서를 완성해 보세요.', toolOptions: { slots: [{ id: 'how', who: '서아', label: '방법: ___ 숫자를 읽어 적어요.' }], cards: ['온도계의', '노래의'] }, target: { fill: { how: '온도계의' } } } } },
@@ -2733,7 +2733,7 @@
               { prompt: '사진 설명 카드를 알맞은 계절에 나누어 보세요.', toolOptions: { topic: '계절 사진', slots: ['봄', '여름', '가을', '겨울'], cards: ['벚꽃 아래 입학식', '수영장에서 물놀이', '은행잎 줍기', '눈사람 만들기'] },
                 target: { sort: { '봄': ['벚꽃 아래 입학식'], '여름': ['수영장에서 물놀이'], '가을': ['은행잎 줍기'], '겨울': ['눈사람 만들기'] } }, difficulty: 0.1 },
               { prompt: '사진 속 단서를 보고 알맞은 계절에 나누어 보세요.', toolOptions: { topic: '사진 속 단서', slots: ['봄', '여름', '가을', '겨울'], cards: ['나무에 연둣빛 새싹', '매미가 붙은 나무', '누렇게 익은 벼', '처마에 달린 고드름', '반소매에 밀짚모자', '두꺼운 패딩'] },
-                target: { sort: { '봄': ['나무에 연둣빛 새싹'], '여름': ['매미가 붙은 나무', '반소매에 밀짚모자'], '가을': ['누렇게 익은 벼'], '겨울': ['처마에 달린 고드름', '두꺼운 패딩'] } }, difficulty: 0.25 },
+                target: { sort: { '봄': ['나무에 연둣빛 새싹'], '여름': ['매미가 붙은 나무', '반소매에 밀짚모자'], '가을': ['누렇게 익은 벼'], '겨울': ['처마에 달린 고드름', '두꺼운 패딩'] } }, difficulty: 0.25, levels: { challenge: { prompt: '사진 속 단서를 보고 알맞은 계절에 나누어 보세요. 계절을 알 수 없는 카드는 남겨 두세요.', toolOptions: { cards: ['나무에 연둣빛 새싹', '매미가 붙은 나무', '누렇게 익은 벼', '처마에 달린 고드름', '반소매에 밀짚모자', '두꺼운 패딩', '교문 앞 표지판'] } } } },
               { prompt: '모둠 사진 묶음을 활동지 계절 표에 붙이고, 칸 아래에 단서를 한 낱말로 적어요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -2816,7 +2816,7 @@
                 target: { fill: { f1: '모였고', f2: '같은' } }, difficulty: 0.15,
                 levels: { easy: { prompt: '서아의 관찰 문장을 완성해 보세요.', toolOptions: { slots: [{ id: 'f2', who: '서아', label: '화단의 돌은 8월에도 11월에도 ___ 자리에 있어요.' }], cards: ['같은', '없는'] }, target: { fill: { f2: '같은' } } } } },
               { prompt: '준호의 관찰 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '준호', label: '8월에 살폈을 때 은행잎은 ___이었어요.' }, { id: 'f2', who: '준호', label: '11월에 다시 살폈더니 은행잎이 ___으로 바뀌었어요.' }], cards: ['초록색', '노란색'] },
-                target: { fill: { f1: '초록색', f2: '노란색' } }, difficulty: 0.1 },
+                target: { fill: { f1: '초록색', f2: '노란색' } }, difficulty: 0.1, levels: { challenge: { toolOptions: { cards: ['초록색', '노란색', '빨간색'] } } } },
               { prompt: '창밖의 한 곳을 정해 살피고, 관찰표에 여름 모습과 견준 문장을 하나 써요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -2982,7 +2982,7 @@
                 predict: { q: '추석에 왜 햇과일을 올릴까요?', options: ['가을에 열매를 거두어서', '과일 가게가 문을 열어서'], answer: 0 },
                 conclude: '추석은 가을걷이 때라서 새로 거둔 쌀과 과일로 음식을 차려요. 명절은 계절의 생활과 이어져 있어요.' },
               { prompt: '계절과 이어진 명절 이야기만 골라 보세요.', toolOptions: { mode: 'pick', basket: '계절과 이어진 명절', cards: ['단오에 더위 이기려 부채를 나눠요', '설날 추운 날씨에 따뜻한 떡국을 먹어요', '추석에는 텔레비전을 봐요', '명절에는 늦잠을 자요'] },
-                target: { pick: ['단오에 더위 이기려 부채를 나눠요', '설날 추운 날씨에 따뜻한 떡국을 먹어요'] }, difficulty: 0.25 },
+                target: { pick: ['단오에 더위 이기려 부채를 나눠요', '설날 추운 날씨에 따뜻한 떡국을 먹어요'] }, difficulty: 0.25, levels: { challenge: { toolOptions: { cards: ['단오에 더위 이기려 부채를 나눠요', '설날 추운 날씨에 따뜻한 떡국을 먹어요', '추석에는 텔레비전을 봐요', '명절에는 늦잠을 자요', '명절에는 가족이 모여요'] } } } },
               { prompt: '모둠별로 손을 잡고 둥글게 돌며 \'설날-단오-추석-동지\'를 차례로 외쳐요. 다 했으면 "다 했어요"를 누르세요.', free: true },
             ],
           },
@@ -3063,7 +3063,7 @@
             levels: CARD_LV,
             items: [
               { prompt: '하준이의 일기 문장을 나누어 보세요.', toolOptions: { topic: '하준이의 일기', slots: ['살펴서 알게 된 것', '마음으로 느낀 것'], cards: ['감이 주황색으로 익었어요', '나뭇잎이 반쯤 떨어졌어요', '감이 맛있어 보여 신났어요', '까치가 와서 반가웠어요'] },
-                target: { sort: { '살펴서 알게 된 것': ['감이 주황색으로 익었어요', '나뭇잎이 반쯤 떨어졌어요'], '마음으로 느낀 것': ['감이 맛있어 보여 신났어요', '까치가 와서 반가웠어요'] } }, difficulty: 0.2,
+                target: { sort: { '살펴서 알게 된 것': ['감이 주황색으로 익었어요', '나뭇잎이 반쯤 떨어졌어요'], '마음으로 느낀 것': ['감이 맛있어 보여 신났어요', '까치가 와서 반가웠어요'] } }, difficulty: 0.2, levels: { challenge: { prompt: '하준이의 일기 문장을 나누어 보세요. 물음 문장은 남겨 두세요.', toolOptions: { cards: ['감이 주황색으로 익었어요', '나뭇잎이 반쯤 떨어졌어요', '감이 맛있어 보여 신났어요', '까치가 와서 반가웠어요', '감은 언제 딸까요?'] } } },
                 predict: { q: '\'신났어요\'를 보고 감나무가 어떻게 달라졌는지 알 수 있을까요?', options: ['알 수 있어요', '알 수 없어요'], answer: 1 },
                 conclude: '느낀 것은 나의 마음을 알려 주고, 살펴서 알게 된 것은 감나무의 변화를 알려 줘요.' },
               { prompt: '서아의 일기 문장을 나누어 보세요.', toolOptions: { topic: '서아의 일기', slots: ['살펴서 알게 된 것', '마음으로 느낀 것'], cards: ['국화 꽃잎 끝이 갈색이에요', '줄기만 남아서 쓸쓸했어요', '국화 향기가 진해서 좋았어요', '꽃봉오리가 다섯 개 맺혔어요'] },
@@ -3138,7 +3138,7 @@
               { prompt: '같은 해 1월 날씨 기록이에요. 가장 적었던 날씨는 무엇인가요?', toolOptions: { type: 'bar', mode: 'read', title: '같은 해 1월 날씨', data: [['맑은 날', 16], ['흐린 날', 9], ['눈 온 날', 6]], unit: '일', xLabel: '날씨', yLabel: '날수', choices: ['맑은 날', '흐린 날', '눈 온 날'], question: '가장 적었던 날씨는?' },
                 target: { pick: 2 }, difficulty: 0.2 },
               { prompt: '두 달의 비나 눈이 온 날을 함께 나타냈어요. 비나 눈이 온 날이 더 많은 달은 언제인가요?', toolOptions: { type: 'bar', mode: 'read', title: '비나 눈이 온 날', data: [['7월', 15], ['1월', 6]], unit: '일', xLabel: '달', yLabel: '날수', choices: ['7월', '1월'], question: '비나 눈이 온 날이 더 많은 달은?' },
-                target: { pick: 0 }, difficulty: 0.2 },
+                target: { pick: 0 }, difficulty: 0.2, levels: { challenge: { prompt: '두 달의 비나 눈이 온 날을 함께 나타냈어요. 7월은 1월보다 비나 눈이 온 날이 며칠 더 많나요?', toolOptions: { choices: ['6일', '9일', '15일'], question: '7월은 1월보다 며칠 더 많을까요?' }, target: { pick: 1 } } } },
             ],
           },
           {
@@ -3187,7 +3187,7 @@
     differentiation: {
       easy: '막대 끝에 날수가 보여요. 막대 길이만 견주어 골라요.',
       base: '막대 길이를 견주어 고르고 확인을 눌러요.',
-      challenge: '두 달을 견주는 그래프가 있고, 날씨와 상관없는 카드가 섞여 있어요.',
+      challenge: '두 달을 견주는 그래프에서 날수 차이를 구하고, 날씨와 상관없는 카드가 섞여 있어요.',
     },
     teacherNotes: '자주 보이는 어려움: ① 겨울에는 눈 온 날이 가장 많다고 여긴다 → 1월 그래프에서 막대 길이를 견주게 한다. ② 날수의 큰 수(15, 16)를 어려워한다 → 수를 다 읽지 않아도 막대 길이로 견줄 수 있다고 알려 준다. ③ 그래프 자료는 수업을 위해 지은 어느 한 해의 예시 자료이며, 실제 지역 자료를 쓰려면 기상청 날씨누리의 지난 날씨를 교사가 미리 정리해 둔다.',
   }));
@@ -3406,7 +3406,7 @@
                 hints: ['빈칸 뒤의 생활을 읽고, 그렇게 하는 날의 날씨를 떠올려 까닭을 골라요.', '빈칸을 채운 문장을 소리 내어 읽어 보세요. 그 날씨에 정말 그 일을 하나요?', '바람이 차가워져서 목도리를 두르고, 날씨가 무더워서 수박을 차갑게 두어요.'],
                 levels: { easy: { prompt: '민지의 설명 문장을 완성해 보세요.', toolOptions: { slots: [{ id: 'f1', who: '민지', label: '바람이 ___ 사람들이 목도리를 둘러요.' }], cards: ['차가워져서', '무더워서'] }, target: { fill: { f1: '차가워져서' } } } } },
               { prompt: '준호의 설명 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '준호', label: '가을에 벼가 ___ 농부가 벼를 베어요.' }, { id: 'f2', who: '준호', label: '늦가을에 배추를 ___ 집집마다 김장을 해요.' }], cards: ['누렇게 익어서', '거두어서', '심어서'] },
-                target: { fill: { f1: '누렇게 익어서', f2: '거두어서' } }, difficulty: 0.2,
+                target: { fill: { f1: '누렇게 익어서', f2: '거두어서' } }, difficulty: 0.2, levels: { challenge: { toolOptions: { cards: ['누렇게 익어서', '거두어서', '심어서', '꽃이 피어서'] } } },
                 hints: ['빈칸 뒤의 일을 하려면 그 앞에 어떤 일이 있어야 하는지 떠올려요.', '김장은 다 자란 배추로 해요. 막 심은 배추로 김장을 할 수 있을까요?', '벼가 누렇게 익어서 베고, 배추를 거두어서 김장을 해요.'] },
               { prompt: '내가 겪은 계절 생활 하나를 "~해서 ~해요."로 짝에게 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
@@ -3491,7 +3491,7 @@
               { prompt: '서아의 쪽지 "알게 된 것" 칸에 알맞은 문장만 골라 보세요.', toolOptions: { mode: 'pick', basket: '알게 된 것', weather: false, cards: ['9월에는 초록 잎, 11월에는 노란 잎이었어요', '11월에는 9월보다 떨어진 잎이 많았어요', '은행나무가 정말 예뻤어요', '은행나무 사진 찍기가 재미있었어요'] },
                 target: { pick: ['9월에는 초록 잎, 11월에는 노란 잎이었어요', '11월에는 9월보다 떨어진 잎이 많았어요'] }, difficulty: 0.15,
                 hints: ['알게 된 것은 두 때를 견주어 본 것이에요. 마음이나 느낌과 가려요.', '고른 카드에 9월과 11월을 견준 말이 들어 있나요?', '잎 색이 바뀐 것과 떨어진 잎이 늘어난 것이 견주어 알게 된 것이에요. 예뻤다, 재미있었다는 느낌이에요.'] },
-              { prompt: '친구가 "계절이랑 옷은 상관없어."라고 말해요. 하준이는 어떻게 답할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '하준이가 옷차림 발표를 마치자 친구가 "계절이랑 옷은 상관없어."라고 말했어요.', choices: [
+              { prompt: '친구가 "계절이랑 옷은 상관없어."라고 말해요. 하준이는 어떻게 답할까요?', toolOptions: { mode: 'branch', who: '하준', situation: '하준이가 옷차림 발표를 마치자 친구가 "계절이랑 옷은 상관없어."라고 말했어요.', success: '맞아요! 조사한 자료를 근거로 차분하게 설명했어요.', choices: [
                 { id: 'data', text: '그래프를 보여 주며 11월에 추워서 긴소매가 늘었다고 말해요', result: '친구가 그래프를 보고 고개를 끄덕여요', mood: '뿌듯함' },
                 { id: 'angry', text: '"아니야!" 하고 화를 내요', result: '친구는 왜 그런지 알지 못해요', mood: '화남', why: '화를 내면 까닭이 전해지지 않아요. 무엇을 보여 주면 좋을까요?' },
                 { id: 'quiet', text: '아무 말도 하지 않고 들어가요', result: '친구는 계속 상관없다고 생각해요', mood: '걱정', why: '내가 모은 자료로 까닭을 말해 줄 수 있어요.' }] },
@@ -3678,7 +3678,7 @@
             task: '무엇을 준비할지와 까닭이 함께 들어간 알림 말을 고르고, 짝에게 직접 알려요.',
             levels: { easy: {}, base: {}, challenge: {} },
             items: [
-              { prompt: '민지가 친구들에게 겨울 준비를 알려요. 무엇과 까닭이 함께 든 말을 골라 보세요.', toolOptions: { mode: 'branch', who: '민지', situation: '민지가 다음 주부터 많이 추워진다는 일기 예보를 보았어요.', ask: '친구들에게 어떻게 알릴까요?', choices: [
+              { prompt: '민지가 친구들에게 겨울 준비를 알려요. 무엇과 까닭이 함께 든 말을 골라 보세요.', toolOptions: { mode: 'branch', who: '민지', situation: '민지가 다음 주부터 많이 추워진다는 일기 예보를 보았어요.', success: '맞아요! 할 일과 그 까닭이 함께 들어 있어요.', ask: '친구들에게 어떻게 알릴까요?', choices: [
                 { id: 'both', text: '"다음 주에 추워진대. 그러니까 장갑을 챙기자!"', result: '친구들이 다음 날 장갑을 끼고 와요', mood: '뿌듯함' },
                 { id: 'what', text: '"장갑 챙겨."', result: '친구가 "왜?" 하고 물어요', mood: '걱정', why: '무엇을 챙길지는 있지만 왜 챙겨야 하는지가 빠졌어요.' },
                 { id: 'why', text: '"다음 주에 추워진대."', result: '친구는 무엇을 준비할지 몰라요', mood: '걱정', why: '까닭은 있지만 무엇을 준비할지가 빠졌어요.' }] },
@@ -3687,7 +3687,7 @@
                 levels: { easy: { toolOptions: { choices: [
                   { id: 'both', text: '"다음 주에 추워진대. 그러니까 장갑을 챙기자!"', result: '친구들이 다음 날 장갑을 끼고 와요', mood: '뿌듯함' },
                   { id: 'what', text: '"장갑 챙겨."', result: '친구가 "왜?" 하고 물어요', mood: '걱정', why: '무엇을 챙길지는 있지만 왜 챙겨야 하는지가 빠졌어요.' }] } } } },
-              { prompt: '하준이가 동생에게 빙판길을 알려요. 할 일과 까닭이 함께 든 말을 골라 보세요.', toolOptions: { mode: 'branch', who: '하준', situation: '밤새 내린 비가 꽁꽁 얼었어요. 하준이가 동생과 학교에 가요.', ask: '동생에게 뭐라고 말할까요?', choices: [
+              { prompt: '하준이가 동생에게 빙판길을 알려요. 할 일과 까닭이 함께 든 말을 골라 보세요.', toolOptions: { mode: 'branch', who: '하준', situation: '밤새 내린 비가 꽁꽁 얼었어요. 하준이가 동생과 학교에 가요.', success: '맞아요! 할 일과 그 까닭이 함께 들어 있어요.', ask: '동생에게 뭐라고 말할까요?', choices: [
                 { id: 'both', text: '"길이 얼어서 미끄러우니까 주머니에서 손을 빼고 천천히 걷자."', result: '둘이 넘어지지 않고 학교에 도착해요', mood: '편안함' },
                 { id: 'run', text: '"늦겠다, 빨리 뛰어가자!"', result: '빙판에서 미끄러질 뻔해요', mood: '무서움', why: '언 길에서 뛰면 미끄러져요. 언 길에서는 어떻게 걸어야 할까요?' },
                 { id: 'short', text: '"조심해."', result: '동생은 무엇을 조심할지 몰라 손을 주머니에 넣은 채 걸어요', mood: '걱정', why: '무엇 때문에, 어떻게 조심할지가 빠졌어요.' }] },
@@ -3782,7 +3782,7 @@
               { prompt: '알림판에 붙일 눈사람을 꾸며 보세요. 하양 동그라미 둘 넘게, 빨강 긴 네모 목도리 하나를 붙여요.', target: { has: [{ shape: 'circle', color: '하양', min: 2 }, { shape: 'rect', color: '빨강', min: 1 }] }, difficulty: 0.05,
                 levels: { challenge: { prompt: '눈사람을 꾸며 보세요. 하양 동그라미 셋 넘게, 빨강 긴 네모 목도리 하나, 검정 동그라미 눈 둘을 붙여요.', target: { has: [{ shape: 'circle', color: '하양', min: 3 }, { shape: 'rect', color: '빨강', min: 1 }, { shape: 'circle', color: '검정', min: 2 }] } } } },
               { prompt: '접는 선 양쪽에 똑같은 장갑 한 켤레를 붙여 보세요. 하트 모양으로 장갑을 만들어요.', state: { pieces: [] }, target: { symmetry: 'vertical', has: [{ shape: 'heart', min: 2 }] }, difficulty: 0.2 },
-              { prompt: '모둠별로 4절 도화지에 제목·준비할 것·까닭을 크게 쓰고, 색종이 그림을 붙여 알림판을 완성해요. 다 했으면 "다 했어요"를 누르세요.', free: true },
+              { prompt: '모둠별로 4절 도화지에 제목·준비할 것·까닭을 크게 쓰고, 색종이 그림을 붙여 알림판을 완성해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
           },
         ],
@@ -3869,7 +3869,7 @@
                 hints: ['첫 빈칸에는 옛날 방법이, 둘째 빈칸에는 두 때 모두 같은 까닭이 들어가요.', '빈칸을 채운 문장을 읽어 보세요. 겨울 날씨와 맞나요?', '옛날에는 아궁이에 불을 때서 데웠고, 겨울이 추워서 방을 따뜻하게 해요.'],
                 levels: { easy: { prompt: '서아의 견주는 문장을 완성해 보세요.', toolOptions: { slots: [{ id: 'f2', who: '서아', label: '옛날에도 오늘날에도 겨울이 ___ 방을 따뜻하게 해요.' }], cards: ['추워서', '더워서'] }, target: { fill: { f2: '추워서' } } } } },
               { prompt: '준호의 견주는 문장을 완성해 보세요.', toolOptions: { mode: 'fill', slots: [{ id: 'f1', who: '준호', label: '옛날에는 김칫독을 ___ 김치를 두었어요.' }, { id: 'f2', who: '준호', label: '오늘날에는 ___ 김치를 넣어 두어요.' }], cards: ['땅에 묻어', '김치냉장고에', '햇볕에 널어'] },
-                target: { fill: { f1: '땅에 묻어', f2: '김치냉장고에' } }, difficulty: 0.15,
+                target: { fill: { f1: '땅에 묻어', f2: '김치냉장고에' } }, difficulty: 0.15, levels: { challenge: { toolOptions: { cards: ['땅에 묻어', '김치냉장고에', '햇볕에 널어', '아궁이 속에'] } } },
                 hints: ['옛날에는 기계 없이, 오늘날에는 기계로 김치를 차갑게 두어요.', '김치를 햇볕에 널면 시원하게 둘 수 있을까요?', '옛날에는 김칫독을 땅에 묻었고, 오늘날에는 김치냉장고에 넣어요.'] },
               { prompt: '어른께 들은 옛날 겨울 이야기를 "옛날에는 ~, 오늘날에는 ~."으로 짝에게 말해요. 다 했으면 "다 했어요"를 누르세요.', free: true, talk: true },
             ],
@@ -4034,7 +4034,7 @@
                 target: { match: { s1: '밝을 때 일찍 집에 와요', s2: '계단 손잡이를 잡고 걸어요', s3: '밭에 씨앗을 심어요' } }, difficulty: 0.2,
                 hints: ['왼쪽 일이 생기면 사람들이 무엇을 조심하거나 무엇을 할 수 있게 되는지 떠올려요.', '이은 두 글을 "~해서 ~해요"로 붙여 읽어 보세요. 말이 되나요?', '해가 일찍 져서 일찍 집에 오고, 계단이 미끄러워서 손잡이를 잡고, 밭이 촉촉해서 씨앗을 심어요.'],
                 levels: { challenge: { prompt: '계절에 생긴 일마다 그 때문에 하는 생활을 이어 보세요. 어울리는 짝이 없는 카드는 남겨요.', toolOptions: { cards: ['밝을 때 일찍 집에 와요', '계단 손잡이를 잡고 걸어요', '밭에 씨앗을 심어요', '계단에서 뛰어 내려가요'] } } } },
-              { prompt: '동생이 "여름 옷을 겨울에도 입으면 안 돼?"라고 물어요. 가장 잘 설명한 말을 골라 보세요.', toolOptions: { mode: 'branch', who: '서아', situation: '서아의 동생이 겨울 아침에 얇은 여름 옷을 입고 나가겠다고 해요.', ask: '어떻게 설명할까요?', choices: [
+              { prompt: '동생이 "여름 옷을 겨울에도 입으면 안 돼?"라고 물어요. 가장 잘 설명한 말을 골라 보세요.', toolOptions: { mode: 'branch', who: '서아', situation: '서아의 동생이 겨울 아침에 얇은 여름 옷을 입고 나가겠다고 해요.', success: '맞아요! 날씨와 옷을 까닭으로 이어 설명했어요.', ask: '어떻게 설명할까요?', choices: [
                 { id: 'why', text: '"겨울엔 바람이 차서 얇은 옷은 몸이 추워. 그래서 두꺼운 옷을 입어."', result: '동생이 고개를 끄덕이고 외투를 입어요', mood: '뿌듯함' },
                 { id: 'no', text: '"그냥 안 돼."', result: '동생은 왜 안 되는지 몰라 울상이에요', mood: '속상함', why: '까닭이 빠졌어요. 왜 안 되는지 말해 주면 동생도 알 수 있어요.' },
                 { id: 'mom', text: '"엄마가 안 된대."', result: '동생은 엄마가 없을 때 또 여름 옷을 입어요', mood: '걱정', why: '누가 말했는지보다 날씨와 이어진 까닭을 말해 줘야 해요.' }] },

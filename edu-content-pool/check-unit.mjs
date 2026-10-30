@@ -351,6 +351,10 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
         await W.waitForSelector('.edu-exam-sheet', { timeout: 6000 }).catch(() => F(`활동지${v ? '(쉬운)' : ''}`, '활동지가 그려지지 않음'));
         const empty = await W.evaluate(() => [...document.querySelectorAll('.ws-fig')].filter((x) => !x.children.length).length);
         if (empty) F(`활동지${v ? '(쉬운)' : ''}`, `그림 칸 ${empty}개가 비어 있음`);
+        await W.emulateMedia({ media: 'print' });
+        // 그림 칸 안 글자의 인쇄 크기: 3열 칸(약 60mm)에 지도·카드처럼 글이 많은 그림을 넣으면 4pt 안팎으로 찍혀 읽을 수 없다
+        for (const s of await W.evaluate(printTextSizes)) F(`활동지${v ? '(쉬운)' : ''}`, `${s.no}번 그림(${s.tool}) 글자가 인쇄에서 약 ${s.pt}pt — 읽을 수 없음. 그 figure 문항에 wide: true를 준다`);
+        await W.emulateMedia({ media: 'screen' });
         if (!opts.noPdf) {
           await W.emulateMedia({ media: 'print' });
           const pdf = await W.pdf({ format: 'A4', printBackground: true, path: shots ? join(shots, `${lid}-ws${v ? '-easy' : ''}.pdf`) : undefined });
@@ -367,6 +371,25 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
     for (const e of errs) F('브라우저', e);
     notes.push(`${lid} ${((Date.now() - t0) / 1000).toFixed(1)}초`);
   }
+}
+
+// 브라우저 안에서 돈다(인쇄 매체로 바꾼 뒤): 활동지 그림마다 SVG 글자의 인쇄 크기(pt) 가운뎃값.
+// 글 조각이 3개 이상이고 가운뎃값이 5.5pt 아래인 그림만 돌려준다(번호는 활동지 문항 번호가 아니라 그림 칸 차례).
+function printTextSizes() {
+  const min = 5.5;
+  const out = [];
+  [...document.querySelectorAll('.ws-fig')].forEach((f, i) => {
+    const pts = [...f.querySelectorAll('svg text')].filter((t) => t.textContent.trim() && t.getAttribute('display') !== 'none').map((t) => {
+      const svg = t.ownerSVGElement; const vb = svg && svg.viewBox && svg.viewBox.baseVal; const r = svg.getBoundingClientRect();
+      const s = vb && vb.width && vb.height ? Math.min(r.width / vb.width, r.height / vb.height) : 1;
+      return parseFloat(getComputedStyle(t).fontSize) * s * 0.75;
+    }).filter((x) => x > 0).sort((a, b) => a - b);
+    if (pts.length < 3) return;
+    const med = pts[Math.floor(pts.length / 2)];
+    const tool = ([...(f.querySelector('.pk-tool') || f).classList].find((c) => c.startsWith('pk-tool--')) || 'pk-tool--?').slice(9);
+    if (med < min) out.push({ no: i + 1, tool, pt: med.toFixed(1) });
+  });
+  return out;
 }
 
 async function submitTwice(P, lid, F) {
