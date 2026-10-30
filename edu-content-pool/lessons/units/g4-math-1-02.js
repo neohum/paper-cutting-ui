@@ -201,7 +201,7 @@ L.push(lesson(2, {
     { type: 'figure', prompt: '각도기의 눈금을 읽어 각의 크기를 쓰세요.', tool: 'protractor', wide: true, options: { base: 'right' }, figures: [{ state: { angle: 50 }, caption: BLANK + '°' }, { state: { angle: 110 }, caption: BLANK + '°' }], answer: '50°, 110°' },
     { type: 'choice', prompt: '두 각 중 더 큰 각에 ○ 하세요. 변의 길이는 달라요.', options: ['변이 긴 30°', '변이 짧은 70°'], answer: '변이 짧은 70°' },
     { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '각의 크기는 변의 ______와 관계없이 벌어진 ______로 정해져요.', answer: '길이, 정도' },
-    { type: 'table', prompt: '두 각을 견주어 표를 채우세요.', columns: ['각', '가', '나'], cells: [['변의 길이', '길어요', '짧아요'], ['각의 크기', '60°', '']], answer: '60°' },
+    { type: 'table', prompt: '각 가와 각 나는 두 변이 벌어진 정도가 같아요. 두 각을 견주어 표를 채우세요.', columns: ['각', '가', '나'], cells: [['변의 길이', '길어요', '짧아요'], ['각의 크기', '60°', '']], answer: '60°' },
     { type: 'short', prompt: '각도기로 각을 잴 때 반드시 확인해야 할 두 가지를 써 보세요.', answer: '각도기의 중심을 꼭짓점에 맞추고, 밑금을 한 변에 맞춰요.' },
   ], easy: { note: '각의 크기는 변의 길이가 아니라 벌어진 정도로 정해져요.', items: [
     { type: 'figure', prompt: '각도기의 눈금을 읽어 각의 크기를 쓰세요.', tool: 'protractor', wide: true, options: { base: 'right' }, figures: [{ state: { angle: 40 }, caption: BLANK + '°' }], answer: '40°' },
