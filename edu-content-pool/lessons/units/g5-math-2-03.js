@@ -309,7 +309,7 @@ L.push(lesson(3, S1, {
     wc('합동인 두 도형에서 대응변의 길이는 어떨까요?', ['서로 같아요', '서로 달라요', '한쪽이 더 길어요'], 0),
     { type: 'blank', prompt: '빈칸에 알맞은 말을 쓰세요.', text: '합동인 두 도형에서 대응변의 ______와 대응각의 ______는 각각 같아요.', answer: '길이, 크기' },
     { type: 'figure', wide: true, prompt: '자로 재어 길이를 쓰세요. 두 변은 합동인 도형의 대응변이에요.', tool: 'measure', options: { mode: 'ruler', max: 12, mm: false }, figures: [
-      { options: { object: { name: '변 ㄱㄴ', len: 6 } }, caption: '___cm' }, { options: { object: { name: '변 ㄹㅁ', len: 8 } }, caption: '___cm' }], answer: '6cm, 8cm' },
+      { options: { object: { name: '변 ㄱㄴ', len: 6 } }, caption: '___cm' }, { options: { object: { name: '변 ㄹㅁ', len: 6 } }, caption: '___cm' }], answer: '6cm, 6cm' },
     { type: 'short', prompt: '합동인 두 삼각형 가와 나가 있어요. 가의 한 각이 70°이면 나에서 그 각과 겹치는 각은 몇 도일까요? 까닭도 쓰세요.', answer: '70°예요. 합동인 도형은 대응각의 크기가 같아요.' },
   ], easy: { note: '포개었을 때 겹치는 점을 대응점, 겹치는 변을 대응변, 겹치는 각을 대응각이라고 해요.', items: [
     wc('포개었을 때 겹치는 점을 무엇이라고 할까요?', ['대응점', '대응변', '대응각'], 0),

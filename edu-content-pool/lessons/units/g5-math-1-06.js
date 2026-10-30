@@ -831,7 +831,7 @@ L.push(lesson(11, {
       { type: 'short', prompt: '둘레와 넓이를 구하는 일의 차이를 예를 들어 써 보세요.', answer: '둘레는 울타리처럼 가장자리를 도는 길이이고, 넓이는 장판처럼 안쪽 면의 크기이다. 단위도 둘레는 cm, 넓이는 cm²이다.' },
     ],
     easy: { note: '넓이 식을 하나씩 외우기보다 도형을 자르고 붙이는 그림을 떠올려요. 삼각형, 사다리꼴, 마름모는 2로 나누어요.', items: [
-      { type: 'figure', prompt: '점판 한 칸은 1 cm²예요. 넓이를 구하세요.', tool: 'shapes', options: { mode: 'geoboard', size: 6 }, figures: [{ state: { pts: [[0, 0], [5, 0], [4, 2], [1, 2]] }, caption: '넓이 ___ cm²' }], answer: '6 cm²' },
+      { type: 'figure', prompt: '점판 한 칸은 1 cm²예요. 넓이를 구하세요.', tool: 'shapes', options: { mode: 'geoboard', size: 6 }, figures: [{ state: { pts: [[0, 0], [5, 0], [4, 2], [1, 2]] }, caption: '넓이 ___ cm²' }], answer: '8 cm²' },
       { type: 'blank', prompt: '빈칸에 알맞은 수를 쓰세요.', text: '두 대각선이 6 cm, 4 cm인 마름모: 6 × 4 ÷ 2 = ___ cm²', answer: '12' },
       { type: 'choice', prompt: '둘레의 단위는 어느 것인가요?', options: ['cm', 'cm²'], answer: 'cm' },
       { type: 'draw', prompt: '이 단원에서 가장 헷갈렸던 도형 하나를 그리고 넓이 식을 써 보세요.' },

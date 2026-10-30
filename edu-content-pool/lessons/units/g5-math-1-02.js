@@ -373,7 +373,7 @@ L.push(lesson(4, {
   ], easy: { note: '작은 수의 약수를 먼저 쓰고 큰 수로도 나누어떨어지는지 보아요.', items: [
     { type: 'blank', prompt: '빈칸에 알맞은 수를 쓰세요.', text: `6과 9의 공약수: 1, ______ 최대공약수: ______`, answer: `3, ${gcd(6, 9)}` },
     { type: 'choice', prompt: '8과 12의 최대공약수에 ○ 하세요.', options: ['2', '4'], answer: '4' },
-    { type: 'table', prompt: '10과 15의 약수에 ○ 하세요.', columns: ['수', '1', '2', '5'], cells: [['공약수', '', '', '']], answer: '1, 5' },
+    { type: 'table', prompt: '10과 15의 공약수에 ○ 하세요.', columns: ['수', '1', '2', '5'], cells: [['공약수', '', '', '']], answer: '1, 5' },
     { type: 'draw', prompt: '두 수 8과 12의 공약수를 찾는 과정을 그림이나 표로 나타내 보세요.' },
   ] } },
   diff: {
