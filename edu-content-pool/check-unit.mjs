@@ -28,7 +28,7 @@ const shots = arg('--shots', null);
 const target = argv.find((a, i) => !a.startsWith('--') && !['--hub', '--shots'].includes(argv[i - 1]));
 if (!target && !flag('--all')) { console.error('usage: check-unit.mjs <unitId>|--all [--hub URL] [--shots dir] [--no-pdf] [--static]'); process.exit(2); }
 
-const UNIT_ID = /^g[1-6]-(kor|math|int|soc|mor|sci|pe|mus|art|eng|prac)-[12]-\d{2}$/;
+const UNIT_ID = /^g[1-6]-(kor|math|int|soc|mor|sci|pe|mus|art|eng|prac)-[12]-(\d{2}|독서|매체)$/;
 const SUBJECT_CODE = { 국어: 'kor', 수학: 'math', 통합교과: 'int', 사회: 'soc', 도덕: 'mor', 과학: 'sci', 체육: 'pe', 음악: 'mus', 미술: 'art', 영어: 'eng', 실과: 'prac' };
 const two = (n) => String(n).padStart(2, '0');
 const norm = (t) => String(t ?? '').replace(/\s+/g, ' ').trim();
@@ -81,7 +81,7 @@ export function staticUnit(id, unit) {
   if (unit.id !== id) U('단원', `registerUnit id '${unit.id}' ≠ 파일 이름 '${id}'`);
   if (unit.schema !== 'edu-unit.v1') U('단원', `schema가 'edu-unit.v1'이 아님: ${unit.schema}`);
   const sample = id.startsWith('_');
-  if (!sample && !UNIT_ID.test(id)) U('단원', `단원 id 형식이 아님(g<학년>-<과목>-<학기>-<두 자리>): ${id}`);
+  if (!sample && !UNIT_ID.test(id)) U('단원', `단원 id 형식이 아님(g<학년>-<과목>-<학기>-<두 자리|독서|매체>): ${id}`);
   const idx = index.get(id);
   if (!sample && !idx) U('단원', 'units-index.json에 없는 단원');
   if (idx) {
