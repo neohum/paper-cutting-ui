@@ -751,7 +751,7 @@
       '"정육면체의 전개도를 접으면 마주 보는 면은 몇 쌍일까요? 어떻게 찾았나요?" 면이 6개이므로 3쌍이고 한 줄로 이어진 면은 한 칸 건너뛴 면끼리 마주 본다는 말을 이끌어 낸다. 출구 1번을 틀린 학생은 마주 보는 면의 쌍을 세는 것을 헷갈린 것이므로 다음 시간에 같은 색 세 쌍을 칠해 보게 한다.',
       [
         { type: 'choice', prompt: '정육면체의 면은 6개이므로 마주 보는 면은 몇 쌍인가요?', options: ['3쌍', '6쌍', '2쌍'], answer: 0, difficulty: 0.1, explain: '마주 보는 면끼리 2개씩 짝이 되어 6 ÷ 2 = 3쌍이에요.' },
-        { type: 'tool', tool: 'cubenet', options: { cols: 6, rows: 4 }, state: { cells: NETS.zig }, prompt: '계단 모양이 아니라 네 면이 한 줄로 이어지지 않는 전개도로 만들어 접어 확인하세요.', target: { valid: true, line4: false }, difficulty: 0.2 },
+        { type: 'tool', tool: 'cubenet', options: { cols: 6, rows: 4 }, state: { cells: NETS.zig }, prompt: '네 면이 한 줄로 이어지지 않는 전개도로 만들어 접어 확인하세요.', target: { valid: true, line4: false }, difficulty: 0.2 },
         { type: 'choice', prompt: '정육면체의 모서리는 모두 몇 개인가요?', options: ['12개', '8개', '6개'], answer: 0, difficulty: 0.1, explain: '위아래 면에 4개씩 8개, 세로로 4개를 더해 12개예요.' },
       ],
     ],

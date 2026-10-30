@@ -590,8 +590,8 @@ L.push(lesson(8, {
     title: '몫의 일의 자리에 0 쓰기',
     items: [
       { type: 'table', prompt: '일의 자리와 소수 첫째 자리 몫을 쓰고 몫을 구하세요.', columns: ['식', '일의 자리', '소수 첫째 자리', '몫'], cells: [['2.8 ÷ 4', '', '', ''], ['6.4 ÷ 8', '', '', ''], ['1.5 ÷ 3', '', '', '']], answer: '0·7·0.7, 0·8·0.8, 0·5·0.5' },
-      { type: 'choice', prompt: '4.2 ÷ 6의 몫에 ○ 하세요.', options: ['0.7', '7', '.7'], answer: '0.7' },
-      { type: 'blank', prompt: '빈칸에 알맞은 수를 쓰세요.', text: '3.2 ÷ 4에서 3 ÷ 4의 몫은 ___이고, 0.1이 32개를 4묶음으로 나누면 ___개라서 몫은 ___이에요.', answer: '0, 8, 0.8' },
+      { type: 'choice', prompt: '4.2 ÷ 6의 몫에 ○ 하세요.', options: ['0.7', '7', '0.07'], answer: '0.7' },
+      { type: 'blank', prompt: '빈칸에 알맞은 수를 쓰세요.', text: '3.2 ÷ 4에서 3 ÷ 4의 일의 자리 몫은 ___이고, 0.1이 32개를 4묶음으로 나누면 ___개라서 몫은 ___이에요.', answer: '0, 8, 0.8' },
       { type: 'figure', wide: true, prompt: '1.8 ÷ 2의 몫이 점이 나타내는 수와 같아요. 점이 나타내는 수를 쓰세요.', tool: 'numberline', figures: [{ options: { mode: 'read', ...T10(1), labels: 'ends', marks: [0.9] }, caption: '___' }], answer: '0.9' },
       { type: 'short', prompt: '몫을 .4처럼 쓴 친구에게 무엇을 고쳐 주어야 하는지 써 보세요.' },
     ],
@@ -600,7 +600,7 @@ L.push(lesson(8, {
       items: [
         { type: 'table', prompt: '빈칸을 채우세요.', columns: ['식', '일의 자리', '소수 첫째 자리', '몫'], cells: [['1.2 ÷ 3', '0', '4', ''], ['2.4 ÷ 4', '', '', '']], answer: '0.4, 0·6·0.6' },
         { type: 'choice', prompt: '1.6 ÷ 2의 몫에 ○ 하세요.', options: ['0.8', '8'], answer: '0.8' },
-        { type: 'blank', prompt: '빈칸에 알맞은 수를 쓰세요.', text: '2 ÷ 4의 몫은 ___이라서 일의 자리에 ___을 써요.', answer: '0, 0' },
+        { type: 'blank', prompt: '빈칸에 알맞은 수를 쓰세요.', text: '2 ÷ 4의 일의 자리 몫은 ___이라서 일의 자리에 ___을 써요.', answer: '0, 0' },
         { type: 'draw', prompt: '0.1짜리 낱개 16개를 2묶음으로 나누는 그림을 그리고 몫을 써 보세요.' },
       ],
     },
