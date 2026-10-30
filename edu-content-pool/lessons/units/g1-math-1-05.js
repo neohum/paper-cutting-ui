@@ -727,7 +727,7 @@ L.push(lesson(11, {
   wrap: ['"35를 20과 몇으로 가를 수 있었나요? 다시 모으면 몇이 될까요?" 가른 두 수를 이어 세어 확인하게 한다. 출구 2번을 틀린 학생은 다음 시간에 이어 세기로 두 수를 모아 보게 한다.', [
     { type: 'choice', prompt: '24와 같은 수에 ○ 하세요. 두 수를 모아 보아요.', options: ['20과 4', '10과 4', '20과 40'], answer: 0, difficulty: 0.15, explain: '20 뒤에 4를 이어 세면 24예요.' },
     { type: 'choice', prompt: '30은 10과 몇으로 가를 수 있나요?', options: ['10', '20', '30'], answer: 1, difficulty: 0.2, explain: '10과 20을 모으면 30이라서 30은 10과 20으로 가를 수 있어요.' },
-    { type: 'tool', tool: 'mindmap', options: { mode: 'pick', topic: '합이 같은 짝', basket: '45가 되는 짝', cards: ['40과 5', '30과 15', '20과 20', '25과 20'] }, prompt: '두 수를 모아 45가 되는 짝을 모두 골라 보세요.', target: { pick: ['40과 5', '30과 15'] }, difficulty: 0.25 },
+    { type: 'tool', tool: 'mindmap', options: { mode: 'pick', topic: '합이 같은 짝', basket: '45가 되는 짝', cards: ['40과 5', '30과 15', '20과 20', '25와 20'] }, prompt: '두 수를 모아 45가 되는 짝을 모두 골라 보세요.', target: { pick: ['40과 5', '30과 15', '25와 20'] }, difficulty: 0.25 },
   ]],
   ws: { title: '여러 가지로 가르기', items: [
     { type: 'table', prompt: '빈칸에 알맞은 수를 쓰세요.', columns: ['수', '가르기', '가르기'], cells: [['27', '20과 ', '10과 '], ['36', '30과 ', '20과 ']], answer: '27: 7, 17 / 36: 6, 16' },

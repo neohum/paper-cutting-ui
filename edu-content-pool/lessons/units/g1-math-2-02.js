@@ -658,7 +658,7 @@ L.push(lesson(12, {
   ws: { title: '덧셈과 뺄셈 정리', items: [
     { type: 'table', prompt: '식을 계산해 답을 쓰세요.', columns: ['식', '답'], cells: [['4 + 5', ''], ['9 − 6', ''], ['2 + 4 + 3', ''], ['10 − 3 − 5', ''], ['6 + 3 − 4', '']], answer: '9, 3, 9, 2, 5' },
     { type: 'table', prompt: '두 자리 수의 식을 계산해 쓰세요.', columns: ['식', '답'], cells: [['40 + 30', ''], ['85 − 40', ''], ['36 + 3', ''], ['59 − 6', '']], answer: '70, 45, 39, 53' },
-    { type: 'choice', prompt: '"과자 6개를 먹고 2개를 더 먹었어요." 알맞은 식에 ○ 하세요.', options: ['6 − 2', '6 + 2'], answer: '6 + 2' },
+    { type: 'choice', prompt: '"과자 6개를 먹고 2개를 더 먹었어요." 모두 몇 개를 먹었는지 구하는 알맞은 식에 ○ 하세요.', options: ['6 − 2', '6 + 2'], answer: '6 + 2' },
     { type: 'figure', prompt: '사과를 세어 식을 완성하세요.', tool: 'tenframe', options: { item: 'apple', twoColor: true }, figures: [{ state: { parts: [5, 4] }, caption: '5 + 4 = ___' }, { state: { parts: [3, 6] }, caption: '3 + 6 = ___' }], answer: '9, 9' },
     { type: 'short', prompt: '이 단원에서 가장 어려웠던 것과 쉬웠던 것을 한 가지씩 써 보세요.' },
   ], easy: { note: '더하면 늘어나요. 빼면 줄어요. 세 수는 앞에서부터 차례로 계산해요.', items: [

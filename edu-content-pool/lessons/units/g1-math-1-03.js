@@ -556,8 +556,8 @@ L.push(lesson(10, {
       teacher: '"빈 접시에 사과 5개를 놓아요. 0개를 먹으면 몇 개 남을까요?" 0이 들어간 이야기는 칩을 움직이지 않아도 되는 때가 있다고 알려 준다. 3 − 3을 3이라고 답하는 학생에게는 칩을 모두 덜어 내 빈 판을 보게 한다.',
       levels: ONE('chip', 'sky'),
       items: [
-        { prompt: '접시에 사과가 4개 있어요. 사과를 더 놓지 않았어요(4 + 0). 모두 몇 개인가요?', state: { count: 0 }, target: { count: 4, more: 0 }, difficulty: 0.1 },
-        { prompt: '접시에 사과가 5개 있어요. 먹은 사과가 없어요(5 − 0). 몇 개 남았나요?', state: { count: 0 }, target: { count: 5, less: 0 }, difficulty: 0.12,
+        { prompt: '빈 접시에 사과 4개를 놓아요. 더 놓지 않았어요(4 + 0). 접시에 모두 몇 개인가요?', state: { count: 0 }, target: { count: 4, more: 0 }, difficulty: 0.1 },
+        { prompt: '빈 접시에 사과 5개를 놓아요. 먹은 사과가 없어요(5 − 0). 몇 개 남았나요?', state: { count: 0 }, target: { count: 5, less: 0 }, difficulty: 0.12,
           predict: { q: '5개에서 0개를 먹으면 몇 개 남을까요?', options: ['0개', '5개', '4개'], answer: 1 }, conclude: '아무것도 빼지 않으면 5 그대로예요. 5 − 0 = 5예요.' },
         less('접시에 사과가 3개 있어요. 3개를 모두 먹었어요(3 − 3). 몇 개 남았나요?', 3, 3, 0.18),
         less('더 해 보기: 접시에 사과가 6개 있어요. 6개를 모두 먹었어요(6 − 6). 몇 개 남았나요?', 6, 6, 0.22, { extra: true }),
