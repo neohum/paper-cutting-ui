@@ -483,7 +483,7 @@
         teacher: '"만져서 안 것과 눈으로 본 것을 한 작품에 모두 담아 봐요." 만져서 알아낸 느낌은 조각의 모양(둥근/뾰족한)으로, 눈으로 찾은 것은 색으로 나타내게 한다. 한 가지만 담은 학생에게는 "만져서 안 것은 어디에 있나요?" 하고 짚게 한다. 다 만든 학생은 짝에게 "이 조각은 만져서 알아낸 느낌이에요"라고 한 군데를 말해 준다.',
         task: '만져서 안 느낌은 모양으로, 눈으로 본 색은 색으로 나타내요.',
         levels: {
-          easy: { shapes: ['circle', 'triangle', 'star', 'leaf'], colors: ['빨강', '파랑', '노랑', '초록'], sizes: ['m', 'l'] },
+          easy: { shapes: ['circle', 'triangle', 'star', 'leaf', 'rect'], colors: ['빨강', '파랑', '노랑', '초록'], sizes: ['m', 'l'] },
           base: { shapes: ['circle', 'triangle', 'star', 'leaf', 'rect', 'semi'] },
           challenge: {},
         },
@@ -676,7 +676,7 @@
         teacher: '"그림 기호는 글을 읽지 못해도 알 수 있는 작은 그림이에요. 둥근 것은 동그라미, 뾰족한 것은 세모로 나타내 봐요." 칠판에 기호 약속 표를 붙인다. 짝에게 기호만 보여 주고 무엇인지 맞혀 보게 한다. 기호를 너무 복잡하게 만드는 학생에게는 "한눈에 알아볼 수 있게 단순하게 만들어요"라고 말한다.',
         task: '살핀 물건의 특징을 모양 기호로 나타내요.',
         levels: {
-          easy: { shapes: ['circle', 'triangle', 'rect', 'star'], colors: ['빨강', '노랑', '초록', '파랑'], sizes: ['m', 'l'] },
+          easy: { shapes: ['circle', 'triangle', 'rect', 'star', 'leaf'], colors: ['빨강', '노랑', '초록', '파랑', '갈색'], sizes: ['m', 'l'] },
           base: { shapes: ['circle', 'triangle', 'rect', 'star', 'semi', 'leaf'] },
           challenge: {},
         },
@@ -1139,7 +1139,7 @@
         teacher: '"기쁘고 설레는 마음에는 어떤 색이 어울릴까요? 차분한 마음에는요?" 색이 느낌을 나타내는 방법이라는 것을 짧게 이야기한다. 색 선택에 정답이 없다는 점을 먼저 알린다. 그래도 한 작품에서 따뜻한 색과 차가운 색을 섞을 때는 어느 쪽 느낌이 더 큰지 짚게 한다. 한 가지 색만 쓰는 학생에게는 "같은 색 안에서 밝기를 달리할 수도 있어요"라고 말한다.',
         task: '설레는 마음과 차분한 마음을 서로 다른 색 조각으로 나타내요.',
         levels: {
-          easy: { shapes: ['circle', 'star', 'semi', 'heart'], colors: ['노랑', '주황', '빨강', '파랑', '초록'], sizes: ['m', 'l'] },
+          easy: { shapes: ['circle', 'star', 'semi', 'heart', 'leaf'], colors: ['노랑', '주황', '빨강', '파랑', '초록'], sizes: ['m', 'l'] },
           base: { shapes: ['circle', 'star', 'semi', 'heart', 'leaf', 'triangle'] },
           challenge: {},
         },
@@ -1818,7 +1818,7 @@
         teacher: '"이 단원에서 가장 마음에 드는 경험을 색종이로 남겨 봐요. 감각으로 알아낸 것이어도, 느낌을 나타낸 것이어도 좋아요." 완성 뒤 제목과 까닭을 말하게 한다. 이전 작품을 그대로 따라 하는 학생에게는 "이번 작품에서 새로 바꾸고 싶은 곳은 어디인가요?" 하고 되묻는다. 마지막으로 짝과 서로의 작품을 감상하게 한다.',
         task: '단원에서 가장 마음에 드는 경험을 색종이 작품으로 나타내요.',
         levels: {
-          easy: { shapes: ['circle', 'star', 'heart', 'leaf'], colors: ['노랑', '초록', '분홍', '파랑'], sizes: ['s', 'm', 'l'] },
+          easy: { shapes: ['circle', 'star', 'heart', 'leaf', 'semi'], colors: ['노랑', '초록', '분홍', '파랑'], sizes: ['s', 'm', 'l'] },
           base: { shapes: ['circle', 'star', 'heart', 'leaf', 'triangle', 'semi'] },
           challenge: {},
         },

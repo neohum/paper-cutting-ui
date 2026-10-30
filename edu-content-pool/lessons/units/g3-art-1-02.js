@@ -1152,7 +1152,7 @@
             teacher: '"화면의 밑그림은 친구가 만든 것이에요. 짝의 의견을 읽고 고쳐 주세요." 고칠 것만 고치고 좋았던 것은 남긴다. 작은 주인공을 크게 바꿀 때는 작은 조각을 떼고 크게 다시 붙이면 된다는 것(크기 고르개)을 알려 준다. 조각 수를 줄이는 문항에서는 "주제를 흐리는 조각부터 떼요"라고 말한다.',
             task: '화면 위 친구의 밑그림을 보고, 짝의 의견에 맞게 조각을 떼거나 바꾸거나 더해 고쳐요.',
             levels: {
-              easy: { shapes: ['semi', 'circle', 'star', 'leaf'], colors: ['갈색', '노랑', '하양', '초록', '분홍'], sizes: ['s', 'l'] },
+              easy: { shapes: ['semi', 'circle', 'star', 'leaf', 'heart'], colors: ['갈색', '노랑', '하양', '초록', '분홍'], sizes: ['s', 'l'] },
               base: { shapes: ['semi', 'circle', 'star', 'leaf', 'square', 'heart'] },
               challenge: {},
             },
@@ -3390,7 +3390,7 @@
             teacher: '화면에서 조각을 붙여 단원에서 배운 것을 한 작품에 담는다. 먼저 정해진 틀 문항으로 연습하고, 마지막 문항은 자기 주제로 꾸민다. "내 작품에서 주제, 모양과 색, 재료의 쓰임이 어디에 있는지 짚어 보세요." 조각을 많이 붙이려고만 하는 학생에게는 "색은 몇 가지인가요? 무엇이 가장 눈에 띄나요?"라고 묻는다.',
             task: '본 것에 상상을 더한 주제를 정하고, 색과 모양을 골라 작품 한 점을 꾸민 뒤 점검해요.',
             levels: {
-              easy: { shapes: ['circle', 'leaf', 'star', 'rect', 'triangle'], colors: ['초록', '노랑', '파랑', '갈색', '하양'], sizes: ['m', 'l'] },
+              easy: { shapes: ['circle', 'leaf', 'star', 'rect', 'triangle', 'semi'], colors: ['초록', '노랑', '파랑', '갈색', '하양'], sizes: ['m', 'l'] },
               base: { shapes: ['circle', 'leaf', 'star', 'rect', 'triangle', 'heart', 'semi'] },
               challenge: {},
             },

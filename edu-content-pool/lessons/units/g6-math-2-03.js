@@ -27,13 +27,19 @@
   const ACT = (id, title, minutes, tool, teacher, task, levels, items) => ({ id, title, minutes, tool, teacher, task, levels, items });
   const LV_NONE = { easy: {}, base: {}, challenge: {} };
   const mood = { type: 'mood', prompt: '오늘 공부는 어땠나요?' };
+  // 값 뒤 조사 — 마지막 숫자의 한국어 읽기 끝소리로 고른다(1일·3삼·6육·7칠·8팔·0영·끝자리 0은 받침 있음, 2이·4사·5오·9구는 없음)
+  const josa = (x, t) => {
+    const d = Number(String(x).match(/\d(?=\D*$)/)[0]); const b = [0, 1, 3, 6, 7, 8].includes(d);
+    const [w, n] = { '이에요': ['이에요', '예요'], '이': ['이', '가'], '을': ['을', '를'] }[t];
+    return x + (b ? w : n);
+  };
   const fmt = (v) => String(Math.round(v * 1e6) / 1e6);
   // 수를 읽는 소리의 끝 받침으로 '이에요/예요'
   const yo = (v) => (/[013678]$/.test(fmt(v)) ? '이에요' : '예요');
   // 소수 나눗셈 풀이 힌트(1단계는 수 없이 전략만, 2단계는 곱한 식, 3단계는 몫)
   const dh = (a, b, k, q) => [
     '나누는 수가 자연수가 되도록 두 수에 같은 수를 곱해 보세요. 두 수에 똑같이 곱하면 몫은 변하지 않아요.',
-    `${fmt(a)} ÷ ${fmt(b)}의 두 수에 ${k}을 곱하면 ${fmt(a * k)} ÷ ${fmt(b * k)}이 돼요.`,
+    `${fmt(a)} ÷ ${fmt(b)}의 두 수에 ${josa(k, '을')} 곱하면 ${fmt(a * k)} ÷ ${josa(fmt(b * k), '이')} 돼요.`,
     `${fmt(a * k)} ÷ ${fmt(b * k)}의 몫을 구하면 ${fmt(q)}${yo(q)}.`,
   ];
   // 수직선 뛰어 세기(포함제): 0에서 size씩 뛰어 end에 닿는다. 눈금 한 칸 = 1/sub

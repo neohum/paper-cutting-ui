@@ -41,6 +41,15 @@ const ML = (mode, topic) => ({ easy: { mode, topic, live: true }, base: { mode, 
 const gcd = (a, b) => (b ? gcd(b, a % b) : a);
 const lcm = (a, b) => (a / gcd(a, b)) * b;
 const range = (n) => Array.from({ length: n }, (_, i) => i);
+// 값 뒤 조사 — 한국어 읽기의 끝소리로 고른다. 분수 a/b 는 '3분의 2'로 읽으니 분자 a 가 끝이다.
+// 1일·3삼·6육·7칠·8팔·0영·끝자리 0(십·백…)은 받침 있음, 2이·4사·5오·9구는 없음
+const lastDigit = (x) => { const t = String(x); const f = t.match(/(\d+)\/\d+\s*$/); const m = (f ? f[1] : t).match(/\d(?=\D*$)/); return m ? Number(m[0]) : 0; };
+const V = (x, t) => {
+  const d = lastDigit(x); const b = [0, 1, 3, 6, 7, 8].includes(d);
+  if (t === '으로') return x + (!b || [1, 7, 8].includes(d) ? '로' : '으로');
+  const [w, n] = { '이에요': ['이에요', '예요'], '이': ['이', '가'], '을': ['을', '를'], '은': ['은', '는'], '과': ['과', '와'] }[t];
+  return x + (b ? w : n);
+};
 const P = (x) => (x.length === 3 ? `${x[0]} ${x[1]}/${x[2]}` : `${x[0]}/${x[1]}`);
 const imp = (x) => (x.length === 3 ? [x[0] * x[2] + x[1], x[2]] : x);
 const mixedStr = (f) => { const g = gcd(f[0], f[1]); const n = f[0] / g; const d = f[1] / g; const w = Math.floor(n / d); const r = n % d; return r ? (w ? `${w} ${r}/${d}` : `${r}/${d}`) : String(w); };
@@ -87,7 +96,7 @@ const calcMatch = (prompt, list, d, hints, x, trap) => {
 const stepFill = (prompt, x, y, o, d, hints, x2) => {
   const [a, b] = x; const [c, e] = y; const L = lcm(b, e);
   const t1 = `${(a * L) / b}/${L}`; const t2 = `${(c * L) / e}/${L}`; const r = calc(x, y, o);
-  return fill(prompt, [[`${P(x)} ${o === '-' ? '−' : '+'} ${P(y)}에서 분모를 ${L}로 맞추면 ${P(x)} = ___`, t1], [`분모를 ${L}로 맞추면 ${P(y)} = ___`, t2], [`그래서 ${o === '-' ? '차' : '합'}은 ___`, `${r[0]}/${r[1]}`]], [o === '-' ? `${Math.abs(a - c)}/${Math.max(b, e)}` : wrongSum(x, y)], d, hints, x2);
+  return fill(prompt, [[`${P(x)} ${o === '-' ? '−' : '+'} ${P(y)}에서 분모를 ${V(L, '으로')} 맞추면 ${P(x)} = ___`, t1], [`분모를 ${V(L, '으로')} 맞추면 ${P(y)} = ___`, t2], [`그래서 ${o === '-' ? '차' : '합'}은 ___`, `${r[0]}/${r[1]}`]], [o === '-' ? `${Math.abs(a - c)}/${Math.max(b, e)}` : wrongSum(x, y)], d, hints, x2);
 };
 // 띠(fraction): 같은 조각으로 나눈 띠에 색칠해 합(차)을 만든다. x, y 는 진분수이고 공통분모 L 은 12 이하
 const FR = { easy: { shape: 'strip', showTerms: true }, base: { shape: 'strip' }, challenge: { shape: 'strip', hideFraction: true } };
@@ -95,21 +104,21 @@ const stripAdd = (x, y, d, ex) => {
   const [a, b] = x; const [c, e] = y; const L = lcm(b, e); const p = (a * L) / b; const q = (c * L) / e;
   return Object.assign({ prompt: `${P(x)} + ${P(y)}의 합을 ${L}조각 띠에 색칠해 보세요.`,
     toolOptions: { startN: L, min: L, max: L, locked: range(p) }, state: { n: L }, target: { den: L, num: p + q }, difficulty: d,
-    hints: ['처음 분수가 띠에서 몇 조각인지 세고, 더하는 분수는 같은 크기 조각으로 몇 개인지 생각해요.', '이미 칠해진 조각에 이어서 더하는 분수만큼 칠해요. 칠한 조각이 모두 몇 개인지 세어요.', `${P(x)}는 ${L}조각 중 ${p}조각, ${P(y)}는 ${q}조각이에요. ${p} + ${q} = ${p + q}이므로 ${L}분의 ${p + q}예요.`] }, ex || {});
+    hints: ['처음 분수가 띠에서 몇 조각인지 세고, 더하는 분수는 같은 크기 조각으로 몇 개인지 생각해요.', '이미 칠해진 조각에 이어서 더하는 분수만큼 칠해요. 칠한 조각이 모두 몇 개인지 세어요.', `${V(P(x), '은')} ${L}조각 중 ${p}조각, ${V(P(y), '은')} ${q}조각이에요. ${p} + ${q} = ${p + q}이므로 ${L}분의 ${p + q}예요.`] }, ex || {});
 };
 const stripSub = (x, y, d, ex) => {
   const [a, b] = x; const [c, e] = y; const L = lcm(b, e); const p = (a * L) / b; const q = (c * L) / e;
-  return Object.assign({ prompt: `${P(x)}이 칠해진 ${L}조각 띠에서 ${P(y)}만큼 지우고 남은 양을 나타내 보세요.`,
+  return Object.assign({ prompt: `${V(P(x), '이')} 칠해진 ${L}조각 띠에서 ${P(y)}만큼 지우고 남은 양을 나타내 보세요.`,
     toolOptions: { startN: L, min: L, max: L }, state: { n: L, colored: range(p) }, target: { den: L, num: p - q }, difficulty: d,
-    hints: ['칠해진 조각 가운데 빼는 분수만큼을 같은 크기 조각으로 세어 지워요.', '지운 뒤에 남은 칠한 조각이 몇 개인지 세어 보세요.', `${P(x)}는 ${p}조각, ${P(y)}는 ${q}조각이에요. ${p} − ${q} = ${p - q}이므로 ${L}분의 ${p - q}가 남아요.`] }, ex || {});
+    hints: ['칠해진 조각 가운데 빼는 분수만큼을 같은 크기 조각으로 세어 지워요.', '지운 뒤에 남은 칠한 조각이 몇 개인지 세어 보세요.', `${V(P(x), '은')} ${p}조각, ${V(P(y), '은')} ${q}조각이에요. ${p} − ${q} = ${p - q}이므로 ${L}분의 ${p - q}가 남아요.`] }, ex || {});
 };
 // 분수 띠 견주기(fracstrips): 크기가 같은 분수 만들기, 약분하기
 const FS = { easy: { showMarks: true, showEqual: true }, base: {}, challenge: { noCuts: true } };
 const FSD = { easy: { mode: 'divide', markCommon: true, showEqual: true }, base: { mode: 'divide' }, challenge: { mode: 'divide', hideStrip: true } };
 const fsEq = (top, den, d, ex) => {
   const [n, m] = top; const k = den / m;
-  return Object.assign({ prompt: `위 띠는 ${P(top)}이에요. 아래 띠를 ${den}조각으로 나누어 크기가 같은 분수를 만드세요.`, toolOptions: { top }, target: { equalTo: top, den }, difficulty: d,
-    hints: ['아래 띠의 조각 수가 바뀌어도 색칠한 끝은 위 띠와 같은 자리여야 해요.', '분모가 몇 배(또는 몇 분의 1)가 되었는지 보고 분자도 같은 수만큼 바꾸어요.', `분모에 ${den / m}를 곱해 ${den}이 되었으니 분자 ${n}에도 ${den / m}를 곱해 ${(n * den) / m}로 해요.`] }, ex || {});
+  return Object.assign({ prompt: `위 띠는 ${V(P(top), '이에요')}. 아래 띠를 ${den}조각으로 나누어 크기가 같은 분수를 만드세요.`, toolOptions: { top }, target: { equalTo: top, den }, difficulty: d,
+    hints: ['아래 띠의 조각 수가 바뀌어도 색칠한 끝은 위 띠와 같은 자리여야 해요.', '분모가 몇 배(또는 몇 분의 1)가 되었는지 보고 분자도 같은 수만큼 바꾸어요.', `분모에 ${V(den / m, '을')} 곱해 ${V(den, '이')} 되었으니 분자 ${n}에도 ${V(den / m, '을')} 곱해 ${V((n * den) / m, '으로')} 해요.`] }, ex || {});
 };
 // 수직선(numberline): 0 이상 max 이하, 큰 눈금 하나를 den 칸으로 나눈 판에 점을 놓는다. 점은 문자열 분수('5/6')나 대분수('1 1/6')
 const NL = { easy: { labels: 'all', showValue: true }, base: { labels: 'major' }, challenge: { labels: 'ends' } };
@@ -124,7 +133,7 @@ const nlOp = (prompt, x, y, o, max, den, d, ex) => {
   if (den % (r[1] / g) !== 0 || r[0] / r[1] > max) throw new Error(`수직선에 안 놓임: ${P(x)} ${o} ${P(y)}`);
   const val = mixedStr(r); const proper = r[0] < r[1];
   return nl(prompt, max, den, [val], d,
-    ['눈금 한 칸이 얼마인지 먼저 살피고, 식을 통분해 계산한 값이 어디쯤인지 짐작해요.', proper ? '값이 1보다 작은지 큰지 먼저 어림하고, 0에서 몇 칸째인지 세어요.' : '값이 1보다 큰지 어림하고, 자연수 눈금에서 몇 칸 더 가는지 세어요.', `통분해 계산하면 ${r[0] / g}/${r[1] / g}${r[0] >= r[1] ? `, 대분수로는 ${val}` : ''}이에요. 그 자리에 점을 놓아요.`], ex, mixed(r));
+    ['눈금 한 칸이 얼마인지 먼저 살피고, 식을 통분해 계산한 값이 어디쯤인지 짐작해요.', proper ? '값이 1보다 작은지 큰지 먼저 어림하고, 0에서 몇 칸째인지 세어요.' : '값이 1보다 큰지 어림하고, 자연수 눈금에서 몇 칸 더 가는지 세어요.', `통분해 계산하면 ${V(`${r[0] / g}/${r[1] / g}${r[0] >= r[1] ? `, 대분수로는 ${val}` : ''}`, '이에요')}. 그 자리에 점을 놓아요.`], ex, mixed(r));
 };
 const mixed = (r) => r[0] >= r[1];
 // 띠 쓰기(fraction write): 합은 칠한 조각 수를 분수로 쓴다. 처음 분수는 잠긴 조각
@@ -132,24 +141,24 @@ const FRW = { easy: { shape: 'strip', write: true, showTerms: true }, base: { sh
 const stripWriteAdd = (x, y, d, ex) => {
   const [a, b] = x; const [c, e] = y; const Lc = lcm(b, e); const p = (a * Lc) / b; const q = (c * Lc) / e;
   return Object.assign({ prompt: `${P(x)} + ${P(y)}의 합이 칠해져 있어요. 분수로 써 보세요.`, toolOptions: { startN: Lc, min: Lc, max: Lc, locked: range(p) }, state: { n: Lc, colored: range(p + q) }, target: { den: Lc, num: p + q }, difficulty: d,
-    hints: ['띠를 똑같이 나눈 조각 수가 분모, 칠한 조각 수가 분자예요.', '점무늬로 잠긴 조각까지 모두 포함해 칠한 조각을 세어 보세요.', `띠는 ${Lc}조각이고 칠한 조각은 ${p + q}개이므로 ${Lc}분의 ${p + q}예요.`] }, ex || {});
+    hints: ['띠를 똑같이 나눈 조각 수가 분모, 칠한 조각 수가 분자예요.', '점무늬로 잠긴 조각까지 모두 포함해 칠한 조각을 세어 보세요.', `띠는 ${Lc}조각이고 칠한 조각은 ${p + q}개이므로 ${V(`${Lc}분의 ${p + q}`, '이에요')}.`] }, ex || {});
 };
 const stripWriteSub = (x, y, d, ex) => {
   const [a, b] = x; const [c, e] = y; const Lc = lcm(b, e); const p = (a * Lc) / b; const q = (c * Lc) / e;
   return Object.assign({ prompt: `${P(x)} − ${P(y)}의 차가 칠해져 있어요. 분수로 써 보세요.`, toolOptions: { startN: Lc, min: Lc, max: Lc }, state: { n: Lc, colored: range(p - q) }, target: { den: Lc, num: p - q }, difficulty: d,
-    hints: ['띠를 똑같이 나눈 조각 수가 분모, 칠한 조각 수가 분자예요.', '칠해진 조각만 세고 칠하지 않은 조각은 세지 않아요.', `띠는 ${Lc}조각이고 칠한 조각은 ${p - q}개이므로 ${Lc}분의 ${p - q}예요.`] }, ex || {});
+    hints: ['띠를 똑같이 나눈 조각 수가 분모, 칠한 조각 수가 분자예요.', '칠해진 조각만 세고 칠하지 않은 조각은 세지 않아요.', `띠는 ${Lc}조각이고 칠한 조각은 ${p - q}개이므로 ${V(`${Lc}분의 ${p - q}`, '이에요')}.`] }, ex || {});
 };
 // 그림의 각 부분 ↔ 식의 수 이어 보기
 const partsMatch = (prompt, x, y, o, d, ex) => {
   const [a, b] = x; const [c, e] = y; const Lc = lcm(b, e); const p = (a * Lc) / b; const q = (c * Lc) / e; const r = o === '-' ? p - q : p + q;
   const plus = o !== '-';
   return match(prompt, [['띠 전체를 나눈 조각 수', `${Lc}`], [`처음 분수 ${P(x)}의 조각`, `${p}/${Lc}`], [`${plus ? '더하는' : '빼는'} 분수 ${P(y)}의 조각`, `${q}/${Lc}`], [`${plus ? '합' : '남은 양'}의 조각`, `${r}/${Lc}`]], [], d,
-    ['먼저 띠 전체가 몇 조각으로 나누어졌는지 보고, 그 수를 분모로 써요.', '처음 분수와 더하거나 빼는 분수를 각각 같은 크기 조각의 수로 바꾸어 봐요.', `통분하면 ${P(x)}는 ${p}/${Lc}, ${P(y)}는 ${q}/${Lc}이고 ${plus ? '합' : '차'}은 ${r}/${Lc}이에요.`], ex);
+    ['먼저 띠 전체가 몇 조각으로 나누어졌는지 보고, 그 수를 분모로 써요.', '처음 분수와 더하거나 빼는 분수를 각각 같은 크기 조각의 수로 바꾸어 봐요.', `통분하면 ${V(P(x), '은')} ${p}/${Lc}, ${V(P(y), '은')} ${q}/${Lc}이고 ${plus ? '합' : '차'}은 ${V(`${r}/${Lc}`, '이에요')}.`], ex);
 };
 // 약분: 계산 결과(통분한 채)를 기약분수로
 const redItem = (x, y, o, d, ex) => {
   const r = calc(x, y, o);
-  return Object.assign({ prompt: `${P(x)} ${OPS(o)} ${P(y)} = ${r[0]}/${r[1]}이에요. 기약분수로 나타내세요.`, toolOptions: { top: r }, target: { reduce: r, lowest: true }, difficulty: d }, ex || {});
+  return Object.assign({ prompt: `${P(x)} ${OPS(o)} ${P(y)} = ${V(`${r[0]}/${r[1]}`, '이에요')}. 기약분수로 나타내세요.`, toolOptions: { top: r }, target: { reduce: r, lowest: true }, difficulty: d }, ex || {});
 };
 // 대분수 덧셈 빈칸: 자연수끼리, 분수끼리 더한다(받아올림 없음)
 const mixedFill = (prompt, x, y, d, hints, x2) => {
@@ -160,7 +169,7 @@ const mixedFill = (prompt, x, y, d, hints, x2) => {
 // 받아내림 빈칸: x 의 분수가 y 의 분수보다 작을 때
 const borrowFill = (prompt, x, y, d, hints, x2) => {
   const Lc = lcm(x[2], y[2]); const xn = (x[1] * Lc) / x[2]; const yn = (y[1] * Lc) / y[2]; if (xn >= yn) throw new Error('받아내림 없음');
-  return fill(prompt, [[`${P(y)}의 분수 부분을 분모 ${Lc}로 통분하면 ___`, `${yn}/${Lc}`], [`자연수 ${x[0]}에서 1을 받아내려 분수 부분 ${xn}/${Lc}와 합치면 ___`, `${Lc + xn}/${Lc}`], ['차를 기약분수·대분수로 쓰면 ___', ans(x, y, '-')]], [`${xn}/${Lc}`], d, hints, x2);
+  return fill(prompt, [[`${P(y)}의 분수 부분을 분모 ${Lc}로 통분하면 ___`, `${yn}/${Lc}`], [`자연수 ${x[0]}에서 1을 받아내려 분수 부분 ${V(`${xn}/${Lc}`, '과')} 합치면 ___`, `${Lc + xn}/${Lc}`], ['차를 기약분수·대분수로 쓰면 ___', ans(x, y, '-')]], [`${xn}/${Lc}`], d, hints, x2);
 };
 const L = [];
 

@@ -846,7 +846,7 @@
         id: 'a2', title: '활동 2. 다르게 읽힌 곳을 고쳐 나타내기', minutes: 13, tool: 'collage',
         teacher: '"친구가 레몬으로 읽었다면 달로 읽히려면 무엇을 바꿀까요?" 밤하늘이 보이도록 어두운 바탕 조각을 깔고 노랑 동그라미를 크게 붙이는 시범을 보인다. 고친 곳이 하나이면 충분하다고 짚어, 작품을 통째로 다시 만들려는 학생을 말린다.',
         task: '친구가 다르게 읽은 곳을 한 군데만 골라 조각을 바꾸거나 더해요.',
-        levels: { easy: { shapes: ['circle', 'rect', 'star'], colors: ['노랑', '검정', '파랑', '하양'] }, base: { shapes: ['circle', 'rect', 'star', 'semi', 'triangle'], colors: ['노랑', '검정', '파랑', '하양', '보라', '갈색'] }, challenge: {} },
+        levels: { easy: { shapes: ['circle', 'rect', 'star', 'semi'], colors: ['노랑', '검정', '파랑', '하양'] }, base: { shapes: ['circle', 'rect', 'star', 'semi', 'triangle'], colors: ['노랑', '검정', '파랑', '하양', '보라', '갈색'] }, challenge: {} },
         items: [
           { prompt: '달로 읽히게 고쳐요. 큰 검정 긴 네모 밤하늘 위에 큰 노랑 동그라미 달 하나를 겹쳐 붙여요.', target: { has: [{ shape: 'rect', color: '검정', size: 'l', n: 1 }, { shape: 'circle', color: '노랑', size: 'l', n: 1 }], overlap: 1 }, difficulty: 0.2 },
           { prompt: '차가운 바다로 읽히게 고쳐요. 큰 파랑 반원 파도 둘과 작은 하양 동그라미 거품 셋 이상을 붙여요.', target: { has: [{ shape: 'semi', color: '파랑', size: 'l', n: 2 }, { shape: 'circle', color: '하양', size: 's', min: 3 }] }, difficulty: 0.25 },
@@ -1596,7 +1596,7 @@
         id: 'a2', title: '활동 2. 이미지 곁에 짧은 문구 칸 붙이기', minutes: 13, tool: 'collage',
         teacher: '"문구는 그림 어디에 두면 읽기 쉬울까요? 글줄 조각은 몇 줄이 알맞을까요?" 글줄 조각을 한두 줄만 붙이는 시범을 보이고, 많이 붙일수록 읽기 어려워짐을 보여 준다. 글줄 칸을 아예 빠뜨린 학생에게는 그림만으로 전해지는지 묻는다.',
         task: '이미지 조각 곁에 짧은 문구 칸(글줄 한두 줄)을 붙여요.',
-        levels: { easy: { shapes: ['circle', 'rect', 'semi'], colors: ['파랑', '검정', '하양', '노랑'] }, base: { shapes: ['circle', 'rect', 'semi', 'star', 'triangle'], colors: ['파랑', '검정', '하양', '노랑', '빨강', '초록'] }, challenge: {} },
+        levels: { easy: { shapes: ['circle', 'rect', 'semi', 'star'], colors: ['파랑', '검정', '하양', '노랑', '빨강'] }, base: { shapes: ['circle', 'rect', 'semi', 'star', 'triangle'], colors: ['파랑', '검정', '하양', '노랑', '빨강', '초록'] }, challenge: {} },
         items: [
           { prompt: '물방울 포스터를 만들어요. 큰 파랑 동그라미 하나 아래에 작은 검정 긴 네모 글줄을 한두 줄만 붙여요.', target: { has: [{ shape: 'circle', color: '파랑', size: 'l', n: 1 }, { shape: 'rect', color: '검정', size: 's', min: 1, max: 2 }] }, difficulty: 0.2 },
           { prompt: '안전 포스터를 만들어요. 큰 빨강 별 하나 곁에 작은 검정 긴 네모 글줄을 한 줄 이상 세 줄 이하로 붙여요.', target: { has: [{ shape: 'star', color: '빨강', size: 'l', n: 1 }, { shape: 'rect', color: '검정', size: 's', min: 1, max: 3 }] }, difficulty: 0.25 },

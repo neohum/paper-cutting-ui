@@ -27,6 +27,12 @@
   const X = (d, x) => Object.assign({ difficulty: 0.15 }, d, x || {});
   const ACT = (id, title, minutes, tool, teacher, task, levels, items) => ({ id, title, minutes, tool, teacher, task, levels, items });
   const LV_NONE = { easy: {}, base: {}, challenge: {} };
+  // 값 뒤 조사 — 마지막 숫자의 한국어 읽기 끝소리로 고른다(1일·3삼·6육·7칠·8팔·0영·끝자리 0은 받침 있음, 2이·4사·5오·9구는 없음)
+  const josa = (x, t) => {
+    const d = Number(String(x).match(/\d(?=\D*$)/)[0]); const b = [0, 1, 3, 6, 7, 8].includes(d);
+    const [w, n] = { '이에요': ['이에요', '예요'] }[t];
+    return x + (b ? w : n);
+  };
   const mood = { type: 'mood', prompt: '오늘 공부는 어땠나요?' };
   // □ 채우기(자연수만): names 가 칸 이름표
   const bl = (prompt, names, values, hints, x) => X({ prompt, toolOptions: { seq: names.map(() => null), names, input: 'number' }, target: { fill: values }, ...(hints ? { hints } : {}) }, x);
@@ -59,8 +65,8 @@
     const unit = total / (a + b);
     return [
       '전체를 비의 두 수를 더한 칸 수로 나누면 한 칸의 크기를 알 수 있어요. 각 몫은 한 칸의 크기에 비의 수를 곱해요.',
-      `비의 합은 ${a} + ${b} = ${a + b}이고 한 칸은 ${total} ÷ ${a + b} = ${unit}이에요.`,
-      `앞의 몫은 ${unit} × ${a} = ${unit * a}, 뒤의 몫은 ${unit} × ${b} = ${unit * b}이에요.`,
+      `비의 합은 ${a} + ${b} = ${a + b}이고 한 칸은 ${total} ÷ ${a + b} = ${josa(unit, '이에요')}.`,
+      `앞의 몫은 ${unit} × ${a} = ${unit * a}, 뒤의 몫은 ${unit} × ${b} = ${josa(unit * b, '이에요')}.`,
     ];
   };
   // 순서 카드(story): [id, 글] 목록을 차례대로 놓는다

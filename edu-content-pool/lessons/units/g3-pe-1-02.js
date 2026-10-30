@@ -448,11 +448,11 @@
               id: 'a1', title: '활동 1. 지도에서 표지 자리 찾기', minutes: 12, tool: 'map',
               task: '숲 지도에서 기준 장소로부터 방위와 칸 수를 따라가 표지 자리에 핀을 꽂아요. 찾은 자리를 실제 숲에서 짝과 함께 찾아가요.',
               teacher: '"북쪽은 지도의 어디였지요?" 오른쪽·왼쪽으로 말하는 학생에게 동쪽·서쪽 말로 바꾸어 말하게 한다. 칸을 셀 때 기준 장소 칸을 1로 세는 실수를 짚는다 — "기준 칸에서 한 칸 옮기면 1칸이에요."',
-              levels: { easy: { readout: true }, base: {}, challenge: { north: 90 } },
+              levels: { easy: { readout: true }, base: {}, challenge: { north: 270 } },
               items: [
-                { prompt: '출발 깃발에서 동쪽으로 3칸 간 곳에 첫 표지가 있어요. 핀을 꽂아요.', toolOptions: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }, { name: '본관', icon: 'school', at: [5, 0] }] }, target: { from: '출발 깃발', dir: '동', steps: 3 }, levels: { challenge: { prompt: '이 지도는 북쪽이 오른쪽이에요. 출발 깃발에서 동쪽으로 3칸 간 곳에 핀을 꽂아요.' } }, difficulty: 0.15 },
-                { prompt: '큰 나무에서 남쪽으로 2칸 간 곳에 둘째 표지가 있어요. 핀을 꽂아요.', toolOptions: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }, { name: '본관', icon: 'school', at: [5, 0] }] }, target: { from: '큰 나무', dir: '남', steps: 2 }, levels: { challenge: { prompt: '이 지도는 북쪽이 오른쪽이에요. 큰 나무에서 남쪽으로 2칸 간 곳에 핀을 꽂아요.' } }, difficulty: 0.2 },
-                { prompt: '화단에서 북쪽으로 2칸 간 곳에 셋째 표지가 있어요. 핀을 꽂아요.', toolOptions: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }, { name: '본관', icon: 'school', at: [5, 0] }] }, target: { from: '화단', dir: '북', steps: 2 }, levels: { challenge: { prompt: '이 지도는 북쪽이 오른쪽이에요. 화단에서 북쪽으로 2칸 간 곳에 핀을 꽂아요.' } }, difficulty: 0.25 },
+                { prompt: '출발 깃발에서 동쪽으로 3칸 간 곳에 첫 표지가 있어요. 핀을 꽂아요.', toolOptions: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }, { name: '본관', icon: 'school', at: [5, 0] }] }, target: { from: '출발 깃발', dir: '동', steps: 3 }, levels: { challenge: { prompt: '이 지도는 북쪽이 왼쪽이에요. 출발 깃발에서 동쪽으로 3칸 간 곳에 핀을 꽂아요.' } }, difficulty: 0.15 },
+                { prompt: '큰 나무에서 남쪽으로 2칸 간 곳에 둘째 표지가 있어요. 핀을 꽂아요.', toolOptions: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }, { name: '본관', icon: 'school', at: [5, 0] }] }, target: { from: '큰 나무', dir: '남', steps: 2 }, levels: { challenge: { prompt: '이 지도는 북쪽이 왼쪽이에요. 큰 나무에서 남쪽으로 2칸 간 곳에 핀을 꽂아요.' } }, difficulty: 0.2 },
+                { prompt: '화단에서 북쪽으로 2칸 간 곳에 셋째 표지가 있어요. 핀을 꽂아요.', toolOptions: { places: [{ name: '출발 깃발', icon: 'dot', at: [0, 3] }, { name: '큰 나무', icon: 'forest', at: [2, 1] }, { name: '화단', icon: 'park', at: [4, 3] }, { name: '본관', icon: 'school', at: [5, 0] }] }, target: { from: '화단', dir: '북', steps: 2 }, levels: { challenge: { prompt: '이 지도는 북쪽이 왼쪽이에요. 화단에서 북쪽으로 2칸 간 곳에 핀을 꽂아요.' } }, difficulty: 0.25 },
               ],
             },
             {
@@ -498,7 +498,7 @@
         differentiation: {
           easy: '핀을 꽂으면 그 칸의 자리가 글로 보여 칸 수를 세기 쉬워요.',
           base: '방위와 칸 수만 보고 스스로 핀을 꽂아요.',
-          challenge: '지도의 북쪽이 오른쪽으로 돌아가 있어 방위를 다시 맞춰 읽고, 표지 찾기는 시간 재기로 직접 재요.',
+          challenge: '지도의 북쪽이 왼쪽으로 돌아가 있어 방위를 다시 맞춰 읽고, 표지 찾기는 시간 재기로 직접 재요.',
         },
         teacherNotes: '자주 보이는 어려움: ① 오른쪽·왼쪽과 동쪽·서쪽을 섞는다 → 지도를 실제 북쪽에 맞춰 들고 출발하게 한다. ② 기준 칸을 1칸으로 센다 → "옮긴 칸을 센다"를 손가락으로 짚게 한다. ③ 빨리 찾으려고 꽃밭·나무 사이를 지난다 → 생태형의 첫 규칙은 자연을 지키는 것임을 출발 전에 약속한다. 학교 숲이 없으면 운동장 둘레 화단·나무를 표지 자리로 쓴다.',
       }),

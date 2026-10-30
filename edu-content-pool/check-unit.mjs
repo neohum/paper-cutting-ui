@@ -247,8 +247,10 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
                 if (!ok) row.problems.push('짝 활동 교구를 움직여도 상태가 바뀌지 않음(학생이 \'다 했어요\'를 누를 수 없음) — 교구를 움직이지 않는 말하기 활동이면 talk: true, 아니면 그 문항에 toolOptions(카드·칸 등)를 준다');
                 continue;
               }
-              // 단계마다 판정: 문항 target을 바꾼 단계뿐 아니라 toolOptions·state만 바꾼 단계(함정 카드를 더한 도전 등)도 그 판으로 풀리는지 본다
-              const levels = ['base', ...Object.keys(it0.levels || {}).filter((lv) => lv !== 'base' && ['target', 'toolOptions', 'state'].some((k) => it0.levels[lv][k] != null))];
+              // 단계마다 판정: 문항 target을 바꾼 단계뿐 아니라 toolOptions·state만 바꾼 단계(함정 카드를 더한 도전 등)도 그 판으로 풀리는지 본다.
+              // 활동 단위 levels(예: 쉬움 단계에서 고르개 모양·색을 줄임)도 학생 판을 바꾸므로 그 단계를 연다 — 빠뜨리면 쉬움 판에 없는 재료를 요구해도 통과한다
+              const actLv = acts[x].levels || {};
+              const levels = ['base', ...['easy', 'challenge'].filter((lv) => (it0.levels?.[lv] && ['target', 'toolOptions', 'state'].some((k) => it0.levels[lv][k] != null)) || (actLv[lv] && Object.keys(actLv[lv]).length))];
               for (const lv of levels) {
                 const it = Fl.itemAt(it0, lv); const tag = lv === 'base' ? '' : ` (levels.${lv})`;
                 let T = open(x, y, lv);

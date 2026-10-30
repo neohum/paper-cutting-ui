@@ -168,9 +168,9 @@
             items: [
               { prompt: '나를 알아보는 좋은 방법만 바구니에 넣어 보세요.', toolOptions: { mode: 'pick', basket: '나를 알아보는 방법', weather: false, cards: ['여러 활동을 직접 해 보기', '가족에게 내 장점 묻기', '진로 흥미 검사 해 보기', '인기 순위로 꿈 정하기', '친구 꿈을 그대로 따르기'] }, hints: ['그 방법이 나의 흥미·적성을 직접 알려 주는지, 다른 사람의 기준을 그대로 따르는 것인지 따져 골라요.'], target: { pick: ['여러 활동을 직접 해 보기', '가족에게 내 장점 묻기', '진로 흥미 검사 해 보기'] }, difficulty: 0.15,
                 levels: { easy: { toolOptions: { live: true, instant: true } }, challenge: { toolOptions: { cards: ['여러 활동을 직접 해 보기', '가족에게 내 장점 묻기', '진로 흥미 검사 해 보기', '인기 순위로 꿈 정하기', '친구 꿈을 그대로 따르기', '하루 만에 꿈 정하기'] } } } },
-              { prompt: '준호는 검사 결과와 친구들 꿈이 달라 고민이에요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '흥미 검사에서 \'탐구형\'이 나왔어요. 그런데 친구들은 다 같이 유튜버가 되자고 해요.', feeling: '걱정', choices: [
+              { prompt: '준호는 검사 결과와 친구들 꿈이 달라 고민이에요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '준호', situation: '흥미 검사에서 \'탐구형\'이 나왔어요. 그런데 친구들은 다 같이 인터넷 방송인이 되자고 해요.', feeling: '걱정', choices: [
                 { id: 'mix', text: '검사 결과와 내가 해 본 일을 함께 살펴요', result: '실험 동아리를 해 보며 내 흥미를 확인해요.', mood: '뿌듯함' },
-                { id: 'follow', text: '친구들처럼 유튜버로 정해요', result: '나는 왜 그 일을 하는지 모르게 돼요.', mood: '걱정', why: '친구의 흥미와 내 흥미가 같은지 먼저 따져 봐요.' },
+                { id: 'follow', text: '친구들처럼 인터넷 방송인으로 정해요', result: '나는 왜 그 일을 하는지 모르게 돼요.', mood: '걱정', why: '친구의 흥미와 내 흥미가 같은지 먼저 따져 봐요.' },
                 { id: 'only', text: '검사 결과만 보고 바로 직업을 정해요', result: '해 보지도 않은 일로 꿈이 굳어져요.', mood: '걱정', why: '검사는 참고 자료예요. 직접 해 본 경험도 함께 봐요.' }] }, target: { choice: 'mix' }, difficulty: 0.2 },
               { prompt: '민지는 잘하는 일과 좋아하는 일이 달라요. 어떻게 할까요?', toolOptions: { mode: 'branch', who: '민지', situation: '수학 문제는 잘 풀지만 그림 그리기가 훨씬 좋아요. 무엇을 보고 진로를 찾을지 고민돼요.', choices: [
                 { id: 'both', text: '둘을 함께 쓰는 일을 찾아봐요', result: '그림과 계산을 함께 쓰는 디자인·건축 일을 알게 돼요.', mood: '신남' },

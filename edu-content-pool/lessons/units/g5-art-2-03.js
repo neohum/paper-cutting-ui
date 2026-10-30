@@ -715,7 +715,7 @@
         title: '다섯 색을 한 조각씩 붙이기', tool: 'collage',
         teacher: '"다섯 색이 모두 들어가야 해요. 한 색이 두 번 들어가도 되나요?" 먼저 방위 색 하나씩 붙이고, 그다음 한 색이 다른 색과 맞닿는 곳을 살펴보게 한다. 색을 하나 빠뜨린 학생에게는 "오방색 이름을 다시 불러 볼까요?"라고 묻는다. 도형은 색 조각을 보기 쉽게 놓는 판일 뿐이라고 말해 준다.',
         task: '파랑·하양·빨강·검정·노랑 도형을 하나씩 붙여 다섯 방위 색을 모두 나타내요.',
-        levels: { easy: { shapes: ['circle', 'square'], colors: ['파랑', '하양', '빨강', '검정', '노랑'], sizes: ['m'] }, base: { shapes: ['circle', 'square', 'triangle', 'rect', 'star', 'diamond'] }, challenge: {} },
+        levels: { easy: { shapes: ['circle', 'square', 'rect'], colors: ['파랑', '하양', '빨강', '검정', '노랑'], sizes: ['m', 'l'] }, base: { shapes: ['circle', 'square', 'triangle', 'rect', 'star', 'diamond'] }, challenge: {} },
         items: [
           { prompt: '파랑·하양·빨강·검정·노랑 동그라미를 한 개씩 붙여 다섯 방위 색을 나타내요.', target: { has: [{ shape: 'circle', color: '파랑', n: 1 }, { shape: 'circle', color: '하양', n: 1 }, { shape: 'circle', color: '빨강', n: 1 }, { shape: 'circle', color: '검정', n: 1 }, { shape: 'circle', color: '노랑', n: 1 }] }, difficulty: 0.15 },
           { prompt: '파랑 긴 네모와 빨강 긴 네모를 겹치도록 붙이고, 노랑 큰 네모를 가운데에 놓아요.', target: { has: [{ shape: 'rect', color: '파랑', n: 1 }, { shape: 'rect', color: '빨강', n: 1 }, { shape: 'square', color: '노랑', size: 'l', n: 1 }], overlap: 1 }, difficulty: 0.25 },
@@ -1381,7 +1381,7 @@
         title: '설명에 맞는 도형 분석 도식 만들기', tool: 'collage',
         teacher: '"이 설명대로 도형을 놓으면 어떤 모습이 될까요?" 설명을 읽고 도형으로 옮겨 설명이 맞는지 확인하게 한다. 설명대로 놓았는데 그림과 다르면 설명이 부족하다는 뜻이라고 말해 준다. 도식을 만들다 설명에 없는 조각을 넣은 학생에게는 "설명에 나온 것만 놓아 볼까요?"라고 묻는다.',
         task: '설명을 읽고 그대로 도형으로 놓아, 설명이 구체적인지 확인해요.',
-        levels: { easy: { shapes: ['triangle', 'square', 'star', 'circle'], colors: ['초록', '갈색', '노랑', '파랑'], sizes: ['m', 'l'] }, base: { shapes: ['triangle', 'square', 'star', 'circle', 'rect', 'leaf'] }, challenge: {} },
+        levels: { easy: { shapes: ['triangle', 'square', 'star', 'circle'], colors: ['초록', '갈색', '노랑', '파랑'], sizes: ['s', 'm', 'l'] }, base: { shapes: ['triangle', 'square', 'star', 'circle', 'rect', 'leaf'] }, challenge: {} },
         items: [
           { prompt: '세한도 설명대로 놓아요. 초록 세모 둘 사이에 갈색 작은 네모 하나를 놓아요.', target: { has: [{ shape: 'triangle', color: '초록', n: 2 }, { shape: 'square', color: '갈색', size: 's', n: 1 }] }, difficulty: 0.2 },
           { prompt: '별이 빛나는 밤 설명대로 놓아요. 파랑 큰 네모 위에 노랑 별 다섯 개 이상을 붙여요.', target: { has: [{ shape: 'square', color: '파랑', size: 'l', min: 1 }, { shape: 'star', color: '노랑', min: 5 }] }, difficulty: 0.25 },

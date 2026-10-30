@@ -736,7 +736,7 @@
             teacher: '"접는 선이 코가 있는 자리예요. 왼쪽 귀가 접는 선에서 몇 칸 떨어져 있나요? 오른쪽 귀도 같은 칸만큼 떨어져야 해요." 판의 점을 세게 한다. 물고기 문항에서는 "옆모습은 대칭이 아니어도 돼요"라고 말해, 앞모습과 옆모습의 차이를 직접 만들어 보게 한다.',
             task: '앞에서 본 얼굴은 접는 선 양쪽이 같게, 옆에서 본 모습은 보이는 대로 조각을 놓아요.',
             levels: {
-              easy: { shapes: ['circle', 'triangle', 'square', 'heart'], colors: ['노랑', '주황', '검정', '분홍', '하양'], sizes: ['s', 'm', 'l'] },
+              easy: { shapes: ['circle', 'triangle', 'square', 'heart', 'leaf'], colors: ['노랑', '주황', '검정', '분홍', '하양'], sizes: ['s', 'm', 'l'] },
               base: { shapes: ['circle', 'triangle', 'square', 'heart', 'leaf', 'semi'] },
               challenge: { guide: false },
             },
