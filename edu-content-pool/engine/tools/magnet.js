@@ -15,6 +15,14 @@
  */
 (function (K) {
   'use strict';
+  // 무대가 화면에 그려질 배율(화면 px ÷ viewBox 단위) 어림: 상자 안쪽 폭과 무대 높이 제한(max-height)을 함께 본다. 모르면 1
+  const stageScale = (box, W, H) => {
+    if (!box || !(box.clientWidth > 0) || typeof getComputedStyle !== 'function') return 1;
+    const cs = getComputedStyle(box); const bw = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    let mh = Infinity;
+    try { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.setAttribute('class', 'pk-stage'); box.appendChild(t); const v = parseFloat(getComputedStyle(t).maxHeight); t.remove(); if (Number.isFinite(v) && v > 0) mh = v; } catch (_) { /* 높이 제한 모름 */ }
+    return bw > 0 ? Math.min(bw / W, H ? mh / H : Infinity) : 1;
+  };
   const DIRS = ['북', '북동', '동', '남동', '남', '남서', '서', '북서'];
   const BEAR = { 북: 0, 동: 90, 남: 180, 서: 270 };
   const HALF = 54; // 막대자석 반 길이
@@ -33,7 +41,11 @@
       const print = !!o.print;
       const mode = ['poles', 'hidden'].includes(o.mode) ? o.mode : 'compass';
       const btnRow = !print;
-      const W = 440; const H = btnRow ? 350 : 300;
+      const W = 440;
+      // 화면 px → viewBox 단위: 누르는 곳을 화면 48px 이상으로(휴대폰에서 무대가 0.7배쯤 줄면 단추가 39px이 되던 문제)
+      const zoom = Math.max(1, 1 / stageScale(box, W, 350)); const px = (n) => n * zoom;
+      const BH = Math.max(50, px(50));
+      const H = btnRow ? Math.max(350, Math.ceil(322 + BH / 2 + 2)) : 300;
       const st = kit.stage(box, { viewBox: [W, H], label: { compass: '막대자석과 나침반 실험대. 자석을 끌어 옮기면 나침반 바늘이 돌아가요. 화면 위쪽이 북쪽이에요.', poles: '막대자석 두 개. 움직이는 자석 나를 끌어 자석 가의 끝에 대어 보세요.', hidden: '극 표시가 지워진 막대자석과 나침반. 나침반을 자석 양 끝에 대어 보세요.' }[mode] });
       const NS = (tag, a, p) => kit.el(tag, a, p);
       const showWords = o.showWords !== false && !print;
@@ -53,7 +65,7 @@
       // ---- 막대자석 그리기 ----
       const magnetG = (parent, opts = {}) => {
         const g = NS('g', { class: 'mg-magnet' }, parent);
-        NS('rect', { x: -HALF - 6, y: -30, width: 2 * HALF + 12, height: 60, class: 'pk-hit' }, g);
+        const mh = Math.max(60, px(50)); NS('rect', { x: -HALF - 6, y: -mh / 2, width: 2 * HALF + 12, height: mh, class: 'pk-hit' }, g);
         const hidden = !!opts.hidden;
         const nP = kit.piece(st, g, { shape: { type: 'rect', x: 0, y: -16, w: HALF, h: 32, rx: 6 }, color: hidden ? 'cream' : 'rose', depth: 2 });
         const sP = kit.piece(st, g, { shape: { type: 'rect', x: -HALF, y: -16, w: HALF, h: 32, rx: 6 }, color: hidden ? 'cream' : 'sky', depth: 2 });
@@ -110,7 +122,7 @@
       const btn = (x, w, label, aria, color, press) => {
         const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': aria }, UI);
         kit.transform(g, { x, y: 322 });
-        NS('rect', { x: -w / 2 - 2, y: -25, width: w + 4, height: 50, class: 'pk-hit' }, g);
+        NS('rect', { x: -w / 2 - 2, y: -BH / 2, width: w + 4, height: BH, class: 'pk-hit' }, g);
         const pc = kit.piece(st, g, { shape: { type: 'rect', x: -w / 2, y: -22, w, h: 44, rx: 12 }, color, depth: 2 });
         NS('text', { x: 0, y: 6, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = label;
         const go = (via) => { kit.spring(0.9, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); press(via); };
@@ -334,7 +346,7 @@
         NS('text', { x: mag.x + HALF + 18, y: mag.y + 6, 'text-anchor': 'middle', 'font-size': 20, class: 'pk-text', fill: '#3D352E' }, M).textContent = 'ㄴ';
         const probe = Object.assign({ x: 220, y: 250 }, o.start || {});
         const pc = compassG(C, probe.x, probe.y, null);
-        NS('circle', { r: 30, class: 'pk-hit' }, pc.g);
+        NS('circle', { r: Math.max(30, px(25)), class: 'pk-hit' }, pc.g);
         const probed = new Set(); let choice = null;
         const update = (animate) => {
           swing(pc, field([probe.x, probe.y], [mag]), animate);

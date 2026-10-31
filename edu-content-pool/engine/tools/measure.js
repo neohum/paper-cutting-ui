@@ -48,6 +48,7 @@
     s.textContent = `
 .${P}-panel{display:grid;gap:10px;margin-top:10px}
 .${P}-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.${P}-row .pl-btn{min-width:44px;justify-content:center}
 .${P}-q{margin:0;font-weight:700;line-height:1.45;word-break:keep-all}
 .${P}-picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
 .${P}-picks .pl-btn{white-space:normal;line-height:1.3;word-break:keep-all;min-height:44px}

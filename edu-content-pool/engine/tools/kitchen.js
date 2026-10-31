@@ -322,7 +322,10 @@
     },
     view(S) {
       const { o, kit, M, print, box } = S; const its = M.items; const n = its.length;
-      const cols = n >= 7 ? 2 : 1; const rows = Math.ceil(n / cols); const rh = 64; const gap = 10;
+      // 줄 높이: 화면에서 48px 이상이 되게(휴대폰에서 판이 0.55배쯤 줄면 줄이 39px이 되던 문제) — 넓은 화면은 64 그대로
+      let scr = 1;
+      if (!print && box.clientWidth > 0 && typeof getComputedStyle === 'function') { const cs = getComputedStyle(box); scr = Math.max(0.2, (box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0)) / W); }
+      const cols = n >= 7 && scr >= 0.8 ? 2 : 1; const rows = Math.ceil(n / cols); const rh = Math.max(64, Math.min(110, Math.ceil(48 / scr - 8))); const gap = 10;
       const cw = (W - 2 * PAD - gap * (cols - 1)) / cols;
       const titleH = o.title ? 36 : 0;
       const H = PAD + titleH + rows * (rh + gap) - gap + PAD;

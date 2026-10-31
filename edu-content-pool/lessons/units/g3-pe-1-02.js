@@ -690,7 +690,7 @@
               items: [
                 { prompt: '스포츠 날 하루 흐름 카드를 차례대로 놓아요.', toolOptions: { cards: ['세 갈래 경기 돌기', '물 마시고 잘한 점 칭찬 나누기', '다 함께 관절 돌리며 몸 풀기', '천천히 걸으며 숨 고르기'] }, target: { order: ['다 함께 관절 돌리며 몸 풀기', '세 갈래 경기 돌기', '천천히 걸으며 숨 고르기', '물 마시고 잘한 점 칭찬 나누기'] }, levels: { easy: { state: { order: ['다 함께 관절 돌리며 몸 풀기', '천천히 걸으며 숨 고르기', '세 갈래 경기 돌기', '물 마시고 잘한 점 칭찬 나누기'] } } }, difficulty: 0.15,
                   hints: ['몸을 데우고, 힘껏 움직이고, 몸을 식히고, 마음을 나누는 차례로 떠올려 보세요.', '경기 바로 뒤에 앉아서 이야기하면 숨이 찬 몸이 어떨지 생각해 보세요.'] },
-                { prompt: '세 갈래 경기를 8분씩 하고 경기 사이에 2분 쉬도록 타이머를 맞추어요.', toolOptions: { plan: { work: 300, rest: 60, rounds: 2 }, workStep: 60, restStep: 30 }, target: { plan: { work: 480, rest: 120, rounds: 3 } }, levels: { challenge: { prompt: '경기를 8분씩 3번 하고, 모두 28분이 되도록 경기 사이에 쉬는 시간을 맞추어요.', target: { total: 1680, plan: { work: 480, rounds: 3 } } } }, difficulty: 0.25 },
+                { prompt: '세 갈래 경기를 8분씩 하고 경기 사이에 2분 쉬도록 타이머를 맞추어요.', toolOptions: { plan: { work: 5, rest: 1, rounds: 2 }, timeUnit: 'min', workStep: 1, restStep: 1 }, target: { plan: { work: 8, rest: 2, rounds: 3 } }, levels: { challenge: { prompt: '경기를 8분씩 3번 하고, 모두 28분이 되도록 경기 사이에 쉬는 시간을 맞추어요.', target: { total: 28, plan: { work: 8, rounds: 3 } } } }, difficulty: 0.25 },
                 { prompt: '스포츠 날 계획을 마치고 해낸 것을 점검 목록에 표시해요.', target: { selfCheck: ['세 갈래 활동을 모두 넣었어요', '모두가 할 수 있게 규칙을 바꿨어요', '몸 풀기와 숨 고르기를 넣었어요'] }, difficulty: 0.1 },
               ],
             },

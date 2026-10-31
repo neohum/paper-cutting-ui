@@ -13,6 +13,14 @@
  */
 (function (K) {
   'use strict';
+  // 무대가 화면에 그려질 배율(화면 px ÷ viewBox 단위) 어림: 상자 안쪽 폭과 무대 높이 제한(max-height)을 함께 본다. 모르면 1
+  const stageScale = (box, W, H) => {
+    if (!box || !(box.clientWidth > 0) || typeof getComputedStyle !== 'function') return 1;
+    const cs = getComputedStyle(box); const bw = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    let mh = Infinity;
+    try { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.setAttribute('class', 'pk-stage'); box.appendChild(t); const v = parseFloat(getComputedStyle(t).maxHeight); t.remove(); if (Number.isFinite(v) && v > 0) mh = v; } catch (_) { /* 높이 제한 모름 */ }
+    return bw > 0 ? Math.min(bw / W, H ? mh / H : Infinity) : 1;
+  };
   const kindOf = (a) => (a > 0 && a < 90 ? 'less' : a === 90 ? 'right' : a > 90 && a < 180 ? 'more' : null);
   const WORD = { less: '직각보다 작은 각', right: '직각', more: '직각보다 큰 각' };
   // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 답이 될 각의 이름·기호를 말하지 않는다), 2 = 한 번 틀린 뒤 지금 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
@@ -29,6 +37,8 @@
       const st = kit.stage(box, { viewBox: [W, H], label: { make: '종이 띠 두 장으로 각을 만들어요. 복숭아색 띠를 돌려요.', judge: '종이 띠로 만든 각이에요. 삼각자를 대 보고 직각인지 알아봐요.', compare: '변의 길이가 다른 두 각 가와 나예요. 더 큰 각을 골라요.', parts: '종이 띠로 만든 각이에요. 꼭짓점이나 변을 눌러 골라요.' }[mode] });
       if (print) st.svg.setAttribute('viewBox', mode === 'compare' ? '10 40 380 230' : '40 40 320 230');
       const NS = (tag, a, p) => kit.el(tag, a, p);
+      // 화면 px → viewBox 단위: 누르는 곳을 화면 48px 이상으로 잡는다(휴대폰에서 무대가 줄면 단추가 43px이 되던 문제)
+      const zoom = Math.max(1, 1 / stageScale(box, W, H)); const px = (n) => n * zoom;
       const showKind = !print && mode === 'make' && !!o.showKind;
       const squareOn = !print && o.square !== false && (mode === 'make' || mode === 'judge');
 
@@ -38,13 +48,14 @@
         if (turn) kit.transform(G, { r: -turn, cx: V[0], cy: V[1] });
         const A = Math.round(150 * armK);
         const fixedG = NS('g', { class: 'ra-side' }, G);
+        const fh = Math.max(22, px(48)); NS('rect', { x: V[0] + 12, y: V[1] - fh / 2, width: A - 12, height: fh, class: 'pk-hit' }, fixedG);
         kit.piece(st, fixedG, { shape: { type: 'rect', x: V[0] - 12, y: V[1] - 11, w: A + 12, h: 22, rx: 11 }, color: 'mint', depth: 2 });
         NS('line', { x1: V[0], y1: V[1], x2: V[0] + A - 8, y2: V[1], stroke: '#275C46', 'stroke-width': 1.6, 'stroke-dasharray': '6 5', 'pointer-events': 'none' }, fixedG);
         const sq = NS('g', { display: 'none', 'pointer-events': 'none' }, G);
         kit.piece(st, sq, { shape: { type: 'poly', points: `${V[0]},${V[1]} ${V[0] + 96},${V[1]} ${V[0]},${V[1] - 96}` }, color: 'lavender', depth: 1, fill: 'rgba(215,203,235,0.72)' });
         NS('path', { d: `M${V[0] + 16} ${V[1]} V${V[1] - 16} H${V[0]}`, fill: 'none', stroke: '#473B6B', 'stroke-width': 2 }, sq);
         const mv = NS('g', { class: 'ra-side ra-arm' }, G);
-        NS('rect', { x: V[0] - 26, y: V[1] - A - 10, width: 52, height: A - 10, class: 'pk-hit' }, mv);
+        const aw = Math.max(52, px(50)); NS('rect', { x: V[0] - aw / 2, y: V[1] - A - 10, width: aw, height: A - 10, class: 'pk-hit' }, mv);
         kit.piece(st, mv, { shape: { type: 'rect', x: V[0] - 11, y: V[1] - A, w: 22, h: A + 12, rx: 11 }, color: 'peach', depth: 2 });
         NS('line', { x1: V[0], y1: V[1] - A + 8, x2: V[0], y2: V[1], stroke: '#6E3B21', 'stroke-width': 1.6, 'stroke-dasharray': '6 5', 'pointer-events': 'none' }, mv);
         if (mode === 'make' && !print) {
@@ -52,7 +63,7 @@
           kit.piece(st, mv, { shape: { type: 'circle', cx: V[0], cy: V[1] - A + 11, r: 6 }, color: 'cream', depth: 0 });
         }
         const brad = NS('g', { class: 'ra-vertex' }, G);
-        NS('circle', { cx: V[0], cy: V[1], r: 24, class: 'pk-hit' }, brad);
+        NS('circle', { cx: V[0], cy: V[1], r: Math.max(24, px(25)), class: 'pk-hit' }, brad);
         kit.piece(st, brad, { shape: { type: 'circle', cx: V[0], cy: V[1], r: 10 }, color: 'buttercup', depth: 2 });
         kit.piece(st, brad, { shape: { type: 'circle', cx: V[0], cy: V[1], r: 4.5 }, color: 'peach', depth: 0 });
         const setA = (a) => kit.transform(mv, { r: 90 - a, cx: V[0], cy: V[1] });
@@ -96,7 +107,7 @@
       const btn = (layer, x, y, w, label, aria, color, press) => {
         const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': aria }, layer);
         kit.transform(g, { x, y });
-        NS('rect', { x: -w / 2 - 2, y: -25, width: w + 4, height: 50, class: 'pk-hit' }, g);
+        const bh = Math.max(50, px(50)); NS('rect', { x: -w / 2 - 2, y: -bh / 2, width: w + 4, height: bh, class: 'pk-hit' }, g);
         const pc = kit.piece(st, g, { shape: { type: 'rect', x: -w / 2, y: -22, w, h: 44, rx: 12 }, color, depth: 2 });
         NS('text', { x: 0, y: 6, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = label;
         const go = (via) => { kit.spring(0.9, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); press(via); };

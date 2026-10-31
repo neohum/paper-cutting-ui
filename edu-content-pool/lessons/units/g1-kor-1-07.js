@@ -201,7 +201,7 @@
             ]),
         ],
         [
-          { type: 'tool', tool: 'hangul', options: { consonants: ['ㅂ', 'ㄱ'], vowels: ['ㅏ', 'ㅜ'], batchim: ['ㅁ', 'ㄴ', 'ㄹ'], slotHints: true }, prompt: '"물이 흘러요."에서 \'물\'을 만들어 보세요.', target: { syllable: '물' }, difficulty: 0.3 },
+          { type: 'tool', tool: 'hangul', options: { consonants: ['ㅁ', 'ㅂ', 'ㄱ'], vowels: ['ㅏ', 'ㅜ'], batchim: ['ㅁ', 'ㄴ', 'ㄹ'], slotHints: true }, prompt: '"물이 흘러요."에서 \'물\'을 만들어 보세요.', target: { syllable: '물' }, difficulty: 0.3 },
           CH('글을 쓰기 전에 가장 먼저 하면 좋은 일은 무엇일까요?', ['무엇을 쓸지 생각해요', '다 쓰고 나서 읽어요', '친구 글을 베껴요'], 0, '쓸 것을 먼저 생각하고 말해 보면 쓰기가 쉬워져요.', 0.1),
           MOOD,
         ]),

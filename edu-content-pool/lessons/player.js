@@ -186,8 +186,21 @@
       // 학생 화면의 시연 교구는 보기만 한다(Tab 순서에서 빼서 '활동 시작'까지 Tab을 덜 누르게)
       if (S.role !== 'teacher') { $('#demo').inert = true; $('#demo').setAttribute('aria-hidden', 'true'); }
       const t = K.mount(st.demo.tool, $('#demo'), Object.assign({ demoView: S.role === 'teacher' }, st.demo.options || {}));
-      $('#demo-play')?.addEventListener('click', async () => { for (const s of st.demo.sequence) { await t.demo(s); await K.wait(900); } });
+      $('#demo-play')?.addEventListener('click', async () => { const how = {}; for (const s of st.demo.sequence) { await demoStep(t, s, how); await K.wait(900); } });
     }
+  }
+
+  // 시연 한 단계. 계약은 demo(target)이지만 차시 300여 개가 sequence 를 교구 상태 모양({ at: {…} }, { v: [700] }, { up: [...] })으로 적었다.
+  // 교구는 모르는 target 을 받으면 아무것도 하지 않아 시연 단추가 멈춘 것처럼 보였다(점검 T1).
+  // demo 가 상태를 하나도 바꾸지 않았고 단계의 키가 모두 상태 키면 그 시연은 상태 열로 보고, 이 단계와 남은 단계를 setState 로 보여 준다.
+  // 한 번 상태 열로 정하면 demo 를 다시 부르지 않는다 — demo 가 먼저 판을 비우는 교구(wordcards flip 등)가 앞 단계를 지우지 않게.
+  async function demoStep(t, s, how) {
+    const fits = (cur) => cur && s && typeof s === 'object' && !Array.isArray(s) && Object.keys(s).length > 0 && Object.keys(s).every((k) => k in cur);
+    if (how.asState && fits(t.getState())) { t.setState(Object.assign({}, t.getState(), s)); return; }
+    const before = JSON.stringify(t.getState());
+    await t.demo(s);
+    const cur = t.getState();
+    if (JSON.stringify(cur) === before && fits(cur)) { how.asState = true; t.setState(Object.assign({}, cur, s)); }
   }
 
   const levelOpts = (a) => Object.assign({}, a.options || {}, (a.levels || {})[S.level] || {});

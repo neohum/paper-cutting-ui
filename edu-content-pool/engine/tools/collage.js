@@ -423,11 +423,13 @@
         const g = PL.querySelectorAll('.cg-piece')[sel]; if (g) g.focus();
       }
 
+      // 누르는 영역: 판이 좁게 줄어든 휴대폰에서도 화면 지름 44px 이상(작은 조각 R 20 → 판 0.6배면 29px이 되던 것)
+      const hitR = (p) => { const sw = st.svg.getBoundingClientRect().width; const k = sw > 0 ? sw / W : 1; return Math.max(24, R(p) + 4, 22 / k); };
       function draw() {
         PL.textContent = '';
         pieces.forEach((p, i) => {
           const g = kit.el('g', { class: 'cg-piece' }, PL);
-          kit.el('circle', { r: Math.max(24, R(p) + 4), class: 'pk-hit' }, g);
+          kit.el('circle', { r: hitR(p), class: 'pk-hit' }, g);
           const inner = kit.el('g', null, g);
           const c = COLORS[p.color];
           const pc = kit.piece(st, inner, { shape: shapeOf(p.shape, R(p)), color: 'cream', depth: 2, fill: c.fill, stroke: p.color === '하양' ? '#CFC5B4' : undefined });

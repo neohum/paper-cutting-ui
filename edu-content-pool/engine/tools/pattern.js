@@ -11,6 +11,7 @@
  * | seq | 조각 줄. fill에서 null은 빈칸(가운데·끝 어디든) | [] |
  * | palette | 고를 조각들(fill·make) | seq에 나온 조각들 |
  * | input | 'number'면 빈칸에 수를 쓴다(palette 대신) | 수만 있는 줄이고 palette가 없으면 'number' |
+ * | digits | 수 칸에 쓸 수 있는 자릿수(큰 수 뛰어 세기 등) | 4와 seq 의 가장 긴 수 자릿수 가운데 큰 값 |
  * | length | make: 만들 조각 수(4~12) | 8 |
  * | start | make + 수: 첫 수 힌트(solve 기본 시작 수) | 1 |
  * | choices, question, why | rule: 보기 글 배열·질문 글·보기마다 틀렸을 때 할 말 | — |
@@ -47,6 +48,9 @@
     const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
     return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
   };
+  const intOrNull = (v) => (Number.isFinite(Number(v)) && v !== null && v !== '' ? Math.round(Number(v)) : null);
+  // 조각 안 글자 크기: 짧으면 big, 4~5자 small, 큰 수(6자 이상)는 칸(64) 안에 들도록 더 줄인다
+  const numFont = (txt, small, big) => (txt.length > 7 ? 11 : txt.length > 5 ? 14 : txt.length > 3 ? small : big);
   function norm(p) {
     if (p == null) return null;
     if (typeof p === 'number') return { n: p };
@@ -132,6 +136,7 @@
       // 팔레트: 주어지지 않으면 줄에 나온 조각을 한 번씩(나온 차례)
       let palette = Array.isArray(o.palette) ? o.palette.map(norm).filter(Boolean) : [];
       if (!palette.length) { const seen = new Set(); for (const p of seq) if (p && !seen.has(keyOf(p))) { seen.add(keyOf(p)); palette.push(p); } }
+      const digits = Math.max(1, Math.min(12, intOrNull(o.digits) || Math.max(4, ...seq.filter((p) => p && p.n != null).map((p) => String(Math.abs(Math.round(p.n))).length))));
       const numInput = o.input === 'number' || (o.input == null && !Array.isArray(o.palette) && (mode === 'fill' ? allNum : mode === 'make' && allNum));
       const blanksAt = mode === 'fill' ? seq.map((p, i) => (p == null ? i : -1)).filter((i) => i >= 0) : [];
       const length = mode === 'make' ? Math.max(4, Math.min(12, o.length || 8)) : seq.length;
@@ -177,7 +182,7 @@
           return;
         }
         const txt = q.t != null ? q.t : String(q.n);
-        kit.el('text', { x: 0, y: 8, 'text-anchor': 'middle', 'font-size': txt.length > 3 ? 18 : 24, class: 'pk-text', fill: '#3D352E' }, g).textContent = txt;
+        kit.el('text', { x: 0, y: 8, 'text-anchor': 'middle', 'font-size': numFont(txt, 18, 24), class: 'pk-text', fill: '#3D352E' }, g).textContent = txt;
       }
       function shapeEl(sh, parent, c) {
         const fill = `url(#${texId(c)})`;
@@ -232,7 +237,7 @@
         syncPalette();
       }
       function showValue(t, v) {
-        if (t.num) t.num.textContent = v == null ? '' : String(v);
+        if (t.num) { t.num.textContent = v == null ? '' : String(v); t.num.setAttribute('font-size', numFont(String(v == null ? '' : v), 24, 24)); }
         t.variants.forEach((g, k) => g.setAttribute('display', v === k ? 'inline' : 'none'));
       }
       function setSlot(j, v) {
@@ -313,9 +318,10 @@
             const lab = document.createElement('label'); lab.className = 'pt-lab';
             lab.append(mode === 'fill' ? `${names[j]}` : `${j + 1}`);
             const inp = document.createElement('input'); inp.className = 'pt-in'; inp.type = 'text'; inp.setAttribute('tabindex', '0');
+            if (digits > 4) inp.style.width = `${(digits * 0.7 + 1.8).toFixed(1)}em`;
             inp.setAttribute('inputmode', 'numeric'); inp.setAttribute('autocomplete', 'off'); inp.setAttribute('aria-label', mode === 'fill' ? `${names[j]} 칸에 들어갈 수` : `${j + 1}번째 수`);
             inp.addEventListener('focus', () => { sel = j; paintRings(); });
-            inp.addEventListener('input', () => { inp.value = inp.value.replace(/[^0-9]/g, '').slice(0, 4); const v = inp.value === '' ? null : Number(inp.value); if (mode === 'make') made[j] = v; else fill[j] = v; revealed = false; clearMarks(); showValue(slotTile(j), v); log(); });
+            inp.addEventListener('input', () => { inp.value = inp.value.replace(/[^0-9]/g, '').slice(0, digits); const v = inp.value === '' ? null : Number(inp.value); if (mode === 'make') made[j] = v; else fill[j] = v; revealed = false; clearMarks(); showValue(slotTile(j), v); log(); });
             inp.addEventListener('keydown', (e) => { const d = { ArrowUp: 1, ArrowDown: -1 }[e.key]; if (!d) return; e.preventDefault(); setSlot(j, Math.max(0, (valueAt(j) == null ? 0 : valueAt(j)) + d)); });
             lab.appendChild(inp); row.appendChild(lab); inputs.push(inp);
           }

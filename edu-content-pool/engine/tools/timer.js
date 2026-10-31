@@ -11,6 +11,8 @@
  * 스스로 점검 | (target.selfCheck)                                      | checks: [true|false, …]      | selfCheck: ['…', …]
  * 그 밖의 옵션: title(판 머리 글), unit(기록 기본 단위, 기본 '회'), showTotal(전체 시간 보기 — revealAfterCheck이면 맞힌 뒤에 보임),
  *              workStep(기본 5초), restStep(기본 5초), print,
+ *              timeUnit('min'이면 타이머 칸을 분으로 맞춘다 — plan·target.plan·target.total 값이 모두 분, 칸은 운동 1~60분·쉬기 0~30분,
+ *              workStep·restStep 기본 1분. 미술 작업 시간·체육 경기 시간처럼 몇 분 단위 계획에 쓴다. 기본은 초),
  *              doneLabel(칸이 하나도 없는 판 — 짝·모둠 free 문항 — 에 나오는 '해 보았어요' 표시 글, 기본 '짝·모둠과 함께 해 보았어요'. 상태에 done: true|false)
  * target 칸은 섞어 쓸 수 있다 — 모두 맞아야 정답(예: { safety: true, order: [...] }).
  * 키보드: 수 칸은 ←/→·↑/↓ 또는 −/+ 단추, 카드는 ←/→로 자리를 옮기고 Enter로 골라 다른 카드와 바꾼다, 점검은 Enter/Space.
@@ -32,6 +34,8 @@
   // 받침 따라 조사 고르기(‘2분’이에요 / ‘30초’예요)
   const jong = (w) => { const c = String(w).charCodeAt(String(w).length - 1) - 0xac00; return c >= 0 && c <= 11171 && c % 28 !== 0; };
   const ieyo = (w) => `${w}${jong(w) ? '이에요' : '예요'}`;
+  // 타이머 칸 단위: 기본 초, timeUnit 'min'이면 분(타이머가 돌 때는 60을 곱해 초로 잰다)
+  const TU = (o) => (o && o.timeUnit === 'min' ? { u: '분', k: 60, lim: { work: [1, 60, o.workStep || 1], rest: [0, 30, o.restStep || 1], rounds: [1, 10, 1] }, ro: '분으로', ye: '분이에요' } : { u: '초', k: 1, lim: { work: [5, 300, (o && o.workStep) || 5], rest: [0, 120, (o && o.restStep) || 5], rounds: [1, 10, 1] }, ro: '초로', ye: '초예요' });
   const totalOf = (p) => (p ? p.rounds * p.work + Math.max(0, p.rounds - 1) * p.rest : 0);
   const fieldsOf = (o) => (o.fields || []).map((f) => (typeof f === 'string' ? { label: f } : f)).map((f) => ({ label: String(f.label || ''), unit: f.unit || o.unit || '회', step: f.step || 1, max: f.max || 999 }));
   const cardsOf = (o, t) => (o.cards ? o.cards.slice() : t && t.order ? t.order.slice(1).concat(t.order.slice(0, 1)) : []);
@@ -63,7 +67,7 @@
         const swap = k !== 'rounds' && w.work != null && w.rest != null && p.work === w.rest && p.rest === w.work;
         return { correct: false, feedback: swap ? '운동 시간과 쉬는 시간이 바뀌었어요.' : `${NAME[k]}${jong(NAME[k]) ? '이' : '가'} 문제와 달라요.`, hint: swap ? '먼저 운동, 그다음 쉬기예요. 두 수를 바꾸어 넣어요.' : `문제에서 ${NAME[k]}${jong(NAME[k]) ? '을' : '를'} 다시 찾아 −/+로 맞추어요.`, part: 'plan', key: k, swap };
       }
-      if (t.total != null && totalOf(p) !== t.total) return { correct: false, feedback: `전체 시간이 ${ieyo(fmt(totalOf(p)))}. 문제에서 말한 시간과 달라요.`, hint: '운동 시간×횟수에 쉬는 시간×(횟수−1)을 더해 보세요. 마지막에는 쉬지 않아요.', part: 'total' };
+      if (t.total != null && totalOf(p) !== t.total) return { correct: false, feedback: `전체 시간이 ${ieyo(fmt(totalOf(p) * TU(o).k))}. 문제에서 말한 시간과 달라요.`, hint: '운동 시간×횟수에 쉬는 시간×(횟수−1)을 더해 보세요. 마지막에는 쉬지 않아요.', part: 'total' };
     }
     if (t.records != null) {
       const fs = fieldsOf(o); const got = s.records || []; const filled = fs.map((_, i) => got[i] != null && got[i] !== '' && Number.isFinite(Number(got[i])));
@@ -82,7 +86,7 @@
       if (left.length === t.selfCheck.length && parts.length === 1) return { correct: false, incomplete: true, feedback: '활동을 마치고 스스로 점검 목록에서 해낸 것을 표시해요.', hint: '해낸 것만 하나씩 눌러요.', part: 'self' };
       if (left.length) return { correct: false, feedback: `아직 표시하지 않은 점검 항목이 ${left.length}개 있어요.`, hint: `${jq(left[0], '을', '를')} 해 보았는지 떠올리고 표시해요.`, part: 'self', left };
     }
-    const said = t.order ? '활동 차례가 꼭 맞아요' : t.plan || t.total != null ? `타이머를 알맞게 맞추었어요(전체 ${fmt(totalOf(s.plan || PLAN0))})` : t.records != null ? '기록을 모두 적었어요' : t.safety ? '안전 점검을 모두 마쳤어요' : '스스로 점검을 마쳤어요';
+    const said = t.order ? '활동 차례가 꼭 맞아요' : t.plan || t.total != null ? `타이머를 알맞게 맞추었어요(전체 ${fmt(totalOf(s.plan || PLAN0) * TU(o).k)})` : t.records != null ? '기록을 모두 적었어요' : t.safety ? '안전 점검을 모두 마쳤어요' : '스스로 점검을 마쳤어요';
     return { correct: true, feedback: `맞아요! ${said}.` };
   }
   function solve(t, o) {
@@ -91,7 +95,8 @@
     if (t.total != null && s.plan && totalOf(s.plan) !== t.total) {
       // 전체 시간이 맞는 계획을 찾는다(정해진 칸은 그대로)
       const fixed = t.plan || {}; let found = null;
-      for (let r = 1; r <= 10 && !found; r++) for (let w = 5; w <= 300 && !found; w += 5) for (let q = 0; q <= 120 && !found; q += 5) {
+      const L = TU(o).lim; const d = TU(o).k === 60 ? 1 : 5;
+      for (let r = 1; r <= 10 && !found; r++) for (let w = L.work[0]; w <= L.work[1] && !found; w += d) for (let q = L.rest[0]; q <= L.rest[1] && !found; q += d) {
         const p = { work: fixed.work ?? w, rest: fixed.rest ?? q, rounds: fixed.rounds ?? r };
         if (totalOf(p) === t.total) found = p;
       }
@@ -154,8 +159,8 @@
     }
     if (lv === 2) return { hint: r.hint || r.feedback, correct: false };
     if (r.part === 'order') return { hint: `${r.at + 1}번째 자리에는 ‘${t.order[r.at]}’ 카드가 와요. 그 카드를 찾아 ←/→로 옮겨요.`, correct: false };
-    if (r.part === 'plan' && t.plan) { const NAME = { work: '운동 시간', rest: '쉬는 시간', rounds: '되풀이 횟수' }; const k = r.key; return { hint: r.swap ? `운동 ${t.plan.work}초, 쉬기 ${t.plan.rest}초로 넣어요.` : `${NAME[k]}${jong(NAME[k]) ? '을' : '를'} ${t.plan[k]}${k === 'rounds' ? '번으' : '초'}로 맞추어요.`, correct: false }; }
-    if (r.part === 'total') { const p = solve(t, o).plan; return { hint: `예를 들어 운동 ${p.work}초, 쉬기 ${p.rest}초, ${p.rounds}번이면 ${p.rounds}×${p.work} + ${Math.max(0, p.rounds - 1)}×${p.rest} = ${totalOf(p)}초예요.`, correct: false }; }
+    if (r.part === 'plan' && t.plan) { const NAME = { work: '운동 시간', rest: '쉬는 시간', rounds: '되풀이 횟수' }; const k = r.key; const U = TU(o); return { hint: r.swap ? `운동 ${t.plan.work}${U.u}, 쉬기 ${t.plan.rest}${U.ro} 넣어요.` : `${NAME[k]}${jong(NAME[k]) ? '을' : '를'} ${t.plan[k]}${k === 'rounds' ? '번으로' : U.ro} 맞추어요.`, correct: false }; }
+    if (r.part === 'total') { const p = solve(t, o).plan; const U = TU(o); return { hint: `예를 들어 운동 ${p.work}${U.u}, 쉬기 ${p.rest}${U.u}, ${p.rounds}번이면 ${p.rounds}×${p.work} + ${Math.max(0, p.rounds - 1)}×${p.rest} = ${totalOf(p)}${U.ye}.`, correct: false }; }
     if (r.part === 'records' && Array.isArray(t.records)) { const fs = fieldsOf(o); return { hint: `${fs[r.at] ? fs[r.at].label : `${r.at + 1}번째`} 칸은 ${ieyo(`${t.records[r.at]}${fs[r.at] ? fs[r.at].unit : ''}`)}.`, correct: false }; }
     if ((r.part === 'self' || r.part === 'safety') && r.left) return { hint: `${jq(Array.isArray(r.left) ? r.left[0] : r.left, '을', '를')} 직접 해 보고, 했으면 눌러 표시해요.`, correct: false };
     return { hint: r.hint || r.feedback, correct: false };
@@ -221,18 +226,19 @@
       buildRing();
       function paintRing() {
         if (!plan) return;
-        if (print) { bigT.textContent = '___초'; phaseT.textContent = '운동 / 쉬기'; planT.textContent = '운동 ___초 · 쉬기 ___초 · ___번'; totalT.textContent = ''; return; }
+        const U = TU(o);
+        if (print) { bigT.textContent = `___${U.u}`; phaseT.textContent = '운동 / 쉬기'; planT.textContent = `운동 ___${U.u} · 쉬기 ___${U.u} · ___번`; totalT.textContent = ''; return; }
         const C = 2 * Math.PI * RC.r;
         if (run) {
           const ph = run.phases[run.i]; const left = Math.max(0, ph.sec - (run.paused ? run.elapsed : (Date.now() - run.t0) / 1000));
-          bigT.textContent = `${Math.ceil(left)}`; phaseT.textContent = `${ph.kind === 'work' ? '운동' : '쉬기'} · ${ph.round}/${plan.rounds}번`;
+          bigT.textContent = U.k === 60 ? `${Math.floor(Math.ceil(left) / 60)}:${String(Math.ceil(left) % 60).padStart(2, '0')}` : `${Math.ceil(left)}`; phaseT.textContent = `${ph.kind === 'work' ? '운동' : '쉬기'} · ${ph.round}/${plan.rounds}번`;
           ringFg.setAttribute('stroke', ph.kind === 'work' ? P.rose.layer : P.sky.layer);
           ringFg.setAttribute('stroke-dashoffset', String(C * (1 - left / ph.sec)));
         } else {
-          bigT.textContent = `${plan.work}초`; phaseT.textContent = '운동부터 시작'; ringFg.setAttribute('stroke', P.mint.layer); ringFg.setAttribute('stroke-dashoffset', '0');
+          bigT.textContent = `${plan.work}${U.u}`; phaseT.textContent = '운동부터 시작'; ringFg.setAttribute('stroke', P.mint.layer); ringFg.setAttribute('stroke-dashoffset', '0');
         }
-        planT.textContent = `운동 ${plan.work}초 · 쉬기 ${plan.rest}초 · ${plan.rounds}번`;
-        totalT.textContent = o.showTotal && !(o.revealAfterCheck && !revealed) ? `전체 ${fmt(totalOf(plan))}` : '';
+        planT.textContent = `운동 ${plan.work}${U.u} · 쉬기 ${plan.rest}${U.u} · ${plan.rounds}번`;
+        totalT.textContent = o.showTotal && !(o.revealAfterCheck && !revealed) ? `전체 ${fmt(totalOf(plan) * U.k)}` : '';
       }
 
       // 순서 카드
@@ -302,7 +308,7 @@
         if (!html) return;
         const out = [];
         if (o.safety && o.safety.length) out.push(`<div role="group" aria-label="안전 점검" style="display:grid;gap:6px"><b><i class="fi fi-rr-shield-check" aria-hidden="true"></i> 안전 점검 — 확인한 것을 눌러요</b>${o.safety.map((x, i) => chk('safety', i, x, safety[i], 'fi-rr-square')).join('')}</div>`);
-        if (plan) out.push(`<div role="group" aria-label="타이머 맞추기" style="display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center"><b style="flex-basis:100%"><i class="fi fi-rr-stopwatch" aria-hidden="true"></i> 타이머 맞추기</b>${spin('work', 0, '운동', plan.work, '초')}${spin('rest', 0, '쉬기', plan.rest, '초')}${spin('rounds', 0, '횟수', plan.rounds, '번')}<span style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="pl-btn pl-btn--small" data-tm="start" tabindex="0" style="min-height:44px"><i class="fi ${run && !run.paused ? 'fi-rr-pause' : 'fi-rr-play'}" aria-hidden="true"></i> ${run && !run.paused ? '멈춤' : run ? '이어 하기' : '시작'}</button><button type="button" class="pl-btn pl-btn--small" data-tm="stop" tabindex="0" style="min-height:44px"><i class="fi fi-rr-stop" aria-hidden="true"></i> 처음</button><button type="button" class="pl-btn pl-btn--small" data-tm="beep" aria-pressed="${beep}" tabindex="0" style="min-height:44px"><i class="fi fi-rr-volume" aria-hidden="true"></i> 신호음</button></span></div>`);
+        if (plan) out.push(`<div role="group" aria-label="타이머 맞추기" style="display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center"><b style="flex-basis:100%"><i class="fi fi-rr-stopwatch" aria-hidden="true"></i> 타이머 맞추기</b>${spin('work', 0, '운동', plan.work, TU(o).u)}${spin('rest', 0, '쉬기', plan.rest, TU(o).u)}${spin('rounds', 0, '횟수', plan.rounds, '번')}<span style="display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="pl-btn pl-btn--small" data-tm="start" tabindex="0" style="min-height:44px"><i class="fi ${run && !run.paused ? 'fi-rr-pause' : 'fi-rr-play'}" aria-hidden="true"></i> ${run && !run.paused ? '멈춤' : run ? '이어 하기' : '시작'}</button><button type="button" class="pl-btn pl-btn--small" data-tm="stop" tabindex="0" style="min-height:44px"><i class="fi fi-rr-stop" aria-hidden="true"></i> 처음</button><button type="button" class="pl-btn pl-btn--small" data-tm="beep" aria-pressed="${beep}" tabindex="0" style="min-height:44px"><i class="fi fi-rr-volume" aria-hidden="true"></i> 신호음</button></span></div>`);
         if (fields.length) out.push(`<div role="group" aria-label="기록판" style="display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center"><b style="flex-basis:100%"><i class="fi fi-rr-edit" aria-hidden="true"></i> 기록판</b>${fields.map((f, i) => spin('rec', i, f.label, records[i], f.unit)).join('')}${o.stopwatch ? `<span style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button type="button" class="pl-btn pl-btn--small" data-tm="sw" tabindex="0" style="min-height:44px"><i class="fi fi-rr-stopwatch" aria-hidden="true"></i> ${sw && sw.on ? '멈추기' : '시간 재기'}</button><b class="tm-sw" style="font-size:20px;min-width:4em">${sw ? `${sw.sec.toFixed(1)}초` : '0.0초'}</b><button type="button" class="pl-btn pl-btn--small" data-tm="swput" tabindex="0" style="min-height:44px"><i class="fi fi-rr-arrow-small-down" aria-hidden="true"></i> 기록에 넣기</button></span>` : ''}</div>`);
         if (selfItems()) out.push(`<div role="group" aria-label="스스로 점검" style="display:grid;gap:6px"><b><i class="fi fi-rr-list-check" aria-hidden="true"></i> 스스로 점검 — 해낸 것을 눌러 표시해요</b>${selfItems().map((x, i) => chk('self', i, x, checks[i], 'fi-rr-square')).join('')}</div>`);
         if (bare()) out.push(`<div role="group" aria-label="해 본 것 표시" style="display:grid;gap:6px">${chk('done', 0, o.doneLabel || '짝·모둠과 함께 해 보았어요', done, 'fi-rr-square')}</div>`);
@@ -315,9 +321,9 @@
           changed(`${f.label} ${records[i]}${f.unit}`);
         } else {
           if (run) stopRun();
-          const lim = { work: [5, 300, o.workStep || 5], rest: [0, 120, o.restStep || 5], rounds: [1, 10, 1] }[k];
+          const lim = TU(o).lim[k];
           plan[k] = Math.max(lim[0], Math.min(lim[1], plan[k] + d * lim[2]));
-          changed(`${{ work: '운동', rest: '쉬기', rounds: '횟수' }[k]} ${plan[k]}${k === 'rounds' ? '번' : '초'}`);
+          changed(`${{ work: '운동', rest: '쉬기', rounds: '횟수' }[k]} ${plan[k]}${k === 'rounds' ? '번' : TU(o).u}`);
         }
         const f = html.querySelector(refocus); if (f) f.focus();
       }
@@ -341,7 +347,7 @@
       }
       function tickSw() { if (!sw || !sw.on || !box.isConnected) return; sw.sec = (Date.now() - sw.t0) / 1000; const el = html && html.querySelector('.tm-sw'); if (el) el.textContent = `${sw.sec.toFixed(1)}초`; setTimeout(tickSw, 100); }
       // 타이머 실행(화면 표시만 — 상태가 아니다)
-      function phasesOf(p) { const out = []; for (let r = 1; r <= p.rounds; r++) { out.push({ kind: 'work', sec: p.work, round: r }); if (r < p.rounds && p.rest > 0) out.push({ kind: 'rest', sec: p.rest, round: r }); } return out; }
+      function phasesOf(p) { const out = []; for (let r = 1; r <= p.rounds; r++) { const k = TU(o).k; out.push({ kind: 'work', sec: p.work * k, round: r }); if (r < p.rounds && p.rest > 0) out.push({ kind: 'rest', sec: p.rest * k, round: r }); } return out; }
       function cue(kind) {
         if (!beep || !kit.soundOn() || typeof AudioContext === 'undefined') return;
         try { const a = new AudioContext(); const os = a.createOscillator(); os.frequency.value = kind === 'work' ? 880 : 520; const g = a.createGain(); g.gain.setValueAtTime(0.25, a.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + 0.35); os.connect(g).connect(a.destination); os.start(); os.stop(a.currentTime + 0.4); setTimeout(() => a.close(), 600); } catch (_) { /* 소리는 부가 기능 */ }
@@ -416,7 +422,7 @@
         hint(t, opts) { return hintFor(state(), t || target, o, opts); },
         wrongAnswer(t) { return wrongAnswer(t || target, o, state()); },
         distance,
-        async demo(t) { const s = solve(t || target, o); load(s); if (plan) say(`운동 ${plan.work}초, 쉬기 ${plan.rest}초를 ${plan.rounds}번 해요.`); },
+        async demo(t) { const s = solve(t || target, o); load(s); if (plan) { const u = TU(o).u; say(`운동 ${plan.work}${u}, 쉬기 ${plan.rest}${u}${u === '분' ? '을' : '를'} ${plan.rounds}번 해요.`); } },
       };
     },
   });

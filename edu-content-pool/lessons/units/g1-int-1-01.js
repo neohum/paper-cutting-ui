@@ -573,7 +573,7 @@
         id: 'intro', title: '도입', minutes: 6,
         teacher: '"지도에 글자 대신 이런 작은 그림이 있어요. 이 그림을 기호라고 해요." 범례(기호 뜻 칸)를 함께 손가락으로 짚는다. "책 그림 기호는 무엇을 뜻할까요?" 시연 단추로 기호 \'도서실\' 자리에 핀이 꽂히는 모습을 보여 준다. 지난 시간 표지처럼 기호도 그림으로 뜻을 알려 준다고 잇는다.',
         student: '범례에서 책 기호와 십자 기호를 찾아 손가락으로 짚어 봐요.',
-        demo: { tool: 'map', options: { grid: [5, 3], names: false, places: [{ name: '도서실', icon: 'library', at: [1, 1] }, { name: '보건실', icon: 'hospital', at: [3, 0], legend: '보건실' }, { name: '운동장', icon: 'park', at: [4, 2], legend: '운동장' }] }, sequence: [{ place: '도서실' }] },
+        demo: { tool: 'map', options: { grid: [5, 3], names: false, places: [{ name: '도서실', icon: 'library', at: [1, 1], legend: '도서실' }, { name: '보건실', icon: 'hospital', at: [3, 0], legend: '보건실' }, { name: '운동장', icon: 'park', at: [4, 2], legend: '운동장' }] }, sequence: [{ place: '도서실' }] },
       },
       {
         id: 'main', title: '전개', minutes: 26,
@@ -588,9 +588,9 @@
               challenge: { grid: [6, 4] },
             },
             items: [
-              { prompt: '범례 빈칸을 눌러 두 기호의 뜻을 골라 보세요.', toolOptions: { mode: 'legend', places: [{ name: '도서실', icon: 'library', at: [1, 1] }, { name: '보건실', icon: 'hospital', at: [3, 0], legend: '보건실' }] }, target: { legend: { library: '도서실', hospital: '보건실' } }, difficulty: 0.1 },
+              { prompt: '범례 빈칸을 눌러 두 기호의 뜻을 골라 보세요.', toolOptions: { mode: 'legend', places: [{ name: '도서실', icon: 'library', at: [1, 1], legend: '도서실' }, { name: '보건실', icon: 'hospital', at: [3, 0], legend: '보건실' }] }, target: { legend: { library: '도서실', hospital: '보건실' } }, difficulty: 0.1 },
               { prompt: '범례 빈칸을 눌러 세 기호의 뜻을 골라 보세요.', toolOptions: { mode: 'legend', places: [{ name: '운동장', icon: 'park', at: [0, 0], legend: '운동장' }, { name: '급식실', icon: 'market', at: [2, 2], legend: '급식실' }, { name: '교문', icon: 'dot', at: [3, 1], legend: '교문' }] }, target: { legend: { park: '운동장', market: '급식실', dot: '교문' } }, difficulty: 0.15 },
-              { prompt: '범례 빈칸을 눌러 기호의 뜻을 골라 보세요. 지도에 없는 뜻도 섞여 있어요.', toolOptions: { mode: 'legend', places: [{ name: '텃밭', icon: 'field', at: [0, 2], legend: '텃밭' }, { name: '화단', icon: 'forest', at: [2, 0], legend: '화단' }, { name: '도서실', icon: 'library', at: [3, 2] }], extra: ['수영장', '주차장'] }, target: { legend: { field: '텃밭', forest: '화단', library: '도서실' } }, difficulty: 0.25 },
+              { prompt: '범례 빈칸을 눌러 기호의 뜻을 골라 보세요. 지도에 없는 뜻도 섞여 있어요.', toolOptions: { mode: 'legend', places: [{ name: '텃밭', icon: 'field', at: [0, 2], legend: '텃밭' }, { name: '화단', icon: 'forest', at: [2, 0], legend: '화단' }, { name: '도서실', icon: 'library', at: [3, 2], legend: '도서실' }], extra: ['수영장', '주차장'] }, target: { legend: { field: '텃밭', forest: '화단', library: '도서실' } }, difficulty: 0.25 },
             ],
           },
           {
@@ -603,8 +603,8 @@
               challenge: { grid: [6, 4], names: false },
             },
             items: [
-              { prompt: '넘어져 무릎을 다쳤어요. 가야 할 곳의 기호에 핀을 꽂아 보세요.', toolOptions: { places: [{ name: '보건실', icon: 'hospital', at: [2, 1], legend: '보건실' }, { name: '도서실', icon: 'library', at: [0, 0] }, { name: '운동장', icon: 'park', at: [3, 2], legend: '운동장' }] }, target: { place: '보건실' }, difficulty: 0.1 },
-              { prompt: '그림책을 빌리고 싶어요. 가야 할 곳의 기호에 핀을 꽂아 보세요.', toolOptions: { places: [{ name: '급식실', icon: 'market', at: [1, 2], legend: '급식실' }, { name: '도서실', icon: 'library', at: [3, 0] }, { name: '화단', icon: 'forest', at: [0, 1], legend: '화단' }] }, target: { place: '도서실' }, difficulty: 0.15 },
+              { prompt: '넘어져 무릎을 다쳤어요. 가야 할 곳의 기호에 핀을 꽂아 보세요.', toolOptions: { places: [{ name: '보건실', icon: 'hospital', at: [2, 1], legend: '보건실' }, { name: '도서실', icon: 'library', at: [0, 0], legend: '도서실' }, { name: '운동장', icon: 'park', at: [3, 2], legend: '운동장' }] }, target: { place: '보건실' }, difficulty: 0.1 },
+              { prompt: '그림책을 빌리고 싶어요. 가야 할 곳의 기호에 핀을 꽂아 보세요.', toolOptions: { places: [{ name: '급식실', icon: 'market', at: [1, 2], legend: '급식실' }, { name: '도서실', icon: 'library', at: [3, 0], legend: '도서실' }, { name: '화단', icon: 'forest', at: [0, 1], legend: '화단' }] }, target: { place: '도서실' }, difficulty: 0.15 },
               { prompt: '상추가 자라는 곳을 보러 가요. 그곳 기호에 핀을 꽂아 보세요.', toolOptions: { places: [{ name: '화단', icon: 'forest', at: [1, 0], legend: '화단' }, { name: '텃밭', icon: 'field', at: [3, 2], legend: '텃밭' }, { name: '운동장', icon: 'park', at: [2, 1], legend: '운동장' }] }, target: { place: '텃밭' }, difficulty: 0.2,
                 predict: { q: '꽃이 있는 화단과 채소가 자라는 텃밭은 같은 곳일까요?', options: ['같아요', '달라요'], answer: 1 } },
               { prompt: '교실 칠판 옆 우리 학교 안내도에서 보건실과 도서실을 찾아 짝에게 짚어 보여요. 다 하면 "다 했어요"를 누르세요.', free: true, talk: true },
@@ -625,7 +625,7 @@
     worksheet: {
       title: '학교 지도 기호 읽기',
       items: [
-        { type: 'figure', wide: true, prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', figures: [{ options: { mode: 'legend', grid: [5, 3], places: [{ name: '도서실', icon: 'library', at: [1, 1] }, { name: '보건실', icon: 'hospital', at: [3, 0], legend: '보건실' }, { name: '운동장', icon: 'park', at: [4, 2], legend: '운동장' }] }, caption: '' }], answer: '책 기호-도서실, 십자 기호-보건실, 나무 기호-운동장' },
+        { type: 'figure', wide: true, prompt: '범례 빈칸에 기호의 뜻을 쓰세요.', tool: 'map', figures: [{ options: { mode: 'legend', grid: [5, 3], places: [{ name: '도서실', icon: 'library', at: [1, 1], legend: '도서실' }, { name: '보건실', icon: 'hospital', at: [3, 0], legend: '보건실' }, { name: '운동장', icon: 'park', at: [4, 2], legend: '운동장' }] }, caption: '' }], answer: '책 기호-도서실, 십자 기호-보건실, 나무 기호-운동장' },
         { type: 'choice', prompt: '십자 기호가 뜻하는 곳에 ○ 하세요.', options: ['보건실', '도서실', '급식실'], answer: '보건실' },
         { type: 'short', prompt: '우리 학교 안내도에서 찾은 곳을 하나 쓰세요.' },
         { type: 'draw', prompt: '음악실을 뜻하는 기호를 내가 만들어 그려 보세요.' },

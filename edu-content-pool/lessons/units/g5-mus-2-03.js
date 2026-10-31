@@ -29,6 +29,8 @@
     base: { mode: 'rhythm', meter, measures, blocks: ['q', 'e', 'h', 'qr', 'dh'] },
     challenge: { mode: 'rhythm', meter, measures, blocks: ['q', 'e', 'h', 'qr', 'dh', 'er', 'hr'] },
   });
+  // 2분쉼표(hr)를 듣고 놓는 문항이 있는 활동: 쉬움·기본 고르개에도 hr 블록을 둔다
+  const rhyHr = (meter, measures) => { const v = rhy(meter, measures); v.easy.blocks = v.easy.blocks.concat('hr'); v.base.blocks = v.base.blocks.concat('hr'); return v; };
   const cardsLv = () => ({ easy: { live: true, instant: true }, base: {}, challenge: { shuffle: true } });
   const scaleLv = (hi = 5) => ({ easy: { mode: 'scale', steps: 3 }, base: { mode: 'scale', steps: 3 }, challenge: { mode: 'scale', steps: hi } });
 
@@ -509,7 +511,7 @@
         '"글자가 늘었으니 한 박에 글자 둘을 붙일 곳을 정해요. 8분음표 둘이 한 박이에요." 낱말을 읽으며 손뼉으로 한 박씩 치게 한다. 8분음표를 4분음표처럼 한 박씩 센 학생에게는 8분음표 둘을 묶어 손뼉 한 번에 두 소리로 말해 보게 한다.',
         '리듬 듣기를 누르고 글자가 늘어난 말붙임새를 블록으로 놓아요. 한 마디는 4박이에요.', rhy(4, 1), [
           rhyIt('구름 위로 둥실 여섯 글자예요. 4박 안에서 한 박을 쪼갰어요. 듣고 블록으로 놓아 보세요.', ['q', 'e', 'e', 'q', 'e', 'e'], 0.25),
-          rhyIt('파도 소리 철썩 여섯 글자예요. 끝 글자가 길어요. 듣고 블록으로 놓아 보세요.', ['e', 'e', 'q', 'e', 'e', 'h'], 0.3),
+          rhyIt('파도 소리 철썩 여섯 글자예요. 끝 글자가 길어요. 듣고 블록으로 놓아 보세요.', ['e', 'e', 'q', 'e', 'e', 'q'], 0.3),
           { prompt: '8분음표를 꼭 넣어 한 마디 4박을 채우는 말붙임새를 지어 보세요.', toolOptions: { measures: 1 }, target: { beats: true, use: ['e'] }, difficulty: 0.25 },
           { prompt: '8분음표와 쉼표를 하나씩 넣어 한 마디 4박을 채우는 말붙임새를 지어 보세요.', toolOptions: { measures: 1 }, target: { beats: true, use: ['e'], rests: 1 }, difficulty: 0.35 },
         ]),
@@ -1010,7 +1012,7 @@
     acts: [
       act('a1', '활동 1. 고치기 전과 후 리듬 놓아 보기', 13, 'keyboard',
         '"쉼표 자리가 흐릿하면 읽는 사람이 한 박을 건너뛰어요. 고친 기보는 쉼도 한 박으로 또렷이 적어요." 고치기 전과 후를 번갈아 듣고 블록으로 놓게 한다. 쉼표를 \'안 쳐도 되는 곳\'으로 읽는 학생에게는 손을 펴 한 박을 세어 보게 한다.',
-        '고치기 전 리듬과 고친 리듬을 듣고 블록으로 놓아요. 한 마디는 4박이에요.', rhy(4, 2), [
+        '고치기 전 리듬과 고친 리듬을 듣고 블록으로 놓아요. 한 마디는 4박이에요.', rhyHr(4, 2), [
           rhyIt('쉼표가 흐릿했던 리듬이에요. 듣고 블록으로 놓아 보세요.', ['q', 'q', 'h', 'q', 'qr', 'h'], 0.25),
           rhyIt('쉼표를 또렷이 고친 리듬이에요. 듣고 블록으로 놓아 보세요.', ['q', 'q', 'h', 'q', 'q', 'hr'], 0.3),
           { prompt: '쉼표를 하나 넣어 두 마디를 4박씩 채운 리듬을 지어 보세요.', target: { beats: true, rests: 1 }, difficulty: 0.25 },

@@ -68,8 +68,10 @@
       const arc = kit.el('path', { fill: 'none', stroke: print ? '#000' : '#3D352E', 'stroke-width': print ? 2 : 2.6, 'stroke-linecap': 'round', 'pointer-events': 'none', pathLength: 360 }, circleG);
       const setArc = (rPx) => arc.setAttribute('d', `M${rPx} 0 A${rPx} ${rPx} 0 1 1 ${-rPx} 0 A${rPx} ${rPx} 0 1 1 ${rPx} 0`);
       const marksL = st.layer('marks');
-      kit.piece(st, st.layer('center'), { shape: { type: 'circle', cx: O.x, cy: O.y, r: 4.5 }, color: 'ink', depth: 0, flat: true });
-      if (!print && mode === 'draw') kit.el('text', { x: O.x - 10, y: O.y + 4, 'text-anchor': 'end', 'font-size': 14, class: 'pk-text', fill: '#6B5F50' }, st.layer('center')).textContent = 'ㅇ';
+      // 중심점은 그림일 뿐이다 — pick 모드에서 그 위의 점 ㄱ 누름 영역보다 위 층이라 한가운데 누름을 가로챘다
+      const centerL = st.layer('center'); centerL.setAttribute('pointer-events', 'none');
+      kit.piece(st, centerL, { shape: { type: 'circle', cx: O.x, cy: O.y, r: 4.5 }, color: 'ink', depth: 0, flat: true });
+      if (!print && mode === 'draw') kit.el('text', { x: O.x - 10, y: O.y + 4, 'text-anchor': 'end', 'font-size': 14, class: 'pk-text', fill: '#6B5F50' }, centerL).textContent = 'ㅇ';
 
       // ---- 컴퍼스 ----
       let wPx = 2 * U; // 벌린 폭(px)
@@ -81,13 +83,15 @@
       kit.piece(st, needleLeg, { shape: { type: 'rect', x: -5, y: -LEG, w: 10, h: LEG - 8, rx: 4 }, color: 'sky', depth: 2 });
       kit.piece(st, needleLeg, { shape: { type: 'poly', points: '-3,-10 3,-10 0,0' }, color: 'ink', depth: 0 });
       const tipG = kit.el('g', { class: 'cp-tip' }, outer);
-      kit.el('circle', { r: 26, class: 'pk-hit' }, tipG);
+      const HIT = 32; // 누름 영역 반지름 — 휴대폰(390px) 출구 질문 무대 배율 약 0.73에서도 지름 44px를 넘게
+      kit.el('circle', { r: HIT, class: 'pk-hit' }, tipG);
       const pencilLeg = kit.el('g', null, tipG);
       kit.piece(st, pencilLeg, { shape: { type: 'rect', x: -6, y: -LEG, w: 12, h: LEG - 16, rx: 4 }, color: 'peach', depth: 2 });
       kit.piece(st, pencilLeg, { shape: { type: 'poly', points: '-6,-16 6,-16 0,0' }, color: 'buttercup', depth: 1 });
       kit.piece(st, pencilLeg, { shape: { type: 'poly', points: '-2,-5 2,-5 0,0' }, color: 'ink', depth: 0, flat: true });
       const hinge = kit.el('g', null, outer);
-      kit.el('circle', { r: 26, class: 'pk-hit' }, hinge);
+      kit.el('circle', { r: HIT, class: 'pk-hit' }, hinge);
+      kit.el('circle', { cy: -36, r: HIT, class: 'pk-hit' }, hinge); // 맨 위 동그란 손잡이(r 9)를 손가락으로 잡을 수 있게
       kit.piece(st, hinge, { shape: { type: 'rect', x: -5, y: -34, w: 10, h: 30, rx: 4 }, color: 'lavender', depth: 1 });
       kit.piece(st, hinge, { shape: { type: 'circle', r: 12 }, color: 'lavender', depth: 2 });
       kit.piece(st, hinge, { shape: { type: 'circle', cy: -36, r: 9 }, color: 'rose', depth: 2 });
@@ -156,7 +160,7 @@
         [[318, -1, '−', '컴퍼스를 0.5cm 좁히기', 'lavender'], [380, 1, '+', '컴퍼스를 0.5cm 벌리기', 'mint']].forEach(([x, d, label, aria, color]) => {
           const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': aria }, NB);
           kit.transform(g, { x, y: 314 });
-          kit.el('rect', { x: -26, y: -24, width: 52, height: 48, class: 'pk-hit' }, g);
+          kit.el('rect', { x: -30, y: -30, width: 60, height: 60, class: 'pk-hit' }, g); // 휴대폰 출구 질문(배율 약 0.73)에서도 44px
           kit.piece(st, g, { shape: { type: 'rect', x: -24, y: -20, w: 48, h: 40, rx: 12 }, color, depth: 2 });
           kit.el('text', { x: 0, y: 8, 'text-anchor': 'middle', 'font-size': 24, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = label;
           const go = (via) => { kit.spring(0.88, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); nudge(d, via); };
@@ -231,7 +235,7 @@
           // 점 ㄱ(중심)·ㄴ(중심이 아닌 점)
           [['center', O.x, O.y, 'ㄱ'], ['off', O.x - 52, O.y + 70, 'ㄴ']].forEach(([key, x, y, lb]) => {
             const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': `점 ${lb}` }, marksL);
-            kit.el('circle', { cx: x, cy: y, r: 24, class: 'pk-hit' }, g);
+            kit.el('circle', { cx: x, cy: y, r: 32, class: 'pk-hit' }, g); // 휴대폰 출구 질문(더 작은 무대)에서도 44px
             const tag = kit.piece(st, g, { shape: { type: 'circle', cx: x, cy: y, r: 6 }, color: 'ink', depth: 0, flat: true });
             kit.el('text', { x: x + 14, y: y - 8, 'font-size': 15, class: 'pk-text', fill: '#3D352E' }, g).textContent = lb;
             pickables.push({ key, g, tag, label: lb });

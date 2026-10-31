@@ -3284,7 +3284,7 @@
             teacher: '"가운데 접는 선에서 왼쪽 조각과 같은 거리에 짝 조각을 놓아요." 판에 나타나는 접는 선을 손가락으로 짚게 한다. 짝 조각을 같은 방향으로 놓는 학생에게 "거울에 비치면 방향은 어떻게 되나요?" 하고 묻는다.',
             task: '접는 선을 기준으로 양쪽이 같은 모양이 되게 조각을 놓아요.',
             levels: {
-              easy: { shapes: ['heart', 'circle', 'leaf'], colors: ['분홍', '노랑', '초록'], sizes: ['m', 'l'], guide: 'vertical' },
+              easy: { shapes: ['heart', 'circle', 'leaf'], colors: ['분홍', '노랑', '초록', '보라'], sizes: ['m', 'l'], guide: 'vertical' },
               base: { shapes: ['heart', 'circle', 'leaf', 'triangle', 'semi'], colors: ['분홍', '노랑', '초록', '파랑', '보라'], guide: 'vertical' },
               challenge: { guide: 'vertical' },
             },

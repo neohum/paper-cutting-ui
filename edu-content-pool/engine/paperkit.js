@@ -160,7 +160,8 @@
       opts.onStart && opts.onStart();
     });
     g.addEventListener('pointermove', (e) => {
-      if (!start) return;
+      // 방향키로 옮기는 중이면 start 에 포인터 좌표가 없다 — 지나가는 포인터가 NaN 위치를 쓰지 않게
+      if (!start || start.px == null) return;
       const p = st.point(e, ref());
       let x = start.ox + p.x - start.px; let y = start.oy + p.y - start.py;
       if (opts.bounds) { x = clamp(x, opts.bounds[0], opts.bounds[2]); y = clamp(y, opts.bounds[1], opts.bounds[3]); }
@@ -168,7 +169,7 @@
       opts.onMove && opts.onMove(x, y);
     });
     const end = (e) => {
-      if (!start) return;
+      if (!start || start.px == null) return;
       g.classList.remove('pk-lifted');
       try { g.releasePointerCapture(e.pointerId); } catch (_) { /* 이미 해제됨 */ }
       const t = cur();

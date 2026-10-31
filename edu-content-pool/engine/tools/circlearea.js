@@ -12,6 +12,14 @@
  *   써야 하고(padFor:'rr'), 틀린 확인은 그 반지름의 넓이를 계산해 주지도, 늘릴지 줄일지 알려 주지도 않는다.
  */
 (function (K) {
+  // 무대가 화면에 그려질 배율(화면 px ÷ viewBox 단위) 어림: 상자 안쪽 폭과 무대 높이 제한(max-height)을 함께 본다. 모르면 1
+  const stageScale = (box, W, H) => {
+    if (!box || !(box.clientWidth > 0) || typeof getComputedStyle !== 'function') return 1;
+    const cs = getComputedStyle(box); const bw = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    let mh = Infinity;
+    try { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.setAttribute('class', 'pk-stage'); box.appendChild(t); const v = parseFloat(getComputedStyle(t).maxHeight); t.remove(); if (Number.isFinite(v) && v > 0) mh = v; } catch (_) { /* 높이 제한 모름 */ }
+    return bw > 0 ? Math.min(bw / W, H ? mh / H : Infinity) : 1;
+  };
   const PI = 3.14; // 교과서 원주율
   const NS = [8, 16, 32];
   const RM = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -48,6 +56,7 @@
         : { W: 600, workH: 254, C: { x: 300, y: o.print ? 125 : 132 }, k: 1, ctlY: 262, ctlH: 66, chipY: 274, TY: 300, padY: 336, askY: 334 };
       LO.H = o.print ? 250 : pad ? LO.padY + padH : ask ? LO.askY + askH : (narrow ? 324 : 340);
       const W = LO.W; const H = LO.H;
+      const zoom = Math.max(1, 1 / stageScale(box, W, H));
       const labels = o.print ? 'none' : (o.labels || 'words');
       const st = kit.stage(box, { viewBox: [W, H], label: '원 조각 다시 붙이기. 원을 여러 조각으로 잘라 엇갈려 붙이고 넓이를 구해 보세요.' });
       const C = LO.C;
@@ -135,7 +144,9 @@
       const waiting = [];
       const button = (x, y, w, h, color, text, onAct, label, waits) => {
         const g = kit.el('g', { class: 'ca-btn', tabindex: 0, role: 'button', 'aria-label': label || text }, ui);
-        kit.el('rect', { x: x - 2, y: y - 3, width: w + 4, height: Math.max(h + 6, 48), class: 'pk-hit' }, g);
+        // 누르는 곳은 화면 48px 이상(태블릿에서 무대가 줄면 숫자판 단추가 40px이 되던 문제)
+        const k = zoom; const hw = Math.max(w + 4, 48 * k); const hh = Math.max(h + 6, 48, 48 * k);
+        kit.el('rect', { x: x + w / 2 - hw / 2, y: y + h / 2 - hh / 2, width: hw, height: hh, class: 'pk-hit' }, g);
         const p = kit.piece(st, g, { shape: { type: 'rect', x, y, w, h, rx: 10 }, color, depth: 2 });
         const t = kit.el('text', { x: x + w / 2, y: y + h / 2 + 5, 'text-anchor': 'middle', 'font-size': w < 120 && text.length > 8 ? 12 : 15, class: 'pk-text', fill: '#3D352E' }, g);
         t.textContent = text;
