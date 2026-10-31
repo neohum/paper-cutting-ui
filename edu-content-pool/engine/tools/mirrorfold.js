@@ -154,6 +154,7 @@
         tgtL.setAttribute('display', sel ? 'inline' : 'none');
         if (sel) { kit.tick(); kit.announce(`점 ${josa(`${sel}'`, '을', '를')} 골랐어요. 놓을 모눈 교점을 누르세요.`); }
       }
+      const pinGen = {};
       function placeSel(q) {
         const id = sel; if (!id) return;
         if (q && taken(id, q)) { kit.tick('no'); kit.announce('그 점에는 이미 다른 핀이 있어요'); return; }
@@ -161,7 +162,9 @@
         pins[id] = q;
         const to = q ? px(q) : home(id); const from = Object.assign({ x: 0, y: 0 }, pinG[id].__pk);
         pinG[id].parentNode.appendChild(pinG[id]);
-        kit.tween(RM ? 0 : 220, (p) => kit.transform(pinG[id], { x: from.x + (to.x - from.x) * p, y: from.y + (to.y - from.y) * p }));
+        // 움직이는 중에 setState 가 오면 그 위치가 이긴다 — 세대 번호가 바뀌면 남은 프레임을 버린다
+        const gen = (pinGen[id] = (pinGen[id] || 0) + 1);
+        kit.tween(RM ? 0 : 220, (p) => { if (pinGen[id] === gen) kit.transform(pinG[id], { x: from.x + (to.x - from.x) * p, y: from.y + (to.y - from.y) * p }); });
         dropped(id);
       }
       if (!print && pinIds.length) {
@@ -337,6 +340,7 @@
         pinIds.forEach((id) => {
           const q = s.pins && s.pins[id];
           pins[id] = q ? q.slice() : null;
+          pinGen[id] = (pinGen[id] || 0) + 1;
           if (pinG[id]) kit.transform(pinG[id], q ? px(q) : home(id));
         });
         if (askOpt && 'pick' in s) setPick(s.pick);
