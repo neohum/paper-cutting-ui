@@ -61,7 +61,7 @@
     const id = qs.get('lesson') || window.EDU_BUNDLE_LESSON;
     if (!id) { app.innerHTML = '<p class="pl-error">차시가 지정되지 않았습니다. 교사 화면에서 받은 링크로 다시 열어 주세요.</p>'; return; }
     try { S.lesson = await L.load(id); } catch (e) { app.innerHTML = `<p class="pl-error">${esc(e.message)}</p>`; return; }
-    document.title = `${S.lesson.grade}학년 ${S.lesson.subject} · ${S.lesson.title}`;
+    document.title = `${PaperLessons.gradeLabel(S.lesson.grade)} ${S.lesson.subject} · ${S.lesson.title}`;
     document.documentElement.dataset.role = S.role;
     document.documentElement.dataset.grade = S.lesson.grade;
     // 다시 열었을 때 못 보낸 결과가 있으면 보내고, 보냈다고 알려 준다
@@ -114,7 +114,7 @@
     app.innerHTML = `
       <header class="pl-top pc-card">
         <div class="pl-top__title">
-          <span class="pl-chip">${S.lesson.grade}학년 ${esc(S.lesson.subject)}</span>
+          <span class="pl-chip">${PaperLessons.gradeLabel(S.lesson.grade)} ${esc(S.lesson.subject)}</span>
           <h1 title="${esc(S.lesson.title)}">${esc(S.lesson.title)}</h1>
           ${showGoal ? `<details class="pl-goal" id="goal" ${goalOpen ? 'open' : ''}><summary><b>목표</b><span class="pl-goal__more"> 보기</span></summary><p>${esc(S.lesson.objective)}</p></details>` : ''}
         </div>
@@ -586,7 +586,7 @@
       <article class="edu-exam-sheet ws ${easy ? 'ws--easy' : ''} ${l.grade <= 2 ? 'ws--low' : ''}">
         <header class="edu-exam-header">
           <div class="edu-exam-header-top">
-            <span class="edu-exam-org-badge">${l.grade}학년 ${esc(l.subject)}${easy ? ' · 쉬운 버전' : ''}${answers ? ' · 교사용' : ''}</span>
+            <span class="edu-exam-org-badge">${PaperLessons.gradeLabel(l.grade)} ${esc(l.subject)}${easy ? ' · 쉬운 버전' : ''}${answers ? ' · 교사용' : ''}</span>
             <div class="edu-exam-title-group">
               <h1 class="edu-exam-main-title">${esc(l.unitTitle)} · ${esc(ws.title || l.title)}</h1>
               <p class="edu-exam-sub-title">${esc(l.title)}</p>

@@ -17,8 +17,9 @@ import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
 import { randomBytes } from 'node:crypto';
 import { chromium } from 'playwright-core';
-import { staticLesson, itemAt, targetLeak, findChrome, ignorableConsole, SUBJECT_MARK } from './check-lesson.mjs';
+import { staticLesson, itemAt, targetLeak, findChrome, ignorableConsole, SUBJECT_MARK, PROGRAM_UNIT_ID } from './check-lesson.mjs';
 import { PII } from './classroom-hub.mjs';
+import { loadPrograms, indexEntryOf } from './programs-lib.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -34,6 +35,10 @@ const SUBJECT_CODE = { 국어: 'kor', 수학: 'math', 통합교과: 'int', 사�
 const two = (n) => String(n).padStart(2, '0');
 const norm = (t) => String(t ?? '').replace(/\s+/g, ' ').trim();
 const index = new Map(JSON.parse(readFileSync(join(here, 'units-index.json'), 'utf8')).units.map((u) => [u.id, u]));
+// 창체 단원은 생성 파일(units-index.json)을 다시 만들지 않아도 조각(programs/*.json)에서 바로 찾는다 — 조각이 정본이므로 조각 쪽이 이긴다.
+// 여러 에이전트가 동시에 단원을 더할 때 생성 파일을 서로 덮어쓰지 않고 자기 단원을 검사할 수 있게 한다.
+const programs = loadPrograms();
+for (const u of programs.units) index.set(u.id, indexEntryOf(u));
 const unitsMap = (() => { try { return JSON.parse(readFileSync(join(here, 'units-map.json'), 'utf8')); } catch (_) { return null; } })();
 
 export function loadUnit(id) {
@@ -51,7 +56,9 @@ const splitWhere = (m) => { const x = /^((?:a\d+|exit|worksheet(?:\.easy)?)\.\d+
 // 단원 성취기준 단서: units-map(국어·수학·사회·도덕·과학)의 같은 과목 코드, 없으면 units-index의 단원 성취기준
 function unitStandards(idx) {
   if (!idx) return { verified: false, list: [] };
-  const m = /^g(\d)-(.+)-(\d학기)-(\d+)$/.exec(idx.catalogUnit || '');
+  // 창체: 성취기준 없음(units-map에도 없다) — 근거는 units-index basis
+  if (idx.track === '창체') return { verified: true, list: [], source: 'program' };
+  const m = /^g(\d{1,2})-(.+)-(\d학기)-(\d+)$/.exec(idx.catalogUnit || '');
   const mu = m && (unitsMap?.grades?.[m[1]]?.[m[2]]?.[m[3]] || []).find((x) => String(x.no) === m[4]);
   const marks = SUBJECT_MARK[idx.subject] || [];
   const same = (list) => (list || []).filter((c) => marks.includes((/^\[\d([가-힣])\d{2}-\d{2}\]$/.exec(c) || [])[1]));
@@ -82,9 +89,16 @@ export function staticUnit(id, unit) {
   if (unit.id !== id) U('단원', `registerUnit id '${unit.id}' ≠ 파일 이름 '${id}'`);
   if (unit.schema !== 'edu-unit.v1') U('단원', `schema가 'edu-unit.v1'이 아님: ${unit.schema}`);
   const sample = id.startsWith('_');
-  if (!sample && !UNIT_ID.test(id)) U('단원', `단원 id 형식이 아님(g<학년>-<과목>-<학기>-<두 자리|독서|매체>): ${id}`);
+  const program = PROGRAM_UNIT_ID.test(id);
+  if (!sample && !UNIT_ID.test(id) && !program) U('단원', `단원 id 형식이 아님(g<1~6>-<과목>-<학기>-<두 자리|독서|매체> 또는 창체 g<1~12>-cc-<영역코드>): ${id}`);
   const idx = index.get(id);
-  if (!sample && !idx) U('단원', 'units-index.json에 없는 단원');
+  if (program) {
+    for (const e of programs.errors.filter((x) => x.includes(` · ${id}`))) U('programs', e);
+    if (unit.subject !== '창체') U('단원', `창체 단원(-cc-)의 subject는 '창체': ${unit.subject}`);
+    if (!idx) U('단원', '창체 단원이 programs/*.json 조각에 없음 — 자기 조각 파일에 단원을 적는다');
+    if (unit.catalogUnit !== `g${PROGRAM_UNIT_ID.exec(id)[1]}-창체-${PROGRAM_UNIT_ID.exec(id)[2]}`) U('단원', `창체 catalogUnit은 'g<학년>-창체-<영역코드>': ${unit.catalogUnit}`);
+  } else if (unit.subject === '창체') U('단원', "subject '창체' 단원 id는 g<학년>-cc-<영역코드>");
+  if (!sample && !program && !idx) U('단원', 'units-index.json에 없는 단원');
   if (idx) {
     if (unit.catalogUnit !== idx.catalogUnit) U('단원', `catalogUnit '${unit.catalogUnit}' ≠ units-index '${idx.catalogUnit}'`);
     if (unit.grade !== idx.grade) U('단원', `grade ${unit.grade} ≠ ${idx.grade}`);
