@@ -249,10 +249,12 @@
       }
 
       // ---- 조각 수 단추(스테퍼) ----
-      const button = (x, y, w, h, color, text, label, onPress, size = 30) => {
+      // hit = 누름 영역의 가장 작은 변(viewBox 단위). 휴대폰(390px)에서 무대가 약 0.6배(출구 질문은 0.54배)로 줄어 그려진 단추(44~56)만으로는 44px가 안 된다
+      const button = (x, y, w, h, color, text, label, onPress, size = 30, hit = 48) => {
         const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': label, class: 'fr-btn' }, uiL);
         kit.transform(g, { x, y });
-        kit.el('rect', { x: -Math.max(w, 48) / 2, y: -Math.max(h, 48) / 2, width: Math.max(w, 48), height: Math.max(h, 48), class: 'pk-hit' }, g);
+        const hw = Math.max(w, hit); const hh = Math.max(h, hit);
+        kit.el('rect', { x: -hw / 2, y: -hh / 2, width: hw, height: hh, class: 'pk-hit' }, g);
         const pc = kit.piece(st, g, { shape: w === h ? { type: 'circle', r: w / 2 } : { type: 'rect', w, h, rx: 16 }, color, depth: 2 });
         const tx = kit.el('text', { x: 0, y: size * 0.36, 'text-anchor': 'middle', 'font-size': size, class: 'pk-text', fill: P[color].dark }, g); tx.textContent = text;
         const press = (via) => { kit.spring(0.86, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); onPress(via); };
@@ -271,8 +273,8 @@
         // 조각 수가 정해진 문항(min = max, 분수의 덧셈)은 단추 없이 조각 수만 보인다
         if (minN === maxN) { lab.textContent = '똑같이 나눈 조각 수'; stepperG.push(lab, countText); }
         else stepperG.push(lab, countText,
-          button(ctrl.ox - 42, ctrl.oy + 36, 56, 56, 'lavender', '−', '조각 수 줄이기', (via) => setN(n - 1, via), 34).g,
-          button(ctrl.ox + 42, ctrl.oy + 36, 56, 56, 'mint', '+', '조각 수 늘리기', (via) => setN(n + 1, via), 34).g);
+          button(ctrl.ox - 44, ctrl.oy + 36, 56, 56, 'lavender', '−', '조각 수 줄이기', (via) => setN(n - 1, via), 34, 84).g,
+          button(ctrl.ox + 44, ctrl.oy + 36, 56, 56, 'mint', '+', '조각 수 늘리기', (via) => setN(n + 1, via), 34, 84).g);
         // 조각 수를 바꾸면 색칠이 지워진다는 것을 말해 준다(말없이 지워지면 3학년은 까닭을 모른다)
         noteText = kit.el('text', { x: ctrl.ox, y: ctrl.oy + 88, 'text-anchor': 'middle', 'font-size': 13, class: 'pk-text', fill: P.rose.dark }, uiL);
       }
@@ -282,14 +284,14 @@
       if (!print && o.judge) {
         // 피자: 오른쪽에 세로로, 띠: 띠 아래에 가로로 단추를 놓는다
         const pos = shape === 'pizza'
-          ? { label: [ctrl.ox, 150], t: [ctrl.ox, 200], f: [ctrl.ox, 268], look: [ctrl.ox, 336], msg: [ctrl.ox, 386], w: 166 }
+          ? { label: [ctrl.ox, 142], t: [ctrl.ox, 190], f: [ctrl.ox, 272], look: [ctrl.ox, 354], msg: [ctrl.ox, 396], w: 166 }
           : { label: [280, 212], t: [105, 262], f: [280, 262], look: [455, 262], msg: [280, 318], w: 160 };
         const mk = (val, xy, text, color) => {
           const b = button(xy[0], xy[1], pos.w, 54, color, text, text, (via) => {
             judge = val; paintJudge();
             kit.tick(); kit.announce(`‘${text}’를 골랐어요.`);
             kit.recorder.log('fraction', Object.assign({ via }, state()));
-          }, 18);
+          }, 18, 82);
           // 두 판단 단추는 한 묶음이라 화살표로 다른 쪽을 고른다(라디오 묶음과 같은 키 동작)
           b.g.addEventListener('keydown', (e) => {
             if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
@@ -313,7 +315,7 @@
             return;
           }
           overlay();
-        }, 18);
+        }, 18, 82);
         lookBtn.g.setAttribute('opacity', 0.55);
         lookMsg = kit.el('text', { x: pos.msg[0], y: pos.msg[1], 'text-anchor': 'middle', 'font-size': 13, class: 'pk-text', fill: P.ink.light }, uiL);
         if (o.judgeWhy) lookMsg.textContent = '똑같지 않으면 가장 큰 조각도 눌러요';
@@ -373,10 +375,10 @@
           kit.announce(`${which === 'num' ? (o.hideFraction ? '위 수' : '분자') : (o.hideFraction ? '아래 수' : '분모')} ${which === 'num' ? wNum : wDen}`);
           kit.recorder.log('fraction', Object.assign({ via }, state()));
         };
-        button(L.fx - 56, L.fy - 50, 44, 44, 'lavender', '−', '분자 줄이기', (via) => setW('num', -1, via), 28);
-        button(L.fx + 56, L.fy - 50, 44, 44, 'mint', '+', '분자 늘리기', (via) => setW('num', 1, via), 28);
-        button(L.fx - 56, L.fy + 26, 44, 44, 'lavender', '−', '분모 줄이기', (via) => setW('den', -1, via), 28);
-        button(L.fx + 56, L.fy + 26, 44, 44, 'mint', '+', '분모 늘리기', (via) => setW('den', 1, via), 28);
+        button(L.fx - 56, L.fy - 50, 44, 44, 'lavender', '−', '분자 줄이기', (via) => setW('num', -1, via), 28, 76);
+        button(L.fx + 56, L.fy - 50, 44, 44, 'mint', '+', '분자 늘리기', (via) => setW('num', 1, via), 28, 76);
+        button(L.fx - 56, L.fy + 26, 44, 44, 'lavender', '−', '분모 줄이기', (via) => setW('den', -1, via), 28, 76);
+        button(L.fx + 56, L.fy + 26, 44, 44, 'mint', '+', '분모 늘리기', (via) => setW('den', 1, via), 28, 76);
         if (o.showTerms) {
           const tx = shape === 'pizza' ? [L.fx, 312] : [420, 262];
           t(tx[0], tx[1], 13, P.peach.dark, '분자: 색칠한 조각 수');
@@ -426,7 +428,7 @@
       const collides = (val, self) => cuts.some((c, j) => j !== self && Math.abs(c - val) < (shape === 'pizza' ? 7 : 0.5 / GRID));
       function cutsChanged(via) {
         hide(); colored = new Set([...colored].filter((i) => locked.has(i)));
-        buildParts(false); paintCount();
+        buildParts(false); paintCount(); sizeHits();
         kit.tick(); kit.announce(readText());
         kit.recorder.log('fraction', Object.assign({ via }, state()));
       }
@@ -447,7 +449,7 @@
             const g = kit.el('g', { class: 'fr-cut' }, cutL);
             kit.el('line', { x1: geo.cx, y1: geo.cy, x2: geo.cx, y2: geo.cy - geo.r - 4, stroke: P.ink.base, 'stroke-width': 3, 'stroke-dasharray': j === 0 ? null : '8 5', 'pointer-events': 'none' }, g);
             if (j === 0) { kit.transform(g, { r: 0, cx: geo.cx, cy: geo.cy }); markers.push({ g }); return; }
-            kit.el('circle', { cx: geo.cx, cy: geo.cy - geo.r - 24, r: 24, class: 'pk-hit' }, g);
+            const hit = kit.el('circle', { cx: geo.cx, cy: geo.cy - geo.r - 24, r: 24, class: 'pk-hit' }, g);
             kit.piece(st, g, { shape: { type: 'circle', cx: geo.cx, cy: geo.cy - geo.r - 24, r: 14 }, color: 'lavender', depth: 2 });
             // 손잡이 무늬: 돌리는 방향(좌우) 화살 — 회전해도 뜻이 같게 칼집과 직각으로 놓는다
             kit.el('path', { d: `M${geo.cx - 8} ${geo.cy - geo.r - 24} l4 -4 M${geo.cx - 8} ${geo.cy - geo.r - 24} l4 4 M${geo.cx + 8} ${geo.cy - geo.r - 24} l-4 -4 M${geo.cx + 8} ${geo.cy - geo.r - 24} l-4 4`, stroke: P.lavender.dark, 'stroke-width': 2.2, fill: 'none', 'stroke-linecap': 'round', 'pointer-events': 'none' }, g);
@@ -462,8 +464,9 @@
                 prev = a; cuts[j] = a; cutsChanged('cut');
               },
             });
-            markers.push({ g });
+            markers.push({ g, hit, j });
           });
+          sizeHits();
           return;
         }
         // 띠: 위쪽 눈금자(24칸) + 세로 칼집
@@ -478,7 +481,7 @@
         cuts.forEach((pos, j) => {
           const g = kit.el('g', { class: 'fr-cut' }, cutL);
           const top = geo.y - 34; const h = geo.h + 48;
-          kit.el('rect', { x: -22, y: top - 10, width: 44, height: h + 10, class: 'pk-hit' }, g);
+          const hit = kit.el('rect', { x: -22, y: top - 10, width: 44, height: h + 10, class: 'pk-hit' }, g);
           kit.el('line', { x1: 0, y1: geo.y - 6, x2: 0, y2: geo.y + geo.h + 6, stroke: P.ink.base, 'stroke-width': 3, 'stroke-dasharray': '8 5', 'pointer-events': 'none' }, g);
           // 손잡이는 띠 한가운데(아래 읽기 칸과 겹치지 않게)
           const ky = geo.y + geo.h / 2;
@@ -501,7 +504,29 @@
             kit.transform(g, { x: geo.x + p * geo.w });
             if (p !== cuts[j]) { cuts[j] = p; cutsChanged('keyboard'); }
           });
-          markers.push({ g });
+          markers.push({ g, hit, j });
+        });
+        sizeHits();
+      }
+      // 칼집 손잡이 누름 영역: 휴대폰(무대 약 0.6배)에서 44px가 되게 최대 76(viewBox)까지 넓히되, 이웃 칼집과의 사이 절반을 넘지 않는다.
+      // 고정 폭 44였을 때 칼집이 한 칸(약 21) 간격이면 두 영역이 겹쳐 손잡이 가운데를 눌러도 이웃이 잡혔다.
+      const HIT_MAX = 76;
+      function sizeHits() {
+        const hs = markers.filter((m) => m.hit);
+        if (shape === 'pizza') {
+          const R = geo.r + 24;
+          hs.forEach((m) => {
+            // 고정된 12시 칼집(손잡이 없음)은 견주지 않는다 — 누름 영역끼리만 겹치지 않으면 된다
+            const gap = Math.min(360, ...hs.filter((q) => q !== m).map((q) => { const d = Math.abs(K.norm(cuts[q.j] - cuts[m.j])); return Math.min(d, 360 - d); }));
+            const chord = 2 * R * Math.sin(rad(gap / 2));
+            m.hit.setAttribute('r', Math.max(12, Math.min(HIT_MAX / 2, chord / 2)).toFixed(1));
+          });
+          return;
+        }
+        hs.forEach((m) => {
+          const x = cuts[m.j] * geo.w; let l = HIT_MAX / 2; let r = HIT_MAX / 2;
+          hs.forEach((q) => { if (q === m) return; const d = cuts[q.j] * geo.w - x; if (d > 0) r = Math.min(r, d / 2); else if (d < 0) l = Math.min(l, -d / 2); });
+          m.hit.setAttribute('x', (-l).toFixed(1)); m.hit.setAttribute('width', (l + r).toFixed(1));
         });
       }
 

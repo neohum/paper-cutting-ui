@@ -473,10 +473,10 @@ L.push(lesson(10, {
     act('a2', '활동 2. 접어서 마주 보는 면 찾기', 13, 'cubenet', '전개도를 접었을 때 마주 보는 면을 찾아 같은 색으로 칠해요. 색칠한 면과 마주 보는 면을 골라요.',
       '"네 면이 한 줄로 이어져 있으면 첫째 면과 마주 보는 면은 몇째 면일까요?" 접어서 둥글게 만 모양을 떠올리게 한다. 바로 옆 면을 마주 보는 면으로 고르는 학생에게는 옆 면은 모서리로 만나는 옆면이라고 짚는다. 세 쌍을 모두 칠할 때 같은 색이 서로 맞닿지 않는지 확인하게 한다.',
       { easy: { allowFold: true, showStatus: true }, base: { allowFold: true }, challenge: { allowFold: false } }, [
-        { prompt: '면 ㄷ과 마주 보는 면을 찾아 면 ㄷ과 같은 분홍색으로 칠하세요.', options: { paint: true, locked: true }, state: { cells: { ㄱ: [0, 0], ㄴ: [0, 1], ㄷ: [1, 1], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [3, 2] }, paint: { ㄷ: 'rose' } }, target: { opposite: ['ㄷ', 'ㅁ'] }, difficulty: 0.12 },
-        { prompt: '면 ㄴ과 마주 보는 면을 찾아 면 ㄴ과 같은 연두색으로 칠하세요.', options: { paint: true, locked: true }, state: { cells: { ㄱ: [1, 0], ㄴ: [0, 1], ㄷ: [1, 1], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [1, 2] }, paint: { ㄴ: 'mint' } }, target: { opposite: ['ㄴ', 'ㄹ'] }, difficulty: 0.18 },
-        { prompt: '세 면씩 두 줄로 놓인 전개도예요. 면 ㄴ과 마주 보는 면을 찾아 면 ㄴ과 같은 분홍색으로 칠하세요.', options: { paint: true, locked: true }, state: { cells: { ㄱ: [0, 0], ㄴ: [1, 0], ㄷ: [2, 0], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [4, 1] }, paint: { ㄴ: 'rose' } }, target: { opposite: ['ㄴ', 'ㅁ'] }, difficulty: 0.25 },
-        { prompt: '마주 보는 면끼리 같은 색이 되도록 세 가지 색으로 여섯 면을 모두 칠하세요.', options: { paint: true, locked: true }, state: { cells: { ㄱ: [2, 0], ㄴ: [0, 1], ㄷ: [1, 1], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [1, 2] } }, target: { pairs: true }, difficulty: 0.3 },
+        { prompt: '면 ㄷ과 마주 보는 면을 찾아 면 ㄷ과 같은 분홍색으로 칠하세요.', toolOptions: { paint: true, locked: true }, state: { cells: { ㄱ: [0, 0], ㄴ: [0, 1], ㄷ: [1, 1], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [3, 2] }, paint: { ㄷ: 'rose' } }, target: { opposite: ['ㄷ', 'ㅁ'] }, difficulty: 0.12 },
+        { prompt: '면 ㄴ과 마주 보는 면을 찾아 면 ㄴ과 같은 연두색으로 칠하세요.', toolOptions: { paint: true, locked: true }, state: { cells: { ㄱ: [1, 0], ㄴ: [0, 1], ㄷ: [1, 1], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [1, 2] }, paint: { ㄴ: 'mint' } }, target: { opposite: ['ㄴ', 'ㄹ'] }, difficulty: 0.18 },
+        { prompt: '세 면씩 두 줄로 놓인 전개도예요. 면 ㄴ과 마주 보는 면을 찾아 면 ㄴ과 같은 분홍색으로 칠하세요.', toolOptions: { paint: true, locked: true }, state: { cells: { ㄱ: [0, 0], ㄴ: [1, 0], ㄷ: [2, 0], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [4, 1] }, paint: { ㄴ: 'rose' } }, target: { opposite: ['ㄴ', 'ㅁ'] }, difficulty: 0.25 },
+        { prompt: '마주 보는 면끼리 같은 색이 되도록 세 가지 색으로 여섯 면을 모두 칠하세요.', toolOptions: { paint: true, locked: true }, state: { cells: { ㄱ: [2, 0], ㄴ: [0, 1], ㄷ: [1, 1], ㄹ: [2, 1], ㅁ: [3, 1], ㅂ: [1, 2] } }, target: { pairs: true }, difficulty: 0.3 },
       ]),
   ],
   wrap: ['"전개도에서 한 줄로 이어진 네 면에서 마주 보는 면은 어느 면과 어느 면일까요?" 첫째와 셋째, 둘째와 넷째라는 말이 나오는지 듣는다. 출구 2번에서 바로 옆 면을 고른 학생은 11차시 처음에 종이로 접어 보며 옆 면과 마주 보는 면을 다시 가린다.', [
