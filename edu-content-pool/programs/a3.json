@@ -1,0 +1,482 @@
+{
+  "note": "A3 — 초1~3 안전교육: 폭력예방 및 신변보호(8)·약물 중독 예방(5)·사이버 중독 예방(5)",
+  "units": [
+    {
+      "id": "g1-cc-saf-violence",
+      "grade": 1,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "폭력예방 및 신변보호",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 폭력예방 및 신변보호",
+      "lessons": 8,
+      "plan": [
+        {
+          "i": 1,
+          "title": "내 몸의 소중함",
+          "role": "intro",
+          "tool": "mindmap",
+          "topic": "내 몸과 친구 몸을 아끼는 행동을 고른다"
+        },
+        {
+          "i": 2,
+          "title": "좋은 느낌과 싫은 느낌",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "몸과 마음에 드는 좋은 느낌과 싫은 느낌을 구별한다"
+        },
+        {
+          "i": 3,
+          "title": "싫어요 말하기",
+          "role": "core",
+          "tool": "story",
+          "topic": "싫은 접촉에 \"싫어요\"라고 말하고 피하는 순서를 익힌다"
+        },
+        {
+          "i": 4,
+          "title": "속옷으로 가리는 소중한 곳",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "나만의 소중한 곳을 알고 불편한 비밀은 어른께 말한다"
+        },
+        {
+          "i": 5,
+          "title": "낯선 사람 따라가지 않기",
+          "role": "practice",
+          "tool": "emotion",
+          "topic": "낯선 사람이 부를 때 따라가지 않고 도움을 청한다"
+        },
+        {
+          "i": 6,
+          "title": "길을 잃었을 때",
+          "role": "practice",
+          "tool": "story",
+          "topic": "길을 잃으면 멈추고 일하는 어른에게 도움을 청한다"
+        },
+        {
+          "i": 7,
+          "title": "친구와 사이좋게 지내기",
+          "role": "extend",
+          "tool": "emotion",
+          "topic": "다툴 때 때리지 않고 말로 마음을 전한다"
+        },
+        {
+          "i": 8,
+          "title": "도움을 청할 어른 찾기",
+          "role": "wrap",
+          "tool": "mindmap",
+          "topic": "장소마다 도와줄 어른과 지킴이 약속을 정리한다"
+        }
+      ]
+    },
+    {
+      "id": "g2-cc-saf-violence",
+      "grade": 2,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "폭력예방 및 신변보호",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 폭력예방 및 신변보호",
+      "lessons": 8,
+      "plan": [
+        {
+          "i": 1,
+          "title": "몸의 경계와 동의",
+          "role": "intro",
+          "tool": "emotion",
+          "topic": "안거나 만지기 전에 묻고, 대답을 존중한다"
+        },
+        {
+          "i": 2,
+          "title": "좋은 비밀과 나쁜 비밀",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "지켜도 되는 비밀과 어른께 말해야 하는 비밀을 가른다"
+        },
+        {
+          "i": 3,
+          "title": "싫은 접촉 대처 순서",
+          "role": "core",
+          "tool": "story",
+          "topic": "싫은 접촉이 있을 때 말하기·피하기·알리기 순서를 익힌다"
+        },
+        {
+          "i": 4,
+          "title": "아는 사람의 유인",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "아는 사람이 데려가려 할 때도 가족에게 먼저 확인한다"
+        },
+        {
+          "i": 5,
+          "title": "혼자 있을 때 문 열지 않기",
+          "role": "practice",
+          "tool": "emotion",
+          "topic": "집에 혼자 있을 때 방문자에게 문을 열지 않는다"
+        },
+        {
+          "i": 6,
+          "title": "가족과 친구의 소중함",
+          "role": "practice",
+          "tool": "emotion",
+          "topic": "가족과 친구에게 따뜻한 말을 건네 사이좋게 지낸다"
+        },
+        {
+          "i": 7,
+          "title": "어린이를 아프게 하는 일 알리기",
+          "role": "extend",
+          "tool": "mindmap",
+          "topic": "어린이를 다치게 하거나 돌보지 않는 일을 알아보고 믿는 어른께 알린다"
+        },
+        {
+          "i": 8,
+          "title": "나를 지키는 약속 카드",
+          "role": "wrap",
+          "tool": "mindmap",
+          "topic": "단원에서 배운 대처 방법을 상황별로 묶는다"
+        }
+      ]
+    },
+    {
+      "id": "g3-cc-saf-violence",
+      "grade": 3,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "폭력예방 및 신변보호",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 폭력예방 및 신변보호",
+      "lessons": 8,
+      "plan": [
+        {
+          "i": 1,
+          "title": "몸의 주인은 나",
+          "role": "intro",
+          "tool": "mindmap",
+          "topic": "몸의 바른 이름과 내 몸의 주인이 나라는 것을 안다"
+        },
+        {
+          "i": 2,
+          "title": "몸이 보내는 위험 신호",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "불편한 상황에서 몸과 마음이 보내는 신호를 알아차린다"
+        },
+        {
+          "i": 3,
+          "title": "장난과 괴롭힘 구별",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "서로 즐거운 장난과 한쪽이 싫어하는 괴롭힘을 가른다"
+        },
+        {
+          "i": 4,
+          "title": "온라인에서 모르는 사람",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "온라인에서 사진·만남을 요구하는 사람에게 대처한다"
+        },
+        {
+          "i": 5,
+          "title": "유괴 수법 알아채기",
+          "role": "practice",
+          "tool": "mindmap",
+          "topic": "도움 요청·선물·거짓 소식처럼 어린이를 꾀는 말을 알아챈다"
+        },
+        {
+          "i": 6,
+          "title": "아동학대 알고 알리기",
+          "role": "practice",
+          "tool": "mindmap",
+          "topic": "어린이의 권리와 아동학대 신고·도움 경로를 안다"
+        },
+        {
+          "i": 7,
+          "title": "친구의 힘든 비밀 돕기",
+          "role": "extend",
+          "tool": "story",
+          "topic": "친구가 털어놓은 위험한 비밀을 믿는 어른께 함께 알린다"
+        },
+        {
+          "i": 8,
+          "title": "우리 동네 안전 지킴이",
+          "role": "wrap",
+          "tool": "mindmap",
+          "topic": "도움받을 곳과 신고 번호를 정리하고 지킴이 약속을 세운다"
+        }
+      ]
+    },
+    {
+      "id": "g1-cc-saf-drug",
+      "grade": 1,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "약물 중독 예방",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 약물 및 사이버 중독 예방(올바른 약물 사용법·해로운 약물·화학제품)",
+      "lessons": 5,
+      "plan": [
+        {
+          "i": 1,
+          "title": "약은 어른과 함께",
+          "role": "intro",
+          "tool": "mindmap",
+          "topic": "약은 어른이 주는 것만 먹는다"
+        },
+        {
+          "i": 2,
+          "title": "사탕과 약 구별",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "사탕처럼 보이는 약과 먹을 것을 구별한다"
+        },
+        {
+          "i": 3,
+          "title": "집 안 위험한 물질",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "세제·표백제 같은 물질을 만지거나 먹지 않는다"
+        },
+        {
+          "i": 4,
+          "title": "담배 연기 피하기",
+          "role": "practice",
+          "tool": "emotion",
+          "topic": "담배 연기를 피해 깨끗한 공기를 마신다"
+        },
+        {
+          "i": 5,
+          "title": "건강 지킴이 약속",
+          "role": "wrap",
+          "tool": "mindmap",
+          "topic": "약·위험한 물질·담배 연기에 대한 약속을 정리한다"
+        }
+      ]
+    },
+    {
+      "id": "g2-cc-saf-drug",
+      "grade": 2,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "약물 중독 예방",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 약물 및 사이버 중독 예방(올바른 약물 사용법·해로운 약물·화학제품)",
+      "lessons": 5,
+      "plan": [
+        {
+          "i": 1,
+          "title": "내 약과 남의 약",
+          "role": "intro",
+          "tool": "mindmap",
+          "topic": "약 봉투의 이름을 보고 내 약만 먹는다"
+        },
+        {
+          "i": 2,
+          "title": "약 먹는 순서",
+          "role": "core",
+          "tool": "story",
+          "topic": "약을 바르게 먹는 순서를 익힌다"
+        },
+        {
+          "i": 3,
+          "title": "다른 병에 담긴 물질",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "음료수병에 담긴 물질을 마시지 않고 알린다"
+        },
+        {
+          "i": 4,
+          "title": "간접흡연 피하기",
+          "role": "practice",
+          "tool": "mindmap",
+          "topic": "담배 연기가 있는 곳을 피하고 말하는 방법을 안다"
+        },
+        {
+          "i": 5,
+          "title": "약과 물질 안전 정리",
+          "role": "wrap",
+          "tool": "mindmap",
+          "topic": "약·물질·연기 안전을 장면별로 묶는다"
+        }
+      ]
+    },
+    {
+      "id": "g3-cc-saf-drug",
+      "grade": 3,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "약물 중독 예방",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 약물 및 사이버 중독 예방(올바른 약물 사용법·해로운 약물·화학제품)",
+      "lessons": 5,
+      "plan": [
+        {
+          "i": 1,
+          "title": "약을 바르게 먹는 방법",
+          "role": "intro",
+          "tool": "mindmap",
+          "topic": "정해진 양·시간·물과 함께 약을 먹는다"
+        },
+        {
+          "i": 2,
+          "title": "많이 먹으면 위험해요",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "약을 많이 먹거나 마음대로 먹으면 위험함을 안다"
+        },
+        {
+          "i": 3,
+          "title": "위험 표시 읽기",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "제품의 주의 표시를 읽고 어린이 손이 닿지 않게 둔다"
+        },
+        {
+          "i": 4,
+          "title": "흡연과 간접흡연의 피해",
+          "role": "practice",
+          "tool": "mindmap",
+          "topic": "흡연과 간접흡연이 몸에 주는 피해를 안다"
+        },
+        {
+          "i": 5,
+          "title": "권유를 거절하고 약속하기",
+          "role": "wrap",
+          "tool": "emotion",
+          "topic": "해로운 것을 권할 때 거절하고 건강 약속을 세운다"
+        }
+      ]
+    },
+    {
+      "id": "g1-cc-saf-cyber",
+      "grade": 1,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "사이버 중독 예방",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 약물 및 사이버 중독 예방(TV·인터넷·스마트폰 중독 위해성과 바른 사용)",
+      "lessons": 5,
+      "plan": [
+        {
+          "i": 1,
+          "title": "화면 보는 시간 약속",
+          "role": "intro",
+          "tool": "mindmap",
+          "topic": "영상을 볼 때 시간 약속이 필요함을 안다"
+        },
+        {
+          "i": 2,
+          "title": "그만 보기 신호",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "약속한 시간이 되면 스스로 끈다"
+        },
+        {
+          "i": 3,
+          "title": "화면 대신 놀이",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "화면 없이 할 수 있는 놀이를 고른다"
+        },
+        {
+          "i": 4,
+          "title": "바른 자세와 눈 쉬기",
+          "role": "practice",
+          "tool": "mindmap",
+          "topic": "화면을 볼 때 바른 자세와 눈 쉬기를 지킨다"
+        },
+        {
+          "i": 5,
+          "title": "우리 집 화면 약속",
+          "role": "wrap",
+          "tool": "story",
+          "topic": "가족과 함께 지킬 화면 약속을 정리한다"
+        }
+      ]
+    },
+    {
+      "id": "g2-cc-saf-cyber",
+      "grade": 2,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "사이버 중독 예방",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 약물 및 사이버 중독 예방(TV·인터넷·스마트폰 중독 위해성과 바른 사용)",
+      "lessons": 5,
+      "plan": [
+        {
+          "i": 1,
+          "title": "하루 속 화면 시간",
+          "role": "intro",
+          "tool": "timeline",
+          "topic": "하루 일과에서 화면 쓰는 때를 정한다"
+        },
+        {
+          "i": 2,
+          "title": "과몰입 신호 알아차리기",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "게임·영상에 빠졌을 때 나타나는 신호를 안다"
+        },
+        {
+          "i": 3,
+          "title": "더 하고 싶은 마음 다스리기",
+          "role": "core",
+          "tool": "emotion",
+          "topic": "그만해야 할 때 아쉬운 마음을 다스린다"
+        },
+        {
+          "i": 4,
+          "title": "광고·결제 창 누르지 않기",
+          "role": "practice",
+          "tool": "emotion",
+          "topic": "갑자기 뜬 광고·결제 창을 누르지 않고 어른께 묻는다"
+        },
+        {
+          "i": 5,
+          "title": "화면 사용 습관 점검",
+          "role": "wrap",
+          "tool": "mindmap",
+          "topic": "내 화면 사용 습관을 점검하고 약속을 세운다"
+        }
+      ]
+    },
+    {
+      "id": "g3-cc-saf-cyber",
+      "grade": 3,
+      "subject": "창체",
+      "area": "안전교육",
+      "unitTitle": "사이버 중독 예방",
+      "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 별표 2 초등 약물 및 사이버 중독 예방(TV·인터넷·스마트폰 중독 위해성과 바른 사용)",
+      "lessons": 5,
+      "plan": [
+        {
+          "i": 1,
+          "title": "스마트폰 사용 기록 읽기",
+          "role": "intro",
+          "tool": "mindmap",
+          "topic": "사용 기록을 보고 지나친 사용을 알아본다"
+        },
+        {
+          "i": 2,
+          "title": "게임 과몰입 사례 판단",
+          "role": "core",
+          "tool": "mindmap",
+          "topic": "친구 사례에서 게임 과몰입 신호를 찾는다"
+        },
+        {
+          "i": 3,
+          "title": "스스로 멈추는 방법",
+          "role": "core",
+          "tool": "story",
+          "topic": "시작 전 시간 정하기부터 끄기까지 스스로 멈추는 차례를 익힌다"
+        },
+        {
+          "i": 4,
+          "title": "밤늦은 사용과 잠",
+          "role": "practice",
+          "tool": "emotion",
+          "topic": "잠자기 전 화면 사용이 잠과 몸에 주는 영향을 안다"
+        },
+        {
+          "i": 5,
+          "title": "가족 미디어 약속 만들기",
+          "role": "wrap",
+          "tool": "mindmap",
+          "topic": "가족과 함께 지킬 미디어 사용 약속을 만든다"
+        }
+      ]
+    }
+  ]
+}
