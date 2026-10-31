@@ -2212,7 +2212,7 @@
               items: [
                 { prompt: '발야구에서 공격하는 사람의 차례대로 카드를 놓아요.', toolOptions: { cards: ['홈 콘을 밟아 1점 얻기', '굴러오는 공을 차기', '콘을 바깥쪽으로 돌며 달리기', '홈 뒤 대기선에서 기다리기'] }, target: { order: ['홈 뒤 대기선에서 기다리기', '굴러오는 공을 차기', '콘을 바깥쪽으로 돌며 달리기', '홈 콘을 밟아 1점 얻기'] }, levels: { easy: { state: { order: ['홈 뒤 대기선에서 기다리기', '굴러오는 공을 차기', '홈 콘을 밟아 1점 얻기', '콘을 바깥쪽으로 돌며 달리기'] } } }, difficulty: 0.15 },
                 { prompt: '두 정거장으로 가기 전에 발야구장과 풍선 배구장을 확인한 것을 눌러 표시해요.', toolOptions: { safety: ['발야구 대기선이 홈에서 3m 뒤에 있어요', '풍선 배구 줄이 허리 높이로 단단히 묶였어요', '두 정거장 사이가 5m 넘게 떨어졌어요'] }, target: { safety: true }, difficulty: 0.1 },
-                { prompt: '6분씩 두 정거장을 돌고, 정거장을 바꾸는 데 1분 쉬도록 타이머를 맞춰요.', toolOptions: { plan: { work: 300, rest: 30, rounds: 3 }, workStep: 60, restStep: 30 }, target: { plan: { work: 360, rest: 60, rounds: 2 } }, difficulty: 0.25 },
+                { prompt: '6분씩 두 정거장을 돌고, 정거장을 바꾸는 데 1분 쉬도록 타이머를 맞춰요.', toolOptions: { plan: { work: 5, rest: 2, rounds: 3 }, timeUnit: 'min', workStep: 1, restStep: 1 }, target: { plan: { work: 6, rest: 1, rounds: 2 } }, difficulty: 0.25 },
               ],
             },
             {
@@ -3504,7 +3504,7 @@
               levels: { easy: { showTotal: true }, base: {}, challenge: {} },
               items: [
                 { prompt: '우리 코트에서 풍선을 세 번 안에 넘기는 차례대로 놓아요.', toolOptions: { cards: ['네트 앞 사람이 빈 칸으로 넘기기', '모두 자기 자리로 돌아가기', '뒤 사람이 "내 풍선!" 외치고 받기', '가운데 사람이 높이 올려 주기'] }, target: { order: ['뒤 사람이 "내 풍선!" 외치고 받기', '가운데 사람이 높이 올려 주기', '네트 앞 사람이 빈 칸으로 넘기기', '모두 자기 자리로 돌아가기'] }, levels: { easy: { state: { order: ['뒤 사람이 "내 풍선!" 외치고 받기', '가운데 사람이 높이 올려 주기', '모두 자기 자리로 돌아가기', '네트 앞 사람이 빈 칸으로 넘기기'] } } }, difficulty: 0.2 },
-                { prompt: '6분 경기 두 판, 판 사이 2분 모둠 회의로 타이머를 맞춰요.', toolOptions: { plan: { work: 300, rest: 60, rounds: 3 }, workStep: 60, restStep: 60 }, target: { plan: { work: 360, rest: 120, rounds: 2 } }, difficulty: 0.2 },
+                { prompt: '6분 경기 두 판, 판 사이 2분 모둠 회의로 타이머를 맞춰요.', toolOptions: { plan: { work: 5, rest: 1, rounds: 3 }, timeUnit: 'min', workStep: 1, restStep: 1 }, target: { plan: { work: 6, rest: 2, rounds: 2 } }, difficulty: 0.2 },
                 { prompt: '3:3 풍선 배구를 하기 전에 코트를 확인한 것을 눌러 표시해요.', toolOptions: { safety: ['네트 줄이 허리 높이로 단단히 묶였어요', '세 사람 자리를 바닥 테이프로 표시했어요', '"내 풍선!"을 외친 사람만 치기로 했어요'] }, target: { safety: true }, difficulty: 0.1 },
               ],
             },

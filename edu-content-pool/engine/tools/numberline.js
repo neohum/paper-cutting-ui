@@ -129,6 +129,8 @@
       const W = 640; const H = mode === 'jump' ? 230 : 210; const LY = mode === 'jump' ? 150 : 130;
       const X0 = 44; const X1 = W - 44; const tp = (X1 - X0) / N;
       const xOf = (k) => X0 + k * tp;
+      // 수직선을 누르는 띠 높이: 휴대폰(그림이 약 0.48배로 줄어듦)에서도 44px 이상
+      const HIT = 96;
       const st = kit.stage(box, { viewBox: [W, H], label: `수직선. ${fmt(min)}부터 ${fmt(max)}까지${mode === 'place' ? '. 점을 알맞은 자리에 놓으세요.' : mode === 'jump' ? '. 화살표로 뛰어 세어 보세요.' : '. 점이 나타내는 수를 읽으세요.'}` });
       kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 16 }, color: 'cream', fill: '#FBF6EC', depth: 2, texture: true });
       const lineL = st.layer('line');
@@ -201,7 +203,7 @@
           trayRect = kit.el('rect', { x: X0 - 14, y: TRAY_Y - 52, width: Math.max(60, count * 46 + 8), height: 60, rx: 12, fill: 'none', stroke: '#B8A6D9', 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }, st.layer('tray'));
         }
         // 수직선을 누르면 고른 점이 그 눈금으로 간다(작은 점을 끌기 어려운 터치 화면)
-        const hit = kit.el('rect', { x: X0 - 20, y: LY - 34, width: X1 - X0 + 40, height: 68, class: 'pk-hit' }, lineL);
+        const hit = kit.el('rect', { x: X0 - 20, y: LY - HIT / 2, width: X1 - X0 + 40, height: HIT, class: 'pk-hit' }, lineL);
         if (controls) hit.addEventListener('click', (e) => { const p = st.point(e); moveTo(active, Math.round((p.x - X0) / tp)); });
         const colors = ['sky', 'buttercup', 'mint', 'lavender', 'peach', 'rose'];
         for (let i = 0; i < MAXP; i++) {
@@ -303,7 +305,7 @@
             const k = e.key === 'Home' ? 0 : e.key === 'End' ? N : d == null ? cur : (from == null ? 0 : cur + d);
             setFrom(valOf(Math.max(0, Math.min(N, k)))); log(); kit.announce('출발점을 옮겼어요');
           });
-          const hit = kit.el('rect', { x: X0 - 20, y: LY - 20, width: X1 - X0 + 40, height: 40, class: 'pk-hit' }, lineL);
+          const hit = kit.el('rect', { x: X0 - 20, y: LY - HIT / 2, width: X1 - X0 + 40, height: HIT, class: 'pk-hit' }, lineL);
           hit.addEventListener('click', (e) => { if (hops.length) return; const p = st.point(e); setFrom(valOf(Math.max(0, Math.min(N, Math.round((p.x - X0) / tp))))); log(); });
         }
         if (controls) {
@@ -322,7 +324,8 @@
       }
       const posOf = () => { let p = from; const out = []; for (const h of hops) { const q = r6(p + h); out.push([p, q, h]); p = q; } return { list: out, end: p }; };
       function setFrom(v, quiet) { if (fixedFrom != null) return; from = v; hops = []; revealed = false; paintJump(); if (!quiet) clearMarks(); }
-      function setSize(v) { size = r6(Math.max(hopStep, Math.min(max - min, v))); if (sizeOut) sizeOut.textContent = fmt(size); log(); kit.announce(`한 번에 ${fmt(size)}씩`); }
+      // 뛰는 크기는 hopStep의 몇 배인지로 다시 맞춘다 — 1/12를 다섯 번 더하면 0.416665가 되어 5/12(0.416667)와 어긋났다
+      function setSize(v) { v = Math.max(hopStep, Math.min(max - min, v)); const k = v / hopStep; size = r6(Math.abs(k - Math.round(k)) < 1e-4 ? Math.round(k) * hopStep : v); if (sizeOut) sizeOut.textContent = fmt(size); log(); kit.announce(`한 번에 ${fmt(size)}씩`); }
       function hop(dir) {
         if (from == null) { kit.announce('먼저 출발점을 정해요'); return; }
         if (hops.length >= MAXH) return;

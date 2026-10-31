@@ -22,6 +22,7 @@
  * | (table) colsOf | 칸 머리(곱하는 수) 배열 | [1,…,9] |
  * | (table) blanks | 빈칸: [[단, 곱하는 수], …] · 'all' · 'row:3' · 'col:4' | [] |
  * | (table) op | '×' 또는 '+'(덧셈표) | '×' |
+ * | (table) digits | 빈칸에 쓸 수 있는 자릿수 | 3과 빈칸 정답의 가장 긴 자릿수 가운데 큰 값 |
  * | revealAfterCheck | 살아 있는 식·묶음 수를 숨기고, 틀린 확인에서 어느 칸이 틀렸는지 표시하지 않는다 | — |
  * | print | 활동지 그림(조작 칸 없음, 식·입력 값 숨김) | — |
  *
@@ -122,7 +123,7 @@
       const calc = (a, b) => (op === '+' ? a + b : a * b);
       const keyOf = (a, b) => `${a}x${b}`;
       let blanks = [];
-      const cellVals = {}; const cellEls = {}; let selKey = null;
+      const cellVals = {}; const cellEls = {}; let selKey = null; let cellDigits = 3;
 
       let W = 560; let H = 400;
       if (mode === 'table') { W = Math.max(300, (colsOf.length + 1) * 48 + 24); H = Math.max(120, (rowsOf.length + 1) * 42 + 24); }
@@ -310,6 +311,7 @@
         else if (Array.isArray(o.blanks)) blanks = o.blanks.filter((x) => Array.isArray(x) && x.length === 2).map((x) => [Number(x[0]), Number(x[1])]);
         blanks = blanks.filter(([a, b]) => rowsOf.includes(a) && colsOf.includes(b));
         const isBlank = (a, b) => blanks.some(([x, y]) => x === a && y === b);
+        cellDigits = Math.max(1, Math.min(6, intOr(o.digits, 0) || Math.max(3, ...blanks.map(([a, b]) => String(Math.abs(calc(a, b))).length))));
         const CW = 48; const CH = 42; const OX = 12; const OY = 12;
         const L = st.layer('table');
         const pf = (c) => (o.print ? '#FFFFFF' : c);
@@ -333,7 +335,7 @@
               g.addEventListener('click', () => select(k));
               g.addEventListener('focus', () => select(k, true));
               g.addEventListener('keydown', (e) => {
-                if (/^[0-9]$/.test(e.key)) { e.preventDefault(); const cur = cellVals[k] == null ? '' : String(cellVals[k]); setCell(k, Number((cur + e.key).slice(-3))); return; }
+                if (/^[0-9]$/.test(e.key)) { e.preventDefault(); const cur = cellVals[k] == null ? '' : String(cellVals[k]); setCell(k, Number((cur + e.key).slice(-cellDigits))); return; }
                 if (e.key === 'Backspace' || e.key === 'Delete') { e.preventDefault(); const cur = cellVals[k] == null ? '' : String(cellVals[k]); setCell(k, cur.length > 1 ? Number(cur.slice(0, -1)) : null); return; }
                 const d = { ArrowUp: 1, ArrowRight: 1, ArrowDown: -1, ArrowLeft: -1 }[e.key];
                 if (d) { e.preventDefault(); setCell(k, Math.max(0, (cellVals[k] == null ? 0 : cellVals[k]) + d)); }
@@ -344,7 +346,7 @@
         });
         if (controls && blanks.length) {
           const row = document.createElement('div'); row.className = 'mu-pad'; row.setAttribute('aria-label', '숫자 단추');
-          for (const dgt of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']) button(row, dgt, `${dgt} 쓰기`, () => { if (!selKey) select(Object.keys(cellEls)[0], true); const cur = cellVals[selKey] == null ? '' : String(cellVals[selKey]); setCell(selKey, Number((cur + dgt).slice(-3))); });
+          for (const dgt of ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']) button(row, dgt, `${dgt} 쓰기`, () => { if (!selKey) select(Object.keys(cellEls)[0], true); const cur = cellVals[selKey] == null ? '' : String(cellVals[selKey]); setCell(selKey, Number((cur + dgt).slice(-cellDigits))); });
           button(row, '<i class="fi fi-rr-eraser" aria-hidden="true"></i>', '고른 칸 지우기', () => { if (selKey) setCell(selKey, null); });
           button(row, '<i class="fi fi-rr-angle-right" aria-hidden="true"></i>', '다음 빈칸', () => { const ks = Object.keys(cellEls); select(ks[(ks.indexOf(selKey) + 1) % ks.length]); });
           panel.appendChild(row);

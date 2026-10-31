@@ -167,7 +167,8 @@ PaperLessons.registerUnit({
         { id: 'a3', title: '활동 3. 수직선에 시간 놓기', minutes: 8, tool: 'numberline',
           task: '몇 분 몇 초를 수직선 위에 점으로 놓아요. 분은 60초로 바꾸어 생각해요.',
           teacher: '"1분 40초는 수직선 어디쯤일까요?" 큰 눈금 1과 2 사이에 놓는 것을 확인한다. 점을 40 자리에 놓은 학생에게는 "1분이 먼저 지났어요. 40초는 어디서부터 더 갔을까요?"라고 묻는다.',
-          levels: MIN3('place'),
+          // 도전: 점은 눈금에만 놓이므로 30초 눈금으로는 100·70·80·130초에 놓을 수 없다 — 10초 눈금에 큰 눈금 수를 양 끝에만 적어 60·120 자리를 스스로 찾게 한다
+          levels: Object.assign(MIN3('place'), { challenge: { mode: 'place', min: 0, max: 180, step: 60, sub: 6, labels: 'ends' } }),
           items: [
             { prompt: '1분 40초가 되는 곳에 점을 놓아 보세요.', toolOptions: { count: 1 }, target: { points: [100] } },
             { prompt: '1분 10초가 되는 곳에 점을 놓아 보세요.', toolOptions: { count: 1 }, target: { points: [70] } },
@@ -195,7 +196,7 @@ PaperLessons.registerUnit({
         { type: 'choice', prompt: '1분 10초와 같은 시간에 ○ 하세요.', options: ['70초', '110초'], answer: '70초' },
         { type: 'draw', prompt: '1분 15초를 수직선에 점으로 나타내 보세요.' },
       ] } },
-      diff: { easy: '5초 눈금이 있는 수직선에서 점의 자리를 찾아요. 도착점의 수가 보여요.', base: '10초 눈금 수직선에서 큰 눈금 수를 보고 분을 먼저 떼어 내요.', challenge: '30초 눈금뿐인 수직선에서 눈금 사이의 시간을 어림해 읽고 점을 놓아요.' },
+      diff: { easy: '5초 눈금이 있는 수직선에서 점의 자리를 찾아요. 도착점의 수가 보여요.', base: '10초 눈금 수직선에서 큰 눈금 수를 보고 분을 먼저 떼어 내요.', challenge: '30초 눈금뿐인 수직선에서 눈금 사이의 시간을 어림해 읽고, 큰 눈금 수가 양 끝에만 적힌 수직선에서 60·120 자리를 스스로 찾아 점을 놓아요.' },
       notes: '자주 보이는 어려움: ① 몇 분 몇 초를 이어 써서 숫자 하나로 읽는다(1분 20초 → 120초) → 1분 = 60초라서 60 + 20으로 바꾼다. ② 75초를 7분 5초로 읽는다 → 60을 뺀 나머지가 초이고 뺀 60이 1분이다. ③ 분과 초 사이 단위를 지운다 → 읽은 뒤 단위를 소리 내어 말하게 한다.',
     }),
     mk(3, ['[4수03-13]'], {
@@ -336,24 +337,26 @@ PaperLessons.registerUnit({
         { id: 'a1', title: '활동 1. 1분 안에서 남은 시간 구하기', minutes: 8, tool: 'numberline',
           task: '출발점에서 뒤로 뛰어 남은 시간을 구해요. 뒤로 뛰기 단추로 뺄셈을 해요.',
           teacher: '"60초에서 45초를 빼려면 화살표는 어느 쪽으로 갈까요?" 왼쪽(뒤로)이라고 답하게 한다. 뒤로 가야 하는데 앞으로 그려 105에 닿은 학생에게는 "시간이 줄었나요, 늘었나요?"라고 되묻는다.',
-          levels: MIN3('jump', { hopStep: 5 }),
+          // 도전: 출발점(50·40·55·70·65초)이 30초 눈금 위에 없어 놓을 수 없었다 — 5초 눈금에 큰 눈금 수를 양 끝에만 적어 60·120 자리를 스스로 찾게 한다
+          levels: Object.assign(MIN3('jump', { hopStep: 5 }), { challenge: { mode: 'jump', min: 0, max: 180, step: 60, sub: 12, labels: 'ends', hopStep: 5 } }),
           items: [
             { prompt: '50초짜리 영상을 30초 보았어요. 50에서 30만큼 뒤로 뛰어 남은 시간을 구해 보세요.', toolOptions: { fixedFrom: 50, hopSize: 10 }, target: { from: 50, end: 20 } },
             { prompt: '1분(60초) 동안 노래를 부르는데 45초가 지났어요. 남은 시간은 얼마일까요?', toolOptions: { fixedFrom: 60, hopSize: 15 }, target: { from: 60, end: 15 } },
             { prompt: '40초 동안 청소하기로 했는데 15초가 지났어요. 뒤로 뛰어 남은 시간을 구해 보세요.', toolOptions: { fixedFrom: 40, hopSize: 5 }, target: { from: 40, end: 25 } },
-            { prompt: '더 해 보기: 55초에서 25초를 빼면 몇 초가 남을까요?', toolOptions: { fixedFrom: 55, hopSize: 5 }, target: { from: 55, end: 30 }, extra: true },
+            { prompt: '더 해 보기: 50초에서 35초를 빼면 몇 초가 남을까요?', toolOptions: { fixedFrom: 50, hopSize: 5 }, target: { from: 50, end: 15 }, extra: true },
           ] },
         { id: 'a2', title: '활동 2. 큰 눈금 60을 건너 뒤로 가기', minutes: 9, tool: 'numberline',
           task: '1분이 넘는 시간에서 뒤로 뛰어요. 큰 눈금 60을 건너면 분이 하나 줄어요.',
           teacher: '"1분 10초에서 25초를 빼요. 10초에서 25초를 뺄 수 있나요?" 뺄 수 없다는 말을 듣고 "1분을 60초로 바꾸면 70초예요. 70에서 25를 빼면?" 하고 이어 간다. 25 − 10 = 15초로 거꾸로 빼는 학생에게는 수직선에서 어디에 닿는지 보여 준다.',
-          levels: MIN3('jump', { hopStep: 5 }),
+          // 도전: 출발점(50·40·55·70·65초)이 30초 눈금 위에 없어 놓을 수 없었다 — 5초 눈금에 큰 눈금 수를 양 끝에만 적어 60·120 자리를 스스로 찾게 한다
+          levels: Object.assign(MIN3('jump', { hopStep: 5 }), { challenge: { mode: 'jump', min: 0, max: 180, step: 60, sub: 12, labels: 'ends', hopStep: 5 } }),
           items: [
             { prompt: '1분 10초에서 25초를 빼 보세요. 뒤로 뛰어 닿은 곳은 몇 초일까요?', toolOptions: { fixedFrom: 70, hopSize: 25 }, target: { from: 70, end: 45 },
               predict: { q: '1분 10초에서 25초를 뺄 때 먼저 어떻게 할까요?', options: ['10에서 25를 뺀다', '1분을 60초로 바꾼다'], answer: 1 },
               conclude: '1분 10초를 70초로 바꾸면 70 − 25 = 45초예요.' },
             { prompt: '2분짜리 영상에서 50초를 보았어요. 남은 시간을 수직선에서 구해 보세요.', toolOptions: { fixedFrom: 120, hopSize: 10 }, target: { from: 120, end: 70 } },
             { prompt: '1분 30초에서 55초를 빼면 몇 초가 남을까요?', toolOptions: { fixedFrom: 90, hopSize: 55 }, target: { from: 90, end: 35 } },
-            { prompt: '더 해 보기: 1분 5초에서 15초를 빼 보세요.', toolOptions: { fixedFrom: 65, hopSize: 15 }, target: { from: 65, end: 50 }, extra: true },
+            { prompt: '더 해 보기: 1분 40초에서 55초를 빼 보세요.', toolOptions: { fixedFrom: 100, hopSize: 55 }, target: { from: 100, end: 45 }, extra: true },
           ] },
         { id: 'a3', title: '활동 3. 뺀 시간을 몇 분 몇 초로 말하기', minutes: 9, tool: 'numberline',
           task: '긴 시간에서 짧은 시간을 뺀 결과가 점으로 찍혀 있어요. 알맞은 시간을 골라요.',
@@ -386,7 +389,7 @@ PaperLessons.registerUnit({
         { type: 'choice', prompt: '1분을 바르게 바꾼 것에 ○ 하세요.', options: ['60초', '100초'], answer: '60초' },
         { type: 'draw', prompt: '1분 15초에서 20초를 빼는 화살표를 수직선에 그려 보세요.' },
       ] } },
-      diff: { easy: '5초 눈금 수직선에서 뒤로 뛰기 칸 수가 보여요.', base: '10초 눈금 수직선에서 1분을 60초로 바꾸어 뺀 값을 확인해요.', challenge: '30초 눈금 수직선에서 뺀 시간을 어림하고 식으로 확인해요.' },
+      diff: { easy: '5초 눈금 수직선에서 뒤로 뛰기 칸 수가 보여요.', base: '10초 눈금 수직선에서 1분을 60초로 바꾸어 뺀 값을 확인해요.', challenge: '큰 눈금 수가 양 끝에만 적힌 5초 눈금 수직선에서 60·120 자리를 스스로 찾아 뒤로 뛰고, 뺀 시간을 식으로 확인해요.' },
       notes: '자주 보이는 어려움: ① 초끼리 뺄 수 없을 때 큰 수에서 작은 수를 거꾸로 뺀다(10 − 25를 25 − 10으로) → 수직선에서 뒤로 가야 함을 보여 준다. ② 1분을 100초로 바꾼다 → 1분 = 60초. ③ 받아내림한 뒤 분을 줄이지 않는다 → 70초로 바꾸면 분이 0이 된다고 말한다.',
     }),
     mk(6, ['[4수03-14]'], {

@@ -59,6 +59,8 @@
   const tself = (prompt, labels, o = {}) => clean(Object.assign({ prompt, toolOptions: o.opt, target: { selfCheck: labels } }, tail(Object.assign({ d: 0.1 }, o))));
   const tsafe = (prompt, list, o = {}) => clean(Object.assign({ prompt, toolOptions: { safety: list }, target: { safety: true } }, tail(Object.assign({ d: 0.1 }, o))));
   const tplan = (prompt, title, from, to, o = {}) => clean(Object.assign({ prompt, toolOptions: { title, plan: from }, target: { plan: to } }, tail(o)));
+  // 몇 분 단위 작업 계획: 타이머 칸을 분으로 맞춘다(초 칸은 300초까지라 10분을 맞출 수 없었다)
+  const tplanMin = (...a) => { const it = tplan(...a); Object.assign(it.toolOptions, { timeUnit: 'min', workStep: 1, restStep: 1 }); return it; };
   const tord = (prompt, title, cards, o = {}) => clean(Object.assign({ prompt, toolOptions: { title, cards: cards.slice().reverse() }, target: { order: cards } }, tail(o)));
   const trec = (prompt, title, fields, o = {}) => clean(Object.assign({ prompt, toolOptions: { title, fields }, target: { records: true } }, tail(Object.assign({ d: 0.15 }, o))));
   // 짝 활동(실물·말하기) 문항: 낱말 판만 보이고 하고 나서 '다 했어요'
@@ -288,13 +290,13 @@
     sf: ['가위와 풀을 쓸 때는 앉아서 쓰고, 자른 조각은 책상 한쪽 그릇에 모아요.'],
     i: ['"작품을 한 번에 끝까지 만들어야 좋은 작품일까요?" 학생 생각을 듣고, 손이 빠른 학생과 느린 학생 모두에게 중간에 멈추는 시간을 미리 정해 두면 도움이 된다고 말한다. 시연 단추로 20분 작업을 \'만들기-점검-이어 만들기\'로 나누는 타이머를 맞추어 보인다. 멈추는 것이 느려지는 것이라고 여기는 학생에게는 길을 잘못 든 채 끝까지 가면 되돌리는 데 더 오래 걸린다고 말해 준다.',
       '20분 동안 작품을 만들 때 중간에 멈추는 시간을 어디에 두면 좋을지 말해 봅시다.',
-      { tool: 'timer', options: { title: '만들기 시간 나누기', plan: { work: 300, rest: 60, rounds: 1 }, workStep: 60, restStep: 60 }, sequence: [{ plan: { work: 600, rest: 120, rounds: 2 } }] }],
+      { tool: 'timer', options: { title: '만들기 시간 나누기', plan: { work: 5, rest: 1, rounds: 1 }, timeUnit: 'min', workStep: 1, restStep: 1 }, sequence: [{ plan: { work: 10, rest: 2, rounds: 2 } }] }],
     a: [
       act(1, '만드는 시간과 멈추는 시간 나누기', 12, 'timer',
         '"절반쯤 만든 때 멈추려면 시간을 어떻게 나눠야 할까요?" 전체 시간을 둘로 가르고 그 사이에 쉬는 칸을 둔다는 감을 잡게 한다. 둘째 문항은 멈춰서 하는 일의 차례(기준 읽기 → 한 걸음 물러서 견주기 → 고칠 곳 표시)를 순서 카드로 맞추는 활동이다. 셋째 문항은 직접 멈추어 보고 한 일을 스스로 점검한다. 점검만 하고 고치지 않는 학생에게는 "찾은 곳을 어디에 표시했나요?"라고 묻는다.',
         '타이머를 맞추어 멈추는 때를 정하고, 멈춰서 하는 일의 차례를 정해요.',
         [
-          tplan('작품을 10분 만들고 2분 멈춰 점검한 뒤 이어 10분 만들도록 타이머를 맞추세요.', '만들기 시간 나누기', { work: 300, rest: 60, rounds: 1 }, { work: 600, rest: 120, rounds: 2 }, { h: '만드는 시간, 점검하는 시간, 되풀이 횟수를 문제에서 찾아 하나씩 맞춰요.', d: 0.15 }),
+          tplanMin('작품을 10분 만들고 2분 멈춰 점검한 뒤 이어 10분 만들도록 타이머를 맞추세요.', '만들기 시간 나누기', { work: 5, rest: 1, rounds: 1 }, { work: 10, rest: 2, rounds: 2 }, { h: '만드는 시간, 점검하는 시간, 되풀이 횟수를 문제에서 찾아 하나씩 맞춰요.', d: 0.15 }),
           tord('멈춰서 점검하는 차례를 바르게 놓으세요.', '멈춰서 하는 일', ['정한 기준을 소리 내어 읽기', '한 걸음 물러서 지금 작품과 견주기', '기준에서 모자란 곳에 표시하기', '표시한 곳부터 이어 만들기'], { h: '기준을 먼저 읽고 견주는 일이 앞에 와야 모자란 곳을 표시할 수 있어요.', d: 0.2 }),
           tself('작품을 절반쯤 만든 뒤 멈추어 점검하고 스스로 확인해요.', ['절반쯤에서 손을 멈추었어요', '정한 기준을 한 줄씩 읽었어요', '모자란 곳 한 군데를 표시했어요'], { d: 0.1, opt: { title: '멈춰서 점검' } }),
         ]),
