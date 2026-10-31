@@ -1,30 +1,4 @@
 {
-  "note": "예시 조각 — 엔진·검사 확인용 창체 단원(고1 독도의 날 2차시). 조각 형식은 PROGRAMS_BUILD.md. (초3 생활안전은 programs/a1.json으로 옮겼다.)",
-  "units": [
-    {
-      "id": "g10-cc-dokdo",
-      "grade": 10,
-      "subject": "창체",
-      "area": "계기교육",
-      "unitTitle": "독도의 날 계기교육",
-      "basis": "독도교육 계기교육(10월 25일 독도의 날) — 교육부 「독도교육 내용 체계」·동북아역사재단 독도 교육 자료, 외교부 독도 누리집",
-      "lessons": 2,
-      "plan": [
-        {
-          "i": 1,
-          "title": "사료로 읽는 독도 영토 주권",
-          "role": "intro",
-          "tool": "timeline",
-          "topic": "고문헌·고지도·근대 법령 사료를 시대 순으로 놓고 영토 주권의 근거를 읽는다"
-        },
-        {
-          "i": 2,
-          "title": "독도 주장을 근거로 판별하기",
-          "role": "wrap",
-          "tool": "mindmap",
-          "topic": "독도에 관한 주장을 공식 자료 근거로 사실·의견·왜곡으로 가려낸다"
-        }
-      ]
-    }
-  ]
+  "note": "예시 조각 — 비어 있다. 고1 독도 예시 단원은 programs/c2.json(10차시)으로, 초3 생활안전은 programs/a1.json으로 옮겼다. 조각 형식은 PROGRAMS_BUILD.md.",
+  "units": []
 }
