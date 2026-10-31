@@ -43,6 +43,10 @@
  * ── 조작 ───────────────────────────────────────────────────────────────────────────────────────
  *   끌어 놓기, 또는 카드를 눌러 고른 뒤 칸을 누르기. 키보드: 카드에서 방향키 = 다음/앞 칸으로 옮김, Enter = 고르고 칸 고르기(칸에서 방향키로 옮기고 Enter),
  *   1~9 = 그 번호 칸, 0·Backspace = 카드 칸, Esc = 고르기 취소. pick은 Enter·Space로 넣고 빼기.
+ *   판 위에 '카드를 누른 뒤 칸을 눌러도 돼요' 안내 한 줄(.cd-tip)이 늘 보인다(pick·카드 없는 판 제외).
+ *   화면 맞추기(옵션 없음, 자동): 기본은 폭 560 판 + 아래 카드 칸. 휴대폰처럼 눌러야 하는 것이 화면 44px보다 작아지면 칸 자리 폭을 줄여
+ *   줄 수를 바꾸고(카드·칸 크기는 그대로, 화면에서 더 커진다), 200% 확대처럼 판이 화면 높이보다 길면 카드 칸을 칸 옆(1~3열)에 붙여 한 화면에 넣는다.
+ *   겉모양 layout(ctx)은 ctx.W(칸 자리 폭)만 보고 칸을 놓으면 된다 — 여러 폭으로 불릴 수 있다. 판 전체 폭은 ctx.TW.
  *
  * ── 겉모양 만들기: K.registerTool(id, K.cards.define(id, spec)) ───────────────────────────────────
  *   define은 교구를 등록하고 등록한 정의를 돌려준다(겉 파일에 registerTool('<id>'을 남기는 것은 검사가 교구 파일을 찾는 표시).
@@ -481,7 +485,7 @@
     const M = model(o, spec);
     const { mode, cards, slots } = M;
     const print = !!o.print; const reveal = !!o.revealAfterCheck;
-    const W = W0;
+    let W = W0;
     const hasIcon = cards.some((c) => c.motif || c.big);
     const hasSub = cards.some((c) => c.sub || c.back);
     // 카드 크기: 가장 긴 글이 두 줄(넘치면 세 줄) 안에 들도록 폭을 고른다 — 휴대폰에서 글자가 커지는 것까지 어림한다.
@@ -501,15 +505,67 @@
     if (o.cardH) ch = o.cardH;
     const util = { el, textBlock, fitText, wrapLines, textWidth, PAD, GAP, arrow };
     const ctx = { mode, cards, slots, o, kit, P, W, cw, ch, print, util, id };
-    const L = (spec.layout && spec.layout(ctx)) || layouts[mode](ctx);
-    // 카드 칸(아래)
     const showTray = !(print && o.printCards === false);
-    const trayCols = Math.max(1, Math.floor((W - 2 * PAD - 12 + GAP) / (cw + GAP)));
-    const trayRows = Math.max(1, Math.ceil(cards.length / trayCols));
-    const tray = { x: PAD, y: L.H + 6, w: W - 2 * PAD, h: 30 + trayRows * (ch + GAP) + 2, cols: trayCols };
-    const H = showTray ? tray.y + tray.h + PAD : L.H + PAD;
-    const st = kit.stage(box, { viewBox: [W, H], label: o.label || spec.label || `${spec.name || '카드 판'}. 카드를 알맞은 칸에 놓아요.` });
-    ctx.st = st; ctx.H = H; ctx.tray = tray;
+    // 판 배치 하나 계산: W = 칸 자리 폭(viewBox 단위). side = 0이면 카드 칸이 아래, 1·2면 그 열 수로 오른쪽에 붙는다
+    function plan(Wc, side) {
+      ctx.W = Wc;
+      const L = (spec.layout && spec.layout(ctx)) || layouts[mode](ctx);
+      let tray; let TW; let H;
+      if (side) {
+        const rows = Math.max(1, Math.ceil(cards.length / side));
+        tray = { x: Wc, y: PAD, w: side * (cw + GAP) - GAP + 24, h: 30 + rows * (ch + GAP) + 2, cols: side };
+        TW = Wc + tray.w + PAD; H = Math.max(L.H, tray.y + tray.h) + PAD;
+      } else {
+        const cols = Math.max(1, Math.floor((Wc - 2 * PAD - 12 + GAP) / (cw + GAP)));
+        const rows = Math.max(1, Math.ceil(cards.length / cols));
+        tray = { x: PAD, y: L.H + 6, w: Wc - 2 * PAD, h: 30 + rows * (ch + GAP) + 2, cols };
+        TW = Wc; H = showTray ? tray.y + tray.h + PAD : L.H + PAD;
+      }
+      // 눌러야 하는 것 가운데 가장 작은 변(viewBox 단위): 카드(눌림 영역), 한 장 칸의 폭·높이, 여러 장 칸의 높이
+      let m = Math.min(cw + 8, ch + 8); let inside = true;
+      slots.forEach((sl) => {
+        if (sl.shape !== 'none') m = Math.min(m, sl.h, sl.cap === Infinity ? Infinity : sl.w);
+        if (!(sl.x >= -1 && sl.x + sl.w <= Wc + 1 && sl.w > 0 && sl.h > 0)) inside = false;
+      });
+      return { Wc, side, L, tray, TW, H, m, inside };
+    }
+    // 화면에 맞추기: 기본은 폭 560 판에 카드 칸이 아래. 그대로 두면 (1) 눌러야 하는 것이 화면 44px보다 작아지거나(휴대폰)
+    // (2) 판이 화면 높이보다 길어 카드와 칸이 한 화면에 안 들어오면(200% 확대 같은 낮은 화면), 카드·칸 크기는 그대로 두고
+    // 칸 자리 폭을 줄여 줄 수를 바꾸거나(→ 화면에서 더 크게) 카드 칸을 칸 옆에 붙인다.
+    let bw = !print && box.clientWidth > 0 ? box.clientWidth : 0;
+    if (bw && typeof getComputedStyle === 'function') { const cs = getComputedStyle(box); bw -= (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0); if (bw <= 0) bw = 0; }
+    let pick = plan(W0, 0);
+    if (bw && typeof window !== 'undefined') {
+      let maxH = Infinity;
+      try { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.setAttribute('class', 'pk-stage'); box.appendChild(t); const v = parseFloat(getComputedStyle(t).maxHeight); t.remove(); if (Number.isFinite(v) && v > 0) maxH = v; } catch (_) { /* 계산 실패 = 높이 제한 없음 */ }
+      const room = Math.max(240, (window.innerHeight || 800) - 24);
+      const judge = (q) => { const s = Math.min(bw / q.TW, maxH / q.H); return { q, phys: q.m * s, fits: q.H * s <= room, ok: q.inside }; };
+      const MIN = 46;
+      const base = judge(pick);
+      if (base.phys < MIN || !base.fits) {
+        const cand = [base];
+        for (let Wc = W0 - 20; Wc >= 300; Wc -= 20) cand.push(judge(plan(Wc, 0)));
+        if (showTray && cards.length && bw >= 480) for (const side of [1, 2, 3]) for (let Wc = W0; Wc >= 300; Wc -= 20) cand.push(judge(plan(Wc, side)));
+        const good = cand.filter((c) => c.ok);
+        const both = good.find((c) => c.phys >= MIN && c.fits);
+        const best = (list) => list.reduce((a, c) => (c.phys > a.phys ? c : a), list[0]);
+        const fitting = good.filter((c) => c.fits && c.phys >= 30);
+        const chosen = both || (fitting.length ? best(fitting) : best(good.length ? good : [base]));
+        pick = chosen.q;
+      }
+      pick = plan(pick.Wc, pick.side);
+    }
+    W = pick.Wc; ctx.W = W;
+    const L = pick.L; const tray = pick.tray; const TW = pick.TW; const H = pick.H;
+    const st = kit.stage(box, { viewBox: [TW, H], label: o.label || spec.label || `${spec.name || '카드 판'}. 카드를 알맞은 칸에 놓아요.` });
+    ctx.st = st; ctx.H = H; ctx.tray = tray; ctx.TW = TW;
+    // 끌기가 어려운 화면(확대·휴대폰)에서도 끝낼 수 있게 누르기 길을 알려 준다
+    if (!print && cards.length && mode !== 'pick') {
+      const tip = document.createElement('p'); tip.className = 'cd-tip';
+      tip.style.cssText = 'margin:0 2px 4px;font-size:0.85em;font-weight:700;line-height:1.4;color:var(--pc-ink, #3D352E);word-break:keep-all';
+      tip.innerHTML = '<i class="fi fi-rr-info" aria-hidden="true"></i> 카드를 끌어 놓거나, 카드를 누른 뒤 칸을 눌러도 돼요.';
+      box.insertBefore(tip, st.svg);
+    }
     ctx.iconAt = iconAt;
     const decorL = st.layer('decor'); const slotL = st.layer('slots'); const trayL = st.layer('tray'); const cardL = st.layer('cards');
     if (spec.decorate) spec.decorate(ctx, decorL);
@@ -623,7 +679,7 @@
       const list = cards.filter((x) => M.at.get(x.id) == null).sort((x, y) => trayRank.get(x.id) - trayRank.get(y.id));
       const i = list.indexOf(c); const n = list.length; const cols = tray.cols; const row = Math.floor(i / cols);
       const inRow = Math.min(cols, n - row * cols);
-      return { x: W / 2 + ((i % cols) - (inRow - 1) / 2) * (cw + GAP), y: tray.y + 28 + ch / 2 + row * (ch + GAP), s: 1 };
+      return { x: tray.x + tray.w / 2 + ((i % cols) - (inRow - 1) / 2) * (cw + GAP), y: tray.y + 28 + ch / 2 + row * (ch + GAP), s: 1 };
     }
     function moveTo(c, t, animate) {
       const v = V.get(c.id); const token = {}; anims.set(v.g, token);
@@ -746,7 +802,7 @@
       });
       let p0 = null; let moved = false;
       kit.drag(st, v.g, {
-        bounds: [cw / 2, ch / 2, W - cw / 2, H - ch / 2],
+        bounds: [cw / 2, ch / 2, TW - cw / 2, H - ch / 2],
         onStart() { moved = false; p0 = Object.assign({}, v.g.__pk); anims.set(v.g, {}); kit.transform(v.g, { s: (p0.s || 1) * 1.06 }); },
         onMove(x, y) { if (p0 && Math.hypot(x - p0.x, y - p0.y) > 8) moved = true; },
         snap(x, y) {

@@ -37,11 +37,20 @@
  * 예) 막대 완성: toolOptions { type: 'bar', data: [['봄',5],['여름',8],['가을',3],['겨울',6]], unit: '명', given: [0] }, target { build: true }
  *     그림그래프: toolOptions { type: 'picture', data: [['가 마을',32],['나 마을',15]], unit: '그루', icons: [{ value: 10 }, { value: 1 }] }, target { build: true }
  *     읽기: toolOptions { type: 'line', mode: 'read', data: [['9시',12],['10시',15],['11시',19]], unit: '°C', from: 10, choices: ['9시','10시','11시'], question: '기온이 가장 높은 때는?' }, target { pick: 2 }
- * 키보드: 막대·점에 Tab → ↑/↓(가로 막대는 →/←) 한 칸, 그림그래프 줄에 Tab → →/← 작은 그림, PageUp/PageDown 큰 그림.
+ * 키보드: 막대·점에 Tab → ↑/↓(가로 막대는 →/←) 한 칸, 그림그래프 줄에 Tab → →/← 작은 그림, PageUp/PageDown 큰 그림, Enter·Space = 그 줄 고르기.
+ *         Tab으로 지나가기만 해서는 고른 항목(아래 단추가 바꾸는 대상)이 바뀌지 않는다 — 방향키·Enter·누르기로 고른다.
  *         원·띠·공통: 아래 '−/+' 단추와 항목 단추(Tab+Enter). 읽기 보기·표 빈칸도 Tab으로 간다.
  */
 (function (K) {
   'use strict';
+  // 무대가 화면에 그려질 배율(화면 px ÷ viewBox 단위) 어림: 상자 안쪽 폭과 무대 높이 제한(max-height)을 함께 본다. 모르면 1
+  const stageScale = (box, W, H) => {
+    if (!box || !(box.clientWidth > 0) || typeof getComputedStyle !== 'function') return 1;
+    const cs = getComputedStyle(box); const bw = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    let mh = Infinity;
+    try { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.setAttribute('class', 'pk-stage'); box.appendChild(t); const v = parseFloat(getComputedStyle(t).maxHeight); t.remove(); if (Number.isFinite(v) && v > 0) mh = v; } catch (_) { /* 높이 제한 모름 */ }
+    return bw > 0 ? Math.min(bw / W, H ? mh / H : Infinity) : 1;
+  };
   const COLORS = ['sky', 'peach', 'mint', 'lavender', 'buttercup', 'rose'];
   const hintLevel = (opts) => {
     const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
@@ -75,6 +84,7 @@
 .ch-blank{display:inline-block;min-width:2.4em;min-height:1.4em}
 .pk-tool--chart g[tabindex]:focus-visible .ch-bar{stroke:#473B6B;stroke-width:4}
 .pk-tool--chart g[tabindex]{outline:none}
+.pk-tool--chart .ch-row-g:focus-visible>.pk-hit{stroke:#473B6B;stroke-width:3;stroke-dasharray:7 5}
 @media print{.ch-panel{display:none}.ch-table th{background:#fff}.ch-table th,.ch-table td{border-color:#000;color:#000}}
 `;
     document.head.appendChild(s);
@@ -159,7 +169,11 @@
 
       // ---- 무대 ----
       const W = 640;
-      const H = type === 'band' ? 250 : type === 'picture' ? Math.max(220, 96 + n * 58) : 400;
+      // 그림그래프 줄 높이: 화면에서 48px 이상이 되게(휴대폰에서 무대가 0.5배쯤으로 줄면 줄이 26px이 되던 문제) — 넓은 화면은 58 그대로
+      const scr = stageScale(box, W, 0);
+      const picRow = Math.max(58, Math.min(110, 48 / scr));
+      // 제목 줄(52)이 있으면 그만큼 판을 늘린다 — 전에는 제목이 있으면 줄이 58보다 낮게 눌렸다(그래서 태블릿에서 줄이 39px)
+      const H = type === 'band' ? 250 : type === 'picture' ? Math.max(220, (o.title ? 52 : 24) + n * picRow + 72) : 400;
       const st = kit.stage(box, { viewBox: [W, H], label: `${o.title || '그래프'}. ${{ picture: '그림그래프', bar: '막대그래프', line: '꺾은선그래프', circle: '원그래프', band: '띠그래프' }[type]}${mode === 'build' ? '를 완성하세요.' : '를 읽으세요.'}` });
       kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 16 }, color: 'cream', fill: '#FBF6EC', depth: 2, texture: true });
       const T = (parent, x, y, txt, size, fill, anchor) => { const t = kit.el('text', { x, y, 'text-anchor': anchor || 'middle', 'font-size': size, class: 'pk-text', fill: fill || '#3D352E' }, parent); t.textContent = txt; return t; };
@@ -216,7 +230,7 @@
             bars[i].__w = bw;
           } else {
             const pg = kit.el('g', null, g);
-            kit.el('rect', { x: -22, y: -22, width: 44, height: 44, class: 'pk-hit' }, pg);
+            const hp = Math.max(22, Math.min(40, 24 / scr)); kit.el('rect', { x: -hp, y: -hp, width: 2 * hp, height: 2 * hp, class: 'pk-hit' }, pg);
             kit.piece(st, pg, { shape: { type: 'circle', r: 8 }, color: given.has(i) || mode === 'read' ? 'ink' : 'peach', depth: 1 });
             pts[i] = pg;
           }
@@ -232,11 +246,11 @@
             hit.addEventListener('pointermove', (e) => { if (dragging) setVal(i, fromPointer(st.point(e)), true); });
             const end = () => { if (!dragging) return; dragging = false; log(); syncCur(); kit.announce(`${d.label} ${josa(noun, '을', '를')} 바꿨어요`); };
             hit.addEventListener('pointerup', end); hit.addEventListener('pointercancel', end);
-            tgt.addEventListener('focus', () => { sel = i; syncCur(); });
+            // 초점만으로는 고른 항목을 바꾸지 않는다(Tab으로 지나가기만 해도 아래 늘리기·줄이기 단추의 대상이 바뀌던 문제)
             tgt.addEventListener('keydown', (e) => {
               const up = hz ? { ArrowRight: 1, ArrowLeft: -1, ArrowUp: 1, ArrowDown: -1 } : { ArrowUp: 1, ArrowDown: -1, ArrowRight: 1, ArrowLeft: -1 };
               const dd = up[e.key] || { PageUp: 5, PageDown: -5 }[e.key];
-              if (!dd) return; e.preventDefault(); bump(i, dd);
+              if (!dd) return; e.preventDefault(); if (sel !== i) { sel = i; syncCur(); } bump(i, dd);
             });
           }
         });
@@ -245,7 +259,7 @@
       // ===== 그림그래프 =====
       const rowsG = []; const iconEls = [];
       if (type === 'picture') {
-        const PTp = o.title ? 52 : 24; const LW = 120; const rowH = Math.min(58, (H - PTp - 70) / Math.max(1, n));
+        const PTp = o.title ? 52 : 24; const LW = 120; const rowH = Math.min(picRow, (H - PTp - 70) / Math.max(1, n));
         const L = st.layer('pic');
         if (o.title) T(L, W / 2, 34, o.title, 18, '#473B6B');
         kit.el('rect', { x: 24, y: PTp, width: W - 48, height: rowH * n, fill: 'none', stroke: '#8A7FA6', 'stroke-width': 1.6 }, L);
@@ -265,11 +279,12 @@
             g.setAttribute('tabindex', '0'); g.setAttribute('role', 'group'); g.classList.add('ch-row-g');
             g.setAttribute('aria-label', `${d.label} 줄. 오른쪽 왼쪽 방향키는 작은 그림, PageUp PageDown은 큰 그림`);
             g.addEventListener('click', () => { sel = i; syncCur(); paint(); });
-            g.addEventListener('focus', () => { sel = i; syncCur(); paint(); });
+            // 초점만으로는 고른 줄을 바꾸지 않는다(Tab으로 지나가기만 해도 아래 그림 단추의 대상이 바뀌던 문제). Enter·Space·방향키를 쓰면 그 줄을 고른다
             g.addEventListener('keydown', (e) => {
               const small = iconsDef.length - 1;
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); sel = i; syncCur(); paint(); kit.announce(`${d.label} 줄을 골랐어요`); return; }
               const m = { ArrowRight: [small, 1], ArrowUp: [small, 1], ArrowLeft: [small, -1], ArrowDown: [small, -1], PageUp: [0, 1], PageDown: [0, -1] }[e.key];
-              if (!m) return; e.preventDefault(); setIcon(i, m[0], icons[i][m[0]] + m[1]);
+              if (!m) return; e.preventDefault(); if (sel !== i) { sel = i; syncCur(); } setIcon(i, m[0], icons[i][m[0]] + m[1]);
             });
           }
         });

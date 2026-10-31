@@ -37,6 +37,14 @@
  */
 (function (K) {
   'use strict';
+  // 무대가 화면에 그려질 배율(화면 px ÷ viewBox 단위) 어림: 상자 안쪽 폭과 무대 높이 제한(max-height)을 함께 본다. 모르면 1
+  const stageScale = (box, W, H) => {
+    if (!box || !(box.clientWidth > 0) || typeof getComputedStyle !== 'function') return 1;
+    const cs = getComputedStyle(box); const bw = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    let mh = Infinity;
+    try { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.setAttribute('class', 'pk-stage'); box.appendChild(t); const v = parseFloat(getComputedStyle(t).maxHeight); t.remove(); if (Number.isFinite(v) && v > 0) mh = v; } catch (_) { /* 높이 제한 모름 */ }
+    return bw > 0 ? Math.min(bw / W, H ? mh / H : Infinity) : 1;
+  };
   // ---------- 공통 도우미(교구 파일마다 같은 모양) ----------
   const hintLevel = (opts) => {
     const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
@@ -325,13 +333,16 @@
         const marks = kit.el('g', null, L);
         let pts = []; let cursor = [Math.floor(m / 2), Math.floor(m / 2)];
         const dots = [];
-        const hitR = Math.min(gap * 0.48, 40);
+        // 점의 누르는 곳은 화면 48px 이상(휴대폰에서 무대가 0.5배쯤 줄면 31px이 되던 문제). 이웃 점과 겹치면 누른 곳에서 가장 가까운 점이 찍힌다
+        const zoom = Math.max(1, 1 / stageScale(box, W, H));
+        const hitR = Math.max(Math.min(gap * 0.48, 40), Math.min(24 * zoom, gap * 0.75));
+        const nearDot = (e) => { const p = st.point(e); return [K.clamp(Math.round((p.x - X0) / gap), 0, m), K.clamp(Math.round((p.y - Y0) / gap), 0, m)]; };
         for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
           const [x, y] = XY([c, r]);
           const g = kit.el('g', { class: `${P}-dot` }, D);
           kit.el('circle', { cx: x, cy: y, r: hitR, class: 'pk-hit' }, g);
           kit.piece(st, g, { shape: { type: 'circle', r: 8, cx: x, cy: y }, color: 'ink', depth: 1 });
-          if (!ro) g.addEventListener('click', () => { cursor = [c, r]; toggle([c, r]); });
+          if (!ro) g.addEventListener('click', (e) => { const q = e.detail === 0 ? [c, r] : nearDot(e); cursor = q; toggle(q); });
           dots.push({ c, r, g });
         }
         const cur = kit.el('circle', { r: 17, fill: 'none', stroke: '#E69D7B', 'stroke-width': 4, display: 'none' }, D);
@@ -491,6 +502,13 @@
         const pcs = kinds.map((k, i) => {
           const pts = CANON[k].map((p) => `${r2(p[0] * S)},${r2(p[1] * S)}`).join(' ');
           const pc = kit.piece(st, PL, { shape: { type: 'poly', points: pts }, color: KIND_COLOR[k], depth: 1, label: `${KIND_KO[k]} 조각` });
+          // 작은 조각(작은 삼각형)도 화면 48px 이상으로 잡히게 투명한 손잡이 자리를 둔다
+          {
+            const zoom = Math.max(1, 1 / stageScale(box, W, H)); const xs2 = CANON[k].map((p) => p[0] * S); const ys2 = CANON[k].map((p) => p[1] * S);
+            const x0 = Math.min(...xs2); const x1 = Math.max(...xs2); const y0 = Math.min(...ys2); const y1 = Math.max(...ys2);
+            const hw = Math.max(x1 - x0, 48 * zoom); const hh = Math.max(y1 - y0, 48 * zoom);
+            if (hw > x1 - x0 + 0.5 || hh > y1 - y0 + 0.5) pc.g.insertBefore(kit.el('rect', { x: (x0 + x1) / 2 - hw / 2, y: (y0 + y1) / 2 - hh / 2, width: hw, height: hh, class: 'pk-hit' }), pc.g.firstChild);
+          }
           kit.transform(pc.g, { x: tray[i][0], y: tray[i][1], r: 0, sx: 1, sy: 1 });
           if (!ro) {
             kit.drag(st, pc.g, {

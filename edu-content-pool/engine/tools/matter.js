@@ -47,6 +47,7 @@
     s.textContent = `
 .${P}-panel{display:grid;gap:10px;margin-top:10px}
 .${P}-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.${P}-row .pl-btn{min-width:44px;justify-content:center}
 .${P}-q{margin:0;font-weight:700;line-height:1.45;word-break:keep-all}
 .${P}-val{display:inline-block;min-width:4.5em;text-align:center;font-weight:800;color:#473B6B}
 .${P}-picks{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}

@@ -27,6 +27,14 @@
  */
 (function (K) {
   'use strict';
+  // 무대가 화면에 그려질 배율(화면 px ÷ viewBox 단위) 어림: 상자 안쪽 폭과 무대 높이 제한(max-height)을 함께 본다. 모르면 1
+  const stageScale = (box, W, H) => {
+    if (!box || !(box.clientWidth > 0) || typeof getComputedStyle !== 'function') return 1;
+    const cs = getComputedStyle(box); const bw = box.clientWidth - (parseFloat(cs.paddingLeft) || 0) - (parseFloat(cs.paddingRight) || 0);
+    let mh = Infinity;
+    try { const t = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); t.setAttribute('class', 'pk-stage'); box.appendChild(t); const v = parseFloat(getComputedStyle(t).maxHeight); t.remove(); if (Number.isFinite(v) && v > 0) mh = v; } catch (_) { /* 높이 제한 모름 */ }
+    return bw > 0 ? Math.min(bw / W, H ? mh / H : Infinity) : 1;
+  };
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const has = (w) => { const c = String(w).charCodeAt(String(w).length - 1); return c >= 0xac00 && c <= 0xd7a3 && (c - 0xac00) % 28 !== 0; };
   const josa = (w, a, b) => `${w}${has(w) ? a : b}`;
@@ -174,19 +182,29 @@
       if (items.length && !print) {
         // 몸 위 아무 데나 눌러도 가장 가까운 기관·부분이 골라진다(손가락이 작은 기관을 정확히 짚지 않아도 된다)
         const over = kit.el('rect', { x: 20, y: 12, width: 300, height: 410, fill: 'transparent', class: 'pk-hit' }, hitL);
-        if (live && mode !== 'match') over.addEventListener('click', (e) => {
+        const nearest = (e) => {
           const p = st.point(e); let best = null; let bd = 52;
           items.forEach((n) => spots(n).forEach(([x, y]) => { const d = Math.hypot(p.x - x, p.y - y); if (d < bd) { bd = d; best = n; } }));
-          if (best) act(best);
-        });
+          return best;
+        };
+        if (live && mode !== 'match') over.addEventListener('click', (e) => { const best = nearest(e); if (best) act(best); });
+        // 누르는 동그라미는 화면에서 지름 48px 이상(손가락 크기). 이웃 자리와 겹치면 누른 곳에서 가장 가까운 자리가 골라진다
+        const scr = Math.min(stageScale(box, W, H), 2);
+        const hitR = Math.min(40, Math.max(13, 24 / scr));
+        // 이름을 숨긴 문항(names 거짓)에서 스크린리더가 '몸의 부분 3'처럼 번호만 읽지 않게, 답을 드러내지 않는 그림 속 자리를 함께 읽는다
+        const where = ([x, y]) => {
+          const v = y < 100 ? '머리' : y < 140 ? '목과 어깨 높이' : y < 240 ? '가슴과 팔 높이' : y < 300 ? '배와 손 높이' : y < 380 ? '다리 위쪽' : '다리 아래쪽';
+          const h = x < 100 ? '왼쪽 바깥' : x < 158 ? '왼쪽' : x <= 172 ? '가운데' : x <= 230 ? '오른쪽' : '오른쪽 바깥';
+          return `그림의 ${v}, ${h}`;
+        };
         items.forEach((n, i) => {
           const [x, y] = spots(n)[0];
           const g = kit.el('g', { tabindex: live && mode !== 'match' ? 0 : null, role: live && mode !== 'match' ? 'button' : null, class: 'bd-spot' }, hitL);
-          kit.el('circle', { cx: x, cy: y, r: 13, fill: 'transparent', class: 'pk-hit' }, g);
-          const label = mode === 'parts' ? (o.names ? n : `몸의 부분 ${i + 1}`) : (o.names ? n : `몸속 ${i + 1}번`);
+          kit.el('circle', { cx: x, cy: y, r: hitR, fill: 'transparent', class: 'pk-hit' }, g);
+          const label = mode === 'parts' ? (o.names ? n : `몸의 부분 ${i + 1}: ${where([x, y])}`) : (o.names ? n : `몸속 ${i + 1}번: ${where([x, y])}`);
           g.setAttribute('aria-label', label);
           if (live && mode !== 'match') {
-            g.addEventListener('click', (e) => { e.stopPropagation(); act(n); });
+            g.addEventListener('click', (e) => { e.stopPropagation(); act(e.detail === 0 ? n : (nearest(e) || n)); });
             g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(n); } });
           }
           hitG[n] = g;
