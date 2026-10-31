@@ -11627,6 +11627,90 @@
     "category": "nature",
     "tags": ["bird", "egg", "chick", "새", "알", "아기새"],
     "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-baby-bird-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.50\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-baby-bird-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.40\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-baby-bird-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.35\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><path d=\"M14 52 C20 44 44 44 50 52 C44 56 20 56 14 52 Z\" fill=\"#E2D5C3\" data-layer=\"base\" filter=\"url(#ps-baby-bird-base)\"/><circle cx=\"32\" cy=\"26\" r=\"13\" fill=\"#FEE396\" data-layer=\"base\" filter=\"url(#ps-baby-bird-base)\"/><path d=\"M18 36 C18 46 24 52 32 52 C40 52 46 46 46 36 L40 38 L32 34 L24 38 Z\" fill=\"#FAF6ED\" data-layer=\"mid\" filter=\"url(#ps-baby-bird-mid)\"/><circle cx=\"27\" cy=\"24\" r=\"2\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-baby-bird-top)\"/><circle cx=\"37\" cy=\"24\" r=\"2\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-baby-bird-top)\"/><polygon points=\"32,27 29,31 35,31\" fill=\"#F7BA9E\" data-layer=\"top\" filter=\"url(#ps-baby-bird-top)\"/><ellipse cx=\"23\" cy=\"28\" rx=\"2.5\" ry=\"1.5\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-baby-bird-top)\"/><ellipse cx=\"41\" cy=\"28\" rx=\"2.5\" ry=\"1.5\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-baby-bird-top)\"/></svg>"
+  },
+  {
+    "id": "dice",
+    "nameKo": "종이 주사위",
+    "nameEn": "Paper Dice",
+    "category": "lifestyle",
+    "tags": [
+      "dice",
+      "random",
+      "game",
+      "chance",
+      "picker"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-dice-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-dice-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-dice-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><rect x=\"13\" y=\"13\" width=\"40\" height=\"40\" rx=\"9\" fill=\"#D7CBEB\" data-layer=\"base\" filter=\"url(#ps-dice-base)\"/><rect x=\"10\" y=\"10\" width=\"40\" height=\"40\" rx=\"9\" fill=\"#FAF6ED\" data-layer=\"mid\" filter=\"url(#ps-dice-mid)\"/><circle cx=\"20\" cy=\"20\" r=\"3.6\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-dice-top)\"/><circle cx=\"40\" cy=\"20\" r=\"3.6\" fill=\"#BDE0EA\" data-layer=\"top\" filter=\"url(#ps-dice-top)\"/><circle cx=\"30\" cy=\"30\" r=\"3.6\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-dice-top)\"/><circle cx=\"20\" cy=\"40\" r=\"3.6\" fill=\"#A3D8C3\" data-layer=\"top\" filter=\"url(#ps-dice-top)\"/><circle cx=\"40\" cy=\"40\" r=\"3.6\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-dice-top)\"/></svg>"
+  },
+  {
+    "id": "dinosaur",
+    "nameKo": "꼬마 공룡",
+    "nameEn": "Little Dinosaur",
+    "category": "nature",
+    "tags": [
+      "dinosaur",
+      "dino",
+      "t-rex",
+      "animal",
+      "avatar"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-dinosaur-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-dinosaur-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-dinosaur-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><path d=\"M8 55 C20 52 44 52 56 55 C56 57 8 57 8 55 Z\" fill=\"#A3D8C3\" data-layer=\"base\" filter=\"url(#ps-dinosaur-base)\"/><path d=\"M14 40 C8 40 5 46 6 49 C10 47 15 46 19 46 Z\" fill=\"#7FC4AA\" data-layer=\"base\" filter=\"url(#ps-dinosaur-base)\"/><ellipse cx=\"29\" cy=\"40\" rx=\"15\" ry=\"11\" fill=\"#8ED1B4\" data-layer=\"mid\" filter=\"url(#ps-dinosaur-mid)\"/><rect x=\"36\" y=\"18\" width=\"11\" height=\"24\" rx=\"5.5\" fill=\"#8ED1B4\" data-layer=\"mid\" filter=\"url(#ps-dinosaur-mid)\"/><ellipse cx=\"46\" cy=\"19\" rx=\"10\" ry=\"7\" fill=\"#8ED1B4\" data-layer=\"mid\" filter=\"url(#ps-dinosaur-mid)\"/><path d=\"M20 30 L23 24 L26 30 Z M27 29 L30 23 L33 29 Z M34 28 L36 22 L39 27 Z\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-dinosaur-top)\"/><ellipse cx=\"29\" cy=\"43\" rx=\"9\" ry=\"5.5\" fill=\"#FAF6ED\" data-layer=\"top\" filter=\"url(#ps-dinosaur-top)\"/><rect x=\"21\" y=\"47\" width=\"6\" height=\"8\" rx=\"2.5\" fill=\"#7FC4AA\" data-layer=\"top\" filter=\"url(#ps-dinosaur-top)\"/><rect x=\"33\" y=\"47\" width=\"6\" height=\"8\" rx=\"2.5\" fill=\"#7FC4AA\" data-layer=\"top\" filter=\"url(#ps-dinosaur-top)\"/><circle cx=\"49\" cy=\"17\" r=\"1.8\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-dinosaur-top)\"/><path d=\"M47 23 C49 24 52 24 54 22\" stroke=\"#3D352E\" stroke-width=\"1.4\" stroke-linecap=\"round\" data-layer=\"top\" filter=\"url(#ps-dinosaur-top)\"/></svg>"
+  },
+  {
+    "id": "lunchbox",
+    "nameKo": "알록달록 도시락",
+    "nameEn": "Bento Lunchbox",
+    "category": "food",
+    "tags": [
+      "lunch",
+      "lunchbox",
+      "bento",
+      "meal",
+      "school-lunch"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-lunchbox-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-lunchbox-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-lunchbox-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><rect x=\"8\" y=\"20\" width=\"48\" height=\"34\" rx=\"7\" fill=\"#F7BA9E\" data-layer=\"base\" filter=\"url(#ps-lunchbox-base)\"/><rect x=\"11\" y=\"23\" width=\"42\" height=\"28\" rx=\"5\" fill=\"#FAF6ED\" data-layer=\"mid\" filter=\"url(#ps-lunchbox-mid)\"/><rect x=\"10\" y=\"11\" width=\"44\" height=\"8\" rx=\"4\" fill=\"#BDE0EA\" data-layer=\"mid\" filter=\"url(#ps-lunchbox-mid)\"/><rect x=\"31\" y=\"24\" width=\"2\" height=\"26\" rx=\"1\" fill=\"#D9C9B4\" data-layer=\"top\" filter=\"url(#ps-lunchbox-top)\"/><path d=\"M15 44 L21 30 L27 44 Z\" fill=\"#FFFDF9\" data-layer=\"top\" filter=\"url(#ps-lunchbox-top)\"/><rect x=\"17\" y=\"40\" width=\"8\" height=\"4\" rx=\"1\" fill=\"#3D352E\" data-layer=\"top\" filter=\"url(#ps-lunchbox-top)\"/><circle cx=\"42\" cy=\"31\" r=\"5\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-lunchbox-top)\"/><circle cx=\"42\" cy=\"31\" r=\"2.2\" fill=\"#F7BA9E\" data-layer=\"top\" filter=\"url(#ps-lunchbox-top)\"/><circle cx=\"39\" cy=\"44\" r=\"3.5\" fill=\"#A3D8C3\" data-layer=\"top\" filter=\"url(#ps-lunchbox-top)\"/><circle cx=\"46\" cy=\"44\" r=\"3\" fill=\"#F5B8BE\" data-layer=\"top\" filter=\"url(#ps-lunchbox-top)\"/></svg>"
+  },
+  {
+    "id": "school",
+    "nameKo": "종이 학교",
+    "nameEn": "Paper School",
+    "category": "education",
+    "tags": [
+      "school",
+      "building",
+      "elementary",
+      "classroom",
+      "campus"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-school-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-school-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-school-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><path d=\"M6 55 C18 52 46 52 58 55 C58 57 6 57 6 55 Z\" fill=\"#A3D8C3\" data-layer=\"base\" filter=\"url(#ps-school-base)\"/><rect x=\"12\" y=\"27\" width=\"40\" height=\"27\" rx=\"3\" fill=\"#FAF6ED\" data-layer=\"base\" filter=\"url(#ps-school-base)\"/><path d=\"M8 29 L32 13 L56 29 Z\" fill=\"#F5B8BE\" data-layer=\"mid\" filter=\"url(#ps-school-mid)\"/><rect x=\"31\" y=\"4\" width=\"1.8\" height=\"10\" fill=\"#7A695A\" data-layer=\"mid\" filter=\"url(#ps-school-mid)\"/><path d=\"M32.8 4.5 L40 7 L32.8 9.5 Z\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-school-top)\"/><circle cx=\"32\" cy=\"23\" r=\"3.6\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-school-top)\"/><rect x=\"16\" y=\"33\" width=\"7\" height=\"7\" rx=\"1.5\" fill=\"#BDE0EA\" data-layer=\"top\" filter=\"url(#ps-school-top)\"/><rect x=\"41\" y=\"33\" width=\"7\" height=\"7\" rx=\"1.5\" fill=\"#BDE0EA\" data-layer=\"top\" filter=\"url(#ps-school-top)\"/><rect x=\"16\" y=\"44\" width=\"7\" height=\"6\" rx=\"1.5\" fill=\"#BDE0EA\" data-layer=\"top\" filter=\"url(#ps-school-top)\"/><rect x=\"41\" y=\"44\" width=\"7\" height=\"6\" rx=\"1.5\" fill=\"#BDE0EA\" data-layer=\"top\" filter=\"url(#ps-school-top)\"/><path d=\"M27 54 V42 C27 39 29.2 37 32 37 C34.8 37 37 39 37 42 V54 Z\" fill=\"#A3D8C3\" data-layer=\"top\" filter=\"url(#ps-school-top)\"/></svg>"
+  },
+  {
+    "id": "backpack",
+    "nameKo": "책가방",
+    "nameEn": "School Backpack",
+    "category": "education",
+    "tags": [
+      "backpack",
+      "schoolbag",
+      "bag",
+      "student",
+      "school"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-backpack-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-backpack-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-backpack-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><path d=\"M24 16 C24 8 40 8 40 16\" stroke=\"#E79AA2\" stroke-width=\"3.5\" stroke-linecap=\"round\" data-layer=\"base\" filter=\"url(#ps-backpack-base)\"/><rect x=\"13\" y=\"15\" width=\"38\" height=\"41\" rx=\"11\" fill=\"#F5B8BE\" data-layer=\"base\" filter=\"url(#ps-backpack-base)\"/><path d=\"M15 26 C15 19 49 19 49 26 V30 C40 33 24 33 15 30 Z\" fill=\"#E79AA2\" data-layer=\"mid\" filter=\"url(#ps-backpack-mid)\"/><rect x=\"19\" y=\"36\" width=\"26\" height=\"15\" rx=\"5\" fill=\"#FAF6ED\" data-layer=\"mid\" filter=\"url(#ps-backpack-mid)\"/><rect x=\"29\" y=\"28\" width=\"6\" height=\"7\" rx=\"2\" fill=\"#FEE396\" data-layer=\"top\" filter=\"url(#ps-backpack-top)\"/><path d=\"M24 42 H40\" stroke=\"#BDE0EA\" stroke-width=\"2.4\" stroke-linecap=\"round\" data-layer=\"top\" filter=\"url(#ps-backpack-top)\"/></svg>"
+  },
+  {
+    "id": "wind",
+    "nameKo": "산들바람",
+    "nameEn": "Gentle Breeze",
+    "category": "weather",
+    "tags": [
+      "wind",
+      "windy",
+      "breeze",
+      "air",
+      "weather"
+    ],
+    "svg": "<svg class=\"pc-layered-paper-icon\" viewBox=\"0 0 64 64\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><defs><filter id=\"ps-wind-base\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"1.11\" dy=\"1.11\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"3.18\" dy=\"3.18\" stdDeviation=\"1.20\" flood-color=\"#2E1E14\" flood-opacity=\"0.48\"/><feDropShadow dx=\"-0.51\" dy=\"-0.51\" stdDeviation=\"0.32\" flood-color=\"#FFFFFF\" flood-opacity=\"0.85\"/></filter><filter id=\"ps-wind-mid\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.89\" dy=\"0.89\" stdDeviation=\"0.54\" flood-color=\"#2E1E14\" flood-opacity=\"0.60\"/><feDropShadow dx=\"2.07\" dy=\"2.07\" stdDeviation=\"1.02\" flood-color=\"#2E1E14\" flood-opacity=\"0.41\"/><feDropShadow dx=\"-0.38\" dy=\"-0.38\" stdDeviation=\"0.25\" flood-color=\"#FFFFFF\" flood-opacity=\"0.90\"/></filter><filter id=\"ps-wind-top\" x=\"-35%\" y=\"-35%\" width=\"170%\" height=\"170%\"><feDropShadow dx=\"0.70\" dy=\"0.70\" stdDeviation=\"0.46\" flood-color=\"#2E1E14\" flood-opacity=\"0.65\"/><feDropShadow dx=\"1.59\" dy=\"1.59\" stdDeviation=\"0.78\" flood-color=\"#2E1E14\" flood-opacity=\"0.38\"/><feDropShadow dx=\"-0.32\" dy=\"-0.32\" stdDeviation=\"0.22\" flood-color=\"#FFFFFF\" flood-opacity=\"0.95\"/></filter></defs><path d=\"M8 22 H38 C46 22 47 11 39 12 C35 12.5 34 16 35 18\" stroke=\"#BDE0EA\" stroke-width=\"5\" stroke-linecap=\"round\" data-layer=\"base\" filter=\"url(#ps-wind-base)\"/><path d=\"M6 33 H46 C56 33 57 47 47 46 C43 45.5 42 42 43 40\" stroke=\"#A3D8C3\" stroke-width=\"5\" stroke-linecap=\"round\" data-layer=\"mid\" filter=\"url(#ps-wind-mid)\"/><path d=\"M12 44 H28 C35 44 35 53 29 52.5\" stroke=\"#D7CBEB\" stroke-width=\"4.5\" stroke-linecap=\"round\" data-layer=\"top\" filter=\"url(#ps-wind-top)\"/><path d=\"M12 22 H24\" stroke=\"#FFFDF9\" stroke-width=\"1.6\" stroke-linecap=\"round\" data-layer=\"top\" filter=\"url(#ps-wind-top)\"/></svg>"
   }
 ];
   let currentCategory = 'all';
