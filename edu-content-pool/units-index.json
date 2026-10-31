@@ -47794,6 +47794,74 @@
      "topic": "kr.mt.english-efl.5-6.expression.6영02-08.03.경험-글-초안과-수정"
     }
    ]
+  },
+  {
+   "id": "g3-cc-saf-life",
+   "catalogUnit": "g3-창체-saf-life",
+   "grade": 3,
+   "subject": "창체",
+   "semester": "연중",
+   "no": null,
+   "title": "생활안전",
+   "lessons": 2,
+   "verifiedTitle": true,
+   "standards": [],
+   "existing": {},
+   "plan": [
+    {
+     "i": 1,
+     "lessonId": "g3-cc-saf-life-01",
+     "role": "intro",
+     "title": "교실·복도·계단에서 다치지 않는 약속",
+     "catalogTool": "mindmap",
+     "topic": "학교 안 위험한 곳을 찾고 안전하게 다니는 약속을 정한다"
+    },
+    {
+     "i": 2,
+     "lessonId": "g3-cc-saf-life-02",
+     "role": "wrap",
+     "title": "놀이터·집에서 생기는 사고 막기",
+     "catalogTool": "emotion",
+     "topic": "놀이 기구·집 안 위험 상황에서 안전한 행동을 고르고 도움을 청한다"
+    }
+   ],
+   "track": "창체",
+   "area": "안전교육",
+   "basis": "학교안전사고 예방 및 보상에 관한 법률 제8조·「학교 안전교육 실시 기준 등에 관한 고시」(교육부) 7대 영역 중 생활안전"
+  },
+  {
+   "id": "g10-cc-dokdo",
+   "catalogUnit": "g10-창체-dokdo",
+   "grade": 10,
+   "subject": "창체",
+   "semester": "연중",
+   "no": null,
+   "title": "독도의 날 계기교육",
+   "lessons": 2,
+   "verifiedTitle": true,
+   "standards": [],
+   "existing": {},
+   "plan": [
+    {
+     "i": 1,
+     "lessonId": "g10-cc-dokdo-01",
+     "role": "intro",
+     "title": "사료로 읽는 독도 영토 주권",
+     "catalogTool": "timeline",
+     "topic": "고문헌·고지도·근대 법령 사료를 시대 순으로 놓고 영토 주권의 근거를 읽는다"
+    },
+    {
+     "i": 2,
+     "lessonId": "g10-cc-dokdo-02",
+     "role": "wrap",
+     "title": "독도 주장을 근거로 판별하기",
+     "catalogTool": "mindmap",
+     "topic": "독도에 관한 주장을 공식 자료 근거로 사실·의견·왜곡으로 가려낸다"
+    }
+   ],
+   "track": "창체",
+   "area": "계기교육",
+   "basis": "독도교육 계기교육(10월 25일 독도의 날) — 교육부 「독도교육 내용 체계」·동북아역사재단 독도 교육 자료, 외교부 독도 누리집"
   }
  ]
 }

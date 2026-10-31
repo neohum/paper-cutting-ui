@@ -1,6 +1,15 @@
-// 초등 수업 콘텐츠 풀 카탈로그 — 학년 · 과목 · 단원 · 차시 탐색과 40분 수업 패키지 미리보기.
+// 수업 콘텐츠 풀 카탈로그 — 학년 · 과목 · 단원 · 차시 탐색과 40분 수업 패키지 미리보기.
+// 교과(EDU_CATALOG, 초1~6)에 창체 트랙(EDU_PROGRAMS, 초1~고3 — build-programs.mjs)을 합쳐 보인다.
 (() => {
-  const C = window.EDU_CATALOG;
+  const BASE = window.EDU_CATALOG;
+  const PROG = window.EDU_PROGRAMS || { units: [], lessons: [], topics: {} };
+  const C = { ...BASE, units: [...BASE.units, ...PROG.units], lessons: [...BASE.lessons, ...PROG.lessons], topics: { ...BASE.topics, ...PROG.topics } };
+  const CC = '창체';
+  const isProgram = (u) => u.s === CC;
+  // 학년 1~12: 초1~초6, 중1~중3(7~9), 고1~고3(10~12)
+  const GRADES = Array.from({ length: 12 }, (_, k) => k + 1);
+  const gradeName = (g) => (g <= 6 ? `초${g}` : g <= 9 ? `중${g - 6}` : `고${g - 9}`);
+  const stageName = (g) => (g <= 6 ? '초등' : g <= 9 ? '중학교' : '고등학교');
   const { toAbility, toTask } = window.KoEndings;
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -22,12 +31,13 @@
     lessonsByUnit.get(l.u).push(l);
   }
 
-  const subjectsOf = (g) => C.subjects[g <= 2 ? '1-2' : g <= 4 ? '3-4' : '5-6'];
+  // 초등은 교과 + 창체, 중·고는 창체만(교과 카탈로그는 초등까지)
+  const subjectsOf = (g) => (g <= 6 ? [...C.subjects[g <= 2 ? '1-2' : g <= 4 ? '3-4' : '5-6'], CC] : [CC]);
   const unitsOf = (g, s) => C.units.filter((u) => u.g === g && u.s === s);
   const countOf = (g, s) => unitsOf(g, s).reduce((n, u) => n + u.n, 0);
-  const validGrade = (g) => { const n = Number(g); return Number.isInteger(n) && n >= 1 && n <= 6 ? n : 1; };
+  const validGrade = (g) => { const n = Number(g); return Number.isInteger(n) && n >= 1 && n <= 12 ? n : 1; };
   // "0단원"(한글 놀이)·"독서단원" 같은 번호 없는 단원은 이름만 보인다
-  const unitLabel = (u) => (Number.isInteger(u.no) && u.no > 0 ? `${u.no}단원 ${u.t}` : u.t);
+  const unitLabel = (u) => (isProgram(u) ? `[${u.area}] ${u.t}` : Number.isInteger(u.no) && u.no > 0 ? `${u.no}단원 ${u.t}` : u.t);
 
   // ---- 상태: 주소(#g=5&s=수학&l=단원id~차시) > 저장값 > 기본값 ----
   const state = { grade: 1, subject: null, sem: 'all', q: '', open: null, opener: null };
@@ -128,10 +138,10 @@
 
   // ---- 렌더 ----
   function renderGrades() {
-    $('#grade-tabs').innerHTML = [1, 2, 3, 4, 5, 6].map((g) => {
+    $('#grade-tabs').innerHTML = GRADES.map((g) => {
       const total = subjectsOf(g).reduce((n, s) => n + countOf(g, s), 0);
       return `<button type="button" class="grade-tab" aria-pressed="${g === state.grade}" data-grade="${g}">
-        <span class="grade-tab__n">${g}학년</span><span class="grade-tab__c">${total}차시</span></button>`;
+        <span class="grade-tab__n">${gradeName(g)}</span><span class="grade-tab__c">${total}차시</span></button>`;
     }).join('');
   }
 
@@ -141,15 +151,18 @@
     $('#subject-list').innerHTML = subs.map((s) => {
       const us = unitsOf(state.grade, s);
       const verified = us.length > 0 && us.every((u) => u.v);
+      // 창체는 교과서 단원이 아니라 단원명 확인 대상이 아니다 — 보라 칩, 단원이 아직 없으면 '준비 중'
+      const chip = s === CC ? `<span class="chip chip--lavender">${countOf(state.grade, s)}<span class="sr-only">차시, ${us.length ? '창체 트랙' : '준비 중'}</span></span>`
+        : `<span class="chip ${verified ? 'chip--mint' : 'chip--butter'}">${countOf(state.grade, s)}<span class="sr-only">차시, ${verified ? '단원명 확인' : '추정 배정 포함'}</span></span>`;
       return `<li><button type="button" class="subject-btn" aria-current="${s === state.subject}" data-subject="${esc(s)}">
         <span class="subject-btn__name">${esc(s)}</span>
-        <span class="chip ${verified ? 'chip--mint' : 'chip--butter'}">${countOf(state.grade, s)}<span class="sr-only">차시, ${verified ? '단원명 확인' : '추정 배정 포함'}</span></span></button></li>`;
+        ${chip}</button></li>`;
     }).join('');
   }
 
   // 공백으로 나눈 낱말이 모두 들어 있으면 일치
   const matchesQuery = (text, q) => q.split(/\s+/).filter(Boolean).every((w) => text.includes(w));
-  const lessonText = (l, u) => `${u.t} ${l.title} ${u.std.join(' ')}`;
+  const lessonText = (l, u) => `${u.t} ${l.title} ${u.std.join(' ')}${isProgram(u) ? ` ${u.area} ${CC}` : ''}`;
 
   function unitBlock(u, ls, showSubject) {
     const rows = ls.map((l) => {
@@ -169,14 +182,14 @@
         <div class="unit__meta">
           <span class="chip chip--sky">${esc(u.sem)}</span>
           <span class="chip">${u.n}차시</span>
-          <span class="chip ${u.v ? 'chip--mint' : 'chip--butter'}">${u.v ? '단원명 확인' : '추정 단원'}</span>
+          ${isProgram(u) ? `<span class="chip chip--lavender">${esc(u.area)}</span>` : `<span class="chip ${u.v ? 'chip--mint' : 'chip--butter'}">${u.v ? '단원명 확인' : '추정 단원'}</span>`}
           ${u.sa ? '<span class="chip">기준 자동 연결</span>' : ''}
           ${u.ne ? '<span class="chip">차시 수 추정</span>' : ''}
           <span class="chip ${readyN ? 'chip--mint' : 'chip--butter'}">수업 준비 ${readyN}/${ls.length}</span>
         </div>
         ${ready && ready.flow ? `<details class="unit__flow"><summary><i class="fi fi-rr-route" aria-hidden="true"></i> 단원 진행 방향</summary><p>${esc(ready.flow)}</p></details>` : ''}
-        <details class="unit__std"><summary>성취기준 ${u.std.length}개</summary>
-          <ul>${u.std.map((c) => `<li><b>${esc(c)}</b> ${esc(C.standards[c] ?? '')}</li>`).join('')}</ul></details>
+        ${isProgram(u) ? `<details class="unit__std"><summary>근거 법령·고시</summary><p>${esc(u.basis)}</p></details>` : `<details class="unit__std"><summary>성취기준 ${u.std.length}개</summary>
+          <ul>${u.std.map((c) => `<li><b>${esc(c)}</b> ${esc(C.standards[c] ?? '')}</li>`).join('')}</ul></details>`}
       </header>
       <ol class="lesson-list">${rows}</ol>
     </section>`;
@@ -194,15 +207,16 @@
       total += ls.length;
       return ls.length ? unitBlock(u, ls, !!q) : '';
     })).join('');
-    $('#crumb').textContent = q ? `${state.grade}학년 전체 과목 검색` : `${state.grade}학년 · ${state.subject}`;
+    $('#crumb').textContent = q ? `${gradeName(state.grade)} 전체 과목 검색` : `${gradeName(state.grade)} · ${state.subject}`;
     $('#result-count').textContent = q ? `'${q}' ${total}차시` : `${total}차시`;
     if (blocks) { host.innerHTML = blocks; return; }
     // 이 학년에 없으면 다른 학년의 일치 수를 알려 준다
-    const elsewhere = q ? [1, 2, 3, 4, 5, 6].filter((g) => g !== state.grade).map((g) => {
+    const elsewhere = q ? GRADES.filter((g) => g !== state.grade).map((g) => {
       const n = C.lessons.filter((l) => { const u = unitById.get(l.u); return u.g === g && matchesQuery(lessonText(l, u), q); }).length;
-      return n ? `<button type="button" class="pc-btn pc-btn--ghost" data-grade="${g}">${g}학년 ${n}차시</button>` : '';
+      return n ? `<button type="button" class="pc-btn pc-btn--ghost" data-grade="${g}">${gradeName(g)} ${n}차시</button>` : '';
     }).join('') : '';
-    host.innerHTML = `<div class="empty"><p>${q ? `${state.grade}학년에는 '${esc(q)}'에 맞는 차시가 없습니다.` : '조건에 맞는 차시가 없습니다.'}</p>${elsewhere ? `<p>다른 학년에서 찾기</p><div class="empty__alts">${elsewhere}</div>` : ''}</div>`;
+    const none = state.subject === CC && !q ? `${gradeName(state.grade)} 창체 단원은 아직 준비 중입니다.` : '조건에 맞는 차시가 없습니다.';
+    host.innerHTML = `<div class="empty"><p>${q ? `${gradeName(state.grade)}에는 '${esc(q)}'에 맞는 차시가 없습니다.` : none}</p>${elsewhere ? `<p>다른 학년에서 찾기</p><div class="empty__alts">${elsewhere}</div>` : ''}</div>`;
   }
 
   function siteLinks(u, lesson) {
@@ -242,13 +256,13 @@
     const p = buildPackage(lesson);
     // 영상 검색은 문장 대신 짧은 낱말로 — 성취기준 문장 전체로 채널 안을 찾으면 결과가 0건이다
     const topic = u.t.replace(/^(독서|매체) 단원\.\s*/, '');
-    const query = encodeURIComponent(`초등 ${u.g}학년 ${u.s} ${topic}`);
+    const query = encodeURIComponent(isProgram(u) ? `${stageName(u.g)} ${topic}` : `초등 ${u.g}학년 ${u.s} ${topic}`);
     const info = /정보|코딩|프로그래밍|알고리즘|소프트웨어|데이터|인공지능|디지털/.test(`${u.t} ${lesson.title}`);
     const itemCount = Math.min(p.tasks.length, p.low ? 2 : 3) + 1;
     const panel = $('#detail');
     panel.innerHTML = `
       <header class="detail__head">
-        <p class="detail__crumb">${u.g}학년 ${esc(u.sem)} · ${esc(u.s)} · ${esc(unitLabel(u))} · ${lesson.i}/${u.n}차시</p>
+        <p class="detail__crumb">${gradeName(u.g)} ${esc(u.sem)} · ${esc(u.s)} · ${esc(unitLabel(u))} · ${lesson.i}/${u.n}차시</p>
         <h2 id="detail-title" tabindex="-1">${lesson.rp ? `<span class="rp">${esc(lesson.rp)}</span> ` : ''}${esc(lesson.title)}</h2>
         <p class="detail__goal"><strong>학습목표</strong> ${esc(p.objective)}</p>
         <div class="detail__actions">
@@ -298,9 +312,11 @@
         <p class="note note--plain"><strong>수준별 지도</strong> 도움이 필요한 학생은 쉬운 버전(핵심 낱말·문장 틀·큰 글씨)으로, 빨리 끝낸 학생은 생활 속 예를 두 가지 더 찾아 쓰게 합니다.</p>
       </section>
       <section class="detail__sec">
-        <h3>성취기준</h3>
+        ${isProgram(u) ? `<h3>근거 법령·고시</h3>
+        <p>${esc(u.basis)}</p>
+        <p class="muted">창체(교과 밖) 단원입니다. 성취기준 대신 근거 법령·고시를 따르며, 학교 교육계획의 시수에 맞춰 고쳐 쓰세요.</p>` : `<h3>성취기준</h3>
         <ul class="std-list">${u.std.map((c) => `<li><b>${esc(c)}</b> ${esc(C.standards[c] ?? '')}</li>`).join('')}</ul>
-        <p class="muted">차시 내용은 학년군 성취기준에서 자동으로 배치한 초안입니다. 교과서 진도와 맞춰 고쳐 쓰세요.</p>
+        <p class="muted">차시 내용은 학년군 성취기준에서 자동으로 배치한 초안입니다. 교과서 진도와 맞춰 고쳐 쓰세요.</p>`}
       </section>`;
     $('#backdrop').hidden = false;
     panel.hidden = false;
@@ -376,7 +392,7 @@
       <article class="edu-exam-sheet ws ${p.low ? 'ws--low' : ''} ${easy ? 'ws--easy' : ''}">
         <header class="edu-exam-header">
           <div class="edu-exam-header-top">
-            <span class="edu-exam-org-badge">${u.g}학년 ${esc(u.sem)} ${esc(u.s)}${easy ? ' · 쉬운 버전' : ''}</span>
+            <span class="edu-exam-org-badge">${gradeName(u.g)} ${esc(u.sem)} ${esc(u.s)}${easy ? ' · 쉬운 버전' : ''}</span>
             <div class="edu-exam-title-group">
               <h1 class="edu-exam-main-title">${esc(u.t)} · ${lesson.i}차시${lesson.rp ? ` (${esc(lesson.rp)})` : ''}</h1>
               <p class="edu-exam-sub-title">${esc(lesson.title)}</p>
@@ -396,10 +412,10 @@
 
   function renderStats() {
     const total = C.lessons.length;
-    const verifiedU = C.units.filter((u) => u.v).length;
+    const verifiedU = BASE.units.filter((u) => u.v).length;
     $('#stats').innerHTML = `
       <div class="stat"><span class="stat__n">${total.toLocaleString('ko-KR')}</span><span class="stat__l">차시</span></div>
-      <div class="stat"><span class="stat__n">${verifiedU}/${C.units.length}</span><span class="stat__l">단원명 확인</span></div>
+      <div class="stat"><span class="stat__n">${verifiedU}/${BASE.units.length}</span><span class="stat__l">단원명 확인</span></div>
       <div class="stat"><span class="stat__n">${C.lessons.filter(readyId).length.toLocaleString('ko-KR')}</span><span class="stat__l">움직이는 교구 수업</span></div>
       <div class="stat"><span class="stat__n">${total.toLocaleString('ko-KR')}</span><span class="stat__l">인쇄 활동지</span></div>`;
   }

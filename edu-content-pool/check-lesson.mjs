@@ -129,8 +129,12 @@ export function worksheetShape(it) {
 // 성취기준: 과목 머리글자가 차시 과목과 같아야 하고, 단원 목록(units-map)에 같은 과목 코드가 있으면 그 안에 있어야 한다
 export const SUBJECT_MARK = { 국어: ['국'], 수학: ['수'], 과학: ['과'], 사회: ['사'], 통합교과: ['바', '슬', '즐'], 도덕: ['도'], 영어: ['영'], 체육: ['체'], 음악: ['음'], 미술: ['미'], 실과: ['실'] };
 // opts.allowEmpty: 단원 목록이 비었거나 미확인이라 standards: []로 둔 단원 차시(지어내지 않는다 — CATALOG_BUILD.md 2절)
+// 창체(교과 밖) 단원 id — programs-lib.mjs의 PROGRAM_UNIT_ID와 같은 규칙(영역코드는 영문 소문자·하이픈, 숫자 없음)
+export const PROGRAM_UNIT_ID = /^g([1-9]|1[0-2])-cc-([a-z]+(?:-[a-z]+)*)$/;
 export function standardsCheck(l, opts = {}) {
   const out = []; const codes = l.standards || [];
+  // 창체는 성취기준이 아니라 근거 법령·고시(programs/*.json의 basis)를 따른다 — standards는 [] 이어야 한다
+  if (l.subject === '창체') return codes.length ? [{ fail: true, text: `창체 차시는 standards: [] — 성취기준 ${codes.join(' ')}을 적지 않는다(근거는 programs/*.json basis)` }] : [{ fail: false, text: '창체 차시 — 성취기준 없음(근거 법령·고시)' }];
   const marks = SUBJECT_MARK[l.subject];
   const markOf = (c) => (/^\[\d([가-힣])\d{2}-\d{2}\]$/.exec(c) || [])[1];
   if (!codes.length) out.push(opts.allowEmpty ? { fail: false, text: 'standards 비움(단원 성취기준 미확인)' } : { fail: true, text: 'standards 없음' });
@@ -142,7 +146,7 @@ export function standardsCheck(l, opts = {}) {
   if (!marks) out.push({ fail: false, text: `과목 ${l.subject}의 성취기준 머리글자 규칙 없음 — 확인하지 않음` });
   let map = null;
   try { map = JSON.parse(readFileSync(join(here, 'units-map.json'), 'utf8')); } catch (_) { out.push({ fail: false, text: 'units-map.json을 읽지 못해 단원 대조를 건너뜀' }); return out; }
-  const u = /^g(\d)-(.+)-(\d학기)-(\d+)$/.exec(l.catalog?.unit || '');
+  const u = /^g(\d{1,2})-(.+)-(\d학기)-(\d+)$/.exec(l.catalog?.unit || '');
   const unit = u && (map.grades?.[u[1]]?.[u[2]]?.[u[3]] || []).find((x) => String(x.no) === u[4]);
   if (!unit) { out.push({ fail: false, text: `units-map에 단원 ${l.catalog?.unit} 없음 — 성취기준 단원 대조를 건너뜀` }); return out; }
   const same = (unit.standards || []).filter((c) => marks && marks.includes(markOf(c)));
@@ -153,8 +157,8 @@ export function standardsCheck(l, opts = {}) {
 
 export const PROMPT_HEAD = 'Layered paper-cut illustration of ';
 export const PROMPT_TAIL = ', with overlapping shapes in soft pastel colors, handcrafted textures, subtle shadows between layers, clean vector edges, centered on a matte cream background, whimsical and modern visual storytelling.';
-// 단원 차시 id('<단원 id>-<두 자리>', 예: g1-int-2-06-01)는 lessons/units/<단원 id>.js 안에 있다
-export const UNIT_LESSON_ID = /^(g\d-[a-z]+-[12]-(?:\d{2}|독서|매체))-\d{2}$/;
+// 단원 차시 id('<단원 id>-<두 자리>', 예: g1-int-2-06-01, 창체 g10-cc-dokdo-01)는 lessons/units/<단원 id>.js 안에 있다
+export const UNIT_LESSON_ID = /^(g\d-[a-z]+-[12]-(?:\d{2}|독서|매체)|g(?:[1-9]|1[0-2])-cc-[a-z]+(?:-[a-z]+)*)-\d{2}$/;
 export function unitOfLesson(id) {
   const m = UNIT_LESSON_ID.exec(id || '');
   return m && !existsSync(join(here, 'lessons/data', `${id}.js`)) && existsSync(join(here, 'lessons/units', `${m[1]}.js`)) ? m[1] : null;

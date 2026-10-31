@@ -29,7 +29,7 @@ const overflow = (page) => page.evaluate(() => document.documentElement.scrollWi
 // 데스크톱: 2학년 수학 → '시각' 검색 → 첫 차시 상세
 const page = await open({ width: 1440, height: 900 });
 await page.evaluate(() => localStorage.clear());
-await page.click('[data-grade="2"]');
+await page.click('.grade-tab[data-grade="2"]');
 await page.click('[data-subject="수학"]');
 await page.screenshot({ path: join(out, '01-grade2-math.png') });
 await page.fill('#search', '시각');
@@ -54,16 +54,21 @@ await page.pdf({ path: join(out, '03-worksheet.pdf'), format: 'A4', printBackgro
 await page.screenshot({ path: join(out, '03-worksheet-print.png'), fullPage: true });
 await page.emulateMedia({ media: 'screen' });
 
-// 학년·과목 전수 순회: 모든 조합이 단원을 그린다
+// 학년·과목 전수 순회(초1~고3 12개 탭): 모든 조합이 단원을 그린다.
+// 창체는 programs-data.js(EDU_PROGRAMS)에 그 학년 단원이 있을 때만 단원을 기대한다 — 없으면 '준비 중' 안내가 떠야 한다
+report.gradeTabs = await page.$$eval('[data-grade]', (els) => els.filter((e) => e.classList.contains('grade-tab')).map((e) => e.querySelector('.grade-tab__n').textContent));
 report.emptyCombos = await page.evaluate(async () => {
   const empty = [];
+  const ccGrades = new Set(((window.EDU_PROGRAMS || {}).units || []).map((u) => u.g));
   document.querySelector('#search').value = '';
   document.querySelector('#search').dispatchEvent(new Event('input'));
-  for (const g of [1, 2, 3, 4, 5, 6]) {
-    document.querySelector(`[data-grade="${g}"]`).click();
+  for (let g = 1; g <= 12; g++) {
+    document.querySelector(`.grade-tab[data-grade="${g}"]`).click();
     for (const b of [...document.querySelectorAll('[data-subject]')].map((x) => x.dataset.subject)) {
       document.querySelector(`[data-subject="${b}"]`).click();
-      if (document.querySelectorAll('.lesson-row').length === 0) empty.push(`${g}-${b}`);
+      const rows = document.querySelectorAll('.lesson-row').length;
+      if (b === '창체' && !ccGrades.has(g)) { if (rows || !document.querySelector('#units .empty')) empty.push(`${g}-${b}(준비 중 안내 없음)`); continue; }
+      if (rows === 0) empty.push(`${g}-${b}`);
     }
   }
   return empty;
@@ -81,5 +86,6 @@ await browser.close();
 report.problems = problems;
 console.log(JSON.stringify(report, null, 2));
 const failed = problems.length > 0 || report.desktopOverflowPx > 0 || report.mobileOverflowPx > 0
-  || report.flowMinutes !== 40 || report.printVisibleAppUi || report.printWorksheetQuestions < 2 || report.emptyCombos.length > 0;
+  || report.flowMinutes !== 40 || report.printVisibleAppUi || report.printWorksheetQuestions < 2 || report.emptyCombos.length > 0
+  || report.gradeTabs.join() !== '초1,초2,초3,초4,초5,초6,중1,중2,중3,고1,고2,고3';
 process.exit(failed ? 1 : 0);

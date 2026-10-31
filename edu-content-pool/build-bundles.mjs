@@ -36,7 +36,10 @@ const toolsOf = (l) => [...new Set([
 
 // all_market 과목 분류(lesson-package.v1 subjectCategory)와 플러그인 subjects 슬러그
 const CATEGORY = { 국어: 'korean', 수학: 'math', 영어: 'english', 사회: 'social_ethics', 도덕: 'social_ethics', 과학: 'science_practical', 실과: 'science_practical', 체육: 'arts_sports', 음악: 'arts_sports', 미술: 'arts_sports', 통합교과: 'integrated_curriculum' };
-const SLUG = { 국어: 'korean', 수학: 'math', 영어: 'english', 사회: 'social', 도덕: 'ethics', 과학: 'science', 실과: 'practical-arts', 체육: 'pe', 음악: 'music', 미술: 'art', 통합교과: 'integrated' };
+const SLUG = { 창체: 'creative-activities', 국어: 'korean', 수학: 'math', 영어: 'english', 사회: 'social', 도덕: 'ethics', 과학: 'science', 실과: 'practical-arts', 체육: 'pe', 음악: 'music', 미술: 'art', 통합교과: 'integrated' };
+// 학년 1~12(창체 트랙은 중·고까지): 화면 글자와 플러그인 schoolLevels — registry.js gradeLabel과 같은 규칙
+const gradeLabel = (g) => (g >= 10 ? `고${g - 9}` : g >= 7 ? `중${g - 6}` : `${g}학년`);
+const schoolLevelOf = (g) => (g >= 10 ? 'high' : g >= 7 ? 'middle' : 'elementary');
 const STD = /^\[\d{1,2}[가-힣]{1,4}\d{2}-\d{2}\]$/;
 const CARDS = 'engine/tools/_cards.js';
 
@@ -124,7 +127,7 @@ function pluginOf({ id, name, description, title, entrySha, grades, subjects, st
     runtime: { tier: 'tier1_web', entry: 'index.html', offline: true, integrityHash: `sha256:${entrySha}` },
     window: { title: title.slice(0, 100), width: 1366, height: 768, minWidth: 360, minHeight: 600, resizable: true },
     permissions: ['storage.kv'],
-    education: { schoolLevels: ['elementary'], grades, subjects, standards: [...new Set(standards.filter((s) => STD.test(s)))], lessonMinutes: 40 },
+    education: { schoolLevels: [...new Set(grades.map(schoolLevelOf))], grades, subjects, standards: [...new Set(standards.filter((s) => STD.test(s)))], lessonMinutes: 40 },
     data: { submissionSchema: 'edu-lesson-result.v1', studentPii: 'none' },
     distribution: { lanHub: true, cloudSchool: true, market: 'listed' },
     rights: { license: 'CC-BY-SA-4.0', sources: [] },
@@ -138,7 +141,7 @@ function unitIndexHTML(unit, rows) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${esc(`${unit.grade}학년 ${unit.subject} · ${unit.unitTitle}`)}</title>
+  <title>${esc(`${gradeLabel(unit.grade)} ${unit.subject} · ${unit.unitTitle}`)}</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="vendor/uicons/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="engine/papercut-tokens.css">
@@ -156,7 +159,7 @@ function unitIndexHTML(unit, rows) {
 <body>
   <main class="u-wrap">
     <header class="pc-card u-head">
-      <span class="pl-chip">${unit.grade}학년 ${esc(unit.subject)}</span>
+      <span class="pl-chip">${gradeLabel(unit.grade)} ${esc(unit.subject)}</span>
       <h1>${esc(unit.unitTitle)}</h1>
       <details><summary><b>단원 진행 방향</b></summary><p>${esc(unit.flow)}</p></details>
     </header>
@@ -223,10 +226,10 @@ for (const u of units) {
     copyAll(out, [...ENGINE, ...cardsIfAny(), ...tools.map((t) => `engine/tools/${t}.js`), ...PLAYER, `lessons/units/${u.id}.js`,
       ...refs.map(([, ref]) => `lessons/data/${ref}.js`), ...VENDOR, ...rows.flatMap((r) => imageOf(r.l))]);
     // 차시마다 바로 여는 파일(허브는 매개변수를 주지 않는다). refs 번호는 '<단원>-NN'으로 열면 레지스트리가 기존 차시로 넘긴다
-    for (const r of rows) writeFileSync(join(out, r.file), playerHTML(r.id, `${r.l.grade}학년 ${r.l.subject} · ${r.l.title}`));
+    for (const r of rows) writeFileSync(join(out, r.file), playerHTML(r.id, `${gradeLabel(r.l.grade)} ${r.l.subject} · ${r.l.title}`));
     writeFileSync(join(out, 'index.html'), unitIndexHTML(u, rows));
     const entrySha = sha(readFileSync(join(out, 'index.html')));
-    writeFileSync(join(out, 'edulinker.plugin.json'), `${JSON.stringify(pluginOf({ id: `kr.paperkit.unit.${pluginSlug(u.id)}`, name: `${u.grade}학년 ${u.subject} · ${u.unitTitle}`, description: `${u.unitTitle} — ${rows.length}차시 40분 수업(움직이는 페이퍼커팅 교구). ${u.flow || ''}`, title: u.unitTitle, entrySha, grades: [u.grade], subjects: [SLUG[u.subject]], standards: rows.flatMap((r) => r.l.standards || []) }), null, 2)}\n`);
+    writeFileSync(join(out, 'edulinker.plugin.json'), `${JSON.stringify(pluginOf({ id: `kr.paperkit.unit.${pluginSlug(u.id)}`, name: `${gradeLabel(u.grade)} ${u.subject} · ${u.unitTitle}`, description: `${u.unitTitle} — ${rows.length}차시 40분 수업(움직이는 페이퍼커팅 교구). ${u.flow || ''}`, title: u.unitTitle, entrySha, grades: [u.grade], subjects: [SLUG[u.subject]], standards: rows.flatMap((r) => r.l.standards || []) }), null, 2)}\n`);
     mkdirSync(join(out, 'packages'), { recursive: true });
     for (const r of rows) { const p = packageOf(r.l, r.file); if (p) writeFileSync(join(out, 'packages', `${r.id}.json`), `${JSON.stringify(p.packageId === pluginSlug(r.id) ? p : { ...p, packageId: pluginSlug(r.id) }, null, 2)}\n`); }
     makeZip(zip, out);

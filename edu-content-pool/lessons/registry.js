@@ -37,6 +37,7 @@
   const units = {};
   const aliases = {}; // '<단원 id>-NN' → 이미 있는 차시 id(refs)
   const two = (n) => String(n).padStart(2, '0');
+  // 창체 단원(g10-cc-dokdo, g3-cc-saf-life)도 같은 규칙으로 갈린다 — 영역코드에는 숫자가 없어(build-programs.mjs) 끝의 '-NN'은 늘 차시 번호다
   const unitOf = (id) => { const m = /^(.+)-\d{2}$/.exec(String(id || '')); return m ? m[1] : null; };
   function registerUnit(u) {
     if (!u || typeof u.id !== 'string') throw new Error('단원 id가 없습니다');
@@ -404,8 +405,13 @@
     },
   };
 
+  // 학년 표기: 1~6 = 'n학년'(초등 화면 글자 그대로), 7~9 = 중1~3, 10~12 = 고1~3 (창체 트랙)
+  const gradeLabel = (g) => { const n = Number(g); return n >= 10 && n <= 12 ? `고${n - 9}` : n >= 7 && n <= 9 ? `중${n - 6}` : `${n}학년`; };
+  // 학교 안 학년(반 코드 '학년-반'의 학년): 1~6 그대로, 중·고는 1~3
+  const schoolYear = (g) => { const n = Number(g); return n >= 10 ? n - 9 : n >= 7 ? n - 6 : n; };
+
   root.PaperLessons = {
-    flow,
+    flow, gradeLabel, schoolYear,
     register(l) { lessons[l.id] = l; }, registerUnit, unit: (id) => units[id], unitOf, resolve: (id) => aliases[id] || id,
     get: (id) => lessons[aliases[id] || id], all: () => Object.values(lessons),
     load, loadScript, toolsOf, submit, waitAck, flush, encode, decode, encodeShort, decodeShort, sdkPayload, base,

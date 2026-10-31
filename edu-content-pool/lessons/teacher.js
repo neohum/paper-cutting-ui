@@ -10,16 +10,19 @@
   const S = { grade: saved.grade || 0, lesson: null, rows: [], local: [], poll: 0 };
   $('#class').value = saved.classCode || '';
   const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ grade: S.grade, classCode: $('#class').value.trim(), lesson: S.lesson?.id })); } catch (_) { /* 저장 불가 */ } };
+  const GL = (g) => PaperLessons.gradeLabel(g);
   const playerURL = (params) => new URL(`player.html?${new URLSearchParams(params)}`, location.href).toString();
 
   function renderGrades() {
-    $('#grade-filter').innerHTML = [0, 1, 2, 3, 4, 5, 6].map((g) => `<button type="button" class="pl-level__b" data-grade="${g}" aria-pressed="${S.grade === g}">${g ? `${g}학년` : '전체'}</button>`).join('');
+    // 초1~6은 언제나, 중·고(7~12, 창체 트랙)는 차시가 있는 학년만 보인다
+    const grades = [...new Set([1, 2, 3, 4, 5, 6, ...lessons.map((l) => l.grade)])].filter((g) => g >= 1 && g <= 12).sort((a, b) => a - b);
+    $('#grade-filter').innerHTML = [0, ...grades].map((g) => `<button type="button" class="pl-level__b" data-grade="${g}" aria-pressed="${S.grade === g}">${g ? GL(g) : '전체'}</button>`).join('');
   }
   function renderLessons() {
     const list = lessons.filter((l) => !S.grade || l.grade === S.grade);
     $('#lessons').innerHTML = list.map((l) => `
       <li><button type="button" class="t-lesson ${S.lesson?.id === l.id ? 'is-on' : ''}" data-lesson="${l.id}" aria-pressed="${S.lesson?.id === l.id}">
-        <span class="pl-chip">${l.grade}학년 ${esc(l.subject)}</span>
+        <span class="pl-chip">${GL(l.grade)} ${esc(l.subject)}</span>
         <b>${esc(l.title)}</b>
         <span class="pl-muted">${esc(l.unit)} · 교구 ${l.tools.map(esc).join(', ')}</span>
       </button></li>`).join('') || '<li class="pl-muted">이 학년 차시는 아직 없습니다.</li>';
@@ -29,7 +32,7 @@
     S.lesson = lessons.find((l) => l.id === id); save(); renderLessons();
     try { S.full = await PaperLessons.load(id, { tools: false }); S.labels = LessonAnalytics.labelsOf(S.full); } catch (_) { S.full = null; S.labels = {}; }
     $('#dist').hidden = false; $('#collect').hidden = false;
-    $('#dist-title').textContent = `${S.lesson.grade}학년 ${S.lesson.subject} · ${S.lesson.title}`;
+    $('#dist-title').textContent = `${GL(S.lesson.grade)} ${S.lesson.subject} · ${S.lesson.title}`;
     renderDist(); startPolling(); renderSummary();
   }
 
@@ -50,7 +53,8 @@
     $('#portal-url').value = portalUrl;
     const m = /^(\d)-(\d{1,2})$/.exec(cls);
     S.assignment = {
-      title: `[${l.grade}학년 ${l.subject}] ${l.title}`, target_grade: l.grade, ...(m ? { target_class_num: Number(m[2]) } : {}),
+      // 포털 과제의 학년은 반 코드와 같은 학교 안 학년(중·고는 1~3)
+      title: `[${GL(l.grade)} ${l.subject}] ${l.title}`, target_grade: PaperLessons.schoolYear(l.grade), ...(m ? { target_class_num: Number(m[2]) } : {}),
       payload_json: { activity_type: 'external', subject_tag: l.subject, reward_points: 0, questions_json: [], background_images_json: [], external_links: [{ url: portalUrl, name: l.title }] },
     };
     $('#portal-json').textContent = JSON.stringify(S.assignment, null, 2);
@@ -155,7 +159,7 @@
     if (!onHub) { $('#portal-status').textContent = '시험용 포털은 classroom-hub.mjs로 열었을 때만 씁니다. 실제로는 런처의 자료 배포 화면에 링크를 붙이세요.'; return; }
     // 반 코드가 없으면 여러 반 결과가 같은 번호로 겹친다 — 게시 전에 막는다
     if (!/^\d-\d{1,2}$/.test($('#class').value.trim())) { $('#portal-status').textContent = "반 코드를 '학년-반'(예: 3-2) 모양으로 먼저 넣어 주세요."; $('#class').focus(); return; }
-    if (Number($('#class').value.trim().split('-')[0]) !== S.lesson.grade) { $('#portal-status').textContent = `이 차시는 ${S.lesson.grade}학년용인데 반 코드가 ${$('#class').value.trim()}입니다. 반 코드의 학년을 확인해 주세요.`; $('#class').focus(); return; }
+    if (Number($('#class').value.trim().split('-')[0]) !== PaperLessons.schoolYear(S.lesson.grade)) { $('#portal-status').textContent = `이 차시는 ${GL(S.lesson.grade)}용인데 반 코드가 ${$('#class').value.trim()}입니다. 반 코드의 학년을 확인해 주세요.`; $('#class').focus(); return; }
     const existing = await (await fetch('/api/portal/assignments')).json();
     if (existing.some((a) => a.title === S.assignment.title && a.target_class_num === S.assignment.target_class_num && a.target_grade === S.assignment.target_grade)) { $('#portal-status').textContent = '이미 이 반에 같은 과제를 게시했습니다.'; return; }
     const r = await fetch('/api/portal/assignments', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(S.assignment) });

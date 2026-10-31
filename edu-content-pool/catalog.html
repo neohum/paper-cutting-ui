@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>초등 수업 콘텐츠 풀</title>
-  <meta name="description" content="초1~초6 전 교과 학년·과목·단원·차시별 40분 수업 패키지, 활동지, 교육 사이트, 영상 카탈로그">
+  <title>수업 콘텐츠 풀</title>
+  <meta name="description" content="초1~초6 전 교과와 초1~고3 창체(안전·법정·계기·자율·자치) 학년·과목·단원·차시별 40분 수업 패키지, 활동지, 교육 사이트, 영상 카탈로그">
   <link rel="icon" href="../favicon.svg" type="image/svg+xml">
   <link rel="preload" href="catalog.css" as="style">
   <link rel="stylesheet" href="vendor/uicons/css/uicons-regular-rounded.css">
@@ -20,8 +20,8 @@
       <div class="top__brand">
         <img src="../logo.svg" alt="" width="40" height="40">
         <div>
-          <h1>초등 수업 콘텐츠 풀</h1>
-          <p class="muted">초1~초6 전 교과 · 40분 수업 패키지 · 활동지 · 교육 사이트 · 영상 — <span id="generated"></span> 생성</p>
+          <h1>수업 콘텐츠 풀</h1>
+          <p class="muted">초1~초6 전 교과 · 초1~고3 창체 · 40분 수업 패키지 · 활동지 · 교육 사이트 · 영상 — <span id="generated"></span> 생성</p>
         </div>
       </div>
       <div class="stats" id="stats" aria-label="카탈로그 현황"></div>
@@ -38,6 +38,7 @@
         <div class="legend">
           <p><span class="chip chip--mint">단원명 확인</span> 2022 개정 교과서 단원명과 대조함</p>
           <p><span class="chip chip--butter">추정 단원</span> 공통 단원 목록이 없는 과목(영어·음악·미술·체육·실과) — 성취기준 영역으로 묶음</p>
+          <p><span class="chip chip--lavender">창체</span> 교과 밖 안전교육·법정교육·계기교육·자율·자치 — 근거 법령·고시를 따름</p>
           <p>차시 내용은 학년군 성취기준에서 자동 배치한 초안입니다.</p>
         </div>
       </aside>
@@ -57,6 +58,7 @@
               <option value="all">전체 학기</option>
               <option value="1학기">1학기</option>
               <option value="2학기">2학기</option>
+              <option value="연중">연중(창체)</option>
             </select>
           </label>
         </div>
@@ -73,6 +75,7 @@
 
   <script src="korean-endings.js"></script>
   <script src="catalog-data.js"></script>
+  <script src="programs-data.js"></script>
   <script src="lessons/units/index.js"></script>
   <script src="catalog.js"></script>
 </body>
