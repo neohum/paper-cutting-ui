@@ -59,12 +59,12 @@ a { color: var(--pc-sky-dark); text-underline-offset: 2px; }
   box-shadow: var(--pc-shadow-bevel), 0 3px 0 var(--pc-kraft), 0 3.8px 0 rgba(var(--pc-shadow-tint), 0.24);
   transition: transform .14s var(--pc-ease-glide), box-shadow .14s ease;
 }
-.grade-tab:nth-child(1) { --tone: var(--pc-peach); --tone-layer: var(--pc-peach-layer); }
-.grade-tab:nth-child(2) { --tone: var(--pc-buttercup); --tone-layer: var(--pc-buttercup-layer); }
-.grade-tab:nth-child(3) { --tone: var(--pc-mint); --tone-layer: var(--pc-mint-layer); }
-.grade-tab:nth-child(4) { --tone: var(--pc-sky); --tone-layer: var(--pc-sky-layer); }
-.grade-tab:nth-child(5) { --tone: var(--pc-lavender); --tone-layer: var(--pc-lavender-layer); }
-.grade-tab:nth-child(6) { --tone: var(--pc-rose); --tone-layer: var(--pc-rose-layer); }
+.grade-tab:nth-child(6n+1) { --tone: var(--pc-peach); --tone-layer: var(--pc-peach-layer); }
+.grade-tab:nth-child(6n+2) { --tone: var(--pc-buttercup); --tone-layer: var(--pc-buttercup-layer); }
+.grade-tab:nth-child(6n+3) { --tone: var(--pc-mint); --tone-layer: var(--pc-mint-layer); }
+.grade-tab:nth-child(6n+4) { --tone: var(--pc-sky); --tone-layer: var(--pc-sky-layer); }
+.grade-tab:nth-child(6n+5) { --tone: var(--pc-lavender); --tone-layer: var(--pc-lavender-layer); }
+.grade-tab:nth-child(6n+6) { --tone: var(--pc-rose); --tone-layer: var(--pc-rose-layer); }
 /* 학년 색종이: 고른 학년은 그 학년 색지로 솟고, 안쪽에 박음선 */
 .grade-tab:hover { background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)); }
 .grade-tab[aria-pressed="true"] { background: var(--tone); border-color: var(--tone-layer); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 4px 0 var(--tone-layer), 0 5px 0 rgba(var(--pc-shadow-tint), 0.26), var(--pc-shadow-elevated); transform: translateY(-2px); outline: 1.2px dashed rgba(var(--pc-shadow-tint), 0.3); outline-offset: -5px; }
@@ -94,6 +94,7 @@ a { color: var(--pc-sky-dark); text-underline-offset: 2px; }
 .chip--mint { background: var(--pc-mint); color: var(--pc-mint-dark); box-shadow: var(--pc-shadow-bevel), 0 1.5px 0 var(--pc-mint-layer); }
 .chip--butter { background: var(--pc-buttercup); color: var(--pc-buttercup-dark); box-shadow: var(--pc-shadow-bevel), 0 1.5px 0 var(--pc-buttercup-layer); }
 .chip--sky { background: var(--pc-sky); color: var(--pc-sky-dark); box-shadow: var(--pc-shadow-bevel), 0 1.5px 0 var(--pc-sky-layer); }
+.chip--lavender { background: var(--pc-lavender); color: var(--pc-lavender-dark); box-shadow: var(--pc-shadow-bevel), 0 1.5px 0 var(--pc-lavender-layer); }
 
 .toolbar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 12px 16px; margin-bottom: 16px; }
 .toolbar__crumb { flex: 1; font-size: 20px; font-weight: 800; min-width: 160px; }
