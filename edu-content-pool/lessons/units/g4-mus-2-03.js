@@ -27,6 +27,8 @@
     base: { mode: 'rhythm', meter, measures, blocks: ['q', 'e', 'h', 'qr', 'dh'] },
     challenge: { mode: 'rhythm', meter, measures, blocks: ['q', 'e', 'h', 'qr', 'dh', 'er', 'hr'] },
   });
+  // 2분쉼표(hr)를 듣고 놓는 문항이 있는 활동: 쉬움·기본 고르개에도 hr 블록을 둔다
+  const rhyHr = (meter, measures) => { const v = rhy(meter, measures); v.easy.blocks = v.easy.blocks.concat('hr'); v.base.blocks = v.base.blocks.concat('hr'); return v; };
   const cardsLv = () => ({ easy: { live: true, instant: true }, base: {}, challenge: { shuffle: true } });
   const patLv = () => ({ easy: { perRow: 5 }, base: { perRow: 8 }, challenge: { perRow: 8, revealAfterCheck: true } });
   const plain = (title, unit) => { const o = Object.assign({ title }, unit ? { unit } : {}); return { easy: Object.assign({}, o), base: Object.assign({}, o), challenge: Object.assign({}, o) }; };
@@ -923,7 +925,7 @@
         ]),
       A(2, '되풀이 소리를 리듬 블록으로 나타내기', 'keyboard',
         `"되풀이되는 소리는 같은 길이의 블록이 이어져요. 한 번뿐인 소리는 쉼표와 함께 놓아요." 소리를 듣고 한 박마다 손뼉을 치게 한다. 쉼표를 빼고 블록을 놓는 학생에게 "소리가 쉬는 박도 세어 보아요"라고 말한다.`,
-        '리듬 듣기를 누르고 들은 소리를 블록으로 놓아요.', rhy(4, 2),
+        '리듬 듣기를 누르고 들은 소리를 블록으로 놓아요.', rhyHr(4, 2),
         [
           R('공이 일정하게 튀는 소리예요. 듣고 블록으로 놓아 보세요.', ['q', 'q', 'q', 'q', 'q', 'q', 'q', 'q'], { t: 108, x: { difficulty: 0.1 } }),
           R('줄넘기를 하는 소리예요. 빠르게 이어지다 한 박 쉬어요. 듣고 놓아 보세요.', ['e', 'e', 'e', 'e', 'q', 'qr', 'q', 'q'], { t: 96, x: { difficulty: 0.25 } }),
