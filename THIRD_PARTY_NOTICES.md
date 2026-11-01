@@ -37,6 +37,17 @@ SOFTWARE.
 ## 공용 학습자료 도구 (edu-content-pool/vendor)
 
 `edu-content-pool/vendor/<이름>@<버전>/` 에 실은 wokwi-elements(MIT, 번들 안 lit BSD-3), avr8js(MIT),
-hairline(MIT)은 각 폴더의 `LICENSE` 원문과
-`SOURCE.txt`(출처·버전·integrity)를 따른다. 용도·불러오는 법·표기 의무는
+hairline(MIT), pannellum(MIT), marzipano(Apache-2.0, 번들 안 bowser·gl-matrix·hammerjs MIT)은 각 폴더의
+`LICENSE` 원문과 `SOURCE.txt`(출처·버전·integrity)를 따른다. 용도·불러오는 법·표기 의무는
 `edu-content-pool/vendor/SHARED_TOOLS.md`.
+
+Apache-2.0 고지 (marzipano):
+
+```text
+Marzipano 0.10.2 — https://github.com/google/marzipano
+Copyright 2016 Google Inc. Licensed under the Apache License, Version 2.0
+(edu-content-pool/vendor/marzipano@0.10.2/LICENSE). 원본 패키지에 NOTICE 파일은 없다.
+수정하지 않고 dist/marzipano.js 를 그대로 싣는다.
+```
+
+예제의 360도 사진(`edu-content-pool/vendor/_samples/pano/`)은 Poly Haven 의 CC0 자료다. 출처는 같은 폴더의 `CREDITS.txt`.

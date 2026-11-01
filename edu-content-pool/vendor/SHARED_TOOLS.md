@@ -10,6 +10,8 @@
 | wokwi-elements | 1.9.2 | MIT (+ 번들 안 lit, BSD-3) | 레슨 + 시뮬레이터 — 보드·부품 그림 | `wokwi-elements@1.9.2/wokwi-elements.bundle.min.js` |
 | avr8js | 0.21.1 | MIT | 레슨 + 시뮬레이터 — 아두이노 우노 CPU | `avr8js@0.21.1/avr8js.iife.js` |
 | hairline | 0.5.1 | MIT | 선화 — 가벼운 등각 선화, 기존 SVG 를 선화로 바꾸기 | `hairline@0.5.1/hairline.iife.js` |
+| pannellum | 2.5.7 | MIT | 360도 사진 — 장소 몇 곳을 잇는 가벼운 둘러보기 | `pannellum@2.5.7/pannellum.js`, `pannellum@2.5.7/pannellum.css` |
+| marzipano | 0.10.2 | Apache-2.0 (+ 번들 안 bowser·gl-matrix·hammerjs, MIT) | 360도 사진 — 큰 타일 사진, 장소가 많은 둘러보기, 부드러운 장면 전환 | `marzipano@0.10.2/marzipano.js` |
 | pst-labo | 2.08 | LPPL | 시험용 삽화 — **참고 자료만**, 코드 없음 | (싣지 않음) |
 
 ## 불러오는 법
@@ -106,6 +108,92 @@ hex 를 `programs.js` 의 전역 `AVR_PROGRAMS` 로 싣는다. 실제 Arduino �
 - shadcn 레지스트리(외부 도메인)는 쓰지 않는다. React 래퍼(`react.js`)는 싣지 않았다.
 - 예제: `_samples/hairline.html` (체·돋보기·서랍).
 
+### 360도 사진 둘러보기 — pannellum 과 marzipano 중 고르기
+
+| 상황 | 고를 것 | 까닭 |
+| --- | --- | --- |
+| 사진 2~10장, 한 장에 2048×1024 쯤, 단추 몇 개 | **pannellum** | 56KB+CSS 10KB. 설정 한 덩어리(`scenes`)로 장소·단추·이동이 끝난다 |
+| 사진이 커서(4096 이상) 타일로 쪼개 싣는 것, 확대하면 더 고운 사진 | **marzipano** | 여러 해상도 타일(cube·equirect)을 화면에 보이는 부분만 읽는다 |
+| 장소가 많고 장면 전환을 꾸미고 싶다(서서히 바뀜, 사진 겹치기) | **marzipano** | `scene.switchTo({ transitionDuration })`, 레이어·효과 API 가 있다 |
+| 단추·안내를 우리 화면 요소로 자유롭게 그린다 | 둘 다 | pannellum 은 `createTooltipFunc`, marzipano 는 `createHotspot(요소)` |
+
+둘 다 WebGL 이 필요하다. 교실 기기의 WebGL 이 꺼져 있으면 사진이 나오지 않으니, 차시에 사진 없이도 읽을 수 있는
+설명(장소 이름·질문)을 화면 아래에 같이 둔다. 예제 둘은 같은 내용(`_samples/pano/tour.js`)을 두 도구로 보여 준다.
+
+#### file:// 에서 사진 싣기 (둘 다 해당)
+
+WebGL 은 그림을 텍스처로 쓰기 전에 출처를 따진다. `file://` 페이지는 origin 이 `null` 이라 로컬 그림 파일을 못 읽는다
+(pannellum 은 XHR 로 읽다 막히고, marzipano 는 `crossOrigin` 이미지라 막힌다 — 2026-11-01 헤드리스 Chrome 에서 둘 다 확인).
+그래서 사진을 **data URI 로 스크립트에 실어** 넘긴다: `_samples/pano/build-scenes.mjs` 가 `pano/*.jpg` 를 읽어
+`pano/scenes.js`(전역 `PANO_IMAGES`)를 만든다. 크기는 base64 라 **약 1.33배**다
+(예제: JPEG 3장 1,010,430 B → `scenes.js` 1,347,641 B). 사진 한 장은 2048×1024 · 400KB 이하로 줄여 싣는다
+(`sips -s format jpeg -s formatOptions 60 -z 1024 2048`). http 로 서빙하는 화면은 data URI 없이 jpg 주소를 그대로 쓴다.
+
+### pannellum — 가벼운 360도 둘러보기
+
+```html
+<link rel="stylesheet" href="vendor/pannellum@2.5.7/pannellum.css">
+<script src="vendor/pannellum@2.5.7/pannellum.js"></script>
+<script src="pano/scenes.js"></script>   <!-- file:// 이면 data URI 사진 -->
+<div id="view" style="height:420px"></div>
+<script>
+  const viewer = pannellum.viewer('view', {
+    default: { firstScene: 'hall', autoLoad: true, sceneFadeDuration: 600 },
+    showControls: false, compass: false,   // 기본 단추는 끄고 우리 fi-rr 단추를 둔다
+    escapeHTML: true,                      // 기본은 title·text 를 innerHTML 로 넣는다
+    strings: { loadingLabel: '불러오는 중…' /* 나머지 문구도 한국어로 */ },
+    scenes: {
+      hall: { type: 'equirectangular', panorama: PANO_IMAGES['hall'], title: '중앙 홀',
+        hotSpots: [{ yaw: 30, pitch: -10, cssClass: 'my-spot',
+          createTooltipFunc: (div) => div.append(myButton(() => viewer.loadScene('room'))) }] },
+      room: { /* … */ },
+    },
+  });
+  viewer.on('scenechange', (id) => { /* 안내 바꾸기 */ });
+</script>
+```
+
+- 각도는 도(degree). yaw 는 사진 가운데가 0·오른쪽이 +, pitch 는 **위가 +**.
+- 기본 단추·단추 그림은 pannellum CSS 의 SVG 스프라이트다. 우리 아이콘 규칙(`fi fi-rr-*`)에 맞추려면
+  `showControls: false` 로 끄고, 핫스팟은 `cssClass` + `createTooltipFunc` 로 우리 `<button>` 을 넣는다.
+  pannellum 은 핫스팟 칸을 스스로 가운데 맞추므로 단추에 `translate(-50%,-50%)` 를 겹쳐 주지 않는다.
+- 키보드: 사진에 초점이 있으면 화살표·+/− 가 된다. 핫스팟을 `<button>` 으로 넣으면 Tab 으로 닿는다.
+- 한계: 한 장을 통째로 텍스처로 올리므로 기기의 최대 텍스처 크기(흔히 4096~16384)를 넘는 사진은 못 쓴다.
+  아주 큰 사진은 `multires`(타일)가 있지만 타일을 만드는 도구가 Python·Docker 라 싣지 않았다 — 그 경우는 marzipano.
+- 예제: `_samples/pannellum.html`.
+
+### marzipano — 큰 타일 사진과 장면 전환
+
+```html
+<script src="vendor/marzipano@0.10.2/marzipano.js"></script>
+<script src="pano/scenes.js"></script>
+<div id="view" tabindex="0" style="height:420px"></div>
+<script>
+  const rad = (d) => d * Math.PI / 180;
+  const viewer = new Marzipano.Viewer(document.getElementById('view'), { controls: { mouseViewMode: 'drag' } });
+  const scene = viewer.createScene({
+    source: Marzipano.ImageUrlSource.fromString(PANO_IMAGES['hall']),
+    geometry: new Marzipano.EquirectGeometry([{ width: 2048 }]),
+    view: new Marzipano.RectilinearView({ yaw: 0, pitch: 0, fov: rad(100) },
+      Marzipano.RectilinearView.limit.traditional(2048, rad(110))),
+    pinFirstLevel: true,
+  });
+  const holder = document.createElement('div'); holder.append(myButton(() => other.switchTo({ transitionDuration: 700 })));
+  scene.hotspotContainer().createHotspot(holder, { yaw: rad(30), pitch: -rad(-10) });
+  scene.switchTo();
+</script>
+```
+
+- 각도는 라디안. **pitch 는 아래가 +** 다(소스 문서 주석과 반대 — 실제 렌더로 확인). 같은 자료를 pannellum 과 함께 쓰면 부호를 바꾼다.
+- `createHotspot` 은 넘긴 요소의 `style.display` 를 직접 `block`/`none` 으로 바꾼다. flex 로 꾸민 단추는 `<div>` 로 감싸서 넘긴다.
+- 키보드: 기본 키 조작은 등록만 되고 꺼져 있으며, 켜면 문서 전체에서 화살표를 가로챈다. 예제처럼 사진 요소에
+  `tabindex="0"` 을 주고 그 요소의 `keydown` 에서 `view.setYaw/setPitch/setFov` 를 부른다.
+- 큰 사진: `Marzipano.ImageUrlSource.fromString('tiles/{z}/{f}/{y}/{x}.jpg')` + `CubeGeometry([...levels])` 로
+  여러 해상도 타일을 읽는다. 타일은 제작 단계에서 만들어 둔다(이 저장소에는 타일 생성기를 싣지 않았다). `file://` 이면
+  타일도 data URI 로 실어야 해서 크기가 금방 커진다 — 큰 타일 둘러보기는 http(교실 허브·웹)로 서빙하는 화면에서 쓴다.
+- 한계: npm 마지막 발행이 2021-03(0.10.2)이다. 화면 단추·안내 UI 는 없고(엔진만 있음) 우리가 그린다.
+- 예제: `_samples/marzipano.html`.
+
 ## 참고 자료 (코드를 싣지 않음)
 
 ### pst-labo — 시험용 삽화의 실험 기구 모양·선 굵기 기준
@@ -163,13 +251,21 @@ hex 를 `programs.js` 의 전역 `AVR_PROGRAMS` 로 싣는다. 실제 Arduino �
   라이선스 주석이 남아 있다. 학습자료를 배포 묶음(zip·설치본·런처 동봉)으로 낼 때는 이 폴더째 넣는다.
 - lit(BSD-3-Clause, wokwi 번들 안): `wokwi-elements@1.9.2/LICENSE-lit` 를 함께 둔다. Google 이름을 홍보에 쓰지 않는다.
 - avr8js 의 assembler 는 Avrian-Jump(MIT) 고지가 `esm/utils/assembler.js` 머리에 있다.
+- pannellum(MIT): `pannellum@2.5.7/LICENSE`(원본 이름은 `COPYING`)를 함께 둔다.
+- marzipano(Apache-2.0): `marzipano@0.10.2/LICENSE` 를 함께 두고, `marzipano.js` 머리의 저작권 주석을 지우지 않는다.
+  원본에 NOTICE 파일이 없어 따로 옮길 NOTICE 는 없으며, 저장소 루트 `THIRD_PARTY_NOTICES.md` 에 고지 줄을 두었다.
+  파일을 고치면 고쳤다는 표시를 남겨야 한다(Apache-2.0 4(b)) — 지금은 원본 그대로다. 번들 안 bowser·gl-matrix·hammerjs(MIT)는
+  번들에 고지가 없으므로 `LICENSE-bowser`, `LICENSE-gl-matrix`, `LICENSE-hammerjs` 를 같은 폴더에 둔다.
+- 예제 360도 사진(`_samples/pano/*.jpg`, `scenes.js`)은 Poly Haven CC0 — 의무는 없지만 `_samples/pano/CREDITS.txt` 에 출처를 둔다.
 - pst-labo(LPPL): 코드를 싣지 않으므로 배포 의무는 없다. 참고했다는 사실과 링크를 이 문서에 남긴다.
 - Spetchbook(Polyform Noncommercial): 코드를 쓰지 않는다. 결과물만 쓴다.
 - 이름 규칙: 이 도구들을 감싸는 우리 코드의 함수·변수·CSS 클래스는 우리 도메인 말로 짓는다(예: `wokwi-led` 를 감싸면 `wokwi` 가 아니라 우리 부품 이름).
 
 ## 검증 (2026-11-01)
 
-세 예제를 헤드리스 Chrome(Playwright, WebGL 은 SwiftShader)으로 `file://` 에서 열어 확인했다.
+다섯 예제를 헤드리스 Chrome(Playwright, WebGL 은 SwiftShader)으로 `file://` 에서 열어 확인했다.
 콘솔 오류 0, 외부 네트워크 요청 0. 동작 확인:
 wokwi 버튼 누름→LED 켜짐·뗌→꺼짐, avr8js 깜빡임(150ms 간격 표본 `111000111000`)·버튼 프로그램 누름→켜짐,
-hairline 그림 3개 렌더·읽은 값 표시.
+hairline 그림 3개 렌더·읽은 값 표시,
+pannellum·marzipano 사진 렌더(화면 픽셀이 빈 화면이 아님)·사진 속 이동 단추로 장소 바뀜·설명 단추로 설명과 퀴즈 표시·
+장소 단추에 키보드 Enter·사진에 초점 두고 화살표로 돌기·390px 폭에서 가로 스크롤 없음·터치 탭으로 장소 바뀜·보이는 단추 모두 44px 이상.

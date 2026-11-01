@@ -1,0 +1,35 @@
+이름: marzipano 0.10.2
+라이선스: Apache-2.0 (LICENSE, Copyright 2016 Google Inc. — 파일 머리 주석). 원본 패키지에 NOTICE 파일이 없다
+  (package/, package/dist/ 와 번들된 의존성 tarball 모두 확인). 그래서 NOTICE 를 따로 만들지 않았다.
+  번들 안 의존성(dist/marzipano.js 에 browserify 로 함께 들어 있고, 번들에는 이들의 라이선스 고지가 없다):
+    bowser 1.9.4  MIT  © 2015 Dustin Diaz       → LICENSE-bowser   (bowser@1.9.4 tarball 의 LICENSE 원문)
+    gl-matrix 3.3.0  MIT  © 2015-2020 Brandon Jones, Colin MacKenzie IV → LICENSE-gl-matrix (gl-matrix@3.3.0 의 LICENSE.md 원문)
+    hammerjs 2.0.4  MIT  © 2011-2014 Jorik Tangelder (Eight Media) → LICENSE-hammerjs (hammerjs@2.0.4 의 LICENSE.md 원문)
+    minimal-event-emitter 1.0.0  Apache-2.0 (Google) → LICENSE 와 같은 원문(바이트 비교 일치), 따로 두지 않음
+출처: https://www.npmjs.com/package/marzipano  저장소 https://github.com/google/marzipano (태그 v0.10.2 = eb116412d1b7c6df08906e9affcc9d3d65b5906f, npm gitHead 와 같음)
+받은 방법: npm pack marzipano@0.10.2 --ignore-scripts (설치 스크립트 실행 없음, 압축만 풂)
+  의존성 라이선스 원문: npm pack bowser@1.9.4 gl-matrix@3.3.0 hammerjs@2.0.4 minimal-event-emitter@1.0.0 --ignore-scripts
+tarball integrity: sha512-YWgxpnZa8rlZWT4tkV9LF3abqwMeS3sphkbssWlM1EqZZ/XdlFJVL18iR4wI+uUnvVWjMmjAKDn/lPlOo19Tsg==
+tarball shasum(sha1): a1c51a24171909a2ed5dd4bdb8d994b958313f67
+npm 발행일: 2021-03-18
+받은 날짜: 2026-11-01
+
+실은 파일 (원본 그대로)
+  marzipano.js       216,139 B  sha256 58049d17366bddc556b2dccce2967df6bf1dda04ebb85c008489552924e97d41
+    = package/dist/marzipano.js. UMD 라 일반 <script> 로 읽으면 전역 'Marzipano'. 머리에 Apache-2.0 고지 주석이 있다.
+  LICENSE             11,358 B  sha256 cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  (= package/LICENSE = package/dist/LICENSE.txt)
+  LICENSE-bowser       1,797 B  sha256 dfde54fedc270c2a305d9a9f993d93f706d34624455a2fd2d2a05ca34d8ae8c3
+  LICENSE-gl-matrix    1,083 B  sha256 93a63c96e7b99cdfd3c3bcc3beb52df69ae619a33f28ac4203da5605752eb3ba
+  LICENSE-hammerjs     1,125 B  sha256 679141aef9a0a31c9c4ab31abdc036ca7f16be2185f1c9559dd11faaf43b746c
+  싣지 않은 것: src/(CommonJS 원본, 번들러용), demos/, test/, scripts/.
+
+검토 (2026-11-01)
+  - package.json scripts: preinstall/install/postinstall 없음. 'prepublishOnly' 는 발행할 때만 돈다.
+    런타임 의존성 4개는 dist 번들에 이미 들어 있어 따로 싣지 않는다.
+  - 네트워크: XMLHttpRequest / fetch / WebSocket / import(외부 URL) 없음. 그림은 ImageUrlSource 가 넘겨준 주소로
+    new Image()(crossOrigin="anonymous")를 만들어 읽는다. 문자열 URL 은 Apache 라이선스 주소뿐.
+  - eval / new Function / innerHTML / localStorage 없음. navigator 는 bowser 의 브라우저 판별(userAgent)뿐.
+  - 주의: pitch 는 아래가 + 다(Rectilinear.js 문서 주석과 반대; 2026-11-01 실제 렌더로 확인).
+    핫스팟 요소의 style.display 를 직접 'block'/'none' 으로 바꾸므로 flex 단추는 div 로 감싸서 넘긴다.
+  - file:// : crossOrigin 이미지라 로컬 그림 파일은 origin 'null' 에서 막힌다. data URI 는 된다(예제 확인).
+  - 0.10.2 이후 npm 발행이 없다(2021-03 이 마지막). 유지보수가 느린 점을 알고 쓴다.

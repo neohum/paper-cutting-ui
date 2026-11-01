@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>360도 도시 탐방 (pannellum)</title>
+<link rel="stylesheet" href="_sample.css">
+<link rel="stylesheet" href="../uicons/css/uicons-regular-rounded.css">
+<link rel="stylesheet" href="../pannellum@2.5.7/pannellum.css">
+<link rel="stylesheet" href="pano/tour.css">
+<script src="../pannellum@2.5.7/pannellum.js"></script>
+<script src="pano/scenes.js"></script>
+<script src="pano/tour.js"></script>
+<style>
+  /* pannellum 은 단추를 담은 칸을 스스로 가운데 맞춘다 */
+  .pnlm-hotspot-base.tour-spot .tour-marker { transform:none; }
+  .pnlm-container { font-family:inherit; background:#1e1d1b; }
+</style>
+</head>
+<body>
+<main>
+  <h1>360도 도시 탐방 (pannellum)</h1>
+  <p class="lead">세 장소를 돌아다니며 건물과 자연을 비교한다. 끌거나 화살표 키로 둘러보고, 사진 속 단추를 눌러 설명과 질문을 본다.</p>
+  <div id="view" class="tour-view" aria-label="360도 사진. 화살표 키로 둘러볼 수 있다." aria-describedby="tour-info"></div>
+  <div id="panel" class="tour-panel"></div>
+  <p class="note">사진: Poly Haven(CC0). 출처는 <code>pano/CREDITS.txt</code>. <code>file://</code> 에서도 열리도록 사진을 <code>pano/scenes.js</code> 에 data URI 로 실었다.</p>
+</main>
+<script>
+  const tour = window.PANO_TOUR;
+  let viewer;
+  const panel = createTourPanel(document.getElementById('panel'), {
+    go: (id) => viewer.loadScene(id),
+    turn: (deg) => viewer.setYaw(viewer.getYaw() + deg),
+    zoom: (dir) => viewer.setHfov(viewer.getHfov() + dir * 15),
+  });
+
+  // pannellum 의 기본 단추·나침반은 끄고(우리 아이콘 규칙), 단추는 createTooltipFunc 로 우리 것을 넣는다.
+  const marker = (kind, label, onActivate) => (div) => {
+    div.append(createTourMarker(kind, label, onActivate));
+  };
+  const scenes = {};
+  for (const [id, s] of Object.entries(tour.scenes)) {
+    scenes[id] = {
+      type: 'equirectangular',
+      panorama: window.PANO_IMAGES[id],
+      title: s.title,
+      yaw: s.yaw, pitch: s.pitch, hfov: 100,
+      hotSpots: [
+        ...s.links.map((l) => ({ pitch: l.pitch, yaw: l.yaw, cssClass: 'tour-spot',
+          createTooltipFunc: marker('link', l.label, () => viewer.loadScene(l.to)) })),
+        ...s.spots.map((sp) => ({ pitch: sp.pitch, yaw: sp.yaw, cssClass: 'tour-spot',
+          createTooltipFunc: marker('info', sp.title, () => panel.showSpot(sp)) })),
+      ],
+    };
+  }
+
+  viewer = pannellum.viewer('view', {
+    default: { firstScene: tour.first, sceneFadeDuration: 600, autoLoad: true },
+    scenes,
+    showControls: false,
+    showZoomCtrl: false,
+    showFullscreenCtrl: false,
+    compass: false,
+    keyboardZoom: true,
+    // 기본값은 title·text 를 innerHTML 로 그대로 넣는다. 사람이 쓴 글이 들어갈 수 있으면 켠다.
+    escapeHTML: true,
+    strings: {
+      loadButtonLabel: '사진<br>불러오기',
+      loadingLabel: '불러오는 중…',
+      bylineLabel: '%s',
+      noPanoramaError: '사진이 지정되지 않았다.',
+      fileAccessError: '사진 파일 %s 을(를) 열 수 없다.',
+      malformedURLError: '사진 주소가 올바르지 않다.',
+      iOS8WebGLError: '이 기기에서는 사진을 보여 줄 수 없다.',
+      genericWebGLError: '이 브라우저는 WebGL 을 쓸 수 없어 360도 사진을 보여 줄 수 없다.',
+      textureSizeError: '사진이 이 기기에서 보여 주기에 너무 크다(%s 픽셀, 최대 %s).',
+      unknownError: '알 수 없는 오류가 났다.',
+    },
+  });
+  viewer.on('scenechange', (id) => panel.showScene(id));
+  panel.showScene(tour.first);
+  // 검사용: 지금 장소
+  window.currentScene = () => viewer.getScene();
+</script>
+</body>
+</html>
