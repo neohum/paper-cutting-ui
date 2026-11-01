@@ -5,6 +5,12 @@
  *       only(핀을 줄 꼭짓점 이름들; 나머지 대응점은 미리 찍혀 나옴), showDistance(쉬움: 대칭축까지 칸 수), showLinks(대응점을 잇는 선),
  *       allowFold(접기 단추, 기본 참), revealAfterCheck(완성 모양을 확인 뒤에만 보임 — 접어 보기도 확인을 누른 뒤에 한 번씩만 열린다), ask({q, choices[], why?[]}: 고르기 칸), print
  * 상태: { pins: { ㄴ: [x,y]|null, … }, pick? } / target: { complete:true } | { pins:['ㄴ'] } (+ ask: 정답 번호)
+ *
+ * 조작: (1) 핀을 끌어 모눈 교점에 놓기. (2) 눌러 고르고 눌러 놓기 — 핀을 누르면(클릭·탭·Enter·Space) 골라지고(테두리 고리, aria-pressed=true)
+ *       모눈 교점마다 작은 점이 보인다. 이어서 놓을 교점을 누르면 그 자리로 가고, '핀 놓는 곳'을 누르면 돌아간다. 같은 핀을 다시 누르거나
+ *       Esc면 고르기를 취소한다. 교점 누름 영역은 가장 가까운 교점으로 붙는 한 칸(화면에서 C×배율)이라, 무대가 화면보다 커서(200% 확대)
+ *       끌 수 없을 때도 고른 뒤 스크롤해서 놓을 수 있다. (3) 키보드: 핀에서 방향키로 한 칸씩 옮기고 Enter·Space로 내려놓는다
+ *       (방향키로 옮기지 않은 채 Enter·Space를 누르면 고르기). 무대 위에 '핀을 누른 뒤 놓을 점을 눌러도 돼요' 안내(.mf-tip)가 늘 보인다.
  */
 (function (K) {
   'use strict';
@@ -53,6 +59,8 @@
 
       // 층 순서: 도형(아래) → 접히는 종이·핀(위). 도형·안내 층은 누르기를 받지 않아 그 위에 놓인 핀도 다시 집을 수 있다
       const figL = st.layer('figure'); figL.setAttribute('pointer-events', 'none');
+      // 눌러 놓기 자리(핀을 고른 동안만 누르기를 받는다) — 도형 위, 핀 아래
+      const tgtL = st.layer('targets'); tgtL.setAttribute('pointer-events', 'none');
       // 접히는 쪽 종이(핀이 놓이는 쪽) — 접을 때 이 묶음 전체가 대칭축을 따라 뒤집힌다
       const foldG = kit.el('g', null, st.layer('fold'));
       const ax = vAxis ? OX + A * C : OY + A * C;
@@ -96,7 +104,7 @@
       }
 
       // 미리 찍혀 나오는 대응점(only로 핀을 주지 않은 꼭짓점)
-      const givenL = kit.el('g', null, foldG);
+      const givenL = kit.el('g', { 'pointer-events': 'none' }, foldG);
       off.filter((v) => !movable.has(v.id)).forEach((v) => {
         const q = px(mirror(v.p));
         kit.el('circle', { cx: q.x, cy: q.y, r: 5, fill: print ? '#000' : '#702830' }, givenL);
@@ -122,37 +130,103 @@
         kit.piece(st, back, { shape: { type: 'rect', x: 10, y: trayY - 24, w: W - 20, h: 48, rx: 14 }, color: 'lavender', fill: kit.palette.lavender.light, depth: 1 });
         kit.el('text', { x: W - 18, y: trayY + 5, 'text-anchor': 'end', 'font-size': 12, class: 'pk-text', fill: '#473B6B' }, back).textContent = '핀 놓는 곳';
       }
+      const ringOf = {};
+      let sel = null;
+      const at = (x, y) => [Math.round((x - OX) / C), Math.round((y - OY) / C)];
+      const inGrid = ([c, r]) => c >= 0 && c <= COLS && r >= 0 && r <= ROWS;
+      const taken = (id, q) => pinIds.some((k) => k !== id && same(pins[k], q));
+      // 핀이 새 자리에 놓인 뒤(끌기·키보드·눌러 놓기 공통)
+      function dropped(id) {
+        checked = false; kit.tick('ok'); paint();
+        kit.recorder.log('mirrorfold', state());
+        kit.announce(pins[id] ? `점 ${josa(`${id}'`, '을', '를')} 놓았어요. 대칭축에서 ${Math.abs(dist(pins[id]))}칸${dist(pins[id]) === 0 ? ', 대칭축 위' : ''}이에요.` : `점 ${id}'을 핀 놓는 곳으로 돌려 놓았어요.`);
+      }
+      // 눌러 고르기: 고른 핀에 고리, 교점마다 작은 점, 놓기 자리가 누르기를 받는다
+      function select(id) {
+        sel = id && pinG[id] && !folded && !busy ? id : null;
+        pinIds.forEach((k) => {
+          if (!pinG[k]) return;
+          pinG[k].setAttribute('aria-pressed', String(k === sel));
+          pinG[k].classList.toggle('mf-picked', k === sel);
+          ringOf[k].setAttribute('display', k === sel ? 'inline' : 'none');
+        });
+        tgtL.setAttribute('pointer-events', sel ? 'auto' : 'none');
+        tgtL.setAttribute('display', sel ? 'inline' : 'none');
+        if (sel) { kit.tick(); kit.announce(`점 ${josa(`${sel}'`, '을', '를')} 골랐어요. 놓을 모눈 교점을 누르세요.`); }
+      }
+      const pinGen = {};
+      function placeSel(q) {
+        const id = sel; if (!id) return;
+        if (q && taken(id, q)) { kit.tick('no'); kit.announce('그 점에는 이미 다른 핀이 있어요'); return; }
+        select(null);
+        pins[id] = q;
+        const to = q ? px(q) : home(id); const from = Object.assign({ x: 0, y: 0 }, pinG[id].__pk);
+        pinG[id].parentNode.appendChild(pinG[id]);
+        // 움직이는 중에 setState 가 오면 그 위치가 이긴다 — 세대 번호가 바뀌면 남은 프레임을 버린다
+        const gen = (pinGen[id] = (pinGen[id] || 0) + 1);
+        kit.tween(RM ? 0 : 220, (p) => { if (pinGen[id] === gen) kit.transform(pinG[id], { x: from.x + (to.x - from.x) * p, y: from.y + (to.y - from.y) * p }); });
+        dropped(id);
+      }
+      if (!print && pinIds.length) {
+        // 놓을 자리: 모눈 둘레 반 칸까지 = 가장 가까운 교점(한 칸 크기), 아래 띠 = 핀 놓는 곳
+        tgtL.setAttribute('display', 'none');
+        for (let c = 0; c <= COLS; c++) for (let r = 0; r <= ROWS; r++) { const q = px([c, r]); kit.el('circle', { cx: q.x, cy: q.y, r: 4, fill: '#473B6B', opacity: 0.45, 'pointer-events': 'none', class: 'mf-dot' }, tgtL); }
+        const gridHit = kit.el('rect', { x: OX - C / 2, y: OY - C / 2, width: COLS * C + C, height: ROWS * C + C, class: 'pk-hit mf-target' }, tgtL);
+        gridHit.addEventListener('click', (e) => { const p = st.point(e, tgtL); const q = at(p.x, p.y); placeSel(inGrid(q) ? q : null); });
+        const trayHit = kit.el('rect', { x: 10, y: OY + trayRow * C - 24, width: W - 20, height: 48, class: 'pk-hit mf-target' }, tgtL);
+        trayHit.addEventListener('click', () => placeSel(null));
+        // 마우스·탭으로 고르면 초점이 핀에 오지 않으므로 Esc는 문서에서 받는다(교구가 화면에서 빠지면 스스로 떼어 낸다)
+        const onEsc = (e) => { if (!box.isConnected || !st.svg.isConnected) { document.removeEventListener('keydown', onEsc); return; } if (e.key === 'Escape' && sel) { e.preventDefault(); select(null); } };
+        document.addEventListener('keydown', onEsc);
+        const tip = document.createElement('p'); tip.className = 'mf-tip';
+        tip.style.cssText = 'margin:0 2px 4px;font-size:0.85em;font-weight:700;line-height:1.4;color:var(--pc-ink, #3D352E);word-break:keep-all';
+        tip.innerHTML = '<i class="fi fi-rr-info" aria-hidden="true"></i> 핀을 끌어 놓거나, 핀을 누른 뒤 놓을 점을 눌러도 돼요.';
+        box.insertBefore(tip, st.svg);
+      }
       pinIds.forEach((id) => {
         if (o.showLinks) linkEls[id] = kit.el('line', { stroke: '#204C5A', 'stroke-width': 1.6, 'stroke-dasharray': '2 4', display: 'none' }, links);
         if (o.showDistance) distTxt[id] = kit.el('text', { 'font-size': 13, class: 'pk-text', fill: '#275C46', 'text-anchor': 'middle', display: 'none', 'pointer-events': 'none' }, guideL);
         if (print) return;
-        const g = kit.el('g', { class: 'mf-pin', 'aria-label': `점 ${id}'` }, foldG);
+        const g = kit.el('g', { class: 'mf-pin', 'aria-label': `점 ${id}'`, 'aria-pressed': 'false' }, foldG);
         kit.el('circle', { r: 26, class: 'pk-hit' }, g);
+        ringOf[id] = kit.el('circle', { r: 18, fill: 'none', stroke: '#473B6B', 'stroke-width': 3.5, 'stroke-dasharray': '6 4', display: 'none', 'pointer-events': 'none', class: 'mf-ring' }, g);
         kit.piece(st, g, { shape: { type: 'circle', r: 11 }, color: 'mint', depth: 2 });
         kit.el('circle', { r: 3, fill: '#173A2C', 'pointer-events': 'none' }, g);
         kit.el('text', { x: 0, y: -16, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: '#173A2C' }, g).textContent = `${id}'`;
         pinG[id] = g; pins[id] = null;
         kit.transform(g, home(id));
-        let pointer = false;
-        g.addEventListener('pointerdown', () => { pointer = true; });
-        const at = (x, y) => [Math.round((x - OX) / C), Math.round((y - OY) / C)];
-        const inGrid = ([c, r]) => c >= 0 && c <= COLS && r >= 0 && r <= ROWS;
-        const taken = (q) => pinIds.some((k) => k !== id && same(pins[k], q));
+        let pointer = false; let p0 = null; let moved = false; let tapped = false; let kmoved = false;
+        g.addEventListener('pointerdown', () => { if (folded || busy) return; pointer = true; moved = false; p0 = Object.assign({ x: 0, y: 0 }, g.__pk); });
+        // kit.drag의 키보드보다 먼저 받는다: 방향키로 옮기지 않은 채 Enter·Space = 고르기/취소, Esc = 취소
+        g.addEventListener('keydown', (e) => {
+          if (folded || busy) return;
+          const k = e.key;
+          if (k === 'ArrowLeft' || k === 'ArrowRight' || k === 'ArrowUp' || k === 'ArrowDown') { kmoved = true; return; }
+          if ((k === 'Enter' || k === ' ') && !kmoved) { e.preventDefault(); e.stopImmediatePropagation(); select(sel === id ? null : id); return; }
+          if (k === 'Escape' && sel) { e.preventDefault(); e.stopImmediatePropagation(); select(null); }
+        });
         kit.drag(st, g, {
           keyStep: C,
           enabled: () => !folded && !busy,
           onStart() { kit.tick(); },
           // 키보드로 옮기는 중에도 놓인 자리를 바로 반영한다(Enter를 누르지 않은 학생도 같은 상태가 되게)
-          onMove(x, y) { if (pointer) return; const q = at(x, y); if (inGrid(q) && !taken(q)) { pins[id] = q; paint(); } },
-          snap(x, y) { const q = at(x, y); if (!inGrid(q)) return home(id); if (taken(q)) return null; return px(q); },
-          onDrop(x, y) {
-            pointer = false;
-            const q = at(x, y); pins[id] = inGrid(q) ? q : null;
-            checked = false; kit.tick('ok'); paint();
-            kit.recorder.log('mirrorfold', state());
-            kit.announce(pins[id] ? `점 ${josa(`${id}'`, '을', '를')} 놓았어요. 대칭축에서 ${Math.abs(dist(pins[id]))}칸${dist(pins[id]) === 0 ? ', 대칭축 위' : ''}이에요.` : `점 ${id}'을 핀 놓는 곳으로 돌려 놓았어요.`);
+          onMove(x, y) {
+            if (pointer) { if (p0 && Math.hypot(x - p0.x, y - p0.y) > 8) moved = true; return; }
+            const q = at(x, y); if (inGrid(q) && !taken(id, q)) { pins[id] = q; paint(); }
           },
-          onReject() { pointer = false; kit.tick('no'); kit.announce('그 점에는 이미 다른 핀이 있어요'); },
+          snap(x, y) {
+            // 움직이지 않고 뗀 누르기 = 고르기(제자리 그대로)
+            if (pointer && !moved) { tapped = true; return pins[id] ? px(pins[id]) : home(id); }
+            const q = at(x, y); if (!inGrid(q)) return home(id); if (taken(id, q)) return null; return px(q);
+          },
+          onDrop(x, y) {
+            pointer = false; kmoved = false;
+            if (tapped) { tapped = false; select(sel === id ? null : id); return; }
+            if (sel) select(null);
+            const q = at(x, y); pins[id] = inGrid(q) ? q : null;
+            dropped(id);
+          },
+          onReject() { pointer = false; kmoved = false; kit.tick('no'); kit.announce('그 점에는 이미 다른 핀이 있어요'); },
         });
       });
 
@@ -203,6 +277,7 @@
         if (busy || folded) return;
         if (foldTokens <= 0) { status('확인을 누른 뒤에 한 번 접어 볼 수 있어요'); kit.announce('확인을 누른 뒤에 한 번 접어 볼 수 있어요'); kit.tick('no'); return; }
         foldTokens--;
+        select(null);
         busy = true; folded = true; paint(); kit.tick();
         flap.setAttribute('opacity', 0.55);
         await kit.tween(RM ? 0 : 1100, (p) => setFold(Math.cos(Math.PI * p)), { ease: (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2) });
@@ -265,9 +340,11 @@
         pinIds.forEach((id) => {
           const q = s.pins && s.pins[id];
           pins[id] = q ? q.slice() : null;
+          pinGen[id] = (pinGen[id] || 0) + 1;
           if (pinG[id]) kit.transform(pinG[id], q ? px(q) : home(id));
         });
         if (askOpt && 'pick' in s) setPick(s.pick);
+        select(null);
         checked = false; status(''); paint();
       }
       setState({});

@@ -11,6 +11,7 @@
  * | (array) showCounts | 'n줄'·'m개씩' 글을 보인다 | lock이면 false, 아니면 true |
  * | (array) showTotal | '3 × 4 = 12' 식을 보인다(쉬움) — revealAfterCheck면 곱은 맞힌 뒤에만 | false |
  * | (array) bands | 줄마다 띠를 둘러 '몇 개씩 몇 묶음'으로 보이게 한다 | false |
+ * | (array) 배치(옵션 아님, 화면 폭에 따라 저절로) | 칸 한 칸이 화면에서 44px 이상이거나 마우스가 주 입력(pointer: fine, 크롬북 등)이면 칸을 눌러 배열을 정한다. 터치가 주 입력이고 칸이 44px 미만(휴대폰·태블릿)이면 칸은 '가로 n개, 세로 m줄' 보기 전용 그림이 되고, 판 아래에 '한 줄의 개수'·'줄 수' 번호 띠(44px 단추, 다섯 개씩 접어 줄 바꿈)가 나타나 눌러서 그 수로 맞춘다. −/+ 칸과 모서리 손잡이는 어느 폭에서나 그대로 | — |
  * | (group) count | 낱개 수(1~60) | 12 |
  * | (group) by | 'size' 몇 개씩 묶기(포함제) · 'plates' 접시 몇 개에 똑같이 나누기(등분제) | 'size' |
  * | (group) ask | 쓰는 칸: 'groups' 묶음 수 · 'size' 한 묶음의 수 · 'total' 전체 · 'none' | target.answer가 있으면 by에 맞게 |
@@ -60,6 +61,11 @@
 .mu-b .fi{display:inline-flex;line-height:1}
 .mu-step{display:inline-flex;align-items:center;gap:4px;padding:2px 4px;border-radius:14px;background:#F4F0FA}
 .mu-in{min-height:44px;width:4.6em;box-sizing:border-box;padding:6px 8px;border-radius:10px;border:2px solid #82C2A8;font:inherit;font-size:1.1em;font-weight:800;text-align:center;color:#275C46;background:#fff}
+.mu-ticks{display:grid;gap:4px;max-width:260px}
+.mu-ticks .mu-b{padding:6px 4px}
+.mu-ticks .mu-b[aria-pressed="true"]{background:#82C2A8;border-color:#275C46;color:#173A2B}
+.mu-strip{display:grid;gap:4px}
+.mu-strip > span{font-weight:700}
 .mu-pad{display:grid;grid-template-columns:repeat(6,minmax(44px,1fr));gap:6px;max-width:420px}
 @media print{.mu-panel{display:none}}
 `;
@@ -109,6 +115,7 @@
       let rows = 1; let cols = 1; let total = null;
       let dots = []; let rowTxt; let colTxt; let eqTxt; let corner; let bandEls = []; let totalIn = null; let rowsIn = null; let colsIn = null;
       const lock = !!o.lock;
+      let L = null; let arrCS = 0; const cellRects = []; let tapCells = true; let strips = null; const rowTicks = []; const colTicks = [];
       const showCounts = o.showCounts != null ? !!o.showCounts : !lock;
       // ================= group =================
       const count = Math.max(1, Math.min(60, intOr(o.count, 12)));
@@ -133,12 +140,14 @@
 
       if (mode === 'array') {
         const GX = 96; const GY = 64; const CS = Math.min(lock ? 56 : 34, Math.floor(Math.min((W - GX - 40) / maxC, (H - GY - 70) / maxR)));
-        const L = st.layer('grid');
-        // 바탕 칸(누르면 그 칸까지 배열이 된다)
+        L = st.layer('grid');
+        // 바탕 칸(누르면 그 칸까지 배열이 된다). 칸이 화면에서 44px 미만이면 보기 전용 그림으로 바꾸고 번호 띠로 고른다(fitArray)
         for (let r = 0; r < maxR; r++) for (let c = 0; c < maxC; c++) {
           const cell = kit.el('rect', { x: GX + c * CS + 2, y: GY + r * CS + 2, width: CS - 4, height: CS - 4, rx: 6, fill: o.print ? 'none' : '#F1E9DB', class: 'mu-cell' }, L);
-          if (controls && !lock) cell.addEventListener('click', () => setArray(r + 1, c + 1));
+          if (controls && !lock) cell.addEventListener('click', () => { if (tapCells) setArray(r + 1, c + 1); });
+          cellRects.push(cell);
         }
+        arrCS = CS;
         const bandL = st.layer('bands');
         for (let r = 0; r < maxR; r++) bandEls.push(kit.el('rect', { x: GX - 3, y: GY + r * CS, width: 1, height: CS, rx: CS / 2, fill: 'none', stroke: '#B8A6D9', 'stroke-width': 2.2, display: 'none' }, bandL));
         const DL = st.layer('dots');
@@ -178,10 +187,27 @@
           const live = o.showTotal && !o.print;
           eqTxt.textContent = live ? `${cols} × ${rows} = ${!o.revealAfterCheck || revealed ? cols * rows : '?'}` : '';
           if (rowsIn) rowsIn.value = rows; if (colsIn) colsIn.value = cols;
+          colTicks.forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === cols)));
+          rowTicks.forEach((b, i) => b.setAttribute('aria-pressed', String(i + 1 === rows)));
+          fitArray();
+          if (!tapCells) L.setAttribute('aria-label', `가로 ${cols}개, 세로 ${rows}줄 배열 그림`);
           if (totalIn) totalIn.value = total == null ? '' : total;
         };
         if (controls) {
           if (!lock) {
+            // 번호 띠: 좁은 화면에서만 보인다. 눌러서 그 개수·줄 수로 바로 맞춘다
+            strips = document.createElement('div'); strips.className = 'mu-panel'; strips.style.marginTop = '0'; strips.style.display = 'none'; // .mu-panel 의 display:grid 가 hidden 속성을 이긴다
+            const strip = (label, n, list, name, onPick) => {
+              const w = document.createElement('div'); w.className = 'mu-strip'; w.setAttribute('role', 'group'); w.setAttribute('aria-label', `${label} 번호 띠`);
+              const t = document.createElement('span'); t.textContent = label; w.appendChild(t);
+              const g = document.createElement('div'); g.className = 'mu-ticks'; g.style.gridTemplateColumns = `repeat(${Math.min(n, 5)}, minmax(44px, 1fr))`;
+              for (let i = 1; i <= n; i++) list.push(button(g, String(i), name(i), () => onPick(i)));
+              w.appendChild(g); strips.appendChild(w);
+            };
+            strip('한 줄의 개수', maxC, colTicks, (i) => `한 줄에 ${i}개`, (i) => setArray(rows, i));
+            strip('줄 수', maxR, rowTicks, (i) => `${i}줄`, (i) => setArray(i, cols));
+            panel.appendChild(strips);
+            if (typeof ResizeObserver === 'function') new ResizeObserver(() => fitArray()).observe(st.svg);
             const row = document.createElement('div'); row.className = 'mu-row';
             const l1 = document.createElement('span'); l1.textContent = '한 줄에'; row.appendChild(l1);
             colsIn = numBox(row, '한 줄의 개수', (v, typing) => { if (v == null) return; setArray(rows, v, typing); });
@@ -199,6 +225,20 @@
         const l = document.createElement('span'); l.textContent = o.totalLabel || '모두 몇 개인가요?'; row.appendChild(l);
         totalIn = numBox(row, '모두 몇 개', (v, typing) => { total = v; if (!typing && totalIn) totalIn.value = v == null ? '' : v; revealed = false; paint(); log(); });
         panel.appendChild(row);
+      }
+      // 칸 한 칸이 화면에서 44px 이상이거나 마우스가 주 입력이면 칸 누르기, 아니면(터치 + 작은 칸) 보기 전용 그림 + 번호 띠
+      function fitArray() {
+        if (!strips || !L) return;
+        const rc = st.svg.getBoundingClientRect();
+        if (!rc.width || !rc.height) return; // 아직 화면에 없으면 지금 배치를 둔다
+        const pitch = arrCS * Math.min(rc.width / W, rc.height / H);
+        // 마우스(정밀 포인터)가 주 입력이면 작은 칸도 누를 수 있으니 지금처럼 둔다 — 크롬북에선 칸이 30px 남짓이다
+        const fine = typeof matchMedia === 'function' && matchMedia('(pointer: fine)').matches;
+        const tap = fine || pitch >= 44;
+        if (tap === tapCells && (strips.style.display === 'none') === tap) return;
+        tapCells = tap; strips.style.display = tap ? 'none' : '';
+        cellRects.forEach((cell) => { cell.setAttribute('class', tap ? 'mu-cell' : 'mu-cell-view'); cell.style.pointerEvents = tap ? '' : 'none'; });
+        if (tap) { L.removeAttribute('role'); L.removeAttribute('aria-label'); } else { L.setAttribute('role', 'img'); L.setAttribute('aria-label', `가로 ${cols}개, 세로 ${rows}줄 배열 그림`); }
       }
       function setArray(r, c, quiet) {
         r = Math.max(1, Math.min(maxR, Math.round(Number(r)) || 1)); c = Math.max(1, Math.min(maxC, Math.round(Number(c)) || 1));
