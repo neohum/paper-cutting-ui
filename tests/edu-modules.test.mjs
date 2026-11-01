@@ -126,3 +126,10 @@ test('브라우저 조합기와 같은 파일: window 로 읽으면 PaperModules
   vm.runInNewContext(readFileSync(join(pool, 'modules/saf-life/e12.js'), 'utf8'), { PaperLessons: { registerModules: (x) => reg.list.push(...x) } });
   assert.equal(reg.list.length, planned(saf, '초1-2'));
 });
+
+test('모듈 분은 2~40(고 50분 차시의 긴 글쓰기·토론 활동까지) — 41분은 거절', () => {
+  const m = clone(get(`${T}.activity.touch-sort`));
+  m.minutes = 40; eq(PM.shapeErrors(m).filter((e) => /minutes/.test(e)), []);
+  m.minutes = 41; assert.ok(PM.shapeErrors(m).some((e) => /minutes/.test(e)));
+  m.minutes = 1; assert.ok(PM.shapeErrors(m).some((e) => /minutes/.test(e)));
+});

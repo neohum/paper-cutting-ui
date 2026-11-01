@@ -58,7 +58,7 @@
     if (!Array.isArray(m.grades) || !m.grades.length || !m.grades.every((g) => band && band.grades.includes(g))) E(`grades 는 학년군(${m.band}) 안의 학년 배열: ${JSON.stringify(m.grades)}`);
     if (!str(m.title) || m.title.length > 30) E('title(카드 제목) 은 30자 이하 글');
     if (!str(m.method)) E('method(학습 방식) 없음');
-    if (!Number.isInteger(m.minutes) || m.minutes < 2 || m.minutes > 30) E(`minutes 는 2~30 정수: ${m.minutes}`);
+    if (!Number.isInteger(m.minutes) || m.minutes < 2 || m.minutes > 40) E(`minutes 는 2~40 정수: ${m.minutes}`);
     if (!isObj(m.levels) || ['easy', 'base', 'challenge'].some((k) => !str(m.levels[k]))) E('levels 는 { easy, base, challenge } 한 줄씩(수준별로 무엇이 달라지는지)');
     if (m.type === 'intro') {
       const x = m.intro;
