@@ -256,3 +256,38 @@ test('check-reach clock: 단계 분 간격으로 닿지 않는 target 은 범위
   // 읽기(보기 고르기)는 바늘을 움직이지 않는다
   assert.deepEqual(reachProblems('clock', { readOnly: true, minuteStep: 30 }, { pick: 1, h: 8, m: 23 }), []);
 });
+
+// timer 구간 이름(labels): 없으면 예전 글 그대로, 있으면 단추·피드백·힌트가 그 이름을 쓴다(체육 밖 차시 — 게임·발표 시간)
+test('timer labels: 구간 이름 옵션과 교구 범위 규칙', () => {
+  const box = {}; vm.runInNewContext(src('timer'), { window: { PaperKit: { registerTool(name, def) { box[name] = def.core; } } } });
+  const C = box.timer;
+  const t = { plan: { work: 30, rest: 10, rounds: 4 } };
+  const swapped = { plan: { work: 10, rest: 30, rounds: 4 } };
+  // 기본(labels 없음): 예전 글과 글자 하나 다르지 않다
+  assert.equal(C.judge(swapped, t, {}).feedback, '운동 시간과 쉬는 시간이 바뀌었어요.');
+  assert.equal(C.judge(swapped, t, {}).hint, '먼저 운동, 그다음 쉬기예요. 두 수를 바꾸어 넣어요.');
+  assert.equal(C.hint({ plan: { work: 30, rest: 10, rounds: 3 } }, t, {}, { level: 1, attempts: 0 }).hint, '문제에서 운동하는 시간, 쉬는 시간, 되풀이하는 횟수를 하나씩 찾아 차례로 맞추어요.');
+  // labels 가 있으면 그 이름으로 말한다
+  const o = { labels: ['게임', '쉬기'] };
+  assert.equal(C.judge(swapped, t, o).feedback, '게임 시간과 쉬는 시간이 바뀌었어요.');
+  assert.match(C.judge({ plan: { work: 30, rest: 10, rounds: 3 } }, t, o).feedback, /^되풀이 횟수가/);
+  assert.match(C.judge({ plan: { work: 25, rest: 10, rounds: 4 } }, t, o).hint, /게임 시간을/);
+  assert.match(C.hint({ plan: { work: 30, rest: 10, rounds: 3 } }, t, o, { level: 1, attempts: 0 }).hint, /게임 시간, 쉬는 시간/);
+  assert.doesNotMatch(C.hint({ plan: { work: 30, rest: 10, rounds: 3 } }, t, o, { level: 1, attempts: 0 }).hint, /운동/);
+  assert.equal(C.hint(swapped, t, { labels: ['발표', '준비'] }, { level: 3, attempts: 2 }).hint, '발표 30초, 준비 10초로 넣어요.');
+  // 교구 범위: 두 글자열 · 5자까지
+  assert.deepEqual(reachProblems('timer', o, t), []);
+  assert.ok(reachProblems('timer', { labels: ['게임'] }, t).some((x) => /labels 는/.test(x)));
+  assert.ok(reachProblems('timer', { labels: ['게임', ''] }, t).some((x) => /labels 는/.test(x)));
+  assert.ok(reachProblems('timer', { labels: ['모둠 게임하기', '쉬기'] }, t).some((x) => /5자까지/.test(x)));
+  // 범위 밖 글도 그 이름을 쓴다
+  assert.ok(reachProblems('timer', { labels: ['게임', '쉬기'] }, { plan: { work: 33 } }).some((x) => /^게임 33초에/.test(x)));
+});
+
+// pattern 색: 엔진 팔레트 8색 + 빨강(red). 모르는 색 이름은 CSS 색 글자로 칠해지고 색 이름이 읽히지 않는다
+test('check-reach pattern: 규칙 판에 없는 색 이름은 범위 밖, red 는 된다', () => {
+  assert.deepEqual(reachProblems('pattern', { mode: 'odd', seq: ['circle:red', 'circle:rose', 'circle:red', 'circle:red'] }, { odd: 1 }), []);
+  assert.ok(reachProblems('pattern', { seq: ['circle:crimson', 'square:sky', null] }, { fill: ['circle:crimson'] }).some((x) => /‘crimson’/.test(x)));
+  assert.ok(reachProblems('pattern', { mode: 'make', palette: [{ s: 'star', c: 'gold' }, 'heart:rose'] }, { rule: 'repeat' }).some((x) => /‘gold’/.test(x)));
+  assert.deepEqual(reachProblems('pattern', { seq: [3, 6, null] }, { fill: [9] }), []);
+});

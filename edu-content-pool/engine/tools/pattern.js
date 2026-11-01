@@ -3,7 +3,8 @@
  *
  * 조각(piece) 쓰는 법: 수 3 → 수 조각 · 'circle:rose' → 모양:색 · 'star' → 모양(기본 색) · '가' → 글자 조각
  *   또는 { s: 모양, c: 색, n?: 수, t?: 글자, k?: 작은 모양 개수(늘어나는 무늬), r?: 돌린 각도 }
- *   모양: circle square triangle star heart diamond hexagon arrow · 색: mint peach lavender buttercup sky rose cream ink
+ *   모양: circle square triangle star heart diamond hexagon arrow · 색: mint peach lavender buttercup sky rose cream ink red
+ *   (red 빨강 — 금지·멈춤 표지처럼 분홍(rose)과 구별해야 할 때. 흑백 활동지에서는 바둑판 결)
  *
  * 옵션(toolOptions·levels)
  * | 키 | 뜻 | 기본 |
@@ -16,6 +17,7 @@
  * | start | make + 수: 첫 수 힌트(solve 기본 시작 수) | 1 |
  * | choices, question, why | rule: 보기 글 배열·질문 글·보기마다 틀렸을 때 할 말 | — |
  * | perRow | 한 줄에 놓을 조각 수 | 8 |
+ *   (빈칸·만들기 칸·틀린 조각의 누름 영역은 휴대폰에서도 48px 이상으로 넓어진다 — 판 모양·칸 수는 그대로, 이웃 칸과 겹친 곳은 가까운 칸으로)
  * | names | 빈칸 이름 | ['가','나','다',…] |
  * | revealAfterCheck | 틀린 확인에서 어느 칸이 틀렸는지 표시·말하지 않는다 | — |
  * | print | 활동지 그림(색은 무늬 결로 바꿔 흑백에서도 구별, 빈칸은 비움) | — |
@@ -39,10 +41,12 @@
 (function (K) {
   'use strict';
   const SHAPES = ['circle', 'square', 'triangle', 'star', 'heart', 'diamond', 'hexagon', 'arrow'];
-  const COLORS = { mint: '초록', peach: '주황', lavender: '보라', buttercup: '노랑', sky: '파랑', rose: '분홍', cream: '흰', ink: '검정' };
+  const COLORS = { mint: '초록', peach: '주황', lavender: '보라', buttercup: '노랑', sky: '파랑', rose: '분홍', cream: '흰', ink: '검정', red: '빨강' };
+  // 엔진 팔레트(kit.palette)에 없는 이 교구만의 색 — 금지·멈춤 표지의 빨강. 엔진 팔레트는 그대로 둔다(다른 교구·기존 단원 색이 바뀌지 않게)
+  const EXTRA = { red: { base: '#E5534B', layer: '#B83A33', light: '#FCE3E1', dark: '#7A1F1A' } };
   const SHAPE_KO = { circle: '동그라미', square: '네모', triangle: '세모', star: '별', heart: '하트', diamond: '마름모', hexagon: '육각형', arrow: '화살표' };
   // 흑백 활동지에서 색 대신 보일 결(무늬)
-  const TEX = { mint: 'dots', peach: 'diag', lavender: 'hline', sky: 'vline', rose: 'cross', ink: 'solid', buttercup: 'none', cream: 'none' };
+  const TEX = { mint: 'dots', peach: 'diag', lavender: 'hline', sky: 'vline', rose: 'cross', ink: 'solid', red: 'grid', buttercup: 'none', cream: 'none' };
   const hintLevel = (opts) => {
     const want = Math.max(1, Math.min(3, Math.floor((opts && opts.level) || 1)));
     const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
@@ -150,6 +154,9 @@
       kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 16 }, color: 'cream', fill: '#FBF6EC', depth: 2, texture: true });
       // 흑백 결 무늬(인쇄): 색 조각 위에 겹친다
       const texId = (c) => `${st.shadow.slice(5, -1).replace('-shadow', '')}-pt-${TEX[c] || 'none'}`;
+      const colorOf = (c) => EXTRA[c] || kit.colorOf(c);
+      // 종이 조각: 이 교구만의 색(EXTRA)은 윗면·아래층 색을 직접 칠한다(kit.piece 는 엔진 팔레트만 안다)
+      const paper = (g, opts) => { const x = EXTRA[opts.color]; const pc = kit.piece(st, g, x ? Object.assign({}, opts, { color: 'cream', fill: x.base }) : opts); if (x) pc.under.forEach((u) => u.setAttribute('fill', x.layer)); return pc; };
       if (o.print) {
         const d = st.defs;
         const mk = (name, body) => { const p = kit.el('pattern', { id: texId(Object.keys(TEX).find((k) => TEX[k] === name)), width: 6, height: 6, patternUnits: 'userSpaceOnUse' }, d); body(p); };
@@ -159,6 +166,7 @@
         mk('vline', (p) => kit.el('path', { d: 'M3 0 L3 6', stroke: '#000', 'stroke-width': 1 }, p));
         mk('cross', (p) => { kit.el('path', { d: 'M0 6 L6 0 M0 0 L6 6', stroke: '#000', 'stroke-width': 0.8 }, p); });
         mk('solid', (p) => kit.el('rect', { width: 6, height: 6, fill: '#555' }, p));
+        mk('grid', (p) => { kit.el('rect', { width: 3, height: 3, fill: '#000' }, p); kit.el('rect', { x: 3, y: 3, width: 3, height: 3, fill: '#000' }, p); });
       }
       const posOf = (i) => { const r = Math.floor(i / perRow); const c = i % perRow; const rowN = Math.min(perRow, slots - r * perRow); const ox = (W - (rowN * (TS + GAP) - GAP)) / 2; return [ox + c * (TS + GAP) + TS / 2, 26 + r * (TS + 26) + TS / 2]; };
 
@@ -170,12 +178,12 @@
             const mc = Math.ceil(Math.sqrt(q.k)); const sp = size / (mc + 0.4); const r = sp * 0.36;
             for (let j = 0; j < q.k; j++) {
               const x = (j % mc - (mc - 1) / 2) * sp; const y = (Math.floor(j / mc) - (Math.ceil(q.k / mc) - 1) / 2) * sp;
-              kit.piece(st, g, { shape: shapePath(q.s, r), color: q.c, depth: 1, x, y, r: q.r || 0 }).g.setAttribute('pointer-events', 'none');
+              paper(g, { shape: shapePath(q.s, r), color: q.c, depth: 1, x, y, r: q.r || 0 }).g.setAttribute('pointer-events', 'none');
               if (o.print && TEX[q.c] && TEX[q.c] !== 'none') { const t = kit.el('g', { 'pointer-events': 'none' }, g); kit.transform(t, { x, y, r: q.r || 0 }); shapeEl(shapePath(q.s, r), t, q.c); }
             }
           } else {
             const r = size * 0.33;
-            kit.piece(st, g, { shape: shapePath(q.s, r), color: q.c, depth: 1, r: q.r || 0 }).g.setAttribute('pointer-events', 'none');
+            paper(g, { shape: shapePath(q.s, r), color: q.c, depth: 1, r: q.r || 0 }).g.setAttribute('pointer-events', 'none');
             if (o.print && TEX[q.c] && TEX[q.c] !== 'none') { const t = kit.el('g', { 'pointer-events': 'none' }, g); kit.transform(t, { r: q.r || 0 }); shapeEl(shapePath(q.s, r), t, q.c); }
           }
           if (q.n != null) kit.el('text', { x: 0, y: size * 0.12, 'text-anchor': 'middle', 'font-size': 18, class: 'pk-text', fill: '#3D352E' }, g).textContent = String(q.n);
@@ -202,11 +210,11 @@
         const isBlank = mode === 'make' || (mode === 'fill' && seq[i] == null);
         const bg = kit.piece(st, g, { shape: { type: 'rect', w: TS, h: TS, rx: 12 }, color: isBlank ? 'cream' : 'cream', fill: isBlank ? '#FFFFFF' : '#FFFDF9', depth: isBlank ? 0 : 1 });
         if (isBlank) { bg.face.setAttribute('stroke', '#E69D7B'); bg.face.setAttribute('stroke-width', 2); bg.face.setAttribute('stroke-dasharray', '5 4'); }
-        kit.el('rect', { x: -TS / 2 - 2, y: -TS / 2 - 2, width: TS + 4, height: TS + 4, class: 'pk-hit' }, g);
+        const hit = kit.el('rect', { x: -TS / 2 - 2, y: -TS / 2 - 2, width: TS + 4, height: TS + 4, class: 'pk-hit' }, g);
         const inner = kit.el('g', { 'pointer-events': 'none' }, g);
         const tag = kit.el('text', { x: 0, y: TS / 2 + 21, 'text-anchor': 'middle', 'font-size': 14, class: 'pk-text', fill: '#702830' }, g);
         const ring = kit.el('rect', { x: -TS / 2 - 4, y: -TS / 2 - 4, width: TS + 8, height: TS + 8, rx: 14, fill: 'none', stroke: '#473B6B', 'stroke-width': 3, display: 'none', 'pointer-events': 'none' }, g);
-        const t = { g, inner, tag, ring, bg, isBlank, variants: [], num: null };
+        const t = { g, inner, tag, ring, bg, hit, isBlank, variants: [], num: null, x, y };
         tiles.push(t);
         if (!isBlank && seq[i]) drawPiece(inner, seq[i], TS);
         if (isBlank && !o.print) {
@@ -249,6 +257,26 @@
       function nextEmpty(from) { for (let k = 1; k <= editable(); k++) { const j = (from + k) % editable(); if (valueAt(j) == null) return j; } return from; }
       function selectSlot(j) { sel = j; paint(); }
 
+      // ---- 칸 누름 영역: 화면 축척에서 짧은 변 48px 이상 ----
+      // 휴대폰(390px)에서 판(640 단위)이 0.5배 안팎으로 줄면 칸(64+4 단위)이 36px 안팎이 되었다. perRow 를 바꿔도 칸 크기는 같아(칸은 64 상한) 고칠 수 없었다.
+      // 그래서 그림·칸 자리는 그대로 두고 누름 영역만 넓힌다. 넓힌 영역이 이웃 칸과 겹친 곳을 누르면 가까운 칸으로 간다(pressedTile).
+      // 누를 수 없는 칸(빈칸 채우기의 주어진 조각)은 누름을 통과시켜 옆 빈칸의 넓힌 영역이 받게 한다.
+      const pressable = (t) => controls && (mode === 'odd' || ((mode === 'fill' || mode === 'make') && t.isBlank));
+      const pxPerUnit = () => { const m = st.svg.getScreenCTM && st.svg.getScreenCTM(); if (m && m.a > 0) return m.a; const w = box.clientWidth; return w > 0 ? Math.min(1, w / W) : 1; };
+      function fitHits() {
+        if (!controls) return;
+        const s = Math.max(TS + 4, Math.ceil(48 / pxPerUnit()));
+        tiles.forEach((t) => { if (!pressable(t)) return; t.hit.setAttribute('x', String(-s / 2)); t.hit.setAttribute('y', String(-s / 2)); t.hit.setAttribute('width', String(s)); t.hit.setAttribute('height', String(s)); });
+      }
+      // 누른 자리에서 가장 가까운 누를 수 있는 칸(번호 i). 좌표가 없는 누르기(키보드·스크립트 click)는 그 칸 그대로
+      function pressedTile(e, i) {
+        if (!e || (!e.clientX && !e.clientY) || typeof st.point !== 'function') return i;
+        const p = st.point(e); let best = i; let bd = Infinity;
+        tiles.forEach((t, k) => { if (!pressable(t)) return; const d = Math.hypot(p.x - t.x, p.y - t.y); if (d < bd) { bd = d; best = k; } });
+        return best;
+      }
+      if (controls) tiles.forEach((t) => { if (!pressable(t)) t.g.setAttribute('pointer-events', 'none'); });
+
       // ---- 칸 조작(키보드·누르기) ----
       if (controls) tiles.forEach((t, i) => {
         if (mode === 'fill' || mode === 'make') {
@@ -256,7 +284,7 @@
           const j = mode === 'fill' ? blanksAt.indexOf(i) : i;
           t.g.setAttribute('tabindex', '0'); t.g.setAttribute('role', 'button');
           t.g.setAttribute('aria-label', mode === 'fill' ? `${names[j]} 빈칸` : `${j + 1}번째 칸`);
-          t.g.addEventListener('click', () => selectSlot(j));
+          t.g.addEventListener('click', (e) => { const k = pressedTile(e, i); selectSlot(mode === 'fill' ? blanksAt.indexOf(k) : k); });
           t.g.addEventListener('focus', () => { sel = j; paint(); });
           t.g.addEventListener('keydown', (e) => {
             if (numInput && /^[0-9]$/.test(e.key)) { e.preventDefault(); const cur = valueAt(j) == null ? '' : String(valueAt(j)); setSlot(j, Number((cur + e.key).slice(-4))); return; }
@@ -274,10 +302,10 @@
         } else if (mode === 'odd') {
           t.g.setAttribute('tabindex', '0'); t.g.setAttribute('role', 'radio'); t.g.setAttribute('aria-checked', 'false');
           t.g.setAttribute('aria-label', `${i + 1}번째 조각 ${say(seq[i])}`);
-          const choose = () => { pick = i; tiles.forEach((x, k) => x.g.setAttribute('aria-checked', String(k === i))); clearMarks(); paint(); log(); kit.announce(`${i + 1}번째 조각을 골랐어요`); };
-          t.g.addEventListener('click', choose);
+          const choose = (m) => { pick = m; tiles.forEach((x, k) => x.g.setAttribute('aria-checked', String(k === m))); clearMarks(); paint(); log(); kit.announce(`${m + 1}번째 조각을 골랐어요`); };
+          t.g.addEventListener('click', (e) => choose(pressedTile(e, i)));
           t.g.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(); return; }
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(i); return; }
             const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]; if (!d) return;
             e.preventDefault(); const k = (i + d + tiles.length) % tiles.length; tiles[k].g.focus(); pick = k; tiles.forEach((x, m) => x.g.setAttribute('aria-checked', String(m === k))); paint(); log();
           });
@@ -292,7 +320,7 @@
         if (!q.s) return `<span style="font-size:1.25em;font-weight:800">${String(q.t != null ? q.t : q.n).replace(/[<&]/g, '')}</span>`;
         const ns = 'http://www.w3.org/2000/svg';
         const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('viewBox', '-24 -24 48 48'); svg.setAttribute('aria-hidden', 'true');
-        const c = kit.colorOf(q.c);
+        const c = colorOf(q.c);
         const add = (sh, x, y, r) => {
           let e;
           if (sh.type === 'circle') { e = document.createElementNS(ns, 'circle'); e.setAttribute('r', sh.r); }
@@ -345,6 +373,8 @@
       }
       if (controls && mode === 'odd') { const q = document.createElement('p'); q.className = 'pt-q'; q.textContent = o.question || '규칙에 맞지 않는 조각을 눌러 고르세요.'; panel.appendChild(q); }
       if (panel && panel.childNodes.length) box.appendChild(panel);
+      // 무대 크기가 바뀌면(배치·회전·창 크기) 누름 영역을 다시 맞춘다
+      if (controls) { fitHits(); if (typeof ResizeObserver === 'function') new ResizeObserver(fitHits).observe(st.svg); }
 
       function clearMarks() { tiles.forEach((t) => t.g.classList.remove('pk-ok', 'pk-no')); }
       function state() {

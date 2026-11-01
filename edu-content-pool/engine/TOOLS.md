@@ -61,7 +61,7 @@
 
 ## pattern
 
-- 옵션: Pieces: a number, 'shape:color', 'shape', text, or {s,c,n,t,k,r}. Shapes: circle, square, triangle, star, heart, diamond, hexagon, arrow. Mode: mode: 'fill'|'rule'|'odd'|'make'. seq or items (null = blank). palette, input: 'number', start, perRow, length (make), names (blank names), choices (rule), question, why. Also revealAfterCheck and print (patterns are drawn with black-and-white textures).
+- 옵션: Pieces: a number, 'shape:color', 'shape', text, or {s,c,n,t,k,r}. Shapes: circle, square, triangle, star, heart, diamond, hexagon, arrow. Colours: mint, peach, lavender, buttercup, sky, rose, cream, ink, red (red = 빨강, 금지·멈춤 표지; rose 는 분홍). Mode: mode: 'fill'|'rule'|'odd'|'make'. seq or items (null = blank). palette, input: 'number', start, perRow, length (make), names (blank names), choices (rule), question, why. Also revealAfterCheck and print (patterns are drawn with black-and-white textures).
 - 상태: fill: {fill:[paletteIdx|number|null,...]}. make: {seq:[...]}. rule and odd: {pick}.
 - target: fill: {fill:[piece,...]}. rule: {pick}. odd: {odd}. make: {rule:'repeat', period?, minRepeats?, uses?}, {rule:'add', step?} or {rule:'core', core}.
 - 맞는 차시: Finding rules in shapes, colours and numbers (repeating, growing, multiplying); making your own pattern; spotting the piece that breaks the rule; skip-count sequences; rhythm and beat patterns in music; repeating motifs in art.
@@ -117,7 +117,7 @@
 
 ## timer
 
-- 옵션: plan:{work,rest,rounds} 처음 값, cards:[...](섞어서 적기), fields:['1회',{label,unit,step}], stopwatch, safety:[...], title, unit, showTotal, workStep, restStep, revealAfterCheck, print (옵션으로 준 칸만 보임, 신호음은 단추로 켤 때만)
+- 옵션: plan:{work,rest,rounds} 처음 값, labels:['게임','쉬기'](구간 두 칸 이름, 각 1~5자 — 없으면 '운동'·'쉬기'), cards:[...](섞어서 적기), fields:['1회',{label,unit,step}], stopwatch, safety:[...], title, unit, showTotal, workStep, restStep, revealAfterCheck, print (옵션으로 준 칸만 보임, 신호음은 단추로 켤 때만)
 - 상태: {plan:{work,rest,rounds}, order:[...], records:[수|null], safety:[bool], checks:[bool]}
 - target: plan:{work?,rest?,rounds?} | total:전체 초(운동×번+쉬기×(번−1)) | order:[바른 차례] | records:true|n|[수...] | safety:true | selfCheck:[...]. 섞어 쓰면 모두 맞아야 정답
 - 맞는 차시: 체육 운동·건강 차시: 구간 운동(인터벌) 계획, 준비·본·정리 운동 차례, 기록 재어 적기와 나의 변화 보기, 활동 전 안전 점검. 실과·창체의 활동 순서 정하기에도 쓸 수 있음

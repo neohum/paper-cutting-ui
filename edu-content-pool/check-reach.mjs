@@ -4,7 +4,7 @@
 // 왜 따로 있나: 브라우저 단계의 solve → check 는 solve 가 setState 로 상태를 직접 써서 화면 제약(입력 칸 자릿수·고르개 단추·
 // 건반 범위·눈금·−/+ 간격)을 지나치지 않는다. 그래서 '정답 상태는 있지만 학생은 거기에 갈 수 없는' 문항이 초록으로 통과했다
 // (학생 화면 점검 결함: multiply·pattern 자릿수, timer 범위·간격, keyboard 고르개·건반·마디, fracstrips 나눌 수 단추,
-//  hangul 바구니, map 범례 보기, collage 팔레트, numberline 출발점 눈금, clock 단계 분 간격).
+//  hangul 바구니, map 범례 보기, collage 팔레트, numberline 출발점 눈금, clock 단계 분 간격, pattern 조각 색, timer 구간 이름 labels).
 // 규칙은 교구 파일의 화면 코드가 정본이다 — 교구가 순수 함수(core)로 내놓은 것은 그것을 쓰고(keyboard cfg·timer TU·collage achievable),
 // 아니면 같은 식을 여기 적는다. 교구의 입력 제약을 바꾸면 여기도 같이 바꾼다.
 import { readFileSync } from 'node:fs';
@@ -131,6 +131,11 @@ const RULES = {
     const numOk = (n) => isInt(n) && n >= 0 && digitsOf(n) <= digits;
     const numWhy = (n) => (!isInt(n) || n < 0 ? `${n}은 수 칸에 쓸 수 없음(숫자만 — 음수·소수 불가)` : `${n}은 ${digitsOf(n)}자리인데 수 칸은 ${digits}자리까지(digits)`);
     const palKeys = new Set(palette.map(keyOf));
+    // pattern.js 색: 엔진 팔레트 8색 + 교구 색 red. 모르는 색 이름은 kit.colorOf 가 그 글자를 CSS 색으로 그대로 칠하고(아래층·흑백 결 없음) 학생 화면·읽기 글에 색 이름이 빠진다
+    const PT_COLORS = ['mint', 'peach', 'lavender', 'buttercup', 'sky', 'rose', 'cream', 'ink', 'red'];
+    const pieces = [...seq, ...palette, ...(Array.isArray(t.fill) ? t.fill.map(norm) : []), ...(Array.isArray(t.core) ? t.core.map(norm) : [])];
+    const badC = [...new Set(pieces.filter((q) => q && q.s && !PT_COLORS.includes(q.c)).map((q) => q.c))];
+    if (badC.length) out.push(`조각 색 ${badC.map((c) => `‘${c}’`).join(', ')}은 규칙 판 색이 아님(${PT_COLORS.join(' ')} — 빨강은 red)`);
     if (mode === 'fill') {
       const blanks = seq.filter((p) => p == null).length;
       const want = Array.isArray(t.fill) ? t.fill : [];
@@ -166,12 +171,19 @@ const RULES = {
   timer(o, t, s) {
     const out = []; t = t || {}; s = s || {};
     const C = cores.timer; const U = C.TU(o);
+    // timer.js labelsOf: 구간 이름 두 개(앞 = work, 뒤 = rest). 링 안 한 줄(‘<이름> · 10/10번’)에 들도록 1~5자
+    if (o.labels != null) {
+      const L = o.labels;
+      if (!Array.isArray(L) || L.length !== 2 || L.some((x) => typeof x !== 'string' || !x.trim())) out.push(`labels 는 [work 구간 이름, rest 구간 이름] 두 글자열이어야 함(받은 값 ${show(L)})`);
+      else for (const x of L) if (x.trim().length > 5) out.push(`labels ‘${x}’는 ${x.trim().length}자 — 구간 이름은 5자까지(타이머 링 안 한 줄)`);
+    }
+    const LB = C.labelsOf(o);
     if (t.plan || t.total != null) {
       // timer.js load(): plan = planOf(o, target) || PLAN0 위에 state.plan 을 덮는다
       const p0 = Object.assign({}, C.planOf(o, t) || { work: 30, rest: 10, rounds: 3 }, s.plan || {});
       const reach = {};
       for (const k of ['work', 'rest', 'rounds']) { const [lo, hi, d] = U.lim[k]; reach[k] = stepReach(p0[k], d, lo, hi); }
-      const NAME = { work: '운동', rest: '쉬기', rounds: '횟수' };
+      const NAME = { work: LB.w, rest: LB.r, rounds: '횟수' };
       const w = t.plan || {};
       for (const k of ['work', 'rest', 'rounds']) if (w[k] != null && !reach[k].has(w[k])) {
         const [lo, hi, d] = U.lim[k];
@@ -181,7 +193,7 @@ const RULES = {
         const pick = (k) => (w[k] != null ? [w[k]] : [...reach[k]]);
         let ok = false;
         for (const a of pick('work')) { for (const b of pick('rest')) { for (const n of pick('rounds')) if (C.totalOf({ work: a, rest: b, rounds: n }) === t.total) { ok = true; break; } if (ok) break; } if (ok) break; }
-        if (!ok) out.push(`전체 ${t.total}${U.u}을(를) 만드는 운동·쉬기·횟수 조합에 −/+로 닿을 수 없음`);
+        if (!ok) out.push(`전체 ${t.total}${U.u}을(를) 만드는 ${LB.w}·${LB.r}·횟수 조합에 −/+로 닿을 수 없음`);
       }
     }
     if (t.order) {

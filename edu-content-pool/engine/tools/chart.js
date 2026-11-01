@@ -230,7 +230,9 @@
             bars[i].__w = bw;
           } else {
             const pg = kit.el('g', null, g);
-            const hp = Math.max(22, Math.min(40, 24 / scr)); kit.el('rect', { x: -hp, y: -hp, width: 2 * hp, height: 2 * hp, class: 'pk-hit' }, pg);
+            // 점 누름 영역: 화면에서 48px 안팎(24/scr 단위 반폭). 예전 상한 40 단위는 휴대폰(scr 0.53)에서 42.5px 였다 —
+            // 상한을 항목 칸 반폭(slot/2)으로 바꿔 이웃 항목의 칸을 덮지 않는 데까지 넓힌다
+            const hp = Math.max(22, Math.min(Math.max(40, slot / 2), 24 / scr)); kit.el('rect', { x: -hp, y: -hp, width: 2 * hp, height: 2 * hp, class: 'pk-hit' }, pg);
             kit.piece(st, pg, { shape: { type: 'circle', r: 8 }, color: given.has(i) || mode === 'read' ? 'ink' : 'peach', depth: 1 });
             pts[i] = pg;
           }

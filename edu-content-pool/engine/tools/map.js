@@ -12,6 +12,7 @@
  * 'compass'               방위표를 돌려 지도 북쪽에 맞추고, 출발→도착 방위를 고른다 { rose: 0~315, dir: '북동'|null } { dir?:'북동', from?:'학교', to?:'병원', align?:true }
  *                                                                                                            (dir이 없으면 from·to 자리로 계산한다. align = 방위표 북쪽을 지도 북쪽에 맞춤)
  * 'legend'                범례 빈칸을 눌러 기호의 뜻을 고른다                     { legend: { 기호: 이름|null } } { legend: { school:'학교', … } }(없으면 meanings 전부)
+ *                         (휴대폰처럼 좁은 화면에서는 빈칸 줄 간격이 넓어져 누름 영역이 48px 이상 — 지도·기호·보기는 그대로)
  * 'scale'                 출발·도착 사이 길(칸)을 세고 축척으로 거리를 넣는다      { dist: 수 | null }          { from:'학교', to:'역' } | { dist: 1500 }
  * (활동지 print)           compass 방위표는 방위 글자 없이 빈 동그라미로 찍힌다(학생이 써 넣음)
  * (모든 모드)              ask 보기 고르기를 함께 쓸 수 있다                        + pick: 번호|null            + pick: 정답 번호 (ask만 묻는 문항은 { pick } 하나)
@@ -129,10 +130,14 @@
       // 좁은 화면(휴대폰)에서는 띠를 지도 아래로 내려 지도 칸을 크게 둔다(칸·핀이 44px 가까이 남게)
       const boxW = box.clientWidth || (box.getBoundingClientRect ? box.getBoundingClientRect().width : 0) || 0;
       const side = print || !(boxW && boxW < 520);
+      // 범례 빈칸 줄 간격(legend 모드): 넓은 화면 50 그대로. 좁은 화면(띠가 지도 아래)에서는 무대가 0.75배 안팎으로 줄어 빈칸(44 단위)이 33px 이었다 —
+      // 줄 간격을 늘려 빈칸 누름 영역이 화면에서 48px 이상 되게 한다(지도·기호·보기는 그대로). 폭은 띠 배치로 정해지므로 높이와 상관없이 미리 잰다
+      const narrowW = Math.max(MX + MW + 18, MX - 6 + Math.max(1, Math.floor((MW + 12 + GAP) / (PW + GAP))) * (PW + GAP));
+      const LROW = mode === 'legend' && !side && boxW > 0 ? Math.max(50, Math.ceil(48 / Math.min(1, boxW / narrowW)) + 6) : 50;
       const panelItems = [];
       if (mode === 'compass') panelItems.push(['rose', 150]);
       if (pinMode && !print) panelItems.push(['home', 74]);
-      if (showLegend) panelItems.push(['legend', 26 + Math.min(8, mode === 'legend' ? legendKeys.length : legendKeys.length) * (mode === 'legend' ? 50 : 34)]);
+      if (showLegend) panelItems.push(['legend', 26 + Math.min(8, legendKeys.length) * (mode === 'legend' ? LROW : 34)]);
       if (terrainLegend) panelItems.push(['terrain', 26 + (Math.max(...heights.flat().filter((v) => v >= 0), 0) + 1) * 26]);
       if (choropleth) panelItems.push(['choro', 26 + 4 * 26]);
       if (scale) panelItems.push(['scale', 58]);
@@ -277,14 +282,16 @@
       if (slot.legend) {
         const s = panelCard('legend', '범례'); const PX = s.x;
         legendKeys.forEach((k, i) => {
-          const rowY = s.y + 28 + i * (mode === 'legend' ? 50 : 34);
-          const ig = kit.el('g', null, panel); ICONS[k].draw(kit, st, ig); kit.transform(ig, { x: PX + 24, y: rowY + (mode === 'legend' ? 22 : 14), s: 0.72 });
+          const rowY = s.y + 28 + i * (mode === 'legend' ? LROW : 34);
+          // 빈칸 줄 가운데(줄 간격 50 이면 rowY + 22 — 예전 자리 그대로)
+          const mid = rowY + (mode === 'legend' ? LROW / 2 - 3 : 0);
+          const ig = kit.el('g', null, panel); ICONS[k].draw(kit, st, ig); kit.transform(ig, { x: PX + 24, y: mode === 'legend' ? mid : rowY + 14, s: 0.72 });
           if (mode !== 'legend') { kit.el('text', { x: PX + 46, y: rowY + 19, 'font-size': 14, class: 'pk-text', fill: ink }, panel).textContent = meanings[k] || ICONS[k].name; return; }
           const b = kit.el('g', { class: 'mp-blank', tabindex: print || readOnly ? null : 0, role: print ? null : 'button' }, panel);
-          kit.el('rect', { x: PX + 44, y: rowY, width: PW - 52, height: 44, class: 'pk-hit' }, b);
-          const face = kit.piece(st, b, { shape: { type: 'rect', x: PX + 46, y: rowY + 4, w: PW - 56, h: 36, rx: 9 }, color: 'buttercup', depth: 1, fill: '#FFFFFF' });
+          kit.el('rect', { x: PX + 44, y: mid - (LROW - 6) / 2, width: PW - 52, height: LROW - 6, class: 'pk-hit' }, b);
+          const face = kit.piece(st, b, { shape: { type: 'rect', x: PX + 46, y: mid - 18, w: PW - 56, h: 36, rx: 9 }, color: 'buttercup', depth: 1, fill: '#FFFFFF' });
           face.face.setAttribute('stroke', print ? '#000' : P.buttercup.layer); face.face.setAttribute('stroke-dasharray', '5 4');
-          const t = kit.el('text', { x: PX + 46 + (PW - 56) / 2, y: rowY + 27, 'text-anchor': 'middle', 'font-size': 14, class: 'pk-text', fill: ink }, b);
+          const t = kit.el('text', { x: PX + 46 + (PW - 56) / 2, y: mid + 5, 'text-anchor': 'middle', 'font-size': 14, class: 'pk-text', fill: ink }, b);
           legendSlots[k] = { g: b, t };
           if (!print && !readOnly) {
             const next = (d) => { cycleLegend(k, d); };
