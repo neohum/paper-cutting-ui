@@ -279,36 +279,55 @@ async function moveCard(ctx, M, c, toIdx, atNow) {
   touchCheck(ctx, destIdx == null ? '카드 칸' : `${destIdx + 1}번째 칸`, d.face || d.inner || d.g);
   const before = JSON.stringify((await ctx.state()).at || {});
   const tries = pointsOf(d).length;
+  const destName = destIdx == null ? '카드 칸' : `${destIdx + 1}번째 칸`;
+  // 끌기를 실제로(카드·칸이 한 화면에 함께 있을 때) 해 본 횟수. 다 실패하면 drag-failed 를 남기고 눌러 고르기로 끝까지 간다
+  let dragTried = 0;
+  const tapPath = async (k) => {
+    // 눌러 고르기: 위에서 쪽을 굴렸을 수 있으니 카드를 다시 화면에 들이고 그 자리에서 다시 잰 좌표를 누른다(낡은 좌표는 빗나간다)
+    await scrollTo(ctx, `${ctx.root} .cd-card`, cardIdx); await ctx.settle(80);
+    f = await find();
+    if (!f) { ctx.problem('driver-limit', `카드 ‘${c.name}’ 을(를) 스크롤 뒤 화면에서 찾지 못함`); return null; }
+    await pointerTap(ctx, f.hit.cx, f.hit.cy); await ctx.settle(120);
+    if (M.mode === 'pick') { await ctx.settle(); return moved(ctx, before); }
+    await scrollTo(ctx, sel, si); await ctx.settle(80);
+    d = await page.evaluate(destFinder, { idx: destIdx, root: ctx.root });
+    const to3 = pointsOf(d)[k];
+    await pointerTap(ctx, to3.x, to3.y);
+    await ctx.settle();
+    return moved(ctx, before);
+  };
+  const dragFailed = () => { if (dragTried) ctx.problem('drag-failed', `카드 ‘${c.name}’ 을(를) ${destName}(으)로 ${input === 'touch' ? '터치로' : '마우스로'} ${dragTried}번 끌었는데 상태가 바뀌지 않음(눌러 고르기로 대신 진행)`); };
+  let fellBack = style !== 'drag';
   for (let k = 0; k < tries; k++) {
-    // 끌어 놓기는 카드와 칸이 한 화면에 들어올 때만 — 아니면 누르고 → 스크롤 → 칸 누르기
     f = await find(); d = await page.evaluate(destFinder, { idx: destIdx, root: ctx.root });
     const to = pointsOf(d)[k]; const from = { x: f.hit.cx, y: f.hit.cy };
-    let mode = style;
-    if (mode === 'drag' && !(inView(from, vp) && inView(to, vp))) {
-      // 두 곳이 한 화면에 들어오도록 가운데로 한 번 더 맞춰 본다
-      const midY = (from.y + to.y) / 2; await page.evaluate((dy) => window.scrollBy(0, dy), midY - vp.h / 2); await ctx.settle(80);
-      f = await find(); d = await page.evaluate(destFinder, { idx: destIdx, root: ctx.root });
-      const to2 = pointsOf(d)[k]; const from2 = { x: f.hit.cx, y: f.hit.cy };
-      if (inView(from2, vp) && inView(to2, vp)) { await pointerDrag(ctx, from2, to2); await ctx.settle(); if (await moved(ctx, before)) return true; continue; }
-      mode = input === 'touch' ? 'tap' : 'click';
+    if (!fellBack) {
+      // 끌어 놓기는 카드와 칸이 한 화면에 들어올 때만 — 아니면 가운데로 한 번 더 맞춰 보고, 그래도 안 되면 눌러 고르기(설계된 경로)
+      let a = from; let b = to;
+      if (!(inView(a, vp) && inView(b, vp))) {
+        const midY = (from.y + to.y) / 2; await page.evaluate((dy) => window.scrollBy(0, dy), midY - vp.h / 2); await ctx.settle(80);
+        f = await find(); d = await page.evaluate(destFinder, { idx: destIdx, root: ctx.root });
+        a = { x: f.hit.cx, y: f.hit.cy }; b = pointsOf(d)[k];
+      }
+      if (inView(a, vp) && inView(b, vp)) {
+        dragTried++;
+        await pointerDrag(ctx, a, b); await ctx.settle();
+        if (await moved(ctx, before)) return true;
+        continue;
+      }
     }
-    if (mode === 'drag') { await pointerDrag(ctx, from, to); }
-    else {
-      // 눌러 고르기 대체 경로: 위에서 쪽을 굴렸을 수 있으니 카드를 다시 화면에 들이고 그 자리에서 다시 잰 좌표를 누른다(낡은 좌표는 빗나간다)
-      await scrollTo(ctx, `${ctx.root} .cd-card`, cardIdx); await ctx.settle(80);
-      f = await find();
-      if (!f) { ctx.problem('driver-limit', `카드 ‘${c.name}’ 을(를) 스크롤 뒤 화면에서 찾지 못함`); return false; }
-      await pointerTap(ctx, f.hit.cx, f.hit.cy); await ctx.settle(120);
-      if (M.mode === 'pick') { await ctx.settle(); if (await moved(ctx, before)) return true; continue; }
-      await scrollTo(ctx, sel, si); await ctx.settle(80);
-      d = await page.evaluate(destFinder, { idx: destIdx, root: ctx.root });
-      const to3 = pointsOf(d)[k];
-      await pointerTap(ctx, to3.x, to3.y);
-    }
-    await ctx.settle();
-    if (await moved(ctx, before)) return true;
+    const r = await tapPath(k);
+    if (r === null) return false;
+    if (r) { dragFailed(); return true; }
   }
-  ctx.problem('driver-limit', `카드 ‘${c.name}’ 을(를) ${destIdx == null ? '카드 칸' : `${destIdx + 1}번째 칸`}에 놓는 조작이 상태를 바꾸지 못함(${style})`);
+  if (dragTried) {
+    dragFailed();
+    if (!fellBack) {
+      fellBack = true;
+      for (let k = 0; k < tries; k++) { const r = await tapPath(k); if (r === null) return false; if (r) return true; }
+    }
+  }
+  ctx.problem('driver-limit', `카드 ‘${c.name}’ 을(를) ${destName}에 놓는 조작이 상태를 바꾸지 못함(${style}${dragTried ? '·끌기 뒤 눌러 고르기까지' : ''})`);
   return false;
 }
 async function moved(ctx, before) { return JSON.stringify((await ctx.state()).at || {}) !== before; }
@@ -622,12 +641,10 @@ async function driveSortboard(ctx) {
       const dest = await page.evaluate(([v, root]) => { const e = [...document.querySelectorAll(`${root} svg g`)].find((x) => x.getAttribute('aria-label') === `${v} 칸`); if (!e) return null; const r = e.getBoundingClientRect(); return { cx: r.x + r.width / 2, cy: r.y + r.height / 2, w: r.width, h: r.height }; }, [needVal(c), ctx.root]);
       if (!dest) { ctx.problem('unreachable', `‘${needVal(c)}’ 칸이 화면에 없음`); return false; }
       touchCheck(ctx, `‘${needVal(c)}’ 칸`, dest);
-      const style = input === 'touch' ? (persona.touchStyle || 'drag') : 'drag';
-      void style;
       await pointerDrag(ctx, { x: f.cx, y: f.cy }, { x: dest.cx, y: dest.cy - dest.h * 0.1 });
       await ctx.settle(500);
     }
-    if (JSON.stringify((await ctx.state()).placed) === before) { ctx.problem(input === 'keyboard' ? 'no-keyboard-path' : 'driver-limit', `단추 ‘${label}’ 을(를) ‘${needVal(c)}’ 칸에 놓는 조작이 상태를 바꾸지 못함`); return false; }
+    if (JSON.stringify((await ctx.state()).placed) === before) { ctx.problem(input === 'keyboard' ? 'no-keyboard-path' : 'drag-failed', `단추 ‘${label}’ 을(를) ‘${needVal(c)}’ 칸에 놓는 조작이 상태를 바꾸지 못함${input === 'keyboard' ? '' : '(끌어 놓기, 대체 경로 없음)'}`); return false; }
   }
   const sFin = await ctx.state();
   const placedOk = ids.every((id) => (sFin.placed || {})[id] === needVal(id));

@@ -59,7 +59,13 @@ export async function drive({ page, root: rootSel, target, options, readState, p
       if (ctx.input === 'mouse') {
         const from = before == null ? await scr(X0 + 10 + i * 46, 40) : await scr(xOf(before), LY - 30);
         const to = await scr(xOf(ticks[i]), LY - 30);
+        const rawBefore = JSON.stringify((await readState()).points[i] ?? null);
         await dragXY(ctx, from, to);
+        // 점과 놓을 눈금이 한 화면에 있는데 끌어도 점이 그대로면 끌기 결함 후보 — 한 칸 단추로 대신 맞추되 남긴다
+        await sleep(150);
+        const vp = await page.evaluate(() => ({ w: innerWidth, h: innerHeight }));
+        const inV = (p) => p && p.x >= 0 && p.y >= 4 && p.x <= vp.w && p.y <= vp.h - 4;
+        if (inV(from) && inV(to) && JSON.stringify((await readState()).points[i] ?? null) === rawBefore) ctx.problem('drag-failed', `${names[i]} 점을 ${before == null ? '받침' : `눈금 ${before}`}에서 ${want[i]} 자리로 끌었는데 점이 움직이지 않음(한 칸 단추로 대신 맞춤)`);
       } else if (ctx.input === 'touch') {
         // 수직선을 누르는 띠는 고정값으로 셈하지 않고 실제 요소(수직선 폭만큼 넓은 .pk-hit)를 잰다
         const band = await svg.first().evaluate((el, minW) => {

@@ -68,9 +68,17 @@ async function movePin(A, page, id, q, readState) {
   const cur = await pk();
   const [from, to] = await fitView(page, async () => [await svgToScreen(page, cur.x, cur.y), await svgToScreen(page, OX + q[0] * C, OY + q[1] * C)]);
   const inView = (p) => p && p.y >= 4 && p.y <= p.vh - 4 && p.x >= 0 && p.x <= p.vw;
-  if (inView(from) && inView(to)) { await A.drag(from, to, `핀 ${id}' 끌기`); if (await placed()) return true; }
+  if (inView(from) && inView(to)) {
+    const pinAt = async () => JSON.stringify(((await readState()).pins || {})[id] ?? null);
+    const before = await pinAt();
+    await A.drag(from, to, `핀 ${id}' 끌기`);
+    if (await placed()) return true;
+    // 두 점이 한 화면에 있는데 끌어도 핀이 그대로면 끌기 결함 후보다 — 눌러 고르기로 끝까지 가되 감추지 않는다
+    if ((await pinAt()) === before) A.problem('drag-failed', `핀 ${id}' 을(를) 교점 (${q}) 로 끌었는데 핀이 움직이지 않음(눌러 고르기로 대신 진행)`);
+  }
   // 2) 눌러 고르고 눌러 놓기 — 핀을 누르면 골라지고(aria-pressed=true), 스크롤해서 놓을 교점을 누른다. 좌표는 스크롤 뒤에 다시 잰다
-  if (!(await A.tap(pin, `핀 ${id}'`, { hit: pin.locator('.pk-hit').first() }))) return false;
+  // 끌기가 움직임 없이 끝나면 교구가 그것을 '누르기'로 받아 핀이 이미 골라져 있을 수 있다 — 그때 다시 누르면 고르기가 풀린다
+  if ((await pin.getAttribute('aria-pressed')) !== 'true' && !(await A.tap(pin, `핀 ${id}'`, { hit: pin.locator('.pk-hit').first() }))) return false;
   if ((await pin.getAttribute('aria-pressed')) !== 'true') { A.problem('ui-error', `핀 ${id}' 을(를) 눌러도 골라지지 않음(끌기를 못 하는 화면에서 놓을 길이 없음)`); return false; }
   const [dst] = await fitView(page, async () => [await svgToScreen(page, OX + q[0] * C, OY + q[1] * C)]);
   A.count();

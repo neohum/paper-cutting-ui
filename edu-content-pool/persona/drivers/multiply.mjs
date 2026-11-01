@@ -63,7 +63,14 @@ export async function drive({ page, root: rootSel, target, options, readState, p
           await pressN(ctx, dc >= 0 ? 'ArrowRight' : 'ArrowLeft', Math.abs(dc));
         } else if (ctx.input === 'mouse') {
           const from = await svgToScreen(page, svg, GX + cur.cols * CS, GY + cur.rows * CS);
-          await dragXY(ctx, from, await svgToScreen(page, svg, GX + c * CS, GY + r * CS));
+          const to = await svgToScreen(page, svg, GX + c * CS, GY + r * CS);
+          await dragXY(ctx, from, to);
+          // 모서리와 놓을 자리가 한 화면에 있는데 끌어도 배열이 그대로면 끌기 결함 후보 — 칸 입력으로 대신 맞추되 남긴다
+          const vp = await page.evaluate(() => ({ w: innerWidth, h: innerHeight }));
+          const inV = (p) => p && p.x >= 0 && p.y >= 4 && p.x <= vp.w && p.y <= vp.h - 4;
+          await sleep(150);
+          const after = await readState();
+          if (inV(from) && inV(to) && after.rows === cur.rows && after.cols === cur.cols) ctx.problem('drag-failed', `배열 모서리를 ${cur.cols}개씩 ${cur.rows}줄 자리에서 ${c}개씩 ${r}줄 자리로 끌었는데 배열이 바뀌지 않음(줄 수·개수 칸으로 대신 맞춤)`);
         } else {
           // 터치: 칸이 작으면 교구가 칸을 보기 전용으로 바꾸고 '한 줄의 개수'·'줄 수' 번호 단추를 내준다 — 그 단추를 눌러 맞춘다.
           // 번호 단추가 없을 때만 칸(누를 수 있는 rect.mu-cell)을 누르고, 그때 칸 크기를 잰다.

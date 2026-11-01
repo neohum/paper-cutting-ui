@@ -26,6 +26,9 @@ const lessonsArg = arg('--lessons', null);
 const personaArg = arg('--persona', null);
 const shardArg = arg('--shard', null);
 const ITEM_MS = 60_000;
+const FETCH_MS = 10_000;
+const CLOSE_MS = 10_000;
+const MAX_BROWSER_RESTARTS = 3;
 const LESSON_MS = 6 * 60_000;
 
 function usage(msg) {
@@ -43,7 +46,8 @@ const PERSONAS = {
   S1: { role: 'student', label: '크롬북·마우스·보통', input: 'mouse', viewport: { width: 1366, height: 768 } },
   S2: { role: 'student', label: '크롬북·키보드만', input: 'keyboard', viewport: { width: 1366, height: 768 } },
   S3: { role: 'student', label: '휴대폰 터치', input: 'touch', viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, deviceScaleFactor: 3 },
-  S4: { role: 'student', label: '태블릿 터치', input: 'touch', viewport: { width: 1024, height: 768 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2 },
+  // S4 는 카드 계열 교구에서 터치로 끌어 놓기(touchStyle: 'drag')를 실제로 해 본다 — S3 휴대폰은 눌러 고르기(tap)라 두 경로를 함께 덮는다
+  S4: { role: 'student', label: '태블릿 터치(끌어 놓기)', input: 'touch', viewport: { width: 1024, height: 768 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2, touchStyle: 'drag' },
   S5: { role: 'student', label: '서두르는 학생', input: 'mouse', viewport: { width: 1366, height: 768 }, rush: true },
   S6: { role: 'student', label: '힘든 학생(쉬움+힌트)', input: 'mouse', viewport: { width: 1366, height: 768 }, level: 'easy', hints: 3, hintFirst: true, tries: 3, mood: 'hard' },
   S7: { role: 'student', label: '잘하는 학생(도전)', input: 'mouse', viewport: { width: 1366, height: 768 }, level: 'challenge' },
@@ -57,7 +61,7 @@ const touchy = (p) => p.input === 'touch';
 
 // ---- 차시 목록: 허브가 서빙하는 units-index·단원 파일(없으면 이 작업 공간의 사본) ----
 async function getText(rel) {
-  try { const r = await fetch(`${hub}/edu-content-pool/${rel}`); if (r.ok) return await r.text(); } catch (_) { /* 사본으로 */ }
+  try { const r = await fetch(`${hub}/edu-content-pool/${rel}`, { signal: AbortSignal.timeout(FETCH_MS) }); if (r.ok) return await r.text(); } catch (_) { /* 사본으로 */ }
   const p = join(pool, rel); return existsSync(p) ? readFileSync(p, 'utf8') : null;
 }
 async function loadUnit(id) {
@@ -201,7 +205,8 @@ async function runTask(browser, task) {
     }
   } finally {
     out.ms = Date.now() - t0;
-    await ctx.close().catch(() => {});
+    // 렌더러가 멈추면 close 가 끝나지 않을 수 있다 — 10초 뒤에는 기다리지 않고 다음 작업으로 간다
+    await withTimeout(ctx.close(), CLOSE_MS, '창 닫기 10초 넘김').catch((e) => { if (isTimeout(e)) flow('창 닫기 10초 넘김 → 기다리지 않고 다음'); });
   }
   return out;
 }
@@ -290,12 +295,12 @@ async function callDriver(page, P, persona, info, root, flow) {
   // 조작기 예외는 조작기 결함이다 — 차시 흐름은 이어 간다
   try { res = await d.mod.drive({
     page, target: info.target, options: info.options, prompt: info.prompt, toolId: info.tool, root,
-    persona: { id: persona, input: P.input, label: P.label },
+    persona: { id: persona, input: P.input, label: P.label, ...(P.touchStyle ? { touchStyle: P.touchStyle } : {}) },
     readState: () => page.evaluate((r) => { const S = window.__pl; const t = r === '#tool' ? S.tool : S.exitTools[Number(r.replace(/\D/g, ''))]; return t.getState(); }, root),
     log: (m) => { if (logs++ < 12) flow(`[${info.tool}] ${String(m).slice(0, 160)}`); },
   }); } catch (e) { return { reached: false, actions: null, problems: [{ kind: 'driver-limit', msg: `조작기 예외: ${String(e.message).split('\n')[0].slice(0, 200)}` }], file: d.file }; }
   const problems = Array.isArray(res?.problems) ? res.problems.filter((p) => p && p.kind) : [];
-  return { reached: res ? Boolean(res.reached) : false, actions: res?.actions ?? null, problems, file: d.file };
+  return { reached: res ? Boolean(res.reached) : false, actions: res?.actions ?? null, problems, file: d.file, approx: res?.approx || null };
 }
 
 // 확인을 누르고 화면 피드백을 읽는다
@@ -434,12 +439,16 @@ async function walkItem(page, P, task, info, r, press, flow, lessonProblem) {
     await askHint();
   }
   if (hints.length) r.hints = hints;
+  // 조작기가 꼭 같은 자리가 없어 가장 가까운 자리로 옮겼는데(approx) 확인이 오답이면 그 문항의 목표값이 이 판으로는 닿을 수 없는 값이다
+  if (driven?.approx && r.checked === false) r.problems.push({ kind: 'unreachable', msg: `가장 가까운 자리도 오답 — 문항 목표값 확인 필요(${approxMsg(driven.approx)})` });
   if (driven?.missing) {
     for (const p of driven.problems) r.problems.push(p);
     flow(`${info.key} ${driven.problems[0].msg}`);
   }
   await moveOn(page, P, info, r, from, press, flow, Boolean(driven?.missing));
 }
+
+const approxMsg = (a) => Object.entries(a).map(([k, v]) => `${k}=${v}`).join(', ');
 
 async function afterCorrect(page, from, r, press, flow) {
   if (await page.locator('#next-item').first().waitFor({ state: 'visible', timeout: 1500 }).then(() => true, () => false)) await press('#next-item', '다음 문제 단추');
@@ -494,7 +503,7 @@ async function walkExit(page, task, P, out, press, flow, lessonProblem, setCur) 
         await withTimeout((async () => {
           const d = await callDriver(page, P, task.persona, { ...q, key: rec.key }, root, flow);
           for (const p of d.problems) rec.problems.push(p);
-          if (d.missing) { if (!(await fumble(page, P, root))) rec.problems.push({ kind: 'driver-limit', msg: '출구 교구를 움직이지 못함' }); flow(`${rec.key} ${d.problems[0].msg}`); } else { rec.reached = d.reached; rec.actions = d.actions; flow(`${rec.key} 조작(${d.actions ?? '?'}회, reached=${d.reached})`); }
+          if (d.missing) { if (!(await fumble(page, P, root))) rec.problems.push({ kind: 'driver-limit', msg: '출구 교구를 움직이지 못함' }); flow(`${rec.key} ${d.problems[0].msg}`); } else { rec.reached = d.reached; rec.actions = d.actions; if (d.approx) rec.approx = d.approx; flow(`${rec.key} 조작(${d.actions ?? '?'}회, reached=${d.reached})`); }
         })(), ITEM_MS, rec.key);
       } catch (e) { if (isTimeout(e)) { const err = new Error(rec.key); err.itemTimeout = true; throw err; } throw e; }
     } else {
@@ -526,6 +535,7 @@ async function walkExit(page, task, P, out, press, flow, lessonProblem, setCur) 
     const i = Number(rec.key.split('.')[1]) - 1;
     const rv = await page.evaluate((x) => { const e = document.querySelector(`#review-${x} p`); return e ? { ok: e.classList.contains('pl-ok'), t: e.innerText.trim() } : null; }, i);
     if (rv) { rec.checked = rv.ok; rec.feedback = rv.t.slice(0, 200); }
+    if (rec.approx && rv && !rv.ok) rec.problems.push({ kind: 'unreachable', msg: `가장 가까운 자리도 오답 — 문항 목표값 확인 필요(${approxMsg(rec.approx)})` });
   }
   out.stage = 'done'; flow(`제출 → ${head}`);
   if (P.offline) {
@@ -541,7 +551,7 @@ async function walkExit(page, task, P, out, press, flow, lessonProblem, setCur) 
 }
 
 async function countResults(lesson, cls) {
-  try { const r = await fetch(`${hub}/api/results?lesson=${encodeURIComponent(lesson)}&class=${encodeURIComponent(cls)}`); if (!r.ok) return null; const j = await r.json(); return Array.isArray(j) ? j.length : null; } catch (_) { return null; }
+  try { const r = await fetch(`${hub}/api/results?lesson=${encodeURIComponent(lesson)}&class=${encodeURIComponent(cls)}`, { signal: AbortSignal.timeout(FETCH_MS) }); if (!r.ok) return null; const j = await r.json(); return Array.isArray(j) ? j.length : null; } catch (_) { return null; }
 }
 
 // ---- T2: 학생이 낸 뒤 교사 결과 화면에 보이는가 ----
@@ -618,20 +628,38 @@ async function main() {
   let shardTag = '';
   if (shardArg) {
     const m = /^(\d+)\/(\d+)$/.exec(shardArg); if (!m) usage('walk: --shard 는 i/n');
-    const n = Number(m[2]); let i = Number(m[1]); if (i >= 1) i -= 1; if (!(n >= 1 && i < n)) usage('walk: --shard 범위');
-    tasks = tasks.filter((_, k) => k % n === i); shardTag = `-${i + 1}-${n}`;
+    // 1-기반: 1/n … n/n 만 받는다(0/n 은 1/n 과 같은 조각을 두 번 돌게 하므로 거부)
+    const n = Number(m[2]); const i1 = Number(m[1]); if (!(n >= 1 && i1 >= 1 && i1 <= n)) usage('walk: --shard 는 1/n … n/n (1부터)');
+    tasks = tasks.filter((_, k) => k % n === i1 - 1); shardTag = `-${i1}-${n}`;
   }
   const outPath = arg('--out', null) || join(here, 'out', `walk-${new Date().toISOString().replace(/[-:]/g, '').replace(/\..*/, '').replace('T', '-')}${shardTag}.jsonl`);
   mkdirSync(dirname(outPath), { recursive: true });
-  try { const r = await fetch(`${hub}/edu-content-pool/lessons/player.html`); if (!r.ok) throw new Error(`HTTP ${r.status}`); } catch (e) { console.error(`walk: 허브(${hub})에 닿지 못함: ${e.message}`); process.exit(1); }
+  try { const r = await fetch(`${hub}/edu-content-pool/lessons/player.html`, { signal: AbortSignal.timeout(FETCH_MS) }); if (!r.ok) throw new Error(`HTTP ${r.status}`); } catch (e) { console.error(`walk: 허브(${hub})에 닿지 못함: ${e.message}`); process.exit(1); }
   await loadDrivers();
   const chrome = findChrome();
-  const browser = await chromium.launch({ executablePath: chrome, headless: true });
+  const launch = () => chromium.launch({ executablePath: chrome, headless: true });
+  let browser = await launch();
+  let restarts = 0;
   const lessonsSeen = new Set();
   const sum = { tasks: 0, items: 0, drivenItems: 0, reached: 0, checkedItems: 0, checkedOk: 0, kinds: {}, errors: 0, runnerErrors: 0, done: 0 };
   try {
     for (const task of tasks) {
+      if (!browser.isConnected()) {
+        // 앞 작업 뒤에 끊겼는데 아래 재시작 한도에 걸린 경우 — 남은 작업은 실행기 오류로 적고 끝낸다
+        const line = { lesson: task.lesson, persona: task.persona, stage: 'none', items: [], flow: [], errors: [], problems: [], runnerError: `크롬이 끊겼고 다시 띄우기 한도(${MAX_BROWSER_RESTARTS}번)를 넘음` };
+        appendFileSync(outPath, `${JSON.stringify(line)}\n`); sum.tasks++; sum.runnerErrors++; lessonsSeen.add(task.lesson);
+        continue;
+      }
       const line = await runTask(browser, task).catch((e) => ({ lesson: task.lesson, persona: task.persona, stage: 'none', items: [], flow: [], errors: [], problems: [], runnerError: String(e.message) }));
+      if (!browser.isConnected()) {
+        // 이 작업 중에 크롬이 죽었다 — 그 작업은 실행기 오류로 적고, 크롬을 다시 띄워 다음 작업을 이어 간다
+        line.runnerError = `크롬이 작업 중 끊김${line.runnerError ? ` | ${line.runnerError}` : ''}`;
+        await browser.close().catch(() => {});
+        if (restarts < MAX_BROWSER_RESTARTS) {
+          restarts++;
+          try { browser = await launch(); console.error(`walk: 크롬 다시 띄움(${restarts}/${MAX_BROWSER_RESTARTS})`); } catch (e) { console.error(`walk: 크롬 다시 띄우기 실패: ${e.message}`); }
+        }
+      }
       appendFileSync(outPath, `${JSON.stringify(line)}\n`);
       lessonsSeen.add(task.lesson); sum.tasks++;
       if (line.stage === 'done') sum.done++;

@@ -17,6 +17,7 @@ export async function drive({ page, target, options, readState, log, persona, ro
   const root = rootSel || '#tool';
   const mode = ['orbit', 'moon', 'shadow', 'planets'].includes(o.mode) ? o.mode : 'spin';
   let reached = true;
+  let approx = null; // 그림자 길이 목표에 꼭 같은 자리가 없어 가장 가까운 자리로 옮겼을 때 { key, want, gap } — 실행기가 확인 결과와 함께 판정한다
 
   if (mode === 'spin' && (t.hour != null || t.time || t.phase)) {
     let want = t.hour;
@@ -78,8 +79,8 @@ export async function drive({ page, target, options, readState, log, persona, ro
     else if (t.longest) want = minAlt;
     else if (t.shadow != null) { let bd = Infinity; for (let a = minAlt; a <= maxAlt; a += altStep) { const d = Math.abs(shadowOf(a) - t.shadow); if (d < bd) { bd = d; want = a; } } gap = bd; }
     // 그림자 길이 목표는 정확히 같은 자리가 없을 수 있다 — 교구는 가장 가까운 태양 자리를 정답으로 받으므로(check) 학생처럼 가장 가까운 자리로 옮기고,
-    // 맞는지는 실행기가 누르는 확인(교구 check 결과)으로 판정한다. 정확히 일치하지 않는다는 것만으로 unreachable 을 내지 않는다.
-    if (gap != null && gap >= 0.06) ctx.note(`그림자 ${t.shadow} 와 꼭 같은 자리는 없어 가장 가까운 ${key}=${want}(차이 ${Math.round(gap * 100) / 100})로 옮김`);
+    // 결과에 approx 를 남긴다. 실행기는 그 문항의 확인이 오답이면 unreachable(가장 가까운 자리도 오답 = 목표값 확인 필요)로 센다.
+    if (gap != null && gap >= 0.06) { approx = { key, want, gap: Math.round(gap * 100) / 100, shadow: t.shadow }; ctx.note(`그림자 ${t.shadow} 와 꼭 같은 자리는 없어 가장 가까운 ${key}=${want}(차이 ${approx.gap})로 옮김`); }
     if (want == null) { ctx.problem('unreachable', '이 판의 태양 자리로는 목표 값을 만들 수 없음'); reached = false; }
     else {
       const sun = page.locator(`${root} .ea-sun`);
@@ -98,7 +99,9 @@ export async function drive({ page, target, options, readState, log, persona, ro
         // 눈에 보이는 막대 밑동을 기준으로, 태양을 목표 높이(각도) 쪽으로 끈다
         const stickBox = await page.locator(`${root} svg rect[width="10"][height="90"].pk-face`).first().boundingBox();
         const sunBox = await ctx.box(sun);
+        const lo = hrs ? hrs.rise : minAlt; const hi = hrs ? hrs.set : maxAlt;
         if (!stickBox || !sunBox) { ctx.problem('driver-limit', '막대·태양 위치를 찾지 못함'); reached = false; }
+        else if (want < lo || want > hi) { ctx.problem('unreachable', `목표 ${key}=${want} 이(가) 태양이 움직이는 범위 ${lo}~${hi} 밖`); reached = false; }
         else {
           ctx.sizeCheck(sunBox, '태양');
           const B = { x: stickBox.x + stickBox.width / 2, y: stickBox.y + stickBox.height };
@@ -144,5 +147,7 @@ export async function drive({ page, target, options, readState, log, persona, ro
 
   if (t.pick != null) reached = (await answerAsk(ctx, `${root} [data-pick], ${root} .ea-ask [role="radio"]`, t)) && reached;
 
-  return ctx.result(reached);
+  const res = ctx.result(reached);
+  if (approx) res.approx = approx;
+  return res;
 }

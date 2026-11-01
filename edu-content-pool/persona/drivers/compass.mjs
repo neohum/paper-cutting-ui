@@ -75,7 +75,12 @@ async function draw(A, page, o, t, readState) {
       const tc = mid(await tip.locator('.pk-hit').first().boundingBox());
       if (A.input === 'touch') { const hs = await hitSize(tip.locator('.pk-hit').first()); if (hs && hs.min < 43.5) A.problem('touch-target-small', `연필 다리 잡는 곳 ${Math.round(hs.min)}px`); }
       const perCm = (tc.x - O.x) / w;
-      await A.drag(tc, { x: O.x + perCm * r, y: tc.y }, '연필 끝 끌기', { steps: 10 });
+      const dst = { x: O.x + perCm * r, y: tc.y };
+      await A.drag(tc, dst, '연필 끝 끌기', { steps: 10 });
+      // 연필 다리와 놓을 자리가 한 화면에 있는데 끌어도 벌어진 폭이 그대로면 끌기 결함 후보 — 0.5cm 단추로 대신 맞추되 남긴다
+      const vp = await page.evaluate(() => ({ w: innerWidth, h: innerHeight }));
+      const inV = (p) => p && p.x >= 0 && p.y >= 4 && p.x <= vp.w && p.y <= vp.h - 4;
+      if (inV(tc) && inV(dst) && (await readW()) === w) A.problem('drag-failed', `컴퍼스 연필 다리를 ${w}cm 에서 ${r}cm 자리로 끌었는데 폭이 바뀌지 않음(0.5cm 단추로 대신 맞춤)`);
       for (let k = 0; k < 24; k++) {
         w = await readW(); if (w === r) break;
         const lab = w < r ? '컴퍼스를 0.5cm 벌리기' : '컴퍼스를 0.5cm 좁히기';
