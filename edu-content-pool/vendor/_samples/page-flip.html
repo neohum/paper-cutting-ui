@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTML 책 넘김</title>
+<link rel="stylesheet" href="_sample.css">
+<link rel="stylesheet" href="../page-flip@2.0.7/stPageFlip.css">
+<script src="../page-flip@2.0.7/page-flip.browser.js"></script>
+<style>
+  #book { margin:0 auto; }
+  .page { background:#fffdf8; border:1px solid var(--line); padding:28px; overflow:hidden; }
+  .page h2 { margin:0 0 12px; font-size:22px; }
+  .page.cover { background:#c4552d; color:#fff; }
+  .count { font-size:40px; font-weight:700; }
+</style>
+</head>
+<body>
+<main>
+  <h1>안의 HTML이 살아 있는 책 (StPageFlip)</h1>
+  <p class="lead">페이지는 진짜 HTML이라 단추·입력이 그대로 동작한다. 모서리를 끌거나 아래 단추로 넘긴다.</p>
+  <div class="stage">
+    <div id="book">
+      <div class="page cover" data-density="hard"><h2>관찰 일지</h2><p>3학년 과학</p></div>
+      <div class="page"><h2>1. 셈하기</h2><p>단추를 눌러 관찰한 개미 수를 센다.</p>
+        <div class="count" id="count">0</div>
+        <button class="act" id="plus" type="button">한 마리 더</button></div>
+      <div class="page"><h2>2. 적기</h2><p>본 것을 한 줄로 적는다.</p>
+        <input id="memo" type="text" placeholder="예: 줄지어 간다" style="font:inherit;width:100%;padding:8px"></div>
+      <div class="page"><h2>3. 정리</h2><p>센 수: <output id="sum">0</output>마리</p></div>
+      <div class="page"><h2>4. 다음 시간</h2><p>개미집 모형을 만든다.</p></div>
+      <div class="page cover" data-density="hard"><h2>끝</h2></div>
+    </div>
+    <div class="row" style="margin-top:12px;justify-content:center">
+      <button class="act" id="prev" type="button">이전 쪽</button>
+      <output id="where"></output>
+      <button class="act" id="next" type="button">다음 쪽</button>
+    </div>
+  </div>
+</main>
+<script>
+  const pf = new St.PageFlip(document.getElementById('book'), {
+    width: 340, height: 440, size: 'stretch', minWidth: 260, maxWidth: 420,
+    minHeight: 340, maxHeight: 560, showCover: true, mobileScrollSupport: false,
+  });
+  pf.loadFromHTML(document.querySelectorAll('#book .page'));
+  let n = 0;
+  document.getElementById('plus').addEventListener('click', () => {
+    n += 1; document.getElementById('count').textContent = n; document.getElementById('sum').textContent = n;
+  });
+  const where = document.getElementById('where');
+  const showWhere = () => { where.textContent = (pf.getCurrentPageIndex() + 1) + ' / ' + pf.getPageCount(); };
+  pf.on('flip', showWhere); showWhere();
+  document.getElementById('prev').onclick = () => pf.flipPrev();
+  document.getElementById('next').onclick = () => pf.flipNext();
+</script>
+</body>
+</html>

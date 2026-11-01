@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>보드 부품 그림</title>
+<link rel="stylesheet" href="_sample.css">
+<script src="../wokwi-elements@1.9.2/wokwi-elements.bundle.min.js"></script>
+</head>
+<body>
+<main>
+  <h1>아두이노 보드 · LED · 버튼 (wokwi-elements)</h1>
+  <p class="lead">부품은 그림일 뿐이고 회로 계산은 하지 않는다. 버튼을 누르는 동안 LED와 보드의 13번 LED가 켜지도록 화면 스크립트로 이었다.</p>
+  <div class="stage row">
+    <wokwi-arduino-uno id="uno"></wokwi-arduino-uno>
+    <div class="row" style="flex-direction:column">
+      <wokwi-led id="led" color="red" label="13번"></wokwi-led>
+      <wokwi-pushbutton id="btn" color="green" label="2번"></wokwi-pushbutton>
+      <div>상태: <output id="state">꺼짐</output></div>
+    </div>
+  </div>
+  <p class="note">CPU를 실제로 돌리는 예제는 avr8js.html 에 있다.</p>
+</main>
+<script>
+  const led = document.getElementById('led');
+  const uno = document.getElementById('uno');
+  const state = document.getElementById('state');
+  const btn = document.getElementById('btn');
+  function set(on) { led.value = on; uno.led13 = on; state.textContent = on ? '켜짐' : '꺼짐'; }
+  btn.addEventListener('button-press', () => set(true));
+  btn.addEventListener('button-release', () => set(false));
+  uno.ledPower = true;
+</script>
+</body>
+</html>
