@@ -254,7 +254,9 @@
       for (let y = 0; y < c.rows; y++) for (let x = 0; x < c.cols; x++) {
         const g = kit.el('g', { class: 'bc-cell' }, GL);
         kit.el('rect', { x: ox + x * cell + 2, y: oy + y * cell + 2, width: cell - 4, height: cell - 4, rx: 8, fill: print ? '#fff' : (x + y) % 2 ? '#F4FBF7' : '#FFFDF8', stroke: print ? '#000' : '#D6E9DE', 'stroke-width': 1 }, g);
-        cells.push({ x, y, g });
+        // 누름 영역: 칸 전체(틈 포함). trace 에서 휴대폰 축척에 맞춰 넓힌다(fitCellHits)
+        const hit = trace && !print ? kit.el('rect', { x: ox + x * cell, y: oy + y * cell, width: cell, height: cell, class: 'pk-hit' }, g) : null;
+        cells.push({ x, y, g, hit });
       }
       // 바위·별·깃발
       for (const k of c.rocks) { const [x, y] = k.split(',').map(Number); const g = kit.el('g', null, GL); kit.piece(st, g, { shape: { type: 'path', d: `M${-cell * 0.32} ${cell * 0.22} Q ${-cell * 0.36} ${-cell * 0.12} ${-cell * 0.1} ${-cell * 0.26} Q ${cell * 0.18} ${-cell * 0.34} ${cell * 0.32} ${-cell * 0.06} Q ${cell * 0.4} ${cell * 0.22} ${cell * 0.1} ${cell * 0.26} Z` }, color: 'ink', depth: 2, fill: '#9A9086' }); kit.transform(g, { x: cx(x), y: cy(y) }); if (print) kit.el('text', { x: 0, y: 5, 'text-anchor': 'middle', 'font-size': 12, class: 'pk-text', fill: '#000' }, g).textContent = '바위'; }
@@ -273,18 +275,35 @@
       const place = (x, y, d) => { kit.transform(robot, { x: cx(x), y: cy(y) }); kit.transform(body, { r: d * 90 }); };
       place(c.start.x, c.start.y, c.start.d);
 
+      // ---- trace 칸 누름 영역: 화면 축척에서 짧은 변 48px 이상 ----
+      // 휴대폰(390px)에서 판(560 단위)이 0.6배 안팎으로 줄면 5×5 판의 칸 그림(72 단위)이 43.7px 이었다(cc-11-bully-04 등).
+      // 판·칸 좌표는 그대로 두고 누름 영역만 칸 전체(틈 포함)에서 48px 까지 넓힌다. 넓힌 영역이 이웃 칸과 겹친 곳은 누른 자리가 든 칸으로(pressedCell).
+      const pxPerUnit = () => { const m = st.svg.getScreenCTM && st.svg.getScreenCTM(); if (m && m.a > 0) return m.a; const w = box.clientWidth; return w > 0 ? Math.min(1, w / W) : 1; };
+      function fitCellHits() {
+        const s = Math.max(cell, Math.ceil(48 / pxPerUnit()));
+        cells.forEach((q) => { if (!q.hit) return; q.hit.setAttribute('x', String(cx(q.x) - s / 2)); q.hit.setAttribute('y', String(cy(q.y) - s / 2)); q.hit.setAttribute('width', String(s)); q.hit.setAttribute('height', String(s)); });
+      }
+      // 누른 자리가 든 칸(판 밖으로 넓힌 곳은 가장 가까운 칸). 좌표가 없는 누르기(키보드·스크립트 click)는 그 칸 그대로
+      function pressedCell(e, q) {
+        if (!e || (!e.clientX && !e.clientY) || typeof st.point !== 'function') return q;
+        const p = st.point(e);
+        const x = Math.max(0, Math.min(c.cols - 1, Math.floor((p.x - ox) / cell))); const y = Math.max(0, Math.min(c.rows - 1, Math.floor((p.y - oy) / cell)));
+        return cells.find((z) => z.x === x && z.y === y) || q;
+      }
       // trace: 칸 고르기
       if (trace && !print) cells.forEach((q) => {
         q.g.setAttribute('tabindex', '0'); q.g.setAttribute('role', 'button'); q.g.style.cursor = 'pointer';
         q.g.setAttribute('aria-label', `왼쪽에서 ${q.x + 1}번째, 위에서 ${q.y + 1}번째 칸`);
-        const pickCell = (e) => { if (e) e.preventDefault(); mark = { x: q.x, y: q.y }; changed(`왼쪽에서 ${q.x + 1}번째, 위에서 ${q.y + 1}번째 칸을 골랐어요.`); q.g.focus(); };
-        q.g.addEventListener('click', pickCell);
+        const pickCell = (e, z) => { if (e) e.preventDefault(); z = z || q; mark = { x: z.x, y: z.y }; changed(`왼쪽에서 ${z.x + 1}번째, 위에서 ${z.y + 1}번째 칸을 골랐어요.`); z.g.focus(); };
+        q.g.addEventListener('click', (e) => pickCell(e, pressedCell(e, q)));
         q.g.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') { pickCell(e); return; }
           const d = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] }[e.key]; if (!d) return;
           e.preventDefault(); const n = cells.find((z) => z.x === q.x + d[0] && z.y === q.y + d[1]); if (n) n.g.focus();
         });
       });
+      // 무대 크기가 바뀌면(배치·회전·창 크기) 누름 영역을 다시 맞춘다
+      if (trace && !print) { fitCellHits(); if (typeof ResizeObserver === 'function') new ResizeObserver(fitCellHits).observe(st.svg); }
       function paintMark() {
         ML.textContent = '';
         if (!mark) return;

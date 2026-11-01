@@ -291,3 +291,54 @@ test('check-reach pattern: 규칙 판에 없는 색 이름은 범위 밖, red �
   assert.ok(reachProblems('pattern', { mode: 'make', palette: [{ s: 'star', c: 'gold' }, 'heart:rose'] }, { rule: 'repeat' }).some((x) => /‘gold’/.test(x)));
   assert.deepEqual(reachProblems('pattern', { seq: [3, 6, null] }, { fill: [9] }), []);
 });
+
+// 휴대폰 축척 누름 영역: block-coding trace 칸, keyboard 놓인 리듬 블록·블록 고르개·검은건반.
+// 휴대폰(390px)에서 판(560 단위)은 약 0.607배로 줄었다 — 옛 교구: 5×5 칸 43.7px(cc-11-bully-04), 블록 38.6px(g1-int-1-01), 고르개 42.8px, 검은건반 38.9px.
+test('휴대폰 축척 누름 영역: block-coding 칸·keyboard 블록·고르개·검은건반이 44px 이상', () => {
+  const PPU = 0.607;
+  const K2 = makeKit();
+  const stage0 = K2.stage;
+  K2.stage = (box, o) => { const st = stage0(box, o); st.svg.getScreenCTM = () => ({ a: PPU }); st.point = (e) => ({ x: e.sx, y: e.sy }); return st; };
+  K2.motifs.star = () => {};
+  const ctx = vm.createContext({ window: { PaperKit: K2 }, document: { createElement: (t) => new Node(t), createElementNS: (_, t) => new Node(t) }, matchMedia: () => ({ matches: true }), console, setTimeout, clearTimeout });
+  for (const id of ['block-coding', 'keyboard']) vm.runInContext(src(id), ctx, { filename: `${id}.js` });
+  const px = (n, k) => Number(n.getAttribute(k) || 0) * PPU;
+  const hitOf = (g) => g.children.find((x) => /pk-hit/.test(x.getAttribute('class') || ''));
+  const byClass = (root, c) => root.all().filter((x) => (x.getAttribute('class') || '').split(/\s+/).includes(c));
+
+  // block-coding trace 5×5(cc-11-bully-04 모양): 칸마다 누름 영역 48px 이상
+  const bbox = new Node('div');
+  const bc = K2.tools['block-coding'].create(bbox, { mode: 'trace', cols: 5, rows: 5, start: { x: 0, y: 4, dir: 'E' }, program: ['fwd', 'fwd'] }, K2);
+  const cells = byClass(bbox, 'bc-cell');
+  assert.equal(cells.length, 25);
+  for (const g of cells) { const h = hitOf(g); assert.ok(h, '칸 누름 영역(pk-hit) 없음'); assert.ok(Math.min(px(h, 'width'), px(h, 'height')) >= 44, `칸 누름 영역 ${px(h, 'width').toFixed(1)}px`); }
+  // 넓힌 영역이 겹친 곳: 누른 자리가 든 칸이 골라진다(첫 칸의 처리기로 둘째 칸 한가운데를 눌러도 둘째 칸)
+  const c1 = hitOf(cells[1]); const mid = (h) => [Number(h.getAttribute('x')) + Number(h.getAttribute('width')) / 2, Number(h.getAttribute('y')) + Number(h.getAttribute('height')) / 2];
+  const [sx, sy] = mid(c1);
+  cells[0].listeners.click[0]({ clientX: 1, clientY: 1, sx, sy, preventDefault() {} });
+  assert.deepEqual(plain(bc.getState()).mark, { x: 1, y: 0 });
+
+  // keyboard rhythm: 블록 7개 고르개는 좁은 화면에서 두 줄, 블록마다 폭 44px 이상
+  const kbox = new Node('div');
+  const kb = K2.tools.keyboard.create(kbox, { mode: 'rhythm', meter: 4, measures: 2, blocks: ['q', 'e', 'h', 'dh', 'w', 'qr', 'er'] }, K2);
+  const pal = byClass(kbox, 'kb-pal');
+  assert.equal(pal.length, 7);
+  assert.ok(new Set(pal.map((g) => g.__pk.y)).size >= 2, '블록 7개 고르개가 한 줄');
+  const xs = pal.filter((g) => g.__pk.y === pal[0].__pk.y).map((g) => g.__pk.x);
+  assert.ok((xs[1] - xs[0]) * PPU >= 44, `고르개 블록 간격 ${((xs[1] - xs[0]) * PPU).toFixed(1)}px`);
+  // 놓인 블록: 1박 블록 둘 + 2박 — 누름 영역 짧은 변 44px 이상
+  kb.setState({ rhythm: ['q', 'q', 'h'] });
+  const blocks = byClass(kbox, 'kb-block');
+  assert.equal(blocks.length, 3);
+  for (const g of blocks) { const h = hitOf(g); assert.ok(h, '블록 누름 영역(pk-hit) 없음'); assert.ok(Math.min(px(h, 'width'), px(h, 'height')) >= 44, `블록 누름 영역 ${px(h, 'width').toFixed(1)}×${px(h, 'height').toFixed(1)}px`); }
+  // 겹친 곳은 누른 박 자리가 든 블록: 첫 블록 처리기로 셋째(2박) 블록 자리를 누르면 셋째가 빠진다
+  blocks[0].listeners.click[0]({ clientX: 1, clientY: 1, sx: blocks[2].__pk.x + 40, sy: 60, preventDefault() {} });
+  assert.deepEqual(plain(kb.getState()).rhythm, ['q', 'q']);
+
+  // keyboard melody 검은건반: 누름 영역 폭 44px 이상
+  const mbox = new Node('div');
+  K2.tools.keyboard.create(mbox, { mode: 'melody', from: '도', to: '높은도', black: true }, K2);
+  const blacks = byClass(mbox, 'kb-key--black');
+  assert.ok(blacks.length >= 2);
+  for (const g of blacks) { const h = hitOf(g); assert.ok(h, '검은건반 누름 영역 없음'); assert.ok(px(h, 'width') >= 44 && px(h, 'height') >= 44, `검은건반 누름 영역 ${px(h, 'width').toFixed(1)}px`); }
+});

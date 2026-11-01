@@ -308,10 +308,15 @@
     create(box, o, kit) {
       const P = kit.palette; const print = !!o.print; const C = cfg(o);
       const narrow = !print && typeof matchMedia === 'function' && matchMedia('(max-width: 820px)').matches;
+      // 리듬 블록 고르개: 좁은 화면에서는 한 줄에 6개까지(블록 7개 이상이면 두 줄) — 7개를 한 줄에 두면 휴대폰에서 블록 폭이 42.8px 였다
+      const palPer = (() => { const n = C.blocks.length; const rows = narrow ? Math.ceil(n / 6) : 1; return Math.ceil(n / Math.max(1, rows)); })();
+      const palRows = Math.max(1, Math.ceil(C.blocks.length / Math.max(1, palPer)));
       let notes = []; let rhythm = []; let strokes = Array(C.beats).fill(''); let checks = [];
       let target = null; let revealed = false; let showNames = o.names !== 'none'; let brush = C.strokes[0]; let playing = false;
       const hideVals = () => !!o.revealAfterCheck && !revealed;
       const W = 560;
+      // 화면 1px 에 든 무대 단위 — 누름 영역을 휴대폰 축척에서 48px 로 맞출 때 쓴다
+      const pxPerUnit = () => { const m = st && st.svg.getScreenCTM && st.svg.getScreenCTM(); if (m && m.a > 0) return m.a; const w = box.clientWidth; return w > 0 ? Math.min(1, w / W) : 1; };
 
       // ---- 단추 줄(위) ----
       let bar = null; let msg = null; let selfBox = null;
@@ -398,7 +403,7 @@
         }
         kw = (W - 16) / Math.max(...rows.map((r) => r.length));
         H = (print && !o.printBoxes ? 0 : STRIP) + rows.length * (KH + 10) + 6;
-      } else if (C.mode === 'rhythm') H = print ? 134 : 292;
+      } else if (C.mode === 'rhythm') H = print ? 134 : 292 + (palRows - 1) * 100;
       else { const per = narrow ? Math.min(6, C.beats) : Math.min(12, C.beats); H = 40 + Math.ceil(C.beats / per) * 104 + 6; }
       st = kit.stage(box, { viewBox: [W, H], label: C.mode === 'melody' ? '종이 건반. 건반을 누르면 소리가 나고 친 음이 위 띠에 차례로 적혀요.' : C.mode === 'rhythm' ? '리듬 블록 판. 아래 블록을 누르면 마디에 차례로 놓여요.' : '장구 장단판. 붓을 고르고 박 칸을 누르면 구음이 들어가요.' });
       if (brushBox) box.appendChild(brushBox);
@@ -406,6 +411,12 @@
 
       // ---- melody ----
       const keyEls = new Map(); let stripL = null;
+      // 검은건반 누름 영역: 그림(휴대폰 64 단위 = 38.9px)은 그대로, 누름 영역만 48px 까지 — 흰건반 윗부분을 다 덮지 않게 흰건반 폭의 80% 까지
+      const blackHits = [];
+      function fitBlackHits() {
+        const min = Math.ceil(48 / pxPerUnit());
+        blackHits.forEach(({ hit, bw }) => { const w = Math.max(bw, Math.min(min, kw * 0.8)); hit.setAttribute('x', String(-w / 2)); hit.setAttribute('width', String(w)); });
+      }
       function buildKeys() {
         const top0 = print && !o.printBoxes ? 4 : STRIP;
         stripL = st.layer('strip'); const KL = st.layer('keys');
@@ -423,6 +434,7 @@
             if (!C.black || !blacks.includes(m + 1) || i === row.length - 1) return;
             const bw = Math.min(kw * 0.62, 64); const g = kit.el('g', { class: 'kb-key kb-key--black' }, KL);
             kit.piece(st, g, { shape: { type: 'rect', x: -bw / 2, y: 0, w: bw, h: KH * 0.58, rx: 8 }, color: 'ink', depth: 2 });
+            if (!print) blackHits.push({ hit: kit.el('rect', { y: 0, height: KH * 0.58, class: 'pk-hit' }, g), bw });
             const t = kit.el('text', { x: 0, y: KH * 0.58 - 12, 'text-anchor': 'middle', 'font-size': 12, class: 'pk-text', fill: '#FFFDF8' }, g);
             kit.transform(g, { x: x0 + (i + 1) * kw, y });
             keyEls.set(m + 1, { g, t, black: true });
@@ -437,6 +449,7 @@
         });
         // 검은건반을 위에 그리려고 순서를 다시 맞춘다
         keyEls.forEach((k) => { if (k.black) KL.appendChild(k.g); });
+        if (blackHits.length) { fitBlackHits(); if (typeof ResizeObserver === 'function') new ResizeObserver(fitBlackHits).observe(st.svg); }
       }
       function lightKey(m) {
         const k = keyEls.get(m); if (!k) return;
@@ -488,6 +501,22 @@
         else if (k === 'hr') { kit.el('line', { x1: x - 10 * s, y1: y + 2 * s, x2: x + 10 * s, y2: y + 2 * s, stroke: ink, 'stroke-width': 1.5 * s }, g); kit.el('rect', { x: x - 7 * s, y: y - 4 * s, width: 14 * s, height: 6 * s, fill: ink }, g); }
       }
       const cap = C.meter * C.measures; const unit = RW / cap;
+      // ---- 놓인 블록 누름 영역: 화면 축척에서 짧은 변 48px 이상 ----
+      // 휴대폰(390px)에서 판(560 단위)이 0.6배 안팎으로 줄면 블록 그림(높이 62 단위)이 38.6px, 1박 블록 폭(62 단위)이 37.6px 이었다(g1-int-1-01).
+      // 블록 길이는 박 길이라 그림은 그대로 두고, 누름 영역만 마디 띠 높이 전체·블록 박 자리 전체에서 48px 까지 넓힌다.
+      // 넓힌 영역이 이웃 블록과 겹친 곳은 누른 자리가 든 블록으로(pressedBlock) — 이웃과 맞닿은 쪽의 실제 폭은 그 블록의 박 자리다.
+      let blockHits = [];
+      function fitBlockHits() {
+        const min = Math.ceil(48 / pxPerUnit()); const sh = Math.max(RH, min);
+        blockHits.forEach(({ hit, span }) => { const sw = Math.max(span, min); hit.setAttribute('x', String((span - sw) / 2)); hit.setAttribute('y', String(-10 + (RH - sh) / 2)); hit.setAttribute('width', String(sw)); hit.setAttribute('height', String(sh)); });
+      }
+      // 누른 자리(박 위치)가 든 블록. 띠 앞·놓인 블록 뒤로 넓힌 곳은 첫·마지막 블록. 좌표가 없는 누르기(키보드·스크립트 click)는 그 블록 그대로
+      function pressedBlock(e, i) {
+        if (!e || (!e.clientX && !e.clientY) || typeof st.point !== 'function') return i;
+        const at = (st.point(e).x - RX) / unit; const lay = rhythmLayout(rhythm, C).blocks;
+        const k = lay.findIndex((x) => at >= x.p && at < x.p + x.b);
+        return k >= 0 ? k : at < 0 ? 0 : lay.length - 1;
+      }
       function buildRhythm() {
         measL = st.layer('measures'); blockL = st.layer('blocks'); sumL = st.layer('sums');
         kit.piece(st, measL, { shape: { type: 'rect', x: RX, y: RY, w: RW, h: RH, rx: 12 }, color: 'cream', depth: 1, fill: '#FFF9EE', texture: !print });
@@ -497,8 +526,9 @@
         if (print) st.svg.setAttribute('viewBox', `${RX - 6} ${RY - 6} ${RW + 12} ${RH + 12}`);
         if (!print) {
           kit.el('text', { x: RX + 4, y: 20, 'font-size': 14, class: 'pk-text', fill: P.peach.dark }, measL).textContent = `${C.meter}박 마디 ${C.measures}개`;
+          if (typeof ResizeObserver === 'function') new ResizeObserver(fitBlockHits).observe(st.svg);
           palL = st.layer('palette');
-          const n = C.blocks.length; const pw = Math.min(110, (W - 24) / n);
+          const n = C.blocks.length; const pw = Math.min(110, (W - 24) / palPer);
           kit.el('text', { x: RX + 4, y: RY + RH + 52, 'font-size': 14, class: 'pk-text', fill: P.peach.dark }, palL).textContent = '블록 고르기';
           C.blocks.forEach((k, i) => {
             const g = kit.el('g', { class: 'kb-pal', tabindex: '0', role: 'button', 'aria-label': `${RHY[k].name} ${beatWord(RHY[k].b)} 놓기` }, palL);
@@ -507,7 +537,8 @@
             glyph(g, k, pw / 2 - 4, 36, 1.15);
             kit.el('text', { x: pw / 2, y: 70, 'text-anchor': 'middle', 'font-size': 12, class: 'pk-text', fill: P.ink.base }, g).textContent = RHY[k].name;
             kit.el('text', { x: pw / 2, y: 86, 'text-anchor': 'middle', 'font-size': 12, class: 'pk-text', fill: P.ink.light }, g).textContent = beatWord(RHY[k].b);
-            kit.transform(g, { x: (W - n * pw) / 2 + i * pw, y: RY + RH + 60 });
+            const r = Math.floor(i / palPer); const rowN = Math.min(palPer, n - r * palPer);
+            kit.transform(g, { x: (W - rowN * pw) / 2 + (i % palPer) * pw, y: RY + RH + 60 + r * 100 });
             const put = (e) => { if (e) e.preventDefault(); addBlock(k); };
             g.addEventListener('click', put); g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') put(e); });
           });
@@ -521,7 +552,7 @@
       }
       function paintRhythm() {
         if (!blockL) return;
-        blockL.textContent = ''; sumL.textContent = '';
+        blockL.textContent = ''; sumL.textContent = ''; blockHits = [];
         rhythmLayout(rhythm, C).blocks.forEach((x, i) => {
           const g = kit.el('g', { class: 'kb-block' }, blockL);
           const w = Math.max(10, x.b * unit - 4);
@@ -531,10 +562,12 @@
           if (!print) {
             g.setAttribute('tabindex', '0'); g.setAttribute('role', 'button'); g.style.cursor = 'pointer';
             g.setAttribute('aria-label', `${i + 1}번째 블록 ${RHY[x.k].name}. Enter를 누르면 빼요.`);
-            const rm = (e) => { if (e) e.preventDefault(); rhythm.splice(i, 1); changed(`${i + 1}번째 블록을 뺐어요.`); const f = blockL.querySelectorAll('.kb-block')[Math.min(i, rhythm.length - 1)]; if (f) f.focus(); };
-            g.addEventListener('click', rm); g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Delete' || e.key === 'Backspace') rm(e); });
+            blockHits.push({ hit: kit.el('rect', { class: 'pk-hit' }, g), span: x.b * unit });
+            const rm = (e, j = i) => { if (e) e.preventDefault(); rhythm.splice(j, 1); changed(`${j + 1}번째 블록을 뺐어요.`); const f = blockL.querySelectorAll('.kb-block')[Math.min(j, rhythm.length - 1)]; if (f) f.focus(); };
+            g.addEventListener('click', (e) => rm(e, pressedBlock(e, i))); g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Delete' || e.key === 'Backspace') rm(e); });
           }
         });
+        fitBlockHits();
         if (o.showBeats && !print && !hideVals()) measureSums(rhythm, C).forEach((v, m) => {
           kit.el('text', { x: RX + (m + 0.5) * C.meter * unit, y: RY + RH + 22, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: v === C.meter ? P.mint.dark : P.ink.light }, sumL).textContent = `${v}박 / ${C.meter}박`;
         });
