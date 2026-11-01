@@ -94,6 +94,10 @@ const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); if (!c) fails++
   // 11) 잘못된 JSON 거부
   const r = await p.evaluate(() => window.bench.load({ parts: [{ id: 'uno', type: 'board' }], wires: [{ a: 'uno:99', b: 'uno:GND.1' }] }));
   ok(r.length > 0, '없는 핀을 가리키는 회로 JSON 은 거부');
+  ok((await p.evaluate(() => window.bench.load({}))).length > 0, 'parts·wires 가 빠진 JSON 도 오류 없이 거부');
+  await p.evaluate(() => localStorage.setItem('circuit-bench:vendor-sample', '{}'));
+  await p.reload(); await p.evaluate(() => window.bench.ready);
+  ok((await p.evaluate(() => window.bench.toJSON().parts.length)) > 0, '망가진 저장값이 있어도 처음 회로로 열림');
   // 12) 부품 키보드 이동 + 부품 추가
   const tag = p.locator('.cb-tag', { hasText: 'LED1' });
   const x0 = await p.evaluate(() => window.bench.toJSON().parts.find((q) => q.id === 'led1').x);

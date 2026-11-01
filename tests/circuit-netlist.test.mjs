@@ -97,4 +97,5 @@ test('validate: 없는 핀·모르는 부품·겹치는 id 를 거른다', () =>
   assert.equal(N.validate({ parts: [board, { id: 'x1', type: 'nuke' }], wires: [] }).length, 1);
   assert.equal(N.validate({ parts: [board, { id: 'uno', type: 'led' }], wires: [] }).length, 1);
   assert.equal(N.validate({ parts: [{ id: '<img>', type: 'led' }], wires: [] }).length, 1);
+  for (const bad of [null, {}, { parts: [board] }, { parts: 'x', wires: [] }, { parts: [board], wires: {} }]) assert.equal(N.validate(bad).length, 1);
 });

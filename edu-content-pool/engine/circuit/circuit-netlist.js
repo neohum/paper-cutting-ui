@@ -66,6 +66,7 @@
 
   // 회로가 가리키는 노드가 실제 부품의 핀인지 검사한다(불러온 JSON 은 믿지 않는다).
   function validate(circuit) {
+    if (!circuit || !Array.isArray(circuit.parts) || !Array.isArray(circuit.wires)) return ['회로 모양이 아니에요(parts·wires 목록이 필요해요)'];
     const errors = [];
     const ids = new Set();
     for (const p of circuit.parts || []) {
