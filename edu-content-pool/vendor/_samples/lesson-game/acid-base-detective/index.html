@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>용액 탐정: 산성일까 염기성일까</title>
+<!-- 외부 글꼴·CDN·아이콘 글꼴을 불러오지 않는다. 시스템 글꼴만 쓴다. -->
+<style>
+  :root {
+    --bg: #f6f3ec; --surface: #ffffff; --ink: #1d2430; --muted: #4c5566;
+    --line: #d9d3c6; --accent: #2f6fdf; --accent-ink: #ffffff;
+    --good: #1f7a4d; --bad: #b3261e; --focus: #ffb200;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #151820; --surface: #1f2430; --ink: #eef1f6; --muted: #b5bccb;
+      --line: #394050; --accent: #7aa7ff; --accent-ink: #0d1424;
+      --good: #6fd3a0; --bad: #ff8a80;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 16px/1.55 system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    min-height: 100vh; overflow-x: hidden;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 12px 16px 24px; }
+  header.top { display: flex; align-items: center; gap: 12px; justify-content: space-between; }
+  header.top h1 { font-size: 1.15rem; margin: 0; }
+  .goal-chip { font-size: .85rem; color: var(--muted); margin: 2px 0 0; }
+  button {
+    font: inherit; min-height: 44px; min-width: 44px; padding: 10px 16px;
+    border-radius: 12px; border: 2px solid var(--line); background: var(--surface); color: var(--ink);
+    cursor: pointer; touch-action: manipulation;
+  }
+  button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  button:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; margin-top: 12px; }
+  .stage { display: block; width: 100%; height: min(52vh, 440px); border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }
+  .hint { font-size: .85rem; color: var(--muted); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  details { border-top: 1px solid var(--line); padding: 8px 0; }
+  summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  th, td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line); vertical-align: top; word-break: keep-all; }
+  /* 휴대폰에서는 캔버스를 줄여 조작 버튼이 첫 화면 안에 들어오게 한다 */
+  @media (max-width: 520px) { .stage { height: min(38vh, 320px); } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  .round-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .round-head h2 { margin: 0; font-size: 1.2rem; }
+  .progress { color: var(--muted); font-size: .9rem; }
+  .group-label { font-weight: 700; margin: 14px 0 6px; font-size: .95rem; }
+  .tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .tools button { text-align: left; display: flex; align-items: center; gap: 8px; padding: 10px; font-size: .92rem; line-height: 1.3; word-break: keep-all; }
+  .swatch { width: 22px; height: 22px; border-radius: 6px; border: 2px solid rgba(0,0,0,.25); flex: none; }
+  .key { font-size: .72rem; flex: none; color: var(--muted); margin-left: auto; border: 1px solid var(--line); border-radius: 6px; padding: 0 6px; }
+  .tools button.used { border-color: var(--accent); }
+  .notes { list-style: none; padding: 0; margin: 6px 0 0; min-height: 1.6em; }
+  .notes li { padding: 4px 0; border-bottom: 1px dashed var(--line); font-size: .93rem; }
+  .notes li.empty { color: var(--muted); border: 0; }
+  .choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .choices button { font-weight: 700; font-size: 1.05rem; min-height: 56px; }
+  .choices [data-choice="acid"] { border-color: #d0505a; }
+  .choices [data-choice="base"] { border-color: #4a78c8; }
+  .feedback { min-height: 1.6em; margin: 10px 0 0; font-weight: 600; }
+  .feedback.good { color: var(--good); }
+  .feedback.bad { color: var(--bad); }
+  .score-line { font-size: 1.05rem; font-weight: 700; }
+  .teacher { background: var(--bg); border-radius: 10px; padding: 10px 12px; font-size: .92rem; }
+  @media (min-width: 760px) { .tools { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>용액 탐정: 산성일까 염기성일까</h1>
+      <p class="goal-chip">[6과09-01] 산과 염기 · 초등 5~6학년군</p>
+    </div>
+    <button type="button" data-action="mute" aria-pressed="false" aria-label="소리 끄기/켜기">소리</button>
+  </header>
+
+  <canvas id="stage" class="stage" aria-hidden="true"></canvas>
+  <div id="live" class="sr-only" aria-live="polite"></div>
+
+  <!-- 1. 시작: 학습 목표를 먼저 보여 준다 -->
+  <section id="intro" class="panel" aria-labelledby="intro-title">
+    <h2 id="intro-title">오늘의 목표</h2>
+    <p>용액에 지시약을 넣었을 때의 색 변화를 관찰하여, 용액을 <strong>산성 용액</strong>과 <strong>염기성 용액</strong>으로 분류할 수 있다.</p>
+    <p>실험실에 이름표만 붙은 용액 6병이 도착했어요. 지시약으로 증거를 모아 알맞은 바구니에 담아 주세요. 색이 변하는 증거를 하나 이상 찾아야 분류할 수 있어요.</p>
+    <p class="hint">조작: 버튼을 누르거나 키보드 1·2·3·4 로 지시약을 쓰고, ← (산성) · → (염기성) 으로 분류해요.</p>
+    <button type="button" class="primary" data-action="start" data-autofocus>시작하기</button>
+  </section>
+
+  <!-- 2. 놀이: 게임별 조작 버튼을 여기에 둔다 -->
+  <section id="play" class="panel" hidden aria-label="놀이">
+    <div class="round-head">
+      <h2 id="solution-name" tabindex="-1" data-autofocus>용액</h2>
+      <span class="progress" id="progress">1 / 6</span>
+    </div>
+    <p class="group-label" id="tools-label">1. 지시약으로 관찰하기</p>
+    <div class="tools" role="group" aria-labelledby="tools-label">
+      <button type="button" data-tool="blueLitmus"><span class="swatch" style="background:#4a78c8"></span>푸른 리트머스 종이<span class="key" aria-hidden="true">1</span></button>
+      <button type="button" data-tool="redLitmus"><span class="swatch" style="background:#d0505a"></span>붉은 리트머스 종이<span class="key" aria-hidden="true">2</span></button>
+      <button type="button" data-tool="phenol"><span class="swatch" style="background:#f4f4f4"></span>페놀프탈레인 용액<span class="key" aria-hidden="true">3</span></button>
+      <button type="button" data-tool="cabbage"><span class="swatch" style="background:#7a4a9a"></span>붉은 양배추 지시약<span class="key" aria-hidden="true">4</span></button>
+    </div>
+    <p class="group-label">관찰 기록</p>
+    <ul class="notes" id="notes"></ul>
+    <p class="group-label" id="choice-label">2. 분류하기</p>
+    <div class="choices" role="group" aria-labelledby="choice-label">
+      <button type="button" data-choice="acid" disabled>← 산성 용액</button>
+      <button type="button" data-choice="base" disabled>염기성 용액 →</button>
+    </div>
+    <p class="feedback" id="feedback" role="status"></p>
+  </section>
+
+  <!-- 3. 정리: 무엇을 배웠는지 되짚는다 (빠뜨리면 안 된다) -->
+  <section id="debrief" class="panel" hidden aria-labelledby="debrief-title">
+    <h2 id="debrief-title" tabindex="-1" data-autofocus>정리하기</h2>
+    <div id="debrief-body"></div>
+    <button type="button" class="primary" data-action="restart">다시 하기</button>
+  </section>
+</div>
+<script src="runtime.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
