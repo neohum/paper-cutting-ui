@@ -9,9 +9,6 @@
 | --- | --- | --- | --- | --- |
 | wokwi-elements | 1.9.2 | MIT (+ 번들 안 lit, BSD-3) | 레슨 + 시뮬레이터 — 보드·부품 그림 | `wokwi-elements@1.9.2/wokwi-elements.bundle.min.js` |
 | avr8js | 0.21.1 | MIT | 레슨 + 시뮬레이터 — 아두이노 우노 CPU | `avr8js@0.21.1/avr8js.iife.js` |
-| turngl | 0.2.0 | MIT | 3D 잉크 책 — 곡면으로 휘는 페이지 | `three@0.186.1/three.iife.min.js` → `turngl@0.2.0/turngl.iife.js` |
-| three | 0.186.1 | MIT | turngl 의 런타임 의존성 | 위와 같음 |
-| StPageFlip (page-flip) | 2.0.7 | MIT | 3D 잉크 책 — 안의 HTML 이 살아 있는 책 | `page-flip@2.0.7/page-flip.browser.js` + `stPageFlip.css` |
 | hairline | 0.5.1 | MIT | 선화 — 가벼운 등각 선화, 기존 SVG 를 선화로 바꾸기 | `hairline@0.5.1/hairline.iife.js` |
 | pst-labo | 2.08 | LPPL | 시험용 삽화 — **참고 자료만**, 코드 없음 | (싣지 않음) |
 
@@ -21,9 +18,8 @@
 
 Chrome 은 `file://` 페이지에서 `<script type="module">` 을 막는다(origin 이 `null` 이라 CORS 실패).
 그래서 모든 도구를 **일반 `<script src>` 로 읽는 파일**로 맞췄다. 원본에 그런 파일이 없으면
-(avr8js·three·turngl·hairline) esbuild 로 코드 변경 없이 IIFE 로 묶어 `*.iife.js` 로 두었고, 만든 명령은
-각 `SOURCE.txt` 에 있다. 원본 ESM 도 함께 두었으니 http 로 서빙하는 화면이나 번들러는 그것을 써도 된다
-(turngl.esm.js 는 맨 이름 `import 'three'` 라 import map 이 필요하다).
+(avr8js·hairline) esbuild 로 코드 변경 없이 IIFE 로 묶어 `*.iife.js` 로 두었고, 만든 명령은
+각 `SOURCE.txt` 에 있다. 원본 ESM 도 함께 두었으니 http 로 서빙하는 화면이나 번들러는 그것을 써도 된다.
 
 경로는 화면 파일에서 상대 경로로 적는다. 예: 차시 HTML 이 `edu-content-pool/lessons/x/index.html` 이면
 `../../vendor/avr8js@0.21.1/avr8js.iife.js`. 버전을 올릴 때는 새 폴더를 만들고 참조를 옮긴 뒤 옛 폴더를 지운다.
@@ -85,42 +81,6 @@ avr-gcc 와 Arduino 코어가 필요하고, Wokwi 는 이것을 **원격 빌드 
 hex 를 `programs.js` 의 전역 `AVR_PROGRAMS` 로 싣는다. 실제 Arduino 스케치를 쓰고 싶으면 인터넷이 되는
 제작 단계에서 Arduino IDE/arduino-cli 로 컴파일해 나온 `.hex` 를 같은 방식으로 싣는다(시간 함수를 쓰면
 `AVRTimer(timer0Config)` 가 있어야 한다).
-
-### turngl — 곡면 페이지 넘김 (three.js)
-
-```html
-<script src="vendor/three@0.186.1/three.iife.min.js"></script>
-<script src="vendor/turngl@0.2.0/turngl.iife.js"></script>
-<script>
-  const book = new turngl.Book3D(canvas, { theme: 'light' });
-  book.resize(canvas.clientWidth, canvas.clientHeight);
-  book.showSpread(leftCanvas, rightCanvas);              // 페이지 = HTMLCanvasElement
-  book.prepFlip('fwd', frontCanvas, backCanvas);
-  book.animate(0, 1, 780, (p) => book.curl(p, 'fwd'), () => { book.endFlip(); book.showSpread(l2, r2); });
-</script>
-```
-
-- **`<turn-gl src="…">` 요소는 쓰지 않는다.** PDF 를 `fetch` 하고 PDF.js 워커 주소를 cdnjs 로 덮어써서
-  오프라인에서 깨지고 외부 도메인에 닿는다. 스크립트를 읽으면 그 요소가 자동 등록되지만, 쓰지 않으면 아무 일도 없다.
-- 페이지는 캔버스 텍스처라 안의 단추는 눌리지 않는다(그림이다). 누르는 페이지가 필요하면 StPageFlip.
-- three 0.186 은 `PCFSoftShadowMap` 을 없앴다. turngl 생성자의 첫 렌더에서 경고 한 줄이 나오고 스스로
-  `PCFShadowMap` 으로 바뀐다(오류 아님). WebGL 이 없는 기기에서는 동작하지 않는다.
-- 예제: `_samples/turngl.html` (3쪽 책).
-
-### StPageFlip — 안의 HTML 이 살아 있는 책
-
-```html
-<link rel="stylesheet" href="vendor/page-flip@2.0.7/stPageFlip.css">
-<script src="vendor/page-flip@2.0.7/page-flip.browser.js"></script>
-<script>
-  const pf = new St.PageFlip(bookEl, { width: 340, height: 440, size: 'stretch', showCover: true });
-  pf.loadFromHTML(document.querySelectorAll('#book .page'));
-  pf.flipNext(); pf.on('flip', (e) => console.log(e.data));
-</script>
-```
-
-페이지 안의 단추·입력이 그대로 동작한다. 2021년 이후 갱신이 없는 패키지라 버그를 고칠 일이 생기면
-우리 쪽에서 감싸서 해결한다. 예제: `_samples/page-flip.html` (단추로 세는 쪽, 입력 쪽 포함).
 
 ### hairline — 포인터에 반응하는 등각 선화
 
@@ -198,19 +158,18 @@ hex 를 `programs.js` 의 전역 `AVR_PROGRAMS` 로 싣는다. 실제 Arduino �
 
 ## 라이선스 표기 의무
 
-- MIT(wokwi-elements, avr8js, turngl, three, page-flip, hairline): 저작권 고지와 허가 문구를 사본에 함께 둔다.
+- MIT(wokwi-elements, avr8js, hairline): 저작권 고지와 허가 문구를 사본에 함께 둔다.
   각 폴더의 `LICENSE` 를 지우거나 고치지 않는다. 묶은 `*.iife.js` 에는 `--legal-comments=inline` 으로 원본의
   라이선스 주석이 남아 있다. 학습자료를 배포 묶음(zip·설치본·런처 동봉)으로 낼 때는 이 폴더째 넣는다.
 - lit(BSD-3-Clause, wokwi 번들 안): `wokwi-elements@1.9.2/LICENSE-lit` 를 함께 둔다. Google 이름을 홍보에 쓰지 않는다.
 - avr8js 의 assembler 는 Avrian-Jump(MIT) 고지가 `esm/utils/assembler.js` 머리에 있다.
 - pst-labo(LPPL): 코드를 싣지 않으므로 배포 의무는 없다. 참고했다는 사실과 링크를 이 문서에 남긴다.
 - Spetchbook(Polyform Noncommercial): 코드를 쓰지 않는다. 결과물만 쓴다.
-- 이름 규칙: 이 도구들을 감싸는 우리 코드의 함수·변수·CSS 클래스는 우리 도메인 말로 짓는다(예: `turn-gl` 이 아니라 우리 책 이름).
+- 이름 규칙: 이 도구들을 감싸는 우리 코드의 함수·변수·CSS 클래스는 우리 도메인 말로 짓는다(예: `wokwi-led` 를 감싸면 `wokwi` 가 아니라 우리 부품 이름).
 
 ## 검증 (2026-11-01)
 
-다섯 예제를 헤드리스 Chrome(Playwright, WebGL 은 SwiftShader)으로 `file://` 에서 열어 확인했다.
-콘솔 오류 0, 외부 네트워크 요청 0. 경고는 turngl 의 `PCFSoftShadowMap` 한 줄과 SwiftShader 드라이버의
-"GPU stall due to ReadPixels"(헤드리스 소프트웨어 렌더러에서만)뿐이다. 동작 확인:
+세 예제를 헤드리스 Chrome(Playwright, WebGL 은 SwiftShader)으로 `file://` 에서 열어 확인했다.
+콘솔 오류 0, 외부 네트워크 요청 0. 동작 확인:
 wokwi 버튼 누름→LED 켜짐·뗌→꺼짐, avr8js 깜빡임(150ms 간격 표본 `111000111000`)·버튼 프로그램 누름→켜짐,
-turngl 넘김 후 펼침 2/2, StPageFlip 안 단추 두 번 → 2, hairline 그림 3개 렌더·읽은 값 표시.
+hairline 그림 3개 렌더·읽은 값 표시.

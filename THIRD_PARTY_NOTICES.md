@@ -37,6 +37,6 @@ SOFTWARE.
 ## 공용 학습자료 도구 (edu-content-pool/vendor)
 
 `edu-content-pool/vendor/<이름>@<버전>/` 에 실은 wokwi-elements(MIT, 번들 안 lit BSD-3), avr8js(MIT),
-turngl(MIT), three.js(MIT), StPageFlip/page-flip(MIT), hairline(MIT)은 각 폴더의 `LICENSE` 원문과
+hairline(MIT)은 각 폴더의 `LICENSE` 원문과
 `SOURCE.txt`(출처·버전·integrity)를 따른다. 용도·불러오는 법·표기 의무는
 `edu-content-pool/vendor/SHARED_TOOLS.md`.
