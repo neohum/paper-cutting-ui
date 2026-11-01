@@ -1,0 +1,33 @@
+360도 사진 출처 (도시 탐방 예제)
+
+세 장 모두 Poly Haven 의 HDRI 를 톤매핑한 JPG 미리보기(8192×4096)를 받아, macOS sips 로
+2048×1024 · JPEG 품질 60 으로 줄였다. 그 밖에는 고치지 않았다. 확인한 날짜: 2026-11-01.
+
+라이선스 확인 방법
+  - 각 자료 페이지(https://polyhaven.com/a/<id>)의 정보 칸에 "CC0 — License" 가 있고, 페이지의 구조화 데이터에
+    "license":"https://creativecommons.org/publicdomain/zero/1.0/",
+    "copyrightNotice":"CC0 1.0 Universal - public domain dedication, no attribution required" 가 들어 있다.
+  - https://polyhaven.com/license : "Our assets are all licensed as CC0".
+  - 받은 원본의 md5 가 Poly Haven API(https://api.polyhaven.com/files/<id>)의 tonemapped.md5 와 같다.
+  CC0 라 표기 의무는 없지만 출처를 남긴다. 사진 안에 미술품처럼 따로 권리가 있는 대상이 크게 찍힌 것은 고르지 않았다.
+
+old-campus.jpg  (예제 이름: 오래된 대학 마당)
+  자료: Cambridge — https://polyhaven.com/a/cambridge
+  만든 사람: Andreas Mischok
+  원본: https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/cambridge.jpg  (md5 69e15e2fb34846822be0d3bd41cba40e)
+  실은 파일: 2048×1024, 287,721 B, sha256 70aaa390830938a133cf7006048086c75f745595c4d363b0404a9eab950040ea
+
+lakeside.jpg  (예제 이름: 도시 속 호숫가)
+  자료: Binnenalster — https://polyhaven.com/a/binnenalster
+  만든 사람: Greg Zaal
+  원본: https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/binnenalster.jpg  (md5 15ed06091ec8100576f0d5bec4834025)
+  실은 파일: 2048×1024, 339,886 B, sha256 d40874f8c1f6a45450aacbe1df76b9cdd1e31420930e1800ed542dd6f8009364
+
+business-district.jpg  (예제 이름: 새 업무 지구)
+  자료: Canary Wharf — https://polyhaven.com/a/canary_wharf
+  만든 사람: Andreas Mischok
+  원본: https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/canary_wharf.jpg  (md5 8f657e36b6294be1da2031262dd85506)
+  실은 파일: 2048×1024, 382,823 B, sha256 e9a4df42150c908a2b9ac430eee65c4e459d806ea1236132ca8183dc06dcbba5
+
+줄인 명령: sips -s format jpeg -s formatOptions 60 -z 1024 2048 <원본>.jpg --out <이름>.jpg
+scenes.js 는 위 세 파일을 data URI 로 바꾼 것이다(build-scenes.mjs). JPEG 1,010,430 B → scenes.js 1,347,641 B.

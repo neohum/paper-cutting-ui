@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>360도 도시 탐방 (marzipano)</title>
+<link rel="stylesheet" href="_sample.css">
+<link rel="stylesheet" href="../uicons/css/uicons-regular-rounded.css">
+<link rel="stylesheet" href="pano/tour.css">
+<script src="../marzipano@0.10.2/marzipano.js"></script>
+<script src="pano/scenes.js"></script>
+<script src="pano/tour.js"></script>
+</head>
+<body>
+<main>
+  <h1>360도 도시 탐방 (marzipano)</h1>
+  <p class="lead">세 장소를 돌아다니며 건물과 자연을 비교한다. 끌거나 화살표 키로 둘러보고, 사진 속 단추를 눌러 설명과 질문을 본다. 장소를 옮길 때 사진이 서서히 바뀐다.</p>
+  <div id="view" class="tour-view" tabindex="0" aria-label="360도 사진. 화살표 키로 둘러보고 +, - 키로 확대한다." aria-describedby="tour-info"></div>
+  <div id="panel" class="tour-panel"></div>
+  <p class="note">사진: Poly Haven(CC0). 출처는 <code>pano/CREDITS.txt</code>. <code>file://</code> 에서도 열리도록 사진을 <code>pano/scenes.js</code> 에 data URI 로 실었다.</p>
+</main>
+<script>
+  const tour = window.PANO_TOUR;
+  const rad = (d) => d * Math.PI / 180;
+  // marzipano 의 pitch 는 아래가 + 이다(문서 주석과 반대, 실제 렌더로 확인). 우리 자료는 위가 + 라서 부호를 바꾼다.
+  const pitchOf = (deg) => -rad(deg);
+  const viewEl = document.getElementById('view');
+  // marzipano 기본 키 조작은 문서 전체에 걸리므로 켜지 않고, 사진에 초점이 있을 때만 아래에서 받는다.
+  const viewer = new Marzipano.Viewer(viewEl, { controls: { mouseViewMode: 'drag' } });
+
+  let current = null;
+  const scenes = {};
+  const geometry = new Marzipano.EquirectGeometry([{ width: 2048 }]);
+  const limiter = Marzipano.RectilinearView.limit.traditional(2048, rad(110));
+
+  function go(id) {
+    if (!scenes[id] || current === id) return;
+    current = id;
+    scenes[id].switchTo({ transitionDuration: 700 });
+    panel.showScene(id);
+  }
+  const panel = createTourPanel(document.getElementById('panel'), {
+    go,
+    turn: (deg) => { const v = scenes[current].view(); v.setYaw(v.yaw() + rad(deg)); },
+    zoom: (dir) => { const v = scenes[current].view(); v.setFov(v.fov() + dir * rad(15)); },
+  });
+
+  for (const [id, s] of Object.entries(tour.scenes)) {
+    const source = Marzipano.ImageUrlSource.fromString(window.PANO_IMAGES[id]);
+    const view = new Marzipano.RectilinearView({ yaw: rad(s.yaw), pitch: pitchOf(s.pitch), fov: rad(100) }, limiter);
+    const scene = viewer.createScene({ source, geometry, view, pinFirstLevel: true });
+    const spots = scene.hotspotContainer();
+    // marzipano 는 단추 요소의 style.display 를 'block'/'none' 으로 직접 바꾼다. 단추 모양이 깨지지 않게 칸으로 감싼다.
+    const holder = (child) => { const d = document.createElement('div'); d.append(child); return d; };
+    for (const l of s.links) {
+      spots.createHotspot(holder(createTourMarker('link', l.label, () => go(l.to))), { yaw: rad(l.yaw), pitch: pitchOf(l.pitch) });
+    }
+    for (const sp of s.spots) {
+      spots.createHotspot(holder(createTourMarker('info', sp.title, () => panel.showSpot(sp))), { yaw: rad(sp.yaw), pitch: pitchOf(sp.pitch) });
+    }
+    scenes[id] = scene;
+  }
+
+  // 사진에 초점이 있을 때의 키보드 조작
+  viewEl.addEventListener('keydown', (e) => {
+    const v = scenes[current].view();
+    const step = rad(10);
+    const keys = {
+      ArrowLeft: () => v.setYaw(v.yaw() - step), ArrowRight: () => v.setYaw(v.yaw() + step),
+      ArrowUp: () => v.setPitch(v.pitch() - step), ArrowDown: () => v.setPitch(v.pitch() + step),
+      '+': () => v.setFov(v.fov() - step), '=': () => v.setFov(v.fov() - step), '-': () => v.setFov(v.fov() + step),
+    };
+    if (keys[e.key]) { keys[e.key](); e.preventDefault(); }
+  });
+
+  go(tour.first);
+  window.currentScene = () => current;
+</script>
+</body>
+</html>
