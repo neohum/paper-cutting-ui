@@ -319,7 +319,7 @@
     for (let i = 0; i < Math.max(cx.length, cy.length); i++) if (!!cx[i] !== !!cy[i]) d++;
     return d;
   }
-  const core = { judge, solve, wrongAnswer, hint: hintFor, distance, SHAPES, COLORS };
+  const core = { judge, solve, wrongAnswer, hint: hintFor, distance, achievable, mirror, SHAPES, COLORS, SIZES, SH0 };
 
   // ---- 조각 모양(종이 조각) ----
   function shapeOf(k, r0) {

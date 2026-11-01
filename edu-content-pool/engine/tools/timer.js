@@ -174,7 +174,7 @@
     for (const k of ['safety', 'checks']) { const p = a[k] || []; const q = b[k] || []; for (let i = 0; i < Math.max(p.length, q.length); i++) if (!!p[i] !== !!q[i]) d++; }
     return d;
   }
-  const core = { judge, solve, wrongAnswer, hint: hintFor, distance, totalOf };
+  const core = { judge, solve, wrongAnswer, hint: hintFor, distance, totalOf, TU, planOf, fieldsOf, cardsOf };
 
   K.registerTool('timer', {
     name: '체육 활동판',
