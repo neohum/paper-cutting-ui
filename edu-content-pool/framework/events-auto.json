@@ -351,7 +351,7 @@
        "delivery": "guided"
       },
       {
-       "id": "dokdo.e12.g1-shape.activity.pinTwo",
+       "id": "dokdo.e12.g1-shape.activity.pin-two",
        "type": "activity",
        "topic": "dokdo.e12.g1-shape",
        "method": "확대 지도에 동도·서도 핀 꽂기",
@@ -1090,7 +1090,7 @@
        }
       },
       {
-       "id": "dokdo.e12.g2-rock.wrap.nestArt",
+       "id": "dokdo.e12.g2-rock.wrap.nest-art",
        "type": "wrap",
        "topic": "dokdo.e12.g2-rock",
        "method": "색종이 둥지 꾸미기",
@@ -1375,7 +1375,7 @@
          "topic": "dokdo.e12.g1-shape",
          "intro": "dokdo.e12.g1-shape.intro.count",
          "activities": [
-          "dokdo.e12.g1-shape.activity.pinTwo",
+          "dokdo.e12.g1-shape.activity.pin-two",
           "dokdo.e12.g1-shape.activity.name"
          ],
          "wrap": "dokdo.e12.g1-shape.wrap.show"
@@ -1503,7 +1503,7 @@
           "dokdo.e12.g2-rock.activity.nest",
           "dokdo.e12.g2-rock.activity.quiet"
          ],
-         "wrap": "dokdo.e12.g2-rock.wrap.nestArt"
+         "wrap": "dokdo.e12.g2-rock.wrap.nest-art"
         },
         {
          "n": 6,
@@ -25790,7 +25790,7 @@
        }
       },
       {
-       "id": "auto.m.g8-rel.intro.debateClip",
+       "id": "auto.m.g8-rel.intro.debate-clip",
        "type": "intro",
        "topic": "auto.m.g8-rel",
        "method": "토론 장면에서 차례 고르기",
@@ -27094,7 +27094,7 @@
         {
          "n": 6,
          "topic": "auto.m.g8-rel",
-         "intro": "auto.m.g8-rel.intro.debateClip",
+         "intro": "auto.m.g8-rel.intro.debate-clip",
          "activities": [
           "auto.m.g8-rel.activity.evidence",
           "auto.m.g8-rel.activity.data"
