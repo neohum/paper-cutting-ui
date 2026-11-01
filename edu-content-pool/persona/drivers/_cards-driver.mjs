@@ -682,7 +682,8 @@ export async function drive(args) {
   let reached = false;
   try {
     const toolId = args.toolId; const mode = (args.options && args.options.mode) || null;
-    if (toolId === 'sortboard') reached = await driveSortboard(ctx);
+    // 분류판 글 카드 모드는 공통 카드 판 상태({ at })라 카드 판 조작기로 간다 — 단추 모드({ by, placed })만 전용 조작기
+    if (toolId === 'sortboard' && !('at' in ((await ctx.state()) || {}))) reached = await driveSortboard(ctx);
     else if ((CUSTOM_MODES[toolId] || []).includes(mode)) {
       reached = await ({ scale: driveScale, branch: driveBranch, checklist: driveChecklist, pay: drivePay, budget: driveBudget, flip: driveFlip })[mode](ctx);
     } else reached = await driveBoard(ctx);

@@ -1,4 +1,11 @@
-/* 분류판 — 종이 단추 카드를 기준에 따라 칸에 나누어 넣고, 칸마다 몇 개인지 센다(2학년 1학기 5. 분류하기).
+/* 분류판 — 카드를 기준에 따라 칸(바구니)에 나누어 넣는다. 두 모드가 한 교구 id('sortboard')를 쓴다.
+ *
+ * | 모드      | 언제                                                     | 화면                                                         |
+ * |-----------|----------------------------------------------------------|--------------------------------------------------------------|
+ * | 단추 모드 | cards 가 모두 단추 id('r2c' 꼴)이고 slots 가 없을 때       | 기준 단추를 고르면 칸이 생기고, 종이 단추 카드를 넣고 센다      |
+ * | 글 카드 모드 | slots 가 있거나, cards 에 단추 id 가 아닌 것이 하나라도 있을 때 | 선반 위 종이 바구니(이름표를 단 칸 2~4개)에 글 카드를 넣는다 |
+ *
+ * ── 단추 모드(2학년 1학기 5. 분류하기) ───────────────────────────────────────────────────────────
  * 순서: ① 기준 단추(색깔·구멍 수·모양·'예쁜 것/안 예쁜 것')를 고른다 → ② 그 기준의 값만큼 칸이 생긴다 → ③ 카드를 끌어 넣는다
  *       → ④ (세기 문항) 칸마다 몇 개인지 − / + 로 수를 넣는다.
  * '예쁜 것/안 예쁜 것'은 분명하지 않은 기준이다. 고르면 칸을 만들지 않고 '친구마다 다르게 나눌 수 있어요'라고 알려 준다.
@@ -11,6 +18,26 @@
  * 상태: { by, placed: { 카드id: 칸 값|null }, counts?: { 칸 값: 수|null }, unclear?: '예쁜' 기준을 고른 횟수 }
  * target: { by: '색' } | { clear: true, not?: '색' }(분명한 기준이면 무엇이든) + counts?: true
  * 키보드: 기준 단추 Tab+Enter, 카드 Enter/Space = 다음 칸으로, 1~3 = 그 칸, 0 = 카드 칸. 방향키로 옮긴 뒤 Enter = 그 자리.
+ *
+ * ── 글 카드 모드(창체·안전·진로 등 — 낱말·문장 카드를 정해진 칸으로) ─────────────────────────────────
+ * 공통 카드 판(_cards.js)의 sort 판에 '종이 바구니' 겉모양을 입힌 것. 판정·힌트·오답·거리·키보드·휴대폰 맞추기는 카드 판 규칙 그대로다.
+ * 생각 그물(mindmap sort)과 target 모양이 같지만 화면이 다르다(가운데 주제·가지 없음, 선반 위 바구니) — 한 주제 안에서 둘을 섞어 써도 구별된다.
+ * | 옵션            | 모양                                         | 뜻 |
+ * |-----------------|----------------------------------------------|----|
+ * | slots (필수)     | ['칸 이름', …] 2~4개 또는 [{ id, label }]      | 바구니 이름표. id 없으면 이름이 id |
+ * | cards (필수)     | ['카드 글', …] 또는 [{ id, text, icon?, why? }] | 글만 쓰면 id = 글. 글은 40자 안팎까지(카드가 세 줄까지 넓어진다). icon = PaperKit.scene 모티프 이름(sun·tree·house…), why = 그 카드를 잘못 넣었을 때 한 문장 |
+ * | instant         | 참/거짓                                       | (쉬움) 틀린 바구니에 넣으면 까닭을 말하고 카드 칸으로 되돌림 |
+ * | limit           | 수                                           | (쉬움) cards 앞의 n장만 |
+ * | more            | 카드 목록                                     | (도전) cards 뒤에 더 넣을 카드(함정 카드 포함). 단추 모드의 수 more 와 달리 목록이다 |
+ * | showCount       | 참/거짓                                       | (쉬움) 이름표 옆에 지금 든 장 수 |
+ * | revealAfterCheck| 참/거짓                                       | 플레이어가 넣는다. showCount·instant 를 맞힌 확인 전에는 숨김 |
+ * | print           | 참/거짓                                       | 흑백 활동지(조작 없음). printCards:false면 빈 바구니만 |
+ * | (그 밖)          | hint1·success·trayLabel·shuffle·live          | _cards.js 옵션 표 |
+ * 상태: { at: { 카드id: 바구니 번호(0부터) | null } }   null = 카드 칸
+ * target: { sort: { '칸 이름': [카드id…] } }  — mindmap sort 와 같은 모양. 목록에 없는 카드는 어느 바구니에도 넣지 않는 함정 카드.
+ * 키보드: 카드에서 방향키 = 다음·앞 바구니로, 1~4 = 그 바구니, 0 = 카드 칸, Enter = 고른 뒤 바구니에서 Enter.
+ * 예: toolOptions: { slots: ['지켜요', '안 돼요'], cards: ['복도에서 걸어요', '계단에서 뛰어요', { id: '손', text: '밥 먹기 전에 손을 씻어요', icon: 'sun' }] },
+ *     target: { sort: { 지켜요: ['복도에서 걸어요', '손'], '안 돼요': ['계단에서 뛰어요'] } }
  */
 (function (K) {
   'use strict';
@@ -44,7 +71,7 @@
   const DECK = [];
   for (const c of 'rby') for (const h of '24') for (const s of 'cst') DECK.push(`${c}${h}${s}`);
 
-  K.registerTool('sortboard', {
+  const buttonTool = {
     name: '분류판',
     create(box, o, kit) {
       const P = kit.palette; const print = !!o.print;
@@ -441,5 +468,146 @@
           return { correct: true, feedback: `맞아요! ${ro(A.label)} 나누니 누가 나누어도 똑같이 나뉘어요.` };
       }
     },
+  };
+  // ───────────────────────── 글 카드 모드 ─────────────────────────
+  // 공통 카드 판(_cards.js)의 sort 판 위에 '종이 바구니' 겉모양을 얹는다(생각 그물의 가지·가운데 주제와 다르게 보이도록).
+  // 판정·풀이·힌트·오답·거리·키보드·화면 맞추기는 카드 판이 그대로 한다. 이 모드가 더하는 것은 겉모양, limit·more·icon 옮기기, showCount.
+  const isButtonId = (x) => typeof x === 'string' && !!cardOf(x);
+  // 모드 판별: slots 가 있거나, cards 에 단추 id('r2c' 꼴)가 아닌 것이 하나라도 있으면 글 카드 모드
+  function isText(o) {
+    o = o || {};
+    if (Array.isArray(o.slots) && o.slots.length) return true;
+    return Array.isArray(o.cards) && o.cards.some((x) => !isButtonId(x));
+  }
+  // 차시 옵션 → 공통 카드 판 옵션. icon = 카드 판의 motif, limit = 앞의 n장만, more = 뒤에 더 넣을 카드 목록(도전). 모드는 sort 하나다.
+  function textOptions(o) {
+    o = o || {};
+    const conv = (c) => (c && typeof c === 'object' ? Object.assign({}, c, c.icon && !c.motif ? { motif: c.icon } : {}) : c);
+    let cards = (Array.isArray(o.cards) ? o.cards : []).map(conv);
+    if (Number.isInteger(o.limit) && o.limit > 0) cards = cards.slice(0, o.limit);
+    if (Array.isArray(o.more)) cards = cards.concat(o.more.map(conv));
+    const slots = (Array.isArray(o.slots) ? o.slots : []).map(conv);
+    return Object.assign({}, o, { mode: 'sort', cards, slots });
+  }
+
+  const C = K.cards;
+  const LINKS = new WeakMap(); // 교구 상자 → { ctx, api } (칸마다 개수 표시가 쓴다)
+  const BASKET = ['peach', 'mint', 'sky', 'lavender'];
+  // define 은 'sortboard'를 카드 판으로 등록한다 — 바로 아래 K.registerTool('sortboard')가 두 모드를 고르는 정의로 덮는다
+  const textTool = C ? C.define('sortboard', {
+    name: '분류판',
+    mode: 'sort',
+    label: '분류판. 카드를 한 장씩 읽고 알맞은 바구니에 나누어 넣어요.',
+    hints: { sort: '바구니 이름표를 먼저 소리 내어 읽고, 카드를 한 장씩 보며 어느 바구니의 뜻과 맞는지 따져 넣어요.' },
+    // 카드 폭: 가장 긴 글이 두 줄에 들면 176까지, 아니면 세 줄에 들 때까지 280까지 넓힌다(글 40자 안팎). 낱말은 줄 가운데서 자르지 않는다
+    cardSize({ cards }) {
+      const { wrapLines, textWidth } = C.util;
+      const texts = cards.filter((c) => c.text && c.text !== c.big).map((c) => c.text);
+      const icon = cards.some((c) => c.motif || c.big);
+      const fit = (w, n) => texts.every((t) => wrapLines(t, w - 14, 18).length <= n && t.split(/\s+/).every((word) => textWidth(word, 18) <= w - 14));
+      let w = 120; while (w < 176 && !fit(w, 2)) w += 8;
+      if (!fit(w, 2)) { w = 176; while (w < 280 && !fit(w, 3)) w += 8; }
+      const lines = Math.min(3, Math.max(1, ...texts.map((t) => wrapLines(t, w - 14, 18).length)));
+      return [w, Math.max(icon ? 0 : 56, (icon ? 52 : 0) + lines * 24 + 14)];
+    },
+    // 바구니를 한 줄에 나란히(2~4개). 바구니가 카드보다 너무 좁아지면 줄을 나눈다(휴대폰에서 판 폭이 줄 때도)
+    layout(ctx) {
+      const { PAD, GAP } = C.util;
+      const { W, cw, ch, slots, cards } = ctx; const n = slots.length; const N = cards.length;
+      const bwOf = (per) => (W - 2 * PAD - GAP * (per - 1)) / per;
+      const need = Math.max(132, cw * 0.75 + 16);
+      let per = n; while (per > 1 && bwOf(per) < need) per--;
+      const rows = Math.ceil(n / per); const bw = bwOf(per);
+      const s = Math.min(0.9, (bw - 16) / cw); const cols = Math.max(1, Math.floor((bw - 16 + 6) / (cw * s + 6)));
+      const expectN = Math.min(N, Math.ceil(N / Math.max(1, n)) + 1);
+      const TAG = 44; const top = TAG + 18;
+      const bh = top + Math.max(1, Math.ceil(expectN / cols)) * (ch * s + 6) + 12;
+      slots.forEach((sl, i) => {
+        const r = Math.floor(i / per); const k = i % per; const inRow = Math.min(per, n - r * per);
+        const x0 = PAD + (W - 2 * PAD - (inRow * bw + (inRow - 1) * GAP)) / 2;
+        Object.assign(sl, { x: x0 + k * (bw + GAP), y: PAD + r * (bh + GAP + 8), w: bw, h: bh, top, scale: s, tag: TAG });
+      });
+      return { H: PAD + rows * (bh + GAP + 8) - GAP + 2 };
+    },
+    // 바구니 줄마다 아래에 종이 선반
+    decorate(ctx, layer) {
+      const { kit, st, slots, W } = ctx; const { PAD } = C.util;
+      const rowsY = [...new Set(slots.map((sl) => Math.round(sl.y + sl.h)))];
+      rowsY.forEach((y) => kit.piece(st, layer, { shape: { type: 'rect', x: PAD - 4, y: y - 2, w: W - 2 * PAD + 8, h: 9, rx: 4 }, color: 'buttercup', depth: 1 }));
+    },
+    drawSlot(ctx, sl, g, i) {
+      const { kit, st, P, print, o } = ctx; const { el, textBlock, textWidth } = C.util;
+      const tint = BASKET[i % BASKET.length]; const ink = print ? '#000' : P[tint].dark; const line = print ? '#000' : P[tint].layer;
+      const mouth = sl.y + sl.tag; const x = sl.x; const w = sl.w; const bot = sl.y + sl.h;
+      // 누르는 자리 = 바구니 전체(이름표 포함). 빈 바구니 어디를 눌러도 넣어진다
+      if (!print) el('rect', { x, y: sl.y, width: w, height: sl.h, class: 'pk-hit' }, g);
+      // 바구니 몸통(위가 조금 넓은 사다리꼴) + 엮은 결 + 테두리 띠
+      kit.piece(st, g, { shape: { type: 'poly', points: `${x},${mouth} ${x + w},${mouth} ${x + w - 9},${bot} ${x + 9},${bot}` }, color: tint, depth: 2, fill: P[tint].light, texture: !print });
+      for (let y = mouth + 22, k = 0; y < bot - 6; y += 15, k++) {
+        el('line', { x1: x + 8, y1: y, x2: x + w - 8, y2: y, stroke: line, 'stroke-width': 1.2, 'stroke-dasharray': '12 7', 'stroke-dashoffset': k % 2 ? 9 : 0, opacity: print ? 0.5 : 0.4, 'pointer-events': 'none' }, g);
+      }
+      kit.piece(st, g, { shape: { type: 'rect', x: x - 3, y: mouth - 2, w: w + 6, h: 14, rx: 7 }, color: tint, depth: 1 });
+      // 이름표: 테두리 띠에 실로 매단 종이 꼬리표
+      const label = sl.label || `${i + 1}번 바구니`;
+      const counted = !!o.showCount && !print;
+      const pw = Math.min(w - 16, Math.max(104, textWidth(label, 18) + 34 + (counted ? 40 : 0)));
+      const tx = x + w / 2 - pw / 2; const ty = sl.y + 2; const th = sl.tag - 10;
+      el('line', { x1: x + w / 2, y1: ty + th, x2: x + w / 2, y2: mouth, stroke: line, 'stroke-width': 1.6, 'pointer-events': 'none' }, g);
+      kit.piece(st, g, { shape: { type: 'rect', x: tx, y: ty, w: pw, h: th, rx: 8 }, color: 'cream', depth: 1, fill: '#FFFDF8' });
+      el('circle', { cx: tx + 11, cy: ty + th / 2, r: 3.2, fill: 'none', stroke: line, 'stroke-width': 1.4, 'pointer-events': 'none' }, g);
+      const lw = pw - 30 - (counted ? 40 : 0);
+      textBlock(g, label, { x: tx + 20 + lw / 2, y: ty + th / 2 + 1, w: lw, h: th - 4, fs: 18, minFs: 13, maxLines: 2, fill: ink });
+      if (counted) {
+        if (!ctx.sbCount) ctx.sbCount = [];
+        ctx.sbCount[i] = el('text', { x: tx + pw - 22, y: ty + th / 2 + 6, 'text-anchor': 'middle', 'font-size': 16, class: 'pk-text sb-count', fill: ink, 'font-weight': 700 }, g);
+      }
+      return true;
+    },
+    controls(ctx, api) { LINKS.set(api.box, { ctx, api }); },
+  }) : null;
+
+  // 글 카드 모드 장착: showCount면 카드가 움직일 때마다(기록이 남을 때마다) 바구니 이름표 옆 개수를 다시 적는다.
+  // revealAfterCheck면 맞힌 확인 전에는 개수를 숨긴다(단추 모드와 같은 규칙).
+  function createText(box, o, kit) {
+    if (!textTool) throw new Error('분류판 글 카드 모드에는 공통 카드 판(_cards.js)이 먼저 읽혀야 해요');
+    const to = textOptions(o);
+    const counted = !!to.showCount && !to.print;
+    let revealed = false; let link = null;
+    const paintCounts = () => {
+      if (!counted || !link || !link.ctx.sbCount) return;
+      const M = link.api.model; const show = !(to.revealAfterCheck && !revealed);
+      link.ctx.sbCount.forEach((t, i) => { if (t) t.textContent = show ? `${M.cards.filter((c) => M.at.get(c.id) === i).length}장` : ''; });
+    };
+    const k2 = !counted ? kit : Object.assign(Object.create(kit), {
+      recorder: Object.assign(Object.create(kit.recorder), {
+        log(type, data) { const r = kit.recorder.log(type, data); if (!data || data.via !== 'check') revealed = false; paintCounts(); return r; },
+      }),
+    });
+    const inst = textTool.create(box, to, k2);
+    if (!counted) return inst;
+    link = LINKS.get(box) || null;
+    const wrap = (name, after) => {
+      const f = inst[name]; if (typeof f !== 'function') return;
+      inst[name] = function (...a) { const r = f.apply(this, a); if (after) after(r, a); paintCounts(); return r; };
+    };
+    wrap('setState', () => { revealed = false; });
+    wrap('reset', () => { revealed = false; });
+    wrap('solve');
+    wrap('check', (r, a) => { if (r && r.correct && !(a[1] && a[1].forHint)) revealed = true; });
+    const demo = inst.demo;
+    if (typeof demo === 'function') {
+      inst.demo = async function (t) {
+        const timer = setInterval(paintCounts, 150);
+        try { return await demo.call(this, t); } finally { clearInterval(timer); revealed = true; paintCounts(); }
+      };
+    }
+    paintCounts();
+    return inst;
+  }
+
+  K.registerTool('sortboard', {
+    name: '분류판',
+    core: { isText, textOptions },
+    create(box, o, kit) { return isText(o) ? createText(box, o, kit) : buttonTool.create(box, o || {}, kit); },
   });
 })(window.PaperKit);

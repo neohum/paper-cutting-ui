@@ -15,14 +15,14 @@ import vm from 'node:vm';
 const here = dirname(fileURLToPath(import.meta.url));
 const toolsDir = join(here, 'engine/tools');
 const cores = {};
-for (const id of ['keyboard', 'timer', 'collage']) {
+for (const id of ['keyboard', 'timer', 'collage', 'sortboard']) {
   const K = { registerTool(name, def) { cores[name] = def.core; } };
   vm.runInNewContext(readFileSync(join(toolsDir, `${id}.js`), 'utf8'), { window: { PaperKit: K } });
 }
 // map 기호 기본 이름(범례 보기 글): 교구 파일의 ICONS 표에서 읽는다
 const MAP_ICON_NAME = Object.fromEntries([...readFileSync(join(toolsDir, 'map.js'), 'utf8').matchAll(/^\s{4}(\w+): \{ name: '([^']+)'/gm)].map((m) => [m[1], m[2]]));
 if (Object.keys(MAP_ICON_NAME).length < 10) throw new Error('check-reach: map.js ICONS 표를 읽지 못함 — 교구 파일 모양이 바뀌었으면 이 정규식을 고친다');
-for (const id of ['keyboard', 'timer', 'collage']) if (!cores[id]) throw new Error(`check-reach: ${id}.js core 를 읽지 못함`);
+for (const id of ['keyboard', 'timer', 'collage', 'sortboard']) if (!cores[id]) throw new Error(`check-reach: ${id}.js core 를 읽지 못함`);
 
 const LEVELS = ['easy', 'base', 'challenge'];
 const EPS = 1e-6;
@@ -359,6 +359,25 @@ const RULES = {
       if (want != null) { const k = want / step; if (want < 0 || want > step * 40 || Math.abs(k - Math.round(k)) > 1e-6) out.push(`거리 ${want}에 −/+(${step}씩, ${step * 40}까지)로 닿을 수 없음`); }
     }
     if (t.pick != null && !(o.ask && Array.isArray(o.ask.choices) && Number.isInteger(t.pick) && t.pick >= 0 && t.pick < o.ask.choices.length)) out.push(`pick ${t.pick}이 보기(ask.choices) 밖`);
+    return out;
+  },
+
+  // 분류판: 글 카드 모드(slots·글 카드)만 본다 — 단추 모드는 기준 단추가 늘 화면에 있어 이 표에 넣기 전과 같다(규칙 없음)
+  sortboard(o, t) {
+    const S = cores.sortboard;
+    if (!S.isText(o)) return [];
+    const out = []; t = t || {};
+    const to = S.textOptions(o);
+    const cardId = (c, i) => (c && typeof c === 'object' ? String(c.id != null ? c.id : c.text != null ? c.text : `c${i + 1}`) : String(c));
+    const slotId = (x, i) => (x && typeof x === 'object' ? String(x.id != null ? x.id : x.label ? x.label : String(i + 1)) : String(x));
+    const ids = new Set(to.cards.map(cardId)); const sids = new Set(to.slots.map(slotId));
+    if (to.slots.length < 2 || to.slots.length > 4) out.push(`바구니(slots)가 ${to.slots.length}개 — 글 카드 모드는 2~4개`);
+    if (!t.sort || typeof t.sort !== 'object') out.push(`글 카드 모드인데 target 이 { sort: { 칸 이름: [카드id…] } } 모양이 아님(${show(t)})`);
+    for (const [k, v] of Object.entries(t.sort || {})) {
+      if (!sids.has(k)) out.push(`바구니 ‘${k}’가 slots(${[...sids].join('·')})에 없음`);
+      for (const id of [].concat(v)) if (!ids.has(String(id))) out.push(`카드 ‘${id}’가 그 단계 카드(cards·limit·more)에 없음`);
+    }
+    for (const c of to.cards) { const text = c && typeof c === 'object' ? String(c.text ?? '') : String(c); if (text.length > 44) out.push(`카드 글 ‘${text.slice(0, 12)}…’가 ${text.length}자 — 40자 안팎까지 세 줄에 든다`); }
     return out;
   },
 

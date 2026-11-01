@@ -446,7 +446,7 @@
       const headY = y; if (headH) y += headH + 12;
       const askY = y + 14; y += 34;
       const two = n >= 2 && n !== 3 && cs.every((c) => C.util.wrapLines(c.text, (W - 2 * PAD - GAP2) / 2 - 70, 18).length <= 2);
-      const cols = two ? 2 : 1; const cw = (W - 2 * PAD - GAP2 * (cols - 1)) / cols; const chh = 72;
+      const cols = two ? 2 : 1; const cw = (W - 2 * PAD - GAP2 * (cols - 1)) / cols; const chh = 76;
       const rows = Math.ceil(n / cols); const listY = y; y += rows * (chh + 10) - 10 + 14;
       const resY = y; const resH = 86; y += resH;
       const H = y + PAD;
@@ -459,7 +459,8 @@
         const r = Math.floor(i / cols); const k = i % cols;
         const cx = PAD + k * (cw + GAP2) + cw / 2; const cy = listY + r * (chh + 10) + chh / 2;
         const g = el('g', { class: 'cb-choice' }, group); K.transform(g, { x: cx, y: cy });
-        B.hit(g, -cw / 2, -chh / 2 - 4, cw, chh + 8);
+        // 누름 영역은 줄 간격(chh + 10) 전체 — 휴대폰 폭에서 판이 줄어도 44px 아래로 내려가지 않게(72+8 은 43.7px 이었다)
+        B.hit(g, -cw / 2, -(chh + 10) / 2, cw, chh + 10);
         const tint = ['sky', 'peach', 'lavender', 'buttercup'][i % 4];
         const p = kit.piece(st, g, { shape: { type: 'rect', w: cw, h: chh, rx: 14 }, color: tint, depth: 1, fill: P[tint].light });
         kit.piece(st, g, { shape: { type: 'circle', r: 15, cx: -cw / 2 + 26, cy: 0 }, color: tint, depth: 1 });
