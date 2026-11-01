@@ -1325,7 +1325,7 @@
           teacher: '"집이 무섭다고 느끼는 친구가 가장 먼저 해야 할 일은 무엇일까요?" 차례 카드를 맞춘 뒤 \'안전한 곳으로 가기\'가 왜 맨 앞인지 묻는다. "신고하면 가족이 다 혼난다"는 걱정이 나오면 "신고·상담은 벌을 주려는 것보다 안전하게 지내도록 돕는 일이에요"라고 짚는다. 지역 상담 번호 칸은 학교가 확인해 넣은 번호를 함께 읽는다.',
           exitTicket: [
             IT({ type: 'tool', tool: 'timer', options: { title: '도움 요청 차례', cards: [STEPS4[2], STEPS4[0], STEPS4[3], STEPS4[1]] }, prompt: '도움을 요청하는 차례대로 카드를 놓아요.', target: { order: STEPS4 }, difficulty: 0.15 },
-              { prompt: '도움을 요청하는 차례대로 카드 3장을 놓아요.', options: { title: '도움 요청 차례', cards: [STEPS4[2], STEPS4[0], STEPS4[1]] }, target: { order: STEPS4.slice(0, 3) } }),
+              { prompt: '도움을 요청하는 차례대로 카드 3장을 놓아요.', toolOptions: { title: '도움 요청 차례', cards: [STEPS4[2], STEPS4[0], STEPS4[1]] }, target: { order: STEPS4.slice(0, 3) } }),
             SELF('오늘 알게 된 것에 스스로 표시해요.', '도움 요청 스스로 점검', ['위험할 때는 먼저 안전한 곳으로 간다는 것을 안다', '믿는 어른 한 사람을 떠올릴 수 있다', '학교 상담(Wee 클래스)이 어디 있는지 안다', '지역 상담 번호 칸을 확인했다']),
             { type: 'choice', prompt: '친구가 "비밀로 해 줘"라며 집이 무섭다고 털어놓았을 때 알맞은 것은?', options: ['약속했으니 아무에게도 말하지 않는다', '친구의 안전을 위해 믿는 어른과 함께 도움을 찾는다', '친구 보호자에게 직접 따진다'], answer: 1, difficulty: 0.2, explain: '친구가 위험할 수 있으면 비밀보다 안전이 먼저예요.' },
             { type: 'short', prompt: '상담 번호를 모를 때 대신할 방법을 하나 써요.' },
@@ -1347,7 +1347,7 @@
           teacher: '"서아네 가족에게 \'함께 나누는 집\'을 제안한다면 첫 문장은 무엇이 좋을까요?" 오늘 다시 짠 분담표를 떠올리며 쓰게 한다. "다 같이 열심히 하자"처럼 막연한 문장에는 "누가, 무엇을, 언제 하는지 들어가면 지킬 수 있을까요?"라고 되묻는다. 가상 가족에게 쓰는 글이며 우리 집 이야기는 쓰지 않는다.',
           exitTicket: [
             IT({ type: 'tool', tool: 'rubric-writing', options: { topic: '가상 가족(서아네)에게 "함께 나누는 집" 제안 글을 4문장으로 쓰세요. 누가 무엇을 맡을지 구체적으로 써요.', minChars: 60, maxChars: 260, minSentences: 4, maxSentences: 5, title: '함께 나누는 집 제안' }, prompt: '서아네 가족에게 보낼 제안 글을 쓰고 기준표로 점검해요.', target: { selfCheck: ['한 사람에게 몰리지 않게 공정하게 나눴다', '누가 무엇을 할지 구체적으로 썼다', '가족을 존중하는 말로 썼다'] }, difficulty: 0.15 },
-              { prompt: '문장 틀을 채워 두 문장으로 제안해요.', options: { topic: '서아네 가족에게 "함께 나누는 집"을 두 문장으로 제안하세요.', minChars: 25, minSentences: 2, maxSentences: 3, starter: '우리 집은 ___ 을 함께 나누면 좋겠어요. 저는 ___ 을 맡을게요.' }, target: { selfCheck: ['공정하게 나눴다', '가족을 존중하는 말로 썼다'] } }),
+              { prompt: '문장 틀을 채워 두 문장으로 제안해요.', toolOptions: { topic: '서아네 가족에게 "함께 나누는 집"을 두 문장으로 제안하세요.', minChars: 25, minSentences: 2, maxSentences: 3, starter: '우리 집은 ___ 을 함께 나누면 좋겠어요. 저는 ___ 을 맡을게요.' }, target: { selfCheck: ['공정하게 나눴다', '가족을 존중하는 말로 썼다'] } }),
             { type: 'choice', prompt: '"함께 나누는 집" 제안으로 가장 알맞은 것은?', options: ['요리는 늘 한 사람이 맡는다', '나이와 시간에 맞게 나누고 바쁜 날은 서로 바꿔 준다', '어린 동생은 아무것도 하지 않는다'], answer: 1, difficulty: 0.15, explain: '나이·시간·희망에 맞게 함께 나누는 것이 공정해요.' },
             { type: 'short', prompt: '가족 사이에 갈등이 생길 때 지킬 대화 규칙을 한 문장으로 써요.' },
           ],
@@ -2989,7 +2989,7 @@
           teacher: '"집에서 무서운 일이 일어나는 순간, 가장 먼저 할 일은 무엇일까요?" 순서 카드를 섞어 보이고 차례를 맞추게 한다. "어른에게 먼저 전화해야 한다"는 학생에게 "지금 위험하다면 전화보다 먼저 몸을 지켜야 하지 않을까요?"라고 되묻는다. 지역 신고·상담 번호 칸은 학교가 확인해 채운 번호를 함께 읽는다.',
           exitTicket: [
             IT({ type: 'tool', tool: 'timer', options: { title: '안전과 도움 요청 차례', cards: [HELP[2], HELP[0], HELP[3], HELP[1]] }, prompt: '안전과 도움 요청 순서 카드를 차례대로 놓아요.', target: { order: HELP }, difficulty: 0.15 },
-              { prompt: '순서 카드 3장을 차례대로 놓아요.', options: { cards: [HELP[2], HELP[0], HELP[1]] }, target: { order: HELP.slice(0, 3) } }),
+              { prompt: '순서 카드 3장을 차례대로 놓아요.', toolOptions: { cards: [HELP[2], HELP[0], HELP[1]] }, target: { order: HELP.slice(0, 3) } }),
             { type: 'choice', prompt: '"가족 일은 남에게 말하면 안 된다"는 말에 대한 생각으로 가장 알맞은 것은?', options: ['맞다, 집안일이다', '안전이 위험하면 믿는 어른과 기관에 도움을 청할 수 있다', '경찰만 도울 수 있다'], answer: 1, difficulty: 0.2, explain: '안전에 관한 일은 집안일이 아니에요.' },
             { type: 'short', prompt: '친구가 집이 무섭다고 말할 때 내가 할 차례를 한 줄로 써요.' },
           ],

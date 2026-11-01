@@ -945,7 +945,7 @@
           teacher: '"계획은 기록할 때 이어져요. 하준의 2주 기록을 막대로 그리면 무엇이 보일까요?" 가상 인물 하준의 기록을 막대로 그린 뒤, 목표 5일은 손가락이나 자로 그래프 위에 가로선으로 짚어 보이게 한다(교구는 목표선을 그리지 못한다). "목표를 못 채우면 실패"라는 말에는 1주와 2주 막대를 견주어 늘어난 것을 먼저 보게 한다. 학생 자신의 기록표는 활동지에 원하는 사람만 쓰고 걷지 않는다.',
           exitTicket: [
             IT({ type: 'tool', tool: 'chart', options: { type: 'bar', mode: 'build', title: '가상 인물 하준의 아침 먹은 날(가상 기록, 목표 5일)', unit: '일', xLabel: '주', yLabel: '아침 먹은 날', max: 7, scale: 1, data: TRACK, showTable: true }, prompt: '표를 보고 하준의 2주 기록을 막대그래프로 그려요.', target: { build: true }, difficulty: 0.2 },
-              { prompt: '표를 보고 하준의 1주 기록 막대를 그려요.', options: { data: TRACK.slice(0, 1) } }),
+              { prompt: '표를 보고 하준의 1주 기록 막대를 그려요.', toolOptions: { data: TRACK.slice(0, 1) } }),
             { type: 'tool', tool: 'chart', options: { type: 'bar', mode: 'read', title: '가상 인물 하준의 아침 먹은 날(가상 기록, 목표 5일)', unit: '일', xLabel: '주', yLabel: '아침 먹은 날', max: 7, scale: 1, data: TRACK, question: '목표 5일에 닿은 주는?', choices: ['1주', '2주', '둘 다 못 닿음'] }, prompt: '목표 5일에 닿은 주를 골라요.', target: { pick: 1 }, difficulty: 0.15 },
             { type: 'short', prompt: '하준에게 3주째 목표를 이어 가는 방법 한 가지를 조언해 써요.' },
           ],

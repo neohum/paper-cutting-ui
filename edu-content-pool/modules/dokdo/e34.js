@@ -501,8 +501,8 @@
           exitTicket: [
             { type: 'tool', tool: 'chart', prompt: '그래프를 보고 맞는 설명을 골라요.', options: Object.assign({}, DIST_READ, { question: '맞는 설명은?', choices: ['독도는 울릉도에 더 가까워요', '독도는 오키섬에 더 가까워요', '두 거리가 같아요'] }), target: { pick: 0 }, difficulty: 0.15,
               levels: {
-                easy: { options: { choices: ['독도는 울릉도에 더 가까워요', '독도는 오키섬에 더 가까워요'] }, target: { pick: 0 } },
-                challenge: { prompt: '그래프를 보고 틀린 설명을 골라요.', options: { question: '틀린 설명은?', choices: ['울릉도에서 87.4km예요', '오키섬 막대가 더 짧아요', '오키섬에서 157.5km예요'] }, target: { pick: 1 } },
+                easy: { toolOptions: { choices: ['독도는 울릉도에 더 가까워요', '독도는 오키섬에 더 가까워요'] }, target: { pick: 0 } },
+                challenge: { prompt: '그래프를 보고 틀린 설명을 골라요.', toolOptions: { question: '틀린 설명은?', choices: ['울릉도에서 87.4km예요', '오키섬 막대가 더 짧아요', '오키섬에서 157.5km예요'] }, target: { pick: 1 } },
               } },
             { type: 'choice', prompt: '울릉도에서 독도까지 외교부 자료의 거리는?', options: ['87.4km', '874km', '8.74km'], answer: 0, difficulty: 0.15, explain: '외교부 자료에 따르면 울릉도에서 87.4km예요.' },
             MOOD,
@@ -1029,8 +1029,8 @@
             { type: 'tool', tool: 'mindmap', prompt: '독도 지리 카드를 가지에 붙여요.', options: { mode: 'sort', topic: '3학년 독도 지리', slots: ['위치', '거리', '생김새'], cards: ['동해에 있어요', '울릉도에서 87.4km', '동도와 서도', '100km쯤 될걸요'] },
               target: { sort: { 위치: ['동해에 있어요'], 거리: ['울릉도에서 87.4km'], 생김새: ['동도와 서도'] } }, difficulty: 0.2,
               levels: {
-                easy: { options: { slots: ['위치', '거리'], cards: ['동해에 있어요', '울릉도에서 87.4km', '100km쯤 될걸요'] }, target: { sort: { 위치: ['동해에 있어요'], 거리: ['울릉도에서 87.4km'] } } },
-                challenge: { options: { cards: ['동해에 있어요', '울릉도에서 87.4km', '동도와 서도', '울릉도의 남동쪽', '오키섬에서 157.5km', '화산섬이에요', '100km쯤 될걸요'] },
+                easy: { toolOptions: { slots: ['위치', '거리'], cards: ['동해에 있어요', '울릉도에서 87.4km', '100km쯤 될걸요'] }, target: { sort: { 위치: ['동해에 있어요'], 거리: ['울릉도에서 87.4km'] } } },
+                challenge: { toolOptions: { cards: ['동해에 있어요', '울릉도에서 87.4km', '동도와 서도', '울릉도의 남동쪽', '오키섬에서 157.5km', '화산섬이에요', '100km쯤 될걸요'] },
                   target: { sort: { 위치: ['동해에 있어요', '울릉도의 남동쪽'], 거리: ['울릉도에서 87.4km', '오키섬에서 157.5km'], 생김새: ['동도와 서도', '화산섬이에요'] } } },
               } },
             { type: 'choice', prompt: '3학년 독도 공부를 한 문장으로 고르면?', options: ['동해의 독도는 울릉도에서 87.4km예요', '독도는 서해에 있어요', '독도는 주소가 없어요'], answer: 0, difficulty: 0.15, explain: '독도는 동해에 있고 울릉도에서 87.4km 떨어져 있어요.' },
@@ -1720,8 +1720,8 @@
             { type: 'tool', tool: 'wordcards', prompt: '가장 중요한 일과 까닭 카드를 넣어요.', options: { mode: 'fill', slots: [{ id: 'job', label: '가장 중요한 일: ___' }, { id: 'why', label: '까닭: ___' }], cards: ['배의 길 밝히기', '관광 안내만 하기', '독도 지키기', '배가 안전해서', '심심해서', '독도가 안전해서'] },
               target: { fill: { job: ['배의 길 밝히기', '독도 지키기'], why: ['배가 안전해서', '독도가 안전해서'] } }, difficulty: 0.15,
               levels: {
-                easy: { options: { slots: [{ id: 'job', label: '가장 중요한 일: ___' }], cards: ['배의 길 밝히기', '관광 안내만 하기'] }, target: { fill: { job: ['배의 길 밝히기'] } } },
-                challenge: { options: { slots: [{ id: 'job', label: '가장 중요한 일: ___' }, { id: 'why', label: '까닭: ___' }, { id: 'why2', label: '또 다른 까닭: ___' }], cards: ['배의 길 밝히기', '관광 안내만 하기', '독도 지키기', '배가 안전해서', '심심해서', '독도가 안전해서', '어부를 도와서'] },
+                easy: { toolOptions: { slots: [{ id: 'job', label: '가장 중요한 일: ___' }], cards: ['배의 길 밝히기', '관광 안내만 하기'] }, target: { fill: { job: ['배의 길 밝히기'] } } },
+                challenge: { toolOptions: { slots: [{ id: 'job', label: '가장 중요한 일: ___' }, { id: 'why', label: '까닭: ___' }, { id: 'why2', label: '또 다른 까닭: ___' }], cards: ['배의 길 밝히기', '관광 안내만 하기', '독도 지키기', '배가 안전해서', '심심해서', '독도가 안전해서', '어부를 도와서'] },
                   target: { fill: { job: ['배의 길 밝히기', '독도 지키기'], why: ['배가 안전해서', '독도가 안전해서', '어부를 도와서'], why2: ['배가 안전해서', '독도가 안전해서', '어부를 도와서'] } } },
               } },
             { type: 'choice', prompt: '독도에서 하는 일에 대해 맞는 말은?', options: ['섬을 지키고 배의 길을 밝혀요', '관광 안내뿐이에요', '아무 일도 없어요'], answer: 0, difficulty: 0.15, explain: '독도경비대원은 섬을 지키고, 등대관리원은 배의 길을 밝혀요.' },
@@ -1863,7 +1863,7 @@
           teacher: '모둠마다 약속 후보를 하나씩 말하고 칠판에 후보 1·2·3으로 쓴다. "한 사람이 한 번만 손들어요." 손든 수를 세어 기록 칸에 넣는다. 적은 후보를 낸 모둠도 다음 달 약속으로 이어 갈 수 있다고 말해 준다. 출구 2번으로 한 사람의 행동도 영향이 있다는 것을 다시 고른다.',
           exitTicket: [
             { type: 'tool', tool: 'timer', prompt: '약속 후보마다 손든 수를 적어요.', options: { title: '반 약속 정하기', fields: VOTE(3) }, target: { records: true }, difficulty: 0.1,
-              levels: { easy: { prompt: '약속 후보 2개에 손든 수를 적어요.', options: { fields: VOTE(2) }, target: { records: true } } } },
+              levels: { easy: { prompt: '약속 후보 2개에 손든 수를 적어요.', toolOptions: { fields: VOTE(2) }, target: { records: true } } } },
             { type: 'choice', prompt: '"한 사람의 행동은 아무 영향이 없다"는 말은?', options: ['고쳐야 해요', '맞아요', '알 수 없어요'], answer: 0, difficulty: 0.15, explain: '한 사람의 행동도 모이면 바다를 지키는 큰 힘이 돼요.' },
             MOOD,
           ],
@@ -1888,8 +1888,8 @@
             { type: 'tool', tool: 'sortboard', prompt: '독도 생태 카드를 바구니에 나누어요.', options: { slots: ['생물', '바다', '사람'], cards: ['괭이갈매기', '난류와 한류', '독도경비대원', '해국', '해조류 숲', '등대관리원'] },
               target: { sort: { 생물: ['괭이갈매기', '해국'], 바다: ['난류와 한류', '해조류 숲'], 사람: ['독도경비대원', '등대관리원'] } }, difficulty: 0.2,
               levels: {
-                easy: { options: { slots: ['생물', '바다'], cards: ['괭이갈매기', '난류와 한류', '해국', '해조류 숲'] }, target: { sort: { 생물: ['괭이갈매기', '해국'], 바다: ['난류와 한류', '해조류 숲'] } } },
-                challenge: { options: { cards: ['괭이갈매기', '난류와 한류', '독도경비대원', '해국', '해조류 숲', '등대관리원', '슴새', '두 바닷물이 만나요', '주민'] },
+                easy: { toolOptions: { slots: ['생물', '바다'], cards: ['괭이갈매기', '난류와 한류', '해국', '해조류 숲'] }, target: { sort: { 생물: ['괭이갈매기', '해국'], 바다: ['난류와 한류', '해조류 숲'] } } },
+                challenge: { toolOptions: { cards: ['괭이갈매기', '난류와 한류', '독도경비대원', '해국', '해조류 숲', '등대관리원', '슴새', '두 바닷물이 만나요', '주민'] },
                   target: { sort: { 생물: ['괭이갈매기', '해국', '슴새'], 바다: ['난류와 한류', '해조류 숲', '두 바닷물이 만나요'], 사람: ['독도경비대원', '등대관리원', '주민'] } } },
               } },
             { type: 'choice', prompt: '4학년 독도 공부를 한 문장으로 고르면?', options: ['독도의 생물·바다·사람은 서로 이어져 있어요', '독도에는 생물이 없어요', '독도 바다는 우리와 상관없어요'], answer: 0, difficulty: 0.15, explain: '바다가 건강해야 생물이 살고, 사람도 그 바다와 함께 지내요.' },

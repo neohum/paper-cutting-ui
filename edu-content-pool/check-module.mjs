@@ -6,7 +6,7 @@
 //   --touch   휴대폰 화면에서 교구 누름 영역 44px(check-unit.mjs --touch 와 같은 검사)
 // 정적(모듈마다): 형식(edu-module.v1 — modules/compose.js shapeErrors) · 체계도 계획과 일치(id·type·주제·교구·분) · 주제 근거(source)
 //   · 학년군 기준(학생 글·카드 글자 수 상한, 초등 법 조문·형량 금지, 피해 경험 묻기 금지) · 문항 모양(check-lesson itemShape)
-//   · 교구 범위(check-reach) · 주제 안 같은 방식·교구 반복 금지 · 학년군 카드 계열 교구 60% 이하
+//   · 교구 범위(check-reach — 활동 문항과 정리 출구 교구 질문, 단계마다) · 주제 안 같은 방식·교구 반복 금지 · 학년군 카드 계열 교구 60% 이하
 // 정적(추천 조합 차시마다): 조합 성공(분 합계·학년군·학년) · check-lesson 차시 계약 · 활동 1~3·문항 3~6·출구 2~4·활동지 4 이상
 //   · 같은 학년 안 모듈·문항·제목 반복 금지 · 교사 발문 빈말 금지
 // 동적: check-unit.mjs 와 같은 브라우저 검사(solve→check, 시작 상태 정답 아님, 1단계 힌트 누출, wrongAnswer, 확인 단추, 출구 교구,
@@ -73,6 +73,9 @@ const get = (id) => byId.get(id);
 
 // ---- 정적: 모듈 ----
 const planOf = (m) => { const d = fw.domains.get(m.domain); const b = d && d.bands && d.bands[m.band]; return { d, b, plan: b && (b.modules || []).find((x) => x.id === m.id), topic: b && (b.topics || []).find((t) => t.id === m.topic) }; };
+// 문항·출구 질문의 levels[단계]는 toolOptions 만 읽힌다(player.js·check-reach mounted) — options 칸은 조용히 무시되어 단계별 판이 안 바뀐다
+const levelOptionsSlip = (it, k, F) => { for (const [lv, v] of Object.entries((it && it.levels) || {})) if (v && typeof v === 'object' && Object.prototype.hasOwnProperty.call(v, 'options')) F(k, `levels.${lv} 에 options 칸 — 단계별 교구 옵션은 toolOptions 로 쓴다(options 는 플레이어가 읽지 않음)`); };
+
 function staticModule(m) {
   const F = (where, why) => failAt(m.id, where, why);
   for (const t of PM.shapeErrors(m)) F('형식', t);
@@ -115,6 +118,7 @@ function staticModule(m) {
     items.forEach((it, i) => {
       const k = `item.${i + 1}`;
       if (!it.free && !it.target) F(k, 'target 없음');
+      levelOptionsSlip(it, k, F);
       for (const t of itemShape(it, (n) => notes.push(`${m.id} ${k}: ${n}`))) F(k, t);
       said.push([k, it.prompt, 'prompt']);
       for (const v of Object.values(it.levels || {})) if (v && v.prompt) said.push([k, v.prompt, 'prompt']);
@@ -137,8 +141,11 @@ function staticModule(m) {
       const k = `exit.${i + 1}`;
       said.push([k, q.prompt, 'prompt']);
       if (q.type === 'choice') { if (!(Number.isInteger(q.answer) && q.answer >= 0 && q.answer < (q.options || []).length)) F(k, 'answer 가 options 안의 번호가 아님'); for (const o of q.options || []) said.push([k, o, 'opt']); }
+      levelOptionsSlip(q, k, F);
       if (q.type === 'tool') { if (!q.target) F(k, '교구 출구 질문에 target 없음'); for (const [c, kind] of cardTexts(q.options)) said.push([k, c, kind]); }
     });
+    // 교구 범위: 출구 교구 질문도 단계마다 본다(chart 고르기 정답이 보기 안인지, timer 차례 카드가 판에 있는지 등) — 정리 모듈만 든 차시 모양으로
+    lessonReach({ stages: [{ id: 'wrapup', exitTicket: ex }] }, F);
     const ws = (m.worksheet && m.worksheet.items) || [];
     if (ws.length < 2) F('worksheet', `정리 모듈 활동지 문항 ${ws.length}개 — 2개 이상(활동 모듈 몫과 합쳐 차시마다 4개 이상)`);
     [...ws, ...((m.worksheet && m.worksheet.easy && m.worksheet.easy.items) || [])].forEach((it, i) => { for (const t of worksheetShape(it)) F(`worksheet.${i + 1}`, t); said.push([`worksheet.${i + 1}`, it.prompt, 'prompt']); });

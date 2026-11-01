@@ -38,7 +38,7 @@
 - **도입** `type: 'intro'` (5~6분): `intro: { teacher, student, demo: { tool, options, sequence[] }, art: { draw, banner, extra? } }`. `tool` = `demo.tool`. `art.draw` 는 영어 장면 묘사(조합기가 그림 프롬프트 틀에 넣는다), `banner` 는 장면 가운데 글.
 - **활동** `type: 'activity'`: `activity: { title, tool, teacher, task, levels: { easy:{}, base:{}, challenge:{} }, items: [3~6개] }` + 선택 `worksheet: { items[], easy?[] }`.
   - `title` 에 '활동 1.' 을 붙이지 않는다(조합기가 차례대로 붙인다). `id`·`minutes` 도 쓰지 않는다(조합기가 `a1`·`a2`… 와 모듈 `minutes` 를 쓴다).
-  - `activity.levels` 는 **교구 옵션**(예 `{ live: true, instant: true }`), 모듈의 `levels` 는 **설명 글**이다. 문항 단계별 판은 문항 `levels[단계] = { prompt, target, toolOptions, state }`(CATALOG_BUILD.md·check-lesson itemShape).
+  - `activity.levels` 는 **교구 옵션**(예 `{ live: true, instant: true }`), 모듈의 `levels` 는 **설명 글**이다. 문항 단계별 판은 문항 `levels[단계] = { prompt, target, toolOptions, state }`(CATALOG_BUILD.md·check-lesson itemShape). 정리 출구 교구 질문도 같다 — 단계 칸에 `options` 를 쓰면 플레이어가 읽지 않아 단계별 판이 조용히 무시되므로 `check-module --static` 이 실패시킨다. timer 차례(`target.order`)는 앞에서부터 맞춰 보므로 판(`cards`)에 함정 카드가 더 있어도 되지만, 차례의 카드는 모두 판에 있어야 한다.
   - 문항(`items`) 모양·`target`·`hints`·`conclude`·`free` 는 단원 차시와 같다.
 - **정리** `type: 'wrap'` (7분 안팎): `wrap: { teacher, exitTicket: [2~4개] }` + `worksheet: { title, items[2개 이상], easy?: { note?, items[] } }`. `tool` = 첫 교구 출구 질문(`type: 'tool'`)의 교구, 없으면 `null`.
 
@@ -66,7 +66,7 @@
 
 ```bash
 node edu-content-pool/classroom-hub.mjs --port 8790 &                     # 브라우저 검사용 허브
-node edu-content-pool/check-module.mjs saf-life/e12 --static              # 형식·체계도 일치·학년군 기준·문항 모양·교구 범위
+node edu-content-pool/check-module.mjs saf-life/e12 --static              # 형식·체계도 일치·학년군 기준·문항 모양·교구 범위(활동 문항·정리 출구 교구)
 node edu-content-pool/check-module.mjs saf-life/e12 --hub http://localhost:8790          # + 브라우저(아래)
 node edu-content-pool/check-module.mjs saf-life/e12 --hub http://localhost:8790 --touch  # + 휴대폰 누름 영역 44px
 node edu-content-pool/check-module.mjs <모듈 id> | <영역> | --all [--verbose]           # --verbose: 주제별 진행(도입·활동·정리 수, 아직 안 쓴 계획 모듈)
@@ -74,7 +74,7 @@ node edu-content-pool/build-modules.mjs [--check]                        # 생�
 node --test tests/edu-modules.test.mjs                                   # 조합기 규칙
 ```
 
-브라우저 검사는 `check-unit.mjs` 와 같다: 문항마다 시작 상태가 정답 아님 · solve→check · 1단계 힌트에 정답 값 없음 · wrongAnswer(다 했지만 틀림) · 단계(easy·challenge)별 판으로 풀림 · 확인 단추 한 번 · 출구 교구 · 학생 화면 휴대폰 가로 넘침 · 활동지 렌더·2쪽 이하 · 제출. 추천 조합 차시에 아직 안 들어간 모듈(계획 모듈이 덜 써져 그 차시가 안 열리는 경우 등)은 같은 주제의 다른 모듈과 묶은 **시험 조합**(`compose=…&probe=1`, 분 합계는 따지지 않음)으로 돌린다. 실패 줄 끝의 `(모듈 <id>)` 가 고칠 모듈이다.
+브라우저 검사는 `check-unit.mjs` 와 같다: 문항마다 시작 상태가 정답 아님 · solve→check · 1단계 힌트에 정답 값 없음 · wrongAnswer(다 했지만 틀림) · 단계(easy·challenge)별 판으로 풀림 · 확인 단추 한 번 · 출구 교구(쉬움·도전 판도 시작 상태 ≠ 정답·solve→check) · 학생 화면 휴대폰 가로 넘침 · 활동지 렌더·2쪽 이하 · 제출. 추천 조합 차시에 아직 안 들어간 모듈(계획 모듈이 덜 써져 그 차시가 안 열리는 경우 등)은 같은 주제의 다른 모듈과 묶은 **시험 조합**(`compose=…&probe=1`, 분 합계는 따지지 않음)으로 돌린다. 실패 줄 끝의 `(모듈 <id>)` 가 고칠 모듈이다.
 
 ## 6. 화면
 

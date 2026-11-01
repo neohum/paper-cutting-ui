@@ -1465,7 +1465,7 @@
               { prompt: '고민을 나눌 수 있는 상담실에 핀을 꽂으세요(장소 이름이 보여요).', toolOptions: { readout: true } }),
             IT(X('map', PIN('두통이나 배앓이가 계속될 때 먼저 갈 곳에 핀을 꽂으세요.', SCH, { place: '보건실' }), { difficulty: 0.15 }),
               { prompt: '몸이 아플 때 갈 보건실에 핀을 꽂으세요(장소 이름이 보여요).', toolOptions: { readout: true } },
-              { prompt: '범례 빈칸에 도움 장소의 이름을 채우세요.', toolOptions: { mode: 'legend', meanings: { office: '상담실', hospital: '보건실', school: '담임 교실' } }, target: { legend: { office: '상담실', hospital: '보건실', school: '담임 교실' } } }),
+              { prompt: '범례 빈칸에 도움 장소의 이름을 채우세요.', toolOptions: { mode: 'legend', legend: true, meanings: { office: '상담실', hospital: '보건실', school: '담임 교실' } }, target: { legend: { office: '상담실', hospital: '보건실', school: '담임 교실' } } }),
             { type: 'choice', prompt: '친구가 힘든 마음을 털어놓았을 때 가장 알맞은 행동은?', options: ['혼자 해결해 준다', '믿을 만한 어른에게 함께 간다', '못 들은 척한다'], answer: 1, difficulty: 0.15, explain: '친구 혼자, 나 혼자 짊어지지 않고 믿을 만한 어른과 함께 도와요.' },
           ],
         },

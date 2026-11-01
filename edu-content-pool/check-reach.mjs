@@ -200,7 +200,7 @@ const RULES = {
       const cards = C.cardsOf(o, t);
       const miss = t.order.filter((x) => !cards.includes(x));
       if (miss.length) out.push(`순서 카드에 없는 ${miss.map((x) => `‘${x}’`).join(', ')}`);
-      if (cards.length !== t.order.length) out.push(`카드 ${cards.length}장인데 정답 차례는 ${t.order.length}장`);
+      // timer.js check: 정답 차례를 앞에서부터만 맞춰 본다 — 판에 함정 카드가 더 있어도 뒤에 두면 정답(카드 n장, 차례 n−1장 허용)
     }
     if (Array.isArray(t.records)) {
       const fs = C.fieldsOf(o);
@@ -217,6 +217,17 @@ const RULES = {
       });
     } else if (typeof t.records === 'number' && t.records > C.fieldsOf(o).length) out.push(`기록 ${t.records}칸이 필요한데 칸은 ${C.fieldsOf(o).length}개`);
     if (t.safety && !(o.safety || []).length) out.push('safety 목록 없이 target.safety');
+    return out;
+  },
+
+  chart(o, t) {
+    const out = []; t = t || {};
+    // chart.js 읽기: 고르기 단추는 o.choices 로만 생긴다. solve 는 setState({ pick }) 로 범위를 지나치지 않아 999 도 '정답'이 된다
+    if (t.pick != null) {
+      const c = Array.isArray(o.choices) ? o.choices.length : 0;
+      if (!c) out.push(`고르기 정답 pick ${show(t.pick)}인데 보기(choices)가 없음 — 고를 단추가 안 생김`);
+      else if (!(Number.isInteger(t.pick) && t.pick >= 0 && t.pick < c)) out.push(`고르기 정답 pick ${show(t.pick)}이(가) 보기 ${c}개(0~${c - 1}번) 밖`);
+    }
     return out;
   },
 

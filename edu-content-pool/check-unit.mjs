@@ -341,6 +341,26 @@ export async function dynamicUnit(browser, pages, id, unit, opts) {
             else { tl.solve(t); if (!tl.check(t).correct) row.problems.push('출구 교구 solve 뒤 check가 정답이 아님'); }
           } catch (e) { row.problems.push(`출구 교구 오류: ${e.message}`); }
         });
+        // 출구도 단계(쉬움·도전)마다 학생 판이 바뀐다 — 그 단계에 target·toolOptions·state 가 있으면 그 판으로 다시 장착해
+        // 시작 상태 ≠ 정답, solve → check 를 본다(기본 판만 보면 쉬움·도전 판에 없는 카드·범위 밖 정답이 통과했다)
+        for (const lv of ['easy', 'challenge']) {
+          const ex = S.lesson.stages[2].exitTicket;
+          const has = ex.map((q) => q.type === 'tool' && q.levels?.[lv] && ['target', 'toolOptions', 'state'].some((k) => q.levels[lv][k] != null));
+          if (!has.some(Boolean)) continue;
+          S.level = lv; S.goto(2);
+          ex.forEach((q, i) => {
+            if (!has[i]) return;
+            const row = out.exits[i]; const tag = ` (levels.${lv})`;
+            try {
+              const tl = S.exitTools[i]; if (!tl) { row.problems.push(`출구 교구가 장착되지 않음${tag}`); return; }
+              const t = Fl.itemAt(q, lv).target;
+              const pre = tl.check(t, { forHint: true }) || {};
+              if (pre.correct && !pre.incomplete) row.problems.push(`출구 교구 시작 상태가 이미 정답${tag}`);
+              if (tl.solve) { tl.solve(t); const c = tl.check(t) || {}; if (!c.correct) row.problems.push(`출구 교구 solve 뒤 check가 정답이 아님${tag}: ${c.feedback || ''}`); }
+            } catch (e) { row.problems.push(`출구 교구 오류${tag}: ${e.message}`); }
+          });
+        }
+        S.level = 'base';
         out.overflow = document.documentElement.scrollWidth - innerWidth;
         return out;
       });
