@@ -28,6 +28,26 @@
   // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 문항의 수를 말하지 않는다), 2 = 한 번 틀린 뒤 지금 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
   const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('fraction', {
     name: '분수 피자·띠 조각',
     create(box, o, kit) {
@@ -250,11 +270,13 @@
 
       // ---- 조각 수 단추(스테퍼) ----
       // hit = 누름 영역의 가장 작은 변(viewBox 단위). 휴대폰(390px)에서 무대가 약 0.6배(출구 질문은 0.54배)로 줄어 그려진 단추(44~56)만으로는 44px가 안 된다
-      const button = (x, y, w, h, color, text, label, onPress, size = 30, hit = 48) => {
+      // lim = 휴대폰에서 누름 영역을 넓혀도 되는 한계(무대 좌표 { x0, x1, y0, y1 }) — 주면 화면 46px 까지 그 안에서 넓힌다
+      const button = (x, y, w, h, color, text, label, onPress, size = 30, hit = 48, lim = null) => {
         const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': label, class: 'fr-btn' }, uiL);
         kit.transform(g, { x, y });
         const hw = Math.max(w, hit); const hh = Math.max(h, hit);
-        kit.el('rect', { x: -hw / 2, y: -hh / 2, width: hw, height: hh, class: 'pk-hit' }, g);
+        const hr = kit.el('rect', { x: -hw / 2, y: -hh / 2, width: hw, height: hh, class: 'pk-hit' }, g);
+        if (lim) fitHits(st, [[hr, { x0: lim.x0 - x, x1: lim.x1 - x, y0: lim.y0 - y, y1: lim.y1 - y }]]);
         const pc = kit.piece(st, g, { shape: w === h ? { type: 'circle', r: w / 2 } : { type: 'rect', w, h, rx: 16 }, color, depth: 2 });
         const tx = kit.el('text', { x: 0, y: size * 0.36, 'text-anchor': 'middle', 'font-size': size, class: 'pk-text', fill: P[color].dark }, g); tx.textContent = text;
         const press = (via) => { kit.spring(0.86, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); onPress(via); };
@@ -375,10 +397,14 @@
           kit.announce(`${which === 'num' ? (o.hideFraction ? '위 수' : '분자') : (o.hideFraction ? '아래 수' : '분모')} ${which === 'num' ? wNum : wDen}`);
           kit.recorder.log('fraction', Object.assign({ via }, state()));
         };
-        button(L.fx - 56, L.fy - 50, 44, 44, 'lavender', '−', '분자 줄이기', (via) => setW('num', -1, via), 28, 76);
-        button(L.fx + 56, L.fy - 50, 44, 44, 'mint', '+', '분자 늘리기', (via) => setW('num', 1, via), 28, 76);
-        button(L.fx - 56, L.fy + 26, 44, 44, 'lavender', '−', '분모 줄이기', (via) => setW('den', -1, via), 28, 76);
-        button(L.fx + 56, L.fy + 26, 44, 44, 'mint', '+', '분모 늘리기', (via) => setW('den', 1, via), 28, 76);
+        // 분자 줄과 분모 줄 사이가 76이라 누름 영역 76(휴대폰 출구 질문 배율 약 0.55에서 41px)이 한계였다 —
+        // 휴대폰에서는 분자 단추는 위로(분자 글 쪽), 분모 단추는 아래로 넓히고 두 줄의 경계(fy − 12)에서 만난다. 좌우는 가운데 수 칸까지
+        const top = shape === 'pizza' ? 10 : geo.y + geo.h + 4; const bot = Math.min(vb[1] - 4, L.fy + 100);
+        const lim = (sx, row) => ({ x0: sx < 0 ? L.fx - 112 : L.fx + 20, x1: sx < 0 ? L.fx - 20 : L.fx + 112, y0: row ? L.fy - 12 : top, y1: row ? bot : L.fy - 12 });
+        button(L.fx - 56, L.fy - 50, 44, 44, 'lavender', '−', '분자 줄이기', (via) => setW('num', -1, via), 28, 76, lim(-1, 0));
+        button(L.fx + 56, L.fy - 50, 44, 44, 'mint', '+', '분자 늘리기', (via) => setW('num', 1, via), 28, 76, lim(1, 0));
+        button(L.fx - 56, L.fy + 26, 44, 44, 'lavender', '−', '분모 줄이기', (via) => setW('den', -1, via), 28, 76, lim(-1, 1));
+        button(L.fx + 56, L.fy + 26, 44, 44, 'mint', '+', '분모 늘리기', (via) => setW('den', 1, via), 28, 76, lim(1, 1));
         if (o.showTerms) {
           const tx = shape === 'pizza' ? [L.fx, 312] : [420, 262];
           t(tx[0], tx[1], 13, P.peach.dark, '분자: 색칠한 조각 수');

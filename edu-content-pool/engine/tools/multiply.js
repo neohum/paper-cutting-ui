@@ -98,6 +98,26 @@
     return { type: 'circle', r };
   }
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('multiply', {
     name: '곱셈 배열판',
     create(box, o, kit) {
@@ -133,7 +153,15 @@
       const cellVals = {}; const cellEls = {}; let selKey = null; let cellDigits = 3;
 
       let W = 560; let H = 400;
-      if (mode === 'table') { W = Math.max(300, (colsOf.length + 1) * 48 + 24); H = Math.max(120, (rowsOf.length + 1) * 42 + 24); }
+      // 곱셈표 줄 높이: 휴대폰에서 칸 폭(48)은 화면 46px 를 넘는데 높이(42)만 모자라면 줄 높이만 늘린다(넓은 화면은 42 그대로).
+      // 칸 폭부터 모자란 큰 표(열 8개 이상)는 그대로 둔다 — 아래 숫자 단추의 '다음 빈칸'으로 칸을 옮길 수 있다
+      let TCH = 42;
+      if (mode === 'table') {
+        W = Math.max(300, (colsOf.length + 1) * 48 + 24);
+        const kx = !o.print && box.clientWidth ? box.clientWidth / W : 1;
+        if (48 * kx >= HIT_PX && 42 * kx < HIT_PX) TCH = Math.ceil(HIT_PX / kx);
+        H = Math.max(120, (rowsOf.length + 1) * TCH + 24);
+      }
       if (mode === 'group') H = 360;
       const st = kit.stage(box, { viewBox: [W, H], label: mode === 'array' ? '곱셈 배열판. 몇 개씩 몇 줄인지 배열을 만드세요.' : mode === 'group' ? `묶어 세기 판. ${count}개를 똑같이 묶어 보세요.` : '곱셈표. 빈칸에 알맞은 수를 쓰세요.' });
       kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 16 }, color: 'cream', fill: '#FBF6EC', depth: 2, texture: true });
@@ -161,10 +189,11 @@
         eqTxt = T(W / 2, H - 22, 'middle', 20, '#275C46');
         // 모서리 손잡이: 끌거나 방향키로 배열 크기를 바꾼다
         corner = kit.el('g', null, st.layer('corner'));
-        kit.el('rect', { x: -24, y: -24, width: 48, height: 48, class: 'pk-hit' }, corner);
+        const cornerHit = kit.el('rect', { x: -24, y: -24, width: 48, height: 48, class: 'pk-hit' }, corner);
         kit.piece(st, corner, { shape: { type: 'circle', r: 11 }, color: 'mint', depth: 1 });
         kit.el('path', { d: 'M-5 -1 L0 4 L5 -1', fill: 'none', stroke: '#275C46', 'stroke-width': 2.2, transform: 'rotate(-45)' }, corner);
         if (controls && !lock) {
+          fitHits(st, [cornerHit]); // 휴대폰에서는 칸이 보기 전용 그림이라(번호 띠로 고름) 손잡이 누름 영역만 화면 46px 로 넓힌다
           corner.classList.add('pk-draggable'); corner.setAttribute('tabindex', '0'); corner.setAttribute('role', 'button');
           corner.setAttribute('aria-label', '배열 모서리. 왼쪽 오른쪽 방향키는 한 줄의 개수, 위 아래 방향키는 줄 수');
           let dragging = false;
@@ -352,7 +381,7 @@
         blanks = blanks.filter(([a, b]) => rowsOf.includes(a) && colsOf.includes(b));
         const isBlank = (a, b) => blanks.some(([x, y]) => x === a && y === b);
         cellDigits = Math.max(1, Math.min(6, intOr(o.digits, 0) || Math.max(3, ...blanks.map(([a, b]) => String(Math.abs(calc(a, b))).length))));
-        const CW = 48; const CH = 42; const OX = 12; const OY = 12;
+        const CW = 48; const CH = TCH; const OX = 12; const OY = 12;
         const L = st.layer('table');
         const pf = (c) => (o.print ? '#FFFFFF' : c);
         const cellT = (x, y, txt, fill, size) => { const t = kit.el('text', { x, y, 'text-anchor': 'middle', 'font-size': size || 17, class: 'pk-text', fill }, L); t.textContent = txt; return t; };
@@ -367,6 +396,7 @@
             if (!isBlank(a, b)) { kit.el('rect', { x, y, width: CW, height: CH, fill: '#FFFDF9', stroke: '#C9BFA9', 'stroke-width': 1 }, L); cellT(x + CW / 2, y + CH / 2 + 6, String(calc(a, b)), '#3D352E', 16); return; }
             const k = keyOf(a, b); cellVals[k] = null;
             const g = kit.el('g', { class: 'mu-blank' }, L);
+            kit.el('rect', { x, y, width: CW, height: CH, class: 'pk-hit' }, g); // 칸 전체가 누름 영역(이웃 칸과 맞닿고 겹치지 않음)
             const bg = kit.el('rect', { x: x + 3, y: y + 3, width: CW - 6, height: CH - 6, rx: 6, fill: '#FFFFFF', stroke: '#E69D7B', 'stroke-width': 2, 'stroke-dasharray': '4 3', class: 'pk-face' }, g);
             const t = kit.el('text', { x: x + CW / 2, y: y + CH / 2 + 6, 'text-anchor': 'middle', 'font-size': 17, class: 'pk-text', fill: '#204C5A' }, g);
             cellEls[k] = { g, bg, t, a, b };

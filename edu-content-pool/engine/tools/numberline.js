@@ -69,6 +69,25 @@
     const a = opts && Number.isInteger(opts.attempts) ? opts.attempts : null;
     return a == null ? want : Math.min(want, a >= 2 ? 3 : a >= 1 ? 2 : 1);
   };
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
   function ensureStyle() {
     if (document.getElementById('nl-style')) return;
     const s = document.createElement('style'); s.id = 'nl-style';
@@ -197,24 +216,29 @@
       const pts = []; // { g, tick|null, valTxt }
       let active = 0;
       const ptL = st.layer('points');
-      const trayX = (i) => X0 + 10 + i * 46; const TRAY_Y = 70;
+      // 받침 점 간격: 휴대폰에서는 점 누름 영역(화면 46px)이 서로 겹치지 않게 넓힌다(넓은 화면은 46 그대로)
+      const boxW = o.print ? 0 : box.clientWidth || 0;
+      const TRAY_P = boxW && boxW < W ? Math.max(46, Math.min(Math.ceil(HIT_PX * W / boxW) + 2, Math.floor((W - 2 * X0 - 40) / (MAXP - 1)))) : 46;
+      const trayX = (i) => X0 + 10 + i * TRAY_P; const TRAY_Y = 70;
       if (mode === 'place') {
         if (controls) {
-          trayRect = kit.el('rect', { x: X0 - 14, y: TRAY_Y - 52, width: Math.max(60, count * 46 + 8), height: 60, rx: 12, fill: 'none', stroke: '#B8A6D9', 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }, st.layer('tray'));
+          trayRect = kit.el('rect', { x: X0 - 14, y: TRAY_Y - 52, width: Math.max(60, count * TRAY_P + 8), height: 60, rx: 12, fill: 'none', stroke: '#B8A6D9', 'stroke-width': 1.6, 'stroke-dasharray': '5 4' }, st.layer('tray'));
         }
         // 수직선을 누르면 고른 점이 그 눈금으로 간다(작은 점을 끌기 어려운 터치 화면)
         const hit = kit.el('rect', { x: X0 - 20, y: LY - HIT / 2, width: X1 - X0 + 40, height: HIT, class: 'pk-hit' }, lineL);
         if (controls) hit.addEventListener('click', (e) => { const p = st.point(e); moveTo(active, Math.round((p.x - X0) / tp)); });
         const colors = ['sky', 'buttercup', 'mint', 'lavender', 'peach', 'rose'];
+        const ptHits = [];
         for (let i = 0; i < MAXP; i++) {
           const g = kit.el('g', { class: 'nl-pt' }, ptL);
-          kit.el('rect', { x: -30, y: -74, width: 60, height: 90, class: 'pk-hit' }, g);
+          ptHits.push(kit.el('rect', { x: -30, y: -74, width: 60, height: 90, class: 'pk-hit' }, g));
           kit.piece(st, g, { shape: { type: 'path', d: 'M0 0 C -6 -10 -16 -18 -16 -34 A 16 16 0 1 1 16 -34 C 16 -18 6 -10 0 0 Z' }, color: colors[i % colors.length], depth: 1 });
           kit.el('text', { x: 0, y: -29, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: '#3D352E' }, g).textContent = names[i];
           const valTxt = kit.el('text', { x: 0, y: -58, 'text-anchor': 'middle', 'font-size': 14, class: 'pk-text', fill: '#204C5A' }, g);
           pts.push({ g, tick: null, valTxt });
           if (controls) wirePoint(i);
         }
+        if (controls) fitHits(st, ptHits);
       }
       function paintPoint(i) {
         const p = pts[i];
@@ -231,14 +255,31 @@
         revealed = false; paintPoint(i); clearMarks();
         if (!silent) { log(); kit.announce(p.tick == null ? `${names[i]} 점을 받침으로 되돌렸어요` : `${names[i]} 점을 옮겼어요`); }
       }
+      let drag = null;
+      function nearestPoint(q, i) {
+        let best = i; let bd = Infinity;
+        for (let j = 0; j < count; j++) {
+          const t = pts[j].tick; const x = t == null ? trayX(j) : xOf(t); const y = (t == null ? TRAY_Y : LY) - 30;
+          const d = (q.x - x) ** 2 + (q.y - y) ** 2; if (d < bd) { bd = d; best = j; }
+        }
+        return best;
+      }
       function wirePoint(i) {
         const g = pts[i].g;
         g.classList.add('pk-draggable'); g.setAttribute('tabindex', '0'); g.setAttribute('role', 'slider');
         g.setAttribute('aria-label', `${names[i]} 점. 왼쪽 오른쪽 방향키로 옮겨요`);
-        let dragging = false;
-        g.addEventListener('pointerdown', (e) => { e.preventDefault(); active = i; dragging = true; g.parentNode.appendChild(g); g.setPointerCapture(e.pointerId); g.classList.add('pk-lifted'); });
-        g.addEventListener('pointermove', (e) => { if (!dragging) return; const p = st.point(e); const k = Math.max(0, Math.min(N, Math.round((p.x - X0) / tp))); if (k !== pts[i].tick) { pts[i].tick = k; revealed = false; paintPoint(i); clearMarks(); } });
-        const end = (e) => { if (!dragging) return; dragging = false; g.classList.remove('pk-lifted'); try { g.releasePointerCapture(e.pointerId); } catch (_) { /* 이미 풀림 */ } log(); kit.announce(`${names[i]} 점을 놓았어요`); };
+        // 휴대폰에서 넓힌 누름 영역이 겹치면 누른 자리에서 가장 가까운 점을 잡는다.
+        // 끌지 않고 눌렀다 떼면, 수직선 위의 점은 누른 눈금으로 간다(넓힌 영역이 덮은 수직선 누름과 같게)
+        g.addEventListener('pointerdown', (e) => {
+          e.preventDefault(); const q = st.point(e); const j = nearestPoint(q, i); const gj = pts[j].g;
+          active = j; drag = { i: j, x: q.x, y: q.y, moved: false }; gj.parentNode.appendChild(gj); gj.setPointerCapture(e.pointerId); gj.classList.add('pk-lifted');
+        });
+        g.addEventListener('pointermove', (e) => { if (!drag || drag.i !== i) return; const p = st.point(e); if (Math.hypot(p.x - drag.x, p.y - drag.y) > 4) drag.moved = true; if (!drag.moved) return; const k = Math.max(0, Math.min(N, Math.round((p.x - X0) / tp))); if (k !== pts[i].tick) { pts[i].tick = k; revealed = false; paintPoint(i); clearMarks(); } });
+        const end = (e) => {
+          if (!drag || drag.i !== i) return; const tap = !drag.moved && e.type === 'pointerup'; drag = null; g.classList.remove('pk-lifted'); try { g.releasePointerCapture(e.pointerId); } catch (_) { /* 이미 풀림 */ }
+          if (tap && pts[i].tick != null) { const k = Math.max(0, Math.min(N, Math.round((st.point(e).x - X0) / tp))); if (k !== pts[i].tick) { moveTo(i, k); return; } }
+          log(); kit.announce(`${names[i]} 점을 놓았어요`);
+        };
         g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
         g.addEventListener('focus', () => { active = i; syncActive(); });
         g.addEventListener('keydown', (e) => {
@@ -284,13 +325,14 @@
           arcs.push({ g, path, head, txt });
         }
         fromG = kit.el('g', null, st.layer('from'));
-        kit.el('rect', { x: -26, y: -30, width: 52, height: 64, class: 'pk-hit' }, fromG);
+        const fromHit = kit.el('rect', { x: -26, y: -30, width: 52, height: 64, class: 'pk-hit' }, fromG);
         kit.piece(st, fromG, { shape: { type: 'rect', x: -9, y: -18, w: 18, h: 36, rx: 5 }, color: 'mint', depth: 1 });
         kit.el('text', { x: 0, y: -24, 'text-anchor': 'middle', 'font-size': 13, class: 'pk-text', fill: '#275C46' }, fromG).textContent = '출발';
         endG = kit.el('g', null, st.layer('end'));
         kit.el('polygon', { points: '-8,18 8,18 0,6', fill: '#702830' }, endG);
         endTxt = kit.el('text', { x: 0, y: 40, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: '#702830' }, endG);
         if (controls && fixedFrom == null) {
+          fitHits(st, [fromHit]);
           fromG.classList.add('pk-draggable'); fromG.setAttribute('tabindex', '0'); fromG.setAttribute('role', 'slider'); fromG.setAttribute('aria-label', '출발점. 왼쪽 오른쪽 방향키로 옮겨요');
           let dragging = false;
           fromG.addEventListener('pointerdown', (e) => { e.preventDefault(); dragging = true; fromG.setPointerCapture(e.pointerId); fromG.classList.add('pk-lifted'); });
@@ -597,7 +639,7 @@
       function setCount(n) {
         if (mode !== 'place' || o.count || !n) return;
         count = Math.max(1, Math.min(MAXP, n)); active = Math.min(active, count - 1);
-        if (trayRect) trayRect.setAttribute('width', Math.max(60, count * 46 + 8));
+        if (trayRect) trayRect.setAttribute('width', Math.max(60, count * TRAY_P + 8));
         syncActive(); paintAll();
       }
       function paintAll() { if (mode === 'place') pts.forEach((_, i) => paintPoint(i)); if (mode === 'jump') paintJump(); }

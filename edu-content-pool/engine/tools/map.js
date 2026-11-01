@@ -89,6 +89,26 @@
   const HEIGHT_NAMES = ['낮은 땅', '언덕', '산', '높은 산', '아주 높은 산'];
   const REGION_TINT = ['peach', 'mint', 'lavender', 'buttercup', 'sky', 'rose'];
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('map', {
     name: '종이 지도',
     create(box, o, kit) {
@@ -129,17 +149,19 @@
       // 좁은 화면(휴대폰)에서는 띠를 지도 아래로 내려 지도 칸을 크게 둔다(칸·핀이 44px 가까이 남게)
       const boxW = box.clientWidth || (box.getBoundingClientRect ? box.getBoundingClientRect().width : 0) || 0;
       const side = print || !(boxW && boxW < 520);
+      const pcols = side ? 1 : Math.max(1, Math.floor((MW + 12 + GAP) / (PW + GAP)));
+      const ox = side ? MX + MW + 16 : MX - 6; const oy = side ? 12 : MY + MH + 16;
+      // 범례 고르기 줄 간격: 휴대폰(띠가 지도 아래)에서는 빈칸 누름 영역(줄 간격 − 6)이 화면 46px 이상이 되게 넓힌다. 넓은 화면은 50 그대로
+      const LROW = mode !== 'legend' ? 34 : side ? 50 : Math.max(50, Math.ceil((HIT_PX * Math.max(MX + MW + 18, ox + pcols * (PW + GAP))) / boxW) + 6);
       const panelItems = [];
       if (mode === 'compass') panelItems.push(['rose', 150]);
       if (pinMode && !print) panelItems.push(['home', 74]);
-      if (showLegend) panelItems.push(['legend', 26 + Math.min(8, mode === 'legend' ? legendKeys.length : legendKeys.length) * (mode === 'legend' ? 50 : 34)]);
+      if (showLegend) panelItems.push(['legend', 26 + Math.min(8, mode === 'legend' ? legendKeys.length : legendKeys.length) * LROW]);
       if (terrainLegend) panelItems.push(['terrain', 26 + (Math.max(...heights.flat().filter((v) => v >= 0), 0) + 1) * 26]);
       if (choropleth) panelItems.push(['choro', 26 + 4 * 26]);
       if (scale) panelItems.push(['scale', 58]);
       const readoutOn = !print && (o.readout || false);
       if (readoutOn) panelItems.push(['readout', 54]);
-      const pcols = side ? 1 : Math.max(1, Math.floor((MW + 12 + GAP) / (PW + GAP)));
-      const ox = side ? MX + MW + 16 : MX - 6; const oy = side ? 12 : MY + MH + 16;
       const colH = Array(pcols).fill(oy); const slot = {};
       panelItems.forEach(([k, h]) => { const i = colH.indexOf(Math.min(...colH)); slot[k] = { x: ox + i * (PW + GAP), y: colH[i], h }; colH[i] += h + GAP; });
       const W = side ? ox + PW + 8 : Math.max(MX + MW + 18, ox + pcols * (PW + GAP));
@@ -277,11 +299,11 @@
       if (slot.legend) {
         const s = panelCard('legend', '범례'); const PX = s.x;
         legendKeys.forEach((k, i) => {
-          const rowY = s.y + 28 + i * (mode === 'legend' ? 50 : 34);
+          const rowY = s.y + 28 + i * LROW;
           const ig = kit.el('g', null, panel); ICONS[k].draw(kit, st, ig); kit.transform(ig, { x: PX + 24, y: rowY + (mode === 'legend' ? 22 : 14), s: 0.72 });
           if (mode !== 'legend') { kit.el('text', { x: PX + 46, y: rowY + 19, 'font-size': 14, class: 'pk-text', fill: ink }, panel).textContent = meanings[k] || ICONS[k].name; return; }
           const b = kit.el('g', { class: 'mp-blank', tabindex: print || readOnly ? null : 0, role: print ? null : 'button' }, panel);
-          kit.el('rect', { x: PX + 44, y: rowY, width: PW - 52, height: 44, class: 'pk-hit' }, b);
+          kit.el('rect', { x: PX + 44, y: rowY + 22 - (LROW - 6) / 2, width: PW - 52, height: LROW - 6, class: 'pk-hit' }, b);
           const face = kit.piece(st, b, { shape: { type: 'rect', x: PX + 46, y: rowY + 4, w: PW - 56, h: 36, rx: 9 }, color: 'buttercup', depth: 1, fill: '#FFFFFF' });
           face.face.setAttribute('stroke', print ? '#000' : P.buttercup.layer); face.face.setAttribute('stroke-dasharray', '5 4');
           const t = kit.el('text', { x: PX + 46 + (PW - 56) / 2, y: rowY + 27, 'text-anchor': 'middle', 'font-size': 14, class: 'pk-text', fill: ink }, b);
@@ -362,7 +384,8 @@
       if (pinMode) {
         if (slot.home) { const s = panelCard('home', '핀 자리'); homeXY = { x: s.x + PW / 2, y: s.y + 64 }; }
         pinG = kit.el('g', { class: 'mp-pin', 'aria-label': '핀' }, st.layer('pin'));
-        kit.el('rect', { x: -32, y: -48, width: 64, height: 66, class: 'pk-hit' }, pinG);
+        const pinHit = kit.el('rect', { x: -32, y: -48, width: 64, height: 66, class: 'pk-hit' }, pinG);
+        if (!print && !readOnly) fitHits(st, [pinHit]);
         kit.el('path', { d: 'M0 0 L-2 -16 L2 -16 Z', fill: '#3D352E' }, pinG);
         kit.el('ellipse', { cx: 0, cy: 1, rx: 6, ry: 2.5, fill: 'rgba(46,30,20,0.3)' }, pinG);
         kit.piece(st, pinG, { shape: { type: 'circle', r: 11, cy: -24 }, color: 'rose', depth: 2, fill: '#E8655A' });

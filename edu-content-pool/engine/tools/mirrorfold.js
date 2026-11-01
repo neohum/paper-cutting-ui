@@ -25,6 +25,26 @@
   };
   const josa = (w, a, b) => { const c = String(w).replace(/'$/, '').slice(-1).charCodeAt(0); const has = (c >= 0x3131 && c <= 0x314E) || (c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0); return `${w}${has ? a : b}`; };
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('mirrorfold', {
     name: '선대칭 접기 종이',
     create(box, o, kit) {
@@ -262,7 +282,8 @@
       const statusText = kit.el('text', { x: o.allowFold === false ? W / 2 : 168, y: by + 30, 'text-anchor': o.allowFold === false ? 'middle' : 'start', 'font-size': 14, class: 'pk-text', fill: '#473B6B' }, U);
       if (!print && o.allowFold !== false) {
         const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': '대칭축을 따라 접기', class: 'pk-draggable mf-btn' }, U);
-        kit.el('rect', { x: 18, y: by - 2, width: 136, height: 54, rx: 14, class: 'pk-hit' }, g);
+        // 휴대폰(배율 약 0.78)에서는 받침 줄 누름 영역 아래(by − 8)부터 무대 끝까지 세로로 넓힌다 — 오른쪽 안내 글(168~)은 누르는 것이 아니다
+        fitHits(st, [[kit.el('rect', { x: 18, y: by - 2, width: 136, height: 54, rx: 14, class: 'pk-hit' }, g), { x0: 10, x1: 164, y0: by - 8, y1: H }]]);
         kit.piece(st, g, { shape: { type: 'rect', x: 18, y: by, w: 136, h: 50, rx: 14 }, color: 'mint', depth: 2 });
         kit.el('text', { x: 86, y: by + 32, 'text-anchor': 'middle', 'font-size': 18, class: 'pk-text', fill: '#173A2C' }, g).textContent = '접어 보기';
         const go = (e) => { e.preventDefault(); fold(); };

@@ -141,10 +141,15 @@
       const blanksAt = mode === 'fill' ? seq.map((p, i) => (p == null ? i : -1)).filter((i) => i >= 0) : [];
       const length = mode === 'make' ? Math.max(4, Math.min(12, o.length || 8)) : seq.length;
       const slots = mode === 'make' ? length : seq.length;
-      const perRow = Math.max(3, Math.min(10, o.perRow || 8));
+      let perRow = Math.max(3, Math.min(10, o.perRow || 8));
+      // 휴대폰(좁은 상자): 판 폭을 줄이고 한 줄 조각 수를 그에 맞춰 줄여, 칸 누름 영역(조각+4)이 화면 46px 이상이 되게 한다.
+      // 넓은 화면·활동지는 폭 640 그대로
+      let W = 640;
+      const boxW = o.print ? 0 : box.clientWidth || 0;
+      if (boxW && boxW < 520) { W = Math.min(640, Math.floor((boxW * 68) / 47)); perRow = Math.min(perRow, Math.max(3, Math.floor((W - 30) / 74))); }
       const nRows = Math.max(1, Math.ceil(slots / perRow));
       const cols = Math.min(perRow, Math.max(1, slots));
-      const W = 640; const TS = Math.min(64, Math.floor((W - 40) / cols) - 10); const GAP = 10;
+      const TS = Math.min(64, Math.floor((W - 40) / cols) - 10); const GAP = 10;
       const H = 30 + nRows * (TS + 26) + 18;
       const st = kit.stage(box, { viewBox: [W, H], label: mode === 'make' ? '규칙 판. 조각을 골라 규칙이 있게 늘어놓으세요.' : mode === 'odd' ? '규칙 판. 규칙에 맞지 않는 조각을 고르세요.' : mode === 'rule' ? '규칙 판. 조각이 늘어선 규칙을 찾으세요.' : '규칙 판. 규칙을 찾아 빈칸에 알맞은 조각을 넣으세요.' });
       kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 16 }, color: 'cream', fill: '#FBF6EC', depth: 2, texture: true });
