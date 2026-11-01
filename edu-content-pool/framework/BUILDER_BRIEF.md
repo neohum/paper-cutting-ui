@@ -37,6 +37,9 @@
 - **sortboard 글 카드 모드**(2026-11-01 추가): `toolOptions: { slots: ['칸 이름', …](2~4개), cards: ['글' 또는 { id, text, icon? }] }`, `target: { sort: { '칸 이름': [카드 id…] } }` — mindmap sort 와 같은 꼴, target 에 없는 카드는 함정 카드. 카드 글 40자 안팎. 쉬움 `instant`·`showCount`·`limit: n`, 도전 `more: [더할 카드]`(글 카드 모드에서는 배열). 카드 한 장의 정답 바구니는 하나. 생김새가 '선반 위 종이 바구니'라 mindmap 가지와 구별된다. 자세한 표는 `engine/tools/sortboard.js` 첫머리.
 - **wordcards** 는 원래 영어 낱말 교구다. flip·listen·spell 은 영어 발음(en-US)을 낸다 — 창체에서는 sort·pick·order·fill(공통 카드 판, 한국어 글 카드)을 쓰고, flip 이 꼭 필요하면 `speak: false`.
 - **map 핀(큰 격자)·chart 표 칸·body 팔 손잡이**의 휴대폰 44px 결함은 2026-11-01 교구에서 고쳤다 — 격자를 줄이거나 tableBlanks 를 줄이는 우회는 이제 필요 없다.
+- **활동 모듈 id 는 `<주제>.activity.<이름>`**. 법정교육 체계도(mandatory.json)는 `.act.` 로 적혀 있었는데 2026-11-02 `.activity.` 로 바꿨다 — 예전 사본을 보고 `act.` 를 쓰지 않는다.
+- **pattern** 칸 44px·**map 범례 빈칸**·**chart 꺾은선 점**도 2026-11-02 교구에서 고쳤다. pattern 금지 표시는 `'circle:red'`(빨강)를 쓴다(rose 대신).
+- **timer** 두 구간 이름은 `toolOptions.labels: ['게임', '쉬기']`(각 5자 이하)로 바꿀 수 있다 — '운동' 칸을 다른 뜻으로 읽게 하는 우회는 이제 하지 않는다. state·target 은 그대로 work/rest.
 - **clock**: 단계마다 target 분이 그 단계 `minuteStep` 의 배수여야 한다(정적 검사가 잡는다).
 - **emotion branch** 보기 누름 영역이 휴대폰에서 43.7px 이던 결함은 2026-11-01 교구에서 고쳤다(정리 질문에도 branch 를 써도 된다).
 - **차시 제목 40자**를 넘으면 활동 제목을 줄인다(체계도 json 은 고치지 않는다).
