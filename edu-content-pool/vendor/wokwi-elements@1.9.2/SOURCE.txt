@@ -1,0 +1,19 @@
+이름: @wokwi/elements 1.9.2 (wokwi-elements)
+라이선스: MIT (LICENSE). 번들 안에 lit 가 들어 있다 — @lit/reactive-element 2.1.1, lit-html 3.3.1, lit-element 4.2.1, BSD-3-Clause (LICENSE-lit; lit-html@3.3.1 tarball 의 LICENSE 원문).
+출처: https://www.npmjs.com/package/@wokwi/elements  저장소 https://github.com/wokwi/wokwi-elements (태그 v1.9.2 = 3c8178e6eccd94f89a197182954a4bf9d3e6a76b)
+받은 방법: npm pack @wokwi/elements@1.9.2 (설치 스크립트 실행 없음, 압축만 풂)
+tarball integrity: sha512-bommouWNrBl6bQqxi8ZT/Keh1MbGpL7bl2pVf4DxbrngXw3G7iejt5XA2990q9i5tidGoxMYJxoP11Ai6xuQdg==
+tarball shasum(sha1): 96dd8d340b76d8bd29e8009e22336ba6539df7c8
+npm 발행일: 2026-03-01
+받은 날짜: 2026-11-01
+
+실은 파일 (원본 그대로)
+  wokwi-elements.bundle.min.js  446,574 B  sha256 ed4d37538924828fe78aa3163ee98130ecc1d7bdc533575dbf127383317605b0
+    = package/dist/wokwi-elements.bundle.min.js. 일반 <script> 로 읽는 IIFE, 전역 'elements'. 읽으면 <wokwi-*> 사용자 정의 요소가 등록된다.
+  LICENSE, LICENSE-lit
+
+검토 (2026-11-01)
+  - package.json scripts: preinstall/install/postinstall 없음. 'prepare'(husky+build)는 git 의존성일 때만 돌며 npm tarball 설치에서는 돌지 않는다.
+  - 네트워크: fetch / XMLHttpRequest / WebSocket / import(외부 URL) 없음. 나오는 URL 은 SVG 이름공간(w3.org)뿐.
+  - eval / new Function 없음.
+  - 런타임 의존성 lit 는 번들에 포함되어 따로 싣지 않는다. @types/react 의존성은 타입 전용이라 브라우저와 무관.

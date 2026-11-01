@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>아두이노 시뮬레이터</title>
+<link rel="stylesheet" href="_sample.css">
+<script src="../wokwi-elements@1.9.2/wokwi-elements.bundle.min.js"></script>
+<script src="../avr8js@0.21.1/avr8js.iife.js"></script>
+<script src="avr/programs.js"></script>
+</head>
+<body>
+<main>
+  <h1>미리 컴파일한 프로그램 실행 (avr8js + wokwi-elements)</h1>
+  <p class="lead">ATmega328P(아두이노 우노)의 CPU를 브라우저에서 명령어 하나씩 돌린다. LED는 13번 핀(PB5)의 실제 출력 상태를 따라간다.</p>
+  <div class="stage">
+    <div class="row">
+      <wokwi-arduino-uno id="uno"></wokwi-arduino-uno>
+      <div class="row" style="flex-direction:column;align-items:flex-start">
+        <wokwi-led id="led" color="red" label="13번"></wokwi-led>
+        <wokwi-pushbutton id="btn" color="green" label="2번"></wokwi-pushbutton>
+      </div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <label><input type="radio" name="prog" value="blink" checked> 깜빡임(blink.hex)</label>
+      <label><input type="radio" name="prog" value="button-led"> 버튼으로 켜기(button-led.hex)</label>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <label for="speed">깜빡임 간격</label>
+      <input id="speed" type="range" min="8" max="120" value="41">
+      <output id="speedOut"></output>
+    </div>
+    <div class="note">13번 핀: <output id="pin">-</output> · 지난 시간(시뮬레이션): <output id="time">0.0</output>초</div>
+  </div>
+  <p class="note"><b>한계</b>: 학생이 쓴 C++ 를 여기서 컴파일하지 못한다(컴파일러가 없다). 이 화면은 미리 조립한 프로그램을 싣고, 간격처럼 정해 둔 매개변수 한 개만 프로그램 메모리에서 바꿔 쓴다.</p>
+</main>
+<script>
+  const { CPU, avrInstruction, AVRIOPort, AVRTimer, portBConfig, portDConfig, timer0Config, PinState } = avr8js;
+  const led = document.getElementById('led'), uno = document.getElementById('uno');
+  const btn = document.getElementById('btn'), pinOut = document.getElementById('pin');
+  const timeOut = document.getElementById('time'), speed = document.getElementById('speed');
+  const speedOut = document.getElementById('speedOut');
+  const HZ = 16e6;
+  uno.ledPower = true;
+
+  // Intel HEX → 바이트 (데이터 레코드만; 우노 32KB 범위)
+  function loadHex(text, target) {
+    for (const line of text.split('\n')) {
+      if (!line.startsWith(':')) continue;
+      const n = parseInt(line.slice(1, 3), 16), addr = parseInt(line.slice(3, 7), 16), type = parseInt(line.slice(7, 9), 16);
+      if (type !== 0) continue;
+      for (let i = 0; i < n; i++) target[addr + i] = parseInt(line.slice(9 + i * 2, 11 + i * 2), 16);
+    }
+  }
+  // ldi Rd,K (Rd 16..31) = 1110 KKKK dddd KKKK
+  const ldi = (rd, k) => 0xE000 | ((k & 0xF0) << 4) | ((rd - 16) << 4) | (k & 0x0F);
+
+  let sim = null;
+  function boot(name) {
+    const entry = window.AVR_PROGRAMS[name];
+    const program = new Uint16Array(0x4000);
+    loadHex(entry.hex, new Uint8Array(program.buffer));
+    const cpu = new CPU(program);
+    new AVRTimer(cpu, timer0Config);
+    const portB = new AVRIOPort(cpu, portBConfig);
+    const portD = new AVRIOPort(cpu, portDConfig);
+    portD.setPin(2, true); // 버튼 뗀 상태(풀업)
+    portB.addListener(() => {
+      const on = portB.pinState(5) === PinState.High;
+      led.value = on; uno.led13 = on; pinOut.textContent = on ? 'HIGH(켜짐)' : 'LOW(꺼짐)';
+    });
+    sim = { cpu, program, portD, entry };
+    applySpeed();
+  }
+  function applySpeed() {
+    speedOut.textContent = '약 ' + (speed.value * 0.0122).toFixed(2) + '초';
+    if (!sim || !sim.entry.paramWordAddress) return;
+    sim.program[sim.entry.paramWordAddress] = ldi(sim.entry.paramRegister, Number(speed.value));
+  }
+  speed.addEventListener('input', applySpeed);
+  btn.addEventListener('button-press', () => sim && sim.portD.setPin(2, false));
+  btn.addEventListener('button-release', () => sim && sim.portD.setPin(2, true));
+  document.querySelectorAll('input[name=prog]').forEach((r) => r.addEventListener('change', () => boot(r.value)));
+
+  // 한 프레임에 실제 시간만큼(최대 50ms) CPU를 돌린다
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min(now - last, 50); last = now;
+    if (sim) {
+      const end = sim.cpu.cycles + Math.round(HZ * dt / 1000);
+      while (sim.cpu.cycles < end) { avrInstruction(sim.cpu); sim.cpu.tick(); }
+      timeOut.textContent = (sim.cpu.cycles / HZ).toFixed(1);
+    }
+    requestAnimationFrame(frame);
+  }
+  boot('blink');
+  requestAnimationFrame(frame);
+</script>
+</body>
+</html>

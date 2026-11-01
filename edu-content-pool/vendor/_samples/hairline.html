@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>선화 그림</title>
+<link rel="stylesheet" href="_sample.css">
+<script src="../hairline@0.5.1/hairline.iife.js"></script>
+<style>
+  .figs { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+  .fig { border:1px solid var(--line); border-radius:10px; padding:8px; background:#fff;
+    --hairline-plate:#ffffff; }
+  .fig figcaption { font-size:14px; margin-top:6px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>포인터에 반응하는 등각 선화 (hairline)</h1>
+  <p class="lead">실험·관찰과 이어지는 그림 세 개를 골랐다. 마우스를 올리면 움직이고, 아래 숫자는 그림이 알려 주는 읽은 값이다.</p>
+  <div class="figs">
+    <figure class="fig"><div id="f1"></div><figcaption>체(sieve) 3단 — 높이로 한 단을 고른다 · <output id="r1"></output></figcaption></figure>
+    <figure class="fig"><div id="f2"></div><figcaption>돋보기(loupe) — 끌면 눈금이 커진다 · <output id="r2"></output></figcaption></figure>
+    <figure class="fig"><div id="f3"></div><figcaption>서랍(drawer) — 칸을 열어 본다 · <output id="r3"></output></figcaption></figure>
+  </div>
+  <p class="note">그림 설명(label)은 기본이 영어라 한국어로 바꿔 넣었다. 우리 그림을 새로 만들 때는 hairline-create 스킬(원본 SVG가 있으면 hairline-adopt)을 쓴다.</p>
+</main>
+<script>
+  const make = (fn, id, out, label) =>
+    hairline[fn](document.getElementById(id), { theme: 'light', play: true, label,
+      onRead: (t) => { document.getElementById(out).textContent = t; } });
+  make('sieve', 'f1', 'r1', '겹쳐 쌓은 체 세 개');
+  make('loupe', 'f2', 'r2', '줄 쳐진 종이 위의 돋보기');
+  make('drawer', 'f3', 'r3', '서랍 세 칸짜리 함');
+</script>
+</body>
+</html>

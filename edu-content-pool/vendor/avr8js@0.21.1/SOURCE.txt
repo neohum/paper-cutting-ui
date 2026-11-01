@@ -1,0 +1,24 @@
+이름: avr8js 0.21.1
+라이선스: MIT (LICENSE). utils/assembler.js 는 Avrian-Jump(MIT, Michael Conrad Tadpol Tilstra) 기반이며 고지가 파일 머리에 들어 있다.
+출처: https://www.npmjs.com/package/avr8js  저장소 https://github.com/wokwi/avr8js (태그 v0.21.1 = bee6f0a94e0e27786f6bc21aee3c775849fb50fd)
+받은 방법: npm pack avr8js@0.21.1 (설치 스크립트 실행 없음, 압축만 풂)
+tarball integrity: sha512-lS1vPaB0gB2GXoPrHFQOUG/5CRORjvnmjbs8SiPZdJpt4HkV0+v6HnNeXxo/X9lPqumqphls2Qyql8zsw9rBaw==
+tarball shasum(sha1): 26995bcd13d85cf54fa348297c258e7555165617
+npm 발행일: 2026-08-31
+받은 날짜: 2026-11-01
+
+실은 파일
+  esm/  (원본 그대로) package/dist/esm 의 .js 17개, 약 200KB. utils/test-utils.js(테스트 전용)와 .d.ts 는 뺐다.
+        확장자 없는 상대 import('./cpu/cpu')를 쓰는 번들러용 배포본이라 브라우저가 그대로 읽지 못한다.
+        _samples/avr/build-programs.mjs 가 Node 에서 이 파일로 조립·검증한다.
+  avr8js.iife.js  117,046 B  sha256 5c0951f4e71e9e2a6b5e95bd8e9d4293548429b216861f21769b2f68f58d66ef
+        파생 파일: 일반 <script> 용 IIFE, 전역 'avr8js'. 코드는 고치지 않고 묶기만 했다.
+        만든 명령: esbuild package/dist/esm/index.js --bundle --format=iife --global-name=avr8js --target=es2019 --legal-comments=inline
+        도구: esbuild 0.28.2 (all_market 저장소 pnpm 저장소의 기존 설치본; 새로 받지 않음)
+        assembler 는 index.js 가 내보내지 않으므로 이 파일에 없다.
+  LICENSE
+
+검토 (2026-11-01)
+  - package.json scripts: preinstall/install/postinstall 없음. 'prepare' 는 tarball 설치에서 돌지 않는다.
+  - 네트워크: fetch / XMLHttpRequest / WebSocket / import(외부 URL) 없음. URL 은 데이터시트 주석뿐.
+  - eval / new Function 없음. 런타임 의존성 없음.
