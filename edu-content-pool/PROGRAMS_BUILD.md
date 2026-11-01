@@ -55,7 +55,7 @@
 
 ## 4. 완료 기준 (단원 하나)
 
-1. `node edu-content-pool/check-unit.mjs <단원 id>` 종료 코드 0(브라우저 검사 포함 — 허브가 떠 있어야 한다, `--hub http://localhost:<포트>`).
+1. `node edu-content-pool/check-unit.mjs <단원 id>` 종료 코드 0(브라우저 검사 포함 — 허브가 떠 있어야 한다, `--hub http://localhost:<포트>`). 정적 단계에 교구 범위 검사(`check-reach.mjs` — 단계마다 target 을 그 단계 교구 옵션의 화면 조작만으로 만들 수 있는지)가 들어 있다. 자세한 것은 CATALOG_BUILD.md 4절.
 2. 차시 수 = 조각 `plan` 수, 차시 id·번호 일치, `standards: []`.
 3. 같은 단원 안 문항(prompt+target)·차시 제목 중복 없음.
 4. 차시마다 전개 활동 1~3개, 활동마다 문항 3~6개, 출구 질문 2~4개, 활동지 문항 4개 이상, `levels` 세 단계.
@@ -71,7 +71,8 @@ node edu-content-pool/classroom-hub.mjs --port 8793
 node edu-content-pool/build-programs.mjs --lint
 # 단원 검사(조각에서 바로 찾는다)
 node edu-content-pool/check-unit.mjs g3-cc-saf-life --hub http://localhost:8793
-node edu-content-pool/check-unit.mjs g3-cc-saf-life --static          # 브라우저 없이
+node edu-content-pool/check-unit.mjs g3-cc-saf-life --static          # 브라우저 없이(교구 범위 검사는 여기서도 돈다)
+node edu-content-pool/check-unit.mjs g3-cc-saf-life --hub http://localhost:8793 --touch   # 휴대폰 누름 영역 44px 검사 더하기
 node edu-content-pool/check-lesson.mjs g3-cc-saf-life-01 --hub http://localhost:8793 --shots /tmp/shots
 # 카탈로그에서 보고 싶을 때만(커밋하지 않는다)
 node edu-content-pool/build-programs.mjs

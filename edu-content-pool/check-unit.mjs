@@ -4,10 +4,13 @@
 //   --all     lessons/units/*.js 전부(이름이 '_'로 시작하는 예시 단원은 뺀다)
 //   --static  브라우저 없이 정적 검사만
 //   --no-pdf  활동지 PDF 쪽수 검사를 건너뛴다(화면 렌더 검사는 한다)
+//   --touch   휴대폰(390×844, deviceScaleFactor 3, 터치) 화면에서 문항마다 교구의 누르는 요소를 재어 44px 미만이면 실패(기본 꺼짐 — 시간이 든다)
 // classroom-hub.mjs가 떠 있어야 한다. 실패는 '차시 id · 위치 · 이유' 한 줄씩, 종료 코드 1.
 //
 // 정적: check-lesson.mjs의 차시 계약(staticLesson) + CATALOG_BUILD.md 2·5절 단원 계약
 //   (차시 수·번호 = plan − refs, id 형식, 단원 안 중복 문항·제목, 활동·문항·출구·활동지 개수, illustration.image 없음, 성취기준 과목 코드)
+//   + 교구 범위(check-reach.mjs): 단계마다 target 을 그 단계 교구 옵션의 화면 조작만으로 만들 수 있는가
+//     (입력 칸 자릿수, 고르개·바구니·보기 목록, 건반 범위, 리듬 마디 박, −/+ 간격·범위, 수직선 눈금)
 // 동적(차시마다 수 초): 문항마다 시작 상태가 정답 아님 · solve→check · 1단계 힌트 누출 없음 · wrongAnswer(다 했지만 틀림),
 //   확인 단추 한 번(실제 화면 경로), 출구 교구 장착·풀이, 학생 화면이 입장 화면 없이 바로 열림·휴대폰 가로 넘침, 활동지 인쇄 렌더.
 //   단원마다 한 번: 번호 있는 제출과 번호 없는 제출이 허브에 들어가는지.
@@ -20,6 +23,7 @@ import { chromium } from 'playwright-core';
 import { staticLesson, itemAt, targetLeak, findChrome, ignorableConsole, SUBJECT_MARK, PROGRAM_UNIT_ID } from './check-lesson.mjs';
 import { PII } from './classroom-hub.mjs';
 import { loadPrograms, indexEntryOf } from './programs-lib.mjs';
+import { lessonReach, KNOWN_REACH } from './check-reach.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const argv = process.argv.slice(2);
@@ -28,7 +32,7 @@ const flag = (k) => argv.includes(k);
 const hub = arg('--hub', 'http://localhost:8790').replace(/\/$/, '');
 const shots = arg('--shots', null);
 const target = argv.find((a, i) => !a.startsWith('--') && !['--hub', '--shots'].includes(argv[i - 1]));
-if (!target && !flag('--all')) { console.error('usage: check-unit.mjs <unitId>|--all [--hub URL] [--shots dir] [--no-pdf] [--static]'); process.exit(2); }
+if (!target && !flag('--all')) { console.error('usage: check-unit.mjs <unitId>|--all [--hub URL] [--shots dir] [--no-pdf] [--static] [--touch]'); process.exit(2); }
 
 const UNIT_ID = /^g[1-6]-(kor|math|int|soc|mor|sci|pe|mus|art|eng|prac)-[12]-(\d{2}|독서|매체)$/;
 const SUBJECT_CODE = { 국어: 'kor', 수학: 'math', 통합교과: 'int', 사회: 'soc', 도덕: 'mor', 과학: 'sci', 체육: 'pe', 음악: 'mus', 미술: 'art', 영어: 'eng', 실과: 'prac' };
@@ -48,7 +52,7 @@ export function loadUnit(id) {
 }
 
 // ---- 실패 모으기: '차시 id · 위치 · 이유' ----
-const lines = []; const notes = [];
+const lines = []; const notes = []; const knownSeen = new Set();
 const failAt = (lessonId, where, why) => lines.push(`${lessonId} · ${where} · ${why}`);
 // staticLesson의 글('a1.2: …')은 앞머리를 위치로 떼어 낸다
 const splitWhere = (m) => { const x = /^((?:a\d+|exit|worksheet(?:\.easy)?)\.\d+|[a-z]\w*\.\d+): (.*)$/.exec(m); return x ? [x[1], x[2]] : ['차시', m]; };
@@ -213,6 +217,11 @@ export function staticUnit(id, unit) {
     const hz = HAZARD.exec(studentText(l));
     if (!(l.safety || []).length && (l.subject === '체육' || (['과학', '실과'].includes(l.subject) && hz))) F('safety', `${l.subject} 차시${l.subject === '체육' ? '' : `(실험·도구 — 학생 활동 글의 '${hz[0]}')`}에 safety[] 없음`);
     if (PII.test(text)) F('차시', '전화번호·주민번호·전자우편 모양의 값이 있음(학생 개인정보 금지)');
+    // 닿을 수 있는가: 그 단계 교구 옵션(입력 자릿수·고르개·건반·눈금·−/+ 간격)으로 학생이 target 을 만들 수 있는지(check-reach.mjs)
+    lessonReach(l, (w, why) => {
+      const line = `${lid} · ${w} · ${why}`;
+      if (KNOWN_REACH.has(line)) { knownSeen.add(line); notes.push(`알려진 결함(check-reach KNOWN_REACH): ${line}`); } else F(w, why);
+    });
   }
 }
 
@@ -390,6 +399,102 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
   }
 }
 
+// ---- 터치 대상(--touch): 휴대폰 화면에서 문항마다 교구의 누르는 요소 크기 ----
+// 보이는 그림이 아니라 누르는 요소의 상자를 잰다 — 그룹(g)의 상자는 안의 투명 누름 영역(.pk-hit)까지 덮는다.
+// 누르는 요소 안에 있는 누르는 요소는 바깥 것으로 센다(바깥을 누르면 된다).
+const TOUCH_MIN = 44;
+// 알려진 구조적 예외 — 화면 폭에 그 수를 44px 로 놓을 수 없어 다른 조작 길을 둔 것만 둔다.
+const TOUCH_ALLOW = [
+  // 분수 띠 조각: 아래 띠를 n조각으로 나누면 한 조각 폭 = 띠 폭 ÷ n. 휴대폰 띠 폭(약 272/360 × 상자 폭)에서 7조각부터 44px 아래가 된다.
+  // 같은 조작(색칠한 조각 수)을 '색칠한 조각(분자)' −/+ 단추(48px)로 할 수 있다.
+  { tool: 'fracstrips', test: (e) => e.piece === 'fs-piece', why: '분수 띠 조각(−/+ 단추로 대신함)' },
+  // 선대칭 접기 휴대폰 교점: 390px 에서 교점 간격이 약 28px 라 44px 불가(PR #66 남은 한계). 눌러 놓기·방향키로 놓을 수 있다.
+  // 핀은 교점에 놓이므로 핀 크기도 교점 간격을 따른다.
+  { tool: 'mirrorfold', test: (e) => /mf-pin/.test(e.piece) || /mf-pin|mf-target/.test(e.cls), why: '선대칭 휴대폰 교점·핀(눌러 놓기·방향키)' },
+];
+// 브라우저 안에서 돈다: 상자(root) 안 누르는 요소의 크기
+function touchTargets({ root, min }) {
+  const SEL = 'button, [role="button"], [role="radio"], [role="checkbox"], [role="slider"], [role="option"], [tabindex="0"], .pk-hit, .pk-draggable, input, select, a[href]';
+  const all = [...root.querySelectorAll(SEL)];
+  const out = [];
+  for (const el of all) {
+    if (el.disabled || el.getAttribute('aria-disabled') === 'true' || el.closest('[aria-hidden="true"]')) continue;
+    // 바깥에 다른 누르는 요소가 있으면 그것으로 센다
+    let up = el.parentElement; let inner = false;
+    while (up && up !== root) { if (up.matches(SEL)) { inner = true; break; } up = up.parentElement; }
+    if (inner) continue;
+    const cs = getComputedStyle(el);
+    if (cs.pointerEvents === 'none' || cs.visibility === 'hidden' || cs.display === 'none') continue;
+    const r = el.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) continue; // 숨은 요소
+    const w = Math.round(r.width * 10) / 10; const h = Math.round(r.height * 10) / 10;
+    if (Math.min(w, h) >= min) continue;
+    const cls = String(el.getAttribute('class') || '');
+    const label = (el.getAttribute('aria-label') || el.textContent || el.tagName).trim().replace(/\s+/g, ' ').slice(0, 24);
+    const tool = ([...(el.closest('.pk-tool') || root).classList].find((c) => c.startsWith('pk-tool--')) || 'pk-tool--?').slice(9);
+    // 투명 누름 영역(.pk-hit)만 있고 의미 있는 표시(tabindex·role·단추·끌기)가 없으면, 그 요소에 누름 처리기가 붙어 있을 때만 누르는 요소다
+    // (예: 출발점이 잠긴 수직선의 출발 표시는 .pk-hit 가 있어도 누를 수 없다) — 처리기는 밖에서 CDP 로 본다
+    const bare = el.matches('.pk-hit') && !el.matches('button, [role], [tabindex="0"], .pk-draggable, input, select, a[href]');
+    const i = out.length; if (bare) el.setAttribute('data-touch-i', String(i));
+    out.push({ i, bare, w, h, cls, label, tag: el.tagName.toLowerCase(), tool, piece: (el.closest('.fs-piece, .mf-pin, .mf-dot') || { getAttribute: () => '' }).getAttribute('class') || '' });
+  }
+  return out;
+}
+// 투명 누름 영역에 누름 처리기(click·pointerdown·mousedown·touchstart)가 직접 붙어 있는가
+async function pressable(cdp, P, list) {
+  const out = [];
+  for (const e of list) {
+    if (!e.bare) { out.push(e); continue; }
+    // 그 요소나 조상(그림판 svg 바로 아래까지)에 붙은 처리기 — 분수 띠 조각처럼 처리기를 감싼 g 에 붙이는 교구가 있다
+    for (let k = 0; k < 8; k++) {
+      const { result } = await cdp.send('Runtime.evaluate', { expression: `(() => { let n = document.querySelector('[data-touch-i="${e.i}"]'); for (let j = 0; j < ${k} && n; j++) n = n.parentElement; return n && !/^(svg|body|html)$/i.test(n.tagName) && !n.matches('#tool, .pl-tool') ? n : null; })()` });
+      if (!result.objectId) break;
+      const { listeners } = await cdp.send('DOMDebugger.getEventListeners', { objectId: result.objectId });
+      if (listeners.some((x) => ['click', 'pointerdown', 'pointerup', 'mousedown', 'touchstart'].includes(x.type))) { out.push(e); break; }
+    }
+  }
+  await P.evaluate(() => document.querySelectorAll('[data-touch-i]').forEach((x) => x.removeAttribute('data-touch-i')));
+  return out;
+}
+async function touchUnit(P, cdp, unit) {
+  for (const l of unit.lessons || []) {
+    const lid = l.id;
+    // 같은 이유는 차시마다 한 줄로 묶고 문항 위치를 나열한다
+    const byWhy = new Map(); const F = (where, why) => { if (!byWhy.has(why)) byWhy.set(why, []); byWhy.get(why).push(where); };
+    try {
+      await P.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${encodeURIComponent(lid)}&role=student`);
+      await P.waitForSelector('[data-next]', { timeout: 8000 });
+      const acts = l.stages.find((s) => s.id === 'main')?.activities || [];
+      const report = async (key, lv, list0) => {
+        const list = await pressable(cdp, P, list0);
+        const bad = list.filter((e) => !TOUCH_ALLOW.some((a) => a.tool === e.tool && a.test(e)));
+        if (!bad.length) return;
+        const m = bad.reduce((a, b) => (Math.min(a.w, a.h) <= Math.min(b.w, b.h) ? a : b));
+        F(`${key}${lv === 'base' ? '' : `(${lv})`}`, `터치: ${m.tool} 누름 영역 ${TOUCH_MIN}px 미만 ${bad.length}개 — 가장 작은 '${m.label}'(${m.tag}${m.cls ? `.${m.cls.split(/\s+/).join('.')}` : ''}) ${m.w}×${m.h}px`);
+      };
+      for (let x = 0; x < acts.length; x++) for (let y = 0; y < acts[x].items.length; y++) {
+        const it = acts[x].items[y]; if (it.free && it.talk) continue;
+        const actLv = acts[x].levels || {};
+        const levels = ['base', ...['easy', 'challenge'].filter((lv) => (it.levels?.[lv] && ['target', 'toolOptions', 'state'].some((k) => it.levels[lv][k] != null)) || (actLv[lv] && Object.keys(actLv[lv]).length))];
+        for (const lv of levels) {
+          await P.evaluate(({ x, y, lv }) => { const S = window.__pl; S.level = lv; S.goto(1, x, y); }, { x, y, lv });
+          await P.waitForSelector('#tool', { timeout: 4000 });
+          await P.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+          await report(`${acts[x].id}.${y + 1}`, lv, await P.evaluate(touchTargets, { root: await P.$('#tool'), min: TOUCH_MIN }));
+        }
+      }
+      const exits = l.stages.find((s) => s.id === 'wrapup')?.exitTicket || [];
+      if (exits.some((q) => q.type === 'tool')) {
+        await P.evaluate(() => { const S = window.__pl; S.level = 'base'; S.goto(2); });
+        for (let i = 0; i < exits.length; i++) if (exits[i].type === 'tool') {
+          const box = await P.$(`#exit-tool-${i}`); if (box) await report(`exit.${i + 1}`, 'base', await P.evaluate(touchTargets, { root: box, min: TOUCH_MIN }));
+        }
+      }
+    } catch (e) { failAt(lid, '터치', `오류: ${e.message.split('\n')[0]}`); }
+    for (const [why, at] of byWhy) failAt(lid, at.join(','), why);
+  }
+}
+
 // 브라우저 안에서 돈다(인쇄 매체로 바꾼 뒤): 활동지 그림마다 SVG 글자의 인쇄 크기(pt) 가운뎃값.
 // 글 조각이 3개 이상이고 가운뎃값이 5.5pt 아래인 그림만 돌려준다(번호는 활동지 문항 번호가 아니라 그림 칸 차례).
 function printTextSizes() {
@@ -452,6 +557,9 @@ for (const id of ids) {
   staticUnit(id, unit);
   units.push([id, unit]);
 }
+// 알려진 결함 목록에서 이번에 검사한 차시의 줄이 더 걸리지 않으면 목록에서 지우게 알린다(목록은 줄기만 한다)
+const checkedLessons = new Set(units.flatMap(([, u]) => (u?.lessons || []).map((l) => l.id)));
+for (const line of KNOWN_REACH) { const lid = line.split(' · ')[0]; if (checkedLessons.has(lid) && !knownSeen.has(line)) failAt(lid, 'check-reach', `KNOWN_REACH 의 이 줄이 더 걸리지 않음 — 목록에서 지운다: ${line}`); }
 const t0 = Date.now();
 if (!flag('--static') && units.length) {
   const up = await fetch(`${hub}/api/results?class=__ping`).then((r) => r.ok, () => false);
@@ -470,6 +578,15 @@ if (!flag('--static') && units.length) {
   pages.student = await mk({ width: 375, height: 800 });
   pages.print = await mk({ width: 794, height: 1123 });
   for (const [id, unit] of units) await dynamicUnit(browser, pages, id, unit, { noPdf: flag('--no-pdf') });
+  if (flag('--touch')) {
+    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
+    const P = await ctx.newPage(); const cdp = await ctx.newCDPSession(P);
+    P.on('pageerror', (e) => pages.sink.push(`pageerror: ${e.message}`));
+    const tt = Date.now();
+    for (const [, unit] of units) await touchUnit(P, cdp, unit);
+    notes.push(`터치 ${((Date.now() - tt) / 1000).toFixed(1)}초`);
+    await ctx.close();
+  }
   await browser.close();
 }
 const lessonCount = units.reduce((n, [, u]) => n + (u?.lessons?.length || 0), 0);

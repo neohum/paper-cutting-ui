@@ -62,11 +62,13 @@ PaperLessons.registerUnit({
 - 레지스트리: `lesson=<id>`가 `data/`에 없으면 `units/<단원 id>.js`를 읽고 `registerUnit`이 차시들을 등록한다. `refs`는 기존 차시로 넘긴다.
 - 카탈로그(`catalog.html`): 모든 차시 줄에서 **교사(전자칠판)·활동지·미리보기(학생 화면)** 로 바로 간다. 단원 머리에 `flow`(진행 방향)를 보인다. 학생 입장·반 코드 화면으로 가는 링크는 없다.
 - `check-unit.mjs <단원 id>|--all [--hub URL]`: 브라우저 하나로 단원의 모든 차시를 돌린다 — 정적 검사(스키마·40분·성취기준·문항 모양·글 길이·중복 차시) + 문항마다 solve→check, 시작 상태가 이미 정답 아님, 1단계 힌트 누출 없음, wrongAnswer, 출구 교구, 활동지 인쇄 렌더. 실패는 차시 id·문항 키·이유 한 줄씩. `check-lesson.mjs`의 검사를 재사용한다.
+  - **교구 범위(정적, `check-reach.mjs`)**: 단계(easy·base·challenge)마다 문항 target 을 그 단계 교구 옵션의 화면 조작만으로 만들 수 있는지 데이터로 본다 — 입력 칸 자릿수(multiply·pattern `digits`), 고르개·바구니·보기 목록(keyboard `blocks`, hangul 조각, map 범례 보기, collage 팔레트 — 대칭 문항은 시작 조각의 짝까지, fracstrips `divisors`·최대공약수 단추), 건반 범위·리듬 마디 박, −/+ 간격·범위(timer `workStep`·`restStep`·`timeUnit`, numberline `hopStep`, map `distStep`), 수직선 눈금(점·출발점·도착·읽을 점은 눈금 위). solve→check 는 solve 가 상태를 직접 써서 이 제약을 지나치므로 따로 본다. `--static` 에서도 돈다. 이 검사를 넣을 때 이미 있던 결함은 `KNOWN_REACH` 목록이 알림으로 낮추며, 고치면 목록에서 지우라고 실패로 알린다(목록에 새 줄을 더하지 않는다).
+  - **터치(`--touch`, 기본 꺼짐)**: 390×844·deviceScaleFactor 3·터치 화면에서 문항마다(단계가 판을 바꾸면 그 단계도, 출구 교구 포함) 교구의 누르는 요소(단추·role·`tabindex="0"`·`.pk-draggable`·처리기가 붙은 `.pk-hit`)의 상자를 재어 44px 미만이면 실패. 그룹 상자는 안의 투명 누름 영역까지 덮으므로 보이는 그림이 아니라 누름 영역을 잰다. 구조적 예외(분수 띠 조각, 선대칭 휴대폰 교점·핀)는 `TOUCH_ALLOW`에 까닭과 함께 둔다. 차시당 수 초가 더 든다 — 교구·배치를 바꾼 단원에 돌린다.
 - `build-bundles.mjs`는 단원 묶음(`dist/units/<단원 id>.zip`)과 전체 manifest를 만든다(런처 배포 단위 = 단원).
 
 ## 5. 완료 기준 (단원 하나)
 
-1. `node edu-content-pool/check-unit.mjs <단원 id>` 종료 코드 0.
+1. `node edu-content-pool/check-unit.mjs <단원 id>` 종료 코드 0(교구 범위 정적 검사 포함). 교구 배치나 누르는 요소를 바꿨으면 `--touch`도 0.
 2. 차시 수 = plan 수 − refs 수, 차시 id·번호 일치.
 3. 같은 단원 안에서 같은 문항(prompt+target) 중복 없음, 차시 제목 중복 없음.
 4. 차시마다 전개 활동 1~3개, 활동마다 문항 3~6개, 출구 질문 2~4개, 활동지 문항 4개 이상, `levels` 세 단계.
