@@ -25,6 +25,8 @@
     base: { mode: 'rhythm', meter, measures, blocks: ['q', 'e', 'h', 'qr', 'dh'] },
     challenge: { mode: 'rhythm', meter, measures, blocks: ['q', 'e', 'h', 'qr', 'dh', 'er', 'hr'] },
   });
+  // 점2분음표를 듣고 놓거나 꼭 넣어야 하는 활동 — 쉬움 고르개에도 점2분음표가 있어야 한다
+  const rhyDh = (meter, measures) => { const lv = rhy(meter, measures); lv.easy.blocks = lv.easy.blocks.concat('dh'); return lv; };
   const jg = (beats, name, strokes) => ({
     easy: { mode: 'janggu', beats, group: 3, jangdan: name, strokes: ['덩', '쿵', '덕'] },
     base: { mode: 'janggu', beats, group: 3, jangdan: name, strokes: strokes || ['덩', '쿵', '덕', '기덕'] },
@@ -480,7 +482,7 @@
         title: '3박 마디에 맞게 리듬 블록 놓기', tool: 'keyboard',
         teacher: '"한 마디는 3박이에요. 리듬 듣기를 누르고 손뼉으로 따라 쳐 보세요. 블록의 박을 더해 3이 되면 한 마디 끝이에요." 2분음표(2박)와 4분음표(1박)를 더하면 3박임을 손가락으로 세게 한다. 마디가 넘치는 학생에게 "1박 더 많아요. 어느 블록을 줄일까요?" 하고 묻는다.',
         task: '리듬 듣기를 누르고 손뼉으로 친 뒤, 3박 마디에 맞게 블록을 놓아요.',
-        levels: rhy(3, 2),
+        levels: rhyDh(3, 2),
         items: [
           rhyI('3박 리듬이에요. 듣고 블록으로 놓아 보세요.', ['q', 'q', 'q', 'h', 'q']),
           rhyI('긴 소리가 한 번 나오는 리듬이에요. 듣고 놓아 보세요.', ['dh', 'h', 'q']),
@@ -1285,7 +1287,7 @@
         title: '쉼표와 긴 소리가 있는 리듬 짓기', tool: 'keyboard',
         teacher: '"마디의 박 수에 맞게 쉼표와 긴 소리가 들어가도록 리듬을 지어 봐요." 지은 뒤 손뼉으로 쳐 보며 박이 맞는지 확인하게 한다. 마디가 넘치는 학생에게는 블록의 박을 하나씩 세어 보게 한다.',
         task: '박 수에 맞게 쉼표나 긴 소리를 넣어 리듬을 지어요. 지은 리듬은 손뼉으로 쳐 확인해요.',
-        levels: rhy(4, 2),
+        levels: rhyDh(4, 2),
         items: [
           { prompt: '한 마디 4박, 두 마디를 지어요. 8분음표를 꼭 넣어요.', target: { beats: true, use: ['e'] } },
           { prompt: '한 마디 4박, 두 마디를 지어요. 쉼표를 두 개 이상 넣어요.', target: { beats: true, rests: 2 } },
