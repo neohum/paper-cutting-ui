@@ -201,6 +201,27 @@ WebGL 은 그림을 텍스처로 쓰기 전에 출처를 따진다. `file://` �
 - 한계: npm 마지막 발행이 2021-03(0.10.2)이다. 화면 단추·안내 UI 는 없고(엔진만 있음) 우리가 그린다.
 - 예제: `_samples/marzipano.html`.
 
+## 우리가 만든 공용 도구
+
+### lesson-game — 수업 아이디어 한 줄을 교실 게임으로 (에이전트 스킬)
+
+`engine/lesson-game/` 은 Claude Code·Codex 가 그대로 쓰는 **스킬 원본**이다. 교사가 "6학년 산과 염기를
+게임으로"처럼 아이디어와 학년만 말하면, 에이전트가 성취기준 하나에 묶인 5~10분짜리 게임을 만들고
+헤드리스 Chrome 으로 끝까지 플레이해 확인한 뒤 폴더 하나(또는 HTML 한 장)로 넘긴다.
+
+- 결과물: 캔버스 2D + 일반 `<script src>`, 의존성·유료 API·API 키 없음, file:// 에서 동작, 외부 요청 0.
+- 구조: 학습 목표 → 놀이 → 정리(질문 3개·교사용 한 줄). 44px·키보드·390px·움직임 줄이기를 지킨다.
+- 그림·소리: 코드로 그리기 → 프로젝트 R2 게임 에셋(`https://edulinker-assets.neohum77.workers.dev/cc0/v1/manifest.json`,
+  CC0 18,418개 — 만들 때 내려받아 폴더에 넣는다) → CC0 공개 자료. 출처는 `credits.md`.
+- 설치: `cp -R edu-content-pool/engine/lesson-game ~/.claude/skills/` (Codex 는 `~/.codex/skills/`). 고칠 때는
+  이 폴더를 고치고 다시 복사한다 — 설치본이 아니라 저장소가 원본이다.
+- 검사만 따로: `node edu-content-pool/engine/lesson-game/scripts/check-game.cjs <게임 폴더|html> <출력 폴더>`
+  (playwright 필요. 없으면 "검사 못 함"으로 보고하고 통과라고 하지 않는다).
+- 예제: `_samples/lesson-game/acid-base-detective.html` — [6과09-01] 지시약으로 용액을 산성·염기성으로 분류.
+  폴더판(`_samples/lesson-game/acid-base-detective/`)에 교사용 README·credits·체크리스트가 있다.
+- 착상 출처: lovisdotio/video-to-game(MIT) — 코드·문구는 옮기지 않았다(`engine/lesson-game/NOTICE`).
+  그쪽은 생성마다 유료 fal API 키가 필요하고 결과가 CDN·ES 모듈이라 공용 도구로 쓸 수 없었다.
+
 ## 참고 자료 (코드를 싣지 않음)
 
 ### pst-labo — 시험용 삽화의 실험 기구 모양·선 굵기 기준
