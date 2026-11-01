@@ -79,7 +79,7 @@
 .ch-table{border-collapse:collapse;margin:0 auto;font-weight:700;background:#FFFDF9}
 .ch-table th,.ch-table td{border:1.5px solid #8A7FA6;padding:6px 10px;text-align:center;min-width:2.6em;word-break:keep-all}
 .ch-table th{background:#F4F0FA;color:#473B6B}
-.ch-table .ch-in{width:3.6em;min-height:40px}
+.ch-table .ch-in{width:3.6em;min-height:44px}
 @media (max-width:480px){.ch-table{font-size:.86em}.ch-table th,.ch-table td{padding:4px 4px;min-width:1.8em}}
 .ch-blank{display:inline-block;min-width:2.4em;min-height:1.4em}
 .pk-tool--chart g[tabindex]:focus-visible .ch-bar{stroke:#473B6B;stroke-width:4}

@@ -4,7 +4,7 @@
 // 왜 따로 있나: 브라우저 단계의 solve → check 는 solve 가 setState 로 상태를 직접 써서 화면 제약(입력 칸 자릿수·고르개 단추·
 // 건반 범위·눈금·−/+ 간격)을 지나치지 않는다. 그래서 '정답 상태는 있지만 학생은 거기에 갈 수 없는' 문항이 초록으로 통과했다
 // (학생 화면 점검 결함: multiply·pattern 자릿수, timer 범위·간격, keyboard 고르개·건반·마디, fracstrips 나눌 수 단추,
-//  hangul 바구니, map 범례 보기, collage 팔레트, numberline 출발점 눈금).
+//  hangul 바구니, map 범례 보기, collage 팔레트, numberline 출발점 눈금, clock 단계 분 간격).
 // 규칙은 교구 파일의 화면 코드가 정본이다 — 교구가 순수 함수(core)로 내놓은 것은 그것을 쓰고(keyboard cfg·timer TU·collage achievable),
 // 아니면 같은 식을 여기 적는다. 교구의 입력 제약을 바꾸면 여기도 같이 바꾼다.
 import { readFileSync } from 'node:fs';
@@ -321,6 +321,18 @@ const RULES = {
     if (lock.includes('cho')) { if (!st || st.cho !== w.cho) out.push(`초성이 잠겼는데(lock) 시작 상태 초성이 ‘${w.cho}’가 아님`); } else if (!cons.includes(w.cho)) out.push(`자음 바구니(${cons.join('')})에 ‘${w.cho}’가 없음`);
     if (lock.includes('jung')) { if (!st || st.jung !== w.jung) out.push(`모음이 잠겼는데(lock) 시작 상태 모음이 ‘${w.jung}’가 아님`); } else if (!SIMPLE.includes(w.jung)) out.push(`겹모음 ‘${w.jung}’은 조각이 없음`); else if (!vows.includes(w.jung)) out.push(`모음 바구니(${vows.join('')})에 ‘${w.jung}’가 없음`);
     if (w.jong) { if (!hasJong) out.push(`받침 ‘${w.jong}’이 있는데 batchim 옵션이 없음`); else if (!fins.includes(w.jong)) out.push(`받침 바구니(${fins.join('')})에 ‘${w.jong}’가 없음`); }
+    return out;
+  },
+
+  // clock.js: 긴바늘은 step = hourOnly ? 60 : (minuteStep || 1) 분씩만 돈다(rotate step = step×6°, 누적 각도라 12를 지나 돌아도
+  // 같은 간격 — 닿는 분은 gcd(step, 60)의 배수). 읽기(readOnly·보기 고르기 pick)는 바늘을 움직이지 않으니 보지 않는다
+  clock(o, t) {
+    const out = []; t = t || {};
+    if (o.readOnly || t.pick != null || !Number.isFinite(t.h)) return out;
+    const m = Number.isFinite(t.m) ? t.m : 0;
+    const step = o.hourOnly ? 60 : Number.isFinite(o.minuteStep) && o.minuteStep > 0 ? o.minuteStep : 1;
+    const g = gcd(Math.round(step), 60) || 1;
+    if (m % g !== 0) out.push(o.hourOnly ? `${t.h}시 ${m}분은 정각만(hourOnly) 판에서 맞출 수 없음 — 긴바늘이 0분에 고정` : `${t.h}시 ${m}분은 분 간격 ${step}분(minuteStep)으로 맞출 수 없음 — 긴바늘은 ${g}분씩만 움직임`);
     return out;
   },
 

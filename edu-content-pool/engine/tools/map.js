@@ -357,12 +357,14 @@
       function screenWord(a) { return ['위쪽', '오른쪽 위', '오른쪽', '오른쪽 아래', '아래쪽', '왼쪽 아래', '왼쪽', '왼쪽 위'][Math.round(norm(a) / 45) % 8]; }
 
       // ---- 핀 ----
-      let pin = null; let pinG = null; let homeXY = null;
+      let pin = null; let pinG = null; let pinHit = null; let homeXY = null;
       const inMap = (c, r) => c >= 0 && r >= 0 && c < COLS && r < ROWS;
       if (pinMode) {
         if (slot.home) { const s = panelCard('home', '핀 자리'); homeXY = { x: s.x + PW / 2, y: s.y + 64 }; }
         pinG = kit.el('g', { class: 'mp-pin', 'aria-label': '핀' }, st.layer('pin'));
-        kit.el('rect', { x: -32, y: -48, width: 64, height: 66, class: 'pk-hit' }, pinG);
+        // 누름 영역: 핀 그림(지름 22·높이 38) 둘레 64×66 — 휴대폰에서 지도가 줄면(격자 6×4, 390px 에서 1단위 ≈ 0.65px) 41.8px 로 44px 에 못 미쳤다.
+        // 그래서 화면 축척에서 48px 이상이 되게 넓힌다(fitPinHit). 넓힌 영역이 옆 칸을 덮어도 그 칸을 '누르면' 핀이 그 칸으로 간다(아래 click)
+        pinHit = kit.el('rect', { x: -32, y: -48, width: 64, height: 66, class: 'pk-hit' }, pinG);
         kit.el('path', { d: 'M0 0 L-2 -16 L2 -16 Z', fill: '#3D352E' }, pinG);
         kit.el('ellipse', { cx: 0, cy: 1, rx: 6, ry: 2.5, fill: 'rgba(46,30,20,0.3)' }, pinG);
         kit.piece(st, pinG, { shape: { type: 'circle', r: 11, cy: -24 }, color: 'rose', depth: 2, fill: '#E8655A' });
@@ -389,8 +391,27 @@
           // 칸을 눌러도 핀이 그 칸으로 간다(끄는 것이 어려운 학생)
           const hit = kit.el('rect', { x: MX, y: MY, width: MW, height: MH, fill: 'transparent' }, mapL);
           hit.addEventListener('click', (e) => { const p = st.point(e); const c = Math.floor((p.x - MX) / CELL); const r = Math.floor((p.y - MY) / CELL); if (inMap(c, r)) setPin([c, r], 'tap'); });
+          // 핀 누름 영역이 덮은 옆 칸을 눌렀을 때(끌지 않고 눌렀다 뗌): 핀을 그 칸으로 옮긴다 — 넓힌 영역이 칸 누르기를 가로채지 않게
+          let down = null;
+          pinG.addEventListener('pointerdown', (e) => { down = { x: e.clientX, y: e.clientY }; });
+          pinG.addEventListener('click', (e) => {
+            if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 8) { down = null; return; }
+            down = null;
+            const p = st.point(e); const c = Math.floor((p.x - MX) / CELL); const r = Math.floor((p.y - MY) / CELL);
+            if (inMap(c, r) && !(pin && pin[0] === c && pin[1] === r)) setPin([c, r], 'tap');
+          });
         }
       }
+      // 핀 누름 영역을 화면 축척에 맞춘다: 짧은 변이 48px 이상(칸 수·무대 크기와 무관). 배치 전이면 상자 폭으로 어림한다
+      function fitPinHit() {
+        if (!pinG || print) return;
+        const m = st.svg.getScreenCTM && st.svg.getScreenCTM();
+        const k = m && m.a > 0 ? m.a : boxW > 0 ? Math.min(1, boxW / W) : 1;
+        const w = Math.max(64, Math.ceil(48 / k)); const h = Math.max(66, Math.ceil(48 / k));
+        pinHit.setAttribute('x', String(-w / 2)); pinHit.setAttribute('width', String(w));
+        pinHit.setAttribute('y', String(-15 - h / 2)); pinHit.setAttribute('height', String(h));
+      }
+      if (pinG && !print) { fitPinHit(); if (typeof ResizeObserver === 'function') new ResizeObserver(fitPinHit).observe(st.svg); }
       function pinXY() { return pin ? { x: cx(pin[0]), y: cy(pin[1]) + 8 } : homeXY || { x: -100, y: -100 }; }
       function setPin(p, via) { pin = p && inMap(p[0], p[1]) ? [p[0], p[1]] : null; kit.animateTo(pinG, pinXY()); placedPin(via); }
       function placedPin(via) {

@@ -1904,11 +1904,11 @@
       M({
         id: 'activity.schedule', type: 'activity', title: '수능 뒤 하루 연습 일정',
         method: '수능 뒤 면허 일정 짜기', tool: 'clock', minutes: 18,
-        levels: { easy: '긴바늘이 30분 단위로 맞춰지고 짧은바늘 자리가 연하게 보인다.', base: '5분 단위로 학과 공부·연습 시각을 나타낸다.', challenge: '작은 눈금 없이 1분 단위로 나타내고, 아르바이트로 피곤한 날의 연습 시각까지 정한다.' },
+        levels: { easy: '긴바늘이 15분 단위로 맞춰지고 짧은바늘 자리가 연하게 보인다.', base: '5분 단위로 학과 공부·연습 시각을 나타낸다.', challenge: '작은 눈금 없이 1분 단위로 나타내고, 아르바이트로 피곤한 날의 연습 시각까지 정한다.' },
         activity: {
           title: '연습 시각을 시계에 나타내기', tool: 'clock',
           teacher: '"수능 뒤 시간은 많아 보여도 늦잠·약속·아르바이트로 금방 흩어져요. 연습은 언제 하는 게 좋을까요?" 가상 인물 서진이의 하루를 읽고 시각을 나타내게 한다. "밤늦게 한산할 때 연습하면 좋다"는 학생에게 "피곤하고 어두울 때 처음 배우는 게 쉬울까요?"라고 묻는다. 오늘 시각은 \'피곤한 시간대를 피하고 밝을 때 연습한다\'는 우리 반 약속에 따른 연습용이라는 점을 밝힌다.',
-          task: '서진이의 하루 일정에서 학과 공부와 운전 연습 시각을 시계에 나타내요.', levels: { easy: { minuteStep: 30, hourZone: true }, base: { minuteStep: 5 }, challenge: { minuteStep: 1, showMinuteMarks: false } },
+          task: '서진이의 하루 일정에서 학과 공부와 운전 연습 시각을 시계에 나타내요.', levels: { easy: { minuteStep: 15, hourZone: true }, base: { minuteStep: 5 }, challenge: { minuteStep: 1, showMinuteMarks: false } },
           items: [
             { prompt: '서진이는 오전 10시에 일어나 아침을 먹고, 일어난 지 1시간 뒤부터 학과 공부를 해요. 학과 공부를 시작하는 시각을 나타내세요.', toolOptions: {}, target: { h: 11, m: 0 }, difficulty: 0.15 },
             { prompt: '학원 도로 연습은 점심 먹고 쉰 뒤 오후 2시 30분에 시작해요. 연습 시작 시각을 나타내세요.', toolOptions: {}, target: { h: 2, m: 30 }, difficulty: 0.2 },

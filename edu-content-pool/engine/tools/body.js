@@ -85,6 +85,8 @@
       const narrow = mode !== 'arm' && (print || (box.clientWidth > 0 && box.clientWidth < 520)); const noPane = narrow && print;
       const W = narrow ? 340 : 600; const H = narrow && !print ? 626 : 430;
       const st = kit.stage(box, { viewBox: [W, H], label: '종이 몸. 피부·근육·뼈·몸속 기관 네 겹으로 된 사람 몸이에요.' });
+      // 화면 1단위가 몇 px 인가(누름 영역을 화면 크기로 맞출 때) — 그리기 전(배치 전)이면 상자 폭으로 어림한다
+      const pxPerUnit = () => { const m = st.svg.getScreenCTM && st.svg.getScreenCTM(); if (m && m.a > 0) return m.a; const w = box.clientWidth; return w > 0 ? Math.min(1, w / W) : 1; };
       if (print && o.wide) { const f = box.closest('figure'); if (f) f.style.gridColumn = '1 / -1'; st.svg.style.maxHeight = '88mm'; }
       const jobs = Object.assign({}, Object.fromEntries(ORG_NAMES.map((n) => [n, ORG[n].job])), o.jobs || {});
       const organs = (Array.isArray(o.organs) && o.organs.length ? o.organs : ORG_NAMES).filter((n) => ORG[n]);
@@ -231,6 +233,8 @@
             const d = e.key === 'ArrowUp' || e.key === 'ArrowRight' ? step : e.key === 'ArrowDown' || e.key === 'ArrowLeft' ? -step : 0;
             if (!d) return; e.preventDefault(); const a = Math.max(0, Math.min(150, angle + d)); if (a !== angle) { angle = a; changed(); kit.announce(`팔을 ${angle}° 굽혔어요.`); }
           });
+          // 무대 크기가 바뀌면(배치·회전·창 크기) 아래팔 누름 띠 폭을 다시 맞춘다
+          if (typeof ResizeObserver === 'function') { let last = 0; new ResizeObserver(() => { const k = pxPerUnit(); if (Math.abs(k - last) > 0.01) { last = k; drawArm(); } }).observe(st.svg); }
         }
       }
       function drawArm() {
@@ -253,7 +257,11 @@
         muscle({ x: S0.x + 14, y: S0.y + 18 }, { x: EL.x + 10, y: EL.y + 6 }, 15 - 8 * k, 12);
         kit.el('circle', { cx: EL.x, cy: EL.y, r: 9, fill: C.bone, stroke: C.boneLine, 'stroke-width': 2 }, armG);
         // 아래팔(끄는 조각)
-        kit.el('line', { x1: EL.x, y1: EL.y, x2: hand.x, y2: hand.y, stroke: 'transparent', 'stroke-width': 56, 'stroke-linecap': 'round', class: 'pk-hit' }, foreG);
+        // 누름 영역: 아래팔을 따라 놓인 띠(선의 stroke 는 누름 상자로 재지 않고, 휴대폰 축척 0.56 에서 56 단위 = 31px 이었다).
+        // 폭은 화면 축척에서 48px 이상 — 휴대폰에서 무대가 줄어도 손잡이가 44px 아래로 내려가지 않게
+        const hw = Math.max(64, 48 / pxPerUnit()) / 2; const px = -uy * hw; const py = ux * hw;
+        const a0 = { x: EL.x - ux * 14, y: EL.y - uy * 14 }; const a1 = { x: hand.x + ux * 22, y: hand.y + uy * 22 };
+        kit.el('polygon', { points: [[a0.x + px, a0.y + py], [a1.x + px, a1.y + py], [a1.x - px, a1.y - py], [a0.x - px, a0.y - py]].map((q) => q.map((v) => v.toFixed(1)).join(',')).join(' '), class: 'pk-hit' }, foreG);
         kit.el('line', { x1: EL.x, y1: EL.y, x2: hand.x, y2: hand.y, stroke: print ? '#FFFFFF' : '#F4C9A6', 'stroke-width': 40, 'stroke-linecap': 'round', opacity: print ? 1 : 0.55 }, foreG);
         kit.el('line', { x1: EL.x, y1: EL.y, x2: hand.x, y2: hand.y, stroke: C.boneLine, 'stroke-width': 11, 'stroke-linecap': 'round' }, foreG);
         kit.el('line', { x1: EL.x, y1: EL.y, x2: hand.x, y2: hand.y, stroke: C.bone, 'stroke-width': 6, 'stroke-linecap': 'round' }, foreG);

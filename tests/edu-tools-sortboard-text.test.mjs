@@ -245,3 +245,14 @@ test('단추 모드 회귀: 2학년 분류하기 차시의 sortboard 문항이 �
     }
   }
 });
+
+// clock: 긴바늘은 minuteStep(hourOnly 면 60)분씩만 돈다 — 그 간격으로 닿지 않는 분은 교구 범위 밖
+test('check-reach clock: 단계 분 간격으로 닿지 않는 target 은 범위 밖', () => {
+  assert.ok(reachProblems('clock', { minuteStep: 10 }, { h: 8, m: 23 }).some((x) => /분 간격 10분/.test(x)));
+  assert.ok(reachProblems('clock', { hourOnly: true }, { h: 3, m: 30 }).some((x) => /hourOnly/.test(x)));
+  assert.deepEqual(reachProblems('clock', { minuteStep: 10 }, { h: 8, m: 20 }), []);
+  assert.deepEqual(reachProblems('clock', {}, { h: 8, m: 23 }), []);
+  assert.deepEqual(reachProblems('clock', { minuteStep: 5, hourOnly: true }, { h: 7 }), []);
+  // 읽기(보기 고르기)는 바늘을 움직이지 않는다
+  assert.deepEqual(reachProblems('clock', { readOnly: true, minuteStep: 30 }, { pick: 1, h: 8, m: 23 }), []);
+});
