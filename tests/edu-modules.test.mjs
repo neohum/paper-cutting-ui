@@ -18,12 +18,14 @@ const eq = (a, b, m) => assert.deepEqual(JSON.parse(JSON.stringify(a)), b, m);
 const T = 'saf-life.e12.g1-home';
 // framework/safety-a.json 의 1학년 추천 조합 3차시(도입 6 + 활동 14·13 + 정리 7)
 const IDS = [`${T}.intro.kitchen-find`, `${T}.activity.touch-sort`, `${T}.activity.room-map`, `${T}.wrap.home-check`];
+// 기대 개수는 손으로 적지 않고 체계도 계획에서 읽는다 — 모듈을 더 쓸 때마다 낡지 않게
+const planned = (dom, band, topic) => dom.bands[band].modules.filter((m) => !topic || m.topic === topic).length;
 const ctx = (over = {}) => ({ id: 'cc-1-saf-life-03', grade: 1, n: 3, domain: saf, topic: PM.topicOf(saf, T), ...over });
 
-test('예시 모듈 7개가 형식 오류 없이 읽힌다', () => {
+test('예시 주제의 계획 모듈이 모두 형식 오류 없이 읽힌다', () => {
   eq(mf.errors, []);
   const mods = [...mf.byId.values()].map((x) => x.m).filter((m) => m.topic === T);
-  assert.equal(mods.length, 7);
+  assert.equal(mods.length, planned(saf, '초1-2', T));
   for (const m of mods) eq(PM.shapeErrors(m), [], m.id);
 });
 
@@ -104,9 +106,13 @@ test('색인: 추천 조합 차시가 조합되면 ready, 생성 파일이 최�
   const idx = moduleIndex(fw, mf);
   const g1 = idx.domains['saf-life'].grades[1];
   assert.equal(g1.find((x) => x.n === 3).ready, true);
-  // 4차시는 아직 안 쓴 계획 모듈(activity.yes-no-role)이 있어 열리지 않는다
-  assert.equal(g1.find((x) => x.n === 4).ready, false);
-  assert.equal(idx.domains['saf-life'].bands['초1-2'].modules, 7);
+  // 계획 모듈 하나가 빠지면 그 모듈을 쓰는 추천 조합 차시는 열리지 않는다
+  const gone = `${T}.activity.yes-no-role`;
+  assert.ok(mf.byId.has(gone));
+  const holed = moduleIndex(fw, { ...mf, byId: new Map([...mf.byId].filter(([id]) => id !== gone)) });
+  assert.equal(holed.domains['saf-life'].grades[1].find((x) => x.n === 4).ready, false);
+  assert.equal(g1.find((x) => x.n === 4).ready, true);
+  assert.equal(idx.domains['saf-life'].bands['초1-2'].modules, planned(saf, '초1-2'));
   const r = build({ check: true });
   eq(r.errors, []);
   eq(r.stale, [], 'node edu-content-pool/build-modules.mjs 로 다시 만든다');
@@ -118,5 +124,5 @@ test('브라우저 조합기와 같은 파일: window 로 읽으면 PaperModules
   assert.equal(typeof w.PaperModules.compose, 'function');
   const reg = { list: [] };
   vm.runInNewContext(readFileSync(join(pool, 'modules/saf-life/e12.js'), 'utf8'), { PaperLessons: { registerModules: (x) => reg.list.push(...x) } });
-  assert.equal(reg.list.length, 7);
+  assert.equal(reg.list.length, planned(saf, '초1-2'));
 });
