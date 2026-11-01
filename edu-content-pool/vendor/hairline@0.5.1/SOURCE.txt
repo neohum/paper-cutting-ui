@@ -1,0 +1,25 @@
+이름: @lucasmarkes/hairline 0.5.1
+라이선스: MIT (LICENSE, © Lucas Marques)
+출처: https://www.npmjs.com/package/@lucasmarkes/hairline  저장소 https://github.com/lucasmarkes/hairline (태그 v0.5.1 = 37d2e78dcb333ab30c3338e28ed4a690364ea014)
+받은 방법: npm pack @lucasmarkes/hairline@0.5.1 (설치 스크립트 실행 없음, 압축만 풂)
+tarball integrity: sha512-zjY3bdMC3As/+enKitZ1X+D1HjpesQiAKzG1sbCFsOrb5xIuJEoepkJTBIO4jmFh6JXOQlGGylhV71nr9ipNpQ==
+tarball shasum(sha1): 6aaa8ba14ff958cdd7d160f02182e10b1ed66f1b
+npm 발행일: 2026-10-14
+받은 날짜: 2026-11-01
+
+실은 파일
+  hairline.esm.js  213,879 B  sha256 16fdfec136dc99cf3f65730989364797f0bbb228b7bca60c4d422e0e12ce3b7d  (= package/dist/index.js, 원본 ESM, 의존성 없음)
+  hairline.iife.js  226,062 B  sha256 bfd30ff800bb0bd4cc917042117013989fa9147666aee388c18c9fafa5d98e91
+        파생 파일: 일반 <script> 용, 전역 'hairline'. 코드 변경 없음.
+        만든 명령: esbuild package/dist/index.js --bundle --format=iife --global-name=hairline --legal-comments=inline
+        도구: esbuild 0.28.2 (all_market 저장소 pnpm 저장소의 기존 설치본; 새로 받지 않음)
+  LICENSE
+  dist/react.js(React 래퍼, peer react>=18)는 싣지 않았다 — 우리 엔진은 React 를 쓰지 않는다.
+  shadcn 레지스트리(https://hairline.lucasmarkes.com/r/hairline.json)는 외부 도메인이라 쓰지 않는다.
+
+검토 (2026-11-01)
+  - scripts: 설치 훅 없음.
+  - 네트워크: fetch / XMLHttpRequest / WebSocket / import(외부 URL) 없음. URL 은 SVG 이름공간뿐.
+  - eval / new Function 없음. 저장소 쓰기(localStorage 등) 없음. 하는 일은 넘겨준 요소 안에 SVG·<style> 을 넣는 것뿐.
+  - 스킬(hairline-create, hairline-adopt)은 GitHub 태그 v0.5.1 소스 tarball(sha256 3a1e0e2a1655825a31c35aa245746141e2a5cf9727daa31c53e03ab999644347)의
+    skills/ 에서 가져와 ~/.claude/skills, ~/.codex/skills 에 설치했다. 검토 결과는 ../SHARED_TOOLS.md 의 hairline 절.
