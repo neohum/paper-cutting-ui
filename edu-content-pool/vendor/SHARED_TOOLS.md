@@ -82,6 +82,13 @@ hex 를 `programs.js` 의 전역 `AVR_PROGRAMS` 로 싣는다. 실제 Arduino �
 제작 단계에서 Arduino IDE/arduino-cli 로 컴파일해 나온 `.hex` 를 같은 방식으로 싣는다(시간 함수를 쓰면
 `AVRTimer(timer0Config)` 가 있어야 한다).
 
+### 회로 실험대 — 학생이 선을 직접 잇기 (우리 엔진)
+
+wokwi-elements(부품 그림)와 avr8js(CPU) 위에 얹은 우리 코드 `engine/circuit/`. 핀을 끌어 선을 긋고, 프로그램의
+핀 출력은 그 선을 따라서만 LED·부저·입력 핀에 닿는다. 합선·저항 없음·방향 반대·떠 있는 입력을 알려 주고,
+프로그램마다 과제(깜빡이기·버튼으로 켜기·번갈아 켜기) 완료를 판정한다. 사용법과 판정 모델은
+`engine/circuit/README.md`, 예제는 `_samples/circuit-wiring.html`.
+
 ### hairline — 포인터에 반응하는 등각 선화
 
 ```html

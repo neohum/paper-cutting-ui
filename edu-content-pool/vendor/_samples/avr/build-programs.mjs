@@ -47,7 +47,7 @@ function boot(bytes) {
 const programs = {};
 let failed = false;
 
-for (const name of ['blink', 'button-led']) {
+for (const name of ['blink', 'button-led', 'alternate']) {
   const r = assemble(readFileSync(join(here, `${name}.asm`), 'utf8'));
   if (r.errors.length) { console.error(name, r.errors); process.exit(1); }
   const bytes = [...r.bytes];
@@ -66,6 +66,18 @@ for (const name of ['blink', 'button-led']) {
     const ok = highs.length >= 2 && period > 0.9 && period < 1.1;
     console.log(`blink: ${bytes.length}B, 켜짐 ${highs.length}회, 주기 ${period.toFixed(3)}s ${ok ? 'OK' : 'FAIL'}`);
     failed ||= !ok;
+  } else if (name === 'alternate') {
+    entry.paramWordAddress = r.labels.delay / 2;
+    entry.paramRegister = 18;
+    entry.paramDefault = 41;
+    const seen = [];
+    m.portB.addListener(() => { seen.push(`${m.portB.pinState(4)}${m.portB.pinState(5)}`); });
+    m.run(16e6 * 2.2);
+    // 12번만 켜짐(10)과 13번만 켜짐(01)이 번갈아 나와야 한다(PinState: Low 0, High 1)
+    const lit = seen.filter((x) => x === '10' || x === '01');
+    const alternates = lit.length >= 3 && lit.every((x, i) => i === 0 || x !== lit[i - 1]);
+    console.log(`alternate: ${bytes.length}B, 바뀜 ${lit.length}회 [${lit.slice(0, 4).join(' ')}] ${alternates ? 'OK' : 'FAIL'}`);
+    failed ||= !alternates;
   } else {
     m.portD.setPin(2, true); m.run(1e5); const released = m.portB.pinState(5);
     m.portD.setPin(2, false); m.run(1e5); const pressed = m.portB.pinState(5);

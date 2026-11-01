@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>회로 실험대 — 선을 직접 잇기</title>
+<link rel="stylesheet" href="_sample.css">
+<link rel="stylesheet" href="../uicons/css/uicons-regular-rounded.css">
+<link rel="stylesheet" href="../../engine/circuit/circuit-bench.css">
+<script src="../wokwi-elements@1.9.2/wokwi-elements.bundle.min.js"></script>
+<script src="../avr8js@0.21.1/avr8js.iife.js"></script>
+<script src="avr/programs.js"></script>
+<script src="../../engine/circuit/circuit-netlist.js"></script>
+<script src="../../engine/circuit/circuit-bench.js"></script>
+<style>main { max-width: 1160px; }</style>
+</head>
+<body>
+<main>
+  <h1>회로 실험대 — 선을 직접 잇기 (wokwi-elements + avr8js)</h1>
+  <p class="lead">핀을 눌러 다른 핀까지 끌어 놓으면 선이 생깁니다. 아두이노 CPU(avr8js)가 프로그램을 돌리고, 핀 출력은 <b>학생이 그은 선을 따라서만</b> 부품에 닿습니다. 선을 옮기면 회로 동작이 바뀝니다.</p>
+  <div id="bench"></div>
+  <p class="note"><b>한계</b>: 전압·전류는 계산하지 않고 수업용 논리 수준(높음·낮음·저항 너머·풀업)으로만 판정합니다. 아날로그 입력과 학생이 쓴 C++ 컴파일은 아직 없습니다.</p>
+</main>
+<script>
+  window.bench = CircuitBench.mount(document.getElementById('bench'), { programs: window.AVR_PROGRAMS, storageKey: 'vendor-sample' });
+</script>
+</body>
+</html>
