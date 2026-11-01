@@ -410,7 +410,8 @@
             onDrop(_x, _y, via) { placedPin(via); },
           });
           // 칸을 눌러도 핀이 그 칸으로 간다(끄는 것이 어려운 학생)
-          const hit = kit.el('rect', { x: MX, y: MY, width: MW, height: MH, fill: 'transparent' }, mapL);
+          // data-touch-grid: 칸마다 누르는 격자(휴대폰 터치 검사가 칸 하나의 크기를 잰다 — 8칸 지도는 휴대폰에서 칸이 44px 아래, 핀 끌기로 대신한다)
+          const hit = kit.el('rect', { x: MX, y: MY, width: MW, height: MH, fill: 'transparent', 'data-touch-grid': `mp-cells ${COLS} ${ROWS}` }, mapL);
           hit.addEventListener('click', (e) => { const p = st.point(e); const c = Math.floor((p.x - MX) / CELL); const r = Math.floor((p.y - MY) / CELL); if (inMap(c, r)) setPin([c, r], 'tap'); });
         }
       }

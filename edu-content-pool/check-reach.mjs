@@ -241,6 +241,9 @@ const RULES = {
         if (p > cap + 1e-9) out.push(`리듬이 ${p}박인데 마디 ${c.meter}박 × ${c.measures}개 = ${cap}박까지만 놓임`);
         // 블록은 놓이지만 그 마디의 박 수가 meter 를 넘는다(학생 화면 점검의 '5박 마디' 결함과 같은 것)
         else if (cross != null) out.push(`리듬의 ${cross}번째 마디가 ${c.meter}박을 넘어 마디줄을 가로지름`);
+        // 따라 놓기(target.rhythm)는 블록 차례가 같으면 정답이라 마디가 비어 있어도 맞다고 한다 — 마디 띠의 빈 박이 '덜 놓았다'로 보이고,
+        // 박 맞추기(beats)에서 배운 '마디를 꼭 채운다'와 어긋난다. 목표 리듬은 마디를 다 채워야 한다(빈 박은 쉼표로).
+        else if (p < cap - 1e-9) out.push(`목표 리듬이 ${p}박이라 마디 ${c.meter}박 × ${c.measures}개 = ${cap}박을 다 채우지 못함(빈 박은 쉼표로)`);
       }
       if (t.beats) {
         const miss = (t.use || []).filter((k) => !c.blocks.includes(k));

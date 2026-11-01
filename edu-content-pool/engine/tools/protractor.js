@@ -88,7 +88,9 @@
 
       // 움직이는 띠(지역 좌표에서 12시 방향으로 그리고 v만큼 돌린다)
       const mv = NS('g', { class: 'pk-arm' }, arms);
-      NS('rect', { x: cx - 26, y: cy - ARM - 8, width: 52, height: ARM - 8, class: 'pk-hit' }, mv);
+      const armHit = NS('rect', { x: cx - 26, y: cy - ARM - 8, width: 52, height: ARM - 8, class: 'pk-hit' }, mv);
+      // 휴대폰(무대 약 0.77~0.85배)에서 띠 잡는 곳 폭 52 가 화면 40~44px — 폭만 화면 46px 까지 넓힌다(길이는 그대로, 가운데 축 쪽으로 늘리지 않는다)
+      if (!o.print && !measure) fitHits(st, [[armHit, { y0: cy - ARM - 8, y1: cy - 16 }]]);
       const moveBand = kit.piece(st, mv, { shape: { type: 'rect', x: cx - 11, y: cy - ARM, w: 22, h: ARM + 14, rx: 11 }, color: 'peach', depth: 2 });
       // 활동지(흑백 인쇄): 띠는 윤곽선만 그려 밑의 눈금 숫자를 덮지 않는다
       if (o.print) [fixedBand, moveBand].forEach((pc) => { pc.face.setAttribute('fill', '#FFFFFF'); pc.face.setAttribute('fill-opacity', 0.15); pc.face.setAttribute('stroke', '#3D352E'); pc.face.setAttribute('stroke-width', 1.4); (pc.under || []).forEach((u) => u.setAttribute('display', 'none')); });
@@ -228,7 +230,8 @@
         }, lims[i]));
       }
       mv.setAttribute('aria-valuemin', '0'); mv.setAttribute('aria-valuemax', '180');
-      if (o.print || measure) { mv.removeAttribute('tabindex'); mv.classList.remove('pk-rotatable'); }
+      // 재기(measure)·활동지에서는 띠가 움직이지 않는다 — 각도 값은 그대로 읽히되 조작할 수 없다고 알린다(터치 검사도 누르는 요소로 세지 않는다)
+      if (o.print || measure) { mv.removeAttribute('tabindex'); mv.classList.remove('pk-rotatable'); mv.setAttribute('aria-disabled', 'true'); }
       let entry = null; let entryText = null;
       // 맞추기: 각도기의 처음 자리(어긋나 있다)와 지금 자리
       const pStart = Object.assign({ x: 40, y: -40, r: 0 }, o.placeStart || {});

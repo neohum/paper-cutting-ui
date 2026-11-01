@@ -191,7 +191,7 @@
         levels: rhy(4, 2),
         items: [
           rhyI('느린 빠르기로 들려 주는 리듬이에요. 듣고 블록으로 놓아 보세요.', ['h', 'q', 'q', 'q', 'q', 'h'], { toolOptions: { tempo: 60, pattern: ['h', 'q', 'q', 'q', 'q', 'h'] } }),
-          rhyI('이번에는 빠르게 들려 줘요. 같은 모양일까 다를까 생각하며 놓아 보세요.', ['q', 'e', 'e', 'q', 'q', 'h', 'qr'], { toolOptions: { tempo: 144, pattern: ['q', 'e', 'e', 'q', 'q', 'h', 'qr'] }, predict: { q: '빠르게 들리면 블록 모양도 달라질까요?', options: ['달라져요', '박 수는 같아요'], answer: 1 }, conclude: '빠르기가 달라져도 몇 박인지는 그대로예요. 느낌만 달라져요.' }),
+          rhyI('이번에는 빠르게 들려 줘요. 같은 모양일까 다를까 생각하며 놓아 보세요.', ['q', 'e', 'e', 'q', 'q', 'h', 'q', 'qr'], { toolOptions: { tempo: 144, pattern: ['q', 'e', 'e', 'q', 'q', 'h', 'q', 'qr'] }, predict: { q: '빠르게 들리면 블록 모양도 달라질까요?', options: ['달라져요', '박 수는 같아요'], answer: 1 }, conclude: '빠르기가 달라져도 몇 박인지는 그대로예요. 느낌만 달라져요.' }),
           rhyI('점점 빨라지는 리듬이에요. 듣고 블록으로 놓아 보세요.', ['q', 'q', 'e', 'e', 'e', 'e', 'h', 'qr', 'q'], { toolOptions: { tempo: 120, pattern: ['q', 'q', 'e', 'e', 'e', 'e', 'h', 'qr', 'q'] }, reveal: 'after-check' }),
         ],
       },
