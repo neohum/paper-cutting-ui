@@ -16,7 +16,7 @@
 ## ② 프로젝트 게임 자료 보관소 (Cloudflare R2)
 
 Kenney·KayKit CC0 자료 18,418개(초등 부적합 그림·중복 제거, WebP·GLB)가 올라가 있다(2026-11-01 확인).
-- 목록: `https://pub-254eeb376c724df29fd4930b668b4586.r2.dev/cc0/v1/manifest.json` (약 3MB)
+- 목록: `https://edulinker-assets.neohum77.workers.dev/cc0/v1/manifest.json` (약 3MB, 읽기 전용 Worker. 같은 버킷의 r2.dev 주소는 속도 제한이 있어 쓰지 않는다)
 - 항목 모양: `{"i":id, "n":한국어 이름, "c":분류, "f":파일 경로, "t":[태그], "p":출처 팩, "a":저작자, "w","h":크기}`
 - 파일 주소: 같은 앞부분 + `cc0/v1/` + `f` 값. 분류는 manifest 의 `categories`(건물·자연·캐릭터·아이템·우주·동물 등 16개).
 - 태그(`t`)가 한국어라 "동물", "우주" 처럼 찾으면 된다. 쓰지 않는 큰 목록을 통째로 게임에 넣지 않는다.

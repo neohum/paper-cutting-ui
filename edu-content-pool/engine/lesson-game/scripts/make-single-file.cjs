@@ -12,18 +12,31 @@ const path = require('path');
 const dir = path.resolve(process.argv[2] || '.');
 const out = path.resolve(process.argv[3] || path.join(dir, 'single.html'));
 let html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+const root = fs.realpathSync(dir);
+
+// index.html 이 가리키는 파일은 게임 폴더 안에 있어야 한다('../', 심볼릭 링크로 밖의 파일을 싣지 않는다).
+function inside(rel) {
+  const file = path.resolve(dir, rel);
+  if (!fs.existsSync(file)) return null;
+  const real = fs.realpathSync(file);
+  if (real !== root && !real.startsWith(root + path.sep)) throw new Error('게임 폴더 밖의 파일은 묶지 않는다: ' + rel);
+  return real;
+}
 
 html = html.replace(/<script\s+src="([^"]+)"\s*><\/script>/g, (all, src) => {
   if (/^[a-z]+:|^\/\//i.test(src)) throw new Error('외부 스크립트는 묶을 수 없다: ' + src);
-  const code = fs.readFileSync(path.join(dir, src), 'utf8').replace(/<\/script/gi, '<\\/script');
+  const file = inside(src);
+  if (!file) throw new Error('스크립트 파일이 없다: ' + src);
+  const code = fs.readFileSync(file, 'utf8').replace(/<\/script/gi, '<\\/script');
   return '<script>\n' + code + '\n</script>';
 });
 
 const types = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.ogg': 'audio/ogg', '.mp3': 'audio/mpeg', '.wav': 'audio/wav' };
 html = html.replace(/(["'(])(assets\/[^"')]+)(["')])/g, (all, a, rel, b) => {
   const type = types[path.extname(rel).toLowerCase()];
-  const file = path.join(dir, rel);
-  if (!type || !fs.existsSync(file)) return all;
+  if (!type) return all;
+  const file = inside(rel);
+  if (!file) return all;
   return a + 'data:' + type + ';base64,' + fs.readFileSync(file).toString('base64') + b;
 });
 

@@ -73,10 +73,14 @@ async function runOnce(browser, run) {
 
   await page.goto(url, { waitUntil: 'load' });
   await page.waitForTimeout(300);
-  const leftovers = await page.evaluate(() => (document.title + ' ' + document.body.innerText).match(/\{\{[^}]*\}\}/g) || []);
-  r.checks.noPlaceholders = leftovers.length === 0;
+  // innerText 는 hidden 화면(놀이·정리)을 빼고 읽는다. 아직 안 보이는 화면의 {{…}} 도 잡도록 textContent 를 쓴다.
+  const leftoversAt = () => page.evaluate(() => (document.title + ' ' + document.body.textContent).match(/\{\{[^}]*\}\}/g) || []);
+  const leftovers = await leftoversAt();
   r.numbers.placeholders = leftovers.length;
   r.checks.introShown = await page.evaluate(() => window.lessonGame && window.lessonGame.phase === 'intro' && !document.querySelector('#intro').hidden);
+  const smallIntro = await smallTargets(page);
+  r.numbers.smallTargetsInIntro = smallIntro.length;
+  r.numbers.overflowXInIntro = await overflowX(page);
   await shot('1-intro');
 
   if (run.mode === 'keyboard') {
@@ -94,14 +98,15 @@ async function runOnce(browser, run) {
   await page.waitForTimeout(100);
   r.checks.playStarted = await page.evaluate(() => window.lessonGame.phase === 'play');
 
-  let steps = 0, inputs = 0, waits = 0, midShot = false;
+  let steps = 0, inputs = 0, waits = 0, midShot = false, smallPlay = [];
   for (; steps < 400; steps++) {
     const act = await page.evaluate((m) => window.lessonGame.test.nextAction(m), run.mode);
     if (!act) break;
     if (act.wait) { waits++; await page.waitForTimeout(act.wait); continue; }
     // 애니메이션이 멈춘 상태(다음 입력을 기다리는 때)에서 놀이 화면을 잰다
     if (!midShot && inputs >= 3) {
-      r.numbers.smallTargetsInPlay = (await smallTargets(page)).length;
+      smallPlay = await smallTargets(page);
+      r.numbers.smallTargetsInPlay = smallPlay.length;
       r.numbers.overflowXInPlay = await overflowX(page);
       await shot('2-play');
       midShot = true;
@@ -121,8 +126,13 @@ async function runOnce(browser, run) {
   const small = await smallTargets(page);
   r.numbers.smallTargetsInDebrief = small.length;
   r.numbers.overflowXInDebrief = await overflowX(page);
-  r.checks.touchTargets44 = small.length === 0 && (r.numbers.smallTargetsInPlay || 0) === 0;
-  r.checks.noHorizontalScroll = r.numbers.overflowXInDebrief === 0 && (r.numbers.overflowXInPlay || 0) === 0;
+  // 정리 화면은 enterDebrief 가 만든 글이라 다시 찾는다.
+  const leftoversEnd = await leftoversAt();
+  r.numbers.placeholders = Math.max(r.numbers.placeholders, leftoversEnd.length);
+  r.checks.noPlaceholders = leftovers.length === 0 && leftoversEnd.length === 0;
+  // 놀이 화면을 재지 못했으면(입력 3번 전에 끝남) 0 으로 치지 않는다 — playScreenMeasured 와 함께 실패한다.
+  r.checks.touchTargets44 = midShot && smallIntro.length === 0 && smallPlay.length === 0 && small.length === 0;
+  r.checks.noHorizontalScroll = midShot && r.numbers.overflowXInIntro === 0 && r.numbers.overflowXInPlay === 0 && r.numbers.overflowXInDebrief === 0;
   await shot('3-debrief');
 
   r.numbers.consoleErrors = consoleErrors.length;
@@ -131,7 +141,8 @@ async function runOnce(browser, run) {
   r.checks.zeroExternalRequests = external.length === 0;
   r.consoleErrors = consoleErrors;
   r.external = external;
-  if (small.length) r.smallTargets = small;
+  const allSmall = [...smallIntro, ...smallPlay, ...small];
+  if (allSmall.length) r.smallTargets = allSmall;
   await ctx.close();
   return r;
 }
