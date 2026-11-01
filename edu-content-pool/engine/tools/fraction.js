@@ -11,6 +11,7 @@
  *               ticks:false면 눈금을 숨긴다(도전). 똑같은지 여부는 확인을 누르기 전에는 보여 주지 않는다),
  *       locked(처음부터 색칠되어 지울 수 없는 조각 번호 — 분수의 덧셈), lockColor(그 조각 색, 기본 peach),
  *       revealAfterCheck(분수 읽기 칸을 확인을 누른 뒤에만 보인다 — 다시 조작하면 또 숨는다)
+ * 휴대폰(상자 폭 520 아래)에서 색칠 문항은 무대 아래에 '색칠한 조각' −/+ 줄이 더 생긴다 — 조각이 44px 아래로 작아져도 같은 조작을 한다.
  * 상태: { shape, n, cuts: null|[...], colored: [조각 번호], judge: null|true|false, equal, num, looked, picked, wNum, wDen, firstGuess }
  *   cuts — 피자: 자른 선의 각도(0°=12시, 시계 방향) 목록, 띠: 0~1 사이 안쪽 자른 자리 목록. null이면 똑같이 n조각.
  * target: { den, num? } (똑같이 den조각, 그중 num조각 색칠 / write면 분모·분자 쓰기) / { equal: true|false } (판단)
@@ -28,6 +29,26 @@
   // 힌트 단계(hint(target, { level, attempts })): 1 = 개념·전략만(늘 열림, 문항의 수를 말하지 않는다), 2 = 한 번 틀린 뒤 지금 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
   const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('fraction', {
     name: '분수 피자·띠 조각',
     create(box, o, kit) {
@@ -38,7 +59,11 @@
       const fillColor = o.color || (shape === 'pizza' ? 'rose' : 'mint');
       const offColor = shape === 'pizza' ? 'buttercup' : 'sky';
       const offFill = shape === 'pizza' ? '#FFF6D6' : '#F4FAFC';
-      const vb = print ? (shape === 'pizza' ? [720, 360] : [540, 150]) : [560, 400];
+      // 휴대폰(상자 폭 520 아래)에서 조각 하나가 44px 아래가 될 수 있다(띠 7조각부터, 피자 12조각) — 같은 조작(색칠한 조각 수)을
+      // 아래 줄 '색칠한 조각' −/+ 단추로도 하게 무대를 한 줄 늘린다. 넓은 화면(크롬북)은 그대로.
+      const boxW = box.clientWidth || (box.getBoundingClientRect ? box.getBoundingClientRect().width : 0) || 0;
+      const colorStep = !print && !o.judge && !o.write && !!(boxW && boxW < 520);
+      const vb = print ? (shape === 'pizza' ? [720, 360] : [540, 150]) : [560, colorStep ? 490 : 400];
       const freeCut = !print && !o.judge && !o.write && !!o.freeCut;
       const GRID = 24; // 칼집 눈금 칸 수(2·3·4·6·8·12로 똑같이 나눌 수 있다)
       const locked = new Set(o.locked || []);
@@ -94,7 +119,8 @@
         partEls.forEach((p) => p.g.remove());
         const b = bounds();
         partEls = b.map(([a, z], i) => {
-          const g = kit.el('g', { class: 'fr-part' }, partL);
+          // fr-part-alt: 이 조각의 색칠은 아래 줄 −/+ 단추로도 할 수 있다(휴대폰 터치 검사가 이것을 보고 작은 조각을 넘긴다)
+          const g = kit.el('g', { class: colorStep ? 'fr-part fr-part-alt' : 'fr-part' }, partL);
           let shp; let lift; let home; const deco = kit.el('g', { 'pointer-events': 'none' });
           if (shape === 'pizza') {
             const R = geo.r; const m = rad((a + z) / 2);
@@ -155,6 +181,7 @@
           p.g.setAttribute('aria-label', `${partEls.length}조각 중 ${p.i + 1}번째 조각${on ? (locked.has(p.i) ? ', 처음부터 색칠됨' : ', 색칠함') : ''}${eq || o.judge || freeCut ? '' : ' (크기가 다른 조각)'}${picked === p.i ? ', 가장 크다고 고름' : ''}`);
         });
         paintReadout();
+        if (colorCount) colorCount.textContent = `${colored.size}조각`;
       }
       function pop(p) {
         if (reduceMotion) return;
@@ -250,11 +277,13 @@
 
       // ---- 조각 수 단추(스테퍼) ----
       // hit = 누름 영역의 가장 작은 변(viewBox 단위). 휴대폰(390px)에서 무대가 약 0.6배(출구 질문은 0.54배)로 줄어 그려진 단추(44~56)만으로는 44px가 안 된다
-      const button = (x, y, w, h, color, text, label, onPress, size = 30, hit = 48) => {
+      // lim = 휴대폰에서 누름 영역을 넓혀도 되는 한계(무대 좌표 { x0, x1, y0, y1 }) — 주면 화면 46px 까지 그 안에서 넓힌다
+      const button = (x, y, w, h, color, text, label, onPress, size = 30, hit = 48, lim = null) => {
         const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': label, class: 'fr-btn' }, uiL);
         kit.transform(g, { x, y });
         const hw = Math.max(w, hit); const hh = Math.max(h, hit);
-        kit.el('rect', { x: -hw / 2, y: -hh / 2, width: hw, height: hh, class: 'pk-hit' }, g);
+        const hr = kit.el('rect', { x: -hw / 2, y: -hh / 2, width: hw, height: hh, class: 'pk-hit' }, g);
+        if (lim) fitHits(st, [[hr, { x0: lim.x0 - x, x1: lim.x1 - x, y0: lim.y0 - y, y1: lim.y1 - y }]]);
         const pc = kit.piece(st, g, { shape: w === h ? { type: 'circle', r: w / 2 } : { type: 'rect', w, h, rx: 16 }, color, depth: 2 });
         const tx = kit.el('text', { x: 0, y: size * 0.36, 'text-anchor': 'middle', 'font-size': size, class: 'pk-text', fill: P[color].dark }, g); tx.textContent = text;
         const press = (via) => { kit.spring(0.86, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); onPress(via); };
@@ -262,7 +291,7 @@
         g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); press('keyboard'); } });
         return { g, pc, tx };
       };
-      let countText = null;
+      let countText = null; let colorCount = null;
       const fixedCut = () => cuts !== null;
       const stepperG = [];
       let noteText = null;
@@ -279,6 +308,22 @@
         noteText = kit.el('text', { x: ctrl.ox, y: ctrl.oy + 88, 'text-anchor': 'middle', 'font-size': 13, class: 'pk-text', fill: P.rose.dark }, uiL);
       }
       const note = (t) => { if (noteText) noteText.textContent = t; };
+      // ---- 색칠한 조각 수 단추(휴대폰): + 는 아직 칠하지 않은 첫 조각을, − 는 마지막으로 칠한(잠기지 않은) 조각을 지운다 ----
+      if (colorStep) {
+        const RY = 445; // 줄 가운데(무대 402~488)
+        kit.piece(st, uiL, { shape: { type: 'rect', x: 20, y: 404, w: 520, h: 80, rx: 16 }, color: 'cream', depth: 1 });
+        kit.el('text', { x: 140, y: RY + 7, 'text-anchor': 'middle', 'font-size': 20, class: 'pk-text', fill: P.ink.base }, uiL).textContent = '색칠한 조각';
+        colorCount = kit.el('text', { x: 370, y: RY + 10, 'text-anchor': 'middle', 'font-size': 28, class: 'pk-text', fill: P[fillColor].dark }, uiL);
+        const stepColor = (d, via) => {
+          const free = partEls.filter((p) => !locked.has(p.i));
+          const p = d > 0 ? free.find((q) => !colored.has(q.i)) : [...free].reverse().find((q) => colored.has(q.i));
+          if (!p) { kit.tick('no'); kit.announce(d > 0 ? '모든 조각을 색칠했어요.' : '지울 수 있는 색칠이 없어요.'); return; }
+          toggle(p, via);
+        };
+        const lim = (x0, x1) => ({ x0, x1, y0: 402, y1: 488 });
+        button(300, RY, 52, 52, 'lavender', '−', '색칠한 조각 하나 지우기', (via) => stepColor(-1, via === 'pointer' ? 'stepper' : via), 32, 64, lim(246, 335));
+        button(440, RY, 52, 52, 'mint', '+', '조각 하나 더 색칠하기', (via) => stepColor(1, via === 'pointer' ? 'stepper' : via), 32, 64, lim(405, 534));
+      }
       const judgeBtns = [];
       let lookMsg = null; let lookBtn = null;
       if (!print && o.judge) {
@@ -375,10 +420,14 @@
           kit.announce(`${which === 'num' ? (o.hideFraction ? '위 수' : '분자') : (o.hideFraction ? '아래 수' : '분모')} ${which === 'num' ? wNum : wDen}`);
           kit.recorder.log('fraction', Object.assign({ via }, state()));
         };
-        button(L.fx - 56, L.fy - 50, 44, 44, 'lavender', '−', '분자 줄이기', (via) => setW('num', -1, via), 28, 76);
-        button(L.fx + 56, L.fy - 50, 44, 44, 'mint', '+', '분자 늘리기', (via) => setW('num', 1, via), 28, 76);
-        button(L.fx - 56, L.fy + 26, 44, 44, 'lavender', '−', '분모 줄이기', (via) => setW('den', -1, via), 28, 76);
-        button(L.fx + 56, L.fy + 26, 44, 44, 'mint', '+', '분모 늘리기', (via) => setW('den', 1, via), 28, 76);
+        // 분자 줄과 분모 줄 사이가 76이라 누름 영역 76(휴대폰 출구 질문 배율 약 0.55에서 41px)이 한계였다 —
+        // 휴대폰에서는 분자 단추는 위로(분자 글 쪽), 분모 단추는 아래로 넓히고 두 줄의 경계(fy − 12)에서 만난다. 좌우는 가운데 수 칸까지
+        const top = shape === 'pizza' ? 10 : geo.y + geo.h + 4; const bot = Math.min(vb[1] - 4, L.fy + 100);
+        const lim = (sx, row) => ({ x0: sx < 0 ? L.fx - 112 : L.fx + 20, x1: sx < 0 ? L.fx - 20 : L.fx + 112, y0: row ? L.fy - 12 : top, y1: row ? bot : L.fy - 12 });
+        button(L.fx - 56, L.fy - 50, 44, 44, 'lavender', '−', '분자 줄이기', (via) => setW('num', -1, via), 28, 76, lim(-1, 0));
+        button(L.fx + 56, L.fy - 50, 44, 44, 'mint', '+', '분자 늘리기', (via) => setW('num', 1, via), 28, 76, lim(1, 0));
+        button(L.fx - 56, L.fy + 26, 44, 44, 'lavender', '−', '분모 줄이기', (via) => setW('den', -1, via), 28, 76, lim(-1, 1));
+        button(L.fx + 56, L.fy + 26, 44, 44, 'mint', '+', '분모 늘리기', (via) => setW('den', 1, via), 28, 76, lim(1, 1));
         if (o.showTerms) {
           const tx = shape === 'pizza' ? [L.fx, 312] : [420, 262];
           t(tx[0], tx[1], 13, P.peach.dark, '분자: 색칠한 조각 수');
@@ -508,27 +557,34 @@
         });
         sizeHits();
       }
-      // 칼집 손잡이 누름 영역: 휴대폰(무대 약 0.6배)에서 44px가 되게 최대 76(viewBox)까지 넓히되, 이웃 칼집과의 사이 절반을 넘지 않는다.
+      // 칼집 손잡이 누름 영역: 넓은 화면은 76(viewBox)까지, 휴대폰은 화면 46px 이 되는 만큼까지 넓히되, 이웃 칼집과의 사이 절반을 넘지 않는다.
       // 고정 폭 44였을 때 칼집이 한 칸(약 21) 간격이면 두 영역이 겹쳐 손잡이 가운데를 눌러도 이웃이 잡혔다.
+      // 이웃과의 절반에서 멈춘 손잡이에는 data-hit-bound="neighbor" 를 단다 — 칼집이 붙어 있으면 그 이상은 이웃 손잡이 자리다(방향키로도 옮긴다).
       const HIT_MAX = 76;
+      const hitNeed = () => { const rc = st.svg.getBoundingClientRect(); const k = rc.width && rc.height ? Math.min(rc.width / st.width, rc.height / st.height) : 1; return Math.max(HIT_MAX, HIT_PX / k); };
       function sizeHits() {
         const hs = markers.filter((m) => m.hit);
+        const need = hitNeed();
+        const bound = (m, on) => { if (on) m.g.setAttribute('data-hit-bound', 'neighbor'); else m.g.removeAttribute('data-hit-bound'); };
         if (shape === 'pizza') {
           const R = geo.r + 24;
           hs.forEach((m) => {
             // 고정된 12시 칼집(손잡이 없음)은 견주지 않는다 — 누름 영역끼리만 겹치지 않으면 된다
             const gap = Math.min(360, ...hs.filter((q) => q !== m).map((q) => { const d = Math.abs(K.norm(cuts[q.j] - cuts[m.j])); return Math.min(d, 360 - d); }));
             const chord = 2 * R * Math.sin(rad(gap / 2));
-            m.hit.setAttribute('r', Math.max(12, Math.min(HIT_MAX / 2, chord / 2)).toFixed(1));
+            m.hit.setAttribute('r', Math.max(12, Math.min(need / 2, chord / 2)).toFixed(1));
+            bound(m, chord < need);
           });
           return;
         }
         hs.forEach((m) => {
-          const x = cuts[m.j] * geo.w; let l = HIT_MAX / 2; let r = HIT_MAX / 2;
+          const x = cuts[m.j] * geo.w; let l = need / 2; let r = need / 2;
           hs.forEach((q) => { if (q === m) return; const d = cuts[q.j] * geo.w - x; if (d > 0) r = Math.min(r, d / 2); else if (d < 0) l = Math.min(l, -d / 2); });
           m.hit.setAttribute('x', (-l).toFixed(1)); m.hit.setAttribute('width', (l + r).toFixed(1));
+          bound(m, l + r < need);
         });
       }
+      if (freeCut && typeof ResizeObserver === 'function') new ResizeObserver(() => sizeHits()).observe(st.svg);
 
       // 자리 값은 소수 넷째 자리까지만 — 긴 소수(0.3333333333…)가 수집 서버의 주민번호 모양 거름에 걸린다
       const r4 = (v) => Math.round(v * 10000) / 10000;
