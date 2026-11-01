@@ -14,7 +14,7 @@
 // 동적(차시마다 수 초): 문항마다 시작 상태가 정답 아님 · solve→check · 1단계 힌트 누출 없음 · wrongAnswer(다 했지만 틀림),
 //   확인 단추 한 번(실제 화면 경로), 출구 교구 장착·풀이, 학생 화면이 입장 화면 없이 바로 열림·휴대폰 가로 넘침, 활동지 인쇄 렌더.
 //   단원마다 한 번: 번호 있는 제출과 번호 없는 제출이 허브에 들어가는지.
-import { existsSync, mkdirSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, realpathSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
@@ -32,7 +32,6 @@ const flag = (k) => argv.includes(k);
 const hub = arg('--hub', 'http://localhost:8790').replace(/\/$/, '');
 const shots = arg('--shots', null);
 const target = argv.find((a, i) => !a.startsWith('--') && !['--hub', '--shots'].includes(argv[i - 1]));
-if (!target && !flag('--all')) { console.error('usage: check-unit.mjs <unitId>|--all [--hub URL] [--shots dir] [--no-pdf] [--static] [--touch]'); process.exit(2); }
 
 const UNIT_ID = /^g[1-6]-(kor|math|int|soc|mor|sci|pe|mus|art|eng|prac)-[12]-(\d{2}|독서|매체)$/;
 const SUBJECT_CODE = { 국어: 'kor', 수학: 'math', 통합교과: 'int', 사회: 'soc', 도덕: 'mor', 과학: 'sci', 체육: 'pe', 음악: 'mus', 미술: 'art', 영어: 'eng', 실과: 'prac' };
@@ -52,8 +51,9 @@ export function loadUnit(id) {
 }
 
 // ---- 실패 모으기: '차시 id · 위치 · 이유' ----
-const lines = []; const notes = []; const knownSeen = new Set();
-const failAt = (lessonId, where, why) => lines.push(`${lessonId} · ${where} · ${why}`);
+// check-module.mjs 가 같은 동적·터치 검사(dynamicUnit·touchUnit)를 쓰고 이 목록을 읽는다
+export const lines = []; export const notes = []; const knownSeen = new Set();
+export const failAt = (lessonId, where, why) => lines.push(`${lessonId} · ${where} · ${why}`);
 // staticLesson의 글('a1.2: …')은 앞머리를 위치로 떼어 낸다
 const splitWhere = (m) => { const x = /^((?:a\d+|exit|worksheet(?:\.easy)?)\.\d+|[a-z]\w*\.\d+): (.*)$/.exec(m); return x ? [x[1], x[2]] : ['차시', m]; };
 
@@ -226,14 +226,16 @@ export function staticUnit(id, unit) {
 }
 
 // ---- 동적: 크롬 하나, 교사·인쇄·학생 페이지를 재사용 ----
-async function dynamicUnit(browser, pages, id, unit, opts) {
+// 플레이어 주소의 차시 부분: 보통 lesson=<id>. check-module.mjs 의 시험 조합 차시는 l.query('compose=…&grade=…&probe=1')로 연다
+const queryOf = (l) => l.query || `lesson=${encodeURIComponent(l.id)}`;
+export async function dynamicUnit(browser, pages, id, unit, opts) {
   const lessons = unit.lessons || [];
   let submitted = false;
   for (const l of lessons) {
     const lid = l.id; const F = (where, why) => failAt(lid, where, why);
     const errs = []; pages.sink = errs;
     const t0 = Date.now();
-    const base = `${hub}/edu-content-pool/lessons/player.html?lesson=${encodeURIComponent(lid)}`;
+    const base = `${hub}/edu-content-pool/lessons/player.html?${queryOf(l)}`;
     try {
       // 1) 교사 화면: 문항마다 교구를 직접 부른다(학생처럼 끝까지 풀지 않는다 — 그것은 check-lesson.mjs가 한다)
       const T = pages.teacher;
@@ -390,7 +392,7 @@ async function dynamicUnit(browser, pages, id, unit, opts) {
         }
       }
       // 4) 제출(단원마다 한 번): 번호 있는 제출과 번호 없는 제출(런처 허브처럼 매개변수 없이)
-      if (!submitted) { submitted = true; await submitTwice(pages.student, lid, F); }
+      if (!submitted) { submitted = true; await submitTwice(pages.student, l, F); }
     } catch (e) {
       F('실행', `오류: ${e.message.split('\n')[0]}`);
     }
@@ -456,13 +458,13 @@ async function pressable(cdp, P, list) {
   await P.evaluate(() => document.querySelectorAll('[data-touch-i]').forEach((x) => x.removeAttribute('data-touch-i')));
   return out;
 }
-async function touchUnit(P, cdp, unit) {
+export async function touchUnit(P, cdp, unit) {
   for (const l of unit.lessons || []) {
     const lid = l.id;
     // 같은 이유는 차시마다 한 줄로 묶고 문항 위치를 나열한다
     const byWhy = new Map(); const F = (where, why) => { if (!byWhy.has(why)) byWhy.set(why, []); byWhy.get(why).push(where); };
     try {
-      await P.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${encodeURIComponent(lid)}&role=student`);
+      await P.goto(`${hub}/edu-content-pool/lessons/player.html?${queryOf(l)}&role=student`);
       await P.waitForSelector('[data-next]', { timeout: 8000 });
       const acts = l.stages.find((s) => s.id === 'main')?.activities || [];
       const report = async (key, lv, list0) => {
@@ -514,13 +516,14 @@ function printTextSizes() {
   return out;
 }
 
-async function submitTwice(P, lid, F) {
+async function submitTwice(P, l, F) {
+  const lid = l.id;
   // 허브는 결과를 메모리에 계속 쌓는다 — Date.now()%100000 은 100초마다 같은 값이 돌아와 앞 단원 결과와 섞였다.
   // 플레이어가 학급 코드를 12자로 자르므로(player.js) 'cu-' + 무작위 16진 9자리로 맞춘다
   const cls = `cu-${randomBytes(5).toString('hex').slice(0, 9)}`;
   const collect = encodeURIComponent(`${hub}/api/tools/edu-lesson:${lid}/submissions`);
   for (const seat of ['1', '']) {
-    await P.goto(`${hub}/edu-content-pool/lessons/player.html?lesson=${encodeURIComponent(lid)}&class=${cls}${seat ? `&seat=${seat}` : ''}&collect=${collect}`);
+    await P.goto(`${hub}/edu-content-pool/lessons/player.html?${queryOf(l)}&class=${cls}${seat ? `&seat=${seat}` : ''}&collect=${collect}`);
     await P.waitForSelector('[data-next]', { timeout: 8000 });
     await P.evaluate(() => window.__pl.goto(2));
     const exit = await P.evaluate(() => window.__pl.lesson.stages[2].exitTicket);
@@ -543,8 +546,38 @@ async function submitTwice(P, lid, F) {
   if (rows.length !== 2) F('제출', `허브에 결과 ${rows.length}건(번호 있는 것·없는 것 2건이어야 함)`);
 }
 
-// ---- 실행 ----
+// 크롬 하나와 교사·학생·인쇄 페이지(check-module.mjs 도 쓴다)
+export async function openPages() {
+  const chrome = findChrome();
+  const browser = await chromium.launch({ executablePath: chrome || undefined, headless: true });
+  const pages = { sink: [] };
+  const mk = async (vp) => {
+    const p = await browser.newPage({ viewport: vp });
+    p.on('pageerror', (e) => pages.sink.push(`pageerror: ${e.message}`));
+    p.on('console', (m) => { if (m.type() === 'error' && !ignorableConsole(m)) pages.sink.push(`console: ${m.text()}`); });
+    return p;
+  };
+  pages.teacher = await mk({ width: 1366, height: 768 });
+  pages.student = await mk({ width: 375, height: 800 });
+  pages.print = await mk({ width: 794, height: 1123 });
+  return { browser, pages };
+}
+export async function runTouch(browser, pages, units) {
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
+  const P = await ctx.newPage(); const cdp = await ctx.newCDPSession(P);
+  P.on('pageerror', (e) => pages.sink.push(`pageerror: ${e.message}`));
+  const tt = Date.now();
+  for (const unit of units) await touchUnit(P, cdp, unit);
+  notes.push(`터치 ${((Date.now() - tt) / 1000).toFixed(1)}초`);
+  await ctx.close();
+}
+export async function hubUp() { return fetch(`${hub}/api/results?class=__ping`).then((r) => r.ok, () => false); }
+export { hub };
+
+// ---- 실행(직접 부를 때만 — check-module.mjs 가 import 해도 돌지 않는다) ----
 const unitsDir = join(here, 'lessons/units');
+async function main() {
+if (!target && !flag('--all')) { console.error('usage: check-unit.mjs <unitId>|--all [--hub URL] [--shots dir] [--no-pdf] [--static] [--touch]'); process.exit(2); }
 const ids = flag('--all')
   ? (existsSync(unitsDir) ? readdirSync(unitsDir).filter((f) => f.endsWith('.js') && !f.startsWith('_') && f !== 'index.js').map((f) => f.slice(0, -3)).sort() : [])
   : [target];
@@ -573,31 +606,11 @@ for (const line of KNOWN_REACH) {
 }
 const t0 = Date.now();
 if (!flag('--static') && units.length) {
-  const up = await fetch(`${hub}/api/results?class=__ping`).then((r) => r.ok, () => false);
-  if (!up) { console.error(`허브(${hub})에 닿지 않음 — node edu-content-pool/classroom-hub.mjs --port <포트> 를 먼저 띄우거나 --static`); process.exit(2); }
+  if (!(await hubUp())) { console.error(`허브(${hub})에 닿지 않음 — node edu-content-pool/classroom-hub.mjs --port <포트> 를 먼저 띄우거나 --static`); process.exit(2); }
   if (shots) mkdirSync(shots, { recursive: true });
-  const chrome = findChrome();
-  const browser = await chromium.launch({ executablePath: chrome || undefined, headless: true });
-  const pages = { sink: [] };
-  const mk = async (vp) => {
-    const p = await browser.newPage({ viewport: vp });
-    p.on('pageerror', (e) => pages.sink.push(`pageerror: ${e.message}`));
-    p.on('console', (m) => { if (m.type() === 'error' && !ignorableConsole(m)) pages.sink.push(`console: ${m.text()}`); });
-    return p;
-  };
-  pages.teacher = await mk({ width: 1366, height: 768 });
-  pages.student = await mk({ width: 375, height: 800 });
-  pages.print = await mk({ width: 794, height: 1123 });
+  const { browser, pages } = await openPages();
   for (const [id, unit] of units) await dynamicUnit(browser, pages, id, unit, { noPdf: flag('--no-pdf') });
-  if (flag('--touch')) {
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
-    const P = await ctx.newPage(); const cdp = await ctx.newCDPSession(P);
-    P.on('pageerror', (e) => pages.sink.push(`pageerror: ${e.message}`));
-    const tt = Date.now();
-    for (const [, unit] of units) await touchUnit(P, cdp, unit);
-    notes.push(`터치 ${((Date.now() - tt) / 1000).toFixed(1)}초`);
-    await ctx.close();
-  }
+  if (flag('--touch')) await runTouch(browser, pages, units.map(([, u]) => u));
   await browser.close();
 }
 const lessonCount = units.reduce((n, [, u]) => n + (u?.lessons?.length || 0), 0);
@@ -605,3 +618,6 @@ for (const line of lines) console.log(line);
 if (flag('--verbose')) for (const n of notes) console.error(`  · ${n}`);
 console.log(`${lines.length ? '✗' : '✓'} 단원 ${units.length}개 · 차시 ${lessonCount}개 · 실패 ${lines.length}줄 · ${((Date.now() - t0) / 1000).toFixed(1)}초${lessonCount ? ` (차시당 ${((Date.now() - t0) / 1000 / lessonCount).toFixed(1)}초)` : ''}`);
 process.exit(lines.length ? 1 : 0);
+}
+const direct = (() => { try { return realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url)); } catch (_) { return false; } })();
+if (direct) await main();

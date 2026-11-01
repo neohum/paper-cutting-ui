@@ -51,6 +51,65 @@
     for (const [n, ref] of Object.entries(u.refs || {})) aliases[`${u.id}-${two(n)}`] = ref;
   }
 
+  // ---- 창체 모듈(modules/<영역>/<학년군>.js): PaperLessons.registerModules([...edu-module.v1]) ----
+  // 체계도(modules/<영역>/_framework.js, build-modules.mjs 가 framework/*.json 에서 만든다): PaperLessons.registerFramework(영역)
+  // 추천 조합 차시 'cc-<학년>-<영역>-NN' 은 체계도 sequences 에서, 교사가 고른 조합은 composed(ids) 로 만든다(modules/compose.js).
+  const modules = {};
+  const frameworks = {};
+  function registerModules(list) {
+    for (const m of [].concat(list || [])) { if (!m || typeof m.id !== 'string') throw new Error('모듈 id가 없습니다'); modules[m.id] = m; }
+  }
+  function registerFramework(d) { if (!d || typeof d.code !== 'string') throw new Error('체계도 영역 code가 없습니다'); frameworks[d.code] = d; }
+  const MOD_LESSON = /^cc-([1-9]|1[0-2])-([a-z]+(?:-[a-z]+)*)-(\d{2})$/;
+  const DOMAIN = /^[a-z]+(?:-[a-z]+)*$/;
+  async function loadDomain(domain, grade) {
+    if (!DOMAIN.test(String(domain))) throw new Error('영역 코드 형식이 아닙니다');
+    await loadScript(`${base}../modules/compose.js`);
+    const band = root.PaperModules.bandOf(grade);
+    if (!band) throw new Error(`학년이 1~12가 아님: ${grade}`);
+    await loadScript(`${base}../modules/${domain}/_framework.js`).catch(() => {});
+    await loadScript(`${base}../modules/${domain}/${band.code}.js`).catch(() => {});
+    return { framework: frameworks[domain] || null, band };
+  }
+  async function moduleLesson(id) {
+    const [, g, domain, n] = MOD_LESSON.exec(id);
+    const { framework } = await loadDomain(domain, Number(g));
+    if (!framework) throw new Error(`체계도를 찾지 못함: ${domain}`);
+    const entry = root.PaperModules.sequencesOf(framework, Number(g)).find((x) => x.n === Number(n));
+    if (!entry) throw new Error(`추천 조합에 없는 차시: ${id}`);
+    const { lesson, errors } = root.PaperModules.composeSequence(framework, Number(g), entry, (k) => modules[k]);
+    if (!lesson) throw new Error(`차시를 조합하지 못함(${id}): ${errors.join(' / ')}`);
+    lessons[id] = lesson;
+    return lesson;
+  }
+  // 교사가 고른 조합: ids = [도입, 활동 1~3, 정리]. 학년이 없으면 모듈들이 함께 쓰는 첫 학년
+  async function composed(ids, opts = {}) {
+    ids = [].concat(ids || []).map(String);
+    const head = /^([a-z]+(?:-[a-z]+)*)\.([a-z0-9]+)\./.exec(ids[0] || '');
+    if (!head) throw new Error('모듈 id 형식이 아닙니다');
+    await loadScript(`${base}../modules/compose.js`);
+    const band = root.PaperModules.bandByLabel(head[2]);
+    if (!band) throw new Error(`학년군을 알 수 없는 모듈 id: ${ids[0]}`);
+    const domain = head[1];
+    await loadDomain(domain, band.grades[0]);
+    const mods = ids.map((k) => modules[k]);
+    const fw = frameworks[domain] || { code: domain, title: domain };
+    const topic = mods[0] ? root.PaperModules.topicOf(fw, mods[0].topic) : null;
+    const common = mods.every(Boolean) ? (mods[0].grades || []).find((x) => mods.every((m) => (m.grades || []).includes(x))) : null;
+    const g = Number(opts.grade) || common || band.grades[0];
+    // probe: 검사기(check-module.mjs)가 추천 조합에 없는 모듈을 브라우저로 돌리려고 분 합계를 따지지 않고 묶는 길
+    const { lesson, errors } = root.PaperModules.compose(mods, { id: root.PaperModules.customIdOf(g, domain, ids), grade: g, domain: fw, topic: topic || {}, probe: Boolean(opts.probe) });
+    if (!lesson) throw new Error(`고른 모듈로 차시를 만들 수 없음: ${errors.join(' / ')}`);
+    lessons[lesson.id] = lesson;
+    if (opts.tools !== false) await loadTools(lesson);
+    return lesson;
+  }
+  async function loadTools(l) {
+    // 카드 계열 교구(story·timeline…)의 공통 판을 언제나 먼저 읽는다 — 아직 없는 곳에서는 조용히 건너뛴다
+    await loadScript(`${base}../engine/tools/_cards.js`).catch(() => {});
+    await Promise.all(toolsOf(l).map((t) => loadScript(`${base}../engine/tools/${t}.js`)));
+  }
+
   // 차시 id 모양: 소문자·숫자·붙임표. 맨 앞 '_'는 검사용 차시(_tool-*, _sample)만 쓴다
   // 국어 독서·매체 단원만 단원 이름에 한글이 들어간다(units-index: g3-kor-1-독서-01)
   const ID = /^_?[a-z0-9](?:[a-z0-9-]|독서|매체)*$/;
@@ -58,6 +117,7 @@
   async function load(id, opts = {}) {
     if (!ID.test(String(id))) throw new Error('차시 id 형식이 아닙니다');
     if (aliases[id]) return load(aliases[id], opts);
+    if (!lessons[id] && MOD_LESSON.test(id)) await moduleLesson(id);
     if (!lessons[id]) {
       // 단원 차시('…-NN')는 단원 파일을 먼저, 나머지는 data/<id>.js를 먼저 읽는다(없으면 다른 쪽도 본다)
       const u = unitOf(id);
@@ -70,11 +130,7 @@
     }
     const l = lessons[id];
     if (!l) throw new Error(`차시를 찾지 못함: ${id}`);
-    if (opts.tools !== false) {
-      // 카드 계열 교구(story·timeline…)의 공통 판을 언제나 먼저 읽는다 — 아직 없는 곳에서는 조용히 건너뛴다
-      await loadScript(`${base}../engine/tools/_cards.js`).catch(() => {});
-      await Promise.all(toolsOf(l).map((t) => loadScript(`${base}../engine/tools/${t}.js`)));
-    }
+    if (opts.tools !== false) await loadTools(l);
     return l;
   }
 
@@ -413,6 +469,7 @@
   root.PaperLessons = {
     flow, gradeLabel, schoolYear,
     register(l) { lessons[l.id] = l; }, registerUnit, unit: (id) => units[id], unitOf, resolve: (id) => aliases[id] || id,
+    registerModules, registerFramework, module: (id) => modules[id], modules: () => Object.values(modules), framework: (code) => frameworks[code], loadDomain, composed,
     get: (id) => lessons[aliases[id] || id], all: () => Object.values(lessons),
     load, loadScript, toolsOf, submit, waitAck, flush, encode, decode, encodeShort, decodeShort, sdkPayload, base,
   };

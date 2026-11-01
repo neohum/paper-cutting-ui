@@ -46,6 +46,7 @@ PaperLessons.registerUnit({
 | emotion, wordcards, kitchen, economy | 같은 id (`_cards.js` 위) | 새로 |
 | map, earth, circuit, body | 같은 id | 새로 |
 | keyboard, collage, timer, block-coding | 같은 id | 새로 |
+| (중·고 창체 모듈 — 카탈로그 id 없음) | dilemma(갈림길 상황: 결과가 이어지는 선택 나무·근거 카드), rubric-writing(기준표 글쓰기: 글자 수·자기 점검·개인정보 경고) | 새로 |
 
 있는 특수 교구(protractor, ruler, compass, rightangle, magnet, lightray, soundwave, mirrorfold, cubenet, cylnet, circlearea, ratiobar, fracstrips, sortboard, seasons, mapcompass, earthspin)도 맞으면 쓴다.
 

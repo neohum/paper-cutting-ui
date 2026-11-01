@@ -46,6 +46,8 @@
     $('#ws-basic').href = playerURL({ lesson: l.id, role: 'print' });
     $('#ws-easy').href = playerURL({ lesson: l.id, role: 'print', variant: 'easy' });
     // 단원 차시는 단원 묶음(dist/units/<단원>/)에 들어 있다(manifest의 hub·zip). data 차시는 차시 묶음 그대로
+    // 창체 모듈 조합 차시(manifest modules)는 아직 런처 묶음이 없다 — 허브 주소·zip 대신 플레이어 링크로 배포한다
+    $('#hub-zip').hidden = Boolean(l.modules); $('#hub-open').hidden = Boolean(l.modules);
     $('#hub-zip').href = `../dist/${l.zip || `${l.id}.zip`}`;
     $('#hub-open').href = onHub ? `${location.origin}/dist/${l.hub || `${l.id}/`}` : `../dist/${l.hub || `${l.id}/index.html`}`;
     // 포털 과제: 링크에 반 코드만(수집 주소는 포털이 맡는다)

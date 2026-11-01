@@ -59,8 +59,11 @@
 
   async function start() {
     const id = qs.get('lesson') || window.EDU_BUNDLE_LESSON;
-    if (!id) { app.innerHTML = '<p class="pl-error">차시가 지정되지 않았습니다. 교사 화면에서 받은 링크로 다시 열어 주세요.</p>'; return; }
-    try { S.lesson = await L.load(id); } catch (e) { app.innerHTML = `<p class="pl-error">${esc(e.message)}</p>`; return; }
+    // 창체 모듈 조합(compose.html): compose=<도입 id>,<활동 id>…,<정리 id>&grade=<학년>
+    if (!id && qs.get('compose')) {
+      try { S.lesson = await L.composed(qs.get('compose').split(','), { grade: qs.get('grade'), probe: qs.get('probe') === '1' }); } catch (e) { app.innerHTML = `<p class="pl-error">${esc(e.message)}</p>`; return; }
+    } else if (!id) { app.innerHTML = '<p class="pl-error">차시가 지정되지 않았습니다. 교사 화면에서 받은 링크로 다시 열어 주세요.</p>'; return; }
+    else try { S.lesson = await L.load(id); } catch (e) { app.innerHTML = `<p class="pl-error">${esc(e.message)}</p>`; return; }
     document.title = `${PaperLessons.gradeLabel(S.lesson.grade)} ${S.lesson.subject} · ${S.lesson.title}`;
     document.documentElement.dataset.role = S.role;
     document.documentElement.dataset.grade = S.lesson.grade;
@@ -130,7 +133,7 @@
       ${S.role === 'teacher' ? '<div class="pl-timer pc-card" id="timer" aria-live="off"></div>' : ''}
       <main id="stage" class="pl-stage" tabindex="-1"></main>
       ${phone() ? steps : ''}
-      <p class="pl-muted pl-foot">40분 수업 · 총 ${total}분 구성 · ${S.role === 'teacher' ? '교사는 단계·활동을 자유롭게 넘길 수 있습니다' : '앞 단계를 마치면 다음 단계가 열려요'}</p>`;
+      <p class="pl-muted pl-foot">${S.lesson.minutes || 40}분 수업 · 총 ${total}분 구성 · ${S.role === 'teacher' ? '교사는 단계·활동을 자유롭게 넘길 수 있습니다' : '앞 단계를 마치면 다음 단계가 열려요'}</p>`;
 
     // 학생이 직접 펼치거나 접은 것만 기억한다(toggle 이벤트는 처음 open 속성에도 일어난다)
     $('#goal summary')?.addEventListener('click', () => { S.goalOpen = !$('#goal').open; });
@@ -577,10 +580,12 @@
     };
     const items = easy && ws.easy?.items ? ws.easy.items : ws.items;
     const answers = qs.get('answers') === '1';
+    // 지금 주소(lesson= 또는 compose=)를 그대로 두고 활동지 종류·정답만 바꾼다
+    const printHref = (o) => { const p = new URLSearchParams(location.search); p.set('role', 'print'); for (const [k, v] of Object.entries(o)) { if (v == null) p.delete(k); else p.set(k, v); } return `?${p}`; };
     app.innerHTML = `
       <div class="pl-print-bar no-print">
-        <a class="pl-btn" href="?lesson=${encodeURIComponent(l.id)}&role=print${easy ? '' : '&variant=easy'}">${easy ? '기본 활동지 보기' : '쉬운 활동지 보기'}</a>
-        <a class="pl-btn" href="?lesson=${encodeURIComponent(l.id)}&role=print${easy ? '&variant=easy' : ''}${answers ? '' : '&answers=1'}">${answers ? '정답 숨기기' : '교사용 정답 보기'}</a>
+        <a class="pl-btn" href="${esc(printHref({ variant: easy ? null : 'easy' }))}">${easy ? '기본 활동지 보기' : '쉬운 활동지 보기'}</a>
+        <a class="pl-btn" href="${esc(printHref({ answers: answers ? null : '1' }))}">${answers ? '정답 숨기기' : '교사용 정답 보기'}</a>
         <button type="button" class="pl-btn pl-btn--primary" onclick="window.print()"><i class="fi fi-rr-print" aria-hidden="true"></i> 인쇄</button>
       </div>
       <article class="edu-exam-sheet ws ${easy ? 'ws--easy' : ''} ${l.grade <= 2 ? 'ws--low' : ''}">

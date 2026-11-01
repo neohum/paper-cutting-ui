@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>창체 수업 꾸리기</title>
+  <meta name="description" content="학년·영역·주제를 고르고 도입·활동·정리 모듈을 조합해 창체 40분(중 45·고 50분) 수업을 꾸리는 교사 화면">
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../vendor/uicons/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="../engine/papercut-tokens.css">
+  <link rel="stylesheet" href="../engine/paperkit.css">
+  <link rel="stylesheet" href="player.css">
+  <link rel="stylesheet" href="teacher.css">
+  <link rel="stylesheet" href="compose.css">
+</head>
+<body>
+  <a class="skip" href="#picks">본문으로 건너뛰기</a>
+  <div class="pl-app">
+    <header class="pl-top pc-card">
+      <div class="pl-top__title">
+        <span class="pl-chip">교사용 · 창체</span>
+        <h1>모듈로 수업 꾸리기</h1>
+        <p class="pl-muted">① 학년·영역·주제를 고르고 ② 도입 1개, 활동 1~3개, 정리 1개를 고른 뒤 ③ 교사 화면·학생 화면·활동지로 엽니다. 추천 조합이 먼저 채워져 있습니다.</p>
+      </div>
+    </header>
+
+    <section class="pc-card pl-card" aria-labelledby="h-where">
+      <h2 id="h-where">① 학년 · 영역 · 주제</h2>
+      <div role="group" aria-label="학년" id="grades" class="pl-level cm-grades"></div>
+      <div class="cm-row">
+        <label class="cm-field">영역 <select id="domain"></select></label>
+        <p class="pl-muted" id="basis"></p>
+      </div>
+      <div role="group" aria-label="주제" id="topics" class="cm-topics"></div>
+      <div id="recs" class="cm-recs"></div>
+    </section>
+
+    <section class="pc-card pl-card" aria-labelledby="h-picks" id="picks" tabindex="-1">
+      <div class="t-row"><h2 id="h-picks">② 모듈 고르기</h2><p class="cm-total" id="total" role="status" aria-live="polite"></p></div>
+      <div class="cm-cols">
+        <div class="cm-col"><h3><i class="fi fi-rr-play" aria-hidden="true"></i> 도입 <small>1개</small></h3><ul class="cm-cards" id="col-intro"></ul></div>
+        <div class="cm-col"><h3><i class="fi fi-rr-puzzle-alt" aria-hidden="true"></i> 활동 <small>1~3개 · 누른 차례대로</small></h3><ul class="cm-cards" id="col-activity"></ul></div>
+        <div class="cm-col"><h3><i class="fi fi-rr-flag-checkered" aria-hidden="true"></i> 정리 <small>1개</small></h3><ul class="cm-cards" id="col-wrap"></ul></div>
+      </div>
+    </section>
+
+    <section class="pc-card pl-card" aria-labelledby="h-go">
+      <h2 id="h-go">③ 열기 · 나누기</h2>
+      <ol class="cm-plan" id="plan"></ol>
+      <ul class="cm-errors" id="errors" role="alert"></ul>
+      <div class="cm-actions">
+        <a class="pl-btn pl-btn--primary" id="go-teacher" target="_blank" rel="noopener"><i class="fi fi-rr-chalkboard-user" aria-hidden="true"></i> 교사 화면<span class="sr-only"> (새 창)</span></a>
+        <a class="pl-btn" id="go-student" target="_blank" rel="noopener"><i class="fi fi-rr-graduation-cap" aria-hidden="true"></i> 학생 화면<span class="sr-only"> (새 창)</span></a>
+        <a class="pl-btn" id="go-print" target="_blank" rel="noopener"><i class="fi fi-rr-print" aria-hidden="true"></i> 활동지<span class="sr-only"> (새 창)</span></a>
+        <button type="button" class="pl-btn" id="preview" aria-pressed="false"><i class="fi fi-rr-eye" aria-hidden="true"></i> 미리보기</button>
+        <button type="button" class="pl-btn" id="copy"><i class="fi fi-rr-copy" aria-hidden="true"></i> 학생 링크 복사</button>
+        <span class="pl-muted" id="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <label class="cm-field cm-link">학생 링크 <input id="link" readonly></label>
+      <div class="cm-preview" id="preview-box" hidden><iframe id="preview-frame" title="학생 화면 미리보기" loading="lazy"></iframe></div>
+    </section>
+  </div>
+  <script src="../engine/paperkit.js"></script>
+  <script src="registry.js"></script>
+  <script src="../modules/index.js"></script>
+  <script src="compose.js"></script>
+</body>
+</html>

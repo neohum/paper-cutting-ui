@@ -20,6 +20,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import vm from 'node:vm';
+import { build as buildModules, loadFramework, loadModuleFiles, PM } from './build-modules.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const dist = join(here, 'dist');
@@ -49,6 +50,13 @@ function makeZip(zip, dir) {
   const tar = join(process.env.SystemRoot || 'C:/Windows', 'System32', 'tar.exe');
   if (!existsSync(tar)) throw new Error('zip도 tar.exe도 없어 묶음 zip을 만들 수 없음');
   execFileSync(tar, ['-a', '-c', '-f', zip, ...readdirSync(dir)], { cwd: dir, stdio: 'pipe' });
+}
+
+// 조합되는 창체 추천 조합 차시 전부(체계도 sequences × 모듈 내용)
+function moduleLessons() {
+  const fw = loadFramework(); const mf = loadModuleFiles(); const get = (id) => (mf.byId.get(id) || {}).m; const out = [];
+  for (const d of fw.domains.values()) for (const b of PM.BANDS) for (const g of b.grades) for (const s of PM.sequencesOf(d, g)) { const r = PM.composeSequence(d, g, s, get); if (r.lesson) out.push(r.lesson); }
+  return out;
 }
 
 // 허브 경로(/dist/<id>/) 학생은 번들을 읽는다 — 차시·교구·플레이어 원본이 번들보다 새로우면 학생은 옛 판을 받는다.
@@ -250,6 +258,10 @@ for (const u of units) {
     lessons: rows.map((r) => ({ n: r.n, id: r.ref || r.id })), planned: p ? p.plan.length : rows.length, bundleSha256 });
 }
 
+// 창체 모듈 추천 조합 차시(build-modules.mjs): 교사 화면 목록에 넣는다. 묶음(zip)은 아직 만들지 않는다 — 플레이어가 lesson=cc-…로 모듈을 조합해 연다
+const mods = buildModules();
+for (const e of mods.errors) console.warn(`! modules: ${e}`);
+for (const l of moduleLessons()) manifest.push({ id: l.id, grade: l.grade, subject: l.subject, unit: l.unitTitle, title: l.title, objective: l.objective, tools: toolsOf(l), catalog: l.catalog, standards: [], modules: l.modules });
 writeFileSync(join(here, 'lessons/manifest.js'), `/* build-bundles.mjs가 만든다 — 손으로 고치지 않는다 */\nwindow.EDU_LESSONS = ${JSON.stringify(manifest, null, 1)};\nwindow.EDU_UNITS = ${JSON.stringify(unitList)};\n`);
 // 카탈로그 색인: 카탈로그 차시('<catalogUnit>~<번호>') → 차시 id. 단원 파일이 없어도 이미 있는 data 차시는 그 자리에 잇는다
 const idx = { units: {}, lessons: {} };

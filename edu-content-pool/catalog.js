@@ -25,6 +25,19 @@
   const goLinks = (id, cls = 'go') => `<a class="${cls}" href="${playerHref(id, 'teacher')}" target="_blank" rel="noopener"><i class="fi fi-rr-chalkboard-user" aria-hidden="true"></i> 교사<span class="sr-only"> 전자칠판 화면 (새 창)</span></a>
       <a class="${cls}" href="${playerHref(id, 'student')}" target="_blank" rel="noopener"><i class="fi fi-rr-graduation-cap" aria-hidden="true"></i> 학생<span class="sr-only"> 화면 미리보기 (새 창)</span></a>
       <a class="${cls}" href="${playerHref(id, 'print')}" target="_blank" rel="noopener"><i class="fi fi-rr-print" aria-hidden="true"></i> 활동지<span class="sr-only"> (새 창)</span></a>`;
+  // 창체 모듈(build-modules.mjs 가 만드는 modules/index.js): 영역·학년에 추천 조합 차시가 하나라도 조합되면
+  // 그 창체 단원 자리에 단원 파일 차시 대신 추천 조합 차시와 '모듈로 꾸리기'를 보인다. 모듈이 없는 영역은 단원 그대로(점진 교체).
+  const MOD = window.EDU_MODULE_INDEX || { domains: {} };
+  const domainOf = (u) => (/^g\d{1,2}-cc-([a-z]+(?:-[a-z]+)*)$/.exec(u.uid || '') || [])[1] || null;
+  const moduleRows = (g, code) => { const d = MOD.domains[code]; const rows = (d && d.grades[g]) || []; return rows.some((r) => r.ready) ? rows : null; };
+  const composeHref = (g, code) => `lessons/compose.html?grade=${g}&domain=${encodeURIComponent(code)}`;
+  // 체계도에는 있지만 창체 단원 목록(programs)에 없는 영역·학년 — 창체 목록 끝에 모듈 단원으로 붙인다
+  for (const [code, d] of Object.entries(MOD.domains)) {
+    for (const g of Object.keys(d.grades).map(Number)) {
+      if (!moduleRows(g, code) || C.units.some((u) => u.g === g && isProgram(u) && domainOf(u) === code)) continue;
+      C.units.push({ id: `g${g}-창체-${code}`, uid: `g${g}-cc-${code}`, g, s: CC, sem: '연중', no: null, t: d.title, std: [], n: d.grades[g].length, v: true, area: d.area, basis: d.basis, moduleOnly: true });
+    }
+  }
   const lessonsByUnit = new Map();
   for (const l of C.lessons) {
     if (!lessonsByUnit.has(l.u)) lessonsByUnit.set(l.u, []);
@@ -164,7 +177,37 @@
   const matchesQuery = (text, q) => q.split(/\s+/).filter(Boolean).every((w) => text.includes(w));
   const lessonText = (l, u) => `${u.t} ${l.title} ${u.std.join(' ')}${isProgram(u) ? ` ${u.area} ${CC}` : ''}`;
 
-  function unitBlock(u, ls, showSubject) {
+  // 모듈 단원: 추천 조합 차시 줄(교사·학생·활동지 바로 가기) + 모듈로 꾸리기
+  function moduleBlock(u, mrows, showSubject) {
+    const code = domainOf(u); const q = state.q;
+    const rows = mrows.filter((r) => !q || matchesQuery(`${u.t} ${r.title} ${u.area} ${CC}`, q)).map((r) => `<li class="lesson-item"><span class="lesson-row lesson-row--static">
+        <span class="lesson-row__no">${r.n}차시</span>
+        <span class="lesson-row__title">${esc(r.title || '모듈 준비 중')}</span>
+        <span class="lesson-row__modes">${r.ready ? (r.tools || []).map((t) => `<span class="mode">${esc((MOD.tools || {})[t] || t)}</span>`).join('') : ''}</span></span>
+        <span class="lesson-go">${r.ready ? goLinks(r.id) : '<span class="chip chip--butter lesson-go__wait">준비 중</span>'}</span></li>`);
+    if (!rows.length) return '';
+    const readyN = mrows.filter((r) => r.ready).length;
+    return `<section class="unit pc-sheet" aria-labelledby="h-${esc(u.id)}">
+      <header class="unit__head">
+        <h3 id="h-${esc(u.id)}">${showSubject ? `<span class="unit__subj">${esc(u.s)}</span> ` : ''}<span class="unit__no">${esc(unitLabel(u))}</span></h3>
+        <div class="unit__meta">
+          <span class="chip chip--sky">${esc(u.sem)}</span>
+          <span class="chip">${mrows.length}차시</span>
+          <span class="chip chip--lavender">${esc(u.area)}</span>
+          <span class="chip chip--mint">모듈 조합</span>
+          <span class="chip ${readyN ? 'chip--mint' : 'chip--butter'}">수업 준비 ${readyN}/${mrows.length}</span>
+        </div>
+        <p class="unit__compose"><a class="pc-btn pc-btn--ghost" href="${composeHref(u.g, code)}" target="_blank" rel="noopener"><i class="fi fi-rr-puzzle-alt" aria-hidden="true"></i> 모듈로 꾸리기<span class="sr-only"> (새 창)</span></a>
+          <span class="muted">학년·주제에 맞는 도입·활동·정리 모듈을 골라 수업을 직접 꾸립니다.</span></p>
+        <details class="unit__std"><summary>근거 법령·고시</summary><p>${esc(u.basis)}</p></details>
+      </header>
+      <ol class="lesson-list">${rows.join('')}</ol>
+    </section>`;
+  }
+
+  const composeNote = (u, mrows) => `<p class="unit__compose"><a class="pc-btn pc-btn--ghost" href="${composeHref(u.g, domainOf(u))}" target="_blank" rel="noopener"><i class="fi fi-rr-puzzle-alt" aria-hidden="true"></i> 모듈로 꾸리기<span class="sr-only"> (새 창)</span></a>
+      <span class="muted">모듈 추천 조합 ${mrows.filter((r) => r.ready).length}/${mrows.length}차시 준비 — 다 준비되면 이 단원을 대신합니다.</span></p>`;
+  function unitBlock(u, ls, showSubject, extra = '') {
     const rows = ls.map((l) => {
       const tool = toolById.get(l.tool);
       const id = readyId(l);
@@ -187,6 +230,7 @@
           ${u.ne ? '<span class="chip">차시 수 추정</span>' : ''}
           <span class="chip ${readyN ? 'chip--mint' : 'chip--butter'}">수업 준비 ${readyN}/${ls.length}</span>
         </div>
+        ${extra}
         ${ready && ready.flow ? `<details class="unit__flow"><summary><i class="fi fi-rr-route" aria-hidden="true"></i> 단원 진행 방향</summary><p>${esc(ready.flow)}</p></details>` : ''}
         ${isProgram(u) ? `<details class="unit__std"><summary>근거 법령·고시</summary><p>${esc(u.basis)}</p></details>` : `<details class="unit__std"><summary>성취기준 ${u.std.length}개</summary>
           <ul>${u.std.map((c) => `<li><b>${esc(c)}</b> ${esc(C.standards[c] ?? '')}</li>`).join('')}</ul></details>`}
@@ -203,9 +247,12 @@
     const subjects = q ? subjectsOf(state.grade) : [state.subject];
     let total = 0;
     const blocks = subjects.flatMap((s) => unitsOf(state.grade, s).filter(inSem).map((u) => {
+      const mrows = isProgram(u) && domainOf(u) ? moduleRows(u.g, domainOf(u)) : null;
+      // 추천 조합이 단원 차시 수만큼 준비되면 단원을 모듈 조합으로 바꾸고, 덜 됐으면 단원을 그대로 두고 '모듈로 꾸리기'만 붙인다
+      if (mrows && (u.moduleOnly || mrows.filter((r) => r.ready).length >= (lessonsByUnit.get(u.id) || []).length)) { const html = moduleBlock(u, mrows, !!q); total += html ? mrows.filter((r) => !q || matchesQuery(`${u.t} ${r.title} ${u.area} ${CC}`, q)).length : 0; return html; }
       const ls = (lessonsByUnit.get(u.id) ?? []).filter((l) => !q || matchesQuery(lessonText(l, u), q));
       total += ls.length;
-      return ls.length ? unitBlock(u, ls, !!q) : '';
+      return ls.length ? unitBlock(u, ls, !!q, mrows ? composeNote(u, mrows) : '') : '';
     })).join('');
     $('#crumb').textContent = q ? `${gradeName(state.grade)} 전체 과목 검색` : `${gradeName(state.grade)} · ${state.subject}`;
     $('#result-count').textContent = q ? `'${q}' ${total}차시` : `${total}차시`;
