@@ -557,9 +557,20 @@ for (const id of ids) {
   staticUnit(id, unit);
   units.push([id, unit]);
 }
-// 알려진 결함 목록에서 이번에 검사한 차시의 줄이 더 걸리지 않으면 목록에서 지우게 알린다(목록은 줄기만 한다)
+// 알려진 결함 목록에서 이번에 검사한 차시의 줄이 더 걸리지 않으면 목록에서 지우게 알린다(목록은 줄기만 한다).
+// --all 이면 모든 줄이 재현되어야 하고, 어느 실행에서든 없는 차시(오타·개명·지운 차시)를 가리키는 줄은 실패다 — 죽은 줄이 남지 않게.
 const checkedLessons = new Set(units.flatMap(([, u]) => (u?.lessons || []).map((l) => l.id)));
-for (const line of KNOWN_REACH) { const lid = line.split(' · ')[0]; if (checkedLessons.has(lid) && !knownSeen.has(line)) failAt(lid, 'check-reach', `KNOWN_REACH 의 이 줄이 더 걸리지 않음 — 목록에서 지운다: ${line}`); }
+const lessonExists = (lid) => {
+  if (checkedLessons.has(lid)) return true;
+  const uid = /^(.+)-\d{2}$/.exec(lid)?.[1];
+  if (!uid || !existsSync(join(unitsDir, `${uid}.js`))) return false;
+  try { return (loadUnit(uid)?.lessons || []).some((l) => l.id === lid); } catch (_) { return false; }
+};
+for (const line of KNOWN_REACH) {
+  const lid = line.split(' · ')[0];
+  if (!lessonExists(lid)) failAt(lid, 'check-reach', `KNOWN_REACH 의 이 줄이 없는 차시를 가리킴 — 목록에서 지운다: ${line}`);
+  else if ((flag('--all') || checkedLessons.has(lid)) && !knownSeen.has(line)) failAt(lid, 'check-reach', `KNOWN_REACH 의 이 줄이 더 걸리지 않음 — 목록에서 지운다: ${line}`);
+}
 const t0 = Date.now();
 if (!flag('--static') && units.length) {
   const up = await fetch(`${hub}/api/results?class=__ping`).then((r) => r.ok, () => false);

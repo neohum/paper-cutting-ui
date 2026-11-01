@@ -50,7 +50,7 @@ function stepReach(start, step, lo, hi) {
 
 // ---------------- 교구별 규칙: (options, target, state) → 문제 글 배열 ----------------
 const RULES = {
-  multiply(o, t) {
+  multiply(o, t, s) {
     const out = []; t = t || {};
     const mode = ['array', 'group', 'table'].includes(o.mode) ? o.mode : 'array';
     if (mode === 'array') {
@@ -64,11 +64,29 @@ const RULES = {
         for (let r = ms; r <= maxR && !ok; r++) if (t.product % r === 0 && t.product / r >= ms && t.product / r <= maxC) ok = true;
         if (!ok) out.push(`곱 ${t.product}를 판(최대 ${maxR}줄 ${maxC}개${ms > 1 ? `, 한 변 ${ms} 이상` : ''})의 배열로 만들 수 없음`);
       }
+      // lock: 줄·칸 단추와 칸 누르기가 없다 — 배열은 시작 상태(기본 1×1, 판 크기로 자름)에 고정된다
+      if (o.lock && !out.length) {
+        const fix = (v, hi) => Math.max(1, Math.min(hi, Number.isFinite(Number(v)) && v != null && v !== '' ? Math.round(Number(v)) : 1)); // multiply.js intOr
+        const r = fix(s && s.rows, maxR); const c = fix(s && s.cols, maxC);
+        const okRC = (a, b) => (t.anyOrder ? (r === a && c === b) || (r === b && c === a) : r === a && c === b);
+        const bad = (t.rows != null && t.cols != null && !okRC(t.rows, t.cols)) || (t.rows != null && t.cols == null && r !== t.rows) || (t.cols != null && t.rows == null && c !== t.cols)
+          || (t.product != null && r * c !== t.product) || (t.minSide && (r < t.minSide || c < t.minSide));
+        if (bad) out.push(`배열이 잠겼는데(lock) 시작 상태 ${r}줄 ${c}개가 목표 배열이 아님`);
+      }
     } else if (mode === 'group') {
       const raw = Number(o.count ?? 12); const count = Math.max(1, Math.min(60, Math.round(raw)));
       if (raw > 60) out.push(`count ${raw} > 60 — 교구는 낱개를 60개까지만 놓음`);
       const maxSize = Math.max(1, Math.min(count, Math.round(o.maxSize ?? count)));
-      for (const k of ['size', 'plates', 'groups']) if (t[k] != null && (t[k] < 1 || t[k] > maxSize) && !(k === 'groups' && o.by !== 'plates')) out.push(`${k} ${t[k]}가 묶는 수 범위(1~${maxSize}) 밖`);
+      // 학생은 by 쪽 수(묶는 수 size, 또는 접시 수 plates) 하나만 1~maxSize 에서 고르고 나머지는 floor(count / 고른 수)로 정해진다
+      const by = o.by === 'plates' ? 'plates' : 'size';
+      const fits = (v) => (by === 'size'
+        ? (t.size == null || v === t.size) && (t.groups == null || Math.floor(count / v) === t.groups)
+        : (t.plates == null || v === t.plates) && (t.groups == null || v === t.groups) && (t.size == null || Math.floor(count / v) === t.size));
+      if (t.size != null || t.plates != null || t.groups != null) {
+        let ok = false; for (let v = 1; v <= maxSize && !ok; v++) ok = fits(v);
+        const want = ['size', 'plates', 'groups'].filter((k) => t[k] != null).map((k) => `${k} ${t[k]}`).join(', ');
+        if (!ok) out.push(`${want}에 맞는 ${by === 'plates' ? '접시 수' : '묶는 수'}가 1~${maxSize}에 없음(count ${count}, by ${by})`);
+      }
       for (const k of ['answer', 'rest']) if (t[k] != null && !(isInt(t[k]) && t[k] >= 0 && digitsOf(t[k]) <= 4)) out.push(`${k} ${t[k]}를 입력 칸(0 이상 정수 4자리)에 쓸 수 없음`);
     } else {
       // 곱셈표 빈칸: 숫자 단추·키는 cellDigits 자리까지만 남긴다(slice(-cellDigits))
@@ -145,11 +163,12 @@ const RULES = {
     return out;
   },
 
-  timer(o, t) {
-    const out = []; t = t || {};
+  timer(o, t, s) {
+    const out = []; t = t || {}; s = s || {};
     const C = cores.timer; const U = C.TU(o);
     if (t.plan || t.total != null) {
-      const p0 = C.planOf(o, t) || { work: 30, rest: 10, rounds: 3 };
+      // timer.js load(): plan = planOf(o, target) || PLAN0 위에 state.plan 을 덮는다
+      const p0 = Object.assign({}, C.planOf(o, t) || { work: 30, rest: 10, rounds: 3 }, s.plan || {});
       const reach = {};
       for (const k of ['work', 'rest', 'rounds']) { const [lo, hi, d] = U.lim[k]; reach[k] = stepReach(p0[k], d, lo, hi); }
       const NAME = { work: '운동', rest: '쉬기', rounds: '횟수' };
@@ -176,8 +195,13 @@ const RULES = {
       t.records.forEach((v, i) => {
         if (v == null) return;
         const f = fs[i]; if (!f) { out.push(`기록 ${i + 1}번째 칸이 없음(fields ${fs.length}개)`); return; }
-        const k = v / f.step;
-        if (v < 0 || v > f.max || Math.abs(k - Math.round(k)) > 1e-6) out.push(`기록 ‘${f.label}’ ${v}에 −/+로 닿을 수 없음(0~${f.max}, ${f.step}씩)`);
+        // timer.js bump('rec'): 빈 칸은 0 에서, 매 걸음 Math.round(… * 10) / 10 으로 소수 첫째 자리에 맞추고 [0, max]로 자른다
+        const r0 = s.records && s.records[i] != null ? Number(s.records[i]) : 0;
+        const seen = new Set(); const q = [r0];
+        while (q.length && seen.size < 20000) { const x = q.pop(); if (seen.has(x)) continue; seen.add(x); for (const d of [1, -1]) q.push(Math.max(0, Math.min(f.max, Math.round((x + d * f.step) * 10) / 10))); }
+        // stopwatch: '기록에 넣기'가 잰 시간(소수 첫째 자리)을 빈 칸에 넣는다 — 0~max 의 0.1 단위 값은 닿는다고 본다
+        const byWatch = o.stopwatch && v >= 0 && v <= f.max && Math.abs(v * 10 - Math.round(v * 10)) < 1e-9;
+        if (!byWatch && ![...seen].some((x) => Math.abs(x - v) < 1e-9)) out.push(`기록 ‘${f.label}’ ${v}에 −/+로 닿을 수 없음(0~${f.max}, ${f.step}씩${Math.abs(Math.round(f.step * 10) - f.step * 10) > 1e-9 ? ' — 한 걸음마다 소수 첫째 자리로 반올림' : ''})`);
       });
     } else if (typeof t.records === 'number' && t.records > C.fieldsOf(o).length) out.push(`기록 ${t.records}칸이 필요한데 칸은 ${C.fieldsOf(o).length}개`);
     if (t.safety && !(o.safety || []).length) out.push('safety 목록 없이 target.safety');
@@ -188,7 +212,12 @@ const RULES = {
     const out = []; t = t || {};
     const C = cores.keyboard; const c = C.cfg(o);
     if (c.mode === 'melody') {
-      const keys = new Set(); for (let m = c.lo; m <= c.hi; m++) if (c.black || ![1, 3, 6, 8, 10].includes(m % 12)) keys.add(m);
+      // keyboard.js buildKeys: 흰건반은 lo~hi 전부, 검은건반 m+1 은 왼쪽 흰건반 m 이 같은 줄의 마지막이 아닐 때만 그린다.
+      // 검은건반이 있으면 줄은 미·시 뒤에서만 끊기므로(그 뒤는 흰건반) 빠지는 것은 맨 끝 흰건반 오른쪽 — 곧 lo·hi 자리의 검은건반이다.
+      const isBlack = (m) => [1, 3, 6, 8, 10].includes(((m % 12) + 12) % 12);
+      const whites = []; for (let m = c.lo; m <= c.hi; m++) if (!isBlack(m)) whites.push(m);
+      const keys = new Set(whites);
+      if (c.black) for (let m = c.lo; m <= c.hi; m++) if (isBlack(m) && whites.includes(m - 1) && m - 1 !== whites[whites.length - 1]) keys.add(m);
       const range = `${C.labelOf(c.lo)}~${C.labelOf(c.hi)}${c.black ? '' : ', 흰건반만'}`;
       const off = (list) => [...new Set(list.filter((x) => !keys.has(C.midiOf(x))).map(C.norm))];
       if (t.notes) {
@@ -221,6 +250,20 @@ const RULES = {
         const unit = 2; const want = c.meter * unit; const can = Array(want + 1).fill(false); can[0] = true;
         for (let s = 1; s <= want; s++) can[s] = c.blocks.some((k) => { const b = Math.round(C.RHY[k].b * unit); return b <= s && can[s - b]; });
         if (!can[want]) out.push(`고르개 블록(${c.blocks.join(',')})으로 ${c.meter}박 마디를 채울 수 없음`);
+        else if (!miss.length && !out.length && ((t.use || []).length || t.rests)) {
+          // judgeRhythm: 모든 마디(meter × measures 박)를 마디줄을 넘지 않게 꼭 채우고, use 블록을 하나씩 이상·쉼표를 rests 개 이상 넣어야 맞다
+          const use = [...new Set(t.use || [])]; const needR = t.rests || 0; const per = want; const total = per * c.measures;
+          const full = (1 << use.length) - 1; const seen = new Set(); const q = [[0, 0, 0]]; let ok = false;
+          while (q.length && !ok) {
+            const [p, mask, r] = q.pop(); const key = `${p}|${mask}|${r}`; if (seen.has(key)) continue; seen.add(key);
+            if (p === total) { if (mask === full && r >= needR) ok = true; continue; }
+            for (const k of c.blocks) {
+              const b = Math.round(C.RHY[k].b * unit); const room = per - (p % per); if (b > room) continue;
+              const ui = use.indexOf(k); q.push([p + b, ui >= 0 ? mask | (1 << ui) : mask, Math.min(needR, r + (C.RHY[k].rest ? 1 : 0))]);
+            }
+          }
+          if (!ok) out.push(`꼭 넣을 블록${use.length ? `(${use.map(blockName).join(', ')})` : ''}${needR ? `과 쉼표 ${needR}개` : ''}를 넣고 마디줄을 넘지 않게 ${c.meter}박 × ${c.measures}마디를 채울 수 없음`);
+        }
       }
     } else if (c.mode === 'janggu') {
       if (t.strokes) {
@@ -270,7 +313,8 @@ const RULES = {
     if (!t.syllable) return out;
     const w = dec(t.syllable); if (!w) { out.push(`글자 ‘${t.syllable}’를 조각으로 나눌 수 없음`); return out; }
     const lock = Array.isArray(o.lock) ? o.lock : [];
-    const st = s ? (s.syllable ? dec(s.syllable) : s) : null;
+    // hangul.js: setState(o.start || {}) 뒤에 문항 state 가 있으면 그것으로 덮는다
+    const raw = s || o.start; const st = raw ? (raw.syllable ? dec(raw.syllable) : raw) : null;
     const cons = (o.consonants || ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ']).filter((c) => CHO.includes(c));
     const vows = (o.vowels || ['ㅏ', 'ㅓ', 'ㅗ', 'ㅜ', 'ㅡ', 'ㅣ']).filter((j) => SIMPLE.includes(j));
     const hasJong = Array.isArray(o.batchim); const fins = hasJong ? o.batchim.filter((f) => JONG.indexOf(f) > 0) : [];
@@ -283,8 +327,15 @@ const RULES = {
   map(o, t) {
     const out = []; t = t || {};
     const mode = ['pin', 'terrain', 'compass', 'legend', 'scale'].includes(o.mode) ? o.mode : 'pin';
-    const places = (o.places || []).filter((p) => p && p.name);
-    const [gc, gr] = Array.isArray(o.grid) ? o.grid : [6, 4];
+    // map.js: 이름과 at 배열이 있는 장소만 그리고, grid 는 [1, 14]로 반올림·자른다
+    const places = (o.places || []).filter((p) => p && p.name && Array.isArray(p.at));
+    const [gc, gr] = Array.isArray(o.grid) && o.grid.length === 2 ? o.grid.map((n) => Math.max(1, Math.min(14, Math.round(n)))) : [6, 4];
+    // readOnly: 핀·방위표·방위 단추·범례 빈칸·거리 단추가 잠긴다(보기 고르기 ask 만 남음) — 이것들로 맞히는 목표는 닿을 수 없다
+    if (o.readOnly) {
+      const pinT = (mode === 'pin' || mode === 'terrain') && (Array.isArray(t.at) || t.place || t.region || t.most || t.least || (t.from && t.dir) || t.highest || t.lowest || Number.isFinite(t.height) || t.river || t.sea);
+      const work = pinT ? '핀' : mode === 'compass' && (t.dir || t.align || (t.from && t.to)) ? '방위' : mode === 'legend' ? '범례 빈칸' : mode === 'scale' && (Number.isFinite(t.dist) || (t.from && t.to)) ? '거리' : null;
+      if (work) out.push(`readOnly 로 ${work} 조작이 잠겼는데 목표가 ${work}을(를) 요구함`);
+    }
     const placeBy = (n) => places.find((p) => p.name === n);
     for (const k of ['place', 'from', 'to']) if (t[k] != null && !placeBy(t[k]) && !(k !== 'place' && (o[k] === t[k] && placeBy(o[k])))) out.push(`장소 ‘${t[k]}’가 지도(places)에 없음`);
     if (t.region != null && !(o.regions || []).some((g) => g && g.name === t.region)) out.push(`지역 ‘${t.region}’가 regions 에 없음`);
@@ -370,17 +421,21 @@ const RULES = {
       // 뛰는 크기: 처음 hopSize 에서 −/+ hopStep, hopStep ~ (max − min) 사이
       const size0 = parse(o.hopSize) > 0 ? parse(o.hopSize) : hopStep;
       // setSize 처럼 hopStep 의 배수에 가까우면 배수로 맞춘다(1/12 를 다섯 번 더한 값 = 5/12)
-      const sizes = new Set(); { const q = [size0]; while (q.length && sizes.size < 2000) { let v = Math.max(hopStep, Math.min(max - min, q.pop())); const k = v / hopStep; v = Math.abs(k - Math.round(k)) < 1e-4 ? Math.round(k) * hopStep : v; v = Math.round(v * 1e9) / 1e9; if (sizes.has(v)) continue; sizes.add(v); q.push(v + hopStep, v - hopStep); } }
+      const sizes = new Set(); { const q = [size0]; while (q.length && sizes.size < 2000) { let v = Math.max(hopStep, Math.min(max - min, q.pop())); const k = v / hopStep; v = Math.abs(k - Math.round(k)) < 1e-4 ? Math.round(k) * hopStep : v; v = Math.round(v * 1e6) / 1e6; if (sizes.has(v)) continue; sizes.add(v); q.push(v + hopStep, v - hopStep); } }
       const ts = t.size != null ? parse(t.size) : null;
       if (ts != null && ![...sizes].some((x) => Math.abs(x - ts) < 1e-6)) out.push(`뛰는 크기 ${fmt(ts)}에 −/+로 닿을 수 없음(처음 ${fmt(size0)}, ${fmt(hopStep)}씩, ${fmt(hopStep)}~${fmt(max - min)})`);
       const te = t.end != null ? parse(t.end) : null;
       if (te != null && (te < min - EPS || te > max + EPS)) out.push(`도착 ${fmt(te)}가 수직선(${fmt(min)}~${fmt(max)}) 밖`);
       else if (te != null && !onTick(te)) out.push(`도착 ${fmt(te)}가 눈금(${grid}) 위에 없음 — 가까운 눈금에 그려짐`);
       if (t.count != null && t.count > 30) out.push(`화살표 ${t.count}개 > 30`);
+      // 크기·횟수만 주고 도착이 없으면 judge 가 뒤로 뛴 화살표를 틀림으로 본다 — 앞으로만 뛰므로 아래 끝(min)은 넘을 수 없다.
+      // 도착이 min 밖이면 위 '도착 … 수직선 밖'이 잡는다
       if (f != null && ts != null && t.count != null && te == null) { const e = f + ts * t.count; if (e > max + EPS) out.push(`${fmt(f)}에서 ${fmt(ts)}씩 ${t.count}번 뛰면 ${fmt(e)} — 수직선 끝 ${fmt(max)}을 넘음`); }
       if (f != null && te != null && !out.length) {
         const d = te - f;
-        if (ts != null) { const k = d / ts; if (Math.abs(k - Math.round(k)) > 1e-6) out.push(`${fmt(f)}에서 ${fmt(ts)}씩 뛰어 ${fmt(te)}에 닿을 수 없음`); else if (Math.abs(Math.round(k)) > 30) out.push(`화살표가 ${Math.abs(Math.round(k))}개 필요함(30개까지)`); }
+        // numberline.js: backward === false 면 '뒤로 뛰기' 단추가 없다
+        if (d < -EPS && o.backward === false) out.push(`${fmt(f)}에서 ${fmt(te)}로 가려면 뒤로 뛰어야 하는데 backward: false 라 '뒤로 뛰기' 단추가 없음`);
+        else if (ts != null) { const k = d / ts; if (Math.abs(k - Math.round(k)) > 1e-6) out.push(`${fmt(f)}에서 ${fmt(ts)}씩 뛰어 ${fmt(te)}에 닿을 수 없음`); else if (Math.abs(Math.round(k)) > 30) out.push(`화살표가 ${Math.abs(Math.round(k))}개 필요함(30개까지)`); }
         else { const ks = [...sizes]; const g = ks.every((x) => isInt(x / hopStep)) ? hopStep : null; if (g && !isInt(d / g)) out.push(`${fmt(f)}에서 ${fmt(te)}까지 ${fmt(d)}를 ${fmt(g)}의 배수로만 뛸 수 있어 닿을 수 없음`); }
       }
     } else if (mode === 'read') {
@@ -464,7 +519,6 @@ export const KNOWN_REACH = new Set([
   "g3-math-1-05-10 · a2.4 · 교구 범위 밖 (levels.base): 읽을 점 3900가 눈금(0~4000, 200칸) 위에 없음 — 가까운 눈금에 그려짐",
   "g3-math-1-05-10 · a2.4 · 교구 범위 밖 (levels.challenge): 읽을 점 3900가 눈금(0~4000, 500칸) 위에 없음 — 가까운 눈금에 그려짐",
   "g5-sci-2-03-14 · exit.2 · 교구 범위 밖: 읽을 점 57가 눈금(40~70, 2칸) 위에 없음 — 가까운 눈금에 그려짐",
-  "✗ 단원 562개 · 차시 6760개 · 실패 34줄 · 0.0초 (차시당 0.0초)",
 ]);
 
 export const REACH_TOOLS = Object.keys(RULES);
