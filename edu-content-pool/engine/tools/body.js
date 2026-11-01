@@ -291,7 +291,7 @@
         });
         ctl.addEventListener('keydown', (e) => { const b = e.target.closest('[data-do="m"]'); if (!b || readOnly) return; if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); cycleMatch(b.dataset.k, e.key === 'ArrowUp' ? 1 : -1); } });
       }
-      const btn = (d, icon, txt, extra, css) => `<button type="button" class="pl-btn pl-btn--small" tabindex="0" data-do="${d}" style="${css || 'min-height:44px'}" ${extra || ''}>${icon ? `<i class="fi ${icon}" aria-hidden="true"></i>` : ''}${esc(txt)}</button>`;
+      const btn = (d, icon, txt, extra, css) => `<button type="button" class="pl-btn pl-btn--small" tabindex="0" data-do="${d}" style="${css || 'min-height:44px;min-width:44px'}" ${extra || ''}>${icon ? `<i class="fi ${icon}" aria-hidden="true"></i>` : ''}${esc(txt)}</button>`;
       // 잇기 보기: 기관의 일(또는 이름). 차례는 가나다로 섞어 그림 차례와 어긋나게
       const matchOpts = () => (matchBy === 'name' ? organs.slice() : organs.map((n) => jobs[n])).slice().sort((a, b) => a.localeCompare(b, 'ko'));
       function paintCtl() {
@@ -316,7 +316,7 @@
       if (!print && o.ask && Array.isArray(o.ask.choices)) {
         askRow = document.createElement('div'); askRow.setAttribute('role', 'radiogroup'); askRow.setAttribute('aria-label', o.ask.q || '고르기');
         askRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px';
-        askRow.innerHTML = `${o.ask.q ? `<span style="font-weight:700;flex-basis:100%">${esc(o.ask.q)}</span>` : ''}${o.ask.choices.map((c, i) => `<button type="button" class="pl-btn pl-btn--small" tabindex="0" role="radio" aria-checked="false" data-pick="${i}" style="min-height:44px">${esc(c)}</button>`).join('')}`;
+        askRow.innerHTML = `${o.ask.q ? `<span style="font-weight:700;flex-basis:100%">${esc(o.ask.q)}</span>` : ''}${o.ask.choices.map((c, i) => `<button type="button" class="pl-btn pl-btn--small" tabindex="0" role="radio" aria-checked="false" data-pick="${i}" style="min-height:44px;min-width:44px">${esc(c)}</button>`).join('')}`;
         askRow.addEventListener('click', (e) => { const b = e.target.closest('[data-pick]'); if (!b) return; pick = Number(b.dataset.pick); paintPick(); changed(); kit.announce(`${o.ask.choices[pick]}을 골랐어요.`); });
         box.appendChild(askRow);
       }

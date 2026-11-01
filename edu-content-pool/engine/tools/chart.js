@@ -173,7 +173,12 @@
       const scr = stageScale(box, W, 0);
       const picRow = Math.max(58, Math.min(110, 48 / scr));
       // 제목 줄(52)이 있으면 그만큼 판을 늘린다 — 전에는 제목이 있으면 줄이 58보다 낮게 눌렸다(그래서 태블릿에서 줄이 39px)
-      const H = type === 'band' ? 250 : type === 'picture' ? Math.max(220, (o.title ? 52 : 24) + n * picRow + 72) : 400;
+      // 막대·점 누름 영역의 항목 방향 최소 크기(화면 48px). 가로 막대는 항목 줄 높이가 이만큼 되게 판을 아래로 늘린다(휴대폰에서 4개만 되어도 38px 이던 문제) —
+      // 넓은 화면·읽기·활동지는 400 그대로. 세로 막대는 판 폭이 정해져 있어 늘릴 수 없으므로 누름 영역을 이웃 칸 쪽으로 넓히고 누른 자리의 항목을 고른다(아래 catAt)
+      const hitMin = 48 / scr;
+      const hzBar = type === 'bar' && !!o.horizontal;
+      const H = type === 'band' ? 250 : type === 'picture' ? Math.max(220, (o.title ? 52 : 24) + n * picRow + 72)
+        : hzBar && controls && mode === 'build' ? Math.max(400, 112 + Math.min(720, n * hitMin)) : 400;
       const st = kit.stage(box, { viewBox: [W, H], label: `${o.title || '그래프'}. ${{ picture: '그림그래프', bar: '막대그래프', line: '꺾은선그래프', circle: '원그래프', band: '띠그래프' }[type]}${mode === 'build' ? '를 완성하세요.' : '를 읽으세요.'}` });
       kit.piece(st, st.layer('back'), { shape: { type: 'rect', x: 8, y: 8, w: W - 16, h: H - 16, rx: 16 }, color: 'cream', fill: '#FBF6EC', depth: 2, texture: true });
       const T = (parent, x, y, txt, size, fill, anchor) => { const t = kit.el('text', { x, y, 'text-anchor': anchor || 'middle', 'font-size': size, class: 'pk-text', fill: fill || '#3D352E' }, parent); t.textContent = txt; return t; };
@@ -190,12 +195,14 @@
       const valueOfIcons = (arr) => r6(arr.reduce((a, k, j) => a + k * iconsDef[j].value, 0));
 
       // ===== 막대·꺾은선 좌표 =====
-      const hz = type === 'bar' && !!o.horizontal;
+      const hz = hzBar;
       const PL = hz ? 110 : 74; const PR = 28; const PT = 56; const PB = hz ? 56 : 74;
       const plotW = W - PL - PR; const plotH = H - PT - PB;
       const slot = (hz ? plotH : plotW) / Math.max(1, n);
       const catPos = (i) => (hz ? PT + slot * (i + 0.5) : PL + slot * (i + 0.5));
       const valPos = (v) => (hz ? PL + ((v - from) / (axisMax - from)) * plotW : PT + plotH - ((v - from) / (axisMax - from)) * plotH);
+      // 누른 자리가 든 항목 칸 번호(넓힌 누름 영역이 이웃 칸과 겹친 곳에서 쓴다)
+      const catAt = (p) => Math.max(0, Math.min(n - 1, Math.floor(((hz ? p.y - PT : p.x - PL)) / slot)));
       const fromPointer = (p) => { const f = hz ? (p.x - PL) / plotW : (PT + plotH - p.y) / plotH; const v = from + f * (axisMax - from); return Math.max(type === 'line' ? from : 0, Math.min(axisMax, Math.round(v / step) * step)); };
       const bars = []; const pts = []; let poly = null; const valTxt = [];
       if (type === 'bar' || type === 'line') {
@@ -219,20 +226,24 @@
         data.forEach((d, i) => { if (hz) T(LBL, PL - 10, catPos(i) + 5, d.label, lf, '#3D352E', 'end'); else T(LBL, catPos(i), PT + plotH + 24, d.label, lf); });
         const BL = st.layer('bars');
         const bw = Math.min(56, slot * 0.58);
+        let drag = null; // 끌고 있는 항목 번호
         if (type === 'line') poly = kit.el('path', { fill: 'none', stroke: o.print ? '#000' : '#E69D7B', 'stroke-width': 3, 'stroke-linejoin': 'round' }, BL);
         data.forEach((d, i) => {
           const g = kit.el('g', null, BL);
-          // 항목 칸 전체가 누르는 자리(작은 막대·점을 맞히기 어려운 터치 화면)
-          const hit = hz ? kit.el('rect', { x: PL, y: catPos(i) - slot / 2, width: plotW, height: slot, class: 'pk-hit' }, g) : kit.el('rect', { x: catPos(i) - slot / 2, y: PT - 10, width: slot, height: plotH + 10, class: 'pk-hit' }, g);
+          // 항목 칸 전체가 누르는 자리(작은 막대·점을 맞히기 어려운 터치 화면). 고칠 수 있는 항목은 항목 방향으로 화면 48px 이상 —
+          // 칸이 그보다 좁으면(휴대폰 세로 막대 7개 이상) 이웃 칸 쪽으로 넓히고, 겹친 곳은 누른 자리의 항목이 바뀐다(catAt). 판 밖으로는 나가지 않게 민다
+          const hs = editable(i) ? Math.max(slot, Math.min(hitMin, (hz ? H : W) - 16)) : slot;
+          const h0 = Math.max(8, Math.min((hz ? H : W) - 8 - hs, catPos(i) - hs / 2));
+          const hit = hz ? kit.el('rect', { x: PL, y: h0, width: plotW, height: hs, class: 'pk-hit' }, g) : kit.el('rect', { x: h0, y: PT - 10, width: hs, height: plotH + 10, class: 'pk-hit' }, g);
           if (type === 'bar') {
             const c = colorOf(i);
             bars[i] = kit.el('rect', { rx: 4, fill: o.print ? printFill(1) : c.base, stroke: o.print ? '#000' : c.layer, 'stroke-width': 1.6, class: 'ch-bar' }, g);
             bars[i].__w = bw;
           } else {
             const pg = kit.el('g', null, g);
-            // 점 누름 영역: 화면에서 48px 안팎(24/scr 단위 반폭). 예전 상한 40 단위는 휴대폰(scr 0.53)에서 42.5px 였다 —
-            // 상한을 항목 칸 반폭(slot/2)으로 바꿔 이웃 항목의 칸을 덮지 않는 데까지 넓힌다
-            const hp = Math.max(22, Math.min(Math.max(40, slot / 2), 24 / scr)); kit.el('rect', { x: -hp, y: -hp, width: 2 * hp, height: 2 * hp, class: 'pk-hit' }, pg);
+            // 점 누름 영역: 화면에서 48px(24/scr 단위 반폭). 예전 상한(40 단위, 다음엔 항목 칸 반폭)은 휴대폰에서 점이 7개 이상이면 42.5px 였다 —
+            // 이웃 칸과 겹친 곳은 누른 자리의 항목이 바뀐다(catAt)
+            const hp = Math.max(22, 24 / scr); kit.el('rect', { x: -hp, y: -hp, width: 2 * hp, height: 2 * hp, class: 'pk-hit' }, pg);
             kit.piece(st, pg, { shape: { type: 'circle', r: 8 }, color: given.has(i) || mode === 'read' ? 'ink' : 'peach', depth: 1 });
             pts[i] = pg;
           }
@@ -241,12 +252,14 @@
             const tgt = type === 'bar' ? g : pts[i];
             tgt.setAttribute('tabindex', '0'); tgt.setAttribute('role', 'slider'); tgt.classList.add('pk-draggable');
             tgt.setAttribute('aria-label', `${d.label} ${noun}. ${hz ? '왼쪽 오른쪽' : '위 아래'} 방향키로 바꿔요`);
-            let dragging = false;
-            const down = (e) => { e.preventDefault(); sel = i; dragging = true; hit.setPointerCapture(e.pointerId); setVal(i, fromPointer(st.point(e)), true); };
+            const down = (e) => {
+              e.preventDefault(); const p = st.point(e); const j = catAt(p); const k = editable(j) ? j : i;
+              sel = k; drag = k; hit.setPointerCapture(e.pointerId); setVal(k, fromPointer(p), true);
+            };
             hit.addEventListener('pointerdown', down);
             if (type === 'line') pts[i].addEventListener('pointerdown', (e) => { e.stopPropagation(); down(e); });
-            hit.addEventListener('pointermove', (e) => { if (dragging) setVal(i, fromPointer(st.point(e)), true); });
-            const end = () => { if (!dragging) return; dragging = false; log(); syncCur(); kit.announce(`${d.label} ${josa(noun, '을', '를')} 바꿨어요`); };
+            hit.addEventListener('pointermove', (e) => { if (drag != null) setVal(drag, fromPointer(st.point(e)), true); });
+            const end = () => { if (drag == null) return; const k = drag; drag = null; log(); syncCur(); kit.announce(`${data[k].label} ${josa(noun, '을', '를')} 바꿨어요`); };
             hit.addEventListener('pointerup', end); hit.addEventListener('pointercancel', end);
             // 초점만으로는 고른 항목을 바꾸지 않는다(Tab으로 지나가기만 해도 아래 늘리기·줄이기 단추의 대상이 바뀌던 문제)
             tgt.addEventListener('keydown', (e) => {

@@ -342,3 +342,56 @@ test('휴대폰 축척 누름 영역: block-coding 칸·keyboard 블록·고르�
   assert.ok(blacks.length >= 2);
   for (const g of blacks) { const h = hitOf(g); assert.ok(h, '검은건반 누름 영역 없음'); assert.ok(px(h, 'width') >= 44 && px(h, 'height') >= 44, `검은건반 누름 영역 ${px(h, 'width').toFixed(1)}px`); }
 });
+
+test('휴대폰 축척 누름 영역: chart 막대(세로 7개·가로 4개·가로 7개)와 body 한 글자 고르기 단추가 44px 이상', () => {
+  const BOXW = 340; const PPU = BOXW / 640; // 휴대폰 390px 화면의 무대 폭 340px ÷ viewBox 폭 640
+  const K3 = makeKit();
+  K3.colorOf = () => tone;
+  const stage0 = K3.stage;
+  K3.stage = (box, o) => { const st = stage0(box, o); st.point = (e) => ({ x: e.sx, y: e.sy }); return st; };
+  Node.prototype.append = function (...cs) { for (const c of cs) this.appendChild(c); };
+  Node.prototype.setPointerCapture = function () {};
+  Object.defineProperty(Node.prototype, 'childNodes', { configurable: true, get() { return this.children; } });
+  const doc = { createElement: (t) => new Node(t), createElementNS: (_, t) => new Node(t), getElementById: () => null, head: new Node('head') };
+  const ctx = vm.createContext({ window: { PaperKit: K3 }, document: doc, getComputedStyle: () => ({ paddingLeft: '0', paddingRight: '0', maxHeight: 'none' }), CSS: { escape: (s) => s }, console, setTimeout, clearTimeout });
+  for (const id of ['chart', 'body']) vm.runInContext(src(id), ctx, { filename: `${id}.js` });
+  const mountChart = (o, w) => { const box = new Node('div'); box.clientWidth = w; const inst = K3.tools.chart.create(box, o, K3); const svg = box.all().find((x) => x.tagName === 'svg'); return { box, inst, vb: svg.getAttribute('viewBox').split(' ').map(Number) }; };
+  const sliders = (box) => box.all().filter((x) => x.getAttribute('role') === 'slider');
+  const hitOf = (g) => g.children.find((x) => /pk-hit/.test(x.getAttribute('class') || ''));
+  const num = (n, k) => Number(n.getAttribute(k));
+
+  // 세로 막대 7개(작성자들이 막대 수를 줄여 우회하던 판): 고칠 막대마다 누름 폭 44px 이상, 판 크기 그대로
+  const data7 = [['축구', 9], ['피구', 6], ['줄넘기', 5], ['배드민턴', 4], ['야구', 3], ['농구', 7], ['수영', 2]];
+  const v = mountChart({ type: 'bar', data: data7, unit: '명', scale: 1, max: 10, given: [1, 2, 3] }, BOXW);
+  assert.deepEqual(v.vb, [0, 0, 640, 400]);
+  const vs = sliders(v.box); assert.equal(vs.length, 4);
+  for (const g of vs) { const h = hitOf(g); assert.ok(num(h, 'width') * PPU >= 44, `세로 막대 누름 폭 ${(num(h, 'width') * PPU).toFixed(1)}px`); assert.ok(num(h, 'x') >= 8 && num(h, 'x') + num(h, 'width') <= 632, '누름 영역이 판 밖으로 나감'); }
+  // 넓힌 영역이 이웃 칸과 겹친 곳: 누른 자리의 칸이 바뀐다(농구 막대의 처리기로 수영 칸 한가운데를 누르면 수영)
+  const slot = 538 / 7; const yOf = (val) => 56 + 270 - (val / 10) * 270;
+  hitOf(vs[2]).listeners.pointerdown[0]({ pointerId: 1, sx: 74 + slot * 6.5, sy: yOf(2), preventDefault() {} });
+  hitOf(vs[2]).listeners.pointerup[0]({});
+  assert.deepEqual(plain(v.inst.getState()).values, [null, 6, 5, 4, null, null, 2]);
+  // 겹친 곳이 잠긴(given) 칸이면 누른 막대 그대로
+  hitOf(vs[0]).listeners.pointerdown[0]({ pointerId: 1, sx: 74 + slot * 1.05, sy: yOf(9), preventDefault() {} });
+  assert.deepEqual(plain(v.inst.getState()).values, [9, 6, 5, 4, null, null, 2]);
+
+  // 가로 막대 4개(g4-mus-1-01-22 모양, 전에 266.7×38.3px)·7개: 판을 아래로 늘려 겹침 없이 줄마다 44px 이상
+  for (const data of [[['함께 노래', 6], ['악기 연주', 3], ['몸 표현', 2], ['듣기', 8]], data7]) {
+    const h = mountChart({ type: 'bar', horizontal: true, data, unit: '번', given: [0] }, BOXW);
+    const hs = sliders(h.box).map(hitOf);
+    assert.equal(hs.length, data.length - 1);
+    for (const r of hs) assert.ok(num(r, 'height') * PPU >= 44, `가로 막대 ${data.length}개 누름 높이 ${(num(r, 'height') * PPU).toFixed(1)}px`);
+    for (let k = 1; k < hs.length; k++) assert.ok(num(hs[k - 1], 'y') + num(hs[k - 1], 'height') <= num(hs[k], 'y') + 1e-6, '가로 막대 누름 영역이 겹침');
+  }
+  // 넓은 화면(배율 1)의 기존 단원 크기(가로 막대 6개까지)·읽기 모드는 판 그대로(400)
+  assert.equal(mountChart({ type: 'bar', horizontal: true, data: data7.slice(0, 6), unit: '번' }, 0).vb[3], 400);
+  assert.equal(mountChart({ type: 'bar', horizontal: true, mode: 'read', data: data7, unit: '번', choices: ['a', 'b'] }, BOXW).vb[3], 400);
+
+  // body 한 글자 고르기 단추('위'): 글이 짧아도 폭 44px 이상(최소 폭)
+  const bbox = new Node('div');
+  K3.tools.body.create(bbox, { mode: 'find', ask: { q: '음식물을 잘게 부수는 곳은?', choices: ['위', '간', '폐'] } }, K3);
+  const ask = bbox.all().find((x) => x.getAttribute('role') === 'radiogroup');
+  const btns = ask.innerHTML.match(/<button[^>]*data-pick[^>]*>/g) || [];
+  assert.equal(btns.length, 3);
+  for (const b of btns) assert.match(b, /min-width:\s*44px/, `고르기 단추에 최소 폭 없음: ${b}`);
+});
