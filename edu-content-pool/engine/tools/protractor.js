@@ -19,6 +19,26 @@
   // 2 = 한 번 틀린 뒤 지금 어긋난 단계, 3 = 두 번 틀린 뒤 풀이 한 걸음
   const hintLevel = (opts) => { const a = (opts && opts.attempts) || 0; const l = (opts && opts.level) || 1; return Math.max(1, Math.min(l, a >= 2 ? 3 : a >= 1 ? 2 : 1)); };
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('protractor', {
     name: '종이 각도기',
     create(box, o, kit) {
@@ -68,7 +88,9 @@
 
       // 움직이는 띠(지역 좌표에서 12시 방향으로 그리고 v만큼 돌린다)
       const mv = NS('g', { class: 'pk-arm' }, arms);
-      NS('rect', { x: cx - 26, y: cy - ARM - 8, width: 52, height: ARM - 8, class: 'pk-hit' }, mv);
+      const armHit = NS('rect', { x: cx - 26, y: cy - ARM - 8, width: 52, height: ARM - 8, class: 'pk-hit' }, mv);
+      // 휴대폰(무대 약 0.77~0.85배)에서 띠 잡는 곳 폭 52 가 화면 40~44px — 폭만 화면 46px 까지 넓힌다(길이는 그대로, 가운데 축 쪽으로 늘리지 않는다)
+      if (!o.print && !measure) fitHits(st, [[armHit, { y0: cy - ARM - 8, y1: cy - 16 }]]);
       const moveBand = kit.piece(st, mv, { shape: { type: 'rect', x: cx - 11, y: cy - ARM, w: 22, h: ARM + 14, rx: 11 }, color: 'peach', depth: 2 });
       // 활동지(흑백 인쇄): 띠는 윤곽선만 그려 밑의 눈금 숫자를 덮지 않는다
       if (o.print) [fixedBand, moveBand].forEach((pc) => { pc.face.setAttribute('fill', '#FFFFFF'); pc.face.setAttribute('fill-opacity', 0.15); pc.face.setAttribute('stroke', '#3D352E'); pc.face.setAttribute('stroke-width', 1.4); (pc.under || []).forEach((u) => u.setAttribute('display', 'none')); });
@@ -185,10 +207,12 @@
       });
       function settled(via) { kit.recorder.log('protractor', Object.assign({ via }, state())); const a = Math.round(angle); kit.announce(showR ? `${a}도${kindOf(a) ? `, ${kindOf(a)}` : ''}` : '띠를 놓았어요'); }
       // 아래 줄 단추(크기 44 이상): 만들기는 ±각도, 맞추기는 각도기 돌리기
-      const rowBtn = (layer, x, w, label, aria, color, press) => {
+      // [x0, x1] = 휴대폰에서 누름 영역을 넓혀도 되는 가로 범위(이웃 단추와의 가운데까지). 세로는 각도기 밑변 아래(262)부터 무대 끝까지
+      const hits = [];
+      const rowBtn = (layer, x, w, label, aria, color, press, [x0, x1] = [x - w / 2 - 2, x + w / 2 + 2]) => {
         const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': aria }, layer);
         kit.transform(g, { x, y: 304 });
-        NS('rect', { x: -w / 2 - 2, y: -25, width: w + 4, height: 50, class: 'pk-hit' }, g);
+        hits.push([NS('rect', { x: -w / 2 - 2, y: -25, width: w + 4, height: 50, class: 'pk-hit' }, g), { x0: x0 - x, x1: x1 - x, y0: 262 - 304, y1: H - 304 }]);
         kit.piece(st, g, { shape: { type: 'rect', x: -w / 2, y: -22, w, h: 44, rx: 12 }, color, depth: 2 });
         NS('text', { x: 0, y: 6, 'text-anchor': 'middle', 'font-size': 16, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = label;
         const go = (via) => { kit.spring(0.88, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); press(via); };
@@ -199,13 +223,15 @@
         const SB = st.layer('step-buttons');
         const ds = step === 1 ? [-10, -1, 1, 10] : [-step, step];
         const xs = ds.length === 4 ? [80, 152, 248, 320] : [140, 260];
+        const lims = ds.length === 4 ? [[44, 116], [116, 200], [200, 284], [284, 356]] : [[80, 200], [200, 320]];
         ds.forEach((d, i) => rowBtn(SB, xs[i], 64, d > 0 ? `+${d}°` : `−${-d}°`, `각을 ${Math.abs(d)}도 ${d > 0 ? '벌리기' : '좁히기'}`, d > 0 ? 'mint' : 'lavender', (via) => {
           const v = kit.clamp(Math.round(rot.get() / step) * step + d, -90, 90);
           rot.set(v); kit.tick(); settled(via);
-        }));
+        }, lims[i]));
       }
       mv.setAttribute('aria-valuemin', '0'); mv.setAttribute('aria-valuemax', '180');
-      if (o.print || measure) { mv.removeAttribute('tabindex'); mv.classList.remove('pk-rotatable'); }
+      // 재기(measure)·활동지에서는 띠가 움직이지 않는다 — 각도 값은 그대로 읽히되 조작할 수 없다고 알린다(터치 검사도 누르는 요소로 세지 않는다)
+      if (o.print || measure) { mv.removeAttribute('tabindex'); mv.classList.remove('pk-rotatable'); mv.setAttribute('aria-disabled', 'true'); }
       let entry = null; let entryText = null;
       // 맞추기: 각도기의 처음 자리(어긋나 있다)와 지금 자리
       const pStart = Object.assign({ x: 40, y: -40, r: 0 }, o.placeStart || {});
@@ -229,8 +255,8 @@
           kit.recorder.log('protractor', Object.assign({ via, act: 'turn' }, state()));
           kit.announce(`각도기를 ${d < 0 ? '왼쪽' : '오른쪽'}으로 15도 돌렸어요.`);
         };
-        rowBtn(PC, 140, 100, '↺ 돌리기', '각도기를 왼쪽으로 15도 돌리기', 'lavender', turn(-15));
-        rowBtn(PC, 260, 100, '돌리기 ↻', '각도기를 오른쪽으로 15도 돌리기', 'lavender', turn(15));
+        rowBtn(PC, 140, 100, '↺ 돌리기', '각도기를 왼쪽으로 15도 돌리기', 'lavender', turn(-15), [80, 200]);
+        rowBtn(PC, 260, 100, '돌리기 ↻', '각도기를 오른쪽으로 15도 돌리기', 'lavender', turn(15), [200, 320]);
         raise = () => { [st.layer('measure'), PC].forEach((l) => l.parentNode.appendChild(l)); };
         setPlace(pStart);
       }
@@ -240,10 +266,12 @@
         const ML = st.layer('measure');
         kit.piece(st, ML, { shape: { type: 'rect', x: 150, y: 8, w: 100, h: 44, rx: 12 }, color: 'cream', depth: 1 });
         entryText = NS('text', { x: 200, y: 40, 'text-anchor': 'middle', 'font-size': 26, class: 'pk-text', fill: '#3D352E' }, ML);
+        // 휴대폰에서 넓혀도 되는 가로 범위: 이웃 단추와의 가운데, 가운데 글 칸(150~250) 앞까지. 세로는 무대 위 끝부터 띠 누름 영역(60) 앞까지
+        const LIM = { 42: [4, 70], 98: [70, 148], 302: [252, 330], 358: [330, 396] };
         const btn = (x, d) => {
           const g = NS('g', { tabindex: 0, role: 'button', 'aria-label': `각도 ${d > 0 ? d : -d}도 ${d > 0 ? '늘리기' : '줄이기'}` }, ML);
           kit.transform(g, { x, y: 30 });
-          NS('rect', { x: -26, y: -24, width: 52, height: 48, class: 'pk-hit' }, g);
+          hits.push([NS('rect', { x: -26, y: -24, width: 52, height: 48, class: 'pk-hit' }, g), { x0: LIM[x][0] - x, x1: LIM[x][1] - x, y0: -30, y1: 30 }]);
           const pc = kit.piece(st, g, { shape: { type: 'rect', x: -24, y: -20, w: 48, h: 40, rx: 12 }, color: d > 0 ? 'mint' : 'lavender', depth: 2 });
           NS('text', { x: 0, y: 6, 'text-anchor': 'middle', 'font-size': 16, class: 'pk-text', fill: kit.palette[d > 0 ? 'mint' : 'lavender'].dark }, g).textContent = d > 0 ? `+${d}` : `−${-d}`;
           const press = (via) => {
@@ -258,6 +286,7 @@
         btn(42, -10); btn(98, -1); btn(302, 1); btn(358, 10);
         paintEntry();
       }
+      if (hits.length) fitHits(st, hits);
       const setState = (s) => { const a = kit.clamp(Math.round((s && s.angle) ?? 0), 0, 180); rot.set(a - 90); angle = a; kit.transform(wedge, { r: a - 90, cx, cy }); entry = (s && s.entry != null) ? s.entry : null; if (place && s && s.place) setPlace(s.place); paintEntry(); paint(); };
       setState({ angle: o.start || 0 });
 

@@ -41,6 +41,13 @@ const MIN3 = (mode, extra) => ({
   base: Object.assign({ mode, min: 0, max: 180, step: 60, sub: 6, labels: 'major' }, extra),
   challenge: Object.assign({ mode, min: 0, max: 180, step: 60, sub: 2, labels: 'major' }, extra),
 });
+// 0~180초를 5초 눈금으로만 다루는 뛰기 단계 옵션 — 5초 단위로 더하고 빼는 차시는 출발·도착이 10초·30초 눈금 위에 없다.
+// 쉬움은 도착점 수가 보이고, 기본은 큰 눈금 수를 보며, 도전은 큰 눈금 수가 양 끝에만 있어 60·120 자리를 스스로 찾는다
+const SEC5 = (mode, extra) => ({
+  easy: Object.assign({ mode, min: 0, max: 180, step: 60, sub: 12, labels: 'major', showValue: true }, extra),
+  base: Object.assign({ mode, min: 0, max: 180, step: 60, sub: 12, labels: 'major' }, extra),
+  challenge: Object.assign({ mode, min: 0, max: 180, step: 60, sub: 12, labels: 'ends' }, extra),
+});
 // 길이(mm) 읽기용 단계 옵션 / 단위 고르기용 / km 수직선용 / 초 뛰기용
 const RUL = (extra) => ({
   easy: Object.assign({ mode: 'ruler', max: 8, readOnly: true, guides: true }, extra),
@@ -55,7 +62,8 @@ const UNITS = { units: ['mm', 'cm', 'm', 'km'] };
 const KM = (mode, extra) => ({
   easy: Object.assign({ mode, min: 0, max: 3000, step: 1000, sub: 4, labels: 'major' }, extra),
   base: Object.assign({ mode, min: 0, max: 3000, step: 1000, sub: 4, labels: 'major' }, extra),
-  challenge: Object.assign({ mode, min: 0, max: 3000, step: 1000, sub: 2, labels: 'major' }, extra),
+  // 도전: 500 m 눈금이면 1 km 250 m·750 m 같은 자리에 점을 놓거나 뛸 수 없다 — 250 m 눈금에 큰 눈금 수를 양 끝에만 적는다
+  challenge: Object.assign({ mode, min: 0, max: 3000, step: 1000, sub: 4, labels: 'ends' }, extra),
 });
 const pickKm = (v, prompt, choices, pick, extra) => Object.assign({ prompt, toolOptions: { marks: [v], choices, question: '점이 나타내는 거리를 고르세요.' }, target: { pick } }, extra || {});
 const readSec = (v, question, tag) => ({ prompt: question, toolOptions: { marks: [v], question: tag || '점이 나타내는 시간은 몇 초일까요?' }, target: { value: v } });
@@ -155,7 +163,8 @@ PaperLessons.registerUnit({
           levels: {
             easy: { mode: 'jump', min: 0, max: 180, step: 60, sub: 6, labels: 'major', fixedFrom: 0, hopStep: 10, hopSize: 60, showValue: true },
             base: { mode: 'jump', min: 0, max: 180, step: 60, sub: 6, labels: 'major', fixedFrom: 0, hopStep: 10, hopSize: 60 },
-            challenge: { mode: 'jump', min: 0, max: 180, step: 60, sub: 2, labels: 'major', fixedFrom: 0, hopStep: 10, hopSize: 10 },
+            // 도전: 30초 눈금이면 80·110·170초에 닿을 수 없다 — 10초 눈금에 큰 눈금 수를 양 끝에만 적는다
+            challenge: { mode: 'jump', min: 0, max: 180, step: 60, sub: 6, labels: 'ends', fixedFrom: 0, hopStep: 10, hopSize: 10 },
           },
           items: [
             { prompt: '1분 20초만큼 화살표를 그려 보세요. 닿은 곳은 몇 초일까요?', target: { from: 0, end: 80 } },
@@ -196,7 +205,7 @@ PaperLessons.registerUnit({
         { type: 'choice', prompt: '1분 10초와 같은 시간에 ○ 하세요.', options: ['70초', '110초'], answer: '70초' },
         { type: 'draw', prompt: '1분 15초를 수직선에 점으로 나타내 보세요.' },
       ] } },
-      diff: { easy: '5초 눈금이 있는 수직선에서 점의 자리를 찾아요. 도착점의 수가 보여요.', base: '10초 눈금 수직선에서 큰 눈금 수를 보고 분을 먼저 떼어 내요.', challenge: '30초 눈금뿐인 수직선에서 눈금 사이의 시간을 어림해 읽고, 큰 눈금 수가 양 끝에만 적힌 수직선에서 60·120 자리를 스스로 찾아 점을 놓아요.' },
+      diff: { easy: '5초 눈금이 있는 수직선에서 점의 자리를 찾아요. 도착점의 수가 보여요.', base: '10초 눈금 수직선에서 큰 눈금 수를 보고 분을 먼저 떼어 내요.', challenge: '30초 눈금뿐인 수직선에서 눈금 사이의 시간을 어림해 고르고, 큰 눈금 수가 양 끝에만 적힌 10초 눈금 수직선에서 60·120 자리를 스스로 찾아 화살표를 그리고 점을 놓아요.' },
       notes: '자주 보이는 어려움: ① 몇 분 몇 초를 이어 써서 숫자 하나로 읽는다(1분 20초 → 120초) → 1분 = 60초라서 60 + 20으로 바꾼다. ② 75초를 7분 5초로 읽는다 → 60을 뺀 나머지가 초이고 뺀 60이 1분이다. ③ 분과 초 사이 단위를 지운다 → 읽은 뒤 단위를 소리 내어 말하게 한다.',
     }),
     mk(3, ['[4수03-13]'], {
@@ -272,7 +281,7 @@ PaperLessons.registerUnit({
         { id: 'a1', title: '활동 1. 합이 60초가 안 되는 기록 더하기', minutes: 8, tool: 'numberline',
           task: '출발점에서 더할 시간만큼 화살표를 그려 합을 구해요. 눈금 한 칸은 5초예요.',
           teacher: '"20초에 30초를 더하면 화살표는 어디까지 갈까요?" 큰 눈금 60에 닿기 전까지는 분이 바뀌지 않는다고 짚는다. 40초 + 20초에서 화살표가 큰 눈금 60에 닿으면 "이제 몇 분일까요?"라고 물어 1분을 말하게 한다.',
-          levels: MIN3('jump', { hopStep: 5 }),
+          levels: SEC5('jump', { hopStep: 5 }),
           items: [
             { prompt: '줄넘기를 20초 했고 30초 더 했어요. 20에서 30만큼 더 가 보세요.', toolOptions: { fixedFrom: 20, hopSize: 10 }, target: { from: 20, end: 50 } },
             { prompt: '숨을 참은 시간이 10초였는데 30초 더 참았어요. 10에서 얼마까지 갈까요?', toolOptions: { fixedFrom: 10, hopSize: 10 }, target: { from: 10, end: 40 } },
@@ -282,8 +291,8 @@ PaperLessons.registerUnit({
           ] },
         { id: 'a2', title: '활동 2. 합이 60초를 넘으면 1분으로 받아올림', minutes: 9, tool: 'numberline',
           task: '두 시간의 합이 큰 눈금 60을 넘어가는 화살표를 그려요. 넘은 만큼이 남은 초예요.',
-          teacher: '"50초에 30초를 더하면 60을 넘어요. 넘은 곳은 몇 초일까요?" 큰 눈금 60에서 20칸… 10초 더 간 곳이라고 말하게 하고 1분 20초로 읽는다. 80초를 "1분 80초"로 쓰는 학생에게는 60초가 1분으로 바뀐 것을 화살표로 다시 보게 한다.',
-          levels: MIN3('jump', { hopStep: 5 }),
+          teacher: '"50초에 30초를 더하면 60을 넘어요. 넘은 곳은 몇 초일까요?" 큰 눈금 60에서 20초 더 간 곳이라고 말하게 하고 1분 20초로 읽는다. 80초를 "1분 80초"로 쓰는 학생에게는 60초가 1분으로 바뀐 것을 화살표로 다시 보게 한다.',
+          levels: SEC5('jump', { hopStep: 5 }),
           items: [
             { prompt: '50초에 30초를 더해 보세요. 60초를 넘나요?', toolOptions: { fixedFrom: 50, hopSize: 10 }, target: { from: 50, end: 80 },
               predict: { q: '50초와 30초를 더하면 60초를 넘을까요?', options: ['넘어요', '넘지 않아요'], answer: 0 },
@@ -323,7 +332,7 @@ PaperLessons.registerUnit({
         { type: 'choice', prompt: '60초와 같은 시간에 ○ 하세요.', options: ['1분', '6분'], answer: '1분' },
         { type: 'draw', prompt: '55초 + 15초를 수직선에 화살표로 그려 보세요.' },
       ] } },
-      diff: { easy: '5초 눈금 수직선에서 도착점의 수가 보여요. 큰 눈금 60을 넘는지 확인해요.', base: '10초 눈금 수직선에서 화살표를 그려 합을 구하고 분과 초로 바꿔 써요.', challenge: '30초 눈금만 있는 수직선에서 눈금 사이를 어림해 합을 구해요.' },
+      diff: { easy: '5초 눈금 수직선에서 도착점의 수가 보여요. 큰 눈금 60을 넘는지 확인해요.', base: '5초 눈금 수직선에서 화살표를 그려 합을 구하고 분과 초로 바꿔 써요.', challenge: '큰 눈금 수가 양 끝에만 적힌 5초 눈금 수직선에서 60·120 자리를 스스로 찾아 화살표로 합을 구하고, 30초 눈금만 있는 수직선의 점은 어림해 알맞은 시간을 골라요.' },
       notes: '자주 보이는 어려움: ① 60을 넘었는데도 초만 더 쓴다(1분 80초) → 60초는 항상 1분으로 바꾼다. ② 분과 초를 한 줄에 놓고 더하려 한다(1분 20초 + 50초의 20 + 50) → 이 차시에서는 초끼리만 더한다. ③ 받아올림한 1분을 빠뜨린다 → 큰 눈금을 넘는 순간 화살표 아래에 1분을 적어 둔다.',
     }),
     mk(5, ['[4수03-14]'], {
@@ -337,8 +346,8 @@ PaperLessons.registerUnit({
         { id: 'a1', title: '활동 1. 1분 안에서 남은 시간 구하기', minutes: 8, tool: 'numberline',
           task: '출발점에서 뒤로 뛰어 남은 시간을 구해요. 뒤로 뛰기 단추로 뺄셈을 해요.',
           teacher: '"60초에서 45초를 빼려면 화살표는 어느 쪽으로 갈까요?" 왼쪽(뒤로)이라고 답하게 한다. 뒤로 가야 하는데 앞으로 그려 105에 닿은 학생에게는 "시간이 줄었나요, 늘었나요?"라고 되묻는다.',
-          // 도전: 출발점(50·40·55·70·65초)이 30초 눈금 위에 없어 놓을 수 없었다 — 5초 눈금에 큰 눈금 수를 양 끝에만 적어 60·120 자리를 스스로 찾게 한다
-          levels: Object.assign(MIN3('jump', { hopStep: 5 }), { challenge: { mode: 'jump', min: 0, max: 180, step: 60, sub: 12, labels: 'ends', hopStep: 5 } }),
+          // 출발·도착(15·25·35·45초…)이 10초·30초 눈금 위에 없다 — 세 단계 모두 5초 눈금, 도전은 큰 눈금 수를 양 끝에만 적는다
+          levels: SEC5('jump', { hopStep: 5 }),
           items: [
             { prompt: '50초짜리 영상을 30초 보았어요. 50에서 30만큼 뒤로 뛰어 남은 시간을 구해 보세요.', toolOptions: { fixedFrom: 50, hopSize: 10 }, target: { from: 50, end: 20 } },
             { prompt: '1분(60초) 동안 노래를 부르는데 45초가 지났어요. 남은 시간은 얼마일까요?', toolOptions: { fixedFrom: 60, hopSize: 15 }, target: { from: 60, end: 15 } },
@@ -348,8 +357,8 @@ PaperLessons.registerUnit({
         { id: 'a2', title: '활동 2. 큰 눈금 60을 건너 뒤로 가기', minutes: 9, tool: 'numberline',
           task: '1분이 넘는 시간에서 뒤로 뛰어요. 큰 눈금 60을 건너면 분이 하나 줄어요.',
           teacher: '"1분 10초에서 25초를 빼요. 10초에서 25초를 뺄 수 있나요?" 뺄 수 없다는 말을 듣고 "1분을 60초로 바꾸면 70초예요. 70에서 25를 빼면?" 하고 이어 간다. 25 − 10 = 15초로 거꾸로 빼는 학생에게는 수직선에서 어디에 닿는지 보여 준다.',
-          // 도전: 출발점(50·40·55·70·65초)이 30초 눈금 위에 없어 놓을 수 없었다 — 5초 눈금에 큰 눈금 수를 양 끝에만 적어 60·120 자리를 스스로 찾게 한다
-          levels: Object.assign(MIN3('jump', { hopStep: 5 }), { challenge: { mode: 'jump', min: 0, max: 180, step: 60, sub: 12, labels: 'ends', hopStep: 5 } }),
+          // 출발·도착(15·25·35·45초…)이 10초·30초 눈금 위에 없다 — 세 단계 모두 5초 눈금, 도전은 큰 눈금 수를 양 끝에만 적는다
+          levels: SEC5('jump', { hopStep: 5 }),
           items: [
             { prompt: '1분 10초에서 25초를 빼 보세요. 뒤로 뛰어 닿은 곳은 몇 초일까요?', toolOptions: { fixedFrom: 70, hopSize: 25 }, target: { from: 70, end: 45 },
               predict: { q: '1분 10초에서 25초를 뺄 때 먼저 어떻게 할까요?', options: ['10에서 25를 뺀다', '1분을 60초로 바꾼다'], answer: 1 },
@@ -389,7 +398,7 @@ PaperLessons.registerUnit({
         { type: 'choice', prompt: '1분을 바르게 바꾼 것에 ○ 하세요.', options: ['60초', '100초'], answer: '60초' },
         { type: 'draw', prompt: '1분 15초에서 20초를 빼는 화살표를 수직선에 그려 보세요.' },
       ] } },
-      diff: { easy: '5초 눈금 수직선에서 뒤로 뛰기 칸 수가 보여요.', base: '10초 눈금 수직선에서 1분을 60초로 바꾸어 뺀 값을 확인해요.', challenge: '큰 눈금 수가 양 끝에만 적힌 5초 눈금 수직선에서 60·120 자리를 스스로 찾아 뒤로 뛰고, 뺀 시간을 식으로 확인해요.' },
+      diff: { easy: '5초 눈금 수직선에서 도착점의 수가 보여요.', base: '5초 눈금 수직선에서 1분을 60초로 바꾸어 뺀 값을 확인해요.', challenge: '큰 눈금 수가 양 끝에만 적힌 5초 눈금 수직선에서 60·120 자리를 스스로 찾아 뒤로 뛰고, 뺀 시간을 식으로 확인해요.' },
       notes: '자주 보이는 어려움: ① 초끼리 뺄 수 없을 때 큰 수에서 작은 수를 거꾸로 뺀다(10 − 25를 25 − 10으로) → 수직선에서 뒤로 가야 함을 보여 준다. ② 1분을 100초로 바꾼다 → 1분 = 60초. ③ 받아내림한 뒤 분을 줄이지 않는다 → 70초로 바꾸면 분이 0이 된다고 말한다.',
     }),
     mk(6, ['[4수03-14]'], {
@@ -579,7 +588,7 @@ PaperLessons.registerUnit({
         { type: 'choice', prompt: '1 km와 같은 거리에 ○ 하세요.', options: ['100 m', '1000 m'], answer: '1000 m' },
         { type: 'draw', prompt: '1 km를 나타내는 길을 그리고 이정표에 km를 써 보세요.' },
       ] } },
-      diff: { easy: '작은 눈금마다 수가 보여서 점이 어느 눈금인지 세어 읽어요.', base: '큰 눈금 1 km와 작은 눈금 250 m를 이용해 읽어요.', challenge: '500 m 눈금만 있는 수직선에서 눈금 사이 거리를 어림해 읽어요.' },
+      diff: { easy: '작은 눈금마다 수가 보여서 점이 어느 눈금인지 세어 읽어요.', base: '큰 눈금 1 km와 작은 눈금 250 m를 이용해 읽어요.', challenge: '큰 눈금 수가 양 끝에만 적힌 250 m 눈금 수직선에서 1 km·2 km 자리를 스스로 찾아 읽고 점을 놓아요.' },
       notes: '자주 보이는 어려움: ① 1 km를 100 m나 10000 m로 말한다 → 큰 눈금 하나 = 1000 m. ② 1500 m를 15 km로 읽는다 → km 눈금에 닿은 뒤 남은 m를 따로 센다. ③ 2 km 250 m를 2250 m로 바꾸면서 25를 빼먹는다 → 2000 + 250으로 쓴다.',
     }),
     mk(9, ['[4수03-15]'], {
@@ -668,13 +677,14 @@ PaperLessons.registerUnit({
           levels: {
             easy: { mode: 'read', min: 0, max: 4000, step: 1000, sub: 10, labels: 'major' },
             base: { mode: 'read', min: 0, max: 4000, step: 1000, sub: 5, labels: 'major' },
-            challenge: { mode: 'read', min: 0, max: 4000, step: 1000, sub: 2, labels: 'major' },
+            // 도전: 500 m 눈금이면 3400·1800 m 점이 가까운 눈금에 그려진다 — 200 m 눈금에 큰 눈금 수를 양 끝에만 적는다
+            challenge: { mode: 'read', min: 0, max: 4000, step: 1000, sub: 5, labels: 'ends' },
           },
           items: [
             { prompt: '점이 3 km 400 m에 있어요. m로만 말하면 몇 m일까요?', toolOptions: { marks: [3400], question: '점이 나타내는 거리는 몇 m일까요?' }, target: { value: 3400 } },
             { prompt: '점이 1 km 800 m에 있어요. m로만 쓰면 몇 m일까요?', toolOptions: { marks: [1800], question: '점이 나타내는 거리는 몇 m일까요?' }, target: { value: 1800 } },
             { prompt: '점이 2 km 600 m에 있어요. m로 바꾸어 써 보세요.', toolOptions: { marks: [2600], question: '점이 나타내는 거리는 몇 m일까요?' }, target: { value: 2600 } },
-            { prompt: '더 해 보기: 점이 3 km 900 m에 있어요. 몇 m일까요?', toolOptions: { marks: [3900], question: '점이 나타내는 거리는 몇 m일까요?' }, target: { value: 3900 }, extra: true },
+            { prompt: '더 해 보기: 점이 3 km 800 m에 있어요. 몇 m일까요?', toolOptions: { marks: [3800], question: '점이 나타내는 거리는 몇 m일까요?' }, target: { value: 3800 }, extra: true },
           ] },
         { id: 'a3', title: '활동 3. 몇 cm 몇 mm를 mm로 바꾸기', minutes: 8, tool: 'measure',
           task: '자에 놓인 물건의 길이를 몇 cm 몇 mm로 보고, mm로만 바꾸어 써요.',
@@ -706,7 +716,7 @@ PaperLessons.registerUnit({
         { type: 'choice', prompt: '3 cm 4 mm와 같은 길이에 ○ 하세요.', options: ['34 mm', '304 mm'], answer: '34 mm' },
         { type: 'draw', prompt: '우리 반 친구의 필통 길이를 자로 재어 몇 cm 몇 mm로 쓰고 mm로도 써 보세요.' },
       ] } },
-      diff: { easy: '큰 눈금과 작은 눈금이 어디까지인지 점선으로 보이는 자에서 읽고 바꿔요.', base: '단위 관계를 직접 말하며 cm와 mm, km와 m를 바꿔요.', challenge: '눈금 사이를 어림해 읽은 길이를 두 가지 단위로 써요.' },
+      diff: { easy: '큰 눈금과 작은 눈금이 어디까지인지 점선으로 보이는 자에서 읽고 바꿔요.', base: '단위 관계를 직접 말하며 cm와 mm, km와 m를 바꿔요.', challenge: '더 긴 자와 큰 눈금 수가 양 끝에만 적힌 수직선에서 길이를 읽어 두 가지 단위로 써요.' },
       notes: '자주 보이는 어려움: ① cm와 mm 사이를 바꿀 때 0을 빼거나 더한다(7 cm 5 mm → 705 mm) → 7 cm = 70 mm에 5를 더한다. ② km와 m를 바꿀 때 천 단위를 빠뜨린다(3 km 50 m → 350 m) → 3 km = 3000 m에 50을 더한다. ③ 두 단위를 섞어 쓴 값을 한 단위로 바꾸는 순서를 헷갈린다 → 큰 단위를 먼저 바꾼다.',
     }),
   ],

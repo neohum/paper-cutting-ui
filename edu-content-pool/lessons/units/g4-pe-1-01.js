@@ -733,7 +733,7 @@
               id: 'a2', title: '활동 2. 이어 갈 한 가지 정하고 점검하기', minutes: 13, tool: 'timer',
               task: '고친 계획에서 이어 갈 한 가지를 고르고, 일주일 동안 할 시간을 타이머로 맞춰 계산해요. 계획을 점검 목록으로 확인해요.',
               teacher: '"이어 갈 한 가지는 쉬워야 오래가요." 이어 갈 한 가지를 정하는 까닭을 짚는다. 여러 가지를 한꺼번에 이어 가려는 학생에게 우선 한 가지만 정하게 한다. 운동 시간 합계 셈에서는 "30초가 몇 번이지?" 하고 곱셈으로 묶어 세게 한다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 5, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '이어 갈 운동을 30초 하고 15초 쉬기를 4번 하도록 타이머를 맞춰요.', toolOptions: { plan: { work: 20, rest: 10, rounds: 2 } }, target: { plan: { work: 30, rest: 15, rounds: 4 } }, difficulty: 0.15 },
                 { prompt: '30초 운동, 15초 쉬기를 4번 하면 처음부터 끝까지 모두 몇 초인지 맞춰요.', toolOptions: { plan: { work: 30, rest: 15, rounds: 2 } }, target: { total: 165 }, difficulty: 0.25,
@@ -953,7 +953,7 @@
               id: 'a2', title: '활동 2. 쉬는 시간 스트레칭 계획 세우기', minutes: 12, tool: 'timer',
               task: '쉬는 시간 스트레칭 계획을 타이머로 맞추고, 스트레칭 차례를 놓고 계획을 점검해요.',
               teacher: '"쉬는 시간이 10분이니까 스트레칭은 몇 분이면 될까요?" 쉬는 시간 안에 화장실·물 마시기·스트레칭을 모두 넣을 시간을 세게 한다. 쉬는 시간 내내 하려는 학생에게 "다음 시간 준비도 해야 해요"라고 말해 준다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 5, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '스트레칭 45초 하고 15초 쉬기를 2번 하도록 타이머를 맞춰요.', toolOptions: { plan: { work: 30, rest: 10, rounds: 3 } }, target: { plan: { work: 45, rest: 15, rounds: 2 } }, difficulty: 0.15 },
                 { prompt: '쉬는 시간 스트레칭 동작을 목에서 아래로 내려가는 차례로 놓아요.', toolOptions: { cards: ['허리 옆으로 숙이기', '목 좌우로 천천히 돌리기', '어깨 위로 올렸다 내리기', '발목 한 쪽씩 돌리기'] }, target: { order: ['목 좌우로 천천히 돌리기', '어깨 위로 올렸다 내리기', '허리 옆으로 숙이기', '발목 한 쪽씩 돌리기'] }, levels: { easy: { state: { order: ['목 좌우로 천천히 돌리기', '어깨 위로 올렸다 내리기', '발목 한 쪽씩 돌리기', '허리 옆으로 숙이기'] } } }, difficulty: 0.2 },

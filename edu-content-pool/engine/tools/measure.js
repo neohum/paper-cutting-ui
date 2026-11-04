@@ -122,6 +122,26 @@
   }
   const fmt = (v) => String(r2(v));
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('measure', {
     name: '재기 실험대',
     create(box, o, kit) {
@@ -191,7 +211,8 @@
           const strip = kit.piece(st, OL, { shape: { type: 'rect', x: 0, y: 0, w: 1, h: 34, rx: 0 }, color: 'mint', depth: 1, flat: true });
           kit.transform(strip.g, { x: X0 + from * PX, y: RY - 44, sx: 1, sy: 1 });
           const handle = kit.el('g', { class: 'pk-draggable', tabindex: ro ? null : '0', role: 'slider', 'aria-label': '띠 끝. 왼쪽 오른쪽 방향키로 길이를 바꿔요.', 'aria-valuemin': '0', 'aria-valuemax': String(max) }, OL);
-          kit.el('rect', { x: -24, y: -32, width: 48, height: 64, class: 'pk-hit' }, handle);
+          const handleHit = kit.el('rect', { x: -24, y: -32, width: 48, height: 64, class: 'pk-hit' }, handle);
+          if (!ro) fitHits(st, [handleHit]);
           kit.piece(st, handle, { shape: { type: 'rect', x: -7, y: -26, w: 14, h: 52, rx: 6 }, color: 'peach', depth: 2 });
           const lenTxt = kit.el('text', { x: W / 2, y: 52, 'text-anchor': 'middle', 'font-size': 20, class: 'pk-text', fill: '#275C46' }, OL);
           let len = Math.min(from + step * 3, max) - from;

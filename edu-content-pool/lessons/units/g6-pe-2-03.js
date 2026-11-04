@@ -365,7 +365,7 @@
               id: 'a1', title: '활동 1. 장면 차례 정해 적고 장면별로 연습하기', minutes: 12, tool: 'timer',
               task: '모둠의 탈춤 마당 장면 카드를 차례대로 놓고 활동지에 적어요. 장면마다 쓸 장단 수를 정한 뒤, 타이머에 맞추어 장면 하나씩 연습해요.',
               teacher: '"장면마다 누가 어느 쪽에서 나오고, 몇 장단을 쓸지 적어요." 놀리는 장면이 인물이 나오기도 전에 오는 모둠에게 "놀림받을 양반이 아직 마당에 없으면 구경꾼은 누구를 보고 웃을까요?"를 묻는다. 차례가 정해진 모둠부터 장면별로 연습한다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 10, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '모둠 탈춤 마당의 장면 카드를 차례대로 놓아요. 마당을 열고, 인물이 나온 뒤 놀림을 받고, 다 함께 어울리며 끝내요.', toolOptions: { cards: ['양반이 거들먹거리며 마당에 나오기', '모두 어울려 춤추며 마무리하기', '구경꾼에게 인사하며 마당 열기', '말뚝이가 양반의 잘난 척을 놀리기'] }, target: { order: ['구경꾼에게 인사하며 마당 열기', '양반이 거들먹거리며 마당에 나오기', '말뚝이가 양반의 잘난 척을 놀리기', '모두 어울려 춤추며 마무리하기'] }, levels: { easy: { state: { order: ['구경꾼에게 인사하며 마당 열기', '말뚝이가 양반의 잘난 척을 놀리기', '양반이 거들먹거리며 마당에 나오기', '모두 어울려 춤추며 마무리하기'] } }, challenge: { prompt: '장면 카드를 차례대로 놓아요. 마당을 열고, 인물이 나와 놀림받고, 구경꾼과 말을 주고받은 뒤, 다 함께 어울리며 끝내요.', toolOptions: { cards: ['양반이 거들먹거리며 마당에 나오기', '모두 어울려 춤추며 마무리하기', '구경꾼에게 인사하며 마당 열기', '말뚝이가 양반의 잘난 척을 놀리기', '말뚝이가 구경꾼에게 "맞지요?" 묻고 대꾸 듣기'] }, target: { order: ['구경꾼에게 인사하며 마당 열기', '양반이 거들먹거리며 마당에 나오기', '말뚝이가 양반의 잘난 척을 놀리기', '말뚝이가 구경꾼에게 "맞지요?" 묻고 대꾸 듣기', '모두 어울려 춤추며 마무리하기'] } } }, difficulty: 0.2,
                   hints: ['처음과 끝은 문제에 나와 있어요. 가운데는 누가 먼저 마당에 있어야 하는지 생각해요.', '놀림을 받으려면 그 인물이 먼저 마당에 나와 있어야 해요. 지금 그 차례가 맞는지 보세요.', '마당 열기 → 인물 나오기 → 놀리기 → (구경꾼과 주고받기) → 어울려 마무리 차례예요.'] },
@@ -605,7 +605,7 @@
               id: 'a2', title: '활동 2. 고칠 부분 하나 정해 다시 한 판 돌기', minutes: 14, tool: 'timer',
               task: '들은 감상 가운데 고칠 부분 하나를 정해요. 그 부분만 연습한 뒤 다시 한 판을 돌고, 처음과 다시 한 판에서 줄이 끊긴 횟수를 견주어 적어요.',
               teacher: '"고칠 곳 하나만 정해요. 무엇을 바꾸면 그 뜻이 더 살아날까요?" 덕석몰이가 끊긴 원은 감는 빠르기를, 소리가 작았던 원은 앞소리꾼을 바꾸어 보게 한다. 두 원이 번갈아 2분씩 다시 돌고, 보는 원은 처음 맡았던 뜻을 다시 본다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false, stopwatch: true } },
+              levels: { easy: { workStep: 5, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false, stopwatch: true } },
               items: [
                 { prompt: '고칠 부분만 45초 연습하고 15초 쉬기를 3번 하도록 타이머를 맞춰요.', toolOptions: { plan: { work: 30, rest: 10, rounds: 2 } }, target: { plan: { work: 45, rest: 15, rounds: 3 } }, levels: { challenge: { prompt: '고칠 부분만 45초 연습하고 15초 쉬기를 3번 할 때 전체 시간(165초)이 되도록 타이머를 맞춰요.', target: { plan: { work: 45, rest: 15 }, total: 165 } } }, difficulty: 0.2 },
                 { prompt: '처음 한 판과 다시 한 판에서 줄이 끊긴 횟수를 적어요.', toolOptions: { fields: ['처음 한 판', '다시 한 판'], unit: '번' }, target: { records: true }, levels: { challenge: { toolOptions: { fields: ['처음 한 판', '다시 한 판', { label: '줄어든 횟수', unit: '번' }] } } }, difficulty: 0.15 },
@@ -1198,7 +1198,7 @@
               id: 'a1', title: '활동 1. 동작 만들고 바꾸기 전 발표해 세어 보기', minutes: 13, tool: 'timer',
               task: '씨앗에서 나무까지 장면 차례를 정해 동작을 만들어요. 반의 절반이 발표하면 나머지가 "무엇으로 보였는지" 손을 들어 답하고, 주제를 알아본 친구 수를 적어요.',
               teacher: '보는 학생들에게 발표 전에 주제를 알려 주지 않는다. 발표가 끝나면 "씨앗이 자라는 것으로 보인 사람?"이라고 묻고 손든 수를 센다. 짝에게 의견 하나를 받아 동작 하나를 바꾼 뒤 같은 방법으로 다시 센다. 싹이 나오는 장면에서 머리부터 벌떡 일어나는 학생에게는 손끝부터 천천히 올라오게 한다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 10, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '"씨앗에서 나무로" 장면 카드를 자라는 차례대로 놓아요.', toolOptions: { cards: ['줄기가 위로 길게 뻗기', '땅속에 웅크린 씨앗', '가지와 잎을 넓게 펼친 나무', '흙을 뚫고 나오는 작은 싹'] }, target: { order: ['땅속에 웅크린 씨앗', '흙을 뚫고 나오는 작은 싹', '줄기가 위로 길게 뻗기', '가지와 잎을 넓게 펼친 나무'] }, levels: { easy: { state: { order: ['땅속에 웅크린 씨앗', '줄기가 위로 길게 뻗기', '흙을 뚫고 나오는 작은 싹', '가지와 잎을 넓게 펼친 나무'] } }, challenge: { prompt: '장면 카드를 자라는 차례대로 놓아요. 바람에 흔들리는 장면이 끝에 하나 더 있어요.', toolOptions: { cards: ['줄기가 위로 길게 뻗기', '땅속에 웅크린 씨앗', '가지와 잎을 넓게 펼친 나무', '흙을 뚫고 나오는 작은 싹', '다 자란 나무가 바람에 흔들리기'] }, target: { order: ['땅속에 웅크린 씨앗', '흙을 뚫고 나오는 작은 싹', '줄기가 위로 길게 뻗기', '가지와 잎을 넓게 펼친 나무', '다 자란 나무가 바람에 흔들리기'] } } }, difficulty: 0.15,
                   hints: ['식물은 작은 것에서 큰 것으로, 낮은 것에서 높은 것으로 자라요.', '지금 놓은 차례에서 더 크게 자란 장면이 덜 자란 장면보다 앞에 온 곳을 찾아 보세요.'] },
@@ -1968,7 +1968,7 @@
               id: 'a2', title: '활동 2. 한 기준에 집중해 보여 주고 짝이 기준 맞히기', minutes: 13, tool: 'timer',
               task: '같은 "팔 물결" 8박을 다섯 기준 가운데 하나에 집중해 보여 줘요(선을 길게, 흐름을 부드럽게, 힘을 세게…). 짝은 어느 기준에 집중했는지 맞히고, 맞힌 횟수를 적어요.',
               teacher: '"같은 팔 물결도 무엇에 집중하느냐에 따라 아름다움이 달라져요." 기준 카드(선·흐름·힘과 빠르기·어울림·뜻)를 뒤집어 한 장 뽑게 한다. 어울림은 짝과 둘이 함께 해야 보인다고 말해 준다. 짝이 맞히지 못하면 "그 기준이 더 잘 보이려면 무엇을 크게 해야 할까?"를 묻는다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 10, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '한 기준으로 20초 보여 주고 15초 짝과 맞히기를 5번 하도록 타이머를 맞춰요.', toolOptions: { plan: { work: 30, rest: 10, rounds: 3 } }, target: { plan: { work: 20, rest: 15, rounds: 5 } }, levels: { challenge: { prompt: '한 기준으로 20초 보여 주고 15초 맞히기를 5번 할 때 전체 시간(160초)이 되도록 타이머를 맞춰요.', target: { plan: { work: 20, rest: 15 }, total: 160 } } }, difficulty: 0.2 },
                 { prompt: '짝이 내가 집중한 기준을 맞힌 횟수와 못 맞힌 횟수를 적어요.', toolOptions: { fields: ['맞힌 횟수', '못 맞힌 횟수'], unit: '번' }, target: { records: true }, levels: { challenge: { toolOptions: { fields: ['맞힌 횟수', '못 맞힌 횟수', { label: '가장 잘 맞힌 기준의 번호(1~5)', unit: '번' }] } } }, difficulty: 0.15 },

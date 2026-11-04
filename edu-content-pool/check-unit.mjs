@@ -411,10 +411,24 @@ const TOUCH_ALLOW = [
   // 선대칭 접기 휴대폰 교점: 390px 에서 교점 간격이 약 28px 라 44px 불가(PR #66 남은 한계). 눌러 놓기·방향키로 놓을 수 있다.
   // 핀은 교점에 놓이므로 핀 크기도 교점 간격을 따른다.
   { tool: 'mirrorfold', test: (e) => /mf-pin/.test(e.piece) || /mf-pin|mf-target/.test(e.cls), why: '선대칭 휴대폰 교점·핀(눌러 놓기·방향키)' },
+  // 분수 피자·띠 조각: 조각 폭 = 띠 폭 ÷ n(피자는 12조각이면 가는 부채꼴). 휴대폰에서 띠 6~7조각, 피자 12조각부터 44px 아래.
+  // 휴대폰 색칠 문항에는 무대 아래 '색칠한 조각' −/+ 단추(화면 46px)가 생기고 조각에 fr-part-alt 가 붙는다 — 그 조각만 넘긴다(판단 문항의 '가장 큰 조각 고르기'는 넘기지 않는다).
+  { tool: 'fraction', test: (e) => /\bfr-part-alt\b/.test(e.cls), why: '분수 조각(색칠한 조각 −/+ 단추로 대신함)' },
+  // 분수 칼집 손잡이: 칼집이 붙어 있으면(24칸 눈금 1~3칸 간격) 누름 영역이 이웃 칼집과의 절반에서 멈춘다 — 그 너머는 이웃 손잡이 자리.
+  // 교구가 이웃 경계까지 넓혔다고 표시한(data-hit-bound="neighbor") 손잡이만 넘긴다. 방향키(슬라이더)로도 옮긴다.
+  { tool: 'fraction', test: (e) => /\bfr-cut\b/.test(e.cls) && e.bound === 'neighbor', why: '분수 칼집 손잡이(이웃 칼집 경계까지 넓힘)' },
+  // 곱셈 전체 표: 열 10개(+머리 열)를 390px 휴대폰에 놓으면 칸 폭이 약 30px — 열 수가 정해진 표라 44px 불가.
+  // 표 아래 숫자 단추 줄의 '다음 빈칸'(44px 이상)이 빈칸을 차례로 돌아 모든 빈칸에 닿는다(빈칸 하나도 빠짐없이: (i + 1) % 빈칸 수).
+  // 칸 폭은 되는데 높이만 모자란 표는 교구가 줄 높이를 늘리므로 폭이 모자란 칸만 넘긴다.
+  { tool: 'multiply', test: (e) => /\bmu-blank\b/.test(e.cls) && e.w < 44, why: '곱셈 큰 표 빈칸(숫자 단추 다음 빈칸으로 대신함)' },
+  // 지도 칸: 8칸 지도는 휴대폰 무대 폭(약 340px, 출구 질문 약 306px)에서 칸이 36~42px — 칸끼리 맞닿아 있어 넓힐 수 없다.
+  // 칸 누르기는 덧붙인 길이고, 핀(누름 영역 화면 46px)을 끌어 칸에 놓을 수 있다.
+  { tool: 'map', test: (e) => e.grid === 'mp-cells', why: '지도 칸(핀 끌기로 대신함)' },
 ];
 // 브라우저 안에서 돈다: 상자(root) 안 누르는 요소의 크기
-function touchTargets({ root, min }) {
-  const SEL = 'button, [role="button"], [role="radio"], [role="checkbox"], [role="slider"], [role="option"], [tabindex="0"], .pk-hit, .pk-draggable, input, select, a[href]';
+function touchTargets({ root, min, name }) {
+  // [data-touch-grid="이름 열 줄"]: 칸마다 누르는 격자 하나(지도 칸) — 칸 하나의 크기를 잰다
+  const SEL = 'button, [role="button"], [role="radio"], [role="checkbox"], [role="slider"], [role="option"], [tabindex="0"], .pk-hit, .pk-draggable, [data-touch-grid], input, select, a[href]';
   const all = [...root.querySelectorAll(SEL)];
   const out = [];
   for (const el of all) {
@@ -427,16 +441,32 @@ function touchTargets({ root, min }) {
     if (cs.pointerEvents === 'none' || cs.visibility === 'hidden' || cs.display === 'none') continue;
     const r = el.getBoundingClientRect();
     if (r.width < 1 || r.height < 1) continue; // 숨은 요소
-    const w = Math.round(r.width * 10) / 10; const h = Math.round(r.height * 10) / 10;
+    let rw = r.width; let rh = r.height;
+    const grid = el.getAttribute('data-touch-grid');
+    if (grid) { const [, cols, rows] = grid.split(/\s+/).map(Number); rw /= cols || 1; rh /= rows || 1; }
+    // 돌아간 SVG 그룹(각도기 띠 등)의 상자는 기울어진 띠를 감싸 실제 누름 영역보다 넓다 — 안의 투명 누름 영역(.pk-hit) 크기 × 화면 배율로 잰다
+    const m = el.getScreenCTM ? el.getScreenCTM() : null;
+    if (m && (Math.abs(m.b) > 1e-3 || Math.abs(m.c) > 1e-3)) {
+      const hits = [...(el.matches('.pk-hit') ? [el] : []), ...el.querySelectorAll('.pk-hit')];
+      let best = null;
+      for (const hEl of hits) {
+        const hm = hEl.getScreenCTM(); const k = Math.hypot(hm.a, hm.b);
+        const tag = hEl.tagName.toLowerCase();
+        const d = tag === 'circle' ? [2 * hEl.r.baseVal.value, 2 * hEl.r.baseVal.value] : tag === 'rect' ? [hEl.width.baseVal.value, hEl.height.baseVal.value] : null;
+        if (d && (!best || Math.min(...d) * k > Math.min(best[0], best[1]))) best = [d[0] * k, d[1] * k];
+      }
+      if (best) [rw, rh] = best;
+    }
+    const w = Math.round(rw * 10) / 10; const h = Math.round(rh * 10) / 10;
     if (Math.min(w, h) >= min) continue;
     const cls = String(el.getAttribute('class') || '');
     const label = (el.getAttribute('aria-label') || el.textContent || el.tagName).trim().replace(/\s+/g, ' ').slice(0, 24);
-    const tool = ([...(el.closest('.pk-tool') || root).classList].find((c) => c.startsWith('pk-tool--')) || 'pk-tool--?').slice(9);
+    const tool = name || ([...(el.closest('.pk-tool') || root).classList].find((c) => c.startsWith('pk-tool--')) || 'pk-tool--?').slice(9);
     // 투명 누름 영역(.pk-hit)만 있고 의미 있는 표시(tabindex·role·단추·끌기)가 없으면, 그 요소에 누름 처리기가 붙어 있을 때만 누르는 요소다
     // (예: 출발점이 잠긴 수직선의 출발 표시는 .pk-hit 가 있어도 누를 수 없다) — 처리기는 밖에서 CDP 로 본다
     const bare = el.matches('.pk-hit') && !el.matches('button, [role], [tabindex="0"], .pk-draggable, input, select, a[href]');
     const i = out.length; if (bare) el.setAttribute('data-touch-i', String(i));
-    out.push({ i, bare, w, h, cls, label, tag: el.tagName.toLowerCase(), tool, piece: (el.closest('.fs-piece, .mf-pin, .mf-dot') || { getAttribute: () => '' }).getAttribute('class') || '' });
+    out.push({ i, bare, w, h, cls, label, tag: el.tagName.toLowerCase(), tool, grid: grid ? grid.split(/\s+/)[0] : null, bound: el.getAttribute('data-hit-bound'), piece: (el.closest('.fs-piece, .mf-pin, .mf-dot') || { getAttribute: () => '' }).getAttribute('class') || '' });
   }
   return out;
 }
@@ -481,6 +511,8 @@ async function touchUnit(P, cdp, unit) {
           await P.waitForSelector('#tool', { timeout: 4000 });
           await P.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
           await report(`${acts[x].id}.${y + 1}`, lv, await P.evaluate(touchTargets, { root: await P.$('#tool'), min: TOUCH_MIN }));
+          // 문항 위 '먼저 예상해요' 보기 단추(교구 밖)
+          const pre = await P.$('.pl-predict'); if (pre) await report(`${acts[x].id}.${y + 1}`, lv, await P.evaluate(touchTargets, { root: pre, min: TOUCH_MIN, name: 'predict' }));
         }
       }
       const exits = l.stages.find((s) => s.id === 'wrapup')?.exitTicket || [];

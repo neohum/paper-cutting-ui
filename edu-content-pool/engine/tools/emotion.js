@@ -459,7 +459,7 @@
         const r = Math.floor(i / cols); const k = i % cols;
         const cx = PAD + k * (cw + GAP2) + cw / 2; const cy = listY + r * (chh + 10) + chh / 2;
         const g = el('g', { class: 'cb-choice' }, group); K.transform(g, { x: cx, y: cy });
-        B.hit(g, -cw / 2, -chh / 2 - 4, cw, chh + 8);
+        B.hit(g, -cw / 2, -chh / 2 - 5, cw, chh + 10); // 줄 사이 틈(10)까지 — 휴대폰 출구 질문(배율 약 0.55)에서도 44px, 이웃 줄과 맞닿고 겹치지 않음
         const tint = ['sky', 'peach', 'lavender', 'buttercup'][i % 4];
         const p = kit.piece(st, g, { shape: { type: 'rect', w: cw, h: chh, rx: 14 }, color: tint, depth: 1, fill: P[tint].light });
         kit.piece(st, g, { shape: { type: 'circle', r: 15, cx: -cw / 2 + 26, cy: 0 }, color: tint, depth: 1 });

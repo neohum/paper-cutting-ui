@@ -27,6 +27,26 @@
     diameter: '지름은 원 위의 두 점을 이은 선분 가운데 원의 중심을 지나는 선분이에요. 원의 중심을 지나는지 보세요.',
   };
 
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('compass', {
     name: '종이 컴퍼스',
     create(box, o, kit) {
@@ -157,16 +177,19 @@
         };
         const NB = st.layer('nudge');
         kit.el('text', { x: 349, y: 284, 'text-anchor': 'middle', 'font-size': 13, class: 'pk-text', fill: '#6B5F50' }, NB).textContent = '0.5cm씩';
-        [[318, -1, '−', '컴퍼스를 0.5cm 좁히기', 'lavender'], [380, 1, '+', '컴퍼스를 0.5cm 벌리기', 'mint']].forEach(([x, d, label, aria, color]) => {
+        const nbHits = [];
+        [[318, -1, '−', '컴퍼스를 0.5cm 좁히기', 'lavender', [-34, 31]], [380, 1, '+', '컴퍼스를 0.5cm 벌리기', 'mint', [-31, 34]]].forEach(([x, d, label, aria, color, [x0, x1]]) => {
           const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': aria }, NB);
           kit.transform(g, { x, y: 314 });
-          kit.el('rect', { x: -30, y: -30, width: 60, height: 60, class: 'pk-hit' }, g); // 휴대폰 출구 질문(배율 약 0.73)에서도 44px
+          // 휴대폰 출구 질문(배율 약 0.73)에서는 두 단추 사이 가운데(349)와 무대 끝까지 넓힌다
+          nbHits.push([kit.el('rect', { x: -30, y: -30, width: 60, height: 60, class: 'pk-hit' }, g), { x0, x1, y0: -34, y1: H - 314 }]);
           kit.piece(st, g, { shape: { type: 'rect', x: -24, y: -20, w: 48, h: 40, rx: 12 }, color, depth: 2 });
           kit.el('text', { x: 0, y: 8, 'text-anchor': 'middle', 'font-size': 24, class: 'pk-text', fill: kit.palette[color].dark }, g).textContent = label;
           const go = (via) => { kit.spring(0.88, 1, { stiffness: 380, damping: 12, onUpdate: (v) => kit.transform(g, { s: v }) }); nudge(d, via); };
           g.addEventListener('click', () => go('pointer'));
           g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go('keyboard'); } });
         });
+        fitHits(st, nbHits);
       }
 
       // 컴퍼스 돌리기(중심 둘레) — 돌린 만큼 원이 그려진다
@@ -206,7 +229,7 @@
 
       // ---- 고르기(pick) 모드: 원과 선분 가·나·다, 점 ㄱ·ㄴ ----
       const pickR = (o.radius || 4) * U;
-      const pickables = [];
+      const pickables = []; const segHits = [];
       const pt = (deg, r) => [O.x + r * Math.cos((deg * Math.PI) / 180), O.y + r * Math.sin((deg * Math.PI) / 180)];
       const drawSeg = (layer, a, b, color, dashed) => kit.el('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: color, 'stroke-width': 3, 'stroke-linecap': 'round', 'stroke-dasharray': dashed ? '7 5' : null, class: 'pk-text' }, layer);
       const SEGS = {
@@ -223,14 +246,15 @@
           marks.forEach((m, k) => {
             const [a, b] = SEGS[m]();
             const g = kit.el('g', { tabindex: 0, role: 'button', 'aria-label': `선분 ${labels[k]}` }, marksL);
-            kit.el('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], stroke: 'transparent', 'stroke-width': 30, 'pointer-events': 'stroke' }, g);
+            // 선분 둘레의 투명 띠(두께 30, 휴대폰에서는 화면 46px) — 선을 따라 비스듬한 띠라 누를 수 있는 폭이 선과 직각으로 잡힌다
+            segHits.push({ el: kit.el('polygon', { class: 'pk-hit' }, g), a, b });
             const line = drawSeg(g, a, b, '#702830');
             // 글자는 선분의 70% 자리에서 옆으로 비켜 둔다(가운데에 두면 지름 글자가 중심점을 가린다)
             const tt = m === 'chord' ? 0.5 : 0.72; const mx = a[0] + (b[0] - a[0]) * tt; const my = a[1] + (b[1] - a[1]) * tt; const nx = -(b[1] - a[1]); const ny = b[0] - a[0]; const nl = Math.hypot(nx, ny) || 1;
             const lx = mx + (nx / nl) * 18; const ly = my + (ny / nl) * 18;
             const tag = kit.piece(st, g, { shape: { type: 'circle', cx: lx, cy: ly, r: 14 }, color: 'cream', depth: 1 });
             kit.el('text', { x: lx, y: ly + 5, 'text-anchor': 'middle', 'font-size': 15, class: 'pk-text', fill: '#702830' }, g).textContent = labels[k];
-            pickables.push({ key: m, g, line, tag, label: labels[k] });
+            pickables.push({ key: m, g, line, tag, label: labels[k], seg: [a, b] });
           });
           // 점 ㄱ(중심)·ㄴ(중심이 아닌 점)
           [['center', O.x, O.y, 'ㄱ'], ['off', O.x - 52, O.y + 70, 'ㄴ']].forEach(([key, x, y, lb]) => {
@@ -240,6 +264,23 @@
             kit.el('text', { x: x + 14, y: y - 8, 'font-size': 15, class: 'pk-text', fill: '#3D352E' }, g).textContent = lb;
             pickables.push({ key, g, tag, label: lb });
           });
+          const fitSegs = () => {
+            const rc = st.svg.getBoundingClientRect(); const k = rc.width && rc.height ? Math.min(rc.width / W, rc.height / H) : 1;
+            const T = Math.max(30, HIT_PX / k) / 2;
+            segHits.forEach(({ el, a, b }) => {
+              const l = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1; const nx = (-(b[1] - a[1]) / l) * T; const ny = ((b[0] - a[0]) / l) * T;
+              el.setAttribute('points', [[a[0] + nx, a[1] + ny], [b[0] + nx, b[1] + ny], [b[0] - nx, b[1] - ny], [a[0] - nx, a[1] - ny]].map((q) => q.join(',')).join(' '));
+            });
+          };
+          fitSegs(); if (typeof ResizeObserver === 'function') new ResizeObserver(fitSegs).observe(st.svg);
+          // 넓힌 띠가 겹치는 자리(반지름·지름이 만나는 중심 근처)를 누르면 누른 곳에서 가장 가까운 선분을 고른다
+          const segDist = (q, [a, b]) => { const dx = b[0] - a[0]; const dy = b[1] - a[1]; const t = kit.clamp(((q.x - a[0]) * dx + (q.y - a[1]) * dy) / (dx * dx + dy * dy || 1), 0, 1); return Math.hypot(q.x - a[0] - t * dx, q.y - a[1] - t * dy); };
+          const nearestSeg = (e, p) => {
+            if (!p.seg || !e.target.classList.contains('pk-hit') || !e.detail) return p;
+            const q = st.point(e); let best = p; let bd = Infinity;
+            pickables.forEach((c) => { if (c.seg) { const d = segDist(q, c.seg); if (d < bd) { bd = d; best = c; } } });
+            return best;
+          };
           pickables.forEach((p) => {
             const go = (via) => {
               picked = p.key; kit.tick();
@@ -248,8 +289,9 @@
               kit.recorder.log('compass', Object.assign({ via, act: 'pick' }, state()));
               kit.announce(`${p.line ? '선분' : '점'} ${eul(p.label)} 골랐어요.`);
             };
-            p.g.addEventListener('click', () => go('pointer'));
+            p.g.addEventListener('click', (e) => { const c = nearestSeg(e, p); if (c === p) go('pointer'); else c.go('pointer'); });
             p.g.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go('keyboard'); } });
+            p.go = go;
           });
         } else {
           const show = o.show || 'radius';

@@ -452,7 +452,7 @@
       wrapup(
         '"악기를 바르게 잡으면 어떤 점이 좋은가요?" 두 학생에게 악기 하나를 골라 잡는 법을 말하게 한다. 출구 1번에서 한 마디에 세 박을 놓은 학생은 다음 시간 첫머리에 \'하나 둘\'을 세며 발을 구르는 연습을 한다.',
         [
-          { type: 'tool', tool: 'keyboard', options: { mode: 'rhythm', meter: 2, measures: 4, blocks: ['q', 'e', 'h', 'qr'], pattern: ['e', 'e', 'q', 'q', 'q', 'q', 'h', 'q'] }, prompt: '새 리듬을 듣고 블록으로 놓아 보세요.', target: { rhythm: ['e', 'e', 'q', 'q', 'q', 'q', 'h', 'q'] }, difficulty: 0.25 },
+          { type: 'tool', tool: 'keyboard', options: { mode: 'rhythm', meter: 2, measures: 4, blocks: ['q', 'e', 'h', 'qr'], pattern: ['e', 'e', 'q', 'q', 'q', 'h', 'q', 'q'] }, prompt: '새 리듬을 듣고 블록으로 놓아 보세요.', target: { rhythm: ['e', 'e', 'q', 'q', 'q', 'h', 'q', 'q'] }, difficulty: 0.25 },
           { type: 'choice', prompt: '작은북 채는 어떻게 쥐어야 하나요?', options: ['주먹처럼 꽉 쥐어요', '느슨하게 쥐고 튕겨요', '채 끝을 잡고 휘둘러요'], answer: 1, difficulty: 0.2, explain: '느슨하게 쥐고 튕기면 북 가죽이 잘 울려요.' },
           { type: 'mood', prompt: '악기를 바르게 잡고 쳐 보니 어땠나요?' },
         ],
@@ -726,7 +726,7 @@
           [
             rp('고르게 친 리듬이에요. 듣고 블록으로 놓아 보세요.', ['q', 'q', 'q', 'q', 'q', 'q', 'h'], 0.15),
             rp('고쳐서 친 두 번째 리듬이에요. 듣고 놓아 보세요.', ['h', 'q', 'q', 'q', 'q', 'h'], 0.25),
-            rp('쉬는 박이 들어간 리듬이에요. 듣고 놓아 보세요.', ['q', 'q', 'qr', 'q', 'e', 'e', 'q', 'q'], 0.3, { reveal: 'after-check' }),
+            rp('쉬는 박이 들어간 리듬이에요. 듣고 놓아 보세요.', ['q', 'q', 'qr', 'q', 'e', 'e', 'q', 'q', 'qr'], 0.3, { reveal: 'after-check' }),
           ]),
       ),
       wrapup(
@@ -1154,7 +1154,7 @@
       wrapup(
         '"같은 리듬에서 어떤 요소를 어떻게 바꿀 수 있나요?" 두 학생에게 손뼉으로 보여 주게 한다. 출구 2번에서 \'세게 치면 박이 빨라져요\'를 고른 학생은 다음 시간 첫머리에 세게 치면서도 발로 박을 같은 간격으로 구르게 한다.',
         [
-          { type: 'tool', tool: 'keyboard', options: { mode: 'rhythm', meter: 4, measures: 2, blocks: ['q', 'e', 'h', 'qr'], pattern: ['q', 'q', 'e', 'e', 'h', 'q', 'q', 'q'] }, prompt: '새 리듬을 듣고 블록으로 놓아 보세요.', target: { rhythm: ['q', 'q', 'e', 'e', 'h', 'q', 'q', 'q'] }, difficulty: 0.25 },
+          { type: 'tool', tool: 'keyboard', options: { mode: 'rhythm', meter: 4, measures: 2, blocks: ['q', 'e', 'h', 'qr'], pattern: ['q', 'q', 'e', 'e', 'q', 'h', 'q', 'q'] }, prompt: '새 리듬을 듣고 블록으로 놓아 보세요.', target: { rhythm: ['q', 'q', 'e', 'e', 'q', 'h', 'q', 'q'] }, difficulty: 0.25 },
           { type: 'choice', prompt: '같은 리듬을 더 세게 치려면 어떻게 해야 하나요?', options: ['힘을 더 주어 쳐요', '박 사이 간격을 좁혀요', '리듬을 바꾸어요'], answer: 0, difficulty: 0.2, explain: '세게 치는 것은 힘이에요. 박 사이 간격은 그대로 두어야 빠르기가 바뀌지 않아요.' },
           { type: 'mood', prompt: '리듬을 두 가지로 쳐 보니 어땠나요?' },
         ],

@@ -3377,7 +3377,7 @@
               id: 'a1', title: '활동 1. 회의 순서 맞추기', minutes: 9, tool: 'timer',
               task: '팀 회의 카드를 알맞은 순서로 놓고, 순서마다 쓸 시간을 맞추어요.',
               teacher: '"돌아가며 의견을 말할 때는 말하기 막대를 든 사람만 말해요." 마지막에 정한 것을 다시 말하는 까닭을 묻는다. 정한 것을 모두가 똑같이 알아야 경기에서 쓸 수 있다는 것을 짚는다.',
-              levels: { easy: { workStep: 10, restStep: 10 }, base: { workStep: 5, restStep: 5 }, challenge: { workStep: 5, restStep: 5, showTotal: false } },
+              levels: { easy: { workStep: 10, restStep: 5 }, base: { workStep: 5, restStep: 5 }, challenge: { workStep: 5, restStep: 5, showTotal: false } },
               items: [
                 { prompt: '팀 회의 카드를 알맞은 순서로 놓아요.', toolOptions: { cards: ['견주어 하나로 정하기', '정한 것을 모두 다시 말하기', '회의 주제 말하기', '한 사람씩 돌아가며 의견 말하기'] }, target: { order: ['회의 주제 말하기', '한 사람씩 돌아가며 의견 말하기', '견주어 하나로 정하기', '정한 것을 모두 다시 말하기'] }, levels: { easy: { state: { order: ['회의 주제 말하기', '견주어 하나로 정하기', '한 사람씩 돌아가며 의견 말하기', '정한 것을 모두 다시 말하기'] } } }, difficulty: 0.15,
                   hints: ['무엇을 정할지 모르면 의견을 낼 수 없어요. 무엇이 맨 앞일까요?', '의견을 다 들어야 견줄 수 있고, 정한 뒤에야 다시 말할 수 있어요.', '주제 → 돌아가며 의견 → 견주어 정하기 → 다시 말하기예요.'] },

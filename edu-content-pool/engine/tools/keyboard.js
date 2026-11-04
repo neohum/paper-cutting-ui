@@ -302,6 +302,26 @@
   }
 
   // ---------------- 화면 ----------------
+  // 무대가 작게 그려지면(휴대폰) 투명 누름 영역을 화면 HIT_PX 이상으로 넓힌다 — 보이는 그림과 넓은 화면의 누름 영역은 그대로.
+  // list: 사각형 요소, 또는 [요소, { x0, x1, y0, y1 }] — 그 요소 좌표계에서 넓혀도 되는 한계(이웃 누름 영역과 겹치지 않게)
+  const HIT_PX = 46;
+  function fitHits(st, list) {
+    const base = list.map((it) => { const [el, lim] = Array.isArray(it) ? it : [it, null]; return { el, lim, x: +el.getAttribute('x'), y: +el.getAttribute('y'), w: +el.getAttribute('width'), h: +el.getAttribute('height') }; });
+    const grow = (a, len, need, lo, hi) => { const n = Math.max(len, Math.min(need, hi - lo)); const s = Math.min(Math.max(a - (n - len) / 2, lo), hi - n); const x = Math.min(a, s); return [x, Math.max(a + len, s + n) - x]; };
+    const run = () => {
+      const rc = st.svg.getBoundingClientRect(); if (!rc.width || !rc.height) return;
+      const need = HIT_PX / Math.min(rc.width / st.width, rc.height / st.height);
+      for (const b of base) {
+        const L = b.lim || {};
+        const [x, w] = grow(b.x, b.w, need, L.x0 ?? -Infinity, L.x1 ?? Infinity);
+        const [y, h] = grow(b.y, b.h, need, L.y0 ?? -Infinity, L.y1 ?? Infinity);
+        b.el.setAttribute('x', x); b.el.setAttribute('width', w); b.el.setAttribute('y', y); b.el.setAttribute('height', h);
+      }
+    };
+    run(); if (typeof ResizeObserver === 'function') new ResizeObserver(run).observe(st.svg);
+    return run;
+  }
+
   K.registerTool('keyboard', {
     name: '종이 건반·장단판',
     core,
@@ -406,6 +426,7 @@
 
       // ---- melody ----
       const keyEls = new Map(); let stripL = null;
+      const blackHits = [];
       function buildKeys() {
         const top0 = print && !o.printBoxes ? 4 : STRIP;
         stripL = st.layer('strip'); const KL = st.layer('keys');
@@ -422,6 +443,9 @@
           row.forEach((m, i) => {
             if (!C.black || !blacks.includes(m + 1) || i === row.length - 1) return;
             const bw = Math.min(kw * 0.62, 64); const g = kit.el('g', { class: 'kb-key kb-key--black' }, KL);
+            // 휴대폰에서 검은건반 폭(화면 39px 남짓)이 44px 아래면 누름 영역만 양옆 흰건반 위로 넓힌다 — 이웃 검은건반(한 칸 = kw 떨어짐)과 겹치지 않게 kw 안에서.
+            // 흰건반은 검은건반 아래쪽(높이의 42%)을 건반 폭 그대로 누를 수 있다
+            blackHits.push([kit.el('rect', { x: -bw / 2, y: 0, width: bw, height: KH * 0.58, class: 'pk-hit' }, g), { x0: -kw / 2, x1: kw / 2, y0: 0, y1: KH * 0.58 }]);
             kit.piece(st, g, { shape: { type: 'rect', x: -bw / 2, y: 0, w: bw, h: KH * 0.58, rx: 8 }, color: 'ink', depth: 2 });
             const t = kit.el('text', { x: 0, y: KH * 0.58 - 12, 'text-anchor': 'middle', 'font-size': 12, class: 'pk-text', fill: '#FFFDF8' }, g);
             kit.transform(g, { x: x0 + (i + 1) * kw, y });
@@ -437,6 +461,7 @@
         });
         // 검은건반을 위에 그리려고 순서를 다시 맞춘다
         keyEls.forEach((k) => { if (k.black) KL.appendChild(k.g); });
+        if (!print && blackHits.length) fitHits(st, blackHits);
       }
       function lightKey(m) {
         const k = keyEls.get(m); if (!k) return;
@@ -503,6 +528,7 @@
           C.blocks.forEach((k, i) => {
             const g = kit.el('g', { class: 'kb-pal', tabindex: '0', role: 'button', 'aria-label': `${RHY[k].name} ${beatWord(RHY[k].b)} 놓기` }, palL);
             g.style.cursor = 'pointer';
+            kit.el('rect', { x: 0, y: 0, width: pw, height: 92, class: 'pk-hit' }, g); // 블록 사이 틈까지 누름 영역(이웃 블록과 맞닿고 겹치지 않음)
             kit.piece(st, g, { shape: { type: 'rect', x: 3, y: 0, w: pw - 6, h: 92, rx: 12 }, color: RHY[k].rest ? 'lavender' : 'mint', depth: 2 });
             glyph(g, k, pw / 2 - 4, 36, 1.15);
             kit.el('text', { x: pw / 2, y: 70, 'text-anchor': 'middle', 'font-size': 12, class: 'pk-text', fill: P.ink.base }, g).textContent = RHY[k].name;

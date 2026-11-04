@@ -204,7 +204,8 @@ html[data-role="teacher"] .pl-demo { max-width: 720px; } /* 전자칠판 시연�
 .pl-predict { display: grid; gap: 8px; background: var(--pc-peach-light); border: 1px solid var(--pc-peach); border-radius: 12px; padding: 10px 12px; box-shadow: var(--pc-shadow-bevel), 0 2px 0 var(--pc-peach); }
 .pl-predict__q b { color: var(--pc-peach-dark); display: inline-flex; align-items: center; gap: 6px; margin-right: 6px; }
 .pl-predict__opts { display: flex; flex-wrap: wrap; gap: 8px; }
-.pl-predict__o { white-space: normal; text-align: left; line-height: 1.3; }
+/* 짧은 보기('예', '2')도 누르는 폭 48px(휴대폰 터치 44px 이상) */
+.pl-predict__o { white-space: normal; text-align: left; line-height: 1.3; min-width: 48px; }
 .pl-predict__o[aria-pressed="true"] { --pc-face: var(--pc-peach); --pc-face-ink: var(--pc-peach-dark); --pc-base: var(--pc-peach-layer); background: var(--pc-peach); color: var(--pc-peach-dark); box-shadow: inset 0 0 0 2px var(--pc-peach-layer), 0 3px 0 var(--pc-peach-layer); }
 .pl-predict__o:disabled { opacity: 1; }
 .pl-predict__o:disabled:not([aria-pressed="true"]) { opacity: 0.5; }

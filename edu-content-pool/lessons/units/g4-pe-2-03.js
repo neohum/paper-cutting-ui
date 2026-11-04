@@ -1204,7 +1204,7 @@
               id: 'a2', title: '활동 2. 바다 장면 짜고 역할 바꿔 연습하기', minutes: 14, tool: 'timer',
               task: '바다 장면의 차례를 세우고, 짝과 역할(이끄는 쪽·따르는 쪽)을 바꾸며 연습한 뒤 점검해요.',
               teacher: '"잔잔한 바다에서 바로 거센 파도로 가면 어떨까요? 바람이 먼저 불어야겠지요." 장면 사이를 이어 주는 동작을 넣게 한다. 이끄는 쪽이 높이·빠르기를 정하고 따르는 쪽이 맞춘 뒤 역할을 바꾼다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 10, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '바다 장면 카드를 일어나는 차례대로 놓아요.', toolOptions: { cards: ['거센 파도', '다시 잔잔해진 바다', '잔잔한 바다', '바람이 불기 시작해요'] }, target: { order: ['잔잔한 바다', '바람이 불기 시작해요', '거센 파도', '다시 잔잔해진 바다'] }, difficulty: 0.15,
                   hints: ['바다가 바뀌려면 무엇이 먼저 있어야 할지, 장면이 어떻게 끝나면 처음과 이어질지 생각해 보세요.', '물결이 커지는 까닭이 되는 카드가 거센 장면보다 먼저인지 나중인지 견주어 보세요.'] },
@@ -1424,7 +1424,7 @@
               id: 'a2', title: '활동 2. 연습 계획 맞추고 점검하기', minutes: 12, tool: 'timer',
               task: '정한 장면과 도구로 연습 계획을 맞추고, 실제로 연습한 뒤 계획을 지켰는지 점검해요.',
               teacher: '"전체 연습 시간이 4분이라면 몇 번 연습할 수 있을까요?" 계산한 횟수대로 연습하게 한다. 연습 사이 쉬는 시간에 지난 시간 조언에서 고칠 점 하나를 떠올리게 한다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 10, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '장면 하나를 40초 연습하고 15초 쉬기를 3번 하도록 맞춰요.', toolOptions: { plan: { work: 30, rest: 10, rounds: 2 } }, target: { plan: { work: 40, rest: 15, rounds: 3 } }, difficulty: 0.2 },
                 { prompt: '연습 50초, 쉬기 10초로 전체 연습 시간이 4분 50초(290초)가 되도록 횟수를 맞춰요.', toolOptions: { plan: { work: 50, rest: 10, rounds: 2 }, showTotal: true, revealAfterCheck: true }, target: { plan: { work: 50, rest: 10 }, total: 290 }, difficulty: 0.45 },
@@ -1785,7 +1785,7 @@
               id: 'a1', title: '활동 1. 꽃 장면 차례와 연습 계획 세우기', minutes: 12, tool: 'timer',
               task: '꽃이 피고 지는 장면 카드를 차례대로 놓고, 연습 계획을 맞춘 뒤 실제로 부채를 들고 연습해요.',
               teacher: '"봉오리일 때 부채와 몸은 어떤 모양일까요? 작고 낮게." 장면이 바뀔 때 부채만 펴지 말고 몸도 낮은 자세에서 높은 자세로 함께 바꾸게 한다. 부채를 친구 얼굴 앞에서 펴지 않는다.',
-              levels: { easy: { workStep: 10, restStep: 10, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
+              levels: { easy: { workStep: 5, restStep: 5, showTotal: true }, base: { showTotal: true }, challenge: { showTotal: false } },
               items: [
                 { prompt: '꽃이 피고 지는 장면 카드를 차례대로 놓아요.', toolOptions: { cards: ['바람에 살랑 흔들려요', '부채를 접고 웅크린 봉오리', '천천히 접으며 앉는 지는 꽃', '부채를 활짝 펴 머리 위로', '부채를 반쯤 펴며 일어서요'] }, target: { order: ['부채를 접고 웅크린 봉오리', '부채를 반쯤 펴며 일어서요', '부채를 활짝 펴 머리 위로', '바람에 살랑 흔들려요', '천천히 접으며 앉는 지는 꽃'] }, difficulty: 0.2,
                   hints: ['꽃은 작고 낮은 모습에서 크고 높은 모습으로 자랐다가, 마지막에 다시 낮아져요. 부채가 얼마나 펴졌는지도 함께 보세요.', '부채가 반만 펴진 장면과 활짝 펴진 장면 가운데 무엇이 먼저일지, 흔들리는 장면은 활짝 핀 뒤인지 앞인지 견주어 보세요.'] },
