@@ -20,6 +20,11 @@
         "mcp"
       ],
       "env": {}
+    },
+    "codebase-memory": {
+      "command": "codebase-memory-mcp",
+      "args": [],
+      "env": {}
     }
   }
 }
