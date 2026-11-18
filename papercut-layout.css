@@ -3226,7 +3226,10 @@ body:not(.pc-loaded) {
   .pc-spinner-gear,
   .pc-spinner-pinwheel,
   .pc-spinner-badge,
-  .pc-loader-text {
+  .pc-loader-text,
+  .pc-strata-hills,
+  .pc-strata-layer {
+    transform: none !important;
     animation: none !important;
   }
 }

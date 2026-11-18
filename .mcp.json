@@ -13,6 +13,13 @@
         "mcp"
       ],
       "env": {}
+    },
+    "agent-browser": {
+      "command": "agent-browser",
+      "args": [
+        "mcp"
+      ],
+      "env": {}
     }
   }
 }
